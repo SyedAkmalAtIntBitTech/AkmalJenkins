@@ -1,0 +1,76 @@
+
+
+
+
+  
+
+/* basic stylings ------------------------------------------ */
+
+.group            { 
+  position:relative; 
+  margin-bottom:25px; 
+
+}
+/* form starting stylings ------------------------------- */
+
+input               {
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:300px;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+input:focus         { outline:none; }
+
+/* LABEL ======================================= */
+label                {
+  color:#999; 
+  font-size:13px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.9s ease all; 
+  -moz-transition:0.9s ease all; 
+  -webkit-transition:0.9s ease all;
+}
+
+/* active state */
+#input1:focus ~ label, #input1:valid ~ label        {
+  left:150px;
+  font-size:14px;
+  color:#999;
+}
+
+#input2:focus ~ label,#input2:active ~ label{
+    left:250px;
+  font-size:14px;
+  color:#913;
+    
+}
+
+/* BOTTOM BARS ================================= */
+
+
+/* active state */
+
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+
+
+
+
+/* ANIMATIONS ================ */

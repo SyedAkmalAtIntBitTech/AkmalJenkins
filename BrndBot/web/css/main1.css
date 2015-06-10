@@ -1,0 +1,412 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 17, 2015, 5:25:20 PM
+    Author     : development
+*/
+
+
+.simplebox {
+
+ border: none ;
+
+ -webkit-box-shadow: none !important;
+ -moz-box-shadow: none !important;
+   box-shadow: none !important ;
+  border-bottom:1px solid #757575;
+  border-radius:0px; 
+  
+}
+
+
+
+
+/*////// signup page animation    //////*/
+
+
+
+.group            { 
+  position:relative; 
+  margin-bottom:25px; 
+  
+  
+
+}
+/* form starting stylings ------------------------------- */
+
+input               {
+    border: none ;
+
+ -webkit-box-shadow: none !important;
+ -moz-box-shadow: none !important;
+   box-shadow: none !important ;
+  border-bottom:1px solid #757575;
+  border-radius:0px; 
+    
+    
+    
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:300px;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+input:focus         { outline:none; }
+
+/* LABEL ======================================= */
+label                {
+  color:#999; 
+  font-size:13px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:15px;
+  top:10px;
+  transition:1s ease all; 
+  -moz-transition:1s ease all; 
+  -webkit-transition:1s ease all;
+}
+
+/* active state */
+#inputemail:focus ~ label, #inputemail:valid ~ label        {
+  left:-35px;
+  font-size:13px;
+  color:#999;
+}
+
+#inputpassword:focus ~ label, #inputpassword:valid ~ label{
+    left:-70px;
+  font-size:13px;
+  color:#999;
+    
+}
+
+#inputreenter:focus ~ label, #inputreenter:valid ~ label{
+    left:-150px;
+    font-size:13px;
+    color:#999;
+    
+}
+
+
+
+#inputcompanyname:focus ~ label, #inputcompanyname:valid ~ label        {
+  left:-155px;
+  font-size:13px;
+  color:#999;
+}
+
+#inputstudio:focus ~ label, #inputstudio:valid ~ label        {
+  left:-50px;
+  font-size:13px;
+  color:#999;
+}
+
+#inputthemename:focus ~ label, #inputthemename:valid ~ label        {
+  left:-90px;
+  font-size:13px;
+  color:#999;
+}
+
+
+
+
+
+/*/////////////*/
+
+#signupdiv{
+    position: relative;
+    top:100px;
+    margin: 0 auto;
+   
+}
+#logo{
+    margin: 0 auto;
+    
+}
+    
+
+.text-left{
+    
+    font-size:18px;
+}
+.form-group{
+     
+ text-decoration: none !important;
+}
+
+
+
+
+/*#div1{
+    position: relative;
+    top:100px;
+}*/
+#signform{
+    position: relative;
+     left: -38px;   
+    margin: 25px;
+   
+}
+/*
+#createaccount{
+  margin-left: 45px;
+}*/
+
+
+
+
+
+
+
+
+
+
+/*.................css for personality.html ................*/
+
+#contemporarycontainer{
+    position: relative;
+    top:50px;
+}
+
+
+#preview{
+   position: relative;
+   top:-30px;
+   
+}
+.thumbnail fancybox{
+    margin: 0 auto;
+}
+.item{
+
+        
+}
+#buttonlength{
+    
+}
+
+.comment1{
+    position: relative;
+    left:-12px;
+}
+
+.btn-info{
+    
+    background-color: #40B89A; 
+    border-radius: 13px;
+    color: white;
+}
+
+.btn-info:hover{
+    background-color: #00A37A;
+    color:white;
+}
+#contemporary1,#contemporary2,#contemporary3,#contemporary4,#contemporary5,#contemporary6{
+    background-color: #E0E0E0;
+    text-align: left;
+    
+}
+
+#imagedisplay{
+    
+    width: 500px;
+    height: 350px;
+    background-color:#E0E0E0;
+}
+#contemporary1:focus,#contemporary2:focus,#contemporary3:focus,#contemporary4:focus,#contemporary5:focus,#contemporary6:focus{
+    background-color: #717177;
+}
+
+/*................css for logo upload....*/
+
+#comment1{
+    font-size: 18px;
+    font-weight: normal;
+}
+#comment2{
+    font-size: 12px;
+}
+#comment3{
+    position: relative;
+    font-size: 16px;
+    left:5px;
+    font-weight: normal;
+}
+
+#namewithlogo{
+    margin: 0 !important;
+    font-size: 45px;
+    text-shadow: initial ;
+  
+    
+    
+}
+#contentdiv{
+    position: relative;
+    top:70px;
+}
+
+#continuelookchooser{
+    position: relative;
+    left: 45px;
+}
+
+
+
+
+
+
+/*csss used for palettechooser.html */
+
+
+.foo {   
+    float: left;
+    width: 70px;
+    height: 35px;
+    margin: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.2);
+    border-radius: 5px;
+}
+
+
+
+
+
+.color-box{
+    float: left;
+    width: 70px;
+    height: 35px;
+    margin: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.2);
+    border-radius: 5px;
+    
+}
+.blankcolor-box{
+    float: left;
+    width: 70px;
+    height: 35px;
+    margin: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.2);
+    border-radius: 5px;
+    
+}
+
+
+
+
+
+
+ul,li
+{
+
+}
+
+#leastused{
+    position: relative;
+    top:-29px;
+    right: 90px;
+}
+
+
+
+#resetpalette{
+    position: relative;
+    top:-15px;
+    font-size: xx-small; 
+    
+}
+
+#p1{
+    position:relative;
+       top: 12px;
+      
+}
+#p2{
+    position: relative;
+    top: 12px;
+    
+}
+#p3{
+    position: relative;
+    top: 12px;
+}
+
+/*css for service*/
+
+#servicelist{
+    font-size: small;
+    font-weight: normal;
+}
+
+
+/*---------------Organization */
+
+
+#organizationdropdown{
+    border: none ;
+     -webkit-appearance: none;
+    -moz-appearance: none;
+     box-shadow: none !important ;
+    appearance: none;
+    padding: 2px 1px 2px 2px;
+    border: 1px solid #dadada;
+    background: url("../images/dropdown.png") no-repeat right center;
+}
+
+#organisationbutton{
+    position: relative;
+    left:5px;
+    
+}
+
+
+/*.................. service............... */
+#Servicecontinue{
+    position: relative;
+    margin-left: 8px;
+    
+}
+
+
+
+/*..................studio..........*/
+
+#studiobutton{
+    margin-left: 5px;
+}
+
+
+
+/*.................lookchooser..............*/
+
+.lookcomment1{
+
+    position: relative;
+    left: 110px;
+   
+}
+
+#lookchooser1,#lookchooser2,#lookchooser3,#lookchooser4,#lookchooser5,#lookchooser6,#lookchooser7,#lookchooser8{
+    width:180px;
+    height:150px;
+    background-color:#E0E0E0;
+    margin-left: 0.5em;
+    margin: 0.5em;
+   
+}
+
+#loochooserbutton{
+    position: relative;
+    left: 12px;
+}

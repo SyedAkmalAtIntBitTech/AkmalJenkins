@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="brnd" match-schema="public"/>
+  <table-filter match-name="tbl_category"/>
+  <table-filter match-name="tbl_user_preferences"/>
+  <table-filter match-name="tbl_font_family"/>
+  <table-filter match-name="tbl_brand_personality"/>
+  <table-filter match-name="tbl_model_name_value"/>
+  <table-filter match-name="tbl_brand_font_family"/>
+  <table-filter match-name="tbl_look"/>
+  <table-filter match-name="tbl_user_login_details"/>
+  <table-filter match-name="tbl_font_size"/>
+  <table-filter match-name="tbl_colors"/>
+  <table-filter match-name="tbl_organization"/>
+  <table-filter match-name="tbl_model"/>
+  <table-filter match-name="tbl_brand_color_theme"/>
+  <table-filter match-name="tbl_font_style"/>
+</hibernate-reverse-engineering>
