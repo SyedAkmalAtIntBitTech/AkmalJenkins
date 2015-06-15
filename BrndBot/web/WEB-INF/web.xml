@@ -52,6 +52,14 @@
         <servlet-name>getColorPalettes</servlet-name>
         <servlet-class>com.controller.getColorPalettes</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getColorsFromLogo</servlet-name>
+        <servlet-class>com.controller.getColorsFromLogo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>setUserPreferences</servlet-name>
+        <servlet-class>com.controller.setUserPreferences</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getOrganizations</servlet-name>
         <url-pattern>/getOrganizations</url-pattern>
@@ -99,6 +107,14 @@
     <servlet-mapping>
         <servlet-name>getColorPalettes</servlet-name>
         <url-pattern>/getColorPalettes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getColorsFromLogo</servlet-name>
+        <url-pattern>/getColorsFromLogo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>setUserPreferences</servlet-name>
+        <url-pattern>/setUserPreferences</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

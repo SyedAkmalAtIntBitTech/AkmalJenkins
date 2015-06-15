@@ -30,7 +30,6 @@ public class getOrganizations extends HttpServlet {
         
         int ORG_id = 1;
         
-//        JSONObject obj = new JSONObject();
         JSONArray arr = new JSONArray();
         
         try{
@@ -56,10 +55,6 @@ public class getOrganizations extends HttpServlet {
         
             StringWriter out = new StringWriter();
 
-        //      obj.writeJSONString(out);
-//              System.out.println(obj);
-        //      String jsonText = out.toString();
-      //        String jsonText = obj.toJSONString();        
               String json = new Gson().toJson(arr);
               response.setContentType("application/json");
               response.getWriter().write(json);

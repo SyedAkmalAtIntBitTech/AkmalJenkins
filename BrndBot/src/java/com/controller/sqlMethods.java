@@ -28,16 +28,13 @@ public class sqlMethods {
     public HttpSession session;
     public static Integer limit = 4;
     public Integer Upper_limit = 4;
-/*    public void setSession(){
-        session.setAttribute("logged", "true");
-    }
- */   
+
     public void setConnection()throws ClassNotFoundException,SQLException{
                 
         try{
                 Class.forName("org.postgresql.Driver");
                 con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/brnd",
-                    "postgres", "postgres");
+                    "postgres", "123456");
             
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -98,7 +95,7 @@ public class sqlMethods {
             return AL;
     }
     
-    public TblColors getColors(Integer id)throws  ClassNotFoundException,SQLException{
+    public TblColors getColors(String id)throws  ClassNotFoundException,SQLException{
         PreparedStatement ps1;
         ResultSet rs1;
         String Query1;
@@ -108,7 +105,7 @@ public class sqlMethods {
 
         rs1 = ps1.executeQuery();
         if (rs1.next()){
-            TC.setId(id);
+            TC.setId("color"+id);
             TC.setColorName(rs1.getString("color_name"));
             TC.setColorHex(rs1.getString("color_hex"));
         }   
@@ -130,18 +127,56 @@ public class sqlMethods {
             if (rs.next()){
                 checked = true;
                 Integer UID = rs.getInt("id");
- //               HttpSession session = request.getSession();
-                
-//                session.setAttribute("userid", UID);
             }
-            
-        }catch(Exception e){
-            System.out.println(e.getCause()+","+e.getMessage()+","+e.getStackTrace());
             
             rs.close();
             ps.close();
+        }catch(SQLException e){
+            System.out.println(e.getCause()+","+e.getMessage()+","+e.getStackTrace());
         }
         return checked;
+    }
+    
+    public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, String location,Integer look_id, String color1, String color2, String color3, String color4, String color5, String color6){
+        PreparedStatement ps;
+        try{
+            String Query = "Insert Into tbl_user_preferences(user_id,brand_id,font_theme_id,location,look_id,color1,color2,color3,color4,color5,color6) Values(?,?,?,?,?,?,?,?,?,?,?)";
+            ps = con.prepareStatement(Query);
+            
+            ps.setInt(1, user_id);
+            ps.setInt(2, brand_id);
+            ps.setInt(3, font_theme_id);
+            ps.setString(4, location);
+            ps.setInt(5, look_id);
+            ps.setString(6, color1);
+            ps.setString(7, color2);
+            ps.setString(8, color3);
+            ps.setString(9, color4);
+            ps.setString(10, color5);
+            ps.setString(11, color6);
+            
+            ps.executeUpdate();
+        }catch(Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public int getFontthemeid(String brndid)throws SQLException{
+        PreparedStatement ps;
+        ResultSet rs;
+        Integer IDNO = 0;
+        
+        String Query = "Select id from tbl_brand_font_family where brand_id='"+brndid+"'";
+        ps = con.prepareStatement(Query);
+        rs = ps.executeQuery();
+        
+        if (rs.next()){
+            IDNO = rs.getInt(1);
+        }
+        rs.close();
+        ps.close();
+        return IDNO;
     }
     
     public void addUsers(String User_id, String password)throws SQLException{
@@ -215,7 +250,6 @@ public class sqlMethods {
     
     public void setLookID()throws IOException{
         System.out.println("LookID"+":"+"LookID");
-//        response.sendRedirect("/Success.jsp");
     }
     
 }

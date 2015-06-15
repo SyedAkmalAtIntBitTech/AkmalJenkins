@@ -192,7 +192,7 @@ label                {
 
 .comment1{
     position: relative;
-    left:-12px;
+/*    left:-14px;*/
 }
 
 .btn-info{
@@ -206,19 +206,19 @@ label                {
     background-color: #00A37A;
     color:white;
 }
-#contemporary1,#contemporary2,#contemporary3,#contemporary4,#contemporary5,#contemporary6{
+#contemporary1{
     background-color: #E0E0E0;
     text-align: left;
     
 }
 
-#imagedisplay{
+#image1{
     
     width: 500px;
     height: 350px;
     background-color:#E0E0E0;
 }
-#contemporary1:focus,#contemporary2:focus,#contemporary3:focus,#contemporary4:focus,#contemporary5:focus,#contemporary6:focus{
+#contemporary1:focus{
     background-color: #717177;
 }
 
@@ -302,7 +302,14 @@ label                {
     
 }
 
-
+.resetpalette{
+    float: left;
+    width: 120px;
+    height: 35px;
+    margin: 5px;
+   
+    
+}
 
 
 
@@ -322,34 +329,50 @@ ul,li
 
 #resetpalette{
     position: relative;
-    top:-15px;
+    top:10px;
     font-size: xx-small; 
     
 }
 
 #p1{
     position:relative;
-       top: 12px;
+       top: -190px;
       
 }
 #p2{
     position: relative;
-    top: 12px;
+    top: -190px;
     
 }
 #p3{
     position: relative;
-    top: 12px;
+    top: -190px;
 }
-
+#p4{
+    position: relative;
+    top: -190px;
+}
 /*css for service*/
 
 #servicelist{
     font-size: small;
     font-weight: normal;
 }
-
-
+#palettecontinue{
+    position: relative;
+    left: -15px;
+}
+#test{
+    position: relative;
+    left: -15px;}
+#selectable{
+    position: relative;
+    left: -10px;
+}
+#leastuse{
+    position: relative;
+    right: -10px;
+}
 /*---------------Organization */
 
 
@@ -393,20 +416,21 @@ ul,li
 .lookcomment1{
 
     position: relative;
-    left: 110px;
+    left: 135px;
    
 }
 
-#lookchooser1,#lookchooser2,#lookchooser3,#lookchooser4,#lookchooser5,#lookchooser6,#lookchooser7,#lookchooser8{
+.lookchooser1,.lookchooser5{
     width:180px;
     height:150px;
     background-color:#E0E0E0;
     margin-left: 0.5em;
     margin: 0.5em;
+    
    
 }
 
 #loochooserbutton{
     position: relative;
-    left: 12px;
+   left: 27px;
 }

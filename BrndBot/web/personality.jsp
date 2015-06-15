@@ -48,7 +48,7 @@
                     });
                 
         </script>
-         <link rel="stylesheet" href="css/main.css">
+         <link rel="stylesheet" href="css/main1.css">
         
     </head>
     <body ng-app="myapp">
@@ -64,15 +64,16 @@
                         <div class="span7">
                     <div class="col-md-7 pull-right pull-up">
 
-                        <div class="item">
-                            <img  class="img-responsive" id="image1" src="http://placehold.it/700x450" width="500" height="350"><br>
-                        </div>
+                            <div class="item"><p >preview</p>
+                                <img id="image1" class="img-responsive" src="" width="700" height="400"><br>
+
+                            </div>
                     </div>
                      </div>
                         <form class="form-horizontal"  ng-controller="MyController" ng-model="brands" ng-submit="showText()">
                             <input id="hiddenform" name="hiddenform" type="hidden" ng-model="brands.brandName"><br>
                             <div ng-repeat="first in First" class="span5 col-md-offset-1 ">
-                                <button type="button"  id="contemporary1" class="btn btn-default btn-lg" onclick="showText('{{first.id}}','{{first.brand_name}}')">{{first.brand_name}}</button><br><br>
+                                <button type="button"  id="contemporary1" class="btn btn-default btn-lg col-md-3" onclick="showText('{{first.id}}','{{first.brand_name}}')">{{first.brand_name}}</button><br><br><br>
                             </div>  
                             
                             <div class="span4 col-md-offset-1">

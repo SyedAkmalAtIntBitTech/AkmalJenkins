@@ -18,12 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import static com.controller.sqlMethods.con;
-import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import model.organization;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import model.look;
@@ -59,13 +56,6 @@ public class getLooks extends HttpServlet {
         SM.session = request.getSession(true);
         try {
             SM.setConnection();
-//                Integer lval = (Integer)SM.session.getAttribute("limit");
-            // Integer l1 = Integer.parseInt(lval);
-//                Integer l1 = lval;
-/*                if (l1 == 4){
-             }else{
-             Query = "Select * from tbl_look limit 4 OFFSET "+l1+"";
-             } */
             Query = "Select * from tbl_look limit 4";
             ps = SM.con.prepareStatement(Query);
             rs = ps.executeQuery();
@@ -80,15 +70,6 @@ public class getLooks extends HttpServlet {
             rs.close();  
             ps.close();
             JO.put("first", arr);
-            // Query1 = "Select * from tbl_look limit "+l1+" OFFSET "+l1+"";
-            // System.out.println(Query1);
-/*                Integer l2 = 0;
-             if (l1 == 4){
-             l2 = l1;
-             }else{
-             l2 = l1 + 4;
-             } */
-//                Query1 = "Select * from tbl_look limit 4 OFFSET "+l2+"";
             Query1 = "Select * from tbl_look limit 4 OFFSET 4";
             ps = SM.con.prepareStatement(Query1);
             rs = ps.executeQuery();
@@ -103,8 +84,6 @@ public class getLooks extends HttpServlet {
             rs.close();
             ps.close();
             JO.put("second", arr1);
-//            l2 = l2 + 4;
-//            SM.session.setAttribute("limit", l2);
             String json = new Gson().toJson(JO);
             response.setContentType("application/json");
             response.getWriter().write(json);

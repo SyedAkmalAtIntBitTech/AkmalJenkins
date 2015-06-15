@@ -14,7 +14,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>lookchooser</title>
+        <title>look_chooser</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -25,18 +25,26 @@ and open the template in the editor.
         <script src="js/angular.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/main1.css">
         <script>
+            var elementid1;
                 function showText(LookID){
                              $("#LookID").val(LookID);
+                             elementid1=LookID;
+                              
                      }    
                 function sendLookID(){
                     var LookID = $("#LookID").val() ;
                     var configuration = global_host_address + "setLookID" + "?LookID=" + LookID; 
                     window.open(configuration,"_self")
+                   
                 }
                 function nextLooks(){
                     var lt = 0;
                     lt = lt + 4;
                 }
+                
+           
+                
+                
         </script>    
         <script>
 
@@ -80,19 +88,19 @@ and open the template in the editor.
                     <div ng-controller="MyController">
                         <div class="col-md-12">
                             <div class="col-md-2" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
-                                <img id="lookchooser1" class="img-responsive " src="images/Lookimages/{{ first.look_name }}.png"  onclick="showText({{first.id}})" width=250 height=150 />
+                                <img id="{{first.id}}" class="img-responsive lookchooser1" src="images/Lookimages/{{ first.look_name }}.png"  onclick="showText({{first.id}})" width=250 height=150 />
                             </div>
                         </div>
-                        <div span="col-md-12">
-                            <div class="col-md-2" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 5px; margin-left: 30px; margin-bottom: 10px">
-                                <img id="lookchooser5" class="img-responsive" src="images/Lookimages/{{ second.look_name }}.png" onclick="showText({{second.id}})" width=250 height=150 />
+                        <div class="col-md-12">
+                            <div class="col-md-2" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
+                                <img id="{{second.id}}" class="img-responsive lookchooser1" src="images/Lookimages/{{ second.look_name }}.png" onclick="showText({{second.id}})" width=250 height=150 />
                             </div>
                         </div> 
                        <div class="form-group">
-                            <div class="col-md-3 col-md-offset-0 ">
+                            <div class="span3 col-md-offset-0 ">
                                 <div  class="form-group">
                                     <input type="hidden" name="LookID" id="LookID">
-                                    <div class=" col-md-6 col-md-offset-6 ">
+                                    <div class="span3 col-md-offset-0 ">
                                         <button id="loochooserbutton" type="submit"  onclick="sendLookID()" class="btn btn-info">CONTINUE</button><br><br><br>
                                     </div>
                                 </div>
@@ -105,5 +113,10 @@ and open the template in the editor.
                 
             </div>
         </div>
+        <script>
+            
+            
+        </script>
+        
     </body>
 </html>

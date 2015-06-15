@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
  * @author intbit
  */
 public class subbrandPersonality extends HttpServlet {
-//        HttpSession session;
 sqlMethods SM = new sqlMethods();
 RequestDispatcher rd;
     /**

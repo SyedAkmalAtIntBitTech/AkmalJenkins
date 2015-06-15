@@ -20,8 +20,8 @@ import org.json.simple.parser.ParseException;
  *
  * @author intbit
  */
-public class setStudioID extends HttpServlet {
-    sqlMethods SM = new sqlMethods();
+public class setUserPreferences extends HttpServlet {
+        sqlMethods SM = new sqlMethods();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,13 +36,11 @@ public class setStudioID extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        SM.session = request.getSession();
-
+        StringBuffer sb = new StringBuffer();
+        SM.session = request.getSession(true);
+        
         try {
-            /* TODO output your page here. You may use following sample code. */
-            StringBuffer sb = new StringBuffer();
-            try 
-            {
+            try{
              BufferedReader reader = request.getReader();
              String line = null;
               while ((line = reader.readLine()) != null)
@@ -57,10 +55,21 @@ public class setStudioID extends HttpServlet {
             {
               joUser = (JSONObject) parser.parse(sb.toString());
             } catch (ParseException e) { e.printStackTrace(); }
-
-            String studioID = (String) joUser.get("IDNo");
-            SM.session.setAttribute("studioID", studioID);
-
+            
+            String color1 = (String)joUser.get("finalcolor1");
+            String color2 = (String)joUser.get("finalcolor2");
+            String color3 = (String)joUser.get("finalcolor3");
+            String color4 = (String)joUser.get("finalcolor4");
+            String color5 = (String)joUser.get("finalcolor5");
+            String color6 = (String)joUser.get("finalcolor6");
+            
+            Integer user_id = (Integer)SM.session.getAttribute("UID");
+            String brand_id = (String)SM.session.getAttribute("brandID");
+            String look_id = (String)SM.session.getAttribute("LookID");
+            String studio_id = (String)SM.session.getAttribute("studioID");
+            SM.setConnection();
+            Integer font_theme_id = SM.getFontthemeid(brand_id);
+            SM.addUserPreferences(user_id, Integer.parseInt(brand_id), font_theme_id,  studio_id, Integer.parseInt(look_id), color1, color2, color3, color4, color5, color6);
         }catch(Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

@@ -18,7 +18,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <link href="css/main1.css" rel="stylesheet" type="text/css"/>
-        <title>JSP Page</title>
+        <title>organization</title>
     </head>
     <body>
             <div class="container" ng-app="myapp">
@@ -47,6 +47,7 @@
                         <p id="comment3"  class="col-md-4 col-md-offset-4">Please select an organization:</p><br><br>
                             <div class="col-md-3 col-md-offset-4">
                                 <select id="organizationdropdown" class="form-control" ng-model="organizations.org">
+                                   
                                           <option ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}} </option>
                                 </select>
                             </div>

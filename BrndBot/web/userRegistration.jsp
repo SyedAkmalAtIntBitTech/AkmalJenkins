@@ -10,16 +10,16 @@
         <script src="js/form.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
-<!--        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.11.3.min.js"></script>
-<!--        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <link rel="stylesheet" href="css/main1.css">
         
-        <title>JSP Page</title>
+        <title>user Registration</title>
     </head>
     <body class="container">
         
@@ -68,15 +68,5 @@
                 </form>
         </div>
             
-<!--        <form ng-controller="UserController" ng-submit="createUser()" >
-            Email id: <input type="text" id="emailid" name="emailid" placeholder="UserID" ng-model="user.emailid"/><br>
-            Password:<input type="password" id="password" name="password" ng-model="user.password" /><br>
-            Confirm Password :<input type="password" id="confirmPassword" name="confirmPassword" ng-model="user.confirmPassword"/><br>
-            <input id="regType" name="regType" ng-value="User" ng-hide="User"  ng-model="user.regType" ng-update-hidden />
-<!--            <input type="submit" value="Submit" /> 
-            <button class="btn btn-primary">Submit</button><br>
-            <label>{{status}}</label>
-        </form>
--->
     </body>
 </html>

@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="css/main1.css">
         <script src="js/configurations.js"></script>
         
-        <title>JSP Page</title>
+        <title>upload logo</title>
         <style>
             .fileUpload {
                 position: relative;
@@ -73,11 +73,11 @@
                         headers: {'Content-Type': undefined}
                     })
                     .success(function(){
-//                        window.open('http://localhost:8084/BrndBotUsingJson/ChooseLook.jsp',"_self");
+                        window.open('http://localhost:8084/BrndBot/paletteChooser.jsp',"_self");
                     })
                     .error(function(){
                     });
-                }
+                };
             }]);
 
             myApp.controller('myCtrl', ['$scope', 'fileUpload', function($scope, fileUpload){
@@ -116,7 +116,7 @@
                     <div class="row">
                         <div class="col-md-6 col-md-offset-5">
                           
-                            <img id="logoimage" src="image/question-mark-black-background.png" alt="logo" class="img-responsive" width="80" height="100"><br><br><br>
+                            <img id="logoimage" src="images/question-mark-black-background.png" alt="logo" class="img-responsive" width="80" height="100"><br><br><br>
                         </div>
                         
                         </div>

@@ -5,6 +5,7 @@
  */
 package com.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -12,7 +13,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import static com.controller.sqlMethods.con;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author intbit
@@ -32,30 +39,59 @@ public class authentication extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         boolean check = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuffer sb = new StringBuffer();
+        SM.session = request.getSession(true);
+        
         try {
-            String UserID = request.getParameter("txtUserID");
-            String Password = request.getParameter("txtPassword");
-            String HashPass = HP.hashPass(UserID, Password);
+            
+            try 
+            {
+              BufferedReader reader = request.getReader();
+//              BufferedReader reader = request.getReader();
+             String line = null;
+              while ((line = reader.readLine()) != null)
+              {
+                sb.append(line);
+              }
+            } catch (Exception e) { e.printStackTrace(); }
+
+            JSONParser parser = new JSONParser();
+            JSONObject joUser = null;
+            try
+            {
+              joUser = (JSONObject) parser.parse(sb.toString());
+            } catch (ParseException e) { e.printStackTrace(); }
+            
+            String User_id = (String)joUser.get("emailid");
+            String password = (String)joUser.get("password");
+            
+            String HashPass = HP.hashPass(User_id, password);
             
             SM.setConnection();
-            
-            check = SM.checkAvailability(UserID, HashPass);
+
+            check = SM.checkAvailability(User_id, HashPass);
+            Integer UID = SM.getUserID(User_id);
+            response.setContentType("text/html");
             if (check){
-                rd = request.getRequestDispatcher("/Success.jsp");
-                rd.forward(request, response);
+                SM.session.setAttribute("UID", UID);
+                SM.session.setAttribute("Checked", "true");
+                out.write("true");
             }else{
-                rd = request.getRequestDispatcher("/failure.jsp");
-                rd.forward(request, response);
-            }
+                SM.session.setAttribute("Checked", "false");
+                out.write("false");
+            }  
             SM.con.close();
-        }catch(Exception e){
+            out.close();            
+        }catch(SQLException e){
             System.out.println(e.getMessage());
-        }
-    }
+        } 
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -68,9 +104,12 @@ public class authentication extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+            throws ServletException, IOException  {
+        try{
+            processRequest(request, response);
+        }catch (SQLException e){}
+         catch (ClassNotFoundException c){}
+        }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -83,8 +122,11 @@ public class authentication extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        try{
+            processRequest(request, response);
+        }catch (SQLException e){}
+         catch (ClassNotFoundException c){}
+        }
 
     /**
      * Returns a short description of the servlet.

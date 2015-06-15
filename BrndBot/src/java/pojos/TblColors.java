@@ -8,25 +8,24 @@ package pojos;
  */
 public class TblColors  implements java.io.Serializable {
 
-
-     private int id;
+     private String id;
      private String colorHex;
      private String colorName;
 
     public TblColors() {
     }
 
-    public TblColors(int id, String colorHex, String colorName) {
+    public TblColors(String id, String colorHex, String colorName) {
        this.id = id;
        this.colorHex = colorHex;
        this.colorName = colorName;
     }
    
-    public int getId() {
+    public String getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public String getColorHex() {
@@ -43,9 +42,6 @@ public class TblColors  implements java.io.Serializable {
     public void setColorName(String colorName) {
         this.colorName = colorName;
     }
-
-
-
 
 }
 

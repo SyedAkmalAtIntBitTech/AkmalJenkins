@@ -44,14 +44,13 @@ public class uploadLogo extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
- //       HttpSession session = request.getSession();
         SM.session = request.getSession();
 
         File file;
         int maxFileSize = 5000 * 1024;
         int maxMemSize = 5000 * 1024;
         
-        uploadPath = getServletContext().getRealPath("") + "/images/Customerlogos";
+        uploadPath = getServletContext().getRealPath("") + "/images/Customers";
               
          // Verify the content type
         String contentType = request.getContentType();
@@ -93,10 +92,19 @@ public class uploadLogo extends HttpServlet {
                         String uid = (String)SM.session.getAttribute("EmailID");
                         SM.setConnection();
                         int UID = SM.getUserID(uid);
+                        uploadPath = uploadPath + File.separator + UID + File.separator + "logo";
+                        
+                        File uploadDir = new File(uploadPath);
+                        if(!uploadDir.exists()){
+                            uploadDir.mkdirs();
+                        }
+                        
                         int inStr = fileName.indexOf(".");
                         String Str = fileName.substring(0, inStr);
 
                         fileName = Str + "_" +UID + ".jpeg";
+                        SM.session.setAttribute("UID", UID);
+                        SM.session.setAttribute("ImageFileName", fileName);
                         boolean isInMemory = fi.isInMemory();
                         long sizeInBytes = fi.getSize();
                         
@@ -106,17 +114,8 @@ public class uploadLogo extends HttpServlet {
                         fi.write(storeFile);
                         SM.updateUsers(UID, fileName);
                         SM.con.close();
-                        rd = request.getRequestDispatcher("/palettechooser.jsp");
-                        rd.forward(request, response);
-                        // Write the file
-/*                        if( fileName.lastIndexOf("\\") >= 0 ){
-                            file = new File( filePath + fileName.substring(fileName.lastIndexOf("\\"))) ;
-                        }else{
-                            file = new File( filePath + fileName.substring(fileName.lastIndexOf("\\")+1)) ;
-//                            file = new File( filePath + fileName );
-                        }*/
                                 
-                            out.println("Uploaded Filename: " + filePath + "<br>");
+                        out.println("Uploaded Filename: " + filePath + "<br>");
                     }
                  }
                         out.println("</body>");

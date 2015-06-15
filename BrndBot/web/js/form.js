@@ -23,7 +23,6 @@ function UserController($scope, $http)
     }).success(function (data) 
       {
     	$scope.status=data;
-                    alert(getHost());
                     window.open(getHost() +'organization.jsp',"_self");
       })
         .error(function(data, status) {
@@ -34,6 +33,40 @@ function UserController($scope, $http)
         console.log('request not succesful');
       });
     };
+}
+
+function loginController($scope, $http){
+    $scope.user = {};
+
+    $scope.checkUser = function(){
+              alert("test");
+
+            $http({
+              method: 'POST',
+              url: getHost() +'authentication',
+              headers: {'Content-Type': 'application/json'},
+              data:  $scope.user
+            }).success(function (data) 
+              {
+                $scope.status=data;
+                if(data === "true"){
+                    alert("login succesful");
+                    window.open(getHost() +'success.jsp',"_self");
+                }else {
+                    alert("incorrect username or password");
+                    window.open(getHost() +'login.jsp',"_self");
+                }
+              })
+                .error(function(data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                alert("request not succesful");
+                window.open(getHost() +'failure.jsp',"_self");
+                console.log('request not succesful');
+              });
+        
+    };
+    
 }
 
 angular.module("myapp", [])

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import pojos.TblBrandColorTheme;
 import pojos.TblColors;
 
 /**
@@ -41,7 +42,9 @@ sqlMethods SM = new sqlMethods();
         String theme = "";
         JSONObject json = new JSONObject();
         JSONObject json1 = new JSONObject();
-//        JSONArray jarr = new JSONArray();
+        JSONObject json2 = new JSONObject();
+        JSONArray jar = new JSONArray();
+        
         Integer i = 1;
         PreparedStatement ps, ps1;
         ResultSet rs, rs1;
@@ -49,32 +52,34 @@ sqlMethods SM = new sqlMethods();
         try {
             /* TODO output your page here. You may use following sample code. */
                 SM.setConnection();
-                Query = "Select color1,color2,color3,color4,color5 from tbl_brand_color_theme";
+                Query = "Select color1,color2,color3,color4,color5,color6,theme_name from tbl_brand_color_theme";
                 ps = SM.con.prepareStatement(Query);
                 rs = ps.executeQuery();
                 while (rs.next()){
                         TblColors TC = new TblColors();
+                        TblBrandColorTheme TB = new TblBrandColorTheme();
+                        
                         JSONArray jarr = new JSONArray();
 
-                        TC = SM.getColors(rs.getInt(1));
+                        TC = SM.getColors(String.valueOf(rs.getInt(1)));
                         jarr.add(TC);
 
-                        TC = SM.getColors(rs.getInt(2));
+                        TC = SM.getColors(String.valueOf(rs.getInt(2)));
                         jarr.add(TC);
 
-                        TC = SM.getColors(rs.getInt(3));
+                        TC = SM.getColors(String.valueOf(rs.getInt(3)));
                         jarr.add(TC);
                         
-                        TC = SM.getColors(rs.getInt(4));
+                        TC = SM.getColors(String.valueOf(rs.getInt(4)));
                         jarr.add(TC);
 
-                        TC = SM.getColors(rs.getInt(5));
+                        TC = SM.getColors(String.valueOf(rs.getInt(5)));
                         jarr.add(TC);
-                        theme = "theme" + String.valueOf(i);
-                        json1.put(theme, jarr);
+                        TC = SM.getColors(String.valueOf(rs.getInt(6)));
+                        jarr.add(TC);
+                        json1.put(rs.getString(7), jarr);
                         i++;
                 }
-
                 String jsonn = new Gson().toJson(json1);
                 response.setContentType("application/json");
                 response.getWriter().write(jsonn);

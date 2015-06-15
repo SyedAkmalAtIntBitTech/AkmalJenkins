@@ -63,9 +63,6 @@ public class addUpdateOrganization extends HttpServlet {
               joUser = (JSONObject) parser.parse(sb.toString());
             } catch (ParseException e) { e.printStackTrace(); }
                 
-//            response.sendRedirect("/UploadLogo.jsp");
-//            rd = request.getRequestDispatcher("/UploadLogo.jsp");
-
             String Company = (String)joUser.get("company") ;
             String org = (String)joUser.get("org");
 
@@ -77,8 +74,6 @@ public class addUpdateOrganization extends HttpServlet {
             SM.updateUsersOrg(idno, Integer.parseInt(org), Company);
             SM.con.close();
 
-//            rd.forward(request, response);
-                
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
