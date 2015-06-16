@@ -110,7 +110,7 @@
                 <div class="row">
                     <div class="col-md-4 col-md-offset-5">
                         <p id="comment1"> Upload your logo </p> 
-                        <p id="comment2">Please upload in a .PNG, .JPGE,</p> <br><br>
+                        <p id="comment2">Please upload in a .PNG, .JPEG,</p> <br><br>
                     </div>
                 </div>
                     <div class="row">
@@ -146,7 +146,15 @@
                    case 'jpg':
                    case 'bmp':
                    case 'png':
+                   case 'jpeg':
+                   case 'JPG':
+                   case 'BMP':
+                   case 'PNG':
+                   case 'JPEG':
                    case 'tif':
+                   case 'TIF':
+                   case 'gif':
+                   case 'GIF':    
                        alert('allowed');
                        break;
                    default:
