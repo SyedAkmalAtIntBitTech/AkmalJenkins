@@ -86,7 +86,7 @@ label                {
 }
 
 #inputreenter:focus ~ label, #inputreenter:valid ~ label{
-    left:-90px;
+    left:-133px;
     font-size:13px;
     color:#999;
     
