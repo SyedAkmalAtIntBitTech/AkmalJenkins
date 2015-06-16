@@ -1,0 +1,56 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 11, 2015, 5:24:12 PM
+    Author     : Sandeep Kumar at IntBit Technologies.
+*/
+
+#leftnav{
+    
+    position: relative;
+    margin-left: -10px;
+    
+}
+
+#text1{
+   font-size: x-small;
+}
+#text2{
+    font-size:small;
+    font-weight: bold;
+}
+#text3{
+    position: relative;
+    left:80px;
+    top: 120px;
+    
+    font-size: 28px;
+}
+
+#text4{
+    position: relative;
+    left: 18px;
+    font-size: x-small;
+}
+#promotelist li{
+    display: inline-block;
+    position: relative;
+    left: 25px;
+    top: 180px;
+/*    margin-top: 160px;*/
+/*    margin-left:  12px;*/
+   
+}
+#promotebuttonlist li{
+        display: inline-block;
+        position: relative;
+        left: 25px;
+        top: 150px;
+}
+
+#promoteimage{
+    margin: 18px;
+}

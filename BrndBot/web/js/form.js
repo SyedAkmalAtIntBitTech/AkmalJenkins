@@ -29,7 +29,7 @@ function UserController($scope, $http)
         // called asynchronously if an error occurs
         // or server returns response with an error status.
         
-        alert("request not succesful");
+       
         console.log('request not succesful');
       });
     };
@@ -39,8 +39,7 @@ function loginController($scope, $http){
     $scope.user = {};
 
     $scope.checkUser = function(){
-              alert("test");
-
+            
             $http({
               method: 'POST',
               url: getHost() +'authentication',
@@ -50,8 +49,8 @@ function loginController($scope, $http){
               {
                 $scope.status=data;
                 if(data === "true"){
-                    alert("login succesful");
-                    window.open(getHost() +'success.jsp',"_self");
+                   
+                    window.open(getHost() +'dashboard.html',"_self");
                 }else {
                     alert("incorrect username or password");
                     window.open(getHost() +'login.jsp',"_self");
