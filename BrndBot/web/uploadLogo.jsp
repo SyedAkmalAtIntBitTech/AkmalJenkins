@@ -86,7 +86,6 @@
                     console.log('file is ' + JSON.stringify(file));
                     var uploadUrl = global_host_address + 'uploadLogo';
                     fileUpload.uploadFileToUrl(file, uploadUrl);
-                    alert("Image uploaded successfully");
                 };
 
             }]);
@@ -144,21 +143,14 @@
                switch(ext)
                {
                    case 'jpg':
-                   case 'bmp':
                    case 'png':
                    case 'jpeg':
-                   case 'JPG':
-                   case 'BMP':
+                   case 'JPG':              
                    case 'PNG':
                    case 'JPEG':
-                   case 'tif':
-                   case 'TIF':
-                   case 'gif':
-                   case 'GIF':    
-                       alert('allowed');
-                       break;
+                      break;
                    default:
-                       alert('not allowed');
+                       alert('This type of image is not allowed');
                        this.value='';
                }
            };
