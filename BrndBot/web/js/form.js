@@ -49,8 +49,7 @@ function loginController($scope, $http){
               {
                 $scope.status=data;
                 if(data === "true"){
-                   
-                    window.open(getHost() +'dashboard.html',"_self");
+                    window.open(getHost() +'dashboard.jsp',"_self");
                 }else {
                     alert("incorrect username or password");
                     window.open(getHost() +'login.jsp',"_self");

@@ -14,19 +14,20 @@ public class TblCategory  implements java.io.Serializable {
      private int id;
      private int organizationId;
      private String categoryName;
-     private int userId;
+     private String userId;
+     private String image_name;
      private Set tblModels = new HashSet(0);
 
     public TblCategory() {
     }
 
 	
-    public TblCategory(int id, int organizationId, int userId) {
+    public TblCategory(int id, int organizationId, String userId) {
         this.id = id;
         this.organizationId = organizationId;
         this.userId = userId;
     }
-    public TblCategory(int id, int organizationId, String categoryName, int userId, Set tblModels) {
+    public TblCategory(int id, int organizationId, String categoryName, String userId, Set tblModels) {
        this.id = id;
        this.organizationId = organizationId;
        this.categoryName = categoryName;
@@ -55,12 +56,20 @@ public class TblCategory  implements java.io.Serializable {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
-    public int getUserId() {
+    public String getUserId() {
         return this.userId;
     }
     
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getImage_name() {
+        return image_name;
+    }
+
+    public void setImage_name(String image_name) {
+        this.image_name = image_name;
     }
     public Set getTblModels() {
         return this.tblModels;

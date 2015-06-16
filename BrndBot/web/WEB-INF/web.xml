@@ -17,6 +17,18 @@
         <servlet-class>com.controller.servletUserRegistration</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>sendEmail</servlet-name>
+        <servlet-class>com.controller.sendEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getUserCategories</servlet-name>
+        <servlet-class>com.controller.getUserCategories</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getSubCategories</servlet-name>
+        <servlet-class>com.controller.getSubCategories</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>authentication</servlet-name>
         <servlet-class>com.controller.authentication</servlet-class>
     </servlet>
@@ -71,6 +83,18 @@
     <servlet-mapping>
         <servlet-name>authentication</servlet-name>
         <url-pattern>/authentication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sendEmail</servlet-name>
+        <url-pattern>/sendEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getUserCategories</servlet-name>
+        <url-pattern>/getUserCategories</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getSubCategories</servlet-name>
+        <url-pattern>/getSubCategories</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>uploadLogo</servlet-name>

@@ -34,7 +34,7 @@ public class sqlMethods {
         try{
                 Class.forName("org.postgresql.Driver");
                 con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/brnd",
-                    "postgres", "123456");
+                    "postgres", "postgres");
             
         }catch(Exception e){
             System.out.println(e.getMessage());
