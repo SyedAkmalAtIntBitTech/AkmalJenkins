@@ -113,6 +113,29 @@ public class sqlMethods {
         rs1.close();
         return TC;
     }
+
+    public boolean checkForDuplicateUser(String UserName)throws ClassNotFoundException, SQLException{
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        boolean checked = false;
+        try{
+            
+            String Query = "Select * from tbl_user_login_details where user_name='"+UserName+"'";
+            ps = con.prepareStatement(Query);
+            rs = ps.executeQuery();
+
+            if (rs.next()){
+                checked = true;
+                Integer UID = rs.getInt("id");
+            }
+            
+            rs.close();
+            ps.close();
+        }catch(SQLException e){
+            System.out.println(e.getCause()+","+e.getMessage()+","+e.getStackTrace());
+        }
+        return checked;
+    }
     
     public boolean checkAvailability(String UserName,String Password)throws ClassNotFoundException, SQLException{
         PreparedStatement ps = null;

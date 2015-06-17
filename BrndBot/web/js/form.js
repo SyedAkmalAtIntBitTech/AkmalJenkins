@@ -23,8 +23,13 @@ function UserController($scope, $http)
     }).success(function (data) 
       {
     	$scope.status=data;
+                    if(data === "false"){
+                        alert("User already exist");
+                    window.open(getHost()+ 'userRegistration.jsp',"_self");
+                    }else {
                     window.open(getHost() +'organization.jsp',"_self");
-      })
+                }
+    })
         .error(function(data, status) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.

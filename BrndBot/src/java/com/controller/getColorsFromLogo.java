@@ -48,7 +48,7 @@ getColorFromImage GC = new getColorFromImage();
         SM.session = request.getSession(true);
 
         try {
-                        uploadPath = getServletContext().getRealPath("") + "/images/Customers";
+                        uploadPath = getServletContext().getRealPath("") + File.separator + "images" +File.separator  + "Customers";
             
                         Integer user_id = (Integer)SM.session.getAttribute("UID");
                         

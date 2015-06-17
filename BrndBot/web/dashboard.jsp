@@ -123,7 +123,7 @@ and open the template in the editor.
                                 <p id="text3"> What would you like to do today?</p>
                                 <ul id="promotelist">
                                     <li id="one" ng-repeat="category in categories">
-                                        <img id="promoteimage" src="images/Customers/Categories/{{category.organizationId}}/{{category.image_name}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="80" height="80" /><p id="text4"  >{{category.categoryName}}</p>
+                                        <img id="promoteimage" src="images/Organizations/Categories/{{category.organizationId}}/{{category.image_name}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="80" height="80" /><p id="text4"  >{{category.categoryName}}</p>
                                     </li>
                                 </ul>
                                 <div>

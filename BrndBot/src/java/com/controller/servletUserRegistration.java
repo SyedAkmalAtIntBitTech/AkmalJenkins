@@ -38,6 +38,7 @@ public class servletUserRegistration extends HttpServlet {
         PrintWriter out = response.getWriter();
         PreparedStatement ps = null;
         StringBuffer sb = new StringBuffer();
+        boolean check = true;
         SM.session = request.getSession(true);
         try{
 
@@ -60,16 +61,20 @@ public class servletUserRegistration extends HttpServlet {
             
             String User_id = (String)joUser.get("emailid");
             String password = (String)joUser.get("confirmPassword");
-
             String HashPass = HP.hashPass(User_id, password);
-            System.out.println(HashPass); 
+            
             SM.setConnection();
-
-            SM.addUsers(User_id, HashPass);
-            SM.session.setAttribute("EmailID", User_id);
-
-            SM.con.close();
-                
+            check = SM.checkForDuplicateUser(User_id);
+            response.setContentType("text/html");
+            
+            if (check){
+                out.write("false");
+            }else{
+                SM.addUsers(User_id, HashPass);
+                SM.session.setAttribute("EmailID", User_id);
+                SM.con.close();
+            }
+            
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
