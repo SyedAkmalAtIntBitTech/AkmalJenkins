@@ -24,8 +24,13 @@
                      }    
                  function sendbrndID(){
                     var brndID = $("#hiddenform").val() ;
+                    if(brndID == ""){
+                        alert("Please select a personality");
+                    }
+                    else{
                     var path = global_host_address + 'subbrandPersonality?brndID=' + brndID;
                     window.open(path,"_self");
+                    }
                 }     
   
         </script>    
@@ -54,8 +59,8 @@
     <body ng-app="myapp">
         <div class="container">
             
-            <a href="lookchooser.html">go back</a>
-            <a href="uploadlogo.html" class="pull-right">next</a>
+<!--            <a href="lookchooser.html">go back</a>
+            <a href="uploadlogo.html" class="pull-right">next</a>-->
              <div id="contemporarycontainer">
                  <div class="span5 col-md-offset-1 ">
                 <p id="comment1">Choose a personality</p><br>
