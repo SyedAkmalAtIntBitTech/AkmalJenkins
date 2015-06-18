@@ -31,6 +31,12 @@
         
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
+        
+        <style>
+                #sortable { list-style-type: none; margin: 0; padding: 0;}
+                #sortable  { margin: 3px; padding: 0.4em; font-size: 5px; height: 120px; }
+        </style>
+        
 
         <script>
 
@@ -73,9 +79,11 @@
                                 var color3 = $("#finalcolor3").val();
                                 var color4 = $("#finalcolor4").val();
                                 var color5 = $("#finalcolor5").val();
-                                var color6 = $("#finalcolor6").val();
-                           
-     
+                                var color6 = $("#finalcolor6").val();   
+                           if(color1 == ""  || color2== "" || color3== "" || color4== "" || color5 == "" || color6 == ""){
+                               alert("Please fill all six colors")
+                           }
+                           else{
                             var colorObject = {"finalcolor1":color1,"finalcolor2":color2,"finalcolor3":color3,"finalcolor4":color4,"finalcolor5":color5,"finalcolor6":color6};
                             
                             $http({
@@ -96,6 +104,7 @@
                                 console.log('request not succesful');
                               });
                             };
+                        }
                         
                     };
 
@@ -107,6 +116,16 @@
                          /*------ get selected element ID -----*/
                                 function getElementID(IDNo){
                                     ElementID = IDNo;
+                                    $('.step_wrapper').on('click','.step_box',function () {   
+                                     $(this).parent().find('.step_box').css('width','').css('height','').css('border-color','').css('border-radius','');
+                                     $(this).css('width','80px').css('height','40px').css('border-color','#FF0000').css('border-radius','10px');
+                               
+                                                        });
+                                      
+                                        $( "#sortable" ).sortable();
+                                        $( "#sortable" ).disableSelection();
+                    
+                                    
                                 }
                          /*------ pass color into the selected element got by id-----*/
                               function getIDNo(IDNo){
@@ -123,10 +142,10 @@
         
         <div class="container">
              <div class="row">
-                <div class="span1">
+<!--                <div class="span1">
                     <a href="personality.html">go back</a>
                     
-                </div>
+                </div>-->
              </div>
                  
             <div id="contentdiv" class="row">   
@@ -137,13 +156,13 @@
                         <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
                         
                             
-                            <div id="selectable" class="sortable">
-                                  <div id="elementToPutStyleInto1" class="blankcolor-box" style=""  onclick="getElementID('elementToPutStyleInto1')"></div>
-                                  <div id="elementToPutStyleInto2" class="blankcolor-box" style=""  onclick="getElementID('elementToPutStyleInto2')"></div>
-                                  <div id="elementToPutStyleInto3" class="blankcolor-box" style=""  onclick="getElementID('elementToPutStyleInto3')"></div>
-                                  <div id="elementToPutStyleInto4" class="blankcolor-box" style=""  onclick="getElementID('elementToPutStyleInto4')"></div>
-                                  <div id="elementToPutStyleInto5" class="blankcolor-box" style=""  onclick="getElementID('elementToPutStyleInto5')"></div>   
-                                  <div id="elementToPutStyleInto6" class="blankcolor-box" style=""  onclick="getElementID('elementToPutStyleInto6')"></div>
+                            <div id="sortable" class="step_wrapper">
+                                  <div id="elementToPutStyleInto1" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto1')"></div>
+                                  <div id="elementToPutStyleInto2" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto2')"></div>
+                                  <div id="elementToPutStyleInto3" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto3')"></div>
+                                  <div id="elementToPutStyleInto4" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto4')"></div>
+                                  <div id="elementToPutStyleInto5" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto5')"></div>   
+                                  <div id="elementToPutStyleInto6" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto6')"></div>
                                   <div class="resetpalette"> <p id="resetpalette">RESET ORIGINAL PALETTE</p></div>
                             </div>
                                   
