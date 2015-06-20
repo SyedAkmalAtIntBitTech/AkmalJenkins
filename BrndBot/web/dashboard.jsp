@@ -55,6 +55,7 @@ and open the template in the editor.
                 transition: all .4s ease 0s;
              }
 
+             
          .navbar-default {
                 background-color: whitesmoke;
                 border-color: whitesmoke;
