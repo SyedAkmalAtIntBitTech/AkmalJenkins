@@ -81,7 +81,7 @@
                                 var color5 = $("#finalcolor5").val();
                                 var color6 = $("#finalcolor6").val();   
                            if(color1 == ""  || color2== "" || color3== "" || color4== "" || color5 == "" || color6 == ""){
-                               alert("Please fill all six colors")
+                               alert("Please fill all six colors, click MOST USED to select colors");
                            }
                            else{
                             var colorObject = {"finalcolor1":color1,"finalcolor2":color2,"finalcolor3":color3,"finalcolor4":color4,"finalcolor5":color5,"finalcolor6":color6};
@@ -94,7 +94,7 @@
                             }).success(function (data) 
                               {
                                 $scope.status=data;
-                                window.open(getHost() +'login.jsp',"_self");
+                                window.open(getHost() +'dashboard.jsp',"_self");
                               })
                                 .error(function(data, status) {
                                 // called asynchronously if an error occurs
@@ -117,14 +117,14 @@
                                 function getElementID(IDNo){
                                     ElementID = IDNo;
                                     $('.step_wrapper').on('click','.step_box',function () {   
-                                     $(this).parent().find('.step_box').css('width','').css('height','').css('border-color','').css('border-radius','');
-                                     $(this).css('width','80px').css('height','40px').css('border-color','#FF0000').css('border-radius','10px');
+                                    $(this).parent().find('.step_box').css('width','').css('height','').css('border-color','').css('border-radius','');
+                                    $(this).css('width','80px').css('height','40px').css('border-color','#FF0000').css('border-radius','10px');
                                
-                                                        });
-                                      
-                                        $( "#sortable" ).sortable();
-                                        $( "#sortable" ).disableSelection();
-                    
+                                     });
+                                    
+                                    $( "#sortable" ).sortable();
+                                    $( "#sortable" ).disableSelection();
+
                                     
                                 }
                          /*------ pass color into the selected element got by id-----*/
@@ -210,11 +210,10 @@
                                     
                                     <div ng-controller="controllerGetColoursFromLogo" class="tab-pane" id="logocolor" >
                                       <div  class="tab-pane active" id="picktheme">
-                                            <div><img src="images/logo.png" ng-click="getLogoColors()" /></div>
+                                          <div><button type="button" class="btn btn-primary" value="click to display colors" ng-click="getLogoColors()">click to display colors</button></div>
                                             <div ng-repeat="col in color">
                                                 <div  id="{{col.id}}" class="foo" style="background-color:{{col.colorHex}};" onclick="getIDNo('{{col.id}}')"></div>
                                             </div>
-                                        <p>from logo color</p>
                                     </div>
                                 </div> 
                       </div><br>
@@ -423,10 +422,7 @@
                  document.getElementById("finalcolor5").value = s5[1].trim();
                  document.getElementById("finalcolor6").value = s6[1].trim();
                 
-
-                
                 });
-               
             });  
 
 
