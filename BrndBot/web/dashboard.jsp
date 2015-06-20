@@ -80,7 +80,7 @@ and open the template in the editor.
                                 });
                                 
                             $scope.getSubCategories = function(CatID){
-                                    alert(CatID);
+
                                      
                                     var CategoryID = {"CategoryID": CatID.toString()};
 
