@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.TblSubCategories;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -71,7 +72,10 @@ sqlMethods SM = new sqlMethods();
             rs = ps.executeQuery();
             
             while (rs.next()){
-                jarr.add(rs.getString("sub_category_name"));
+                TblSubCategories TS = new TblSubCategories();
+                TS.setCategory_id(rs.getString("category_id"));
+                TS.setSub_category_name(rs.getString("sub_category_name"));
+                jarr.add(TS);
             }
             rs.close();
             ps.close();

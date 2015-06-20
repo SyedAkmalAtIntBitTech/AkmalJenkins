@@ -72,6 +72,10 @@
         <servlet-name>setUserPreferences</servlet-name>
         <servlet-class>com.controller.setUserPreferences</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>checkAvailability</servlet-name>
+        <servlet-class>com.controller.checkAvailability</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getOrganizations</servlet-name>
         <url-pattern>/getOrganizations</url-pattern>
@@ -139,6 +143,10 @@
     <servlet-mapping>
         <servlet-name>setUserPreferences</servlet-name>
         <url-pattern>/setUserPreferences</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>checkAvailability</servlet-name>
+        <url-pattern>/checkAvailability</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

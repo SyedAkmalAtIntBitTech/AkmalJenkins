@@ -51,22 +51,12 @@
 
                         <div  class="form-group">
                                <div class="col-md-5 col-md-offset-5">
-                                   <button type="submit"  class="btn btn-info">Login</button><br><br><br>
-
+                                   <button type="submit"  class="btn btn-info">Login</button><br><br>
+<!--                                   <p><a href="<%= application.getContextPath() %>/sendEmail">Forgot password</a></p> -->
                                </div>
                         </div>
                 </form>
         </div>
             
-<!--        <form ng-controller="UserController" ng-submit="createUser()" >
-            Email id: <input type="text" id="emailid" name="emailid" placeholder="UserID" ng-model="user.emailid"/><br>
-            Password:<input type="password" id="password" name="password" ng-model="user.password" /><br>
-            Confirm Password :<input type="password" id="confirmPassword" name="confirmPassword" ng-model="user.confirmPassword"/><br>
-            <input id="regType" name="regType" ng-value="User" ng-hide="User"  ng-model="user.regType" ng-update-hidden />
-<!--            <input type="submit" value="Submit" /> 
-            <button class="btn btn-primary">Submit</button><br>
-            <label>{{status}}</label>
-        </form>
--->
     </body>
 </html>

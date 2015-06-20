@@ -101,8 +101,8 @@
            
             <div class="row">
                 <div class="span1">
-                    <a href="personality.html">go back</a>
-                    <a href="palettechooser.html" class="pull-right">next</a>
+<!--                    <a href="personality.html">go back</a>
+                    <a href="palettechooser.html" class="pull-right">next</a>-->
                 </div>
             </div>
                 <div id="contentdiv">

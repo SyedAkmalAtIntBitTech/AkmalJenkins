@@ -25,8 +25,8 @@
             <div class="row">
                
                 <div class="span6">
-                    <a href="UserRegistration.jsp">go back</a>
-                    <a href="services.html" class="pull-right">next</a>
+<!--                    <a href="UserRegistration.jsp">go back</a>
+                    <a href="services.html" class="pull-right">next</a>-->
                 </div>
                 
             </div>

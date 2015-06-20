@@ -64,14 +64,18 @@ public class addUpdateOrganization extends HttpServlet {
             } catch (ParseException e) { e.printStackTrace(); }
                 
             String Company = (String)joUser.get("company") ;
-            String org = (String)joUser.get("org");
+            String org_id = (String)joUser.get("org");
 
             System.out.println(Company);
             
             SM.setConnection();
             String emailid = (String)SM.session.getAttribute("EmailID");
             Integer idno = SM.getUserID(emailid);
-            SM.updateUsersOrg(idno, Integer.parseInt(org), Company);
+            
+            String org_name = SM.getOrganizationName(Integer.parseInt(org_id));
+            SM.session.setAttribute("org_name", org_name);
+            
+            SM.updateUsersOrg(idno, Integer.parseInt(org_id), Company);
             SM.con.close();
 
         }catch (Exception e){

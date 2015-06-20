@@ -12,34 +12,77 @@
 function UserController($scope, $http)
 {
   $scope.user = {};
- 
-  $scope.createUser = function() 
-  {
-    $http({
-      method: 'POST',
-      url: getHost() +'servletUserRegistration',
-      headers: {'Content-Type': 'application/json'},
-      data:  $scope.user
-    }).success(function (data) 
-      {
-    	$scope.status=data;
-                    if(data === "false"){
-                        alert("User already exist");
-                    window.open(getHost()+ 'userRegistration.jsp',"_self");
-                    }else {
-                    window.open(getHost() +'organization.jsp',"_self");
-                }
-    })
-        .error(function(data, status) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-        
-       
-        console.log('request not succesful');
-      });
+
+    $scope.createUser = function() 
+    {
+
+            var password = $("#inputpassword").val();
+            var confirmPass = $("#inputreenter").val();
+
+            if(password !== confirmPass){
+                alert("Enter the same pass");
+                $("#inputreenter").focus();
+            }else{
+
+                    $http({
+                            method: 'POST',
+                            url: getHost() +'servletUserRegistration',
+                            headers: {'Content-Type': 'application/json'},
+                            data:  $scope.user
+                  }).success(function (data) 
+                    {
+                      $scope.status=data;
+                            if(data === "false"){
+                                alert("User already exist");
+                            window.open(getHost()+ 'userRegistration.jsp',"_self");
+                            }else {
+                            window.open(getHost() +'organization.jsp',"_self");
+                        }
+                  })
+                      .error(function(data, status) {
+                      // called asynchronously if an error occurs
+                      // or server returns response with an error status.
+
+
+                      console.log('request not succesful');
+                    });
+                  }
+              
     };
+
 }
 
+function ForgotPassController($scope, $http){
+    $scope.user = {};
+
+    $scope.checkEmail= function(){
+            
+            $http({
+              method: 'POST',
+              url: getHost() +'sendEmail',
+              headers: {'Content-Type': 'application/json'},
+              data:  $scope.user
+            }).success(function (data) 
+              {
+                $scope.status=data;
+                if(data === "true"){
+                    alert("Email has been send to your email id");
+                    window.open(getHost() +'login.jsp',"_self");
+                }else {
+                    alert("incorrect email id");
+                }
+              })
+                .error(function(data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                alert("request not succesful");
+                window.open(getHost() +'failure.jsp',"_self");
+                console.log('request not succesful');
+              });
+        
+    };
+    
+}
 function loginController($scope, $http){
     $scope.user = {};
 

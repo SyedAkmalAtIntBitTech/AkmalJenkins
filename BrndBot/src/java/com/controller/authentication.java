@@ -39,8 +39,10 @@ public class authentication extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ClassNotFoundException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException, Exception {
         response.setContentType("text/html;charset=UTF-8");
+        generateHashPass hash = new generateHashPass("ABCDEFGHI");
+
         PrintWriter out = response.getWriter();
         boolean check = false;
         PreparedStatement ps = null;
@@ -71,12 +73,18 @@ public class authentication extends HttpServlet {
             String User_id = (String)joUser.get("emailid");
             String password = (String)joUser.get("password");
             
-            String HashPass = HP.hashPass(User_id, password);
+//            String HashPass = hash.encrypt(password);
+            String hassPass = HP.hashPass(User_id, password);
             
             SM.setConnection();
 
-            check = SM.checkAvailability(User_id, HashPass);
+            check = SM.checkAvailability(User_id, hassPass);
             Integer UID = SM.getUserID(User_id);
+            Integer org_id = SM.getOrganizationID(UID);
+            
+            String org_name = SM.getOrganizationName(org_id);
+            SM.session.setAttribute("org_name", org_name);
+            
             response.setContentType("text/html");
             if (check){
                 SM.session.setAttribute("UID", UID);
@@ -107,8 +115,7 @@ public class authentication extends HttpServlet {
             throws ServletException, IOException  {
         try{
             processRequest(request, response);
-        }catch (SQLException e){}
-         catch (ClassNotFoundException c){}
+        }catch (Exception x){}
         }
 
     /**
@@ -124,8 +131,7 @@ public class authentication extends HttpServlet {
             throws ServletException, IOException {
         try{
             processRequest(request, response);
-        }catch (SQLException e){}
-         catch (ClassNotFoundException c){}
+        }catch (Exception x){}
         }
 
     /**

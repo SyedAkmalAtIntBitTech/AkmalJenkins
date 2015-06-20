@@ -38,11 +38,18 @@ sqlMethods SM = new sqlMethods();
         PrintWriter out = response.getWriter();
         PreparedStatement ps;
         ResultSet rs;
+        SM.session = request.getSession(true);
         JSONArray jarr = new JSONArray();
         try {
             /* TODO output your page here. You may use following sample code. */
-            String Query = "Select * from tbl_category Order By id ASC";
+            Integer user_id = (Integer)SM.session.getAttribute("UID");
+            
             SM.setConnection();
+            Integer org_id = SM.getOrganizationID(user_id);
+//            Integer org_id = 11;
+//            String org_name = SM.getOrganizationName(org_id);
+//            SM.session.setAttribute("org_name", org_name);
+            String Query = "Select * from tbl_category where organization_id='"+org_id+"' Order By id ASC";
             ps = SM.con.prepareStatement(Query);
             
             rs = ps.executeQuery();
@@ -56,6 +63,7 @@ sqlMethods SM = new sqlMethods();
                 TC.setImage_name(rs.getString("image_name"));
                 jarr.add(TC);
             }
+            
             rs.close();
             ps.close();
             SM.con.close();

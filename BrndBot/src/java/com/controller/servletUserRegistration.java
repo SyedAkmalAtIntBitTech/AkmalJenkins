@@ -33,8 +33,9 @@ public class servletUserRegistration extends HttpServlet {
         RequestDispatcher rd;
         
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
+        generateHashPass hash = new generateHashPass("ABCDEFGHI");
         PrintWriter out = response.getWriter();
         PreparedStatement ps = null;
         StringBuffer sb = new StringBuffer();
@@ -61,8 +62,11 @@ public class servletUserRegistration extends HttpServlet {
             
             String User_id = (String)joUser.get("emailid");
             String password = (String)joUser.get("confirmPassword");
-            String HashPass = HP.hashPass(User_id, password);
             
+//            String HashPass = hash.encrypt(password);
+            String HashPass = HP.hashPass(User_id, password);
+//            String DPass = hash.decrypt(HashPass);
+//            System.out.println(DPass);
             SM.setConnection();
             check = SM.checkForDuplicateUser(User_id);
             response.setContentType("text/html");
@@ -95,7 +99,9 @@ public class servletUserRegistration extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try{
+            processRequest(request, response);
+        }catch (Exception e){}
     }
 
     /**
@@ -109,7 +115,9 @@ public class servletUserRegistration extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try{
+            processRequest(request, response);
+        }catch (Exception e){}
     }
 
     /**

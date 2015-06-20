@@ -74,6 +74,45 @@ public class sqlMethods {
         this.Upper_limit = limit;
     }
     
+    public Integer getOrganizationID(Integer userId)throws ClassNotFoundException,SQLException{
+        PreparedStatement ps;
+        ResultSet rs;
+        Integer org_id = 0;
+        try{
+        String Query = "select * from tbl_user_login_details where id="+userId+"";
+        
+        ps = con.prepareStatement(Query);
+        
+        rs = ps.executeQuery();
+        if(rs.next()){
+            org_id = rs.getInt("organizationid");
+        }
+        rs.close();
+        ps.close();
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
+        return org_id;
+    }
+    
+    public String getOrganizationName(Integer orgID)throws ClassNotFoundException,SQLException{
+        PreparedStatement ps;
+        ResultSet rs;
+        String org_name = "";
+
+        String Query = "Select * from tbl_organization where id="+orgID+"";
+        ps = con.prepareStatement(Query);
+        rs = ps.executeQuery();
+        
+        if (rs.next()){
+            org_name = rs.getString("organization_name");
+        }
+        rs.close();
+        ps.close();
+        return org_name;
+    }
+    
     public List getOrganization()throws ClassNotFoundException, SQLException{
         PreparedStatement ps;
         ResultSet rs;
@@ -149,7 +188,6 @@ public class sqlMethods {
 
             if (rs.next()){
                 checked = true;
-                Integer UID = rs.getInt("id");
             }
             
             rs.close();
@@ -160,6 +198,28 @@ public class sqlMethods {
         return checked;
     }
     
+    public boolean checkEmailAvailability(String UserName)throws ClassNotFoundException, SQLException{
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        boolean checked = false;
+        try{
+            
+            String Query = "Select * from tbl_user_login_details where user_name='"+UserName+"''";
+            ps = con.prepareStatement(Query);
+            rs = ps.executeQuery();
+
+            if (rs.next()){
+                checked = true;
+            }
+            
+            rs.close();
+            ps.close();
+        }catch(SQLException e){
+            System.out.println(e.getCause()+","+e.getMessage()+","+e.getStackTrace());
+        }
+        return checked;
+    }
+
     public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, String location,Integer look_id, String color1, String color2, String color3, String color4, String color5, String color6){
         PreparedStatement ps;
         try{
