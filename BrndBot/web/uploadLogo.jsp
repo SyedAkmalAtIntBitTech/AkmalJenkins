@@ -73,7 +73,7 @@
                         headers: {'Content-Type': undefined}
                     })
                     .success(function(){
-                        window.open('http://localhost:8084/BrndBot/paletteChooser.jsp',"_self");
+                        window.open(global_host_address +'paletteChooser.jsp',"_self");
                     })
                     .error(function(){
                     });
