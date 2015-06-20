@@ -4,7 +4,7 @@
     Author     : intbit
 --%>
 
-<%@page import="org.apache.http.HttpResponse"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
