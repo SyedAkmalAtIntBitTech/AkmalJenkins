@@ -8,6 +8,7 @@
                 SM.session = request.getSession(true);
                 Integer user_id = (Integer)SM.session.getAttribute("UID");
                 String org_name = (String)SM.session.getAttribute("org_name");
+                String company = (String)SM.session.getAttribute("company");
          %>
 
 <!DOCTYPE html>
@@ -110,13 +111,14 @@ and open the template in the editor.
                                       else if(CatID===4){$("#subpromotelist").css("left","385px").css("top","180px");}
                                       else if(CatID===5){$("#subpromotelist").css("left","510px").css("top","180px");}
                                       else if(CatID===6){$("#subpromotelist").css("left","625px").css("top","180px");}
-                                      else if(CatID===7){$("#subpromotelist").css("left","150px").css("top","180px");}
-                                      else if(CatID===8){$("#subpromotelist").css("left","270px").css("top","180px");}
-                                      else if(CatID===9){$("#subpromotelist").css("left","385px").css("top","180px");}
-                                      else if(CatID===10){$("#subpromotelist").css("left","510px").css("top","180px");}
-                                      else if(CatID===11){$("#subpromotelist").css("left","625px").css("top","180px");}
-                                      else if(CatID===12){$("#subpromotelist").css("left","625px").css("top","180px");}
+                                      else if(CatID===7){ $("#subpromotelist").css("left","30px").css("top","180px");}
+                                         
                                       
+                                      else if(CatID===8){$("#subpromotelist").css("left","150px").css("top","180px");}
+                                      else if(CatID===9){$("#subpromotelist").css("left","270px").css("top","180px");}
+                                      else if(CatID===10){$("#subpromotelist").css("left","385px").css("top","180px");}
+                                      else if(CatID===11){$("#subpromotelist").css("left","510px").css("top","180px");}
+                                      else if(CatID===12){$("#subpromotelist").css("left","625px").css("top","180px");}
                             };          
                         });
 
@@ -190,7 +192,7 @@ and open the template in the editor.
                         
                             <div class="col-md-10 " ng-controller="controllerCategories">
 
-                                <p id="text3">  Hi <%= org_name %>!</p>
+                                <p id="text3">  Hi <%= company %>!</p>
                                 <p id="text3"> What would you like to do today?</p>
                                 <ul id="promotelist">
                                     <li id="one" ng-repeat="category in categories">

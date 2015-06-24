@@ -20,7 +20,7 @@ function UserController($scope, $http)
             var confirmPass = $("#inputreenter").val();
 
             if(password !== confirmPass){
-                alert("Enter the same pass");
+                alert("Enter the same password");
                 $("#inputreenter").focus();
             }else{
 
@@ -34,7 +34,7 @@ function UserController($scope, $http)
                       $scope.status=data;
                             if(data === "false"){
                                 alert("User already exist");
-                            window.open(getHost()+ 'userRegistration.jsp',"_self");
+                            window.open(getHost()+ 'signup.jsp',"_self");
                             }else {
                             window.open(getHost() +'organization.jsp',"_self");
                         }
@@ -66,8 +66,7 @@ function ForgotPassController($scope, $http){
               {
                 $scope.status=data;
                 if(data === "true"){
-                    alert("Email has been send to your email id");
-                    window.open(getHost() +'login.jsp',"_self");
+                    alert("password reset link has been sent to your email id");
                 }else {
                     alert("incorrect email id");
                 }
@@ -76,7 +75,6 @@ function ForgotPassController($scope, $http){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 alert("request not succesful");
-                window.open(getHost() +'failure.jsp',"_self");
                 console.log('request not succesful');
               });
         

@@ -112,7 +112,7 @@ public class sendEmail extends HttpServlet {
 
                     message.setKey(MANDRILL_KEY);
                     
-                    message.setHtml("<html><body>http://localhost:8084/BrndBot/changePassword.jsp?userid="+hashURL+"</body></html>");
+                    message.setHtml("<html><body>http://localhost:8084/BrndBot/changepassword.jsp?userid="+hashURL+"</body></html>");
                     message.setText("text");
                     message.setSubject("your password for our account");
                     message.setFrom_email("intbit@intbittech.com");

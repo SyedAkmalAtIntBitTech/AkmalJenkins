@@ -72,6 +72,10 @@
         <servlet-name>checkAvailability</servlet-name>
         <servlet-class>com.controller.checkAvailability</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>resetUserPassword</servlet-name>
+        <servlet-class>com.controller.resetUserPassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getOrganizations</servlet-name>
         <url-pattern>/getOrganizations</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>checkAvailability</servlet-name>
         <url-pattern>/checkAvailability</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>resetUserPassword</servlet-name>
+        <url-pattern>/resetUserPassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
