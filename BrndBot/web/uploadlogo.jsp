@@ -73,7 +73,7 @@
                         headers: {'Content-Type': undefined}
                     })
                     .success(function(){
-                        window.open(global_host_address +'paletteChooser.jsp',"_self");
+                        window.open(global_host_address +'palettechooser.jsp',"_self");
                     })
                     .error(function(){
                     });
@@ -154,10 +154,6 @@
                        this.value='';
                }
            };
-
-     
-     
-     
      
     function fileSelect(evt) {
     if (window.File && window.FileReader && window.FileList && window.Blob) {

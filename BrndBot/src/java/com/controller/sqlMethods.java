@@ -11,7 +11,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,10 +75,33 @@ public class sqlMethods {
         }catch (Exception e){}
         
     }
+    
     public void setInitLimit(){
         this.Upper_limit = limit;
     }
     
+    public String getCompanyName(Integer userId)throws ClassNotFoundException,SQLException{
+        PreparedStatement ps;
+        ResultSet rs;
+        String company_name = "";
+        try{
+        String Query = "select * from tbl_user_login_details where id="+userId+"";
+        
+        ps = con.prepareStatement(Query);
+        
+        rs = ps.executeQuery();
+        if(rs.next()){
+            company_name = rs.getString("company_name");
+        }
+        rs.close();
+        ps.close();
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
+        return company_name;
+    }
+
     public Integer getOrganizationID(Integer userId)throws ClassNotFoundException,SQLException{
         PreparedStatement ps;
         ResultSet rs;
@@ -204,7 +232,7 @@ public class sqlMethods {
         boolean checked = false;
         try{
             
-            String Query = "Select * from tbl_user_login_details where user_name='"+UserName+"''";
+            String Query = "Select * from tbl_user_login_details where user_name='"+UserName+"'";
             ps = con.prepareStatement(Query);
             rs = ps.executeQuery();
 
@@ -297,6 +325,7 @@ public class sqlMethods {
             System.out.println(e.getStackTrace());
         }
     }
+    
     public void updateUsersOrg(int idno, int Org_id, String Company_name)throws SQLException{
         PreparedStatement ps;
         try{
@@ -311,6 +340,134 @@ public class sqlMethods {
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
         }
+    }
+    
+    public void setUserDetails(Integer userid, String randvalue, Date expdate, Date exptime)throws SQLException{
+        PreparedStatement ps;
+        ResultSet rs;
+        SimpleDateFormat stf = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+        
+        try{
+            
+        Date expdatee = new Date();
+
+        java.sql.Date sdat = new java.sql.Date(expdate.getYear(), expdate.getMonth(), expdate.getDate());
+        int hr = expdatee.getHours();
+        int mins = expdatee.getMinutes();
+        int secs = expdatee.getSeconds();
+            
+        java.sql.Time tdat = new java.sql.Time(hr, mins, secs);
+        long time3 = System.currentTimeMillis();
+
+        String Query = "Insert into tbl_forgot_Password(userid, randomlink, expdate, exptime) Values (?,?,?,?)";
+        
+        ps = con.prepareStatement(Query);
+        ps.setString(1, String.valueOf(userid));
+        ps.setString(2, randvalue);
+        ps.setDate(3,  sdat);
+        String ttdat = stf.format(tdat);
+        
+        ps.setLong(4, time3);
+        ps.executeQuery();
+        
+        ps.close();
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
+        
+        }
+    
+    public void resetPassword(String id, String password){
+        PreparedStatement ps;
+        ResultSet rs;
+        try{
+            String Query = "UPDATE tbl_user_login_details" +
+                                    " SET password ='"+password +"' WHERE id="+id+"";
+
+            ps = con.prepareStatement(Query);
+            ps.executeUpdate();
+            ps.close();
+            
+            Query = "Delete From tbl_forgot_password where userid='"+id+"'";
+            ps = con.prepareStatement(Query);
+            ps.executeUpdate();
+            ps.close();
+
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public String checkResetStatus(String hash){
+        PreparedStatement ps;
+        ResultSet rs;
+        Date expdatee = new Date();
+        String userid = "false";
+        SimpleDateFormat sf = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+        try{
+        java.sql.Date sdat = new java.sql.Date(expdatee.getYear(), expdatee.getMonth(), expdatee.getDate());
+        int hr = expdatee.getHours();
+        int mins = expdatee.getMinutes();
+        int secs = expdatee.getSeconds();
+        
+        java.sql.Time tdat = new java.sql.Time(hr, mins, secs);
+        java.sql.Time time = new Time(System.currentTimeMillis());
+        long time3 = System.currentTimeMillis();
+        String cur_timeS = time.toString();
+        
+        System.out.println("cur_timeS = " + cur_timeS);
+        cur_timeS = cur_timeS.replaceAll(":", "");
+        System.out.println("cur_timeS = " + cur_timeS);
+
+        long cur_timeL = Long.parseLong(cur_timeS);
+
+        String Query = "Select * from tbl_forgot_password where randomlink='"+hash+"' and expdate='"+sdat+"'";
+
+        ps = con.prepareStatement(Query);
+        rs = ps.executeQuery();
+        if(rs.next()){
+            
+            long time2 = rs.getLong("exptime");
+            time2 = time2 + 600000;
+            if (time3 <= time2){
+                userid = rs.getString("userid");
+            }
+            
+        }
+        rs.close();
+        ps.close();
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
+        return userid;
+    }
+    
+    
+    public String getUserIdbyHash(String hash){
+        PreparedStatement ps;
+        ResultSet rs;
+        String userid = "";
+        try{
+        String Query = "Select * from tbl_forgot_password where randomlink='"+hash+"'";
+        
+        ps = con.prepareStatement(Query);
+        
+        rs = ps.executeQuery();
+        if(rs.next())
+        {
+            userid = rs.getString("userid");
+        }
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
+        return userid;
     }
     
     public int getUserID(String email)throws SQLException{

@@ -40,7 +40,7 @@ RequestDispatcher rd;
                 String ID = "";
 
                 SM.session.setAttribute("brandID", brandID);
-                rd = request.getRequestDispatcher("/uploadLogo.jsp");
+                rd = request.getRequestDispatcher("/uploadlogo.jsp");
                 rd.forward(request, response);
                 
         }catch(Exception e){

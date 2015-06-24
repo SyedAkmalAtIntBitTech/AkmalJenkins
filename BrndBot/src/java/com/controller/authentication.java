@@ -80,10 +80,9 @@ public class authentication extends HttpServlet {
 
             check = SM.checkAvailability(User_id, hassPass);
             Integer UID = SM.getUserID(User_id);
-            Integer org_id = SM.getOrganizationID(UID);
+            String company = SM.getCompanyName(UID);
             
-            String org_name = SM.getOrganizationName(org_id);
-            SM.session.setAttribute("org_name", org_name);
+            SM.session.setAttribute("company", company);
             
             response.setContentType("text/html");
             if (check){

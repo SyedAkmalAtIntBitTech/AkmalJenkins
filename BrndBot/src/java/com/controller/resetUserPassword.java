@@ -8,8 +8,6 @@ package com.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.PreparedStatement;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +20,9 @@ import org.json.simple.parser.ParseException;
  *
  * @author intbit
  */
-public class addUpdateOrganization extends HttpServlet {
-        sqlMethods SM = new sqlMethods();
-        RequestDispatcher rd;
-
+public class resetUserPassword extends HttpServlet {
+sqlMethods SM = new sqlMethods();
+generateHashPassword HP = new generateHashPassword();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,16 +35,14 @@ public class addUpdateOrganization extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String userid = "false";
         PrintWriter out = response.getWriter();
-        PreparedStatement ps = null;
-        StringBuffer sb = new StringBuffer();
-         SM.session = request.getSession(true);
-        
-        try{
+        try {
 
-            try 
-            {
-        //      BufferedReader reader = request.getReader();
+        StringBuffer sb = new StringBuffer();
+        SM.session = request.getSession(true);
+        
+            try{
              BufferedReader reader = request.getReader();
              String line = null;
               while ((line = reader.readLine()) != null)
@@ -62,28 +57,22 @@ public class addUpdateOrganization extends HttpServlet {
             {
               joUser = (JSONObject) parser.parse(sb.toString());
             } catch (ParseException e) { e.printStackTrace(); }
-                
-            String Company = (String)joUser.get("company") ;
-            String org_id = (String)joUser.get("org");
-
-            System.out.println(Company);
             
+            String hashURL = (String)joUser.get("hashURL");
+            String password = (String)joUser.get("password");
+            String confirmpassword = (String)joUser.get("confirmpassword");
+            
+            String hashPass = HP.hashPass(userid, password);
             SM.setConnection();
-            String emailid = (String)SM.session.getAttribute("EmailID");
-            Integer idno = SM.getUserID(emailid);
+            userid = SM.checkResetStatus(hashURL);
             
-            String org_name = SM.getOrganizationName(Integer.parseInt(org_id));
-            SM.session.setAttribute("org_name", org_name);
-            SM.session.setAttribute("company", Company);
-            
-            SM.updateUsersOrg(idno, Integer.parseInt(org_id), Company);
-            SM.con.close();
-
-        }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
-        }
+            if(userid.equals("false")){
+                out.write("false");
+            }else{
+                SM.resetPassword(userid, hashPass);
+                out.write("true");
+            }        
+         }catch (Exception e){}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

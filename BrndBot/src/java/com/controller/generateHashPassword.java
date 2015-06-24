@@ -21,6 +21,12 @@ public class generateHashPassword {
                 return hashedPassword;
         }
 
+        public String hashURL(String password) {
+                String saltedPassword = SALT + password;
+                String hashedPassword = generateHash(saltedPassword);
+                return hashedPassword;
+        }
+        
         public static String generateHash(String input) {
                 StringBuilder hash = new StringBuilder();
 
