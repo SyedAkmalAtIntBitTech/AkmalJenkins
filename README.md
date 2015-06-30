@@ -1,2 +1,2 @@
 # BrndBot
-BrndBot developement
+BrndBot development
