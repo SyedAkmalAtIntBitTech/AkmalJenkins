@@ -157,7 +157,7 @@
                 
         </script>
 
-
+    </script>
     <script>
                 var ElementID;
                 /*------ get selected element ID -----*/
@@ -313,6 +313,8 @@
                         <div ng-controller="controllerGetColourPalettes" class="tab-pane active" id="picktheme" ng-init="showData()">
                             <div ng-repeat= "theme in datalists | pagination: curPage * pageSize | limitTo: pageSize" id="rep" >
                                 
+                                <script type="text/javascript">
+                                </script>
                                 <div ng-repeat="colors in theme" id="rep1" >
                                     <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')"class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
                                     <div><p id="{{colors.theme_id}}" name="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</p></div>
@@ -320,6 +322,10 @@
                                 <div id=' id ' name=id>
                                     <p><br/></p>
                                 </div>
+                                <script> 
+//                                    doSomething(id);
+//                                    id++; 
+                                </script>
                             </div>
 
                             <div class="pagination pagination-centered" ng-show="datalists.length">
