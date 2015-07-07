@@ -11,7 +11,6 @@
         <script src="js/configurations.js"></script>
         <script src="js/form.js"></script> 
         <script type="text/javascript" src="js/angular.min.js"></script>  
-<!--        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>  -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -36,14 +35,14 @@
                     
                         <div class="group">
                              <div class="col-md-3 col-md-offset-5">                            
-                                 <input id="inputemail" class="form-control simplebox" type="email" required ng-model="user.emailid">
+                                 <input id="inputemail" class="form-control simplebox" type="text" ng-model="user.emailid">
                                  <label>EMAIL</label><br>
                              </div>
                         </div>
 
                         <div  class="form-group">
                                <div class="col-md-5 col-md-offset-5">
-                                   <button type="submit"  class="btn btn-info">Enter</button><br><br>
+                                   <button type="submit" class="btn btn-info">Enter</button><br><br>
                                </div>
                         </div>
                 </form>

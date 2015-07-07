@@ -1,15 +1,27 @@
-<%@page import="com.controller.sqlMethods"%>
+<%@page import="com.controller.SqlMethods"%>
         <%!
             HttpServletRequest request;
             HttpServletResponse response;
-            sqlMethods SM = new sqlMethods();
+            SqlMethods sqlmethods = new SqlMethods();
+            String checked = "false";
+            Integer user_id = 0;
+            String company = "";
          %>
+
          <%
-                SM.session = request.getSession(true);
-                Integer user_id = (Integer)SM.session.getAttribute("UID");
-                String org_name = (String)SM.session.getAttribute("org_name");
-                String company = (String)SM.session.getAttribute("company");
-         %>
+             try{
+             sqlmethods.session = request.getSession(true);
+                checked = (String)sqlmethods.session.getAttribute("Checked");
+                if (checked == null || checked == "false"){
+                    response.sendRedirect(request.getContextPath()+"/login.jsp");
+                }else{
+                    user_id = (Integer)sqlmethods.session.getAttribute("UID");
+                    company = (String)sqlmethods.session.getAttribute("company");
+                } 
+             }catch (Exception e){
+                 out.println(sqlmethods.error);
+             } 
+          %>
 
 <!DOCTYPE html>
 <!--
@@ -70,10 +82,12 @@ and open the template in the editor.
                     $scope.SubCategories = {};
                         $http({
                                         method : 'GET',
-                                        url : 'getUserCategories'
+                                        url : 'GetUserCategories'
                                 }).success(function(data, status, headers, config) {
                                         $scope.categories  = data;
-                                        
+                                        if(data === error){
+                                            alert(data);
+                                        }
                                 }).error(function(data, status, headers, config) {
                                         alert("No data available, problem fetching the data");
                                         // called asynchronously if an error occurs
@@ -81,18 +95,19 @@ and open the template in the editor.
                                 });
                                 
                             $scope.getSubCategories = function(CatID){
-
-                                     
                                     var CategoryID = {"CategoryID": CatID.toString()};
 
                                     $http({
                                             method: 'POST',
-                                            url: getHost() +'getSubCategories',
+                                            url: getHost() +'GetSubCategories',
                                             headers: {'Content-Type': 'application/json'},
                                             data:  CategoryID
                                     }).success(function (data)
                                     {
                                         $scope.SubCategories = data;
+                                        if(data === error){
+                                            alert(data);
+                                        }
        
                                     })
                                         .error(function(data, status) {
@@ -100,7 +115,6 @@ and open the template in the editor.
                                         // or server returns response with an error status.
 
                                         alert("request not succesful");
-                                        console.log('request not succesful');
                                       });
                                       
                                       if(CatID===1){
@@ -113,7 +127,6 @@ and open the template in the editor.
                                       else if(CatID===6){$("#subpromotelist").css("left","625px").css("top","180px");}
                                       else if(CatID===7){ $("#subpromotelist").css("left","30px").css("top","180px");}
                                          
-                                      
                                       else if(CatID===8){$("#subpromotelist").css("left","150px").css("top","180px");}
                                       else if(CatID===9){$("#subpromotelist").css("left","270px").css("top","180px");}
                                       else if(CatID===10){$("#subpromotelist").css("left","385px").css("top","180px");}
@@ -121,46 +134,12 @@ and open the template in the editor.
                                       else if(CatID===12){$("#subpromotelist").css("left","625px").css("top","180px");}
                             };          
                         });
-
-               
-
-
-
         </script>
         
-        <script>
-
-    function getSubCategories(IDNo){
-        alert(IDNo);
-        
-    }
-    
-    
-//                       
-//                       $("#one").click(function(){
-//                           alert("hi");
-//                       if(c==='1'){
-//                           alert("hi");
-//                            $("#subpromotelist").css("top","180px");
-//                       }
-//                       
-//                      } ) 
-//                 
-
-
-
-
-                function getCategoryID(CatID){
-                        var CateID = CatID;
-                        alert(CateID);
-                        getSubCategories('CateID');
-                    }
-            
-        </script>
     </head>
 
- <body >
-    <div > 
+ <body>
+    <div> 
                <div class="row">
                     <div id="leftnav" class="col-md-1">
                         <nav class="navbar navbar-default " role="navigation">

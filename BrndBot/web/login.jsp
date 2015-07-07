@@ -18,44 +18,42 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <link rel="stylesheet" href="css/main1.css">
-        
+
         <title>user login</title>
     </head>
     <body class="container">
-         <div id="signupdiv">
-                
+        <div id="signupdiv">
+
             <img id="logo" src="images/logo.png" class="img-responsive" width="100" height="150"> <br>
-                <form class="form-horizontal" id="signform" ng-controller="loginController" ng-submit="checkUser()" >
-                     <div class="group">
-                             <div class="col-md-3 col-md-offset-5">                            
-                                  <p class="text-left">Login</p>
-                             </div>
-                        </div>
-                    
-                        <div class="group">
-                  
-                             <div class="col-md-3 col-md-offset-5">                            
-                                 <input id="inputemail" class="form-control simplebox" type="email" required ng-model="user.emailid">
-                                 <label>EMAIL</label><br>
+            <form class="form-horizontal" id="signform" ng-controller="loginController" ng-submit="checkUser()" >
+                <div class="group">
+                    <div class="col-md-3 col-md-offset-5">                            
+                        <p class="text-left">Login</p>
+                    </div>
+                </div>
 
-                             </div>
-                        </div>
+                <div class="group">
+                    <div class="col-md-3 col-md-offset-5">                            
+                        <input id="inputemail" class="form-control simplebox" type="email" required ng-model="user.emailid">
+                        <label>EMAIL</label><br>
+                    </div>
+                </div>
 
-                        <div class="group">
-                            <div class="col-md-3 col-md-offset-5">
-                                <input id="inputpassword" class="form-control simplebox" type="password" required ng-model="user.password">
-                                <label>PASSWORD</label><br>
-                            </div>
-                        </div>
+                <div class="group">
+                    <div class="col-md-3 col-md-offset-5">
+                        <input id="inputpassword" class="form-control simplebox" type="password" required ng-model="user.password">
+                        <label>PASSWORD</label><br>
+                    </div>
+                </div>
 
-                        <div  class="form-group">
-                               <div class="col-md-5 col-md-offset-5">
-                                   <button type="submit"  class="btn btn-info">Login</button><br><br>
-                                   <p><a href="<%= application.getContextPath() %>/resetpassword.jsp">Forgot password</a></p>
-                               </div>
-                        </div>
-                </form>
+                <div  class="form-group">
+                    <div class="col-md-5 col-md-offset-5">
+                        <button type="submit"  class="btn btn-info">Login</button><br><br>
+                        <p><a href="<%= application.getContextPath()%>/resetpassword.jsp">Forgot password</a></p>
+                    </div>
+                </div>
+            </form>
         </div>
-            
+
     </body>
 </html>

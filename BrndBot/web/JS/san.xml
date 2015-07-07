@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<organization>
+    <container Height="300" Width="500"/>
+    <element H-shadow="undefined" V-shadow="undefined" blur="undefined" font-color="#545454" font-size="12px" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" type="header1" webkit-transform="0" x-co-ordinates="19" y-co-ordinates="17"/>
+    <element Blend="overlay" blend-background-color="#ff0000" blur="3px" brightness="1.02" contrast="1.02" grayscale="0.03" huerotate="2deg" invert="0.02" opacity="1" saturate="1" sepia="0.03" tag="image" type="header2" x-co-ordinates="19" y-co-ordinates="17"/>
+    <element Blend="overlay" Drop-shadow-color="#ff9900" H-shadow="3px" V-shadow="3px" blend-background-color="#000000" blur="3px" opacity="1" tag="image" type="body1" x-co-ordinates="19" y-co-ordinates="17"/>
+    <element tag="button" type="body2" x-co-ordinates="19" y-co-ordinates="17"/>
+    <element Drop-shadow-color="#ff9900" H-shadow="3px" V-shadow="3px" background-color="#00ff00" blur="4px" height="20px" opacity="0.5" tag="block" type="footer1" width="80px" x-co-ordinates="19" y-co-ordinates="17"/>
+</organization>

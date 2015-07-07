@@ -10,7 +10,6 @@
     <head>
         <script src="js/configurations.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>  
-<!--        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>  -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -43,7 +42,6 @@
                         
                     }
                     
-
             function controllerPassword($scope, $http){
                 $scope.changePassword = function() 
                 {
@@ -54,21 +52,23 @@
 
                     if(validat()){
 
-                            var passwordObject = {"hashURL":hashURL,"password":password,"confirmpassword":confirmpassword};
+                            var password_object = {"hashURL":hashURL,"password":password,"confirmpassword":confirmpassword};
                             
                             $http({
                               method: 'POST',
-                              url: getHost() +'resetUserPassword',
+                              url: getHost() +'ResetUserPassword',
                               headers: {'Content-Type': 'application/json'},
-                              data:  passwordObject
+                              data:  password_object
                             }).success(function (data) 
                               {
                                 $scope.status=data;
                                 if (data === "false"){
                                     alert("user session has expired, kindly resubmit a request");
-                                }else{
+                                }else if (data === "true"){
                                     alert("password has been changed successfully");
                                     window.open(getHost() +'login.jsp',"_self");
+                                }else if(data === error){
+                                    alert(data);
                                 }
                               })
                                 .error(function(data, status) {
@@ -76,7 +76,6 @@
                                 // or server returns response with an error status.
 
                                 alert("request not succesful");
-                                console.log('request not succesful');
                               });
                             }
                         };
@@ -93,7 +92,6 @@
             String hashURL = request.getParameter("userid");
         %>
         <div id="signupdiv">
-<!--                                 <input id="hashURL" type="hidden" value="" name="hashURL" ng-model="user.hashURL"/>  -->
                 
             <img id="logo" src="images/logo.png" class="img-responsive" width="100" height="150"> <br>
                 <form class="form-horizontal" id="signform" ng-controller="controllerPassword" ng-submit="changePassword()" >

@@ -18,17 +18,17 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <script src="js/configurations.js"></script>
         <script>
-                function showText(brndID,brndName){
-                             $("#hiddenform").val(brndID);
-                             $("#image1").attr('src', 'images/Brandimages/'+brndName+'.jpeg');
-                     }    
-                 function sendbrndID(){
-                    var brndID = $("#hiddenform").val() ;
-                    if(brndID == ""){
+                function showText(brandid,brandname){
+                             $("#hiddenform").val(brandid);
+                             $("#image1").attr('src', 'images/Brandimages/'+brandname+'.jpeg');
+                 }    
+                 function sendbrandID(){
+                    var brandID = $("#hiddenform").val() ;
+                    if(brandID == ""){
                         alert("Please select a personality");
                     }
                     else{
-                    var path = global_host_address + 'subbrandPersonality?brndID=' + brndID;
+                    var path = global_host_address + 'SubbrandPersonality?brndID=' + brandID;
                     window.open(path,"_self");
                     }
                 }     
@@ -42,9 +42,12 @@
                                 $scope.master = {};
                            $http({
                                     method : 'GET',
-                                    url : 'getBrandPersonality'
+                                    url : 'GetBrandPersonality'
                             }).success(function(data, status, headers, config) {
                                     $scope.First = data.first;
+                                    if (data === error){
+                                        alert(data);
+                                    }
                             }).error(function(data, status, headers, config) {
                                     alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -58,10 +61,8 @@
     </head>
     <body ng-app="myapp">
         <div class="container">
-            
-<!--            <a href="lookchooser.html">go back</a>
-            <a href="uploadlogo.html" class="pull-right">next</a>-->
-             <div id="contemporarycontainer">
+
+            <div id="contemporarycontainer">
                  <div class="span5 col-md-offset-1 ">
                 <p id="comment1">Choose a personality</p><br>
                  </div>
@@ -82,7 +83,7 @@
                             </div>  
                             
                             <div class="span4 col-md-offset-1">
-                                <button type="button" class="btn btn-info" onclick="sendbrndID()">CONTINUE</button>
+                                <button type="button" class="btn btn-info" onclick="sendbrandID()">CONTINUE</button>
                             </div>
                         </form>
                      

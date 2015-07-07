@@ -4,22 +4,22 @@
     Author     : intbit
 --%>
 
-<%@page import="com.controller.sqlMethods"%>
+<%@page import="com.controller.SqlMethods"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%!
     HttpServletRequest request;
     HttpServletResponse response;
-    sqlMethods SM = new sqlMethods();
-    RequestDispatcher rd;
+    SqlMethods sqlmethods = new SqlMethods();
+    RequestDispatcher request_dispatcher;
     %>
     
     <%
         try{
-            SM.session = request.getSession(true);
-            SM.session.invalidate();
-            rd = request.getRequestDispatcher("/login.jsp");
+            sqlmethods.session = request.getSession(true);
+            sqlmethods.session.invalidate();
+            request_dispatcher = request.getRequestDispatcher("/login.jsp");
             
-            rd.forward(request, response);
+            request_dispatcher.forward(request, response);
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

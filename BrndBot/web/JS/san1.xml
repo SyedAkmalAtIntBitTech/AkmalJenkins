@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<organization>
+    <datamapper Default="sandeep" Element="header1" epoch="default" option="Title"/>
+    <datamapper Default="kumar" Element="header2" epoch="singh" option="name"/>
+    <datamapper Default="default" Element="body1" epoch="default" option="url"/>
+    <datamapper Default="default" Element="body2" epoch="default" option="Select"/>
+    <datamapper Default="default" Element="footer1" epoch="default" option="Select"/>
+</organization>
