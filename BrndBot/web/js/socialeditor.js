@@ -199,5 +199,14 @@ $("textarea").click(function (){
 }); 
 }
 
-	
+function uploadimage(){
+    $('#popup').show("slow");
+    
+    $('#popupclose').click(function(){
+        $('#popup').hide("slow");
+      alert($("#uploadImage").val());
+      $(".preview").append("<img src="+$("#uploadImage").val()+">");
+    });	
+
+}	
 

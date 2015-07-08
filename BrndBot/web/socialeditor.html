@@ -55,7 +55,13 @@ and open the template in the editor.
                                 <input id="continue" type="button" class="btn btn-primary" value="CONTINUE"><br><br>
 
                             </div>
-                            
+                              <div id="popup">
+                                <div id="content">
+                                    <input type="file" id="uploadImage" name="uploadImage">  
+                                    <input id="popupclose" type="Button" value="close"/>  
+                                </div>   
+
+                            </div>
                         </div>
 
                            
@@ -91,7 +97,7 @@ and open the template in the editor.
                                             <p>IMAGE</p>
                                             <ul id="imagemodification">
                                                 <li><p id="editorheadere">Teacher Image</p></li>
-                                                <li><p id="editorheadere">change</p></li>
+                                                <li><p id="editorheadere" onclick="uploadimage()">change</p></li>
                                                 <li><p id="editorheadere">edit</p></li>
                                             </ul>
                                         </div>
