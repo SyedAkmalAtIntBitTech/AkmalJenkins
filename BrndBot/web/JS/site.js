@@ -59,45 +59,7 @@ $(document).ready(function () {
             ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
         ]
     });
-    /*	
-     $.ajax({
-     type: "GET" ,
-     url: "fontfamily.xml" ,
-     dataType: "xml" ,
-     success: function(xml) {
-     //Parse the givn XML
-     $(xml).find('fontfamily').each(function(){
-     var fontname = $(this).find('fontname').text();
-     
-     $("#textFontFamily").append( new Option(fontname));    
-     });
-     },
-     error: function(e)
-     {
-     alert("XML file has error");
-     }	
-     });
-     
-     
-     $.ajax({
-     type: "GET" ,
-     url: "fontsize.xml" ,
-     dataType: "xml" ,
-     success: function(xml) {
-     //Parse the givn XML
-     $(xml).find('fontsize').each(function(){
-     var size = $(this).find('size').text();
-     $("#textSize").append(new Option(size));    
-     //alert(fontname);
-     });
-     },
-     error: function(e)
-     {
-     alert("XML file has error");
-     }	
-     });
-     */
-
+   
     $.ajax({
         type: "GET",
         url: "elements.xml",
@@ -143,9 +105,6 @@ $(document).ready(function () {
     {
         //alert(addText);
         addElementsArray[addElementCount++] = addText;
-//	alert(addElementsArray.length);
-        //for(i=0;i<addElementsArray.length;i++)
-        //	alert(addElementsArray[i]);
         //clear elementText dropdown code goes here
         $("#elementText").find('option').remove();
 
@@ -162,15 +121,7 @@ $(document).ready(function () {
             }
             if (!checkAdded)
             {
-                /*var tempValue;
-                 if(addValue.indexOf("label") >= 0)
-                 tempValue="label";
-                 else if(addValue.indexOf("image") >= 0)
-                 tempValue="image";
-                 else if(addValue.indexOf("button") >= 0)
-                 tempValue="button";
-                 else if(addValue.indexOf("block") >= 0)
-                 tempValue="colorblock";*/
+
                 $("#elementText").append(new Option(allElementsTextArray[i], allElementsValueArray[i]));
             }
         }
@@ -214,57 +165,13 @@ $(document).ready(function () {
                 addElementsArray[addElementCount++] = duplicateAddElementsArray[i];
 
             }
-
-
-
         }
 
         addDeletedElement();
 
 
     }
-    /*
-     $('#colorPick').ColorPicker({
-     onSubmit: function(hsb, hex, rgb, el) {
-     $(el).val(hex);
-     $("#"+selectedTextID).css("color",hex);
-     $(el).ColorPickerHide();
-     },
-     onBeforeShow: function () {
-     $(this).ColorPickerSetColor(this.value);
-     }
-     })
-     .bind('keyup', function(){
-     $(this).ColorPickerSetColor(this.value);
-     });
-     
-     $('#dropShadowColorPick').ColorPicker({
-     onSubmit: function(hsb, hex, rgb, el) {
-     $(el).val(hex);
-     //$("#"+selectedTextID).css("color",hex);
-     $(el).ColorPickerHide();
-     },
-     onBeforeShow: function () {
-     $(this).ColorPickerSetColor(this.value);
-     }
-     })
-     .bind('keyup', function(){
-     $(this).ColorPickerSetColor(this.value);
-     });
-     
-     
-     
-     
-     
-     $( ".container" ).resizable({
-     stop: function(event, ui) {
-     // alert('container');
-     widthContainer = ui.size.width;
-     heightContainer = ui.size.height;
-     $("#start1").text("Container Width="+ widthContainer + ", Height=" + heightContainer);
-     }
-     });
-     */
+    
     //changing container from resizable(code above) to fixed using text boxes
     $(function () {
         function position() {
@@ -707,10 +614,6 @@ $(document).ready(function () {
 
         });
 
-
-
-
-
         $("#" + selectedTextID).resizable({
         });
 
@@ -741,9 +644,6 @@ $(document).ready(function () {
             $(".size").text("Height=" + $("#" + id).css("height") + ", Width=" + $("#" + id).css("width"));
             reloadTabs(1);
         });
-
-
-
 
 
     });
@@ -1010,13 +910,8 @@ function popupwindow(){
         $('#popup').hide("slow");
     
     });
-     
-     
-    
+   
 }
-
-
-
 
 function passvaluetoinputfield() {
      
@@ -1058,6 +953,16 @@ function passvaluetoinputfield() {
         var color4 = rgbToHex(parseInt(arr3[0]), parseInt(arr3[1]), parseInt(arr3[2]));
         
         var dropshadowdata1;
+           var childPos = $("#" + addElementsArray[i]).offset();
+            var parentPos = $("#" + addElementsArray[i]).parent().parent().offset();
+            alert($("#" + addElementsArray[i]).attr("class"));          
+            var childOffset = {
+                top: childPos.top - parentPos.top,
+                left: childPos.left - parentPos.left
+            };
+           var x1= Math.round(childOffset.left);
+           var y1 = Math.round(childOffset.top);
+        
        if(isNaN(dropshadow1[0])){
           
           var filterdata=$("#" + addElementsArray[i]).css("-webkit-filter").replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','');
@@ -1079,22 +984,23 @@ function passvaluetoinputfield() {
         if (contenttype.startsWith('draggableImage')) {
 //            alert("image");
             style1 = " tag:" + "image" +
-                     " x-co-ordinates:" + x +
-                     " y-co-ordinates:" + y +
+                     " x-co-ordinates:" + x1 +
+                     " y-co-ordinates:" + y1 +
+                     " width:" + $("#" + addElementsArray[i]).css("width") +
+                     " height:" + $("#" + addElementsArray[i]).css("height") +
                      " opacity:" + $("#" + addElementsArray[i]).css("opacity") +
                    
                      dropshadowdata1+
 //                    " filter:" + $("#" + addElementsArray[i]).css("-webkit-filter") +
                     " Blend:" + $("#" + addElementsArray[i]).css("background-blend-mode") +
                     " blend-background-color:" + "#" + color3 ;
-                   
-
+                  
         }
 
         if (contenttype.startsWith('draggableText')) {
             style1 = " tag:" + "text" + 
-                     " x-co-ordinates:" + x +
-                     " y-co-ordinates:" + y +
+                     " x-co-ordinates:" + x1 +
+                     " y-co-ordinates:" + y1 +
                     " font-weight:" + $("#" + addElementsArray[i]).css("font-weight") +
                     " font-style:" + $("#" + addElementsArray[i]).css("font-style") +
                     " text-align:" + $("#" + addElementsArray[i]).css("text-align") +
@@ -1111,16 +1017,16 @@ function passvaluetoinputfield() {
         if (contenttype.startsWith('draggableButton')) {
 
             style1 = " tag:" + "button"+
-                     " x-co-ordinates:" + x +
-                     " y-co-ordinates:" + y;
+                     " x-co-ordinates:" + x1 +
+                     " y-co-ordinates:" + y1;
 
         }
 
         if (contenttype.startsWith('draggableBlock')) {
 
             style1 = " tag:" + "block" +
-                     " x-co-ordinates:" + x +
-                     " y-co-ordinates:" + y +
+                     " x-co-ordinates:" + x1 +
+                     " y-co-ordinates:" + y1 +
                     " width:" + $("#" + addElementsArray[i]).css("width") +
                     " height:" + $("#" + addElementsArray[i]).css("height") +
                     " opacity:" + $("#" + addElementsArray[i]).css("opacity") +
