@@ -26,15 +26,10 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <title>fonts styles</title>
     </head>
-    <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
-        
-        Integer num = 1;
-    %>
+    <%@include file="checksession.jsp" %>
+    
     <body ng-app  class="container">
+        <%@include file="menus.jsp" %>
         <div align="center" ng-controller="fontsStyleController" >
             <form class="form-horizontal" name="formFonts" ng-controller="fontsStyleController">
 
@@ -66,6 +61,8 @@
                     <tr>
                         <td>ID Number </td>
                         <td>Organization Name</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <%
                         try{
@@ -73,17 +70,18 @@
                         sqlmethods.setDatabaseConnection();
                         prepared_statement = sqlmethods.con.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
-                        
+                        number = 1;
                         while (result_set.next()) {
 
                     %>
                     <tr>
-                        <td><%= result_set.getInt("id")%></td>
+                        <td><%= number %></td>
                         <td><input class="simplebox" type="text" name="<%= result_set.getInt("id")%>" id="<%= result_set.getInt("id")%>" value="<%= result_set.getString("font_style")%>" /></td>
                         <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editFontStyle(<%=result_set.getInt("id")%>)">edit</button></td>
                         <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteFontStyle(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
                     <%
+                        number = number + 1;
                         }
                         result_set.close();
                         prepared_statement.close();

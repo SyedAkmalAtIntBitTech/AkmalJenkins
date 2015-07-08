@@ -23,56 +23,22 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
-        <script>
-            
-            function categoryController($scope,$http){
-                
-                $scope.deleteCategory = function(category_id){
-                    var Category = {"category_id": category_id };
-                     $http({
-                                 method: 'POST',
-                                 url: getHost() +'ServletDeleteCategories',
-                                 headers: {'Content-Type': 'application/json'},
-                                 data:  Category
-                       }).success(function (data) 
-                         {
-                           $scope.status=data;
-                                 if(data === "true"){
-                                     alert("category deleted successfully");
-                                     window.open(getHost() +'admin/categories.jsp',"_self");
-                                 }else if(data === error){
-                                     alert(data);
-                                 } 
-                         });
-                };
-                
-                $scope.editCategory = function(category_id, organization_name){
-                    var configuration = global_host_address + "admin/editcategory.jsp" + "?category_id=" + category_id + "&organization_name="+organization_name;
-                    window.open(configuration, "_self");
-                };
-            }
-            
-        </script>
+        <script src="../js/categoriesfunctions.js" type="text/javascript"></script>
         <title>categories</title>
         
     </head>
-    <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
-        
-        Integer number = 1;
-    %>
+        <%@include file="checksession.jsp" %>
+
     <%
             String category_id = request.getParameter("category_id");
             String category_name = request.getParameter("category_name");
             String organization_id = request.getParameter("organization_id");
     %>
     <body ng-app>
+        <%@include file="menus.jsp" %>
         <div align="center" ng-controller="categoryController" >
             <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
-                <form name="formCategories" action="<%= application.getContextPath() %>/ServletEditCategories" enctype="multipart/form-data" method="post">
+                <form name="formCategories" action="<%= application.getContextPath() %>/ServletEditCategories" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
                 <div>
                     <div class="col-md-3 col-md-offset-5">

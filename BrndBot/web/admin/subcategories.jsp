@@ -119,18 +119,12 @@
             }
 
         </script>
-        <title>categories</title>
+        <title>sub categories</title>
 
     </head>
-    <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
-
-        Integer number = 1;
-    %>
+<%@include file="checksession.jsp" %>
     <body ng-app>
+        <%@include file="menus.jsp" %>
         <div align="center" ng-controller="categoryController" >
             <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
                 <form ng-controller="categoryController">
@@ -182,6 +176,8 @@
                         <td>External Source</td>
                         <td>Category Name</td>
                         <td>Sub Category Name</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <%
                         query_string = "select * from tbl_sub_category Order By id ASC";

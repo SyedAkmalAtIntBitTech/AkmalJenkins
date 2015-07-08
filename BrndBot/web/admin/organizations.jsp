@@ -26,18 +26,14 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <title>Display Organizations</title>
     </head>
+<%@include file="checksession.jsp" %>
     <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
-        
         Integer num = 1;
-        
-    
     %>
     <body ng-app  class="container">
+        <%@include file="menus.jsp" %>
         <div align="center" ng-controller="organizationController" >
+            <div class="jumbotron">
             <form class="form-horizontal" name="formorganization1" ng-controller="organizationController">
 
                 <div class="group">
@@ -59,14 +55,16 @@
                 </div>
 
             </form>
-
-            <div>
+            </div>
+            <div class="jumbotron">
                
                 <div>&nbsp;</div>
                 <table border="1">
                     <tr>
                         <td>ID Number </td>
                         <td>Organization Name</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <%
                         try{

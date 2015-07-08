@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="../js/configurations.js"></script>
-<!--        <script type="text/javascript" src="../js/angular.min.js"></script>
+        <script type="text/javascript" src="../js/angular.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
         <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -22,18 +22,12 @@
         <script src="../js/jquery-1.11.3.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <link href="../css/main1.css" rel="stylesheet" type="text/css"/>-->
-
+        <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/brandfunctions.js" type="text/javascript"></script>
         <title>JSP Page</title>
     </head>
-    <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
-        
-        Integer number = 1;
-    %>
+    <%@include file="checksession.jsp" %>
+    
     <% 
         String brand_id = request.getParameter("brand_id");
         String brand_name = request.getParameter("brand_name");
@@ -41,10 +35,49 @@
     %>
 
     <body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="adminindex.jsp">Brand Bot</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="adminindex.jsp">Home</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Fonts <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href="fontsSize.jsp">Fonts Size</a></li>
+              <li><a href="fontsfamily.jsp">Fonts Family</a></li>
+              <li><a href="fontsstyle.jsp">Fonts Style</a></li>
+              <li><a href="fonttheme.jsp">Font theme</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Colors<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href="colors.jsp">Colors</a></li>
+              <li><a href="colortheme.jsp">Color theme</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Category<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href="categories.jsp">Category</a></li>
+              <li><a href="subcategories.jsp">Sub category</a></li>
+          </ul>
+        </li>
+        <li><a href="organizations.jsp">Organization</a></li>
+        <li><a href="brandpersonality.jsp">Brand Personality</a></li>
+        <li><a href="looks.jsp">Looks</a></li>
+        <li><a href="model.jsp">Layout mapper</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+        
     <centre>
-        <div style="float: left; border: 1px solid;margin-left: 400px; margin-top: 100px; height: 300px;" >
-            
-                <form name="formpersonality" action="<%= application.getContextPath() %>/ServletEditPersonality" enctype="multipart/form-data" method="post">
+                
+<!--             <div style="float: left; border: 1px solid;margin-left: 400px; margin-top: 100px; height: 300px;" >-->
+            <div style="float: left; border: 1px solid; margin-left: 400px; margin-top: 0px; height: 300px;">
+    
+                <form name="formpersonality" action="<%= application.getContextPath() %>/ServletEditPersonality" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
                 <div>
                     <div class="col-md-3 col-md-offset-5">
@@ -52,7 +85,7 @@
                     </div>
                 </div>
                     <div style="float:left; left:20px; padding-left: 10px;">
-                        <input type="hidden" id="brandid" name="brandid" value="<%= brand_id %>"/>
+                                 <input type="hidden" id="brandid" name="brandid" value="<%= brand_id %>"/>
                         Brand:<input type="text" id="brandname" name="brandname" value="<%= brand_name %>"/><br>
                         Select Look: <select name="look" id="look" style="width:180px;">
                                                 <option value="0">--select--</option>
@@ -77,22 +110,24 @@
                     %>
                                          </select><br>
                     </div><br>    
-                <div style="float:left; left:0px; padding-left: 10px; padding-top: 20px;">
+                <div style=" float:left; left:0px; padding-left: 10px; padding-top: 20px;">
                     <div>
                         Attach Image:<input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
                     </div><br>
                 </div>
 
-                <div style="position: absolute; float:left; left:550px; top: 300px;">
+                <div style="position: relative; float:left; left:0px; top: 0px;">
                     <div>
-                        <button id="Servicecontinue" type="submit" class="btn btn-info">Save</button>
-                        <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
+                        <button id="" type="submit" class="btn btn-info">Update</button>
+                        <button id="" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
                     </div>
                 </div>
 
             </form>
+</div>
             
-        </div>
+<!--        </div>-->
+                                         
         </centre>
     </body>
 </html>

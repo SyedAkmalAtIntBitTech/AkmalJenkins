@@ -26,17 +26,15 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <title>colors</title>
     </head>
+<%@include file="checksession.jsp" %>
+
     <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
-        
-        Integer number = 1;
         Integer hash = 1;
         String hashv = "hash";
     %>
     <body ng-app  class="container">
+        <%@include file="menus.jsp" %>
+        <div class="jumbotron">
         <div align="center" ng-controller="colorsController" >
             <form class="form-horizontal" name="formFonts" ng-controller="colorsController">
 
@@ -67,7 +65,7 @@
                 </div>
 
             </form>
-
+            
             <div>
                
                 <div>&nbsp;</div>
@@ -75,6 +73,9 @@
                     <tr>
                         <td>ID Number </td>
                         <td>Organization Name</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <%
                         try{
@@ -112,5 +113,6 @@
             <br>
 
         </div>
+        </div>        
 </body>
 </html>

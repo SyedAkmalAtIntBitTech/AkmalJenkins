@@ -13,7 +13,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="../js/configurations.js"></script>
-        <script src="../js/adminfunctions.js" type="text/javascript"></script>
         <script type="text/javascript" src="../js/angular.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
@@ -24,52 +23,20 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
-        <script>
-            
-            function lookController($scope,$http){
-                
-                $scope.deleteLooks = function(look_id){
-                    var look = {"look_id": look_id };
-                     $http({
-                                 method: 'POST',
-                                 url: getHost() +'ServletDeleteLooks',
-                                 headers: {'Content-Type': 'application/json'},
-                                 data:  look
-                       }).success(function (data) 
-                         {
-                           $scope.status=data;
-                                 if(data === "true"){
-                                     alert("look deleted successfully");
-                                     window.open(getHost() +'admin/looks.jsp',"_self");
-                                 }else if(data === error){
-                                     alert(data);
-                                 } 
-                         })
-                };
-                
-                $scope.changeLooks = function(look_id, look_name){
-                    var configuration = global_host_address + "admin/editlook.jsp" + "?look_id=" + look_id +"&look_name="+look_name+"";
-                    window.open(configuration, "_self");
-    
-                }
-            }
-            
-        </script>
-        <title>Display Organizations</title>
+        <script src="../js/lookfunctions.js" type="text/javascript"></script>
+        <title>Looks</title>
         
     </head>
+<%@include file="checksession.jsp" %>
+    
     <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
-        
         Integer num = 1;
     %>
     <body ng-app  >
+        <%@include file="menus.jsp" %>
         <div align="center" ng-controller="lookController" >
             <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 200px;">
-                <form name="formorganization1" action="<%= application.getContextPath() %>/ServletAddLooks" enctype="multipart/form-data" method="post">
+                <form name="formorganization1" action="<%= application.getContextPath() %>/ServletAddLooks" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
                 <div>
                     <div class="col-md-3 col-md-offset-5">
@@ -80,7 +47,7 @@
                 <div>
                     <div class="col-md-3 col-md-offset-5">
                         Look Name: <input type="text"  class="form-control simplebox" id="lookname" name="lookname"/>
-                        Attach Image:<input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
+                        Attach Image:<input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
                         <!--  <label>Organization Name:</label>-->
                     </div><br>
                 </div>
@@ -103,6 +70,7 @@
                         <td>ID Number </td>
                         <td>Look Name</td>
                         <td>Look Image</td>
+                        <td></td>
                         <td></td>
                     </tr>
                     <%

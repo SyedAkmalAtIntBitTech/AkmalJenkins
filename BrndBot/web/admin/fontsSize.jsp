@@ -26,15 +26,10 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <title>fonts size</title>
     </head>
-    <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
-        
-        Integer num = 1;
-    %>
+    <%@include file="checksession.jsp" %>
+
     <body ng-app  class="container">
+        <%@include file="menus.jsp" %>
         <div align="center" ng-controller="fontsSizeController" >
             <form class="form-horizontal" name="formFonts" ng-controller="fontsSizeController">
 
@@ -45,9 +40,7 @@
                 </div>
                 <div class="group">
                     <div class="col-md-3 col-md-offset-5">
-                        
                         <input type="text"  class="form-control simplebox" id="fontsize" name="fontsize" ng-model="fonts.fontsize"/>
-                        <!--                        <label>Organization Name:</label>-->
                     </div>
                 </div>
                 <br>
@@ -60,36 +53,39 @@
             </form>
 
             <div>
-               
+
                 <div>&nbsp;</div>
                 <table border="1">
                     <tr>
                         <td>ID Number </td>
                         <td>Organization Name</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <%
-                        try{
-                            
+                        try {
+
                             query_string = "select * from tbl_font_size Order By id ASC";
                             sqlmethods.setDatabaseConnection();
                             prepared_statement = sqlmethods.con.prepareStatement(query_string);
                             result_set = prepared_statement.executeQuery();
-
-                        while (result_set.next()) {
+                            number = 1;
+                            while (result_set.next()) {
 
                     %>
                     <tr>
-                        <td><%= result_set.getInt("id")%></td>
+                        <td><%= number %></td>
                         <td><input class="simplebox" type="text" name="<%= result_set.getInt("id")%>" id="<%= result_set.getInt("id")%>" value="<%= result_set.getString("font_size")%>" /></td>
                         <td><button class="btn btn-info" id="change" name="edit" value="edit" ng-click="editFontSize(<%=result_set.getInt("id")%>)">edit</button></td>
                         <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteFontSize(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
                     <%
-                        }
-                        result_set.close();
-                        prepared_statement.close();
-                        sqlmethods.con.close();
-                        }catch (Exception e){
+                                 number = number + 1;
+                            }
+                            result_set.close();
+                            prepared_statement.close();
+                            sqlmethods.con.close();
+                        } catch (Exception e) {
                             System.out.println(e.getCause());
                             out.println(e.getMessage());
                         }
@@ -99,5 +95,5 @@
             <br>
 
         </div>
-</body>
+    </body>
 </html>

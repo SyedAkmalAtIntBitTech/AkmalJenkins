@@ -56,7 +56,7 @@ function colorsController($scope, $http) {
         }
     };
 
-    $scope.editColor = function (id, hex, name)
+    $scope.editColor = function(id, hex, name)
     {
         var color_id = id;
         var color_hex = '#' + hex;
@@ -106,7 +106,7 @@ function colorsController($scope, $http) {
         }
     };
 
-    $scope.deleteColor = function (color_id) {
+    $scope.deleteColor = function(color_id) {
         var color = {"color_id": color_id.toString(), "type": "delete"};
         $http({
             method: 'POST',

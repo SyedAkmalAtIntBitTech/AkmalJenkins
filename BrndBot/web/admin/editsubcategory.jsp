@@ -100,13 +100,10 @@
         <title>categories</title>
 
     </head>
+    <%@include file="checksession.jsp" %>
+    
     <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string, category_id_1, category_name_1, sub_category_id, category_name, sub_category_name, category_id;
-        SqlMethods sqlmethods = new SqlMethods();
-
-        Integer number = 1;
+        String category_id_1, category_name_1, sub_category_id, category_name, sub_category_name, category_id;
     %>
     <%
         sub_category_id = request.getParameter("sub_category_id");

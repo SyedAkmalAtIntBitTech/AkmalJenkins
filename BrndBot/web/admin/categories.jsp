@@ -23,51 +23,15 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
-        <script>
-
-            function categoryController($scope, $http) {
-
-                $scope.deleteCategory = function (category_id) {
-                    var Category = {"category_id": category_id};
-                    $http({
-                        method: 'POST',
-                        url: getHost() + 'ServletDeleteCategories',
-                        headers: {'Content-Type': 'application/json'},
-                        data: Category
-                    }).success(function (data)
-                    {
-                        $scope.status = data;
-                        if (data === "true") {
-                            alert("category deleted successfully");
-                            window.open(getHost() + 'admin/categories.jsp', "_self");
-                        } else if (data === error) {
-                            alert(data);
-                        }
-                    });
-                };
-
-                $scope.editCategory = function (category_id, category_name, organization_id) {
-                    var configuration = global_host_address + "admin/editcategory.jsp" + "?category_id=" + category_id + "&category_name=" + category_name + " &organization_id=" + organization_id;
-                    window.open(configuration, "_self");
-                };
-            }
-
-        </script>
         <title>categories</title>
-
+        <script src="../js/categoriesfunctions.js" type="text/javascript"></script>
     </head>
-    <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
-
-        Integer number = 1;
-    %>
+    <%@include file="checksession.jsp" %>
     <body ng-app>
+    <%@include file="menus.jsp" %>
         <div align="center" ng-controller="categoryController" >
             <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
-                <form name="formCategories" action="<%= application.getContextPath()%>/ServletAddCategories" enctype="multipart/form-data" method="post">
+                <form name="formCategories" action="<%= application.getContextPath()%>/ServletAddCategories" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
                     <div>
                         <div class="col-md-3 col-md-offset-5">
@@ -96,7 +60,7 @@
                     </div><br>    
                     <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
                         <div>
-                            Attach Image:<input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="categories.fileName" />
+                            Attach Image:<input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="categories.fileName" />
                         </div><br>
                     </div>
 
@@ -106,7 +70,6 @@
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
                         </div>
                     </div>
-
                 </form>
             </div>
             <br>
@@ -119,6 +82,8 @@
                         <td>Organization ID</td>
                         <td>Category Name</td>
                         <td>Image Name</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <%
                         query_string = "select * from tbl_category Order By id ASC";

@@ -13,125 +13,36 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="../js/configurations.js"></script>
-<!--        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="http://code.jquery.com/jquery-latest.js"></script>-->
         <script type="text/javascript" src="../js/angular.min.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery-1.11.3.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+        <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/colorthemefunctions.js" type="text/javascript"></script>
         
-        <title>JSP Page</title>
+        <title>color theme</title>
         <style>
             .box{width:80px;}
             
         </style>
-        <script>
-            
-            function colorthemeController($scope, $http){
-            $scope.colortheme = {};
-                var brand_id;
-                var color = [];
-                function validate(){
-                
-                var x = document.getElementById("brand").selectedIndex;
-                brand_id = document.getElementsByTagName("option")[x].value;
-                if (brand_id == 0){
-                    alert("No brand selected, please select any one brand");
-                    document.getElementById("brand").focus();
-                    return false;
-                }
-                
-                var colors = document.getElementById("color");
-
-                var len = colors.options.length;
-                
-                var i = 1;
-                var sel = 0;
-                for( i = 1; i < colors.options.length; i++){
-                    if(colors.options[i].selected === true){
-                        color[sel] = colors.options[i].value;
-                        sel = sel +1;
-                    }
-                }
-                alert(sel);
-                if (sel == 0){
-                    alert("No color selected, please select any one color");
-                    document.getElementById("color").focus();
-                    return false;
-                }else if(sel != 6){
-                    alert("please select six colors");
-                    document.getElementById("color").focus();
-                    return false;
-                }
-                return true;
-            }
-            $scope.createColorTheme = function(){
-                
-                    if(validate()){
-                            var colort = {"brand_id": brand_id.toString(), "colors":color, "type": "add" };
-                        
-                            $http({
-                              method: 'POST',
-                              url: getHost() +'ServletColorTheme',
-                              headers: {'Content-Type': 'application/json'},
-                              data:  colort
-                          }).success(function (data) 
-                              {
-                                $scope.status=data;
-                                if(data === "true"){
-                                    window.open(getHost() +'admin/colortheme.jsp',"_self");
-                                }else if (data === error){
-                                    alert(data);
-                                }
-                              })
-                                .error(function(data, status) {
-                                // called asynchronously if an error occurs
-                                // or server returns response with an error status.
-                                alert("request not succesful");
-                              });
-                          }
-                    };
-                    $scope.delete = function(color_theme){
-                               var colortheme = {"color_theme_id": color_theme.toString(), "type": "delete" };
-                                $http({
-                                            method: 'POST',
-                                            url: getHost() +'ServletColorTheme',
-                                            headers: {'Content-Type': 'application/json'},
-                                            data:  colortheme
-                                  }).success(function (data) 
-                                    {
-                                      $scope.status=data;
-                                            if(data === "true"){
-                                                alert("color theme deleted successfully");
-                                                window.open(getHost() +'admin/colortheme.jsp',"_self");
-                                            }else if(data === error){
-                                                alert(data);
-                                            } 
-                                    });
-                    };   
-                $scope.edit = function(theme_id){
-                    var configuration = global_host_address + "admin/editcolortheme.jsp" + "?theme_id=" + theme_id;
-                    window.open(configuration, "_self");
-    
-                };
-            }
-    
-            
-        </script>
     </head>
-    <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
-        
-        Integer number = 1;
-    %>
+    <%@include file="checksession.jsp" %>
     
-    <body ng-app>
+    
+    <body ng-app class="container">
+        <%@include file="menus.jsp" %>
+        <div class="jumbotron">
         <div align="center" ng-controller="colorthemeController" >
             <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
                 <form ng-model="colortheme">
                 <div>
                     <div class="col-md-3 col-md-offset-5">
-                        <p text-center >Color Theme</p>
+                        <p>Color Theme</p>
                     </div>
                 </div>
                     <div style="float:left; left:20px; padding-left: 166px; padding-top: 20px;">
@@ -170,7 +81,7 @@
                                             </select><br>
                     </div><br>    
                     
-                <div style="position: absolute; float:left; left:550px; top: 300px;">
+                <div style="position: absolute; float:left; left:550px; top: 400px;">
                     <div>
                         <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="createColorTheme()">Save</button>
                         <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
@@ -195,6 +106,7 @@
                         <td>color6</td>
                         <td>Predefined</td>
                         <td>theme</td>
+                        <td></td>
                         <td></td>
                     </tr>
                     <%
@@ -234,6 +146,6 @@
             <br>
 
         </div>
-        
+        </div>
     </body>
 </html>

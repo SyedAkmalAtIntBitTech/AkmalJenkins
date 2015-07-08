@@ -23,52 +23,54 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
-        <script>
-            
-            function brandController($scope,$http){
-                
-                $scope.deleteBrand = function(brand_id){
-                    var Brand = {"brand_id": brand_id };
-                     $http({
-                                 method: 'POST',
-                                 url: getHost() +'ServletDeleteBrands',
-                                 headers: {'Content-Type': 'application/json'},
-                                 data:  Brand
-                       }).success(function (data) 
-                         {
-                           $scope.status=data;
-                                 if(data === "true"){
-                                     alert("brand deleted successfully");
-                                     window.open(getHost() +'admin/brandpersonality.jsp',"_self");
-                                 }else if(data === error){
-                                     alert(data);
-                                 } 
-                         });
-                };
-                
-                $scope.editBrand = function(brand_id, brand_name, look_id){
-                    var configuration = global_host_address + "admin/editpersonality.jsp" + "?brand_id=" + brand_id +"&brand_name="+brand_name+"&look_id="+look_id+"";
-                    window.open(configuration, "_self");
-    
-                };
-            }
-            
-        </script>
+        <script src="../js/brandfunctions.js" type="text/javascript"></script>
         <title>brand personality</title>
         
     </head>
-    <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
-        
-        Integer number = 1;
-    %>
+    <%@include file="checksession.jsp" %>
+
     <body ng-app  >
-        <div align="center" ng-controller="brandController" >
-            <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
-                <form name="formpersonality" action="<%= application.getContextPath() %>/ServletAddPersonality" enctype="multipart/form-data" method="post">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="adminindex.jsp">Brand Bot</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="adminindex.jsp">Home</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Fonts <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href="fontsSize.jsp">Fonts Size</a></li>
+              <li><a href="fontsfamily.jsp">Fonts Family</a></li>
+              <li><a href="fontsstyle.jsp">Fonts Style</a></li>
+              <li><a href="fonttheme.jsp">Font theme</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Colors<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href="colors.jsp">Colors</a></li>
+              <li><a href="colortheme.jsp">Color theme</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Category<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href="categories.jsp">Category</a></li>
+              <li><a href="subcategories.jsp">Sub category</a></li>
+          </ul>
+        </li>
+        <li><a href="organizations.jsp">Organization</a></li>
+        <li><a href="brandpersonality.jsp">Brand Personality</a></li>
+        <li><a href="looks.jsp">Looks</a></li>
+        <li><a href="model.jsp">Layout mapper</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+        <div class="container">
+            <div class="jumbotron" align="center">
+                <div style="margin-top: 0px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
+
+                <form class="form-horizontal" name="formpersonality" action="<%= application.getContextPath() %>/ServletAddPersonality" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
                 <div>
                     <div class="col-md-3 col-md-offset-5">
@@ -76,7 +78,7 @@
                     </div>
                 </div>
                     <div style="float:left; left:20px; padding-left: 166px;">
-                        Brand:<input type="text" id="brandname" name="brandname" value=""/><br>
+                        Brand:<input type="text" class="form-control simplebox" id="brandname" name="brandname" /><br>
                         Select Look: <select name="look" id="look" style="width:180px;">
                                     <option value="0">--select--</option>
                     <%
@@ -99,7 +101,7 @@
                     </div><br>
                 </div>
 
-                <div style="position: absolute; float:left; left:550px; top: 300px;">
+                <div style="position: absolute; float:left; left:550px; top: 420px;">
                     <div>
                         <button id="Servicecontinue" type="submit" class="btn btn-info">Save</button>
                         <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
@@ -108,6 +110,13 @@
 
             </form>
             </div>
+                
+            </div>
+        </div>
+
+            <div class="container">
+                            
+            <div class="jumbotron" align="center" ng-controller="brandController" >
             <br>
             <div  style="margin-top: 0px;">
                
@@ -117,6 +126,7 @@
                         <td>ID Number </td>
                         <td>Brand Name</td>
                         <td>Brand Image</td>
+                        <td></td>
                         <td></td>
                     </tr>
                     <%
@@ -131,7 +141,7 @@
                     %>
                     <tr>
                         <td><%= number %></td>
-                        <td><input class="simplebox" type="text" name="<%= result_set.getInt("id")%>" id="<%= result_set.getInt("id")%>" value="<%= result_set.getString("brand_name")%>" /></td>
+                        <td><%= result_set.getString("brand_name")%></td>
                         <td><a href="../images/Brandimages/<%= result_set.getString("image")%>"><%= result_set.getString("image")%></a></td>
                         <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editBrand(<%=result_set.getInt("id")%>,'<%=result_set.getString("brand_name")%>', '<%=result_set.getString("look_id")%>')">edit</button></td>
                         <td><button class="btn btn-info" id="brand" name="brand" value="delete" ng-click="deleteBrand(<%=result_set.getInt("id")%>)">delete</button></td>
@@ -148,6 +158,8 @@
             <br>
 
         </div>
+        </div>                
+
     <script>
         var fl = document.getElementById('filesToUpload');
 

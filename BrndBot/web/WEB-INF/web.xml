@@ -156,6 +156,10 @@
         <servlet-name>ServletUpdateFonts</servlet-name>
         <servlet-class>admin.controller.ServletUpdateFonts</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletLogin</servlet-name>
+        <servlet-class>admin.controller.ServletLogin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -311,6 +315,10 @@
     <servlet-mapping>
         <servlet-name>ServletUpdateFonts</servlet-name>
         <url-pattern>/ServletUpdateFonts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletLogin</servlet-name>
+        <url-pattern>/ServletLogin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

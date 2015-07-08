@@ -122,12 +122,12 @@ public class Model extends HttpServlet {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("/home/development/NetBeansProjects/BrndBot/BrndBot/web/CSS/"+mapperfilename+".xml"));
+            StreamResult result = new StreamResult(new File("/home/intbit/NetBeansProjects/BrndBot/BrndBot/web/xmlfiles/"+layoutfilename+".xml"));
 
             TransformerFactory transformerFactory1 = TransformerFactory.newInstance();
             Transformer transformer1 = transformerFactory1.newTransformer();
             DOMSource source1 = new DOMSource(doc1);
-            StreamResult result1 = new StreamResult(new File("/home/development/NetBeansProjects/BrndBot/BrndBot/web/CSS/"+layoutfilename+".xml"));
+            StreamResult result1 = new StreamResult(new File("/home/intbit/NetBeansProjects/BrndBot/BrndBot/web/xmlfiles/"+mapperfilename +".xml"));
 
 
 

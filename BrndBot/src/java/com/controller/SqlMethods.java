@@ -28,6 +28,8 @@ public class SqlMethods {
     HttpServletRequest request;
     HttpServletResponse response;
     public HttpSession session;
+    public HttpSession admin_session;
+    
     public static Integer limit = 4;
     public Integer upper_limit = 4;
     public String query_string = "";

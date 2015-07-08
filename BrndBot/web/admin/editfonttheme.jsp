@@ -13,11 +13,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="../js/configurations.js"></script>
-        <!--        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-                <script src="http://code.jquery.com/jquery-latest.js"></script>-->
         <script type="text/javascript" src="../js/angular.min.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery-1.11.3.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+        <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/colorthemefunctions.js" type="text/javascript"></script>
 
-        <title>JSP Page</title>
+        <title>font theme</title>
         <style>
             .box{width:80px;}
 
@@ -142,20 +150,14 @@
 
         </script>
     </head>
-    <%!
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
-        String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
+        <%@include file="checksession.jsp" %>
 
-        Integer number = 1;
-    %>
     <%
         String font_theme_id = request.getParameter("font_theme_id");
-        out.println(font_theme_id);
     %>
 
     <body ng-app>
+        <%@include file="menus.jsp" %>
         <div align="center" ng-controller="colorthemeController" >
             <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 500px; width: 600px;">
                 <form ng-model="colortheme">
@@ -241,7 +243,7 @@
                         </select><br>
                     </div><br>    
 
-                    <div style="position: absolute; float:left; left:550px; top: 450px;">
+                    <div style="position: absolute; float:left; left:550px; top: 500px;">
                         <div>
                             <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="updateFontTheme()">Save</button>
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
