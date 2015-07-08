@@ -164,6 +164,14 @@
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Model</servlet-name>
+        <servlet-class>com.intbit.Model</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Model</servlet-name>
+        <url-pattern>/Model</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUserCategories</servlet-name>
         <url-pattern>/GetUserCategories</url-pattern>
