@@ -75,7 +75,7 @@
                     </div><br>    
                 <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
                     <div>
-                        Attach Image:<input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="categories.fileName" />
+                        Attach Image:<input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="categories.fileName" />
                     </div><br>
                 </div>
 
