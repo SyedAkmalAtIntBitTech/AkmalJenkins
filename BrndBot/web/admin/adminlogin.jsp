@@ -38,11 +38,11 @@
                 alert(data);
             }
         })
-                .error(function (data, status) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    alert("request not succesful");
-                });
+            .error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                alert("request not succesful");
+            });
 
     };
 
@@ -58,6 +58,9 @@
     <div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Organization</a></li>
+        <li><a href="#">Looks</a></li>
+        <li><a href="#">Brand Personality</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Fonts <span class="caret"></span></a>
           <ul class="dropdown-menu">
               <li><a href="#">Fonts Size</a></li>
@@ -78,9 +81,6 @@
               <li><a href="#">Sub category</a></li>
           </ul>
         </li>
-        <li><a href="#">Organization</a></li>
-        <li><a href="#">Brand Personality</a></li>
-        <li><a href="#">Looks</a></li>
         <li><a href="#">Layout mapper</a></li>
       </ul>
     </div>
