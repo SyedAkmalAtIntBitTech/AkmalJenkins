@@ -112,6 +112,8 @@
         category_id = request.getParameter("category_id");
      %>
     <body ng-app>
+                <%@include file="menus.jsp" %>
+        
         <div align="center" ng-controller="categoryController" >
             <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
                 <form ng-controller="categoryController">
@@ -126,8 +128,8 @@
                         Sub Category Name:<input type="text" id="sub_category_name" name="sub_category_name" value="<%= sub_category_name %>"/><br>
                         External Source: <select name="external_source" id="external_source">
                                                         <option value="0">-- Select --</option>
-                                                        <option value="Mindbody">Mindbody</option>
-                                                </select><br><br>
+                                                        <option value="Mindbody" selected>Mindbody</option>
+                                                 </select><br><br>
                         Select Categories: <select name="category" id="category" style="width:180px;">
                                                             <option value="0">--select--</option>
                                                             <%
@@ -144,7 +146,6 @@
                                                                     if (category_id_1.equals(category_id)){
                                                               %>
                                                                       <option value="<%= result_set.getInt("id")%>" selected><%= result_set.getString("category_name")%></option>
-                                                              
                                                               <%
                                                                     }else{
                                                              %>
