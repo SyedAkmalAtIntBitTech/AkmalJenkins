@@ -5,9 +5,13 @@
  */
 package com.intbit;
 
+import admin.controller.Layout;
+import com.controller.SqlMethods;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +34,12 @@ import org.w3c.dom.Element;
  */
 public class Model extends HttpServlet {
 
+    SqlMethods sqlmethods = new SqlMethods();
+    Layout layout = new Layout();
+    String filePath;
+    String fileName, fieldName, uploadPath;
+    boolean type_email = false;
+    boolean type_social = false;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,17 +51,35 @@ public class Model extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+
+        uploadPath = getServletContext().getRealPath("") + "/xml";
+
+        Integer organization_id = Integer.parseInt(request.getParameter("organization"));
+        Integer user_id = Integer.parseInt(request.getParameter("users"));
+        Integer category_id = Integer.parseInt(request.getParameter("categories"));
+
         String mapperfilename = request.getParameter("mapper");
         String layoutfilename = request.getParameter("layout");
-        String textstyleinfo = request.getParameter("textstyle");
-        String containerstyle=request.getParameter("containerstyle");
-        String mapfiledata=request.getParameter("element");
-        String textstylearray[] = textstyleinfo.split(",");
-        String containerstylearray[]=containerstyle.split(" ");
-        String mapfiledataarray[]=mapfiledata.split(",");
-        System.out.println(containerstyle);
         
+        String email = request.getParameter("mail");
+        
+        if (email != null){
+            type_email = true;
+        }
+        String social = request.getParameter("socialmedia");
+
+        if (social != null){
+            type_social = true;
+        }
+        String textstyleinfo = request.getParameter("textstyle");
+        String containerstyle = request.getParameter("containerstyle");
+        String mapfiledata = request.getParameter("element");
+        String textstylearray[] = textstyleinfo.split(",");
+        String containerstylearray[] = containerstyle.split(" ");
+        String mapfiledataarray[] = mapfiledata.split(",");
+        System.out.println(containerstyle);
+
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -60,27 +88,22 @@ public class Model extends HttpServlet {
             Document doc = docBuilder.newDocument();
             Element rootElement = doc.createElement("layout");
             doc.appendChild(rootElement);
-            
-            
+
             Document doc1 = docBuilder.newDocument();
             Element rootElement1 = doc1.createElement("models");
             doc1.appendChild(rootElement1);
-            
-            
-            
-            
-            Element container=doc.createElement("container");
+
+            Element container = doc.createElement("container");
             rootElement.appendChild(container);
-            
-           for(int i=0;i<=containerstylearray.length-1;i++){
-            String v[]=containerstylearray[i].split(":");
-              Attr attr = doc.createAttribute(v[0]);
-                        attr.setValue("" + v[1]);
-                        container.setAttributeNode(attr);
+
+            for (int i = 0; i <= containerstylearray.length - 1; i++) {
+                String v[] = containerstylearray[i].split(":");
+                Attr attr = doc.createAttribute(v[0]);
+                attr.setValue("" + v[1]);
+                container.setAttributeNode(attr);
             }
-            
-            
-		// staff elements
+
+            // staff elements
             for (int i = 0; i <= textstylearray.length - 1; i++) {
                 Element element = doc.createElement("element");
                 rootElement.appendChild(element);
@@ -94,10 +117,9 @@ public class Model extends HttpServlet {
                     }
                 }
             }
-            
+
 //            for mapper xml file
-            
-              for (int i = 0; i <= mapfiledataarray.length - 1; i++) {
+            for (int i = 0; i <= mapfiledataarray.length - 1; i++) {
                 Element element1 = doc1.createElement("model");
                 rootElement1.appendChild(element1);
                 String field1[] = mapfiledataarray[i].split(" ");
@@ -110,49 +132,41 @@ public class Model extends HttpServlet {
                     }
                 }
             }
-            
-            
-            
-            
 
-        // write the content into xml file
+            // write the content into xml file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("/home/intbit/NetBeansProjects/BrndBot/BrndBot/build/web/xml/"+layoutfilename+".xml"));
+            StreamResult result = new StreamResult(new File(uploadPath +File.separator + layoutfilename + ".xml"));
 
             TransformerFactory transformerFactory1 = TransformerFactory.newInstance();
             Transformer transformer1 = transformerFactory1.newTransformer();
             DOMSource source1 = new DOMSource(doc1);
-            StreamResult result1 = new StreamResult(new File("/home/intbit/NetBeansProjects/BrndBot/BrndBot/build/web/xml/"+mapperfilename +".xml"));
-
-
+            StreamResult result1 = new StreamResult(new File(uploadPath +File.separator + mapperfilename + ".xml"));
 
             // Output to console for testing
             // StreamResult result = new StreamResult(System.out);
             transformer.transform(source, result);
             transformer1.transform(source1, result1);
+            layout.addLayouts(organization_id , user_id, category_id, layoutfilename, mapperfilename, type_email, type_social);
             System.out.println("File saved!");
 
         } catch (ParserConfigurationException pce) {
-            pce.printStackTrace();
+            System.out.println(pce.getCause());
+            System.out.println(pce.getMessage());
+            System.out.println(pce.getStackTrace());
+
         } catch (TransformerException tfe) {
             tfe.printStackTrace();
+            System.out.println(tfe.getCause());
+            System.out.println(tfe.getMessage());
+            System.out.println(tfe.getStackTrace());
+        } catch (SQLException s){
+            System.out.println(s.getCause());
+            System.out.println(s.getMessage());
+            System.out.println(s.getStackTrace());
         }
-
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Model</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>" + textstyleinfo +  "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
