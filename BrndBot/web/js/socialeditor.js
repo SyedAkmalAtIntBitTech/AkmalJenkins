@@ -8,9 +8,19 @@
  var mapperrray=[];
  var type;
  var selectedTextareaId;
+ var title;
+ var teacher;
+ var date;
+ 
+ function setSocialParameters(){
+        title = $("#title").val();
+        teacher = $("#teacher").val();
+        date = $("#date").val();
+        alert(title);
+ }
  
 $(document).ready(function () {
-        
+        alert(head1);
         $.ajax({
         type: "GET",
         url: "xml/san1.xml",
@@ -37,7 +47,7 @@ $(document).ready(function () {
     
     $.ajax({
         type: "GET",
-        url: "xml/layout.xml",
+        url: "xml/yyy.xml",
         dataType: "xml",
         success: function (xml) {
             $(xml).find('layout').each(function () {
@@ -51,9 +61,17 @@ $(document).ready(function () {
             $(xml).find('element').each(function () {
                 var tag = $(this).attr("tag");
                 type = $(this).attr("type");
-                 var fontcolor;
-                 var fontsize;
-                 var fontstyle;
+                var h = "";
+                var t = "";
+                if (type === "header1"){
+                    h = "yoga power";
+                }
+                else if(type === "body1"){
+                     t = "teacher1";
+                }
+                var fontcolor;
+                var fontsize;
+                var fontstyle;
                 var left = $(this).attr("x-co-ordinates");
                 var top = $(this).attr("y-co-ordinates");
                 var opacity=$(this).attr("opacity");
@@ -87,7 +105,7 @@ $(document).ready(function () {
                     var width=$(this).attr("width");
                     var height=$(this).attr("height");
 //                    alert("image");
-                    $(".preview").append("<div><img src='#' id=" + type+  " alt='image'/>");
+                    $(".preview").append("<div><img src='#' id=" + type +  " alt='image'/>");
                      $("#" + type).css("color", "" + fontcolor).css("position", "absolute").css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
                              .css("background-blend-mode", "" + blendmode).css("opacity", "" + opacity)
                             .css("width", "" + width).css("height", "" + height)
