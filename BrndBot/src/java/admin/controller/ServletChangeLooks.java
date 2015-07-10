@@ -35,6 +35,8 @@ public class ServletChangeLooks extends HttpServlet {
     RequestDispatcher request_dispatcher;
     SqlMethods sqlmethods = new SqlMethods();
     String lookname, lookid;
+    boolean check = false;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -96,35 +98,42 @@ public class ServletChangeLooks extends HttpServlet {
                         sqlmethods.setDatabaseConnection();
                         file_name_to_delete = look.getFileName(Integer.parseInt(lookid));
                     }else {
-                        fieldName = fi.getFieldName();
-                        fileName = fi.getName();
+                        
+                        sqlmethods.setDatabaseConnection();
+//                        check = look.checkAvailability(lookname);
+//
+//                        if (check == false){
+                            
+                            fieldName = fi.getFieldName();
+                            fileName = fi.getName();
 
-                        File uploadDir = new File(uploadPath);
-                        if (!uploadDir.exists()) {
-                            uploadDir.mkdirs();
-                        }
+                            File uploadDir = new File(uploadPath);
+                            if (!uploadDir.exists()) {
+                                uploadDir.mkdirs();
+                            }
 
-                        int inStr = fileName.indexOf(".");
-                        String Str = fileName.substring(0, inStr);
+                            int inStr = fileName.indexOf(".");
+                            String Str = fileName.substring(0, inStr);
 
-                        fileName = lookname + "_" + Str + ".png";
-                        boolean isInMemory = fi.isInMemory();
-                        long sizeInBytes = fi.getSize();
+                            fileName = lookname + "_" + Str + ".png";
+                            boolean isInMemory = fi.isInMemory();
+                            long sizeInBytes = fi.getSize();
 
-                        String file_path = uploadPath + File.separator + fileName;
-                        String delete_path = deletePath + File.separator + file_name_to_delete;
-                        File deleteFile = new File(delete_path);
-                        deleteFile.delete();
-                        File storeFile = new File(file_path);
-                        fi.write(storeFile);
-                        out.println("Uploaded Filename: " + filePath + "<br>");
+                            String file_path = uploadPath + File.separator + fileName;
+                            String delete_path = deletePath + File.separator + file_name_to_delete;
+                            File deleteFile = new File(delete_path);
+                            deleteFile.delete();
+                            File storeFile = new File(file_path);
+                            fi.write(storeFile);
+                            out.println("Uploaded Filename: " + filePath + "<br>");
+                            look.changeLooks(Integer.parseInt(lookid), lookname, fileName);
+                            sqlmethods.con.close();
+                            response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
+//                        }else {
+//                            response.sendRedirect(request.getContextPath() + "/admin/editlook.jsp?exist=exist");
+//                        }    
                     }
                 }
-                        look.changeLooks(Integer.parseInt(lookid), lookname, fileName);
-                        sqlmethods.con.close();
-                        response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
-//                        request_dispatcher = request.getRequestDispatcher("/admin/looks.jsp");
-//                        request_dispatcher.forward(request, response);
                 out.println("</body>");
                 out.println("</html>");
             } else {

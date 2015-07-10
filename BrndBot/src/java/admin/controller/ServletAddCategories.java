@@ -34,7 +34,7 @@ public class ServletAddCategories extends HttpServlet {
     RequestDispatcher request_dispatcher;
     SqlMethods sqlmethods = new SqlMethods();
     String category_name, organization_id;
-
+    boolean check = false;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -96,35 +96,41 @@ public class ServletAddCategories extends HttpServlet {
                         }
 
                     } else {
+                        
                         field_name = fi.getFieldName();
                         file_name = fi.getName();
                         if (file_name != "") {
 
-                            File uploadDir = new File(upload_path);
-                            if (!uploadDir.exists()) {
-                                uploadDir.mkdirs();
+                            sqlmethods.setDatabaseConnection();
+                            check = categories.checkAvailability(category_name, Integer.parseInt(organization_id));
+                            if (check == false){
+                                File uploadDir = new File(upload_path);
+                                if (!uploadDir.exists()) {
+                                    uploadDir.mkdirs();
+                                }
+
+                                int inStr = file_name.indexOf(".");
+                                String Str = file_name.substring(0, inStr);
+
+                                file_name = category_name + "_" + Str + ".jpeg";
+                                boolean isInMemory = fi.isInMemory();
+                                long sizeInBytes = fi.getSize();
+
+                                String filePath = upload_path + File.separator + file_name;
+                                File storeFile = new File(filePath);
+
+                                fi.write(storeFile);
+                                categories.addCategories(Integer.parseInt(organization_id), category_name, file_name);
+                                sqlmethods.con.close();
+
+                                out.println("Uploaded Filename: " + filePath + "<br>");
+                                response.sendRedirect(request.getContextPath() + "/admin/categories.jsp");
+                            }else {
+                                response.sendRedirect(request.getContextPath() + "/admin/categories.jsp?exist=exist");
                             }
-
-                            int inStr = file_name.indexOf(".");
-                            String Str = file_name.substring(0, inStr);
-
-                            file_name = category_name + "_" + Str + ".jpeg";
-                            boolean isInMemory = fi.isInMemory();
-                            long sizeInBytes = fi.getSize();
-
-                            String filePath = upload_path + File.separator + file_name;
-                            File storeFile = new File(filePath);
-
-                            fi.write(storeFile);
-
-                            out.println("Uploaded Filename: " + filePath + "<br>");
                         }
                     }
                 }
-                sqlmethods.setDatabaseConnection();
-                categories.addCategories(Integer.parseInt(organization_id), category_name, file_name);
-                sqlmethods.con.close();
-                response.sendRedirect(request.getContextPath() + "/admin/categories.jsp");
                 out.println("</body>");
                 out.println("</html>");
             } else {

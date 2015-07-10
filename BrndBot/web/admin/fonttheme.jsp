@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="../js/configurations.js"></script>
         <script type="text/javascript" src="../js/angular.min.js"></script>
-        <script src="../js/fontstyles.js" type="text/javascript"></script>
+<!--        <script src="../js/fontstyles.js" type="text/javascript"></script>-->
         <script type="text/javascript" src="../js/angular.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
@@ -38,6 +38,7 @@
                 var font_name_array = [];
                 var font_size_array = [];
                 var font_style_array = [];
+                
                 function validate(){
                 
                 var x = document.getElementById("brand").selectedIndex;
@@ -172,17 +173,17 @@
     <%@include file="checksession.jsp" %>
     
     
-    <body ng-app>
+    <body ng-app class="container">
         <%@include file="menus.jsp" %>
-        <div align="center" ng-controller="colorthemeController" >
+        <div class="jumbotron" align="center" ng-controller="colorthemeController" >
             <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 500px; width: 600px;">
-                <form ng-model="colortheme">
+                <form ng-model="colortheme" ng-submit="createFontTheme()">
                 <div>
                     <div class="col-md-3 col-md-offset-5">
                         <p text-center >Font Theme Family</p>
                     </div>
                 </div>
-                    <div style="float:left; left:20px; padding-left: 166px; padding-top: 20px;">
+                    <div style="float:left; left:20px; padding-left: 166px; padding-top: 0px;">
                         Select brand: <select name="brand" id="brand" style="width:180px; margin-top: 20px;">
                                                 <option value="0">--select--</option>
                     <%
@@ -254,9 +255,9 @@
                                             </select><br>
                     </div><br>    
                     
-                <div style="position: absolute; float:left; left:550px; top: 500px;">
+                <div style="position: absolute; float:left; left:550px; top: 570px;">
                     <div>
-                        <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="createFontTheme()">Save</button>
+                        <button id="Servicecontinue" type="submit" class="btn btn-info">Save</button>
                         <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
                     </div>
                 </div>
@@ -266,7 +267,7 @@
             <br>
             <div  style="margin-top: 0px;">
                
-                <div>&nbsp;Display Font Theme<br></div>
+                <div><p>Display Font Theme</p><br></div>
                 <table border="1" style="margin-top: 20px;">
                     <tr>
                         <td>Serial ID</td>

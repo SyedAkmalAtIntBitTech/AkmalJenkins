@@ -34,7 +34,7 @@ public class ServletAddPersonality extends HttpServlet {
     RequestDispatcher request_dispatcher;
     SqlMethods sqlmethods = new SqlMethods();
     String brand_name, look_id;
-
+    boolean check = false;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -95,33 +95,39 @@ public class ServletAddPersonality extends HttpServlet {
                         }
 
                     } else {
-                        field_name = fi.getFieldName();
-                        file_name = fi.getName();
+                        sqlmethods.setDatabaseConnection();
+                        check = brand.checkAvailability(brand_name);
+                        
+                        if (check == false){
+                                field_name = fi.getFieldName();
+                                file_name = fi.getName();
 
-                        File uploadDir = new File(upload_path);
-                        if (!uploadDir.exists()) {
-                            uploadDir.mkdirs();
+                                File uploadDir = new File(upload_path);
+                                if (!uploadDir.exists()) {
+                                    uploadDir.mkdirs();
+                                }
+
+                                int inStr = file_name.indexOf(".");
+                                String Str = file_name.substring(0, inStr);
+
+                                file_name = brand_name + "_" + Str + ".jpeg";
+                                boolean isInMemory = fi.isInMemory();
+                                long sizeInBytes = fi.getSize();
+
+                                String filePath = upload_path + File.separator + file_name;
+                                File storeFile = new File(filePath);
+
+                                fi.write(storeFile);
+                                brand.addBrands(brand_name, Integer.parseInt(look_id), file_name);
+                                sqlmethods.con.close();
+                                response.sendRedirect(request.getContextPath() + "/admin/brandpersonality.jsp");
+
+                                out.println("Uploaded Filename: " + filePath + "<br>");
+                        }else {
+                                response.sendRedirect(request.getContextPath() + "/admin/brandpersonality.jsp?exist=exist");
                         }
-
-                        int inStr = file_name.indexOf(".");
-                        String Str = file_name.substring(0, inStr);
-
-                        file_name = brand_name + "_" + Str + ".jpeg";
-                        boolean isInMemory = fi.isInMemory();
-                        long sizeInBytes = fi.getSize();
-
-                        String filePath = upload_path + File.separator + file_name;
-                        File storeFile = new File(filePath);
-
-                        fi.write(storeFile);
-
-                        out.println("Uploaded Filename: " + filePath + "<br>");
                     }
                 }
-                sqlmethods.setDatabaseConnection();
-                brand.addBrands(brand_name, Integer.parseInt(look_id), file_name);
-                sqlmethods.con.close();
-                response.sendRedirect(request.getContextPath() + "/admin/brandpersonality.jsp");
                 out.println("</body>");
                 out.println("</html>");
             } else {

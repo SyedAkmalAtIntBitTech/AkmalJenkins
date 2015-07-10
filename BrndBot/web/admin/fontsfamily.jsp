@@ -26,24 +26,51 @@
         <script src="../js/fontsfamily.js" type="text/javascript"></script>
         <title>fonts family</title>
     </head>
+    <%!
+        Integer num = 1;
+        String exist = "";
+        String exist1 = "";
+    %>
+    <%
+        try{
+            if (exist1 != ""){
+                exist1 = "";
+            }
+            if ((request.getParameter("exist") != null) && (request.getParameter("exist") != "")){
+                    exist = request.getParameter("exist");
+                    if (exist.equals("exist")){
+                        exist1 = "Record already exist";
+                    }else if (exist == "" ) {
+                        exist1 = "";
+                    }
+            }else if ((request.getParameter("exist") == null) && (request.getParameter("exist") == "")) {
+                    exist1 = "";
+            }
+        }catch (Exception e){
+            out.println(e.getCause());
+        }        
+    %>
+    
+    
     <%@include file="checksession.jsp" %>
     
     <body class="container" ng-app>
         <%@include file="menus.jsp" %>
         <div align="center" ng-controller="fontController">
-            <div style="margin-bottom: 20px;">
+            <div class="jumbotron" style="height: 280px; margin-top: 0px; padding-top: 20px; text-align: center;">
                 <form name="formfontfamily" action="<%= application.getContextPath() %>/ServletUploadFonts" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
                 <div>
                     <div class="col-md-3 col-md-offset-5">
-                        <p class="text-center">Add New Fonts</p>
+                        <p class="text-center">Add New Font:</p>
                     </div>
                 </div>
                     
-                <div>
+                    <div class="group">
                     <div class="col-md-3 col-md-offset-5">
-                        Font Name:  <input type="text"  class="form-control simplebox" id="fontname" name="fontname"/>
-                        Attach Font: <input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="fontfileName" />
+                        <%= exist1 %>
+                        <input type="text"  class="form-control simplebox" id="fontname" name="fontname"/><br>
+                        Attach Font: <input type="file" style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="fontfileName" /><br>
                         <!--  <label>Organization Name:</label>-->
                     </div><br>
                 </div>
@@ -81,13 +108,13 @@
 
             </form>-->
 
-            <div style="margin-top: 20px;">
+        <div class="jumbotron" style="margin-top: 20px;">
                
                 <div>&nbsp;</div>
                 <table border="1">
                     <tr>
                         <td>ID Number </td>
-                        <td>Organization Name</td>
+                        <td>Font Name</td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -96,17 +123,18 @@
                         sqlmethods.setDatabaseConnection();
                         prepared_statement = sqlmethods.con.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
-                        
+                        num =1;
                         while (result_set.next()) {
 
                     %>
                     <tr>
-                        <td><%= result_set.getInt("id")%></td>
-                        <td><input class="simplebox" type="text" name="<%= result_set.getInt("id")%>" id="<%= result_set.getInt("id")%>" value="<%= result_set.getString("font_name")%>" /></td>
+                        <td><%= num %></td>
+                        <td><%= result_set.getString("font_name")%></td>
                         <td><button class="btn btn-info" id="change" name="change" value="edit" ng-click="editFont(<%=result_set.getInt("id")%>,'<%= result_set.getString("font_name")%>')">edit</button></td>
                         <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteFont(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
                     <%
+                        num = num +1;
                         }
                         result_set.close();
                         prepared_statement.close();

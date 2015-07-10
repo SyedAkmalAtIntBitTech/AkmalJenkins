@@ -33,7 +33,7 @@
     <body ng-app  class="container">
         <%@include file="menus.jsp" %>
         <div align="center" ng-controller="organizationController" >
-            <div class="jumbotron">
+            <div class="jumbotron" style="height: 220px; margin-top: 0px; padding-top: 20px;">
             <form class="form-horizontal" name="formorganization1" ng-controller="organizationController">
 
                 <div class="group">
@@ -44,7 +44,7 @@
                 <div class="group">
                     <div class="col-md-3 col-md-offset-5">
                         <input type="text"  class="form-control simplebox" id="organizationname" name="organizationname" ng-model="organization.organizationname"/>
-                        <!--                        <label>Organization Name:</label>-->
+                        <br>
                     </div>
                 </div>
                 <br>
@@ -73,17 +73,18 @@
                         sqlmethods.setDatabaseConnection();
                         prepared_statement = sqlmethods.con.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
-                        
+                        num = 1;
                         while (result_set.next()) {
 
                     %>
                     <tr>
-                        <td><%= result_set.getInt("id")%></td>
+                        <td align="left">&nbsp;<%= num %></td>
                         <td><input class="simplebox" type="text" name="<%= result_set.getInt("id")%>" id="<%= result_set.getInt("id")%>" value="<%= result_set.getString("organization_name")%>" /></td>
                         <td><button class="btn btn-info" id="change" name="change" value="edit" ng-click="changeOrganization(<%=result_set.getInt("id")%>)">edit</button></td>
                         <td><button class="btn btn-info" id="organization" name="organization" value="delete" ng-click="deleteOrganization(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
                     <%
+                        num = num +1;
                         }
                         result_set.close();
                         prepared_statement.close();

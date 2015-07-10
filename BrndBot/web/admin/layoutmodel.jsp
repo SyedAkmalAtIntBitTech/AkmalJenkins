@@ -78,8 +78,6 @@
             var no1 = response.indexOf(",");
             response1 = response.substr(0, no1);
             response2 = response.substr(no1+1,len);
-            alert(response1);
-            alert(response2);
             document.getElementById("textSize").innerHTML=response2;
             document.getElementById("textFontFamily").innerHTML=response1;
       }   
@@ -361,77 +359,64 @@ Font Family: <select name="textFontFamily" id="textFontFamily" >
                 </p>
             </div>
         </div>
-        
-        
-        
         <div id="main">
-                    
-
-            <p>
+            <form action="<%= application.getContextPath()%>/Model" method="post">
                 Organization : <select name="organization" onchange="showUsers(this.value)">
-<% 
-        SM.setDatabaseConnection();
-        Query = "Select * from tbl_organization";
-        ps = SM.con.prepareStatement(Query);
-        
-        rs = ps.executeQuery();
-        while(rs.next()){
-            id = rs.getInt("id");
-            org_name = rs.getString("organization_name");
-%>            
-            <option value="<%= id %>"><%= org_name %></option>
-            <%
-        }
-        ps.close();
-        rs.close();
-        SM.con.close();
-            %>
-                </select><br><br>
-                Users: <select id='users'  onchange="showFonts(this.value)">
-                <option value="0"></option>
-             </select>
-    Categories: <select id="categories">
-                        <option value="0"></option>
-    </select><br><br>
+                    <% 
+                            SM.setDatabaseConnection();
+                            Query = "Select * from tbl_organization";
+                            ps = SM.con.prepareStatement(Query);
+
+                            rs = ps.executeQuery();
+                            while(rs.next()){
+                                id = rs.getInt("id");
+                                org_name = rs.getString("organization_name");
+                    %>            
+                                        <option value="<%= id %>"><%= org_name %></option>
+                    <%
+                            }
+                            ps.close();
+                            rs.close();
+                            SM.con.close();
+                    %>
+                                      </select><br><br>
+                Users: <select id='users' name="users" onchange="showFonts(this.value)">
+                            <option value="0"></option>
+                         </select>
+                Categories: <select id="categories" name="categories">
+                                    <option value="0"></option>
+                                </select><br><br>
                 Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
-            </p>
-            <form action="<%= application.getContextPath()%>/Model" >
-                <input type="hidden" name="containerstyle" id="containerstyle">
-                <input type="hidden" name="textstyle" id="textstyle">
-                <input type="hidden" name="element" id="element">
-                <input type="hidden" name="mapper" id="mapper">
-                <input type="hidden" name="layout" id="layout" >
-                <input type="button" value="save" onclick="passvaluetoinputfield();">
-                <input type="submit" value="submit">
 
-            </form>
-            
-         <div id="popup">
-          <div id="content">
-              Mapper file name<input type="text" id="mapperxml" required><br><br>
-              Layout file name<input type="text" id="layoutxml" requireds><br>
-             mail <input type="checkbox" name="socialmedia"/>
-             facebook<input type="checkbox" name="socialmedia"/>
-              <input id="popupclose" type="Button" value="Save"/>   
-           </div>   
+                            <input type="hidden" name="containerstyle" id="containerstyle">
+                            <input type="hidden" name="textstyle" id="textstyle">
+                            <input type="hidden" name="element" id="element">
+                            <input type="hidden" name="mapper" id="mapper">
+                            <input type="hidden" name="layout" id="layout" >
+                            <input type="button" value="save" onclick="passvaluetoinputfield();">
 
-          </div>
-            
-            
+                            <div id="popup">
+                             <div id="content">
+                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
+                                 Layout file name<input type="text" id="layoutxml" requireds><br>
+                                 email <input type="checkbox" name="mail" value="mail"/>
+                                 social media<input type="checkbox" name="socialmedia" value="socialmedia" />
+                                 <input id="popupclose" type="Button" value="close"/>   
+                              </div>   
+
+                             </div>
+
+                            <input type="submit" value="submit">
+                        </form>
             
             <div class="container">
-
-
-
-
 
             </div>
              <div class='col-md-10'>
                         <ul id='list2' class='col-md-4' >
                             <li id="lab"></li>
                         </ul> 
-                    </div>
-
+             </div>
 
         </div>
 

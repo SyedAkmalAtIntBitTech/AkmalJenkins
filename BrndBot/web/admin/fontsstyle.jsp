@@ -30,7 +30,7 @@
     
     <body ng-app  class="container">
         <%@include file="menus.jsp" %>
-        <div align="center" ng-controller="fontsStyleController" >
+        <div class="jumbotron" style="margin-top: 0px; padding-top: 20px; text-align: center;" ng-controller="fontsStyleController" >
             <form class="form-horizontal" name="formFonts" ng-controller="fontsStyleController">
 
                 <div class="group">
@@ -54,13 +54,13 @@
 
             </form>
 
-            <div>
+            <div align="center">
                
                 <div>&nbsp;</div>
                 <table border="1">
                     <tr>
                         <td>ID Number </td>
-                        <td>Organization Name</td>
+                        <td>Font Style</td>
                         <td></td>
                         <td></td>
                     </tr>

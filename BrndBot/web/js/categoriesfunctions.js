@@ -9,12 +9,12 @@ function validate() {
     var files = $("#filesToUpload").val();
 
     if (category_name === "") {
-        alert("please enter the brand name");
+        alert("please enter the category name");
         $("#category_name").focus();
         return false;
     }
     if (parseInt(organization) === 0) {
-        alert("No look selected. please select the look");
+        alert("No organization selected. please select the organization");
         $("#organization").focus();
         return false;
     }

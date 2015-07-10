@@ -25,7 +25,7 @@
            sqlmethods.admin_session = request.getSession(true);
            checked = (String)sqlmethods.admin_session.getAttribute("AdminChecked");
            if (checked == null || checked.equals("false")){
-               response.sendRedirect(request.getContextPath()+"/admin/adminlogin.jsp");
+               response.sendRedirect(request.getContextPath()+"/admin/login.jsp");
            } 
         }catch (Exception e){
             out.println(sqlmethods.error);

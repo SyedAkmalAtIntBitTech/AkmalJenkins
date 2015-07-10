@@ -27,58 +27,49 @@
         <title>brand personality</title>
         
     </head>
-    <%@include file="checksession.jsp" %>
 
-    <body ng-app  >
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="adminindex.jsp">Brand Bot</a>
-    </div>
-    <div>
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="adminindex.jsp">Home</a></li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Fonts <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-              <li><a href="fontsSize.jsp">Fonts Size</a></li>
-              <li><a href="fontsfamily.jsp">Fonts Family</a></li>
-              <li><a href="fontsstyle.jsp">Fonts Style</a></li>
-              <li><a href="fonttheme.jsp">Font theme</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Colors<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-              <li><a href="colors.jsp">Colors</a></li>
-              <li><a href="colortheme.jsp">Color theme</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Category<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-              <li><a href="categories.jsp">Category</a></li>
-              <li><a href="subcategories.jsp">Sub category</a></li>
-          </ul>
-        </li>
-        <li><a href="organizations.jsp">Organization</a></li>
-        <li><a href="brandpersonality.jsp">Brand Personality</a></li>
-        <li><a href="looks.jsp">Looks</a></li>
-        <li><a href="model.jsp">Layout mapper</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-        <div class="container">
+    <%!
+        Integer num = 1;
+        String exist = "";
+        String exist1 = "";
+    %>
+    <%
+        try{
+            if (exist1 != ""){
+                exist1 = "";
+            }
+            if ((request.getParameter("exist") != null) && (request.getParameter("exist") != "")){
+                    exist = request.getParameter("exist");
+                    if (exist.equals("exist")){
+                        exist1 = "Record already exist";
+                    }else if (exist == "" ) {
+                        exist1 = "";
+                    }
+            }else if ((request.getParameter("exist") == null) && (request.getParameter("exist") == "")) {
+                    exist1 = "";
+            }
+        }catch (Exception e){
+            out.println(e.getCause());
+        }        
+    %>
+    
+    <%@include file="checksession.jsp" %>
+    <%@include file="menus.jsp" %>
+    <body ng-app class="container">
+        <div>
             <div class="jumbotron" align="center">
                 <div style="margin-top: 0px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
 
-                <form class="form-horizontal" name="formpersonality" action="<%= application.getContextPath() %>/ServletAddPersonality" enctype="multipart/form-data" method="post" onsubmit="return validate()">
+                    <form class="form-horizontal" name="formpersonality" action="<%= application.getContextPath() %>/ServletAddPersonality" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
-                <div>
-                    <div class="col-md-3 col-md-offset-5">
-                        <p text-center >Add New Brand Personality</p>
-                    </div>
-                </div>
+                        <div class="group">
+                            <div class="col-md-3 col-md-offset-5">
+                                <p text-center >Add New Brand Personality:</p>
+                            </div>
+                        </div>
                     <div style="float:left; left:20px; padding-left: 166px;">
-                        Brand:<input type="text" class="form-control simplebox" id="brandname" name="brandname" /><br>
+                        <%= exist1 %>
+                        <input type="text" class="form-control simplebox" id="brandname" name="brandname" /><br>
                         Select Look: <select name="look" id="look" style="width:180px;">
                                     <option value="0">--select--</option>
                     <%
@@ -97,7 +88,7 @@
                     </div><br>    
                 <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
                     <div>
-                        Attach Image:<input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
+                        Attach Image:<input type="file" style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName"/><br>
                     </div><br>
                 </div>
 
@@ -114,7 +105,7 @@
             </div>
         </div>
 
-            <div class="container">
+            <div>
                             
             <div class="jumbotron" align="center" ng-controller="brandController" >
             <br>

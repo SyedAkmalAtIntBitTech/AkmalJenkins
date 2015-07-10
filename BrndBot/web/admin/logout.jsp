@@ -18,7 +18,7 @@
         try{
             sqlmethods.admin_session = request.getSession(true);
             sqlmethods.admin_session.invalidate();
-            response.sendRedirect(request.getContextPath() + "/admin/adminlogin.jsp");
+            response.sendRedirect(request.getContextPath() + "/admin/login.jsp");
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

@@ -20,10 +20,10 @@ public class SubCategories {
     public ResultSet result_set;
     SqlMethods sqlmethods = new SqlMethods();
     
-    public boolean checkAvailability(String brand_name)throws SQLException{
+    public boolean checkAvailability(String external_source, String external_source_keyword, String sub_category_name, String category_id)throws SQLException{
         boolean check = false;
         try{
-            query_string = "select * from tbl_brand_personality where brand_name='"+brand_name+"'";
+            query_string = "select * from tbl_sub_category where external_source='"+ external_source +"' and external_source_keyword='"+ external_source_keyword +"' and sub_category_name='"+ sub_category_name +"' and category_id='"+ category_id +"'";
 
             prepared_statement = sqlmethods.con.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();

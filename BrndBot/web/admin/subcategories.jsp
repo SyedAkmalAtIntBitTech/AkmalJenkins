@@ -44,7 +44,6 @@
                     x = document.getElementById("external_source").selectedIndex;
 
                     external_source = document.getElementsByTagName("option")[x].value;
-                    alert(external_source);
 
                     if (external_source == 0) {
                         alert("No external source selected, please select the external source");
@@ -81,6 +80,8 @@
                             if (data === "true") {
                                 alert("category added successfully");
                                 window.open(getHost() + 'admin/subcategories.jsp', "_self");
+                            } else if (data === "false") {
+                                alert("categories already exist");
                             } else if (data === error) {
                                 alert(data);
                             }
@@ -123,19 +124,34 @@
 
     </head>
 <%@include file="checksession.jsp" %>
-    <body ng-app>
+
+    <%!
+//        PreparedStatement prepared_statement;
+//        ResultSet result_set;
+//        String query_string;
+//        SqlMethods sqlmethods = new SqlMethods();
+//        HttpServletRequest request;
+//        HttpServletResponse response;
+//        String checked = "false";
+//        Integer user_id = 0;
+//        String company = "";
+//        
+//        Integer number = 1;
+
+    %>
+    <body ng-app class="container">
         <%@include file="menus.jsp" %>
-        <div align="center" ng-controller="categoryController" >
+        <div class="jumbotron" align="center" ng-controller="categoryController" >
             <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
                 <form ng-controller="categoryController">
 
-                    <div>
+                    <div class="group">
                         <div class="col-md-3 col-md-offset-5">
-                            <p text-center >Sub Categories</p>
+                            <p text-center >Sub Categories:</p>
                         </div>
                     </div>
                     <div style="float:left; left:20px; padding-left: 166px;">
-                        Sub Category Name:<input type="text" id="sub_category_name" name="sub_category_name" value=""/><br>
+                        <input type="text" id="sub_category_name" name="sub_category_name" value=""/><br>
                         External Source: <select name="external_source" id="external_source">
                             <option value="0">-- Select --</option>
                             <option value="Mindbody">Mindbody</option>
@@ -157,7 +173,7 @@
                         </select><br>
                     </div><br>    
 
-                    <div style="position: absolute; float:left; left:550px; top: 300px;">
+                    <div style="position: absolute; float:left; left:550px; top: 400px;">
                         <div>
                             <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="createSubCategory()">Save</button>
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
@@ -169,7 +185,7 @@
             <br>
             <div  style="margin-top: 0px;">
 
-                <div>&nbsp;Display Sub Categories<br></div>
+                <div><p text-center >Display Sub Categories:</p>
                 <table border="1" style="margin-top: 20px;">
                     <tr>
                         <td>ID Number </td>

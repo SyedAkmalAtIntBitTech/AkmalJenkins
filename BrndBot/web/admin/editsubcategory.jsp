@@ -46,7 +46,6 @@
                 x = document.getElementById("external_source").selectedIndex;
 
                 external_source = document.getElementsByTagName("option")[x].value;
-                alert(external_source);
                 
                 if (external_source == 0){
                     alert("No external source selected, please select the external source");
@@ -124,7 +123,7 @@
                         </div>
                     </div>
                     <div style="float:left; left:20px; padding-left: 166px;">
-                        <input type="hidden" id="sub_category_id" name="sub_category_id" value="<%= category_id %>"/>
+                        <input type="hidden" id="sub_category_id" name="sub_category_id" value="<%= sub_category_id %>"/>
                         Sub Category Name:<input type="text" id="sub_category_name" name="sub_category_name" value="<%= sub_category_name %>"/><br>
                         External Source: <select name="external_source" id="external_source">
                                                         <option value="0">-- Select --</option>

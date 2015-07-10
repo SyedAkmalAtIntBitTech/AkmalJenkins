@@ -20,10 +20,10 @@ public class Categories {
     public ResultSet result_set;
     SqlMethods sqlmethods = new SqlMethods();
     
-    public boolean checkAvailability(String brand_name)throws SQLException{
+    public boolean checkAvailability(String category, Integer organization)throws SQLException{
         boolean check = false;
         try{
-            query_string = "select * from tbl_brand_personality where brand_name='"+brand_name+"'";
+            query_string = "select * from tbl_category where organization_id='"+organization+"' and category_name='"+category+"'";
 
             prepared_statement = sqlmethods.con.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();

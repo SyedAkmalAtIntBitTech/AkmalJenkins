@@ -3,30 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package admin.controller;
+package com.intbit;
 
 import com.controller.SqlMethods;
-import java.io.BufferedReader;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.json.simple.JSONArray;
 
 /**
  *
  * @author intbit
  */
-public class ServletOrganization extends HttpServlet {
+public class ServletGetStyles extends HttpServlet {
 
     SqlMethods sqlmethods = new SqlMethods();
-    Organization organization = new Organization();
-    Fonts fonts = new Fonts();
-
+    String query = "", query1 = "";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,46 +39,32 @@ public class ServletOrganization extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        StringBuffer string_buffer = new StringBuffer();
+        PreparedStatement prepared_statement;
+        ResultSet result_set;
+        String xml_files;
+        JSONArray jsonarr = new JSONArray();
+        sqlmethods.session = request.getSession(true);
 
         try {
-            BufferedReader reader = request.getReader();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                string_buffer.append(line);
-            }
-            JSONParser parser = new JSONParser();
-            JSONObject joFonts = null;
-            joFonts = (JSONObject) parser.parse(string_buffer.toString());
-            String type = (String) joFonts.get("type");
-            sqlmethods.setDatabaseConnection();
-            if (type.equals("add")) {
-                String organization_name = (String) joFonts.get("organization_name");
-                boolean check = organization.checkAvailability(organization_name);
-                if (check) {
-                    out.write("false");
-                } else {
-                    organization.addOrganization(organization_name);
-                    out.write("true");
-                }
-            } else if (type.equals("edit")) {
-                String organization_id = (String) joFonts.get("organization_id");
-                String organization_name = (String) joFonts.get("organization_name");
-                boolean check = organization.checkAvailability(organization_name);
-                if (check) {
-                    out.write("false");
-                } else {
-                    organization.changeOrganization(Integer.parseInt(organization_id), organization_name);
-                    out.write("true");
-                }
-            } else if (type.equals("delete")) {
-                String organization_id = (String) joFonts.get("organization_id");
-                organization.deleteOrganization(Integer.parseInt(organization_id));
-                out.write("true");
-            }
+        sqlmethods.setDatabaseConnection();
+        Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
 
-        } catch (Exception e) {
-            out.write(sqlmethods.error);
+        String query_string = "Select layout from tbl_model where user_id="+ user_id +"";
+        sqlmethods.setDatabaseConnection();
+        
+        prepared_statement = sqlmethods.con.prepareStatement(query_string);
+        result_set = prepared_statement.executeQuery();
+        
+        while (result_set.next()){
+            jsonarr.add(result_set.getString("layout"));
+        }
+        result_set.close();
+        prepared_statement.close();
+
+        String json = new Gson().toJson(jsonarr);
+        response.setContentType("application/json");
+        response.getWriter().write(json);
+        }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }

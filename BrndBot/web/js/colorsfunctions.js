@@ -62,9 +62,7 @@ function colorsController($scope, $http) {
         var color_hex = '#' + hex;
         var color_name = '#' + name;
         var color_hex_value = $(color_hex).val();
-        alert(color_hex_value);
         var color_name_value = $(color_name).val();
-        alert(color_hex_value + color_name_value);
 
         function validate() {
             if (color_hex_value === "") {

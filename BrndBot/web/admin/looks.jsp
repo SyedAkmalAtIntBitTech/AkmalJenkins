@@ -27,32 +27,54 @@
         <title>Looks</title>
         
     </head>
-<%@include file="checksession.jsp" %>
-    
+    <%@include file="checksession.jsp" %>
+
     <%!
         Integer num = 1;
+        String exist = "";
+        String exist1 = "";
+        %>
+    <%
+        try{
+            if (exist1 != ""){
+                exist1 = "";
+            }
+            if ((request.getParameter("exist") != null) && (request.getParameter("exist") != "")){
+                    exist = request.getParameter("exist");
+                    if (exist.equals("exist")){
+                        exist1 = "Record already exist";
+                    }else if (exist == "" ) {
+                        exist1 = "";
+                    }
+            }else if ((request.getParameter("exist") == null) && (request.getParameter("exist") == "")) {
+                    exist1 = "";
+            }
+        }catch (Exception e){
+            out.println(e.getCause());
+        }        
     %>
-    <body ng-app  >
+    <body ng-app class="container" >
         <%@include file="menus.jsp" %>
         <div align="center" ng-controller="lookController" >
-            <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 200px;">
-                <form name="formorganization1" action="<%= application.getContextPath() %>/ServletAddLooks" enctype="multipart/form-data" method="post" onsubmit="return validate()">
+            <div class="jumbotron" style="height: 280px; margin-top: 0px; padding-top: 20px; text-align: center;">
+                <form class="form-horizontal" name="formorganization1" action="<%= application.getContextPath() %>/ServletAddLooks" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
-                <div>
+                <div class="group">
                     <div class="col-md-3 col-md-offset-5">
-                        <p class="text-center">Add New Looks</p>
+                        <p class="text-center">Add New Look:</p>
                     </div>
                 </div>
                     
-                <div>
+                <div class="group">
                     <div class="col-md-3 col-md-offset-5">
-                        Look Name: <input type="text"  class="form-control simplebox" id="lookname" name="lookname"/>
-                        Attach Image:<input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
+                        <%= exist1 %>
+                        <input type="text"  class="form-control simplebox" id="lookname" name="lookname"/><br>
+                        Attach Image:<input type="file" style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName" /><br>
                         <!--  <label>Organization Name:</label>-->
                     </div><br>
                 </div>
 
-                <div>
+                <div class="group">
                     <div class="col-md-3 col-md-offset-5">
                         <button id="Servicecontinue" type="submit" class="btn btn-info">Save</button>
                         <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
@@ -62,9 +84,9 @@
             </form>
             </div>
             <br>
-            <div  style="margin-top: 0px;">
+            <div class="jumbotron" style="margin-top: 0px;" align="centre">
                
-                <div>&nbsp;Display Looks<br></div>
+                <div class="group"><p class="text-center">Display Looks</p></div>
                 <table border="1" style="margin-top: 20px;">
                     <tr>
                         <td>ID Number </td>
@@ -79,18 +101,19 @@
                         sqlmethods.setDatabaseConnection();
                         prepared_statement = sqlmethods.con.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
-                        
+                        num = 1;
                         while (result_set.next()) {
 
                     %>
                     <tr>
-                        <td><%= result_set.getInt("id")%></td>
-                        <td><input class="simplebox" type="text" name="<%= result_set.getInt("id")%>" id="<%= result_set.getInt("id")%>" value="<%= result_set.getString("look_name")%>" /></td>
+                        <td align="left">&nbsp;<%= num %></td>
+                        <td><%= result_set.getString("look_name")%></td>
                         <td><a href="../images/Lookimages/<%= result_set.getString("file_name")%>"><%= result_set.getString("file_name")%></a></td>
                         <td><button class="btn btn-info" id="change" name="change" value="edit" ng-click="changeLooks(<%=result_set.getInt("id")%>,'<%=result_set.getString("look_name")%>')">edit</button></td>
                         <td><button class="btn btn-info" id="organization" name="organization" value="delete" ng-click="deleteLooks(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
                     <%
+                        num = num +1;
                         }
                     }catch (Exception e){
                         out.println(sqlmethods.error);
@@ -102,9 +125,9 @@
                 </table>
             </div>
             <br>
-
         </div>
-    <script>
+
+                <script>
         var fl = document.getElementById('filesToUpload');
 
         fl.onchange = function (e) {

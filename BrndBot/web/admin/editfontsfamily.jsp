@@ -35,7 +35,7 @@
     <body class="container" ng-app>
        <%@include file="menus.jsp" %>
         <div align="center" ng-controller="fontController">
-            <div style="margin-bottom: 20px;">
+            <div class="jumbotron" style="height: 280px; margin-top: 0px; padding-top: 20px; text-align: center;">
                 <form name="formfontfamily" action="<%= application.getContextPath() %>/ServletUpdateFonts" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
                 <div>
@@ -47,8 +47,8 @@
                 <div>
                     <div class="col-md-3 col-md-offset-5">
                         <input type="hidden" id="fontid" name="fontid" value="<%= font_id %>"/>  
-                        Font Name:  <input type="text"  class="form-control simplebox" id="fontname" name="fontname" value="<%= font_name %>"/>
-                        Attach Font: <input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="fontfileName" />
+                        <input type="text"  class="form-control simplebox" id="fontname" name="fontname" value="<%= font_name %>"/><br>
+                        Attach Font: <input type="file"  style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="fontfileName" /><br>
                         <!--  <label>Organization Name:</label>-->
                     </div><br>
                 </div>

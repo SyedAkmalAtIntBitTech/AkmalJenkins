@@ -53,7 +53,7 @@
                 <div class="group">
                     <div class="col-md-3 col-md-offset-5">
                         Color Name:
-                        <input type="text"  class="form-control simplebox" id="color_name" name="color_name" ng-model="colors.color_name"/>
+                        <input type="text"  class="form-control simplebox" id="color_name" name="color_name" ng-model="colors.color_name"/><br>
                         <!--                        <label>Organization Name:</label>-->
                     </div>
                 </div>
@@ -72,8 +72,8 @@
                 <table border="1">
                     <tr>
                         <td>ID Number </td>
-                        <td>Organization Name</td>
-                        <td></td>
+                        <td>Color Hexa decimal</td>
+                        <td>Color Name</td>
                         <td></td>
                         <td></td>
                     </tr>

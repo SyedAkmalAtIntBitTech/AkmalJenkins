@@ -78,6 +78,13 @@ label                {
   color:#999;
 }
 
+/* active state */
+#inputemail1:focus ~ label, #inputemail1:valid ~ label        {
+  left:-70px;
+  font-size:13px;
+  color:#999;
+}
+
 #inputpassword:focus ~ label, #inputpassword:valid ~ label{
     left:-70px;
   font-size:13px;

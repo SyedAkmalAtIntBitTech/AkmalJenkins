@@ -160,6 +160,14 @@
         <servlet-name>ServletLogin</servlet-name>
         <servlet-class>admin.controller.ServletLogin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletModel</servlet-name>
+        <servlet-class>com.intbit.ServletModel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletGetStyles</servlet-name>
+        <servlet-class>com.intbit.ServletGetStyles</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -327,6 +335,14 @@
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletModel</servlet-name>
+        <url-pattern>/ServletModel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletGetStyles</servlet-name>
+        <url-pattern>/ServletGetStyles</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

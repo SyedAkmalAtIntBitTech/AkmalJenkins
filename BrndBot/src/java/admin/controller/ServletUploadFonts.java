@@ -35,7 +35,7 @@ public class ServletUploadFonts extends HttpServlet {
     RequestDispatcher request_dispatcher;
     SqlMethods sqlmethods = new SqlMethods();
     String font_name, look_id;
-
+    boolean check = false;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -92,34 +92,39 @@ public class ServletUploadFonts extends HttpServlet {
                         }
 
                     }else {
-                        field_name = fi.getFieldName();
-                        file_name = fi.getName();
+                        
+                        sqlmethods.setDatabaseConnection();
+                        check = fonts.checkAvailability(font_name);
+                        if (check == false){
+                            
+                            field_name = fi.getFieldName();
+                            file_name = fi.getName();
 
-                        if (file_name != ""){
-                            File uploadDir = new File(upload_path);
-                            if (!uploadDir.exists()) {
-                                uploadDir.mkdirs();
+                            if (file_name != ""){
+                                File uploadDir = new File(upload_path);
+                                if (!uploadDir.exists()) {
+                                    uploadDir.mkdirs();
+                                }
+
+                                boolean isInMemory = fi.isInMemory();
+                                long sizeInBytes = fi.getSize();
+
+                                String filePath = upload_path + File.separator + file_name;
+                                File storeFile = new File(filePath);
+
+                                fi.write(storeFile);
+                                fonts.addFont(font_name, file_name);
+                                sqlmethods.con.close();
+
+                                out.println("Uploaded Filename: " + filePath + "<br>");
+                                response.sendRedirect(request.getContextPath() + "/admin/fontsfamily.jsp");
                             }
-
-                            boolean isInMemory = fi.isInMemory();
-                            long sizeInBytes = fi.getSize();
-
-                            String filePath = upload_path + File.separator + file_name;
-                            File storeFile = new File(filePath);
-
-                            fi.write(storeFile);
-
-                            out.println("Uploaded Filename: " + filePath + "<br>");
-
+                            }else {
+                                response.sendRedirect(request.getContextPath() + "/admin/fontsfamily.jsp?exist=exist");
                             }
                         }
-                }
-            }      
-                        sqlmethods.setDatabaseConnection();
-                        fonts.addFont(font_name, file_name);
-                        sqlmethods.con.close();
-                        
-                        response.sendRedirect(request.getContextPath() + "/admin/fontsfamily.jsp");
+                    }
+            }
             
         }catch (Exception e){
             System.out.println(e.getCause());

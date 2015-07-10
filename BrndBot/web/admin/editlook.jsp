@@ -34,8 +34,33 @@
         String look_id = request.getParameter("look_id");
         String look_name = request.getParameter("look_name");
     %>
+    <%!
+        Integer num = 1;
+        String exist = "";
+        String exist1 = "";
+    %>
+    <%
+        try{
+            if (exist1 != ""){
+                exist1 = "";
+            }
+            if ((request.getParameter("exist") != null) && (request.getParameter("exist") != "")){
+                    exist = request.getParameter("exist");
+                    if (exist.equals("exist")){
+                        exist1 = "Record already exist";
+                    }else if (exist == "" ) {
+                        exist1 = "";
+                    }
+            }else if ((request.getParameter("exist") == null) && (request.getParameter("exist") == "")) {
+                    exist1 = "";
+            }
+        }catch (Exception e){
+            out.println(e.getCause());
+        }        
+    %>
+    
     <body>
-                <%@include file="menus.jsp" %>
+       <%@include file="menus.jsp" %>
         <div>
             <form name="formLooks" action="<%= application.getContextPath()%>/ServletChangeLooks" enctype="multipart/form-data" method="post"  onsubmit="return validate()">
 
@@ -47,8 +72,9 @@
 
                 <div>
                     <div class="col-md-3 col-md-offset-5">
-                        <input type="hidden" name="lookid" id="lookid" value="<%= look_id%>"/>
-                        Look Name: <input type="text"  class="form-control simplebox" id="lookname" name="lookname" value="<%= look_name%>"/>
+                            <input type="hidden" name="lookid" id="lookid" value="<%= look_id%>"/>
+                            <%= exist1 %>
+                            <input type="text"  class="form-control simplebox" id="lookname" name="lookname" value="<%= look_name%>"/>
                         Attach Image:<input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
                         <!--  <label>Organization Name:</label>-->
                     </div><br>
@@ -56,8 +82,7 @@
 
                 <div>
                     <div class="col-md-3 col-md-offset-5">
-                        <button id="Servicecontinue" type="submit" class="btn btn-info">Save</button>
-                        <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
+                        <button id="Servicecontinue" type="submit" class="btn btn-info">Update</button>
                     </div>
                 </div>
 

@@ -78,6 +78,7 @@ public class Model extends HttpServlet {
         String textstylearray[] = textstyleinfo.split(",");
         String containerstylearray[] = containerstyle.split(" ");
         String mapfiledataarray[] = mapfiledata.split(",");
+//        String image = request.getParameter("image");
         System.out.println(containerstyle);
 
         try {
@@ -108,14 +109,18 @@ public class Model extends HttpServlet {
                 Element element = doc.createElement("element");
                 rootElement.appendChild(element);
                 String field1[] = textstylearray[i].split(" ");
+                
                 for (int j = 0; j <= field1.length - 1; j++) {
                     String field2[] = field1[j].split(":");
+
                     for (int k = 0; k < field2.length - 1; k++) {
                         Attr attr = doc.createAttribute(field2[0]);
                         attr.setValue("" + field2[1]);
                         element.setAttributeNode(attr);
                     }
+
                 }
+
             }
 
 //            for mapper xml file
@@ -150,7 +155,8 @@ public class Model extends HttpServlet {
             transformer1.transform(source1, result1);
             layout.addLayouts(organization_id , user_id, category_id, layoutfilename, mapperfilename, type_email, type_social);
             System.out.println("File saved!");
-
+            response.sendRedirect(request.getContextPath() + "/admin/layoutmodel.jsp");
+            
         } catch (ParserConfigurationException pce) {
             System.out.println(pce.getCause());
             System.out.println(pce.getMessage());

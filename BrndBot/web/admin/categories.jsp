@@ -27,19 +27,46 @@
         <script src="../js/categoriesfunctions.js" type="text/javascript"></script>
     </head>
     <%@include file="checksession.jsp" %>
-    <body ng-app>
+    <%!
+        Integer num = 1;
+        String exist = "";
+        String exist1 = "";
+    %>
+    <%
+        try{
+            if (exist1 != ""){
+                exist1 = "";
+            }
+            if ((request.getParameter("exist") != null) && (request.getParameter("exist") != "")){
+                    exist = request.getParameter("exist");
+                    if (exist.equals("exist")){
+                        exist1 = "Record already exist";
+                    }else if (exist == "" ) {
+                        exist1 = "";
+                    }
+            }else if ((request.getParameter("exist") == null) && (request.getParameter("exist") == "")) {
+                    exist1 = "";
+            }
+        }catch (Exception e){
+            out.println(e.getCause());
+        }        
+    %>
+
+
+    <body ng-app class="container">
     <%@include file="menus.jsp" %>
-        <div align="center" ng-controller="categoryController" >
-            <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
+        <div class="jumbotron" align="center" ng-controller="categoryController" >
+            <div  style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
                 <form name="formCategories" action="<%= application.getContextPath()%>/ServletAddCategories" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
                     <div>
                         <div class="col-md-3 col-md-offset-5">
-                            <p text-center >Categories</p>
+                            <p text-center >Categories:</p>
                         </div>
                     </div>
                     <div style="float:left; left:20px; padding-left: 166px;">
-                        Category:<input type="text" id="category_name" name="category_name" value=""/><br>
+                        <%= exist1 %>
+                         <input type="text" id="category_name" name="category_name" value=""/><br>
                         Select organization: <select name="organization" id="organization" style="width:180px;">
                             <option value="0">--select--</option>
                             <%
@@ -64,7 +91,7 @@
                         </div><br>
                     </div>
 
-                    <div style="position: absolute; float:left; left:550px; top: 300px;">
+                    <div style="position: absolute; float:left; left:550px; top: 400px;">
                         <div>
                             <button id="Servicecontinue" type="submit" class="btn btn-info">Save</button>
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>

@@ -38,11 +38,11 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="adminindex.jsp">Brand Bot</a>
+      <a class="navbar-brand" href="index.jsp">Brand Bot</a>
     </div>
     <div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="adminindex.jsp">Home</a></li>
+        <li class="active"><a href="index.jsp">Home</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Fonts <span class="caret"></span></a>
           <ul class="dropdown-menu">
               <li><a href="fontsSize.jsp">Fonts Size</a></li>
@@ -112,7 +112,7 @@
                     </div><br>    
                 <div style=" float:left; left:0px; padding-left: 10px; padding-top: 20px;">
                     <div>
-                        Attach Image:<input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
+                        Attach Image:<input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
                     </div><br>
                 </div>
 

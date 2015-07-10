@@ -35,7 +35,7 @@ public class ServletAddLooks extends HttpServlet {
     RequestDispatcher request_dispatcher;
     SqlMethods sqlmethods = new SqlMethods();
     String lookName;
-
+    boolean check = false;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -93,35 +93,40 @@ public class ServletAddLooks extends HttpServlet {
                         }
 
                     } else {
-                        fieldName = fi.getFieldName();
-                        fileName = fi.getName();
+                        sqlmethods.setDatabaseConnection();
+                        check = look.checkAvailability(lookName);
 
-                        File uploadDir = new File(uploadPath);
-                        if (!uploadDir.exists()) {
-                            uploadDir.mkdirs();
+                        if (check == false){
+                            fieldName = fi.getFieldName();
+                            fileName = fi.getName();
+
+                            File uploadDir = new File(uploadPath);
+                            if (!uploadDir.exists()) {
+                                uploadDir.mkdirs();
+                            }
+
+                            int inStr = fileName.indexOf(".");
+                            String Str = fileName.substring(0, inStr);
+
+                            fileName = lookName + "_" + Str + ".png";
+                            boolean isInMemory = fi.isInMemory();
+                            long sizeInBytes = fi.getSize();
+
+                            String filePath = uploadPath + File.separator + fileName;
+                            File storeFile = new File(filePath);
+
+                            fi.write(storeFile);
+                            look.addLooks(lookName, fileName);
+
+                            out.println("Uploaded Filename: " + filePath + "<br>");
+                            sqlmethods.con.close();
+                            response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
+                        }else {
+                            response.sendRedirect(request.getContextPath() + "/admin/looks.jsp?exist=exist");
                         }
-
-                        int inStr = fileName.indexOf(".");
-                        String Str = fileName.substring(0, inStr);
-
-                        fileName = lookName + "_" + Str + ".png";
-                        boolean isInMemory = fi.isInMemory();
-                        long sizeInBytes = fi.getSize();
-
-                        String filePath = uploadPath + File.separator + fileName;
-                        File storeFile = new File(filePath);
-
-                        fi.write(storeFile);
-
-                        out.println("Uploaded Filename: " + filePath + "<br>");
+                        
                     }
                 }
-                sqlmethods.setDatabaseConnection();
-                look.addLooks(lookName, fileName);
-                sqlmethods.con.close();
-                response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
-//                        request_dispatcher = request.getRequestDispatcher("/admin/looks.jsp");
-//                        request_dispatcher.forward(request, response);
                 out.println("</body>");
                 out.println("</html>");
             } else {

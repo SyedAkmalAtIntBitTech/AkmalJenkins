@@ -9,7 +9,7 @@ function validate() {
     var files = $("#filesToUpload").val();
 
     if (font_name === "") {
-        alert("please enter the brand name");
+        alert("please enter the font name");
         $("#fontname").focus();
         return false;
     }

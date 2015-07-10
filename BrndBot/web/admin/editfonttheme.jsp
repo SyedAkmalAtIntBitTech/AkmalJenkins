@@ -23,7 +23,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
-        <script src="../js/colorthemefunctions.js" type="text/javascript"></script>
+<!--        <script src="../js/colorthemefunctions.js" type="text/javascript"></script>-->
 
         <title>font theme</title>
         <style>
@@ -158,7 +158,7 @@
 
     <body ng-app>
         <%@include file="menus.jsp" %>
-        <div align="center" ng-controller="colorthemeController" >
+        <div class="jumbotron"  align="center" ng-controller="colorthemeController" >
             <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 500px; width: 600px;">
                 <form ng-model="colortheme">
                     <div>
@@ -243,14 +243,15 @@
                         </select><br>
                     </div><br>    
 
-                    <div style="position: absolute; float:left; left:550px; top: 500px;">
+                    <div style="position: absolute; float:left; left:550px; top: 580px;">
                         <div>
-                            <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="updateFontTheme()">Save</button>
+                            <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="updateFontTheme()">Update</button>
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
                         </div>
                     </div>
 
                 </form>
             </div>
+        </div>                        
     </body>
 </html>
