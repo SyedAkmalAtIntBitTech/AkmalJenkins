@@ -64,8 +64,14 @@ public class ServletFontsSizes extends HttpServlet {
                 }
             } else if (type.equals("edit")) {
                 String font_id = (String) joFonts.get("font_id");
-                String font_name = (String) joFonts.get("font_size");
-                fonts.editFontSize(Integer.parseInt(font_id), font_name);
+                String font_size = (String) joFonts.get("font_size");
+                boolean check = fonts.checkAvailability(font_size);
+                if (check) {
+                    out.write("false");
+                } else {
+                    fonts.editFontSize(Integer.parseInt(font_id), font_size);
+                    out.write("true");
+                }
                 out.write("true");
             } else if (type.equals("delete")) {
                 String font_id = (String) joFonts.get("font_id");

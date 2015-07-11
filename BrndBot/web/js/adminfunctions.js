@@ -81,7 +81,10 @@ function organizationController($scope, $http) {
                     window.open(getHost() + 'admin/organizations.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
-                }
+                } else if (data === "false") {
+                    alert("Organization already exist");
+                    $("#organizationname").focus();
+                }    
             })
                     .error(function (data, status) {
                         // called asynchronously if an error occurs

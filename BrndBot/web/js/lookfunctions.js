@@ -13,7 +13,7 @@ function validate() {
         $("#lookname").focus();
         return false;
     }
-    if (files == "") {
+    if (files === "") {
         alert("No files selected, please select the file");
         $("#filesToUpload").focus();
         return false;
@@ -39,13 +39,12 @@ function lookController($scope, $http) {
             } else if (data === error) {
                 alert(data);
             }
-        })
+        });
     };
 
     $scope.changeLooks = function (look_id, look_name) {
         var configuration = global_host_address + "admin/editlook.jsp" + "?look_id=" + look_id + "&look_name=" + look_name + "";
         window.open(configuration, "_self");
-
-    }
+    };
 }
 

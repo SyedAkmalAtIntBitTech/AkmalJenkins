@@ -30,7 +30,7 @@ import org.apache.commons.fileupload.*;
 public class ServletChangeLooks extends HttpServlet {
 
     String filePath;
-    String fileName, fieldName, uploadPath, deletePath, file_name_to_delete;
+    String fileName, fieldName, uploadPath, deletePath, file_name_to_delete, uploadPath1;
     Looks look = new Looks();
     RequestDispatcher request_dispatcher;
     SqlMethods sqlmethods = new SqlMethods();
@@ -100,14 +100,15 @@ public class ServletChangeLooks extends HttpServlet {
                     }else {
                         
                         sqlmethods.setDatabaseConnection();
-//                        check = look.checkAvailability(lookname);
-//
-//                        if (check == false){
+                        check = look.checkAvailabilities(Integer.parseInt(lookid), lookname);
+
+                        if (check == false){
                             
                             fieldName = fi.getFieldName();
                             fileName = fi.getName();
 
                             File uploadDir = new File(uploadPath);
+                            
                             if (!uploadDir.exists()) {
                                 uploadDir.mkdirs();
                             }
@@ -129,9 +130,9 @@ public class ServletChangeLooks extends HttpServlet {
                             look.changeLooks(Integer.parseInt(lookid), lookname, fileName);
                             sqlmethods.con.close();
                             response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
-//                        }else {
-//                            response.sendRedirect(request.getContextPath() + "/admin/editlook.jsp?exist=exist");
-//                        }    
+                        }else {
+                            response.sendRedirect(request.getContextPath() + "/admin/editlook.jsp?exist=exist&look_id=" + lookid + "&look_name=" + lookname + "");
+                        }    
                     }
                 }
                 out.println("</body>");

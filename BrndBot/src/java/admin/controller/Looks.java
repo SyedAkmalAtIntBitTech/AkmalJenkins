@@ -20,6 +20,26 @@ public class Looks {
     public ResultSet result_set;
     SqlMethods sqlmethods = new SqlMethods();
     
+    public boolean checkAvailabilities(Integer id, String look_name)throws SQLException{
+        boolean check = false;
+        try{
+            query_string = "select * from tbl_look where id='"+ id +"' and look_name='"+look_name+"'";
+
+            prepared_statement = sqlmethods.con.prepareStatement(query_string);
+            result_set = prepared_statement.executeQuery();
+            
+        if (result_set.next()){
+            check = true;
+        }else {
+            check = false;
+        }
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
+        return check;
+    }
+
     public boolean checkAvailability(String look_name)throws SQLException{
         boolean check = false;
         try{
@@ -72,15 +92,33 @@ public class Looks {
             System.out.println(e.getMessage());
         }
         }
-    
+
         public void changeLooks(Integer org_id, String look_name, String file_name)throws SQLException{
             try{
-                 query_string = "UPDATE tbl_look"
+                
+                 String query_string1 = "UPDATE tbl_look"
                     + " SET look_name='" + look_name + "', file_name='"+file_name+ "'  WHERE id='" + org_id + "'";
                  
                  prepared_statement = sqlmethods.con.prepareStatement(query_string);
                  prepared_statement.executeUpdate();
                  prepared_statement.close();
+                 
+            }catch (Exception e){
+                System.out.println(e.getCause());
+                System.out.println(e.getMessage());
+            }
+        }
+    
+        public void changeLookImage(Integer org_id, String look_name, String file_name)throws SQLException{
+            try{
+                
+                 query_string = "UPDATE tbl_look"
+                    + " SET file_name='"+file_name+ "' WHERE id='" + org_id + "' and look_name='"+look_name+"'";
+                 
+                 prepared_statement = sqlmethods.con.prepareStatement(query_string);
+                 prepared_statement.executeUpdate();
+                 prepared_statement.close();
+                 
             }catch (Exception e){
                 System.out.println(e.getCause());
                 System.out.println(e.getMessage());

@@ -75,8 +75,13 @@ public class ServletColors extends HttpServlet {
                 String color_id = (String) joFonts.get("color_id");
                 String color_hex = (String) joFonts.get("color_hex");
                 String color_name = (String) joFonts.get("color_name");
-                colors.edit(Integer.parseInt(color_id), color_hex, color_name);
-                out.write("true");
+                boolean check = colors.checkAvailability(color_hex, color_name);
+                if (check) {
+                    out.write("false");
+                } else {
+                    colors.edit(Integer.parseInt(color_id), color_hex, color_name);
+                    out.write("true");
+                }
             } else if (type.equals("delete")) {
                 String color_id = (String) joFonts.get("color_id");
                 colors.delete(Integer.parseInt(color_id));

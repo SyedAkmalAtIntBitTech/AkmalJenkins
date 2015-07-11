@@ -28,17 +28,18 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <script src="../js/lookfunctions.js" type="text/javascript"></script>
     </head>
-        <%@include file="checksession.jsp" %>
-
+   <%@include file="checksession.jsp" %>
     <%
         String look_id = request.getParameter("look_id");
         String look_name = request.getParameter("look_name");
     %>
+    
     <%!
         Integer num = 1;
         String exist = "";
         String exist1 = "";
     %>
+    
     <%
         try{
             if (exist1 != ""){
@@ -59,10 +60,10 @@
         }        
     %>
     
-    <body>
+    <body class="container">
        <%@include file="menus.jsp" %>
         <div>
-            <form name="formLooks" action="<%= application.getContextPath()%>/ServletChangeLooks" enctype="multipart/form-data" method="post"  onsubmit="return validate()">
+            <form name="formLooks" action="<%= application.getContextPath() %>/ServletChangeLooks" enctype="multipart/form-data" method="post"  onsubmit="return validate()">
 
                 <div>
                     <div class="col-md-3 col-md-offset-5">
@@ -72,9 +73,9 @@
 
                 <div>
                     <div class="col-md-3 col-md-offset-5">
-                            <input type="hidden" name="lookid" id="lookid" value="<%= look_id%>"/>
+                            <input type="hidden" name="lookid" id="lookid" value="<%= look_id %>"/>
                             <%= exist1 %>
-                            <input type="text"  class="form-control simplebox" id="lookname" name="lookname" value="<%= look_name%>"/>
+                            <input type="text"  class="form-control simplebox" id="lookname" name="lookname" value="<%= look_name %>"/>
                         Attach Image:<input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
                         <!--  <label>Organization Name:</label>-->
                     </div><br>

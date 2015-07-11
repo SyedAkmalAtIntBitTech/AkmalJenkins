@@ -65,8 +65,13 @@ public class ServletFontStyles extends HttpServlet {
             } else if (type.equals("edit")) {
                 String font_id = (String) joFonts.get("font_id");
                 String font_style = (String) joFonts.get("font_style");
-                fonts.editFontSize(Integer.parseInt(font_id), font_style);
-                out.write("true");
+                boolean check = fonts.checkAvailability(font_style);
+                if (check) {
+                    out.write("false");
+                } else {
+                    fonts.editFontSize(Integer.parseInt(font_id), font_style);
+                    out.write("true");
+                }
             } else if (type.equals("delete")) {
                 String font_id = (String) joFonts.get("font_id");
                 fonts.delete(Integer.parseInt(font_id));

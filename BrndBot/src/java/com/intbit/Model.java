@@ -54,6 +54,7 @@ public class Model extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         uploadPath = getServletContext().getRealPath("") + "/xml";
+//        uploadPath = getServletContext().getContextPath() + "/xml";
 
         Integer organization_id = Integer.parseInt(request.getParameter("organization"));
         Integer user_id = Integer.parseInt(request.getParameter("users"));

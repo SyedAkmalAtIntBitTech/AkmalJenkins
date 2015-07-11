@@ -21,6 +21,7 @@
     $scope.user = {};
 
     $scope.checkUser = function () {
+
         $http({
             method: 'POST',
             url: getHost() + 'ServletLogin',

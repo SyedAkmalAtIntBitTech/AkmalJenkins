@@ -9,8 +9,10 @@
 <%@page import="java.sql.PreparedStatement"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html>
     <head>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="../js/configurations.js"></script>
         <script type="text/javascript" src="../js/angular.min.js"></script>
@@ -27,13 +29,13 @@
         <title>Looks</title>
         
     </head>
-    <%@include file="checksession.jsp" %>
+        <%@include file="checksession.jsp" %>
 
     <%!
         Integer num = 1;
         String exist = "";
         String exist1 = "";
-        %>
+    %>
     <%
         try{
             if (exist1 != ""){
