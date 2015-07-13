@@ -20,29 +20,29 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-        <link href="../CSS/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link href="../CSS/site.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/site.css" rel="stylesheet" type="text/css"/>
        
-        <script src="../JS/jquery.blend.min.js" type="text/javascript"></script>
-        <script src="../JS/jquery-1.10.2.js" type="text/javascript"></script>
-        <script src="../JS/jquery-ui.js" type="text/javascript"></script>
-        <script src="../JS/site.js" type="text/javascript"></script>
+        <script src="../js/jquery.blend.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-1.10.2.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../js/site.js" type="text/javascript"></script>
         <!-- For color picker --> 
-        <link href="../CSS/colorpicker.css" rel="stylesheet" type="text/css"/>
-        <script src="../JS/colorpicker.js" type="text/javascript"></script>
+        <link href="../css/colorpicker.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/colorpicker.js" type="text/javascript"></script>
         <!-- For confirm dialog box -->
      	
-        <script src="../JS/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
+        <script src="../js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
 
         <!-- For image filter -->
-        <script src="../JS/colorup_min.js" type="text/javascript"></script>
+        <script src="../js/colorup_min.js" type="text/javascript"></script>
         <!-- For better color picker --> 
 
-        <script src="../JS/spectrum.js" type="text/javascript"></script>
+        <script src="../js/spectrum.js" type="text/javascript"></script>
        
-        <link href="../CSS/spectrum.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/spectrum.css" rel="stylesheet" type="text/css"/>
        
-      <script language="javascript" type="text/javascript">  
+     <script language="javascript" type="text/javascript">  
 
       var xmlHttp;  
       function showFonts(str){
@@ -94,20 +94,21 @@
             var no1 = response.indexOf(",");
             response1 = response.substr(0, no1);
             response2 = response.substr(no1+1,len);
-            var len1 = response2.length;
-            var no2 = response2.indexOf(",");
-
-            response3 = response2.substr(0, no2);
-            response4 = response2.substr(no2+1, len1);
-            var len2 = response4.length;
-            var no3 = response4.indexOf(",");
-            response5 = response4.substr(0, no3);
-            response6 = response4.substr(no3+1,len2);
+//            var len1 = response2.length;
+//            var no2 = response2.indexOf(",");
+//
+//            response3 = response2.substr(0, no2);
+//            response4 = response2.substr(no2+1, len1);
+//            var len2 = response4.length;
+//            var no3 = response4.indexOf(",");
+//            response5 = response4.substr(0, no3);
+//            response6 = response4.substr(no3+1,len2);
 
             document.getElementById("users").innerHTML=response1;
-            document.getElementById("categories").innerHTML=response3;
-            document.getElementById("textSize").innerHTML=response5;
-            document.getElementById("textFontFamily").innerHTML=response6;
+            document.getElementById("categories").innerHTML=response2;
+//            for dynamic text size 
+//            document.getElementById("textSize").innerHTML=response5;
+//            document.getElementById("textFontFamily").innerHTML=response6;
       }   
       }
             function showUsers(str){
@@ -174,19 +175,23 @@
                 </p>
 
                 <p>
-                    Font Size: <select id="textSize" name="textSize">
-                                     <option value="12">Font Size 1</option>
+                    Font Size: <select id="textSize">
+                                     <option value="8">Font Size 1</option>
+                                     <option value="12">Font Size 2</option>
+                                     <option value="14">Font Size 3</option>
+                                     <option value="18">Font Size 4</option>
+                                     <option value="22">Font Size 5</option>
                                    </select>
                 </p>
 
                 <p>
-<!--                    Font Family: <select id="textFontFamily">
+                    Font Family: <select id="textFontFamily">
                         <option value="Arial">Font Family 1</option>
                         <option value="Papyrus">Font Family 2</option>
                         <option value="Montserrat">Font Family 3</option>
                         <option value="Futura">Font Family 4</option>
                         <option value="Times New Roman">Font Family 5</option>
-                    </select>-->
+                    </select>
                     
                     
  
@@ -200,9 +205,9 @@
         String font_name="";
         
 %>
-Font Family: <select name="textFontFamily" id="textFontFamily" >
+<!--Font Family: <select name="textFontFamily" id="textFontFamily" >
                         <option value="0"></option>
-                    </select>
+                    </select>-->
                 </p>
                 <p>
                     Font Color: <input type="text" class='basic' id="colorPick" value="black" />
@@ -380,7 +385,7 @@ Font Family: <select name="textFontFamily" id="textFontFamily" >
                             SM.con.close();
                     %>
                                       </select><br><br>
-                Users: <select id='users' name="users" onchange="showFonts(this.value)">
+                Users: <select id='users' name="users">
                             <option value="0"></option>
                          </select>
                 Categories: <select id="categories" name="categories">
@@ -401,19 +406,19 @@ Font Family: <select name="textFontFamily" id="textFontFamily" >
                                  Layout file name<input type="text" id="layoutxml" requireds><br>
                                  email <input type="checkbox" name="mail" value="mail"/>
                                  social media<input type="checkbox" name="socialmedia" value="socialmedia" />
-                                 <input id="popupclose" type="Button" value="close"/>   
+                                 <input type="submit" id="popupclose" type="Button" value="Done"/>   
                               </div>   
 
                              </div>
 
-                            <input type="submit" value="submit">
+<!--                            <input type="submit" value="submit">-->
                         </form>
             
             <div class="container">
 
             </div>
              <div class='col-md-10'>
-                        <ul id='list2' class='col-md-4' >
+                        <ul id='list2' class='col-md-10' >
                             <li id="lab"></li>
                         </ul> 
              </div>
