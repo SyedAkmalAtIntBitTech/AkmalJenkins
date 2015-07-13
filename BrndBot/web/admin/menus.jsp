@@ -7,11 +7,14 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-        <a class="navbar-brand" href="adminindex.jsp"><p>Brand Bot</p></a>
+        <a class="navbar-brand" href="index.jsp"><p>BrndBot</p></a>
     </div>
     <div>
       <ul class="nav navbar-nav">
-          <li class="active"><a href="adminindex.jsp">Home</a></li>
+          <li class="active"><a href="index.jsp">Home</a></li>
+        <li><a href="organizations.jsp">Organization</a></li>
+        <li><a href="looks.jsp">Looks</a></li>
+        <li><a href="brandpersonality.jsp">Brand Personality</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Fonts <span class="caret"></span></a>
           <ul class="dropdown-menu">
               <li><a href="fontsSize.jsp">Fonts Size</a></li>
@@ -32,11 +35,8 @@
               <li><a href="subcategories.jsp">Sub category</a></li>
           </ul>
         </li>
-        <li><a href="organizations.jsp">Organization</a></li>
-        <li><a href="brandpersonality.jsp">Brand Personality</a></li>
-        <li><a href="looks.jsp">Looks</a></li>
-        <li><a href="layoutmodel.jsp">Layout mapper</a></li>
-        <li><a href="logout.jsp">Log out</a></li>
+         <li><a href="layoutmodel.jsp">Layout Model</a></li>
+        <li><a href="logout.jsp">Logout</a></li>
       </ul>
     </div>
   </div>
