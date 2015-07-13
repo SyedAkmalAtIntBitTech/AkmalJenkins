@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<layout>
-    <container Height="300" Width="500"/>
-    <element H-shadow="4px" V-shadow="2px" blur="3px" font-color="#d0e0e3" font-size="12px" font-style="italic" font-weight="bold" letter-spacing="15px" line-height="25px" opacity="0.5" tag="text" text-align="center" text-shadow="#ffff04" type="header1" webkit-transform="45" x-co-ordinates="190" y-co-ordinates="101"/>
-</layout>
