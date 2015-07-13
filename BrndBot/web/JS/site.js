@@ -309,7 +309,7 @@ $(document).ready(function () {
     });
     $("#textSize").change(function () {
         //alert($( "#textSize" ).val());
-        $("#" + selectedTextID).css("font-size", $("#textSize").val());
+        $("#" + selectedTextID).css("font-size", $("#textSize").val()+"px");
     });
 //    function changeFont(){
 //        alert("text");
@@ -358,7 +358,7 @@ $(document).ready(function () {
         $(".container").append("<div class=\"draggableBlock\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
         addBlockCount++;
-        addDefault();
+      
         addElements($("#elementText").find('option:selected').text());
         //$("#"+selectedTextID).css("background","url('http://www.hdwallpapersimages.com/wp-content/uploads/images/Child-Girl-with-Sunflowers-Images.jpg')");
         $("#" + selectedTextID).css("background-color", "#000000");
@@ -369,7 +369,7 @@ $(document).ready(function () {
 //$("#"+selectedTextID).css("background-repeat","no-repeat");
         //$("#"+selectedTextID).css("mix-blend-mode","screen");
         reloadTabs(3);
-
+        addDefault();
         $("#blockButton").click(function () {
             $("#" + selectedTextID).css("width", $("#blockWidth").val());
             $("#" + selectedTextID).css("height", $("#blockHeight").val());
@@ -414,16 +414,18 @@ $(document).ready(function () {
 
 
         $(".draggableBlock").draggable({
-            containment: ".container",
+        
             scroll: false,
             cursor: "move"
         });
 
         $(".draggableBlock").click(function (e) {
             //	alert('imagedrag');
+             
             var id = $(this).children("div").attr("id");
 
             selectedTextID = id;
+            hideMapper();
             //alert(selectedTextID);
             var childPos = $("#" + id).offset();
             var parentPos = $(this).parent().offset();
@@ -442,11 +444,12 @@ $(document).ready(function () {
         });
     });
     $("#addButton").click(function () {
-        $(".container").append("<div class=\"draggableButton\"><img src=\"buttons/button1.png\" id=\"" + $("#elementText").find('option:selected').text() + "\"></div>");
+        $(".container").append("<div class=\"draggableButton\"><img src=\"../buttons/button1.png\" id=\"" + $("#elementText").find('option:selected').text() + "\"></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
         addButtonCount++;
         addElements($("#elementText").find('option:selected').text());
         reloadTabs(2);
+        addDefault() ;
         $("#buttonSelect").change(function () {
             //alert("buttons/button"+$("#buttonSelect").val());
             $("#" + selectedTextID).attr('src', "buttons/button" + $("#buttonSelect").val() + ".png");
@@ -454,19 +457,19 @@ $(document).ready(function () {
         });
 
         $(".draggableButton").draggable({
-            containment: ".container",
+      
             scroll: false,
             cursor: "move"
         });
 
         $(".draggableButton").click(function (e) {
             //	alert('imagedrag');
-            addDefault() ;
+            
             var id = $(this).children("img").attr("id");
 
             selectedTextID = id;
             //alert(selectedTextID);
-            
+            hideMapper();
             var childPos = $("#" + id).offset();
             var parentPos = $(this).parent().offset();
 //alert(Math.round(childPos.left) + ", "+ parentPos.left);
@@ -485,20 +488,20 @@ $(document).ready(function () {
 
     });
     $("#addImageButton").click(function () {
-        addDefault();
+       
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
         $(".container").append("<div class=\"draggableImage\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
      
         addImageCount++;
         addElements($("#elementText").find('option:selected').text());
-        $("#" + selectedTextID).css("background", "url(images/default.png)");
+        $("#" + selectedTextID).css("background", "url(../images/default.png)");
         $("#" + selectedTextID).css("background-size", "contain");
         $("#" + selectedTextID).css("-webkit-background-size", "contain");
         $("#" + selectedTextID).css("background-repeat", "no-repeat");
         $("#" + selectedTextID).css("width", "100px");
         $("#" + selectedTextID).css("height", "100px");
-
+         addDefault();
         reloadTabs(1);
 
         $("#opacityImage").keyup(function (e) {
@@ -618,7 +621,7 @@ $(document).ready(function () {
         });
 
         $(".draggableImage").draggable({
-            containment: ".container",
+        
             scroll: false,
             cursor: "move"
         });
@@ -629,6 +632,7 @@ $(document).ready(function () {
 
             selectedTextID = id;
             //alert(selectedTextID);
+            hideMapper();
             var childPos = $("#" + id).offset();
             var parentPos = $(this).parent().offset();
 //alert(Math.round(childPos.left) + ", "+ parentPos.left);
@@ -648,6 +652,7 @@ $(document).ready(function () {
 
     });
     $("#addTextButton").click(function () {
+       
         $(".container").append("<div class=\"draggableText\"><textarea class =\"textAreas\" id=\"" + $("#elementText").find('option:selected').text() + "\">" + $("#elementText").find('option:selected').text() + "</textarea></div>");
         $("#textArea").val($("#elementText").find('option:selected').text());
         selectedTextID = $("#elementText").find('option:selected').text();
@@ -661,7 +666,7 @@ $(document).ready(function () {
         reload_color();
         reloadTabs(0);
 
-
+         addDefault();
         $("#lineHeight").val($("#" + selectedTextID).css("line-height").replace('px', ''));
 
         if ($("#" + selectedTextID).css("letter-spacing") == "0")
@@ -682,7 +687,7 @@ $(document).ready(function () {
 
         $(".draggableText").draggable(
                 {
-                    containment: ".container",
+                 
                     scroll: false,
                     cancel: "text",
                     cursor: "move"
@@ -789,7 +794,7 @@ $(document).ready(function () {
             $("#" + selectedTextID).val($("#textArea").val());
         });
         $(".draggableText").click(function (e) {
-            addDefault();
+          hideMapper();
             //	alert('drag');
             //$(".draggableText").css("padding","5px");
             var id = $(this).children("textarea").attr("id");
@@ -830,19 +835,21 @@ $(document).ready(function () {
 
 //.............................................................................
 
-var num1 = 0;
+var num1 = 1;
 //adding defult value and apoch
 function addDefault() {
 
     var num = 0;
     var fontnameis = [];
 //    $("#appenddiv"+(num1-1)).css("display","none");
-    $.ajax({
+    if(addElementsArray.length===num1){
+         $.ajax({
         type: "GET",
         url: "optionelement.xml",
         dataType: "xml",
         success: function (xml) {
-            $("#lab").append('<div class="col-md-5 " id="appenddiv' + num1 + '" style="display:block"><p id="' + num1 + '"> ' + addElementsArray[num1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
+//            alert( addElementsArray[num1]);
+            $("#lab").append('<div class="col-md-5 " id="appenddiv'+addElementsArray[num1-1]+'" style="display:none"><p id="' + num1 + '"> ' + addElementsArray[num1-1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
                                           <p id="hidepara' + num1 + '" class="col-md-3 "> Default Value <input id="inputfield' + num1 + '" type="text" value="default"><br> \n\
                                             Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" ></p><div>');
             $(xml).find('optionelement').each(function () {
@@ -863,9 +870,27 @@ function addDefault() {
 
 
     });
+    }
+   
 
 }
-
+var assa=[];
+var counterformapper=0;
+function hideMapper(){
+    
+//    alert(selectedTextID);
+   assa[counterformapper]=selectedTextID;
+   counterformapper++;
+//    alert("appenddiv"+selectedTextID);
+//    alert(assa.length);
+    $("#appenddiv"+selectedTextID).css("display","block");
+    
+    for(var i=0;i<assa.length-1;i++)
+    {
+     if(assa[i]!==selectedTextID){   
+    $("#appenddiv"+assa[i]).css("display","none");}
+   }
+}
 function componentToHex(c) {
     var hex = c.toString(16);
     return hex.length === 1 ? "0" + hex : hex;
@@ -918,14 +943,14 @@ function passvaluetoinputfield() {
      
       popupwindow();
       
-    var containerstyle = "Width:" + $("#containerWidth").val() +
-            " Height:" + $("#containerHeight").val();
+    var containerstyle = "Width!" + $("#containerWidth").val() +
+            " Height!" + $("#containerHeight").val();
 
     $("#containerstyle").val(containerstyle);
     var mapperdata = [];
     for (var i = 0; i <= addElementsArray.length - 1; i++) {
 
-        mapperdata[i] = " Element:" + addElementsArray[i] + " option:" + $("#Footer1dropdown-" + i).find('option:selected').text() + " Default:" + $("#inputfield" + i).val() + " epoch:" + $("#inputfield1" + i).val();
+        mapperdata[i] = " Element!" + addElementsArray[i] + " option!" + $("#Footer1dropdown-" + i).find('option:selected').text() + " Default!" + $("#inputfield" + i).val() + " epoch!" + $("#inputfield1" + i).val();
 //        alert(mapperdata);
 
         var style1;
@@ -955,7 +980,7 @@ function passvaluetoinputfield() {
         var dropshadowdata1;
            var childPos = $("#" + addElementsArray[i]).offset();
             var parentPos = $("#" + addElementsArray[i]).parent().parent().offset();
-            alert($("#" + addElementsArray[i]).attr("class"));          
+//            alert($("#" + addElementsArray[i]).attr("class"));          
             var childOffset = {
                 top: childPos.top - parentPos.top,
                 left: childPos.left - parentPos.left
@@ -968,71 +993,71 @@ function passvaluetoinputfield() {
           var filterdata=$("#" + addElementsArray[i]).css("-webkit-filter").replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','');
 //          alert(filterdata);
           var filterdataarray=filterdata.split(' ');
-          dropshadowdata1=" blur:"+filterdataarray[1] +" grayscale:"+filterdataarray[3]+ " sepia:"+filterdataarray[5]+" saturate:"+filterdataarray[7]+
-                                 " huerotate:"+filterdataarray[9]+ " invert:"+filterdataarray[11]+
-                                 " brightness:"+filterdataarray[13]+" contrast:"+filterdataarray[15];
+          dropshadowdata1=" blur!"+filterdataarray[1] +" grayscale!"+filterdataarray[3]+ " sepia!"+filterdataarray[5]+" saturate!"+filterdataarray[7]+
+                                 " huerotate!"+filterdataarray[9]+ " invert!"+filterdataarray[11]+
+                                 " brightness!"+filterdataarray[13]+" contrast!"+filterdataarray[15];
 //           alert(dropshadowdata1);
           
        }
         else{
         var dropshadowarr1 = dropshadow1.split(" ");
-        dropshadowdata1 =" Drop-shadow-color:"+"#" + color4 + " H-shadow:" + dropshadowarr1[3] + " V-shadow:" + dropshadowarr1[4] + " blur:" + dropshadowarr1[5];
+        dropshadowdata1 =" Drop-shadow-color!"+"#" + color4 + " H-shadow!" + dropshadowarr1[3] + " V-shadow!" + dropshadowarr1[4] + " blur!" + dropshadowarr1[5];
          }
         
         
        
         if (contenttype.startsWith('draggableImage')) {
-//            alert("image");
-            style1 = " tag:" + "image" +
-                     " x-co-ordinates:" + x1 +
-                     " y-co-ordinates:" + y1 +
-                     " width:" + $("#" + addElementsArray[i]).css("width") +
-                     " height:" + $("#" + addElementsArray[i]).css("height") +
-                     " opacity:" + $("#" + addElementsArray[i]).css("opacity") +
-                   
+//            alert($("#" + addElementsArray[i]).css("background-image"));
+            style1 =  " tag!" + "image" +
+                     " x-co-ordinates!" + x1 +
+                     " y-co-ordinates!" + y1 +
+                     " width!"   +$("#" + addElementsArray[i]).css("width")+
+                     " height!"  +$("#" + addElementsArray[i]).css("height")+
+                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
+                     " background-image!" +$("#" + addElementsArray[i]).css("background-image")+
                      dropshadowdata1+
 //                    " filter:" + $("#" + addElementsArray[i]).css("-webkit-filter") +
-                    " Blend:" + $("#" + addElementsArray[i]).css("background-blend-mode") +
-                    " blend-background-color:" + "#" + color3 ;
+                    " Blend!" + $("#" + addElementsArray[i]).css("background-blend-mode") +
+                    " blend-background-color!" + "#" + color3;
                   
         }
 
         if (contenttype.startsWith('draggableText')) {
-            style1 = " tag:" + "text" + 
-                     " x-co-ordinates:" + x1 +
-                     " y-co-ordinates:" + y1 +
-                    " font-weight:" + $("#" + addElementsArray[i]).css("font-weight") +
-                    " font-style:" + $("#" + addElementsArray[i]).css("font-style") +
-                    " text-align:" + $("#" + addElementsArray[i]).css("text-align") +
-                    " font-size:" + $("#" + addElementsArray[i]).css("font-size") +
-                    " font-color:" + "#" + color1 +
-                    " text-shadow:" + "#" + color2 +
+            style1 = " tag!" + "text" + 
+                     " x-co-ordinates!" + x1 +
+                     " y-co-ordinates!" + y1 +
+                    " font-weight!" + $("#" + addElementsArray[i]).css("font-weight") +
+                    " font-style!" + $("#" + addElementsArray[i]).css("font-style") +
+                    " text-align!" + $("#" + addElementsArray[i]).css("text-align") +
+                    " font-size!" + $("#" + addElementsArray[i]).css("font-size") +
+                    " font-color!" + "#" + color1 +
+                    " text-shadow!" + "#" + color2 +
                      dropshadowdata +
-                    " line-height:" + $("#" + addElementsArray[i]).css("line-height") +
-                    " letter-spacing:" + $("#" + addElementsArray[i]).css("letter-spacing") +
-                    " opacity:" + $("#" + addElementsArray[i]).css("opacity") +
-                    " webkit-transform:" + angle;
+                    " line-height!" + $("#" + addElementsArray[i]).css("line-height") +
+                    " letter-spacing!" + $("#" + addElementsArray[i]).css("letter-spacing") +
+                    " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
+                    " webkit-transform!" + angle;
 
         }
         if (contenttype.startsWith('draggableButton')) {
 
-            style1 = " tag:" + "button"+
-                     " x-co-ordinates:" + x1 +
-                     " y-co-ordinates:" + y1;
+            style1 = " tag!" + "button"+
+                     " x-co-ordinates!" + x1 +
+                     " y-co-ordinates!" + y1;
 
         }
 
         if (contenttype.startsWith('draggableBlock')) {
 
-            style1 = " tag:" + "block" +
-                     " x-co-ordinates:" + x1 +
-                     " y-co-ordinates:" + y1 +
-                    " width:" + $("#" + addElementsArray[i]).css("width") +
-                    " height:" + $("#" + addElementsArray[i]).css("height") +
-                    " opacity:" + $("#" + addElementsArray[i]).css("opacity") +
-                    " background-color:" + "#" + color3+ dropshadowdata1;
+            style1 = " tag!" + "block" +
+                     " x-co-ordinates!" + x1 +
+                     " y-co-ordinates!" + y1 +
+                    " width!" + $("#" + addElementsArray[i]).css("width") +
+                    " height!" + $("#" + addElementsArray[i]).css("height") +
+                    " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
+                    " background-color!" + "#" + color3+ dropshadowdata1;
         }
-        textareadetails[i] = style1+ " type:" + addElementsArray[i];
+        textareadetails[i] = style1+ " type" + addElementsArray[i];
                
                 
 

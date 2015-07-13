@@ -99,7 +99,7 @@ public class Model extends HttpServlet {
             rootElement.appendChild(container);
 
             for (int i = 0; i <= containerstylearray.length - 1; i++) {
-                String v[] = containerstylearray[i].split(":");
+                String v[] = containerstylearray[i].split("!");
                 Attr attr = doc.createAttribute(v[0]);
                 attr.setValue("" + v[1]);
                 container.setAttributeNode(attr);
@@ -112,7 +112,7 @@ public class Model extends HttpServlet {
                 String field1[] = textstylearray[i].split(" ");
                 
                 for (int j = 0; j <= field1.length - 1; j++) {
-                    String field2[] = field1[j].split(":");
+                    String field2[] = field1[j].split("!");
 
                     for (int k = 0; k < field2.length - 1; k++) {
                         Attr attr = doc.createAttribute(field2[0]);
@@ -130,7 +130,7 @@ public class Model extends HttpServlet {
                 rootElement1.appendChild(element1);
                 String field1[] = mapfiledataarray[i].split(" ");
                 for (int j = 0; j <= field1.length - 1; j++) {
-                    String field2[] = field1[j].split(":");
+                    String field2[] = field1[j].split("!");
                     for (int k = 0; k < field2.length - 1; k++) {
                         Attr attr = doc1.createAttribute(field2[k]);
                         attr.setValue("" + field2[1]);
