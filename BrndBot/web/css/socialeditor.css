@@ -72,6 +72,11 @@ and open the template in the editor.
     padding: 0;
     display:inline-table;
 }
+     #filterImageList li{
+                margin: 7px;
+                padding: 4px;
+                display:inline-table;   
+            }
 
 #shapecolorbox{
     position: relative;
@@ -364,4 +369,12 @@ and open the template in the editor.
                 margin:35px 0 0 80px;
                 width:50px;
 
+            }
+            
+            .imageFilter{
+                width: 50px;
+                height: 50px;
+            }
+            #filtername{
+                font-size: xx-small;
             }

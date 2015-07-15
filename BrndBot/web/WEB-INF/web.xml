@@ -168,6 +168,10 @@
         <servlet-name>ServletGetStyles</servlet-name>
         <servlet-class>com.intbit.ServletGetStyles</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CropImage</servlet-name>
+        <servlet-class>com.intbit.CropImage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -343,6 +347,10 @@
     <servlet-mapping>
         <servlet-name>ServletGetStyles</servlet-name>
         <url-pattern>/ServletGetStyles</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CropImage</servlet-name>
+        <url-pattern>/CropImage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

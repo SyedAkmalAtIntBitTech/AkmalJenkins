@@ -18,6 +18,13 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
+        
+        
+        <link rel="icon" href="data:,">
+        <link href="css/crop.css" rel="stylesheet" type="text/css"/>
+        <link href="css/example.css" rel="stylesheet" type="text/css"/>
+        <script src="js/crop.js" type="text/javascript"></script>
+	
         <script>
             var head1 = "Head1";
             var i = 1;
@@ -173,9 +180,18 @@ and open the template in the editor.
                             <p>EDIT THIS POST </p><p>go back</p> 
                             <div class="preview">
                                 
+                                    <!--
+                                            NOTE: To change the aspect ratio, look in crop.css
+                                            The class 'default' links the div to the innit(); function
+                                    --> 
+                                                            
+                                 
+
+                                
+                                
                             </div><br><br><br><br><br><br>
                             <div class="span3 col-md-offset-0" >
-                               
+                            
                                 <input id="continue" type="button" class="btn btn-primary" value="CONTINUE"><br><br>
 
                             </div>
@@ -210,22 +226,45 @@ and open the template in the editor.
                                             </ul>
                                             
                                         </div>
-                                        <div>
+                                        <div id="shapecontainer">
                                             <p>SHAPES</p>
                                             <ul id="shapemodificatoin">
                                                 <li> <p id="editorheadere">Header background<p></li>
                                                 <li><div class="blankcolor-box" id="shapecolorbox"></div></li>
                                             </ul>
                                         </div>
-                                        <div>
+                                        <div id="imagecontainer">
                                             <p>IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><p id="editorheadere">Teacher Image</p></li>
-                                                <li><p id="editorheadere" onclick="uploadimage()">change</p></li>
-                                                <li><p id="editorheadere">edit</p></li>
+                                                <li><p id="editorheadere">Image Name</p></li>
+                                                <li><input type="file"  class="uploadfile hide" id="uploadfile" name="uploadfile"/> 
+                                                    <label for="uploadfile" class="btn  newupload">change</label></li>
+                                                <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
+                                                <li></li>
                                             </ul>
                                         </div>
-                                    
+                                        
+                                        <div id="filtercontainer" style="display: none">
+                                            <p>IMAGE FILTER</p>
+                                            <ul id="filterImageList">
+                                            <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p id="filtername">Black <br>And White</p> </li>
+                                            <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p id="filtername">Textured</p></li>
+                                            <li><img class="imageFilter" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p id="filtername">Light</p></li>
+                                            <li><img class="imageFilter" id="convert4" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Heroic</p> </li>
+                                            <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Statue</p> </li>
+                                            <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Workout</p> </li>
+                                            </ul>
+                                        </div>
+                                        <div id="cropImageContainer" style="display: none">
+                                            <P>CROP</P>
+                                           <div class="default">
+			
+                                                <div class="cropSlider"></div>
+			
+                                          
+                                            <button class="cropButton">Crop</button> </div>
+                                            <P id="done" onclick="saveImageEdit()">DONE</P>
+                                        </div>
                                     
                                     </li>
                                     <li id="tabs-2">
@@ -281,6 +320,124 @@ and open the template in the editor.
                     $(".hamburger").show();
                 });
             });
+
+
+
+		
+		//  cropper settings
+		// --------------------------------------------------------------------------
+
+		// create new object crop
+		// you may change the "one" variable to anything
+//		var one = new CROP();
+//
+//		// link the .default class to the crop function
+//		one.init('.default');
+//
+//		// load image into crop
+//		one.loadImg('img/one.jpg');
+
+
+		//  on click of button, crop the image
+		// --------------------------------------------------------------------------
+              
+		$('body').on("click", "button", function() {
+
+			// grab width and height of .crop-img for canvas
+			var width = $('.crop-container').width() - 80,  // new image width
+				height = $('.crop-container').height() - 80;  // new image height
+
+			$('canvas').remove();
+			$('.default').after('<canvas width="'+width+'" height="'+height+'" id="canvas"/>');
+
+			var ctx = document.getElementById('canvas').getContext('2d'),
+				img = new Image,
+				w = coordinates(one).w,
+			    h = coordinates(one).h,
+			    x = coordinates(one).x,
+			    y = coordinates(one).y;
+
+			img.src = coordinates(one).image;
+
+			img.onload = function() {
+
+				// draw image
+                                alert("crop test");
+			    ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
+
+			    // display canvas image
+				$('canvas').addClass('output').show().delay('4000').fadeOut('slow');
+
+				// save the image to server
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/CropImage",
+					data: { image: canvas.toDataURL() }
+				})
+				.done(function(data) {
+
+					// You can pull the image URL using data.url, e.g.:
+					// $('body').append('<img src="'+data.url+'" />');
+
+				});
+
+			}
+
+		});
+
+
+		//  on click of .upload class, open .uploadfile (input file)
+		// --------------------------------------------------------------------------
+
+//		$('body').on("click", ".newupload", function() {
+//		    $('.uploadfile').click();
+//		});
+
+		// on input[type="file"] change
+		$('.uploadfile').change(function() {
+
+		    loadImageFile();
+
+		    // resets input file
+		    $('.uploadfile').wrap('<form>').closest('form').get(0).reset();
+		    $('.uploadfile').unwrap();
+
+		 });
+
+
+		//  get input type=file IMG through base64 and send it to the cropper
+		// --------------------------------------------------------------------------
+
+		oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+		function loadImageFile() {
+
+		    if(document.getElementById("uploadfile").files.length === 0) return;
+
+		    var oFile = document.getElementById("uploadfile").files[0];
+
+		    if(!rFilter.test(oFile.type)) {
+		        return;
+		    }
+
+		  oFReader.readAsDataURL(oFile);
+		}
+
+		oFReader.onload = function (oFREvent) {
+		    $('.preview').html('<div class="default"><div class="cropMain"></div>');
+               
+
+			// create new object crop
+			// you may change the "one" variable to anything
+			one = new CROP();
+
+			// link the .default class to the crop function
+			one.init('.default');
+
+			// load image into crop
+			one.loadImg(oFREvent.target.result);
+
+		};
 
         </script>  
 
