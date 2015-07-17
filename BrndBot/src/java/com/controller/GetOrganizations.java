@@ -22,11 +22,6 @@ public class GetOrganizations extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     SqlMethods sqlmethods = new SqlMethods();
-    PreparedStatement prepared_statement;
-    ResultSet result_set;
-    String organization_name = "";
-    int organization_id = 1;
-    JSONArray jsonarr = new JSONArray();
 
     public GetOrganizations() {
         super();
@@ -34,6 +29,11 @@ public class GetOrganizations extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             PrintWriter out = response.getWriter();
+            PreparedStatement prepared_statement;
+            ResultSet result_set;
+            String organization_name = "";
+            int organization_id = 1;
+            JSONArray jsonarr = new JSONArray();
 
         try {
             sqlmethods.setDatabaseConnection();
@@ -53,7 +53,6 @@ public class GetOrganizations extends HttpServlet {
 
             result_set.close();
             prepared_statement.close();
-
 
             String json = new Gson().toJson(jsonarr);
             response.setContentType("application/json");

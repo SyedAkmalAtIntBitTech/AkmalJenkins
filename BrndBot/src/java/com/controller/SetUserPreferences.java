@@ -23,7 +23,6 @@ import org.json.simple.parser.ParseException;
  */
 public class SetUserPreferences extends HttpServlet {
         SqlMethods sqlmethods = new SqlMethods();
-        StringBuffer string_buffer = new StringBuffer();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,6 +37,9 @@ public class SetUserPreferences extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        StringBuffer string_buffer = new StringBuffer();
+        StringBuilder string_builder = new StringBuilder();
+        
         sqlmethods.session = request.getSession(true);
         
         try {
@@ -45,19 +47,15 @@ public class SetUserPreferences extends HttpServlet {
              String line = null;
               while ((line = reader.readLine()) != null)
               {
-                string_buffer.append(line);
+                string_builder.append(line);
               }
 
             JSONParser parser = new JSONParser();
-            JSONObject joUser = null;
-            joUser = (JSONObject) parser.parse(string_buffer.toString());
+            JSONObject json_user_preferences = null;
             
-            String color1 = (String)joUser.get("finalcolor1");
-            String color2 = (String)joUser.get("finalcolor2");
-            String color3 = (String)joUser.get("finalcolor3");
-            String color4 = (String)joUser.get("finalcolor4");
-            String color5 = (String)joUser.get("finalcolor5");
-            String color6 = (String)joUser.get("finalcolor6");
+            String str = string_builder.toString();
+            String str_new = str.replace("&quot;", "\"");
+            json_user_preferences = (JSONObject) parser.parse(str_new);
             
             Integer user_id = (Integer)sqlmethods.session.getAttribute("UID");
             String brand_id = (String)sqlmethods.session.getAttribute("brandID");
@@ -67,10 +65,10 @@ public class SetUserPreferences extends HttpServlet {
 
             sqlmethods.setDatabaseConnection();
             Integer font_theme_id = sqlmethods.getFontthemeid(brand_id);
-            sqlmethods.addUserPreferences(user_id, Integer.parseInt(brand_id), font_theme_id,  studio_id, Integer.parseInt(look_id), color1, color2, color3, color4, color5, color6);
+            sqlmethods.addUserPreferences(user_id, Integer.parseInt(brand_id), font_theme_id,  studio_id, Integer.parseInt(look_id), json_user_preferences);
             sqlmethods.con.close();
         }catch(Exception e){
-            System.out.println(e.getCause());
+             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             out.write(sqlmethods.error);
         }finally {

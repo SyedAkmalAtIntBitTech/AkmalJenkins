@@ -60,54 +60,54 @@
         <script>
 
 
-                    angular.module("myapp", [])
-                    .controller("controllerGetColourPalettes", function($scope, $http) {
-                        
-                        $scope.showData = function( ){
+            angular.module("myapp", [])
+            .controller("controllerGetColourPalettes", function($scope, $http) {
 
-                         $scope.curPage = 0;
-                         $scope.pageSize = 4;
+                $scope.showData = function( ){
 
-                            $http({
-                                    method : 'GET',
-                                    url : 'GetColorPalettes'
-                            }).success(function(data, status, headers, config) {
+                 $scope.curPage = 0;
+                 $scope.pageSize = 4;
 
-                                $scope.datalists = data;
-
-                                $scope.numberOfPages = function() {
-                                                    return Math.ceil($scope.datalists.length / $scope.pageSize);
-                                 };
-                                if (data === error){
-                                    alert(data);
-                                }
-                            }).error(function(data, status, headers, config) {
-                                    alert("No data available, problem fetching the data");
-                                    // called asynchronously if an error occurs
-                                    // or server returns response with an error status.
-                            });
-
-                            }
-                    });
-                    
-                    function controllerGetColoursFromLogo($scope, $http) {
-
-                    $scope.getLogoColors = function() {
-                        $http({
+                    $http({
                             method : 'GET',
-                            url : 'GetColorsFromLogo'
+                            url : 'GetColorPalettes'
                     }).success(function(data, status, headers, config) {
-                            $scope.color = data.Colors;
-                            if (data === error ){
-                                alert(data);
-                            }
+
+                        $scope.datalists = data;
+
+                        $scope.numberOfPages = function() {
+                                            return Math.ceil($scope.datalists.length / $scope.pageSize);
+                         };
+                        if (data === error){
+                            alert(data);
+                        }
                     }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                     });
-                    };
+
                     }
+            });
+                    
+            function controllerGetColoursFromLogo($scope, $http) {
+
+            $scope.getLogoColors = function() {
+                $http({
+                    method : 'GET',
+                    url : 'GetColorsFromLogo'
+            }).success(function(data, status, headers, config) {
+                    $scope.color = data.Colors;
+                    if (data === error ){
+                        alert(data);
+                    }
+            }).error(function(data, status, headers, config) {
+                    alert("No data available, problem fetching the data");
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+            });
+            };
+            }
 
             function controllerCreateUserPreferences($scope, $http){
             $scope.createUserPreferences = function()
@@ -122,8 +122,14 @@
                             alert("Please fill all six colors, click MOST USED to select colors");
                         }
                    else{
-                        var colorObject = {"finalcolor1":color1, "finalcolor2":color2, "finalcolor3":color3, "finalcolor4":color4, "finalcolor5":color5, "finalcolor6":color6};
-                                $http({
+                       
+//                       var colorObject = "{"+getColor1()+":"+color1+","+getColor2()+":"+color2+","+getColor3()+":"+color3+","+getColor4()+":"+color4+","+getColor5()+":"+color5+","+getColor6()+":"+color6+"}";
+//                       var colorObject = '{\"+getColor1()+\":\"+color1+\", \"getColor2()\" :color2, getColor3() :color3, getColor4() :color4, getColor5():color5, getColor6():color6}";
+                        var colorObject ="{&quot;"+getColor1()+"&quot;:&quot;"+color1+"&quot;, &quot;"+getColor2()+"&quot;:&quot;"+color2+"&quot;, &quot;"+getColor3()+"&quot;:&quot;"+color3+"&quot;, &quot;"+getColor4()+"&quot;:&quot;"+color4+"&quot;, &quot;"+getColor5()+"&quot;:&quot;"+color5+"&quot;, &quot;"+getColor6()+"&quot;:&quot;"+color6+"&quot;}";
+//                        
+//                        var colorObject = {"color1" :color1, "color2" :color2, "color3" :color3, "color4" :color4, "color5":color5, "color6":color6};
+//                            alert(JSON.stringify(colorObject));
+                            $http({
                                 method: 'POST',
                                         url: getHost() + 'SetUserPreferences',
                                         headers: {'Content-Type': 'application/json'},

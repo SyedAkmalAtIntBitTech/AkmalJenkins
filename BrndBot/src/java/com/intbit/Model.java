@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,11 +50,18 @@ public class Model extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected String upload_path = null;
+
+    public void init(ServletConfig servletConfig) throws ServletException{
+      this.upload_path  = servletConfig.getInitParameter("uploadpath");
+    }
+
+        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
         uploadPath = getServletContext().getRealPath("") + "/xml";
+//        uploadPath = ServletConfig.getInitParameter("myParam");
 //        uploadPath = getServletContext().getContextPath() + "/xml";
 
         Integer organization_id = Integer.parseInt(request.getParameter("organization"));

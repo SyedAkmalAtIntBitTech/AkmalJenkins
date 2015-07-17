@@ -21,7 +21,6 @@ public class AddUpdateOrganization extends HttpServlet {
 
     SqlMethods sqlmethods = new SqlMethods();
     RequestDispatcher request_dispatcher;
-    StringBuffer string_buffer = new StringBuffer();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,6 +36,7 @@ public class AddUpdateOrganization extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         PreparedStatement preparestatement = null;
+        StringBuffer string_buffer = new StringBuffer();
         sqlmethods.session = request.getSession(true);
 
         try {

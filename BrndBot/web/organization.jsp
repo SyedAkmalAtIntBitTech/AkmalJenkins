@@ -34,22 +34,23 @@
                     <p id="comment1">We?re BrandBot, its nice to meet you.</p><br><br>
                 </div>
                 <form class="form-horizontal" ng-model="organizations" ng-controller="MyController">
-                    <div class="group">
 
+                    <div class="group">
                         <div class="col-md-3 col-md-offset-4">
                             <input id="inputcompanyname" class="form-control simplebox" type="text" required ng-model="organizations.company">
                             <label>YOUR COMPANY NAME</label><br><br>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <p id="comment3"  class="col-md-4 col-md-offset-4">Please select an organization:</p><br><br>
                         <div class="col-md-3 col-md-offset-4">
                             <select id="organizationdropdown" class="form-control" ng-model="organizations.org">
-
                                 <option ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}} </option>
                             </select>
                         </div>
                     </div>
+
                     <div  class="form-group">
                         <div class="col-sm-offset-4 col-md-5">
                             <button id="organisationbutton" type="submit"  class="btn btn-info" ng-click="createOrganization()">CONTINUE</button><br><br><br>

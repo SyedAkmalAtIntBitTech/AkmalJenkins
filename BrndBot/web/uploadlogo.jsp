@@ -118,7 +118,6 @@
                         <div class="fileUpload btn ">
                             <span>Click to upload a logo</span>
                             <input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="myFile" />
-                            <input type="text" name="fileName" ng
                         </div>
                     </div>
                 </div>
