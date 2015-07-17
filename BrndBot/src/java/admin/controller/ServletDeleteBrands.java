@@ -48,9 +48,9 @@ public class ServletDeleteBrands extends HttpServlet {
                 string_buffer.append(line);
             }
             JSONParser parser = new JSONParser();
-            JSONObject jsonLook = null;
-            jsonLook = (JSONObject) parser.parse(string_buffer.toString());
-            Long look_id = (Long) jsonLook.get("brand_id");
+            JSONObject json_brand = null;
+            json_brand = (JSONObject) parser.parse(string_buffer.toString());
+            Long look_id = (Long) json_brand.get("brand_id");
             sqlmethods.setDatabaseConnection();
             delete_path = getServletContext().getRealPath("") + "/images/Brandimages";
             sqlmethods.setDatabaseConnection();

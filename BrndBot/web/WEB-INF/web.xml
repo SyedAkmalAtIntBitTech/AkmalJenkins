@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <description>Upload Path</description>
+        <param-name>file-upload</param-name>
+        <param-value>/home/intbit/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
+    </context-param>
+    
     <servlet>
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>com.controller.UserServlet</servlet-class>
@@ -171,6 +177,18 @@
     <servlet>
         <servlet-name>CropImage</servlet-name>
         <servlet-class>com.intbit.CropImage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteGalleryImages</servlet-name>
+        <servlet-class>com.controller.DeleteGalleryImages</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetImageGallery</servlet-name>
+        <servlet-class>com.controller.GetImageGallery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadImages</servlet-name>
+        <servlet-class>com.controller.UploadImages</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
@@ -351,6 +369,18 @@
     <servlet-mapping>
         <servlet-name>CropImage</servlet-name>
         <url-pattern>/CropImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteGalleryImages</servlet-name>
+        <url-pattern>/DeleteGalleryImages</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetImageGallery</servlet-name>
+        <url-pattern>/GetImageGallery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadImages</servlet-name>
+        <url-pattern>/UploadImages</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

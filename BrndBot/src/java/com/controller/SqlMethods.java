@@ -16,6 +16,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
+import org.postgresql.util.PGobject;
 import pojos.TblColors;
 
 /**
@@ -111,7 +113,40 @@ public class SqlMethods {
         }
         return company_name;
     }
+    
+    public void AddImages(Integer user_id, String image_name)throws SQLException{
+        try{
+            PreparedStatement prepared_statement;
+            ResultSet result_set;
 
+            String query = "Insert Into tbl_user_images (user_id, image_name) values (?,?)";
+            prepared_statement = con.prepareStatement(query);
+
+            prepared_statement.setInt(1, user_id);
+            prepared_statement.setString(2, image_name);
+
+            prepared_statement.executeQuery();
+
+            prepared_statement.close();
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteImages(Integer image_id)throws SQLException{
+        try{
+              query_string = "Delete From tbl_user_images"
+                    + " WHERE id='" + image_id + "'";
+                 
+                 prepared_statement = con.prepareStatement(query_string);
+                 prepared_statement.executeUpdate();
+                 prepared_statement.close();
+        }catch (Exception e){
+            System.out.println(e.getCause());
+        }
+    }
+    
     public Integer getOrganizationID(Integer userId) throws ClassNotFoundException, SQLException {
         Integer org_id = 0;
         try {
@@ -252,9 +287,11 @@ public class SqlMethods {
         return checked;
     }
 
-    public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, String location, Integer look_id, String color1, String color2, String color3, String color4, String color5, String color6) {
+    public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, String location, Integer look_id, JSONObject json_object) {
+        PGobject pg_object = new PGobject();
+
         try {
-            query_string = "Insert Into tbl_user_preferences(user_id,brand_id,font_theme_id,location,look_id,color1,color2,color3,color4,color5,color6) Values(?,?,?,?,?,?,?,?,?,?,?)";
+            query_string = "Insert Into tbl_user_preferences(user_id,brand_id,font_theme_id,location,look_id, user_preferences) Values(?,?,?,?,?,?)";
             prepared_statement = con.prepareStatement(query_string);
 
             prepared_statement.setInt(1, user_id);
@@ -262,12 +299,10 @@ public class SqlMethods {
             prepared_statement.setInt(3, font_theme_id);
             prepared_statement.setString(4, location);
             prepared_statement.setInt(5, look_id);
-            prepared_statement.setString(6, color1);
-            prepared_statement.setString(7, color2);
-            prepared_statement.setString(8, color3);
-            prepared_statement.setString(9, color4);
-            prepared_statement.setString(10, color5);
-            prepared_statement.setString(11, color6);
+            
+            pg_object.setType("json");
+            pg_object.setValue(json_object.toJSONString());
+            prepared_statement.setObject(6, pg_object);
 
             prepared_statement.executeUpdate();
         } catch (Exception e) {
@@ -276,6 +311,7 @@ public class SqlMethods {
         }
     }
 
+    
     public int getFontthemeid(String brndid) throws SQLException {
         Integer IDNO = 0;
         try {
