@@ -172,9 +172,21 @@
         <servlet-name>CropImage</servlet-name>
         <servlet-class>com.intbit.CropImage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetFacebookManagePage</servlet-name>
+        <servlet-class>social.controller.GetFacebookManagePage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Fblogin</servlet-name>
+        <servlet-class>com.intbit.Fblogin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Fblogin</servlet-name>
+        <url-pattern>/Fblogin</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>Model</servlet-name>
@@ -351,6 +363,10 @@
     <servlet-mapping>
         <servlet-name>CropImage</servlet-name>
         <url-pattern>/CropImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetFacebookManagePage</servlet-name>
+        <url-pattern>/GetFacebookManagePage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
