@@ -41,6 +41,7 @@ public class SqlMethods {
     private static String database_user_id = "postgres";
     private static String database_user_password = "postgres";
     public String error = "system failure error";
+    public static String k_mind_body = "Mind_Body_Data";
 
     public void setDatabaseConnection() throws ClassNotFoundException, SQLException {
 

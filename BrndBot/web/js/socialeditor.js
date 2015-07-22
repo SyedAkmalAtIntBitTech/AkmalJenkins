@@ -12,11 +12,84 @@
  var teacher;
  var date;
  
- function setSocialParameters(){
+var head1 = "Head1";
+var i = 1;
+
+    var myapp = angular.module('imagegallery', []);
+
+    myapp.controller('samplecontoller', function ($scope,$http) {
+
+
+     $scope.showData = function( ){
+
+     $scope.curPage = 0;
+     $scope.pageSize = 2;
+
+        $http({
+                method : 'GET',
+                url : 'GetLayoutStyles'
+        }).success(function(data, status, headers, config) {
+
+            $scope.datalists = data;
+
+        $scope.numberOfPages = function() {
+                                return Math.ceil($scope.datalists.length / $scope.pageSize);
+                        };
+            if (data === error){
+                alert(data);
+            }
+        }).error(function(data, status, headers, config) {
+                alert("No data available, problem fetching the data");
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+        });
+
+        };
+
+    });
+
+    angular.module('imagegallery').filter('pagination', function()
+    {
+     return function(input, start)
+     {
+      start = +start;
+      return input.slice(start);
+     };
+    });
+
+
+function ControllerCategory($scope, $http) {
+
+    $scope.select_category_details = function (title, teacher, date) {
+
+        var category = {"title": title, "teacher": teacher, "date": date};
+
+        $http({
+            method: 'POST',
+            url: getHost() + 'socialeditor.jsp',
+            headers: {'Content-Type': 'application/json'},
+            data: category
+        }).success(function (data)
+        {
+            $scope.status = data;
+            if (data === error) {
+                alert(data);
+            }
+        })
+        .error(function (data, status) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            alert("request not succesful");
+        });
+    };
+
+}
+ 
+ function setSocialParameters(title, teacher, date){
         title = $("#title").val();
         teacher = $("#teacher").val();
         date = $("#date").val();
-        alert(title);
+        
  }
  
 $(document).ready(function () {
@@ -63,12 +136,12 @@ $(document).ready(function () {
                 type = $(this).attr("type");
                 var h = "";
                 var t = "";
-                if (type === "header1"){
-                    h = "yoga power";
-                }
-                else if(type === "body1"){
-                     t = "teacher1";
-                }
+//                if (type === "header1"){
+//                    h = "yoga power";
+//                }
+//                else if(type === "body1"){
+//                     t = "teacher1";
+//                }
                 var fontcolor;
                 var fontsize;
                 var fontstyle;
@@ -77,7 +150,6 @@ $(document).ready(function () {
                 var opacity=$(this).attr("opacity");
                 if (tag === "text")
                 {
-                    
                     
                      fontcolor = $(this).attr("font-color");
                      fontsize=$(this).attr("font-size");
@@ -156,7 +228,7 @@ $("#text").click(function (){
  $("#style").click(function (){
     $("#tabs-1").hide();
     $("#tabs-2").show();
-    $("#stylecontainer").append("<div id=style1></div>");
+//    $("#stylecontainer").append("<div id=style1></div>");
 //    $("#style1").css("width","100px").css("height","100pxs").css("background-color","#FF0000");
 });   
     

@@ -5,7 +5,6 @@
         <param-name>file-upload</param-name>
         <param-value>/home/intbit/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
     </context-param>
-    
     <servlet>
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>com.controller.UserServlet</servlet-class>
@@ -193,6 +192,18 @@
     <servlet>
         <servlet-name>GetFacebookManagePage</servlet-name>
         <servlet-class>social.controller.GetFacebookManagePage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetLayoutStyles</servlet-name>
+        <servlet-class>com.controller.GetLayoutStyles</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MindBodyDataServlet</servlet-name>
+        <servlet-class>com.controller.MindBodyDataServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MindBodyDetailServlet</servlet-name>
+        <servlet-class>com.controller.MindBodyDetailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
@@ -393,8 +404,22 @@
     <servlet-mapping>
         <servlet-name>UploadImages</servlet-name>
         <url-pattern>/UploadImages</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetFacebookManagePage</servlet-name>
         <url-pattern>/GetFacebookManagePage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetLayoutStyles</servlet-name>
+        <url-pattern>/GetLayoutStyles</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MindBodyDetailServlet</servlet-name>
+        <url-pattern>/MindBodyDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MindBodyDataServlet</servlet-name>
+        <url-pattern>/MindBodyDataServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

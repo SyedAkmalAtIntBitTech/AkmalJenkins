@@ -63,11 +63,14 @@ public class GetColorPalettes extends HttpServlet {
                 TblBrandColorTheme color_theme = new TblBrandColorTheme();
                 TblColors colors = new TblColors();
                 JSONArray jarr = new JSONArray();
+                
                 colors = sqlmethods.getColors(String.valueOf(result_set.getInt(1)), num1);
                 jarr.add(colors);
+                
                 if (themeNum == 5){
                     themeNum = 1;
                 }
+                
                 num1 = num1 +1;
                 colors = sqlmethods.getColors(String.valueOf(result_set.getInt(2)), num1);
                 jarr.add(colors);
