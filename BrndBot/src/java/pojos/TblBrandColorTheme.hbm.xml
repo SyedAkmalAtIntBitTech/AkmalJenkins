@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 17, 2015 3:49:50 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojos.TblBrandColorTheme" table="tbl_brand_color_theme" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="brandId" type="int">
+            <column name="brand_id" not-null="true" />
+        </property>
+        <property name="color1" type="string">
+            <column name="color1" length="30" not-null="true" />
+        </property>
+        <property name="color2" type="string">
+            <column name="color2" length="30" not-null="true" />
+        </property>
+        <property name="color3" type="string">
+            <column name="color3" length="30" not-null="true" />
+        </property>
+        <property name="color4" type="string">
+            <column name="color4" length="30" not-null="true" />
+        </property>
+        <property name="color5" type="string">
+            <column name="color5" length="30" not-null="true" />
+        </property>
+        <property name="color6" type="string">
+            <column name="color6" length="20" />
+        </property>
+        <property name="predefined" type="java.lang.Boolean">
+            <column name="predefined" />
+        </property>
+        <property name="themeName" type="string">
+            <column name="theme_name" length="30" />
+        </property>
+    </class>
+</hibernate-mapping>

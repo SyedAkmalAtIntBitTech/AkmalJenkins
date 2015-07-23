@@ -50,47 +50,48 @@ public class Model extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected String upload_path = null;
+    String upload_path = "";
 
-    public void init(ServletConfig servletConfig) throws ServletException{
-      this.upload_path  = servletConfig.getInitParameter("uploadpath");
-    }
+//    public void init(ServletConfig servletConfig) throws ServletException{
+//      this.upload_path  = servletConfig.getInitParameter("uploadpath");
+//    }
 
         protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        uploadPath = getServletContext().getRealPath("") + "/xml";
-//        uploadPath = ServletConfig.getInitParameter("myParam");
-//        uploadPath = getServletContext().getContextPath() + "/xml";
-
-        Integer organization_id = Integer.parseInt(request.getParameter("organization"));
-        Integer user_id = Integer.parseInt(request.getParameter("users"));
-        Integer category_id = Integer.parseInt(request.getParameter("categories"));
-
-        String mapperfilename = request.getParameter("mapper");
-        String layoutfilename = request.getParameter("layout");
-        
-        String email = request.getParameter("mail");
-        
-        if (email != null){
-            type_email = true;
-        }
-        String social = request.getParameter("socialmedia");
-
-        if (social != null){
-            type_social = true;
-        }
-        String textstyleinfo = request.getParameter("textstyle");
-        String containerstyle = request.getParameter("containerstyle");
-        String mapfiledata = request.getParameter("element");
-        String textstylearray[] = textstyleinfo.split(",");
-        String containerstylearray[] = containerstyle.split(" ");
-        String mapfiledataarray[] = mapfiledata.split(",");
-//        String image = request.getParameter("image");
-        System.out.println(containerstyle);
-
+            
         try {
+            
+            response.setContentType("text/html;charset=UTF-8");
+            uploadPath = getServletContext().getRealPath("") + "/xml";
+    //        uploadPath = ServletConfig.getInitParameter("myParam");
+    //        uploadPath = getServletContext().getContextPath() + "/xml";
+
+            Integer organization_id = Integer.parseInt(request.getParameter("organization"));
+            Integer user_id = Integer.parseInt(request.getParameter("users"));
+            Integer category_id = Integer.parseInt(request.getParameter("categories"));
+
+            String mapperfilename = request.getParameter("mapper");
+            String layoutfilename = request.getParameter("layout");
+
+            String email = request.getParameter("mail");
+
+            if (email != null){
+                type_email = true;
+            }
+            String social = request.getParameter("socialmedia");
+
+            if (social != null){
+                type_social = true;
+            }
+            String textstyleinfo = request.getParameter("textstyle");
+            String containerstyle = request.getParameter("containerstyle");
+            String mapfiledata = request.getParameter("element");
+            String textstylearray[] = textstyleinfo.split(",");
+            String containerstylearray[] = containerstyle.split(" ");
+            String mapfiledataarray[] = mapfiledata.split(",");
+    //        String image = request.getParameter("image");
+            System.out.println(containerstyle);
+
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 

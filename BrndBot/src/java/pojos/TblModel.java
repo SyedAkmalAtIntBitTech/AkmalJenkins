@@ -7,64 +7,63 @@ package pojos;
 public class TblModel implements java.io.Serializable {
 
     private int id;
-    private TblCategory tblCategory;
-    private TblModelNameValue tblModelNameValue;
-    private TblOrganization tblOrganization;
-    private String modelName;
 
-    public TblModel() {
-    }
+    private Integer organization_id;
+    private Integer user_id;
+    private Integer category_id;
+    private String layout_file_name;
+    private String model_file_name;
 
-    public TblModel(TblModelNameValue tblModelNameValue, String modelName) {
-        this.tblModelNameValue = tblModelNameValue;
-        this.modelName = modelName;
-    }
-
-    public TblModel(TblCategory tblCategory, TblModelNameValue tblModelNameValue, TblOrganization tblOrganization, String modelName) {
-        this.tblCategory = tblCategory;
-        this.tblModelNameValue = tblModelNameValue;
-        this.tblOrganization = tblOrganization;
-        this.modelName = modelName;
+  public TblModel() {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public TblCategory getTblCategory() {
-        return this.tblCategory;
+    public Integer getOrganization_id() {
+        return organization_id;
     }
 
-    public void setTblCategory(TblCategory tblCategory) {
-        this.tblCategory = tblCategory;
+    public void setOrganization_id(Integer organization_id) {
+        this.organization_id = organization_id;
     }
 
-    public TblModelNameValue getTblModelNameValue() {
-        return this.tblModelNameValue;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setTblModelNameValue(TblModelNameValue tblModelNameValue) {
-        this.tblModelNameValue = tblModelNameValue;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
-    public TblOrganization getTblOrganization() {
-        return this.tblOrganization;
+    public Integer getCategory_id() {
+        return category_id;
     }
 
-    public void setTblOrganization(TblOrganization tblOrganization) {
-        this.tblOrganization = tblOrganization;
+    public void setCategory_id(Integer category_id) {
+        this.category_id = category_id;
     }
 
-    public String getModelName() {
-        return this.modelName;
+    public String getLayout_file_name() {
+        return layout_file_name;
     }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
+    public void setLayout_file_name(String layout_file_name) {
+        this.layout_file_name = layout_file_name;
     }
+
+    public String getModel_file_name() {
+        return model_file_name;
+    }
+
+    public void setModel_file_name(String model_file_name) {
+        this.model_file_name = model_file_name;
+    }
+
 
 }

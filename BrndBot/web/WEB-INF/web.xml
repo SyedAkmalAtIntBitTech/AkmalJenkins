@@ -194,16 +194,16 @@
         <servlet-class>social.controller.GetFacebookManagePage</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PostToSocial</servlet-name>
-        <servlet-class>social.controller.PostToSocial</servlet-class>
+        <servlet-name>GetLayoutStyles</servlet-name>
+        <servlet-class>com.controller.GetLayoutStyles</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetTwitterToken</servlet-name>
-        <servlet-class>social.controller.GetTwitterToken</servlet-class>
+        <servlet-name>MindBodyDataServlet</servlet-name>
+        <servlet-class>com.controller.MindBodyDataServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PostToTwitter</servlet-name>
-        <servlet-class>social.controller.PostToTwitter</servlet-class>
+        <servlet-name>MindBodyDetailServlet</servlet-name>
+        <servlet-class>com.controller.MindBodyDetailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
@@ -410,40 +410,16 @@
         <url-pattern>/GetFacebookManagePage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PostToSocial</servlet-name>
-        <url-pattern>/PostToSocial</url-pattern>
-    </servlet-mapping>
-    <!--     <servlet>
-        <servlet-name>NewServlet</servlet-name>
-        <servlet-class>NewServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>NewServlet1</servlet-name>
-        <servlet-class>NewServlet1</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>NewServlet2</servlet-name>
-        <servlet-class>NewServlet2</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NewServlet</servlet-name>
-        <url-pattern>/NewServlet</url-pattern>
+        <servlet-name>GetLayoutStyles</servlet-name>
+        <url-pattern>/GetLayoutStyles</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>NewServlet1</servlet-name>
-        <url-pattern>/NewServlet1</url-pattern>
+        <servlet-name>MindBodyDetailServlet</servlet-name>
+        <url-pattern>/MindBodyDetailServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>NewServlet2</servlet-name>
-        <url-pattern>/NewServlet2</url-pattern>
-    </servlet-mapping>-->
-    <servlet-mapping>
-        <servlet-name>GetTwitterToken</servlet-name>
-        <url-pattern>/GetTwitterToken</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PostToTwitter</servlet-name>
-        <url-pattern>/PostToTwitter</url-pattern>
+        <servlet-name>MindBodyDataServlet</servlet-name>
+        <url-pattern>/MindBodyDataServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

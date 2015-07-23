@@ -12,11 +12,14 @@
  var teacher;
  var date;
  
- function setSocialParameters(){
+var head1 = "Head1";
+var i = 1;
+
+ function setSocialParameters(title, teacher, date){
         title = $("#title").val();
         teacher = $("#teacher").val();
         date = $("#date").val();
-        alert(title);
+        
  }
  
 $(document).ready(function () {
@@ -63,12 +66,12 @@ $(document).ready(function () {
                 type = $(this).attr("type");
                 var h = "";
                 var t = "";
-                if (type === "header1"){
-                    h = "yoga power";
-                }
-                else if(type === "body1"){
-                     t = "teacher1";
-                }
+//                if (type === "header1"){
+//                    h = "yoga power";
+//                }
+//                else if(type === "body1"){
+//                     t = "teacher1";
+//                }
                 var fontcolor;
                 var fontsize;
                 var fontstyle;
@@ -77,7 +80,6 @@ $(document).ready(function () {
                 var opacity=$(this).attr("opacity");
                 if (tag === "text")
                 {
-                    
                     
                      fontcolor = $(this).attr("font-color");
                      fontsize=$(this).attr("font-size");
@@ -156,7 +158,7 @@ $("#text").click(function (){
  $("#style").click(function (){
     $("#tabs-1").hide();
     $("#tabs-2").show();
-    $("#stylecontainer").append("<div id=style1></div>");
+//    $("#stylecontainer").append("<div id=style1></div>");
 //    $("#style1").css("width","100px").css("height","100pxs").css("background-color","#FF0000");
 });   
     

@@ -845,7 +845,7 @@ function addDefault() {
     if(addElementsArray.length===num1){
          $.ajax({
         type: "GET",
-        url: "optionelement.xml",
+        url: "mindbodyclassdatapoints.xml",
         dataType: "xml",
         success: function (xml) {
 //            alert( addElementsArray[num1]);
@@ -950,7 +950,7 @@ function passvaluetoinputfield() {
     var mapperdata = [];
     for (var i = 0; i <= addElementsArray.length - 1; i++) {
 
-        mapperdata[i] = " Element!" + addElementsArray[i] + " option!" + $("#Footer1dropdown-" + i).find('option:selected').text() + " Default!" + $("#inputfield" + i).val() + " epoch!" + $("#inputfield1" + i).val();
+        mapperdata[i] = " Element!" + addElementsArray[i] + " option!" + $("#Footer1dropdown-" +(i+1)).find('option:selected').text() + " Default!" + $("#inputfield" + (i+1)).val() + " epoch!" + $("#inputfield1" + (i+1)).val();
 //        alert(mapperdata);
 
         var style1;
@@ -1065,6 +1065,7 @@ function passvaluetoinputfield() {
         $("#textstyle").val(textareadetails);
 
     }
+    alert(mapperdata);
     $("#element").val(mapperdata);
 
 } 

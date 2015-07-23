@@ -115,21 +115,21 @@
         </style>
     </head>
     <body ng-app="imagegallery">
-            <div>
-                <div ng-controller="samplecontoller" ng-init="showData()">
+    <div>
+            <div ng-controller="samplecontoller" ng-init="showData()">
 
-                    <ul style="width:800px;">
-                         <li class="paginationclass" style="font-weight:bold;">Image Gallery</li>            
-                         <li class="paginationclass" ng-repeat="images in datalists | pagination: curPage * pageSize | limitTo: pageSize">
-                                    <div>
-                                        <img id="{{images.id}}" class="img-responsive lookchooser5" src="images/Gallery/{{images.user_id}}/{{images.image_name}}"  onclick="showText({{images.id}})" width=250 height=150 />
+                <ul style="width:800px;">
+                     <li class="paginationclass" style="font-weight:bold;">Image Gallery</li>            
+                     <li class="paginationclass" ng-repeat="images in datalists | pagination: curPage * pageSize | limitTo: pageSize">
+                                <div>
+                                    <img id="{{images.id}}" class="img-responsive lookchooser5" src="images/Gallery/{{images.user_id}}/{{images.image_name}}"  onclick="showText({{images.id}})" width=250 height=150 />
 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
-                                        <button name="delete" id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
-                                    </div> 
-                                    <div><p id=''></p></div>
-                                <div></div><p>&nbsp;</p>
-                         </li>
-                    </ul> 
+                                    <button name="delete" id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
+                                </div> 
+                                <div><p id=''></p></div>
+                            <div></div><p>&nbsp;</p>
+                     </li>
+                </ul> 
 
             <div class="pagination pagination-centered" ng-show="datalists.length">
             <ul class="pagination-controle pagination">
@@ -147,8 +147,6 @@
              </li>
             </ul>
             </div>
-    
-    
     
     </div>
 </div>    </body>
