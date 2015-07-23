@@ -71,7 +71,7 @@ and open the template in the editor.
         <script src="js/socialeditor.js" type="text/javascript"></script>
 
         <script>
-                
+           var id = 0;
            angular.module("myapp", [])
                 .controller("MyController", function($scope, $http) {
                     
@@ -80,6 +80,10 @@ and open the template in the editor.
                         url : 'MindBodyDetailServlet?mindbody_id='+<%= mindbody_data_id %>
                 }).success(function(data, status, headers, config) {
                         $scope.mindbody_data = data;
+//                        alert(JSON.stringify(data));
+                        id = data.header1;
+                        alert("From angular:"+id);
+    //                        id = data.header1;
                         if (data === error ){
                             alert(data);
                         } 
@@ -90,7 +94,6 @@ and open the template in the editor.
                 });
                 
                 $scope.showData = function( ){
-                    alert("text");
                 $scope.curPage = 0;
                 $scope.pageSize = 2;
 
@@ -125,10 +128,19 @@ and open the template in the editor.
                     return input.slice(start);
                 };
                });
-
+            
             
         </script>
+        <script>
 
+            $(document).ready(function () {
+                $("#xyz").click(function()
+                {
+                alert("From jquery"+id);
+                });
+            });
+    
+        </script>
     </head>
     <body ng-app="myapp">
         <div ng-controller="MyController" class="container" id="container"> 
@@ -161,7 +173,8 @@ and open the template in the editor.
                         <div class="col-md-7">
                             <p>EDIT THIS POST </p><p>go back</p> 
                             <div class="preview">
-                                {{mindbody_data}}
+                               
+                                {{mindbody_data.header4}}
                                 <!--
                                         NOTE: To change the aspect ratio, look in crop.css
                                         The class 'default' links the div to the init(); function

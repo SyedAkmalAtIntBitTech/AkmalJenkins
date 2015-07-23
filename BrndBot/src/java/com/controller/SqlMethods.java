@@ -499,5 +499,8 @@ public class SqlMethods {
     public void setLookID() throws IOException {
         System.out.println("LookID" + ":" + "LookID");
     }
-
+    
+//    public String getMapperFile(){
+//        query_string = "Select * from tbl_model where category_id="+ +" and "
+//    }
 }

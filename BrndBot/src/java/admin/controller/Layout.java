@@ -58,9 +58,9 @@ public class Layout {
         return fileName;
     }
     
-    public void addLayouts(Integer organization_id, Integer user_id, Integer category_id, String layout, String model, boolean email, boolean social )throws SQLException{
+    public void addLayouts(Integer organization_id, Integer user_id, Integer category_id, String layout, String model, boolean email, boolean social, Integer sub_category_id) throws SQLException{
         try{
-            query_string = "Insert into tbl_model (organization_id, user_id, category_id, layout_file_name, model_file_name, email, social) values(?,?,?,?,?,?,?)";
+            query_string = "Insert into tbl_model (organization_id, user_id, category_id, layout_file_name, model_file_name, email, social, sub_category_id) values(?,?,?,?,?,?,?,?)";
 
             prepared_statement = sqlmethods.con.prepareStatement(query_string);
             prepared_statement.setInt(1, organization_id);
@@ -70,7 +70,8 @@ public class Layout {
             prepared_statement.setString(5, model);
             prepared_statement.setBoolean(6, email);
             prepared_statement.setBoolean(7, social);
-
+            prepared_statement.setInt(8, sub_category_id);
+            
             prepared_statement.executeUpdate();
             prepared_statement.close();
         }catch (Exception e){

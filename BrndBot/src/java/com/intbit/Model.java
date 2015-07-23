@@ -62,14 +62,14 @@ public class Model extends HttpServlet {
         try {
             
             response.setContentType("text/html;charset=UTF-8");
-            uploadPath = getServletContext().getRealPath("") + "/xml";
-    //        uploadPath = ServletConfig.getInitParameter("myParam");
+//            uploadPath = getServletContext().getRealPath("") + "/xml";
+            uploadPath = getServletContext().getInitParameter("file-upload") + File.separator + "xml";
     //        uploadPath = getServletContext().getContextPath() + "/xml";
 
             Integer organization_id = Integer.parseInt(request.getParameter("organization"));
             Integer user_id = Integer.parseInt(request.getParameter("users"));
             Integer category_id = Integer.parseInt(request.getParameter("categories"));
-
+            Integer sub_category_id = Integer.parseInt(request.getParameter("subcategories"));
             String mapperfilename = request.getParameter("mapper");
             String layoutfilename = request.getParameter("layout");
 
@@ -163,7 +163,7 @@ public class Model extends HttpServlet {
             // StreamResult result = new StreamResult(System.out);
             transformer.transform(source, result);
             transformer1.transform(source1, result1);
-            layout.addLayouts(organization_id , user_id, category_id, layoutfilename, mapperfilename, type_email, type_social);
+            layout.addLayouts(organization_id , user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id);
             System.out.println("File saved!");
             response.sendRedirect(request.getContextPath() + "/admin/layoutmodel.jsp");
             

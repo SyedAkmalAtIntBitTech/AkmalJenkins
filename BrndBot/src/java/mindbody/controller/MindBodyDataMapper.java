@@ -8,6 +8,7 @@ package mindbody.controller;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.ClassDescription;
+import com.mindbodyonline.clients.api._0_5Class.Program;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
 import java.io.File;
 import javax.xml.bind.JAXBElement;
@@ -85,9 +86,11 @@ public class MindBodyDataMapper {
 
                         }
 
+                        Program program = mindbody_enrollments.getClassDescription().getProgram();
+
                         if (class_model_option.equalsIgnoreCase("ClassDescription_ProgramName")) {
-                            if (mindbody_enrollments.getClassDescription().getProgram() != null) {
-                                json_mindbody_enrollment_data.put(element, mindbody_enrollments.getClassDescription().getProgram());
+                            if (program.getName() != null) {
+                                json_mindbody_enrollment_data.put(element, program.getName());
                             } else {
                                 json_mindbody_enrollment_data.put(element, defaultValue);
                             }
@@ -252,10 +255,11 @@ public class MindBodyDataMapper {
                             }
 
                         }
+                        Program program = mindbody_class.getClassDescription().getProgram();
 
                         if (class_model_option.equalsIgnoreCase("ClassDescription_ProgramName")) {
-                            if (mindbody_class.getClassDescription().getProgram() != null) {
-                                json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getProgram());
+                            if (program.getName() != null) {
+                                json_mindbody_class_data.put(element, program.getName());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }

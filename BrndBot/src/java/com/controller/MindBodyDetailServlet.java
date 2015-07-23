@@ -50,9 +50,13 @@ protected String xml_file_directory = null;
                 mindbody_data_id = request.getParameter("mindbody_id");
             }
 //          String socialEditorLayoutFileName = request.getParameter("fileName");
+            
             xml_file_directory = getServletContext().getRealPath("") + File.separator +"xml";
             String socialEditorLayoutFileName = xml_file_directory +File.separator + "class_model_mapper1.xml";
 
+            Integer user_id = (Integer)sql_methods.session.getAttribute("UID");
+            Integer organization_id = (Integer)sql_methods.getOrganizationID(user_id);
+            Integer category_id =(Integer) sql_methods.session.getAttribute("category_id");
             String sub_category_id = (String)sql_methods.session.getAttribute("sub_category_id");
             String sub_category_name = (String)sql_methods.session.getAttribute("sub_category_name");
 
