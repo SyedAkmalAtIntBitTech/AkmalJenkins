@@ -25,6 +25,9 @@ and open the template in the editor.
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
 
+        <script src="js/socialeditor.js" type="text/javascript"></script>
+        
+        <link rel="icon" href="data:,">
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <script src="js/crop.js" type="text/javascript"></script>

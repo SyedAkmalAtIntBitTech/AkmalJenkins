@@ -14,13 +14,17 @@ import facebook4j.ResponseList;
 import facebook4j.auth.AccessToken;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -37,25 +41,27 @@ public class GetFacebookManagePage extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-        private Facebook facebook;
+    private Facebook facebook;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, FacebookException {
+
         facebook = new FacebookFactory().getInstance();
-        facebook.setOAuthAppId("1572856859649560", "997c5f81d6c69922e49f61121a3af3e9");
-        facebook.setOAuthPermissions("publish_actions");
-        //facebook.setOAuthAccessToken(new AccessToken("213240565487592|R5CFrBQpaEOU-XBcmxfFqJ515x4"));
-        //facebook.postStatusMessage("Hello World from Facebook4J.");
+        facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
+        facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
+        response.sendRedirect(facebook.getOAuthAuthorizationURL("http://localhost:8084/BrndBot/GetFacebookManagePage"));
         response.setContentType("text/html;charset=UTF-8");
-    
+
         try (PrintWriter out = response.getWriter()) {
+
             /* TODO output your page here. You may use following sample code. */
-             out.println("<!DOCTYPE html>");
+            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
+            out.println("<title>Servlet NewServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1><a href='" + facebook.getOAuthAuthorizationURL("http://localhost:8084/BrndBot/GetFacebookManagePage") + "'>click me!</a></h1>");
+//            out.println("<h1><a href='" + facebook.getOAuthAuthorizationURL("http://localhost:8084/BrndBot/selectpromotesocialmedia.jsp") + "'>click me!</a></h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -73,30 +79,49 @@ public class GetFacebookManagePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-             try {
+        try {
             String fbCode = request.getParameter("code");
             if (fbCode == null) {
                 processRequest(request, response);
             } else {
+                System.out.println(fbCode);
                 PrintWriter out = response.getWriter();
                 out.println(facebook.getOAuthAccessToken(fbCode));
                 // facebook.setOAuthAccessToken(facebook.getOAuthAccessToken(fbCode));
                 ResponseList<Account> accounts = facebook.getAccounts();
                 out.println(accounts.size());
-                Account yourPageAccount = accounts.get(5);  // if index 0 is your page account.
-                String pageAccessToken = yourPageAccount.getAccessToken();
-                out.println(yourPageAccount.getName() + " - " + pageAccessToken);
-                facebook.setOAuthAccessToken(new AccessToken(pageAccessToken));
 
-                PostUpdate post = new PostUpdate("Testing 123")
-                        .picture(new URL("http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg"))
-                        .name("Tiger1")
-                        .caption("Tiger")
-                        .link(new URL("http://www.yahoo.com"))
-                        .description("Tiger description.");
-                facebook.postFeed(post);
+                JSONObject obj = new JSONObject();
+                JSONArray jsonarray = new JSONArray();
+                String managepagedata[];
+                for (int i = 0; i < accounts.size(); i++) {
+                    Account yourPageAccount = accounts.get(i);  // if index 0 is your page account.
+                    String pageAccessToken = yourPageAccount.getAccessToken();
+                    String pageId = yourPageAccount.getId();
+                    String profilepicture = facebook.getPagePictureURL(pageId).toString();
+                    System.out.println(yourPageAccount.getName() + " - " + pageAccessToken);
+                    facebook.setOAuthAccessToken(new AccessToken(pageAccessToken));
 
-//facebook.postStatusMessage("Hello World from Facebook4J. 123");
+                    jsonarray.add(yourPageAccount.getName());
+                    jsonarray.add(pageAccessToken);
+                    jsonarray.add(profilepicture);
+
+//               jsonarray.add(pageId);
+
+//                obj.put("pagename",yourPageAccount.getName());
+//               obj.put("Accesstoken", pageAccessToken);
+//               jsonarray.add(i, request);
+
+                }
+
+                request.setAttribute("objkey", jsonarray);
+
+                RequestDispatcher rd = request
+                        .getRequestDispatcher("selectpromotesocialmedia.jsp");   // jsp to which i
+                // want to send data
+                rd.forward(request, response);
+               
+
             }
         } catch (FacebookException ex) {
             Logger.getLogger(GetFacebookManagePage.class.getName()).log(Level.SEVERE, null, ex);
