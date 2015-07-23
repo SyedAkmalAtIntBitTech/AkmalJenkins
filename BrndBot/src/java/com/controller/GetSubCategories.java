@@ -65,6 +65,7 @@ ResultSet result_set;
 
             while (result_set.next()) {
                 TblSubCategories TS = new TblSubCategories();
+                TS.setId(result_set.getInt("id"));
                 TS.setCategory_id(result_set.getString("category_id"));
                 TS.setSub_category_name(result_set.getString("sub_category_name"));
                 jsonarr.add(TS);

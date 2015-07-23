@@ -40,12 +40,12 @@ public class GetLayoutStyles extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        JSONObject json_ob = new JSONObject();
         JSONArray json_arr = new JSONArray();
         PreparedStatement prepared_statement;
         ResultSet result_set;
         String image_name,  layout_file_name, model_file_name;
-        Integer user_id, id, organization_id, category_id, sub_category_id;
+        Integer user_id, id, organization_id;
+        String category_id, sub_category_id;
          HashMap<Integer, Object> hash_map = new HashMap<Integer, Object>();
 
         sqlmethods.session = request.getSession(true);
@@ -53,11 +53,11 @@ public class GetLayoutStyles extends HttpServlet {
         try {
             
 //          hash_map = (HashMap<Integer, Object>)sqlmethods.session.getAttribute("Mind_Body_Data");
-            
+            sqlmethods.setDatabaseConnection();
             user_id = (Integer)sqlmethods.session.getAttribute("UID");
             organization_id = sqlmethods.getOrganizationID(user_id);
-            category_id = (Integer)sqlmethods.session.getAttribute("category_id");
-            sub_category_id = (Integer)sqlmethods.session.getAttribute("sub_category_id");
+            category_id = (String)sqlmethods.session.getAttribute("category_id");
+            sub_category_id = (String)sqlmethods.session.getAttribute("sub_category_id");
             
             String query = "Select * from tbl_model where organization_id="+organization_id+" and user_id="+user_id+" and category_id="+category_id+" and social="+true+"";
             sqlmethods.setDatabaseConnection();
@@ -66,19 +66,15 @@ public class GetLayoutStyles extends HttpServlet {
             
             while(result_set.next()){
                 TblModel layout_model = new TblModel();
+                JSONObject json_ob = new JSONObject();
                 id = result_set.getInt("id");
-                organization_id = result_set.getInt("organization_id");
-                user_id = result_set.getInt("user_id");
-                category_id = result_set.getInt("category_id");
                 layout_file_name = result_set.getString("layout_file_name");
                 model_file_name = result_set.getString("model_file_name");
                 
                 layout_model.setId(id);
-                layout_model.setCategory_id(category_id);
-                layout_model.setOrganization_id(organization_id);
-                layout_model.setUser_id(user_id);
                 layout_model.setLayout_file_name(layout_file_name);
-                layout_model.setModel_file_name(model_file_name);
+//                json_ob.put("id", id);
+//                json_ob.put("layout_file_name", layout_file_name);
                 json_arr.add(layout_model);
             }
 

@@ -7,8 +7,10 @@ package com.controller;
 
 import com.google.gson.Gson;
 import com.mindbodyonline.clients.api._0_5Class.Class;
+import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -26,6 +28,8 @@ import org.json.JSONObject;
 
 public class MindBodyDetailServlet extends HttpServlet {
 SqlMethods sql_methods = new SqlMethods();
+protected String xml_file_directory = null;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,26 +43,32 @@ SqlMethods sql_methods = new SqlMethods();
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
+        String mindbody_data_id = "";
         try {
             sql_methods.session = request.getSession(true);
-            
-            
-            String mindbody_data_id = request.getParameter("id");
-            String socialEditorLayoutFileName = request.getParameter("fileName");
-            Integer sub_category_id = (Integer)sql_methods.session.getAttribute("sub_category_id");
+            if (request.getParameter("mindbody_id") != null){
+                mindbody_data_id = request.getParameter("mindbody_id");
+            }
+//          String socialEditorLayoutFileName = request.getParameter("fileName");
+            xml_file_directory = getServletContext().getRealPath("") + File.separator +"xml";
+            String socialEditorLayoutFileName = xml_file_directory +File.separator + "class_model_mapper1.xml";
+
+            String sub_category_id = (String)sql_methods.session.getAttribute("sub_category_id");
             String sub_category_name = (String)sql_methods.session.getAttribute("sub_category_name");
+
             HashMap<String, Object> hash_map = (HashMap<String, Object>)sql_methods.session.getAttribute(sql_methods.k_mind_body);
             JSONObject mapped_json_object = null;
             Object selected_object = hash_map.get(mindbody_data_id);
             
             if(sub_category_name.equals("promote todays class")){
-                Class mindbody_class = (Class)selected_object;
-                 mapped_json_object = MindBodyDataMapper.mapClassData(mindbody_class, socialEditorLayoutFileName);
+                 Class mindbody_class = (Class)selected_object;
+                 mapped_json_object = MindBodyDataMapper.mapTodaysClassData(mindbody_class, socialEditorLayoutFileName);
             } else if (sub_category_name.equals("promote class")){
-                
+                 Class mindbody_class = (Class)selected_object;
+                 mapped_json_object = MindBodyDataMapper.mapClassData(mindbody_class, socialEditorLayoutFileName);
             }else if (sub_category_name.equals("promote work shop")){
-            
+                 ClassSchedule mindbody_enrollments = (ClassSchedule)selected_object;
+                 mapped_json_object = MindBodyDataMapper.mapEnrollmentData(mindbody_enrollments, socialEditorLayoutFileName);
             }
                     
             if (mapped_json_object != null){
@@ -67,11 +77,11 @@ SqlMethods sql_methods = new SqlMethods();
                 response.getWriter().write(mapped_json_object.toString());
                 
             }
-
-            
             
         }catch(Exception e){
-            
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 

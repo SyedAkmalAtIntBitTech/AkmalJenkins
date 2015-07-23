@@ -30,15 +30,19 @@ and open the template in the editor.
         <script src="js/crop.js" type="text/javascript"></script>
         <%!
             StringBuffer string_buffer = new StringBuffer();
+            String mindbody_data_id;
         %> 
+        
         <%
             try{
-                String mindbody_data_id = (String)request.getParameter("id");
+                
+                mindbody_data_id = (String)request.getParameter("id");
                 
             }catch (Exception e){
                 System.out.println(e.getCause());
                 System.out.println(e.getMessage());
             }
+            
             
 //            try {
 //                BufferedReader reader = request.getReader();
@@ -66,9 +70,68 @@ and open the template in the editor.
         %>
         <script src="js/socialeditor.js" type="text/javascript"></script>
 
+        <script>
+                
+           angular.module("myapp", [])
+                .controller("MyController", function($scope, $http) {
+                    
+                $http({
+                method : 'GET',
+                        url : 'MindBodyDetailServlet?mindbody_id='+<%= mindbody_data_id %>
+                }).success(function(data, status, headers, config) {
+                        $scope.mindbody_data = data;
+                        if (data === error ){
+                            alert(data);
+                        } 
+                }).error(function(data, status, headers, config) {
+                alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                });
+                
+                $scope.showData = function( ){
+                    alert("text");
+                $scope.curPage = 0;
+                $scope.pageSize = 2;
+
+                   $http({
+                           method : 'GET',
+                           url : 'GetLayoutStyles'
+                   }).success(function(data, status, headers, config) {
+
+                       $scope.datalists = data;
+
+                   $scope.numberOfPages = function() {
+                                           return Math.ceil($scope.datalists.length / $scope.pageSize);
+                                   };
+                       if (data === error){
+                           alert(data);
+                       }
+                   }).error(function(data, status, headers, config) {
+                           alert("No data available, problem fetching the data");
+                           // called asynchronously if an error occurs
+                           // or server returns response with an error status.
+                   });
+
+                   };
+
+               });
+            
+            angular.module('myapp').filter('pagination', function()
+               {
+                    return function(input, start)
+                {
+                 start = +start;
+                    return input.slice(start);
+                };
+               });
+
+            
+        </script>
+
     </head>
-    <body ng-app="imagegallery">
-        <div ng-controller="samplecontoller" class="container" id="container"> 
+    <body ng-app="myapp">
+        <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
                 <div id="sidebar-wrapper" class="col-md-1">
                     <nav class="navbar navbar-default " role="navigation">
@@ -98,7 +161,7 @@ and open the template in the editor.
                         <div class="col-md-7">
                             <p>EDIT THIS POST </p><p>go back</p> 
                             <div class="preview">
-
+                                {{mindbody_data}}
                                 <!--
                                         NOTE: To change the aspect ratio, look in crop.css
                                         The class 'default' links the div to the init(); function
@@ -181,12 +244,13 @@ and open the template in the editor.
                                     </li>
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
-                                            <div>
+                                            <div ng-controller="MyController">
                                                 <div>
                                                     <ul>
-                                                        <li class="paginationclass" ng-repeat="images in datalists| pagination: curPage * pageSize | limitTo: pageSize">
+<!--                                                        {{datalists}}-->
+                                                        <li class="paginationclass" ng-repeat="styles in datalists | pagination: curPage * pageSize | limitTo: pageSize">
                                                             <div>
-                                                                <img id="{{images.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{images.layout_file_name}}.jpeg"  onclick="showText({{images.id}})" width=250 height=150 />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText({{styles.id}})" width=250 height=150 />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
