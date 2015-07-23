@@ -47,7 +47,7 @@ $(document).ready(function () {
     
     $.ajax({
         type: "GET",
-        url: "xml/yyy.xml",
+        url: "xml/layout.xml",
         dataType: "xml",
         success: function (xml) {
             $(xml).find('layout').each(function () {

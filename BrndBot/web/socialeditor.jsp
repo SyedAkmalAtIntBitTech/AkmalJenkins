@@ -18,7 +18,7 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-        
+        <script src="js/socialeditor.js" type="text/javascript"></script>
         
         <link rel="icon" href="data:,">
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>

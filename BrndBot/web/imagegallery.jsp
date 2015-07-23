@@ -25,7 +25,6 @@
         <script src="js/prettify.js"></script>
         <script src="js/jquery.bsFormAlerts.js"></script>
         <script type="text/javascript" src="jscolor/jscolor.js"></script>
-
         <title>Image Gallery</title>
         <script>
             
