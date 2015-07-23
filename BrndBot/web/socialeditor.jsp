@@ -79,14 +79,10 @@ and open the template in the editor.
                 .controller("MyController", function($scope, $http) {
                     
                 $http({
-                method : 'GET',
+                        method : 'GET',
                         url : 'MindBodyDetailServlet?mindbody_id='+<%= mindbody_data_id %>
                 }).success(function(data, status, headers, config) {
                         $scope.mindbody_data = data;
-//                        alert(JSON.stringify(data));
-                        id = data.header1;
-                        alert("From angular:"+id);
-    //                        id = data.header1;
                         if (data === error ){
                             alert(data);
                         } 
@@ -97,6 +93,7 @@ and open the template in the editor.
                 });
                 
                 $scope.showData = function( ){
+                    
                 $scope.curPage = 0;
                 $scope.pageSize = 2;
 
@@ -119,30 +116,18 @@ and open the template in the editor.
                            // or server returns response with an error status.
                    });
 
-                   };
-
                });
             
             angular.module('myapp').filter('pagination', function()
                {
                     return function(input, start)
                 {
-                 start = +start;
+                    start = +start;
                     return input.slice(start);
                 };
                });
             
             
-        </script>
-        <script>
-
-            $(document).ready(function () {
-                $("#xyz").click(function()
-                {
-                alert("From jquery"+id);
-                });
-            });
-    
         </script>
     </head>
     <body ng-app="myapp">
@@ -171,13 +156,13 @@ and open the template in the editor.
                 <!-- Keep all page content within the page-content inset div! -->
                 <div class="page-content inset">
                     <div class="row">
-
+                    {{mindbody_data}}
                         <!--              preview container-->
                         <div class="col-md-7">
                             <p>EDIT THIS POST </p><p>go back</p> 
                             <div class="preview">
                                
-                                {{mindbody_data.header4}}
+                                {{mindbody_data}}
                                 <!--
                                         NOTE: To change the aspect ratio, look in crop.css
                                         The class 'default' links the div to the init(); function
@@ -263,7 +248,7 @@ and open the template in the editor.
                                             <div ng-controller="MyController">
                                                 <div>
                                                     <ul>
-<!--                                                        {{datalists}}-->
+                                            <!-- {{datalists}} -->
                                                         <li class="paginationclass" ng-repeat="styles in datalists | pagination: curPage * pageSize | limitTo: pageSize">
                                                             <div>
                                                                 <img id="{{styles.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText({{styles.id}})" width=250 height=150 />

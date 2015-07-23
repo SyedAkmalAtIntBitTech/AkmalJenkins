@@ -44,21 +44,28 @@ protected String xml_file_directory = null;
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String mindbody_data_id = "";
+        Integer model_mapper_id = 0;
         try {
             sql_methods.session = request.getSession(true);
             if (request.getParameter("mindbody_id") != null){
                 mindbody_data_id = request.getParameter("mindbody_id");
             }
+            if (request.getParameter("model_mapper_id") != null){
+                model_mapper_id = Integer.parseInt(request.getParameter("model_mapper_id"));
+            }
 //          String socialEditorLayoutFileName = request.getParameter("fileName");
-            
-            xml_file_directory = getServletContext().getRealPath("") + File.separator +"xml";
-            String socialEditorLayoutFileName = xml_file_directory +File.separator + "class_model_mapper1.xml";
+            xml_file_directory = getServletContext().getInitParameter("file-upload");
+//            xml_file_directory = getServletContext().getRealPath("") + File.separator +"xml";
+//            String socialEditorLayoutFileName = xml_file_directory +File.separator + "class_model_mapper1.xml";
 
             Integer user_id = (Integer)sql_methods.session.getAttribute("UID");
-            Integer organization_id = (Integer)sql_methods.getOrganizationID(user_id);
-            Integer category_id =(Integer) sql_methods.session.getAttribute("category_id");
+            sql_methods.setDatabaseConnection();
+            Integer organization_id = sql_methods.getOrganizationID(user_id);
+            String category_id =(String) sql_methods.session.getAttribute("category_id");
             String sub_category_id = (String)sql_methods.session.getAttribute("sub_category_id");
             String sub_category_name = (String)sql_methods.session.getAttribute("sub_category_name");
+
+            String social_editor_mapper_file_name = xml_file_directory + File.separator + "xml" + File.separator + sql_methods.getMapperFile(user_id, organization_id, Integer.parseInt(category_id), Integer.parseInt(sub_category_id), model_mapper_id) + ".xml";
 
             HashMap<String, Object> hash_map = (HashMap<String, Object>)sql_methods.session.getAttribute(sql_methods.k_mind_body);
             JSONObject mapped_json_object = null;
@@ -66,13 +73,13 @@ protected String xml_file_directory = null;
             
             if(sub_category_name.equals("promote todays class")){
                  Class mindbody_class = (Class)selected_object;
-                 mapped_json_object = MindBodyDataMapper.mapTodaysClassData(mindbody_class, socialEditorLayoutFileName);
+                 mapped_json_object = MindBodyDataMapper.mapTodaysClassData(mindbody_class, social_editor_mapper_file_name);
             } else if (sub_category_name.equals("promote class")){
                  Class mindbody_class = (Class)selected_object;
-                 mapped_json_object = MindBodyDataMapper.mapClassData(mindbody_class, socialEditorLayoutFileName);
+                 mapped_json_object = MindBodyDataMapper.mapClassData(mindbody_class, social_editor_mapper_file_name);
             }else if (sub_category_name.equals("promote work shop")){
                  ClassSchedule mindbody_enrollments = (ClassSchedule)selected_object;
-                 mapped_json_object = MindBodyDataMapper.mapEnrollmentData(mindbody_enrollments, socialEditorLayoutFileName);
+                 mapped_json_object = MindBodyDataMapper.mapEnrollmentData(mindbody_enrollments, social_editor_mapper_file_name);
             }
                     
             if (mapped_json_object != null){
@@ -81,7 +88,7 @@ protected String xml_file_directory = null;
                 response.getWriter().write(mapped_json_object.toString());
                 
             }
-            
+            sql_methods.con.close();
         }catch(Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

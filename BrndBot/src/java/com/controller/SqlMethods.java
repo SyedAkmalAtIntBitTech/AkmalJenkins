@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -500,7 +501,46 @@ public class SqlMethods {
         System.out.println("LookID" + ":" + "LookID");
     }
     
-//    public String getMapperFile(){
-//        query_string = "Select * from tbl_model where category_id="+ +" and "
-//    }
+    public String getMapperFile(Integer user_id, Integer organization_id, Integer category_id, Integer sub_category_id, Integer id){
+        String mapper_file_name = "";
+        try{
+            if (id == 0){
+                query_string = "Select * from tbl_model where category_id="+ category_id +" and user_id="+user_id+" and organization_id="+organization_id+" and sub_category_id="+sub_category_id+" and social="+true+" order by id ASC";
+
+                Statement sta = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+            // Catch the ResultSet object
+                 result_set = sta.executeQuery(query_string);
+
+            // Check ResultSet's scrollability
+                if (result_set.getType() == ResultSet.FETCH_FORWARD) {
+                  System.out.println("ResultSet non-scrollable.");
+                } else {
+                  System.out.println("ResultSet scrollable.");
+                }            
+                
+//                prepared_statement = con.prepareStatement(query_string);
+//                result_set = prepared_statement.executeQuery();
+                if (result_set.first()){
+                    mapper_file_name = result_set.getString("model_file_name");
+                }
+            
+            }else{
+                query_string = "Select model_file_name from tbl_model where category_id="+ category_id +" and user_id="+user_id+" and organization_id="+organization_id+" and sub_category_id="+sub_category_id+" and id="+id+"";
+
+                prepared_statement = con.prepareStatement(query_string);
+                result_set = prepared_statement.executeQuery();
+                if (result_set.next()){
+                    mapper_file_name = result_set.getString(1);
+                }
+            }
+        
+            result_set.close();
+            prepared_statement.close();
+            }catch (Exception e){
+                System.out.println(e.getCause());
+                System.out.println(e.getMessage());
+            }
+            return mapper_file_name;
+    }
 }

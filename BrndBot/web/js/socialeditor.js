@@ -23,7 +23,6 @@ var i = 1;
  }
  
 $(document).ready(function () {
-        alert(head1);
         $.ajax({
         type: "GET",
         url: "xml/san1.xml",
@@ -39,7 +38,6 @@ $(document).ready(function () {
             }
             
             );
-//            alert(mapperrray);
         },
         error: function (e)
         {
