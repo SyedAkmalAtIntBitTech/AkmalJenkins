@@ -25,7 +25,7 @@ and open the template in the editor.
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
 
-        <script src="js/socialeditor.js" type="text/javascript"></script>
+        
         
         <link rel="icon" href="data:,">
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
@@ -70,44 +70,34 @@ and open the template in the editor.
 //                e.printStackTrace();
 //            }
 
-        %>
-        <script src="js/socialeditor.js" type="text/javascript"></script>
+        
+%>
+<!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
 
         <script>
-           var id = 0;
+                var jsondata;
+    var mindbodydataId = $("#mindbodydata").val(); 
            angular.module("myapp", [])
+           
                 .controller("MyController", function($scope, $http) {
                     
-                $http({
-                        method : 'GET',
-                        url : 'MindBodyDetailServlet?mindbody_id='+<%= mindbody_data_id %>
-                }).success(function(data, status, headers, config) {
-                        $scope.mindbody_data = data;
-                        if (data === error ){
-                            alert(data);
-                        } 
-                }).error(function(data, status, headers, config) {
-                alert("No data available, problem fetching the data");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                });
-
-                $http({
-                        method : 'GET',
-                        url : 'MindBodyDetailServlet?mindbody_id='+<%= mindbody_data_id %>
-                }).success(function(data, status, headers, config) {
-                        $scope.mindbody_data = data;
-                        if (data === error ){
-                            alert(data);
-                        } 
-                }).error(function(data, status, headers, config) {
-                alert("No data available, problem fetching the data");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                });
-
+//                $http({
+//                method : 'GET',
+//                        url : 'MindBodyDetailServlet?mindbody_id='+<%= mindbody_data_id %>
+//                }).success(function(data, status, headers, config) {
+//                        $scope.mindbody_data = data;
+//                        if (data === error ){
+//                            alert(data);
+//                        } 
+//                }).error(function(data, status, headers, config) {
+//                alert("No data available, problem fetching the data");
+//                        // called asynchronously if an error occurs
+//                        // or server returns response with an error status.
+//                });
+//                
+               
                 $scope.showData = function( ){
-                    
+                    alert("text");
                 $scope.curPage = 0;
                 $scope.pageSize = 2;
 
@@ -130,19 +120,161 @@ and open the template in the editor.
                            // or server returns response with an error status.
                    });
 
+                   };
+
                });
             
             angular.module('myapp').filter('pagination', function()
                {
                     return function(input, start)
                 {
-                    start = +start;
+                 start = +start;
                     return input.slice(start);
                 };
                });
-            
-            
+ 
+  
+
+
+function showText(id,layout){
+    alert(id+""+layout);
+
+    layoutfilename=layout;
+    $("#clickid").val(layout);
+    
+    
+     $.ajax({
+        type: 'GET',
+        url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId+ '&model_mapper_id='+id,
+        data: {get_param: 'value'},
+        dataType: 'json',
+        success: function (data) {
+            jsondata = data;
+            alert("1");
+            $.ajax({
+                type: "GET",
+                url: "images/xml/"+layout+".xml",
+                dataType: "xml",
+                success: function (xml) {
+                    $(".preview").empty();
+                    $(xml).find('layout').each(function () {
+                        height = $(this).find('container').attr("Height");
+                        width = $(this).find('container').attr("Width");
+                        $(".preview").css("width", width + "px");
+              
+                    }
+
+                    );
+
+
+                    alert("10");
+                    $(xml).find('element').each(function () {
+                        var tag = $(this).attr("tag");
+                        type = $(this).attr("type");
+                        var h = "";
+                        var t = "";
+                        var elementdata;
+//                if (type === "header1"){
+//                    h = "yoga power";
+//                }
+//                else if(type === "body1"){
+//                     t = "teacher1";
+//                }
+
+                        $(jsondata).each(function (i, val) {
+                         
+                            $.each(val, function (k, v) {
+//                                alert(k + " : " + v+ ":"+ type);
+                                if (type.trim() == k.trim()) {
+                                    alert();
+                                    elementdata = v;
+                                }
+
+                            });
+
+                        });
+
+
+                        var fontcolor;
+                        var fontsize;
+                        var fontstyle;
+                        var left = $(this).attr("x-co-ordinates");
+                        var top = $(this).attr("y-co-ordinates");
+                        var opacity = $(this).attr("opacity");
+                        if (tag === "text")
+                        {
+
+                            fontcolor = $(this).attr("font-color");
+                            fontsize = $(this).attr("font-size");
+                            fontstyle = $(this).attr("font-style");
+                            var fontweight = $(this).attr("font-weight");
+                            var letterspacing = $(this).attr("letter-spacing");
+                            var lineheight = $(this).attr("line-height");
+
+                            var textalign = $(this).attr("text-align");
+
+                            var webkittransform = $(this).attr("webkit-transform");
+                                                    var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
+//                    alert($(this).attr("text-shadow"));
+                                                    $(".preview").append("<div><textarea class=textAreas onclick=getTectId() id=" + type + ">" + elementdata + "</textarea>");
+                                                    $("#" + type).css("color", "" + fontcolor).css("position", "absolute").css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
+                                                    .css("font-size", "" + fontsize).css("font-style", "" + fontstyle).css("font-weight", "" + fontweight)
+                                                    .css("letter-spacing", "" + letterspacing).css("line-height", "" + lineheight)
+                                                    .css("opacity", "" + opacity).css("text-align", "" + textalign)
+                                                    .css("text-shadow", "" + dropshadow).css("webkit-transform", "rotate(" + webkittransform + "deg)");
+                                            }
+
+                                            if (tag === "image")
+                                            {
+                                            var blendmode = $(this).attr("background-blend-mode");
+                                                    var width = $(this).attr("width");
+                                                    var height = $(this).attr("height");
+//                    alert("image");
+                                                    $(".preview").append("<div><img src='" + elementdata + "' id=" + type + " alt='image'/>");
+                                                    $("#" + type).css("color", "" + fontcolor).css("position", "absolute").css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
+                                                    .css("background-blend-mode", "" + blendmode).css("opacity", "" + opacity)
+                                                    .css("width", "" + width).css("height", "" + height)
+                                                    .attr("src", "images/default.png");
+                                            }
+
+                                            if (tag === "button")
+                                            {
+                                            alert("button");
+                                                    $(".preview").append("<div><img src='" + elementdata + "'id=" + type + " alt='button'/>");
+                                                    $("#" + type).css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
+                                                    .attr("src", "buttons/button1.png");
+                                            }
+
+                                            if (tag === "block")
+                                            {
+//                  alert("block");
+                                            var width = $(this).attr("width");
+                                                    var height = $(this).attr("height");
+                                                    var backgroundcolor = $(this).attr("background-color");
+//                 alert(backgroundcolor);
+                                                    $(".preview").append("<div id=" + type + "></div>");
+                                                    $("#" + type).css("background-color", "" + backgroundcolor).css("margin-left", "" + left + "px")
+                                                    .css("margin-top", "" + top + "px").css("width", "" + width)
+                                                    .css("height", "" + height);
+                                            }
+
+                                            }
+
+                                            );
+                                            },
+                                            error: function (e)
+                                            {
+                                            alert("error in xml file read");
+                                            }
+                                    });
+                            }
+                    });
+    
+    
+}
+    
         </script>
+<script src="js/socialeditor.js" type="text/javascript"></script>
     </head>
     <body ng-app="myapp">
         <div ng-controller="MyController" class="container" id="container"> 
@@ -170,13 +302,12 @@ and open the template in the editor.
                 <!-- Keep all page content within the page-content inset div! -->
                 <div class="page-content inset">
                     <div class="row">
-                    {{mindbody_data}}
+
                         <!--              preview container-->
                         <div class="col-md-7">
                             <p>EDIT THIS POST </p><p>go back</p> 
                             <div class="preview">
-                               
-                                {{mindbody_data}}
+<!--                                {{mindbody_data}}-->
                                 <!--
                                         NOTE: To change the aspect ratio, look in crop.css
                                         The class 'default' links the div to the init(); function
@@ -217,6 +348,10 @@ and open the template in the editor.
                                             </ul>
 
                                         </div>
+                                        
+                                        <input type="hidden" id="mindbodydata" value=<%= mindbody_data_id %>>
+                                        <input type="hidden" id='clickid'>
+                                        
                                         <div id="shapecontainer">
                                             <p>SHAPES</p>
                                             <ul id="shapemodificatoin">
@@ -268,10 +403,10 @@ and open the template in the editor.
                                             <div ng-controller="MyController">
                                                 <div>
                                                     <ul>
-                                            <!-- {{datalists}} -->
+<!--                                                        {{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="styles in datalists | pagination: curPage * pageSize | limitTo: pageSize">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}')" width=250 height=150 />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
