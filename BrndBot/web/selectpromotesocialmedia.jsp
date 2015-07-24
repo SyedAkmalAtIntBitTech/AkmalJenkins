@@ -139,7 +139,7 @@
                 });
 
                 var managed_page = "";
-                
+                var access_token;
                 $("#close").click(function () {
                     $("#popup").hide();
                     $("#twitterpopup").hide();
@@ -148,11 +148,11 @@
                     
                     if (managed_page != ""){
                         $.ajax({
-                                url: 'PostToSocial',
+                                url: 'SetUserFacebookAccessToken',
                                 method: 'post',
-                                Type:"JSON",
+//                                Type:"JSON",
                                 data: {
-                                    accesstoken:$("#isDefault").val()
+                                    access_token:$("#isDefault").val()
                                 },
                                 success: function (responseText) {
     //                            $("#tokenHere").html(responseText);

@@ -32,7 +32,8 @@ public class SetUserFacebookAccessToken extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            
+            String access_token = request.getParameter("access_token");
+            System.out.println(access_token);
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
