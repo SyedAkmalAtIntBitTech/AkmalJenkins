@@ -3,7 +3,7 @@
     <context-param>
         <description>Upload Path</description>
         <param-name>file-upload</param-name>
-        <param-value>/home/intbit/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
+        <param-value>/home/sandeep-kumar/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
     </context-param>
     <servlet>
         <servlet-name>UserServlet</servlet-name>
@@ -204,6 +204,14 @@
     <servlet>
         <servlet-name>MindBodyDetailServlet</servlet-name>
         <servlet-class>com.controller.MindBodyDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetTwitterToken</servlet-name>
+        <servlet-class>social.controller.GetTwitterToken</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostToSocial</servlet-name>
+        <servlet-class>social.controller.PostToSocial</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
@@ -420,6 +428,14 @@
     <servlet-mapping>
         <servlet-name>MindBodyDataServlet</servlet-name>
         <url-pattern>/MindBodyDataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetTwitterToken</servlet-name>
+        <url-pattern>/GetTwitterToken</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostToSocial</servlet-name>
+        <url-pattern>/PostToSocial</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -59,7 +59,7 @@ public class GetLayoutStyles extends HttpServlet {
             category_id = (String)sqlmethods.session.getAttribute("category_id");
             sub_category_id = (String)sqlmethods.session.getAttribute("sub_category_id");
             
-            String query = "Select * from tbl_model where organization_id="+organization_id+" and user_id="+user_id+" and category_id="+category_id+" and social="+true+"";
+            String query = "Select * from tbl_model where organization_id="+organization_id+" and user_id="+user_id+" and category_id="+category_id+" and social="+true+" and sub_category_id="+sub_category_id;
             sqlmethods.setDatabaseConnection();
             prepared_statement = sqlmethods.con.prepareStatement(query);
             result_set = prepared_statement.executeQuery();
