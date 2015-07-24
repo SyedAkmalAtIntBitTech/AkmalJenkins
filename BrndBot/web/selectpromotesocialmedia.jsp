@@ -116,7 +116,7 @@
                     $("#popup").show();
 
                     for (var i = 0; i < pages.length; i = i + 3) {
-                        $("#fbmanagepages").append("<tr  id=page#" + i + "><td>" + pages[i] + "</td><td><input type=hidden id=access" + i + " value=" + pages[i + 1] + "></td><td><img src=" + pages[i + 2] + "></td><td><input type=radio name=isDefault value=" + pages[i + 1] + ">Default</td></tr>");
+                        $("#fbmanagepages").append("<tr  id=page#" + i + "><td>" + pages[i] + "</td><td><input type=hidden id=access" + i + " value=" + pages[i + 1] + "></td><td><img src=" + pages[i + 2] + "></td><td><input id=isDefault type=radio name=isDefault value=" + pages[i + 1] + ">Default</td></tr>");
 
                     }
 
@@ -138,12 +138,30 @@
 
                 });
 
-
+                var managed_page = "";
+                
                 $("#close").click(function () {
                     $("#popup").hide();
                     $("#twitterpopup").hide();
                     $("#submitbutton").prop("disabled",false);
-                });
+                    managed_page = $("#isDefault").val();
+                    
+                    if (managed_page != ""){
+                        $.ajax({
+                                url: 'PostToSocial',
+                                method: 'post',
+                                Type:"JSON",
+                                data: {
+                                    accesstoken:$("#isDefault").val()
+                                },
+                                success: function (responseText) {
+    //                            $("#tokenHere").html(responseText);
+                                    alert("sucess");
+                                }
+                            });
+                    }
+                    
+            });
             });
         </script>
     </head>
@@ -165,7 +183,7 @@
                 <li><div class="col-md-4 col-md-offset-6">
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
                             <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend">
-                            <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
+                            <input type="text" id="fbaccessTokenSend" name="fbaccessTokenSend">
                             <input type="hidden" id="isFacebook" name="isFacebook" value="false">
                             <input type="hidden" id="isTwitter" name="isTwitter" value="false">
                             <input type="submit"  id="submitbutton" class="btn btn-primary" value="Continue" disabled>

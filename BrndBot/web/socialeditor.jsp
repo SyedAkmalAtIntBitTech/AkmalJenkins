@@ -91,7 +91,21 @@ and open the template in the editor.
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                 });
-                
+
+                $http({
+                        method : 'GET',
+                        url : 'MindBodyDetailServlet?mindbody_id='+<%= mindbody_data_id %>
+                }).success(function(data, status, headers, config) {
+                        $scope.mindbody_data = data;
+                        if (data === error ){
+                            alert(data);
+                        } 
+                }).error(function(data, status, headers, config) {
+                alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                });
+
                 $scope.showData = function( ){
                     
                 $scope.curPage = 0;
@@ -207,7 +221,13 @@ and open the template in the editor.
                                             <p>SHAPES</p>
                                             <ul id="shapemodificatoin">
                                                 <li> <p id="editorheadere">Header background<p></li>
-                                                <li><div class="blankcolor-box" id="shapecolorbox"></div></li>
+                                                <li>
+
+                                                    
+                                                    <div class="blankcolor-box" id="shapecolorbox"></div>
+
+
+                                                </li>
                                             </ul>
                                         </div>
                                         <div id="imagecontainer">
@@ -251,7 +271,7 @@ and open the template in the editor.
                                             <!-- {{datalists}} -->
                                                         <li class="paginationclass" ng-repeat="styles in datalists | pagination: curPage * pageSize | limitTo: pageSize">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText({{styles.id}})" width=250 height=150 />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}')" width=250 height=150 />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>

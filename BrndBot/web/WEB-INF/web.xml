@@ -205,6 +205,10 @@
         <servlet-name>MindBodyDetailServlet</servlet-name>
         <servlet-class>com.controller.MindBodyDetailServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SetUserFacebookAccessToken</servlet-name>
+        <servlet-class>social.controller.SetUserFacebookAccessToken</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -420,6 +424,10 @@
     <servlet-mapping>
         <servlet-name>MindBodyDataServlet</servlet-name>
         <url-pattern>/MindBodyDataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetUserFacebookAccessToken</servlet-name>
+        <url-pattern>/SetUserFacebookAccessToken</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
