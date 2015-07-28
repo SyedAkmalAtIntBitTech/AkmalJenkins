@@ -59,7 +59,7 @@ public class MindBodyDataMapper {
                         String defaultValue = modelElement.getAttribute("default");
                         System.out.println(modelElement.getAttribute("option"));
 
-                        if (class_model_option.equalsIgnoreCase("Class_ID")) {
+                        if (class_model_option.equalsIgnoreCase("EnrollmentID")) {
                             if (mindbody_enrollments.getID().getValue() != null) {
                                 json_mindbody_enrollment_data.put(element, mindbody_enrollments.getID().getValue());
                             } else {
@@ -68,7 +68,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_Name")) {
+                        if (class_model_option.equalsIgnoreCase("EnrollmentName")) {
                             if (mindbody_enrollments.getClassDescription().getName() != null) {
                                 json_mindbody_enrollment_data.put(element, mindbody_enrollments.getClassDescription().getName());
                             } else {
@@ -77,7 +77,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_Description")) {
+                        if (class_model_option.equalsIgnoreCase("EnrollmentDescription")) {
                             if (mindbody_enrollments.getClassDescription().getDescription() != null) {
                                 json_mindbody_enrollment_data.put(element, mindbody_enrollments.getClassDescription().getDescription());
                             } else {
@@ -88,7 +88,7 @@ public class MindBodyDataMapper {
 
                         Program program = mindbody_enrollments.getClassDescription().getProgram();
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_ProgramName")) {
+                        if (class_model_option.equalsIgnoreCase("EnrollmentProgramName")) {
                             if (program.getName() != null) {
                                 json_mindbody_enrollment_data.put(element, program.getName());
                             } else {
@@ -97,7 +97,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_ImageURL")) {
+                        if (class_model_option.equalsIgnoreCase("EnrollmentImageURL")) {
                             if (mindbody_enrollments.getClassDescription().getImageURL() != null) {
                                 json_mindbody_enrollment_data.put(element, mindbody_enrollments.getClassDescription().getImageURL());
                             } else {
@@ -106,7 +106,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassStartDate")) {
+                        if (class_model_option.equalsIgnoreCase("EnrollmentStartDate")) {
 
                             JAXBElement<XMLGregorianCalendar> calendarStart = mindbody_enrollments.getStartDate();
 
@@ -120,7 +120,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassStartTime")) {
+                        if (class_model_option.equalsIgnoreCase("EnrollmentStartTime")) {
 
                             JAXBElement<XMLGregorianCalendar> calendarStart = mindbody_enrollments.getStartTime();
 
@@ -134,7 +134,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassEndTime")) {
+                        if (class_model_option.equalsIgnoreCase("EnrollmentEndTime")) {
 
                             JAXBElement<XMLGregorianCalendar> calendarEnd = mindbody_enrollments.getEndTime();
 
@@ -229,7 +229,7 @@ public class MindBodyDataMapper {
                         String defaultValue = modelElement.getAttribute("default");
                         System.out.println(modelElement.getAttribute("option"));
 
-                        if (class_model_option.equalsIgnoreCase("Class_ID")) {
+                        if (class_model_option.equalsIgnoreCase("ClassID")) {
                             if (mindbody_class.getID().getValue() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getID().getValue());
                             } else {
@@ -238,7 +238,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_Name")) {
+                        if (class_model_option.equalsIgnoreCase("ClassName")) {
                             if (mindbody_class.getClassDescription().getName() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getName());
                             } else {
@@ -247,7 +247,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_Description")) {
+                        if (class_model_option.equalsIgnoreCase("ClassDescription")) {
                             if (mindbody_class.getClassDescription().getDescription() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getDescription());
                             } else {
@@ -257,7 +257,7 @@ public class MindBodyDataMapper {
                         }
                         Program program = mindbody_class.getClassDescription().getProgram();
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_ProgramName")) {
+                        if (class_model_option.equalsIgnoreCase("ClassProgramName")) {
                             if (program.getName() != null) {
                                 json_mindbody_class_data.put(element, program.getName());
                             } else {
@@ -266,7 +266,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_ImageURL")) {
+                        if (class_model_option.equalsIgnoreCase("ClassImageURL")) {
                             if (mindbody_class.getClassDescription().getImageURL() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getImageURL());
                             } else {
@@ -370,7 +370,7 @@ public class MindBodyDataMapper {
                         String defaultValue = modelElement.getAttribute("default");
                         System.out.println(modelElement.getAttribute("option"));
 
-                        if (class_model_option.equalsIgnoreCase("Class_ID")) {
+                        if (class_model_option.equalsIgnoreCase("ClassID")) {
                             if (mindbody_class.getID().getValue() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getID().getValue());
                             } else {
@@ -379,7 +379,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_Name")) {
+                        if (class_model_option.equalsIgnoreCase("ClassName")) {
                             if (mindbody_class.getClassDescription().getName() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getName());
                             } else {
@@ -388,7 +388,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_Description")) {
+                        if (class_model_option.equalsIgnoreCase("ClassDescription")) {
                             if (mindbody_class.getClassDescription().getDescription() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getDescription());
                             } else {
@@ -397,7 +397,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_ProgramName")) {
+                        if (class_model_option.equalsIgnoreCase("ClassProgramName")) {
                             if (mindbody_class.getClassDescription().getProgram() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getProgram());
                             } else {
@@ -406,7 +406,7 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("ClassDescription_ImageURL")) {
+                        if (class_model_option.equalsIgnoreCase("ClassImageURL")) {
                             if (mindbody_class.getClassDescription().getImageURL() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getImageURL());
                             } else {

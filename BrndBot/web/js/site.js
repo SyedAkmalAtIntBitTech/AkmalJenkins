@@ -837,15 +837,28 @@ $(document).ready(function () {
 
 var num1 = 1;
 //adding defult value and apoch
+/* To be modified when the mindbody data points changes for sub categories */
 function addDefault() {
-
+    alert("text");
     var num = 0;
     var fontnameis = [];
+    var sub_category_type = $("#subcategories").val();
+    
+    
+    var mindbody_xml_url = "";
+    if (sub_category_type == 1){
+        mindbody_xml_url = "/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
+    }else if(sub_category_type == 2){
+        mindbody_xml_url = "/layoutmodelxml/mindbodyclassdatapoints.xml";
+    }else if(sub_category_type == 3){
+        mindbody_xml_url = "/layoutmodelxml/mindbodyclassdatapoints.xml";
+    }
+    
 //    $("#appenddiv"+(num1-1)).css("display","none");
     if(addElementsArray.length===num1){
          $.ajax({
         type: "GET",
-        url: "mindbodyclassdatapoints.xml",
+        url: getHost() + mindbody_xml_url,
         dataType: "xml",
         success: function (xml) {
 //            alert( addElementsArray[num1]);

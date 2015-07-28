@@ -63,16 +63,24 @@ and open the template in the editor.
     <%!
         SqlMethods sql_methods = new SqlMethods();
         String category_id, sub_category_name, sub_category_id;
+        String title;
     %>
     
     <%
         try{
+            
             sql_methods.session = request.getSession(true);
             category_id = request.getParameter("category_id");
             sub_category_name = request.getParameter("sub_category_name");
             sub_category_id = request.getParameter("sub_category_id");
             sql_methods.session.setAttribute("sub_category_name", sub_category_name);
             sql_methods.session.setAttribute("sub_category_id", sub_category_id);
+             if(sub_category_name.equalsIgnoreCase("promote todays class")){
+                title=" todays class";
+            }
+            else if(sub_category_name.equalsIgnoreCase("promote work shop")){
+               title="work shop";
+           }
             sql_methods.session.setAttribute("category_id", category_id);
         }catch (Exception e){
             e.printStackTrace();
@@ -182,11 +190,11 @@ and open the template in the editor.
     
                     <div class="col-md-10">
                          
-                        <div><p id="text3"> Please Select a {Title} : <span><button class="btn btn-info col-md-offset-2">Continue</button> </span></p></div> 
+                        <div><p id="text3"> Please Select a  : <%= title %> <span><button class="btn btn-info col-md-offset-2">Continue</button> </span></p></div> 
 
                         <div ng-controller="controllerGetMindBody" class="tab-pane active" id="picktheme" ng-init="showData()">
                             <div class="col-md-8 col-md-offset-1" ng-repeat= "jsonclass in datalists | pagination: curPage * pageSize | limitTo: pageSize" id="rep" >
-                                {{jsonclass}}
+                               
                                 <div onclick="select_category_details('{{jsonclass.id}}')"><span style="width: 500px;"><p>{{jsonclass.column1}}</p><p>{{jsonclass.column2}}</p><p>{{jsonclass.column3}}</p></span></div>
 <!--                          <div id="" class="foo col-md-2"><p>{{classes.name}}</p></div>
                                 <div id="" class="foo col-md-2"><p>{{classes.StartDateTime}}</p></div>

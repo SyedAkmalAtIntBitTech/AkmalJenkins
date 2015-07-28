@@ -8,6 +8,7 @@ var width;
 var mapperrray = [];
 var type;
 var selectedTextareaId;
+var selectedDivId;
 var title;
 var teacher;
 var date;
@@ -22,10 +23,42 @@ function setSocialParameters(title, teacher, date) {
 
 }
 
-
-
-
 $(document).ready(function () {
+
+    alert("clicked");
+    $('.color-box').colpick({
+        colorScheme: 'dark',
+        layout: 'rgbhex',
+        color: 'ff8800',
+        onSubmit: function (hsb, hex, rgb, el) {
+            $(el).css('background-color', '#' + hex);
+            $("#" + selectedTextareaId).css('color', '#' + hex);
+            $(el).colpickHide();
+        }
+    })
+            .css('background-color', '#ffffff');
+
+    $(".blankcolor-box").click(function () {
+        alert("cli");
+
+        var color = $("#" + this.id).css("background-color");
+        alert(color);
+        $("#selectedshapecolorbox").css("background-color", "" + color);
+        alert(selectedDivId);
+        $("#" + selectedDivId).css("background-color", "" + color);
+    });
+
+    $("#fontsize").change(function () {
+//          alert($("#fontsize").val());
+        $("#" + selectedTextareaId).css("font-size", "" + $("#fontsize").val());
+    });
+
+    $("#fontname").change(function () {
+//            alert($(this).val());
+        $("#" + selectedTextareaId).css("font-family", "" + $("#fontname").val());
+    });
+
+    $("")
 
     $.ajax({
         type: "GET",
@@ -52,12 +85,12 @@ $(document).ready(function () {
 
 
 
- jsondata;
-  mindbodydataId = $("#mindbodydata").val();
+    jsondata;
+    mindbodydataId = $("#mindbodydata").val();
 
-   var layoutfilename=$("#clickid").val();
-   
-    alert(layoutfilename);
+    var layoutfilename = $("#clickid").val();
+
+//    alert(layoutfilename);
 
 
 
@@ -68,7 +101,7 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             jsondata = data;
-            alert("1");
+
             $.ajax({
                 type: "GET",
                 url: "xml/layout.xml",
@@ -78,32 +111,23 @@ $(document).ready(function () {
                         height = $(this).find('container').attr("Height");
                         width = $(this).find('container').attr("Width");
                         $(".preview").css("width", width + "px");
-              
+
                     }
 
                     );
 
-
-                    alert("10");
                     $(xml).find('element').each(function () {
                         var tag = $(this).attr("tag");
                         type = $(this).attr("type");
                         var h = "";
                         var t = "";
                         var elementdata;
-//                if (type === "header1"){
-//                    h = "yoga power";
-//                }
-//                else if(type === "body1"){
-//                     t = "teacher1";
-//                }
 
                         $(jsondata).each(function (i, val) {
-                         
+
                             $.each(val, function (k, v) {
 //                                alert(k + " : " + v+ ":"+ type);
                                 if (type.trim() == k.trim()) {
-//                                    alert();
                                     elementdata = v;
                                 }
 
@@ -156,7 +180,7 @@ $(document).ready(function () {
 
                         if (tag === "button")
                         {
-                            alert("button");
+//                            alert("button");
                             $(".preview").append("<div><img src='" + elementdata + "'id=" + type + " alt='button'/>");
                             $("#" + type).css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
                                     .attr("src", "buttons/button1.png");
@@ -169,7 +193,7 @@ $(document).ready(function () {
                             var height = $(this).attr("height");
                             var backgroundcolor = $(this).attr("background-color");
 //                 alert(backgroundcolor);
-                            $(".preview").append("<div id=" + type + "></div>");
+                            $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
                             $("#" + type).css("background-color", "" + backgroundcolor).css("margin-left", "" + left + "px")
                                     .css("margin-top", "" + top + "px").css("width", "" + width)
                                     .css("height", "" + height);
@@ -190,26 +214,18 @@ $(document).ready(function () {
         }
     });
 
-    
-
     $("#text").click(function () {
         $("#tabs-1").show();
         $("#tabs-2").hide();
-
-
 
     });
 
     $("#style").click(function () {
         $("#tabs-1").hide();
         $("#tabs-2").show();
-//    $("#stylecontainer").append("<div id=style1></div>");
-//    $("#style1").css("width","100px").css("height","100pxs").css("background-color","#FF0000");
     });
 
     $(".alignButton").click(function () {
-//     alert(selectedTextareaId);
-//        alert($(this).attr('id'));
         $("#" + selectedTextareaId).css("text-align", $(this).attr('id'));
 
         reload_alignButtons();
@@ -250,11 +266,41 @@ $(document).ready(function () {
     }
 
     $("#plus").click(function () {
-        $("#" + selectedTextareaId).css("font-size", "+=1");
+        var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
+
+
+        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) + 5) + "px");
     });
     $("#minus").click(function () {
-        $("#" + selectedTextareaId).css("font-size", "-=1");
+        var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
+
+        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 5) + "px");
     });
+    var status = "false";
+    $("#hidealignbutton").click(function () {
+
+        if (status === "true") {
+            $("#left").show();
+            $("#right").show();
+            $("#center").show();
+            $("#justify").show();
+            $("#plus").show();
+            $("#minus").show();
+            status = "false";
+        }
+        else {
+            $("#left").hide();
+            $("#right").hide();
+            $("#center").hide();
+            $("#justify").hide();
+            $("#plus").hide();
+            $("#minus").hide();
+            status = "true";
+        }
+
+    });
+
+
 
     $('#cropButton').on("click", function () {
         // grab width and height of .crop-img for canvas
@@ -276,7 +322,7 @@ $(document).ready(function () {
         img.onload = function () {
 
             // draw image
-            alert("crop test");
+//            alert("crop test");
             ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
 
             // display canvas image
@@ -330,8 +376,6 @@ $(document).ready(function () {
 
     oFReader.onload = function (oFREvent) {
         $('.preview').html('<div class="default"><div class="cropMain"></div>');
-
-
         // create new object crop
         // you may change the "one" variable to anything
         one = new CROP();
@@ -344,10 +388,6 @@ $(document).ready(function () {
 
     };
 
-
-
-
-
 });
 
 function getTectId() {
@@ -356,17 +396,24 @@ function getTectId() {
     });
 }
 
+function getDivId(divid) {
+
+
+    alert(divid.id);
+    selectedDivId = divid.id;
+
+}
+
 function uploadimage() {
     $('#popup').show("slow");
 
     $('#popupclose').click(function () {
         $('#popup').hide("slow");
-        alert($("#uploadImage").val());
+//        alert($("#uploadImage").val());
         $(".preview").append("<img src=" + $("#uploadImage").val() + ">");
     });
 
 }
-
 
 function imageEdit() {
     $("#textcontainer").hide();

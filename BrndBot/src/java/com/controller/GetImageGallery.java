@@ -22,7 +22,7 @@ import org.json.simple.JSONObject;
  *
  * @author Syed
  */
-public class GetImageGallery extends HttpServlet {
+    public class GetImageGallery extends HttpServlet {
     SqlMethods sqlmethods = new SqlMethods();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,7 +44,9 @@ public class GetImageGallery extends HttpServlet {
         String image_name;
         Integer user_id, id;
         try {
-            String query = "Select * from tbl_user_images";
+            user_id = (Integer)sqlmethods.session.getAttribute("UID");
+
+            String query = "Select * from tbl_user_images where user_id="+user_id+"";
             sqlmethods.setDatabaseConnection();
             prepared_statement = sqlmethods.con.prepareStatement(query);
             result_set = prepared_statement.executeQuery();

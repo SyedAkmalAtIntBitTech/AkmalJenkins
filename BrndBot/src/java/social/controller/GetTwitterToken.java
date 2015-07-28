@@ -15,6 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONException;
+import org.json.JSONObject;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -63,7 +65,7 @@ public class GetTwitterToken extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-     private String token ="";
+    private String token ="";
     private String tokenSecret = "";
     private Twitter twitter;
     private RequestToken requestToken;
@@ -103,6 +105,7 @@ public class GetTwitterToken extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
          String pin = request.getParameter("pin");
+         JSONObject json_token = new JSONObject();
         AccessToken accessToken = null;
          try{
          if(pin.length() > 0){
@@ -110,18 +113,23 @@ public class GetTwitterToken extends HttpServlet {
          }else{
            accessToken = twitter.getOAuthAccessToken();
          }
-      } catch (TwitterException te) {
-        if(401 == te.getStatusCode()){
-          System.out.println("Unable to get the access token.");
-        }else{
-          te.printStackTrace();
-        }
-      }
+      
         token = accessToken.getToken();
+                
         tokenSecret = accessToken.getTokenSecret();   
+        json_token.put("token", token);
+        json_token.put("tokenSecret", tokenSecret);
+
         response.setContentType("text/plain");
         response.getWriter().write(token+", "+tokenSecret);
-        
+         } catch (TwitterException te) {
+            if(401 == te.getStatusCode()){
+              System.out.println("Unable to get the access token.");
+            }else{
+              te.printStackTrace();
+            }
+          }catch (JSONException j){}
+
     }
 
     /**

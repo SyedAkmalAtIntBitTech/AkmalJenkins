@@ -3,21 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package social.controller;
+package com.controller;
 
+import model.ClassImages;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
- * @author intbit
+ * @author Syed
  */
-public class SetUserFacebookAccessToken extends HttpServlet {
-
+public class GetUserImages extends HttpServlet {
+    SqlMethods sqlmethods = new SqlMethods();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,9 +37,36 @@ public class SetUserFacebookAccessToken extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        JSONObject json_ob = new JSONObject();
+        JSONArray json_arr = new JSONArray();
+        PreparedStatement prepared_statement;
+        ResultSet result_set;
+        String image_name;
+        Integer user_id, id;
         try {
-            String access_token = request.getParameter("access_token");
-            System.out.println(access_token);
+//            user_id = (Integer)sqlmethods.session.getAttribute("UID");
+            user_id = 40;
+            
+            String query = "Select * from tbl_user_images where user_id="+user_id;
+            sqlmethods.setDatabaseConnection();
+            prepared_statement = sqlmethods.con.prepareStatement(query);
+            result_set = prepared_statement.executeQuery();
+            
+            while(result_set.next()){
+                ClassImages cli = new ClassImages();
+                id = result_set.getInt("id");
+                user_id = result_set.getInt("user_id");
+                image_name = result_set.getString("image_name");
+                cli.setId(id);
+                cli.setUser_id(user_id);
+                cli.setImage_name(image_name);
+                json_arr.add(cli);
+            }
+//        String jsonText = obj.toJSONString();        
+        String json = new Gson().toJson(json_arr);
+        response.setContentType("application/json");
+        response.getWriter().write(json);
+            
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

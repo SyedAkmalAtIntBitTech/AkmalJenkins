@@ -3,7 +3,7 @@
     <context-param>
         <description>Upload Path</description>
         <param-name>file-upload</param-name>
-        <param-value>/home/sandeep-kumar/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
+        <param-value>/home/intbit/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
     </context-param>
     <servlet>
         <servlet-name>UserServlet</servlet-name>
@@ -214,8 +214,20 @@
         <servlet-class>social.controller.PostToSocial</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SetUserFacebookAccessToken</servlet-name>
-        <servlet-class>social.controller.SetUserFacebookAccessToken</servlet-class>
+        <servlet-name>ServletUserPreferencesFacebook</servlet-name>
+        <servlet-class>social.controller.ServletUserPreferencesFacebook</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetUserPreferences</servlet-name>
+        <servlet-class>com.controller.GetUserPreferences</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletUserPreferencesTwitter</servlet-name>
+        <servlet-class>social.controller.ServletUserPreferencesTwitter</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetUserImages</servlet-name>
+        <servlet-class>com.controller.GetUserImages</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
@@ -434,14 +446,28 @@
         <url-pattern>/MindBodyDataServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SetUserFacebookAccessToken</servlet-name>
-        <url-pattern>/SetUserFacebookAccessToken</url-pattern>
+        <servlet-name>ServletUserPreferencesFacebook</servlet-name>
+        <url-pattern>/ServletUserPreferencesFacebook</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetTwitterToken</servlet-name>
         <url-pattern>/GetTwitterToken</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PostToSocial</servlet-name>
         <url-pattern>/PostToSocial</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetUserPreferences</servlet-name>
+        <url-pattern>/GetUserPreferences</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletUserPreferencesTwitter</servlet-name>
+        <url-pattern>/ServletUserPreferencesTwitter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetUserImages</servlet-name>
+        <url-pattern>/GetUserImages</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

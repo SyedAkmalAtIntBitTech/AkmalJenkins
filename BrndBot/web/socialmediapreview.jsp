@@ -6,7 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-
     String isFacebook = request.getParameter("isFacebook");
     String isTwitter = request.getParameter("isTwitter");
     String accesstoken = "";
@@ -17,7 +16,6 @@
     if (isTwitter.equalsIgnoreCase("true")) {
         twitteracesstoken = request.getParameter("twaccessTokenSend").split(",");
     }
-
 
 %>
 <!DOCTYPE html>

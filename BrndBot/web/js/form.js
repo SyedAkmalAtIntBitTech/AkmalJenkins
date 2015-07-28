@@ -150,6 +150,7 @@ function loginController($scope, $http) {
     $scope.user = {};
 
     $scope.checkUser = function () {
+            alert(getHost());
 
         $http({
             method: 'POST',

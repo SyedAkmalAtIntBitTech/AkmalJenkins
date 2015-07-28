@@ -10,16 +10,41 @@ $(document).ready(function () {
     $("#facebook").click(function () {
 
         facebookcheck = document.getElementById("facebook").checked;
-//               alert(facebookcheck);
-        if (facebookcheck)
-        {
-            document.location.href = "GetFacebookManagePage";
 
+        if (facebookcheck) {
+
+            $.ajax({
+                url: 'ServletUserPreferencesFacebook',
+                method: 'GET',
+                data: {
+                    access_token_method: "getAccessToken"
+                },
+                success: function (responseText) {
+//                            $("#tokenHere").html(responseText);
+
+                    if (responseText == "") {
+
+                        document.location.href = "GetFacebookManagePage";
+
+                        $("#isFacebook").val(facebookcheck);
+
+                    } else {
+                        $("#fbaccessTokenSend").val(responseText);
+                        $("#fbdefaultAccessToken").val("true");
+                        $("#isFacebook").val("true");
+
+                        $("#submitbutton").prop("disabled", false);
+                    }
+                }
+            });
+
+        } else {
             $("#isFacebook").val(facebookcheck);
+            $("#submitbutton").prop("disabled", true);
+            $("#fbaccessTokenSend").val("");
+            $("#fbdefaultAccessToken").val("");
         }
-        else {
-            $("#isFacebook").val(facebookcheck);
-        }
+
 
         $("#close").click(function () {
 
@@ -33,46 +58,91 @@ $(document).ready(function () {
 //            alert(twittercheck);
         $("#submitbutton").prop("disabled", true);
         $("#isTwitter").val(twittercheck);
+        var twitter_access_tokens = "";
 
         if (twittercheck) {
-            $("#twitterpopup").show();
-            $.ajax({
-                url: 'GetTwitterToken',
-                method: 'get',
-                success: function (responseText) {
-                    $("#twitterlink").html("<a href='" + responseText + "' target='_blank'>click here</a>");
-                    //alert(responseText);
-                }
-            });
-            $('#setPin').click(function () {
-//                alert($("#pinTextBox").val());
 
-                $.ajax({
-                    url: 'GetTwitterToken',
-                    method: 'post',
-                    data: {
-                        pin: $("#pinTextBox").val()
-                    },
-                    success: function (responseText) {
-//                        $("#tokenHere").html(responseText);
-//                        alert(responseText);
+            $.ajax({
+                url: 'ServletUserPreferencesTwitter',
+                method: 'post',
+                data: {
+                    access_token_method: "getAccessToken",
+                },
+                success: function (responseText) {
+                    if (responseText == "") {
+
+                        $("#twitterpopup").show();
+
+                        $.ajax({
+                            url: 'GetTwitterToken',
+                            method: 'get',
+                            success: function (responseText) {
+                                $("#twitterlink").html("<a href='" + responseText + "' target='_blank'>click here</a>");
+                                //alert(responseText);
+                            }
+                        });
+                        $('#setPin').click(function () {
+                            var pin = $("#pinTextBox").val();
+
+                            if (pin.length > 0) {
+                                $.ajax({
+                                    url: 'GetTwitterToken',
+                                    method: 'post',
+                                    data: {
+                                        pin: $("#pinTextBox").val()
+                                    },
+                                    success: function (responseText) {
+                                        //                        $("#tokenHere").html(responseText);
+                                        $("#twaccessTokenSend").val(responseText);
+                                        twitter_access_tokens = responseText;
+                                        $.ajax({
+                                            url: 'ServletUserPreferencesTwitter',
+                                            method: 'post',
+                                            data: {
+                                                access_token_method: "setAccessToken",
+                                                twitter_access_tokens: twitter_access_tokens
+                                            },
+                                            success: function (responseText) {
+                                            }
+                                        });
+
+                                        $("#submitbutton").prop("disabled", false);
+                                    }
+                                });
+
+                                $("#twitterpopup").hide();
+
+
+                            } else {
+                                alert("Please enter the pin code");
+                                $("#pinTextBox").focus();
+                            }
+
+                        });
+
+                    } else {
                         $("#twaccessTokenSend").val(responseText);
                         $("#submitbutton").prop("disabled", false);
+
                     }
-                });
-                $("#twitterpopup").hide();
 
-
+                }
             });
 
         }
         else
         {
+            $("#twaccessTokenSend").val("");
             $("#twitterpopup").hide();
+            $("#submitbutton").prop("disabled", true);
         }
 
     });
+    $("#closetwitter").click(function () {
+
+        $("#twitterpopup").hide();
+        $("#submitbutton").prop("disabled", true);
 
 
-
+    });
 });

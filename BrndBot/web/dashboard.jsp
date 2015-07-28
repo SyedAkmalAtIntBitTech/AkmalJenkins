@@ -24,11 +24,7 @@
           %>
 
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <title>Dashboard</title>
@@ -69,7 +65,6 @@ and open the template in the editor.
                 z-index: 10000;
                 transition: all .4s ease 0s;
              }
-
              
          .navbar-default {
                 background-color: whitesmoke;
@@ -98,7 +93,7 @@ and open the template in the editor.
                                     <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
                                     <li><a href="email.html"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
                                     <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
-                                    <li><a href="imagegallery.html"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
+                                    <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
                                     <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br><br></li> 
                                     <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br><br></li> 
                                 </ul>

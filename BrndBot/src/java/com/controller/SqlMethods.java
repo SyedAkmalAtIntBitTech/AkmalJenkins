@@ -127,7 +127,7 @@ public class SqlMethods {
             prepared_statement.setInt(1, user_id);
             prepared_statement.setString(2, image_name);
 
-            prepared_statement.executeQuery();
+            prepared_statement.executeUpdate();
 
             prepared_statement.close();
         }catch (Exception e){
@@ -399,7 +399,8 @@ public class SqlMethods {
             prepared_statement.setString(2, randvalue);
             prepared_statement.setDate(3, sdat);
             prepared_statement.setLong(4, time3);
-            prepared_statement.executeQuery();
+            
+            prepared_statement.executeUpdate();
 
             prepared_statement.close();
         } catch (Exception e) {

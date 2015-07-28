@@ -88,7 +88,8 @@ public class PostToSocial extends HttpServlet {
 
                 Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
                 String statusMessage = request.getParameter("text");
-                File file = new File("/home/sandeep-kumar/Downloads/eid-mubarak2.gif");
+                String image_path = getServletContext().getRealPath("") + "/images/images.jpeg";
+                File file = new File(image_path);
 
                 StatusUpdate status = new StatusUpdate(statusMessage);
                 status.setMedia(file); // set the image to be uploaded here.
@@ -103,18 +104,6 @@ public class PostToSocial extends HttpServlet {
             }
 
         }
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet PostToFacebook</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet PostToFacebook at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

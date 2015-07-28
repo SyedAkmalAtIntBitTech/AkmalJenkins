@@ -102,7 +102,7 @@
             $(document).ready(function () {
                 var myVar1 = '<%= request.getAttribute("objkey")%>';    /* retrieve json from request attribute */
                 var mytest = eval('(' + myVar1 + ')');
-//                alert(myVar1);      // display complete json
+//                alert(JSON.stringify(myVar1));      // display complete json
 
                 var removecote = myVar1.replace("[", '').replace(/"/g, '').replace(']', '');
                 var pages = removecote.split(",");
@@ -116,15 +116,17 @@
                     $("#popup").show();
 
                     for (var i = 0; i < pages.length; i = i + 3) {
-                        $("#fbmanagepages").append("<tr  id=page#" + i + "><td>" + pages[i] + "</td><td><input type=hidden id=access" + i + " value=" + pages[i + 1] + "></td><td><img src=" + pages[i + 2] + "></td><td><input id=isDefault type=radio name=isDefault value=" + pages[i + 1] + ">Default</td></tr>");
-
+                        $("#fbmanagepages").append("<tr  id=page#" + i + "><td>" + pages[i] + "</td><td><input type=hidden id=access" + i + " value=" + pages[i + 1] + "></td><td><img src=" + pages[i + 2] + "></td></tr>");
                     }
 
-                    $("#content").append(" <br><br><center><input id=close type=button class=btn btn-primary value=ok></center>");
+                    $("#content").append(" <br><center><input id=isdefault name=isdefault type=checkbox class=btn btn-primary value=default>Default</input></center>");
+                    $("#content").append(" <br><center><input id=facebookok name=facebookok type=button class=btn btn-primary value=ok>&nbsp;&nbsp;<input id=close name=close type=button class=btn btn-primary value=cancel></center>");
                 }
-
-
-
+ 
+                var managed_page = "";
+                var default_access_token;
+                var check_default = "false";
+                var check_default_managed_page;
                 $("tr").click(function () {
                     var id = this.id.split("#");
 
@@ -133,36 +135,75 @@
                     var accessToken = $("#access" + id[1]).val();
                     $("#pagenameSend").val(page);
                     $("#fbaccessTokenSend").val(accessToken);
+                    $("#fbdefaultAccessToken").val("true");
+                    check_default = $("#fbdefaultAccessToken").val();
                     $("#facebook").prop("checked", true);
                     $("#isFacebook").val("true");
 
                 });
 
-                var managed_page = "";
-                var access_token;
-                $("#close").click(function () {
-                    $("#popup").hide();
-                    $("#twitterpopup").hide();
-                    $("#submitbutton").prop("disabled",false);
-                    managed_page = $("#isDefault").val();
+                $("#isdefault").click(function () {
+//                    managed_page = $("#isDefault").val();
+                    alert(check_default);
+                    if (check_default == "true"){
+                        default_access_token = $("#fbaccessTokenSend").val();
+                    }
                     
-                    if (managed_page != ""){
+//                    if (check_default == "true"){
+//                        $.ajax({
+//                                url: 'SetUserFacebookAccessToken',
+//                                method: 'post',
+//                                type:"JSON",
+//                                data: {
+//                                    method: "setAccessToken",
+//                                    access_token:default_access_token
+//                                },
+//                                success: function (responseText) {
+//    //                            $("#tokenHere").html(responseText);
+//                                    alert("sucess");
+//                                }
+//                            });
+//                    }
+                    });
+
+                $("#facebookok").click(function () {
+//                    managed_page = $("#isDefault").val();
+                    check_default_managed_page = document.getElementById("isdefault").checked;
+                    
+                    if ((check_default_managed_page == true) && (check_default == "true")){
+                       alert(default_access_token);
                         $.ajax({
-                                url: 'SetUserFacebookAccessToken',
+                                url: 'ServletUserPreferencesFacebook',
                                 method: 'post',
-//                                Type:"JSON",
+//                                type:"JSON",
                                 data: {
-                                    access_token:$("#isDefault").val()
+                                   access_token_method: "setAccessToken",
+                                   access_token:default_access_token
                                 },
                                 success: function (responseText) {
     //                            $("#tokenHere").html(responseText);
-                                    alert("sucess");
+                                    alert("sucess");$("#popup").hide(); 
+                                     $("#submitbutton").prop("disabled",false);
                                 }
                             });
-                    }
-                    
+                    }else if((check_default_managed_page == false) && (check_default == "true")) { 
+                        $("#popup").hide(); 
+                        $("#submitbutton").prop("disabled",false);
+                    }else {
+                        alert("No default page selected");
+                    }   
             });
-            });
+            
+            $("#close").click(function(){
+                    $("#fbaccessTokenSend").val("") ;
+                    $("#fbdefaultAccessToken").val("");
+                    $("#isFacebook").val("false");
+                    $("#facebook").prop("checked",false);
+                    $("#popup").hide();
+                    $("#twitterpopup").hide();
+                    $("#submitbutton").prop("disabled",true);
+            });   
+           });
         </script>
     </head>
 <body>
@@ -183,7 +224,8 @@
                 <li><div class="col-md-4 col-md-offset-6">
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
                             <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend">
-                            <input type="text" id="fbaccessTokenSend" name="fbaccessTokenSend">
+                            <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
+                            <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
                             <input type="hidden" id="isFacebook" name="isFacebook" value="false">
                             <input type="hidden" id="isTwitter" name="isTwitter" value="false">
                             <input type="submit"  id="submitbutton" class="btn btn-primary" value="Continue" disabled>
@@ -207,6 +249,7 @@
                 <div id="twitterlink">wait...</div>
                 Enter the pin<input type="text" id="pinTextBox" name="pinTextBox"><br><br><br>
                 <input id="setPin" type="button" class="btn btn-primary" value="ok">
+<!--                <input id="closetwitter" type="button" class="btn btn-primary" value="cancel">-->
             </div>   
         </div>        
     </div>
