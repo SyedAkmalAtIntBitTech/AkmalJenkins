@@ -229,6 +229,14 @@
         <servlet-name>GetUserImages</servlet-name>
         <servlet-class>com.controller.GetUserImages</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetEmailLists</servlet-name>
+        <servlet-class>com.controller.GetEmailLists</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetEmailLists</servlet-name>
+        <servlet-class>com.controller.SetEmailLists</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -468,6 +476,14 @@
     <servlet-mapping>
         <servlet-name>GetUserImages</servlet-name>
         <url-pattern>/GetUserImages</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetEmailLists</servlet-name>
+        <url-pattern>/GetEmailLists</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetEmailLists</servlet-name>
+        <url-pattern>/SetEmailLists</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

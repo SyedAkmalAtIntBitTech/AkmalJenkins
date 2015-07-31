@@ -49,8 +49,7 @@ SqlMethods sql_methods = new SqlMethods();
         JSONObject json_colors = new JSONObject();
         JSONParser parser = new JSONParser();
 
-//        Integer user_id = (Integer)sql_methods.session.getAttribute("UID");
-        Integer user_id = 40;
+        Integer user_id = (Integer)sql_methods.session.getAttribute("UID");
         try {
                 String query_string = "Select * from tbl_user_preferences where user_id="+user_id+"";
                 sql_methods.setDatabaseConnection();

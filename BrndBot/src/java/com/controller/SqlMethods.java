@@ -14,10 +14,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.postgresql.util.PGobject;
 import pojos.TblColors;
 
@@ -32,7 +36,7 @@ public class SqlMethods {
     HttpServletResponse response;
     public HttpSession session;
     public HttpSession admin_session;
-    
+
     public static Integer limit = 4;
     public Integer upper_limit = 4;
     public String query_string = "";
@@ -51,11 +55,35 @@ public class SqlMethods {
             con = DriverManager.getConnection(database_port_address, database_user_id, database_user_password);
 
         } catch (Exception e) {
-            
+
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }
+    }
 
+    public void close(ResultSet rs, Statement ps, Connection conn) {
+        if (rs != null) {
+            try {
+                rs.close();
+
+            } catch (SQLException e) {
+                Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
     }
 
     public void setUpperLimit() {
@@ -108,16 +136,17 @@ public class SqlMethods {
                 company_name = result_set.getString("company_name");
             }
             result_set.close();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return company_name;
     }
-    
-    public void AddImages(Integer user_id, String image_name)throws SQLException{
-        try{
+
+    public void AddImages(Integer user_id, String image_name) throws SQLException {
+        try {
             PreparedStatement prepared_statement;
             ResultSet result_set;
 
@@ -128,27 +157,28 @@ public class SqlMethods {
             prepared_statement.setString(2, image_name);
 
             prepared_statement.executeUpdate();
-
-            prepared_statement.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
     }
 
-    public void deleteImages(Integer image_id)throws SQLException{
-        try{
-              query_string = "Delete From tbl_user_images"
+    public void deleteImages(Integer image_id) throws SQLException {
+        try {
+            query_string = "Delete From tbl_user_images"
                     + " WHERE id='" + image_id + "'";
-                 
-                 prepared_statement = con.prepareStatement(query_string);
-                 prepared_statement.executeUpdate();
-                 prepared_statement.close();
-        }catch (Exception e){
+
+            prepared_statement = con.prepareStatement(query_string);
+            prepared_statement.executeUpdate();
+        } catch (Exception e) {
             System.out.println(e.getCause());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
     }
-    
+
     public Integer getOrganizationID(Integer userId) throws ClassNotFoundException, SQLException {
         Integer org_id = 0;
         try {
@@ -160,11 +190,11 @@ public class SqlMethods {
             if (result_set.next()) {
                 org_id = result_set.getInt("organizationid");
             }
-            result_set.close();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return org_id;
     }
@@ -179,11 +209,11 @@ public class SqlMethods {
             if (result_set.next()) {
                 org_name = result_set.getString("organization_name");
             }
-            result_set.close();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return org_name;
     }
@@ -199,10 +229,10 @@ public class SqlMethods {
             while (result_set.next()) {
                 AL.add(result_set.getString("organization_name"));
             }
-            result_set.close();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return AL;
     }
@@ -219,11 +249,11 @@ public class SqlMethods {
                 TC.setColorName(result_set.getString("color_name"));
                 TC.setColorHex(result_set.getString("color_hex"));
             }
-            prepared_statement.close();
-            result_set.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return TC;
     }
@@ -241,10 +271,10 @@ public class SqlMethods {
                 Integer UID = result_set.getInt("id");
             }
 
-            result_set.close();
-            prepared_statement.close();
         } catch (SQLException e) {
             System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return checked;
     }
@@ -261,10 +291,10 @@ public class SqlMethods {
                 checked = true;
             }
 
-            result_set.close();
-            prepared_statement.close();
         } catch (SQLException e) {
             System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return checked;
     }
@@ -281,15 +311,15 @@ public class SqlMethods {
                 checked = true;
             }
 
-            result_set.close();
-            prepared_statement.close();
         } catch (SQLException e) {
             System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return checked;
     }
 
-    public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, String location, Integer look_id, JSONObject json_object) {
+    public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, String location, Integer look_id, JSONObject json_object) throws SQLException {
         PGobject pg_object = new PGobject();
 
         try {
@@ -301,7 +331,7 @@ public class SqlMethods {
             prepared_statement.setInt(3, font_theme_id);
             prepared_statement.setString(4, location);
             prepared_statement.setInt(5, look_id);
-            
+
             pg_object.setType("json");
             pg_object.setValue(json_object.toJSONString());
             prepared_statement.setObject(6, pg_object);
@@ -310,10 +340,34 @@ public class SqlMethods {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
     }
 
-    
+    public Boolean updateJSONUserPreference(Integer user_id, JSONObject userPreferenceJSON) throws SQLException {
+        PGobject pg_object = new PGobject();
+        Boolean returnResult = false;
+        try {
+            query_string = "Update tbl_user_preferences SET user_preferences=? where user_id=?";
+            prepared_statement = con.prepareStatement(query_string);
+
+            pg_object.setType("json");
+            pg_object.setValue(userPreferenceJSON.toString());
+            prepared_statement.setObject(1, pg_object);
+            prepared_statement.setInt(2, user_id);
+            if (prepared_statement.executeUpdate() == 1){
+                returnResult = true;
+            } 
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
+        }
+        return returnResult;
+    }
+
     public int getFontthemeid(String brndid) throws SQLException {
         Integer IDNO = 0;
         try {
@@ -324,11 +378,11 @@ public class SqlMethods {
             if (result_set.next()) {
                 IDNO = result_set.getInt(1);
             }
-            result_set.close();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return IDNO;
     }
@@ -345,11 +399,12 @@ public class SqlMethods {
             prepared_statement.setString(5, "");
 
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
     }
 
@@ -360,11 +415,12 @@ public class SqlMethods {
 
             prepared_statement = con.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
     }
 
@@ -375,11 +431,12 @@ public class SqlMethods {
 
             prepared_statement = con.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
     }
 
@@ -399,19 +456,20 @@ public class SqlMethods {
             prepared_statement.setString(2, randvalue);
             prepared_statement.setDate(3, sdat);
             prepared_statement.setLong(4, time3);
-            
+
             prepared_statement.executeUpdate();
 
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
 
     }
 
-    public void resetPassword(String id, String password) {
+    public void resetPassword(String id, String password) throws SQLException {
         try {
             query_string = "UPDATE tbl_user_login_details"
                     + " SET password ='" + password + "' WHERE id=" + id + "";
@@ -423,15 +481,16 @@ public class SqlMethods {
             query_string = "Delete From tbl_forgot_password where userid='" + id + "'";
             prepared_statement = con.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
 
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
     }
 
-    public String checkResetStatus(String hash) {
+    public String checkResetStatus(String hash) throws SQLException {
         Date expdatee = new Date();
         String userid = "false";
         try {
@@ -453,16 +512,16 @@ public class SqlMethods {
                 }
 
             }
-            result_set.close();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return userid;
     }
 
-    public String getUserIdbyHash(String hash) {
+    public String getUserIdbyHash(String hash) throws SQLException {
         String userid = "";
         try {
             query_string = "Select * from tbl_forgot_password where randomlink='" + hash + "'";
@@ -474,6 +533,8 @@ public class SqlMethods {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return userid;
     }
@@ -489,11 +550,11 @@ public class SqlMethods {
             if (result_set.next()) {
                 ID = result_set.getInt(1);
             }
-            result_set.close();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
         }
         return ID;
     }
@@ -501,47 +562,109 @@ public class SqlMethods {
     public void setLookID() throws IOException {
         System.out.println("LookID" + ":" + "LookID");
     }
-    
-    public String getMapperFile(Integer user_id, Integer organization_id, Integer category_id, Integer sub_category_id, Integer id){
+
+    public String getMapperFile(Integer user_id, Integer organization_id, Integer category_id, Integer sub_category_id, Integer id) throws SQLException {
         String mapper_file_name = "";
-        try{
-            if (id == 0){
-                query_string = "Select * from tbl_model where category_id="+ category_id +" and user_id="+user_id+" and organization_id="+organization_id+" and sub_category_id="+sub_category_id+" and social="+true+" order by id ASC";
+        try {
+            if (id == 0) {
+                query_string = "Select * from tbl_model where category_id=" + category_id + " and user_id=" + user_id + " and organization_id=" + organization_id + " and sub_category_id=" + sub_category_id + " and social=" + true + " order by id ASC";
 
                 Statement sta = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            // Catch the ResultSet object
-                 result_set = sta.executeQuery(query_string);
+                // Catch the ResultSet object
+                result_set = sta.executeQuery(query_string);
 
-            // Check ResultSet's scrollability
+                // Check ResultSet's scrollability
                 if (result_set.getType() == ResultSet.FETCH_FORWARD) {
-                  System.out.println("ResultSet non-scrollable.");
+                    System.out.println("ResultSet non-scrollable.");
                 } else {
-                  System.out.println("ResultSet scrollable.");
-                }            
-                
+                    System.out.println("ResultSet scrollable.");
+                }
+
 //                prepared_statement = con.prepareStatement(query_string);
 //                result_set = prepared_statement.executeQuery();
-                if (result_set.first()){
+                if (result_set.first()) {
                     mapper_file_name = result_set.getString("model_file_name");
                 }
-            
-            }else{
-                query_string = "Select model_file_name from tbl_model where category_id="+ category_id +" and user_id="+user_id+" and organization_id="+organization_id+" and sub_category_id="+sub_category_id+" and id="+id+"";
+
+            } else {
+                query_string = "Select model_file_name from tbl_model where category_id=" + category_id + " and user_id=" + user_id + " and organization_id=" + organization_id + " and sub_category_id=" + sub_category_id + " and id=" + id + "";
 
                 prepared_statement = con.prepareStatement(query_string);
                 result_set = prepared_statement.executeQuery();
-                if (result_set.next()){
+                if (result_set.next()) {
                     mapper_file_name = result_set.getString(1);
                 }
             }
+
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement, con);
+        }
+        return mapper_file_name;
+    }
+    
+    public JSONObject getJSONUserPreferences(Integer user_id) {
+        PGobject pgobject = new PGobject();
+        JSONParser parser = new JSONParser();
+        org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
         
-            result_set.close();
-            prepared_statement.close();
-            }catch (Exception e){
-                System.out.println(e.getCause());
-                System.out.println(e.getMessage());
+        try {
+            String query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+            prepared_statement = con.prepareStatement(query_string);
+
+            result_set = prepared_statement.executeQuery();
+
+            if (result_set.next()) {
+                pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
             }
-            return mapper_file_name;
+            pgobject.setType("json");
+            String obj = pgobject.getValue();
+            userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
+
+
+        } catch (Exception e) {
+
+        } finally {
+            close(result_set, prepared_statement, con);
+        }
+        return userPreferencesJSONObject;
+    }
+    
+    public JSONArray getEmailListsPreferences(Integer user_id) {
+        PGobject pgobject = new PGobject();
+        JSONParser parser = new JSONParser();
+        org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
+        JSONArray emailListJSONArray = new JSONArray();
+        
+        try {
+            String query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+            prepared_statement = con.prepareStatement(query_string);
+
+            result_set = prepared_statement.executeQuery();
+
+            if (result_set.next()) {
+                pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
+            }
+            pgobject.setType("json");
+            String obj = pgobject.getValue();
+            userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
+            org.json.simple.JSONArray emailLists = (org.json.simple.JSONArray) userPreferencesJSONObject.get(IConstants.kEmailAddressUserPreferenceKey);
+
+            if (userPreferencesJSONObject != null && emailLists != null) {
+                for(int i=0; i < emailLists.size(); i++){
+                    org.json.simple.JSONObject emailJSONObject = (org.json.simple.JSONObject) emailLists.get(i);
+                    emailListJSONArray.put(emailJSONObject);
+                }
+            }
+
+        } catch (Exception e) {
+
+        } finally {
+            close(result_set, prepared_statement, con);
+        }
+        return emailListJSONArray;
     }
 }
