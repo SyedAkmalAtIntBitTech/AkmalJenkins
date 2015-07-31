@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<models>
+    <model default="default" element="header1" epoch="default" option="Class_ID"/>
+    <model default="default" element="header2" epoch="default" option="ClassDescription_Name"/>
+    <model default="default" element="header3" epoch="default" option="ClassDescription_ImageURL"/>
+    <model default="default" element="header4" epoch="default" option="ClassDescription_Description"/>
+    <model default="default" element="header5" epoch="default" option="ClassDescription_ProgramName"/>
+    <model default="default" element="header6" epoch="default" option="ClassStartDateTime"/>
+    <model default="default" element="header7" epoch="default" option="ClassEndDateTime"/>
+    <model default="default" element="header8" epoch="default" option="StaffName"/>
+</models>

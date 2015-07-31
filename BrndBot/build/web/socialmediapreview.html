@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>social media preview</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
+        <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
+        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+<!--        <script src="js/socialmedia.js" type="text/javascript"></script>-->
+        <style>
+            .socialimage{
+                width: 30px;
+                height: 30px;
+                margin-left:  5px;
+            } 
+            #maincontainer li{
+                display: inline-table;
+                position: relative;
+                left: 15px;
+                top: 100px;
+
+
+            }
+            .hideinputborder{
+                background-color:transparent;
+                border: 0px solid;
+                height:30px;
+                width:260px;
+            }
+            .hideinputborder:focus{
+                outline: none;
+            }
+
+            #chnagetolinkpost,#removelink,#posttofb{
+                border-radius: 15px;
+            }
+            .facebookpreview{
+                /*             top: -100px;*/
+            }
+
+            #linkpostdiv{
+                display: none;
+            }
+            #facebookpreviewimage{
+                width: 300px;
+                height: 200px;
+            }
+            .row{
+                margin-top: 100px;
+                margin-left: 50px;
+            }
+            .companyimage{
+                width: 40px;
+                height: 40px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div id="sidebar-wrapper" class="col-md-1">
+                <nav class="navbar navbar-default " role="navigation">
+                    <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
+                </nav>
+            </div>
+            <!--/end left column-->
+
+            <!--        <div class="row">
+                            <div class="col-lg-12 col-lg-offset-1">
+                                 <p id="header1">POST ON SOCIAL MEDIA</p>
+                                <ul id="maincontainer">
+                                    <li>
+                                        <div class="col-md-4">
+                                            What social media would you like to promote?<br><br>
+                                            <img class="socialimage" id="facebook" src="images/fb_icon.png">
+                                            <img class="socialimage" id="twitter" src="images/twitter.jpeg"><br><br><br>
+                                            post test<input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here">
+                                            <br><br>
+                                            <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
+                                            <div id="linkpostdiv">
+                                                Link Title<input class="hideinputborder"  id="title" type="text" placeholder="post text goes here"><br>
+                                                Link Description<input class="hideinputborder" id="description" type="text" placeholder="post text goes here"><br>
+                                                Link URL<input class="hideinputborder" type="text" id="url" placeholder="post text goes here" ><br>
+                                                
+                                                <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
+                                            </div>
+                                         <input type="button" class="btn btn-primary" id="posttofb" value="POST TO FACEBOOK">
+                                        </div>
+                                    </li>
+                                    
+                                    <li>
+                                        <div class="col-md-4">                             
+                                        Facebook Preview
+                                        <img id="companyimage" class="companyimage" src="images/logo.png">
+                                        <p>Company name</p>
+                                        <img id="facebookpreviewimage" src="images/Blackandwhite.jpg">
+                                        </div>
+                                    </li>
+                                      <li>
+                                        <div class="col-md-4">                             
+                                        Twitter Preview
+                                         <img id="companyimage" class="companyimage" src="images/logo.png">
+                                          <img id="facebookpreviewimage" src="images/Blackandwhite.jpg">
+                                        </div>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        
+                    </div>
+            -->
+            <div class="row">
+                <div class="col-sm-3 col-sm-offset-1">
+                    What social media would you like to promote?<br><br>
+                    <img class="socialimage" id="facebookimage" src="images/fb_icon.png"><span id="facebookcancel" class="glyphicon glyphicon-remove-sign"> </span>
+                    <img class="socialimage" id="twitterimage" src="images/twitter.jpeg"><span id="twittercancel" class="glyphicon glyphicon-remove-sign"></span><br><br><br>
+                    post test<input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here">
+                    <br><br>
+                    <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
+                    <div id="linkpostdiv">
+                        Link Title<input class="hideinputborder"  id="title" type="text" placeholder="post text goes here"><br>
+                        Link Description<input class="hideinputborder" id="description" type="text" placeholder="post text goes here"><br>
+                        Link URL<input class="hideinputborder" type="text" id="url" placeholder="post text goes here" ><br>
+
+                        <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
+                    </div>
+                    <input type="button" class="btn btn-primary" id="posttofb" value="POST TO FACEBOOK">
+                </div>
+
+                <div class="col-sm-4" id="fabookpreviewdiv">
+                    Facebook Preview<br>
+                    <img id="companyimage" class="companyimage" src="images/logo.png">
+                    <p>Company name</p><br>
+                    <img id="facebookpreviewimage" src="images/Blackandwhite.jpg">
+                </div>
+
+                <div class="col-sm-3" id="twitterpreviewdiv">
+                    Twitter Preview<br>
+                    <img id="companyimage" class="companyimage" src="images/logo.png">
+                    <textarea class="hideinputborder" id="twittertext" placeholder="Twitter Text goes here until it reaches 40 characters long"></textarea><br><br>
+                    <img id="facebookpreviewimage" src="images/Blackandwhite.jpg">
+                </div>
+            </div>
+        </div>
+        <script>
+            $("#chnagetolinkpost").click(function () {
+
+                $("#linkpostdiv").show();
+            });
+
+            $("#removelink").click(function () {
+                $("#title").val();
+                $("#deccription").val();
+                $("#url").val();
+                $("#linkpostdiv").hide();
+            });
+           
+           $("#twittercancel").click(function (){
+               $("#twittercancel").hide();
+               $("#twitterimage").hide();
+               $("#twitterpreviewdiv").hide();
+           });
+           
+    $("#facebookcancel").click(function (){
+               $("#facebookcancel").hide();
+               $("#facebookimage").hide();
+               $("#fabookpreviewdiv").hide();
+           });
+     
+        </script>    
+    </body> 
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<root>
+    <optionelement>
+        <element>Select</element>
+    </optionelement>
+    <optionelement>
+        <element>EnrollmentID</element>
+    </optionelement>
+    <optionelement>
+        <element>EnrollmentName</element>
+    </optionelement>
+    <optionelement>
+        <element>EnrollmentDescription</element>
+    </optionelement>
+    <optionelement>
+        <element>EnrollmentProgramName</element>
+    </optionelement>
+    <optionelement>
+        <element>EnrollmentImageURL</element>
+    </optionelement>
+    <optionelement>
+        <element>EnrollmentStartDate</element>
+    </optionelement>
+    <optionelement>
+        <element>EnrollmentEndDate</element>
+    </optionelement>
+    <optionelement>
+        <element>EnrollmentStartTime</element>
+    </optionelement>
+    <optionelement>
+        <element>EnrollmentEndTime</element>
+    </optionelement>
+    <optionelement>
+        <element>StaffName</element>
+    </optionelement>
+</root>
