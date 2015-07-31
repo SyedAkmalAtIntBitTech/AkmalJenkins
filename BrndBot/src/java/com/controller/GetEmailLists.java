@@ -7,6 +7,8 @@ package com.controller;
 
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.postgresql.util.PGobject;
 
 /**
  *
@@ -57,7 +61,7 @@ public class GetEmailLists extends HttpServlet {
                 JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id);
                 responseObject.put(queryParameter, emailListArrayJSON);
             }
-        } catch (ClassNotFoundException | SQLException | JSONException e) {
+        } catch (Exception e) {
             try {
                 responseObject.put("Error", "Request unsuccessfull");
             } catch (JSONException ex) {
