@@ -16,6 +16,7 @@ import static com.controller.SqlMethods.con;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -84,11 +85,13 @@ public class Authentication extends HttpServlet {
         } catch (ParseException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+            
             out.write(sqlmethods.error);
         } catch (SQLException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             out.write(sqlmethods.error);
+
         }finally {
             out.close();
         }

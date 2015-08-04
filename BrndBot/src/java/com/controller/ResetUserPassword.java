@@ -68,7 +68,7 @@ public class ResetUserPassword extends HttpServlet {
                 sqlmethods.resetPassword(userid, hashPass);
                 out.write("true");
             }
-
+            sqlmethods.con.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

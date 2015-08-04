@@ -39,6 +39,7 @@ import org.json.simple.JSONObject;
         PrintWriter out = response.getWriter();
         JSONObject json_ob = new JSONObject();
         JSONArray json_arr = new JSONArray();
+        sqlmethods.session = request.getSession();
         PreparedStatement prepared_statement;
         ResultSet result_set;
         String image_name;
@@ -65,6 +66,9 @@ import org.json.simple.JSONObject;
         String json = new Gson().toJson(json_arr);
         response.setContentType("application/json");
         response.getWriter().write(json);
+        result_set.close();
+        prepared_statement.close();
+        sqlmethods.con.close();
             
         }catch (Exception e){
             System.out.println(e.getCause());

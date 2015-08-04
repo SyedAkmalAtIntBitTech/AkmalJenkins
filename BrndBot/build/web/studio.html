@@ -25,14 +25,14 @@ and open the template in the editor.
                   {
                     $http({
                       method: 'POST',
-                      url: global_host_address +'SetStudioID',
+                      url: getHost() +'SetStudioID',
                       headers: {'Content-Type': 'application/json'},
                       data:  $scope.studio
                     }).success(function (data) 
                       {
                         $scope.status=data;
                         if (data === "true"){
-                            window.open(global_host_address+'chooselook.jsp',"_self");
+                            window.open(getHost()+'chooselook.jsp',"_self");
                         }else{
                             alert(data);
                         }

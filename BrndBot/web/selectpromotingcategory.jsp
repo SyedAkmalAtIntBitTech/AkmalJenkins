@@ -22,7 +22,7 @@ and open the template in the editor.
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
-        
+        <script src="js/mindbodyutility.js" type="text/javascript"></script>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
 
         <style>
@@ -57,31 +57,66 @@ and open the template in the editor.
             td{
                 padding: 10px;
             }
+            .mindbodydatadiv{
+                position: relative;
+                padding-bottom: 15px;
+                top:  90px;
+            }
             
+            .datafromindbody li{
+                display: inline-table;
+                padding-left: 5px;
+                font-size: 18px;
+                
+     
+           
+            }
+            #paginationbar{
+                position: relative;
+                margin-top: 100px;
+                margin-left: 70px;    
+            }
+            #continuebutton{
+                margin-top: 120px;
+            }
+            .datafromindbody:hover{
+                background-color: #00CC99;
+            }
+            .datafromindbody:focus{
+                background-color: #00CC99;
+            }
+            .mindbodyOneRowData:focus {
+                 background-color: #00CC99;
+            }
           
     </style>
     <%!
         SqlMethods sql_methods = new SqlMethods();
         String category_id, sub_category_name, sub_category_id;
-        String title;
     %>
     
     <%
+         String title="";
         try{
-            
             sql_methods.session = request.getSession(true);
             category_id = request.getParameter("category_id");
             sub_category_name = request.getParameter("sub_category_name");
             sub_category_id = request.getParameter("sub_category_id");
             sql_methods.session.setAttribute("sub_category_name", sub_category_name);
             sql_methods.session.setAttribute("sub_category_id", sub_category_id);
-             if(sub_category_name.equalsIgnoreCase("promote todays class")){
-                title=" todays class";
+            sql_methods.session.setAttribute("category_id", category_id);
+            
+           
+            if(sub_category_name.equalsIgnoreCase("promote todays class")){
+            title=" todays class";
             }
             else if(sub_category_name.equalsIgnoreCase("promote work shop")){
-               title="work shop";
-           }
-            sql_methods.session.setAttribute("category_id", category_id);
+                title="work shop";
+            }
+            
+            
+            
+            
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -152,15 +187,36 @@ and open the template in the editor.
                  };
                 });
                 
+               var selected_id;
                 function select_category_details(id){
-                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +id;
-                    window.open(configuration, "_self")
+                   selected_id=id;
+                        
+     
+              $("#continuebutton").prop("disabled",false);
+//                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +id;
+//                    window.open(configuration, "_self")
                 }
+//                $(".mindbodyOneRowData").click(function (){
+//                    alert("clicked");
+//                  $(".datafromindbody li").css("background-color","inherit");
+//             $(this).css("background-color","red");
+//                });
+                
+                function selected_category(){
+                   
+//                    alert(selected_id);
+                     var configuration = global_host_address + "selectpromotemedia.jsp" + "?id=" +selected_id;
+                    window.open(configuration, "_self");
+                }
+    </script>
+    <script>
+        var title = gettitlefromsubcategory(<%= sub_category_name %>);
+        
     </script>
     
     </head>
     <body ng-app = "myapp">
-        <div> 
+       
                <div class="row">
                     <div id="leftnav" class="col-md-1">
                         <nav class="navbar navbar-default " role="navigation">
@@ -176,26 +232,43 @@ and open the template in the editor.
                             <div class="collapse navbar-collapse">
                                 <ul class="nav nav-stacked">
                                     <li><br><br><img src="images/logo.png"  alt="logo" class="img-responsive" width="40"><br></li>
-                                    <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
-                                    <li><a href="email.html"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
+                                     <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
+                                    <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
                                     <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
-                                    <li><a href="imagegallery.html"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
-                                    <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br><br></li> 
-                                    <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br><br></li> 
+                                    <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
+                                    <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br></li> 
+                                    <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br></li> 
                                 </ul>
                             </div><!-- /.navbar-collapse -->
                         </nav>
         
                     </div><!--/end left column-->
     
-                    <div class="col-md-10">
+                    <div class="col-md-11 ">
                          
-                        <div><p id="text3"> Please Select a  : <%= title %> <span><button class="btn btn-info col-md-offset-2">Continue</button> </span></p></div> 
-
+                        <div class="col-md-6">
+                            <p id="text3"> Please Select a  :<%= title%>  </p> </div> 
+                            <div class="col-md-5">  <input type="button"  id="continuebutton" class="btn btn-info col-md-offset-2" onclick="selected_category()" value="Continue" disabled="true">
+                          
+                              </div>
+                    </div>  
+               
+                   
+                        <div class="col-md-11">      
                         <div ng-controller="controllerGetMindBody" class="tab-pane active" id="picktheme" ng-init="showData()">
-                            <div class="col-md-8 col-md-offset-1" ng-repeat= "jsonclass in datalists | pagination: curPage * pageSize | limitTo: pageSize" id="rep" >
-                               
-                                <div onclick="select_category_details('{{jsonclass.id}}')"><span style="width: 500px;"><p>{{jsonclass.column1}}</p><p>{{jsonclass.column2}}</p><p>{{jsonclass.column3}}</p></span></div>
+                       
+                            <div class="col-md-8 col-md-offset-1 mindbodydatadiv" ng-repeat= "jsonclass in datalists | pagination: curPage * pageSize | limitTo: pageSize" id="rep" >
+<!--                                {{jsonclass}}-->
+                                <div class='mindbodyOneRowData' onclick="select_category_details('{{jsonclass.id}}')">
+                                    <span style="width: 700px;">
+                                        <ul class="datafromindbody">
+                        
+                                        <li style="width: 200px">{{jsonclass.column1}}</li>
+                                        <li style="width: 200px">{{jsonclass.column2}}</li>
+                                        <li style="width: 200px">{{jsonclass.column3}}</li>
+                                        </ul>
+                                    </span>
+                                </div>
 <!--                          <div id="" class="foo col-md-2"><p>{{classes.name}}</p></div>
                                 <div id="" class="foo col-md-2"><p>{{classes.StartDateTime}}</p></div>
                                 <div id="" class="foo col-md-2"><p>{{classes.EndDateTime}}</p></div>-->
@@ -204,8 +277,8 @@ and open the template in the editor.
                                     <p><br/></p>
                                 </div>
                             </div>
-
-                            <div class="pagination pagination-centered" ng-show="datalists.length">
+                            <div class="col-md-2"></div><br><br><br><br><br><br>
+                            <div id="paginationbar" class="pagination pagination-centered col-md-11 col-md-offset-2 " ng-show="datalists.length">
                                 <ul class="pagination-controle pagination">
                                  <li>
                                   <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
@@ -223,8 +296,9 @@ and open the template in the editor.
                             </div>
                         
                         </div>
-        
+                                      
                     </div>      
-                 </div>   
+                 </div> 
+                               
     </body>
 </html>

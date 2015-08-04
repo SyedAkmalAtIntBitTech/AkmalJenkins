@@ -67,6 +67,11 @@ public class ServletGetStyles extends HttpServlet {
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        }finally {
+            try {
+                out.close();
+                sqlmethods.con.close();
+            }catch (Exception e){}
         }
     }
 

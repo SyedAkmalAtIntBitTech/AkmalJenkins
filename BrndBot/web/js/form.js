@@ -150,11 +150,9 @@ function loginController($scope, $http) {
     $scope.user = {};
 
     $scope.checkUser = function () {
-            alert(getHost());
-
         $http({
             method: 'POST',
-            url: getHost() + 'Authentication',
+            url: global_host_address + 'Authentication',
             headers: {'Content-Type': 'application/json'},
             data: $scope.user
         }).success(function (data)

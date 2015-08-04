@@ -837,24 +837,22 @@ $(document).ready(function () {
 
 var num1 = 1;
 //adding defult value and apoch
-/* To be modified when the mindbody data points changes for sub categories */
 function addDefault() {
-    alert("text");
+
     var num = 0;
     var fontnameis = [];
+//    $("#appenddiv"+(num1-1)).css("display","none");
     var sub_category_type = $("#subcategories").val();
-    
     
     var mindbody_xml_url = "";
     if (sub_category_type == 1){
-        mindbody_xml_url = "/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
+        mindbody_xml_url = "images/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
     }else if(sub_category_type == 2){
-        mindbody_xml_url = "/layoutmodelxml/mindbodyclassdatapoints.xml";
+        mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
     }else if(sub_category_type == 3){
-        mindbody_xml_url = "/layoutmodelxml/mindbodyclassdatapoints.xml";
+        mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
     }
-    
-//    $("#appenddiv"+(num1-1)).css("display","none");
+
     if(addElementsArray.length===num1){
          $.ajax({
         type: "GET",
@@ -963,7 +961,7 @@ function passvaluetoinputfield() {
     var mapperdata = [];
     for (var i = 0; i <= addElementsArray.length - 1; i++) {
 
-        mapperdata[i] = " Element!" + addElementsArray[i] + " option!" + $("#Footer1dropdown-" +(i+1)).find('option:selected').text() + " Default!" + $("#inputfield" + (i+1)).val() + " epoch!" + $("#inputfield1" + (i+1)).val();
+        mapperdata[i] = " element!" + addElementsArray[i] + " option!" + $("#Footer1dropdown-" +(i+1)).find('option:selected').text() + " default!" + $("#inputfield" + (i+1)).val() + " epoch!" + $("#inputfield1" + (i+1)).val();
 //        alert(mapperdata);
 
         var style1;
@@ -1070,8 +1068,8 @@ function passvaluetoinputfield() {
                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
                     " background-color!" + "#" + color3+ dropshadowdata1;
         }
-        textareadetails[i] = style1+ " type" + addElementsArray[i];
-               
+        textareadetails[i] = style1+ " type!" + addElementsArray[i];
+               //alert(textareadetails); 
                 
 
 

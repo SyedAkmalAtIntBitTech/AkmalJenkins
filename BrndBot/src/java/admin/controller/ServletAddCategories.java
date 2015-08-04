@@ -121,7 +121,6 @@ public class ServletAddCategories extends HttpServlet {
 
                                 fi.write(storeFile);
                                 categories.addCategories(Integer.parseInt(organization_id), category_name, file_name);
-                                sqlmethods.con.close();
 
                                 out.println("Uploaded Filename: " + filePath + "<br>");
                                 response.sendRedirect(request.getContextPath() + "/admin/categories.jsp");
@@ -148,8 +147,10 @@ public class ServletAddCategories extends HttpServlet {
             System.out.println(ex.getMessage());
             out.println(sqlmethods.error);
         } finally {
-            out.close();
-        }
+            try {
+                        out.close();
+                        sqlmethods.con.close();
+            }catch (Exception e){}        }
 
     }
 

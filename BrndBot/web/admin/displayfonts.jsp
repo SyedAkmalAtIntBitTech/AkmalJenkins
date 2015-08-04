@@ -171,7 +171,7 @@
                 }
 
              response.getWriter().println(buffer1+","+buffer2); 
-
+             SM.con.close();
     }
  }
  catch(Exception e){

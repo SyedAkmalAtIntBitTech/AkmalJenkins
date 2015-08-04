@@ -192,7 +192,6 @@
                             <option value="0">--select--</option>
                             <%
                                 query_string = "select * from tbl_font_family Order By id ASC";
-                                sqlmethods.setDatabaseConnection();
                                 prepared_statement = sqlmethods.con.prepareStatement(query_string);
                                 result_set = prepared_statement.executeQuery();
 
@@ -212,7 +211,6 @@
                             <option value="0">--select--</option>
                             <%
                                 query_string = "select * from tbl_font_size Order By id ASC";
-                                sqlmethods.setDatabaseConnection();
                                 prepared_statement = sqlmethods.con.prepareStatement(query_string);
                                 result_set = prepared_statement.executeQuery();
 
@@ -221,6 +219,9 @@
                                     <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("font_size")%> </option>
                             <%
                                 }
+                                result_set.close();
+                                prepared_statement.close();
+                                
                             %>
                         </select><br>
                     </div><br>    
@@ -230,7 +231,6 @@
                             <option value="0">--select--</option>
                             <%
                                 query_string = "select * from tbl_font_style Order By id ASC";
-                                sqlmethods.setDatabaseConnection();
                                 prepared_statement = sqlmethods.con.prepareStatement(query_string);
                                 result_set = prepared_statement.executeQuery();
 
@@ -239,6 +239,10 @@
                                     <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("font_style")%> </option>
                             <%
                                 }
+                                result_set.close();
+                                prepared_statement.close();
+                                sqlmethods.con.close();
+                                
                             %>
                         </select><br>
                     </div><br>    

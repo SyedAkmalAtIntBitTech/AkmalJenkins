@@ -126,7 +126,6 @@ public class ServletEditCategories extends HttpServlet {
                 }
                 sqlmethods.setDatabaseConnection();
                 categories.editCategories(Integer.parseInt(category_id), Integer.parseInt(organization_id), category_name, file_name);
-                sqlmethods.con.close();
                 response.sendRedirect(request.getContextPath() + "/admin/categories.jsp");
                 out.println("</body>");
                 out.println("</html>");
@@ -145,7 +144,10 @@ public class ServletEditCategories extends HttpServlet {
             System.out.println(ex.getMessage());
             out.println(sqlmethods.error);
         } finally {
-            out.close();
+        try {
+                        out.close();
+                        sqlmethods.con.close();
+            }catch (Exception e){}
         }
 
     }

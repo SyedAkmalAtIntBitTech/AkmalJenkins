@@ -330,6 +330,18 @@ and open the template in the editor.
    
     
 }
+.blankcolor-box1{
+        float: left;
+    width: 35px;
+    height: 15px;
+    margin-left:  1px;
+    padding-left: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.2);
+    
+}
+
 #colorpalette li{
     position: relative;
     left: -5px;
@@ -347,7 +359,7 @@ and open the template in the editor.
     width: 200px;
     background-color: #002a80;
 }
-.textAreas { border:0px;  }
+.textAreas { border:0px;  resize: none; }
 
 #popup
             {

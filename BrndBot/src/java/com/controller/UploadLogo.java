@@ -110,7 +110,6 @@ public class UploadLogo extends HttpServlet {
 
                         fi.write(storeFile);
                         sqlmethods.updateUsers(UID, fileName);
-                        sqlmethods.con.close();
 
                         out.println("Uploaded Filename: " + filePath + "<br>");
                     }
@@ -133,8 +132,11 @@ public class UploadLogo extends HttpServlet {
             System.out.println(ex.getMessage());
             out.println(sqlmethods.error);
         } finally {
-            out.close();
-        }
+            try {
+                out.close();
+                sqlmethods.con.close();
+            }catch (Exception e){}
+            }
 
     }
 

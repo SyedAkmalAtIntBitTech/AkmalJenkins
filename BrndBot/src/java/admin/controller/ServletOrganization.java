@@ -82,6 +82,11 @@ public class ServletOrganization extends HttpServlet {
             out.write(sqlmethods.error);
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        }finally {
+            try {
+                out.close();
+                sqlmethods.con.close();
+            }catch (Exception e){}
         }
     }
 

@@ -39,13 +39,13 @@ public class GetUserImages extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject json_ob = new JSONObject();
         JSONArray json_arr = new JSONArray();
+        sqlmethods.session = request.getSession();
         PreparedStatement prepared_statement;
         ResultSet result_set;
         String image_name;
         Integer user_id, id;
         try {
-//            user_id = (Integer)sqlmethods.session.getAttribute("UID");
-            user_id = 40;
+            user_id = (Integer)sqlmethods.session.getAttribute("UID");
             
             String query = "Select * from tbl_user_images where user_id="+user_id;
             sqlmethods.setDatabaseConnection();
@@ -66,6 +66,9 @@ public class GetUserImages extends HttpServlet {
         String json = new Gson().toJson(json_arr);
         response.setContentType("application/json");
         response.getWriter().write(json);
+        result_set.close();
+        prepared_statement.close();
+        sqlmethods.con.close();
             
         }catch (Exception e){
             System.out.println(e.getCause());

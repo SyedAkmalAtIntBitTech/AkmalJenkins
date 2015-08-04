@@ -197,7 +197,6 @@
                     </tr>
                     <%
                         query_string = "select * from tbl_sub_category Order By id ASC";
-                        sqlmethods.setDatabaseConnection();
                         prepared_statement = sqlmethods.con.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         number = 1;

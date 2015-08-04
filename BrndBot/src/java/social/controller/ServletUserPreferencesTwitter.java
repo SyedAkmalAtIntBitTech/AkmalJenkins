@@ -39,7 +39,9 @@ public class ServletUserPreferencesTwitter extends HttpServlet {
         String access_token = "", access_token_secret= "", method_type = "";
 
         try {
-            Integer user_id = 40;
+//            Integer user_id = 40;
+            Integer user_id = (Integer)sql_methods.session.getAttribute("UID");
+            
             sql_methods.setDatabaseConnection();
             
             if (request.getParameter("twitter_access_tokens") != null){

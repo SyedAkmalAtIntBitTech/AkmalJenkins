@@ -130,6 +130,11 @@ public class ServletUploadFonts extends HttpServlet {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             out.write(sqlmethods.error);
+        }finally {
+            try {
+                        out.close();
+                        sqlmethods.con.close();
+            }catch (Exception e){}
         }
     }
 

@@ -5,16 +5,25 @@
  */
 package com.intbit;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.apache.commons.codec.binary.Base64;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -33,40 +42,9 @@ public class CropImage extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-  
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-         System.out.println("enter in servlet");
-//        sqlmethods.session = request.getSession(true);
-        StringBuffer string_buffer = new StringBuffer();
-        boolean check = true;
-        try {
-
-            BufferedReader reader = request.getReader();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                string_buffer.append(line);
-            }
-            JSONParser parser = new JSONParser();
-            JSONObject joUser = null;
-            joUser = (JSONObject) parser.parse(string_buffer.toString());
-            String User_id = (String) joUser.get("image");
-            System.out.println("enter in servlet");
-//            String imageString=
-//   
-//            BASE64Decoder decoder = new BASE64Decoder();
-//            imageByte = decoder.decodeBuffer(imageString);
-//            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
-//            image = ImageIO.read(bis);
-//            bis.close();
-
-
-        }
-        catch(Exception e){
-            
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -95,7 +73,50 @@ public class CropImage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       response.setContentType("text/html;charset=UTF-8");
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHH:mm:ssSSS");
+        PrintWriter out = response.getWriter();
+         System.out.println("enter in servlet");
+         
+//        sqlmethods.session = request.getSession(true);
+        StringBuffer string_buffer = new StringBuffer();
+        boolean check = true;
+        try {
+
+//            BufferedReader reader = request.getReader();
+//            String line = null;
+//            while ((line = reader.readLine()) != null) {
+//                string_buffer.append(line);
+//            }
+//            JSONParser parser = new JSONParser();
+//            JSONObject joUser = null;
+//            joUser = (JSONObject) parser.parse(string_buffer.toString());
+  
+            String imageData = request.getParameter("image");
+            
+            imageData = imageData.replaceAll("^data:image[^;]+;base64,", "");
+            byte[] data = Base64.decodeBase64(imageData);
+            String uploadPath = getServletContext().getRealPath("") + "/images/"+dateFormat.format(date)+".png";
+            try (OutputStream stream = new FileOutputStream(uploadPath)) {
+                stream.write(data);
+                 response.setContentType("text/plain");
+                 response.getWriter().write(dateFormat.format(date)+".png");
+             }            
+//            String imageString=
+//   
+//            BASE64Decoder decoder = new BASE64Decoder();
+//            imageByte = decoder.decodeBuffer(imageString);
+//            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+//            image = ImageIO.read(bis);
+//            bis.close();
+
+
+        }
+        catch(Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
     }
 
     /**

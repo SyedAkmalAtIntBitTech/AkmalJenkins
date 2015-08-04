@@ -3,7 +3,7 @@
     <context-param>
         <description>Upload Path</description>
         <param-name>file-upload</param-name>
-        <param-value>/home/intbit/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
+        <param-value>/home/sandeep-kumar/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
     </context-param>
     <servlet>
         <servlet-name>UserServlet</servlet-name>
@@ -214,12 +214,20 @@
         <servlet-class>social.controller.PostToSocial</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletUserPreferencesFacebook</servlet-name>
-        <servlet-class>social.controller.ServletUserPreferencesFacebook</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetUserPreferences</servlet-name>
         <servlet-class>com.controller.GetUserPreferences</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConvertHtmlToImageServlet</servlet-name>
+        <servlet-class>util.ConvertHtmlToImageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendEmailServlet</servlet-name>
+        <servlet-class>com.controller.SendEmailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletUserPreferencesFacebook</servlet-name>
+        <servlet-class>social.controller.ServletUserPreferencesFacebook</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServletUserPreferencesTwitter</servlet-name>
@@ -230,12 +238,20 @@
         <servlet-class>com.controller.GetUserImages</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetEmailLists</servlet-name>
-        <servlet-class>com.controller.GetEmailLists</servlet-class>
+        <servlet-name>ChangeImageServlet</servlet-name>
+        <servlet-class>com.controller.ChangeImageServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SetEmailLists</servlet-name>
         <servlet-class>com.controller.SetEmailLists</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetEmailLists</servlet-name>
+        <servlet-class>com.controller.GetEmailLists</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmailTextDataServlet</servlet-name>
+        <servlet-class>social.controller.EmailTextDataServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
@@ -454,10 +470,6 @@
         <url-pattern>/MindBodyDataServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletUserPreferencesFacebook</servlet-name>
-        <url-pattern>/ServletUserPreferencesFacebook</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GetTwitterToken</servlet-name>
         <url-pattern>/GetTwitterToken</url-pattern>
     </servlet-mapping>
@@ -470,6 +482,18 @@
         <url-pattern>/GetUserPreferences</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ConvertHtmlToImageServlet</servlet-name>
+        <url-pattern>/ConvertHtmlToImageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendEmailServlet</servlet-name>
+        <url-pattern>/SendEmailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletUserPreferencesFacebook</servlet-name>
+        <url-pattern>/ServletUserPreferencesFacebook</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletUserPreferencesTwitter</servlet-name>
         <url-pattern>/ServletUserPreferencesTwitter</url-pattern>
     </servlet-mapping>
@@ -478,12 +502,20 @@
         <url-pattern>/GetUserImages</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetEmailLists</servlet-name>
-        <url-pattern>/GetEmailLists</url-pattern>
+        <servlet-name>ChangeImageServlet</servlet-name>
+        <url-pattern>/ChangeImageServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SetEmailLists</servlet-name>
         <url-pattern>/SetEmailLists</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetEmailLists</servlet-name>
+        <url-pattern>/GetEmailLists</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmailTextDataServlet</servlet-name>
+        <url-pattern>/EmailTextDataServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

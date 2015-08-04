@@ -106,6 +106,7 @@
     
     <%
         String color_theme_id = request.getParameter("theme_id");
+        sqlmethods.setDatabaseConnection();
     %>
     <body ng-app>
         <%@include file="menus.jsp" %>
@@ -124,7 +125,7 @@
                     <%
                         
                         query_string = "select * from tbl_brand_personality Order By id ASC";
-                        sqlmethods.setDatabaseConnection();
+                        
                         prepared_statement = sqlmethods.con.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         
@@ -133,6 +134,8 @@
                                                 <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("brand_name") %></option>
                     <%
                         }
+                        result_set.close();
+                        prepared_statement.close();
                     %>
                                             </select><br>
                     </div><br>    
@@ -142,7 +145,6 @@
                                                 <option value="0">--select--</option>
                     <%
                         query_string = "select * from tbl_colors Order By id ASC";
-                        sqlmethods.setDatabaseConnection();
                         prepared_statement = sqlmethods.con.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         
@@ -151,6 +153,9 @@
                                                 <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("color_name") %> </option>
                     <%
                         }
+                        result_set.close();
+                        prepared_statement.close();
+                        sqlmethods.con.close();
                     %>
                                             </select><br>
                     </div><br>    

@@ -43,9 +43,9 @@ public class ServletUserPreferencesFacebook extends HttpServlet {
         String access_token_from_table = "";
         String access_token = "", method_type = "";
         try {
-//            Integer user_id = (Integer)sql_methods.session.getAttribute("UID");
+            Integer user_id = (Integer)sql_methods.session.getAttribute("UID");
 
-            Integer user_id = 40;
+//            Integer user_id = 40;
             sql_methods.setDatabaseConnection();
             
             if (request.getParameter("access_token") != null){

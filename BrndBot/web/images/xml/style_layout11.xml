@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<layout>
+    <container Height="300" Width="500"/>
+    <element font-color="#333333" font-size="12px" type="header1" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" webkit-transform="0" x-co-ordinates="34" y-co-ordinates="33"/>
+    <element font-color="#333333" font-size="12px" type="header2" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" webkit-transform="0" x-co-ordinates="342" y-co-ordinates="45"/>
+    <element font-color="#333333" font-size="12px" type="header3" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" webkit-transform="0" x-co-ordinates="34" y-co-ordinates="107"/>
+    <element font-color="#333333" font-size="12px" type="header4" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" webkit-transform="0" x-co-ordinates="338" y-co-ordinates="120"/>
+    <element font-color="#333333" font-size="12px" type="header5" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" webkit-transform="0" x-co-ordinates="38" y-co-ordinates="179"/>
+    <element font-color="#333333" font-size="12px" type="header6" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" webkit-transform="0" x-co-ordinates="339" y-co-ordinates="191"/>
+    <element font-color="#333333" font-size="12px" type="header7" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" webkit-transform="0" x-co-ordinates="52" y-co-ordinates="252"/>
+    <element font-color="#333333" font-size="12px" type="header8" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" webkit-transform="0" x-co-ordinates="339" y-co-ordinates="250"/>
+</layout>

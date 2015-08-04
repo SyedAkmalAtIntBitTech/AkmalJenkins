@@ -119,7 +119,6 @@ public class ServletAddPersonality extends HttpServlet {
 
                                 fi.write(storeFile);
                                 brand.addBrands(brand_name, Integer.parseInt(look_id), file_name);
-                                sqlmethods.con.close();
                                 response.sendRedirect(request.getContextPath() + "/admin/brandpersonality.jsp");
 
                                 out.println("Uploaded Filename: " + filePath + "<br>");
@@ -145,8 +144,10 @@ public class ServletAddPersonality extends HttpServlet {
             System.out.println(ex.getMessage());
             out.println(sqlmethods.error);
         } finally {
-            out.close();
-        }
+            try {
+                        out.close();
+                        sqlmethods.con.close();
+            }catch (Exception e){}        }
 
     }
 

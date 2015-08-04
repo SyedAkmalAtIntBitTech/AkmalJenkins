@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,7 +62,7 @@ public class SqlMethods {
         }
     }
 
-    public void close(ResultSet rs, Statement ps, Connection conn) {
+    public void close(ResultSet rs, Statement ps) {
         if (rs != null) {
             try {
                 rs.close();
@@ -73,13 +74,6 @@ public class SqlMethods {
         if (ps != null) {
             try {
                 ps.close();
-            } catch (SQLException e) {
-                Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
-        if (conn != null) {
-            try {
-                conn.close();
             } catch (SQLException e) {
                 Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -140,7 +134,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return company_name;
     }
@@ -161,7 +155,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
     }
 
@@ -175,7 +169,7 @@ public class SqlMethods {
         } catch (Exception e) {
             System.out.println(e.getCause());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
     }
 
@@ -194,7 +188,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return org_id;
     }
@@ -213,7 +207,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return org_name;
     }
@@ -232,7 +226,7 @@ public class SqlMethods {
         } catch (Exception e) {
             System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return AL;
     }
@@ -253,7 +247,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return TC;
     }
@@ -274,7 +268,7 @@ public class SqlMethods {
         } catch (SQLException e) {
             System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return checked;
     }
@@ -294,7 +288,7 @@ public class SqlMethods {
         } catch (SQLException e) {
             System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return checked;
     }
@@ -314,7 +308,7 @@ public class SqlMethods {
         } catch (SQLException e) {
             System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return checked;
     }
@@ -341,7 +335,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
     }
 
@@ -363,7 +357,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return returnResult;
     }
@@ -382,7 +376,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return IDNO;
     }
@@ -404,7 +398,7 @@ public class SqlMethods {
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
     }
 
@@ -420,7 +414,7 @@ public class SqlMethods {
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
     }
 
@@ -436,7 +430,7 @@ public class SqlMethods {
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
     }
 
@@ -464,7 +458,7 @@ public class SqlMethods {
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
 
     }
@@ -486,7 +480,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
     }
 
@@ -516,7 +510,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return userid;
     }
@@ -534,7 +528,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return userid;
     }
@@ -554,7 +548,7 @@ public class SqlMethods {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return ID;
     }
@@ -596,12 +590,12 @@ public class SqlMethods {
                     mapper_file_name = result_set.getString(1);
                 }
             }
-
+            
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return mapper_file_name;
     }
@@ -628,12 +622,35 @@ public class SqlMethods {
         } catch (Exception e) {
 
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return userPreferencesJSONObject;
     }
     
-    public JSONArray getEmailListsPreferences(Integer user_id) {
+        public Boolean updateJSONUserPreferenceForEmailLists(Integer user_id, JSONObject userPreferenceJSON) throws SQLException {
+        PGobject pg_object = new PGobject();
+        Boolean returnResult = false;
+        try {
+            query_string = "Update tbl_user_preferences SET user_preferences=? where user_id=?";
+            prepared_statement = con.prepareStatement(query_string);
+
+            pg_object.setType("json");
+            pg_object.setValue(userPreferenceJSON.toString());
+            prepared_statement.setObject(1, pg_object);
+            prepared_statement.setInt(2, user_id);
+            if (prepared_statement.executeUpdate() == 1){
+                returnResult = true;
+            } 
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        return returnResult;
+        }
+
+   public JSONArray getEmailListsPreferences(Integer user_id) {
         PGobject pgobject = new PGobject();
         JSONParser parser = new JSONParser();
         org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
@@ -663,7 +680,7 @@ public class SqlMethods {
         } catch (Exception e) {
 
         } finally {
-            close(result_set, prepared_statement, con);
+            close(result_set, prepared_statement);
         }
         return emailListJSONArray;
     }

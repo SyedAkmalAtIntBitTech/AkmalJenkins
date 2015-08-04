@@ -119,7 +119,6 @@ public class ServletAddLooks extends HttpServlet {
                             look.addLooks(lookName, fileName);
 
                             out.println("Uploaded Filename: " + filePath + "<br>");
-                            sqlmethods.con.close();
                             response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
                         }else {
                             response.sendRedirect(request.getContextPath() + "/admin/looks.jsp?exist=exist");
@@ -144,8 +143,10 @@ public class ServletAddLooks extends HttpServlet {
             System.out.println(ex.getMessage());
             out.println(sqlmethods.error);
         } finally {
-            out.close();
-        }
+            try {
+                        out.close();
+                        sqlmethods.con.close();
+            }catch (Exception e){}        }
 
     }
 

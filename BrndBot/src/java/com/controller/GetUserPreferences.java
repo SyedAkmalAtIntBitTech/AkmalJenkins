@@ -50,6 +50,7 @@ SqlMethods sql_methods = new SqlMethods();
         JSONParser parser = new JSONParser();
 
         Integer user_id = (Integer)sql_methods.session.getAttribute("UID");
+//        Integer user_id = 40;
         try {
                 String query_string = "Select * from tbl_user_preferences where user_id="+user_id+"";
                 sql_methods.setDatabaseConnection();
@@ -185,6 +186,9 @@ SqlMethods sql_methods = new SqlMethods();
             user_preferences.put("user_colors", json_colors);
             user_preferences.put("user_font_names", json_font_names);
             user_preferences.put("user_font_sizes", json_font_sizes);
+                        result_set.close();
+                        prepared_statement.close();
+                        sql_methods.con.close();
             
         String json = new Gson().toJson(user_preferences);
         response.setContentType("application/json");

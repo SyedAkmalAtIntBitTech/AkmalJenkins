@@ -20,8 +20,8 @@ $(document).ready(function () {
                     access_token_method: "getAccessToken"
                 },
                 success: function (responseText) {
-//                            $("#tokenHere").html(responseText);
-
+//                           $("#tokenHere").html(responseText);
+//                           alert(responseText);
                     if (responseText == "") {
 
                         document.location.href = "GetFacebookManagePage";

@@ -220,6 +220,7 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.java-json.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
                     <file>${file.reference.MindBody.jar}</file>
@@ -231,6 +232,9 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.selenium-server-standalone-2.46.0.jar}</file>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.selenium-java-2.46.0.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

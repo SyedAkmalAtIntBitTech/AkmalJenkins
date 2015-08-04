@@ -6,6 +6,7 @@
 package com.controller;
 
 import com.google.gson.Gson;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -16,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -38,18 +41,21 @@ public class GetEmailLists extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         JSONObject responseObject = new JSONObject();
-
+        StringBuffer string_buffer = new StringBuffer();
+        org.json.simple.JSONArray emailListNames = new org.json.simple.JSONArray();
         try {
+            
+
+            String queryParameter = request.getParameter("update");
             sql_methods.session = request.getSession();
             sql_methods.setDatabaseConnection();
             Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
 
-            String queryParameter = request.getParameter("query");
             if (queryParameter.equalsIgnoreCase("allEmailListNames")) {
-                String emailListNames = getEmailListNames(user_id);
+                emailListNames = getEmailListNames(user_id);
                 responseObject.put(queryParameter, emailListNames);
             } else if (queryParameter.equalsIgnoreCase("emailsForEmailList")) {
-                String emailListName = request.getParameter(IConstants.kEmailListNameKey);
+                String emailListName = request.getParameter("list_name");
                 String emailIds = getEmailIds(user_id, emailListName);
                 responseObject.put(IConstants.kEmailListNameKey, emailListName);
                 responseObject.put(IConstants.kEmailAddressesKey, emailIds);
@@ -57,14 +63,15 @@ public class GetEmailLists extends HttpServlet {
                 JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id);
                 responseObject.put(queryParameter, emailListArrayJSON);
             }
+            
+            sql_methods.con.close();
         } catch (ClassNotFoundException | SQLException | JSONException e) {
             try {
                 responseObject.put("Error", "Request unsuccessfull");
-            } catch (JSONException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
         String json = new Gson().toJson(responseObject);
         response.setContentType("application/json");
         response.getWriter().write(json);
@@ -112,9 +119,10 @@ public class GetEmailLists extends HttpServlet {
 
     private String getEmailIds(Integer user_id, String emailListName) throws JSONException, ClassNotFoundException, SQLException {
         String emailIDs = "";
+        try{
         JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id);
         for (int i = 0; i < emailListArrayJSON.length(); i++) {
-            JSONObject emailListJSONObject = emailListArrayJSON.getJSONObject(i);
+            org.json.JSONObject emailListJSONObject = emailListArrayJSON.getJSONObject(i);
             String currentListName = emailListJSONObject.getString(IConstants.kEmailListNameKey);
             if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
                 if (emailListName.equals(currentListName)) {
@@ -122,17 +130,24 @@ public class GetEmailLists extends HttpServlet {
                 }
             }
         }
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
         return emailIDs;
     }
 
-    private String getEmailListNames(Integer user_id) throws JSONException, ClassNotFoundException, SQLException {
+    private org.json.simple.JSONArray getEmailListNames(Integer user_id) throws JSONException, ClassNotFoundException, SQLException {
         JSONArray emailListNamesJSON = new JSONArray();
+        org.json.simple.JSONArray emailListNamesjson = new org.json.simple.JSONArray();
         JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id);
+        
         for (int i = 0; i < emailListArrayJSON.length(); i++) {
-            JSONObject emailListJSONObject = emailListArrayJSON.getJSONObject(i);
+            org.json.JSONObject emailListJSONObject = emailListArrayJSON.getJSONObject(i);
             emailListNamesJSON.put(emailListJSONObject.get(IConstants.kEmailListNameKey));
+            emailListNamesjson.add(emailListJSONObject.get(IConstants.kEmailListNameKey));
         }
-        return emailListNamesJSON.toString();
+        return emailListNamesjson;
     }
 
 }

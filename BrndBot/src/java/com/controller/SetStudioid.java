@@ -22,7 +22,7 @@ import org.json.simple.parser.ParseException;
  */
 public class SetStudioid extends HttpServlet {
     SqlMethods sqlmethods = new SqlMethods();
-    StringBuffer string_buffer = new StringBuffer();
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,6 +37,7 @@ public class SetStudioid extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        StringBuffer string_buffer = new StringBuffer();
         sqlmethods.session = request.getSession();
 
         try {

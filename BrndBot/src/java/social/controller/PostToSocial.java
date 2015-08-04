@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,13 +49,17 @@ public class PostToSocial extends HttpServlet {
 
         String isFacebook = request.getParameter("isFacebook");
         String isTwitter = request.getParameter("isTwitter");
-        
+        String getImageFile = request.getParameter("imageToPost");
+        String getFile = request.getParameter("imagePost");
+        String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
+        String imagePostURL=request.getRequestURL().toString().replace("PostToSocial", "");
         if (isFacebook.equalsIgnoreCase("true")) {
             String accessToken = request.getParameter("accesstoken");
             String posttext = request.getParameter("postText");
             String title = request.getParameter("title");
             String description = request.getParameter("description");
             String url = request.getParameter("url");
+            
 
             facebook = new FacebookFactory().getInstance();
             facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
@@ -62,11 +67,11 @@ public class PostToSocial extends HttpServlet {
             facebook.setOAuthAccessToken(new AccessToken(accessToken));
             if (title == "") {
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL("http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg"));
+                        .picture(new URL(imagePostURL+"temp/"+getImageFile));
                 facebook.postFeed(post);
             } else {
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL("http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg"))
+                        .picture(new URL(imagePostURL+"temp/"+getImageFile))
                         .name(title)
                         .link(new URL(url))
                         .description(description);
@@ -88,8 +93,8 @@ public class PostToSocial extends HttpServlet {
 
                 Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
                 String statusMessage = request.getParameter("text");
-                String image_path = getServletContext().getRealPath("") + "/images/images.jpeg";
-                File file = new File(image_path);
+//                String file_image_path = getServletContext().getRealPath("") + "/images/Blackandwhite.jpg";
+                File file = new File(file_image_path);
 
                 StatusUpdate status = new StatusUpdate(statusMessage);
                 status.setMedia(file); // set the image to be uploaded here.
@@ -104,6 +109,18 @@ public class PostToSocial extends HttpServlet {
             }
 
         }
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet PostToFacebook</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet PostToFacebook at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -15,9 +15,6 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -79,10 +76,11 @@ and open the template in the editor.
                             transformRequest: angular.identity,
                             headers: {'Content-Type': undefined}
                         })
-                            .success(function () {
-                                window.open(global_host_address + 'imagegallery.jsp.jsp', "_self");
+                            .success(function (data) {
+                                window.open(global_host_address + 'imagegallery.jsp', "_self");
                             })
                             .error(function () {
+                                alert("request unsuccessful");
                             });
                     };
                 }]);
@@ -90,7 +88,6 @@ and open the template in the editor.
             uploadModule.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
 
                     $scope.uploadFile = function () {
-                        alert("upload");
                         var file = $scope.myFile;
                         console.log('file is ' + JSON.stringify(file));
                         var uploadUrl = global_host_address + 'UploadImages';
@@ -102,7 +99,7 @@ and open the template in the editor.
            var uploadModule = document.getElementById('uploadModule');
 
             angular.element(document).ready(function() {
-                   angular.bootstrap(uploadModule, [ 'uploadModule' ]);
+                   angular.bootstrap(uploadModule, ['uploadModule']);
             });
 
         </script>
@@ -113,7 +110,7 @@ and open the template in the editor.
                 imagegallery.controller('samplecontoller', function ($scope,$http) {
 
                 $scope.showData = function(){
-                     alert("showData");
+//                     alert("showData");
                  $scope.curPage = 0;
                  $scope.pageSize = 4;
 
@@ -212,9 +209,9 @@ and open the template in the editor.
                                 <ul class="nav nav-stacked">
                                     <li><br><br><img src="images/logo.png"  alt="logo" class="img-responsive" width="40"><br></li>
                                     <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
-                                    <li><a href="email.html"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
+                                    <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
                                     <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
-                                    <li><a href="imagegallery.html"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
+                                    <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
                                     <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br><br></li> 
                                     <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br><br></li> 
                                 </ul>
@@ -248,7 +245,7 @@ and open the template in the editor.
                                         <div class="span5 col-md-offset-5 ">
                                             <button id="Servicecontinue" class="btn btn-info" disabled ng-click="uploadFile()">CONTINUE</button><br><br>
                                             <div class="fileUpload btn ">
-                                                <span>Click to upload a logo</span>
+                                                <span>Click to upload a image</span>
                                                 <input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="myFile" />
                                             </div>
                                         </div>

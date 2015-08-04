@@ -5,11 +5,18 @@
  */
 package com.controller;
 
-
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,12 +39,11 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.Part;
+import javax.swing.JOptionPane;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.io.output.*;
-import org.apache.commons.fileupload.servlet.*;
-import org.apache.commons.fileupload.disk.*;
-import org.apache.commons.fileupload.*;
 
 /**
  *
@@ -71,25 +77,27 @@ public class UploadImages extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+        sqlmethods.session = request.getSession();
         try {
-            Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
+           Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
+
             
-            String uploadPath = getServletContext().getInitParameter("file-upload") +  File.separator + "Gallery" + File.separator + user_id;
-//            upload_path = "images" + File.separator + "Gallery" + File.separator + user_id;
+//            String uploadPath = getServletContext().getInitParameter("file-upload") +  File.separator + "Gallery" + File.separator + user_id;
+            upload_path = "images" + File.separator + "Gallery" + File.separator + user_id;
+            String uploadPath = getServletContext().getRealPath("") + "/images/Gallery" + "/" + user_id;
             
 //            String uploadPath = getServletContext().getRealPath("")
 //                + File.separator + upload_path;
             // creates the directory if it does not exist
-
-            DiskFileItemFactory factory = new DiskFileItemFactory();
+            Logger.getLogger(uploadPath);
+            org.apache.commons.fileupload.disk.DiskFileItemFactory factory = new org.apache.commons.fileupload.disk.DiskFileItemFactory();
             // maximum size that will be stored in memory
             factory.setSizeThreshold(maxMemSize);
             // Location to save data that is larger than maxMemSize.
             factory.setRepository(new File("c://temp"));
 
             // Create a new file upload handler
-            ServletFileUpload upload = new ServletFileUpload(factory);
+            org.apache.commons.fileupload.servlet.ServletFileUpload upload = new org.apache.commons.fileupload.servlet.ServletFileUpload(factory);
             // maximum file size to be uploaded.
             upload.setSizeMax( maxFileSize );        
         
@@ -135,6 +143,7 @@ public class UploadImages extends HttpServlet {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
             System.out.println(ex.getStackTrace());
+            out.write("error");
         }
     }
 

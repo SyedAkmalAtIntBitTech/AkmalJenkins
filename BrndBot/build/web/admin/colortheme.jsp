@@ -59,6 +59,8 @@
                                                 <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("brand_name") %></option>
                     <%
                         }
+                        result_set.close();
+                        prepared_statement.close();
                     %>
                                             </select><br>
                     </div><br>    
@@ -77,6 +79,8 @@
                                                 <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("color_name") %> </option>
                     <%
                         }
+                        result_set.close();
+                        prepared_statement.close();
                     %>
                                             </select><br>
                     </div><br>    
@@ -105,7 +109,6 @@
                         <td>color5</td>
                         <td>color6</td>
                         <td>Predefined</td>
-                        <td>theme</td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -129,7 +132,6 @@
                         <td><%= result_set.getString("color5")%></td>
                         <td><%= result_set.getString("color6")%></td>
                         <td><%= result_set.getBoolean("predefined")%></td>
-                        <td><%= result_set.getString("theme_name")%></td>
                         
                         <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="edit(<%=result_set.getInt("id")%>,'<%=result_set.getString("brand_id")%>')">edit</button></td>
                         <td><button class="btn btn-info" id="brand" name="brand" value="delete" ng-click="delete(<%=result_set.getInt("id")%>)">delete</button></td>

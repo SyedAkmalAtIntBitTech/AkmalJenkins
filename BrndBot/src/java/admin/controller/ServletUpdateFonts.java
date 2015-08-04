@@ -140,7 +140,10 @@ public class ServletUpdateFonts extends HttpServlet {
             System.out.println(ex.getMessage());
             out.println(sqlmethods.error);
         } finally {
-            out.close();
+            try {
+                out.close();
+                sqlmethods.con.close();
+            }catch (Exception e){}
         }
 
     }

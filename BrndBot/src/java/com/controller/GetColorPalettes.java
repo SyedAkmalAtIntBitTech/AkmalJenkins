@@ -107,6 +107,9 @@ public class GetColorPalettes extends HttpServlet {
             String jsonn = new Gson().toJson(jsonarray);
             response.setContentType("application/json");
             out.write(jsonn);
+                        result_set.close();
+                        prepared_statement.close();
+                        sqlmethods.con.close();
 
         } catch (Exception e) {
             System.out.println(e.getCause());

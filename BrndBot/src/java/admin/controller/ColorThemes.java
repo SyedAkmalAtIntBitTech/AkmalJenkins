@@ -63,7 +63,7 @@ public class ColorThemes {
     public String getThemeNumber(){
         String theme = "theme";
         try{
-            query_string = "select theme_name from tbl_brand_color_theme";
+            query_string = "select theme_name from tbl_brand_color_theme order by id ASC";
 
             Statement sta = sqlmethods.con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 

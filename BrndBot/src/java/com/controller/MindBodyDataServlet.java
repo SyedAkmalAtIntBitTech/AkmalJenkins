@@ -139,14 +139,15 @@ public class MindBodyDataServlet extends HttpServlet {
                         ClassDescription class_description = classInstance.getClassDescription();
 
                         String name = class_description.getName();
+                        
 
                         XMLGregorianCalendar calendarStartDateTime = (XMLGregorianCalendar)calendarStart.getValue();
                         XMLGregorianCalendar calendarEndDateTime = (XMLGregorianCalendar)calendarEnd.getValue();
                         
                         JSONObject newJSONObject = new JSONObject();
                         newJSONObject.put("column1", name);
-                        newJSONObject.put("column2", calendarStartDateTime.toString());
-                        newJSONObject.put("column3", calendarEndDateTime.toString());
+                        newJSONObject.put("column2", staff.getName());
+                       newJSONObject.put("column3", calendarStartDateTime.toString() +"\n"+ calendarEndDateTime.toString());
                         newJSONObject.put("id", class_id);
                         
                         json_data_array.add(newJSONObject);
