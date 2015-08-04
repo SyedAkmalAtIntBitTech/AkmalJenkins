@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
@@ -17,9 +16,8 @@ import org.json.simple.parser.ParseException;
  *
  * @author intbit
  */
-public class AddUpdateOrganization extends HttpServlet {
+public class AddUpdateOrganization extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
     RequestDispatcher request_dispatcher;
 
     /**
@@ -37,7 +35,7 @@ public class AddUpdateOrganization extends HttpServlet {
         PrintWriter out = response.getWriter();
         PreparedStatement preparestatement = null;
         StringBuffer string_buffer = new StringBuffer();
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
 
         try {
 
@@ -56,25 +54,23 @@ public class AddUpdateOrganization extends HttpServlet {
 
             System.out.println(Company);
 
-            sqlmethods.setDatabaseConnection();
-            String emailid = (String) sqlmethods.session.getAttribute("EmailID");
-            Integer idno = sqlmethods.getUserID(emailid);
+            String emailid = (String) getSqlMethodsInstance().session.getAttribute("EmailID");
+            Integer idno = getSqlMethodsInstance().getUserID(emailid);
 
-            String org_name = sqlmethods.getOrganizationName(Integer.parseInt(organization_id));
-            sqlmethods.session.setAttribute("org_name", org_name);
-            sqlmethods.session.setAttribute("company", Company);
+            String org_name = getSqlMethodsInstance().getOrganizationName(Integer.parseInt(organization_id));
+            getSqlMethodsInstance().session.setAttribute("org_name", org_name);
+            getSqlMethodsInstance().session.setAttribute("company", Company);
 
-            sqlmethods.updateUsersOrg(idno, Integer.parseInt(organization_id), Company);
-            sqlmethods.con.close();
+            getSqlMethodsInstance().updateUsersOrg(idno, Integer.parseInt(organization_id), Company);
             out.write("true");
         } catch (ParseException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
         }

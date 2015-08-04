@@ -9,7 +9,6 @@ import com.mindbody.source.MindBody;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -17,14 +16,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.mindbodyonline.clients.api._0_5.GetActivationCodeResult;
 import com.mindbodyonline.clients.api._0_5.XMLDetailLevel;
-import com.mindbodyonline.clients.api._0_5Class.ArrayOfClass;
-import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesRequest;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsRequest;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
-import javax.xml.transform.Result;
-import org.json.JSONException;
 
 /**
  *

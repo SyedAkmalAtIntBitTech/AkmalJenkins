@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
@@ -20,8 +19,8 @@ import org.json.simple.parser.JSONParser;
  *
  * @author intbit
  */
-public class DeleteGalleryImages extends HttpServlet {
-SqlMethods sqlmethods = new SqlMethods();
+public class DeleteGalleryImages extends BrndBotBaseHttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -56,19 +55,17 @@ SqlMethods sqlmethods = new SqlMethods();
 //            
 //            delete_path = getServletContext().getRealPath("") + File.separator  + path;
             
-            sqlmethods.setDatabaseConnection();
 
             String deletePath = delete_path + File.separator + image_name;
             File deleteFile = new File(deletePath);
             deleteFile.delete();
 
-            sqlmethods.deleteImages(image_id.intValue());
-            sqlmethods.con.close();
+            getSqlMethodsInstance().deleteImages(image_id.intValue());
             out.write("true");
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }
     }
 

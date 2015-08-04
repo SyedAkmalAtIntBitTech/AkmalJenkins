@@ -5,14 +5,16 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
@@ -23,12 +25,21 @@ import org.json.simple.parser.JSONParser;
  *
  * @author intbit
  */
-public class ServletColorTheme extends HttpServlet {
-    SqlMethods sqlmethods = new SqlMethods();
-    ColorThemes colorthemes = new ColorThemes();
+public class ServletColorTheme extends BrndBotBaseHttpServlet {
+    ColorThemes colorthemes;
     String color1,color2,color3,color4,color5,color6;
     String CC = "CC";
     Integer cl = 1;
+    
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            colorthemes = new ColorThemes();
+        } catch (NamingException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,13 +49,15 @@ public class ServletColorTheme extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         PreparedStatement preparestatement = null;
         StringBuffer string_buffer = new StringBuffer();
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
 
         try {
 
@@ -59,7 +72,6 @@ public class ServletColorTheme extends HttpServlet {
             joUser = (JSONObject) parser.parse(string_buffer.toString());
             
             String type = (String) joUser.get("type");
-            sqlmethods.setDatabaseConnection();
             if(type.equals("delete")){
                 String color_theme_id = (String) joUser.get("color_theme_id");
                 colorthemes.delete(Integer.parseInt(color_theme_id));
@@ -125,10 +137,9 @@ public class ServletColorTheme extends HttpServlet {
             colorthemes.editTheme(Integer.parseInt(theme_id), Integer.parseInt(brand) , color1, color2, color3, color4, color5, color6);
             }            
             
-            sqlmethods.con.close();
             out.write("true");
         }catch (Exception e){
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }

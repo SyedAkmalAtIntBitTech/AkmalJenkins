@@ -5,17 +5,15 @@
  */
 package social.controller;
 
+import com.controller.BrndBotBaseHttpServlet;
 import facebook4j.Account;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
-import facebook4j.PostUpdate;
 import facebook4j.ResponseList;
 import facebook4j.auth.AccessToken;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -30,7 +28,7 @@ import org.json.simple.JSONObject;
  *
  * @author sandeep-kumar
  */
-public class GetFacebookManagePage extends HttpServlet {
+public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -107,11 +105,9 @@ public class GetFacebookManagePage extends HttpServlet {
                     jsonarray.add(profilepicture);
 
 //               jsonarray.add(pageId);
-
 //                obj.put("pagename",yourPageAccount.getName());
 //               obj.put("Accesstoken", pageAccessToken);
 //               jsonarray.add(i, request);
-
                 }
 
                 request.setAttribute("objkey", jsonarray);
@@ -120,7 +116,6 @@ public class GetFacebookManagePage extends HttpServlet {
                         .getRequestDispatcher("selectpromotesocialmedia.jsp");   // jsp to which i
                 // want to send data
                 rd.forward(request, response);
-               
 
             }
         } catch (FacebookException ex) {

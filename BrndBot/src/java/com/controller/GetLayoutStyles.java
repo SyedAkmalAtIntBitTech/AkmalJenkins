@@ -12,10 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.ClassImages;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import pojos.TblModel;
@@ -24,8 +22,7 @@ import pojos.TblModel;
  *
  * @author intbit
  */
-public class GetLayoutStyles extends HttpServlet {
-    SqlMethods sqlmethods = new SqlMethods();
+public class GetLayoutStyles extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,27 +38,25 @@ public class GetLayoutStyles extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONArray json_arr = new JSONArray();
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
         String image_name,  layout_file_name, model_file_name;
         Integer user_id, id, organization_id;
         String category_id, sub_category_id;
          HashMap<Integer, Object> hash_map = new HashMap<Integer, Object>();
 
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
         
         try {
             
-//          hash_map = (HashMap<Integer, Object>)sqlmethods.session.getAttribute("Mind_Body_Data");
-            sqlmethods.setDatabaseConnection();
-            user_id = (Integer)sqlmethods.session.getAttribute("UID");
-            organization_id = sqlmethods.getOrganizationID(user_id);
-            category_id = (String)sqlmethods.session.getAttribute("category_id");
-            sub_category_id = (String)sqlmethods.session.getAttribute("sub_category_id");
+//          hash_map = (HashMap<Integer, Object>)getSqlMethodsInstance().session.getAttribute("Mind_Body_Data");
+            user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
+            organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
+            category_id = (String)getSqlMethodsInstance().session.getAttribute("category_id");
+            sub_category_id = (String)getSqlMethodsInstance().session.getAttribute("sub_category_id");
             
             String query = "Select * from tbl_model where organization_id="+organization_id+" and user_id="+user_id+" and category_id="+category_id+" and social="+true+" and sub_category_id="+sub_category_id;
-            sqlmethods.setDatabaseConnection();
-            prepared_statement = sqlmethods.con.prepareStatement(query);
+            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
             result_set = prepared_statement.executeQuery();
             
             while(result_set.next()){
@@ -85,6 +80,9 @@ public class GetLayoutStyles extends HttpServlet {
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        }finally {
+            out.close();
+            getSqlMethodsInstance().close(result_set, prepared_statement);
         }
     }
 

@@ -5,19 +5,20 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.commons.io.output.*;
 import org.apache.commons.fileupload.servlet.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.*;
@@ -26,15 +27,25 @@ import org.apache.commons.fileupload.*;
  *
  * @author intbit
  */
-public class ServletAddCategories extends HttpServlet {
+public class ServletAddCategories extends BrndBotBaseHttpServlet {
 
     String filePath;
     String file_name, field_name, upload_path;
-    Categories categories = new Categories();
+    Categories categories;
     RequestDispatcher request_dispatcher;
-    SqlMethods sqlmethods = new SqlMethods();
     String category_name, organization_id;
     boolean check = false;
+
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            this.categories = new Categories();
+        } catch (NamingException ex) {
+            Logger.getLogger(ServletAddCategories.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -100,8 +111,6 @@ public class ServletAddCategories extends HttpServlet {
                         field_name = fi.getFieldName();
                         file_name = fi.getName();
                         if (file_name != "") {
-
-                            sqlmethods.setDatabaseConnection();
                             check = categories.checkAvailability(category_name, Integer.parseInt(organization_id));
                             if (check == false){
                                 File uploadDir = new File(upload_path);
@@ -121,7 +130,6 @@ public class ServletAddCategories extends HttpServlet {
 
                                 fi.write(storeFile);
                                 categories.addCategories(Integer.parseInt(organization_id), category_name, file_name);
-                                sqlmethods.con.close();
 
                                 out.println("Uploaded Filename: " + filePath + "<br>");
                                 response.sendRedirect(request.getContextPath() + "/admin/categories.jsp");
@@ -146,11 +154,9 @@ public class ServletAddCategories extends HttpServlet {
         } catch (Exception ex) {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
-            out.println(sqlmethods.error);
         } finally {
             out.close();
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

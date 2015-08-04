@@ -5,20 +5,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author intbit
  */
-public class CheckAvailability extends HttpServlet {
+public class CheckAvailability extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
     StringBuffer string_buffer = new StringBuffer();
 
     /**
@@ -48,18 +45,16 @@ public class CheckAvailability extends HttpServlet {
 
             String User_id = (String) joUser.get("emailID");
 
-            sqlmethods.setDatabaseConnection();
-            check = sqlmethods.checkForDuplicateUser(User_id);
+            check = getSqlMethodsInstance().checkForDuplicateUser(User_id);
             response.setContentType("text/html");
 
             if (check) {
                 out.write("false");
             }
-            sqlmethods.con.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.println(sqlmethods.error);
+            out.println(getSqlMethodsInstance().error);
         }finally {
             out.close();
         }

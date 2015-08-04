@@ -6,32 +6,24 @@
 package com.controller;
 
 import com.google.gson.Gson;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.look;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import model.brandpersonality;
 
 /**
  *
  * @author intbit
  */
-public class GetBrandPersonality extends HttpServlet {
+public class GetBrandPersonality extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
     String query_string = "", Query1 = "";
-    PreparedStatement prepared_statement;
-    ResultSet result_set;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,14 +41,15 @@ public class GetBrandPersonality extends HttpServlet {
         JSONObject jsonobject = new JSONObject();
         JSONArray jsonarray = new JSONArray();
         JSONArray jsonarray1 = new JSONArray();
+    PreparedStatement prepared_statement = null;
+    ResultSet result_set = null;
 
-        sqlmethods.session = request.getSession();
+        getSqlMethodsInstance().session = request.getSession();
         try {
-            sqlmethods.setDatabaseConnection();
-            String look_id = (String) sqlmethods.session.getAttribute("LookID");
+            String look_id = (String) getSqlMethodsInstance().session.getAttribute("LookID");
 
             query_string = "Select * from tbl_brand_personality where look_id='" + look_id + "'";
-            prepared_statement = sqlmethods.con.prepareStatement(query_string);
+            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query_string);
 
             result_set = prepared_statement.executeQuery();
             while (result_set.next()) {
@@ -69,19 +62,17 @@ public class GetBrandPersonality extends HttpServlet {
                 brand_personality.setBrand_name(brand_name);
                 jsonarray.add(brand_personality);
             }
-            result_set.close();
-            prepared_statement.close();
             jsonobject.put("first", jsonarray);
             String json = new Gson().toJson(jsonobject);
             response.setContentType("application/json");
             out.write(json);
-            sqlmethods.con.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
+            getSqlMethodsInstance().close(result_set, prepared_statement);
         }
     }
 

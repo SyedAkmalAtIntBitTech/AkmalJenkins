@@ -9,6 +9,7 @@ import com.controller.SqlMethods;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.naming.NamingException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.postgresql.util.PGobject;
@@ -19,12 +20,15 @@ import org.postgresql.util.PGobject;
  */
 public class UserPreferencesFacebook {
 
-    SqlMethods sql_methods = new SqlMethods();
-    PreparedStatement prepared_statement;
-    ResultSet result_set;
+    private SqlMethods sqlMethods;
+
+    public UserPreferencesFacebook() throws NamingException {
+        sqlMethods = new SqlMethods();
+    }
 
     public void updatePreference(Integer user_id, String access_token) throws SQLException {
 
+        
         try {
             PGobject pgobject = new PGobject();
             JSONObject json_objectFromTable = new JSONObject();
@@ -34,7 +38,7 @@ public class UserPreferencesFacebook {
 
             String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
 
-            prepared_statement = sql_methods.con.prepareStatement(query);
+            prepared_statement = sqlMethods.getConnection().prepareStatement(query);
 
             result_set = prepared_statement.executeQuery();
 
@@ -61,7 +65,7 @@ public class UserPreferencesFacebook {
             jsonObject.setType("json");
             jsonObject.setValue(json_objectFromTable.toJSONString());
 
-            prepared_statement = sql_methods.con.prepareStatement(query);
+            prepared_statement = sqlMethods.getConnection().prepareStatement(query);
 
             prepared_statement.setObject(1, jsonObject);
 
@@ -80,7 +84,7 @@ public class UserPreferencesFacebook {
 //
 //            String query = "Select brand_id from tbl_user_preferences where user_id=" + user_id + "";
 //
-//            prepared_statement = sql_methods.con.prepareStatement(query);
+//            prepared_statement = getSqlMethodsInstance().con.prepareStatement(query);
 //
 //            result_set = prepared_statement.executeQuery();
 //
@@ -108,7 +112,7 @@ public class UserPreferencesFacebook {
 //
 //            String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
 //
-//            prepared_statement = sql_methods.con.prepareStatement(query);
+//            prepared_statement = getSqlMethodsInstance().con.prepareStatement(query);
 //
 //            result_set = prepared_statement.executeQuery();
 //
@@ -144,7 +148,7 @@ public class UserPreferencesFacebook {
 
             String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
 
-            prepared_statement = sql_methods.con.prepareStatement(query);
+            prepared_statement = sqlMethods.getConnection().prepareStatement(query);
 
             result_set = prepared_statement.executeQuery();
 

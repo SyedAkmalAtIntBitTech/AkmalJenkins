@@ -5,13 +5,16 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
@@ -21,11 +24,19 @@ import org.json.simple.parser.JSONParser;
  *
  * @author intbit
  */
-public class ServletSubCategory extends HttpServlet {
+public class ServletSubCategory extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
-    SubCategories sub_categories = new SubCategories();
+    SubCategories sub_categories;
     boolean check = false;
+    
+     public void init(ServletConfig config) throws ServletException {
+        try {
+            super.init(config);
+            sub_categories = new SubCategories();
+        } catch (NamingException ex) {
+            Logger.getLogger(ServletSubCategory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,7 +52,7 @@ public class ServletSubCategory extends HttpServlet {
         PrintWriter out = response.getWriter();
         PreparedStatement preparestatement = null;
         StringBuffer string_buffer = new StringBuffer();
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
 
         try {
 
@@ -56,7 +67,6 @@ public class ServletSubCategory extends HttpServlet {
             jo_category = (JSONObject) parser.parse(string_buffer.toString());
 
             String type = (String) jo_category.get("type");
-            sqlmethods.setDatabaseConnection();
             if (type.equals("delete")) {
                 Long category_id = (Long) jo_category.get("category_id");
                 sub_categories.delete(category_id.intValue());
@@ -68,7 +78,6 @@ public class ServletSubCategory extends HttpServlet {
                 String category_id = (String) jo_category.get("category");
 
                 String category = sub_categories.getCategoryName(Integer.parseInt(category_id));
-                sqlmethods.setDatabaseConnection();
                 check = sub_categories.checkAvailability(external_source, category, sub_category_name, category_id);
                 
                 if (check == false){
@@ -92,11 +101,10 @@ public class ServletSubCategory extends HttpServlet {
                     out.write("false");
                 }
             }
-            sqlmethods.con.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }
     }
 

@@ -7,20 +7,14 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import model.look;
@@ -29,12 +23,9 @@ import model.look;
  *
  * @author intbit
  */
-public class GetLooks extends HttpServlet {
+public class GetLooks extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
     String query = "", query1 = "";
-    PreparedStatement prepared_statement;
-    ResultSet result_set;
     
     public static Integer ll1 = 4;
 
@@ -55,12 +46,14 @@ public class GetLooks extends HttpServlet {
         JSONArray jsonarr = new JSONArray();
         JSONArray jsonarr1 = new JSONArray();
 
-        sqlmethods.session = request.getSession(true);
+            PreparedStatement prepared_statement = null;
+    ResultSet result_set = null;
+
+        getSqlMethodsInstance().session = request.getSession(true);
         try {
-            sqlmethods.setDatabaseConnection();
             
             query = "Select * from tbl_look limit 4";
-            prepared_statement = sqlmethods.con.prepareStatement(query);
+            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
             result_set = prepared_statement.executeQuery();
             while (result_set.next()) {
                 look lk = new look();
@@ -77,7 +70,7 @@ public class GetLooks extends HttpServlet {
             jsonobject.put("first", jsonarr);
 
             query1 = "Select * from tbl_look limit 4 OFFSET 4";
-            prepared_statement = sqlmethods.con.prepareStatement(query1);
+            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query1);
             result_set = prepared_statement.executeQuery();
             while (result_set.next()) {
                 look lk = new look();
@@ -89,9 +82,6 @@ public class GetLooks extends HttpServlet {
                 lk.setFile_name(file_name);
                 jsonarr1.add(lk);
             }
-            result_set.close();
-            prepared_statement.close();
-            sqlmethods.con.close();
             jsonobject.put("second", jsonarr1);
             
             String json = new Gson().toJson(jsonobject);
@@ -100,9 +90,10 @@ public class GetLooks extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
+            getSqlMethodsInstance().close(result_set, prepared_statement);
         }
     }
 

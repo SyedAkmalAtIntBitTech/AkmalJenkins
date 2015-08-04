@@ -5,24 +5,20 @@
  */
 package com.controller;
 
-import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author intbit
  */
-public class SetUserPreferences extends HttpServlet {
-        SqlMethods sqlmethods = new SqlMethods();
+public class SetUserPreferences extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +36,7 @@ public class SetUserPreferences extends HttpServlet {
         StringBuffer string_buffer = new StringBuffer();
         StringBuilder string_builder = new StringBuilder();
         
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
         
         try {
              BufferedReader reader = request.getReader();
@@ -57,20 +53,18 @@ public class SetUserPreferences extends HttpServlet {
             String str_new = str.replace("&quot;", "\"");
             json_user_preferences = (JSONObject) parser.parse(str_new);
             
-            Integer user_id = (Integer)sqlmethods.session.getAttribute("UID");
-            String brand_id = (String)sqlmethods.session.getAttribute("brandID");
-            String look_id = (String)sqlmethods.session.getAttribute("LookID");
-            String studio_id = (String)sqlmethods.session.getAttribute("studioID");
-            sqlmethods.session.setAttribute("Checked", "true");
+            Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
+            String brand_id = (String)getSqlMethodsInstance().session.getAttribute("brandID");
+            String look_id = (String)getSqlMethodsInstance().session.getAttribute("LookID");
+            String studio_id = (String)getSqlMethodsInstance().session.getAttribute("studioID");
+            getSqlMethodsInstance().session.setAttribute("Checked", "true");
 
-            sqlmethods.setDatabaseConnection();
-            Integer font_theme_id = sqlmethods.getFontthemeid(brand_id);
-            sqlmethods.addUserPreferences(user_id, Integer.parseInt(brand_id), font_theme_id,  studio_id, Integer.parseInt(look_id), json_user_preferences);
-            sqlmethods.con.close();
+            Integer font_theme_id = getSqlMethodsInstance().getFontthemeid(brand_id);
+            getSqlMethodsInstance().addUserPreferences(user_id, Integer.parseInt(brand_id), font_theme_id,  studio_id, Integer.parseInt(look_id), json_user_preferences);
         }catch(Exception e){
              System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
         }

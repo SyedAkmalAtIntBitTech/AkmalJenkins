@@ -5,13 +5,15 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
@@ -21,12 +23,23 @@ import org.json.simple.parser.JSONParser;
  *
  * @author intbit
  */
-public class ServletAddFonts extends HttpServlet {
+public class ServletAddFonts extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
-    Organization organization = new Organization();
-    Fonts fonts = new Fonts();
+    Organization organization;
+    Fonts fonts;
 
+    public ServletAddFonts() {
+    }
+
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            this.organization = new Organization();
+            this.fonts = new Fonts();
+        } catch (NamingException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -53,7 +66,6 @@ public class ServletAddFonts extends HttpServlet {
             JSONObject joFonts = null;
             joFonts = (JSONObject) parser.parse(string_buffer.toString());
             String type = (String) joFonts.get("type");
-            sqlmethods.setDatabaseConnection();
             if (type.equals("add")) {
                 String font_name = (String) joFonts.get("font_name");
                 boolean check = fonts.checkAvailability(font_name);
@@ -74,11 +86,10 @@ public class ServletAddFonts extends HttpServlet {
                 fonts.delete(Integer.parseInt(font_id));
                 out.write("true");
             }
-            sqlmethods.con.close();
         } catch (Exception ex) {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         } finally {
             out.close();
         }

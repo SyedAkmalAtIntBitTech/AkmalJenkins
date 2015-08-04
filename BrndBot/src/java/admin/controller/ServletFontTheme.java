@@ -5,14 +5,17 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
@@ -23,15 +26,22 @@ import org.json.simple.parser.JSONParser;
  *
  * @author intbit
  */
-public class ServletFontTheme extends HttpServlet {
+public class ServletFontTheme extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
     RequestDispatcher request_dispatcher;
-    FontThemes fontthemes = new FontThemes();
+    FontThemes fontthemes;
     Long font1, font2, font3, font4, font5, font_size1, font_size2, font_size3, font_size4, font_size5, font_style1, font_style2, font_style3, font_style4, font_style5;
     String CC = "CC";
     Integer cl = 1;
 
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            fontthemes = new FontThemes();
+        } catch (NamingException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,7 +57,7 @@ public class ServletFontTheme extends HttpServlet {
         PrintWriter out = response.getWriter();
         PreparedStatement preparestatement = null;
         StringBuffer string_buffer = new StringBuffer();
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
 
         try {
 
@@ -62,7 +72,6 @@ public class ServletFontTheme extends HttpServlet {
             joFontTheme = (JSONObject) parser.parse(string_buffer.toString());
 
             String type = (String) joFontTheme.get("type");
-            sqlmethods.setDatabaseConnection();
             if (type.equals("delete")) {
                 String font_theme_id = (String) joFontTheme.get("color_theme_id");
                 fontthemes.delete(Integer.parseInt(font_theme_id));
@@ -211,10 +220,8 @@ public class ServletFontTheme extends HttpServlet {
                 fontthemes.editFontTheme(Integer.parseInt(font_theme_id), Integer.parseInt(brand), font1.intValue(), font2.intValue(), font3.intValue(), font4.intValue(), font5.intValue(), font_size1.intValue(), font_size2.intValue(), font_size3.intValue(), font_size4.intValue(), font_size5.intValue(), font_style1.intValue(), font_style2.intValue(), font_style3.intValue(), font_style4.intValue(), font_style5.intValue());
             }
 
-            sqlmethods.con.close();
             out.write("true");
         } catch (Exception e) {
-            out.write(sqlmethods.error);
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }

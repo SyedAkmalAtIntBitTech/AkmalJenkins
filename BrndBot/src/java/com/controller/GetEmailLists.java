@@ -7,28 +7,22 @@ package com.controller;
 
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.postgresql.util.PGobject;
 
 /**
  *
  * @author AR
  */
-public class GetEmailLists extends HttpServlet {
+public class GetEmailLists extends BrndBotBaseHttpServlet {
 
-    SqlMethods sql_methods = new SqlMethods();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,9 +38,8 @@ public class GetEmailLists extends HttpServlet {
         JSONObject responseObject = new JSONObject();
 
         try {
-            sql_methods.session = request.getSession();
-            sql_methods.setDatabaseConnection();
-            Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+            getSqlMethodsInstance().session = request.getSession();
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
             String queryParameter = request.getParameter("query");
             if (queryParameter.equalsIgnoreCase("allEmailListNames")) {
@@ -58,7 +51,7 @@ public class GetEmailLists extends HttpServlet {
                 responseObject.put(IConstants.kEmailListNameKey, emailListName);
                 responseObject.put(IConstants.kEmailAddressesKey, emailIds);
             } else if (queryParameter.equalsIgnoreCase("allEmailListWithAddresses")) {
-                JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id);
+                JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
                 responseObject.put(queryParameter, emailListArrayJSON);
             }
         } catch (Exception e) {
@@ -116,7 +109,7 @@ public class GetEmailLists extends HttpServlet {
 
     private String getEmailIds(Integer user_id, String emailListName) throws JSONException, ClassNotFoundException, SQLException {
         String emailIDs = "";
-        JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id);
+        JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
         for (int i = 0; i < emailListArrayJSON.length(); i++) {
             JSONObject emailListJSONObject = emailListArrayJSON.getJSONObject(i);
             String currentListName = emailListJSONObject.getString(IConstants.kEmailListNameKey);
@@ -131,7 +124,7 @@ public class GetEmailLists extends HttpServlet {
 
     private String getEmailListNames(Integer user_id) throws JSONException, ClassNotFoundException, SQLException {
         JSONArray emailListNamesJSON = new JSONArray();
-        JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id);
+        JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
         for (int i = 0; i < emailListArrayJSON.length(); i++) {
             JSONObject emailListJSONObject = emailListArrayJSON.getJSONObject(i);
             emailListNamesJSON.put(emailListJSONObject.get(IConstants.kEmailListNameKey));

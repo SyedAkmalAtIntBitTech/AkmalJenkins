@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.TblSubCategories;
@@ -25,10 +24,7 @@ import org.json.simple.parser.ParseException;
  *
  * @author intbit
  */
-public class GetSubCategories extends HttpServlet {
-SqlMethods sqlmethods = new SqlMethods();
-PreparedStatement prepared_statement;
-ResultSet result_set;
+public class GetSubCategories extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +37,13 @@ ResultSet result_set;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PreparedStatement prepared_statement = null;
+ResultSet result_set = null;
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         StringBuffer string_buffer = new StringBuffer();
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
         JSONArray jsonarr = new JSONArray();
         
         try {
@@ -58,9 +57,8 @@ ResultSet result_set;
             joUser = (JSONObject) parser.parse(string_buffer.toString());
 
             String category_id = (String) joUser.get("CategoryID");
-            sqlmethods.setDatabaseConnection();
             String query = "select * from tbl_sub_category where category_id='" + category_id + "'";
-            prepared_statement = sqlmethods.con.prepareStatement(query);
+            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
             result_set = prepared_statement.executeQuery();
 
             while (result_set.next()) {
@@ -70,23 +68,20 @@ ResultSet result_set;
                 TS.setSub_category_name(result_set.getString("sub_category_name"));
                 jsonarr.add(TS);
             }
-            result_set.close();
-            prepared_statement.close();
-            sqlmethods.con.close();
-
             String jsonn = new Gson().toJson(jsonarr);
             response.setContentType("application/json");
             out.write(jsonn);
         } catch (ParseException e) {
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } catch (Exception e) {
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }finally {
             out.close();
+            getSqlMethodsInstance().close(result_set, prepared_statement);
         }
 
     }

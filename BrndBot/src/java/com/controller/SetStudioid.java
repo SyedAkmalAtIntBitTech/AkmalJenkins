@@ -9,19 +9,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author intbit
  */
-public class SetStudioid extends HttpServlet {
-    SqlMethods sqlmethods = new SqlMethods();
+public class SetStudioid extends BrndBotBaseHttpServlet {
     StringBuffer string_buffer = new StringBuffer();
 
     /**
@@ -37,7 +34,7 @@ public class SetStudioid extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        sqlmethods.session = request.getSession();
+        getSqlMethodsInstance().session = request.getSession();
 
         try {
              BufferedReader reader = request.getReader();
@@ -52,12 +49,12 @@ public class SetStudioid extends HttpServlet {
             joUser = (JSONObject) parser.parse(string_buffer.toString());
 
             String studioID = (String) joUser.get("IDNo");
-            sqlmethods.session.setAttribute("studioID", studioID);
+            getSqlMethodsInstance().session.setAttribute("studioID", studioID);
             out.write("true");
         }catch(Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
         }

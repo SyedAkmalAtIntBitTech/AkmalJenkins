@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
@@ -22,9 +21,8 @@ import pojos.TblColors;
  *
  * @author intbit
  */
-public class GetColorsFromLogo extends HttpServlet {
+public class GetColorsFromLogo extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
     GetColorFromImage getcolorsfromimages = new GetColorFromImage();
 
     String filePath;
@@ -47,20 +45,20 @@ public class GetColorsFromLogo extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
         try {
             uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + "Customers";
 
-            Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
             uploadPath = uploadPath + File.separator + user_id + File.separator + "logo";
-            String FileName = (String) sqlmethods.session.getAttribute("ImageFileName");
+            String FileName = (String) getSqlMethodsInstance().session.getAttribute("ImageFileName");
             String FilePath = uploadPath + File.separator + FileName;
             list = getcolorsfromimages.getColors(FilePath);
 
             Integer j = 1;
             if (list.size() == 0){
-                out.write(sqlmethods.error);
+                out.write(getSqlMethodsInstance().error);
             }else{
                 for (int i = 0; i < list.size(); i++) {
                     TblColors colors = new TblColors();
@@ -81,7 +79,7 @@ public class GetColorsFromLogo extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
         }

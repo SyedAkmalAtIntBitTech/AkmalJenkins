@@ -14,18 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
-import com.restfb.FacebookClient.AccessToken;
 import com.restfb.Parameter;
 import com.restfb.Version;
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonObject;
 import com.restfb.scope.ExtendedPermissions;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.FacebookType;
-import com.restfb.types.Insight;
-import com.restfb.types.Page;
-import com.restfb.types.User;
-import com.restfb.*;
 /**
  *
  * @author sandeep-kumar

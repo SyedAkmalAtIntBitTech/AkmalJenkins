@@ -5,13 +5,15 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
@@ -21,11 +23,18 @@ import org.json.simple.parser.JSONParser;
  *
  * @author intbit
  */
-public class ServletColors extends HttpServlet {
+public class ServletColors extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
-    Colors colors = new Colors();
+    Colors colors;
 
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            colors = new Colors();
+        } catch (NamingException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,7 +67,6 @@ public class ServletColors extends HttpServlet {
             JSONObject joFonts = null;
             joFonts = (JSONObject) parser.parse(string_buffer.toString());
             String type = (String) joFonts.get("type");
-            sqlmethods.setDatabaseConnection();
             if (type.equals("add")) {
                 String color_hex = (String) joFonts.get("color_hex");
                 String color_name = (String) joFonts.get("color_name");
@@ -87,9 +95,7 @@ public class ServletColors extends HttpServlet {
                 colors.delete(Integer.parseInt(color_id));
                 out.write("true");
             }
-            sqlmethods.con.close();
         } catch (Exception e) {
-            out.write(sqlmethods.error);
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }

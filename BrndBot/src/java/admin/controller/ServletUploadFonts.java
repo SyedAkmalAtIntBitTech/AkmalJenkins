@@ -5,37 +5,45 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.output.*;
-import org.apache.commons.fileupload.servlet.*;
-import org.apache.commons.fileupload.disk.*;
-import org.apache.commons.fileupload.*;
 
 /**
  *
  * @author intbit
  */
-public class ServletUploadFonts extends HttpServlet {
+public class ServletUploadFonts extends BrndBotBaseHttpServlet {
     String filePath;
     String file_name, field_name, upload_path;
-    Fonts fonts = new Fonts();
+    Fonts fonts;
     RequestDispatcher request_dispatcher;
-    SqlMethods sqlmethods = new SqlMethods();
     String font_name, look_id;
-    boolean check = false;
+    boolean check;
+    
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            fonts = new Fonts();
+            check = false;
+        } catch (NamingException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -93,7 +101,6 @@ public class ServletUploadFonts extends HttpServlet {
 
                     }else {
                         
-                        sqlmethods.setDatabaseConnection();
                         check = fonts.checkAvailability(font_name);
                         if (check == false){
                             
@@ -114,7 +121,6 @@ public class ServletUploadFonts extends HttpServlet {
 
                                 fi.write(storeFile);
                                 fonts.addFont(font_name, file_name);
-                                sqlmethods.con.close();
 
                                 out.println("Uploaded Filename: " + filePath + "<br>");
                                 response.sendRedirect(request.getContextPath() + "/admin/fontsfamily.jsp");
@@ -129,7 +135,6 @@ public class ServletUploadFonts extends HttpServlet {
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
         }
     }
 

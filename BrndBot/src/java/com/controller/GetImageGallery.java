@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
@@ -22,8 +21,7 @@ import org.json.simple.JSONObject;
  *
  * @author Syed
  */
-    public class GetImageGallery extends HttpServlet {
-    SqlMethods sqlmethods = new SqlMethods();
+    public class GetImageGallery extends BrndBotBaseHttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,18 +35,16 @@ import org.json.simple.JSONObject;
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        JSONObject json_ob = new JSONObject();
         JSONArray json_arr = new JSONArray();
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
         String image_name;
         Integer user_id, id;
         try {
-            user_id = (Integer)sqlmethods.session.getAttribute("UID");
+            user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
 
             String query = "Select * from tbl_user_images where user_id="+user_id+"";
-            sqlmethods.setDatabaseConnection();
-            prepared_statement = sqlmethods.con.prepareStatement(query);
+            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
             result_set = prepared_statement.executeQuery();
             
             while(result_set.next()){
@@ -69,6 +65,9 @@ import org.json.simple.JSONObject;
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        }finally {
+            out.close();
+            getSqlMethodsInstance().close(result_set, prepared_statement);
         }
     }
 

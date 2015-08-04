@@ -5,7 +5,6 @@
  */
 package com.controller;
 
-import email.mandrill.Attachment;
 import email.mandrill.Message;
 import email.mandrill.Recipient;
 import email.mandrill.RecipientMetadata;
@@ -14,12 +13,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.InputStream;
-import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -27,30 +23,20 @@ import java.util.Date;
 import java.util.HashMap;
 import javax.servlet.annotation.WebServlet;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.HttpClients;
-import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author intbit
  */
 @WebServlet(name = "sendEmail", urlPatterns = {"/sendEmail"})
-public class SendEmail extends HttpServlet {
+public class SendEmail extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
-    GenerateHashPassword generate_hash_password = new GenerateHashPassword();
+    GenerateHashPassword generate_hash_password;
     boolean check = false;
     PreparedStatement prepared_statement = null;
     ResultSet result_set = null;
-    StringBuffer string_buffer = new StringBuffer();
+    StringBuffer string_buffer;
 
     private final static String MANDRILL_KEY = "4jd3wIMvBAmJt9H0FcEb1w";
     SendMail send_email = new SendMail();
@@ -67,7 +53,9 @@ public class SendEmail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
+        generate_hash_password = new GenerateHashPassword();
+        string_buffer = new StringBuffer();
         PrintWriter out = response.getWriter();
         try {
             BufferedReader reader = request.getReader();
@@ -82,9 +70,8 @@ public class SendEmail extends HttpServlet {
 
             String email_id = (String) joUser.get("emailid");
 
-            sqlmethods.setDatabaseConnection();
-            check = sqlmethods.checkEmailAvailability(email_id);
-            Integer user_id = sqlmethods.getUserID(email_id);
+            check = getSqlMethodsInstance().checkEmailAvailability(email_id);
+            Integer user_id = getSqlMethodsInstance().getUserID(email_id);
             Date expdate = new Date();
             java.sql.Date sdat = new java.sql.Date(expdate.getYear(), expdate.getMonth(), expdate.getDate());
             java.sql.Time tdat = new java.sql.Time(expdate.getHours(), expdate.getMinutes(), expdate.getSeconds());
@@ -95,7 +82,7 @@ public class SendEmail extends HttpServlet {
 
                 String hashURL = generate_hash_password.hashURL(randomVal);
 
-                sqlmethods.setUserDetails(user_id, hashURL, sdat, tdat);
+                getSqlMethodsInstance().setUserDetails(user_id, hashURL, sdat, tdat);
 
                 Message message = new Message();
 
@@ -142,13 +129,13 @@ public class SendEmail extends HttpServlet {
             } else {
                 out.write("false");
             }
-            sqlmethods.con.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
+            getSqlMethodsInstance().close(result_set, prepared_statement);
         }
     }
 

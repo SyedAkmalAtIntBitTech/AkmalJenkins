@@ -5,19 +5,15 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -26,10 +22,12 @@ import org.json.simple.parser.ParseException;
  *
  * @author intbit
  */
-public class ServletLogin extends HttpServlet {
+public class ServletLogin extends BrndBotBaseHttpServlet {
     RequestDispatcher request_dispatcher;
-    SqlMethods sqlmethods = new SqlMethods();
     
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,7 +44,7 @@ public class ServletLogin extends HttpServlet {
         RequestDispatcher request_dispatcher;
         boolean check = false;
         PrintWriter out = response.getWriter();
-        sqlmethods.admin_session  = request.getSession(true);
+        getSqlMethodsInstance().admin_session  = request.getSession(true);
 
         try {
 
@@ -63,10 +61,10 @@ public class ServletLogin extends HttpServlet {
             String password = (String) joUser.get("password");
             System.out.println("text");
             if (User_id.equals("intbit") && password.equals("password")){
-                 sqlmethods.admin_session.setAttribute("AdminChecked", "true");
+                 getSqlMethodsInstance().admin_session.setAttribute("AdminChecked", "true");
                 out.write("true");
             }else {
-                 sqlmethods.admin_session.setAttribute("AdminChecked", "false");
+                 getSqlMethodsInstance().admin_session.setAttribute("AdminChecked", "false");
                 out.write("false");
             }
 
@@ -74,11 +72,11 @@ public class ServletLogin extends HttpServlet {
         } catch (ParseException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
         }
