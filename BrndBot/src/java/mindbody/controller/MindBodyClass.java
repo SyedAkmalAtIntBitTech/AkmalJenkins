@@ -30,18 +30,20 @@ public class MindBodyClass {
             private static String sourcePassword = "WBQ2o/mat0gOfT1WeoXDKP1eH8Y=";
             private static String sourceName = "BrndbotLLC";
             private MindBody mindBody;
-            int[] siteIds = new int[] {7335};
-    public MindBodyClass() {
-                mindBody = new MindBody(sourceName, sourcePassword, siteIds);
+           int[] siteIds = new int[]{};
+            
+    public MindBodyClass(int[] siteIds) {
+        mindBody = new MindBody(sourceName, sourcePassword, siteIds);        
+
     }
     
     public GetActivationCodeResult getActivationCode()
     {
+        
         GetActivationCodeResult result = MindBody.getActivationCode(sourceName, sourcePassword, siteIds);
         return result;
 
-    }
-    
+    }    
     public GetClassesResult getClasses()throws Exception{
                 GetClassesRequest classesRequest = new GetClassesRequest();
                 classesRequest.setXMLDetail(XMLDetailLevel.FULL);

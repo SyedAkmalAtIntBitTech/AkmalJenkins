@@ -88,6 +88,7 @@ and open the template in the editor.
 
                         <p id="text3">  Hi <%= company%>!</p>
                         <p id="text3"> What would you like to do today?</p>
+                        {{mindbodyactivation}}
                         <ul id="promotelist">
                             <li id="one" ng-repeat="category in categories">
                                 <a href=""><img id="promoteimage" src="images/Organizations/Categories/{{category.organizationId}}/{{category.image_name}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="80" height="80" /></a><p id="text4"  >{{category.categoryName}}</p>

@@ -3,7 +3,7 @@
     <context-param>
         <description>Upload Path</description>
         <param-name>file-upload</param-name>
-        <param-value>/home/sandeep-kumar/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
+        <param-value>/home/intbit/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
     </context-param>
     <servlet>
         <servlet-name>BrndBotBaseServlet</servlet-name>

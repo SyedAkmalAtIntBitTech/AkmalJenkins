@@ -22,6 +22,7 @@ public class GetOrganizations extends BrndBotBaseHttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            super.processRequest(request, response);
             PrintWriter out = response.getWriter();
             PreparedStatement prepared_statement = null;
             ResultSet result_set = null;
@@ -32,6 +33,7 @@ public class GetOrganizations extends BrndBotBaseHttpServlet {
         try {
 
             String query = "Select * from tbl_organization";
+            
             prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
             result_set = prepared_statement.executeQuery();
 
@@ -50,6 +52,7 @@ public class GetOrganizations extends BrndBotBaseHttpServlet {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+            e.printStackTrace();
             out.println(getSqlMethodsInstance().error);
         }finally {
             out.close();

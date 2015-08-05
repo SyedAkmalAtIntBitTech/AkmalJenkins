@@ -55,10 +55,16 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
             String str_new = str.replace("&quot;", "\"");
             json_user_preferences = (JSONObject) parser.parse(str_new);
             
-            Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
-            String brand_id = (String)getSqlMethodsInstance().session.getAttribute("brandID");
-            String look_id = (String)getSqlMethodsInstance().session.getAttribute("LookID");
-            String studio_id = (String)getSqlMethodsInstance().session.getAttribute("studioID");
+//            Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
+//            String brand_id = (String)getSqlMethodsInstance().session.getAttribute("brandID");
+//            String look_id = (String)getSqlMethodsInstance().session.getAttribute("LookID");
+//            String studio_id = (String)getSqlMethodsInstance().session.getAttribute("studioID");
+
+            Integer user_id = 45;
+            String brand_id = "12";
+            String look_id = "13";
+            String studio_id = "7335";
+
             getSqlMethodsInstance().session.setAttribute("Checked", "true");
 
             Integer font_theme_id = getSqlMethodsInstance().getFontthemeid(brand_id);

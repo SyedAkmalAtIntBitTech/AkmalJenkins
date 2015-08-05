@@ -28,8 +28,6 @@ public class GetColorsFromLogo extends BrndBotBaseHttpServlet {
     String filePath;
     String fileName, fieldName, uploadPath;
     ArrayList<String> list = new ArrayList<String>();
-    JSONObject json = new JSONObject();
-    JSONArray jarr = new JSONArray();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,6 +45,8 @@ public class GetColorsFromLogo extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
+        JSONArray jarr = new JSONArray();
         getSqlMethodsInstance().session = request.getSession(true);
         try {
             uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + "Customers";

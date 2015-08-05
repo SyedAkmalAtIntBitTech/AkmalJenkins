@@ -44,6 +44,7 @@ public class GetUserPreferences extends BrndBotBaseHttpServlet {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         PGobject pgobject = new PGobject();
+        Object object = new Object();
         Integer brand_id = 0, font_theme_id;
         JSONObject user_preferences = new JSONObject();
         JSONObject json_colors = new JSONObject();
@@ -57,16 +58,15 @@ public class GetUserPreferences extends BrndBotBaseHttpServlet {
                 result_set = prepared_statement.executeQuery();
 
                 if (result_set.next()) {
-                    pgobject = (PGobject) result_set.getObject("user_preferences");
+                    object = result_set.getObject("user_preferences");
                     brand_id = result_set.getInt("brand_id");
                     font_theme_id = result_set.getInt("font_theme_id");
                 }
                 
-            pgobject.setType("json");
-            String obj = pgobject.getValue();
-
+//            pgobject = (PGobject)object;
+//            pgobject.setType("json");
+            String obj = object.toString();
             json_colors = (JSONObject) parser.parse(obj);
-
 
         /*---------------------------------- script to get the font names from the database ----------------------------*/
 //                    brand_id = rs2.getInt(1);

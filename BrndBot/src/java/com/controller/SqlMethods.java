@@ -46,6 +46,7 @@ public class SqlMethods {
     public SqlMethods() {
          Context envCtx;
         try {
+            
             envCtx = (Context) new InitialContext().lookup("java:comp/env");
             DataSource datasource = (DataSource) envCtx.lookup("jdbc/postgres");
             this.connection = datasource.getConnection();
@@ -378,6 +379,8 @@ public class SqlMethods {
 
             pg_object.setType("json");
             pg_object.setValue(json_object.toJSONString());
+//            Object obj = new Object();
+//            obj = json_object.toJSONString();
             prepared_statement.setObject(6, pg_object);
 
             prepared_statement.executeUpdate();
@@ -761,6 +764,32 @@ public class SqlMethods {
         }
         return emailListJSONArray;
     }
+    
+    public Integer getStudioID(Integer user_id)throws SQLException{
+        Integer studio_id = 0;
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        try{
+            
+            query_string = "Select location from tbl_user_preferences where user_id="+user_id;
+
+            prepared_statement = getConnection().prepareStatement(query_string);
+            result_set = prepared_statement.executeQuery();
+            
+            if (result_set.next()){
+                studio_id = Integer.parseInt(result_set.getString(1));
+            }
+        }catch(Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }finally {
+            close(result_set, prepared_statement);
+        }
+        return studio_id;
+    }
+
 
     public org.json.simple.JSONArray getColorsAndThemeName() throws SQLException, ClassNotFoundException {
         String query_string = "";

@@ -7,20 +7,42 @@
 angular.module("myapp", [])
     .controller("controllerCategories", function($scope,$http) {
         $scope.categories = {};
+        $scope.mindbodyactivated = {};
         $scope.SubCategories = {};
             $http({
                             method : 'GET',
-                            url : 'GetUserCategories'
+                            url : 'MindBodyDataServlet?query=isMindBodyActivated'
                     }).success(function(data, status, headers, config) {
-                            $scope.categories  = data;
-                            if(data === error){
+                        var mindbody_data = JSON.stringify(data);
+                        if (mindbody_data.status == "false"){
+                            $scope.mindbodyactivation = "Mindbody not activated"+mindbody_data.activation_link;
+                        }else if(data === error){
                                 alert(data);
-                            }
+                        }else {
+
+                        $http({
+                                    method : 'GET',
+                                    url : 'GetUserCategories'
+                            }).success(function(data, status, headers, config) {
+                                    $scope.categories  = data;
+                                if(data === error){
+                                        alert(data);
+                                }    
+                            }).error(function(data, status, headers, config) {
+                                    alert("No data available, problem fetching the data");
+                                    // called asynchronously if an error occurs
+                                    // or server returns response with an error status.
+                            });
+
+                        
+                        $scope.categories  = data;
+                        }    
                     }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                     });
+
 
                 $scope.getSubCategories = function(CatID){
                         var CategoryID = {"CategoryID": CatID.toString()};
