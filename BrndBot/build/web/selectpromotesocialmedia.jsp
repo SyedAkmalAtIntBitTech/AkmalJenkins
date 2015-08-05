@@ -21,13 +21,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script src="js/socialmedia.js" type="text/javascript"></script>
+<!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <title>social media</title>
 
         <style>
@@ -97,10 +98,49 @@
                 margin-left: 2px;
                 padding-right: 5px;
             }
+           
         </style>
-        <script >
+        <%! 
+            HttpServletRequest request;
+            Object code = "";
+            String ImageName="";
+        %>
+        <% 
+            try{
+                code = (Object)request.getAttribute("objkey");
+                ImageName=request.getParameter("image");
+            }catch (Exception e){
+                System.out.println(e.getCause());
+                System.out.println(e.getMessage());
+                
+            }
+        
+        %>
+        
+           <script>
             $(document).ready(function () {
-                var myVar1 = '<%= request.getAttribute("objkey")%>';    /* retrieve json from request attribute */
+                     $(".cross").hide();
+                            $(".menu").hide();
+                            $(".hamburger").click(function () {
+                                 $(".menu").slideToggle("slow", function () {
+                                     $(".hamburger").hide();
+                                             $(".cross").show();
+                                 });
+                             });
+                            $(".cross").click(function () {
+                                $(".menu").slideToggle("slow", function () {
+                                $(".cross").hide();
+                                        $(".hamburger").show();
+                                });
+                            });
+                        });
+        </script>
+        
+        
+        <script>
+            
+            $(document).ready(function () {
+                var myVar1 = '<%= code %>';    /* retrieve json from request attribute */
                 var mytest = eval('(' + myVar1 + ')');
 //                alert(JSON.stringify(myVar1));      // display complete json
 
@@ -144,7 +184,7 @@
 
                 $("#isdefault").click(function () {
 //                    managed_page = $("#isDefault").val();
-                    alert(check_default);
+//                    alert(check_default);
                     if (check_default == "true"){
                         default_access_token = $("#fbaccessTokenSend").val();
                     }
@@ -171,7 +211,7 @@
                     check_default_managed_page = document.getElementById("isdefault").checked;
                     
                     if ((check_default_managed_page == true) && (check_default == "true")){
-                       alert(default_access_token);
+//                       alert(default_access_token);
                         $.ajax({
                                 url: 'ServletUserPreferencesFacebook',
                                 method: 'post',
@@ -204,14 +244,27 @@
                     $("#submitbutton").prop("disabled",true);
             });   
            });
+           
         </script>
+     
     </head>
 <body>
     <div class="row">
         <div id="sidebar-wrapper" class="col-md-1">
-            <nav class="navbar navbar-default " role="navigation">
-                <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
-            </nav>
+                    <nav class="navbar navbar-default " role="navigation">
+                        <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
+                        <button class="hamburger">&#9776;</button>
+                        <button class="cross">&#9776;</button>
+                        <ul class="nav nav-stacked menu">
+                            <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
+                            <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
+                            <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
+                            <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
+                            <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br></li> 
+                            <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br></li> 
+                        </ul>
+                        <!-- /.navbar-collapse -->
+                    </nav>
         </div><!--/end left column-->
 
         <div class="col-md-10 col-md-offset-1">
@@ -223,7 +276,8 @@
                 <li><img class="socialimage" src="images/twitter.jpeg" > <input type="checkbox" id="twitter" name="social" value="twitter"><br> </li>
                 <li><div class="col-md-4 col-md-offset-6">
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
-                            <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend">
+                            <input type="hidden" id="imageName" name="imageName" value ='<%=ImageName%>'/>
+                            <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend" >
                             <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
                             <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
                             <input type="hidden" id="isFacebook" name="isFacebook" value="false">

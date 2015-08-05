@@ -4,8 +4,16 @@
     Author     : sandeep-kumar
 --%>
 
+<%@page import="com.controller.SqlMethods"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%! 
+    SqlMethods sql_methods = new SqlMethods();
+%>
 <%
+    sql_methods.session = request.getSession();
+    String imageName = (String)sql_methods.session.getAttribute("image_file_name");
+//    String imageName=request.getParameter("imageName");
+        
     String isFacebook = request.getParameter("isFacebook");
     String isTwitter = request.getParameter("isTwitter");
     String accesstoken = "";
@@ -16,6 +24,7 @@
     if (isTwitter.equalsIgnoreCase("true")) {
         twitteracesstoken = request.getParameter("twaccessTokenSend").split(",");
     }
+
 
 %>
 <!DOCTYPE html>
@@ -88,10 +97,20 @@
     <body>
         <div class="container-fluid">
             <div id="sidebar-wrapper" class="col-md-1">
-                <nav class="navbar navbar-default " role="navigation">
-                    <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
-                </nav>
-            </div>
+               <nav class="navbar navbar-default " role="navigation">
+                   <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
+                    <button class="hamburger">&#9776;</button>
+                       <button class="cross">&#9776;</button>
+                       <ul class="nav nav-stacked menu">
+                          <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
+                            <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
+                            <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
+                            <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
+                            <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br></li> 
+                            <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br></li> 
+                       </ul>
+               </nav>
+           </div>
             <div class="row">
                 <div class="col-sm-3 col-sm-offset-1">
                    
@@ -99,7 +118,7 @@
                     <img class="socialimage" id="facebookimage" src="images/fb_icon.png"><span id="facebookcancel" class="glyphicon glyphicon-remove-sign"> </span>
                     <img class="socialimage" id="twitterimage" src="images/twitter.jpeg"><span id="twittercancel" class="glyphicon glyphicon-remove-sign"></span><br><br><br>
                     <div id="fbtextcontainer">
-                    post test<input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here">
+                    Post text<input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here">
                     <br><br>
                     <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
                     <div id="linkpostdiv">
@@ -116,18 +135,18 @@
                     Facebook Preview<br>
                     <img id="companyimage" class="companyimage" src="images/logo.png">
                     <p>Company name</p><br>
-                    <img id="facebookpreviewimage" src="images/Blackandwhite.jpg">
+                    <img id="facebookpreviewimage" src='temp/<%=imageName%>'>
                 </div>
 
                 <div class="col-sm-3" id="twitterpreviewdiv">
                     Twitter Preview<br>
                     <img id="companyimage" class="companyimage" src="images/logo.png">
                     <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"></textarea><br><br>
-                    <img id="facebookpreviewimage" src="images/Blackandwhite.jpg">
+                    <img id="facebookpreviewimage" src='temp/<%=imageName%>'>
                 </div>
             </div>
-
-            <input type="hidden" id="accesstoken" name="accesstoken" value=<%=accesstoken%>>
+             <input type="hidden" id="imageToPost" name="imageToPost" value='<%=imageName%>'/>  
+            <input type="hidden" id="accesstoken" name="accesstoken" value='<%=accesstoken%>'/>
             <input type="hidden" id="twittweraccestoken" name="twittweraccestoken" value=<%=twitteracesstoken[0]%>>
             <input type="hidden" id="twitterTokenSecret" name="twitterTokenSecret" value=<%=twitteracesstoken[1]%>>
             <input type="hidden" id="isFacebook" name="isFacebook" value=<%= isFacebook%>>
@@ -135,7 +154,21 @@
 
         </div>
         <script>
-
+                            $(".cross").hide();
+                            $(".menu").hide();
+                            $(".hamburger").click(function () {
+                                 $(".menu").slideToggle("slow", function () {
+                                     $(".hamburger").hide();
+                                             $(".cross").show();
+                                 });
+                             });
+                            $(".cross").click(function () {
+                                $(".menu").slideToggle("slow", function () {
+                                $(".cross").hide();
+                                        $(".hamburger").show();
+                                });
+                            });
+                            
             $(document).ready(function () {
                 var isFacebook = $("#isFacebook").val();
 
@@ -199,11 +232,13 @@
 
                     var isFacebook = $("#isFacebook").val();
                     var isTwitter = $("#isTwitter").val();
+                    var image_name= $("#imageToPost").val();
                     if (isFacebook == "true" || isTwitter == "true") {
                         $.ajax({
                             url: 'PostToSocial',
                             method: 'post',
                             data: {
+                                imageToPost: image_name,
                                 accesstoken: $("#accesstoken").val(),
                                 postText: $("#posttext").val(),
                                 title: $("#title").val(),
@@ -213,11 +248,14 @@
                                 twitterTokenSecret: $("#twitterTokenSecret").val(),
                                 text: $("#twittertext").val(),
                                 isFacebook: isFacebook,
-                                isTwitter: isTwitter
+                                isTwitter: isTwitter,
+                                imagePost: image_name
                             },
                             success: function (responseText) {
 //                            $("#tokenHere").html(responseText);
-                                alert("sucess");
+//                                alert(image_name);
+                                alert("Your post has been published successfully");
+                                 document.location.href = "dashboard.jsp";
                             }
                         });
                     }

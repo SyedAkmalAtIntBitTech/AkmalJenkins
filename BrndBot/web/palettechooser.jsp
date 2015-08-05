@@ -169,8 +169,8 @@
                 /*------ get selected element ID -----*/
                         function getElementID(IDNo){
                         ElementID = IDNo;
-                                $('.step_wrapper').on('click', '.step_box', function () {
-                        $(this).parent().find('.step_box').css('width', '').css('height', '').css('border-color', '').css('border-radius', '');
+                        $('.step_wrapper').on('click', '.step_box', function () {
+                $(this).parent().find('.step_box').css('width', '').css('height', '').css('border-color', '').css('border-radius', '');
                                 $(this).css('width', '80px').css('height', '40px').css('border-color', '#FF0000').css('border-radius', '10px');
                         });
                                 $("#sortable").sortable();
@@ -516,24 +516,19 @@
                 $(document).ready(function(){
 
                 $("#test").click(function(){
-                var s = $("#elementToPutStyleInto1").attr("style");
-                        var s1 = s.split(":");
-                        var s = $("#elementToPutStyleInto2").attr("style");
-                        var s2 = s.split(":");
-                        var s = $("#elementToPutStyleInto3").attr("style");
-                        var s3 = s.split(":");
-                        var s = $("#elementToPutStyleInto3").attr("style");
-                        var s4 = s.split(":");
-                        var s = $("#elementToPutStyleInto5").attr("style");
-                        var s5 = s.split(":");
-                        var s = $("#elementToPutStyleInto6").attr("style");
-                        var s6 = s.split(":");
-                        document.getElementById("finalcolor1").value = s1[1].trim();
-                        document.getElementById("finalcolor2").value = s2[1].trim();
-                        document.getElementById("finalcolor3").value = s3[1].trim();
-                        document.getElementById("finalcolor4").value = s4[1].trim();
-                        document.getElementById("finalcolor5").value = s5[1].trim();
-                        document.getElementById("finalcolor6").value = s6[1].trim();
+                   
+                        var s1 =$("#elementToPutStyleInto1").css("background-color");                    
+                        var s2 =$("#elementToPutStyleInto2").css("background-color");
+                        var s3 = $("#elementToPutStyleInto3").css("background-color");                    
+                        var s4 = $("#elementToPutStyleInto4").css("background-color");                     
+                        var s5 = $("#elementToPutStyleInto5").css("background-color");                       
+                        var s6 = $("#elementToPutStyleInto1").css("background-color");
+                        document.getElementById("finalcolor1").value = s1;
+                        document.getElementById("finalcolor2").value = s2;
+                        document.getElementById("finalcolor3").value = s3;
+                        document.getElementById("finalcolor4").value = s4;
+                        document.getElementById("finalcolor5").value = s5;
+                        document.getElementById("finalcolor6").value = s6;
                 });
                 });
 //  Reset pslette color   

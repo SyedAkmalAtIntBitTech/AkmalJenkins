@@ -28,7 +28,7 @@ String buffer="<select id='subcategories'><option value='0'>Select</option>";
             
          buffer=buffer+"</select>";  
          stmt.close();
-
+         SM.con.close();
         System.out.println(buffer);
         response.getWriter().println(buffer);
 

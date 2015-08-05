@@ -61,8 +61,8 @@ public class Model extends BrndBotBaseHttpServlet {
         try {
             layout = new Layout();
             response.setContentType("text/html;charset=UTF-8");
-//            uploadPath = getServletContext().getRealPath("") + "/xml";
-            uploadPath = getServletContext().getInitParameter("file-upload") + File.separator + "xml";
+            uploadPath = getServletContext().getRealPath("") + File.separator + "images" + "/xml";
+//           uploadPath = getServletContext().getInitParameter("file-upload") + File.separator + "xml";
     //        uploadPath = getServletContext().getContextPath() + "/xml";
 
             Integer organization_id = Integer.parseInt(request.getParameter("organization"));
@@ -162,10 +162,11 @@ public class Model extends BrndBotBaseHttpServlet {
             // StreamResult result = new StreamResult(System.out);
             transformer.transform(source, result);
             transformer1.transform(source1, result1);
+            sqlmethods.setDatabaseConnection();
             layout.addLayouts(organization_id , user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id);
             System.out.println("File saved!");
             response.sendRedirect(request.getContextPath() + "/admin/layoutmodel.jsp");
-            
+            sqlmethods.con.close();
         } catch (ParserConfigurationException pce) {
             System.out.println(pce.getCause());
             System.out.println(pce.getMessage());
@@ -176,7 +177,7 @@ public class Model extends BrndBotBaseHttpServlet {
             System.out.println(tfe.getCause());
             System.out.println(tfe.getMessage());
             System.out.println(tfe.getStackTrace());
-        } catch (SQLException s){
+        } catch (SQLException | ClassNotFoundException s){
             System.out.println(s.getCause());
             System.out.println(s.getMessage());
             System.out.println(s.getStackTrace());

@@ -20,6 +20,8 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="js/angular.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/main1.css">
+        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+
         <script>
             var elementid1;
             function showText(lookid){

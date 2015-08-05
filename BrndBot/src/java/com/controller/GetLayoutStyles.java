@@ -76,6 +76,9 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
         String json = new Gson().toJson(json_arr);
         response.setContentType("application/json");
         response.getWriter().write(json);
+        result_set.close();
+        prepared_statement.close();
+        sqlmethods.con.close();
             
         }catch (Exception e){
             System.out.println(e.getCause());

@@ -172,17 +172,19 @@ var CROP = (function () {
 			var that = this;
 
 			this.eles.img
-                                                            .attr('src', url)
-                                                            .load(function () {
-                                                                    that.imgSize();
-                                                            });
+				.attr('src', url)
+				.load(function () {
+					that.imgSize();
+				});
 		};
 
 		this.imgSize = function () {
-			var img = this.eles.img, imgSize = {
-                                                                    w: img.css('width', '').width(),
-                                                                    h: img.css('height', '').height()
-                                                            }, c = this.eles.container;
+			var img = this.eles.img
+				, imgSize = {
+					w: img.css('width', '').width(),
+					h: img.css('height', '').height()
+				}
+				, c = this.eles.container;
 
 			var holderRatio = {
 				wh: this.eles.container.width()/this.eles.container.height(),

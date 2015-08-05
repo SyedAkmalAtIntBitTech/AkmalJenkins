@@ -15,8 +15,6 @@
         <script src="../js/configurations.js"></script>
         <script type="text/javascript" src="../js/angular.min.js"></script>
 <!--        <script src="../js/fontstyles.js" type="text/javascript"></script>-->
-        <script type="text/javascript" src="../js/angular.min.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">

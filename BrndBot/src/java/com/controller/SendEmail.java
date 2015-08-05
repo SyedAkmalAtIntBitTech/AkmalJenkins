@@ -87,8 +87,8 @@ public class SendEmail extends BrndBotBaseHttpServlet {
                 Message message = new Message();
 
                 message.setKey(MANDRILL_KEY);
-
-                message.setHtml("<html><body>http://localhost:8084/BrndBot/changepassword.jsp?userid=" + hashURL + "</body></html>");
+//                String url=request.getRequestURL().toString().replace("SendEmail","");  
+                message.setHtml("<html><body>http://production.brndbot.intbittech.com:8080/BrndBot/changepassword.jsp?userid=" + hashURL + "</body></html>");
                 message.setText("text");
                 message.setSubject("your password changing link for our account");
                 message.setFrom_email("intbit@intbittech.com");

@@ -7,16 +7,22 @@
 <element type="label" tag="header2"/>
 </elements>
 <elements>
-<element type="label" tag="body1"/>
+<element type="label" tag="header3"/>
 </elements>
 <elements>
-<element type="label" tag="body2"/>
+<element type="label" tag="header4"/>
 </elements>
 <elements>
-<element type="label" tag="footer1"/>
+<element type="label" tag="header5"/>
 </elements>
 <elements>
-<element type="label" tag="footer2"/>
+<element type="label" tag="header6"/>
+</elements>
+<elements>
+<element type="label" tag="header7"/>
+</elements>
+<elements>
+<element type="label" tag="header8"/>
 </elements>
 <elements>
 <element type="image" tag="backgroundimage"/>

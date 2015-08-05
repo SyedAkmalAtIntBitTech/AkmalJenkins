@@ -71,7 +71,7 @@ public class UserPreferencesFacebook {
 
             prepared_statement.executeUpdate();
             prepared_statement.close();
-
+            sql_methods.con.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

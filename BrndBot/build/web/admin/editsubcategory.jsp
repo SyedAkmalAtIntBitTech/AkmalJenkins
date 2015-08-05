@@ -151,6 +151,10 @@
                                                             <%
                                                                     }
                                                                 }
+                                                            result_set.close();
+                                                            prepared_statement.close();
+                                                            sqlmethods.con.close();
+
                                                             %>
                                                 </select><br>
                     </div><br>    

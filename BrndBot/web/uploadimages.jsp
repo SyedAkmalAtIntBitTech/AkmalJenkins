@@ -71,11 +71,11 @@
                             transformRequest: angular.identity,
                             headers: {'Content-Type': undefined}
                         })
-                            .success(function () {
-                                window.open(global_host_address + 'uploadimages.jsp', "_self");
-                            })
-                            .error(function () {
-                            });
+                        .success(function (data) {
+                            window.open(global_host_address + 'uploadimages.jsp', "_self");
+                        })
+                        .error(function () {
+                        });
                     };
                 }]);
 

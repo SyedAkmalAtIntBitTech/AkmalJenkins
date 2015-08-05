@@ -50,8 +50,8 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
                 model_mapper_id = Integer.parseInt(request.getParameter("model_mapper_id"));
             }
 //          String socialEditorLayoutFileName = request.getParameter("fileName");
-            xml_file_directory = getServletContext().getInitParameter("file-upload");
-//            xml_file_directory = getServletContext().getRealPath("") + File.separator +"xml";
+  //          xml_file_directory = getServletContext().getInitParameter("file-upload");
+            xml_file_directory = getServletContext().getRealPath("")+ File.separator + "images";
 //            String socialEditorLayoutFileName = xml_file_directory +File.separator + "class_model_mapper1.xml";
 
             Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");

@@ -32,6 +32,9 @@ public class GetColorPalettes extends BrndBotBaseHttpServlet {
             String jsonn = new Gson().toJson(jsonArray);
             response.setContentType("application/json");
             out.write(jsonn);
+                        result_set.close();
+                        prepared_statement.close();
+                        sqlmethods.con.close();
 
         } catch (Exception e) {
             System.out.println(e.getCause());

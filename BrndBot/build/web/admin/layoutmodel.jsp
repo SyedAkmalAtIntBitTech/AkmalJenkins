@@ -41,76 +41,66 @@
         <script src="../js/spectrum.js" type="text/javascript"></script>
        
         <link href="../css/spectrum.css" rel="stylesheet" type="text/css"/>
-       
+        <script src="../js/configurations.js" type="text/javascript"></script>
      <script language="javascript" type="text/javascript">  
 
       var xmlHttp;  
-      function showFonts(str){
-
-      if (typeof XMLHttpRequest !== "undefined"){
-          xmlHttp= new XMLHttpRequest();
-      }
-      else if (window.ActiveXObject){
-          xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
-      }
       
-      if (xmlHttp===null){
-          alert("Browser does not support XMLHTTP Request");
-          return;
-      } 
-
-        var url="displayfonts.jsp";
-        url +="?user_id=" +str;
-
-        xmlHttp.onreadystatechange = fontsChange;
-        xmlHttp.open("GET", url, true);
-        xmlHttp.send(null);
-      }
-
-      function fontsChange(){   
-
-      if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){   
-
-            var response = xmlHttp.responseText;
-
-            var response1, response2, response3, response4, response5, response6;
-            var len = response.length;
-            var no1 = response.indexOf(",");
-            response1 = response.substr(0, no1);
-            response2 = response.substr(no1+1,len);
-            document.getElementById("textSize").innerHTML=response2;
-            document.getElementById("textFontFamily").innerHTML=response1;
-      }   
-      }
-
-      function usersChange(){   
-
-      if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){   
-
-            var response = xmlHttp.responseText;
-
-            var response1, response2, response3, response4, response5, response6;
-            var len = response.length;
-            var no1 = response.indexOf(",");
-            response1 = response.substr(0, no1);
-            response2 = response.substr(no1+1,len);
-//            var len1 = response2.length;
-//            var no2 = response2.indexOf(",");
+//      function showFonts(str){
 //
-//            response3 = response2.substr(0, no2);
-//            response4 = response2.substr(no2+1, len1);
-//            var len2 = response4.length;
-//            var no3 = response4.indexOf(",");
-//            response5 = response4.substr(0, no3);
-//            response6 = response4.substr(no3+1,len2);
+//      if (typeof XMLHttpRequest !== "undefined"){
+//          xmlHttp= new XMLHttpRequest();
+//      }
+//      else if (window.ActiveXObject){
+//          xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+//      }
+//      
+//      if (xmlHttp===null){
+//          alert("Browser does not support XMLHTTP Request");
+//          return;
+//      } 
+//
+//        var url="displayfonts.jsp";
+//        url +="?user_id=" +str;
+//
+//        xmlHttp.onreadystatechange = fontsChange;
+//        xmlHttp.open("GET", url, true);
+//        xmlHttp.send(null);
+//      }
+//
+//      function fontsChange(){   
+//
+//      if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){   
+//
+//            var response = xmlHttp.responseText;
+//
+//            var response1, response2, response3, response4, response5, response6;
+//            var len = response.length;
+//            var no1 = response.indexOf(",");
+//            response1 = response.substr(0, no1);
+//            response2 = response.substr(no1+1,len);
+//            document.getElementById("textSize").innerHTML=response2;
+//            document.getElementById("textFontFamily").innerHTML=response1;
+//      }   
+//      }
 
-            document.getElementById("users").innerHTML=response1;
-            document.getElementById("categories").innerHTML=response2;
-//            for dynamic text size 
-//            document.getElementById("textSize").innerHTML=response5;
-//            document.getElementById("textFontFamily").innerHTML=response6;
-      }   
-      }
+            function usersChange(){   
+
+            if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){   
+
+                  var response = xmlHttp.responseText;
+
+                  var response1, response2, response3, response4, response5, response6;
+                  var len = response.length;
+                  var no1 = response.indexOf(",");
+                  response1 = response.substr(0, no1);
+                  response2 = response.substr(no1+1,len);
+
+                  document.getElementById("users").innerHTML=response1;
+                  document.getElementById("categories").innerHTML=response2;
+            }   
+            }
+            
             function showUsers(str){
 
                 if (typeof XMLHttpRequest !== "undefined"){
@@ -142,12 +132,69 @@
 
       }
 
+            function showSubCategories(str){
+
+                if (typeof XMLHttpRequest !== "undefined"){
+
+                xmlHttp= new XMLHttpRequest();
+
+                }
+                else if (window.ActiveXObject){
+
+                xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+
+                }
+                if (xmlHttp===null){
+
+                alert("Browser does not support XMLHTTP Request");
+
+                return;
+                } 
+
+                var url="displaysubcategories.jsp";
+
+                url +="?category_id=" +str;
+
+                xmlHttp.onreadystatechange = categoryChange;
+
+                xmlHttp.open("GET", url, true);
+
+                xmlHttp.send(null);
+
+      }
       
+      function categoryChange(){
+
+      if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){
+
+            var response = xmlHttp.responseText;
+
+//            var response1 response2;
+//            var len = response.length;
+//            var no1 = response.indexOf(",");
+//            response1 = response.substr(0, no1);
+//            response2 = response.substr(no1+1,len);
+
+            document.getElementById("subcategories").innerHTML=response;
+      }
+      }
+
+    
       </script>          
     </head>
     <body>
         <%@include file="menus.jsp" %>
-           <div id="tabs">
+<%!
+        PreparedStatement ps;
+        ResultSet rs;
+        String Query = "";
+        SqlMethods SM = new SqlMethods();
+        Integer id = 0;
+        String org_name = "";
+        String font_name="";
+%>
+
+        <div id="tabs">
             <ul>
                 <li><a href="#tabs-1">Text</a></li>
                 <li><a href="#tabs-2">Image</a></li>
@@ -167,7 +214,6 @@
                 <hr>
                 <p>
                     <input type="button" class="textButton" id="boldButton" value="bold" />
-
                     <input type="button" class="textButton" id="italicButton" value="italic" /><br />
                     <input type="button" class="alignButton" id="leftButton" value="left" />
                     <input type="button" class="alignButton" id="centerButton" value="center" />
@@ -175,13 +221,13 @@
                 </p>
 
                 <p>
-                    Font Size: <select id="textSize">
-                                     <option value="8">Font Size 1</option>
-                                     <option value="12">Font Size 2</option>
-                                     <option value="14">Font Size 3</option>
-                                     <option value="18">Font Size 4</option>
-                                     <option value="22">Font Size 5</option>
-                                   </select>
+                Font Size: <select id="textSize">
+                                 <option value="8">Font Size 1</option>
+                                 <option value="12">Font Size 2</option>
+                                 <option value="14">Font Size 3</option>
+                                 <option value="18">Font Size 4</option>
+                                 <option value="22">Font Size 5</option>
+                               </select>
                 </p>
 
                 <p>
@@ -193,19 +239,7 @@
                         <option value="Times New Roman">Font Family 5</option>
                     </select>
                     
-                    
- 
-<%!
-        PreparedStatement ps;
-        ResultSet rs;
-        String Query = "";
-        SqlMethods SM = new SqlMethods();
-        Integer id = 0;
-        String org_name = "";
-        String font_name="";
-        
-%>
-<!--Font Family: <select name="textFontFamily" id="textFontFamily" >
+ <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
                         <option value="0"></option>
                     </select>-->
                 </p>
@@ -387,15 +421,19 @@
                 Users: <select id='users' name="users">
                             <option value="0"></option>
                          </select>
-                Categories: <select id="categories" name="categories">
+                Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
                                     <option value="0"></option>
                                 </select><br><br>
+                Sub Categories: <select id="subcategories" name="subcategories">
+                                        <option value="0"></option>
+                                        </select><br><br>
+
                 Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
 
                             <input type="hidden" name="containerstyle" id="containerstyle">
                             <input type="hidden" name="textstyle" id="textstyle">
                             <input type="hidden" name="element" id="element">
-                            <input type="hidden" name="mapper" id="mapper">
+                            <input type="text" name="mapper" id="mapper">
                             <input type="hidden" name="layout" id="layout" >
                             <input type="button" value="save" onclick="passvaluetoinputfield();">
 
@@ -450,9 +488,6 @@
                 <input type="button" class="rightButton" id="deleteBlockButton" value="Delete Block" />
             </p>
     </div>
-        
-        
-
 
     </body>
 </html>

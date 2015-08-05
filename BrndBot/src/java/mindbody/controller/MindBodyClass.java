@@ -31,7 +31,6 @@ public class MindBodyClass {
             private static String sourceName = "BrndbotLLC";
             private MindBody mindBody;
             int[] siteIds = new int[] {7335};
-            
     public MindBodyClass() {
                 mindBody = new MindBody(sourceName, sourcePassword, siteIds);
     }

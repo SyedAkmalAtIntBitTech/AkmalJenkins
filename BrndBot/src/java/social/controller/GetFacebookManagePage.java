@@ -47,7 +47,8 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
         facebook = new FacebookFactory().getInstance();
         facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
         facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
-        response.sendRedirect(facebook.getOAuthAuthorizationURL("http://localhost:8084/BrndBot/GetFacebookManagePage"));
+        String url=request.getRequestURL().toString();        
+        response.sendRedirect(facebook.getOAuthAuthorizationURL(url));
         response.setContentType("text/html;charset=UTF-8");
 
         try (PrintWriter out = response.getWriter()) {
@@ -82,6 +83,7 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
             if (fbCode == null) {
                 processRequest(request, response);
             } else {
+                
                 System.out.println(fbCode);
                 PrintWriter out = response.getWriter();
                 out.println(facebook.getOAuthAccessToken(fbCode));
@@ -109,16 +111,15 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
 //               obj.put("Accesstoken", pageAccessToken);
 //               jsonarray.add(i, request);
                 }
-
                 request.setAttribute("objkey", jsonarray);
+//                response.sendRedirect(request.getContextPath() + "/selectpromotesocialmedia.jsp?objkey="+jsonarray);
 
-                RequestDispatcher rd = request
-                        .getRequestDispatcher("selectpromotesocialmedia.jsp");   // jsp to which i
-                // want to send data
+                RequestDispatcher rd = request.getRequestDispatcher("/selectpromotesocialmedia.jsp");   // jsp to which i
+////                 want to send data
                 rd.forward(request, response);
 
             }
-        } catch (FacebookException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(GetFacebookManagePage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -135,8 +136,8 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
-        } catch (FacebookException ex) {
+//            processRequest(request, response);
+        } catch (Exception ex) {
             Logger.getLogger(GetFacebookManagePage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

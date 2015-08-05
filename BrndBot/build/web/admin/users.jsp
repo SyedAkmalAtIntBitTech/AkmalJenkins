@@ -48,7 +48,7 @@ String buffer1="<select id='categories'><option value='0'>Select</option>";
 //        Statement stmt2 = SM.getConnection().createStatement();
         System.out.println(buffer1);
         response.getWriter().println(buffer+","+buffer1);
-
+        SM.con.close();
  }
  catch(Exception e){
 
