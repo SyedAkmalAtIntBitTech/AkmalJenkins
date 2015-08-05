@@ -194,31 +194,7 @@ and open the template in the editor.
     <body ng-app="rootApp">
         <div> 
                <div class="row">
-                    <div id="leftnav" class="col-md-1">
-                        <nav class="navbar navbar-default " role="navigation">
-                            <div class="navbar-header pull-lefts">
-                                
-                                <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target=".navbar-collapse">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-
-                            <div class="collapse navbar-collapse">
-                                <ul class="nav nav-stacked">
-                                    <li><br><br><img src="images/logo.png"  alt="logo" class="img-responsive" width="40"><br></li>
-                                    <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
-                                    <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
-                                    <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
-                                    <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
-                                    <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br><br></li> 
-                                    <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br><br></li> 
-                                </ul>
-                            </div><!-- /.navbar-collapse -->
-                        </nav>
-        
-                    </div><!--/end left column-->
+                   <jsp:include page="mainmenu.html"/>
     
                     <div class="col-md-10" >
                         <div class="col-md-10 " id="uploadModule">
