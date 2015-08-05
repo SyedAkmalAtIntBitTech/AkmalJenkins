@@ -5,6 +5,7 @@
  */
 package social.controller;
 
+import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sandeep-kumar
  */
-public class EmailTextDataServlet extends HttpServlet {
+public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
     SqlMethods sqlmethods = new SqlMethods();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,8 +29,10 @@ public class EmailTextDataServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         
         try {

@@ -25,9 +25,7 @@ import org.json.simple.parser.ParseException;
  *
  * @author AR
  */
-public class SetEmailLists extends HttpServlet {
-
-    SqlMethods sql_methods = new SqlMethods();
+public class SetEmailLists extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,8 +36,10 @@ public class SetEmailLists extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         JSONObject responseObject = new JSONObject();
         String dataresponse = "false";
         StringBuffer string_buffer = new StringBuffer();
@@ -55,14 +55,13 @@ public class SetEmailLists extends HttpServlet {
             json_update = (org.json.simple.JSONObject) parser.parse(string_buffer.toString());
             String queryParameter = (String) json_update.get("update");
 
-            sql_methods.session = request.getSession();
-            sql_methods.setDatabaseConnection();
-            Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+            getSqlMethodsInstance().session = request.getSession();
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
             if (queryParameter.equalsIgnoreCase("addUpdateEmailList")) {
                 String emailListName = (String)json_update.get(IConstants.kEmailListNameKey);
                 String emailAddresses = (String)json_update.get(IConstants.kEmailAddressesKey);
-                org.json.simple.JSONObject json_user_preferences = sql_methods.getJSONUserPreferences(user_id);
+                org.json.simple.JSONObject json_user_preferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
                 
                 Boolean result = updateEmailListPreference(user_id, emailListName, emailAddresses);
                 responseObject.put(queryParameter, result);
@@ -79,16 +78,14 @@ public class SetEmailLists extends HttpServlet {
 //                Boolean result = deleteEmailList(user_id, emailListName);
 //                responseObject.put(queryParameter, result);
             }
-            sql_methods.con.close();
-        } catch (ClassNotFoundException | SQLException | JSONException | ParseException e) {
+        } catch (SQLException | JSONException | ParseException e) {
             try {
                 responseObject.put("Error", "Request unsuccessfull");
             } catch (Exception ex){
                 Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, ex);
             }    
-//            } catch (JSONException ex) {
-//                Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+        } finally {
+            getSqlMethodsInstance().closeConnection();
         }
 
 //        String json = new Gson().toJson(responseObject);
@@ -136,7 +133,7 @@ public class SetEmailLists extends HttpServlet {
     }// </editor-fold>
 
     private Boolean updateEmailListPreference(Integer user_id, String emailListName, String emailAddresses) throws JSONException, SQLException {
-        JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id);
+        JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
 
         if (emailListArrayJSON.length() == 0){
                 org.json.simple.JSONArray json_user_email_addresses_array = new org.json.simple.JSONArray();
@@ -190,7 +187,7 @@ public class SetEmailLists extends HttpServlet {
     }
 
     private Boolean deleteEmailFromEmailList(Integer user_id, String emailListName, String emailid) throws JSONException, SQLException {
-        JSONArray emailListArrayJSON = (JSONArray) sql_methods.getEmailListsPreferences(user_id);
+        JSONArray emailListArrayJSON = (JSONArray) getSqlMethodsInstance().getEmailListsPreferences(user_id);
         
         for (int i = 0; i < emailListArrayJSON.length(); i++) {
             org.json.JSONObject emailListJSONObject = emailListArrayJSON.getJSONObject(i);
@@ -210,7 +207,7 @@ public class SetEmailLists extends HttpServlet {
     }
 //
     private Boolean deleteEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
-        JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id);
+        JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
         for (int i = 0; i < emailListArrayJSON.length(); i++) {
             org.json.JSONObject emailListJSONObject = emailListArrayJSON.getJSONObject(i);
             String currentListName = emailListJSONObject.getString(IConstants.kEmailListNameKey);
@@ -225,14 +222,14 @@ public class SetEmailLists extends HttpServlet {
     }
 
     private Boolean AddEmailListUserPreference(Integer user_id, JSONArray json_user_preferences_emails) throws SQLException {
-        org.json.simple.JSONObject userPreferences = sql_methods.getJSONUserPreferences(user_id);
+        org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
         userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
-        return sql_methods.updateJSONUserPreference(user_id, userPreferences);
+        return getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);
     }
 
     private Boolean updateEmailListUserPreference(Integer user_id, org.json.JSONArray json_user_preferences_emails) throws SQLException {
-        org.json.simple.JSONObject userPreferences = sql_methods.getJSONUserPreferences(user_id);
+        org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
         userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
-        return sql_methods.updateJSONUserPreference(user_id, userPreferences);
+        return getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);
     }
 }

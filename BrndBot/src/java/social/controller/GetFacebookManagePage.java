@@ -41,13 +41,14 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
      */
     private Facebook facebook;
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, FacebookException {
-
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        super.processRequest(request, response);
         facebook = new FacebookFactory().getInstance();
         facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
         facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
-        String url=request.getRequestURL().toString();        
+        String url = request.getRequestURL().toString();
         response.sendRedirect(facebook.getOAuthAuthorizationURL(url));
         response.setContentType("text/html;charset=UTF-8");
 
@@ -83,7 +84,7 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
             if (fbCode == null) {
                 processRequest(request, response);
             } else {
-                
+
                 System.out.println(fbCode);
                 PrintWriter out = response.getWriter();
                 out.println(facebook.getOAuthAccessToken(fbCode));

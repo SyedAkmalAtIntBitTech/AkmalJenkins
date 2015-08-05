@@ -23,7 +23,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author sandeep-kumar
  */
-public class ChangeImageServlet extends HttpServlet {
+public class ChangeImageServlet extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,18 +34,20 @@ public class ChangeImageServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-     private static final long serialVersionUID = 1L;
-     private final String UPLOAD_DIRECTORY = "C:/Files";
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    private static final long serialVersionUID = 1L;
+    private final String UPLOAD_DIRECTORY = "C:/Files";
+
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangeImageServlet</title>");            
+            out.println("<title>Servlet ChangeImageServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ChangeImageServlet at " + request.getContextPath() + "</h1>");
@@ -69,42 +71,32 @@ public class ChangeImageServlet extends HttpServlet {
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
         // process only if it is multipart content
-        String path="";
+        String path = "";
         if (isMultipart) {
-                // Create a factory for disk-based file items
-                FileItemFactory factory = new DiskFileItemFactory();
+            // Create a factory for disk-based file items
+            FileItemFactory factory = new DiskFileItemFactory();
 
-                // Create a new file upload handler
-                ServletFileUpload upload = new ServletFileUpload(factory);
-                try {
+            // Create a new file upload handler
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            try {
                 // Parse the request
                 List<FileItem> multiparts = upload.parseRequest(request);
 
                 for (FileItem item : multiparts) {
-                if (!item.isFormField()) {
-                String name = new File(item.getName()).getName();
-                item.write(new File(UPLOAD_DIRECTORY + File.separator + name));
-                path=UPLOAD_DIRECTORY + File.separator + name;
+                    if (!item.isFormField()) {
+                        String name = new File(item.getName()).getName();
+                        item.write(new File(UPLOAD_DIRECTORY + File.separator + name));
+                        path = UPLOAD_DIRECTORY + File.separator + name;
+                    }
                 }
-                }
-                } 
-                catch (Exception e) 
-                {
-                  e.printStackTrace();
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        
+
         response.setContentType("text/plain");
         response.getWriter().write(path);
-}
-    
-    
-    
-    
-    
-    
-    
-    
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.

@@ -51,8 +51,9 @@ public class ServletColorTheme extends BrndBotBaseHttpServlet {
      */
     
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         PreparedStatement preparestatement = null;

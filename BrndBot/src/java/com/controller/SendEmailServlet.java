@@ -43,7 +43,7 @@ import org.json.simple.parser.ParseException;
  * @author intbit
  */
 @WebServlet(name = "SendEmailServlet", urlPatterns = {"/SendEmailServlet"})
-public class SendEmailServlet extends HttpServlet {
+public class SendEmailServlet extends BrndBotBaseHttpServlet {
 
     SqlMethods sqlmethods = new SqlMethods();
     GenerateHashPassword generate_hash_password = new GenerateHashPassword();
@@ -64,8 +64,10 @@ public class SendEmailServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, Exception {
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         sqlmethods.session = request.getSession(true);
         PrintWriter out = response.getWriter();

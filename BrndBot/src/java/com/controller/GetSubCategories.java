@@ -35,17 +35,19 @@ public class GetSubCategories extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         PreparedStatement prepared_statement = null;
-ResultSet result_set = null;
+        ResultSet result_set = null;
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         StringBuffer string_buffer = new StringBuffer();
         getSqlMethodsInstance().session = request.getSession(true);
         JSONArray jsonarr = new JSONArray();
-        
+
         try {
             BufferedReader reader = request.getReader();
             String line = null;
@@ -79,7 +81,7 @@ ResultSet result_set = null;
             out.write(getSqlMethodsInstance().error);
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-        }finally {
+        } finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
             getSqlMethodsInstance().closeConnection();

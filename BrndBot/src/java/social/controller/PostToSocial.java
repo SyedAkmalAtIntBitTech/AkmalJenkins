@@ -45,9 +45,11 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
      */
     private Facebook facebook;
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, FacebookException {
-
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        super.processRequest(request, response);
+        try {
         String isFacebook = request.getParameter("isFacebook");
         String isTwitter = request.getParameter("isTwitter");
         String getImageFile = request.getParameter("imageToPost");
@@ -110,6 +112,9 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             }
 
         }
+        } catch (FacebookException e) {
+            
+        }
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
@@ -136,11 +141,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (FacebookException ex) {
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -154,11 +155,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (FacebookException ex) {
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

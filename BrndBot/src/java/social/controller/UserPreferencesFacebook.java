@@ -23,11 +23,10 @@ public class UserPreferencesFacebook {
     private SqlMethods sqlMethods;
 
     public UserPreferencesFacebook() throws NamingException {
-        sqlMethods = new SqlMethods();
     }
 
     public void updatePreference(Integer user_id, String access_token) throws SQLException {
-
+        sqlMethods = new SqlMethods();
         
         try {
             PGobject pgobject = new PGobject();
@@ -71,10 +70,10 @@ public class UserPreferencesFacebook {
 
             prepared_statement.executeUpdate();
             prepared_statement.close();
-            sql_methods.con.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+            sqlMethods.closeConnection();
         }
     }
 
@@ -171,6 +170,8 @@ public class UserPreferencesFacebook {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            sqlMethods.closeConnection();
         }
         return access_token;
     }

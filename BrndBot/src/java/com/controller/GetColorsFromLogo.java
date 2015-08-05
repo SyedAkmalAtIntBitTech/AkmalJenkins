@@ -41,8 +41,10 @@ public class GetColorsFromLogo extends BrndBotBaseHttpServlet {
      * @throws IOException if an I/O error occurs
      */
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession(true);

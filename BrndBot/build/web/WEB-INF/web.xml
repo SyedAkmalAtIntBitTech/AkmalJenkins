@@ -222,10 +222,6 @@
         <servlet-class>com.controller.GetUserPreferences</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ConvertHtmlToImageServlet</servlet-name>
-        <servlet-class>util.ConvertHtmlToImageServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SendEmailServlet</servlet-name>
         <servlet-class>com.controller.SendEmailServlet</servlet-class>
     </servlet>
@@ -484,10 +480,6 @@
     <servlet-mapping>
         <servlet-name>GetUserPreferences</servlet-name>
         <url-pattern>/GetUserPreferences</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ConvertHtmlToImageServlet</servlet-name>
-        <url-pattern>/ConvertHtmlToImageServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SendEmailServlet</servlet-name>

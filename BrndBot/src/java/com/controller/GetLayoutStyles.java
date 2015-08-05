@@ -33,8 +33,10 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONArray json_arr = new JSONArray();
@@ -76,9 +78,6 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
         String json = new Gson().toJson(json_arr);
         response.setContentType("application/json");
         response.getWriter().write(json);
-        result_set.close();
-        prepared_statement.close();
-        sqlmethods.con.close();
             
         }catch (Exception e){
             System.out.println(e.getCause());

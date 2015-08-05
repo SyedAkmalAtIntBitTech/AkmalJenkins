@@ -52,6 +52,7 @@ public class ServletAddFonts extends BrndBotBaseHttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         StringBuffer string_buffer = new StringBuffer();

@@ -25,7 +25,7 @@ import org.json.simple.parser.ParseException;
  *
  * @author AR
  */
-public class GetEmailLists extends HttpServlet {
+public class GetEmailLists extends BrndBotBaseHttpServlet {
 
     SqlMethods sql_methods = new SqlMethods();
 
@@ -38,8 +38,10 @@ public class GetEmailLists extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         JSONObject responseObject = new JSONObject();
         StringBuffer string_buffer = new StringBuffer();
         org.json.simple.JSONArray emailListNames = new org.json.simple.JSONArray();
@@ -48,7 +50,6 @@ public class GetEmailLists extends HttpServlet {
 
             String queryParameter = request.getParameter("update");
             sql_methods.session = request.getSession();
-            sql_methods.setDatabaseConnection();
             Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
 
             if (queryParameter.equalsIgnoreCase("allEmailListNames")) {
@@ -64,13 +65,14 @@ public class GetEmailLists extends HttpServlet {
                 responseObject.put(queryParameter, emailListArrayJSON);
             }
             
-            sql_methods.con.close();
         } catch (ClassNotFoundException | SQLException | JSONException e) {
             try {
                 responseObject.put("Error", "Request unsuccessfull");
             } catch (Exception ex) {
                 Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } finally {
+            getSqlMethodsInstance().closeConnection();
         }
         String json = new Gson().toJson(responseObject);
         response.setContentType("application/json");
