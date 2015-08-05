@@ -66,6 +66,8 @@ public class DeleteGalleryImages extends BrndBotBaseHttpServlet {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             out.write(getSqlMethodsInstance().error);
+        } finally {
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

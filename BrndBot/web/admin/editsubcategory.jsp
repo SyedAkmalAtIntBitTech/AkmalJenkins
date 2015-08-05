@@ -133,8 +133,7 @@
                                                             <option value="0">--select--</option>
                                                             <%
                                                                 query_string = "select * from tbl_category Order By id ASC";
-                                                                sqlmethods.setDatabaseConnection();
-                                                                prepared_statement = sqlmethods.con.prepareStatement(query_string);
+                                                                prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                                                                 result_set = prepared_statement.executeQuery();
 
                                                                 while (result_set.next()) {

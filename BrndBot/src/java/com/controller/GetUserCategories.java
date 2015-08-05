@@ -38,7 +38,7 @@ public class GetUserCategories extends BrndBotBaseHttpServlet {
         PrintWriter out = response.getWriter();
         JSONArray jsonarr = new JSONArray();
         PreparedStatement prepared_statement = null;
-    ResultSet result_set = null;
+        ResultSet result_set = null;
 
         getSqlMethodsInstance().session = request.getSession(true);
         try {
@@ -70,6 +70,7 @@ public class GetUserCategories extends BrndBotBaseHttpServlet {
         }finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

@@ -57,6 +57,7 @@ public class SetStudioid extends BrndBotBaseHttpServlet {
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

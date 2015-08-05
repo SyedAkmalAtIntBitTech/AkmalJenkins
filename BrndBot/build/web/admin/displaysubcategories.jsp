@@ -18,8 +18,7 @@ String buffer="<select id='subcategories'><option value='0'>Select</option>";
 
  try{
 
-        SM.setDatabaseConnection();
-        Statement stmt = SM.con.createStatement();
+        Statement stmt = SM.getConnection().createStatement();
 
         ResultSet rs = stmt.executeQuery("Select * from tbl_sub_category where category_id='"+category_id+"'");
 
@@ -39,6 +38,8 @@ String buffer="<select id='subcategories'><option value='0'>Select</option>";
      System.out.println(e.getCause());
      System.out.println(e.getMessage());
 
+ } finally {
+     sqlmethods.closeConnection();
  }
 
  %>

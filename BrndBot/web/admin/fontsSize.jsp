@@ -66,8 +66,7 @@
                         try {
 
                             query_string = "select * from tbl_font_size Order By id ASC";
-                            sqlmethods.setDatabaseConnection();
-                            prepared_statement = sqlmethods.con.prepareStatement(query_string);
+                            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                             result_set = prepared_statement.executeQuery();
                             number = 1;
                             while (result_set.next()) {
@@ -84,7 +83,7 @@
                             }
                             result_set.close();
                             prepared_statement.close();
-                            sqlmethods.con.close();
+                            sqlmethods.getConnection().close();
                         } catch (Exception e) {
                             System.out.println(e.getCause());
                             out.println(e.getMessage());

@@ -32,7 +32,6 @@ import pojos.TblColors;
  */
 public class SqlMethods {
 
-    private DataSource datasource;
     HttpServletRequest request;
     HttpServletResponse response;
     public HttpSession session;
@@ -44,16 +43,22 @@ public class SqlMethods {
     public String error = "system failure error";
     public static final String k_mind_body = "Mind_Body_Data";
 
-    public SqlMethods(Connection connection) {
-        this.connection = connection;
-    }
-    
     public SqlMethods() {
+         Context envCtx;
+        try {
+            envCtx = (Context) new InitialContext().lookup("java:comp/env");
+            DataSource datasource = (DataSource) envCtx.lookup("jdbc/postgres");
+            this.connection = datasource.getConnection();
+
+        } catch (NamingException ex) {
+            Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Connection getConnection() throws SQLException {
-        Connection connection = datasource.getConnection();    
-        return connection;
+        return this.connection;
     }
 
     public void close(ResultSet rs, Statement ps) {
@@ -62,14 +67,14 @@ public class SqlMethods {
                 rs.close();
 
             } catch (SQLException e) {
-                Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         if (ps != null) {
             try {
                 ps.close();
             } catch (SQLException e) {
-                Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }

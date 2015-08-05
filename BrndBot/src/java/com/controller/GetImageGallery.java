@@ -68,6 +68,7 @@ import org.json.simple.JSONObject;
         }finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

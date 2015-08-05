@@ -9,6 +9,7 @@ import admin.controller.Layout;
 import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -181,6 +182,8 @@ public class Model extends BrndBotBaseHttpServlet {
             System.out.println(s.getStackTrace());
         } catch (NamingException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            getSqlMethodsInstance().closeConnection();
         }
         
     }

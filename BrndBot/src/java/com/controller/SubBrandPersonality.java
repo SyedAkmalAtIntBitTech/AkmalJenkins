@@ -48,6 +48,7 @@ public class SubBrandPersonality extends BrndBotBaseHttpServlet {
         }
         finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

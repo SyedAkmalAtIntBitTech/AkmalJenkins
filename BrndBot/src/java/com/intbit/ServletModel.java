@@ -246,6 +246,7 @@ public class ServletModel extends BrndBotBaseHttpServlet {
             out.println(getSqlMethodsInstance().error);
         } finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
 
     }

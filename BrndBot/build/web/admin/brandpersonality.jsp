@@ -74,8 +74,7 @@
                                     <option value="0">--select--</option>
                     <%
                         query_string = "select * from tbl_look Order By id ASC";
-                        sqlmethods.setDatabaseConnection();
-                        prepared_statement = sqlmethods.con.prepareStatement(query_string);
+                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         
                         while (result_set.next()) {
@@ -122,8 +121,7 @@
                     </tr>
                     <%
                         query_string = "select * from tbl_brand_personality Order By id ASC";
-                        sqlmethods.setDatabaseConnection();
-                        prepared_statement = sqlmethods.con.prepareStatement(query_string);
+                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         number = 1;
                         
@@ -142,7 +140,6 @@
                         }
                         result_set.close();
                         prepared_statement.close();
-                        sqlmethods.con.close();
                     %>
                 </table>
             </div>

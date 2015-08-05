@@ -63,6 +63,9 @@ public class CropImage extends BrndBotBaseHttpServlet {
         }
         catch(Exception e){
             
+        } finally {
+            out.close();
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

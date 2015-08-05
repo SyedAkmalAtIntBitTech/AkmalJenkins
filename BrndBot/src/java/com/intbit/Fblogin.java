@@ -5,6 +5,7 @@
  */
 package com.intbit;
 
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ import com.restfb.types.FacebookType;
  * @author sandeep-kumar
  */
 @WebServlet(name = "Fblogin", urlPatterns = {"/Fblogin"})
-public class Fblogin extends HttpServlet {
+public class Fblogin extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,7 +39,8 @@ public class Fblogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try  
+        (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
          System.out.println("hi");
          String MY_ACCESS_TOKEN = "CAACEdEose0cBAHgOnGKwWZBRRHUj9ZAZCUlZANlePFlDZCxjAsKtbD7NxHdKD44PAeiLYNmzerSWU2MZCTC8KC6hZAg71te5rA9arhggulnbmjZCkghuGVvSrjUmbx6hvMaUt0DQs4CZALQFpZA39drGXMz2sS3g1ytdSMFIdkBZAMZCZC6fOmBZB9x89nm8ro8PB7Cg8PwiCskQtMBkgUXcX6ZCJrs";
@@ -61,31 +63,7 @@ public class Fblogin extends HttpServlet {
                     = facebookClient.publish("me/feed", FacebookType.class,
                             Parameter.with("message", " After each 10 min j2111ava121 code"));
 
-            System.out.println("Published message ID: " + publishMessageResponse.getId());
-
-
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            System.out.println("Published message ID: " + publishMessageResponse.getId());     
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -95,6 +73,8 @@ public class Fblogin extends HttpServlet {
             out.println("<h1>Servlet Fblogin at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+        } finally {
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

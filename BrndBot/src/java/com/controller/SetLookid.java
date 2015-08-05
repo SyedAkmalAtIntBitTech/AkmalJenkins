@@ -49,6 +49,7 @@ public class SetLookid extends BrndBotBaseHttpServlet {
             out.println(getSqlMethodsInstance().error);
         }finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
 
     }

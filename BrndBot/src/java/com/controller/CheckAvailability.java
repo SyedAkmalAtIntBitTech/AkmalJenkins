@@ -57,6 +57,7 @@ public class CheckAvailability extends BrndBotBaseHttpServlet {
             out.println(getSqlMethodsInstance().error);
         }finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

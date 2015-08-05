@@ -115,6 +115,9 @@ public class UploadImages extends BrndBotBaseHttpServlet {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
             System.out.println(ex.getStackTrace());
+        } finally {
+            out.close();
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

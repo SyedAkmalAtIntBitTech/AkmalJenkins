@@ -23,7 +23,7 @@ import org.json.simple.JSONArray;
 public class ServletGetStyles extends BrndBotBaseHttpServlet {
 
     String query = "", query1 = "";
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,25 +44,27 @@ public class ServletGetStyles extends BrndBotBaseHttpServlet {
         getSqlMethodsInstance().session = request.getSession(true);
 
         try {
-        Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
-        String query_string = "Select layout from tbl_model where user_id="+ user_id +"";
-        
-        prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query_string);
-        result_set = prepared_statement.executeQuery();
-        
-        while (result_set.next()){
-            jsonarr.add(result_set.getString("layout"));
-        }
-        String json = new Gson().toJson(jsonarr);
-        response.setContentType("application/json");
-        response.getWriter().write(json);
-        }catch (Exception e){
+            String query_string = "Select layout from tbl_model where user_id=" + user_id + "";
+
+            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query_string);
+            result_set = prepared_statement.executeQuery();
+
+            while (result_set.next()) {
+                jsonarr.add(result_set.getString("layout"));
+            }
+            String json = new Gson().toJson(jsonarr);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-        }finally {
+        } finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
+            getSqlMethodsInstance().closeConnection();
+
         }
     }
 

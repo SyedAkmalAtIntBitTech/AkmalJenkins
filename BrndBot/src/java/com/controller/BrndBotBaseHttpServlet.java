@@ -26,18 +26,7 @@ public class BrndBotBaseHttpServlet extends HttpServlet {
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        // Look up the JNDI data source only once at init time
-        Context envCtx;
-        try {
-            envCtx = (Context) new InitialContext().lookup("java:comp/env");
-            DataSource datasource = (DataSource) envCtx.lookup("jdbc/postgres");
-            sql_methods = new SqlMethods(datasource.getConnection());
-
-        } catch (NamingException ex) {
-            Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sql_methods = new SqlMethods();
     }
     
     public SqlMethods getSqlMethodsInstance(){

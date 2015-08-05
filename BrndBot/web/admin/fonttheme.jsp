@@ -188,8 +188,7 @@
                                                 <option value="0">--select--</option>
                     <%
                         query_string = "select * from tbl_brand_personality Order By id ASC";
-                        sqlmethods.setDatabaseConnection();
-                        prepared_statement = sqlmethods.con.prepareStatement(query_string);
+                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         
                         while (result_set.next()) {
@@ -207,7 +206,7 @@
                     <%
                         query_string = "select * from tbl_font_family Order By id ASC";
                         sqlmethods.setDatabaseConnection();
-                        prepared_statement = sqlmethods.con.prepareStatement(query_string);
+                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         
                         while (result_set.next()) {
@@ -224,8 +223,7 @@
                                                 <option value="0">--select--</option>
                     <%
                         query_string = "select * from tbl_font_size Order By id ASC";
-                        sqlmethods.setDatabaseConnection();
-                        prepared_statement = sqlmethods.con.prepareStatement(query_string);
+                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         
                         while (result_set.next()) {
@@ -242,8 +240,7 @@
                                                 <option value="0">--select--</option>
                     <%
                         query_string = "select * from tbl_font_style Order By id ASC";
-                        sqlmethods.setDatabaseConnection();
-                        prepared_statement = sqlmethods.con.prepareStatement(query_string);
+                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         
                         while (result_set.next()) {
@@ -292,8 +289,7 @@
                     </tr>
                     <%
                         query_string = "select * from tbl_brand_font_family Order By id ASC";
-                        sqlmethods.setDatabaseConnection();
-                        prepared_statement = sqlmethods.con.prepareStatement(query_string);
+                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         number = 1;
                         
@@ -327,7 +323,7 @@
                         }
                         result_set.close();
                         prepared_statement.close();
-                        sqlmethods.con.close();
+                        sqlmethods.closeConnection();
                     %>
                 </table>
             </div>
