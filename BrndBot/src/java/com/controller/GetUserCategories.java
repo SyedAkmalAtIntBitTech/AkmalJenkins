@@ -11,7 +11,6 @@ import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
@@ -21,12 +20,9 @@ import pojos.TblCategory;
  *
  * @author intbit
  */
-public class GetUserCategories extends HttpServlet {
+public class GetUserCategories extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
-    PreparedStatement prepared_statement;
-    ResultSet result_set;
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,14 +37,16 @@ public class GetUserCategories extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONArray jsonarr = new JSONArray();
-        sqlmethods.session = request.getSession(true);
-        try {
-            Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
 
-            sqlmethods.setDatabaseConnection();
-            Integer organization_id = sqlmethods.getOrganizationID(user_id);
+        getSqlMethodsInstance().session = request.getSession(true);
+        try {
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+
+            Integer organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
             String query = "Select * from tbl_category where organization_id='" + organization_id + "' Order By id ASC";
-            prepared_statement = sqlmethods.con.prepareStatement(query);
+            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
 
             result_set = prepared_statement.executeQuery();
 
@@ -61,9 +59,6 @@ public class GetUserCategories extends HttpServlet {
                 jsonarr.add(categories);
             }
 
-            result_set.close();
-            prepared_statement.close();
-            sqlmethods.con.close();
             String json = new Gson().toJson(jsonarr);
             response.setContentType("application/json");
             response.getWriter().write(json);
@@ -71,9 +66,11 @@ public class GetUserCategories extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
+            getSqlMethodsInstance().close(result_set, prepared_statement);
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

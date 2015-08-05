@@ -6,7 +6,7 @@
 package com.intbit;
 
 import admin.controller.Looks;
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,19 +14,13 @@ import java.util.Iterator;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -34,12 +28,11 @@ import org.w3c.dom.Element;
  *
  * @author intbit
  */
-public class ServletModel extends HttpServlet {
+public class ServletModel extends BrndBotBaseHttpServlet {
     String filePath;
     String fileName, fieldName, uploadPath, uploadXmlPath;
-    Looks look = new Looks();
+    Looks look;
     RequestDispatcher request_dispatcher;
-    SqlMethods sqlmethods = new SqlMethods();
     String lookName, organization;
 
     /**
@@ -60,6 +53,7 @@ public class ServletModel extends HttpServlet {
         int maxMemSize = 5000 * 1024;
         try {
 
+            look = new Looks();
 //            uploadXmlPath = getServletContext().getRealPath("") + "/model";
             uploadPath = getServletContext().getRealPath("") + "/model";
 
@@ -230,9 +224,7 @@ public class ServletModel extends HttpServlet {
                         out.println("Uploaded Filename: " + filePath + "<br>");
                     }
                 }
-                sqlmethods.setDatabaseConnection();
                 look.addLooks(lookName, fileName);
-                sqlmethods.con.close();
                 response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
 //                        request_dispatcher = request.getRequestDispatcher("/admin/looks.jsp");
 //                        request_dispatcher.forward(request, response);
@@ -251,9 +243,10 @@ public class ServletModel extends HttpServlet {
         } catch (Exception ex) {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
-            out.println(sqlmethods.error);
+            out.println(getSqlMethodsInstance().error);
         } finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
 
     }

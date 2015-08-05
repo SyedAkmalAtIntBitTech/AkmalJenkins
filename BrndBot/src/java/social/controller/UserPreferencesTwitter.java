@@ -1,14 +1,16 @@
+package social.controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package social.controller;
 
 import com.controller.SqlMethods;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.naming.NamingException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.postgresql.util.PGobject;
@@ -18,9 +20,13 @@ import org.postgresql.util.PGobject;
  * @author intbit
  */
 public class UserPreferencesTwitter {
-    SqlMethods sql_methods = new SqlMethods();
+    SqlMethods sql_methods;
     PreparedStatement prepared_statement;
     ResultSet result_set;
+
+    public UserPreferencesTwitter() throws NamingException {
+        this.sql_methods = new SqlMethods();
+    }
 
     public void updatePreference(Integer user_id, String twitter_access_token, String twitter_access_token_secret) throws SQLException {
 
@@ -31,7 +37,7 @@ public class UserPreferencesTwitter {
 
             String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
 
-            prepared_statement = sql_methods.con.prepareStatement(query);
+            prepared_statement = sql_methods.getConnection().prepareStatement(query);
 
             result_set = prepared_statement.executeQuery();
 
@@ -59,7 +65,7 @@ public class UserPreferencesTwitter {
             jsonObject.setType("json");
             jsonObject.setValue(json_objectFromTable.toJSONString());
 
-            prepared_statement = sql_methods.con.prepareStatement(query);
+            prepared_statement = sql_methods.getConnection().prepareStatement(query);
 
             prepared_statement.setObject(1, jsonObject);
 
@@ -84,7 +90,7 @@ public class UserPreferencesTwitter {
 
             String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
 
-            prepared_statement = sql_methods.con.prepareStatement(query);
+            prepared_statement = sql_methods.getConnection().prepareStatement(query);
 
             result_set = prepared_statement.executeQuery();
 

@@ -6,7 +6,6 @@
 package mindbody.controller;
 
 import java.util.HashMap;
-import javax.xml.bind.JAXBElement;
 
 /**
  *

@@ -5,7 +5,6 @@
  */
 package com.controller;
 
-import com.google.gson.Gson;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.ArrayOfClass;
 import com.mindbodyonline.clients.api._0_5Class.ArrayOfClassSchedule;
@@ -16,16 +15,13 @@ import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.namespace.QName;
 import mindbody.controller.MindBodyClass;
 import mindbody.controller.MindBodyProcessedData;
 import org.json.JSONException;
@@ -36,9 +32,7 @@ import org.json.simple.JSONArray;
  *
  * @author intbit
  */
-public class MindBodyDataServlet extends HttpServlet {
-    MindBodyClass mind_body_class = new MindBodyClass();
-    SqlMethods sql_methods = new SqlMethods();
+public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -51,11 +45,13 @@ public class MindBodyDataServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        sql_methods.session = request.getSession(true);
+            MindBodyClass mind_body_class = new MindBodyClass();
+
+        getSqlMethodsInstance().session = request.getSession(true);
         PrintWriter out = response.getWriter();
         MindBodyProcessedData mind_body_processed_data = null;
         try {
-            String sub_category_name = (String)sql_methods.session.getAttribute("sub_category_name");
+            String sub_category_name = (String)getSqlMethodsInstance().session.getAttribute("sub_category_name");
 
             if(sub_category_name.equals("promote todays class")){
                 GetClassesResult classResult  = mind_body_class.getTodaysClass();
@@ -67,7 +63,7 @@ public class MindBodyDataServlet extends HttpServlet {
                 GetEnrollmentsResult enrollmentsResult = mind_body_class.getTodaysEnrollments();
                 mind_body_processed_data = getMindBodyProcessedEnrollmentData(enrollmentsResult);
             }
-            sql_methods.session.setAttribute(sql_methods.k_mind_body, mind_body_processed_data.getData_hash_map());
+            getSqlMethodsInstance().session.setAttribute(getSqlMethodsInstance().k_mind_body, mind_body_processed_data.getData_hash_map());
             response.setContentType("application/json");
             out.write(mind_body_processed_data.getJsonDisplayString());
             
@@ -75,6 +71,8 @@ public class MindBodyDataServlet extends HttpServlet {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             e.printStackTrace();
+        } finally {
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

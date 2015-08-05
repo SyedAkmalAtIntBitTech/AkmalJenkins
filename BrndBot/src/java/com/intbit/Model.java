@@ -6,15 +6,15 @@
 package com.intbit;
 
 import admin.controller.Layout;
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
@@ -33,10 +33,9 @@ import org.w3c.dom.Element;
  *
  * @author Sandeep Kumar at IntBit Technologies.
  */
-public class Model extends HttpServlet {
+public class Model extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
-    Layout layout = new Layout();
+    Layout layout;
     String filePath;
     String fileName, fieldName, uploadPath;
     boolean type_email = false;
@@ -60,7 +59,7 @@ public class Model extends HttpServlet {
             throws ServletException, IOException {
             
         try {
-            
+            layout = new Layout();
             response.setContentType("text/html;charset=UTF-8");
 //            uploadPath = getServletContext().getRealPath("") + "/xml";
             uploadPath = getServletContext().getInitParameter("file-upload") + File.separator + "xml";
@@ -181,6 +180,10 @@ public class Model extends HttpServlet {
             System.out.println(s.getCause());
             System.out.println(s.getMessage());
             System.out.println(s.getStackTrace());
+        } catch (NamingException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            getSqlMethodsInstance().closeConnection();
         }
         
     }

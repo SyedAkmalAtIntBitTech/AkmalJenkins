@@ -5,14 +5,13 @@
  */
 package com.intbit;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
@@ -21,11 +20,10 @@ import org.json.simple.JSONArray;
  *
  * @author intbit
  */
-public class ServletGetStyles extends HttpServlet {
+public class ServletGetStyles extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
     String query = "", query1 = "";
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,34 +37,34 @@ public class ServletGetStyles extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
         String xml_files;
         JSONArray jsonarr = new JSONArray();
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
 
         try {
-        sqlmethods.setDatabaseConnection();
-        Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
-        String query_string = "Select layout from tbl_model where user_id="+ user_id +"";
-        sqlmethods.setDatabaseConnection();
-        
-        prepared_statement = sqlmethods.con.prepareStatement(query_string);
-        result_set = prepared_statement.executeQuery();
-        
-        while (result_set.next()){
-            jsonarr.add(result_set.getString("layout"));
-        }
-        result_set.close();
-        prepared_statement.close();
+            String query_string = "Select layout from tbl_model where user_id=" + user_id + "";
 
-        String json = new Gson().toJson(jsonarr);
-        response.setContentType("application/json");
-        response.getWriter().write(json);
-        }catch (Exception e){
+            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query_string);
+            result_set = prepared_statement.executeQuery();
+
+            while (result_set.next()) {
+                jsonarr.add(result_set.getString("layout"));
+            }
+            String json = new Gson().toJson(jsonarr);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        } finally {
+            out.close();
+            getSqlMethodsInstance().close(result_set, prepared_statement);
+            getSqlMethodsInstance().closeConnection();
+
         }
     }
 

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var global_host_address = "http://localhost:8084/BrndBot/";
+var global_host_address = "http://localhost:8080/BrndBot/";
 var error = "system failure error";    
 
 function getHost(){
-    return "http://localhost:8084/BrndBot/";
+    return "http://localhost:8080/BrndBot/";
 }
 
 function kUserPreference_HasLoggedInFacebook (){

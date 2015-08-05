@@ -6,13 +6,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import static com.controller.SqlMethods.con;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,9 +19,8 @@ import java.sql.SQLException;
  *
  * @author intbit
  */
-public class Authentication extends HttpServlet {
+public class Authentication extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
     GenerateHashPassword generate_hash_password = new GenerateHashPassword();
 
     /**
@@ -45,7 +42,7 @@ public class Authentication extends HttpServlet {
         boolean check = false;
     
         PrintWriter out = response.getWriter();
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
 
         try {
 
@@ -63,34 +60,34 @@ public class Authentication extends HttpServlet {
 
             String hash_password = generate_hash_password.hashPass(password);
 
-            sqlmethods.setDatabaseConnection();
 
-            check = sqlmethods.checkAvailability(User_id, hash_password);
-            Integer UID = sqlmethods.getUserID(User_id);
-            String company = sqlmethods.getCompanyName(UID);
+            check = getSqlMethodsInstance().checkAvailability(User_id, hash_password);
+            Integer UID = getSqlMethodsInstance().getUserID(User_id);
+            String company = getSqlMethodsInstance().getCompanyName(UID);
 
-            sqlmethods.session.setAttribute("company", company);
+            getSqlMethodsInstance().session.setAttribute("company", company);
 
             response.setContentType("text/html");
             if (check) {
-                sqlmethods.session.setAttribute("UID", UID);
-                sqlmethods.session.setAttribute("Checked", "true");
+                getSqlMethodsInstance().session.setAttribute("UID", UID);
+                getSqlMethodsInstance().session.setAttribute("Checked", "true");
                 out.write("true");
             } else {
-                sqlmethods.session.setAttribute("Checked", "false");
+                getSqlMethodsInstance().session.setAttribute("Checked", "false");
                 out.write("false");
             }
-            sqlmethods.con.close();
         } catch (ParseException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         } catch (SQLException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
+            getSqlMethodsInstance().close(result_set, prepared_statement);
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

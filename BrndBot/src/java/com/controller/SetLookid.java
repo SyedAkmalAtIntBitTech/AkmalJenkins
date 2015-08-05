@@ -5,27 +5,21 @@
  */
 package com.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 /**
  *
  * @author intbit
  */
-public class SetLookid extends HttpServlet {
+public class SetLookid extends BrndBotBaseHttpServlet {
 
     RequestDispatcher request_dispatcher;
-    SqlMethods sqlmethods = new SqlMethods();
-    StringBuffer string_buffered = new StringBuffer();
+    StringBuffer string_buffered;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,21 +33,23 @@ public class SetLookid extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        string_buffered = new StringBuffer();
         PrintWriter out = response.getWriter();
-        sqlmethods.session = request.getSession();
+        getSqlMethodsInstance().session = request.getSession();
 
         try {
             String LookID = request.getParameter("LookID");
 
-            sqlmethods.session.setAttribute("LookID", LookID);
+            getSqlMethodsInstance().session.setAttribute("LookID", LookID);
             request_dispatcher = request.getRequestDispatcher("/personality.jsp");
             request_dispatcher.forward(request, response);
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.println(sqlmethods.error);
+            out.println(getSqlMethodsInstance().error);
         }finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
 
     }

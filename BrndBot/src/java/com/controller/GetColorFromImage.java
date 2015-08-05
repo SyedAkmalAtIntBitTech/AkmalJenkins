@@ -5,12 +5,10 @@
  */
 package com.controller;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,8 +20,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
-import jdk.nashorn.internal.ir.BreakNode;
-import org.apache.http.HttpResponse;
 
 /**
  *

@@ -5,13 +5,15 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
@@ -21,12 +23,20 @@ import org.json.simple.parser.JSONParser;
  *
  * @author intbit
  */
-public class ServletOrganization extends HttpServlet {
+public class ServletOrganization extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
-    Organization organization = new Organization();
-    Fonts fonts = new Fonts();
+    Organization organization;
+    Fonts fonts;
 
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            organization = new Organization();
+            fonts = new Fonts();
+        } catch (NamingException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,7 +62,6 @@ public class ServletOrganization extends HttpServlet {
             JSONObject joFonts = null;
             joFonts = (JSONObject) parser.parse(string_buffer.toString());
             String type = (String) joFonts.get("type");
-            sqlmethods.setDatabaseConnection();
             if (type.equals("add")) {
                 String organization_name = (String) joFonts.get("organization_name");
                 boolean check = organization.checkAvailability(organization_name);
@@ -79,7 +88,6 @@ public class ServletOrganization extends HttpServlet {
             }
 
         } catch (Exception e) {
-            out.write(sqlmethods.error);
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }

@@ -5,11 +5,10 @@
  */
 package social.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author intbit
  */
-public class ServletUserPreferencesTwitter extends HttpServlet {
-    SqlMethods sql_methods = new SqlMethods();
-    UserPreferencesTwitter user_preferences = new UserPreferencesTwitter();
+public class ServletUserPreferencesTwitter extends BrndBotBaseHttpServlet {
+
+    UserPreferencesTwitter user_preferences;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,13 +33,13 @@ public class ServletUserPreferencesTwitter extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter(); 
-        sql_methods.session = request.getSession();
+        getSqlMethodsInstance().session = request.getSession();
         String access_token_from_table = "";
         String access_token = "", access_token_secret= "", method_type = "";
 
         try {
-            Integer user_id = 40;
-            sql_methods.setDatabaseConnection();
+            user_preferences = new UserPreferencesTwitter();
+            Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
             
             if (request.getParameter("twitter_access_tokens") != null){
                 access_token = request.getParameter("twitter_access_tokens");
@@ -59,9 +58,7 @@ public class ServletUserPreferencesTwitter extends HttpServlet {
             }else if (method_type.equals("getAccessToken")){
                 access_token_from_table = user_preferences.getUserPreferenceForAccessToken(user_id);
             }
-            
-            sql_methods.con.close();
-            
+                       
             if (method_type.equals("getAccessToken") ){
                     response.setContentType("application/plain");
                     out.write(access_token_from_table);

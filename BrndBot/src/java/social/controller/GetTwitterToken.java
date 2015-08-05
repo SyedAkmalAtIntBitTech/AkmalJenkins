@@ -5,12 +5,11 @@
  */
 package social.controller;
 
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ import twitter4j.auth.RequestToken;
  *
  * @author sandeep-kumar
  */
-public class GetTwitterToken extends HttpServlet {
+public class GetTwitterToken extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

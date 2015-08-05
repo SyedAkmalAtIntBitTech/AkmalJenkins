@@ -7,7 +7,6 @@ package mindbody.controller;
 
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.Class;
-import com.mindbodyonline.clients.api._0_5Class.ClassDescription;
 import com.mindbodyonline.clients.api._0_5Class.Program;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
 import java.io.File;

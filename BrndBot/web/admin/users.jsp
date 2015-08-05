@@ -20,8 +20,7 @@ String buffer1="<select id='categories'><option value='0'>Select</option>";
 
  try{
 
-        SM.setDatabaseConnection();
-        Statement stmt = SM.con.createStatement();
+        Statement stmt = SM.getConnection().createStatement();
 
         ResultSet rs = stmt.executeQuery("Select * from tbl_user_login_details where organizationid="+org_id+"");
 
@@ -34,7 +33,7 @@ String buffer1="<select id='categories'><option value='0'>Select</option>";
          buffer=buffer+"</select>";  
          stmt.close();
 
-        Statement stmt1 = SM.con.createStatement();
+        Statement stmt1 = SM.getConnection().createStatement();
 
         ResultSet rs1 = stmt1.executeQuery("Select * from tbl_category where organization_id="+org_id+"");
 
@@ -46,7 +45,7 @@ String buffer1="<select id='categories'><option value='0'>Select</option>";
         
         buffer1=buffer1+"</select>";
         stmt1.close();
-//        Statement stmt2 = SM.con.createStatement();
+//        Statement stmt2 = SM.getConnection().createStatement();
         System.out.println(buffer1);
         response.getWriter().println(buffer+","+buffer1);
 

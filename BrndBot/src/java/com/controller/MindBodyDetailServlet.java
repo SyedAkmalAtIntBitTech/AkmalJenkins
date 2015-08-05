@@ -5,17 +5,13 @@
  */
 package com.controller;
 
-import com.google.gson.Gson;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
-import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
-import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mindbody.controller.MindBodyDataMapper;
@@ -26,9 +22,9 @@ import org.json.JSONObject;
  * @author intbit
  */
 
-public class MindBodyDetailServlet extends HttpServlet {
-SqlMethods sql_methods = new SqlMethods();
-protected String xml_file_directory = null;
+public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
+
+    protected String xml_file_directory = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,7 +42,7 @@ protected String xml_file_directory = null;
         String mindbody_data_id = "";
         Integer model_mapper_id = 0;
         try {
-            sql_methods.session = request.getSession(true);
+            getSqlMethodsInstance().session = request.getSession(true);
             if (request.getParameter("mindbody_id") != null){
                 mindbody_data_id = request.getParameter("mindbody_id");
             }
@@ -58,16 +54,15 @@ protected String xml_file_directory = null;
 //            xml_file_directory = getServletContext().getRealPath("") + File.separator +"xml";
 //            String socialEditorLayoutFileName = xml_file_directory +File.separator + "class_model_mapper1.xml";
 
-            Integer user_id = (Integer)sql_methods.session.getAttribute("UID");
-            sql_methods.setDatabaseConnection();
-            Integer organization_id = sql_methods.getOrganizationID(user_id);
-            String category_id =(String) sql_methods.session.getAttribute("category_id");
-            String sub_category_id = (String)sql_methods.session.getAttribute("sub_category_id");
-            String sub_category_name = (String)sql_methods.session.getAttribute("sub_category_name");
+            Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
+            Integer organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
+            String category_id =(String) getSqlMethodsInstance().session.getAttribute("category_id");
+            String sub_category_id = (String)getSqlMethodsInstance().session.getAttribute("sub_category_id");
+            String sub_category_name = (String)getSqlMethodsInstance().session.getAttribute("sub_category_name");
 
-            String social_editor_mapper_file_name = xml_file_directory + File.separator + "xml" + File.separator + sql_methods.getMapperFile(user_id, organization_id, Integer.parseInt(category_id), Integer.parseInt(sub_category_id), model_mapper_id) + ".xml";
+            String social_editor_mapper_file_name = xml_file_directory + File.separator + "xml" + File.separator + getSqlMethodsInstance().getMapperFile(user_id, organization_id, Integer.parseInt(category_id), Integer.parseInt(sub_category_id), model_mapper_id) + ".xml";
 
-            HashMap<String, Object> hash_map = (HashMap<String, Object>)sql_methods.session.getAttribute(sql_methods.k_mind_body);
+            HashMap<String, Object> hash_map = (HashMap<String, Object>)getSqlMethodsInstance().session.getAttribute(getSqlMethodsInstance().k_mind_body);
             JSONObject mapped_json_object = null;
             Object selected_object = hash_map.get(mindbody_data_id);
             
@@ -88,11 +83,13 @@ protected String xml_file_directory = null;
                 response.getWriter().write(mapped_json_object.toString());
                 
             }
-            sql_methods.con.close();
         }catch(Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             e.printStackTrace();
+        } finally {
+            out.close();
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

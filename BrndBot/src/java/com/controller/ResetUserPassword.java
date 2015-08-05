@@ -9,20 +9,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author intbit
  */
-public class ResetUserPassword extends HttpServlet {
+public class ResetUserPassword extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
     GenerateHashPassword generate_hash_password = new GenerateHashPassword();
 
     /**
@@ -42,7 +39,7 @@ public class ResetUserPassword extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
 
-            sqlmethods.session = request.getSession(true);
+            getSqlMethodsInstance().session = request.getSession(true);
 
             BufferedReader reader = request.getReader();
             String line = null;
@@ -59,22 +56,22 @@ public class ResetUserPassword extends HttpServlet {
             String confirmpassword = (String) joUser.get("confirmpassword");
 
             String hashPass = generate_hash_password.hashPass(password);
-            sqlmethods.setDatabaseConnection();
-            userid = sqlmethods.checkResetStatus(hashURL);
+            userid = getSqlMethodsInstance().checkResetStatus(hashURL);
 
             if (userid.equals("false")) {
                 out.write("false");
             } else {
-                sqlmethods.resetPassword(userid, hashPass);
+                getSqlMethodsInstance().resetPassword(userid, hashPass);
                 out.write("true");
             }
 
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

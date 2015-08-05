@@ -9,27 +9,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author intbit
  */
-public class ServletUserRegistration extends HttpServlet {
+public class ServletUserRegistration extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
     GenerateHashPassword generate_hash_password = new GenerateHashPassword();
     RequestDispatcher request_dispatcher;
     PreparedStatement prepared_statement = null;
@@ -38,7 +30,7 @@ public class ServletUserRegistration extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
         StringBuffer string_buffer = new StringBuffer();
         boolean check = true;
         try {
@@ -55,24 +47,23 @@ public class ServletUserRegistration extends HttpServlet {
             String password = (String) joUser.get("confirmPassword");
 
             String HashPass = generate_hash_password.hashPass(password);
-            sqlmethods.setDatabaseConnection();
-            check = sqlmethods.checkForDuplicateUser(User_id);
+            check = getSqlMethodsInstance().checkForDuplicateUser(User_id);
             response.setContentType("text/html");
             if (check) {
                 out.write("false");
             } else {
                 out.write("true");
-                sqlmethods.addUsers(User_id, HashPass);
-                sqlmethods.session.setAttribute("EmailID", User_id);
+                getSqlMethodsInstance().addUsers(User_id, HashPass);
+                getSqlMethodsInstance().session.setAttribute("EmailID", User_id);
             }
-            sqlmethods.con.close();
 
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
 
     }

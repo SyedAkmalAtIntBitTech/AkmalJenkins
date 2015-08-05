@@ -5,13 +5,16 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
@@ -21,11 +24,20 @@ import org.json.simple.parser.JSONParser;
  *
  * @author intbit
  */
-public class ServletDeleteLooks extends HttpServlet {
+public class ServletDeleteLooks extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
-    Looks looks = new Looks();
+    Looks looks;
     String delete_path, file_name_to_delete;
+    
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            looks = new Looks();
+        } catch (NamingException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,21 +63,17 @@ public class ServletDeleteLooks extends HttpServlet {
             JSONObject jsonLook = null;
             jsonLook = (JSONObject) parser.parse(string_buffer.toString());
             Long look_id = (Long) jsonLook.get("look_id");
-            sqlmethods.setDatabaseConnection();
             delete_path = getServletContext().getRealPath("") + "/images/Lookimages";
-            sqlmethods.setDatabaseConnection();
             file_name_to_delete = looks.getFileName(look_id.intValue());
             String deletePath = delete_path + File.separator + file_name_to_delete;
             File deleteFile = new File(deletePath);
             deleteFile.delete();
 
             looks.deleteLooks(look_id.intValue());
-            sqlmethods.con.close();
             out.write("true");
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
         }
     }
 

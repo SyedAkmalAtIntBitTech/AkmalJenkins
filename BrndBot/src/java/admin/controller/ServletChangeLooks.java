@@ -6,19 +6,20 @@
 package admin.controller;
 
 import admin.controller.Looks;
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.commons.io.output.*;
 import org.apache.commons.fileupload.servlet.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.*;
@@ -27,16 +28,25 @@ import org.apache.commons.fileupload.*;
  *
  * @author intbit
  */
-public class ServletChangeLooks extends HttpServlet {
+public class ServletChangeLooks extends BrndBotBaseHttpServlet {
 
     String filePath;
     String fileName, fieldName, uploadPath, deletePath, file_name_to_delete, uploadPath1;
-    Looks look = new Looks();
+    Looks look;
     RequestDispatcher request_dispatcher;
-    SqlMethods sqlmethods = new SqlMethods();
     String lookname, lookid;
-    boolean check = false;
+    boolean check;
 
+    
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            look = new Looks();
+            check = false;
+        } catch (NamingException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -95,11 +105,9 @@ public class ServletChangeLooks extends HttpServlet {
                         if (fieldName.equals("lookid")){
                             lookid = fi.getString();
                         }
-                        sqlmethods.setDatabaseConnection();
                         file_name_to_delete = look.getFileName(Integer.parseInt(lookid));
                     }else {
                         
-                        sqlmethods.setDatabaseConnection();
                         check = look.checkAvailabilities(Integer.parseInt(lookid), lookname);
 
                         if (check == false){
@@ -128,7 +136,6 @@ public class ServletChangeLooks extends HttpServlet {
                             fi.write(storeFile);
                             out.println("Uploaded Filename: " + filePath + "<br>");
                             look.changeLooks(Integer.parseInt(lookid), lookname, fileName);
-                            sqlmethods.con.close();
                             response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
                         }else {
                             response.sendRedirect(request.getContextPath() + "/admin/editlook.jsp?exist=exist&look_id=" + lookid + "&look_name=" + lookname + "");
@@ -150,7 +157,6 @@ public class ServletChangeLooks extends HttpServlet {
         } catch (Exception ex) {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
-            out.println(sqlmethods.error);
         } finally {
             out.close();
         }

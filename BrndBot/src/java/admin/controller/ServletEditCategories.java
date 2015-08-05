@@ -5,19 +5,20 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.commons.io.output.*;
 import org.apache.commons.fileupload.servlet.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.*;
@@ -26,15 +27,22 @@ import org.apache.commons.fileupload.*;
  *
  * @author intbit
  */
-public class ServletEditCategories extends HttpServlet {
+public class ServletEditCategories extends BrndBotBaseHttpServlet {
 
     String filePath;
     String file_name, field_name, upload_path;
-    Categories categories = new Categories();
+    Categories categories;
     RequestDispatcher request_dispatcher;
-    SqlMethods sqlmethods = new SqlMethods();
     String category_name, organization_id, category_id;
 
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            categories = new Categories();
+        } catch (NamingException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -124,9 +132,7 @@ public class ServletEditCategories extends HttpServlet {
                         }
                     }
                 }
-                sqlmethods.setDatabaseConnection();
                 categories.editCategories(Integer.parseInt(category_id), Integer.parseInt(organization_id), category_name, file_name);
-                sqlmethods.con.close();
                 response.sendRedirect(request.getContextPath() + "/admin/categories.jsp");
                 out.println("</body>");
                 out.println("</html>");
@@ -143,7 +149,6 @@ public class ServletEditCategories extends HttpServlet {
         } catch (Exception ex) {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
-            out.println(sqlmethods.error);
         } finally {
             out.close();
         }

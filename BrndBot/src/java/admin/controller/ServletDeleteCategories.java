@@ -5,13 +5,16 @@
  */
 package admin.controller;
 
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
@@ -21,10 +24,19 @@ import org.json.simple.parser.JSONParser;
  *
  * @author intbit
  */
-public class ServletDeleteCategories extends HttpServlet {
-    SqlMethods sqlmethods = new SqlMethods();
-    Categories category = new Categories();
+public class ServletDeleteCategories extends BrndBotBaseHttpServlet {
+    Categories category;
     String delete_path, file_name_to_delete;
+    
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            category = new Categories();
+        } catch (NamingException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,7 +61,6 @@ public class ServletDeleteCategories extends HttpServlet {
             JSONObject jsonCategory = null;
             jsonCategory = (JSONObject) parser.parse(string_buffer.toString());
             Long category_id = (Long) jsonCategory.get("category_id");
-            sqlmethods.setDatabaseConnection();
             delete_path = getServletContext().getRealPath("") + "/images/Organizations/Categories";
 
             Integer organization_id = category.getOrganizationID(category_id.intValue());
@@ -60,12 +71,10 @@ public class ServletDeleteCategories extends HttpServlet {
                 deleteFile.delete();
             }            
             category.delete(category_id.intValue());
-            sqlmethods.con.close();
             out.write("true");
         }catch(Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
         }
     }
 

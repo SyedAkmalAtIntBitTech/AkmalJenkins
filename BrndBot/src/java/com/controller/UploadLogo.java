@@ -12,11 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.commons.io.output.*;
 import org.apache.commons.fileupload.servlet.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.*;
@@ -25,11 +22,10 @@ import org.apache.commons.fileupload.*;
  *
  * @author intbit
  */
-public class UploadLogo extends HttpServlet {
+public class UploadLogo extends BrndBotBaseHttpServlet {
 
     String filePath;
     String fileName, fieldName, uploadPath;
-    SqlMethods sqlmethods = new SqlMethods();
     RequestDispatcher request_dispatcher;
 
     /**
@@ -45,7 +41,7 @@ public class UploadLogo extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        sqlmethods.session = request.getSession();
+        getSqlMethodsInstance().session = request.getSession();
 
         File file;
         int maxFileSize = 5000 * 1024;
@@ -86,9 +82,8 @@ public class UploadLogo extends HttpServlet {
                         // Get the uploaded file parameters
                         fieldName = fi.getFieldName();
                         fileName = fi.getName();
-                        String uid = (String) sqlmethods.session.getAttribute("EmailID");
-                        sqlmethods.setDatabaseConnection();
-                        int UID = sqlmethods.getUserID(uid);
+                        String uid = (String) getSqlMethodsInstance().session.getAttribute("EmailID");
+                        int UID = getSqlMethodsInstance().getUserID(uid);
                         uploadPath = uploadPath + File.separator + UID + File.separator + "logo";
 
                         File uploadDir = new File(uploadPath);
@@ -100,8 +95,8 @@ public class UploadLogo extends HttpServlet {
                         String Str = fileName.substring(0, inStr);
 
                         fileName = Str + "_" + UID + ".jpeg";
-                        sqlmethods.session.setAttribute("UID", UID);
-                        sqlmethods.session.setAttribute("ImageFileName", fileName);
+                        getSqlMethodsInstance().session.setAttribute("UID", UID);
+                        getSqlMethodsInstance().session.setAttribute("ImageFileName", fileName);
                         boolean isInMemory = fi.isInMemory();
                         long sizeInBytes = fi.getSize();
 
@@ -109,9 +104,7 @@ public class UploadLogo extends HttpServlet {
                         File storeFile = new File(filePath);
 
                         fi.write(storeFile);
-                        sqlmethods.updateUsers(UID, fileName);
-                        sqlmethods.con.close();
-
+                        getSqlMethodsInstance().updateUsers(UID, fileName);
                         out.println("Uploaded Filename: " + filePath + "<br>");
                     }
                     
@@ -131,9 +124,10 @@ public class UploadLogo extends HttpServlet {
         } catch (Exception ex) {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
-            out.println(sqlmethods.error);
+            out.println(getSqlMethodsInstance().error);
         } finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
 
     }

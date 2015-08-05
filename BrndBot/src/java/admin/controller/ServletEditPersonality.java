@@ -5,20 +5,20 @@
  */
 package admin.controller;
 
-import admin.controller.Looks;
-import com.controller.SqlMethods;
+import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.commons.io.output.*;
 import org.apache.commons.fileupload.servlet.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.*;
@@ -27,15 +27,22 @@ import org.apache.commons.fileupload.*;
  *
  * @author intbit
  */
-public class ServletEditPersonality extends HttpServlet {
+public class ServletEditPersonality extends BrndBotBaseHttpServlet {
 
     String filePath;
     String fileName, fieldName, uploadPath, deletePath, file_name_to_delete;
-    Brands brand = new Brands();
+    Brands brand;
     RequestDispatcher request_dispatcher;
-    SqlMethods sqlmethods = new SqlMethods();
     String brandname, brandid, lookid;
 
+     public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            brand = new Brands();
+        } catch (NamingException ex) {
+            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -98,7 +105,6 @@ public class ServletEditPersonality extends HttpServlet {
                             lookid = fi.getString();
                         }
 
-                        sqlmethods.setDatabaseConnection();
                         file_name_to_delete = brand.getFileName(Integer.parseInt(brandid));
                     } else {
                         fieldName = fi.getFieldName();
@@ -126,7 +132,6 @@ public class ServletEditPersonality extends HttpServlet {
                     }
                 }
                 brand.editBrands(Integer.parseInt(brandid), brandname, Integer.parseInt(lookid), fileName);
-                sqlmethods.con.close();
                 response.sendRedirect(request.getContextPath() + "/admin/brandpersonality.jsp");
 //                        request_dispatcher = request.getRequestDispatcher("/admin/looks.jsp");
 //                        request_dispatcher.forward(request, response);
@@ -145,7 +150,6 @@ public class ServletEditPersonality extends HttpServlet {
         } catch (Exception ex) {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
-            out.println(sqlmethods.error);
         } finally {
             out.close();
         }

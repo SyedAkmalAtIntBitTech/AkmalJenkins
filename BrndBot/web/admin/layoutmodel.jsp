@@ -368,9 +368,8 @@
             <form action="<%= application.getContextPath()%>/Model" method="post">
                 Organization : <select name="organization" onchange="showUsers(this.value)">
                     <% 
-                            SM.setDatabaseConnection();
                             Query = "Select * from tbl_organization";
-                            ps = SM.con.prepareStatement(Query);
+                            ps = SM.getConnection().prepareStatement(Query);
 
                             rs = ps.executeQuery();
                             while(rs.next()){
@@ -382,7 +381,7 @@
                             }
                             ps.close();
                             rs.close();
-                            SM.con.close();
+                            SM.getConnection().close();
                     %>
                                       </select><br><br>
                 Users: <select id='users' name="users">

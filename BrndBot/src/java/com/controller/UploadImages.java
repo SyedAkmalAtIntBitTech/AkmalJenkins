@@ -7,43 +7,26 @@ package com.controller;
 
 
 import java.io.PrintWriter;
-import java.util.Locale;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.Action;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionForward;
-import javax.servlet.ServletContext;
-import java.io.*;
-import java.util.*;
 import javax.servlet.*;
 
-import javax.servlet.http.*;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
-import javax.servlet.http.Part;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.io.output.*;
 import org.apache.commons.fileupload.servlet.*;
 import org.apache.commons.fileupload.disk.*;
-import org.apache.commons.fileupload.*;
 
 /**
  *
  * @author Syed
  */
-public class UploadImages extends HttpServlet {
+public class UploadImages extends BrndBotBaseHttpServlet {
     File file;
     int maxFileSize = 30000 * 1024;
     int maxMemSize = 30000 * 1024;
@@ -52,7 +35,6 @@ public class UploadImages extends HttpServlet {
     Integer user_id;
     int pages, IDNo;
     RequestDispatcher rd;
-    SqlMethods sqlmethods = new SqlMethods();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -73,7 +55,7 @@ public class UploadImages extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         try {
-            Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
             
             String uploadPath = getServletContext().getInitParameter("file-upload") +  File.separator + "Gallery" + File.separator + user_id;
 //            upload_path = "images" + File.separator + "Gallery" + File.separator + user_id;
@@ -109,7 +91,6 @@ public class UploadImages extends HttpServlet {
                     fileName = fi.getName();
 //                        fileName = slno + fileName; 
                     if (fileName != ""){
-                        sqlmethods.setDatabaseConnection();
                         File uploadDir = new File(uploadPath);
                         if (!uploadDir.exists()) {
                             uploadDir.mkdir();
@@ -126,8 +107,7 @@ public class UploadImages extends HttpServlet {
                         File storeFile = new File(filePath);
                         fi.write( storeFile ) ;
                         
-                        sqlmethods.AddImages(user_id, fileName);
-                        sqlmethods.con.close();
+                        getSqlMethodsInstance().AddImages(user_id, fileName);
                     }
                 }
              }
@@ -135,6 +115,9 @@ public class UploadImages extends HttpServlet {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
             System.out.println(ex.getStackTrace());
+        } finally {
+            out.close();
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

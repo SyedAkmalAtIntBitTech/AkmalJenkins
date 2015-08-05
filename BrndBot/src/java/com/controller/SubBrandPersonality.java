@@ -9,18 +9,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author intbit
  */
-public class SubBrandPersonality extends HttpServlet {
+public class SubBrandPersonality extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
     RequestDispatcher request_dispatcher;
 
     /**
@@ -36,21 +33,22 @@ public class SubBrandPersonality extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        sqlmethods.session = request.getSession();
+        getSqlMethodsInstance().session = request.getSession();
         try {
             String brandID = request.getParameter("brndID");
 
-            sqlmethods.session.setAttribute("brandID", brandID);
+            getSqlMethodsInstance().session.setAttribute("brandID", brandID);
             request_dispatcher = request.getRequestDispatcher("/uploadlogo.jsp");
             request_dispatcher.forward(request, response);
 
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.println(sqlmethods.error);
+            out.println(getSqlMethodsInstance().error);
         }
         finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

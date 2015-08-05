@@ -5,6 +5,7 @@
  */
 package social.controller;
 
+import com.controller.BrndBotBaseHttpServlet;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
@@ -30,7 +31,7 @@ import twitter4j.conf.ConfigurationBuilder;
  *
  * @author sandeep-kumar
  */
-public class PostToSocial extends HttpServlet {
+public class PostToSocial extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
