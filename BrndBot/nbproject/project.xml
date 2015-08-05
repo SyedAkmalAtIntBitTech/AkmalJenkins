@@ -99,10 +99,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.postgresql-9.4-1201.jdbc4.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.javassist-3.18.1-GA.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -228,9 +224,6 @@
                 <library dirs="200">
                     <file>${file.reference.twitter4j-core-4.0.4.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
-                    <file>${file.reference.selenium-server-standalone-2.46.0.jar}</file>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
