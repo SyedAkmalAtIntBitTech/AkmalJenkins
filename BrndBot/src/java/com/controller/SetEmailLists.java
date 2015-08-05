@@ -7,7 +7,6 @@ package com.controller;
 
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,7 +60,7 @@ public class SetEmailLists extends HttpServlet {
                 Boolean result = deleteEmailList(user_id, emailListName);
                 responseObject.put(queryParameter, result);
             }
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException | JSONException e) {
             try {
                 responseObject.put("Error", "Request unsuccessfull");
             } catch (JSONException ex) {
