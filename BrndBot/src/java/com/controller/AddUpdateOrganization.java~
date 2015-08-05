@@ -14,7 +14,7 @@ import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author AR
+ * @author intbit
  */
 public class AddUpdateOrganization extends BrndBotBaseHttpServlet {
 
