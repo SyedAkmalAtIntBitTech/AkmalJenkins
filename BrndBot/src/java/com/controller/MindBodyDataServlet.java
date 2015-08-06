@@ -5,6 +5,7 @@
  */
 package com.controller;
 
+import com.google.gson.Gson;
 import com.mindbodyonline.clients.api._0_5.GetActivationCodeResult;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.ArrayOfClass;
@@ -63,10 +64,10 @@ public class MindBodyDataServlet extends HttpServlet {
             Integer user_id = 40;
 
             String query_mindbody = request.getParameter("query");
+            org.json.simple.JSONObject json_mindbody_activation = new org.json.simple.JSONObject();
 
-            if (!query_mindbody.isEmpty()) {
+            if (query_mindbody != null ) {
                 Boolean isActivated = false;
-                JSONObject json_mindbody_activation = new JSONObject();
                 if (query_mindbody.equalsIgnoreCase("isMindBodyActivated")) {
                     isActivated = checkIfActivated(user_id);
                     if (!isActivated) {
@@ -98,7 +99,9 @@ public class MindBodyDataServlet extends HttpServlet {
                         json_mindbody_activation.put("activation_link", result.getActivationLink());
                     }
                 }
-                out.write(json_mindbody_activation.toString());
+                String json = new Gson().toJson(json_mindbody_activation);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
 
             } else {
                 String sub_category_name = (String) sql_methods.session.getAttribute("sub_category_name");

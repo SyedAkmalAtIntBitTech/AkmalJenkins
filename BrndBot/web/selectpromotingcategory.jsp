@@ -114,9 +114,6 @@ and open the template in the editor.
                 title="work shop";
             }
             
-            
-            
-            
         }catch (Exception e){
             e.printStackTrace();
         }

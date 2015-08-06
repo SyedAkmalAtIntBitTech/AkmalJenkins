@@ -33,8 +33,10 @@ public class MindBodyClass {
            int[] siteIds = new int[]{};
             
     public MindBodyClass(int[] siteIds) {
+        
         mindBody = new MindBody(sourceName, sourcePassword, siteIds);        
-
+        this.siteIds = siteIds;
+        
     }
     
     public GetActivationCodeResult getActivationCode()
