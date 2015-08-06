@@ -30,12 +30,16 @@
                 var external_source;
                 var sub_category_id;
                 var category_id;
+                var isblock;
+                var ismindbody;
                 var x,y;
 
                 function validate(){
                 
-                sub_category_name = document.getElementById("sub_category_name") .value;
-                sub_category_id = document.getElementById("sub_category_id") .value;
+                sub_category_name = document.getElementById("sub_category_name").value;
+                sub_category_id = document.getElementById("sub_category_id").value;
+                isblock = document.getElementById("isblock").checked;
+                ismindbody = document.getElementById("ismindbody").checked;
 
                 if(sub_category_name == ""){
                     alert("category not entered, please enter the category");
@@ -69,7 +73,7 @@
                         
                     if(validate()){
                         
-                            var category = {"sub_category_id":sub_category_id, "sub_category_name": sub_category_name, "external_source":external_source, "category":category_id, "type": "update" };
+                        var category = {"sub_category_id": sub_category_id, "sub_category_name": sub_category_name, "external_source": external_source, "category": category_id, "type": "update", "isblock":isblock, "ismindbody":ismindbody};
                         
                             $http({
                               method: 'POST',
@@ -132,6 +136,7 @@
                         Select Categories: <select name="category" id="category" style="width:180px;">
                                                             <option value="0">--select--</option>
                                                             <%
+                                                                    SqlMethods sqlmethods = new SqlMethods();
                                                                 query_string = "select * from tbl_category Order By id ASC";
                                                                 prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                                                                 result_set = prepared_statement.executeQuery();
@@ -140,28 +145,35 @@
                                                                     
                                                                     category_id_1 = result_set.getString("id");
                                                                     category_name_1 = result_set.getString("category_name");
-                                                                    
+                                                                    boolean isblock = result_set.getBoolean("isblock");
+                                                                    boolean ismindbody = result_set.getBoolean("ismindbody");
                                                                     if (category_id_1.equals(category_id)){
                                                               %>
                                                                       <option value="<%= result_set.getInt("id")%>" selected><%= result_set.getString("category_name")%></option>
                                                               <%
                                                                     }else{
-                                                             %>
+                                                                %>
                                                                       <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("category_name")%></option>
                                                             <%
                                                                     }
                                                                 }
                                                             result_set.close();
                                                             prepared_statement.close();
-                                                            sqlmethods.con.close();
+                                                            sqlmethods.getConnection().close();
 
                                                             %>
                                                 </select><br>
                     </div><br>    
+                    <div class="group">
+                        <div class="col-md-7 col-md-offset-3">
+                            <input type="checkbox" id="isblock" name="isblock" >block</input>
+                            <input type="checkbox" id="ismindbody" name="ismindbody">mindbody</input>
+                        </div>
+                    </div>
 
-                    <div style="position: absolute; float:left; left:550px; top: 300px;">
+                    <div style="position: absolute; float:left; left:550px; top: 350px;">
                         <div>
-                            <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="updateCategory()">Save</button>
+                            <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="updateCategory()">edit</button>
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
                         </div>
                     </div>

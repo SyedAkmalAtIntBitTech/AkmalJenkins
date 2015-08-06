@@ -7,9 +7,6 @@
 <%@page import="java.sql.*"%>
 <%@include file="checksession.jsp" %>
 
-<%!
-    SqlMethods SM =new SqlMethods();
-%>
 
 <%
 String category_id=request.getParameter("category_id");
@@ -18,9 +15,9 @@ String buffer="<select id='subcategories'><option value='0'>Select</option>";
 
  try{
 
-        Statement stmt = SM.getConnection().createStatement();
+        Statement stmt = sqlmethods.getConnection().createStatement();
 
-        ResultSet rs = stmt.executeQuery("Select * from tbl_sub_category where category_id='"+category_id+"'");
+        ResultSet rs = stmt.executeQuery("Select * from tbl_brand_personality where category_id='"+category_id+"'");
 
         while(rs.next()){
             buffer=buffer+"<option value='"+rs.getString("id")+"'>"+rs.getString("sub_category_name")+"</option>";

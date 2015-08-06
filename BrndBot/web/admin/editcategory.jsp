@@ -71,7 +71,7 @@
                         }
                         result_set.close();
                         prepared_statement.close();
-                        sqlmethods.con.close();
+                        sqlmethods.getConnection().close();
                     %>
                         </select><br>
                     </div><br>    

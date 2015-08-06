@@ -82,6 +82,9 @@
                                     <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("look_name") %></option>
                     <%
                         }
+                        result_set.close();
+                        prepared_statement.close();
+                        
                     %>
                         </select><br>
                     </div><br>    
@@ -140,6 +143,8 @@
                         }
                         result_set.close();
                         prepared_statement.close();
+                        sqlmethods.getConnection().close();
+
                     %>
                 </table>
             </div>

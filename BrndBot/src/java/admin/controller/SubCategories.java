@@ -103,18 +103,20 @@ public class SubCategories {
         return fileName;
     }
 
-    public void addSubCategories(String external_source, String external_source_keyword, String sub_category_name, String category_id) throws SQLException {
+    public void addSubCategories(String external_source, String external_source_keyword, String sub_category_name, String category_id, boolean isblock, boolean ismindbody) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         try {
-            query_string = "Insert into tbl_sub_category (external_source, external_source_keyword, sub_category_name, category_id) values(?,?,?,?)";
+            query_string = "Insert into tbl_sub_category (external_source, external_source_keyword, sub_category_name, category_id, isblock, ismindbodydata) values(?,?,?,?,?,?)";
 
             prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
             prepared_statement.setString(1, external_source);
             prepared_statement.setString(2, external_source_keyword);
             prepared_statement.setString(3, sub_category_name);
             prepared_statement.setString(4, category_id);
+            prepared_statement.setBoolean(5, isblock);
+            prepared_statement.setBoolean(6, ismindbody);
 
             prepared_statement.executeUpdate();
             prepared_statement.close();
@@ -128,13 +130,13 @@ public class SubCategories {
 
     }
 
-    public void editSubCategories(Integer sub_category_id, String external_source, String external_source_keyword, String sub_category_name, String category_id) throws SQLException {
-        String query_string = "";
+    public void editSubCategories(Integer sub_category_id, String external_source, String external_source_keyword, String sub_category_name, String category_id, boolean isblock, boolean ismindbody) throws SQLException {
+        String query_string = null;
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         try {
             query_string = "UPDATE tbl_sub_category"
-                    + " SET external_source='" + external_source + "', external_source_keyword='" + external_source_keyword + "', sub_category_name='" + sub_category_name + "', category_id='" + category_id + "' WHERE id='" + sub_category_id + "'";
+                    + " SET external_source='" + external_source + "', external_source_keyword='" + external_source_keyword + "', sub_category_name='" + sub_category_name + "', category_id='" + category_id  + "', isblock='"+ isblock + "', ismindbodydata='"+ ismindbody +"' WHERE id='" + sub_category_id + "'";
 
             prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
             prepared_statement.executeUpdate();

@@ -29,18 +29,23 @@
                 var sub_category_name;
                 var external_source;
                 var category_id;
+                var isblock;
+                var ismindbody;
                 var x, y;
 
                 function validate() {
 
                     sub_category_name = document.getElementById("sub_category_name").value;
+                    
+                    isblock = document.getElementById("isblock").checked;
+                    ismindbody = document.getElementById("ismindbody").checked;
 
                     if (sub_category_name == "") {
                         alert("category not entered, please enter the category");
                         $("#sub_category_name").focus();
                         return false;
                     }
-
+                    
                     x = document.getElementById("external_source").selectedIndex;
 
                     external_source = document.getElementsByTagName("option")[x].value;
@@ -67,7 +72,7 @@
 
                     if (validate()) {
 
-                        var category = {"sub_category_name": sub_category_name, "external_source": external_source, "category": category_id, "type": "add"};
+                        var category = {"sub_category_name": sub_category_name, "external_source": external_source, "category": category_id, "type": "add", "isblock":isblock, "ismindbody":ismindbody};
 
                         $http({
                             method: 'POST',
@@ -86,11 +91,11 @@
                                 alert(data);
                             }
                         })
-                                .error(function (data, status) {
-                                    // called asynchronously if an error occurs
-                                    // or server returns response with an error status.
-                                    alert("request not succesful");
-                                });
+                            .error(function (data, status) {
+                                // called asynchronously if an error occurs
+                                // or server returns response with an error status.
+                                alert("request not succesful");
+                            });
                     }
                 };
 
@@ -159,20 +164,28 @@
                         Select Categories: <select name="category" id="category" style="width:180px;">
                             <option value="0">--select--</option>
                             <%
+                                SqlMethods sqlmethods = new SqlMethods();
                                 query_string = "select * from tbl_category Order By id ASC";
                                 prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                                 result_set = prepared_statement.executeQuery();
 
                                 while (result_set.next()) {
                             %>
-                            <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("category_name")%></option>
+                                    <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("category_name")%></option>
                             <%
                                 }
+                                result_set.close();
+                                prepared_statement.close();
                             %>
                         </select><br>
-                    </div><br>    
-
-                    <div style="position: absolute; float:left; left:550px; top: 400px;">
+                    </div>
+                    <div class="group">
+                        <div class="col-md-7 col-md-offset-3">
+                            <input type="checkbox" id="isblock" name="isblock" >block</input>
+                            <input type="checkbox" id="ismindbody" name="ismindbody">mindbody</input>
+                        </div>
+                    </div>
+                    <div style="position: absolute; float:left; left:550px; top: 450px;">
                         <div>
                             <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="createSubCategory()">Save</button>
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
@@ -191,6 +204,8 @@
                         <td>External Source</td>
                         <td>Category Name</td>
                         <td>Sub Category Name</td>
+                        <td>Block</td>
+                        <td>Mindbody</td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -208,6 +223,9 @@
                         <td><%= result_set.getString("external_source")%></td>
                         <td><%= result_set.getString("external_source_keyword")%></td>
                         <td><%= result_set.getString("sub_category_name")%></td>
+                        <td><%= result_set.getBoolean("isblock")%></td>
+                        <td><%= result_set.getBoolean("ismindbodydata")%></td>
+                        
                         <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editCategory(<%=result_set.getInt("id")%>, '<%= result_set.getString("external_source_keyword")%>', '<%= result_set.getString("sub_category_name")%>','<%= result_set.getString("category_id")%>')">edit</button></td>
                         <td><button class="btn btn-info" id="brand" name="brand" value="delete" ng-click="deleteCategory(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
