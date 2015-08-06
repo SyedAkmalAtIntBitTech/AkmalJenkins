@@ -5,7 +5,6 @@
  */
 package com.controller;
 
-import com.google.gson.Gson;
 import com.mindbodyonline.clients.api._0_5.GetActivationCodeResult;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.ArrayOfClass;
@@ -15,9 +14,10 @@ import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
+import com.mindbodyonline.clients.api._0_5Class.StatusCode;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.GregorianCalendar;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.namespace.QName;
 import mindbody.controller.MindBodyClass;
 import mindbody.controller.MindBodyProcessedData;
 import org.json.JSONException;
@@ -56,43 +55,56 @@ public class MindBodyDataServlet extends HttpServlet {
         sql_methods.session = request.getSession(true);
 
         PrintWriter out = response.getWriter();
+        MindBodyClass mind_body_class = null;
         try {
 
             MindBodyProcessedData mind_body_processed_data = null;
 //            Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
             Integer user_id = 40;
-            
+
             String query_mindbody = request.getParameter("query");
-            String sub_category_name = (String) sql_methods.session.getAttribute("sub_category_name");
 
             if (!query_mindbody.isEmpty()) {
                 Boolean isActivated = false;
                 JSONObject json_mindbody_activation = new JSONObject();
                 if (query_mindbody.equalsIgnoreCase("isMindBodyActivated")) {
-                    isActivated = checkIfActivated();
-                }
+                    isActivated = checkIfActivated(user_id);
+                    if (!isActivated) {
+                        Integer studio_id = sql_methods.getStudioID(user_id);
+                        int[] siteids = new int[]{studio_id};
+                        mind_body_class = new MindBodyClass(siteids);
 
-                if (!isActivated) {
-                    json_mindbody_activation.put("status", "false");
-                }else {
-                    json_mindbody_activation.put("status", "true");
-                }
+                        json_mindbody_activation.put("status", "unactivated");
+                        
+                        GetActivationCodeResult result = mind_body_class.getActivationCode();
+                        if (result.getStatus() == com.mindbodyonline.clients.api._0_5.StatusCode.SUCCESS) {
+                            json_mindbody_activation.put("activation_link", result.getActivationLink());
+                        } else {
+                            json_mindbody_activation.put("activation_link", "");
+                        }
+                    } else {
+                        json_mindbody_activation.put("status", "activated");
+                    }
 
-                if (!isActivated || query_mindbody.equalsIgnoreCase("activationlink")) {
-        
-                   String studio_id = (String)request.getParameter("studioid");
+                } else if (query_mindbody.equalsIgnoreCase("activationlink")) {
+                    String studio_id = (String) request.getParameter("studioid");
                     int[] siteids = new int[]{Integer.parseInt(studio_id)};
-                    MindBodyClass mind_body_class = new MindBodyClass(siteids);
+                    mind_body_class = new MindBodyClass(siteids);
 
                     GetActivationCodeResult result = mind_body_class.getActivationCode();
-                    json_mindbody_activation.put("activation_link", result.getActivationLink());
+                    if (result.getStatus() == com.mindbodyonline.clients.api._0_5.StatusCode.SUCCESS) {
+                        json_mindbody_activation.put("activation_link", result.getActivationLink());
+                    } else {
+                        json_mindbody_activation.put("activation_link", result.getActivationLink());
+                    }
                 }
-                    out.write(json_mindbody_activation.toString());
+                out.write(json_mindbody_activation.toString());
 
             } else {
-            Integer studio_id = sql_methods.getStudioID(user_id);
-            int[] siteids = new int[]{studio_id};
-            MindBodyClass mind_body_class = new MindBodyClass(siteids);
+                String sub_category_name = (String) sql_methods.session.getAttribute("sub_category_name");
+                Integer studio_id = sql_methods.getStudioID(user_id);
+                int[] siteids = new int[]{studio_id};
+                mind_body_class = new MindBodyClass(siteids);
                 if (sub_category_name.equals("promote todays class")) {
                     GetClassesResult classResult = mind_body_class.getTodaysClass();
                     mind_body_processed_data = getMindBodyProcessedClassData(classResult);
@@ -236,8 +248,13 @@ public class MindBodyDataServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Boolean checkIfActivated() {
-        return false;
+    private Boolean checkIfActivated(Integer user_id) throws SQLException {
+        Integer studio_id = sql_methods.getStudioID(user_id);
+        int[] siteids = new int[]{studio_id};
+        MindBodyClass mind_body_class = new MindBodyClass(siteids);
+
+        GetClassesResult classResult = mind_body_class.getTodaysClass();
+        return classResult.getStatus().equals(StatusCode.SUCCESS);
     }
 
 }
