@@ -236,12 +236,19 @@ $(document).ready(function () {
     $("#text").click(function () {
         $("#tabs-1").show();
         $("#tabs-2").hide();
+        $("#tabs-3").hide();
 
     });
 
     $("#style").click(function () {
         $("#tabs-1").hide();
         $("#tabs-2").show();
+        $("#tabs-3").hide();
+    });
+    $("#block").click(function () {
+        $("#tabs-1").hide();
+        $("#tabs-2").hide();
+        $("#tabs-3").show();
     });
 
     $(".alignButton").click(function () {

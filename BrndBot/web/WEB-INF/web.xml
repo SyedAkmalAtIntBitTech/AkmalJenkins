@@ -257,6 +257,10 @@
         <servlet-name>ServletBlock</servlet-name>
         <servlet-class>admin.controller.ServletBlock</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetBlocks</servlet-name>
+        <servlet-class>com.controller.GetBlocks</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -520,6 +524,10 @@
     <servlet-mapping>
         <servlet-name>ServletBlock</servlet-name>
         <url-pattern>/ServletBlock</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetBlocks</servlet-name>
+        <url-pattern>/GetBlocks</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
