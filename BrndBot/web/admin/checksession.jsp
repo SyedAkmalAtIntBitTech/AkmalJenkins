@@ -22,7 +22,6 @@
 
     <%
         try{
-           SqlMethods sqlmethods = new SqlMethods();
            sqlmethods.admin_session = request.getSession(true);
            checked = (String)sqlmethods.admin_session.getAttribute("AdminChecked");
            if (checked == null || checked.equals("false")){
@@ -31,6 +30,8 @@
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        }finally {
+            sqlmethods.closeConnection();
         }
      %>
 

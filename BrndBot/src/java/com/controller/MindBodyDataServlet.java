@@ -37,7 +37,7 @@ import org.json.simple.JSONArray;
  *
  * @author intbit
  */
-public class MindBodyDataServlet extends HttpServlet {
+public class MindBodyDataServlet extends BrndBotBaseHttpServlet  {
 
     SqlMethods sql_methods = new SqlMethods();
 
@@ -50,10 +50,12 @@ public class MindBodyDataServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        sql_methods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession();
 
         PrintWriter out = response.getWriter();
         MindBodyClass mind_body_class = null;
@@ -71,7 +73,7 @@ public class MindBodyDataServlet extends HttpServlet {
                 if (query_mindbody.equalsIgnoreCase("isMindBodyActivated")) {
                     isActivated = checkIfActivated(user_id);
                     if (!isActivated) {
-                        Integer studio_id = sql_methods.getStudioID(user_id);
+                        Integer studio_id = getSqlMethodsInstance().getStudioID(user_id);
                         int[] siteids = new int[]{studio_id};
                         mind_body_class = new MindBodyClass(siteids);
 
@@ -104,8 +106,8 @@ public class MindBodyDataServlet extends HttpServlet {
                 response.getWriter().write(json);
 
             } else {
-                String sub_category_name = (String) sql_methods.session.getAttribute("sub_category_name");
-                Integer studio_id = sql_methods.getStudioID(user_id);
+                String sub_category_name = (String) getSqlMethodsInstance().session.getAttribute("sub_category_name");
+                Integer studio_id = getSqlMethodsInstance().getStudioID(user_id);
                 int[] siteids = new int[]{studio_id};
                 mind_body_class = new MindBodyClass(siteids);
                 if (sub_category_name.equals("promote todays class")) {
@@ -118,7 +120,7 @@ public class MindBodyDataServlet extends HttpServlet {
                     GetEnrollmentsResult enrollmentsResult = mind_body_class.getTodaysEnrollments();
                     mind_body_processed_data = getMindBodyProcessedEnrollmentData(enrollmentsResult);
                 }
-                sql_methods.session.setAttribute(sql_methods.k_mind_body, mind_body_processed_data.getData_hash_map());
+                getSqlMethodsInstance().session.setAttribute(getSqlMethodsInstance().k_mind_body, mind_body_processed_data.getData_hash_map());
                 response.setContentType("application/json");
                 out.write(mind_body_processed_data.getJsonDisplayString());
             }
@@ -129,7 +131,7 @@ public class MindBodyDataServlet extends HttpServlet {
             e.printStackTrace();
         }finally {
             out.close();
-            sql_methods.closeConnection();
+            getSqlMethodsInstance().closeConnection();
         }
     }
 
@@ -254,7 +256,7 @@ public class MindBodyDataServlet extends HttpServlet {
     }// </editor-fold>
 
     private Boolean checkIfActivated(Integer user_id) throws SQLException {
-        Integer studio_id = sql_methods.getStudioID(user_id);
+        Integer studio_id = getSqlMethodsInstance().getStudioID(user_id);
         int[] siteids = new int[]{studio_id};
         MindBodyClass mind_body_class = new MindBodyClass(siteids);
 

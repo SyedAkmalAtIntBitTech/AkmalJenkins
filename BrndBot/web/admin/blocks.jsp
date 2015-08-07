@@ -26,9 +26,16 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <title>Display blocks</title>
     </head>
-<%@include file="checksession.jsp" %>
+<jsp:include page="checksession.jsp" />
     <%!
         Integer num = 1;
+        String exist = "";
+        String exist1 = "";
+        SqlMethods sql_methods = new SqlMethods();
+        PreparedStatement prepared_statement;
+        ResultSet result_set;
+        String query_string;
+        Integer number = 1;
     %>
     <body ng-app  class="container">
         <%@include file="menus.jsp" %>
@@ -56,9 +63,8 @@
                         <option value="0">--select--</option>
                         <%
                         try {
-                            SqlMethods sqlmethods = new SqlMethods();
                             query_string = "select * from tbl_brand_personality Order By id ASC";
-                            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+                            prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
                             result_set = prepared_statement.executeQuery();
 
                             while (result_set.next()) {
@@ -71,7 +77,7 @@
                         }finally {
                             result_set.close();
                             prepared_statement.close();
-                            sqlmethods.closeConnection();
+                            sql_methods.closeConnection();
                         }
                         %>
                     </select><br>
@@ -104,7 +110,7 @@
                         try{
                         query_string = "select * from tbl_blocks Order By id ASC";
                         
-                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+                        prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         num = 1;
                         while (result_set.next()) {
@@ -124,9 +130,9 @@
                     }catch (Exception e){
                         System.out.println(e.getCause());
                         System.out.println(e.getMessage());
-                        out.println(sqlmethods.error);
+                        out.println(sql_methods.error);
                     }finally {
-                        sqlmethods.closeConnection();
+                        sql_methods.closeConnection();
                     }
                     %>
                 </table>

@@ -36,8 +36,13 @@
               <li><a href="blocks.jsp">Blocks</a></li>
           </ul>
         </li>
-         <li><a href="layoutmodel.jsp">Layout Model</a></li>
-         
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Layout Model<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href="sociallayoutmodel.jsp">social</a></li>
+              <li><a href="emaillayoutmodel.jsp">email</a></li>
+          </ul>
+        </li>
+
         <li><a href="logout.jsp">Logout</a></li>
       </ul>
     </div>
