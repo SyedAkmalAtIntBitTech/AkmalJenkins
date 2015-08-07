@@ -33,9 +33,11 @@
           <ul class="dropdown-menu">
               <li><a href="categories.jsp">Category</a></li>
               <li><a href="subcategories.jsp">Sub category</a></li>
+              <li><a href="blocks.jsp">Blocks</a></li>
           </ul>
         </li>
          <li><a href="layoutmodel.jsp">Layout Model</a></li>
+         
         <li><a href="logout.jsp">Logout</a></li>
       </ul>
     </div>

@@ -253,6 +253,10 @@
         <servlet-name>EmailTextDataServlet</servlet-name>
         <servlet-class>social.controller.EmailTextDataServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletBlock</servlet-name>
+        <servlet-class>admin.controller.ServletBlock</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -512,6 +516,10 @@
     <servlet-mapping>
         <servlet-name>EmailTextDataServlet</servlet-name>
         <url-pattern>/EmailTextDataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletBlock</servlet-name>
+        <url-pattern>/ServletBlock</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

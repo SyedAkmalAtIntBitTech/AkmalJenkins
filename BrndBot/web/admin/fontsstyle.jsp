@@ -82,12 +82,13 @@
                     <%
                         number = number + 1;
                         }
-                        result_set.close();
-                        prepared_statement.close();
-                        sqlmethods.closeConnection();
                         }catch (Exception e){
                             System.out.println(e.getCause());
                             System.out.println(e.getMessage());
+                        }finally{
+                            result_set.close();
+                            prepared_statement.close();
+                            sqlmethods.closeConnection();
                         }
                     %>
                 </table>

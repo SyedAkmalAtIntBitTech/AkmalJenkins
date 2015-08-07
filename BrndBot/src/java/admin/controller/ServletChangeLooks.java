@@ -160,6 +160,7 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
             System.out.println(ex.getMessage());
         } finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();
         }
 
     }

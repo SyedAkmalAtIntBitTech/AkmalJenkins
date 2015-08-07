@@ -143,6 +143,10 @@ public class ServletColorTheme extends BrndBotBaseHttpServlet {
             out.write(getSqlMethodsInstance().error);
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        }finally {
+            out.close();
+            getSqlMethodsInstance().closeConnection();
+            
         }
     }
 

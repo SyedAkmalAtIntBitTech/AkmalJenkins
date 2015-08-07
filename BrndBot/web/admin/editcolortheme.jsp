@@ -122,7 +122,7 @@
                         Select brand: <select name="brand" id="brand" style="width:180px; margin-top: 20px;">
                                                 <option value="0">--select--</option>
                     <%
-                        
+                        try {
                         query_string = "select * from tbl_brand_personality Order By id ASC";
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -132,6 +132,14 @@
                                                 <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("brand_name") %></option>
                     <%
                         }
+                        }catch (Exception e){
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        }finally {
+                            result_set.close();
+                            prepared_statement.close();
+                            sqlmethods.closeConnection();
+                        }
                     %>
                                             </select><br>
                     </div><br>    
@@ -140,6 +148,7 @@
                         Select colors: <select name="color" id="color" style="width:180px;" multiple="true" ng-model="colortheme.color">
                                                 <option value="0">--select--</option>
                     <%
+                        try {
                         query_string = "select * from tbl_colors Order By id ASC";
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -148,6 +157,14 @@
                     %>
                                                 <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("color_name") %> </option>
                     <%
+                        }
+                        }catch (Exception e){
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        }finally{
+                            result_set.close();
+                            prepared_statement.close();
+                            sqlmethods.closeConnection();
                         }
                     %>
                                             </select><br>

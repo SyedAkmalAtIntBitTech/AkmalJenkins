@@ -9,11 +9,9 @@ import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
@@ -23,18 +21,8 @@ import org.json.simple.parser.JSONParser;
  *
  * @author intbit
  */
-public class ServletColors extends BrndBotBaseHttpServlet {
+public class ServletBlock extends BrndBotBaseHttpServlet {
 
-    Colors colors;
-
-     public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        try {
-            colors = new Colors();
-        } catch (NamingException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,68 +30,65 @@ public class ServletColors extends BrndBotBaseHttpServlet {
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs /** Processes requests for
-     * both HTTP <code>GET</code> and <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
+    @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         super.processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
         StringBuffer string_buffer = new StringBuffer();
 
         try {
+            Blocks block = new Blocks();
             BufferedReader reader = request.getReader();
             String line = null;
             while ((line = reader.readLine()) != null) {
                 string_buffer.append(line);
             }
             JSONParser parser = new JSONParser();
-            JSONObject joFonts = null;
-            joFonts = (JSONObject) parser.parse(string_buffer.toString());
-            String type = (String) joFonts.get("type");
+            JSONObject joBlocks = null;
+            joBlocks = (JSONObject) parser.parse(string_buffer.toString());
+            String type = (String) joBlocks.get("type");
             if (type.equals("add")) {
-                String color_hex = (String) joFonts.get("color_hex");
-                String color_name = (String) joFonts.get("color_name");
+                String name = (String) joBlocks.get("name");
+                String mindbodyquery = (String) joBlocks.get("mindbodyquery");
+                String brand_id = (String) joBlocks.get("brand");
 
-                boolean check = colors.checkAvailability(color_hex, color_name);
+                boolean check = block.checkAvailability(name);
                 if (check) {
                     out.write("false");
                 } else {
-                    colors.add(color_hex, color_name);
+                    block.addBlock(name, mindbodyquery, Integer.parseInt(brand_id));
                     out.write("true");
                 }
             } else if (type.equals("edit")) {
-
-                String color_id = (String) joFonts.get("color_id");
-                String color_hex = (String) joFonts.get("color_hex");
-                String color_name = (String) joFonts.get("color_name");
-                boolean check = colors.checkAvailability(color_hex, color_name);
+                String block_id = (String)joBlocks.get("id");
+                String name = (String) joBlocks.get("name");
+                String mindbodyquery = (String) joBlocks.get("mindbodyquery");
+                String brand_id = (String) joBlocks.get("brand_id");
+                boolean check = block.checkAvailability(name);
                 if (check) {
                     out.write("false");
                 } else {
-                    colors.edit(Integer.parseInt(color_id), color_hex, color_name);
+                    block.changeBlock(Integer.parseInt(block_id), name, mindbodyquery, Integer.parseInt(brand_id));
                     out.write("true");
                 }
             } else if (type.equals("delete")) {
-                String color_id = (String) joFonts.get("color_id");
-                colors.delete(Integer.parseInt(color_id));
+                String block_id = (String) joBlocks.get("blocks_id");
+                block.deleteBlock(Integer.parseInt(block_id));
                 out.write("true");
             }
-        } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-        }finally {
+            
+        }catch (Exception ex){
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
+            out.write(getSqlMethodsInstance().error);
+        }
+        finally {
             out.close();
             getSqlMethodsInstance().closeConnection();
-            
         }
     }
 
@@ -117,7 +102,7 @@ public class ServletColors extends BrndBotBaseHttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -131,7 +116,7 @@ public class ServletColors extends BrndBotBaseHttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

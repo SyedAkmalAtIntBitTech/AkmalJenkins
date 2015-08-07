@@ -64,7 +64,6 @@ public class Authentication extends BrndBotBaseHttpServlet {
 
             String hash_password = generate_hash_password.hashPass(password);
 
-
             check = getSqlMethodsInstance().checkAvailability(User_id, hash_password);
             Integer UID = getSqlMethodsInstance().getUserID(User_id);
             String company = getSqlMethodsInstance().getCompanyName(UID);
@@ -90,7 +89,12 @@ public class Authentication extends BrndBotBaseHttpServlet {
             out.write(getSqlMethodsInstance().error);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            out.write(getSqlMethodsInstance().error);
+        }
+        finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
             getSqlMethodsInstance().closeConnection();

@@ -73,6 +73,7 @@
                         Select Look: <select name="look" id="look" style="width:180px;">
                                     <option value="0">--select--</option>
                     <%
+                    try{
                         query_string = "select * from tbl_look Order By id ASC";
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -82,8 +83,13 @@
                                     <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("look_name") %></option>
                     <%
                         }
+                    }catch (Exception e){
+                        System.out.println(e.getCause());
+                        System.out.println(e.getMessage());
+                    }finally {
                         result_set.close();
                         prepared_statement.close();
+                    }
                         
                     %>
                         </select><br>
@@ -123,6 +129,7 @@
                         <td></td>
                     </tr>
                     <%
+                    try{
                         query_string = "select * from tbl_brand_personality Order By id ASC";
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -141,9 +148,15 @@
                     <%
                             number = number + 1;
                         }
+                    }catch (Exception e){
+                        System.out.println(e.getCause());
+                        System.out.println(e.getMessage());
+                    }finally {
                         result_set.close();
                         prepared_statement.close();
                         sqlmethods.getConnection().close();
+                    }
+                        
 
                     %>
                 </table>

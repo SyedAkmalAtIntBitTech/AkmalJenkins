@@ -20,6 +20,8 @@
         }
     } catch (Exception e) {
         out.println(sqlmethods.error);
+    }finally {
+        sqlmethods.closeConnection();
     }
 %>
 

@@ -10,25 +10,27 @@
         PreparedStatement prepared_statement;
         ResultSet result_set;
         String query_string;
-        SqlMethods sqlmethods = new SqlMethods();
         HttpServletRequest request;
         HttpServletResponse response;
         String checked = "false";
         Integer user_id = 0;
         String company = "";
+        SqlMethods sqlmethods = new SqlMethods();
         
         Integer number = 1;
     %>
 
     <%
         try{
+           SqlMethods sqlmethods = new SqlMethods();
            sqlmethods.admin_session = request.getSession(true);
            checked = (String)sqlmethods.admin_session.getAttribute("AdminChecked");
            if (checked == null || checked.equals("false")){
                response.sendRedirect(request.getContextPath()+"/admin/login.jsp");
            } 
         }catch (Exception e){
-            out.println(sqlmethods.error);
-        } 
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
      %>
 

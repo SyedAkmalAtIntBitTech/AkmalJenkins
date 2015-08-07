@@ -38,8 +38,6 @@
                 
                 sub_category_name = document.getElementById("sub_category_name").value;
                 sub_category_id = document.getElementById("sub_category_id").value;
-                isblock = document.getElementById("isblock").checked;
-                ismindbody = document.getElementById("ismindbody").checked;
 
                 if(sub_category_name == ""){
                     alert("category not entered, please enter the category");
@@ -73,7 +71,7 @@
                         
                     if(validate()){
                         
-                        var category = {"sub_category_id": sub_category_id, "sub_category_name": sub_category_name, "external_source": external_source, "category": category_id, "type": "update", "isblock":isblock, "ismindbody":ismindbody};
+                        var category = {"sub_category_id": sub_category_id, "sub_category_name": sub_category_name, "external_source": external_source, "category": category_id, "type": "update"};
                         
                             $http({
                               method: 'POST',
@@ -109,11 +107,18 @@
         String category_id_1, category_name_1, sub_category_id, category_name, sub_category_name, category_id;
     %>
     <%
+        try{
         sub_category_id = request.getParameter("sub_category_id");
         category_name = request.getParameter("category_name");
         sub_category_name = request.getParameter("sub_category_name");
         category_id = request.getParameter("category_id");
-     %>
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }finally {
+            sqlmethods.closeConnection();
+        }
+        %>
     <body ng-app>
                 <%@include file="menus.jsp" %>
         
@@ -129,47 +134,44 @@
                     <div style="float:left; left:20px; padding-left: 166px;">
                         <input type="hidden" id="sub_category_id" name="sub_category_id" value="<%= sub_category_id %>"/>
                         Sub Category Name:<input type="text" id="sub_category_name" name="sub_category_name" value="<%= sub_category_name %>"/><br>
-                        External Source: <select name="external_source" id="external_source">
-                                                        <option value="0">-- Select --</option>
-                                                        <option value="Mindbody" selected>Mindbody</option>
-                                                 </select><br><br>
-                        Select Categories: <select name="category" id="category" style="width:180px;">
-                                                            <option value="0">--select--</option>
-                                                            <%
-                                                                    SqlMethods sqlmethods = new SqlMethods();
-                                                                query_string = "select * from tbl_category Order By id ASC";
-                                                                prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
-                                                                result_set = prepared_statement.executeQuery();
+External Source: <select name="external_source" id="external_source">
+                                <option value="0">-- Select --</option>
+                                <option value="Mindbody" selected>Mindbody</option>
+                         </select><br><br>
+Select Categories: <select name="category" id="category" style="width:180px;">
+                                    <option value="0">--select--</option>
+                                    <%
+                                    try {
+                                        SqlMethods sqlmethods = new SqlMethods();
+                                        query_string = "select * from tbl_category Order By id ASC";
+                                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+                                        result_set = prepared_statement.executeQuery();
 
-                                                                while (result_set.next()) {
-                                                                    
-                                                                    category_id_1 = result_set.getString("id");
-                                                                    category_name_1 = result_set.getString("category_name");
-                                                                    boolean isblock = result_set.getBoolean("isblock");
-                                                                    boolean ismindbody = result_set.getBoolean("ismindbody");
-                                                                    if (category_id_1.equals(category_id)){
-                                                              %>
-                                                                      <option value="<%= result_set.getInt("id")%>" selected><%= result_set.getString("category_name")%></option>
-                                                              <%
-                                                                    }else{
-                                                                %>
-                                                                      <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("category_name")%></option>
-                                                            <%
-                                                                    }
-                                                                }
-                                                            result_set.close();
-                                                            prepared_statement.close();
-                                                            sqlmethods.getConnection().close();
+                                        while (result_set.next()) {
 
-                                                            %>
-                                                </select><br>
+                                            category_id_1 = result_set.getString("id");
+                                            category_name_1 = result_set.getString("category_name");
+                                            if (category_id_1.equals(category_id)){
+                                      %>
+                                              <option value="<%= result_set.getInt("id")%>" selected><%= result_set.getString("category_name")%></option>
+                                      <%
+                                            }else{
+                                        %>
+                                              <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("category_name")%></option>
+                                    <%
+                                            }
+                                        }
+                                    }catch (Exception e) {
+                                        System.out.println(e.getCause());
+                                        System.out.println(e.getMessage());
+                                    }finally {
+                                        result_set.close();
+                                        prepared_statement.close();
+                                        sqlmethods.closeConnection();
+                                    }
+                                   %>   
+                        </select><br>
                     </div><br>    
-                    <div class="group">
-                        <div class="col-md-7 col-md-offset-3">
-                            <input type="checkbox" id="isblock" name="isblock" >block</input>
-                            <input type="checkbox" id="ismindbody" name="ismindbody">mindbody</input>
-                        </div>
-                    </div>
 
                     <div style="position: absolute; float:left; left:550px; top: 350px;">
                         <div>

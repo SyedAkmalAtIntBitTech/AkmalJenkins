@@ -76,6 +76,8 @@ public class ServletDeleteFonts extends BrndBotBaseHttpServlet {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        }finally {
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

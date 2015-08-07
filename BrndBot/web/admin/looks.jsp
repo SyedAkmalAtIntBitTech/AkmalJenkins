@@ -99,6 +99,7 @@
                     </tr>
                     <%
                     try{
+                        
                         query_string = "select * from tbl_look Order By id ASC";
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -117,11 +118,14 @@
                         num = num +1;
                         }
                     }catch (Exception e){
+                        System.out.println(e.getCause());
+                        System.out.println(e.getMessage());
                         out.println(sqlmethods.error);
-                    }
+                    }finally {
                         result_set.close();
                         prepared_statement.close();
-                        sqlmethods.getConnection().close();
+                        sqlmethods.closeConnection();
+                    }
                     %>
                 </table>
             </div>

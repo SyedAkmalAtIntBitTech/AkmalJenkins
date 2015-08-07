@@ -73,6 +73,7 @@ public class UserPreferencesFacebook {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        }finally {
             sqlMethods.closeConnection();
         }
     }

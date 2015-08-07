@@ -45,26 +45,22 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
-        facebook = new FacebookFactory().getInstance();
-        facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
-        facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
-        String url = request.getRequestURL().toString();
-        response.sendRedirect(facebook.getOAuthAuthorizationURL(url));
-        response.setContentType("text/html;charset=UTF-8");
-
-        try (PrintWriter out = response.getWriter()) {
-
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-//            out.println("<h1><a href='" + facebook.getOAuthAuthorizationURL("http://localhost:8084/BrndBot/selectpromotesocialmedia.jsp") + "'>click me!</a></h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        try {
+            facebook = new FacebookFactory().getInstance();
+            facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
+            facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
+            String url = request.getRequestURL().toString();
+            response.sendRedirect(facebook.getOAuthAuthorizationURL(url));
+            response.setContentType("text/html;charset=UTF-8");
+            
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }finally {
+            out.close();
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

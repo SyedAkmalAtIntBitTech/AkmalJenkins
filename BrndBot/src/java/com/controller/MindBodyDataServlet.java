@@ -122,12 +122,14 @@ public class MindBodyDataServlet extends HttpServlet {
                 response.setContentType("application/json");
                 out.write(mind_body_processed_data.getJsonDisplayString());
             }
-//            int i = 7335;
 
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             e.printStackTrace();
+        }finally {
+            out.close();
+            sql_methods.closeConnection();
         }
     }
 

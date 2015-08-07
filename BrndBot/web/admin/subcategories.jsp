@@ -37,9 +37,6 @@
 
                     sub_category_name = document.getElementById("sub_category_name").value;
                     
-                    isblock = document.getElementById("isblock").checked;
-                    ismindbody = document.getElementById("ismindbody").checked;
-
                     if (sub_category_name == "") {
                         alert("category not entered, please enter the category");
                         $("#sub_category_name").focus();
@@ -72,7 +69,7 @@
 
                     if (validate()) {
 
-                        var category = {"sub_category_name": sub_category_name, "external_source": external_source, "category": category_id, "type": "add", "isblock":isblock, "ismindbody":ismindbody};
+                        var category = {"sub_category_name": sub_category_name, "external_source": external_source, "category": category_id, "type": "add"};
 
                         $http({
                             method: 'POST',
@@ -164,6 +161,7 @@
                         Select Categories: <select name="category" id="category" style="width:180px;">
                             <option value="0">--select--</option>
                             <%
+                            try {
                                 SqlMethods sqlmethods = new SqlMethods();
                                 query_string = "select * from tbl_category Order By id ASC";
                                 prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
@@ -174,16 +172,16 @@
                                     <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("category_name")%></option>
                             <%
                                 }
+                            }catch (Exception e){
+                                    System.out.println(e.getCause());
+                                    System.out.println(e.getMessage());
+                            }finally {
                                 result_set.close();
                                 prepared_statement.close();
+                                sqlmethods.closeConnection();
+                            }
                             %>
                         </select><br>
-                    </div>
-                    <div class="group">
-                        <div class="col-md-7 col-md-offset-3">
-                            <input type="checkbox" id="isblock" name="isblock" >block</input>
-                            <input type="checkbox" id="ismindbody" name="ismindbody">mindbody</input>
-                        </div>
                     </div>
                     <div style="position: absolute; float:left; left:550px; top: 450px;">
                         <div>
@@ -210,6 +208,7 @@
                         <td></td>
                     </tr>
                     <%
+                        try {
                         query_string = "select * from tbl_sub_category Order By id ASC";
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -232,9 +231,14 @@
                     <%
                             number = number + 1;
                         }
-                        result_set.close();
-                        prepared_statement.close();
-                        sqlmethods.closeConnection();
+                        }catch (Exception e){
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        }finally {
+                            result_set.close();
+                            prepared_statement.close();
+                            sqlmethods.closeConnection();
+                        }
                     %>
                 </table>
             </div>

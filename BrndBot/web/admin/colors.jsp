@@ -28,7 +28,8 @@
     </head>
     <%@include file="checksession.jsp" %>
 
-    <%!        Integer hash = 1;
+    <%!
+        Integer hash = 1;
         String hashv = "hash";
     %>
     <body ng-app  class="container">
@@ -76,7 +77,8 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <%                        try {
+                        <%                       
+                        try {
                                 query_string = "select * from tbl_colors Order By id ASC";
                                 prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                                 result_set = prepared_statement.executeQuery();
@@ -100,10 +102,11 @@
                                 }
                             } catch (Exception e) {
                                 out.println(sqlmethods.error);
-                            }
-                            result_set.close();
-                            prepared_statement.close();
-                            sqlmethods.closeConnection();
+                            }finally {
+                                result_set.close();
+                                prepared_statement.close();
+                                sqlmethods.closeConnection();
+                        }
                         %>
                     </table>
                 </div>

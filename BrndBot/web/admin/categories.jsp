@@ -70,6 +70,7 @@
                         Select organization: <select name="organization" id="organization" style="width:180px;">
                             <option value="0">--select--</option>
                             <%
+                                try{
                                 query_string = "select * from tbl_organization Order By id ASC";
                                 prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                                 result_set = prepared_statement.executeQuery();
@@ -79,9 +80,14 @@
                                     <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("organization_name")%></option>
                             <%
                                 }
-                                result_set.close();
-                                prepared_statement.close();
-                                sqlmethods.closeConnection();
+                                }catch (Exception e){
+                                    System.out.println(e.getCause());
+                                    System.out.println(e.getMessage());
+                                }finally {
+                                    result_set.close();
+                                    prepared_statement.close();
+                                    sqlmethods.closeConnection();
+                                }
                             %>
                         </select><br>
                     </div><br>    
@@ -113,6 +119,7 @@
                         <td></td>
                     </tr>
                     <%
+                        try {        
                         query_string = "select * from tbl_category Order By id ASC";
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -132,9 +139,14 @@
                     <%
                             number = number + 1;
                         }
-                        result_set.close();
-                        prepared_statement.close();
-                        sqlmethods.getConnection().close();
+                        }catch (Exception e){
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        }finally {
+                            result_set.close();
+                            prepared_statement.close();
+                            sqlmethods.getConnection().close();
+                        }
                     %>
                 </table>
             </div>

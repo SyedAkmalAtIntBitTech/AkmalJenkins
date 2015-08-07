@@ -91,6 +91,7 @@ and open the template in the editor.
           
     </style>
     <%!
+        
         SqlMethods sql_methods = new SqlMethods();
         String category_id, sub_category_name, sub_category_id;
     %>
@@ -105,7 +106,6 @@ and open the template in the editor.
             sql_methods.session.setAttribute("sub_category_name", sub_category_name);
             sql_methods.session.setAttribute("sub_category_id", sub_category_id);
             sql_methods.session.setAttribute("category_id", category_id);
-            
            
             if(sub_category_name.equalsIgnoreCase("promote todays class")){
             title=" todays class";
@@ -115,7 +115,11 @@ and open the template in the editor.
             }
             
         }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
             e.printStackTrace();
+        }finally {
+            sql_methods.closeConnection();
         }
      %>
     <script>

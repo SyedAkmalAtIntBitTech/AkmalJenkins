@@ -8,8 +8,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%! 
     SqlMethods sql_methods = new SqlMethods();
+    String imageName = "";
+    String isFacebook = "";
+    String isTwitter = "";
+    String accesstoken = "";
+    String[] twitteracesstoken = {"", ""};
+
 %>
 <%
+    try {
     sql_methods.session = request.getSession();
     String imageName = (String)sql_methods.session.getAttribute("image_file_name");
 //    String imageName=request.getParameter("imageName");
@@ -24,7 +31,12 @@
     if (isTwitter.equalsIgnoreCase("true")) {
         twitteracesstoken = request.getParameter("twaccessTokenSend").split(",");
     }
-
+    }catch (Exception e){
+        System.out.println(e.getCause());
+        System.out.println(e.getMessage());
+    }finally {
+        sql_methods.closeConnection();
+    }
 
 %>
 <!DOCTYPE html>

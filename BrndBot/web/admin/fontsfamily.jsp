@@ -119,6 +119,8 @@
                         <td></td>
                     </tr>
                     <%
+                    try {
+                        
                         query_string = "select * from tbl_font_family Order By id ASC";
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -135,9 +137,15 @@
                     <%
                         num = num +1;
                         }
-                        result_set.close();
-                        prepared_statement.close();
-                        sqlmethods.closeConnection();
+                        }catch (Exception e){
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        }finally {
+                            result_set.close();
+                            prepared_statement.close();
+                            sqlmethods.closeConnection();
+                        }
+
                     %>
                 </table>
             </div>

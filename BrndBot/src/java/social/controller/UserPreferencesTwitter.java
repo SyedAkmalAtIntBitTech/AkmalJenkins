@@ -75,6 +75,8 @@ public class UserPreferencesTwitter {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        }finally {
+            sql_methods.closeConnection();
         }
     }
 
@@ -115,6 +117,8 @@ public class UserPreferencesTwitter {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        }finally {
+            sql_methods.closeConnection();
         }
         return twitter_data;
     }

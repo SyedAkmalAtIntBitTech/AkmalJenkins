@@ -43,6 +43,8 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
+        }finally {
+            sqlmethods.closeConnection();
         }
     }
 

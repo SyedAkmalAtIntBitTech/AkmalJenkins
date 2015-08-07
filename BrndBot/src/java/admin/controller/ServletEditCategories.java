@@ -153,8 +153,8 @@ public class ServletEditCategories extends BrndBotBaseHttpServlet {
             System.out.println(ex.getMessage());
         } finally {
         try {
-                        out.close();
-                        getSqlMethodsInstance().closeConnection();
+            out.close();
+            getSqlMethodsInstance().closeConnection();
                         
             }catch (Exception e){}
         }

@@ -185,6 +185,7 @@
                         Select brand: <select name="brand" id="brand" style="width:180px; margin-top: 20px;">
                                                 <option value="0">--select--</option>
                     <%
+                    try {
                         query_string = "select * from tbl_brand_personality Order By id ASC";
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -194,6 +195,13 @@
                                                 <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("brand_name") %></option>
                     <%
                         }
+                        }catch (Exception e){
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        }finally{
+                            result_set.close();
+                            prepared_statement.close();
+                        }
                     %>
                                             </select><br>
                     </div><br>    
@@ -202,8 +210,8 @@
                         Select fonts:   <select name="font_name" id="font_name" style="width:180px;" multiple="true" ng-model="fonttheme.font">
                                                 <option value="0">--select--</option>
                     <%
+                    try{
                         query_string = "select * from tbl_font_family Order By id ASC";
-                        sqlmethods.setDatabaseConnection();
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         
@@ -212,6 +220,14 @@
                                                 <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("font_name") %> </option>
                     <%
                         }
+                        }catch (Exception e){
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        }finally{
+                            result_set.close();
+                            prepared_statement.close();
+                        }
+                        
                     %>
                                             </select><br>
                     </div><br>    
@@ -220,6 +236,7 @@
                         Select sizes: <select name="font_size" id="font_size" style="width:180px;" multiple="true" ng-model="fonttheme.size">
                                                 <option value="0">--select--</option>
                     <%
+                    try{
                         query_string = "select * from tbl_font_size Order By id ASC";
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -229,6 +246,14 @@
                                                 <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("font_size") %> </option>
                     <%
                         }
+                        }catch (Exception e){
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        }finally{
+                            result_set.close();
+                            prepared_statement.close();
+                        }
+                        
                     %>
                                             </select><br>
                     </div><br>    
@@ -237,6 +262,8 @@
                         Select styles: <select name="font_style" id="font_style" style="width:180px;" multiple="true" ng-model="fonttheme.style">
                                                 <option value="0">--select--</option>
                     <%
+                    try {
+                        
                         query_string = "select * from tbl_font_style Order By id ASC";
                         prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -246,6 +273,14 @@
                                                 <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("font_style") %> </option>
                     <%
                         }
+                        }catch (Exception e){
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        }finally{
+                            result_set.close();
+                            prepared_statement.close();
+                        }
+                        
                     %>
                                             </select><br>
                     </div><br>    
