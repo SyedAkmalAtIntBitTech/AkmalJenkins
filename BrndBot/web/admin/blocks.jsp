@@ -73,7 +73,6 @@
                         <%
                             }
                         }catch (Exception e) {
-                            
                         }finally {
                             result_set.close();
                             prepared_statement.close();

@@ -39,8 +39,6 @@ import org.json.simple.JSONArray;
  */
 public class MindBodyDataServlet extends BrndBotBaseHttpServlet  {
 
-    SqlMethods sql_methods = new SqlMethods();
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
