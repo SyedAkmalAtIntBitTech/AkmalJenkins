@@ -31,7 +31,8 @@
     
     <jsp:include page="checksession.jsp" />
     <%@include file="menus.jsp" %>
-    <%!
+    <jsp:declaration>
+    
         Integer num = 1;
         String exist = "";
         String exist1 = "";
@@ -40,6 +41,17 @@
         ResultSet result_set;
         String query_string;
         Integer number = 1;
+    
+    </jsp:declaration>
+    <%!
+//        Integer num = 1;
+//        String exist = "";
+//        String exist1 = "";
+//        SqlMethods sql_methods = new SqlMethods();
+//        PreparedStatement prepared_statement;
+//        ResultSet result_set;
+//        String query_string;
+//        Integer number = 1;
 
     %>
     <%

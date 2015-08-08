@@ -155,6 +155,7 @@ public class ServletAddLooks extends BrndBotBaseHttpServlet {
             try {
                         out.close();
                         getSqlMethodsInstance().closeConnection();
+                        look.sqlmethods.closeConnection();
             }catch (Exception e){}        }
 
     }

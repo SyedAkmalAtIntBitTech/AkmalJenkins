@@ -47,17 +47,19 @@ public class Blocks {
         return check;
     }
 
-    public void addBlock(String name, String mindbody_query, Integer brand_id) throws SQLException {
+    public void addBlock(String name, String mindbody_query, Integer brand_id, Integer sub_category_id) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         try {
-            query_string = "Insert into tbl_blocks (name, mindbody_query, brand_id) values(?, ?, ?)";
+            query_string = "Insert into tbl_blocks (name, mindbody_query, brand_id, sub_category_id) values(?, ?, ?, ?)";
 
             prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
             prepared_statement.setString(1, name);
             prepared_statement.setString(2, mindbody_query);
             prepared_statement.setInt(3, brand_id);
+            prepared_statement.setInt(4, sub_category_id);
+            
             prepared_statement.executeUpdate();
             prepared_statement.close();
         } catch (Exception e) {
@@ -70,14 +72,14 @@ public class Blocks {
 
     }
 
-    public void changeBlock(Integer id, String name, String mindbody_query, Integer brand_id) throws SQLException {
+    public void changeBlock(Integer id, String name, String mindbody_query, Integer brand_id, Integer sub_category_id) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         try {
             query_string = "UPDATE tbl_blocks"
-                    + " SET name='" + name + "', mindbody_query='"+mindbody_query+"', 'brand_id='"+brand_id+"'  WHERE id='" + id + "'";
-
+                    + " SET name='" + name + "', mindbody_query='"+mindbody_query+"', brand_id="+brand_id+", sub_category_id="+sub_category_id+"  WHERE id=" + id + "";
+            
             prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
             prepared_statement.executeUpdate();
             prepared_statement.close();
@@ -105,9 +107,9 @@ public class Blocks {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        }
+        finally {
+             sqlmethods.close(result_set, prepared_statement);
         }
 
     }

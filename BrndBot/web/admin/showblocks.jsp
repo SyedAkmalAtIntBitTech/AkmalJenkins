@@ -6,21 +6,24 @@
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.*"%>
 <%@include file="checksession.jsp" %>
+<%!
+    SqlMethods sql_methods =new SqlMethods();
+%>
 
 
 <%
-String category_id=request.getParameter("category_id");
+String brand_id=request.getParameter("brand_id");
 
-String buffer="<select id='subcategories'><option value='0'>Select</option>";
+String buffer="<select id='brand'><option value='0'>Select</option>";
 
  try{
 
-        Statement stmt = sqlmethods.getConnection().createStatement();
+        Statement stmt = sql_methods.getConnection().createStatement();
 
-        ResultSet rs = stmt.executeQuery("Select * from tbl_brand_personality where category_id='"+category_id+"'");
+        ResultSet rs = stmt.executeQuery("Select * from tbl_blocks where brand_id='"+brand_id+"'");
 
         while(rs.next()){
-            buffer=buffer+"<option value='"+rs.getString("id")+"'>"+rs.getString("sub_category_name")+"</option>";
+            buffer=buffer+"<option value='"+rs.getString("id")+"'>"+rs.getString("name")+"</option>";
         }
             
          buffer=buffer+"</select>";  
@@ -36,7 +39,7 @@ String buffer="<select id='subcategories'><option value='0'>Select</option>";
 
  } finally {
      
-     sqlmethods.closeConnection();
+//     sqlmethods.closeConnection();
  }
 
  %>

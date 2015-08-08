@@ -151,6 +151,7 @@ public class ServletUpdateFonts extends BrndBotBaseHttpServlet {
             try {
                 out.close();
                 getSqlMethodsInstance().closeConnection();
+                font.sqlmethods.closeConnection();
             }catch (Exception e){}
         }
 

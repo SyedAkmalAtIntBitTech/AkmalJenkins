@@ -39,9 +39,10 @@ public class ServletBlock extends BrndBotBaseHttpServlet {
         PrintWriter out = response.getWriter();
         response.setContentType("text/html;charset=UTF-8");
         StringBuffer string_buffer = new StringBuffer();
+        Blocks block = null;
 
         try {
-            Blocks block = new Blocks();
+            block = new Blocks();
             BufferedReader reader = request.getReader();
             String line = null;
             while ((line = reader.readLine()) != null) {
@@ -54,29 +55,31 @@ public class ServletBlock extends BrndBotBaseHttpServlet {
             if (type.equals("add")) {
                 String name = (String) joBlocks.get("name");
                 String mindbodyquery = (String) joBlocks.get("mindbodyquery");
-                String brand_id = (String) joBlocks.get("brand");
+                String brand_id = (String) joBlocks.get("brand_id");
+                String sub_category_id = (String) joBlocks.get("sub_category_id");
 
                 boolean check = block.checkAvailability(name);
                 if (check) {
                     out.write("false");
                 } else {
-                    block.addBlock(name, mindbodyquery, Integer.parseInt(brand_id));
+                    block.addBlock(name, mindbodyquery, Integer.parseInt(brand_id), Integer.parseInt(sub_category_id));
                     out.write("true");
                 }
             } else if (type.equals("edit")) {
-                String block_id = (String)joBlocks.get("id");
+                String block_id = (String)joBlocks.get("block_id");
                 String name = (String) joBlocks.get("name");
                 String mindbodyquery = (String) joBlocks.get("mindbodyquery");
                 String brand_id = (String) joBlocks.get("brand_id");
+                String sub_category_id = (String) joBlocks.get("sub_category_id");
                 boolean check = block.checkAvailability(name);
                 if (check) {
                     out.write("false");
                 } else {
-                    block.changeBlock(Integer.parseInt(block_id), name, mindbodyquery, Integer.parseInt(brand_id));
+                    block.changeBlock(Integer.parseInt(block_id), name, mindbodyquery, Integer.parseInt(brand_id), Integer.parseInt(sub_category_id));
                     out.write("true");
                 }
             } else if (type.equals("delete")) {
-                String block_id = (String) joBlocks.get("blocks_id");
+                String block_id = (String) joBlocks.get("block_id");
                 block.deleteBlock(Integer.parseInt(block_id));
                 out.write("true");
             }
@@ -89,6 +92,7 @@ public class ServletBlock extends BrndBotBaseHttpServlet {
         finally {
             out.close();
             getSqlMethodsInstance().closeConnection();
+            block.sqlmethods.closeConnection();
         }
     }
 

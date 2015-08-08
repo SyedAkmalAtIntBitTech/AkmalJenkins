@@ -76,6 +76,7 @@ public class ServletDeleteBrands extends BrndBotBaseHttpServlet {
             System.out.println(e.getMessage());
         }finally {
             getSqlMethodsInstance().closeConnection();
+            brand.sqlmethods.closeConnection();
         }
     }
 

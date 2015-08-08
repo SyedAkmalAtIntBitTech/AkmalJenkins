@@ -31,7 +31,17 @@
 
         </style>
     </head>
-    <%@include file="checksession.jsp" %>
+<jsp:include page="checksession.jsp" />
+    <jsp:declaration>
+        Integer num = 1;
+        String exist = "";
+        String exist1 = "";
+        SqlMethods sql_methods = new SqlMethods();
+        PreparedStatement prepared_statement;
+        ResultSet result_set;
+        String query_string;
+        Integer number = 1;
+    </jsp:declaration>
 
 
     <body ng-app class="container">
@@ -51,7 +61,7 @@
                                 <% 
                                     try {
                                     query_string = "select * from tbl_brand_personality Order By id ASC";
-                                    prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+                                    prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
                                     result_set = prepared_statement.executeQuery();
 
                                     while (result_set.next()) {
@@ -65,7 +75,7 @@
                                     }finally {
                                         result_set.close();
                                         prepared_statement.close();
-                                        sqlmethods.closeConnection();
+//                                        sql_methods.closeConnection();
                                     }
                                     
                                 %>
@@ -78,7 +88,7 @@
                                 <%
                                     try {
                                     query_string = "select * from tbl_colors Order By id ASC";
-                                    prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+                                    prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
                                     result_set = prepared_statement.executeQuery();
 
                                     while (result_set.next()) {
@@ -92,7 +102,7 @@
                                     }finally {
                                         result_set.close();
                                         prepared_statement.close();
-                                        sqlmethods.closeConnection();
+//                                        sql_methods.closeConnection();
                                     }
                                 %>
                             </select><br>
@@ -129,7 +139,7 @@
                         <%
                             try {
                             query_string = "select * from tbl_brand_color_theme Order By id ASC";
-                            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+                            prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
                             result_set = prepared_statement.executeQuery();
                             number = 1;
 
@@ -160,7 +170,7 @@
                             }finally {
                                 result_set.close();
                                 prepared_statement.close();
-                                sqlmethods.closeConnection();
+//                                sql_methods.closeConnection();
                             }
                         %>
                     </table>

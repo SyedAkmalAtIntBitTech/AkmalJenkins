@@ -103,7 +103,7 @@ public class ServletColors extends BrndBotBaseHttpServlet {
         }finally {
             out.close();
             getSqlMethodsInstance().closeConnection();
-            
+            colors.sqlmethods.closeConnection();
         }
     }
 

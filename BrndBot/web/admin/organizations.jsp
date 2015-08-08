@@ -26,10 +26,19 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <title>Display Organizations</title>
     </head>
-<%@include file="checksession.jsp" %>
-    <%!
+<jsp:include page="checksession.jsp" />
+    <jsp:declaration>
         Integer num = 1;
-    %>
+        String exist = "";
+        String exist1 = "";
+        SqlMethods sql_methods = new SqlMethods();
+        PreparedStatement prepared_statement;
+        ResultSet result_set;
+        String query_string;
+        Integer number = 1;
+
+    </jsp:declaration>
+
     <body ng-app  class="container">
         <%@include file="menus.jsp" %>
         <div align="center" ng-controller="organizationController" >
@@ -70,7 +79,7 @@
                         try{
                         query_string = "select * from tbl_organization Order By id ASC";
                         
-                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+                        prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         num = 1;
                         while (result_set.next()) {
@@ -90,9 +99,9 @@
                     }catch (Exception e){
                         System.out.println(e.getCause());
                         System.out.println(e.getMessage());
-                        out.println(sqlmethods.error);
+                        out.println(sql_methods.error);
                     }finally {
-                            sqlmethods.closeConnection();
+                            sql_methods.closeConnection();
                     }  
                     %>
                 </table>

@@ -155,7 +155,7 @@ public class ServletEditPersonality extends BrndBotBaseHttpServlet {
         } finally {
             out.close();
            getSqlMethodsInstance().closeConnection();
-
+           brand.sqlmethods.closeConnection();
         }
 
     }

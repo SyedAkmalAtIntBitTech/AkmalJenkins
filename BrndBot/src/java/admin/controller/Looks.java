@@ -17,7 +17,7 @@ import javax.naming.NamingException;
  */
 public class Looks {
 
-    private SqlMethods sqlmethods;
+    SqlMethods sqlmethods;
 
     public Looks() throws NamingException {
         sqlmethods = new SqlMethods();

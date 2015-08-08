@@ -139,6 +139,7 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
             System.out.println(e.getMessage());
         }finally {
             getSqlMethodsInstance().closeConnection();
+            fonts.sqlmethods.closeConnection();
         }
     }
 

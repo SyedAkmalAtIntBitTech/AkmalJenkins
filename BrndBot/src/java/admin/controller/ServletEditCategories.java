@@ -155,7 +155,7 @@ public class ServletEditCategories extends BrndBotBaseHttpServlet {
         try {
             out.close();
             getSqlMethodsInstance().closeConnection();
-                        
+            categories.sqlmethods.closeConnection();
             }catch (Exception e){}
         }
 

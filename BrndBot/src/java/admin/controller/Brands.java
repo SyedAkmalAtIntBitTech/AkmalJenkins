@@ -17,7 +17,7 @@ import javax.naming.NamingException;
  */
 public class Brands {
 
-    private SqlMethods sqlmethods;
+    SqlMethods sqlmethods;
 
     public Brands() throws NamingException {
         sqlmethods = new SqlMethods();

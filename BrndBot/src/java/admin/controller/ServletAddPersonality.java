@@ -129,6 +129,7 @@ public class ServletAddPersonality extends BrndBotBaseHttpServlet {
 
                                 fi.write(storeFile);
                                 brand.addBrands(brand_name, Integer.parseInt(look_id), file_name);
+                                
                                 response.sendRedirect(request.getContextPath() + "/admin/brandpersonality.jsp");
 
                                 out.println("Uploaded Filename: " + filePath + "<br>");
@@ -156,6 +157,7 @@ public class ServletAddPersonality extends BrndBotBaseHttpServlet {
             try {
                         out.close();
                         getSqlMethodsInstance().closeConnection();
+                        brand.sqlmethods.closeConnection();
             }catch (Exception e){}        }
 
     }

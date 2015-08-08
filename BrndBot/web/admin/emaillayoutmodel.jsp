@@ -8,6 +8,8 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="checksession.jsp" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -45,50 +47,51 @@
 
       var xmlHttp;  
       
-//      function showFonts(str){
-//
-//      if (typeof XMLHttpRequest !== "undefined"){
-//          xmlHttp= new XMLHttpRequest();
-//      }
-//      else if (window.ActiveXObject){
-//          xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
-//      }
-//      
-//      if (xmlHttp===null){
-//          alert("Browser does not support XMLHTTP Request");
-//          return;
-//      } 
-//
-//        var url="displayfonts.jsp";
-//        url +="?user_id=" +str;
-//
-//        xmlHttp.onreadystatechange = fontsChange;
-//        xmlHttp.open("GET", url, true);
-//        xmlHttp.send(null);
-//      }
-//
-//      function fontsChange(){   
-//
-//      if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){   
-//
-//            var response = xmlHttp.responseText;
-//
-//            var response1, response2, response3, response4, response5, response6;
-//            var len = response.length;
-//            var no1 = response.indexOf(",");
-//            response1 = response.substr(0, no1);
-//            response2 = response.substr(no1+1,len);
-//            document.getElementById("textSize").innerHTML=response2;
-//            document.getElementById("textFontFamily").innerHTML=response1;
-//      }   
-//      }
+            function brandChange(){   
 
+            if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){   
+
+              var response = xmlHttp.responseText;
+              document.getElementById("blocks").innerHTML=response;
+            }   
+            }
+            
+            function showblocks(str){
+
+                if (typeof XMLHttpRequest !== "undefined"){
+
+                xmlHttp= new XMLHttpRequest();
+
+                }
+                else if (window.ActiveXObject){
+
+                xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+
+                }
+                if (xmlHttp===null){
+
+                alert("Browser does not support XMLHTTP Request");
+
+                return;
+                } 
+
+                var url="showblocks.jsp";
+
+                url +="?brand_id=" +str;
+
+                xmlHttp.onreadystatechange = brandChange;
+
+                xmlHttp.open("GET", url, true);
+
+                xmlHttp.send(null);
+
+      }
+      
             function usersChange(){   
 
             if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){   
 
                   var response = xmlHttp.responseText;
-
                   var response1, response2, response3, response4, response5, response6;
                   var len = response.length;
                   var no1 = response.indexOf(",");
@@ -132,7 +135,14 @@
       }
 
             function showSubCategories(str){
-
+                
+                
+                if (str == 0){
+                    $("#blocks").attr("disabled", false);
+                }else {
+                    $("#blocks").attr("disabled", true);
+                }
+                
                 if (typeof XMLHttpRequest !== "undefined"){
 
                 xmlHttp= new XMLHttpRequest();
@@ -162,59 +172,21 @@
 
       }
       
+      function hideCategories(str){
+          if (str == 0){
+            $("#categories").attr("disabled", false);
+            $("#subcategories").attr("disabled", false);
+          }else {
+            $("#categories").attr("disabled", true);
+            $("#subcategories").attr("disabled", true);
+          }
+          
+      }
       function categoryChange(){
-
-      if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){
-
-            var response = xmlHttp.responseText;
-
-//            var response1 response2;
-//            var len = response.length;
-//            var no1 = response.indexOf(",");
-//            response1 = response.substr(0, no1);
-//            response2 = response.substr(no1+1,len);
-
-            document.getElementById("subcategories").innerHTML=response;
-      }
-      }
-
-        function showbrand(str){
-
-            if (typeof XMLHttpRequest !== "undefined"){
-
-            xmlHttp= new XMLHttpRequest();
-
-            }
-            else if (window.ActiveXObject){
-
-            xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
-
-            }
-            if (xmlHttp===null){
-
-            alert("Browser does not support XMLHTTP Request");
-
-            return;
-            } 
-
-            var url="showbrands.jsp";
-
-            url +="?look_id=" +str;
-
-            xmlHttp.onreadystatechange = brandChange;
-
-            xmlHttp.open("GET", url, true);
-
-            xmlHttp.send(null);
-
-        }
-      
-      function brandChange(){
 
         if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){
 
               var response = xmlHttp.responseText;
-
               document.getElementById("subcategories").innerHTML=response;
         }
       }
@@ -225,14 +197,15 @@
     <body>
         <%@include file="menus.jsp" %>
 <%!
-        PreparedStatement preparedstatement;
-        ResultSet resultset;
+        PreparedStatement ps;
+        ResultSet rs;
         String Query = "";
         SqlMethods SM = new SqlMethods();
         Integer id = 0;
         String org_name = "";
+        String brand_name = "";
+        String name = "";
         String font_name="";
-        String look_name="";
 %>
 
         <div id="tabs">
@@ -280,7 +253,7 @@
                         <option value="Times New Roman">Font Family 5</option>
                     </select>
                     
-                    <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
+ <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
                         <option value="0"></option>
                     </select>-->
                 </p>
@@ -288,15 +261,15 @@
                     Font Color: <input type="text" class='basic' id="colorPick" value="black" />
                 </p>
                 <hr>
-                <p>
+<!--                <p>
                     Drop shadow:<br /><br />
 
                     Color: <input type="text" class='basic' id="dropShadowColorPick" value="black" />
                     Blur: <input id="blur" maxlength="2" size="2" value="0" /> px  <br /><br />
                     H Shadow: <input id="hShadow" maxlength="2" size="2" value="0" /> px 
                     V Shadow: <input id="vShadow" maxlength="2" size="2" value="0" /> px
-                </p>
-                <hr>
+                </p>-->
+<!--                <hr>-->
                 <p>
                     Leading / Line Height: 
                     <input maxlength="3" size="3" value="15" id="lineHeight" /> px
@@ -310,9 +283,9 @@
                 <p>
                     Opacity: <input type="text" id="opacity" maxlength="6" size="6" value="1" />px
                 </p>
-                <p>
+<!--                <p>
                     Rotate: <input type="text" id="rotate" maxlength="4" size="4" value="0" />deg
-                </p>
+                </p>-->
             </div>
             <div id="tabs-2">
                 <p>
@@ -398,7 +371,6 @@
                         <option value="4">Button4</option>
                         <option value="5">Button5</option>
                     </select>
-                    
                         
                 </p>
             </div>
@@ -429,69 +401,73 @@
                     <input type="button" class="blockButton" id="blockButton" value="Apply" />
                 </p>
                 <hr>
-                <p>
+<!--                <p>
                     Drop shadow:<br /><br />
 
                     Color: <input type="text" class='basic' id="dropShadowColorPickBlock" value="black" />
                     Blur: <input class="dropShadowBlock" id="blurDropShadowBlock" maxlength="2" size="2" value="0" /> px  <br /><br />
                     H Shadow: <input class="dropShadowBlock" id="hShadowDropShadowBlock" maxlength="2" size="2" value="0" /> px 
                     V Shadow: <input class="dropShadowBlock" id="vShadowDropShadowBlock" maxlength="2" size="2" value="0" /> px
-                </p>
+                </p>-->
             </div>
         </div>
         <div id="main">
             <form action="<%= application.getContextPath()%>/Model" method="post">
-                <select name="look" onchange="showbrand(this.value)">
-                    <%
-                        try{
-                            Query = "Select * from tbl_look";
-                            preparedstatement = SM.getConnection().prepareStatement(Query);
-
-                            resultset = preparedstatement.executeQuery();
-                            while(resultset.next()){
-                                id = resultset.getInt("id");
-                                look_name = resultset.getString("look_name");
-                    %>
-                                <option value="<%= id %>"><%= look_name %></option>
-                    <%
-                            }
-                        }catch (Exception e){
-                            System.out.println(e.getCause());
-                            System.out.println(e.getMessage());
-                        }finally{
-                            resultset.close();
-                            preparedstatement.close();
-                        }
-                            
-                    %>
-                </select>
-                <select id="brand" name="brand">
-                    <option></option>
-                </select>
+                
                 Organization : <select name="organization" onchange="showUsers(this.value)">
                     <% 
                         try {
+                            
                             Query = "Select * from tbl_organization";
-                            preparedstatement = SM.getConnection().prepareStatement(Query);
+                            ps = SM.getConnection().prepareStatement(Query);
 
-                            resultset = preparedstatement.executeQuery();
-                            while(resultset.next()){
-                                id = resultset.getInt("id");
-                                org_name = resultset.getString("organization_name");
+                            rs = ps.executeQuery();
+                            while(rs.next()){
+                                id = rs.getInt("id");
+                                org_name = rs.getString("organization_name");
                     %>            
-                                <option value="<%= id %>"><%= org_name %></option>
+                                        <option value="<%= id %>"><%= org_name %></option>
+                    <%
+                            }
+                            }catch (Exception e){
+                                System.out.println(e. getCause());
+                                System.out.println(e.getMessage());
+                            }finally {
+                                ps.close();
+                                rs.close();
+    //                            SM.con.close();
+                                sqlmethods.closeConnection();
+                            }
+
+                    %>
+                                      </select>
+                
+                                    Brand : <select name="brand" onchange="showblocks(this.value)">
+                    <%
+                        try{
+                            Query = "Select * from tbl_brand_personality";
+                            ps = SM.getConnection().prepareStatement(Query);
+
+                            rs = ps.executeQuery();
+                            while(rs.next()){
+                                id = rs.getInt("id");
+                                brand_name = rs.getString("brand_name");
+                    %>
+                            <option value="<%= id  %>"><%= brand_name %></option>
                     <%
                             }
                         }catch (Exception e){
                             System.out.println(e.getCause());
                             System.out.println(e.getMessage());
                         }finally{
-                            preparedstatement.close();
-                            resultset.close();
-                            SM.getConnection().close();
+                            rs.close();
+                            ps.close();
+                            
                         }
+                            
                     %>
-                                      </select><br><br>
+                                    </select><br><br>
+
                 Users: <select id='users' name="users">
                             <option value="0"></option>
                          </select>
@@ -500,9 +476,12 @@
                                 </select><br><br>
                 Sub Categories: <select id="subcategories" name="subcategories">
                                         <option value="0"></option>
-                                        </select><br><br>
+                                        </select>
+                    Blocks : <select name="blocks" id="blocks" onchange="hideCategories(this.value)">
+                                        <option value="0">Select</option>
+                                </select><br><br>
 
-                Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
+                Width: <input id="containerWidth" class="spinner" size="6" value="1280"> px Height: <input id="containerHeight" size="6" class="spinner" value="800"> px
 
                             <input type="hidden" name="containerstyle" id="containerstyle">
                             <input type="hidden" name="textstyle" id="textstyle">
@@ -528,15 +507,11 @@
             <div class="container">
 
             </div>
-             <div class='col-md-10'>
-                        <ul id='list2' class='col-md-10' >
-                            <li id="lab"></li>
-                        </ul> 
-             </div>
 
         </div>
 
     <div id="right">
+
         <center>
             <p>
                 Select Element: <select id="elementText">
@@ -561,6 +536,16 @@
                 <input type="button" class="rightButton" id="addBlockButton" value="Add Block" />
                 <input type="button" class="rightButton" id="deleteBlockButton" value="Delete Block" />
             </p>
+            <p>
+                <input type="button" class="rightButton" id="addLogoButton" value="Add Logo" />
+                <input type="button" class="rightButton" id="deleteLogoButton" value="Delete Logo" />
+            </p>
+        <div class='col-md-10' style="position: absolute; left: 1050px; top:70px; width: 600px; ">
+                        <ul id='list2' class='col-md-10' >
+                            <li id="lab"></li>
+                        </ul> 
+             </div>
+            
     </div>
 
     </body>

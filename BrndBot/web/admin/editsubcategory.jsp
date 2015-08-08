@@ -101,7 +101,18 @@
         <title>categories</title>
 
     </head>
-    <%@include file="checksession.jsp" %>
+<jsp:include page="checksession.jsp" />
+    <jsp:declaration>
+        Integer num = 1;
+        String exist = "";
+        String exist1 = "";
+        SqlMethods sql_methods = new SqlMethods();
+        PreparedStatement prepared_statement;
+        ResultSet result_set;
+        String query_string;
+        Integer number = 1;
+
+    </jsp:declaration>
     
     <%!
         String category_id_1, category_name_1, sub_category_id, category_name, sub_category_name, category_id;
@@ -116,7 +127,7 @@
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }finally {
-            sqlmethods.closeConnection();
+//            sqlmethods.closeConnection();
         }
         %>
     <body ng-app>
@@ -142,9 +153,8 @@ Select Categories: <select name="category" id="category" style="width:180px;">
                                     <option value="0">--select--</option>
                                     <%
                                     try {
-                                        SqlMethods sqlmethods = new SqlMethods();
                                         query_string = "select * from tbl_category Order By id ASC";
-                                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+                                        prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
                                         result_set = prepared_statement.executeQuery();
 
                                         while (result_set.next()) {
@@ -167,7 +177,7 @@ Select Categories: <select name="category" id="category" style="width:180px;">
                                     }finally {
                                         result_set.close();
                                         prepared_statement.close();
-                                        sqlmethods.closeConnection();
+//                                        sqlmethods.closeConnection();
                                     }
                                    %>   
                         </select><br>

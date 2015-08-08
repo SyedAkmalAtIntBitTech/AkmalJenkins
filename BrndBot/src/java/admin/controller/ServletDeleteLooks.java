@@ -78,6 +78,7 @@ public class ServletDeleteLooks extends BrndBotBaseHttpServlet {
             System.out.println(e.getMessage());
         }finally {
              getSqlMethodsInstance().closeConnection();
+             looks.sqlmethods.closeConnection();
         }
     }
 

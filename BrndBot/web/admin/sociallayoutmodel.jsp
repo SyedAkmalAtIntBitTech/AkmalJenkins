@@ -8,6 +8,8 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="checksession.jsp" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -45,44 +47,6 @@
 
       var xmlHttp;  
       
-//      function showFonts(str){
-//
-//      if (typeof XMLHttpRequest !== "undefined"){
-//          xmlHttp= new XMLHttpRequest();
-//      }
-//      else if (window.ActiveXObject){
-//          xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
-//      }
-//      
-//      if (xmlHttp===null){
-//          alert("Browser does not support XMLHTTP Request");
-//          return;
-//      } 
-//
-//        var url="displayfonts.jsp";
-//        url +="?user_id=" +str;
-//
-//        xmlHttp.onreadystatechange = fontsChange;
-//        xmlHttp.open("GET", url, true);
-//        xmlHttp.send(null);
-//      }
-//
-//      function fontsChange(){   
-//
-//      if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){   
-//
-//            var response = xmlHttp.responseText;
-//
-//            var response1, response2, response3, response4, response5, response6;
-//            var len = response.length;
-//            var no1 = response.indexOf(",");
-//            response1 = response.substr(0, no1);
-//            response2 = response.substr(no1+1,len);
-//            document.getElementById("textSize").innerHTML=response2;
-//            document.getElementById("textFontFamily").innerHTML=response1;
-//      }   
-//      }
-
             function usersChange(){   
 
             if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){   
@@ -164,59 +128,11 @@
       
       function categoryChange(){
 
-      if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){
+        if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){
 
-            var response = xmlHttp.responseText;
-
-//            var response1 response2;
-//            var len = response.length;
-//            var no1 = response.indexOf(",");
-//            response1 = response.substr(0, no1);
-//            response2 = response.substr(no1+1,len);
-
-            document.getElementById("subcategories").innerHTML=response;
-      }
-      }
-
-            function showbrand(str){
-
-                if (typeof XMLHttpRequest !== "undefined"){
-
-                xmlHttp= new XMLHttpRequest();
-
-                }
-                else if (window.ActiveXObject){
-
-                xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
-
-                }
-                if (xmlHttp===null){
-
-                alert("Browser does not support XMLHTTP Request");
-
-                return;
-                } 
-
-                var url="showbrands.jsp";
-
-                url +="?look_id=" +str;
-
-                xmlHttp.onreadystatechange = brandChange;
-
-                xmlHttp.open("GET", url, true);
-
-                xmlHttp.send(null);
-
-            }
-      
-      function brandChange(){
-
-      if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){
-
-            var response = xmlHttp.responseText;
-
-            document.getElementById("subcategories").innerHTML=response;
-      }
+              var response = xmlHttp.responseText;
+              document.getElementById("subcategories").innerHTML=response;
+        }
       }
 
     
@@ -225,14 +141,14 @@
     <body>
         <%@include file="menus.jsp" %>
 <%!
-        PreparedStatement preparedstatement;
-        ResultSet resultset;
+        PreparedStatement ps;
+        ResultSet rs;
         String Query = "";
         SqlMethods SM = new SqlMethods();
         Integer id = 0;
         String org_name = "";
+        String brand_name = "";
         String font_name="";
-        String look_name="";
 %>
 
         <div id="tabs">
@@ -280,7 +196,7 @@
                         <option value="Times New Roman">Font Family 5</option>
                     </select>
                     
-                    <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
+ <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
                         <option value="0"></option>
                     </select>-->
                 </p>
@@ -441,55 +357,54 @@
         </div>
         <div id="main">
             <form action="<%= application.getContextPath()%>/Model" method="post">
-                <select name="look" onchange="showbrand(this.value)">
+                                    Brand : <select name="brand" onchange="showbrand(this.value)">
                     <%
                         try{
-                            Query = "Select * from tbl_look";
-                            preparedstatement = SM.getConnection().prepareStatement(Query);
+                            Query = "Select * from tbl_brand_personality";
+                            ps = SM.getConnection().prepareStatement(Query);
 
-                            resultset = preparedstatement.executeQuery();
-                            while(resultset.next()){
-                                id = resultset.getInt("id");
-                                look_name = resultset.getString("look_name");
+                            rs = ps.executeQuery();
+                            while(rs.next()){
+                                id = rs.getInt("id");
+                                brand_name = rs.getString("brand_name");
                     %>
-                                <option value="<%= id %>"><%= look_name %></option>
+                            <option value="<%= id %>"><%= brand_name %></option>
                     <%
                             }
                         }catch (Exception e){
                             System.out.println(e.getCause());
                             System.out.println(e.getMessage());
                         }finally{
-                            resultset.close();
-                            preparedstatement.close();
+                            rs.close();
+                            ps.close();
                         }
                             
                     %>
                 </select>
-                <select id="brand" name="brand">
-                    <option></option>
-                </select>
+
                 Organization : <select name="organization" onchange="showUsers(this.value)">
                     <% 
                         try {
+                            
                             Query = "Select * from tbl_organization";
-                            preparedstatement = SM.getConnection().prepareStatement(Query);
+                            ps = SM.getConnection().prepareStatement(Query);
 
-                            resultset = preparedstatement.executeQuery();
-                            while(resultset.next()){
-                                id = resultset.getInt("id");
-                                org_name = resultset.getString("organization_name");
+                            rs = ps.executeQuery();
+                            while(rs.next()){
+                                id = rs.getInt("id");
+                                org_name = rs.getString("organization_name");
                     %>            
-                                <option value="<%= id %>"><%= org_name %></option>
+                                        <option value="<%= id %>"><%= org_name %></option>
                     <%
                             }
-                        }catch (Exception e){
-                            System.out.println(e.getCause());
-                            System.out.println(e.getMessage());
-                        }finally{
-                            preparedstatement.close();
-                            resultset.close();
-                            SM.getConnection().close();
-                        }
+                            }catch (Exception e){
+                                System.out.println(e. getCause());
+                                System.out.println(e.getMessage());
+                            }
+
+                            ps.close();
+                            rs.close();
+//                            SM.con.close();
                     %>
                                       </select><br><br>
                 Users: <select id='users' name="users">
@@ -524,15 +439,15 @@
 
 <!--                            <input type="submit" value="submit">-->
                         </form>
+             <div class='col-md-10'>
+                        <ul id='list2' class='col-md-3' >
+                            <li id="lab"></li>
+                        </ul> 
+             </div>
             
             <div class="container">
 
             </div>
-             <div class='col-md-10'>
-                        <ul id='list2' class='col-md-10' >
-                            <li id="lab"></li>
-                        </ul> 
-             </div>
 
         </div>
 
@@ -560,6 +475,10 @@
             <p>
                 <input type="button" class="rightButton" id="addBlockButton" value="Add Block" />
                 <input type="button" class="rightButton" id="deleteBlockButton" value="Delete Block" />
+            </p>
+            <p>
+                <input type="button" class="rightButton" id="addLogoButton" value="Add Logo" />
+                <input type="button" class="rightButton" id="deleteLogoButton" value="Delete Logo" />
             </p>
     </div>
 

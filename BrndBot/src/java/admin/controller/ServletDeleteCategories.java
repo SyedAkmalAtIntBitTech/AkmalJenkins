@@ -79,6 +79,7 @@ public class ServletDeleteCategories extends BrndBotBaseHttpServlet {
             System.out.println(e.getMessage());
         }finally {
             getSqlMethodsInstance().closeConnection();
+            category.sqlmethods.closeConnection();
         }
     }
 
