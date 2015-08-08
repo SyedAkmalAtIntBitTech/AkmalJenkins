@@ -42,17 +42,18 @@ public class GetBlocks extends BrndBotBaseHttpServlet {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         String mindbody_query = null, blockname = null;
-        Integer user_id, id, organization_id, brand_id;
-        Integer category_id, sub_category_id;
-         HashMap<Integer, Object> hash_map = new HashMap<Integer, Object>();
+        Integer user_id, id, brand_id;
+        Integer sub_category_id;
 
         getSqlMethodsInstance().session = request.getSession(true);
         
         try {
             
             user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
-            organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
-            brand_id = (Integer)getSqlMethodsInstance().session.getAttribute("brandID");
+            
+            brand_id = getSqlMethodsInstance().getBrandID(user_id);
+
+            getSqlMethodsInstance().session.setAttribute("brandID", brand_id);
             
             String query = "Select * from tbl_blocks where brand_id="+brand_id;
             prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);

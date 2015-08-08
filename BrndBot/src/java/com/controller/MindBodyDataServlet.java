@@ -61,7 +61,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet  {
 
             MindBodyProcessedData mind_body_processed_data = null;
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-
+//            Integer user_id = 40;
             String query = request.getParameter("query");
             
             String mindbody_query = request.getParameter("mindbody_query");
@@ -105,7 +105,6 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet  {
                 response.getWriter().write(json);
 
             } else if (!mindbody_query.isEmpty()){
-                String sub_category_name = (String) getSqlMethodsInstance().session.getAttribute("sub_category_name");
                 Integer studio_id = getSqlMethodsInstance().getStudioID(user_id);
                 int[] siteids = new int[]{studio_id};
                 mind_body_class = new MindBodyClass(siteids);
@@ -120,6 +119,8 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet  {
                     GetEnrollmentsResult enrollmentsResult = mind_body_class.getTodaysEnrollments();
                     mind_body_processed_data = getMindBodyProcessedEnrollmentData(enrollmentsResult);
                 }
+                response.setContentType("application/json");
+                out.write(mind_body_processed_data.getJsonDisplayString());
                 
             } else {
                 String sub_category_name = (String) getSqlMethodsInstance().session.getAttribute("sub_category_name");
