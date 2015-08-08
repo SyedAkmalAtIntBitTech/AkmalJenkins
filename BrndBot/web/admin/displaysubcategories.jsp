@@ -38,8 +38,7 @@ String buffer="<select id='subcategories'><option value='0'>Select</option>";
      System.out.println(e.getMessage());
 
  } finally {
-     
-     sqlmethods.closeConnection();
+//     sqlmethods.closeConnection();
  }
 
  %>

@@ -45,6 +45,5 @@ function fontController($scope, $http) {
     $scope.editFont = function (font_id, font_name) {
         var configuration = global_host_address + "admin/editfontsfamily.jsp" + "?font_id=" + font_id + "&font_name=" + font_name;
         window.open(configuration, "_self");
-
     };
 }

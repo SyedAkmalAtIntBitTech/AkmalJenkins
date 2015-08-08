@@ -26,7 +26,18 @@
         <script src="../js/fontsfamily.js" type="text/javascript"></script>
         <title>fonts family</title>
     </head>
-    <%@include file="checksession.jsp" %>
+<jsp:include page="checksession.jsp" />
+    <jsp:declaration>
+        Integer num = 1;
+        String exist = "";
+        String exist1 = "";
+        SqlMethods sql_methods = new SqlMethods();
+        PreparedStatement prepared_statement;
+        ResultSet result_set;
+        String query_string;
+        Integer number = 1;
+    </jsp:declaration>
+
     
     <%
         String font_id = request.getParameter("font_id");

@@ -158,6 +158,7 @@ public class ServletAddCategories extends BrndBotBaseHttpServlet {
         } finally {
             out.close();
             getSqlMethodsInstance().closeConnection();
+            categories.sqlmethods.closeConnection();
         }
     }
 

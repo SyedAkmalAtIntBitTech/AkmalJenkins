@@ -50,8 +50,10 @@ public class SqlMethods {
             System.out.println("DisConnected");
             envCtx = (Context) new InitialContext().lookup("java:comp/env");
             DataSource datasource = (DataSource) envCtx.lookup("jdbc/postgres");
-            this.connection = datasource.getConnection();
-            System.out.println("Connected");
+            if (this.connection == null ){
+                this.connection = datasource.getConnection();
+                System.out.println("Connected");
+            }
         } catch (NamingException ex) {
             Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

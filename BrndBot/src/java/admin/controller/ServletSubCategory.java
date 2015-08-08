@@ -111,6 +111,7 @@ public class ServletSubCategory extends BrndBotBaseHttpServlet {
             out.write(getSqlMethodsInstance().error);
         }finally {
             getSqlMethodsInstance().closeConnection();
+            sub_categories.sqlmethods.closeConnection();
         }
     }
 

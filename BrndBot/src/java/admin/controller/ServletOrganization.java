@@ -26,13 +26,11 @@ import org.json.simple.parser.JSONParser;
 public class ServletOrganization extends BrndBotBaseHttpServlet {
 
     Organization organization;
-    Fonts fonts;
 
      public void init(ServletConfig config) throws ServletException {
         super.init(config);
         try {
             organization = new Organization();
-            fonts = new Fonts();
         } catch (NamingException ex) {
             Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,11 +59,11 @@ public class ServletOrganization extends BrndBotBaseHttpServlet {
                 string_buffer.append(line);
             }
             JSONParser parser = new JSONParser();
-            JSONObject joFonts = null;
-            joFonts = (JSONObject) parser.parse(string_buffer.toString());
-            String type = (String) joFonts.get("type");
+            JSONObject json_organization = null;
+            json_organization = (JSONObject) parser.parse(string_buffer.toString());
+            String type = (String) json_organization.get("type");
             if (type.equals("add")) {
-                String organization_name = (String) joFonts.get("organization_name");
+                String organization_name = (String) json_organization.get("organization_name");
                 boolean check = organization.checkAvailability(organization_name);
                 if (check) {
                     out.write("false");
@@ -74,8 +72,8 @@ public class ServletOrganization extends BrndBotBaseHttpServlet {
                     out.write("true");
                 }
             } else if (type.equals("edit")) {
-                String organization_id = (String) joFonts.get("organization_id");
-                String organization_name = (String) joFonts.get("organization_name");
+                String organization_id = (String) json_organization.get("organization_id");
+                String organization_name = (String) json_organization.get("organization_name");
                 boolean check = organization.checkAvailability(organization_name);
                 if (check) {
                     out.write("false");
@@ -84,7 +82,7 @@ public class ServletOrganization extends BrndBotBaseHttpServlet {
                     out.write("true");
                 }
             } else if (type.equals("delete")) {
-                String organization_id = (String) joFonts.get("organization_id");
+                String organization_id = (String) json_organization.get("organization_id");
                 organization.deleteOrganization(Integer.parseInt(organization_id));
                 out.write("true");
             }
@@ -96,6 +94,7 @@ public class ServletOrganization extends BrndBotBaseHttpServlet {
             try {
                 out.close();
                 getSqlMethodsInstance().closeConnection();
+                organization.sqlmethods.closeConnection();
             }catch (Exception e){}
         }
     }

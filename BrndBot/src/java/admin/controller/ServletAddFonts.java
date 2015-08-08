@@ -94,6 +94,7 @@ public class ServletAddFonts extends BrndBotBaseHttpServlet {
         } finally {
             out.close();
             getSqlMethodsInstance().closeConnection();
+            organization.sqlmethods.closeConnection();
         }
     }
 

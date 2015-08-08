@@ -92,7 +92,7 @@ public class ServletFontStyles extends BrndBotBaseHttpServlet {
         }finally {
             out.close();
             getSqlMethodsInstance().closeConnection();
-            
+            fonts.sqlmethods.closeConnection();
         }
     }
 

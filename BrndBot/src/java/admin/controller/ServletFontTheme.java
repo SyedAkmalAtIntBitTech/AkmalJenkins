@@ -228,7 +228,7 @@ public class ServletFontTheme extends BrndBotBaseHttpServlet {
             System.out.println(e.getMessage());
         }finally {
             getSqlMethodsInstance().closeConnection();
-            
+            fontthemes.sqlmethods.closeConnection();
         }
     }
 

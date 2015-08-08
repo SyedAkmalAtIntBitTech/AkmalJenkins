@@ -4,6 +4,7 @@
     Author     : intbit
 --%>
 
+<%@page import="javax.naming.NamingException"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -15,7 +16,6 @@
         <script src="../js/configurations.js"></script>
         <script src="../js/blocks.js" type="text/javascript"></script>
         <script type="text/javascript" src="../js/angular.min.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -27,22 +27,25 @@
         <title>Display blocks</title>
     </head>
 <jsp:include page="checksession.jsp" />
-    <%!
+<jsp:declaration>
+
         Integer num = 1;
         String exist = "";
         String exist1 = "";
         SqlMethods sql_methods = new SqlMethods();
         PreparedStatement prepared_statement;
         ResultSet result_set;
-        String query_string;
-        Integer number = 1;
-    %>
+        String query_string, name, mindbody_query, brand_id, sub_category_id;
+        
+        Integer number = 1, id = 0;
+
+
+</jsp:declaration>
     <body ng-app  class="container">
         <%@include file="menus.jsp" %>
         <div align="center" ng-controller="blocksController" >
-            <div class="jumbotron" style="height: 220px; margin-top: 0px; padding-top: 20px;">
+            <div class="jumbotron" style="height: 320px; margin-top: 0px; padding-top: 20px;">
             <form class="form-horizontal" name="formblocks1" ng-controller="blocksController">
-
                 <div class="group">
                     <div class="col-md-3 col-md-offset-5">
                         <p class="text-left">Add block</p>
@@ -63,6 +66,7 @@
                         <option value="0">--select--</option>
                         <%
                         try {
+                            sql_methods = new SqlMethods();
                             query_string = "select * from tbl_brand_personality Order By id ASC";
                             prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
                             result_set = prepared_statement.executeQuery();
@@ -73,13 +77,40 @@
                         <%
                             }
                         }catch (Exception e) {
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
                         }finally {
                             result_set.close();
                             prepared_statement.close();
-                            sql_methods.closeConnection();
+//                            sql_methods.closeConnection();
                         }
                         %>
                     </select><br>
+                    Select sub category: <select name="sub_categories" id="sub_categories" style="width:180px;">
+                        <option value="0">--select--</option>
+                        <%
+                        try {
+                            sql_methods = new SqlMethods();
+                            query_string = "select * from tbl_sub_category Order By id ASC";
+                            prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
+                            result_set = prepared_statement.executeQuery();
+
+                            while (result_set.next()) {
+                        %>
+                                <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("sub_category_name")%></option>
+                        <%
+                            }
+                        }catch (Exception e) {
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        }finally {
+                            result_set.close();
+                            prepared_statement.close();
+//                            sql_methods.closeConnection();
+                        }
+                        %>
+                    </select><br>
+
                     
                     </div>
                 </div>
@@ -102,6 +133,9 @@
                     <tr>
                         <td>ID Number </td>
                         <td>block Name</td>
+                        <td>mindbody query</td>
+                        <td>brand id</td>
+                        <td>sub category</td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -113,12 +147,20 @@
                         result_set = prepared_statement.executeQuery();
                         num = 1;
                         while (result_set.next()) {
-
+                                id = result_set.getInt("id");
+                                name = result_set.getString("name");
+                                mindbody_query = result_set.getString("mindbody_query");
+                                brand_id = result_set.getString("brand_id");
+                                sub_category_id = result_set.getString("sub_category_id");
                     %>
                     <tr>
                         <td align="left">&nbsp;<%= num %></td>
-                        <td><input class="simplebox" type="text" name="<%= result_set.getInt("id")%>" id="<%= result_set.getInt("id")%>" value="<%= result_set.getString("name")%>" /></td>
-                        <td><button class="btn btn-info" id="change" name="change" value="edit" ng-click="changeblock(<%=result_set.getInt("id")%>)">edit</button></td>
+                        <td><%= result_set.getString("name")%></td>
+                        <td><%= result_set.getString("mindbody_query")%></td>
+                        
+                        <td><%= result_set.getString("brand_id")%></td>
+                        <td><%= result_set.getString("sub_category_id")%></td>
+                        <td><button class="btn btn-info" id="change" name="change" value="edit" onclick="editBlock(<%= id %>, '<%=name %>','<%= mindbody_query %>','<%= brand_id %>', '<%= sub_category_id %>')">edit</button></td>
                         <td><button class="btn btn-info" id="blocks" name="blocks" value="delete" ng-click="deleteblock(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
                     <%
@@ -131,7 +173,7 @@
                         System.out.println(e.getMessage());
                         out.println(sql_methods.error);
                     }finally {
-                        sql_methods.closeConnection();
+//                        sql_methods.closeConnection();
                     }
                     %>
                 </table>

@@ -92,7 +92,7 @@ public class ServletFontsSizes extends BrndBotBaseHttpServlet {
             System.out.println(e.getMessage());
         }finally {
             getSqlMethodsInstance().closeConnection();
-
+            fonts.sqlmethods.closeConnection();
         }
     }
 

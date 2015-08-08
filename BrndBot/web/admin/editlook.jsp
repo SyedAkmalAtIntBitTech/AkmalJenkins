@@ -28,16 +28,22 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <script src="../js/lookfunctions.js" type="text/javascript"></script>
     </head>
-   <%@include file="checksession.jsp" %>
-    <%
-        String look_id = request.getParameter("look_id");
-        String look_name = request.getParameter("look_name");
-    %>
-    
-    <%!
+<jsp:include page="checksession.jsp" />
+    <jsp:declaration>
         Integer num = 1;
         String exist = "";
         String exist1 = "";
+        SqlMethods sql_methods = new SqlMethods();
+        PreparedStatement prepared_statement;
+        ResultSet result_set;
+        String query_string;
+        Integer number = 1;
+
+    </jsp:declaration>
+
+    <%
+        String look_id = request.getParameter("look_id");
+        String look_name = request.getParameter("look_name");
     %>
     
     <%

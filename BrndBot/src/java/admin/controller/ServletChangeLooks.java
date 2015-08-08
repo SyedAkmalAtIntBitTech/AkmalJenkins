@@ -161,6 +161,7 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
         } finally {
             out.close();
             getSqlMethodsInstance().closeConnection();
+            look.sqlmethods.closeConnection();
         }
 
     }

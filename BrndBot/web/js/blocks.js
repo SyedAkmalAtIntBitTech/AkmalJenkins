@@ -7,15 +7,23 @@
 
 function blocksController($scope, $http) {
 
-//    $scope.organization = {};
-    var name, mindbodyquery, brand_id;
+//    $scope.block = {};
+    var name, mindbodyquery, brand_id, sub_category_id;
     function validate() {
         name = $("#name").val();
+        sub_category_id = $("#sub_categories").val();
+        brand_id = $("#brand").val();
         mindbodyquery = $("#mindbodyquery").val();
         
-        var x = document.getElementById("brandname").selectedIndex;
+//        alert(sub_category_id);
+//        var zz = document.getElementById("sub_categories").selectedIndex;
+//        sub_category_id = document.getElementsByTagName("option")[zz].value;
 
-        brand_id = document.getElementsByTagName("option")[x].value;
+//        var x = document.getElementById("brand").selectedIndex;
+//        brand_id = document.getElementsByTagName("option")[x].value;
+//
+//        var y = document.getElementById("mindbodyquery").selectedIndex;
+//        mindbodyquery = document.getElementsByTagName("option")[y].value;
         
         if (name === "") {
             alert("Enter the block name");
@@ -23,15 +31,21 @@ function blocksController($scope, $http) {
             return false;
         }
         
-        if (mindbodyquery === "") {
-            alert("Enter the mindbodyquery");
+        if (mindbodyquery == 0) {
+            alert("select the mindbodyquery");
             $("#mindbodyquery").focus();
             return false;
         }
 
         if (brand_id == 0) {
             alert("No brand selected, please select the brand");
-            document.getElementById("brandname").focus();
+            document.getElementById("brand").focus();
+            return false;
+        }
+
+        if (sub_category_id == 0) {
+            alert("No sub category selected, please select the sub category");
+            document.getElementById("sub_categories").focus();
             return false;
         }
         
@@ -42,7 +56,7 @@ function blocksController($scope, $http) {
     {
         if (validate())
         {
-            var block = {"name": name, "mindbodyquery": mindbodyquery, "brand_id": brand_id, "type": "add"};
+            var block = {"name": name, "mindbodyquery": mindbodyquery, "brand_id": brand_id, "sub_category_id":sub_category_id, "type": "add"};
 
             $http({
                 method: 'POST',
@@ -70,68 +84,93 @@ function blocksController($scope, $http) {
         }
     };
 
-    $scope.changeblock = function (organization_id)
-    {
-        var org_id = '#' + organization_id;
-        var organizationname = $(org_id).val();
+//        $scope.editblock = function (block_id, name, mindbody_query, brand_id, sub_category_id) {
+//            var configuration = global_host_address + "admin/editblocks.jsp" + "?font_id=" + font_id + "&font_name=" + font_name;
+//            window.open(configuration, "_self");
+//        };
 
-        function validate() {
-            if (organizationname === "") {
-                alert("Enter the organization");
-                $(org_id).focus();
-                return false;
-            }
-            return true;
-        }
+//    $scope.changeblock = function (block_id)
+//    {
+//        var org_id = '#' + block_id;
+//        var blockname = $(org_id).val();
+//
+//        function validate() {
+//            if (blockname === "") {
+//                alert("Enter the block");
+//                $(org_id).focus();
+//                return false;
+//            }
+//            return true;
+//        }
+//
+//        if (validate())
+//        {
+//            var block = {"block_id": block_id.toString(), "block_name": blockname, "type": "edit"};
+//            $http({
+//                method: 'POST',
+//                url: getHost() + 'ServletBlock',
+//                headers: {'Content-Type': 'application/json'},
+//                data: block
+//            }).success(function (data)
+//            {
+//                $scope.status = data;
+//                if (data === "true") {
+//                    alert("block updated successfully");
+//                    window.open(getHost() + 'admin/blocks.jsp', "_self");
+//                } else if (data === error) {
+//                    alert(data);
+//                } else if (data === "false") {
+//                    alert("block already exist");
+//                    $("#blockname").focus();
+//                }    
+//            })
+//                    .error(function (data, status) {
+//                        // called asynchronously if an error occurs
+//                        // or server returns response with an error status.
+//                        alert("request not succesful");
+//                    });
+//        }
+//    };
 
-        if (validate())
-        {
-            var organization = {"organization_id": organization_id.toString(), "organization_name": organizationname, "type": "edit"};
-            $http({
-                method: 'POST',
-                url: getHost() + 'ServletBlock',
-                headers: {'Content-Type': 'application/json'},
-                data: organization
-            }).success(function (data)
-            {
-                $scope.status = data;
-                if (data === "true") {
-                    alert("block updated successfully");
-                    window.open(getHost() + 'admin/organizations.jsp', "_self");
-                } else if (data === error) {
-                    alert(data);
-                } else if (data === "false") {
-                    alert("block already exist");
-                    $("#organizationname").focus();
-                }    
-            })
-                    .error(function (data, status) {
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                        alert("request not succesful");
-                    });
-        }
-    };
-
-    $scope.deleteblock = function (organization_id) {
-        var organization = {"organization_id": organization_id.toString(), "type": "delete"};
+    $scope.deleteblock = function (block_id) {
+        var block = {"block_id": block_id.toString(), "type": "delete"};
         $http({
             method: 'POST',
             url: getHost() + 'ServletBlock',
             headers: {'Content-Type': 'application/json'},
-            data: organization
+            data: block
         }).success(function (data)
         {
             $scope.status = data;
             if (data === "true") {
                 alert("block deleted successfully");
-                window.open(getHost() + 'admin/organizations.jsp', "_self");
+                window.open(getHost() + 'admin/blocks.jsp', "_self");
             } else if (data === error) {
                 alert(data);
             }
-        })
+        });
     };
-}
+};
+
+function editBlock(block_id, name, mindbody_query, brand_id, sub_category_id){
+    
+            var configuration = global_host_address + "admin/editblocks.jsp" + "?block_id=" + block_id + "&name=" + name + "&mindbody_query=" + mindbody_query + "&brand_id=" + brand_id + "&sub_category_id="+ sub_category_id;
+            window.open(configuration, "_self");
+//                                    $.ajax({
+//                                            url: 'editblocks.jsp',
+//                                            method: 'post',
+//                                            data: {
+//                                                block_id: block_id,
+//                                                name: name,
+//                                                mindbody_query: mindbody_query,
+//                                                brand_id: brand_id,
+//                                                sub_category_id: sub_category_id
+//                                            },
+//                                            success: function (responseText) {
+//                                            }
+//                                        });
+
+};
 
 
 

@@ -29,13 +29,19 @@
         <title>Looks</title>
         
     </head>
-        <%@include file="checksession.jsp" %>
-
-    <%!
+<jsp:include page="checksession.jsp" />
+    <jsp:declaration>
         Integer num = 1;
         String exist = "";
         String exist1 = "";
-    %>
+        SqlMethods sql_methods = new SqlMethods();
+        PreparedStatement prepared_statement;
+        ResultSet result_set;
+        String query_string;
+        Integer number = 1;
+
+    </jsp:declaration>
+
     <%
         try{
             if (exist1 != ""){
@@ -101,7 +107,7 @@
                     try{
                         
                         query_string = "select * from tbl_look Order By id ASC";
-                        prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+                        prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         num = 1;
                         while (result_set.next()) {
@@ -120,11 +126,11 @@
                     }catch (Exception e){
                         System.out.println(e.getCause());
                         System.out.println(e.getMessage());
-                        out.println(sqlmethods.error);
+                        out.println(sql_methods.error);
                     }finally {
                         result_set.close();
                         prepared_statement.close();
-                        sqlmethods.closeConnection();
+//                        sqlmethods.closeConnection();
                     }
                     %>
                 </table>
