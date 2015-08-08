@@ -5,18 +5,23 @@
  */
 package com.controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.HashMap;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author ilyas
  */
-public class GetBlocks extends HttpServlet {
+public class GetBlocks extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,20 +32,57 @@ public class GetBlocks extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GetBlocks</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GetBlocks at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        JSONArray json_arr = new JSONArray();
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+        String mindbody_query = null, blockname = null;
+        Integer user_id, id, organization_id, brand_id;
+        Integer category_id, sub_category_id;
+         HashMap<Integer, Object> hash_map = new HashMap<Integer, Object>();
+
+        getSqlMethodsInstance().session = request.getSession(true);
+        
+        try {
+            
+            user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
+            organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
+            brand_id = (Integer)getSqlMethodsInstance().session.getAttribute("brandID");
+            
+            String query = "Select * from tbl_blocks where brand_id="+brand_id;
+            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
+            result_set = prepared_statement.executeQuery();
+           
+            while(result_set.next()){
+                JSONObject json_ob = new JSONObject();
+                id = result_set.getInt("id");
+                mindbody_query = result_set.getString("mindbody_query");
+                sub_category_id = result_set.getInt("subcategory_id");
+                blockname = result_set.getString("name");  
+                json_ob.put("block_name", blockname);
+                json_ob.put("block_id", id);
+                json_ob.put("mindbody_query", mindbody_query);
+                json_ob.put("subcategory_id", sub_category_id);
+                
+                json_arr.add(json_ob);
+            }
+
+        String json = new Gson().toJson(json_arr);
+        response.setContentType("application/json");
+        response.getWriter().write(json);
+            
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }finally {
+            out.close();
+            getSqlMethodsInstance().close(result_set, prepared_statement);
+            getSqlMethodsInstance().closeConnection();
         }
     }
 
