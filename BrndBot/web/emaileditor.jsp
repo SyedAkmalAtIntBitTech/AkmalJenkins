@@ -31,6 +31,9 @@ and open the template in the editor.
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
+        <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
+         
+        
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
         <script src="js/jquery.blend.min.js" type="text/javascript"></script>-->
@@ -438,9 +441,9 @@ var
                         <!--              preview container-->
                         <div class="col-md-7">
                             <p>EDIT THIS POST </p><p>go back</p> 
-                            <div class="sortDelete" style="position:absolute;top:210px; left:0px;margin: 0px;">
-                                <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br />
-                                <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br />
+                            <div class="sortDelete" style="position:absolute;top:380px; left:0px;margin: 0px;">
+                                <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
+                                <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
                             </div>
                             <div class="dataForEmail"> 

@@ -246,8 +246,18 @@ $("#sortUpBlock").click(function(){
     var current = $("#"+$(selectedBlockId).attr("id"));
   current.prev().before(current);
 });
+ //$("#deleteBlock").easyconfirm();
 $("#deleteBlock").click(function(){
-    $("#"+$(selectedBlockId).attr("id")).remove();
+    alert("am here");
+    var selectedBlockId = $(selectedBlockId).attr("id");
+    if(selectedBlockId != "block1")
+    {
+    $("#"+selectedBlockId).remove();
+    }
+    else
+    {
+        alert("Sorry defalt block can`t be deleted.");
+    }
 });
 $("#sortDownBlock").click(function(){
     alert("down clicked"+$(selectedBlockId).attr("id"));
