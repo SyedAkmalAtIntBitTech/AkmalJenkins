@@ -857,4 +857,29 @@ public class SqlMethods {
         return jsonarray;
 
     }
+
+    Integer getBrandID(Integer user_id) {
+        Integer brand_id = 0;
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        try{
+            
+            query_string = "Select brand_id from tbl_user_preferences where user_id="+user_id;
+
+            prepared_statement = getConnection().prepareStatement(query_string);
+            result_set = prepared_statement.executeQuery();
+            
+            if (result_set.next()){
+                brand_id = Integer.parseInt(result_set.getString(1));
+            }
+        }catch(Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }finally {
+            close(result_set, prepared_statement);
+        }
+        return brand_id;
+    }
 }
