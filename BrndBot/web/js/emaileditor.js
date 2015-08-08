@@ -8,6 +8,7 @@ var width;
 var mapperrray = [];
 var type;
 var selectedTextareaId;
+var selectedBlockId;
 var selectedDivId;
 var selectedImgDiv;
 var title;
@@ -97,8 +98,8 @@ $(document).ready(function () {
         data: {get_param: 'value'},
         dataType: 'json',
         success: function (data) {
-            jsondata = data;
-
+        jsondata = data;
+        $(".preview").append("<div onclick=getBlockId(block1) id='block1'></div>")
             $.ajax({
                 type: "GET",
                 url: "xml/layout.xml",
@@ -107,8 +108,14 @@ $(document).ready(function () {
                     $(xml).find('layout').each(function () {
                         height = $(this).find('container').attr("Height");
                         width = $(this).find('container').attr("Width");
-                        $(".preview").css("width", width + "px");
-
+                        
+                        var tempWidth =  parseInt(width)+30;
+                        
+                        $(".preview").css("width", tempWidth + "px");
+                        $(".preview").css("height", height*2 + "px");
+                        $(".preview").css("overflow", "scroll");
+                        $(".preview #block1").css("width", width + "px");
+                        $(".preview #block1").css("height", height + "px");
                     }
 
                     );
@@ -154,11 +161,11 @@ $(document).ready(function () {
                             var webkittransform = $(this).attr("webkit-transform");
                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
 //                    alert($(this).attr("text-shadow"));
-                            $(".preview").append("<div><textarea class=textAreas readonly onclick=getTectId("+type+") id=" + type + ">" + elementdata + "</textarea>");
+                            $(".preview #block1").append("<div><textarea class=textAreas readonly onclick=getTectId(block1"+type+") id=block1" + type + ">" + elementdata + "</textarea>");
                             $("#" + type).css("color", "" + fontcolor)
-                                        .css("position", "absolute")
-                                        .css("margin-left", "" + left + "px")
-                                        .css("margin-top", "" + top + "px")
+                                        .css("position", "relative")
+                                        .css("left", "" + left + "px")
+                                        .css("top", "" + top + "px")
                                         .css("font-size", "" + fontsize)
                                         .css("font-style", "" + fontstyle)
                                         .css("font-weight", "" + fontweight)
@@ -179,11 +186,11 @@ $(document).ready(function () {
                             var width = $(this).attr("width");
                             var height = $(this).attr("height");
 //                    alert("image");
-                           $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
-                            $("#" + type)
+                           $(".preview #block1").append("<div onclick=getImageid(block1" + type + ") id=block1" + type + " ></div>");
+                            $("#block1" + type)
                                     .css("color", "" + fontcolor)
-                                    .css("margin-left", "" + left + "px")
-                                    .css("margin-top", "" + top + "px")
+                                    .css("left", "" + left + "px")
+                                    .css("top", "" + top + "px")
                                     .css("background-blend-mode", "" + blendmode)
                                     .css("opacity", "" + opacity)
                                     .css("width", "" + width)
@@ -191,16 +198,17 @@ $(document).ready(function () {
                                     .css("background","url(http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg)")
                                     .css("background-repeat", "no-repeat")
                                     .css("-webkit-background-size","contain")
-                                    .css("position", "absolute");   
+                                    .css("position", "relative");   
                         }
 
                         if (tag === "button")
                         {
 //                            alert("button");
-                            $(".preview").append("<div><img src='" + elementdata + "'id=" + type + " alt='button'/>");
-                            $("#" + type).css("margin-left", "" + left + "px")
-                                    .css("margin-top", "" + top + "px")
-                                    .attr("src", "buttons/button1.png");
+                            $(".preview #block1").append("<div><img src='" + elementdata + "'id=block1" + type + " alt='button'/>");
+                            $("#block1" + type).css("left", "" + left + "px")
+                                    .css("top", "" + top + "px")
+                                    .attr("src", "buttons/button1.png")
+                                    .css("position", "relative");   
                         }
 
                         if (tag === "block")
@@ -210,12 +218,13 @@ $(document).ready(function () {
                             var height = $(this).attr("height");
                             var backgroundcolor = $(this).attr("background-color");
 //                 alert(backgroundcolor);
-                            $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                            $("#" + type).css("background-color", "" + backgroundcolor)
-                                    .css("margin-left", "" + left + "px")
-                                    .css("margin-top", "" + top + "px")
+                            $(".preview #block1").append("<div onclick=getDivId(block1" + type + ") id=block1" + type + "></div>");
+                            $("#block1" + type).css("background-color", "" + backgroundcolor)
+                                    .css("left", "" + left + "px")
+                                    .css("top", "" + top + "px")
                                     .css("width", "" + width)
-                                    .css("height", "" + height);
+                                    .css("height", "" + height)
+                                    .css("position", "relative");   
                         }
 
                     }
@@ -232,7 +241,19 @@ $(document).ready(function () {
 
         }
     });
-
+$("#sortUpBlock").click(function(){
+    alert("up clicked"+selectedBlockId);
+    var current = $("#"+$(selectedBlockId).attr("id"));
+  current.prev().before(current);
+});
+$("#deleteBlock").click(function(){
+    $("#"+$(selectedBlockId).attr("id")).remove();
+});
+$("#sortDownBlock").click(function(){
+    alert("down clicked"+$(selectedBlockId).attr("id"));
+    var current = $("#"+$(selectedBlockId).attr("id"));
+  current.next().after(current);
+});
     $("#text").click(function () {
         $("#tabs-1").show();
         $("#tabs-2").hide();
@@ -416,6 +437,10 @@ $(document).ready(function () {
 //    };
 
 });
+function getBlockId(id) {
+    selectedBlockId = id;
+    alert($(id).attr("id"));
+}
 
 function getTectId(id) {
     $("textarea").click(function () {
@@ -453,6 +478,9 @@ function saveImageEdit() {
     $("#cropImageContainer").hide();
 
 }
+
+
+
 
 window.onload = function () {
     //get elements
