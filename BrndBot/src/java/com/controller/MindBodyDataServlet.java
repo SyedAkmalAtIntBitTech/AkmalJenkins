@@ -5,6 +5,7 @@
  */
 package com.controller;
 
+import com.controller.MindBodyConstants;
 import com.google.gson.Gson;
 import com.mindbodyonline.clients.api._0_5.GetActivationCodeResult;
 import com.mindbodyonline.clients.api._0_5Class.Class;
@@ -22,7 +23,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBElement;
@@ -60,15 +60,16 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet  {
         try {
 
             MindBodyProcessedData mind_body_processed_data = null;
-//            Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
-            Integer user_id = 40;
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
-            String query_mindbody = request.getParameter("query");
+            String query = request.getParameter("query");
+            
+            String mindbody_query = request.getParameter("mindbody_query");
             org.json.simple.JSONObject json_mindbody_activation = new org.json.simple.JSONObject();
 
-            if (query_mindbody != null ) {
+            if (query != null ) {
                 Boolean isActivated = false;
-                if (query_mindbody.equalsIgnoreCase("isMindBodyActivated")) {
+                if (query.equalsIgnoreCase("isMindBodyActivated")) {
                     isActivated = checkIfActivated(user_id);
                     if (!isActivated) {
                         Integer studio_id = getSqlMethodsInstance().getStudioID(user_id);
@@ -87,7 +88,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet  {
                         json_mindbody_activation.put("status", "activated");
                     }
 
-                } else if (query_mindbody.equalsIgnoreCase("activationlink")) {
+                } else if (query.equalsIgnoreCase("activationlink")) {
                     String studio_id = (String) request.getParameter("studioid");
                     int[] siteids = new int[]{Integer.parseInt(studio_id)};
                     mind_body_class = new MindBodyClass(siteids);
@@ -103,6 +104,23 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet  {
                 response.setContentType("application/json");
                 response.getWriter().write(json);
 
+            } else if (!mindbody_query.isEmpty()){
+                String sub_category_name = (String) getSqlMethodsInstance().session.getAttribute("sub_category_name");
+                Integer studio_id = getSqlMethodsInstance().getStudioID(user_id);
+                int[] siteids = new int[]{studio_id};
+                mind_body_class = new MindBodyClass(siteids);
+                if(mindbody_query.equalsIgnoreCase(MindBodyConstants.kPromote_event_query)) {
+                    
+                } else if(mindbody_query.equalsIgnoreCase(MindBodyConstants.kPromote_class_query)) {
+                    GetClassesResult classResult = mind_body_class.getClasses();
+                    mind_body_processed_data = getMindBodyProcessedClassData(classResult);
+                } else if(mindbody_query.equalsIgnoreCase(MindBodyConstants.kPromote_staff_query)) {
+                    
+                } else if(mindbody_query.equalsIgnoreCase(MindBodyConstants.kPromote_workshop_query)) {
+                    GetEnrollmentsResult enrollmentsResult = mind_body_class.getTodaysEnrollments();
+                    mind_body_processed_data = getMindBodyProcessedEnrollmentData(enrollmentsResult);
+                }
+                
             } else {
                 String sub_category_name = (String) getSqlMethodsInstance().session.getAttribute("sub_category_name");
                 Integer studio_id = getSqlMethodsInstance().getStudioID(user_id);

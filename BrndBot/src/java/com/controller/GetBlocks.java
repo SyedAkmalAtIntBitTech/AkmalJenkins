@@ -75,6 +75,16 @@ public class GetBlocks extends BrndBotBaseHttpServlet {
         String json = new Gson().toJson(json_arr);
         response.setContentType("application/json");
         response.getWriter().write(json);
+        
+        //sample
+        //        {
+        //  [
+        //    "block_name": "block1",
+        //    "block_id": "1",
+        //    "mindbody_query": "promote",
+        //    "subcategory_id": "1"
+        //  ]
+        //}
             
         }catch (Exception e){
             System.out.println(e.getCause());
