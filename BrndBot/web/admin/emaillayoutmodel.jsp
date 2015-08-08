@@ -8,6 +8,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="checksession.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -178,61 +179,19 @@
       }
       }
 
-        function showbrand(str){
-
-            if (typeof XMLHttpRequest !== "undefined"){
-
-            xmlHttp= new XMLHttpRequest();
-
-            }
-            else if (window.ActiveXObject){
-
-            xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
-
-            }
-            if (xmlHttp===null){
-
-            alert("Browser does not support XMLHTTP Request");
-
-            return;
-            } 
-
-            var url="showbrands.jsp";
-
-            url +="?look_id=" +str;
-
-            xmlHttp.onreadystatechange = brandChange;
-
-            xmlHttp.open("GET", url, true);
-
-            xmlHttp.send(null);
-
-        }
-      
-      function brandChange(){
-
-        if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){
-
-              var response = xmlHttp.responseText;
-
-              document.getElementById("subcategories").innerHTML=response;
-        }
-      }
-
     
       </script>          
     </head>
     <body>
         <%@include file="menus.jsp" %>
 <%!
-        PreparedStatement preparedstatement;
-        ResultSet resultset;
+        PreparedStatement ps;
+        ResultSet rs;
         String Query = "";
         SqlMethods SM = new SqlMethods();
         Integer id = 0;
         String org_name = "";
         String font_name="";
-        String look_name="";
 %>
 
         <div id="tabs">
@@ -280,7 +239,7 @@
                         <option value="Times New Roman">Font Family 5</option>
                     </select>
                     
-                    <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
+ <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
                         <option value="0"></option>
                     </select>-->
                 </p>
@@ -441,55 +400,22 @@
         </div>
         <div id="main">
             <form action="<%= application.getContextPath()%>/Model" method="post">
-                <select name="look" onchange="showbrand(this.value)">
-                    <%
-                        try{
-                            Query = "Select * from tbl_look";
-                            preparedstatement = SM.getConnection().prepareStatement(Query);
-
-                            resultset = preparedstatement.executeQuery();
-                            while(resultset.next()){
-                                id = resultset.getInt("id");
-                                look_name = resultset.getString("look_name");
-                    %>
-                                <option value="<%= id %>"><%= look_name %></option>
-                    <%
-                            }
-                        }catch (Exception e){
-                            System.out.println(e.getCause());
-                            System.out.println(e.getMessage());
-                        }finally{
-                            resultset.close();
-                            preparedstatement.close();
-                        }
-                            
-                    %>
-                </select>
-                <select id="brand" name="brand">
-                    <option></option>
-                </select>
                 Organization : <select name="organization" onchange="showUsers(this.value)">
                     <% 
-                        try {
                             Query = "Select * from tbl_organization";
-                            preparedstatement = SM.getConnection().prepareStatement(Query);
+                            ps = SM.getConnection().prepareStatement(Query);
 
-                            resultset = preparedstatement.executeQuery();
-                            while(resultset.next()){
-                                id = resultset.getInt("id");
-                                org_name = resultset.getString("organization_name");
+                            rs = ps.executeQuery();
+                            while(rs.next()){
+                                id = rs.getInt("id");
+                                org_name = rs.getString("organization_name");
                     %>            
-                                <option value="<%= id %>"><%= org_name %></option>
+                                        <option value="<%= id %>"><%= org_name %></option>
                     <%
                             }
-                        }catch (Exception e){
-                            System.out.println(e.getCause());
-                            System.out.println(e.getMessage());
-                        }finally{
-                            preparedstatement.close();
-                            resultset.close();
+                            ps.close();
+                            rs.close();
                             SM.getConnection().close();
-                        }
                     %>
                                       </select><br><br>
                 Users: <select id='users' name="users">
