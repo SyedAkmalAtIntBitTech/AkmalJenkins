@@ -268,9 +268,10 @@ and open the template in the editor.
 
                     }
 
-            function showText(id, layout){
+  var countBlock =1;
+    function showText(id, layout){
 //    alert(id+""+layout);
-
+var 
             layoutfilename = layout;
                     $("#clickid").val(layout);
                     $.ajax({
@@ -279,17 +280,21 @@ and open the template in the editor.
                             data: {get_param: 'value'},
                             dataType: 'json',
                             success: function (data) {
+                            countBlock++;
+                            blockId = "block"+countBlock;
                             jsondata = data;
                                     $.ajax({
                                     type: "GET",
                                             url: "images/xml/" + layout + ".xml",
                                             dataType: "xml",
                                             success: function (xml) {
-                                            $(".preview").empty();
+                                                $(".preview").append("<div onclick=getBlockId("+blockId+") id='"+blockId+"'></div>");
+                                          //  $(".preview").empty();
                                                     $(xml).find('layout').each(function () {
                                             height = $(this).find('container').attr("Height");
                                                     width = $(this).find('container').attr("Width");
-                                                    $(".preview").css("width", width + "px");
+                                                    $(".preview #block"+countBlock).css("width", width + "px");
+                                                    $(".preview #block"+countBlock).css("height", height + "px");
                                             }
 
                                             );
@@ -329,8 +334,8 @@ and open the template in the editor.
                                                     var webkittransform = $(this).attr("webkit-transform");
                                                     var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
 //                    alert($(this).attr("text-shadow"));
-                                                    $(".preview").append("<div><textarea class=textAreas onclick=getTectId() id=" + type + ">" + elementdata + "</textarea>");
-                                                    $("#" + type).css("color", "" + fontcolor).css("position", "absolute").css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
+                                                    $(".preview #block"+countBlock).append("<div><textarea class=textAreas onclick=getTectId(block" + countBlock + type + ") id=block"+ countBlock + type + ">" + elementdata + "</textarea>");
+                                                    $("#block"+countBlock + type).css("color", "" + fontcolor).css("position", "relative").css("left", "" + left + "px").css("top", "" + top + "px")
                                                     .css("font-size", "" + fontsize).css("font-style", "" + fontstyle).css("font-weight", "" + fontweight)
                                                     .css("letter-spacing", "" + letterspacing).css("line-height", "" + lineheight)
                                                     .css("opacity", "" + opacity).css("text-align", "" + textalign)
@@ -343,8 +348,8 @@ and open the template in the editor.
                                                     var width = $(this).attr("width");
                                                     var height = $(this).attr("height");
                                                     //                    alert("image");
-                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
-                                                    $("#" + type)
+                                                    $(".preview #block"+countBlock).append("<div onclick=getImageid(block" + countBlock + type + ") id=block" + countBlock + type + " ></div>");
+                                                    $("#block" + countBlock + type)
                                                     .css("color", "" + fontcolor)
                                                     .css("margin-left", "" + left + "px")
                                                     .css("margin-top", "" + top + "px")
@@ -361,8 +366,8 @@ and open the template in the editor.
                                             if (tag === "button")
                                             {
 
-                                            $(".preview").append("<div><img src='" + elementdata + "'id=" + type + " alt='button'/>");
-                                                    $("#" + type).css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
+                                            $(".preview #block"+countBlock).append("<div><img src='" + elementdata + "'id=block" + countBlock + type + " alt='button'/>");
+                                                    $("#block" + countBlock + type).css("left", "" + left + "px").css("top", "" + top + "px")
                                                     .attr("src", "buttons/button1.png");
                                             }
 
@@ -373,9 +378,11 @@ and open the template in the editor.
                                                     var height = $(this).attr("height");
                                                     var backgroundcolor = $(this).attr("background-color");
 //                 alert(backgroundcolor);
-                                                    $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                                                    $("#" + type).css("background-color", "" + backgroundcolor).css("margin-left", "" + left + "px")
-                                                    .css("margin-top", "" + top + "px").css("width", "" + width)
+                                                    $(".preview #block"+countBlock).append("<div onclick=getDivId(block" + countBlock + type + ") id=block" + countBlock + type + "></div>");
+                                                    $("#block" + countBlock + type).css("background-color", "" + backgroundcolor)
+                                                    .css("left", "" + left + "px")
+                                                    .css("top", "" + top + "px")
+                                                    .css("width", "" + width)
                                                     .css("height", "" + height);
                                             }
 
@@ -391,7 +398,9 @@ and open the template in the editor.
                             }
                     });
             }
-
+            $(".preview div").click(function(){
+                alert($(this).attr("id"));
+            })
 
         </script>
         <script src="js/emaileditor.js" type="text/javascript"></script>
@@ -429,6 +438,11 @@ and open the template in the editor.
                         <!--              preview container-->
                         <div class="col-md-7">
                             <p>EDIT THIS POST </p><p>go back</p> 
+                            <div class="sortDelete" style="position:absolute;top:210px; left:0px;margin: 0px;">
+                                <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br />
+                                <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br />
+                                <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
+                            </div>
                             <div class="dataForEmail"> 
                                 <div class="preview">
 
