@@ -246,13 +246,14 @@ $("#sortUpBlock").click(function(){
     var current = $("#"+$(selectedBlockId).attr("id"));
   current.prev().before(current);
 });
- //$("#deleteBlock").easyconfirm();
+ $("#deleteBlock").easyconfirm();
 $("#deleteBlock").click(function(){
-    alert("am here");
-    var selectedBlockId = $(selectedBlockId).attr("id");
-    if(selectedBlockId != "block1")
+    
+    var tempSelectedBlockId = $(selectedBlockId).attr("id");
+    alert(tempSelectedBlockId);
+    if(tempSelectedBlockId != "block1")
     {
-    $("#"+selectedBlockId).remove();
+    $("#"+tempSelectedBlockId).remove();
     }
     else
     {

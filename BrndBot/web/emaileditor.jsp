@@ -212,7 +212,7 @@ and open the template in the editor.
                                     method : 'GET',
                                             url : 'GetBlocks'
                                     }).success(function(data, status, headers, config) {
-
+                                         alert(data);
                             $scope.datalists = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
@@ -265,7 +265,8 @@ and open the template in the editor.
                     }
                     else
                     {
-                    //show mindbody data in a popup
+                        
+                    
                     }
 
 
@@ -667,14 +668,14 @@ var
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="blocks in datalists| pagination: curPage * pageSize | limitTo: pageSize">
                                                             <div style="background-color: grey;width:300px;height:100px;">
-                                                                <button onclick="checkBlock('{{blocks.id}}','{{blocks.MindBodyQuery}}')" style="background-color: orange;position: relative;top:30%;left:30%">Continue</button>
+                                                                <button onclick="checkBlock('{{blocks.block_id}}','{{blocks.mindbody_query}}')" style="background-color: orange;position: relative;top:30%;left:30%">Continue</button>
 
 
                                                                 <!-- <img id="{{blocks.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
                                                                                                         <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 /> -->
                                                             </div> 
                                                             <div><p id=''></p></div>
-                                                            <label>Block Name</label>
+                                                            <label>{{blocks.block_name}}</label>
                                                             <div></div><p>&nbsp;</p>
                                                         </li>
                                                     </ul>
