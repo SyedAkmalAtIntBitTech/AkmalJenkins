@@ -77,6 +77,13 @@ and open the template in the editor.
                 padding: 4px;
                 display:inline-table;   
             }
+            
+.preview #blockContainer
+{
+    list-style-type: none;
+    padding:0; 
+    margin:0;
+}
 
 #shapecolorbox{
     position: relative;
