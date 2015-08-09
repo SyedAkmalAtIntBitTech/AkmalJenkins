@@ -62,8 +62,8 @@ public class Model extends BrndBotBaseHttpServlet {
         try {
             
             response.setContentType("text/html;charset=UTF-8");
-            uploadPath = getServletContext().getRealPath("") + File.separator + "images" + "/xml";
-//           uploadPath = getServletContext().getInitParameter("file-upload") + File.separator + "xml";
+//            uploadPath = getServletContext().getRealPath("") + File.separator + "images" + "/xml";
+           uploadPath = getServletContext().getInitParameter("file-upload") + File.separator + "xml";
             //        uploadPath = getServletContext().getContextPath() + "/xml";
 
             Integer organization_id = Integer.parseInt(request.getParameter("organization"));
@@ -176,7 +176,16 @@ public class Model extends BrndBotBaseHttpServlet {
             transformer1.transform(source1, result1);
             layout.addLayouts(organization_id, user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, brand_id, block_id);
             System.out.println("File saved!");
-            response.sendRedirect(request.getContextPath() + "/admin/layoutmodel.jsp");
+            if (request.getParameter("mail") != null){
+                 type_email = true;
+                response.sendRedirect(request.getContextPath() + "/admin/emaillayoutmodel.jsp");
+            }
+            
+            if (request.getParameter("socialmedia") != null){
+                type_social = true;
+                response.sendRedirect(request.getContextPath() + "/admin/sociallayoutmodel.jsp");
+            }
+
         } catch (ParserConfigurationException pce) {
             System.out.println(pce.getCause());
             System.out.println(pce.getMessage());
