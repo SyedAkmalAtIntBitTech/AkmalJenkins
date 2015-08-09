@@ -94,7 +94,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: 'GET',
-        url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId,
+        url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId+"&editor_type=email",
         data: {get_param: 'value'},
         dataType: 'json',
         success: function (data) {
@@ -269,18 +269,26 @@ $("#sortDownBlock").click(function(){
         $("#tabs-1").show();
         $("#tabs-2").hide();
         $("#tabs-3").hide();
-
+        $("#tabs-4").hide();
     });
 
     $("#style").click(function () {
         $("#tabs-1").hide();
         $("#tabs-2").show();
         $("#tabs-3").hide();
+        $("#tabs-4").hide();
     });
     $("#block").click(function () {
         $("#tabs-1").hide();
         $("#tabs-2").hide();
         $("#tabs-3").show();
+        $("#tabs-4").hide();
+    });
+    $("#data").click(function () {
+        $("#tabs-1").hide();
+        $("#tabs-2").hide();
+        $("#tabs-3").hide();
+        $("#tabs-4").show();
     });
 
     $(".alignButton").click(function () {

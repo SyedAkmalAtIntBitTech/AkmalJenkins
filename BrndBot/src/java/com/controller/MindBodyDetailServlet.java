@@ -40,6 +40,8 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        getSqlMethodsInstance().session = request.getSession(true);
+        try {
         Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
         Integer organization_id = 0, block_id = 0;
         String mindbody_query = null, editor_type = null;
@@ -50,7 +52,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
         String mindbody_data_id = "";
         Integer model_mapper_id = 0;
         HashMap<String, Object> mindbody_hash_map = null;
-        try {
+        
             organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
             getSqlMethodsInstance().session = request.getSession(true);
             if (request.getParameter("mindbody_id") != null) {
@@ -70,7 +72,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
             }
 
             xml_file_directory = getServletContext().getRealPath("") + File.separator + "images";
-            String mapperFileName = getSqlMethodsInstance().getMapperFile(user_id, organization_id, Integer.parseInt(category_id), Integer.parseInt(sub_category_id), model_mapper_id, block_id, editor_type) + ".xml";
+            String mapperFileName = getSqlMethodsInstance().getMapperFile(user_id, organization_id, Integer.parseInt(category_id), Integer.parseInt(sub_category_id), model_mapper_id, block_id, editor_type);
             String editor_mapper_file_name = xml_file_directory + File.separator + "xml" + File.separator + mapperFileName  + ".xml";
 
             JSONObject mapped_json_object = null;

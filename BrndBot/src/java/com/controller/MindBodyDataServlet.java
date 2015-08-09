@@ -104,7 +104,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet  {
                 response.setContentType("application/json");
                 response.getWriter().write(json);
 
-            } else if (!mindbody_query.isEmpty()){
+            } else if (mindbody_query!=null){
                 Integer studio_id = getSqlMethodsInstance().getStudioID(user_id);
                 int[] siteids = new int[]{studio_id};
                 mind_body_class = new MindBodyClass(siteids);

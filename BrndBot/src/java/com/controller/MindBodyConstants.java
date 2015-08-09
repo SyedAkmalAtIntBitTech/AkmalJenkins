@@ -10,9 +10,9 @@ package com.controller;
  * @author AR
  */
 public interface MindBodyConstants {
-    public final static String kPromote_event_query = "Promote event";
-    public final static String kPromote_workshop_query = "Promote event";
-    public final static String kPromote_class_query = "Promote event";
-    public final static String kPromote_staff_query = "Promote event";
+    public final static String kPromote_event_query = "promote event";
+    public final static String kPromote_workshop_query = "promote workshop";
+    public final static String kPromote_class_query = "promote class";
+    public final static String kPromote_staff_query = "promote teacher";
     
 }

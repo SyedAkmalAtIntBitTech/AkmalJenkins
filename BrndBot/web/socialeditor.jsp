@@ -185,7 +185,7 @@ and open the template in the editor.
                                     $scope.pageSize = 2;
                                     $http({
                                     method : 'GET',
-                                            url : 'GetLayoutStyles'
+                                            url : 'GetLayoutStyles?editorType=social'
                                     }).success(function(data, status, headers, config) {
 
                                     $scope.datalists = data;

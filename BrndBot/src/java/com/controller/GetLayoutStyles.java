@@ -69,7 +69,7 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
                 category_id = "0";//Since its a block
             }
             
-            String query = "Select * from tbl_model where organization_id="+organization_id+" and user_id="+user_id+" or user_id=0 and category_id="+category_id+" and social="+!isEmail+" and email="+isEmail+" and sub_category_id="+sub_category_id+" and block_id="+block_id;
+            String query = "Select * from tbl_model where organization_id="+organization_id+" and (user_id="+user_id+" or user_id=0) and category_id="+category_id+" and social="+!isEmail+" and email="+isEmail+" and sub_category_id="+sub_category_id+" and block_id="+block_id;
             prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
             result_set = prepared_statement.executeQuery();
             

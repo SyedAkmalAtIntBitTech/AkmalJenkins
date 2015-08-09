@@ -663,7 +663,7 @@ public class SqlMethods {
         String mapper_file_name = "";
         try {
             if (model_mapper_id == 0) {
-                query_string = "Select * from tbl_model where category_id=" + category_id + " and user_id=" + user_id + " or user_id=0 and organization_id=" + organization_id + " and sub_category_id=" + sub_category_id + " and social=" + !isEmail + " and email="+isEmail +" and block_id="+ block_id+ " order by id ASC";
+                query_string = "Select * from tbl_model where category_id=" + category_id + " and (user_id=" + user_id + " or user_id=0) and organization_id=" + organization_id + " and sub_category_id=" + sub_category_id + " and social=" + !isEmail + " and email="+isEmail +" and block_id="+ block_id+ " order by id ASC";
 
                 Statement sta = getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 

@@ -56,6 +56,7 @@ public class GetBlocks extends BrndBotBaseHttpServlet {
             getSqlMethodsInstance().session.setAttribute("brandID", brand_id);
             
             String query = "Select * from tbl_blocks where brand_id="+brand_id;
+            
             prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
             result_set = prepared_statement.executeQuery();
            
@@ -63,12 +64,12 @@ public class GetBlocks extends BrndBotBaseHttpServlet {
                 JSONObject json_ob = new JSONObject();
                 id = result_set.getInt("id");
                 mindbody_query = result_set.getString("mindbody_query");
-                sub_category_id = result_set.getInt("subcategory_id");
+                sub_category_id = result_set.getInt("sub_category_id");
                 blockname = result_set.getString("name");  
                 json_ob.put("block_name", blockname);
                 json_ob.put("block_id", id);
                 json_ob.put("mindbody_query", mindbody_query);
-                json_ob.put("subcategory_id", sub_category_id);
+                json_ob.put("sub_category_id", sub_category_id);
                 
                 json_arr.add(json_ob);
             }
