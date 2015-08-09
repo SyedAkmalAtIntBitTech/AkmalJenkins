@@ -652,15 +652,18 @@ public class SqlMethods {
         System.out.println("LookID" + ":" + "LookID");
     }
 
-    public String getMapperFile(Integer user_id, Integer organization_id, Integer category_id, Integer sub_category_id, Integer id) throws SQLException {
+    public String getMapperFile(Integer user_id, Integer organization_id, Integer category_id, Integer sub_category_id, Integer model_mapper_id, Integer block_id, String editorType) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-
+        Boolean isEmail = false;
+        if (editorType.equals("email")) {
+            isEmail = true;
+        }
         String mapper_file_name = "";
         try {
-            if (id == 0) {
-                query_string = "Select * from tbl_model where category_id=" + category_id + " and user_id=" + user_id + " and organization_id=" + organization_id + " and sub_category_id=" + sub_category_id + " and social=" + true + " order by id ASC";
+            if (model_mapper_id == 0) {
+                query_string = "Select * from tbl_model where category_id=" + category_id + " and user_id=" + user_id + " or user_id=0 and organization_id=" + organization_id + " and sub_category_id=" + sub_category_id + " and social=" + !isEmail + " and email="+isEmail +" and block_id="+ block_id+ " order by id ASC";
 
                 Statement sta = getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
@@ -674,14 +677,13 @@ public class SqlMethods {
                     System.out.println("ResultSet scrollable.");
                 }
 
-//                prepared_statement = getConnection().prepareStatement(query_string);
-//                result_set = prepared_statement.executeQuery();
                 if (result_set.first()) {
                     mapper_file_name = result_set.getString("model_file_name");
                 }
 
             } else {
-                query_string = "Select model_file_name from tbl_model where category_id=" + category_id + " and user_id=" + user_id + " and organization_id=" + organization_id + " and sub_category_id=" + sub_category_id + " and id=" + id + "";
+
+                query_string = "Select model_file_name from tbl_model where id=" + model_mapper_id + "";
 
                 prepared_statement = getConnection().prepareStatement(query_string);
                 result_set = prepared_statement.executeQuery();

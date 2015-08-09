@@ -119,6 +119,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet  {
                     GetEnrollmentsResult enrollmentsResult = mind_body_class.getTodaysEnrollments();
                     mind_body_processed_data = getMindBodyProcessedEnrollmentData(enrollmentsResult);
                 }
+                getSqlMethodsInstance().session.setAttribute(getSqlMethodsInstance().k_mind_body+mindbody_query, mind_body_processed_data.getData_hash_map());
                 response.setContentType("application/json");
                 out.write(mind_body_processed_data.getJsonDisplayString());
                 
