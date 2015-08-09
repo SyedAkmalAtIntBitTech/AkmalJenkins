@@ -45,15 +45,7 @@ import org.json.simple.parser.ParseException;
 @WebServlet(name = "SendEmailServlet", urlPatterns = {"/SendEmailServlet"})
 public class SendEmailServlet extends BrndBotBaseHttpServlet {
 
-    SqlMethods sqlmethods = new SqlMethods();
-    GenerateHashPassword generate_hash_password = new GenerateHashPassword();
-    boolean check = false;
-    PreparedStatement prepared_statement = null;
-    ResultSet result_set = null;
-    StringBuffer string_buffer = new StringBuffer();
-
     private final static String MANDRILL_KEY = "4jd3wIMvBAmJt9H0FcEb1w";
-    SendMail send_email = new SendMail();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -68,134 +60,72 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
+
+        SqlMethods sqlmethods = new SqlMethods();
+        SendMail send_email = new SendMail();
         response.setContentType("text/html;charset=UTF-8");
-        sqlmethods.session = request.getSession(true);
+        getSqlMethodsInstance().session = request.getSession(true);
         PrintWriter out = response.getWriter();
         try {
-//            BufferedReader reader = request.getReader();
-//            String line = null;
-//            while ((line = reader.readLine()) != null) {
-//                string_buffer.append(line);
-//            }
-//
-//            JSONParser parser = new JSONParser();
-//            org.json.simple.JSONObject joUser = null;
-//            joUser = (org.json.simple.JSONObject) parser.parse(string_buffer.toString());
-//
-//            String email_id = (String) joUser.get("emailid");
+            String email_subject = request.getParameter("email_subject");
+            String email_addresses = request.getParameter("email_addresses");
+            String html_text = (String) getSqlMethodsInstance().session.getAttribute("htmldata");
+            String reply_to_address = request.getParameter("reply_to_email_address");
+            String from_email_address = request.getParameter("from_email_address");
+            String from_name = request.getParameter("from_name");
+            Message message = new Message();
 
-//            sqlmethods.setDatabaseConnection();
-//            check = sqlmethods.checkEmailAvailability(email_id);
-//            Integer user_id = sqlmethods.getUserID(email_id);
-//            Date expdate = new Date();
-//            java.sql.Date sdat = new java.sql.Date(expdate.getYear(), expdate.getMonth(), expdate.getDate());
-//            java.sql.Time tdat = new java.sql.Time(expdate.getHours(), expdate.getMinutes(), expdate.getSeconds());
+            message.setKey(MANDRILL_KEY);
 
-//            if (check) {
+            message.setHtml(html_text);
+            message.setSubject(email_subject);
+            message.setFrom_email(from_email_address);
+            message.setFrom_name(from_name);
+            message.setAsync(true);
+            message.setReply_to(reply_to_address);
 
-//                String randomVal = email_id + String.valueOf(user_id) + sdat + tdat;
-//
-//                String hashURL = generate_hash_password.hashURL(randomVal);
-//
-//                sqlmethods.setUserDetails(user_id, hashURL, sdat, tdat);
-                String email_subject = request.getParameter("email_subject");
-                String email_addresses = request.getParameter("email_addresses");
-                String html_text = (String)sqlmethods.session.getAttribute("htmldata");
-                Message message = new Message();
+            //For Billing purposes.
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+            ArrayList<String> tags = new ArrayList<String>();
+            tags.add(String.valueOf(user_id));
 
-                message.setKey(MANDRILL_KEY);
+            message.setTags(tags);
 
-                message.setHtml(html_text);
-                message.setText("email testing");
-                message.setSubject(email_subject);
-                message.setFrom_email("intbit@intbittech.com");
-                message.setFrom_name("Intbit Tech");
-                message.setAsync(true);
+            ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
 
-                ArrayList<String> tags = new ArrayList<String>();
-                tags.add("1");
-                tags.add("2");
+            String emailids[] = email_addresses.split(",");
 
-                message.setTags(tags);
+            for (int i = 0; i < emailids.length; i++) {
 
-                ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
-                
-                String emailids[] = email_addresses.split(",");
-                
-                for(int i= 0; i< emailids.length; i++){
-                    
-                    String email = emailids[i];
-                    Recipient rec = new Recipient();
-                    
-                    rec.setEmail(email);
-                    rec.setName(email);
-                    rec.setType("to");
-                    messageToList.add(rec);
-                    message.setMessageTo(messageToList);
-                    RecipientMetadata recipientMetadata1 = new RecipientMetadata();
-                    recipientMetadata1.setRcpt(email);
-                    HashMap<String, String> map = new HashMap<String, String>();
-                    map.put("key", "value");
-                    recipientMetadata1.setValues(map);
+                String email = emailids[i];
+                Recipient rec = new Recipient();
 
-                    ArrayList<RecipientMetadata> metadataList1 = new ArrayList<RecipientMetadata>();
-                    metadataList1.add(recipientMetadata1);
-                    message.setRecipient_metadata(metadataList1);
-                     
+                rec.setEmail(email);
+                rec.setName(email);
+                rec.setType("to");
+                messageToList.add(rec);
+                message.setMessageTo(messageToList);
+                RecipientMetadata recipientMetadata1 = new RecipientMetadata();
+                recipientMetadata1.setRcpt(email);
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("key", "value");
+                recipientMetadata1.setValues(map);
 
-                }
-                
-//                Recipient recipient1 = new Recipient();
-//                recipient1.setEmail("sandeepkumar264328@gmail.com");
-//                recipient1.setName("Syed Muzamil");
-//                recipient1.setType("to");
-//
-//                messageToList.add(recipient1);
-//
-//                Recipient recipient2 = new Recipient();
-//                recipient2.setEmail("sandy264328@gmail.com");
-//                recipient2.setName("Sandeep kumar");
-//                recipient2.setType("to");
-//
-//                messageToList.add(recipient2);
-//
-//                message.setMessageTo(messageToList);
-//
-//                RecipientMetadata recipientMetadata1 = new RecipientMetadata();
-//                recipientMetadata1.setRcpt("sandeepkumar264328@gmail.com");
-//                HashMap<String, String> map = new HashMap<String, String>();
-//                map.put("key", "value");
-//                recipientMetadata1.setValues(map);
-//
-//                ArrayList<RecipientMetadata> metadataList1 = new ArrayList<RecipientMetadata>();
-//                metadataList1.add(recipientMetadata1);
-//
-//                message.setRecipient_metadata(metadataList1);
-//
-//                RecipientMetadata recipientMetadata2 = new RecipientMetadata();
-//                recipientMetadata2.setRcpt("sandy264328@gmail.com");
-//                HashMap<String, String> map1 = new HashMap<String, String>();
-//                map1.put("key", "value");
-//                recipientMetadata2.setValues(map1);
-//
-//                ArrayList<RecipientMetadata> metadataList2 = new ArrayList<RecipientMetadata>();
-//                metadataList2.add(recipientMetadata2);
+                ArrayList<RecipientMetadata> metadataList1 = new ArrayList<RecipientMetadata>();
+                metadataList1.add(recipientMetadata1);
+                message.setRecipient_metadata(metadataList1);
 
-//                message.setRecipient_metadata(metadataList2);
-                
-                send_email.checkPingPong();
-                send_email.sendMail(message);
-                out.write("true");
-//            } else {
-//                out.write("false");
-//            }
-//            sqlmethods.con.close();
+            }
+
+            send_email.sendMail(message);
+            out.write("true");
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             out.write(sqlmethods.error);
-        }finally {
+        } finally {
             out.close();
+            getSqlMethodsInstance().closeConnection();;
         }
     }
 
