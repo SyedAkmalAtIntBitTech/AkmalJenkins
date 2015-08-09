@@ -9,28 +9,4 @@ and open the template in the editor.
     <optionelement>
         <element>Select</element>
     </optionelement>
-    <optionelement>
-        <element>ClassID</element>
-    </optionelement>
-    <optionelement>
-        <element>ClassName</element>
-    </optionelement>
-    <optionelement>
-        <element>ClassDescription</element>
-    </optionelement>
-    <optionelement>
-        <element>ClassProgramName</element>
-    </optionelement>
-    <optionelement>
-        <element>ClassImageURL</element>
-    </optionelement>
-    <optionelement>
-        <element>ClassStartDateTime</element>
-    </optionelement>
-    <optionelement>
-        <element>ClassEndDateTime</element>
-    </optionelement>
-    <optionelement>
-        <element>StaffName</element>
-    </optionelement>
 </root>

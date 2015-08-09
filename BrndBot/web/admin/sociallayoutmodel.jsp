@@ -224,7 +224,7 @@
                 </p>
                 <hr>
                 <p>
-                    Opacity: <input type="text" id="opacity" maxlength="6" size="6" value="1" />px
+                    Opacity: <input type="text" id="opacity" maxlength="6" size="6" value="1" />
                 </p>
                 <p>
                     Rotate: <input type="text" id="rotate" maxlength="4" size="4" value="0" />deg
@@ -241,7 +241,7 @@
                     <span class="size">Height=0px, Width=0px</span>
                 </p>
                 <p>
-                    Opacity: <input type="text" id="opacityImage" maxlength="6" size="6" value="1" />px
+                    Opacity: <input type="text" id="opacityImage" maxlength="6" size="6" value="1" />
                 </p>
                 <p>
                     Blend Color: 
@@ -336,7 +336,7 @@
                 </p>
 
                 <p>
-                    Opacity: <input type="text" id="opacityBlock" maxlength="6" size="6" value="1" />px
+                    Opacity: <input type="text" id="opacityBlock" maxlength="6" size="6" value="1" />
                 </p>
                 <p>
                     Block Color: <input type='text' class='basic' id='blockColor' value='black' />
@@ -357,31 +357,7 @@
         </div>
         <div id="main">
             <form action="<%= application.getContextPath()%>/Model" method="post">
-                                    Brand : <select name="brand" onchange="showbrand(this.value)">
-                    <%
-                        try{
-                            Query = "Select * from tbl_brand_personality";
-                            ps = SM.getConnection().prepareStatement(Query);
-
-                            rs = ps.executeQuery();
-                            while(rs.next()){
-                                id = rs.getInt("id");
-                                brand_name = rs.getString("brand_name");
-                    %>
-                            <option value="<%= id %>"><%= brand_name %></option>
-                    <%
-                            }
-                        }catch (Exception e){
-                            System.out.println(e.getCause());
-                            System.out.println(e.getMessage());
-                        }finally{
-                            rs.close();
-                            ps.close();
-                        }
-                            
-                    %>
-                </select>
-
+                
                 Organization : <select name="organization" onchange="showUsers(this.value)">
                     <% 
                         try {
@@ -406,7 +382,32 @@
                             rs.close();
 //                            SM.con.close();
                     %>
-                                      </select><br><br>
+                                      </select>
+                
+                                    Brand : <select name="brand" onchange="showbrand(this.value)">
+                    <%
+                        try{
+                            Query = "Select * from tbl_brand_personality";
+                            ps = SM.getConnection().prepareStatement(Query);
+
+                            rs = ps.executeQuery();
+                            while(rs.next()){
+                                id = rs.getInt("id");
+                                brand_name = rs.getString("brand_name");
+                    %>
+                            <option value="<%= id %>"><%= brand_name %></option>
+                    <%
+                            }
+                        }catch (Exception e){
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        }finally{
+                            rs.close();
+                            ps.close();
+                        }
+                            
+                    %>
+                                                </select><br><br>
                 Users: <select id='users' name="users">
                             <option value="0"></option>
                          </select>
@@ -419,6 +420,7 @@
 
                 Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
 
+                            <input type="hidden" name="mindbodyquery" id="mindbodyquery">
                             <input type="hidden" name="containerstyle" id="containerstyle">
                             <input type="hidden" name="textstyle" id="textstyle">
                             <input type="hidden" name="element" id="element">
@@ -430,8 +432,7 @@
                              <div id="content">
                                  Mapper file name<input type="text" id="mapperxml" required><br><br>
                                  Layout file name<input type="text" id="layoutxml" requireds><br>
-                                 email <input type="checkbox" name="mail" value="mail"/>
-                                 social media<input type="checkbox" name="socialmedia" value="socialmedia" />
+                                 <input type="hidden" name="socialmedia" value="socialmedia"/>
                                  <input type="submit" id="popupclose" type="Button" value="Done"/>   
                               </div>   
 
@@ -439,11 +440,11 @@
 
 <!--                            <input type="submit" value="submit">-->
                         </form>
-             <div class='col-md-10'>
+<!--             <div class='col-md-10'>
                         <ul id='list2' class='col-md-3' >
                             <li id="lab"></li>
                         </ul> 
-             </div>
+             </div>-->
             
             <div class="container">
 
@@ -480,6 +481,12 @@
                 <input type="button" class="rightButton" id="addLogoButton" value="Add Logo" />
                 <input type="button" class="rightButton" id="deleteLogoButton" value="Delete Logo" />
             </p>
+            <div class='col-md-10' style="position: absolute; left: 1050px; top:70px; width: 600px; ">
+                        <ul id='list2' class='col-md-10' >
+                            <li id="lab"></li>
+                        </ul> 
+            </div>
+            
     </div>
 
     </body>

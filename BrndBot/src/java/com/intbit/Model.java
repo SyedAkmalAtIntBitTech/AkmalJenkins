@@ -5,7 +5,9 @@
  */
 package com.intbit;
 
+import admin.controller.Categories;
 import admin.controller.Layout;
+import admin.controller.ServletAddCategories;
 import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,11 +38,7 @@ import org.w3c.dom.Element;
  */
 public class Model extends BrndBotBaseHttpServlet {
 
-    Layout layout;
-    String filePath;
-    String fileName, fieldName, uploadPath;
-    boolean type_email = false;
-    boolean type_social = false;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,39 +48,52 @@ public class Model extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    String upload_path = "";
-
-//    public void init(ServletConfig servletConfig) throws ServletException{
-//      this.upload_path  = servletConfig.getInitParameter("uploadpath");
-//    }
+   
     @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
+        Layout layout = new Layout();
+        String filePath;
+        String fileName, fieldName, uploadPath;
+        boolean type_email = false;
+        boolean type_social = false;
+        String upload_path = "";
         try {
-            layout = new Layout();
+            
             response.setContentType("text/html;charset=UTF-8");
             uploadPath = getServletContext().getRealPath("") + File.separator + "images" + "/xml";
 //           uploadPath = getServletContext().getInitParameter("file-upload") + File.separator + "xml";
             //        uploadPath = getServletContext().getContextPath() + "/xml";
 
             Integer organization_id = Integer.parseInt(request.getParameter("organization"));
+            Integer brand_id = Integer.parseInt(request.getParameter("brand"));
             Integer user_id = Integer.parseInt(request.getParameter("users"));
-            Integer category_id = Integer.parseInt(request.getParameter("categories"));
-            Integer sub_category_id = Integer.parseInt(request.getParameter("subcategories"));
+            Integer category_id = 0;
+            Integer sub_category_id = 0;
             String mapperfilename = request.getParameter("mapper");
             String layoutfilename = request.getParameter("layout");
-
-            String email = request.getParameter("mail");
-
-            if (email != null) {
-                type_email = true;
+            Integer block_id = 0;
+            
+            if (request.getParameter("categories") != null){
+                category_id = Integer.parseInt(request.getParameter("categories"));
             }
-            String social = request.getParameter("socialmedia");
-
-            if (social != null) {
+            if (request.getParameter("subcategories") != null){
+                sub_category_id = Integer.parseInt(request.getParameter("subcategories"));
+            }
+            
+            if (request.getParameter("blocks") != null){
+                block_id = Integer.parseInt(request.getParameter("blocks"));
+            }
+            
+            if (request.getParameter("mail") != null){
+                 type_email = true;
+            }
+            
+            if (request.getParameter("socialmedia") != null){
                 type_social = true;
             }
+
             String textstyleinfo = request.getParameter("textstyle");
             String containerstyle = request.getParameter("containerstyle");
             String mapfiledata = request.getParameter("element");
@@ -162,7 +174,7 @@ public class Model extends BrndBotBaseHttpServlet {
             // StreamResult result = new StreamResult(System.out);
             transformer.transform(source, result);
             transformer1.transform(source1, result1);
-            layout.addLayouts(organization_id, user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id);
+            layout.addLayouts(organization_id, user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, brand_id, block_id);
             System.out.println("File saved!");
             response.sendRedirect(request.getContextPath() + "/admin/layoutmodel.jsp");
         } catch (ParserConfigurationException pce) {
@@ -179,10 +191,9 @@ public class Model extends BrndBotBaseHttpServlet {
             System.out.println(s.getCause());
             System.out.println(s.getMessage());
             System.out.println(s.getStackTrace());
-        } catch (NamingException ex) {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }finally {
             getSqlMethodsInstance().closeConnection();
+            layout.sqlmethods.closeConnection();
         }
 
     }

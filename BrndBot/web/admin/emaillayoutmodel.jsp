@@ -172,8 +172,10 @@
 
       }
       
-      function hideCategories(str){
-          if (str == 0){
+      function showmindbodyquery(str){
+          
+        
+        if (str == 0){
             $("#categories").attr("disabled", false);
             $("#subcategories").attr("disabled", false);
           }else {
@@ -181,7 +183,45 @@
             $("#subcategories").attr("disabled", true);
           }
           
+            if (typeof XMLHttpRequest !== "undefined"){
+
+            xmlHttp= new XMLHttpRequest();
+
+            }
+            else if (window.ActiveXObject){
+
+            xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+
+            }
+            if (xmlHttp===null){
+
+            alert("Browser does not support XMLHTTP Request");
+
+            return;
+            } 
+
+            var url="showmindbodyquery.jsp";
+
+            url +="?block_id=" +str;
+
+            xmlHttp.onreadystatechange = blockChange;
+
+            xmlHttp.open("GET", url, true);
+
+            xmlHttp.send(null);
+          
       }
+
+    function blockChange(){
+
+        if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){
+
+              var response = xmlHttp.responseText;
+              $("#mindbodyquery").val(response.trim());
+//              document.getElementById("subcategories").innerHTML=response;
+        }
+      }
+      
       function categoryChange(){
 
         if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){
@@ -477,12 +517,12 @@
                 Sub Categories: <select id="subcategories" name="subcategories">
                                         <option value="0"></option>
                                         </select>
-                    Blocks : <select name="blocks" id="blocks" onchange="hideCategories(this.value)">
+                    Blocks : <select name="blocks" id="blocks" onchange="showmindbodyquery(this.value)">
                                         <option value="0">Select</option>
                                 </select><br><br>
-
+                                
                 Width: <input id="containerWidth" class="spinner" size="6" value="1280"> px Height: <input id="containerHeight" size="6" class="spinner" value="800"> px
-
+                            <input type="text" name="mindbodyquery" id="mindbodyquery">
                             <input type="hidden" name="containerstyle" id="containerstyle">
                             <input type="hidden" name="textstyle" id="textstyle">
                             <input type="hidden" name="element" id="element">
@@ -494,8 +534,7 @@
                              <div id="content">
                                  Mapper file name<input type="text" id="mapperxml" required><br><br>
                                  Layout file name<input type="text" id="layoutxml" requireds><br>
-                                 email <input type="checkbox" name="mail" value="mail"/>
-                                 social media<input type="checkbox" name="socialmedia" value="socialmedia" />
+                                 <input type="hidden" name="mail" value="mail"/>
                                  <input type="submit" id="popupclose" type="Button" value="Done"/>   
                               </div>   
 

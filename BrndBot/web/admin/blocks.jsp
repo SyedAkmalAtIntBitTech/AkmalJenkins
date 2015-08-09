@@ -56,7 +56,7 @@
                         <input type="text"  class="form-control simplebox" id="name" name="name" ng-model="blocks.name"/>
                         <br>
                     Select mindbody query: <select id="mindbodyquery" name="mindbodyquery" >
-                        <option value="0">--select--</option>
+                        <option value="null">--select--</option>
                         <option value="promote work shop">promote work shop</option>
                         <option value="promote class">promote class</option>
                         <option value="promote event">promote event</option>

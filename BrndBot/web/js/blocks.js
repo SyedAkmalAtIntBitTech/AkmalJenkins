@@ -31,24 +31,12 @@ function blocksController($scope, $http) {
             return false;
         }
         
-        if (mindbodyquery == 0) {
-            alert("select the mindbodyquery");
-            $("#mindbodyquery").focus();
-            return false;
-        }
-
         if (brand_id == 0) {
             alert("No brand selected, please select the brand");
             document.getElementById("brand").focus();
             return false;
         }
 
-        if (sub_category_id == 0) {
-            alert("No sub category selected, please select the sub category");
-            document.getElementById("sub_categories").focus();
-            return false;
-        }
-        
         return true;
     }
 

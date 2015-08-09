@@ -839,19 +839,37 @@ var num1 = 1;
 //adding defult value and apoch
 function addDefault() {
 
+    
     var num = 0;
     var fontnameis = [];
 //    $("#appenddiv"+(num1-1)).css("display","none");
     var sub_category_type = $("#subcategories").val();
+    var block_mindbody_query = $("#mindbodyquery").val();
+    
     
     var mindbody_xml_url = "";
-    if (sub_category_type == 1){
+    alert(block_mindbody_query);
+    if (block_mindbody_query !== "null"){
+        if (block_mindbody_query === "promote class"){
+            mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
+        }else if (block_mindbody_query === "promote todays class"){
+            mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
+        }else if (block_mindbody_query === "promote work shop"){
+            mindbody_xml_url = "images/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
+        }
+    }else if(block_mindbody_query === "null") {
+            mindbody_xml_url = "images/layoutmodelxml/nodatapoints.xml";
+            $(".form-control").prop("disabled", true);
+    }
+    
+    if ( parseInt(sub_category_type) === 1){
         mindbody_xml_url = "images/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
-    }else if(sub_category_type == 2){
+    }else if(parseInt(sub_category_type) === 2){
         mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
-    }else if(sub_category_type == 3){
+    }else if(parseInt(sub_category_type) === 3){
         mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
     }
+    alert(mindbody_xml_url);
 
     if(addElementsArray.length===num1){
          $.ajax({
@@ -859,7 +877,7 @@ function addDefault() {
         url: getHost() + mindbody_xml_url,
         dataType: "xml",
         success: function (xml) {
-//            alert( addElementsArray[num1]);
+            alert( addElementsArray[num1]);
             $("#lab").append('<div class="col-md-5 " id="appenddiv'+addElementsArray[num1-1]+'" style="display:none"><p id="' + num1 + '"> ' + addElementsArray[num1-1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
                                           <p id="hidepara' + num1 + '" class="col-md-3 "> Default Value <input id="inputfield' + num1 + '" type="text" value="default"><br> \n\
                                             Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" ></p><div>');
