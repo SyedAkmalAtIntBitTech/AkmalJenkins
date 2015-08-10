@@ -37,3 +37,5 @@ function getColor5(){
 function getColor6(){
     return "color6";
 }
+
+String.prototype.contains = function(it) { return this.indexOf(it) != -1; };

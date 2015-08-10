@@ -13,17 +13,19 @@ angular.module("myapp", [])
                 method: 'GET',
                 url: 'MindBodyDataServlet?query=isMindBodyActivated'
             }).success(function (data, status, headers, config) {
-                var mindbody_data = JSON.stringify(data);
-                if (mindbody_data.status === "unactivated") {
-                    if (mindbody_data.activation_link === "") {
-                        $scope.mindbodyactivation = "Mindbody not activated. Unknown error has occured.";
+                var mindbody_data = data;
+                if (data.status === "unactivated") {
+                    $(".message").hide();
+                    if (data.activation_link === "") {
+                        $scope.mindbodyactivationmessage = "Mindbody not activated. Unknown error has occured.";
                     } else {
-                        $scope.mindbodyactivation = "Mindbody not activated. Please visit this link to activate mindbody." + mindbody_data.activation_link;
+                        $scope.mindbodyactivationmessage = "Mindbody not activated. Please visit this link to activate mindbody.";
+                        $scope.mindbodyactivationlink = mindbody_data.activation_link;
                     }
                 } else if (data === error) {
                     alert(data);
                 } else {
-
+                    $(".mindbodyactivationstatus").hide();
                     $http({
                         method: 'GET',
                         url: 'GetUserCategories'

@@ -20,6 +20,8 @@ import com.mindbodyonline.clients.api._0_5Class.GetClassesRequest;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsRequest;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
+import com.mindbodyonline.clients.api._0_5Staff.GetStaffRequest;
+import com.mindbodyonline.clients.api._0_5Staff.GetStaffResult;
 
 /**
  *
@@ -103,7 +105,6 @@ public class MindBodyClass {
     }
     
     public GetEnrollmentsResult getTodaysEnrollments() {
-        GetClassesResult classesResult = null;
         GetEnrollmentsResult enrollmentsResult = null;
         try {
 
@@ -130,6 +131,33 @@ public class MindBodyClass {
             e.printStackTrace();
         }
         return enrollmentsResult;
+    }
+
+    public GetStaffResult getStaff() {
+        GetStaffResult staffResult = null;
+        try {
+
+            GregorianCalendar startDate = new GregorianCalendar();
+            startDate.setTime(new Date());
+            XMLGregorianCalendar calendarStartDate = null;
+            calendarStartDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(startDate);
+
+            GetStaffRequest staffRequest = new GetStaffRequest();
+            staffRequest.setXMLDetail(XMLDetailLevel.FULL);
+            staffRequest.setCurrentPageIndex(0);
+
+            staffResult = mindBody.getStaff(staffRequest);
+
+        } catch (DatatypeConfigurationException D) {
+            System.out.println(D.getCause());
+            System.out.println(D.getMessage());
+            D.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return staffResult;
     }
 
 
