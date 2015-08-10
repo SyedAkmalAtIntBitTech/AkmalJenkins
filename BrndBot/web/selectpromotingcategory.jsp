@@ -133,16 +133,15 @@ and open the template in the editor.
                             method : 'GET',
                                     url : 'MindBodyDataServlet'
                             }).success(function(data, status, headers, config) {
-                    var mindbody_data = JSON.stringify(data);
-                                alert(mindbody_data);
-                            $scope.datalists = mindbody_data.data;
-                            title = mindbody_data.title;
-                            $scope.numberOfPages = function() {
-                            return Math.ceil($scope.datalists.length / $scope.pageSize);
-                            };
+                                $scope.datalists = data;
+                                
+                                if (data.mindbody_data.length == 0){
+                                    $("#continuebutton").hide();
+                                }
+
                             if (data === error){
-                    alert(data);
-                    }
+                                alert(data);
+                            }
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
@@ -151,14 +150,14 @@ and open the template in the editor.
                     };
 
                     });
-                    angular.module('myapp').filter('pagination', function()
-            {
-            return function(input, start)
-            {
-            start = + start;
-                    return input.slice(start);
-            };
-            });
+//                    angular.module('myapp').filter('pagination', function()
+//                    {
+//                    return function(input, start)
+//                    {
+//                    start = + start;
+//                            return input.slice(start);
+//                    };
+//                    });
                     var selected_id;
                     function select_category_details(id){
                     selected_id = id;
@@ -184,7 +183,7 @@ and open the template in the editor.
     </head>
     <body ng-app = "myapp">
 
-        <div class="row">
+        <div class="row" ng-controller="controllerGetMindBody">
             <div id="leftnav" class="col-md-1">
                 <nav class="navbar navbar-default " role="navigation">
                     <div class="navbar-header">
@@ -214,18 +213,31 @@ and open the template in the editor.
             <div class="col-md-11 ">
 
                 <div class="col-md-6">
-                    <p id="text3"><%= title%>  </p> </div> 
+                    <p id="text3">{{datalists.title}}  </p><br> </div><br><br> 
                 <div class="col-md-5">  <input type="button"  id="continuebutton" class="btn btn-info col-md-offset-2" onclick="selected_category()" value="Continue" disabled="true">
 
                 </div>
             </div>  
 
 
-            <div class="col-md-11">      
-                <div ng-controller="controllerGetMindBody" class="tab-pane active" id="picktheme" ng-init="showData()">
+            <div class="col-md-11">
+                
+                <div  class="tab-pane active" id="picktheme" ng-init="showData()">
+                    <div>
+                        <div class='mindbodyOneRowData' onclick="select_category_details('{{jsonclass.id}}')">
+                            <span style="width: 700px;">
+                                <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
+<!--                                    {{jsonclass}}-->
+                                    <li style="width: 200px">{{jsonclass.column1}}</li>
+                                    <li style="width: 200px">{{jsonclass.column2}}</li>
+                                    <li style="width: 200px">{{jsonclass.column3}}</li>
+                                </ul>
+                            </span>
+                        </div>
 
-                    <div class="col-md-8 col-md-offset-1 mindbodydatadiv" ng-repeat= "jsonclass in datalists| pagination: curPage * pageSize | limitTo: pageSize" id="rep" >
-                        <!--                                {{jsonclass}}-->
+                    </div>
+<!--                    <div class="col-md-8 col-md-offset-1 mindbodydatadiv" ng-repeat= "jsonclass in datalists | pagination: curPage * pageSize | limitTo: pageSize" id="rep" >
+                                                        {{jsonclass}}
                         <div class='mindbodyOneRowData' onclick="select_category_details('{{jsonclass.id}}')">
                             <span style="width: 700px;">
                                 <ul class="datafromindbody">
@@ -236,15 +248,15 @@ and open the template in the editor.
                                 </ul>
                             </span>
                         </div>
-                        <!--                          <div id="" class="foo col-md-2"><p>{{classes.name}}</p></div>
+                                                  <div id="" class="foo col-md-2"><p>{{classes.name}}</p></div>
                                                         <div id="" class="foo col-md-2"><p>{{classes.StartDateTime}}</p></div>
-                                                        <div id="" class="foo col-md-2"><p>{{classes.EndDateTime}}</p></div>-->
+                                                        <div id="" class="foo col-md-2"><p>{{classes.EndDateTime}}</p></div>
 
                         <div id=' id ' name=id>
                             <p><br/></p>
                         </div>
-                    </div>
-                    <div class="col-md-2"></div><br><br><br><br><br><br>
+                    </div>-->
+<!--                    <div class="col-md-2"></div><br><br><br><br><br><br>
                     <div id="paginationbar" class="pagination pagination-centered col-md-11 col-md-offset-2 " ng-show="datalists.length">
                         <ul class="pagination-controle pagination">
                             <li>
@@ -260,7 +272,7 @@ and open the template in the editor.
                                         ng-click="curPage = curPage + 1">NEXT &gt;</button>
                             </li>
                         </ul>
-                    </div>
+                    </div>-->
 
                 </div>
 

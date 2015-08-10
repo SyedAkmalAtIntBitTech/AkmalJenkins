@@ -88,11 +88,13 @@ and open the template in the editor.
 
                     <div class="col-md-10 " ng-controller="controllerCategories">
 
-                        <p id="text3">  Hi <%= company%>!</p>
-                        <p id="text3"> What would you like to do today?</p>
-                        {{mindbodyactivation}}
+                        <p id="text3" class="company">  Hi <%= company%>!</p>
+                        <p id="text3" class="message"> What would you like to do today?</p>
+                        <p id="text3" class="mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}">Click here</a></p>
                         <ul id="promotelist">
+                            
                             <li id="one" ng-repeat="category in categories">
+                                
                                 <a href=""><img id="promoteimage" src="images/Organizations/Categories/{{category.organizationId}}/{{category.image_name}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="80" height="80" /></a><p id="text4"  >{{category.categoryName}}</p>
                             </li>
                         </ul>

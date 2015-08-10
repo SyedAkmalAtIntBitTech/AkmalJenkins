@@ -128,8 +128,9 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                     mind_body_processed_data = getMindBodyProcessedEnrollmentData(enrollmentsResult);
                 }
                 getSqlMethodsInstance().session.setAttribute(getSqlMethodsInstance().k_mind_body + mindbody_query, mind_body_processed_data.getData_hash_map());
+                String jsonn = new Gson().toJson(mind_body_processed_data.getJSON());
                 response.setContentType("application/json");
-                out.write(mind_body_processed_data.getJSON());
+                out.write(jsonn);
 
             } else {
                 String sub_category_name = (String) getSqlMethodsInstance().session.getAttribute("sub_category_name");
@@ -150,8 +151,11 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                     mind_body_processed_data = getMindBodyProcessedStaffData(staffResult);
                 }
                 getSqlMethodsInstance().session.setAttribute(getSqlMethodsInstance().k_mind_body, mind_body_processed_data.getData_hash_map());
+                
+                String jsonn = new Gson().toJson(mind_body_processed_data.getJSON());
+                System.out.println(jsonn);
                 response.setContentType("application/json");
-                out.write(mind_body_processed_data.getJSON());
+                out.write(jsonn);
             }
 
         } catch (Exception e) {
@@ -191,7 +195,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                 Date newDate = existingFormat.parse(calendarStartDateTime.toString());
                 String newDateString = newFormat.format(newDate);
 
-                JSONObject newJSONObject = new JSONObject();
+                org.json.simple.JSONObject newJSONObject = new org.json.simple.JSONObject();
                 newJSONObject.put("column1", name);
                 newJSONObject.put("column2", staff.getName());
                 newJSONObject.put("column3", newDateString);
@@ -202,9 +206,10 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
 
             String jsonString = json_data_array.toString();//new Gson().toJson(json_data_array);
             mind_body_process_data.setData_hash_map(hash_map);
-            mind_body_process_data.setJsonData(jsonString);
+            mind_body_process_data.setJsonData(json_data_array);
             mind_body_process_data.setTitle("Please select a work shop to promote:");
         } else {
+            mind_body_process_data.setJsonData(json_data_array);
             mind_body_process_data.setTitle("There are no workshops to promote.");
         }
         return mind_body_process_data;
@@ -238,7 +243,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                 Date newDate = existingFormat.parse(calendarStartDateTime.toString());
                 String newDateString = newFormat.format(newDate);
 
-                JSONObject newJSONObject = new JSONObject();
+                org.json.simple.JSONObject newJSONObject = new org.json.simple.JSONObject();
                 newJSONObject.put("column1", name);
                 newJSONObject.put("column2", staff.getName());
                 newJSONObject.put("column3", newDateString);
@@ -250,13 +255,12 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
 
             String jsonString = json_data_array.toString();//new Gson().toJson(json_data_array);
             mind_body_process_data.setData_hash_map(hash_map);
-            mind_body_process_data.setJsonData(jsonString);
+            mind_body_process_data.setJsonData(json_data_array);
             mind_body_process_data.setTitle("Please select a class to promote:");
-
         } else {
             mind_body_process_data.setTitle("There are no classes to promote");
-
-        }
+            mind_body_process_data.setJsonData(json_data_array);
+                    }
         return mind_body_process_data;
     }
 
@@ -322,7 +326,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
 
                 hash_map.put(staff_id, staffInstance);
 
-                JSONObject newJSONObject = new JSONObject();
+                org.json.simple.JSONObject newJSONObject = new org.json.simple.JSONObject();
                 newJSONObject.put("column1", staffInstance.getName());
                 newJSONObject.put("column2", " ");
                 newJSONObject.put("column3", " ");
@@ -334,10 +338,12 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
 
             String jsonString = json_data_array.toString();//new Gson().toJson(json_data_array);
             mind_body_process_data.setData_hash_map(hash_map);
-            mind_body_process_data.setJsonData(jsonString);
+            mind_body_process_data.setJsonData(json_data_array);
             mind_body_process_data.setTitle("Please select a teacher to promote:");
 
         } else {
+            mind_body_process_data.setJsonData(json_data_array);
+            
             mind_body_process_data.setTitle("There are no teachers to promote");
 
         }

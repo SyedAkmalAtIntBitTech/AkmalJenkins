@@ -7,15 +7,14 @@ package mindbody.controller;
 
 import java.util.HashMap;
 import org.json.JSONException;
-import org.json.JSONObject;
-
+import org.json.simple.JSONArray;
 /**
  *
  * @author intbit
  */
 public class MindBodyProcessedData {
     private HashMap<String, Object> data_hash_map;
-    private String jsonData;
+    private JSONArray jsonData;
     private String title;
 
     public HashMap< String, Object> getData_hash_map() {
@@ -26,11 +25,11 @@ public class MindBodyProcessedData {
         this.data_hash_map = data_hash_map;
     }
 
-    public String getJsonData() {
+    public JSONArray getJsonData() {
         return jsonData;
     }
 
-    public void setJsonData(String jsonData) {
+    public void setJsonData(JSONArray jsonData) {
         this.jsonData = jsonData;
     }
    
@@ -42,11 +41,11 @@ public class MindBodyProcessedData {
         this.title = title;
     }
     
-    public String getJSON () throws JSONException {
-        JSONObject object = new JSONObject();
-        object.put("data", getJsonData());
+    public org.json.simple.JSONObject getJSON () throws JSONException {
+        org.json.simple.JSONObject object = new org.json.simple.JSONObject();
+        object.put("mindbody_data", getJsonData());
         object.put("title", getTitle());
-        return object.toString();
+        return object;
     }
     
 }
