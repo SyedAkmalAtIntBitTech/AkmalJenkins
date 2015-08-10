@@ -62,7 +62,7 @@ and open the template in the editor.
                 list-style-type: none;
                 font-weight: bold;
                 position:relative;
-                left: 95px;
+                left: 35px;
                 font-family:ProximaNova,Semibold;
                 font-size: 1.13em;
                 color: #2d4355;
@@ -106,7 +106,7 @@ and open the template in the editor.
                             
                             <li id="one" ng-repeat="category in categories">
                                 
-                                <a href=""><img id="promoteimage" src="images/Organizations/Categories/{{category.organizationId}}/{{category.image_name}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="80" height="80" /></a><p id="text4"  >{{category.categoryName}}</p>
+                                <a href=""><img id="promoteimage" src="images/Organizations/Categories/{{category.organizationId}}/{{category.image_name}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91" /></a><p id="text4"  >{{category.categoryName}}</p>
                             </li>
                         </ul>
                         <div>

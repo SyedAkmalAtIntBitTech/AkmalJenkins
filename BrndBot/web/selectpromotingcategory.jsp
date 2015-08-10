@@ -76,6 +76,8 @@ and open the template in the editor.
 */
  .datafromindbody li{
      display:inline-table;
+     position: relative;
+     left:200px;
                 font-size: 21.6px;
                 margin-left: -20px;
             }
@@ -111,7 +113,7 @@ and open the template in the editor.
             }
             .diff{
               position: relative;
-              top:55px;
+              top:100px;
             }
 
         </style>
@@ -212,7 +214,7 @@ and open the template in the editor.
 
                 <div class="col-md-6">
                     <p id="text3">{{datalists.title}}  </p><br> </div><br><br> 
-                <div class="col-md-5">  <input type="button"  id="continuebutton" class="btn btn-info col-md-offset-2" onclick="selected_category()" value="Continue" disabled="true">
+                <div class="col-md-5">  <input type="button"  id="continuebutton" class="btn btn-info col-md-offset-2" onclick="selected_category()" value="CONTINUE" disabled="true">
 
                 </div>
             </div>  
@@ -236,43 +238,6 @@ and open the template in the editor.
                         </div>
 
                     </div>
-<!--                    <div class="col-md-8 col-md-offset-1 mindbodydatadiv" ng-repeat= "jsonclass in datalists | pagination: curPage * pageSize | limitTo: pageSize" id="rep" >
-                                                        {{jsonclass}}
-                        <div class='mindbodyOneRowData' onclick="select_category_details('{{jsonclass.id}}')">
-                            <span style="width: 700px;">
-                                <ul class="datafromindbody">
-
-                                    <li style="width: 200px">{{jsonclass.column1}}</li>
-                                    <li style="width: 200px">{{jsonclass.column2}}</li>
-                                    <li style="width: 200px">{{jsonclass.column3}}</li>
-                                </ul>
-                            </span>
-                        </div>
-                                                  <div id="" class="foo col-md-2"><p>{{classes.name}}</p></div>
-                                                        <div id="" class="foo col-md-2"><p>{{classes.StartDateTime}}</p></div>
-                                                        <div id="" class="foo col-md-2"><p>{{classes.EndDateTime}}</p></div>
-
-                        <div id=' id ' name=id>
-                            <p><br/></p>
-                        </div>
-                    </div>-->
-<!--                    <div class="col-md-2"></div><br><br><br><br><br><br>
-                    <div id="paginationbar" class="pagination pagination-centered col-md-11 col-md-offset-2 " ng-show="datalists.length">
-                        <ul class="pagination-controle pagination">
-                            <li>
-                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
-                                        ng-click="curPage = curPage - 1"> &lt; PREV</button>
-                            </li>
-                            <li>
-                                <span>Page {{curPage + 1}} of {{ numberOfPages()}}</span>
-                            </li>
-                            <li>
-                                <button type="button" class="btn btn-primary"
-                                        ng-disabled="curPage >= classes.length / pageSize - 1"
-                                        ng-click="curPage = curPage + 1">NEXT &gt;</button>
-                            </li>
-                        </ul>
-                    </div>-->
 
                 </div>
 

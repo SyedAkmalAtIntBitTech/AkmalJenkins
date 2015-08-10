@@ -79,8 +79,8 @@ and open the template in the editor.
 #text3
 {
     position: relative;
-    left: 20px;
-    top: 114px;   
+    left: 120px;
+    top: 120px;   
     font-family:ProximaNova-Semibold;
     font-size:34.2px;
     color:#454141;
@@ -157,13 +157,13 @@ and open the template in the editor.
 #promotelist li{
     display: inline-block;
     position:relative;
-    left: 150px;
+    left: 85px;
     top: 142px;
     font-family:ProximaNovaSoft-Regular;
     font-size:13px;
     Color:#6b6564;
     font-style:normal;
-    text-align:left;
+    text-align:center;
     line-height:15.6px;
     letter-spacing:0em;
 }
@@ -180,9 +180,9 @@ and open the template in the editor.
 #promotebuttonlist li{
         display: inline-block;
         position: relative;
-        left: 80px;
+        left: 50px;
         top: 140px;
-        margin-left:53px;
+        margin-left:20px;
 }
 
 #promotelist img{
