@@ -161,19 +161,15 @@ and open the template in the editor.
                     var selected_id;
                     function select_category_details(id){
                     selected_id = id;
+        
+                    
                             $("#continuebutton").prop("disabled", false);
                             //                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +id;
                             //                    window.open(configuration, "_self")
                     }
-            //                $(".mindbodyOneRowData").click(function (){
-            //                    alert("clicked");
-            //                  $(".datafromindbody li").css("background-color","inherit");
-            //             $(this).css("background-color","red");
-            //                });
 
             function selected_category(){
 
-            //                    alert(selected_id);
             var configuration = global_host_address + "selectpromotemedia.jsp" + "?id=" + selected_id;
                     window.open(configuration, "_self");
             }
@@ -224,10 +220,12 @@ and open the template in the editor.
                 
                 <div  class="tab-pane active" id="picktheme" ng-init="showData()">
                     <div>
-                        <div class='mindbodyOneRowData' onclick="select_category_details('{{jsonclass.id}}')">
+                      
                             <span style="width: 700px;">
                                 <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
 <!--                                    {{jsonclass}}-->
+
+                     <div class='mindbodyOneRowData' onclick="select_category_details('{{jsonclass.id}}')">
                                     <li style="width: 200px">{{jsonclass.column1}}</li>
                                     <li style="width: 200px">{{jsonclass.column2}}</li>
                                     <li style="width: 200px">{{jsonclass.column3}}</li>
