@@ -17,6 +17,8 @@ import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
 import com.mindbodyonline.clients.api._0_5Class.StatusCode;
+import com.mindbodyonline.clients.api._0_5Staff.ArrayOfStaff;
+import com.mindbodyonline.clients.api._0_5Staff.GetStaffResult;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -143,6 +145,9 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                 } else if (sub_category_name.equals("promote work shop")) {
                     GetEnrollmentsResult enrollmentsResult = mind_body_class.getTodaysEnrollments();
                     mind_body_processed_data = getMindBodyProcessedEnrollmentData(enrollmentsResult);
+                } else if (sub_category_name.equals("promote teacher")) {
+                    GetStaffResult staffResult = mind_body_class.getStaff();
+                    mind_body_processed_data = getMindBodyProcessedStaffData(staffResult);
                 }
                 getSqlMethodsInstance().session.setAttribute(getSqlMethodsInstance().k_mind_body, mind_body_processed_data.getData_hash_map());
                 response.setContentType("application/json");
@@ -301,5 +306,41 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
 
         GetClassesResult classResult = mind_body_class.getTodaysClass();
         return classResult.getStatus().equals(StatusCode.SUCCESS);
+    }
+
+    private MindBodyProcessedData getMindBodyProcessedStaffData(GetStaffResult result) throws JSONException {
+        HashMap<String, Object> hash_map = new HashMap<String, Object>();
+        MindBodyProcessedData mind_body_process_data = new MindBodyProcessedData();
+        ArrayOfStaff array_of_staff = result.getStaffMembers();
+        JSONArray json_data_array = new JSONArray();
+        if (array_of_staff != null && array_of_staff.getStaff() != null) {
+            List<com.mindbodyonline.clients.api._0_5Staff.Staff> staffList = array_of_staff.getStaff();
+            for (int i = 0; i < staffList.size(); i++) {
+
+                com.mindbodyonline.clients.api._0_5Staff.Staff staffInstance = staffList.get(i);
+                String staff_id = String.valueOf(staffInstance.getID().getValue());
+
+                hash_map.put(staff_id, staffInstance);
+
+                JSONObject newJSONObject = new JSONObject();
+                newJSONObject.put("column1", staffInstance.getName());
+                newJSONObject.put("column2", " ");
+                newJSONObject.put("column3", " ");
+                newJSONObject.put("id", staff_id);
+
+                json_data_array.add(newJSONObject);
+
+            }
+
+            String jsonString = json_data_array.toString();//new Gson().toJson(json_data_array);
+            mind_body_process_data.setData_hash_map(hash_map);
+            mind_body_process_data.setJsonData(jsonString);
+            mind_body_process_data.setTitle("Please select a teacher to promote:");
+
+        } else {
+            mind_body_process_data.setTitle("There are no teachers to promote");
+
+        }
+        return mind_body_process_data;
     }
 }

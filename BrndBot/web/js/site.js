@@ -5,12 +5,12 @@ var heightContainer;
 var containerY, containerX;
 var selectedTextID;
 var addTextCount, addImageCount, addButtonCount, addBlockCount, addElementCount;
-var textareadetails=[];
-var selectElementsArray=[];
+var textareadetails = [];
+var selectElementsArray = [];
 var allElementsTextArray = [];
 var allElementsValueArray = [];
 var addElementsArray = [];
-var textcount=1;
+var textcount = 1;
 $(document).ready(function () {
     bold = false;
     widthContainer = "0px";
@@ -59,7 +59,7 @@ $(document).ready(function () {
             ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
         ]
     });
-   
+
     $.ajax({
         type: "GET",
         url: "elements.xml",
@@ -171,7 +171,7 @@ $(document).ready(function () {
 
 
     }
-    
+
     //changing container from resizable(code above) to fixed using text boxes
     $(function () {
         function position() {
@@ -309,14 +309,14 @@ $(document).ready(function () {
     });
     $("#textSize").change(function () {
         //alert($( "#textSize" ).val());
-        $("#" + selectedTextID).css("font-size", $("#textSize").val()+"px");
+        $("#" + selectedTextID).css("font-size", $("#textSize").val() + "px");
     });
 //    function changeFont(){
 //        alert("text");
 //          var font_name = $("#textFontFamily").find('option:selected').text();
 //            $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
 //    }
-    
+
     $("#textFontFamily").change(function () {
 //        alert($("#textFontFamily").val());
         $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
@@ -358,7 +358,7 @@ $(document).ready(function () {
         $(".container").append("<div class=\"draggableBlock\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
         addBlockCount++;
-      
+
         addElements($("#elementText").find('option:selected').text());
         //$("#"+selectedTextID).css("background","url('http://www.hdwallpapersimages.com/wp-content/uploads/images/Child-Girl-with-Sunflowers-Images.jpg')");
         $("#" + selectedTextID).css("background-color", "#000000");
@@ -375,7 +375,7 @@ $(document).ready(function () {
             $("#" + selectedTextID).css("height", $("#blockHeight").val());
             $("#" + selectedTextID).css("opacity", $("#opacityBlock").val());
             $("#" + selectedTextID).css("background-color", $("#blockColor").val());
-            
+
         });
 
 
@@ -414,14 +414,13 @@ $(document).ready(function () {
 
 
         $(".draggableBlock").draggable({
-        
             scroll: false,
             cursor: "move"
         });
 
         $(".draggableBlock").click(function (e) {
             //	alert('imagedrag');
-             
+
             var id = $(this).children("div").attr("id");
 
             selectedTextID = id;
@@ -449,7 +448,7 @@ $(document).ready(function () {
         addButtonCount++;
         addElements($("#elementText").find('option:selected').text());
         reloadTabs(2);
-        addDefault() ;
+        addDefault();
         $("#buttonSelect").change(function () {
             //alert("buttons/button"+$("#buttonSelect").val());
             $("#" + selectedTextID).attr('src', "buttons/button" + $("#buttonSelect").val() + ".png");
@@ -457,14 +456,13 @@ $(document).ready(function () {
         });
 
         $(".draggableButton").draggable({
-      
             scroll: false,
             cursor: "move"
         });
 
         $(".draggableButton").click(function (e) {
             //	alert('imagedrag');
-            
+
             var id = $(this).children("img").attr("id");
 
             selectedTextID = id;
@@ -488,11 +486,11 @@ $(document).ready(function () {
 
     });
     $("#addImageButton").click(function () {
-       
+
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
         $(".container").append("<div class=\"draggableImage\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
-     
+
         addImageCount++;
         addElements($("#elementText").find('option:selected').text());
         $("#" + selectedTextID).css("background", "url(../images/default.png)");
@@ -501,7 +499,7 @@ $(document).ready(function () {
         $("#" + selectedTextID).css("background-repeat", "no-repeat");
         $("#" + selectedTextID).css("width", "100px");
         $("#" + selectedTextID).css("height", "100px");
-         addDefault();
+        addDefault();
         reloadTabs(1);
 
         $("#opacityImage").keyup(function (e) {
@@ -621,7 +619,6 @@ $(document).ready(function () {
         });
 
         $(".draggableImage").draggable({
-        
             scroll: false,
             cursor: "move"
         });
@@ -652,11 +649,11 @@ $(document).ready(function () {
 
     });
     $("#addTextButton").click(function () {
-       
+
         $(".container").append("<div class=\"draggableText\"><textarea class =\"textAreas\" id=\"" + $("#elementText").find('option:selected').text() + "\">" + $("#elementText").find('option:selected').text() + "</textarea></div>");
         $("#textArea").val($("#elementText").find('option:selected').text());
         selectedTextID = $("#elementText").find('option:selected').text();
-        selectElementsArray[textcount-1]=selectedTextID;
+        selectElementsArray[textcount - 1] = selectedTextID;
         textcount++;
         addElements($("#elementText").find('option:selected').text());
         reload_textButtons();
@@ -666,7 +663,7 @@ $(document).ready(function () {
         reload_color();
         reloadTabs(0);
 
-         addDefault();
+        addDefault();
         $("#lineHeight").val($("#" + selectedTextID).css("line-height").replace('px', ''));
 
         if ($("#" + selectedTextID).css("letter-spacing") == "0")
@@ -687,7 +684,6 @@ $(document).ready(function () {
 
         $(".draggableText").draggable(
                 {
-                 
                     scroll: false,
                     cancel: "text",
                     cursor: "move"
@@ -794,7 +790,7 @@ $(document).ready(function () {
             $("#" + selectedTextID).val($("#textArea").val());
         });
         $(".draggableText").click(function (e) {
-          hideMapper();
+            hideMapper();
             //	alert('drag');
             //$(".draggableText").css("padding","5px");
             var id = $(this).children("textarea").attr("id");
@@ -838,84 +834,81 @@ $(document).ready(function () {
 var num1 = 1;
 //adding defult value and apoch
 function addDefault() {
-   
+
     var num = 0;
     var fontnameis = [];
-//    $("#appenddiv"+(num1-1)).css("display","none");
     var sub_category_type = $("#subcategories").val();
     var block_mindbody_query = $("#mindbodyquery").val();
-    
-    
+
+
     var mindbody_xml_url = "";
-    if (block_mindbody_query !== "null"){
-        if (block_mindbody_query === "promote class"){
+    if (block_mindbody_query !== "null") {
+        if (block_mindbody_query.toLowerCase().contains("class")) {
             mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
-        }else if (block_mindbody_query === "promote todays class"){
-            mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
-        }else if (block_mindbody_query === "promote work shop"){
+        } else if (block_mindbody_query.toLowerCase().contains("work shop") || block_mindbody_query.contains("workshop")) {
             mindbody_xml_url = "images/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
+        } else if (block_mindbody_query.toLowerCase().contains("staff")) {
+            mindbody_xml_url = "images/layoutmodelxml/mindbodystaffdatapoints.xml";
         }
-    }else {
-            mindbody_xml_url = "images/layoutmodelxml/nodatapoints.xml";
-            $(".form-control").prop("disabled", true);
+    } else {
+        mindbody_xml_url = "images/layoutmodelxml/nodatapoints.xml";
+        $(".form-control").prop("disabled", true);
     }
-    
-    if ( parseInt(sub_category_type) === 1){
+
+    if (parseInt(sub_category_type) === 1) {
         mindbody_xml_url = "images/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
-    }else if(parseInt(sub_category_type) === 2){
+    } else if (parseInt(sub_category_type) === 2) {
         mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
-    }else if(parseInt(sub_category_type) === 3){
+    } else if (parseInt(sub_category_type) === 3) {
         mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
     }
 
-    if(addElementsArray.length===num1){
-         $.ajax({
-        type: "GET",
-        url: getHost() + mindbody_xml_url,
-        dataType: "xml",
-        success: function (xml) {
+    if (addElementsArray.length === num1) {
+        $.ajax({
+            type: "GET",
+            url: getHost() + mindbody_xml_url,
+            dataType: "xml",
+            success: function (xml) {
 //            alert( addElementsArray[num1]);
-            $("#lab").append('<div class="col-md-5 " id="appenddiv'+addElementsArray[num1-1]+'" style="display:none"><p id="' + num1 + '"> ' + addElementsArray[num1-1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
+                $("#lab").append('<div class="col-md-5 " id="appenddiv' + addElementsArray[num1 - 1] + '" style="display:none"><p id="' + num1 + '"> ' + addElementsArray[num1 - 1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
                                           <p id="hidepara' + num1 + '" class="col-md-3 "> Default Value <input id="inputfield' + num1 + '" type="text" value="default"><br> \n\
                                             Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" ></p><div>');
-            $(xml).find('optionelement').each(function () {
-                fontnameis[num] = $(this).find('element').text();
+                $(xml).find('optionelement').each(function () {
+                    fontnameis[num] = $(this).find('element').text();
 
-                num++;
+                    num++;
 
-            });
-            for (var i = 0; i <= fontnameis.length - 1; i++) {
-                $('#Footer1dropdown-' + num1).append(new Option(fontnameis[i]));
+                });
+                for (var i = 0; i <= fontnameis.length - 1; i++) {
+                    $('#Footer1dropdown-' + num1).append(new Option(fontnameis[i]));
+                }
+                num1++;
+            },
+            error: function () {
+                alert("The XML File could not be processed correctly.");
             }
-            num1++;
-        },
-        error: function () {
-            alert("The XML File could not be processed correctly.");
-        }
-
-
-
-    });
+        });
     }
-   
+
 
 }
-var assa=[];
-var counterformapper=0;
-function hideMapper(){
-    
+var assa = [];
+var counterformapper = 0;
+function hideMapper() {
+
 //    alert(selectedTextID);
-   assa[counterformapper]=selectedTextID;
-   counterformapper++;
+    assa[counterformapper] = selectedTextID;
+    counterformapper++;
 //    alert("appenddiv"+selectedTextID);
 //    alert(assa.length);
-    $("#appenddiv"+selectedTextID).css("display","block");
-    
-    for(var i=0;i<assa.length-1;i++)
+    $("#appenddiv" + selectedTextID).css("display", "block");
+
+    for (var i = 0; i < assa.length - 1; i++)
     {
-     if(assa[i]!==selectedTextID){   
-    $("#appenddiv"+assa[i]).css("display","none");}
-   }
+        if (assa[i] !== selectedTextID) {
+            $("#appenddiv" + assa[i]).css("display", "none");
+        }
+    }
 }
 function componentToHex(c) {
     var hex = c.toString(16);
@@ -944,31 +937,31 @@ function getRotationDegrees(obj) {
     return (angle < 0) ? angle + 360 : angle;
 }
 
-function popupwindow(){
-     $('#popup').show("slow");
-      $("#tabs *").attr("disabled", "disabled");
-       $("#main *").attr("disabled", "disabled");
-       $("#content *").attr("disabled", false);
-        $("#right *").attr("disabled", "disabled");
-     
-       $('#popupclose').click(function(){
-           
+function popupwindow() {
+    $('#popup').show("slow");
+    $("#tabs *").attr("disabled", "disabled");
+    $("#main *").attr("disabled", "disabled");
+    $("#content *").attr("disabled", false);
+    $("#right *").attr("disabled", "disabled");
+
+    $('#popupclose').click(function () {
+
         $("#mapper").val($("#mapperxml").val());
         $("#layout").val($("#layoutxml").val());
-         $("#tabs *").attr("disabled", false);
-         $("#main *").attr("disabled", false);
-          $("#right *").attr("disabled", false);
+        $("#tabs *").attr("disabled", false);
+        $("#main *").attr("disabled", false);
+        $("#right *").attr("disabled", false);
         $('#popup').hide("slow");
-    
+
     });
-   
+
 }
 
 function passvaluetoinputfield() {
-     
-     
-      popupwindow();
-      
+
+
+    popupwindow();
+
     var containerstyle = "Width!" + $("#containerWidth").val() +
             " Height!" + $("#containerHeight").val();
 
@@ -976,7 +969,7 @@ function passvaluetoinputfield() {
     var mapperdata = [];
     for (var i = 0; i <= addElementsArray.length - 1; i++) {
 
-        mapperdata[i] = " element!" + addElementsArray[i] + " option!" + $("#Footer1dropdown-" +(i+1)).find('option:selected').text() + " default!" + $("#inputfield" + (i+1)).val() + " epoch!" + $("#inputfield1" + (i+1)).val();
+        mapperdata[i] = " element!" + addElementsArray[i] + " option!" + $("#Footer1dropdown-" + (i + 1)).find('option:selected').text() + " default!" + $("#inputfield" + (i + 1)).val() + " epoch!" + $("#inputfield1" + (i + 1)).val();
 //        alert(mapperdata);
 
         var style1;
@@ -987,12 +980,12 @@ function passvaluetoinputfield() {
         var dropshadowarr = dropshadow.split(" ");
         var dropshadowdata = " H-shadow:" + dropshadowarr[3] + " V-shadow:" + dropshadowarr[4] + " blur:" + dropshadowarr[5];
 
-        var dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')','').replace(')','').replace('(','');
-       
+        var dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
+
         var data = $("#" + addElementsArray[i]).css("color").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
         var data1 = $("#" + addElementsArray[i]).css("text-shadow").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
         var data2 = $("#" + addElementsArray[i]).css("background-color").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
-        var data3 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")",'').trim();
+        var data3 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
 
         var arr = data.split(',');
         var arr1 = data1.split(',');
@@ -1002,63 +995,63 @@ function passvaluetoinputfield() {
         var color2 = rgbToHex(parseInt(arr1[0]), parseInt(arr1[1]), parseInt(arr1[2]));
         var color3 = rgbToHex(parseInt(arr2[0]), parseInt(arr2[1]), parseInt(arr2[2]));
         var color4 = rgbToHex(parseInt(arr3[0]), parseInt(arr3[1]), parseInt(arr3[2]));
-        
+
         var dropshadowdata1;
-           var childPos = $("#" + addElementsArray[i]).offset();
-            var parentPos = $("#" + addElementsArray[i]).parent().parent().offset();
+        var childPos = $("#" + addElementsArray[i]).offset();
+        var parentPos = $("#" + addElementsArray[i]).parent().parent().offset();
 //            alert($("#" + addElementsArray[i]).attr("class"));          
-            var childOffset = {
-                top: childPos.top - parentPos.top,
-                left: childPos.left - parentPos.left
-            };
-           var x1= Math.round(childOffset.left);
-           var y1 = Math.round(childOffset.top);
-        
-       if(isNaN(dropshadow1[0])){
-          
-          var filterdata=$("#" + addElementsArray[i]).css("-webkit-filter").replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','').replace('(', ' ').replace(')','');
+        var childOffset = {
+            top: childPos.top - parentPos.top,
+            left: childPos.left - parentPos.left
+        };
+        var x1 = Math.round(childOffset.left);
+        var y1 = Math.round(childOffset.top);
+
+        if (isNaN(dropshadow1[0])) {
+
+            var filterdata = $("#" + addElementsArray[i]).css("-webkit-filter").replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '');
 //          alert(filterdata);
-          var filterdataarray=filterdata.split(' ');
-          dropshadowdata1=" blur!"+filterdataarray[1] +" grayscale!"+filterdataarray[3]+ " sepia!"+filterdataarray[5]+" saturate!"+filterdataarray[7]+
-                                 " huerotate!"+filterdataarray[9]+ " invert!"+filterdataarray[11]+
-                                 " brightness!"+filterdataarray[13]+" contrast!"+filterdataarray[15];
+            var filterdataarray = filterdata.split(' ');
+            dropshadowdata1 = " blur!" + filterdataarray[1] + " grayscale!" + filterdataarray[3] + " sepia!" + filterdataarray[5] + " saturate!" + filterdataarray[7] +
+                    " huerotate!" + filterdataarray[9] + " invert!" + filterdataarray[11] +
+                    " brightness!" + filterdataarray[13] + " contrast!" + filterdataarray[15];
 //           alert(dropshadowdata1);
-          
-       }
-        else{
-        var dropshadowarr1 = dropshadow1.split(" ");
-        dropshadowdata1 =" Drop-shadow-color!"+"#" + color4 + " H-shadow!" + dropshadowarr1[3] + " V-shadow!" + dropshadowarr1[4] + " blur!" + dropshadowarr1[5];
-         }
-        
-        
-       
+
+        }
+        else {
+            var dropshadowarr1 = dropshadow1.split(" ");
+            dropshadowdata1 = " Drop-shadow-color!" + "#" + color4 + " H-shadow!" + dropshadowarr1[3] + " V-shadow!" + dropshadowarr1[4] + " blur!" + dropshadowarr1[5];
+        }
+
+
+
         if (contenttype.startsWith('draggableImage')) {
 //            alert($("#" + addElementsArray[i]).css("background-image"));
-            style1 =  " tag!" + "image" +
-                     " x-co-ordinates!" + x1 +
-                     " y-co-ordinates!" + y1 +
-                     " width!"   +$("#" + addElementsArray[i]).css("width")+
-                     " height!"  +$("#" + addElementsArray[i]).css("height")+
-                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
-                     " background-image!" +$("#" + addElementsArray[i]).css("background-image")+
-                     dropshadowdata1+
+            style1 = " tag!" + "image" +
+                    " x-co-ordinates!" + x1 +
+                    " y-co-ordinates!" + y1 +
+                    " width!" + $("#" + addElementsArray[i]).css("width") +
+                    " height!" + $("#" + addElementsArray[i]).css("height") +
+                    " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
+                    " background-image!" + $("#" + addElementsArray[i]).css("background-image") +
+                    dropshadowdata1 +
 //                    " filter:" + $("#" + addElementsArray[i]).css("-webkit-filter") +
                     " Blend!" + $("#" + addElementsArray[i]).css("background-blend-mode") +
                     " blend-background-color!" + "#" + color3;
-                  
+
         }
 
         if (contenttype.startsWith('draggableText')) {
-            style1 = " tag!" + "text" + 
-                     " x-co-ordinates!" + x1 +
-                     " y-co-ordinates!" + y1 +
+            style1 = " tag!" + "text" +
+                    " x-co-ordinates!" + x1 +
+                    " y-co-ordinates!" + y1 +
                     " font-weight!" + $("#" + addElementsArray[i]).css("font-weight") +
                     " font-style!" + $("#" + addElementsArray[i]).css("font-style") +
                     " text-align!" + $("#" + addElementsArray[i]).css("text-align") +
                     " font-size!" + $("#" + addElementsArray[i]).css("font-size") +
                     " font-color!" + "#" + color1 +
                     " text-shadow!" + "#" + color2 +
-                     dropshadowdata +
+                    dropshadowdata +
                     " line-height!" + $("#" + addElementsArray[i]).css("line-height") +
                     " letter-spacing!" + $("#" + addElementsArray[i]).css("letter-spacing") +
                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
@@ -1067,25 +1060,25 @@ function passvaluetoinputfield() {
         }
         if (contenttype.startsWith('draggableButton')) {
 
-            style1 = " tag!" + "button"+
-                     " x-co-ordinates!" + x1 +
-                     " y-co-ordinates!" + y1;
+            style1 = " tag!" + "button" +
+                    " x-co-ordinates!" + x1 +
+                    " y-co-ordinates!" + y1;
 
         }
 
         if (contenttype.startsWith('draggableBlock')) {
 
             style1 = " tag!" + "block" +
-                     " x-co-ordinates!" + x1 +
-                     " y-co-ordinates!" + y1 +
+                    " x-co-ordinates!" + x1 +
+                    " y-co-ordinates!" + y1 +
                     " width!" + $("#" + addElementsArray[i]).css("width") +
                     " height!" + $("#" + addElementsArray[i]).css("height") +
                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
-                    " background-color!" + "#" + color3+ dropshadowdata1;
+                    " background-color!" + "#" + color3 + dropshadowdata1;
         }
-        textareadetails[i] = style1+ " type!" + addElementsArray[i];
-               //alert(textareadetails); 
-                
+        textareadetails[i] = style1 + " type!" + addElementsArray[i];
+        //alert(textareadetails); 
+
 
 
         $("#textstyle").val(textareadetails);
