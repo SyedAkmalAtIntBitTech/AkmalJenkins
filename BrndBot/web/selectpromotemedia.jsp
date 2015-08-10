@@ -66,7 +66,7 @@
                         <p id="text3">How would you like to promote it?</p> 
                         <ul id="promotebuttonlist">
                             <li><a onclick="selected_media('socialeditor')"><span id="social" class="glyphicon glyphicon-comment"></span></a><p id="promotebutton">Social</p></li>
-                                <li><a onclick="selected_media('emaileditor')" ><span id="email" class="glyphicon glyphicon-envelope"></span></a><p id="promotebutton">Email</p></li>
+                                <li><a onclick="selected_media('emailsubject')" ><span id="email" class="glyphicon glyphicon-envelope"></span></a><p id="promotebutton">Email</p></li>
 <!--                                <li><a ><span id="print" class="glyphicon glyphicon-print"></span></a><p id="promotebutton">Print</p></li>-->
                         </ul>    
                         </div>

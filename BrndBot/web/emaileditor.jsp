@@ -855,29 +855,20 @@ and open the template in the editor.
 
         <script>
 
-                                                    $("#continue").click(function (){
-//                                alert($(".preview").children());
-//                                     alert(getHost());
+                              $("#continue").click(function (){
+                                        $.ajax({
+                                        url: getHost() + "EmailHtmlData", 
+                                        method: "post",
+                                        data:{htmlString: $(".dataForEmail").html()},
+                                        success: function (responseText) {
 
-//                                $.post("emailsubject.jsp",
-//                                    { htmlString: $(".preview").html()},
-//                                    function(data){
-//                                      alert("Data Loaded: " + data);
-//                                    }
-//                                  );
+                                            document.location.href = "emailpreview.jsp";
+                                        }
 
-
-                                            $.ajax({
-                                            url: getHost() + "EmailTextDataServlet",
-                                                    method: "post",
-                                                    data:{htmlString: $(".dataForEmail").html()},
-                                                    success: function (responseText) {
-
-                                                    document.location.href = "emailsubject.jsp";
-                                                    }
-
+                                        });
                                             });
-                                            });</script>        
+                                                                                    
+        </script>        
         <script>
                                                     //    var selectedDivId;     
                                                     var selectedImageId;
