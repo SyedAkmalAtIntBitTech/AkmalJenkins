@@ -33,10 +33,16 @@ and open the template in the editor.
                 padding: 7px;
             }
             .btn-info{
+                vertical-align: central;
                 background-color: #E65C00;
+                height:30px;
+                text-align:center;
                 width: 120px;
                 border-color: #E65C00;
-                border-radius: 10px; 
+                border-radius: 5px; 
+                margin-left:auto;
+                display:block;
+                margin-right:auto;
             }
             .btn-info:hover,.btn-info:focus{
                 background-color: #B24700;
@@ -63,13 +69,15 @@ and open the template in the editor.
                 top:  90px;
             }
 
-            .datafromindbody li{
+/*            .datafromindbody li{
                 display: inline-table;
                 padding-left: 5px;
                 font-size: 18px;
-
-
-
+*/
+ .datafromindbody li{
+     display:inline-table;
+                font-size: 21.6px;
+                margin-left: -20px;
             }
             #paginationbar{
                 position: relative;
@@ -77,7 +85,8 @@ and open the template in the editor.
                 margin-left: 70px;    
             }
             #continuebutton{
-                margin-top: 120px;
+               position: relative;
+                top: 90px;
             }
             .datafromindbody:hover{
                 background-color: #00CC99;
@@ -87,6 +96,22 @@ and open the template in the editor.
             }
             .mindbodyOneRowData:focus {
                 background-color: #00CC99;
+            }
+            .mindbodyOneRowData{
+                position: relative;
+                margin-top: 46px;
+                left:-80px;
+                font-family: ProximaNova-Semibold;
+                font-size: 21.6px;
+                color: #2d4355;
+                font-style: normal;
+                text-align: left;
+                line-height: 25.9px;
+                letter-spacing: 0em;
+            }
+            .diff{
+              position: relative;
+              top:55px;
             }
 
         </style>
@@ -184,31 +209,8 @@ and open the template in the editor.
     <body ng-app = "myapp">
 
         <div class="row" ng-controller="controllerGetMindBody">
-            <div id="leftnav" class="col-md-1">
-                <nav class="navbar navbar-default " role="navigation">
-                    <div class="navbar-header">
-
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav nav-stacked">
-                            <li><br><br><img src="images/logo.png"  alt="logo" class="img-responsive" width="40"><br></li>
-                            <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
-                            <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
-                            <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
-                            <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
-                            <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br></li> 
-                            <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br></li> 
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </nav>
-
-            </div><!--/end left column-->
+             <jsp:include page="mainmenu.html"/>
+           <!--/end left column-->
 
             <div class="col-md-11 ">
 
@@ -220,7 +222,7 @@ and open the template in the editor.
             </div>  
 
 
-            <div class="col-md-11">
+            <div class="col-md-11 diff">
                 
                 <div  class="tab-pane active" id="picktheme" ng-init="showData()">
                     <div>

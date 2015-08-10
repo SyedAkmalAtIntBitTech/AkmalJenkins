@@ -58,8 +58,19 @@ and open the template in the editor.
                 /*                    left: 25px;
                                     top: 180px;*/
             }
-            #subpromotelist  li{
+           #subpromotelist  li{
                 list-style-type: none;
+                font-weight: bold;
+                position:relative;
+                left: 95px;
+                font-family:ProximaNova,Semibold;
+                font-size: 1.13em;
+                color: #2d4355;
+                font-style: normal;
+                text-align: center;
+                line-height: 1.21em;
+                letter-spacing: 0em;
+
             }
             #sidebar-wrapper {
                 margin-left:-80px;

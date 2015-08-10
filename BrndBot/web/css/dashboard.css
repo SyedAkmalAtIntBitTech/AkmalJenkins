@@ -7,34 +7,167 @@ and open the template in the editor.
     Created on : Jun 11, 2015, 5:24:12 PM
     Author     : Sandeep Kumar at IntBit Technologies.
 */
+.navicons{
+         height:22px;
+         left: -5px;
+         position: relative;
+         
+}
+.navicons:hover{ color:#2D4355;
+}
 
-#leftnav{
+.navgap{
+    margin-top:120px;
+}
+
+#leftnav{    
+    position:fixed;
+    z-index:10000;
+    text-align:center;
+    width:100px;
+    line-height:100%;  
+    height:100%;
+    max-height:100%;
+    
+    
+}
+/*#leftnav{
     
     position: relative;
     margin-left: -10px;
     
+}*/
+
+/*#text1{
+   font-size: x-small;
+}*/
+#text1{
+   color:#7b7b7c;
+   font-size:8px;
+   font-family:ProximaNovaSoft-Medium;
+   position: relative;
+   left: -5px;
+   font-style:normal;
+   text-align:left;
+   line-height:8.4px;
+   letter-spacing:0em;
+   opacity:1;
+}
+#text1:hover{
+    color:#2D4355;
 }
 
-#text1{
-   font-size: x-small;
+#text2:hover{     
+    color:#2D4355;
 }
 #text2{
+   color:#7b7b7c;
+   font-size:11px;
+   font-family:ProximaNovaSoft-Medium;
+   left:-5px;
+   position: relative;
+   font-style:normal;
+   text-align:center;
+   line-height:8.4px;   
+   opacity:1;
+}
+/*#text2{
     font-size:small;
     font-weight: bold;
+}*/
+
+#text3
+{
+    position: relative;
+    left: 20px;
+    top: 114px;   
+    font-family:ProximaNova-Semibold;
+    font-size:34.2px;
+    color:#454141;
+    font-style: normal;
+    text-align:left;
+    line-height: 41px;
+    letter-spacing: 0em;
 }
+/*
 #text3{
     position: relative;
     left:80px;
     top: 120px;
     
     font-size: 28px;
+}*/
+#promtext{
+    position:relative;
+    top:81px;
+    left:120px;
+    font-family: ProximaNova-Semibold;
+    font-size: 32px;
+    color: #454141;
+    font-style: normal;
+    text-align: left;
+    line-height: 38.3 px;
+    letter-spacing: 0 em;   
+}
+#text5{ 
+    position:relative;
+    left:43%;
+    top:50%;
+    font-family:ProximaNova-Semibold;
+    font-size:250%;
+    Color: #454141;
+    font-style: normal;
+    padding-top: 25%;
+    padding-right: 30%;   
+    float:left;   
+    
 }
 
-#text4{
+#text6{ 
+    position:relative;
+    left:35%;
+    top:50%;
+    font-family:ProximaNova-Semibold;
+    font-size:250%;
+    Color: #454141;
+    font-style: normal;
+    padding-top: 25%;
+    padding-right: 30%;   
+    float:left;   
+    
+}
+/*#text4{
     position: relative;
     left: 18px;
     font-size: x-small;
+}*/
+
+#text4{
+    position: relative;
+    left: 4%;
+    font-family: ProximaNovaSoft-Regular;
+    font-size: 13px;
+    color: #6b6564;
+    font-style: normal;
+    text-align: left;
+    line-height:18.6px;
+    letter-spacing: 0em;
 }
+
+#promotelist li{
+    display: inline-block;
+    position:relative;
+    left: 150px;
+    top: 142px;
+    font-family:ProximaNovaSoft-Regular;
+    font-size:13px;
+    Color:#6b6564;
+    font-style:normal;
+    text-align:left;
+    line-height:15.6px;
+    letter-spacing:0em;
+}
+/*
 #promotelist li{
     display: inline-block;
     position: relative;
@@ -43,14 +176,41 @@ and open the template in the editor.
 /*    margin-top: 160px;*/
 /*    margin-left:  12px;*/
    
-}
+
 #promotebuttonlist li{
         display: inline-block;
         position: relative;
-        left: 25px;
-        top: 150px;
+        left: 80px;
+        top: 140px;
+        margin-left:53px;
+}
+
+#promotelist img{
+    margin: 0px 39px 0px 0px;
+    left: 150px;
+    font-family: ProximaNova-Semibold;
+    font-size: 1.13em;
+    color: #2d4355;
+    font-style: normal;
+    text-align: left;
+    line-height: 1.21em;
+    letter-spacing: 0em;
+}
+
+#subpromotelist  li{
+                list-style-type: none;
+                font-weight: bold;
+                position:relative;
+                left: 50px;
+                font-family:ProximaNova,Semibold;
+                font-size: 1.13em;
+                color: #2d4355;
+                font-style: normal;
+                text-align: center;
+                line-height: 1.21em;
+                letter-spacing: 0em;
 }
 
 #promoteimage{
-    margin: 18px;
+    margin: 10px;
 }
