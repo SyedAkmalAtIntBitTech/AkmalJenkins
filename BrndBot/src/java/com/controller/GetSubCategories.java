@@ -6,9 +6,11 @@
 package com.controller;
 
 import com.google.gson.Gson;
+import com.intbit.ConnectionManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
@@ -48,7 +50,7 @@ public class GetSubCategories extends BrndBotBaseHttpServlet {
         getSqlMethodsInstance().session = request.getSession(true);
         JSONArray jsonarr = new JSONArray();
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             BufferedReader reader = request.getReader();
             String line = null;
             while ((line = reader.readLine()) != null) {
@@ -60,7 +62,7 @@ public class GetSubCategories extends BrndBotBaseHttpServlet {
 
             String category_id = (String) joUser.get("CategoryID");
             String query = "select * from tbl_sub_category where category_id='" + category_id + "'";
-            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
             result_set = prepared_statement.executeQuery();
 
             while (result_set.next()) {
@@ -84,7 +86,6 @@ public class GetSubCategories extends BrndBotBaseHttpServlet {
         } finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
-            getSqlMethodsInstance().closeConnection();
         }
 
     }

@@ -6,6 +6,8 @@
 package admin.controller;
 
 import com.controller.SqlMethods;
+import com.intbit.ConnectionManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,10 +30,10 @@ public class Organization {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         boolean check = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select * from tbl_organization where organization_name='" + organization_name + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
                 check = true;
@@ -51,13 +53,12 @@ public class Organization {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Insert into tbl_organization (organization_name) values(?)";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setString(1, organization_name);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -72,13 +73,12 @@ public class Organization {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_organization"
                     + " SET organization_name='" + organization_name + "'  WHERE id='" + org_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -93,13 +93,12 @@ public class Organization {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Delete From tbl_organization"
                     + " WHERE id='" + org_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
