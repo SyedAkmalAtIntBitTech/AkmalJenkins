@@ -4,6 +4,8 @@
     Author     : intbit
 --%>
 
+<%@page import="com.intbit.ConnectionManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -144,7 +146,6 @@
         PreparedStatement ps;
         ResultSet rs;
         String Query = "";
-        SqlMethods SM = new SqlMethods();
         Integer id = 0;
         String org_name = "";
         String brand_name = "";
@@ -360,27 +361,29 @@
                 
                 Organization : <select name="organization" onchange="showUsers(this.value)">
                     <% 
-                        try {
-                            
-                            Query = "Select * from tbl_organization";
-                            ps = SM.getConnection().prepareStatement(Query);
+                        Connection conn = null;
+                        try{
+                            try {
+                                conn = ConnectionManager.getInstance().getConnection();
+                                Query = "Select * from tbl_organization";
+                                ps = conn.prepareStatement(Query);
 
-                            rs = ps.executeQuery();
-                            while(rs.next()){
-                                id = rs.getInt("id");
-                                org_name = rs.getString("organization_name");
-                    %>            
-                                        <option value="<%= id %>"><%= org_name %></option>
-                    <%
-                            }
-                            }catch (Exception e){
-                                System.out.println(e. getCause());
-                                System.out.println(e.getMessage());
-                            }
+                                rs = ps.executeQuery();
+                                while(rs.next()){
+                                    id = rs.getInt("id");
+                                    org_name = rs.getString("organization_name");
+                        %>            
+                                    <option value="<%= id %>"><%= org_name %></option>
+                        <%
+                                }
+                                }catch (Exception e){
+                                    System.out.println(e. getCause());
+                                    System.out.println(e.getMessage());
+                                }finally{
+                                    ps.close();
+                                    rs.close();
+                                }
 
-                            ps.close();
-                            rs.close();
-//                            SM.con.close();
                     %>
                                       </select>
                 
@@ -388,7 +391,7 @@
                     <%
                         try{
                             Query = "Select * from tbl_brand_personality";
-                            ps = SM.getConnection().prepareStatement(Query);
+                            ps = conn.prepareStatement(Query);
 
                             rs = ps.executeQuery();
                             while(rs.next()){
@@ -397,13 +400,16 @@
                     %>
                             <option value="<%= id %>"><%= brand_name %></option>
                     <%
+                                }
+                            }catch (Exception e){
+                                System.out.println(e.getCause());
+                                System.out.println(e.getMessage());
+                            }finally{
+                                rs.close();
+                                ps.close();
                             }
-                        }catch (Exception e){
-                            System.out.println(e.getCause());
-                            System.out.println(e.getMessage());
                         }finally{
-                            rs.close();
-                            ps.close();
+                            ConnectionManager.getInstance().closeConnection(conn);
                         }
                             
                     %>

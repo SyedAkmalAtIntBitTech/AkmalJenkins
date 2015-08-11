@@ -31,7 +31,6 @@
         Integer num = 1;
         String exist = "";
         String exist1 = "";
-        SqlMethods sql_methods = new SqlMethods();
         PreparedStatement prepared_statement;
         ResultSet result_set;
         String query_string;

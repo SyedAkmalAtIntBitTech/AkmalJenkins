@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.intbit.ConnectionManager;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,26 +44,11 @@ public class SqlMethods {
     public String error = "system failure error";
     public static final String k_mind_body = "Mind_Body_Data";
 
-    public SqlMethods() {
-         Context envCtx;
-        try {
-            
-            System.out.println("DisConnected");
-            envCtx = (Context) new InitialContext().lookup("java:comp/env");
-            DataSource datasource = (DataSource) envCtx.lookup("jdbc/postgres");
-            if (this.connection == null ){
-                this.connection = datasource.getConnection();
-                System.out.println("Connected");
-            }
-        } catch (NamingException ex) {
-            Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public Connection getConnection() throws SQLException {
-        return this.connection;
+    private static final ConnectionManager connectionManager 
+            = ConnectionManager.getInstance();
+    
+    public static Connection getConnection() throws SQLException {
+        return connectionManager.getConnection();
     }
 
     public void close(ResultSet rs, Statement ps) {
@@ -83,14 +69,27 @@ public class SqlMethods {
         }
     }
     
+    public static void closeConnection(Connection connection) throws SQLException {
+        connectionManager.closeConnection(connection);
+    }
+    
     public void closeConnection() {
-        try {
-            if (getConnection() != null) {
-                getConnection().close();
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        /*
+        this is no longer relevent because we have to invoke 
+        close() on the Connection object. 
+        One can use 
+        connectionManager.closeConnection(connection) 
+        OR
+        SqlMethods.closeConnection(connection)
+        */
+        
+//        try {
+//            if (getConnection() != null) {
+//                getConnection().close();
+//        }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     public void setUpperLimit() {
