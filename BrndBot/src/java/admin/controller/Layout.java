@@ -6,6 +6,8 @@
 package admin.controller;
 
 import com.controller.SqlMethods;
+import com.intbit.ConnectionManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,10 +31,10 @@ public class Layout {
         ResultSet result_set = null;
 
         boolean check = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select * from tbl_brand_personality where brand_name='" + brand_name + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
                 check = true;
@@ -54,18 +56,15 @@ public class Layout {
         ResultSet result_set = null;
 
         String fileName = "";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_brand_personality where id=" + brand_id + "";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
                 fileName = result_set.getString("image");
             }
-            result_set.close();
-            prepared_statement.close();
-
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -82,10 +81,10 @@ public class Layout {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Insert into tbl_model (organization_id, user_id, category_id, layout_file_name, model_file_name, email, social, sub_category_id, brand_id, block_id) values(?,?,?,?,?,?,?,?,?,?)";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setInt(1, organization_id);
             prepared_statement.setInt(2, user_id);
             prepared_statement.setInt(3, category_id);
@@ -98,7 +97,6 @@ public class Layout {
             prepared_statement.setInt(10, block_id);
 
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -114,13 +112,12 @@ public class Layout {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_brand_personality"
                     + " SET brand_name='" + brand_name + "', look_id=" + look_id + ", image='" + image + "'  WHERE id='" + brand_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -136,13 +133,12 @@ public class Layout {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Delete From tbl_brand_personality"
                     + " WHERE id='" + org_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

@@ -6,6 +6,8 @@
 package admin.controller;
 
 import com.controller.SqlMethods;
+import com.intbit.ConnectionManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,10 +30,10 @@ public class Colors {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         boolean check = false;
-        try {
-            query_string = "select * from tbl_colors where color_hex='" + color_hex + "' and color_name='" + color_name + "'";
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "select * from tbl_colors where color_hex='" + color_hex + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
                 check = true;
@@ -51,10 +53,10 @@ public class Colors {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Insert into tbl_colors (color_hex, color_name) values(?,?)";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setString(1, color_hex);
             prepared_statement.setString(2, color_name);
             prepared_statement.executeUpdate();
@@ -69,15 +71,15 @@ public class Colors {
 
     }
 
-    public void edit(Integer org_id, String color_hex, String color_name) throws SQLException {
+    public void edit(Integer color_id, String color_hex, String color_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_colors"
-                    + " SET color_hex='" + color_hex + "', color_name='" + color_name + "'  WHERE id='" + org_id + "'";
+                    + " SET color_hex='" + color_hex + "', color_name='" + color_name + "'  WHERE id='" + color_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
             prepared_statement.close();
         } catch (Exception e) {
@@ -94,11 +96,11 @@ public class Colors {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Delete From tbl_colors"
                     + " WHERE id='" + org_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
             prepared_statement.close();
         } catch (Exception e) {

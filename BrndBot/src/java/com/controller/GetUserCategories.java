@@ -6,8 +6,10 @@
 package com.controller;
 
 import com.google.gson.Gson;
+import com.intbit.ConnectionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
@@ -43,12 +45,12 @@ public class GetUserCategories extends BrndBotBaseHttpServlet {
         ResultSet result_set = null;
 
         getSqlMethodsInstance().session = request.getSession(true);
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
             Integer organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
             String query = "Select * from tbl_category where organization_id='" + organization_id + "' Order By id ASC";
-            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
 
             result_set = prepared_statement.executeQuery();
 
@@ -72,7 +74,6 @@ public class GetUserCategories extends BrndBotBaseHttpServlet {
         }finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
-            getSqlMethodsInstance().closeConnection();
         }
     }
 

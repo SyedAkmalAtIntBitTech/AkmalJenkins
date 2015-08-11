@@ -132,6 +132,7 @@
                         <td>ID Number </td>
                         <td>Look Name</td>
                         <td>Look Image</td>
+                        <td>Organization ID</td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -148,7 +149,8 @@
                         <td align="left">&nbsp;<%= num %></td>
                         <td><%= result_set.getString("look_name")%></td>
                         <td><a href="../images/Lookimages/<%= result_set.getString("file_name")%>"><%= result_set.getString("file_name")%></a></td>
-                        <td><button class="btn btn-info" id="change" name="change" value="edit" ng-click="changeLooks(<%=result_set.getInt("id")%>,'<%=result_set.getString("look_name")%>')">edit</button></td>
+                        <td><%= result_set.getString("organization_id")%></td>
+                        <td><button class="btn btn-info" id="change" name="change" value="edit" ng-click="changeLooks(<%=result_set.getInt("id")%>,'<%=result_set.getString("look_name")%>','<%=result_set.getString("organization_id")%>' ,'<%=result_set.getString("file_name")%>')">edit</button></td>
                         <td><button class="btn btn-info" id="organization" name="organization" value="delete" ng-click="deleteLooks(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
                     <%

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.intbit.ConnectionManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import org.json.simple.JSONArray;
@@ -52,10 +54,10 @@ public class GetLooks extends BrndBotBaseHttpServlet {
     ResultSet result_set = null;
 
         getSqlMethodsInstance().session = request.getSession(true);
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             
             query = "Select * from tbl_look limit 4";
-            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
             result_set = prepared_statement.executeQuery();
             while (result_set.next()) {
                 look lk = new look();
@@ -72,7 +74,7 @@ public class GetLooks extends BrndBotBaseHttpServlet {
             jsonobject.put("first", jsonarr);
 
             query1 = "Select * from tbl_look limit 4 OFFSET 4";
-            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query1);
+            prepared_statement = connection.prepareStatement(query1);
             result_set = prepared_statement.executeQuery();
             while (result_set.next()) {
                 look lk = new look();
@@ -96,7 +98,6 @@ public class GetLooks extends BrndBotBaseHttpServlet {
         }finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
-            getSqlMethodsInstance().closeConnection();
         }
     }
 

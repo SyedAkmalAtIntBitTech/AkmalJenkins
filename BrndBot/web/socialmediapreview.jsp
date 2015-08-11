@@ -161,29 +161,31 @@
             <input type="hidden" id="accesstoken" name="accesstoken" value='<%=accesstoken%>'/>
             <input type="hidden" id="twittweraccestoken" name="twittweraccestoken" value=<%=twitteracesstoken[0]%>>
             <input type="hidden" id="twitterTokenSecret" name="twitterTokenSecret" value=<%=twitteracesstoken[1]%>>
-            <input type="hidden" id="isFacebook" name="isFacebook" value=<%= isFacebook%>>
-            <input type="hidden" id="isTwitter" name="isTwitter" value=<%= isTwitter%>>
+            <input type="text" id="isFacebook" name="isFacebook" value='<%= isFacebook%>'/>
+            <input type="text" id="isTwitter" name="isTwitter" value='<%= isTwitter%>'/>
 
         </div>
         <script>
-                            $(".cross").hide();
-                            $(".menu").hide();
-                            $(".hamburger").click(function () {
-                                 $(".menu").slideToggle("slow", function () {
-                                     $(".hamburger").hide();
-                                             $(".cross").show();
-                                 });
-                             });
-                            $(".cross").click(function () {
-                                $(".menu").slideToggle("slow", function () {
-                                $(".cross").hide();
-                                        $(".hamburger").show();
-                                });
-                            });
+                $(".cross").hide();
+                $(".menu").hide();
+                $(".hamburger").click(function () {
+                     $(".menu").slideToggle("slow", function () {
+                         $(".hamburger").hide();
+                                 $(".cross").show();
+                     });
+                 });
+                $(".cross").click(function () {
+                    $(".menu").slideToggle("slow", function () {
+                    $(".cross").hide();
+                            $(".hamburger").show();
+                    });
+                });
                             
             $(document).ready(function () {
+                var isFacebook = "xyz";
                 var isFacebook = $("#isFacebook").val();
-
+                alert(isFacebook);
+                
                 var isTwitter = $("#isTwitter").val();
 
                 if (isFacebook == "false") {
@@ -191,8 +193,6 @@
                     $("#fabookpreviewdiv").hide();
                     $("#facebookcancel").hide();
                     $("#fbtextcontainer").hide();
-
-
                 }
                 else {
                     $("#facebookimage").show();
@@ -204,15 +204,13 @@
                     $("#twitterimage").hide();
                     $("#twitterpreviewdiv").hide();
                     $("#twittercancel").hide();
-
                 }
                 else {
                     $("#twitterimage").show();
                     $("#twitterpreviewdiv").show();
-
                 }
 
-                $("#chnagetolinkpost").click(function () {
+                    $("#chnagetolinkpost").click(function () {
 
                     $("#linkpostdiv").show();
                 });
@@ -245,6 +243,7 @@
                     var isFacebook = $("#isFacebook").val();
                     var isTwitter = $("#isTwitter").val();
                     var image_name= $("#imageToPost").val();
+
                     if (isFacebook == "true" || isTwitter == "true") {
                         $.ajax({
                             url: 'PostToSocial',

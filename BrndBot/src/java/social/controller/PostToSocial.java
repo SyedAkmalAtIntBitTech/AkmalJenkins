@@ -87,7 +87,8 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 facebook.postFeed(post);
             }
             try {
-            getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, imagePostURL);
+                
+            getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, "temp/"+getImageFile);
             }catch (Exception ex){
                 System.out.println(ex.getCause());
                 System.out.println(ex.getMessage());

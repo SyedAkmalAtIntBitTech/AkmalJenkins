@@ -37,7 +37,6 @@ public class SqlMethods {
     HttpServletResponse response;
     public HttpSession session;
     public HttpSession admin_session;
-    private Connection connection;
 
     public static Integer limit = 4;
     public Integer upper_limit = 4;
@@ -136,10 +135,10 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select * from tbl_user_login_details where id=" + userId + "";
 
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
@@ -159,10 +158,10 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             query_string = "Insert Into tbl_user_images (user_id, image_name) values (?,?)";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             prepared_statement.setInt(1, user_id);
             prepared_statement.setString(2, image_name);
@@ -181,11 +180,11 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Delete From tbl_user_images"
                     + " WHERE id='" + image_id + "'";
 
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getCause());
@@ -200,10 +199,10 @@ public class SqlMethods {
         ResultSet result_set = null;
 
         Integer org_id = 0;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select * from tbl_user_login_details where id=" + userId + "";
 
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
@@ -224,9 +223,9 @@ public class SqlMethods {
         ResultSet result_set = null;
 
         String org_name = "";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_organization where id=" + orgID + "";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
@@ -248,9 +247,9 @@ public class SqlMethods {
 
         List AL = new ArrayList();
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_organization";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             while (result_set.next()) {
@@ -270,9 +269,9 @@ public class SqlMethods {
         ResultSet result_set = null;
 
         TblColors TC = new TblColors();
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_colors where id=" + id + "";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
@@ -295,10 +294,10 @@ public class SqlMethods {
         ResultSet result_set = null;
 
         boolean checked = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             query_string = "Select * from tbl_user_login_details where user_name='" + UserName + "'";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
@@ -320,10 +319,10 @@ public class SqlMethods {
         ResultSet result_set = null;
 
         boolean checked = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             query_string = "Select * from tbl_user_login_details where user_name='" + UserName + "' and password='" + Password + "'";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
@@ -344,10 +343,10 @@ public class SqlMethods {
         ResultSet result_set = null;
 
         boolean checked = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             query_string = "Select * from tbl_user_login_details where user_name='" + UserName + "'";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
@@ -369,9 +368,9 @@ public class SqlMethods {
 
         PGobject pg_object = new PGobject();
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Insert Into tbl_user_preferences(user_id,brand_id,font_theme_id,location,look_id, user_preferences) Values(?,?,?,?,?,?)";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             prepared_statement.setInt(1, user_id);
             prepared_statement.setInt(2, brand_id);
@@ -401,9 +400,9 @@ public class SqlMethods {
 
         PGobject pg_object = new PGobject();
         Boolean returnResult = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Update tbl_user_preferences SET user_preferences=? where user_id=?";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             pg_object.setType("json");
             pg_object.setValue(userPreferenceJSON.toString());
@@ -427,9 +426,9 @@ public class SqlMethods {
         ResultSet result_set = null;
 
         Integer IDNO = 0;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select id from tbl_brand_font_family where brand_id='" + brndid + "'";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
@@ -449,9 +448,9 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Insert Into tbl_user_login_details(user_name,password,organizationid,logo_name,company_name) Values(?,?,?,?,?)";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             prepared_statement.setString(1, User_id);
             prepared_statement.setString(2, password);
@@ -474,11 +473,11 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_user_login_details"
                     + "   SET logo_name='" + fileName + "'  WHERE id='" + idno + "'";
 
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getCause());
@@ -494,11 +493,11 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_user_login_details"
                     + "   SET organizationid ='" + Org_id + "', company_name='" + Company_name + "' WHERE id='" + idno + "'";
 
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getCause());
@@ -514,7 +513,7 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             Date expdatee = new Date();
 
@@ -523,7 +522,7 @@ public class SqlMethods {
 
             query_string = "Insert into tbl_forgot_Password(userid, randomlink, expdate, exptime) Values (?,?,?,?)";
 
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setString(1, String.valueOf(userid));
             prepared_statement.setString(2, randvalue);
             prepared_statement.setDate(3, sdat);
@@ -546,16 +545,16 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_user_login_details"
                     + " SET password ='" + password + "' WHERE id=" + id + "";
 
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
             prepared_statement.close();
 
             query_string = "Delete From tbl_forgot_password where userid='" + id + "'";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
 
         } catch (Exception e) {
@@ -573,7 +572,7 @@ public class SqlMethods {
 
         Date expdatee = new Date();
         String userid = "false";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             java.sql.Date sdat = new java.sql.Date(expdatee.getYear(), expdatee.getMonth(), expdatee.getDate());
 
             java.sql.Time time = new Time(System.currentTimeMillis());
@@ -581,7 +580,7 @@ public class SqlMethods {
 
             query_string = "Select * from tbl_forgot_password where randomlink='" + hash + "' and expdate='" + sdat + "'";
 
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
 
@@ -607,9 +606,9 @@ public class SqlMethods {
         ResultSet result_set = null;
 
         String userid = "";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_forgot_password where randomlink='" + hash + "'";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
                 userid = result_set.getString("userid");
@@ -629,9 +628,9 @@ public class SqlMethods {
         ResultSet result_set = null;
 
         int ID = 0;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select id from tbl_user_login_details where user_name ='" + email + "'";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             result_set = prepared_statement.executeQuery();
 
@@ -660,11 +659,11 @@ public class SqlMethods {
             isEmail = true;
         }
         String mapper_file_name = "";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             if (model_mapper_id == 0) {
                 query_string = "Select * from tbl_model where category_id=" + category_id + " and (user_id=" + user_id + " or user_id=0) and organization_id=" + organization_id + " and sub_category_id=" + sub_category_id + " and social=" + !isEmail + " and email="+isEmail +" and block_id="+ block_id+ " order by id ASC";
 
-                Statement sta = getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                Statement sta = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
                 // Catch the ResultSet object
                 result_set = sta.executeQuery(query_string);
@@ -684,7 +683,7 @@ public class SqlMethods {
 
                 query_string = "Select model_file_name from tbl_model where id=" + model_mapper_id + "";
 
-                prepared_statement = getConnection().prepareStatement(query_string);
+                prepared_statement = connection.prepareStatement(query_string);
                 result_set = prepared_statement.executeQuery();
                 if (result_set.next()) {
                     mapper_file_name = result_set.getString(1);
@@ -709,9 +708,9 @@ public class SqlMethods {
         JSONParser parser = new JSONParser();
         org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             result_set = prepared_statement.executeQuery();
 
@@ -741,9 +740,9 @@ public class SqlMethods {
         org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
         JSONArray emailListJSONArray = new JSONArray();
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             result_set = prepared_statement.executeQuery();
 
@@ -778,11 +777,11 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try{
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             
             query_string = "Select location from tbl_user_preferences where user_id="+user_id;
 
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             
             if (result_set.next()){
@@ -802,61 +801,64 @@ public class SqlMethods {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-
-        query_string = "Select color1, color2, color3, color4, color5, color6, theme_name from tbl_brand_color_theme order by id Asc";
-        prepared_statement = getConnection().prepareStatement(query_string);
-        result_set = prepared_statement.executeQuery();
-        JSONObject json1 = new JSONObject();
         org.json.simple.JSONArray jsonarray = new org.json.simple.JSONArray();
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "Select color1, color2, color3, color4, color5, color6, theme_name from tbl_brand_color_theme order by id Asc";
+            prepared_statement = connection.prepareStatement(query_string);
+            result_set = prepared_statement.executeQuery();
+            JSONObject json1 = new JSONObject();
 
-        Integer num = 1;
-        Integer num1 = 0;
-        num1 = num;
-        Integer themeNum = 1;
-        String theme = "";
-        while (result_set.next()) {
-            TblBrandColorTheme color_theme = new TblBrandColorTheme();
-            TblColors colors = new TblColors();
-            org.json.simple.JSONArray jarr = new org.json.simple.JSONArray();
+            Integer num = 1;
+            Integer num1 = 0;
+            num1 = num;
+            Integer themeNum = 1;
+            String theme = "";
+            while (result_set.next()) {
+                TblBrandColorTheme color_theme = new TblBrandColorTheme();
+                TblColors colors = new TblColors();
+                org.json.simple.JSONArray jarr = new org.json.simple.JSONArray();
 
-            colors = getColors(String.valueOf(result_set.getInt(1)), num1);
-            jarr.add(colors);
+                colors = getColors(String.valueOf(result_set.getInt(1)), num1);
+                jarr.add(colors);
 
-            if (themeNum == 5) {
-                themeNum = 1;
+                if (themeNum == 5) {
+                    themeNum = 1;
+                }
+
+                num1 = num1 + 1;
+                colors = getColors(String.valueOf(result_set.getInt(2)), num1);
+                jarr.add(colors);
+
+                num1 = num1 + 1;
+                colors = getColors(String.valueOf(result_set.getInt(3)), num1);
+                jarr.add(colors);
+
+                num1 = num1 + 1;
+                colors = getColors(String.valueOf(result_set.getInt(4)), num1);
+                jarr.add(colors);
+                num1 = num1 + 1;
+
+                colors = getColors(String.valueOf(result_set.getInt(5)), num1);
+                jarr.add(colors);
+                num1 = num1 + 1;
+
+                colors = getColors(String.valueOf(result_set.getInt(6)), num1);
+                jarr.add(colors);
+                if (num1 == 24) {
+                    num1 = 0;
+                }
+                num1 = num1 + 1;
+                theme = "theme" + themeNum;
+
+                color_theme.setId(theme);
+                color_theme.setTheme_name(result_set.getString(7));
+                jarr.add(color_theme);
+                json1.put(result_set.getString(7), jarr);
+                jsonarray.add(jarr);
+                themeNum++;
             }
-
-            num1 = num1 + 1;
-            colors = getColors(String.valueOf(result_set.getInt(2)), num1);
-            jarr.add(colors);
-
-            num1 = num1 + 1;
-            colors = getColors(String.valueOf(result_set.getInt(3)), num1);
-            jarr.add(colors);
-
-            num1 = num1 + 1;
-            colors = getColors(String.valueOf(result_set.getInt(4)), num1);
-            jarr.add(colors);
-            num1 = num1 + 1;
-
-            colors = getColors(String.valueOf(result_set.getInt(5)), num1);
-            jarr.add(colors);
-            num1 = num1 + 1;
-
-            colors = getColors(String.valueOf(result_set.getInt(6)), num1);
-            jarr.add(colors);
-            if (num1 == 24) {
-                num1 = 0;
-            }
-            num1 = num1 + 1;
-            theme = "theme" + themeNum;
-
-            color_theme.setId(theme);
-            color_theme.setTheme_name(result_set.getString(7));
-            jarr.add(color_theme);
-            json1.put(result_set.getString(7), jarr);
-            jsonarray.add(jarr);
-            themeNum++;
+        }finally{
+            close(result_set, prepared_statement);
         }
         return jsonarray;
 
@@ -868,11 +870,11 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try{
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             
             query_string = "Select brand_id from tbl_user_preferences where user_id="+user_id;
 
-            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             
             if (result_set.next()){

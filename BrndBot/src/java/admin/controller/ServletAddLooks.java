@@ -107,7 +107,7 @@ public class ServletAddLooks extends BrndBotBaseHttpServlet {
                             System.out.println(e.getMessage());
                         }
                     } else {
-                        check = look.checkAvailability(look_name);
+                        check = look.checkAvailability(look_name, organization_id);
 
                         if (check == false){
                             fieldName = fi.getFieldName();

@@ -240,7 +240,7 @@ and open the template in the editor.
                             $("#clickid").val(layout);
                             $.ajax({
                                     type: 'GET',
-                                    url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id,
+                                    url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + '&editor_type=social',
                                     data: {get_param: 'value'},
                                     dataType: 'json',
                                     success: function (data) {

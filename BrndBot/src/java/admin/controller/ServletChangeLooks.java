@@ -103,7 +103,7 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
                         file_name_to_delete = look.getFileName(Integer.parseInt(lookid));
                     }else {
                         
-                        check = look.checkAvailabilities(Integer.parseInt(lookid), lookname);
+                        check = look.checkAvailabilities(Integer.parseInt(lookid), lookname, organization);
 
                         if (check == false){
                             
@@ -133,7 +133,7 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
                             look.changeLooks(Integer.parseInt(lookid), lookname, fileName, organization);
                             response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
                         }else {
-                            response.sendRedirect(request.getContextPath() + "/admin/editlook.jsp?exist=exist&look_id=" + lookid + "&look_name=" + lookname + "");
+                            response.sendRedirect(request.getContextPath() + "/admin/editlook.jsp?exist=exist&look_id=" + lookid + "&look_name=" + lookname + "&organization_id="+ organization +"&image_file_name="+ file_name_to_delete);
                         }    
                     }
                 }

@@ -6,6 +6,8 @@
 package admin.controller;
 
 import com.controller.SqlMethods;
+import com.intbit.ConnectionManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,10 +31,10 @@ public class ColorThemes {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         boolean check = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select * from tbl_brand_color_theme where brand_name='" + brand_name + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
                 check = true;
@@ -40,9 +42,8 @@ public class ColorThemes {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        }finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
         return check;
@@ -53,10 +54,10 @@ public class ColorThemes {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         String fileName = "";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_brand_personality where id=" + brand_id + "";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
@@ -68,9 +69,8 @@ public class ColorThemes {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        } finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
         return fileName;
@@ -81,10 +81,10 @@ public class ColorThemes {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         String theme = "theme";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select theme_name from tbl_brand_color_theme";
 
-            Statement sta = sqlmethods.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            Statement sta = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
             // Catch the ResultSet object
             result_set = sta.executeQuery(query_string);
@@ -109,8 +109,8 @@ public class ColorThemes {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
+        } finally {
+            sqlmethods.close(result_set, prepared_statement);
 
         }
 
@@ -121,10 +121,10 @@ public class ColorThemes {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Insert into tbl_brand_color_theme (brand_id, color1, color2, color3, color4, color5, color6, predefined, theme_name) values(?,?,?,?,?,?,?,?,?)";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setInt(1, brand_id);
             prepared_statement.setString(2, color1);
             prepared_statement.setString(3, color2);
@@ -140,9 +140,8 @@ public class ColorThemes {
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        } finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
     }
@@ -151,11 +150,11 @@ public class ColorThemes {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_brand_color_theme"
                     + " SET brand_id='" + brand_id + "', color1=" + color1 + ",color2=" + color2 + ",color3=" + color3 + ",color4=" + color4 + ",color5=" + color5 + ",color6=" + color6 + "  WHERE id='" + theme_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
             prepared_statement.close();
         } catch (Exception e) {
@@ -172,11 +171,11 @@ public class ColorThemes {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Delete From tbl_brand_color_theme"
                     + " WHERE id='" + color_theme_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
             prepared_statement.close();
         } catch (Exception e) {

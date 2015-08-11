@@ -38,6 +38,7 @@
         PreparedStatement prepared_statement;
         ResultSet result_set;
         String query_string;
+        Integer organization_id = 0;
         Integer number = 1;
 
     </jsp:declaration>
@@ -45,6 +46,8 @@
     <%
         String look_id = request.getParameter("look_id");
         String look_name = request.getParameter("look_name");
+        String organization_selected_id = request.getParameter("organization_id");
+        String image_file_name = request.getParameter("image_file_name");
     %>
     
     <%
@@ -83,7 +86,7 @@
                             <input type="hidden" name="lookid" id="lookid" value="<%= look_id %>"/>
                             <%= exist1 %>
                             <input type="text"  class="form-control simplebox" id="lookname" name="lookname" value="<%= look_name %>"/>
-                        <%= exist1 %>
+                       
     Select organization: <select name="organization" id="organization" style="width:180px;">
                                     <option value="0">--select--</option>
                                     <%
@@ -95,9 +98,17 @@
                                         result_set = prepared_statement.executeQuery();
 
                                         while (result_set.next()) {
-                                    %>
-                                                    <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("organization_name") %></option>
-                                    <%
+
+                                                organization_id = result_set.getInt("id");
+                                                if (organization_id == Integer.parseInt(organization_selected_id)){
+                                           %>
+                                                    <option value="<%= result_set.getInt("id")%>" selected><%= result_set.getString("organization_name")%></option>
+                                           <%
+                                                }else {
+                                            %>
+                                                    <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("organization_name")%></option>
+                                            <%
+                                            }
                                         }
                                     }catch (Exception e){
                                         System.out.println(e.getCause());
@@ -109,9 +120,8 @@
                                     }
 
                                     %>
-                                  </select><br>
-                        
-                            
+                                </select><br><br>
+                                  <p>Uploaded image : </p><p><%= image_file_name %></p>
                             Attach Image:<input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
                         <!--  <label>Organization Name:</label>-->
                     </div><br>
