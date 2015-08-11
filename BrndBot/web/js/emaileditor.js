@@ -99,7 +99,7 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
         jsondata = data;
-        $(".preview").append("<div onclick=getBlockId(block1) id='block1'></div>")
+        $(".preview").append("<div onclick=getBlockId(defaultblock1) id='defaultblock1'></div>")
             $.ajax({
                 type: "GET",
                 url: "xml/layout.xml",
@@ -114,8 +114,8 @@ $(document).ready(function () {
                         $(".preview").css("width", tempWidth + "px");
                         $(".preview").css("height", height*2 + "px");
                         $(".preview").css("overflow", "scroll");
-                        $(".preview #block1").css("width", width + "px");
-                        $(".preview #block1").css("height", height + "px");
+                        $(".preview #defaultblock1").css("width", width + "px");
+                        $(".preview #defaultblock1").css("height", height + "px");
                     }
 
                     );
@@ -161,7 +161,7 @@ $(document).ready(function () {
                             var webkittransform = $(this).attr("webkit-transform");
                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
 //                    alert($(this).attr("text-shadow"));
-                            $(".preview #block1").append("<div><textarea class=textAreas readonly onclick=getTectId(block1"+type+") id=block1" + type + ">" + elementdata + "</textarea>");
+                            $(".preview #defaultblock1").append("<div><textarea class=textAreas readonly onclick=getTectId(block1"+type+") id=block1" + type + ">" + elementdata + "</textarea>");
                             $("#" + type).css("color", "" + fontcolor)
                                         .css("position", "relative")
                                         .css("left", "" + left + "px")
@@ -186,7 +186,7 @@ $(document).ready(function () {
                             var width = $(this).attr("width");
                             var height = $(this).attr("height");
 //                    alert("image");
-                           $(".preview #block1").append("<div onclick=getImageid(block1" + type + ") id=block1" + type + " ></div>");
+                           $(".preview #defaultblock1").append("<div onclick=getImageid(block1" + type + ") id=block1" + type + " ></div>");
                             $("#block1" + type)
                                     .css("color", "" + fontcolor)
                                     .css("left", "" + left + "px")
@@ -204,7 +204,7 @@ $(document).ready(function () {
                         if (tag === "button")
                         {
 //                            alert("button");
-                            $(".preview #block1").append("<div><img src='" + elementdata + "'id=block1" + type + " alt='button'/>");
+                            $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=block1" + type + " alt='button'/>");
                             $("#block1" + type).css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .attr("src", "buttons/button1.png")
@@ -218,7 +218,7 @@ $(document).ready(function () {
                             var height = $(this).attr("height");
                             var backgroundcolor = $(this).attr("background-color");
 //                 alert(backgroundcolor);
-                            $(".preview #block1").append("<div onclick=getDivId(block1" + type + ") id=block1" + type + "></div>");
+                            $(".preview #defaultblock1").append("<div onclick=getDivId(block1" + type + ") id=block1" + type + "></div>");
                             $("#block1" + type).css("background-color", "" + backgroundcolor)
                                     .css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
@@ -242,7 +242,7 @@ $(document).ready(function () {
         }
     });
 $("#sortUpBlock").click(function(){
-    alert("up clicked"+selectedBlockId);
+
     var current = $("#"+$(selectedBlockId).attr("id"));
   current.prev().before(current);
 });
@@ -250,7 +250,7 @@ $("#sortUpBlock").click(function(){
 $("#deleteBlock").click(function(){
     
     var tempSelectedBlockId = $(selectedBlockId).attr("id");
-    alert(tempSelectedBlockId);
+
     if(tempSelectedBlockId != "block1")
     {
     $("#"+tempSelectedBlockId).remove();
@@ -261,7 +261,7 @@ $("#deleteBlock").click(function(){
     }
 });
 $("#sortDownBlock").click(function(){
-    alert("down clicked"+$(selectedBlockId).attr("id"));
+
     var current = $("#"+$(selectedBlockId).attr("id"));
   current.next().after(current);
 });
@@ -458,7 +458,7 @@ $("#sortDownBlock").click(function(){
 });
 function getBlockId(id) {
     selectedBlockId = id;
-    alert($(id).attr("id"));
+    //alert(block_id);
 }
 
 function getTectId(id) {

@@ -163,7 +163,8 @@ and open the template in the editor.
                     var jsondata;
                     var selectedDivId;
                     var block_clicked = "false";
-                    var block_id;
+                    var block_id="0";
+                    var blockIdSelected;
                     var mindbodydataId = $("#mindbodydata").val();
                     angular.module("myapp", [])
 
@@ -184,14 +185,55 @@ and open the template in the editor.
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                     });
+                    
+                    $scope.showStylesAfterData = function(){
+                      alert("angularjs"+$(selectedBlockId).attr("id"));  
+                      blockIdSelected = $(selectedBlockId).attr("id").toString();
+                      //alert(blockIdSelected);
+                      block_id = blockIdSelected.replace("block","");
+                      //alert(block_id);
+//                                    var queryurl;
+//                                    $scope.curPage = 0;
+//                                    $scope.pageSize = 2;
+//                                    if (blockIdSelected == "defaultblock1")
+//                                    queryurl = 'GetLayoutStyles?editorType=email';
+//                                    else
+//                                    queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + blockIdSelected.replace("block")
+//                                    $http({
+//                                    method : 'GET',
+//                                            url : queryurl
+//                                    }).success(function(data, status, headers, config) {
+//
+//                            $scope.datalists = data;
+//                                    $scope.numberOfPages = function() {
+//                                    return Math.ceil($scope.datalists.length / $scope.pageSize);
+//                                    };
+//                                    if (data === error){
+//                            alert(data);
+//                            }
+//                            }).error(function(data, status, headers, config) {
+//                            alert("No data available, problem fetching the data");
+//                                    // called asynchronously if an error occurs
+//                                    // or server returns response with an error status.
+//                            });
+//                      
+                    };
                             $scope.showStyles = function(){
-                            var queryurl;
+                                    var queryurl;
                                     $scope.curPage = 0;
                                     $scope.pageSize = 2;
-                                    if (block_clicked == "false")
-                                    queryurl = 'GetLayoutStyles?editorType=email';
+                                    alert(block_clicked+":"+blockIdSelected);
+                                    if (block_clicked == "true" || blockIdSelected != "defaultblock1")
+                                    {
+                                        alert("in if"+block_id);
+                                        queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
+                                        
+                                    }
                                     else
-                                    queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id
+                                    {
+                                        alert("in else"+block_id);
+                                        queryurl = 'GetLayoutStyles?editorType=email';
+                                    }
                                     $http({
                                     method : 'GET',
                                             url : queryurl
@@ -234,10 +276,16 @@ and open the template in the editor.
                             };
                             $scope.showData = function(id, mind_body_query){
                             block_clicked = "true";
+                            blockIdSelected = "";
                             block_id = id;
-                                    if (mind_body_query == null)
+                            alert(mind_body_query);
+                            if (mind_body_query == null)
                             {
-
+                                $scope.showStyles();
+                                $("#tabs-1").hide();
+                                $("#tabs-2").show();
+                                $("#tabs-3").hide();
+                                $("#tabs-4").hide();
                             }
                             else
                             {
@@ -257,10 +305,11 @@ and open the template in the editor.
                                     if (data === error){
                             alert(data);
                             }
-                            $("#tabs-1").hide();
+                                    $("#tabs-1").hide();
                                     $("#tabs-2").hide();
                                     $("#tabs-3").hide();
-                                    $("#tabs-4").show();
+                                   $("#tabs-4").css("width","430px").show("slide", { direction: "right" }, 1000);
+
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -268,6 +317,10 @@ and open the template in the editor.
                             });
                             }
                             };
+                             $scope.select_category_details=function(id) {
+                               alert(id);
+                           }
+                            
                             $scope.showImages = function(){
                             $("#popup").hide();
                                     $("#imagespopup").show();
@@ -316,33 +369,54 @@ and open the template in the editor.
 //
 //                    }
 
-                    var countBlock = 1;
+                    //var countBlock = 1;
                     function showText(id, layout){
 //    alert(id+""+layout);
-                    var
-                            layoutfilename = layout;
+                            var layoutfilename = layout;
                             $("#clickid").val(layout);
-                            $.ajax({
-                            type: 'GET',
-                                    url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id+"&editor_type=email",
-                                    data: {get_param: 'value'},
-                                    dataType: 'json',
-                                    success: function (data) {
-                                    countBlock++;
-                                            blockId = "block" + countBlock;
+                            if(null)
+                            {
+                                $.ajax({
+                                type: 'GET',
+                                        url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id+"&editor_type=email",
+                                        data: {get_param: 'value'},
+                                        dataType: 'json',
+                                        success: function (data) {
+                                            displayElement(id, layout,data);
+                                        }
+                                });
+                            }
+                            else
+                            {
+                                displayElement(id, layout,null)
+                            }
+                    }
+                    
+                    function displayElement(id, layout,data){
+                        //countBlock++;
+                                            if(blockIdSelected == "defaultblock1")
+                                                blockId = "defaultblock1";
+                                            else
+                                                blockId = "block" + block_id;
+                                            alert(blockIdSelected+":"+blockId);
                                             jsondata = data;
                                             $.ajax({
                                             type: "GET",
                                                     url: "images/xml/" + layout + ".xml",
                                                     dataType: "xml",
                                                     success: function (xml) {
-                                                    $(".preview").append("<div onclick=getBlockId(" + blockId + ") id='" + blockId + "'></div>");
+                                                        alert("did now:"+block_clicked);
+                                                    if(block_clicked == "true")
+                                                        $(".preview").append("<div onclick=getBlockId(" + blockId + ") id='" + blockId + "'></div>");
+                                                    else
+                                                        $(".preview #"+blockId).empty();
+                                                    block_clicked = "false";
                                                             //  $(".preview").empty();
                                                             $(xml).find('layout').each(function () {
                                                     height = $(this).find('container').attr("Height");
                                                             width = $(this).find('container').attr("Width");
-                                                            $(".preview #block" + countBlock).css("width", width + "px");
-                                                            $(".preview #block" + countBlock).css("height", height + "px");
+                                                            $(".preview #" + blockId).css("width", width + "px");
+                                                            $(".preview #" + blockId).css("height", height + "px");
                                                     }
 
                                                     );
@@ -352,17 +426,23 @@ and open the template in the editor.
                                                             var h = "";
                                                             var t = "";
                                                             var elementdata;
-                                                            $(jsondata).each(function (i, val) {
+                                                            if(jsondata==null)
+                                                            {
+                                                                elementdata = type;
+                                                            }
+                                                            else{
+                                                                        $(jsondata).each(function (i, val) {
 
-                                                    $.each(val, function (k, v) {
-//                               alert(k + " : " + v+ ":"+ type);
-                                                    if (type.trim() == k.trim()) {
-//                                                    alert();
-                                                    elementdata = v;
-                                                    }
+                                                                $.each(val, function (k, v) {
+            //                               alert(k + " : " + v+ ":"+ type);
+                                                                if (type.trim() == k.trim()) {
+            //                                                    alert();
+                                                                elementdata = v;
+                                                                }
 
-                                                    });
-                                                    });
+                                                                });
+                                                                });
+                                                            }
                                                             var fontcolor;
                                                             var fontsize;
                                                             var fontstyle;
@@ -381,9 +461,9 @@ and open the template in the editor.
                                                             var textalign = $(this).attr("text-align");
                                                             var webkittransform = $(this).attr("webkit-transform");
                                                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-//                    alert($(this).attr("text-shadow"));
-                                                            $(".preview #block" + countBlock).append("<div><textarea class=textAreas onclick=getTectId(block" + countBlock + type + ") id=block" + countBlock + type + ">" + elementdata + "</textarea>");
-                                                            $("#block" + countBlock + type).css("color", "" + fontcolor).css("position", "relative").css("left", "" + left + "px").css("top", "" + top + "px")
+                                                            //alert(".preview #" + blockId);
+                                                            $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + blockId + type + ") id=" + blockId + type + ">" + elementdata + "</textarea>");
+                                                            $("#" + blockId + type).css("color", "" + fontcolor).css("position", "relative").css("left", "" + left + "px").css("top", "" + top + "px")
                                                             .css("font-size", "" + fontsize).css("font-style", "" + fontstyle).css("font-weight", "" + fontweight)
                                                             .css("letter-spacing", "" + letterspacing).css("line-height", "" + lineheight)
                                                             .css("opacity", "" + opacity).css("text-align", "" + textalign)
@@ -396,8 +476,8 @@ and open the template in the editor.
                                                             var width = $(this).attr("width");
                                                             var height = $(this).attr("height");
                                                             //                    alert("image");
-                                                            $(".preview #block" + countBlock).append("<div onclick=getImageid(block" + countBlock + type + ") id=block" + countBlock + type + " ></div>");
-                                                            $("#block" + countBlock + type)
+                                                            $(".preview #" + blockId).append("<div onclick=getImageid(" + blockId + type + ") id=" + blockId + type + " ></div>");
+                                                            $("#" + blockId + type)
                                                             .css("color", "" + fontcolor)
                                                             .css("margin-left", "" + left + "px")
                                                             .css("margin-top", "" + top + "px")
@@ -414,8 +494,8 @@ and open the template in the editor.
                                                     if (tag === "button")
                                                     {
 
-                                                    $(".preview #block" + countBlock).append("<div><img src='" + elementdata + "'id=block" + countBlock + type + " alt='button'/>");
-                                                            $("#block" + countBlock + type).css("left", "" + left + "px").css("top", "" + top + "px")
+                                                    $(".preview #" + blockId).append("<div><img src='" + elementdata + "'id=" + blockId + type + " alt='button'/>");
+                                                            $("#" + blockId + type).css("left", "" + left + "px").css("top", "" + top + "px")
                                                             .attr("src", "buttons/button1.png");
                                                     }
 
@@ -426,8 +506,8 @@ and open the template in the editor.
                                                             var height = $(this).attr("height");
                                                             var backgroundcolor = $(this).attr("background-color");
 //                 alert(backgroundcolor);
-                                                            $(".preview #block" + countBlock).append("<div onclick=getDivId(block" + countBlock + type + ") id=block" + countBlock + type + "></div>");
-                                                            $("#block" + countBlock + type).css("background-color", "" + backgroundcolor)
+                                                            $(".preview #" + blockId).append("<div onclick=getDivId(" + blockId + type + ") id=" + blockId + type + "></div>");
+                                                            $("#" + blockId + type).css("background-color", "" + backgroundcolor)
                                                             .css("left", "" + left + "px")
                                                             .css("top", "" + top + "px")
                                                             .css("width", "" + width)
@@ -443,12 +523,10 @@ and open the template in the editor.
                                                     alert("error in xml file read");
                                                     }
                                             });
-                                    }
-                            });
                     }
-            $(".preview div").click(function(){
-            alert($(this).attr("id"));
-            })
+//            $(".preview div").click(function(){
+//            alert($(this).attr("id"));
+//            })
 
         </script>
         <script src="js/emaileditor.js" type="text/javascript"></script>
@@ -492,7 +570,7 @@ and open the template in the editor.
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
                             </div>
                             <div class="dataForEmail"> 
-                                <div class="preview">
+                                <div ng-click="showStylesAfterData()" class="preview">
 
                                 </div></div>
                             <br><br><br><br><br><br>
@@ -751,26 +829,22 @@ and open the template in the editor.
                                     <li id="tabs-4">
                                         <div ng-controller="MyController" id="MyController"> 
 
-                                            <div class="col-md-8 col-md-offset-1 mindbodydatadiv" ng-repeat= "jsonclass in datalists| pagination: curPage * pageSize | limitTo: pageSize" id="rep" >
-                                                <!--                                {{jsonclass}}-->
-                                                <div class='mindbodyOneRowData' onclick="select_category_details('{{jsonclass.id}}')">
-                                                    <span style="width: 700px;">
-                                                        <ul class="datafromindbody">
+                                  <p id="text3" style="width: 700px;position: relative;right: 250px;">{{datalists.title}}  </p>
+                        <div  class="tab-pane active" id="picktheme">
+                           <div>
+                     
+                           <span style="width: 700px;">
+                               <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;right: 250px;">
+<!--                                    {{jsonclass}}-->
+                   <div class='mindbodyOneRowData' ng-click="select_category_details(jsonclass.id)">
+                                   <li style="width: 300px">{{jsonclass.column1}}</li>
+                                   <li style="width: 200px">{{jsonclass.column2}}</li>
+                                   <li style="width: 100px">{{jsonclass.column3}}</li>
+                               </ul><br><br><br><br>
+                           </span>
+                       </div>
 
-                                                            <li style="width: 200px">{{jsonclass.column1}}</li>
-                                                            <li style="width: 200px">{{jsonclass.column2}}</li>
-                                                            <li style="width: 200px">{{jsonclass.column3}}</li>
-                                                        </ul>
-                                                    </span>
-                                                </div>
-                                                <!--                          <div id="" class="foo col-md-2"><p>{{classes.name}}</p></div>
-                                                                                <div id="" class="foo col-md-2"><p>{{classes.StartDateTime}}</p></div>
-                                                                                <div id="" class="foo col-md-2"><p>{{classes.EndDateTime}}</p></div>-->
-
-                                                <div id=' id ' name=id>
-                                                    <p><br/></p>
-                                                </div>
-                                            </div>
+                   </div>
                                             <div class="pagination pagination-centered" ng-show="datalists.length">
                                                 <ul class="pagination-controle pagination">
                                                     <li>
