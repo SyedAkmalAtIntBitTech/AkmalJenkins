@@ -261,6 +261,10 @@
         <servlet-name>GetBlocks</servlet-name>
         <servlet-class>com.controller.GetBlocks</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConvertHtmlToImageServlet</servlet-name>
+        <servlet-class>util.ConvertHtmlToImageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -528,6 +532,10 @@
     <servlet-mapping>
         <servlet-name>GetBlocks</servlet-name>
         <url-pattern>/GetBlocks</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConvertHtmlToImageServlet</servlet-name>
+        <url-pattern>/ConvertHtmlToImageServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

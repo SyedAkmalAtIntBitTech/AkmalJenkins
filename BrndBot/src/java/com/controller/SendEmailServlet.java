@@ -61,7 +61,7 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
 
-        SqlMethods sqlmethods = new SqlMethods();
+//        SqlMethods sqlmethods = new SqlMethods();
         SendMail send_email = new SendMail();
         response.setContentType("text/html;charset=UTF-8");
         getSqlMethodsInstance().session = request.getSession(true);
@@ -70,6 +70,7 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             String email_subject = request.getParameter("email_subject");
             String email_addresses = request.getParameter("email_addresses");
             String html_text = (String) getSqlMethodsInstance().session.getAttribute("htmldata");
+            
             String reply_to_address = request.getParameter("reply_to_email_address");
             String from_email_address = request.getParameter("from_email_address");
             String from_name = request.getParameter("from_name");
@@ -116,13 +117,14 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
                 message.setRecipient_metadata(metadataList1);
 
             }
-
+            
+            getSqlMethodsInstance().setEmailSentHistory(user_id, html_text, from_email_address, email_subject);
             send_email.sendMail(message);
             out.write("true");
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-            out.write(sqlmethods.error);
+            out.write(getSqlMethodsInstance().error);
         } finally {
             out.close();
             getSqlMethodsInstance().closeConnection();;

@@ -19,7 +19,7 @@ public class Looks {
 
     SqlMethods sqlmethods;
 
-    public Looks() throws NamingException {
+    public Looks() {
         sqlmethods = new SqlMethods();
     }
 
@@ -105,17 +105,18 @@ public class Looks {
         return fileName;
     }
 
-    public void addLooks(String look_name, String file_name) throws SQLException {
+    public void addLooks(String look_name, String file_name, Integer organization_id) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
         try {
-            query_string = "Insert into tbl_look (look_name, file_name) values(?,?)";
+            query_string = "Insert into tbl_look (look_name, file_name, organization_id) values(?,?,?)";
 
             prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
             prepared_statement.setString(1, look_name);
             prepared_statement.setString(2, file_name);
+            prepared_statement.setInt(3, organization_id);
             prepared_statement.executeUpdate();
             prepared_statement.close();
         } catch (Exception e) {

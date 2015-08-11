@@ -166,13 +166,14 @@
                 $("#emailIdContinueButton").click(function () {
                     var email_subject = $("#emailsubject").val();
                     var email_addresses = $("#emailaddresses").val();
-                    
+                    var email_list = $("#chooseEmailList").val();
                         $.ajax({
                         url: getHost() + "SendEmailServlet",
 //                        dataType: 'json',
                         data: {
                             email_subject: email_subject,
                             email_addresses: email_addresses,
+                            email_list:email_list
                         },
                         success: function(result){
                             alert("Email sent successfully");

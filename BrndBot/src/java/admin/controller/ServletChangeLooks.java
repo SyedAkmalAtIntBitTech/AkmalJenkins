@@ -30,24 +30,7 @@ import org.apache.commons.fileupload.*;
  */
 public class ServletChangeLooks extends BrndBotBaseHttpServlet {
 
-    String filePath;
-    String fileName, fieldName, uploadPath, deletePath, file_name_to_delete, uploadPath1;
-    Looks look;
-    RequestDispatcher request_dispatcher;
-    String lookname, lookid;
-    boolean check;
-
-    
-     public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        try {
-            look = new Looks();
-            check = false;
-        } catch (NamingException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    /**
+   /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -61,6 +44,13 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String filePath = "";
+        String fileName, fieldName, uploadPath, deletePath, file_name_to_delete = "", uploadPath1;
+        Looks look;
+        RequestDispatcher request_dispatcher;
+        String lookname = "", lookid = "";
+        look = new Looks();
+        boolean check = false;
 
         File file;
         int maxFileSize = 5000 * 1024;

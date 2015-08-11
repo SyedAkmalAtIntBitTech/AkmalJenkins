@@ -3,28 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package admin.controller;
+package util;
 
-import com.controller.BrndBotBaseHttpServlet;
-import java.io.BufferedReader;
+import com.controller.SqlMethods;
+import com.intbit.PhantomImageConverter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 
 /**
  *
- * @author intbit
+ * @author sandeep-kumar
  */
-public class ServletDeleteLooks extends BrndBotBaseHttpServlet {
+public class ConvertHtmlToImageServlet extends HttpServlet {
+
+    SqlMethods sql_methods = new SqlMethods();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,41 +35,9 @@ public class ServletDeleteLooks extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    public void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        StringBuffer string_buffer = new StringBuffer();    
-        Looks looks = new Looks();
-        String delete_path, file_name_to_delete;
 
-        try {
-            BufferedReader reader = request.getReader();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                string_buffer.append(line);
-            }
-            JSONParser parser = new JSONParser();
-            JSONObject jsonLook = null;
-            jsonLook = (JSONObject) parser.parse(string_buffer.toString());
-            Long look_id = (Long) jsonLook.get("look_id");
-            delete_path = getServletContext().getRealPath("") + "/images/Lookimages";
-            file_name_to_delete = looks.getFileName(look_id.intValue());
-            String deletePath = delete_path + File.separator + file_name_to_delete;
-            File deleteFile = new File(deletePath);
-            deleteFile.delete();
-
-            looks.deleteLooks(look_id.intValue());
-            out.write("true");
-        } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-        }finally {
-             getSqlMethodsInstance().closeConnection();
-             looks.sqlmethods.closeConnection();
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,6 +53,7 @@ public class ServletDeleteLooks extends BrndBotBaseHttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**
@@ -98,7 +67,32 @@ public class ServletDeleteLooks extends BrndBotBaseHttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            String htmlString = request.getParameter("htmlString");
+            String width = request.getParameter("containerWidth").replace("px", "");
+            String height = request.getParameter("containerHeight").replace("px", "");
+            sql_methods.session = request.getSession();
+            sql_methods.session.setAttribute("htmlString", htmlString);
+
+            PhantomImageConverter phantomImageConverter = new PhantomImageConverter(getServletContext());
+            File imagePngFile = phantomImageConverter.getImage(htmlString, width, height, "0", "0");
+
+            String filename = imagePngFile.getName();
+            sql_methods.session.setAttribute("image_file_name", filename);
+            System.err.println(filename);
+
+            response.setContentType("text/plain");
+            response.getWriter().write(filename);
+        } catch (Exception e) {
+            response.setContentType("text/html;charset=UTF-8");
+            StringBuffer sb = new StringBuffer();
+            PrintWriter out = response.getWriter();
+            sb.append("<html><body><h2>");
+            sb.append(e.getLocalizedMessage());
+            sb.append("</body></html>");
+            out.println(sb);
+            out.close();
+        }
     }
 
     /**

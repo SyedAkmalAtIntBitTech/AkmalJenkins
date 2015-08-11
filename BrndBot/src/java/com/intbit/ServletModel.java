@@ -226,7 +226,7 @@ public class ServletModel extends BrndBotBaseHttpServlet {
                         out.println("Uploaded Filename: " + filePath + "<br>");
                     }
                 }
-                look.addLooks(lookName, fileName);
+//                look.addLooks(lookName, fileName);
                 response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
 //                        request_dispatcher = request.getRequestDispatcher("/admin/looks.jsp");
 //                        request_dispatcher.forward(request, response);

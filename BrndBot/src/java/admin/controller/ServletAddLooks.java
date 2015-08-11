@@ -30,22 +30,6 @@ import org.apache.commons.fileupload.*;
  */
 public class ServletAddLooks extends BrndBotBaseHttpServlet {
 
-    String filePath;
-    String fileName, fieldName, uploadPath;
-    Looks look;
-    RequestDispatcher request_dispatcher;
-    String lookName;
-    boolean check;
-    
-     public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        try {
-            look = new Looks();
-            check = false;
-        } catch (NamingException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,6 +42,16 @@ public class ServletAddLooks extends BrndBotBaseHttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
+            String filePath;
+            String fileName, fieldName, uploadPath;
+            Looks look;
+            RequestDispatcher request_dispatcher;
+            String look_name = null;
+            Integer organization_id = 0;
+            boolean check;
+            look = new Looks();
+            check = false;
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -100,11 +94,14 @@ public class ServletAddLooks extends BrndBotBaseHttpServlet {
                         // Get the uploaded file parameters
                         fieldName = fi.getFieldName();
                         if (fieldName.equals("lookname")) {
-                            lookName = fi.getString();
+                            look_name = fi.getString();
+                        }
+                        if (fieldName.equals("organization")) {
+                            organization_id = Integer.parseInt(fi.getString());
                         }
 
                     } else {
-                        check = look.checkAvailability(lookName);
+                        check = look.checkAvailability(look_name);
 
                         if (check == false){
                             fieldName = fi.getFieldName();
@@ -118,15 +115,15 @@ public class ServletAddLooks extends BrndBotBaseHttpServlet {
                             int inStr = fileName.indexOf(".");
                             String Str = fileName.substring(0, inStr);
 
-                            fileName = lookName + "_" + Str + ".png";
+                            fileName = look_name + "_" + Str + ".png";
                             boolean isInMemory = fi.isInMemory();
                             long sizeInBytes = fi.getSize();
 
-                            String filePath = uploadPath + File.separator + fileName;
+                            filePath = uploadPath + File.separator + fileName;
                             File storeFile = new File(filePath);
 
                             fi.write(storeFile);
-                            look.addLooks(lookName, fileName);
+                            look.addLooks(look_name, fileName, organization_id);
 
                             out.println("Uploaded Filename: " + filePath + "<br>");
                             response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
