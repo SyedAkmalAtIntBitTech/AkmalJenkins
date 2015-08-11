@@ -9,6 +9,7 @@ import com.controller.BrndBotBaseHttpServlet;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
@@ -45,12 +46,12 @@ public class ServletGetStyles extends BrndBotBaseHttpServlet {
         JSONArray jsonarr = new JSONArray();
         getSqlMethodsInstance().session = request.getSession(true);
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
             String query_string = "Select layout from tbl_model where user_id=" + user_id + "";
 
-            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             while (result_set.next()) {
@@ -65,8 +66,7 @@ public class ServletGetStyles extends BrndBotBaseHttpServlet {
         } finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
-            getSqlMethodsInstance().closeConnection();
-
+            
         }
     }
 

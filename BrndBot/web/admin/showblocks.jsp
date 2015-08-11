@@ -3,24 +3,23 @@
     Created on : Jul 23, 2015, 12:34:07 PM
     Author     : intbit
 --%>
+<%@page import="com.intbit.ConnectionManager"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.*"%>
 <%@include file="checksession.jsp" %>
-<%!
-    SqlMethods sql_methods =new SqlMethods();
-%>
-
 
 <%
 String brand_id=request.getParameter("brand_id");
 
 String buffer="<select id='brand'><option value='0'>Select</option>";
-
+Connection connection = null;
+Statement stmt = null;
+ResultSet rs = null;
  try{
+    connection = ConnectionManager.getInstance().getConnection();
+    stmt = connection.createStatement();
 
-        Statement stmt = sql_methods.getConnection().createStatement();
-
-        ResultSet rs = stmt.executeQuery("Select * from tbl_blocks where brand_id='"+brand_id+"'");
+    rs = stmt.executeQuery("Select * from tbl_blocks where brand_id='"+brand_id+"'");
 
         while(rs.next()){
             buffer=buffer+"<option value='"+rs.getString("id")+"'>"+rs.getString("name")+"</option>";
@@ -38,8 +37,13 @@ String buffer="<select id='brand'><option value='0'>Select</option>";
      System.out.println(e.getMessage());
 
  } finally {
-     
-//     sqlmethods.closeConnection();
+     if ( rs != null){
+         rs.close();
+     }
+     if ( stmt != null){
+         stmt.close();
+     }
+     ConnectionManager.getInstance().closeConnection(connection);
  }
 
  %>

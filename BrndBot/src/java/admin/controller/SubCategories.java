@@ -6,6 +6,8 @@
 package admin.controller;
 
 import com.controller.SqlMethods;
+import com.intbit.ConnectionManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,10 +30,10 @@ public class SubCategories {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         boolean check = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select * from tbl_sub_category where external_source='" + external_source + "' and external_source_keyword='" + external_source_keyword + "' and sub_category_name='" + sub_category_name + "' and category_id='" + category_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
                 check = true;
@@ -52,18 +54,15 @@ public class SubCategories {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         String category_name = "";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_category where id=" + category_id + "";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
                 category_name = result_set.getString("category_name");
             }
-            result_set.close();
-            prepared_statement.close();
-
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -80,17 +79,15 @@ public class SubCategories {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         String fileName = "";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_category where id=" + category_id + "";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
                 fileName = result_set.getString("image_name");
             }
-            result_set.close();
-            prepared_statement.close();
 
         } catch (Exception e) {
             System.out.println(e.getCause());
@@ -107,17 +104,16 @@ public class SubCategories {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Insert into tbl_sub_category (external_source, external_source_keyword, sub_category_name, category_id) values(?,?,?,?)";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setString(1, external_source);
             prepared_statement.setString(2, external_source_keyword);
             prepared_statement.setString(3, sub_category_name);
             prepared_statement.setString(4, category_id);
 
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -132,13 +128,12 @@ public class SubCategories {
         String query_string = null;
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_sub_category"
                     + " SET external_source='" + external_source + "', external_source_keyword='" + external_source_keyword + "', sub_category_name='" + sub_category_name + "', category_id='" + category_id  + "' WHERE id='" + sub_category_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -153,13 +148,12 @@ public class SubCategories {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Delete From tbl_sub_category"
                     + " WHERE id='" + cat_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

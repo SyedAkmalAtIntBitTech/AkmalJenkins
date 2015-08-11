@@ -6,6 +6,8 @@
 package admin.controller;
 
 import com.controller.SqlMethods;
+import com.intbit.ConnectionManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,10 +29,10 @@ public class Blocks {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         boolean check = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select * from tbl_blocks where name='" + name + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
                 check = true;
@@ -40,7 +42,6 @@ public class Blocks {
             System.out.println(e.getMessage());
         }
         finally {
-            
             sqlmethods.close(result_set, prepared_statement);
         }
 
@@ -51,10 +52,10 @@ public class Blocks {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Insert into tbl_blocks (name, mindbody_query, brand_id, sub_category_id) values(?, ?, ?, ?)";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setString(1, name);
             prepared_statement.setString(2, mindbody_query);
             prepared_statement.setInt(3, brand_id);
@@ -76,19 +77,18 @@ public class Blocks {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_blocks"
                     + " SET name='" + name + "', mindbody_query='"+mindbody_query+"', brand_id="+brand_id+", sub_category_id="+sub_category_id+"  WHERE id=" + id + "";
             
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
             prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        }finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
     }
@@ -97,11 +97,11 @@ public class Blocks {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Delete From tbl_blocks"
                     + " WHERE id='" + block_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
             prepared_statement.close();
         } catch (Exception e) {
@@ -109,7 +109,7 @@ public class Blocks {
             System.out.println(e.getMessage());
         }
         finally {
-             sqlmethods.close(result_set, prepared_statement);
+            sqlmethods.close(result_set, prepared_statement);
         }
 
     }

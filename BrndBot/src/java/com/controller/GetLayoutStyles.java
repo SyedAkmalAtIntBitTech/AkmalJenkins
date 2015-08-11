@@ -6,8 +6,10 @@
 package com.controller;
 
 import com.google.gson.Gson;
+import com.intbit.ConnectionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -50,7 +52,7 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
 
         getSqlMethodsInstance().session = request.getSession(true);
         
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             String queryParameter = request.getParameter("query");
 
             user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
@@ -70,7 +72,7 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
             }
             
             String query = "Select * from tbl_model where organization_id="+organization_id+" and (user_id="+user_id+" or user_id=0) and category_id="+category_id+" and social="+!isEmail+" and email="+isEmail+" and sub_category_id="+sub_category_id+" and block_id="+block_id;
-            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
             result_set = prepared_statement.executeQuery();
             
             while(result_set.next()){
@@ -94,7 +96,6 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
         }finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
-            getSqlMethodsInstance().closeConnection();
         }
     }
 

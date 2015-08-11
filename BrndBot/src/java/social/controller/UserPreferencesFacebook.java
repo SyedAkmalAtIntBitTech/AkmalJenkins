@@ -6,6 +6,8 @@
 package social.controller;
 
 import com.controller.SqlMethods;
+import com.intbit.ConnectionManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +30,7 @@ public class UserPreferencesFacebook {
     public void updatePreference(Integer user_id, String access_token) throws SQLException {
         sqlMethods = new SqlMethods();
         
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             PGobject pgobject = new PGobject();
             JSONObject json_objectFromTable = new JSONObject();
             JSONParser parser = new JSONParser();
@@ -37,7 +39,7 @@ public class UserPreferencesFacebook {
 
             String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
 
-            prepared_statement = sqlMethods.getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
 
             result_set = prepared_statement.executeQuery();
 
@@ -64,7 +66,7 @@ public class UserPreferencesFacebook {
             jsonObject.setType("json");
             jsonObject.setValue(json_objectFromTable.toJSONString());
 
-            prepared_statement = sqlMethods.getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
 
             prepared_statement.setObject(1, jsonObject);
 
@@ -74,7 +76,6 @@ public class UserPreferencesFacebook {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }finally {
-            sqlMethods.closeConnection();
         }
     }
 
@@ -138,17 +139,17 @@ public class UserPreferencesFacebook {
 
     public String getUserPreferenceForAccessToken(Integer user_id) throws SQLException {
         String access_token = "";
-        PreparedStatement prepared_statement;
-        ResultSet result_set;
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             PGobject pgobject = new PGobject();
             JSONObject json_objectFromTable = new JSONObject();
             JSONParser parser = new JSONParser();
 
             String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
 
-            prepared_statement = sqlMethods.getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
 
             result_set = prepared_statement.executeQuery();
 
@@ -165,14 +166,12 @@ public class UserPreferencesFacebook {
                 access_token = (String) json_objectFromTable.get("access_token");
             }
 
-            result_set.close();
-            prepared_statement.close();
 
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
-            sqlMethods.closeConnection();
+            sqlMethods.close(result_set, prepared_statement);
         }
         return access_token;
     }

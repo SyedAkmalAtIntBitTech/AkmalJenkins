@@ -6,6 +6,8 @@
 package admin.controller;
 
 import com.controller.SqlMethods;
+import com.intbit.ConnectionManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,10 +31,10 @@ public class FontThemes {
         ResultSet result_set = null;
 
         boolean check = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select * from tbl_brand_color_theme where brand_name='" + brand_name + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
                 check = true;
@@ -41,7 +43,7 @@ public class FontThemes {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
+            sqlmethods.close(result_set, prepared_statement);
 
         }
 
@@ -54,17 +56,15 @@ public class FontThemes {
         ResultSet result_set = null;
 
         String fileName = "";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_brand_personality where id=" + brand_id + "";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
                 fileName = result_set.getString("image");
             }
-            result_set.close();
-            prepared_statement.close();
 
         } catch (Exception e) {
             System.out.println(e.getCause());
@@ -83,9 +83,9 @@ public class FontThemes {
         ResultSet result_set = null;
 
         String theme = "theme";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select Max(theme_name) from tbl_brand_color_theme";
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             result_set = prepared_statement.executeQuery();
 
@@ -97,8 +97,6 @@ public class FontThemes {
                 int NID = Integer.parseInt(EID) + 1;
                 theme = theme + NID;
             }
-            result_set.close();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -115,10 +113,10 @@ public class FontThemes {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Insert into tbl_brand_font_family (brand_id, font_id1, font_id2, font_id3, font_id4, font_id5, font_size1, font_size2, font_size3, font_size4, font_size5, font_styles1, font_styles2, font_styles3, font_styles4, font_styles5) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setInt(1, brand_id);
             prepared_statement.setInt(2, font_id1);
             prepared_statement.setInt(3, font_id2);
@@ -137,7 +135,6 @@ public class FontThemes {
             prepared_statement.setInt(16, font_style5);
 
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -153,16 +150,15 @@ public class FontThemes {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_brand_font_family"
                     + " SET brand_id='" + brand_id + "', font_id1=" + font_id1 + ",font_id2=" + font_id2 + ",font_id3=" + font_id3 + ",font_id4=" + font_id4 + ",font_id5=" + font_id5 + ","
                     + " font_size1=" + font_size1 + ", font_size2=" + font_size2 + ", font_size3=" + font_size3 + ", font_size4=" + font_size4 + ", font_size5=" + font_size5 + ", "
                     + " font_styles1=" + font_style1 + ", font_styles2=" + font_style2 + ", font_styles3=" + font_style3 + ", font_styles4=" + font_style4 + ", font_styles5=" + font_style5 + ""
                     + " WHERE id='" + font_theme_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -178,13 +174,12 @@ public class FontThemes {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Delete From tbl_brand_font_family"
                     + " WHERE id='" + font_theme_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

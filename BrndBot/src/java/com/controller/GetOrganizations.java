@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.intbit.ConnectionManager;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import model.organization;
@@ -30,11 +32,11 @@ public class GetOrganizations extends BrndBotBaseHttpServlet {
             int organization_id = 1;
             JSONArray jsonarr = new JSONArray();
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             String query = "Select * from tbl_organization";
             
-            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
             result_set = prepared_statement.executeQuery();
 
             while (result_set.next()) {
@@ -57,7 +59,6 @@ public class GetOrganizations extends BrndBotBaseHttpServlet {
         }finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
-            getSqlMethodsInstance().closeConnection();
         }
     }
 

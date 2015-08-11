@@ -7,8 +7,10 @@ package com.controller;
 
 import model.ClassImages;
 import com.google.gson.Gson;
+import com.intbit.ConnectionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
@@ -42,11 +44,11 @@ import org.json.simple.JSONObject;
         ResultSet result_set = null;
         String image_name;
         Integer user_id, id;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
 
             String query = "Select * from tbl_user_images where user_id="+user_id+"";
-            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
             result_set = prepared_statement.executeQuery();
             
             while(result_set.next()){
@@ -70,7 +72,6 @@ import org.json.simple.JSONObject;
         }finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
-            getSqlMethodsInstance().closeConnection();
         }
     }
 
