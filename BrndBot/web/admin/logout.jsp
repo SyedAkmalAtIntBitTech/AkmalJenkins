@@ -22,8 +22,6 @@
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-        }finally {
-            sql_methods.closeConnection();
         }
             
     %>

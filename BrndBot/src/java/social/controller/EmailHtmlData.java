@@ -5,7 +5,6 @@
  */
 package social.controller;
 
-import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sandeep-kumar
  */
-public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
+public class EmailHtmlData extends HttpServlet {
     SqlMethods sqlmethods = new SqlMethods();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,22 +28,15 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    public void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        
-        try {
-            sqlmethods.session = request.getSession();
-//            String html_data = request.getParameter("htmlString");
-//            sqlmethods.session.setAttribute("htmldata", html_data);
-             String emailSubject=request.getParameter("email_subject");
-             String emaillist=request.getParameter("email_addresses");
-             
-             sqlmethods.session.setAttribute("email_subject", emailSubject);
-             sqlmethods.session.setAttribute("email_list", emaillist);
-            
+        PrintWriter out = response.getWriter();
+        try{
+             sqlmethods.session = request.getSession();
+           String html_data = request.getParameter("htmlString");
+           sqlmethods.session.setAttribute("htmldata", html_data);
+      
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

@@ -4,6 +4,8 @@
     Author     : intbit
 --%>
 
+<%@page import="java.sql.Connection"%>
+<%@page import="com.intbit.ConnectionManager"%>
 <%@page import="javax.naming.NamingException"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
@@ -32,7 +34,6 @@
         Integer num = 1;
         String exist = "";
         String exist1 = "";
-        SqlMethods sql_methods = new SqlMethods();
         PreparedStatement prepared_statement;
         ResultSet result_set;
         String query_string, name, mindbody_query, brand_id, sub_category_id;
@@ -65,10 +66,12 @@
                     Select brand personality: <select name="brand" id="brand" style="width:180px;">
                         <option value="0">--select--</option>
                         <%
+                            Connection conn = null;
                         try {
-                            sql_methods = new SqlMethods();
+                            conn = ConnectionManager.getInstance().getConnection();
+                            
                             query_string = "select * from tbl_brand_personality Order By id ASC";
-                            prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
+                            prepared_statement = conn.prepareStatement(query_string);
                             result_set = prepared_statement.executeQuery();
 
                             while (result_set.next()) {
@@ -82,7 +85,7 @@
                         }finally {
                             result_set.close();
                             prepared_statement.close();
-//                            sql_methods.closeConnection();
+                            ConnectionManager.getInstance().closeConnection(conn);
                         }
                         %>
                     </select><br>
@@ -90,9 +93,10 @@
                         <option value="0">--select--</option>
                         <%
                         try {
-                            sql_methods = new SqlMethods();
+                            conn = ConnectionManager.getInstance().getConnection();
+                            
                             query_string = "select * from tbl_sub_category Order By id ASC";
-                            prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
+                            prepared_statement = conn.prepareStatement(query_string);
                             result_set = prepared_statement.executeQuery();
 
                             while (result_set.next()) {
@@ -106,7 +110,7 @@
                         }finally {
                             result_set.close();
                             prepared_statement.close();
-//                            sql_methods.closeConnection();
+                            ConnectionManager.getInstance().closeConnection(conn);
                         }
                         %>
                     </select><br>
@@ -141,9 +145,10 @@
                     </tr>
                     <%
                         try{
+                            conn = ConnectionManager.getInstance().getConnection();
                         query_string = "select * from tbl_blocks Order By id ASC";
                         
-                        prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
+                        prepared_statement = conn.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         num = 1;
                         while (result_set.next()) {
@@ -171,9 +176,9 @@
                     }catch (Exception e){
                         System.out.println(e.getCause());
                         System.out.println(e.getMessage());
-                        out.println(sql_methods.error);
+                        //out.println(sql_methods.error);
                     }finally {
-//                        sql_methods.closeConnection();
+                            ConnectionManager.getInstance().closeConnection(conn);
                     }
                     %>
                 </table>

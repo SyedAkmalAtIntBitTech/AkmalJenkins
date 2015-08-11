@@ -16,6 +16,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <link href="css/leftnavbar.css" rel="stylesheet" type="text/css"/>
+        <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/leftmenuhamburger.js" type="text/javascript"></script>
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
@@ -31,19 +32,7 @@
         </style>
         <title>email preview</title>
         <style>
-/*            div
-{
-    width: 100vw; 
-    height: 56.25vw;  100/56.25 = 1.778 
-    background: pink;
-    max-height: 100vh;
-    max-width: 177.78vh;  16/9 = 1.778 
-    margin: auto;
-    position: absolute;
-    top:0;bottom:0;  vertical center 
-    left:0;right:0;  horizontal center 
-}*/
-            #iphone{
+         #iphone{
                 width: 25px;
                 height: 50px;
             }
@@ -105,6 +94,9 @@
                 width: 500px;
 /*                height: 500px;*/
             }
+            .preview{
+                
+            }
         </style>
         <script type="text/javascript">
             var started;
@@ -127,67 +119,69 @@
 
     </head>
     <%!
-//    String emailSubject="";
-//    String emailList="";
-//    String htmlData="";
-//    SqlMethods sqlmethods = new SqlMethods();
-%>
-    <%
-//     sqlmethods.session = request.getSession(true);
-//    emailSubject=(String)sqlmethods.session.getAttribute("email_subject");
-//    emailList = (String)sqlmethods.session.getAttribute("email_list");
-//    htmlData=request.getParameter("htmlString");
-
+    String emailSubject="";
+    String emailList="";
+    String htmlData="";
+    SqlMethods sqlmethods = new SqlMethods();
     %>
+    <%
+    sqlmethods.session = request.getSession(true);
+    
+    emailSubject=(String)sqlmethods.session.getAttribute("email_subject");
+    emailList = (String)sqlmethods.session.getAttribute("email_list");
+    htmlData=(String)sqlmethods.session.getAttribute("htmldata");
+    %>
+<script>
+                       
+                           function show(id){
+                            var imageUrl= $("#"+id).css("background-image");
+                             if(id==="imac")
+                             {
+                                $(".preview").css("width","850px").css("height","650px").css("overflow","none");
+                                $(".iphoneshow").css("background-image",imageUrl)
+                                                .css("display",'block')
+                                                .css("height","900px"); 
+                                $(".content").css("zoom","0.4");  
+                            
+                                    
+                             }
+                              else if(id==="iphone"){  
+                               $(".preview").css("width","450px").css("height","950px").css("overflow","none");
+                               $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("height","450px");
+                               $(".content").css("width","350px").css("height","420px").css("overflow","none");
+                            
+                                } 
+                           else{
+                               $(".preview").css("width","850px").css("height","1050px").css("overflow","none");
+                               $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("height","500px");
+                                
+                            }
+                           }
+                       
+                     function sendEmail(){
+                           alert("clicked");
+                           $.ajax({  
+                                        url: getHost() + "SendEmailServlet", 
+                                        method: "post",
+                                        data:{
+                                            from_name: $("#name").val(),
+                                            email_subject: $("#subject").val(),
+                                            email_addresses:$("#toaddress").val(),
+                                            from_email_address: $("#formaddress").val(),
+                                            reply_to_email_address: $("#email").val()
+                                            },
+                                        success: function (responseText) {
 
+                                            document.location.href = "emailpreview.jsp";
+                                        }
+
+                                        });
+                           
+                       }
+                           
+                       </script> 
     <body>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.pack.min.js"></script>
-        <script type="text/javascript">
-//                    $(function ($) {
-//                        var addToAll = false;
-//                        var gallery = true;
-//                        var titlePosition = 'over';
-//                        $(addToAll ? 'img' : 'img.fancybox').each(function () {
-//                            var $this = $(this);
-//                            var title = $this.attr('title');
-//                            var src = $this.attr('data-big') || $this.attr('src');
-//                            var a = $('<a href="#" class="fancybox"></a>').attr('href', src).attr('title', title);
-//                            $this.wrap(a);
-//                        });
-//                        if (gallery)
-//                            $('a.fancybox').attr('rel', 'fancyboxgallery');
-//                        $('a.fancybox').fancybox({
-//                            titlePosition: titlePosition
-//                        });
-//                    });
-//                    $.noConflict();
-                    
-                    
-                    
-                    $(function ($) {
-                        var addToAll = false;
-                        var gallery = true;
-                        var titlePosition = 'over';
-                        $(addToAll ? 'div' : 'div.fancybox').each(function () {
-                            var $this = $(this);
-                            var title = $this.attr('title');
-                        
-                            var src = $this.attr('data-big') || $this.css("background-image").replace("url(","").replace(")","");
-                            alert(src);
-                            var a = $('<a href="#" class="fancybox"></a>').attr('href', src).attr("append","sandeep");
-                            $this.wrap(a);
-                        });
-                        if (gallery)
-                            $('a.fancybox').attr('rel', 'fancyboxgallery');
-                        $('a.fancybox').fancybox({
-                            titlePosition: titlePosition
-                        });
-                    });
-                    $.noConflict();
-                    
-        </script>
+
 
         <div class="row">
             <div id="sidebar-wrapper" class="col-md-1">
@@ -210,35 +204,41 @@
                 <p id="text1">EDIT THIS EMAIL</p>
                 <p id="text2">go back</p>
                 <form class="form-horizontal" id="emailform">
+                     <div class="group">
+                        <div class="col-md-5 col-md-offset-5">
+                            <input id="name" class="form-control simplebox" name="from_name" type="text" required>
+                            <label>NAME</label><br>
+                        </div>
+                    </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">                            
-                            <!--                                 <input id="subject" class="form-control simplebox" type="text" value= >-->
+                            <input id="subject" class="form-control simplebox" name="email_subject" type="text" value= <%=emailSubject %>>
                             <label>SUBJECT</label><br>
                         </div>
                     </div>
 
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="formaddress" class="form-control simplebox" type="text" required>
+                            <input id="formaddress" class="form-control simplebox" name="from_email_address" type="text" required>
                             <label>FROM ADDRESS</label><br>
                         </div>
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <!--                                <input id="toaddress" class="form-control simplebox" type="text" value=>-->
+                             <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value=<%=emailList %>>
                             <label>TO ADDRESS</label><br>
                         </div>
                     </div>
 
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="email" class="form-control simplebox" type="text" required>
+                            <input id="email" class="form-control simplebox" name="reply_to_email_address" type="text" required>
                             <label>EMAIL</label><br><br>
                         </div>
                     </div>
                     <div  class="form-group">
                         <div class="col-md-3 col-md-offset-5">
-                            <br><br><button type="submit"  class="btn btn-info" >SEND</button><br><br><br>
+                            <br><br><button type="button" onclick="sendEmail()" class="btn btn-info" >SEND</button><br><br><br>
                         </div>
                         <div class="col-md-2">
                             <br><br> <button type="button"  class="btn btn-info" >SCHEDULE</button><br><br><br>
@@ -261,49 +261,15 @@
                         <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                 
                 </ul>
-                
-<!--                <a class="vlightbox" href="images/Blackandwhite.jpg" title="2" id="firstImage"> </a>-->
 
         <div class="iphoneshow img-responsive"   id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
            <div class="content">  
-                       <textarea class="textAreas" onclick="getTectId(header1)" id="header1" style="color: rgb(0, 0, 255);font-size: 14px; font-style: italic; font-weight: bold; letter-spacing: 5px; line-height: 20px; opacity: 0.800000011920929; text-align: left; text-shadow: rgb(53, 28, 73) 4px 10px 1px; -webkit-transform: rotate(15deg); border: none; resize: none;width: 300px;height: auto;">
-                        text area</textarea><textarea class="textAreas" onclick="getTectId(header1)" id="header1" style="color: rgb(0, 0, 255);font-size: 14px; font-style: italic; font-weight: bold; letter-spacing: 5px; line-height: 20px; opacity: 0.800000011920929; text-align: left; text-shadow: rgb(53, 28, 73) 4px 10px 1px; -webkit-transform: rotate(15deg); border: none; resize: none;width: 300px;height: auto;">
-                        text area</textarea><textarea class="textAreas" onclick="getTectId(header1)" id="header1" style="color: rgb(0, 0, 255);font-size: 14px; font-style: italic; font-weight: bold; letter-spacing: 5px; line-height: 20px; opacity: 0.800000011920929; text-align: left; text-shadow: rgb(53, 28, 73) 4px 10px 1px; -webkit-transform: rotate(15deg); border: none; resize: none;width: 300px;height: auto;">
-                        text area</textarea>
-                        <div class="img-responsive" onclick="getImageid(header2)" id="header2" style=" opacity: 1; width: 300px; height: 200px; background: url(http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg) no-repeat; -webkit-background-size: contain;"></div>
-                        <div class="img-responsive" onclick="getImageid(header2)" id="header2" style=" opacity: 1; width: 300px; height: 200px; background: url(http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg) no-repeat; -webkit-background-size: contain;"></div>
-
+                        <%=htmlData %>
                 </div>
          </div>
-                       <script>
                        
-                           function show(id){
-                            var imageUrl= $("#"+id).css("background-image");
-                             if(id==="imac")
-                             {
-                                $(".iphoneshow").css("background-image",imageUrl)
-                                                .css("display",'block')
-                                                .css("height","900px"); 
-                                $(".content").css("zoom","0.4");        
-                                    
-                             }
-                              else if(id==="iphone"){  
-                               $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("height","450px");
-                           } 
-                           else{
-                                $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("height","500px");
-                           }
-                           }
-                          
-                          document.ready(function (){
-                           $("div").click(function(){
-                               alert("clicked");
-                                    $(".iphoneshow").css("display",'block');
-                                                     
-                           });
-                           });
-                       </script> 
-                       
+            </div>
+        </div>
                        
     </body>
 </html>

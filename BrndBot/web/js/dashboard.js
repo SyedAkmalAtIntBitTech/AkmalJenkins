@@ -13,17 +13,19 @@ angular.module("myapp", [])
                 method: 'GET',
                 url: 'MindBodyDataServlet?query=isMindBodyActivated'
             }).success(function (data, status, headers, config) {
-                var mindbody_data = JSON.stringify(data);
-                if (mindbody_data.status === "unactivated") {
-                    if (mindbody_data.activation_link === "") {
-                        $scope.mindbodyactivation = "Mindbody not activated. Unknown error has occured.";
+                var mindbody_data = data;
+                if (data.status === "unactivated") {
+                    $(".message").hide();
+                    if (data.activation_link === "") {
+                        $scope.mindbodyactivationmessage = "Mindbody not activated. Unknown error has occured.";
                     } else {
-                        $scope.mindbodyactivation = "Mindbody not activated. Please visit this link to activate mindbody." + mindbody_data.activation_link;
+                        $scope.mindbodyactivationmessage = "Mindbody not activated. Please visit this link to activate mindbody.";
+                        $scope.mindbodyactivationlink = mindbody_data.activation_link;
                     }
                 } else if (data === error) {
                     alert(data);
                 } else {
-
+                    $(".mindbodyactivationstatus").hide();
                     $http({
                         method: 'GET',
                         url: 'GetUserCategories'
@@ -72,25 +74,25 @@ angular.module("myapp", [])
                         });
 
                 if (CatID === 1) {
-                    $("#subpromotelist").css("left", "30px").css("top", "180px");
+                    $("#subpromotelist").css("left", "30px").css("top", "150px");
                 }
                 else if (CatID === 2) {
-                    $("#subpromotelist").css("left", "150px").css("top", "180px");
+                    $("#subpromotelist").css("left", "150px").css("top", "150px");
                 }
                 else if (CatID === 3) {
-                    $("#subpromotelist").css("left", "270px").css("top", "180px");
+                    $("#subpromotelist").css("left", "290px").css("top", "150px");
                 }
                 else if (CatID === 4) {
-                    $("#subpromotelist").css("left", "385px").css("top", "180px");
+                    $("#subpromotelist").css("left", "410px").css("top", "150px");
                 }
                 else if (CatID === 5) {
-                    $("#subpromotelist").css("left", "510px").css("top", "180px");
+                    $("#subpromotelist").css("left", "540px").css("top", "150px");
                 }
                 else if (CatID === 6) {
-                    $("#subpromotelist").css("left", "625px").css("top", "180px");
+                    $("#subpromotelist").css("left", "695px").css("top", "150px");
                 }
                 else if (CatID === 7) {
-                    $("#subpromotelist").css("left", "30px").css("top", "180px");
+                    $("#subpromotelist").css("left", "30px").css("top", "150px");
                 }
 
                 else if (CatID === 8) {
