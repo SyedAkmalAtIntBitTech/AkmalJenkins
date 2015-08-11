@@ -16,6 +16,7 @@ angular.module("myapp", [])
                 var mindbody_data = data;
                 if (data.status === "unactivated") {
                     $(".message").hide();
+                    $(".mindbodyactivationstatus").show();
                     if (data.activation_link === "") {
                         $scope.mindbodyactivationmessage = "Mindbody not activated. Unknown error has occured.";
                     } else {
