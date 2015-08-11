@@ -7,6 +7,8 @@ package social.controller;
  */
 
 import com.controller.SqlMethods;
+import com.intbit.ConnectionManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,14 +32,14 @@ public class UserPreferencesTwitter {
 
     public void updatePreference(Integer user_id, String twitter_access_token, String twitter_access_token_secret) throws SQLException {
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             PGobject pgobject = new PGobject();
             JSONObject json_objectFromTable = new JSONObject();
             JSONParser parser = new JSONParser();
 
             String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
 
-            prepared_statement = sql_methods.getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
 
             result_set = prepared_statement.executeQuery();
 
@@ -65,7 +67,7 @@ public class UserPreferencesTwitter {
             jsonObject.setType("json");
             jsonObject.setValue(json_objectFromTable.toJSONString());
 
-            prepared_statement = sql_methods.getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
 
             prepared_statement.setObject(1, jsonObject);
 
@@ -76,7 +78,6 @@ public class UserPreferencesTwitter {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }finally {
-            sql_methods.closeConnection();
         }
     }
 
@@ -85,14 +86,14 @@ public class UserPreferencesTwitter {
         String twitter_access_token = "";
         String twitter_access_token_secret = "";
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             PGobject pgobject = new PGobject();
             JSONObject json_objectFromTable = new JSONObject();
             JSONParser parser = new JSONParser();
 
             String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
 
-            prepared_statement = sql_methods.getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
 
             result_set = prepared_statement.executeQuery();
 
@@ -111,14 +112,11 @@ public class UserPreferencesTwitter {
                 twitter_data = twitter_access_token +","+ twitter_access_token_secret;
             }
 
-            result_set.close();
-            prepared_statement.close();
-
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }finally {
-            sql_methods.closeConnection();
+            sql_methods.close(result_set, prepared_statement);
         }
         return twitter_data;
     }

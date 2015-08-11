@@ -6,8 +6,10 @@
 package com.controller;
 
 import com.google.gson.Gson;
+import com.intbit.ConnectionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
@@ -48,11 +50,11 @@ public class GetBrandPersonality extends BrndBotBaseHttpServlet {
     ResultSet result_set = null;
 
         getSqlMethodsInstance().session = request.getSession();
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             String look_id = (String) getSqlMethodsInstance().session.getAttribute("LookID");
 
             query_string = "Select * from tbl_brand_personality where look_id='" + look_id + "'";
-            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
 
             result_set = prepared_statement.executeQuery();
             while (result_set.next()) {
@@ -76,7 +78,6 @@ public class GetBrandPersonality extends BrndBotBaseHttpServlet {
         }finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
-            getSqlMethodsInstance().closeConnection();
         }
     }
 

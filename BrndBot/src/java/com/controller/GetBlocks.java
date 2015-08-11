@@ -6,8 +6,10 @@
 package com.controller;
 
 import com.google.gson.Gson;
+import com.intbit.ConnectionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -47,7 +49,7 @@ public class GetBlocks extends BrndBotBaseHttpServlet {
 
         getSqlMethodsInstance().session = request.getSession(true);
         
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             
             user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
             
@@ -57,7 +59,7 @@ public class GetBlocks extends BrndBotBaseHttpServlet {
             
             String query = "Select * from tbl_blocks where brand_id="+brand_id;
             
-            prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query);
+            prepared_statement = connection.prepareStatement(query);
             result_set = prepared_statement.executeQuery();
            
             while(result_set.next()){
@@ -94,7 +96,6 @@ public class GetBlocks extends BrndBotBaseHttpServlet {
         }finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
-            getSqlMethodsInstance().closeConnection();
         }
     }
 

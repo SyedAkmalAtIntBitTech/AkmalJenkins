@@ -6,6 +6,8 @@
 package admin.controller;
 
 import com.controller.SqlMethods;
+import com.intbit.ConnectionManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,10 +31,10 @@ public class Looks {
         ResultSet result_set = null;
 
         boolean check = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select * from tbl_look where id='" + id + "' and look_name='" + look_name + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
@@ -57,10 +59,10 @@ public class Looks {
         ResultSet result_set = null;
 
         boolean check = false;
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "select * from tbl_look where look_name='" + look_name + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
                 check = true;
@@ -82,18 +84,15 @@ public class Looks {
         ResultSet result_set = null;
 
         String fileName = "";
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_look where id=" + look_id + "";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
             if (result_set.next()) {
                 fileName = result_set.getString("file_name");
             }
-            result_set.close();
-            prepared_statement.close();
-
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -110,14 +109,13 @@ public class Looks {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Insert into tbl_look (look_name, file_name) values(?,?)";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setString(1, look_name);
             prepared_statement.setString(2, file_name);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -133,21 +131,19 @@ public class Looks {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             String query_string1 = "UPDATE tbl_look"
                     + " SET look_name='" + look_name + "', file_name='" + file_name + "'  WHERE id='" + org_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
-
+            
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         } finally {
             sqlmethods.close(result_set, prepared_statement);
-
         }
 
     }
@@ -157,14 +153,13 @@ public class Looks {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             query_string = "UPDATE tbl_look"
                     + " SET file_name='" + file_name + "' WHERE id='" + org_id + "' and look_name='" + look_name + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
 
         } catch (Exception e) {
             System.out.println(e.getCause());
@@ -181,13 +176,12 @@ public class Looks {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Delete From tbl_look"
                     + " WHERE id='" + org_id + "'";
 
-            prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
