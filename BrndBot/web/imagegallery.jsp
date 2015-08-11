@@ -237,7 +237,7 @@ and open the template in the editor.
                         <div ng-module="imagegallery">
                                 <div ng-controller="samplecontoller" ng-init="showData()">
 
-                                    <ul style="width:800px;">
+                                    <ul style="position: relative;left:100px;width:800px;">
                                          <li class="paginationclass" style="font-weight:bold;">Image Gallery</li>            
                                          <li class="paginationclass" ng-repeat="images in datalists | pagination: curPage * pageSize | limitTo: pageSize">
                                                     <div>

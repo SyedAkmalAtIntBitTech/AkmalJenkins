@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <link href="css/leftnavbar.css" rel="stylesheet" type="text/css"/>
+         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <title>Email Lists</title>
         <style>
             #datadiv{

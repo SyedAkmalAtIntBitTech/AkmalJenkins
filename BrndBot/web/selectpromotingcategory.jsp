@@ -88,7 +88,7 @@ and open the template in the editor.
             }
             #continuebutton{
                position: relative;
-                top: 90px;
+                top: 85px;
             }
             .datafromindbody:hover{
                 background-color: #00CC99;
@@ -103,7 +103,8 @@ and open the template in the editor.
                 position: relative;
                 margin-top: 46px;
                 left:-80px;
-                font-family: ProximaNova-Semibold;
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 600;
                 font-size: 21.6px;
                 color: #2d4355;
                 font-style: normal;
