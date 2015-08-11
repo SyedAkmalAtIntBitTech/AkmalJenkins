@@ -37,14 +37,17 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
         
         try {
             sqlmethods.session = request.getSession();
-            String html_data = request.getParameter("htmlString");
-            sqlmethods.session.setAttribute("htmldata", html_data);
+//            String html_data = request.getParameter("htmlString");
+//            sqlmethods.session.setAttribute("htmldata", html_data);
+             String emailSubject=request.getParameter("email_subject");
+             String emaillist=request.getParameter("email_addresses");
+             
+             sqlmethods.session.setAttribute("email_subject", emailSubject);
+             sqlmethods.session.setAttribute("email_list", emaillist);
             
         }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-        }finally {
-            sqlmethods.closeConnection();
         }
     }
 

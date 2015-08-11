@@ -750,27 +750,23 @@ and open the template in the editor.
 
                                     <li id="tabs-4">
                                         <div ng-controller="MyController" id="MyController"> 
+                         <p id="text3">{{datalists.title}}  </p>
+                         <div  class="tab-pane active" id="picktheme" ng-init="showData()">
+                            <div>
+                      
+                            <span style="width: 700px;">
+                                <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
+<!--                                    {{jsonclass}}-->
 
-                                            <div class="col-md-8 col-md-offset-1 mindbodydatadiv" ng-repeat= "jsonclass in datalists| pagination: curPage * pageSize | limitTo: pageSize" id="rep" >
-                                                <!--                                {{jsonclass}}-->
-                                                <div class='mindbodyOneRowData' onclick="select_category_details('{{jsonclass.id}}')">
-                                                    <span style="width: 700px;">
-                                                        <ul class="datafromindbody">
+          
+                                    <li style="width: 200px">{{jsonclass.column1}}</li>
+                                    <li style="width: 200px">{{jsonclass.column2}}</li>
+                                    <li style="width: 200px">{{jsonclass.column3}}</li>
+                                </ul>
+                            </span>
+                        </div>
 
-                                                            <li style="width: 200px">{{jsonclass.column1}}</li>
-                                                            <li style="width: 200px">{{jsonclass.column2}}</li>
-                                                            <li style="width: 200px">{{jsonclass.column3}}</li>
-                                                        </ul>
-                                                    </span>
-                                                </div>
-                                                <!--                          <div id="" class="foo col-md-2"><p>{{classes.name}}</p></div>
-                                                                                <div id="" class="foo col-md-2"><p>{{classes.StartDateTime}}</p></div>
-                                                                                <div id="" class="foo col-md-2"><p>{{classes.EndDateTime}}</p></div>-->
-
-                                                <div id=' id ' name=id>
-                                                    <p><br/></p>
-                                                </div>
-                                            </div>
+                    </div>
                                             <div class="pagination pagination-centered" ng-show="datalists.length">
                                                 <ul class="pagination-controle pagination">
                                                     <li>
@@ -855,29 +851,20 @@ and open the template in the editor.
 
         <script>
 
-                                                    $("#continue").click(function (){
-//                                alert($(".preview").children());
-//                                     alert(getHost());
+                              $("#continue").click(function (){
+                                        $.ajax({
+                                        url: getHost() + "EmailHtmlData", 
+                                        method: "post",
+                                        data:{htmlString: $(".dataForEmail").html()},
+                                        success: function (responseText) {
 
-//                                $.post("emailsubject.jsp",
-//                                    { htmlString: $(".preview").html()},
-//                                    function(data){
-//                                      alert("Data Loaded: " + data);
-//                                    }
-//                                  );
+                                            document.location.href = "emailpreview.jsp";
+                                        }
 
-
-                                            $.ajax({
-                                            url: getHost() + "EmailTextDataServlet",
-                                                    method: "post",
-                                                    data:{htmlString: $(".dataForEmail").html()},
-                                                    success: function (responseText) {
-
-                                                    document.location.href = "emailsubject.jsp";
-                                                    }
-
+                                        });
                                             });
-                                            });</script>        
+                                                                                    
+        </script>        
         <script>
                                                     //    var selectedDivId;     
                                                     var selectedImageId;

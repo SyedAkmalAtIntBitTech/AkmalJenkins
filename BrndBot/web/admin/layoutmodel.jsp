@@ -4,6 +4,8 @@
     Author     : intbit
 --%>
 
+<%@page import="com.intbit.ConnectionManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -144,7 +146,6 @@
         PreparedStatement ps;
         ResultSet rs;
         String Query = "";
-        SqlMethods SM = new SqlMethods();
         Integer id = 0;
         String org_name = "";
         String brand_name = "";
@@ -360,10 +361,11 @@
                 
                 Organization : <select name="organization" onchange="showUsers(this.value)">
                     <% 
+                        Connection connection = null;
                         try {
-                            
+                            connection = ConnectionManager.getInstance().getConnection();
                             Query = "Select * from tbl_organization";
-                            ps = SM.getConnection().prepareStatement(Query);
+                            ps = connection.prepareStatement(Query);
 
                             rs = ps.executeQuery();
                             while(rs.next()){
@@ -373,14 +375,16 @@
                                         <option value="<%= id %>"><%= org_name %></option>
                     <%
                             }
-                            }catch (Exception e){
-                                System.out.println(e. getCause());
-                                System.out.println(e.getMessage());
-                            }
-
+                        }catch (Exception e){
+                            System.out.println(e. getCause());
+                            System.out.println(e.getMessage());
+                        }finally{
                             ps.close();
                             rs.close();
-//                            SM.con.close();
+                            ConnectionManager.getInstance().closeConnection(connection);
+                        }
+
+                            
                     %>
                                       </select><br><br>
                 Users: <select id='users' name="users">

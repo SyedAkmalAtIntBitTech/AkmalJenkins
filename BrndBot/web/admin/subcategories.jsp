@@ -4,6 +4,8 @@
     Author     : intbit
 --%>
 
+<%@page import="com.intbit.ConnectionManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -130,7 +132,6 @@
         Integer num = 1;
         String exist = "";
         String exist1 = "";
-        SqlMethods sql_methods = new SqlMethods();
         PreparedStatement prepared_statement;
         ResultSet result_set;
         String query_string;
@@ -158,9 +159,11 @@
                         Select Categories: <select name="category" id="category" style="width:180px;">
                             <option value="0">--select--</option>
                             <%
+                                Connection connection = null;
                             try {
+                                connection = ConnectionManager.getInstance().getConnection();
                                 query_string = "select * from tbl_category Order By id ASC";
-                                prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
+                                prepared_statement = connection.prepareStatement(query_string);
                                 result_set = prepared_statement.executeQuery();
 
                                 while (result_set.next()) {
@@ -174,6 +177,7 @@
                             }finally {
                                 result_set.close();
                                 prepared_statement.close();
+                                ConnectionManager.getInstance().closeConnection(connection);
                             }
                             %>
                         </select><br>
@@ -204,8 +208,9 @@
                     </tr>
                     <%
                         try {
+                            connection = ConnectionManager.getInstance().getConnection();
                         query_string = "select * from tbl_sub_category Order By id ASC";
-                        prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
+                        prepared_statement = connection.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         number = 1;
 
@@ -230,7 +235,7 @@
                         }finally {
                             result_set.close();
                             prepared_statement.close();
-//                            sqlmethods.closeConnection();
+                            ConnectionManager.getInstance().closeConnection(connection);
                         }
                     %>
                 </table>

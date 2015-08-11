@@ -3,26 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package social.controller;
+
 import com.controller.SqlMethods;
-import com.intbit.PhantomImageConverter;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 
 /**
  *
  * @author sandeep-kumar
  */
-public class ConvertHtmlToImageServlet extends HttpServlet {
-    SqlMethods sql_methods = new SqlMethods();
+public class EmailHtmlData extends HttpServlet {
+    SqlMethods sqlmethods = new SqlMethods();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,9 +30,17 @@ public class ConvertHtmlToImageServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-   
-
-
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try{
+             sqlmethods.session = request.getSession();
+           String html_data = request.getParameter("htmlString");
+           sqlmethods.session.setAttribute("htmldata", html_data);
+      
+        }catch (Exception e){
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,7 +56,6 @@ public class ConvertHtmlToImageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**
@@ -66,31 +69,7 @@ public class ConvertHtmlToImageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-             String htmlString = request.getParameter("htmlString");
-             String width= request.getParameter("containerWidth").replace("px", "");
-        String height= request.getParameter("containerHeight").replace("px", "");
-        sql_methods.session = request.getSession();
-           PhantomImageConverter phantomImageConverter = new PhantomImageConverter(getServletContext());
-           File imagePngFile = phantomImageConverter.getImage(htmlString, width, height, "0", "0");
-        
-        String filename=imagePngFile.getName();
-        sql_methods.session.setAttribute("image_file_name", filename);
-        System.err.println(filename);
-        
-         response.setContentType("text/plain");
-        response.getWriter().write(filename);
-        }
-        catch(Exception e){
-        response.setContentType("text/html;charset=UTF-8");
-           StringBuffer sb = new StringBuffer();
-           PrintWriter out = response.getWriter();
-           sb.append("<html><body><h2>");
-           sb.append(e.getLocalizedMessage());
-           sb.append("</body></html>");
-           out.println(sb);
-           out.close();
-        }
+        processRequest(request, response);
     }
 
     /**

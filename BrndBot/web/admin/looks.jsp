@@ -4,6 +4,8 @@
     Author     : intbit
 --%>
 
+<%@page import="com.intbit.ConnectionManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -34,7 +36,6 @@
         Integer num = 1;
         String exist = "";
         String exist1 = "";
-        SqlMethods sql_methods = new SqlMethods();
         PreparedStatement prepared_statement;
         ResultSet result_set;
         String query_string;
@@ -77,36 +78,39 @@
                     <div class="col-md-3 col-md-offset-5">
                         <%= exist1 %>
                         <input type="text"  class="form-control simplebox" id="lookname" name="lookname"/><br>
+                        <%= exist1 %>
+    Select organization: <select name="organization" id="organization" style="width:180px;">
+                                    <option value="0">--select--</option>
+                                    <%
+                                    Connection connection = null;
+                                    try{
+                                        connection = ConnectionManager.getInstance().getConnection();
+                                        query_string = "select * from tbl_organization Order By id ASC";
+                                        prepared_statement = connection.prepareStatement(query_string);
+                                        result_set = prepared_statement.executeQuery();
+
+                                        while (result_set.next()) {
+                                    %>
+                                                    <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("organization_name") %></option>
+                                    <%
+                                        }
+                                    }catch (Exception e){
+                                        System.out.println(e.getCause());
+                                        System.out.println(e.getMessage());
+                                    }finally {
+                                        result_set.close();
+                                        prepared_statement.close();
+                                    }
+
+                                    %>
+                                  </select><br>
+                        
                         Attach Image:<input type="file" style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName" /><br>
                         <!--  <label>Organization Name:</label>-->
                     </div><br>
                 </div>
 
                     <div style="float:left; left:20px; padding-left: 430px;">
-                        <%= exist1 %>
-                        Select organization: <select name="organization" id="organization" style="width:180px;">
-                                                        <option value="0">--select--</option>
-                                                        <%
-                                                        try{
-                                                            query_string = "select * from tbl_organization Order By id ASC";
-                                                            prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
-                                                            result_set = prepared_statement.executeQuery();
-
-                                                            while (result_set.next()) {
-                                                        %>
-                                                                        <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("organization_name") %></option>
-                                                        <%
-                                                            }
-                                                        }catch (Exception e){
-                                                            System.out.println(e.getCause());
-                                                            System.out.println(e.getMessage());
-                                                        }finally {
-                                                            result_set.close();
-                                                            prepared_statement.close();
-                                                        }
-
-                                                        %>
-                                                      </select><br>
                     </div><br><br>    
 
                         
@@ -133,9 +137,8 @@
                     </tr>
                     <%
                     try{
-                        
                         query_string = "select * from tbl_look Order By id ASC";
-                        prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
+                        prepared_statement = connection.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         num = 1;
                         while (result_set.next()) {
@@ -154,11 +157,10 @@
                     }catch (Exception e){
                         System.out.println(e.getCause());
                         System.out.println(e.getMessage());
-                        out.println(sql_methods.error);
                     }finally {
                         result_set.close();
                         prepared_statement.close();
-//                        sqlmethods.closeConnection();
+                        ConnectionManager.getInstance().closeConnection(connection);
                     }
                     %>
                 </table>

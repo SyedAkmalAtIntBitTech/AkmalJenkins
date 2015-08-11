@@ -74,25 +74,25 @@ angular.module("myapp", [])
                         });
 
                 if (CatID === 1) {
-                    $("#subpromotelist").css("left", "30px").css("top", "180px");
+                    $("#subpromotelist").css("left", "30px").css("top", "150px");
                 }
                 else if (CatID === 2) {
-                    $("#subpromotelist").css("left", "150px").css("top", "180px");
+                    $("#subpromotelist").css("left", "150px").css("top", "150px");
                 }
                 else if (CatID === 3) {
-                    $("#subpromotelist").css("left", "270px").css("top", "180px");
+                    $("#subpromotelist").css("left", "290px").css("top", "150px");
                 }
                 else if (CatID === 4) {
-                    $("#subpromotelist").css("left", "385px").css("top", "180px");
+                    $("#subpromotelist").css("left", "410px").css("top", "150px");
                 }
                 else if (CatID === 5) {
-                    $("#subpromotelist").css("left", "510px").css("top", "180px");
+                    $("#subpromotelist").css("left", "540px").css("top", "150px");
                 }
                 else if (CatID === 6) {
-                    $("#subpromotelist").css("left", "625px").css("top", "180px");
+                    $("#subpromotelist").css("left", "695px").css("top", "150px");
                 }
                 else if (CatID === 7) {
-                    $("#subpromotelist").css("left", "30px").css("top", "180px");
+                    $("#subpromotelist").css("left", "30px").css("top", "150px");
                 }
 
                 else if (CatID === 8) {

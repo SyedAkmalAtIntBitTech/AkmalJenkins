@@ -129,7 +129,7 @@ public class Looks {
 
     }
 
-    public void changeLooks(Integer org_id, String look_name, String file_name) throws SQLException {
+    public void changeLooks(Integer org_id, String look_name, String file_name, Integer organization_id) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
@@ -137,7 +137,7 @@ public class Looks {
         try {
 
             String query_string1 = "UPDATE tbl_look"
-                    + " SET look_name='" + look_name + "', file_name='" + file_name + "'  WHERE id='" + org_id + "'";
+                    + " SET look_name='" + look_name + "', file_name='" + file_name + "', organization_id="+ organization_id +"  WHERE id='" + org_id + "'";
 
             prepared_statement = sqlmethods.getConnection().prepareStatement(query_string);
             prepared_statement.executeUpdate();

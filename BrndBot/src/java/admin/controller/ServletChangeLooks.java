@@ -49,6 +49,7 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
         Looks look;
         RequestDispatcher request_dispatcher;
         String lookname = "", lookid = "";
+        Integer organization = 0;
         look = new Looks();
         boolean check = false;
 
@@ -96,6 +97,9 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
                         if (fieldName.equals("lookid")){
                             lookid = fi.getString();
                         }
+                        if (fieldName.equals("organization")) {
+                            organization = Integer.parseInt(fi.getString());
+                        }
                         file_name_to_delete = look.getFileName(Integer.parseInt(lookid));
                     }else {
                         
@@ -126,7 +130,7 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
                             File storeFile = new File(file_path);
                             fi.write(storeFile);
                             out.println("Uploaded Filename: " + filePath + "<br>");
-                            look.changeLooks(Integer.parseInt(lookid), lookname, fileName);
+                            look.changeLooks(Integer.parseInt(lookid), lookname, fileName, organization);
                             response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
                         }else {
                             response.sendRedirect(request.getContextPath() + "/admin/editlook.jsp?exist=exist&look_id=" + lookid + "&look_name=" + lookname + "");

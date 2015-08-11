@@ -4,6 +4,8 @@
     Author     : intbit
 --%>
 
+<%@page import="com.intbit.ConnectionManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -21,8 +23,8 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/jquery-1.11.3.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <title>colors</title>
     </head>
@@ -31,7 +33,6 @@
         Integer num = 1;
         String exist = "";
         String exist1 = "";
-        SqlMethods sql_methods = new SqlMethods();
         PreparedStatement prepared_statement;
         ResultSet result_set;
         String query_string;
@@ -86,10 +87,13 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <%                       
+                        <%
+                            Connection connection = null;
                         try {
+                            connection = ConnectionManager.getInstance().getConnection();
+                            
                                 query_string = "select * from tbl_colors Order By id ASC";
-                                prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
+                                prepared_statement = connection.prepareStatement(query_string);
                                 result_set = prepared_statement.executeQuery();
                                 number = 1;
                                 hash = 1;
@@ -110,11 +114,12 @@
                                     hashv = "hash" + hash;
                                 }
                             } catch (Exception e) {
-                                out.println(sql_methods.error);
+                                System.out.println(e.getCause());
+                                System.out.println(e.getMessage());
                             }finally {
                                 result_set.close();
                                 prepared_statement.close();
-//                                sqlmethods.closeConnection();
+                                ConnectionManager.getInstance().closeConnection(connection);
                         }
                         %>
                     </table>

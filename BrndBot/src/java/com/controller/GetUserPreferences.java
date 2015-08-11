@@ -53,6 +53,7 @@ public class GetUserPreferences extends BrndBotBaseHttpServlet {
         Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
         try {
                 String query_string = "Select * from tbl_user_preferences where user_id="+user_id+"";
+
                 prepared_statement = getSqlMethodsInstance().getConnection().prepareStatement(query_string);
 
                 result_set = prepared_statement.executeQuery();

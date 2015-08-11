@@ -4,6 +4,8 @@
     Author     : intbit
 --%>
 
+<%@page import="com.intbit.ConnectionManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -91,9 +93,12 @@
                         Select Look: <select name="look" id="look" style="width:180px;">
                                     <option value="0">--select--</option>
                     <%
+                    Connection conn = null;
                     try{
+                        conn = ConnectionManager.getInstance().getConnection();
+                        
                         query_string = "select * from tbl_look Order By id ASC";
-                        prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
+                        prepared_statement = conn.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         
                         while (result_set.next()) {
@@ -107,6 +112,7 @@
                     }finally {
                         result_set.close();
                         prepared_statement.close();
+                        SqlMethods.closeConnection(conn);
                     }
                         
                     %>
@@ -148,8 +154,10 @@
                     </tr>
                     <%
                     try{
+                        conn = ConnectionManager.getInstance().getConnection();
+                        
                         query_string = "select * from tbl_brand_personality Order By id ASC";
-                        prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
+                        prepared_statement = conn.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         number = 1;
                         
@@ -172,7 +180,7 @@
                     }finally {
                         result_set.close();
                         prepared_statement.close();
-//                        sql_methods.closeConnection();
+                        ConnectionManager.getInstance().closeConnection(conn);
                     }
                         
 

@@ -7,6 +7,7 @@ package admin.controller;
 
 import admin.controller.Looks;
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.ConnectionManager;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -90,16 +91,21 @@ public class ServletAddLooks extends BrndBotBaseHttpServlet {
                 out.println("<body>");
                 while (i.hasNext()) {
                     FileItem fi = (FileItem) i.next();
+                    
                     if (fi.isFormField()) {
                         // Get the uploaded file parameters
                         fieldName = fi.getFieldName();
-                        if (fieldName.equals("lookname")) {
-                            look_name = fi.getString();
+                        try {
+                            if (fieldName.equals("lookname")) {
+                                look_name = fi.getString();
+                            }
+                            if (fieldName.equals("organization")) {
+                                organization_id = Integer.parseInt(fi.getString());
+                            }
+                        }catch (Exception e){
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
                         }
-                        if (fieldName.equals("organization")) {
-                            organization_id = Integer.parseInt(fi.getString());
-                        }
-
                     } else {
                         check = look.checkAvailability(look_name);
 

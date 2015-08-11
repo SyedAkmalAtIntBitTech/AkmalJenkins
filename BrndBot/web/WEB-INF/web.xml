@@ -265,6 +265,10 @@
         <servlet-name>ConvertHtmlToImageServlet</servlet-name>
         <servlet-class>util.ConvertHtmlToImageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EmailHtmlData</servlet-name>
+        <servlet-class>social.controller.EmailHtmlData</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -536,6 +540,10 @@
     <servlet-mapping>
         <servlet-name>ConvertHtmlToImageServlet</servlet-name>
         <url-pattern>/ConvertHtmlToImageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmailHtmlData</servlet-name>
+        <url-pattern>/EmailHtmlData</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

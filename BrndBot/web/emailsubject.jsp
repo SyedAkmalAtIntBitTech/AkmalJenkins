@@ -137,6 +137,87 @@
                margin-left:150px;
             }
         </style>
+        <%! String mindbody_id=""; %>
+        <% mindbody_id = request.getParameter("id"); %>
+         <script>
+           $(document).ready(function () { 
+            $(".cross").hide();
+            $(".menu").hide();
+            $("#emaillist").hide();
+            $("#popup").hide();
+
+            $(".hamburger").click(function () {
+                $(".menu").slideToggle("slow", function () {
+                    $(".hamburger").hide();
+                    $(".cross").show();
+                });
+            });
+            $(".cross").click(function () {
+                $(".menu").slideToggle("slow", function () {
+                    $(".cross").hide();
+                    $(".hamburger").show();
+                });
+            });
+
+            $("#emailSubjectContinueButton").click(function () {
+                $("#emaillist").show();
+                $("#emailsubjectdiv").hide();
+            });
+            
+             $("#popupCancel").click(function () {      
+                $("#popup").hide();
+            });
+        });
+            function selectCsvFile(){
+                  $("#popup").show();
+                
+            }
+   
+   function uploadCsvFileData(){
+        var fileUpload = document.getElementById("selectedCsvFile");
+               var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+               if (regex.test(fileUpload.value.toLowerCase())) {
+                   if (typeof (FileReader) != "undefined") {
+                       var reader = new FileReader();
+                       reader.onload = function (e) {
+                           var table = document.createElement("table");
+                           var rows = e.target.result.split("\n");
+//                           alert(rows);
+                           document.getElementById("textArea").value = rows;
+//                            for (var i = 0; i < rows.length; i++) {
+//                                var row = table.insertRow(-1);
+//                                var cells = rows[i].split(",");
+//                                for (var j = 0; j < cells.length; j++) {
+//                                   var cell = row.insertCell(-1);
+//                                   cell.innerHTML = cells[j];
+//                                }
+//                            }
+                       }
+                       reader.readAsText(fileUpload.files[0]);
+                       
+                   } else {
+                       alert("This browser does not support HTML5.");
+                   }
+               } else {
+                   alert("Please upload a valid CSV file.");
+               }
+               
+           }
+//           
+//          function saveEmailList(){
+//               var emailId=$("#textArea").val();
+//             var filter =/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+//             var filter1=/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+(([a-zA-Z0-9]{2,4})+\,)/;
+//               if(filter.test(emailId) ||filter1.test(emailId)){
+//                   alert("true");
+//               }
+//              else{
+//                  alert("false");
+//              }
+//          } 
+//       
+   
+        </script>
         <script>
             
         $(document).ready(function () { 
@@ -168,7 +249,7 @@
                     var email_addresses = $("#emailaddresses").val();
                     var email_list = $("#chooseEmailList").val();
                         $.ajax({
-                        url: getHost() + "SendEmailServlet",
+                        url: getHost() + "EmailTextDataServlet",
 //                        dataType: 'json',
                         data: {
                             email_subject: email_subject,
@@ -176,8 +257,8 @@
                             email_list:email_list
                         },
                         success: function(result){
-                            alert("Email sent successfully");
-                            document.location.href = "dashboard.jsp";
+//                            alert("Email sent successfully");
+                        document.location.href = "emaileditor.jsp?id="+<%= mindbody_id %>;
                         }
                 });
                 
@@ -200,7 +281,7 @@
                         {
                             if (data === "true") {
                                 alert("Data saved successfully");
-                                window.open(getHost() + 'emailsubject.jsp', "_self");
+                               window.open(getHost() + 'emailsubject.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);
                             }
@@ -306,86 +387,9 @@
             </div>      
         </div>
 
-        <script>
-            $(".cross").hide();
-            $(".menu").hide();
-            $("#emaillist").hide();
-            $("#popup").hide();
-
-            $(".hamburger").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".hamburger").hide();
-                    $(".cross").show();
-                });
-            });
-            $(".cross").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".cross").hide();
-                    $(".hamburger").show();
-                });
-            });
-
-            $("#emailSubjectContinueButton").click(function () {
-                $("#emaillist").show();
-                $("#emailsubjectdiv").hide();
-            });
-            
-             $("#popupCancel").click(function () {      
-                $("#popup").hide();
-            });
-            function selectCsvFile(){
-                  $("#popup").show();
-                
-            }
-   
-   function uploadCsvFileData(){
-        var fileUpload = document.getElementById("selectedCsvFile");
-               var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
-               if (regex.test(fileUpload.value.toLowerCase())) {
-                   if (typeof (FileReader) != "undefined") {
-                       var reader = new FileReader();
-                       reader.onload = function (e) {
-                           var table = document.createElement("table");
-                           var rows = e.target.result.split("\n");
-//                           alert(rows);
-                           document.getElementById("textArea").value = rows;
-//                            for (var i = 0; i < rows.length; i++) {
-//                                var row = table.insertRow(-1);
-//                                var cells = rows[i].split(",");
-//                                for (var j = 0; j < cells.length; j++) {
-//                                   var cell = row.insertCell(-1);
-//                                   cell.innerHTML = cells[j];
-//                                }
-//                            }
-                       }
-                       reader.readAsText(fileUpload.files[0]);
-                       
-                   } else {
-                       alert("This browser does not support HTML5.");
-                   }
-               } else {
-                   alert("Please upload a valid CSV file.");
-               }
-               
-           }
-           
-          function saveEmailList(){
-               var emailId=$("#textArea").val();
-             var filter =/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-             var filter1=/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+(([a-zA-Z0-9]{2,4})+\,)/;
-               if(filter.test(emailId) ||filter1.test(emailId)){
-                   alert("true");
-               }
-              else{
-                  alert("false");
-              }
-          } 
        
-   
-        </script>
         
 
-        
-        </script>
+       
     </body>
 </html>

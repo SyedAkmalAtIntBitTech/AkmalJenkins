@@ -4,6 +4,8 @@
     Author     : intbit
 --%>
 
+<%@page import="com.intbit.ConnectionManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -19,10 +21,11 @@
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/jquery-1.11.3.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <title>Display Organizations</title>
     </head>
@@ -31,12 +34,9 @@
         Integer num = 1;
         String exist = "";
         String exist1 = "";
-        SqlMethods sql_methods = new SqlMethods();
         PreparedStatement prepared_statement;
         ResultSet result_set;
-        String query_string;
         Integer number = 1;
-
     </jsp:declaration>
 
     <body ng-app  class="container">
@@ -76,32 +76,31 @@
                         <td></td>
                     </tr>
                     <%
-                        try{
-                        query_string = "select * from tbl_organization Order By id ASC";
-                        
-                        prepared_statement = sql_methods.getConnection().prepareStatement(query_string);
+                    Connection conn = null;
+                    try{
+                        String query_string = "select * from tbl_organization Order By id ASC";
+                        conn = ConnectionManager.getInstance().getConnection();
+                        prepared_statement = conn.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
                         num = 1;
                         while (result_set.next()) {
-
                     %>
-                    <tr>
-                        <td align="left">&nbsp;<%= num %></td>
-                        <td><input class="simplebox" type="text" name="<%= result_set.getInt("id")%>" id="<%= result_set.getInt("id")%>" value="<%= result_set.getString("organization_name")%>" /></td>
-                        <td><button class="btn btn-info" id="change" name="change" value="edit" ng-click="changeOrganization(<%=result_set.getInt("id")%>)">edit</button></td>
-                        <td><button class="btn btn-info" id="organization" name="organization" value="delete" ng-click="deleteOrganization(<%=result_set.getInt("id")%>)">delete</button></td>
-                    </tr>
+                            <tr>
+                                <td align="left">&nbsp;<%= num %></td>
+                                <td><input class="simplebox" type="text" name="<%= result_set.getInt("id")%>" id="<%= result_set.getInt("id")%>" value="<%= result_set.getString("organization_name")%>" /></td>
+                                <td><button class="btn btn-info" id="change" name="change" value="edit" ng-click="changeOrganization(<%=result_set.getInt("id")%>)">edit</button></td>
+                                <td><button class="btn btn-info" id="organization" name="organization" value="delete" ng-click="deleteOrganization(<%=result_set.getInt("id")%>)">delete</button></td>
+                            </tr>
                     <%
-                        num = num +1;
-                        }
+                            num = num +1;
+                        } 
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        out.println(e.getMessage());
+                    }finally {
                         result_set.close();
                         prepared_statement.close();
-                    }catch (Exception e){
-                        System.out.println(e.getCause());
-                        System.out.println(e.getMessage());
-                        out.println(sql_methods.error);
-                    }finally {
-                            sql_methods.closeConnection();
+                        ConnectionManager.getInstance().closeConnection(conn);
                     }  
                     %>
                 </table>
