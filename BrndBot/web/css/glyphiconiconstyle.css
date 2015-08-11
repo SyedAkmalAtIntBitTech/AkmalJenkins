@@ -34,8 +34,7 @@ and open the template in the editor.
             #promotebutton{
                 position: relative;
                 left: 35px;
-               
-                 font-size: small;
+                font-size: small;
             }
   #social:hover,#email:hover,#print:hover{
        background-color: #E65C00;
