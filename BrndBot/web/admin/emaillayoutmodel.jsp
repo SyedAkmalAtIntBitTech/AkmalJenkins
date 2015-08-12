@@ -177,13 +177,13 @@
       function showmindbodyquery(str){
           
         
-        if (str == 0){
-            $("#categories").attr("disabled", false);
-            $("#subcategories").attr("disabled", false);
-          }else {
-            $("#categories").attr("disabled", true);
-            $("#subcategories").attr("disabled", true);
-          }
+//        if (str == 0){
+//            $("#categories").attr("disabled", false);
+//            $("#subcategories").attr("disabled", false);
+//          }else {
+//            $("#categories").attr("disabled", true);
+//            $("#subcategories").attr("disabled", true);
+//          }
           
             if (typeof XMLHttpRequest !== "undefined"){
 
@@ -277,29 +277,39 @@
 
                 <p>
                 Font Size: <select id="textSize">
-                                 <option value="8">Font Size 1</option>
-                                 <option value="12">Font Size 2</option>
-                                 <option value="14">Font Size 3</option>
-                                 <option value="18">Font Size 4</option>
-                                 <option value="22">Font Size 5</option>
+                                 <option value="8">8px</option>
+                                 <option value="12">12px</option>
+                                 <option value="14">14px</option>
+                                 <option value="18">18px</option>
+                                 <option value="22">22px</option>
+                                 <option value="26">26px</option>
+                                 <option value="30">30px</option>
+                                 <option value="34">34px</option>                           
                                </select>
                 </p>
 
                 <p>
                     Font Family: <select id="textFontFamily">
-                        <option value="Arial">Font Family 1</option>
-                        <option value="Papyrus">Font Family 2</option>
-                        <option value="Montserrat">Font Family 3</option>
-                        <option value="Futura">Font Family 4</option>
-                        <option value="Times New Roman">Font Family 5</option>
-                    </select>
+                                    <option value="Arial">Font Family 1</option>
+                                    <option value="Papyrus">Font Family 2</option>
+                                    <option value="Montserrat">Font Family 3</option>
+                                    <option value="Futura">Font Family 4</option>
+                                    <option value="Times New Roman">Font Family 5</option>
+                                </select>
                     
  <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
                         <option value="0"></option>
                     </select>-->
                 </p>
                 <p>
-                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />
+<!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
+                    Font Color: <select id="fontColor">
+                        <option value="red">Font Color 1</option>
+                        <option value="blue">Font Color 2</option>
+                        <option value="green">Font Color 3</option>
+                        <option value="yellow">Font Color 4</option>
+                        <option value="Lime">Font Color 5</option>
+                    </select>
                 </p>
                 <hr>
 <!--                <p>
@@ -524,12 +534,12 @@
                                         <option value="0">Select</option>
                                 </select><br><br>
                                 
-                Width: <input id="containerWidth" class="spinner" size="6" value="1280"> px Height: <input id="containerHeight" size="6" class="spinner" value="800"> px
-                            <input type="text" name="mindbodyquery" id="mindbodyquery">
+                Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
+                            <input type="hidden" name="mindbodyquery" id="mindbodyquery">
                             <input type="hidden" name="containerstyle" id="containerstyle">
                             <input type="hidden" name="textstyle" id="textstyle">
                             <input type="hidden" name="element" id="element">
-                            <input type="text" name="mapper" id="mapper">
+                            <input type="hidden" name="mapper" id="mapper">
                             <input type="hidden" name="layout" id="layout" >
                             <input type="button" value="save" onclick="passvaluetoinputfield();">
 

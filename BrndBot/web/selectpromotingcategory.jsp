@@ -152,6 +152,7 @@ and open the template in the editor.
 
                     angular.module("myapp", [])
                     .controller("controllerGetMindBody", function($scope, $http) {
+                    $("#continuebutton").hide();
 
                     $scope.showData = function(){
 
@@ -162,9 +163,11 @@ and open the template in the editor.
                                     url : 'MindBodyDataServlet'
                             }).success(function(data, status, headers, config) {
                                 $scope.datalists = data;
-                                
+
                                 if (data.mindbody_data.length == 0){
                                     $("#continuebutton").hide();
+                                } else {
+                                    $("#continuebutton").show();
                                 }
 
                             if (data === error){
@@ -190,7 +193,6 @@ and open the template in the editor.
                     function select_category_details(id){
                     selected_id = id;
         
-                    
                             $("#continuebutton").prop("disabled", false);
                             //                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +id;
                             //                    window.open(configuration, "_self")
@@ -215,7 +217,7 @@ and open the template in the editor.
 
                 <div class="col-md-6">
                     <p id="text3">{{datalists.title}}  </p><br> </div><br><br> 
-                <div class="col-md-5">  <input type="button"  id="continuebutton" class="btn btn-info col-md-offset-2" onclick="selected_category()" value="CONTINUE" disabled="true">
+                    <div class="col-md-5">  <input type="button"  id="continuebutton" class="btn btn-info col-md-offset-2" onclick="selected_category()" value="CONTINUE" disabled="true">
 
                 </div>
             </div>  

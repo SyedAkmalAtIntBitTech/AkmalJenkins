@@ -13,7 +13,16 @@ public class brandpersonality {
     public int id = 0;
     public String brand_name = "";
     public int look_id = 0;
+    public String image_name = "";
 
+    public String getImage_name() {
+        return image_name;
+    }
+
+    public void setImage_name(String image_name) {
+        this.image_name = image_name;
+    }
+    
     public int getId() {
         return id;
     }

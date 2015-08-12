@@ -18,9 +18,9 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <script src="js/configurations.js"></script>
         <script>
-                function showText(brandid,brandname){
+                function showText(brandid,image_name){
                              $("#hiddenform").val(brandid);
-                             $("#image1").attr('src', 'images/Brandimages/'+brandname+'.jpeg');
+                             $("#image1").attr('src', 'images/Brandimages/'+image_name);
                  }    
                  function sendbrandID(){
                     var brandID = $("#hiddenform").val() ;
@@ -79,7 +79,7 @@
                         <form class="form-horizontal"  ng-controller="MyController" ng-model="brands" ng-submit="showText()">
                             <input id="hiddenform" name="hiddenform" type="hidden" ng-model="brands.brandName"><br>
                             <div ng-repeat="first in First" class="span5 col-md-offset-1 ">
-                                <button type="button"  id="contemporary1" class="btn btn-default btn-lg col-md-3" onclick="showText('{{first.id}}','{{first.brand_name}}')">{{first.brand_name}}</button><br><br><br>
+                                <button type="button"  id="contemporary1" class="btn btn-default btn-lg col-md-3" onclick="showText('{{first.id}}','{{first.image_name}}')">{{first.brand_name}}</button><br><br><br>
                             </div>  
                             
                             <div class="span4 col-md-offset-1">

@@ -29,7 +29,7 @@ public class ConnectionManager {
     
     private DataSource dataSource;
     
-    private ConnectionManager(){   
+    private ConnectionManager(){
         Context envCtx;
         try {
             envCtx = (Context) new InitialContext().lookup("java:comp/env");
@@ -45,14 +45,14 @@ public class ConnectionManager {
     }
     
     public Connection getConnection()throws SQLException{
-        if ( dataSource == null ){
+            if ( dataSource == null ){
             throw new SQLException("Datasource not initialized");
         }
-        
         BasicDataSource bdSource = (BasicDataSource)dataSource;
         logger.info("Active DB Connections : " + bdSource.getNumActive());
         logger.info("Idle DB Connections : " + bdSource.getNumIdle());
         return dataSource.getConnection();
+        
     }
     
     public void closeConnection(Connection connection) throws SQLException{

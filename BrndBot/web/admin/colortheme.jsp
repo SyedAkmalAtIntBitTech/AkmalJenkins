@@ -92,6 +92,8 @@
                                 <option value="0">--select--</option>
                                 <%
                                     try {
+                                        connection = ConnectionManager.getInstance().getConnection();
+                                        
                                     query_string = "select * from tbl_colors Order By id ASC";
                                     prepared_statement = connection.prepareStatement(query_string);
                                     result_set = prepared_statement.executeQuery();

@@ -31,7 +31,7 @@ public class Colors {
         ResultSet result_set = null;
         boolean check = false;
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "select * from tbl_colors where color_hex='" + color_hex + "' and color_name='" + color_name + "'";
+            query_string = "select * from tbl_colors where color_hex='" + color_hex + "'";
 
             prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
@@ -71,13 +71,13 @@ public class Colors {
 
     }
 
-    public void edit(Integer org_id, String color_hex, String color_name) throws SQLException {
+    public void edit(Integer color_id, String color_hex, String color_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_colors"
-                    + " SET color_hex='" + color_hex + "', color_name='" + color_name + "'  WHERE id='" + org_id + "'";
+                    + " SET color_hex='" + color_hex + "', color_name='" + color_name + "'  WHERE id='" + color_id + "'";
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
