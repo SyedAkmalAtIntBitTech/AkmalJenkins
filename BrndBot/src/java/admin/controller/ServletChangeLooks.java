@@ -30,24 +30,7 @@ import org.apache.commons.fileupload.*;
  */
 public class ServletChangeLooks extends BrndBotBaseHttpServlet {
 
-    String filePath;
-    String fileName, fieldName, uploadPath, deletePath, file_name_to_delete, uploadPath1;
-    Looks look;
-    RequestDispatcher request_dispatcher;
-    String lookname, lookid;
-    boolean check;
-
-    
-     public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        try {
-            look = new Looks();
-            check = false;
-        } catch (NamingException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    /**
+   /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -61,6 +44,14 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String filePath = "";
+        String fileName, fieldName, uploadPath, deletePath, file_name_to_delete = "", uploadPath1;
+        Looks look;
+        RequestDispatcher request_dispatcher;
+        String lookname = "", lookid = "";
+        Integer organization = 0;
+        look = new Looks();
+        boolean check = false;
 
         File file;
         int maxFileSize = 5000 * 1024;
@@ -106,10 +97,13 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
                         if (fieldName.equals("lookid")){
                             lookid = fi.getString();
                         }
+                        if (fieldName.equals("organization")) {
+                            organization = Integer.parseInt(fi.getString());
+                        }
                         file_name_to_delete = look.getFileName(Integer.parseInt(lookid));
                     }else {
                         
-                        check = look.checkAvailabilities(Integer.parseInt(lookid), lookname);
+                        check = look.checkAvailabilities(Integer.parseInt(lookid), lookname, organization);
 
                         if (check == false){
                             
@@ -136,10 +130,10 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
                             File storeFile = new File(file_path);
                             fi.write(storeFile);
                             out.println("Uploaded Filename: " + filePath + "<br>");
-                            look.changeLooks(Integer.parseInt(lookid), lookname, fileName);
+                            look.changeLooks(Integer.parseInt(lookid), lookname, fileName, organization);
                             response.sendRedirect(request.getContextPath() + "/admin/looks.jsp");
                         }else {
-                            response.sendRedirect(request.getContextPath() + "/admin/editlook.jsp?exist=exist&look_id=" + lookid + "&look_name=" + lookname + "");
+                            response.sendRedirect(request.getContextPath() + "/admin/editlook.jsp?exist=exist&look_id=" + lookid + "&look_name=" + lookname + "&organization_id="+ organization +"&image_file_name="+ file_name_to_delete);
                         }    
                     }
                 }

@@ -180,11 +180,14 @@
 
                 <p>
                 Font Size: <select id="textSize">
-                                 <option value="8">Font Size 1</option>
-                                 <option value="12">Font Size 2</option>
-                                 <option value="14">Font Size 3</option>
-                                 <option value="18">Font Size 4</option>
-                                 <option value="22">Font Size 5</option>
+                                 <option value="8">8px</option>
+                                 <option value="12">12px</option>
+                                 <option value="14">14px</option>
+                                 <option value="18">18px</option>
+                                 <option value="22">22px</option>
+                                 <option value="26">26px</option>
+                                 <option value="30">30px</option>
+                                 <option value="34">34px</option>   
                                </select>
                 </p>
 
@@ -202,7 +205,14 @@
                     </select>-->
                 </p>
                 <p>
-                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />
+<!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
+                    Font Color: <select id="fontColor">
+                                    <option value="red">Font Color 1</option>
+                                    <option value="blue">Font Color 2</option>
+                                    <option value="green">Font Color 3</option>
+                                    <option value="yellow">Font Color 4</option>
+                                    <option value="Lime">Font Color 5</option>
+                                </select>
                 </p>
                 <hr>
                 <p>
@@ -430,7 +440,7 @@
                             <input type="hidden" name="containerstyle" id="containerstyle">
                             <input type="hidden" name="textstyle" id="textstyle">
                             <input type="hidden" name="element" id="element">
-                            <input type="text" name="mapper" id="mapper">
+                            <input type="hidden" name="mapper" id="mapper">
                             <input type="hidden" name="layout" id="layout" >
                             <input type="button" value="save" onclick="passvaluetoinputfield();">
 

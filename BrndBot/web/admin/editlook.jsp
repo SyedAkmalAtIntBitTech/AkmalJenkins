@@ -4,6 +4,8 @@
     Author     : intbit
 --%>
 
+<%@page import="com.intbit.ConnectionManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
@@ -36,6 +38,7 @@
         PreparedStatement prepared_statement;
         ResultSet result_set;
         String query_string;
+        Integer organization_id = 0;
         Integer number = 1;
 
     </jsp:declaration>
@@ -43,6 +46,8 @@
     <%
         String look_id = request.getParameter("look_id");
         String look_name = request.getParameter("look_name");
+        String organization_selected_id = request.getParameter("organization_id");
+        String image_file_name = request.getParameter("image_file_name");
     %>
     
     <%
@@ -81,7 +86,43 @@
                             <input type="hidden" name="lookid" id="lookid" value="<%= look_id %>"/>
                             <%= exist1 %>
                             <input type="text"  class="form-control simplebox" id="lookname" name="lookname" value="<%= look_name %>"/>
-                        Attach Image:<input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
+                       
+    Select organization: <select name="organization" id="organization" style="width:180px;">
+                                    <option value="0">--select--</option>
+                                    <%
+                                    Connection connection = null;
+                                    try{
+                                        connection = ConnectionManager.getInstance().getConnection();
+                                        query_string = "select * from tbl_organization Order By id ASC";
+                                        prepared_statement = connection.prepareStatement(query_string);
+                                        result_set = prepared_statement.executeQuery();
+
+                                        while (result_set.next()) {
+
+                                                organization_id = result_set.getInt("id");
+                                                if (organization_id == Integer.parseInt(organization_selected_id)){
+                                           %>
+                                                    <option value="<%= result_set.getInt("id")%>" selected><%= result_set.getString("organization_name")%></option>
+                                           <%
+                                                }else {
+                                            %>
+                                                    <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("organization_name")%></option>
+                                            <%
+                                            }
+                                        }
+                                    }catch (Exception e){
+                                        System.out.println(e.getCause());
+                                        System.out.println(e.getMessage());
+                                    }finally {
+                                        result_set.close();
+                                        prepared_statement.close();
+                                        ConnectionManager.getInstance().closeConnection(connection);
+                                    }
+
+                                    %>
+                                </select><br><br>
+                                  <p>Uploaded image : </p><p><%= image_file_name %></p>
+                            Attach Image:<input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName" />
                         <!--  <label>Organization Name:</label>-->
                     </div><br>
                 </div>

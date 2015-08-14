@@ -73,22 +73,22 @@ public class SqlMethods {
     }
     
     public void closeConnection() {
-        /*
-        this is no longer relevent because we have to invoke 
-        close() on the Connection object. 
-        One can use 
-        connectionManager.closeConnection(connection) 
-        OR
-        SqlMethods.closeConnection(connection)
-        */
-        
-//        try {
-//            if (getConnection() != null) {
-//                getConnection().close();
-//        }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+//        /*
+//        this is no longer relevent because we have to invoke 
+//        close() on the Connection object. 
+//        One can use 
+//        connectionManager.closeConnection(connection) 
+//        OR
+//        SqlMethods.closeConnection(connection)
+//        */
+//        
+////        try {
+////            if (getConnection() != null) {
+////                getConnection().close();
+////        }
+////        } catch (SQLException ex) {
+////            Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, ex);
+////        }
     }
 
     public void setUpperLimit() {
@@ -722,7 +722,8 @@ public class SqlMethods {
             userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
 
         } catch (Exception e) {
-
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
         } finally {
             close(result_set, prepared_statement);
         }
@@ -761,6 +762,8 @@ public class SqlMethods {
             }
 
         } catch (Exception e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
 
         } finally {
             close(result_set, prepared_statement);
@@ -885,4 +888,68 @@ public class SqlMethods {
         }
         return brand_id;
     }
+    private static java.sql.Timestamp getCurrentTimeStamp() {
+
+	java.util.Date today = new java.util.Date();
+	return new java.sql.Timestamp(today.getTime());
+
+    }
+
+    public void setEmailSentHistory(Integer userid, String contenthtml, String emailaddress, String emaillistname) throws SQLException {
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        try {
+
+            query_string = "Insert into tbl_emailsenthistory(userid, timesent, contenthtml, emailaddress, emaillistname) Values (?,?,?,?,?)";
+
+            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement.setString(1, String.valueOf(userid));
+            prepared_statement.setTimestamp(2, getCurrentTimeStamp());
+            prepared_statement.setString(3, contenthtml);
+            prepared_statement.setString(4, emailaddress);
+            prepared_statement.setString(5, emaillistname);
+
+            prepared_statement.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        } finally {
+            close(result_set, prepared_statement);
+        }
+
+    }
+    public void setSocialPostHistory(Integer userid, String contenthtml, boolean twitter, boolean facebook, String imagefilename) throws SQLException {
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        try {
+
+            query_string = "Insert into tbl_emailsenthistory(userid, timesent, contenthtml, twitter, facebook, imagefilename) Values (?,?,?,?,?,?)";
+
+            prepared_statement = getConnection().prepareStatement(query_string);
+            prepared_statement.setString(1, String.valueOf(userid));
+            prepared_statement.setTimestamp(2, getCurrentTimeStamp());
+            prepared_statement.setString(3, contenthtml);
+            prepared_statement.setBoolean(4, twitter);
+            prepared_statement.setBoolean(5, facebook);
+            prepared_statement.setString(6, imagefilename);
+
+            prepared_statement.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        } finally {
+            close(result_set, prepared_statement);
+        }
+
+    }
+
+    
 }

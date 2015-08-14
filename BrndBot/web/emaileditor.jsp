@@ -96,6 +96,9 @@ and open the template in the editor.
                 text-align: center;
                 overflow:auto;
             }
+            .datafromindbody li{
+               display: inline-table;
+            }
 
             #cropper_popup{
 
@@ -164,7 +167,7 @@ and open the template in the editor.
                     var selectedDivId;
                     var block_clicked = "false";
                     var block_id = "0";
-                    var blockIdSelected;
+                    var blockIdSelected="defaultblock1";
                     var mindbodydataId = $("#mindbodydata").val();
                     angular.module("myapp", [])
 
@@ -186,64 +189,43 @@ and open the template in the editor.
                             // or server returns response with an error status.
                     });
                             $scope.showStylesAfterData = function(){
-                            alert("angularjs" + $(selectedBlockId).attr("id"));
+                           
                                     blockIdSelected = $(selectedBlockId).attr("id").toString();
-                                    //alert(blockIdSelected);
                                     block_id = blockIdSelected.replace("block", "");
-                                    //alert(block_id);
-//                                    var queryurl;
-//                                    $scope.curPage = 0;
-//                                    $scope.pageSize = 2;
-//                                    if (blockIdSelected == "defaultblock1")
-//                                    queryurl = 'GetLayoutStyles?editorType=email';
-//                                    else
-//                                    queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + blockIdSelected.replace("block")
-//                                    $http({
-//                                    method : 'GET',
-//                                            url : queryurl
-//                                    }).success(function(data, status, headers, config) {
-//
-//                            $scope.datalists = data;
-//                                    $scope.numberOfPages = function() {
-//                                    return Math.ceil($scope.datalists.length / $scope.pageSize);
-//                                    };
-//                                    if (data === error){
-//                            alert(data);
-//                            }
-//                            }).error(function(data, status, headers, config) {
-//                            alert("No data available, problem fetching the data");
-//                                    // called asynchronously if an error occurs
-//                                    // or server returns response with an error status.
-//                            });
+                                 
 //                      
                             };
                             $scope.showStyles = function(){
+//                                alert("in style");
                             var queryurl;
-                                    $scope.curPage = 0;
-                                    $scope.pageSize = 2;
-                                    alert(block_clicked + ":" + blockIdSelected);
-                                    if (block_clicked == "true" || blockIdSelected != "defaultblock1")
+                            $scope.curPage = 0;
+                            $scope.pageSize = 2;
+                            if (block_clicked == "true" || blockIdSelected != "defaultblock1")
                             {
-                            alert("in if" + block_id);
                                     queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
+                                    
                             }
                             else
                             {
-                            alert("in else" + block_id);
                                     queryurl = 'GetLayoutStyles?editorType=email';
                             }
+                            
                             $http({
                             method : 'GET',
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
-
-                            $scope.datalists = data;
-                                    $scope.numberOfPages = function() {
-                                    return Math.ceil($scope.datalists.length / $scope.pageSize);
-                                    };
-                                    if (data === error){
-                            alert(data);
+                                
+                            $scope.datalistsstyles = data;
+                            $scope.numberOfPages = function() {
+                            return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
+                            };
+                            
+                            
+                            
+                            if (data === error){
+                                alert(data);
                             }
+                            
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -274,34 +256,36 @@ and open the template in the editor.
                             };
                             $scope.showData = function(id, mind_body_query){
                             block_clicked = "true";
-                                    blockIdSelected = "";
-                                    block_id = id;
-                                    alert(mind_body_query);
-                                    if (mind_body_query == null)
+                            blockIdSelected = "";
+                            block_id = id;
+                            if (mind_body_query == "null")
                             {
-                            $scope.showStyles();
-                                    $("#tabs-1").hide();
-                                    $("#tabs-2").show();
-                                    $("#tabs-3").hide();
-                                    $("#tabs-4").hide();
+                                mindbodydataId = "0";
+                                $scope.showStyles();
+                                $("#tabs-1").show();
+                                $("#tabs-2").hide();
+                                $("#tabs-3").hide();
+                                $("#tabs-4").hide();
+                                if (block_clicked == "true" || blockIdSelected != "defaultblock1")
+                               {
+                               alert("Please select a style from the style`s tab for the block"); 
+                            }
                             }
                             else
                             {
+                                $scope.curPage = 0;
+                                $scope.pageSize = 4;
+                                $http({
+                                method : 'GET',
+                                        url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
+                                }).success(function(data, status, headers, config) {
 
-
-                            $scope.curPage = 0;
-                                    $scope.pageSize = 4;
-                                    $http({
-                                    method : 'GET',
-                                            url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
-                                    }).success(function(data, status, headers, config) {
-
-                            $scope.datalists = data;
-                                    $scope.numberOfPages = function() {
-                                    return Math.ceil($scope.datalists.length / $scope.pageSize);
-                                    };
-                                    if (data === error){
-                            alert(data);
+                                $scope.datalists = data;
+                                $scope.numberOfPages = function() {
+                                return Math.ceil($scope.datalists.length / $scope.pageSize);
+                                };
+                                if (data === error){
+                                    alert(data);
                             }
                             $("#tabs-1").hide();
                                     $("#tabs-2").hide();
@@ -315,7 +299,17 @@ and open the template in the editor.
                             }
                             };
                             $scope.select_category_details = function(id) {
-                            alert(id);
+                            
+                            mindbodydataId = id;
+                            $scope.showStyles();
+                                    $("#tabs-1").show();
+                                $("#tabs-2").hide();
+                                $("#tabs-3").hide();
+                                $("#tabs-4").hide();
+                            if (block_clicked == "true" || blockIdSelected != "defaultblock1")
+                            {
+                               alert("Please select a style from the style`s tab for the block"); 
+                            }
                             }
 
                     $scope.showImages = function(){
@@ -371,7 +365,8 @@ and open the template in the editor.
 //    alert(id+""+layout);
                             var layoutfilename = layout;
                                     $("#clickid").val(layout);
-                                    if (null)
+                                    //alert(mindbodydataId);
+                            if (mindbodydataId != "0")
                             {
                             $.ajax({
                             type: 'GET',
@@ -379,12 +374,14 @@ and open the template in the editor.
                                     data: {get_param: 'value'},
                                     dataType: 'json',
                                     success: function (data) {
+                                     
                                     displayElement(id, layout, data);
                                     }
                             });
                             }
                             else
                             {
+                                
                             displayElement(id, layout, null)
                             }
                             }
@@ -395,16 +392,17 @@ and open the template in the editor.
                             blockId = "defaultblock1";
                             else
                             blockId = "block" + block_id;
-                            alert(blockIdSelected + ":" + blockId);
+                            
                             jsondata = data;
+                            
                             $.ajax({
                             type: "GET",
                                     url: "images/xml/" + layout + ".xml",
                                     dataType: "xml",
                                     success: function (xml) {
-                                    alert("did now:" + block_clicked);
+                            
                                             if (block_clicked == "true")
-                                            $(".preview").append("<div onclick=getBlockId(" + blockId + ") id='" + blockId + "'></div>");
+                                            $(".preview").append("<div onclick=getBlockId(" + blockId + ") id='" + blockId + "' name='"+ mindbodydataId +"'></div>");
                                             else
                                             $(".preview #" + blockId).empty();
                                             block_clicked = "false";
@@ -423,11 +421,13 @@ and open the template in the editor.
                                             var h = "";
                                             var t = "";
                                             var elementdata;
-                                            if (jsondata == null)
+                                     if (jsondata == null)
                                     {
+                                     
                                     elementdata = type;
                                     }
                                     else{
+                                     
                                     $(jsondata).each(function (i, val) {
 
                                     $.each(val, function (k, v) {
@@ -534,6 +534,7 @@ and open the template in the editor.
     <body ng-app="myapp">
         <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
+                
                 <div id="sidebar-wrapper" class="col-md-1">
                     <nav class="navbar navbar-default " role="navigation">
                         <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
@@ -739,21 +740,23 @@ and open the template in the editor.
                                     </li>
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
+                                            
                                             <div>
                                                 <div>
                                                     <ul>
-                                                        <!--{{datalists}}-->
-                                                        <li class="paginationclass" ng-repeat="styles in datalists| pagination: curPage * pageSize | limitTo: pageSize">
+                                                        
+                                                        <li class="paginationclass" ng-repeat="styles in datalistsstyles| pagination: curPage * pageSize | limitTo: pageSize">
                                                             <div>
                                                                 <img id="{{styles.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
                                                             <div></div><p>&nbsp;</p>
+                                                            
                                                         </li>
                                                     </ul>
 
-                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
+                                                    <div class="pagination pagination-centered" ng-show="datalistsstyles.length">
                                                         <ul class="pagination-controle pagination">
                                                             <li>
                                                                 <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
@@ -764,7 +767,7 @@ and open the template in the editor.
                                                             </li>
                                                             <li>
                                                                 <button type="button" class="btn btn-primary"
-                                                                        ng-disabled="curPage >= datalists.length / pageSize - 1"
+                                                                        ng-disabled="curPage >= datalistsstyles.length / pageSize - 1"
                                                                         ng-click="curPage = curPage + 1">NEXT &gt;</button>
                                                             </li>
                                                         </ul>

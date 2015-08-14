@@ -26,19 +26,6 @@ import org.json.simple.parser.JSONParser;
  */
 public class ServletDeleteLooks extends BrndBotBaseHttpServlet {
 
-    Looks looks;
-    String delete_path, file_name_to_delete;
-    
-     public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        try {
-            looks = new Looks();
-        } catch (NamingException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,7 +41,10 @@ public class ServletDeleteLooks extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        StringBuffer string_buffer = new StringBuffer();
+        StringBuffer string_buffer = new StringBuffer();    
+        Looks looks = new Looks();
+        String delete_path, file_name_to_delete;
+
         try {
             BufferedReader reader = request.getReader();
             String line = null;

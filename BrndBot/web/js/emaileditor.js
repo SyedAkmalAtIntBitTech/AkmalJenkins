@@ -90,7 +90,22 @@ $(document).ready(function () {
 
 //    alert(layoutfilename);
 
+ $.ajax({
+       type: 'POST',
+       url: "GetLayoutStyles?editorType=email",
+       dataType: 'json',
+       success: function (data) {
+           var jsondataDefault = data;
+           var allLayoutFilename = [];
 
+           $(jsondataDefault).each(function (i, val) {
+               var i = 0;
+               $.each(val, function (k, v) {
+                   allLayoutFilename[i] = v;
+                   i++;
+               });
+
+           });
 
     $.ajax({
         type: 'GET',
@@ -99,10 +114,10 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
         jsondata = data;
-        $(".preview").append("<div onclick=getBlockId(defaultblock1) id='defaultblock1'></div>")
+        $(".preview").append("<div onclick=getBlockId(defaultblock1) id='defaultblock1' name='"+mindbodydataId+"'></div>");
             $.ajax({
                 type: "GET",
-                url: "xml/layout.xml",
+                url: "xml/" + allLayoutFilename[1] + ".xml",
                 dataType: "xml",
                 success: function (xml) {
                     $(xml).find('layout').each(function () {
@@ -241,6 +256,8 @@ $(document).ready(function () {
 
         }
     });
+    }
+  });
 $("#sortUpBlock").click(function(){
 
     var current = $("#"+$(selectedBlockId).attr("id"));
@@ -457,8 +474,11 @@ $("#sortDownBlock").click(function(){
 
 });
 function getBlockId(id) {
+    
     selectedBlockId = id;
-    //alert(block_id);
+    
+    mindbodydataId = $(selectedBlockId).attr("name").toString();
+    
 }
 
 function getTectId(id) {

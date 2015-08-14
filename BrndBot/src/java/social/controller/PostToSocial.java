@@ -49,21 +49,27 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
+        boolean face = false;
+        boolean twit = false;
         try {
-        String isFacebook = request.getParameter("isFacebook");
-        String isTwitter = request.getParameter("isTwitter");
-        String getImageFile = request.getParameter("imageToPost");
-        String getFile = request.getParameter("imagePost");
-        String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
-        String imagePostURL=request.getRequestURL().toString().replace("PostToSocial", "");
+            getSqlMethodsInstance().session = request.getSession();
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+            String htmlString = (String)getSqlMethodsInstance().session.getAttribute("htmlString");
+            String isFacebook = request.getParameter("isFacebook");
+            String isTwitter = request.getParameter("isTwitter");
+            String getImageFile = request.getParameter("imageToPost");
+            String getFile = request.getParameter("imagePost");
+            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
+            String imagePostURL=request.getRequestURL().toString().replace("PostToSocial", "");
+        
         if (isFacebook.equalsIgnoreCase("true")) {
+            
             String accessToken = request.getParameter("accesstoken");
             String posttext = request.getParameter("postText");
             String title = request.getParameter("title");
             String description = request.getParameter("description");
             String url = request.getParameter("url");
             
-
             facebook = new FacebookFactory().getInstance();
             facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
             facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
@@ -79,6 +85,13 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                         .link(new URL(url))
                         .description(description);
                 facebook.postFeed(post);
+            }
+            try {
+                
+            getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, "temp/"+getImageFile);
+            }catch (Exception ex){
+                System.out.println(ex.getCause());
+                System.out.println(ex.getMessage());
             }
         }
         if (isTwitter.equalsIgnoreCase("true")) {
@@ -102,6 +115,13 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 StatusUpdate status = new StatusUpdate(statusMessage);
                 status.setMedia(file); // set the image to be uploaded here.
                 twitter.updateStatus(status);
+                try {
+                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, imagePostURL);
+                    }catch (Exception ex){
+                        System.out.println(ex.getCause());
+                        System.out.println(ex.getMessage());
+                    }
+
             } catch (TwitterException te) {
 
                 PrintWriter out1 = response.getWriter();

@@ -62,9 +62,10 @@ public class GetBrandPersonality extends BrndBotBaseHttpServlet {
 
                 int id = result_set.getInt("id");
                 String brand_name = result_set.getString("brand_name");
-
+                String image_file_name = result_set.getString("image");
                 brand_personality.setId(id);
                 brand_personality.setBrand_name(brand_name);
+                brand_personality.setImage_name(image_file_name);
                 jsonarray.add(brand_personality);
             }
             jsonobject.put("first", jsonarray);

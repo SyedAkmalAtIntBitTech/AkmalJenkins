@@ -269,6 +269,10 @@
         <servlet-name>EmailHtmlData</servlet-name>
         <servlet-class>social.controller.EmailHtmlData</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DownloadImageServlet</servlet-name>
+        <servlet-class>com.controller.DownloadImageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -545,6 +549,10 @@
         <servlet-name>EmailHtmlData</servlet-name>
         <url-pattern>/EmailHtmlData</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadImageServlet</servlet-name>
+        <url-pattern>/DownloadImage</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -559,4 +567,6 @@
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
-</web-app>
+
+    ?
+    </web-app>

@@ -267,10 +267,10 @@
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
                             <input type="hidden" id="imageName" name="imageName" value ='<%=ImageName%>'/>
                             <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend" >
-                            <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
-                            <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
-                            <input type="hidden" id="isFacebook" name="isFacebook" value="false">
-                            <input type="hidden" id="isTwitter" name="isTwitter" value="false">
+                            <input type="text" id="fbaccessTokenSend" name="fbaccessTokenSend">
+                            <input type="text" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
+                            <input type="text" id="isFacebook" name="isFacebook" value="false">
+                            <input type="text" id="isTwitter" name="isTwitter" value="false">
                             <input type="submit"  id="submitbutton" class="btn btn-primary" value="Continue" disabled>
                         </form> 
                     </div>

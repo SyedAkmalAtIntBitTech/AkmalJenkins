@@ -26,7 +26,7 @@ import org.postgresql.util.PGobject;
  * @author intbit
  */
 public class GetUserPreferences extends BrndBotBaseHttpServlet {
-
+Connection connection = null;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -51,10 +51,11 @@ public class GetUserPreferences extends BrndBotBaseHttpServlet {
         JSONObject user_preferences = new JSONObject();
         JSONObject json_colors = new JSONObject();
         JSONParser parser = new JSONParser();
-
         Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
+        
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-                String query_string = "Select * from tbl_user_preferences where user_id="+user_id+"";
+            
+            String query_string = "Select * from tbl_user_preferences where user_id="+user_id+"";
                 prepared_statement = connection.prepareStatement(query_string);
 
                 result_set = prepared_statement.executeQuery();
@@ -197,7 +198,7 @@ public class GetUserPreferences extends BrndBotBaseHttpServlet {
         } finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
-        }
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

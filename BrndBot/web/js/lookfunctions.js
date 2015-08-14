@@ -42,8 +42,8 @@ function lookController($scope, $http) {
         });
     };
 
-    $scope.changeLooks = function (look_id, look_name) {
-        var configuration = global_host_address + "admin/editlook.jsp" + "?look_id=" + look_id + "&look_name=" + look_name + "";
+    $scope.changeLooks = function (look_id, look_name, organization_id, image_file_name) {
+        var configuration = global_host_address + "admin/editlook.jsp" + "?look_id=" + look_id + "&look_name=" + look_name + "&organization_id="+organization_id+"&image_file_name="+image_file_name;
         window.open(configuration, "_self");
     };
 }

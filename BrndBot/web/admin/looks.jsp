@@ -78,11 +78,42 @@
                     <div class="col-md-3 col-md-offset-5">
                         <%= exist1 %>
                         <input type="text"  class="form-control simplebox" id="lookname" name="lookname"/><br>
+                        <%= exist1 %>
+    Select organization: <select name="organization" id="organization" style="width:180px;">
+                                    <option value="0">--select--</option>
+                                    <%
+                                    Connection connection = null;
+                                    try{
+                                        connection = ConnectionManager.getInstance().getConnection();
+                                        query_string = "select * from tbl_organization Order By id ASC";
+                                        prepared_statement = connection.prepareStatement(query_string);
+                                        result_set = prepared_statement.executeQuery();
+
+                                        while (result_set.next()) {
+                                    %>
+                                                    <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("organization_name") %></option>
+                                    <%
+                                        }
+                                    }catch (Exception e){
+                                        System.out.println(e.getCause());
+                                        System.out.println(e.getMessage());
+                                    }finally {
+                                        result_set.close();
+                                        prepared_statement.close();
+                                    }
+
+                                    %>
+                                  </select><br>
+                        
                         Attach Image:<input type="file" style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName" /><br>
                         <!--  <label>Organization Name:</label>-->
                     </div><br>
                 </div>
 
+                    <div style="float:left; left:20px; padding-left: 430px;">
+                    </div><br><br>    
+
+                        
                 <div class="group">
                     <div class="col-md-3 col-md-offset-5">
                         <button id="Servicecontinue" type="submit" class="btn btn-info">Save</button>
@@ -101,13 +132,12 @@
                         <td>ID Number </td>
                         <td>Look Name</td>
                         <td>Look Image</td>
+                        <td>Organization ID</td>
                         <td></td>
                         <td></td>
                     </tr>
                     <%
-                    Connection connection = null;
                     try{
-                        connection = ConnectionManager.getInstance().getConnection();
                         query_string = "select * from tbl_look Order By id ASC";
                         prepared_statement = connection.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
@@ -118,8 +148,9 @@
                     <tr>
                         <td align="left">&nbsp;<%= num %></td>
                         <td><%= result_set.getString("look_name")%></td>
-                        <td><a href="../images/Lookimages/<%= result_set.getString("file_name")%>"><%= result_set.getString("file_name")%></a></td>
-                        <td><button class="btn btn-info" id="change" name="change" value="edit" ng-click="changeLooks(<%=result_set.getInt("id")%>,'<%=result_set.getString("look_name")%>')">edit</button></td>
+                        <td><a href="/BrndBot/DownloadImage?image_type=LOOKS&image_name=<%= result_set.getString("file_name")%>"><%= result_set.getString("file_name")%></a></td>
+                        <td><%= result_set.getString("organization_id")%></td>
+                        <td><button class="btn btn-info" id="change" name="change" value="edit" ng-click="changeLooks(<%=result_set.getInt("id")%>,'<%=result_set.getString("look_name")%>','<%=result_set.getString("organization_id")%>' ,'<%=result_set.getString("file_name")%>')">edit</button></td>
                         <td><button class="btn btn-info" id="organization" name="organization" value="delete" ng-click="deleteLooks(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
                     <%

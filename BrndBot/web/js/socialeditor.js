@@ -93,7 +93,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: 'GET',
-        url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId,
+        url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social',
         data: {get_param: 'value'},
         dataType: 'json',
         success: function (data) {
