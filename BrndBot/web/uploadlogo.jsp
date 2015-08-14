@@ -103,7 +103,7 @@
                 <div class="row">
                     <div class="col-md-4 col-md-offset-5">
                         <p id="comment1"> Upload your logo </p> 
-                        <p id="comment2">Please upload a .PNG, .JPEG,</p> <br><br>
+                        <p id="comment2">Please upload in a .PNG, .JPEG,</p> <br><br>
                     </div>
                 </div>
                 <div class="row">
@@ -114,7 +114,7 @@
 
                 <div class="group" ng-controller="myCtrl">
                     <div class="span5 col-md-offset-5 ">
-                        <button id="Servicecontinue" type="submit"  class="btn btn-info" disabled ng-click="uploadFile()">CONTINUE</button><br><br>
+                        <button id="Servicecontinue" type="submit"  class="btn btn-info" disabled ng-click="uploadFile()">UPLOAD LOGO</button><br><br>
                         <div class="fileUpload btn ">
                             <span>Click to upload a logo</span>
                             <input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="myFile" />

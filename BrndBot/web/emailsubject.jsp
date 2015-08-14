@@ -14,23 +14,53 @@
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <link href="css/leftnavbar.css" rel="stylesheet" type="text/css"/>
         <link href="css/popup.css" rel="stylesheet" type="text/css"/>
+        <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
         <script src="js/angular.min.js" type="text/javascript"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <title>email subject</title>
         <style>
             
-            .header1{
-                font-size: 28px;
-            }
+        .header1{
+            font-family: "proxima-nova",sans-serif;
+            font-style: normal;
+            font-weight: 600;
+            font-size:21.5px;
+            color: #3f4042;
+            text-align: left;
+            line-height: 25.8px;
+            letter-spacing: 0em;
+            opacity: 1;
+            position: relative;
+            top:90px;
+            left:100px;
+        }
+        .header2{
+            font-family: "proxima-nova",sans-serif;
+            font-style: normal;
+            font-weight: 300;
+            font-size:13.5px;
+            color: #3f4042;
+            text-align: left;
+            line-height: 15.8px;
+            letter-spacing: 0em;
+            opacity: 1;
+            position: relative;
+            top:95px;
+            left:100px;
+        
+        
+        }
             .hideinputborder{
                 background-color:transparent;
                 border: 0px solid;
                 height:50px;
                 width:450px;
-                font-size: 35px;
+                font-size:35px;
+                position: relative;
+                top:110px;
+                left:100px;
             }
             .hideinputborder:focus{
                 outline: none;
@@ -47,10 +77,13 @@
                 outline: none;
             }
             #chooseEmailList{
+                position: relative;
+                top:80px;
+                left:100px;
                 background-color: #e4e4e4;
                 border: 1px solid #DADADA;
                 height:50px;
-                width:250px;
+                width:350px;
                 font-size: 18px;
                 
                 border-radius: 5px;
@@ -64,8 +97,10 @@
                 background-color: #e4e4e4;
             }
             .btn-primary{
-                border-radius: 13px;
+                border-radius:10px;
                 position: relative;
+                top:200px;
+                left:100px;             
                 width: 150px;
                 background-color: #00A37A;
                 border-color: #00A37A;
@@ -125,13 +160,7 @@
             #chooseEmailId:focus{
                 outline: none;
             }
-            .btn-primary{
-                border-radius: 13px;
-                position: relative;
-                width: 150px;
-                background-color: #00A37A;
-                border-color: #00A37A;
-            }
+           
             #addCsvFileButton{
                 width: 250px;
                margin-left:150px;
@@ -328,40 +357,26 @@
         }
         %>
     <body ng-app>
-        <div class="row">
-            <div id="sidebar-wrapper" class="col-md-1">
-                <nav class="navbar navbar-default " role="navigation">
-                    <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
-                    <button class="hamburger">&#9776;</button>
-                    <button class="cross">&#9776;</button>
-                    <ul class="nav nav-stacked menu">
-                        <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
-                            <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
-                            <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
-                            <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
-                            <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br></li> 
-                            <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br></li> 
-                    </ul>
-                    <!-- /.navbar-collapse -->
-                </nav>
+                   <div class="row">
+                 <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div><!--/end left column-->
             <div id="datadiv" class="col-md-8 col-md-offset-2">
                 <div id="emailsubjectdiv">
-                    <p class="header1">  Enter the Subject Line of the Email:</p>
+                    <p class="header1"> Enter the Subject Line of the Email:</p>
                     <p class="header2">This can be edited later.</p><br><br>
-                    <input type="text" class="hideinputborder" id="emailsubject" name="emailsubject" placeholder="Enter Here"> <br><br><br><br><br>
+                    <input type="text" class="hideinputborder" id="emailsubject" name="emailsubject" placeholder="SUBJECT LINE">
+                    <hr style="position:relative;top:90px;left:-20px;width:550px;height:1px;background-color:#777;">
                     <input  id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="CONTINUE">
                 </div>
 
                 <div id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
-                    <p class="header1"> Choose an email list to send to,<br>
-                        or enter email addresses.</p>
+                    <p class="header1"> Who do you want to send this email to?</p>
                     <p class="header2">This can be edited later.</p><br><br>
                     
                     <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
                             <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                    </select><input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-primary" value="Add CSV or Email Manually"><br><br>
-                    <textarea style="width:300px; height:100px;" id="emailaddresses"></textarea><br><br>
+                    </select><input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-primary" value="Add CSV or Email Manually">
+                    <textarea style="width:300px; height:100px;position:relative;left:40em;top:20px;" id="emailaddresses"></textarea><br><br>
 <!--                    <input type="text" id="htmltext" name="htmltext" value=""/>-->
                     
 

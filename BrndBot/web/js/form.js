@@ -24,6 +24,7 @@ function UserController($scope, $http)
     }
 
     function validate() {
+        var fName = $('#fname').val();
         var sEmail = $('#inputemail').val();
         var password = $("#inputpassword").val();
         var confirmPass = $("#inputreenter").val();

@@ -27,12 +27,40 @@ and open the template in the editor.
 /*////// signup page animation    //////*/
 
 
+.group1 label {
+    font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+color: #2c4355;
+text-align: left;
+line-height: 14.4px;
+letter-spacing:0em;
+opacity: 1;
+    
+}
+.group1 label p{
+    font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+color: #2c4355;
+text-align: left;
+letter-spacing:0em;
+opacity: 1;
+}
 
-.group            { 
-  position:relative; 
-  margin-bottom:25px; 
-  
-  
+
+.group  div label{     
+ font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+color: #2c4355;
+text-align: left;
+line-height: 14.4px;
+letter-spacing:0em;
+opacity: 1;
 
 }
 /* form starting stylings ------------------------------- */
@@ -135,11 +163,29 @@ label                {
     margin: 0 auto;
     
 }
-    
+.text-left-1{
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size:  12px;
+    color: #3f4042;
+    text-align: left;
+    line-height: 14.4px;
+    letter-spacing:  0em;
+    pacity: 1;
+}   
 
 .text-left{
-    
-    font-size:18px;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size:21.5px;
+    color: #3f4042;
+    font-style: normal;
+    text-align: left;
+    line-height: 25.8px;
+    letter-spacing: 0em;
+    opacity: 1;    
 }
 .form-group{
      
@@ -190,7 +236,15 @@ label                {
     margin: 0 auto;
 }
 .item{
-
+font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+color: #6b6c6c;
+text-align: left;
+line-height:20.4px;
+letter-spacing: 0em;
+opacity: 1;
         
 }
 #buttonlength{
@@ -203,9 +257,17 @@ label                {
 }
 
 .btn-info{
-    
+   font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+color: #ffffff;
+text-align: left;
+line-height: 14.4px;
+letter-spacing: 0em;
+opacity: 1;
     background-color: #40B89A; 
-    border-radius: 13px;
+    border-radius: 5px;
     color: white;
 }
 
@@ -216,6 +278,15 @@ label                {
 #contemporary1{
     background-color: #E0E0E0;
     text-align: left;
+    font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+color: #3f4042;
+text-align: left;
+line-height: 20.4px;
+letter-spacing: 0em;
+opacity:1;
     
 }
 
@@ -230,10 +301,32 @@ label                {
 }
 
 /*................css for logo upload....*/
+.commentlin{
+    font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 100;
+font-size: 15.5px;
+color: #3f4042;
+text-align: left;
+line-height: 15.8px;
+letter-spacing: 0em;
+opacity: 1;
+width: 400px;
+position: relative;
+top:1px;
+    
+}
 
-#comment1{
-    font-size: 18px;
-    font-weight: normal;
+#comment1{   
+  font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 600;
+font-size: 21.5px;
+color: #3f4042;
+text-align: left;
+line-height: 25.8px;
+letter-spacing: 0em;
+opacity: 1;
 }
 #comment2{
     font-size: 12px;
@@ -253,7 +346,7 @@ label                {
     
     
 }
-#contentdiv{
+#contentdiv {
     position: relative;
     top:70px;
 }
@@ -291,10 +384,10 @@ label                {
     width: 70px;
     height: 35px;
     margin: 5px;
-    border-width: 1px;
+    border-width: 2px;
     border-style: solid;
     border-color: rgba(0,0,0,.2);
-    border-radius: 5px;
+    border-radius: 10px;
     
 }
 .blankcolor-box{
@@ -311,7 +404,7 @@ label                {
 
 .resetpalette{
     float: left;
-    width: 120px;
+    width: 150px;
     height: 35px;
     margin: 5px;
    
@@ -335,10 +428,15 @@ ul,li
 
 
 #resetpalette{
-    position: relative;
-    top:10px;
-    font-size: xx-small; 
-    
+        font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+color: #606163;
+text-align: left;
+line-height: 12px;
+letter-spacing: 0em;
+opacity: 1;
 }
 
 #p1{
@@ -402,7 +500,8 @@ ul,li
 
 
 /*.................. service............... */
-#Servicecontinue{
+#Servicecontinue:focus {
+    background-color: tomato;
     position: relative;
     margin-left: 8px;
     
