@@ -64,7 +64,9 @@
 
             <div id="contemporarycontainer">
                  <div class="span5 col-md-offset-1 ">
-                <p id="comment1">Choose a personality</p><br>
+                <p id="comment1">Choose a brand personality</p>
+                <p class="commentlin">Color is no object! Please choose the brand personality you think
+most represents your company and ignore the colors for now.</p>
                  </div>
                     <div class="row" id="buttonlength">
                         <div class="span7">

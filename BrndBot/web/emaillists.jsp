@@ -52,7 +52,6 @@
                 height:50px;
                 width:250px;
                 font-size: 18px;
-
                 border-radius: 5px;
             }
             #chooseEmailId:focus{

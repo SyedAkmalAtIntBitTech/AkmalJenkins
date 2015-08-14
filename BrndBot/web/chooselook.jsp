@@ -76,7 +76,9 @@
 
             <div id="contentdiv" class="row">
                 <div  class="span3 col-md-offset-1 ">
-                    <p id="comment1" class="lookcomment1">Please choose a “look”</p></<br>
+                    <p id="comment1" class="lookcomment1">Please choose a “look” for your company</p></<br>
+                    <p class="commentlin">These are the looks we found for Yoga Studios. Please choose one-- don't worry if it is not exact!
+We know every company’s look is different and we just use this as a starting point.</p>
                 </div>
                 <div class="row col-md-offset-2" >
                     <div ng-controller="MyController">

@@ -366,22 +366,7 @@ and open the template in the editor.
     <body ng-app="myapp">
         <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
-                <div id="sidebar-wrapper" class="col-md-1">
-                    <nav class="navbar navbar-default " role="navigation">
-                        <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
-                        <button class="hamburger">&#9776;</button>
-                        <button class="cross">&#9776;</button>
-                        <ul class="nav nav-stacked menu">
-                            <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
-                            <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
-                            <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
-                            <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
-                            <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br></li> 
-                            <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br></li> 
-                        </ul>
-                        <!-- /.navbar-collapse -->
-                    </nav>
-                </div><!--/end left column-->
+                 <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div>
 
             <!-- Page content -->
@@ -391,8 +376,8 @@ and open the template in the editor.
                     <div class="row">
 
                         <!--              preview container-->
-                        <div class="col-md-7">
-                            <p>EDIT THIS POST </p><p>go back</p> 
+                        <div class="col-md-7 prev">
+                            <p class="edit">EDIT THIS POST </p><p id="edit">go back</p> 
                             <div class="preview">
                                 <!--  {{mindbody_data}}-->
                                 <!--
@@ -400,10 +385,10 @@ and open the template in the editor.
                                         The class 'default' links the div to the init(); function
                                 --> 
 
-                            </div><br><br><br><br><br><br>
+                            </div>
                             <div class="span3 col-md-offset-0" >
 
-                                <input id="continue" type="button" class="btn btn-primary" value="CONTINUE"><br><br>
+                                <input id="continue" type="button" value="CONTINUE"><br><br>
                                 <script>
 //                                            $("#continue").click(function (){
 //                                                document.location.href = "selectpromotesocialmedia.jsp";
@@ -481,21 +466,21 @@ and open the template in the editor.
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
-                                            <p>TEXT</p> 
+                                            <p id="text3">TEXT</p> 
                                             <ul id="textmodification">
                                                 <li><p id="editorheadere">font color</p><div class="color-box blankcolor-box1" id="picker"></div></li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
-                                                    <p id="editorheadere">font size:</p>
+                                                    <p id="editorheadere">font size</p>
                                                     <select  id="fontsize" style="margin: 2px; font-size: 15px; ">
                                                         <option ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                     </select>
                                                 </li>
 
                                                 <li>
-                                                    <p id="editorheadere">font Name:</p>
-                                                    <select id="fontname" style="margin: 2px;font-size: 15px; ">
+                                                    <p id="editorheadere">font style</p>
+                                                    <select id="fontname" style="margin:2px;font-size:15px;">
                                                         <option ng-repeat ="names in user_preferences_font_names" value="{{names}}">{{names}} </option>
                                                     </select>
                                                 </li>
@@ -514,9 +499,9 @@ and open the template in the editor.
                                         <input type="hidden" id='clickid'>
 
                                         <div id="shapecontainer">
-                                            <p>SHAPES</p>
+                                            <p  id="text3">SHAPES</p>
                                             <ul id="shapemodificatoin">
-                                                <li> <p id="editorheadere">Header background<p></li>
+                                                <li> <p id="editorhead">Header Background<p></li>
                                                 <li><div class="blankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li>
                                                 <li>
                                                     <ul id="colorpalette">
@@ -533,9 +518,9 @@ and open the template in the editor.
                                         </div>
 
                                         <div id="imagecontainer">
-                                            <p>IMAGE</p>
+                                            <p  id="text3">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><p id="editorheadere">Image Name</p></li>
+                                                <li><p id="editorhead">Image Name</p></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
                                                 <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
                                                 <li></li>
@@ -615,16 +600,22 @@ and open the template in the editor.
             </div>
             <div id="sidebar-wrapper1">
                 <div id="tabs">
-                    <ul class="sidebar-nav" id="sidebar">
-                        <li><a href="#tabs-1" id="text"><span class="glyphicon glyphicon-edit"></span><p id="text1">EDIT</p></a></li>
-                        <li><a href="#tabs-2" id="style" ><span class="glyphicon glyphicon-th" ng-click="showStyles()"><p id="text1" >STYLE</p></span></a></li>                  
+                    <ul class="sidebar-nav category_list">
+                        <li id="hov"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"></a><p id="text1">EDIT</p></li>
+                        <li id="hov"><a href="#tabs-2" id="style"><img class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"></a><p id="text1">STYLE</p></li>                  
                     </ul>
                 </div>
             </div>
 
         </div> 
-                                        
-                                        
+                                        <script>
+                                            $('.category_list li').click(function(){
+    $('.highlight').removeClass('highlight');
+$(this).addClass('highlight');
+
+});
+                                        </script>     
+                                                            
  
 <!--     <script>
 

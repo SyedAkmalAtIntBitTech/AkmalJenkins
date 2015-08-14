@@ -88,16 +88,16 @@ and open the template in the editor.
         <div class="container">
             <div id="contentdiv" class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <p id="comment1">Please enter your studio ID:</p><br>
+                    <p id="comment1">Please enter your MINDBODY studio ID:</p>
+                    <p class="commentlin">Please enter your 4 digit MINDBODY studio ID.</p>
                 </div>
                 <form ng-controller="studioController" class="form-horizontal">
-                    <div class="group">
-                        <div  class="col-md-3 col-md-offset-4">
+                        <div  class="col-md-3 col-md-offset-4 group1">
                             <input id="inputstudio" name="inputstudio" class="form-control simplebox" type="text" required><br>
                             <label>STUDIO ID</label><br><br>
                             <div><a href="{{status.activation_link}}">{{status.activation_link}}</a></div><br>
                         </div>
-                    </div>
+             
                     <!--                    {{status}}-->
                     <div  class="form-group">
                         <div class=" col-md-4 col-md-offset-4">

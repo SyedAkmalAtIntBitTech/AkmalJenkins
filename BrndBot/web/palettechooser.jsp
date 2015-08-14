@@ -286,8 +286,9 @@
         <div id="contentdiv" class="row">   
 
             <div class="col-md-8 col-md-offset-3">
-                <p id="comment1"> Choose a palette </p> 
-                <p id="comment2">Click on a color to change it or choose from a theme. Don’t worry, you can always change it later.</p>
+                <p id="comment1">Choose a color palette</p> 
+                <p id="comment2">Click on a color to change it or choose from a theme.<br>
+Please arrange them with most used to least used in your designs.</p>
                 <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
 
                 <div id="sortable" class="step_wrapper">
