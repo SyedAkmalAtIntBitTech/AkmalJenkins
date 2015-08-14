@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SetLookid extends BrndBotBaseHttpServlet {
 
-    RequestDispatcher request_dispatcher;
-    StringBuffer string_buffered;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,16 +33,25 @@ public class SetLookid extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
+        RequestDispatcher request_dispatcher;
+        StringBuffer string_buffered;
         string_buffered = new StringBuffer();
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession();
 
         try {
             String LookID = request.getParameter("LookID");
-
-            getSqlMethodsInstance().session.setAttribute("LookID", LookID);
-            request_dispatcher = request.getRequestDispatcher("/personality.jsp");
-            request_dispatcher.forward(request, response);
+            String type = request.getParameter("type");
+            
+            if (type.equalsIgnoreCase("insert")){
+                getSqlMethodsInstance().session.setAttribute("LookID", LookID);
+                request_dispatcher = request.getRequestDispatcher("/personality.jsp");
+                request_dispatcher.forward(request, response);
+            }else if(type.equalsIgnoreCase("update")){
+                Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+                getSqlMethodsInstance().updateLooks(user_id, Integer.parseInt(LookID));
+                out.write("true");
+            }
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

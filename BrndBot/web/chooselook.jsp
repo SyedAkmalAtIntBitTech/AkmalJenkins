@@ -39,7 +39,7 @@
                     alert('Please select a look');
                 }
                 else{
-                    var configuration = global_host_address + "SetLookID" + "?LookID=" + LookID;
+                    var configuration = global_host_address + "SetLookID" + "?LookID=" + LookID +"&type=insert";
                     window.open(configuration, "_self")
                 }
             }

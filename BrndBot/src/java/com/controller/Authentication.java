@@ -67,12 +67,15 @@ public class Authentication extends BrndBotBaseHttpServlet {
             check = getSqlMethodsInstance().checkAvailability(User_id, hash_password);
             Integer UID = getSqlMethodsInstance().getUserID(User_id);
             String company = getSqlMethodsInstance().getCompanyName(UID);
-
+            String logo_file_name= getSqlMethodsInstance().getLogofileName(UID);
+            
             getSqlMethodsInstance().session.setAttribute("company", company);
 
             response.setContentType("text/html");
             if (check) {
                 getSqlMethodsInstance().session.setAttribute("UID", UID);
+
+                getSqlMethodsInstance().session.setAttribute("ImageFileName", logo_file_name);
                 getSqlMethodsInstance().session.setAttribute("Checked", "true");
                 out.write("true");
             } else {

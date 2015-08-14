@@ -55,20 +55,33 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
             String str_new = str.replace("&quot;", "\"");
             json_user_preferences = (JSONObject) parser.parse(str_new);
             
-//            Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
-//            String brand_id = (String)getSqlMethodsInstance().session.getAttribute("brandID");
-//            String look_id = (String)getSqlMethodsInstance().session.getAttribute("LookID");
-//            String studio_id = (String)getSqlMethodsInstance().session.getAttribute("studioID");
+            String type = (String)json_user_preferences.get("type");
+            Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
 
-            Integer user_id = 45;
-            String brand_id = "12";
-            String look_id = "13";
-            String studio_id = "7335";
+            if (type.equalsIgnoreCase("update")){
+                JSONObject json_user_preferences_from_database = getSqlMethodsInstance().getJSONUserPreferences(user_id);
+                
+                json_user_preferences_from_database.put(IConstants.kColor1 , json_user_preferences.get(IConstants.kColor1));
+                json_user_preferences_from_database.put(IConstants.kColor2 , json_user_preferences.get(IConstants.kColor2));
+                json_user_preferences_from_database.put(IConstants.kColor3, json_user_preferences.get(IConstants.kColor3));
+                json_user_preferences_from_database.put(IConstants.kColor4 , json_user_preferences.get(IConstants.kColor4));
+                json_user_preferences_from_database.put(IConstants.kColor5 , json_user_preferences.get(IConstants.kColor5));
+                json_user_preferences_from_database.put(IConstants.kColor6 , json_user_preferences.get(IConstants.kColor6));
 
-            getSqlMethodsInstance().session.setAttribute("Checked", "true");
+                getSqlMethodsInstance().updateJSONUserPreference(user_id, json_user_preferences_from_database);
 
-            Integer font_theme_id = getSqlMethodsInstance().getFontthemeid(brand_id);
-            getSqlMethodsInstance().addUserPreferences(user_id, Integer.parseInt(brand_id), font_theme_id,  studio_id, Integer.parseInt(look_id), json_user_preferences);
+            }else {
+
+                String brand_id = (String)getSqlMethodsInstance().session.getAttribute("brandID");
+                String look_id = (String)getSqlMethodsInstance().session.getAttribute("LookID");
+                String studio_id = (String)getSqlMethodsInstance().session.getAttribute("studioID");
+
+                getSqlMethodsInstance().session.setAttribute("Checked", "true");
+
+                Integer font_theme_id = getSqlMethodsInstance().getFontthemeid(brand_id);
+                getSqlMethodsInstance().addUserPreferences(user_id, Integer.parseInt(brand_id), font_theme_id,  studio_id, Integer.parseInt(look_id), json_user_preferences);
+                
+            }
         }catch(Exception e){
              System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -78,6 +91,7 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
             getSqlMethodsInstance().closeConnection();
         }
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

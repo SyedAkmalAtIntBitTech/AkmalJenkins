@@ -12,11 +12,15 @@ import java.io.File;
  * @author Mohamed
  */
 public class AppConstants {
-    public static final String BASE_UPLOAD_PATH = "\\home\\BrndBotImages";
+//    public static final String BASE_UPLOAD_PATH = "\\home\\BrndBotImages";
+    public static final String BASE_UPLOAD_PATH = "/home/intbit/NetBeansProjects/BrndBot/BrndBot/web/images";
     
     public static final String USER_IMAGE_HOME = "Gallery";
     
     public static final String ADMIN_IMAGE_HOME = "admin";
     
     public static final String LOOK_IMAGES_HOME = ADMIN_IMAGE_HOME + File.separator + "LookImages";
+    
+    public static final String USER_LOGO = "Customers";
+    
 }

@@ -50,7 +50,7 @@ public class SetStudioid extends BrndBotBaseHttpServlet {
             JSONObject joUser = null;
             joUser = (JSONObject) parser.parse(string_buffer.toString());
 
-            String studioID = (String) joUser.get("IDNo");
+            String studioID = (String) joUser.get("studioid");
             getSqlMethodsInstance().session.setAttribute("studioID", studioID);
             out.write("true");
         }catch(Exception e){

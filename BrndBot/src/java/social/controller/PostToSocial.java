@@ -116,7 +116,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 status.setMedia(file); // set the image to be uploaded here.
                 twitter.updateStatus(status);
                 try {
-                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, imagePostURL);
+                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, "temp/"+getImageFile);
                     }catch (Exception ex){
                         System.out.println(ex.getCause());
                         System.out.println(ex.getMessage());

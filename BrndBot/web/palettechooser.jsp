@@ -123,12 +123,7 @@
                         }
                    else{
                        
-//                       var colorObject = "{"+getColor1()+":"+color1+","+getColor2()+":"+color2+","+getColor3()+":"+color3+","+getColor4()+":"+color4+","+getColor5()+":"+color5+","+getColor6()+":"+color6+"}";
-//                       var colorObject = '{\"+getColor1()+\":\"+color1+\", \"getColor2()\" :color2, getColor3() :color3, getColor4() :color4, getColor5():color5, getColor6():color6}";
-                        var colorObject ="{&quot;"+getColor1()+"&quot;:&quot;"+color1+"&quot;, &quot;"+getColor2()+"&quot;:&quot;"+color2+"&quot;, &quot;"+getColor3()+"&quot;:&quot;"+color3+"&quot;, &quot;"+getColor4()+"&quot;:&quot;"+color4+"&quot;, &quot;"+getColor5()+"&quot;:&quot;"+color5+"&quot;, &quot;"+getColor6()+"&quot;:&quot;"+color6+"&quot;}";
-//                        
-//                        var colorObject = {"color1" :color1, "color2" :color2, "color3" :color3, "color4" :color4, "color5":color5, "color6":color6};
-//                            alert(JSON.stringify(colorObject));
+                        var colorObject ="{&quot;"+getColor1()+"&quot;:&quot;"+color1+"&quot;, &quot;"+getColor2()+"&quot;:&quot;"+color2+"&quot;, &quot;"+getColor3()+"&quot;:&quot;"+color3+"&quot;, &quot;"+getColor4()+"&quot;:&quot;"+color4+"&quot;, &quot;"+getColor5()+"&quot;:&quot;"+color5+"&quot;, &quot;"+getColor6()+"&quot;:&quot;"+color6+"&quot;, &quot;type&quot;:&quot;save&quot;}";
                             $http({
                                 method: 'POST',
                                         url: getHost() + 'SetUserPreferences',
@@ -163,7 +158,6 @@
                 
         </script>
 
-    </script>
     <script>
                 var ElementID;
                 /*------ get selected element ID -----*/
@@ -322,10 +316,10 @@
                                 <script type="text/javascript">
                                 </script>
                                 <div ng-repeat="colors in theme" id="rep1" >
-                                    <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')"class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
-                                    <div><p id="{{colors.theme_id}}" name="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</p></div>
+                                    <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
+                                    <div><p id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</p></div>
                                 </div> 
-                                <div id=' id ' name=id>
+                                <div id='id'>
                                     <p><br/></p>
                                 </div>
                                 <script> 

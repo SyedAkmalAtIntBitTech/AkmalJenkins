@@ -46,32 +46,75 @@ public class GetBrandPersonality extends BrndBotBaseHttpServlet {
         JSONObject jsonobject = new JSONObject();
         JSONArray jsonarray = new JSONArray();
         JSONArray jsonarray1 = new JSONArray();
+        JSONObject json_brand = new JSONObject();
     PreparedStatement prepared_statement = null;
     ResultSet result_set = null;
 
         getSqlMethodsInstance().session = request.getSession();
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            String look_id = (String) getSqlMethodsInstance().session.getAttribute("LookID");
+            
+            
+            if  (request.getParameter("type") != null){
 
-            query_string = "Select * from tbl_brand_personality where look_id='" + look_id + "'";
-            prepared_statement = connection.prepareStatement(query_string);
+                    String type = request.getParameter("type");
 
-            result_set = prepared_statement.executeQuery();
-            while (result_set.next()) {
-                brandpersonality brand_personality = new brandpersonality();
+                    if (type.equalsIgnoreCase("selected")){
+                        
+                        Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+                        json_brand = getSqlMethodsInstance().getUserPreferencesBrand(user_id);
+                        String json = new Gson().toJson(json_brand);
+                        response.setContentType("application/json");
+                        out.write(json);
+                    }else if (type.equalsIgnoreCase("all")){
 
-                int id = result_set.getInt("id");
-                String brand_name = result_set.getString("brand_name");
-                String image_file_name = result_set.getString("image");
-                brand_personality.setId(id);
-                brand_personality.setBrand_name(brand_name);
-                brand_personality.setImage_name(image_file_name);
-                jsonarray.add(brand_personality);
+                        Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+                        Integer look_id = getSqlMethodsInstance().getLookID(user_id);
+                        query_string = "Select * from tbl_brand_personality where look_id='" + look_id + "'";
+                        prepared_statement = connection.prepareStatement(query_string);
+
+                        result_set = prepared_statement.executeQuery();
+                        while (result_set.next()) {
+                            brandpersonality brand_personality = new brandpersonality();
+
+                            int id = result_set.getInt("id");
+                            String brand_name = result_set.getString("brand_name");
+                            String image_file_name = result_set.getString("image");
+                            brand_personality.setId(id);
+                            brand_personality.setBrand_name(brand_name);
+                            brand_personality.setImage_name(image_file_name);
+                            jsonarray.add(brand_personality);
+                        }
+                        jsonobject.put("first", jsonarray);
+                        String json = new Gson().toJson(jsonobject);
+                        response.setContentType("application/json");
+                        out.write(json);
+                        
+                    }
+                    
+            }else {
+                String look_id = (String) getSqlMethodsInstance().session.getAttribute("LookID");
+
+                query_string = "Select * from tbl_brand_personality where look_id='" + look_id + "'";
+                prepared_statement = connection.prepareStatement(query_string);
+
+                result_set = prepared_statement.executeQuery();
+                while (result_set.next()) {
+                    brandpersonality brand_personality = new brandpersonality();
+
+                    int id = result_set.getInt("id");
+                    String brand_name = result_set.getString("brand_name");
+                    String image_file_name = result_set.getString("image");
+                    brand_personality.setId(id);
+                    brand_personality.setBrand_name(brand_name);
+                    brand_personality.setImage_name(image_file_name);
+                    jsonarray.add(brand_personality);
+                }
+                jsonobject.put("first", jsonarray);
+                String json = new Gson().toJson(jsonobject);
+                response.setContentType("application/json");
+                out.write(json);
+                
             }
-            jsonobject.put("first", jsonarray);
-            String json = new Gson().toJson(jsonobject);
-            response.setContentType("application/json");
-            out.write(json);
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());

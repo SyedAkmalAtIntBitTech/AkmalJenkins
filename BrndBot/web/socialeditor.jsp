@@ -510,7 +510,7 @@ and open the template in the editor.
 
                                         </div>
 
-                                        <input type="hidden" id="mindbodydata" value=<%= mindbody_data_id%>>
+                                        <input type="hidden" id="mindbodydata" value='<%= mindbody_data_id%>'>
                                         <input type="hidden" id='clickid'>
 
                                         <div id="shapecontainer">
