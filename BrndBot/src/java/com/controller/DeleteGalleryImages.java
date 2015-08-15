@@ -24,8 +24,6 @@ import org.json.simple.parser.JSONParser;
  */
 public class DeleteGalleryImages extends BrndBotBaseHttpServlet {
     
-    private static final Logger logger = Logger.getLogger(DeleteGalleryImages.class.getName());
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -61,7 +59,7 @@ public class DeleteGalleryImages extends BrndBotBaseHttpServlet {
             getSqlMethodsInstance().deleteImages(image_id.intValue());
             out.write("true");
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Exception while deleting image from gallery", e);
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting image:", getSqlMethodsInstance().error));
         } 
     }
 

@@ -13,17 +13,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  *
@@ -31,15 +27,14 @@ import org.json.JSONObject;
  */
 public class DownloadImageServlet extends BrndBotBaseHttpServlet {
 
-    private static final Logger logger = Logger.getLogger(DownloadImageServlet.class.getName());
     private final Gson gson = new Gson();
-    
+
     /**
-     * Process the request for downloading image. 
-     * This requires two required parameters- image_type and image_name
-     * 
+     * Process the request for downloading image. This requires two required
+     * parameters- image_type and image_name
+     *
      * If image_type = GALLERY then we would need the user_id as well.
-     * 
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -49,14 +44,14 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         String imageTypeStr = request.getParameter("image_type");
-        try{
+        try {
             ImageType imageTypeEnum = ImageType.valueOf(imageTypeStr);
             String imageBasePath = "";
             String userId = "";
-            switch(imageTypeEnum){
-                case GALLERY:                     
+            switch (imageTypeEnum) {
+                case GALLERY:
                     userId = request.getParameter("user_id");
-                    if ( userId == null || "".equals("user_id")){
+                    if (userId == null || "".equals("user_id")) {
                         Map<String, String> responseMap = new HashMap<>();
                         responseMap.put("error", "user_id is required to view Gallery Images");
                         response.getWriter().write(new Gson().toJson(responseMap));
@@ -65,13 +60,15 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
                     }
                     imageBasePath = AppConstants.USER_IMAGE_HOME + File.separator + userId;
                     break;
-                case LOOKS: imageBasePath = AppConstants.LOOK_IMAGES_HOME;
+                case LOOKS:
+                    imageBasePath = AppConstants.LOOK_IMAGES_HOME;
                     break;
-                case BRAND_PERSONALITY: imageBasePath = AppConstants.BRAND_IMAGES_HOME;
+                case BRAND_PERSONALITY:
+                    imageBasePath = AppConstants.BRAND_IMAGES_HOME;
                     break;
-                case ORG_CATEGORIES: 
+                case ORG_CATEGORIES:
                     String orgId = request.getParameter("org_id");
-                    if ( orgId == null || "".equals(orgId)){
+                    if (orgId == null || "".equals(orgId)) {
                         Map<String, String> responseMap = new HashMap<>();
                         responseMap.put("error", "org_id is required to view Category Images");
                         response.getWriter().write(new Gson().toJson(responseMap));
@@ -82,7 +79,7 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
                     break;
             }
             String imageName = request.getParameter("image_name");
-            if ( imageName == null || "".equals(imageName)){
+            if (imageName == null || "".equals(imageName)) {
                 Map<String, String> responseMap = new HashMap<>();
                 responseMap.put("error", "Name of the image is missing");
                 response.getWriter().write(new Gson().toJson(responseMap));
@@ -92,9 +89,9 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
             String finalImagePath = imageBasePath + File.separator + imageName;
             String contentType = request.getServletContext().getMimeType(imageName);
             response.setContentType(contentType);
-            response.setHeader("Content-Disposition", "inline;filename="+imageName);
+            response.setHeader("Content-Disposition", "inline;filename=" + imageName);
             File file = new File(finalImagePath);
-            response.setContentLength((int)file.length());
+            response.setContentLength((int) file.length());
             // Copy the contents of the file to the output stream
             byte[] buf = new byte[1024];
             try (FileInputStream fileInputStream = new FileInputStream(finalImagePath)) {
@@ -107,14 +104,15 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
                 }
             }
             response.setStatus(HttpServletResponse.SC_OK);
-        }catch(IllegalArgumentException ex){
-            logger.log(Level.SEVERE, "Invalid Image Type", ex);
+        } catch (IllegalArgumentException ex) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Invalid Image Type:", getSqlMethodsInstance().error));
+
             Map<String, String> responseMap = new HashMap<>();
-            responseMap.put("error", "Invalid Image Type. Supported Image types are: " + 
-                    Arrays.asList(ImageType.values()).stream().map(type -> type.toString()).collect(Collectors.joining(", ")));
+            responseMap.put("error", "Invalid Image Type. Supported Image types are: "
+                    + Arrays.asList(ImageType.values()).stream().map(type -> type.toString()).collect(Collectors.joining(", ")));
             response.getWriter().write(new Gson().toJson(responseMap));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        } 
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

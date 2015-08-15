@@ -73,6 +73,8 @@ import org.json.simple.JSONObject;
             
         }catch (Exception e){
             logger.log(Level.SEVERE, "Exception while getting gallery images", e);
+                        logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         }finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);

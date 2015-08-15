@@ -5,6 +5,7 @@
  */
 package mindbody.controller;
 
+import com.controller.SqlMethods;
 import com.mindbody.source.MindBody;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,6 +23,8 @@ import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsRequest;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
 import com.mindbodyonline.clients.api._0_5Staff.GetStaffRequest;
 import com.mindbodyonline.clients.api._0_5Staff.GetStaffResult;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,6 +32,8 @@ import com.mindbodyonline.clients.api._0_5Staff.GetStaffResult;
  */
 
 public class MindBodyClass {
+        private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindBodyClass.class));
+
             private static String sourcePassword = "WBQ2o/mat0gOfT1WeoXDKP1eH8Y=";
             private static String sourceName = "BrndbotLLC";
             private MindBody mindBody;
@@ -93,13 +98,10 @@ public class MindBodyClass {
             classesRequest.setHideCanceledClasses(true);
             classesResult = mindBody.getClasses(classesRequest);
         } catch (DatatypeConfigurationException D) {
-            System.out.println(D.getCause());
-            System.out.println(D.getMessage());
-            D.printStackTrace();
+                                  logger.log(Level.SEVERE, util.Utility.logMessage(D, "Exception while updating org name:", null));
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }
         return classesResult;
     }
@@ -122,13 +124,11 @@ public class MindBodyClass {
             enrollmentsResult = mindBody.getEnrollments(enrollmentsRequest);
 
         } catch (DatatypeConfigurationException D) {
-            System.out.println(D.getCause());
-            System.out.println(D.getMessage());
-            D.printStackTrace();
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(D, "Exception while updating org name:", null));
+
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }
         return enrollmentsResult;
     }
@@ -149,13 +149,11 @@ public class MindBodyClass {
             staffResult = mindBody.getStaff(staffRequest);
 
         } catch (DatatypeConfigurationException D) {
-            System.out.println(D.getCause());
-            System.out.println(D.getMessage());
-            D.printStackTrace();
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(D, "Exception while updating org name:", null));
+
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }
         return staffResult;
     }

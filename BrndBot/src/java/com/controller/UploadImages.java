@@ -44,8 +44,8 @@ public class UploadImages extends BrndBotBaseHttpServlet {
             String fileName = FileUploadUtil.uploadFile(pathSuffix, request);
             getSqlMethodsInstance().AddImages(user_id, fileName);
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, "Exception while uploading image to gallery", ex);
-        }
+                    logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
+}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

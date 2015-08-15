@@ -55,8 +55,8 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             
         }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         }finally {
             out.close();
         }
