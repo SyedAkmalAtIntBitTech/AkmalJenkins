@@ -167,7 +167,7 @@
                     <tr>
                         <td><%= number %></td>
                         <td><%= result_set.getString("brand_name")%></td>
-                        <td><a href="../images/Brandimages/<%= result_set.getString("image")%>"><%= result_set.getString("image")%></a></td>
+                        <td><a href="/BrndBot/DownloadImage?image_type=BRAND_PERSONALITY&image_name=<%= result_set.getString("image")%>"><%= result_set.getString("image")%></a></td>
                         <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editBrand(<%=result_set.getInt("id")%>,'<%=result_set.getString("brand_name")%>', '<%=result_set.getString("look_id")%>')">edit</button></td>
                         <td><button class="btn btn-info" id="brand" name="brand" value="delete" ng-click="deleteBrand(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>

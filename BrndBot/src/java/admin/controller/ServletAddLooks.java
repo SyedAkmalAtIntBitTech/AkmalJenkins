@@ -55,8 +55,7 @@ public class ServletAddLooks extends BrndBotBaseHttpServlet {
         int maxFileSize = 5000 * 1024;
         int maxMemSize = 5000 * 1024;
         try {
-            String uploadPath = AppConstants.BASE_UPLOAD_PATH + File.separator 
-                    + AppConstants.LOOK_IMAGES_HOME;
+            String uploadPath = AppConstants.LOOK_IMAGES_HOME;
 
             // Verify the content type
             String contentType = request.getContentType();

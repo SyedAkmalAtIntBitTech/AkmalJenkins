@@ -51,7 +51,7 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
         String imageTypeStr = request.getParameter("image_type");
         try{
             ImageType imageTypeEnum = ImageType.valueOf(imageTypeStr);
-            String imageBasePath = AppConstants.BASE_UPLOAD_PATH;
+            String imageBasePath = "";
             String userId = "";
             switch(imageTypeEnum){
                 case GALLERY:                     
@@ -63,9 +63,22 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
                         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                         return;
                     }
-                    imageBasePath += (File.separator + AppConstants.USER_IMAGE_HOME + File.separator + userId);
+                    imageBasePath = AppConstants.USER_IMAGE_HOME + File.separator + userId;
                     break;
-                case LOOKS: imageBasePath += (File.separator + AppConstants.LOOK_IMAGES_HOME);
+                case LOOKS: imageBasePath = AppConstants.LOOK_IMAGES_HOME;
+                    break;
+                case BRAND_PERSONALITY: imageBasePath = AppConstants.BRAND_IMAGES_HOME;
+                    break;
+                case ORG_CATEGORIES: 
+                    String orgId = request.getParameter("org_id");
+                    if ( orgId == null || "".equals(orgId)){
+                        Map<String, String> responseMap = new HashMap<>();
+                        responseMap.put("error", "org_id is required to view Category Images");
+                        response.getWriter().write(new Gson().toJson(responseMap));
+                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                        return;
+                    }
+                    imageBasePath = AppConstants.ORG_CATEGORIES_HOME + File.separator + orgId;
                     break;
             }
             String imageName = request.getParameter("image_name");

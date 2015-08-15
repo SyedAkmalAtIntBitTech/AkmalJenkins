@@ -10,5 +10,5 @@ package com.intbit;
  * @author Mohamed
  */
 public enum ImageType {
-    GALLERY, LOOKS;
+    GALLERY, LOOKS, BRAND_PERSONALITY, ORG_CATEGORIES;
 }
