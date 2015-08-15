@@ -50,7 +50,7 @@ public class UploadLogo extends BrndBotBaseHttpServlet {
         int maxFileSize = 5000 * 1024;
         int maxMemSize = 5000 * 1024;
         try {
-            uploadPath = AppConstants.BASE_UPLOAD_PATH + File.separator + AppConstants.USER_LOGO;
+            uploadPath = AppConstants.USER_LOGO;
 
 //            uploadPath = getServletContext().getRealPath("") + "/images/Customers";
 

@@ -52,7 +52,7 @@ public class GetColorsFromLogo extends BrndBotBaseHttpServlet {
         getSqlMethodsInstance().session = request.getSession(true);
         try {
             
-            uploadPath = AppConstants.BASE_UPLOAD_PATH + File.separator + AppConstants.USER_LOGO;
+            uploadPath = AppConstants.USER_LOGO;
 
 //            uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + "Customers";
 
