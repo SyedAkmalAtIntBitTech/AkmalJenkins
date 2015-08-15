@@ -5,9 +5,11 @@
  */
 package social.controller;
 
+import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sandeep-kumar
  */
-public class EmailHtmlData extends HttpServlet {
-    SqlMethods sqlmethods = new SqlMethods();
+public class EmailHtmlData extends BrndBotBaseHttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -28,18 +29,19 @@ public class EmailHtmlData extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try{
-             sqlmethods.session = request.getSession();
+             getSqlMethodsInstance().session = request.getSession();
            String html_data = request.getParameter("htmlString");
-           sqlmethods.session.setAttribute("htmldata", html_data);
+           getSqlMethodsInstance().session.setAttribute("htmldata", html_data);
       
         }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         }
     }
 

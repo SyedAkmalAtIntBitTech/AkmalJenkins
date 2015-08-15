@@ -3,6 +3,7 @@ package com.controller;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,8 +36,8 @@ public class GetColorPalettes extends BrndBotBaseHttpServlet {
             response.setContentType("application/json");
             out.write(jsonn);
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();

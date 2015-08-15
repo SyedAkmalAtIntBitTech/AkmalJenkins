@@ -126,15 +126,19 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
 
                 PrintWriter out1 = response.getWriter();
                 out1.println("Twitter Exception: " + te.getMessage());
+                                      logger.log(Level.SEVERE, util.Utility.logMessage(te, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             } catch (Exception e) {
                 PrintWriter out1 = response.getWriter();
                 out1.println("Exception: " + e.getMessage());
+                                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             }
 
         }
         } catch (FacebookException e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         }
     }
 

@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,6 +27,7 @@ public class UserPreferencesTwitter {
     SqlMethods sql_methods;
     PreparedStatement prepared_statement;
     ResultSet result_set;
+    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(UserPreferencesTwitter.class));
 
     public UserPreferencesTwitter() throws NamingException {
         this.sql_methods = new SqlMethods();
@@ -113,8 +116,8 @@ public class UserPreferencesTwitter {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }finally {
             sql_methods.close(result_set, prepared_statement);
         }

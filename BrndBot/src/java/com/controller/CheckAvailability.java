@@ -1,9 +1,9 @@
-
 package com.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,10 +54,9 @@ public class CheckAvailability extends BrndBotBaseHttpServlet {
                 out.write("false");
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while checking availability:", getSqlMethodsInstance().error));
             out.println(getSqlMethodsInstance().error);
-        }finally {
+        } finally {
             out.close();
             getSqlMethodsInstance().closeConnection();
         }

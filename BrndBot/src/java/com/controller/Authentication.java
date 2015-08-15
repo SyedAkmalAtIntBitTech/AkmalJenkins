@@ -38,6 +38,8 @@ public class Authentication extends BrndBotBaseHttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
+                    logger.log(Level.SEVERE, getSqlMethodsInstance().error + "Exception while login:");
+
         response.setContentType("text/html;charset=UTF-8");
         StringBuffer string_buffer = new StringBuffer();
         RequestDispatcher request_dispatcher;
@@ -82,19 +84,8 @@ public class Authentication extends BrndBotBaseHttpServlet {
                 getSqlMethodsInstance().session.setAttribute("Checked", "false");
                 out.write("false");
             }
-        } catch (ParseException e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            out.write(getSqlMethodsInstance().error);
-        } catch (SQLException e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            out.write(getSqlMethodsInstance().error);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException | ParseException | SQLException | IOException e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while login:", getSqlMethodsInstance().error));
             out.write(getSqlMethodsInstance().error);
         }
         finally {

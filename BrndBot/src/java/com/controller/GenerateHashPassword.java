@@ -7,12 +7,16 @@ package com.controller;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author intbit
  */
 public class GenerateHashPassword {
+
+        private static final Logger logger = Logger.getLogger(util.Utility.getClassName(GenerateHashPassword.class));
 
     public static final String SALT = "my-salt-text";
 
@@ -43,8 +47,8 @@ public class GenerateHashPassword {
             }
         } catch (NoSuchAlgorithmException e) {
             // handle error here.
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while generating hash:", null));
+
         }
 
         return hash.toString();

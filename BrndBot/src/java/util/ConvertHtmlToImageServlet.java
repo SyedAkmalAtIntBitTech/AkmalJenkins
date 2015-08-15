@@ -7,15 +7,12 @@ package util;
 import com.controller.SqlMethods;
 import com.intbit.PhantomImageConverter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 
 /**
  *

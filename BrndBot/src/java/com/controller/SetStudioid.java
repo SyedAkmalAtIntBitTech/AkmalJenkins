@@ -8,6 +8,7 @@ package com.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,8 +55,8 @@ public class SetStudioid extends BrndBotBaseHttpServlet {
             getSqlMethodsInstance().session.setAttribute("studioID", studioID);
             out.write("true");
         }catch(Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();

@@ -17,6 +17,7 @@ import com.intbit.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import model.look;
@@ -103,8 +104,8 @@ public class GetLooks extends BrndBotBaseHttpServlet {
             
             
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
