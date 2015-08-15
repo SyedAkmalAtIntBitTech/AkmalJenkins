@@ -84,7 +84,7 @@
 
                         <div class="group">
                             <div class="col-md-3 col-md-offset-5">
-                                <p text-center >Add New Brand Personality:</p>
+                                <p>Add New Brand Personality:</p>
                             </div>
                         </div>
                     <div style="float:left; left:20px; padding-left: 166px;">
@@ -120,7 +120,7 @@
                     </div><br>    
                 <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
                     <div>
-                        Attach Image:<input type="file" style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName"/><br>
+                        Attach Image:<input type="file" style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"/><br>
                     </div><br>
                 </div>
 

@@ -69,7 +69,6 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
 
             MindBodyProcessedData mind_body_processed_data = null;
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-//            Integer user_id = 40;
             String query = request.getParameter("query");
 
             String mindbody_query = request.getParameter("mindbody_query");
@@ -137,10 +136,11 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                 Integer studio_id = getSqlMethodsInstance().getStudioID(user_id);
                 int[] siteids = new int[]{studio_id};
                 mind_body_class = new MindBodyClass(siteids);
+                sub_category_name = sub_category_name.toLowerCase();
                 if (sub_category_name.equals("promote todays class")) {
                     GetClassesResult classResult = mind_body_class.getTodaysClass();
                     mind_body_processed_data = getMindBodyProcessedClassData(classResult);
-                } else if (sub_category_name.equals("promote class")) {
+                } else if (sub_category_name.equals("promote new class")) {
                     GetClassesResult classResult = mind_body_class.getClasses();
                     mind_body_processed_data = getMindBodyProcessedClassData(classResult);
                 } else if (sub_category_name.equals("promote work shop")) {

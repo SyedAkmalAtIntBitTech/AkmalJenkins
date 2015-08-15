@@ -38,6 +38,10 @@ public class ResetUserPassword extends BrndBotBaseHttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String userid = "false";
         StringBuffer string_buffer = new StringBuffer();
+        String hashURL = "";
+        String password = "";
+        String confirmpassword = "";
+
         PrintWriter out = response.getWriter();
         try {
 
@@ -52,14 +56,23 @@ public class ResetUserPassword extends BrndBotBaseHttpServlet {
             JSONParser parser = new JSONParser();
             JSONObject joUser = null;
             joUser = (JSONObject) parser.parse(string_buffer.toString());
+            
+            String type = (String)joUser.get("type");
 
-            String hashURL = (String) joUser.get("hashURL");
-            String password = (String) joUser.get("password");
-            String confirmpassword = (String) joUser.get("confirmpassword");
+            if (type.equalsIgnoreCase("update")){
+                password = (String) joUser.get("password");
+                confirmpassword = (String) joUser.get("confirmpassword");
+                Integer user = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
+                userid = String.valueOf(user);
+            }else{
+                hashURL = (String) joUser.get("hashURL");
+                password = (String) joUser.get("password");
+                confirmpassword = (String) joUser.get("confirmpassword");
+                userid = getSqlMethodsInstance().checkResetStatus(hashURL);
+            }
 
             String hashPass = generate_hash_password.hashPass(password);
-            userid = getSqlMethodsInstance().checkResetStatus(hashURL);
-
+            
             if (userid.equals("false")) {
                 out.write("false");
             } else {

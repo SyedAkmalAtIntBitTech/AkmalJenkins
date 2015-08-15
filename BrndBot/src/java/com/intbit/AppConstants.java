@@ -27,4 +27,6 @@ public class AppConstants {
     
     public static final String TMP_FOLDER = "/tmp";
     
+    public static final String USER_LOGO = "Customers";
+    
 }

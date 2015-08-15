@@ -28,7 +28,7 @@
                         alert("Please select a personality");
                     }
                     else{
-                    var path = global_host_address + 'SubbrandPersonality?brndID=' + brandID;
+                    var path = global_host_address + 'SubbrandPersonality?brndID=' + brandID +'&type=insert';
                     window.open(path,"_self");
                     }
                 }     
@@ -70,15 +70,15 @@ most represents your company and ignore the colors for now.</p>
                  </div>
                     <div class="row" id="buttonlength">
                         <div class="span7">
-                    <div class="col-md-7 pull-right pull-up">
+                            <div class="col-md-7 pull-right pull-up">
 
-                            <div class="item"><p >preview</p>
-                                <img id="image1" class="img-responsive" src="" width="700" height="400"><br>
+                                    <div class="item"><p >preview</p>
+                                        <img id="image1" class="img-responsive" src="" width="700" height="400"><br>
 
+                                    </div>
                             </div>
-                    </div>
                      </div>
-                        <form class="form-horizontal"  ng-controller="MyController" ng-model="brands" ng-submit="showText()">
+                        <form class="form-horizontal"  ng-controller="MyController" ng-model="brands">
                             <input id="hiddenform" name="hiddenform" type="hidden" ng-model="brands.brandName"><br>
                             <div ng-repeat="first in First" class="span5 col-md-offset-1 ">
                                 <button type="button"  id="contemporary1" class="btn btn-default btn-lg col-md-3" onclick="showText('{{first.id}}','{{first.image_name}}')">{{first.brand_name}}</button><br><br><br>
