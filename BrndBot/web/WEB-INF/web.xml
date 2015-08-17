@@ -3,7 +3,7 @@
     <context-param>
         <description>Upload Path</description>
         <param-name>file-upload</param-name>
-        <param-value>/home/intbit/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
+        <param-value>/home/sandeep-kumar/NetBeansProjects/BrndBot/BrndBot/web/images</param-value>
     </context-param>
     <servlet>
         <servlet-name>BrndBotBaseServlet</servlet-name>
@@ -273,6 +273,11 @@
         <servlet-name>DownloadImageServlet</servlet-name>
         <servlet-class>com.controller.DownloadImageServlet</servlet-class>
     </servlet>
+    <servlet>
+
+        <servlet-name>AdminHtmlToImageServlet</servlet-name>
+        <servlet-class>util.AdminHtmlToImageServlet</servlet-class>
+</servlet>
     <servlet>
         <servlet-name>changeLogo</servlet-name>
         <servlet-class>com.controller.changeLogo</servlet-class>
@@ -558,6 +563,10 @@
         <url-pattern>/DownloadImage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AdminHtmlToImageServlet</servlet-name>
+        <url-pattern>/AdminHtmlToImageServlet</url-pattern>
+      </servlet-mapping>  
+    <servlet-mapping>
         <servlet-name>changeLogo</servlet-name>
         <url-pattern>/changeLogo</url-pattern>
     </servlet-mapping>
@@ -578,5 +587,4 @@
    
     
 
-    ?
     </web-app>

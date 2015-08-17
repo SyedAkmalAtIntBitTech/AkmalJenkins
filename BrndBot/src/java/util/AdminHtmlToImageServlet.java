@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package util;
+
 import com.controller.BrndBotBaseHttpServlet;
-import com.controller.SqlMethods;
 import com.intbit.PhantomImageConverter;
 import java.io.File;
 import java.io.IOException;
@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sandeep-kumar
  */
-public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
-  
+public class AdminHtmlToImageServlet extends BrndBotBaseHttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,18 +33,17 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
     @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-   super.processRequest(request, response);
-   
-    try{
+        super.processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try{
              String htmlString = request.getParameter("htmlString");
              String width= request.getParameter("containerWidth").replace("px", "");
-        String height= request.getParameter("containerHeight").replace("px", "");
-          getSqlMethodsInstance().session = request.getSession();
+            String height= request.getParameter("containerHeight").replace("px", "");
            PhantomImageConverter phantomImageConverter = new PhantomImageConverter(getServletContext());
            File imagePngFile = phantomImageConverter.getImage(htmlString, width, height, "0", "0");
         
         String filename=imagePngFile.getName();
-        getSqlMethodsInstance().session.setAttribute("image_file_name", filename);
         System.err.println(filename);
         
          response.setContentType("text/plain");
@@ -53,16 +52,14 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
         catch(Exception e){
         response.setContentType("text/html;charset=UTF-8");
            StringBuffer sb = new StringBuffer();
-           PrintWriter out = response.getWriter();
+           out = response.getWriter();
            sb.append("<html><body><h2>");
            sb.append(e.getLocalizedMessage());
            sb.append("</body></html>");
            out.println(sb);
            out.close();
-        }finally{
-          getSqlMethodsInstance().closeConnection();
-    }
-
+        }
+   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -78,7 +75,6 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**
@@ -92,7 +88,7 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        processRequest(request, response);
     }
 
     /**

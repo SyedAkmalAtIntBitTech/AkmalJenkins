@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -64,6 +66,7 @@ public class Model extends BrndBotBaseHttpServlet {
             Integer sub_category_id = 0;
             String mapperfilename = request.getParameter("mapper");
             String layoutfilename = request.getParameter("layout");
+            String Style_image_name=request.getParameter("imagename");
             Integer block_id = 0;
             
             if (request.getParameter("categories") != null){
@@ -159,18 +162,25 @@ public class Model extends BrndBotBaseHttpServlet {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(uploadPath + File.separator + layoutfilename + ".xml"));
+            StreamResult result = new StreamResult(new File(uploadPath + File.separator + "xml" + File.separator +layoutfilename + ".xml"));
 
             TransformerFactory transformerFactory1 = TransformerFactory.newInstance();
             Transformer transformer1 = transformerFactory1.newTransformer();
             DOMSource source1 = new DOMSource(doc1);
-            StreamResult result1 = new StreamResult(new File(uploadPath + File.separator + mapperfilename + ".xml"));
-
+            StreamResult result1 = new StreamResult(new File(uploadPath + File.separator + "xml" + File.separator + mapperfilename + ".xml"));
+//            String filepath=uploadPath + File.separator + layoutfilename + ".xml";
             // Output to console for testing
             // StreamResult result = new StreamResult(System.out);
             transformer.transform(source, result);
             transformer1.transform(source1, result1);
-            layout.addLayouts(organization_id, user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, brand_id, block_id);
+
+            try {
+            String image_name=  layout.createImage(layoutfilename,getServletContext());
+             layout.addLayouts(organization_id, user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, brand_id, block_id,image_name);
+            } catch (SAXException ex) {
+                Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             logger.log(Level.INFO, "File saved!");
             if (request.getParameter("mail") != null){
                  type_email = true;
