@@ -12,7 +12,7 @@ import java.io.File;
  * @author Mohamed
  */
 public class AppConstants {
-    public static final String BASE_UPLOAD_PATH = "/home/tomcat/BrndBotImages";
+    public static final String BASE_UPLOAD_PATH = "/home/tomcat/BrndBot";
     
     public static final String USER_IMAGE_HOME = "Gallery";
     
