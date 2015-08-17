@@ -4,7 +4,7 @@ var widthContainer;
 var heightContainer;
 var containerY, containerX;
 var selectedTextID;
-var addTextCount, addImageCount, addButtonCount, addBlockCount, addElementCount,addLogocount;
+var addTextCount, addImageCount, addButtonCount, addBlockCount, addElementCount, addLogocount;
 var textareadetails = [];
 var selectElementsArray = [];
 var allElementsTextArray = [];
@@ -321,12 +321,12 @@ $(document).ready(function () {
 //        alert($("#textFontFamily").val());
         $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
     });
-     $("#fontColor").change(function () {
+    $("#fontColor").change(function () {
 //        alert($("#fontColor").val());
 //            alert($("#fontColor option:selected").text());
         $("#" + selectedTextID).css("color", $("#fontColor").val());
     });
-    
+
 //confirmation plugin is used to show model dialogue box
     $("#deleteTextButton").easyconfirm();
     $("#deleteTextButton").click(function () {
@@ -504,10 +504,7 @@ $(document).ready(function () {
 
         addImageCount++;
         addElements($("#elementText").find('option:selected').text());
-        $("#" + selectedTextID).css("background", "url(../images/default.png)");
-        $("#" + selectedTextID).css("background-size", "contain");
-        $("#" + selectedTextID).css("-webkit-background-size", "contain");
-        $("#" + selectedTextID).css("background-repeat", "no-repeat");
+        $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("-webkit-background-size","contain");                                    
         $("#" + selectedTextID).css("width", "100px");
         $("#" + selectedTextID).css("height", "100px");
         addDefault();
@@ -838,7 +835,7 @@ $(document).ready(function () {
             reloadTabs(0);
         });
     });
-        $("#addLogoButton").click(function () {
+    $("#addLogoButton").click(function () {
 
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
         $(".container").append("<div class=\"draggableLogo\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
@@ -1001,7 +998,7 @@ $(document).ready(function () {
 
 
     });
-    
+
 });
 
 //.............................................................................
@@ -1133,10 +1130,35 @@ function popupwindow() {
 }
 
 function passvaluetoinputfield() {
+    alert("error1");
+    alert($(".container").html());
+ var containerWidth=$(".container").css("width");
+ var containerHeight=$(".container").css("height");
+alert(containerWidth+":"+containerHeight);
 
 
-    popupwindow();
+//    $.ajax({
+//        url: getHost() +'AdminHtmlToImageServlet',
+//        type: "POST",
+//        data: {  htmlString: $(".container").html(),
+//                containerWidth:containerWidth,
+//                containerHeight:containerHeight
+//                },
+//        success: function (responseText) {
+//            var image = responseText;
+//            alert(image);
+//            $("#imagename").val(""+image);
+//           
+//
+//        },
+//        error: function (e) {
+//            alert(JSON.stringify(e));
+//        }
+//
+//    });
 
+ 
+  popupwindow();
     var containerstyle = "Width!" + $("#containerWidth").val() +
             " Height!" + $("#containerHeight").val();
 
@@ -1154,7 +1176,7 @@ function passvaluetoinputfield() {
 
         var dropshadow = $("#" + addElementsArray[i]).css("text-shadow");
         var dropshadowarr = dropshadow.split(" ");
-        var dropshadowdata = " H-shadow:" + dropshadowarr[3] + " V-shadow:" + dropshadowarr[4] + " blur:" + dropshadowarr[5];
+        var dropshadowdata = " H-shadow!" + dropshadowarr[3] + " V-shadow!" + dropshadowarr[4] + " blur!" + dropshadowarr[5];
 
         var dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
 
@@ -1216,7 +1238,7 @@ function passvaluetoinputfield() {
                     " blend-background-color!" + "#" + color3;
 
         }
-                if (contenttype.startsWith('draggableLogo')) {
+        if (contenttype.startsWith('draggableLogo')) {
 //            alert($("#" + addElementsArray[i]).css("background-image"));
             style1 = " tag!" + "logo" +
                     " x-co-ordinates!" + x1 +
@@ -1233,15 +1255,18 @@ function passvaluetoinputfield() {
         }
 
         if (contenttype.startsWith('draggableText')) {
+//            alert($("#textArea" ).val());
             style1 = " tag!" + "text" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
+                    " width!" + $("#" + addElementsArray[i]).css("width") +
+                    " height!" + $("#" + addElementsArray[i]).css("height") +
                     " font-weight!" + $("#" + addElementsArray[i]).css("font-weight") +
                     " font-style!" + $("#" + addElementsArray[i]).css("font-style") +
                     " text-align!" + $("#" + addElementsArray[i]).css("text-align") +
                     " font-size!" + $("#" + addElementsArray[i]).css("font-size") +
                     " font-color!" + "#" + color1 +
-                    " text-shadow!" + "#" + color2 +
+                    " text-shadow!" + "#" + color2.substr(0,6) +
                     dropshadowdata +
                     " line-height!" + $("#" + addElementsArray[i]).css("line-height") +
                     " letter-spacing!" + $("#" + addElementsArray[i]).css("letter-spacing") +
@@ -1250,6 +1275,7 @@ function passvaluetoinputfield() {
 
         }
         if (contenttype.startsWith('draggableButton')) {
+            
 
             style1 = " tag!" + "button" +
                     " x-co-ordinates!" + x1 +
@@ -1268,7 +1294,7 @@ function passvaluetoinputfield() {
                     " background-color!" + "#" + color3 + dropshadowdata1;
         }
         textareadetails[i] = style1 + " type!" + addElementsArray[i];
-//        alert(textareadetails); 
+       alert(textareadetails); 
 
 
 

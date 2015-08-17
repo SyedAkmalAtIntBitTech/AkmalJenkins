@@ -187,7 +187,7 @@ and open the template in the editor.
                                     method : 'GET',
                                             url : 'GetLayoutStyles?editorType=social'
                                     }).success(function(data, status, headers, config) {
-
+                                            alert(JSON.stringify(data));
                                     $scope.datalists = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);

@@ -442,6 +442,7 @@
                             <input type="hidden" name="element" id="element">
                             <input type="hidden" name="mapper" id="mapper">
                             <input type="hidden" name="layout" id="layout" >
+                            <input type="text" name="imagename" id="imagename">
                             <input type="button" value="save" onclick="passvaluetoinputfield();">
 
                             <div id="popup">

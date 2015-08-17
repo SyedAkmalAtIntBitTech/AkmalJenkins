@@ -44,7 +44,7 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
         JSONArray json_arr = new JSONArray();
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        String image_name,  layout_file_name, model_file_name;
+        String image_name,  layout_file_name, model_file_name,image_file_name;
         Integer user_id, id, organization_id, block_id = 0;
         String category_id, sub_category_id, editorType;
         Boolean isEmail = false;
@@ -80,9 +80,11 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
                 id = result_set.getInt("id");
                 layout_file_name = result_set.getString("layout_file_name");
                 model_file_name = result_set.getString("model_file_name");
+                image_file_name = result_set.getString("image_file_name");
                 
                 layout_model.setId(id);
                 layout_model.setLayout_file_name(layout_file_name);
+                layout_model.setImage_file_name(image_file_name);
                 json_arr.add(layout_model);
             }
 
