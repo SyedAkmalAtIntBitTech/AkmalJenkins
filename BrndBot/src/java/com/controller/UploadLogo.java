@@ -53,8 +53,6 @@ public class UploadLogo extends BrndBotBaseHttpServlet {
         try {
             uploadPath = AppConstants.USER_LOGO;
 
-//            uploadPath = getServletContext().getRealPath("") + "/images/Customers";
-
             // Verify the content type
             String contentType = request.getContentType();
             
@@ -64,7 +62,7 @@ public class UploadLogo extends BrndBotBaseHttpServlet {
                         // maximum size that will be stored in memory
                         factory.setSizeThreshold(maxMemSize);
                         // Location to save data that is larger than maxMemSize.
-                        factory.setRepository(new File("c://temp"));
+                        factory.setRepository(new File(AppConstants.TMP_FOLDER));
 
                         // Create a new file upload handler
                         ServletFileUpload upload = new ServletFileUpload(factory);

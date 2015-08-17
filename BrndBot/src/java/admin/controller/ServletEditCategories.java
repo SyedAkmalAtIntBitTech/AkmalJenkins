@@ -6,6 +6,7 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,6 +30,7 @@ import org.apache.commons.fileupload.*;
  */
 public class ServletEditCategories extends BrndBotBaseHttpServlet {
 
+    private static final Logger logger = Logger.getLogger(ServletEditCategories.class.getName());
     String filePath;
     String file_name, field_name, upload_path;
     Categories categories;
@@ -64,7 +66,7 @@ public class ServletEditCategories extends BrndBotBaseHttpServlet {
         int maxMemSize = 5000 * 1024;
         try {
 
-            upload_path = getServletContext().getRealPath("") + "/images/Organizations/Categories";
+            upload_path = AppConstants.ORG_CATEGORIES_HOME;
 
             // Verify the content type
             String contentType = request.getContentType();
@@ -74,7 +76,7 @@ public class ServletEditCategories extends BrndBotBaseHttpServlet {
                 // maximum size that will be stored in memory
                 factory.setSizeThreshold(maxMemSize);
                 // Location to save data that is larger than maxMemSize.
-                factory.setRepository(new File("c://temp"));
+                factory.setRepository(new File(AppConstants.TMP_FOLDER));
 
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -149,13 +151,10 @@ public class ServletEditCategories extends BrndBotBaseHttpServlet {
                 out.println("</html>");
             }
         } catch (Exception ex) {
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
+            logger.log(Level.SEVERE, "Exception while editing categories", ex);
         } finally {
         try {
             out.close();
-            getSqlMethodsInstance().closeConnection();
-            categories.sqlmethods.closeConnection();
             }catch (Exception e){}
         }
 

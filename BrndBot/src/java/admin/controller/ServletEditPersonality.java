@@ -6,6 +6,7 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -64,8 +65,8 @@ public class ServletEditPersonality extends BrndBotBaseHttpServlet {
         int maxMemSize = 5000 * 1024;
         try {
 
-            uploadPath = getServletContext().getRealPath("") + "/images/Brandimages";
-            deletePath = getServletContext().getRealPath("") + "/images/Brandimages";
+            uploadPath = AppConstants.BRAND_IMAGES_HOME;
+            deletePath = AppConstants.BRAND_IMAGES_HOME;
             // Verify the content type
             String contentType = request.getContentType();
             if ((contentType.indexOf("multipart/form-data") >= 0)) {
@@ -74,7 +75,7 @@ public class ServletEditPersonality extends BrndBotBaseHttpServlet {
                 // maximum size that will be stored in memory
                 factory.setSizeThreshold(maxMemSize);
                 // Location to save data that is larger than maxMemSize.
-                factory.setRepository(new File("c://temp"));
+                factory.setRepository(new File(AppConstants.TMP_FOLDER));
 
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);

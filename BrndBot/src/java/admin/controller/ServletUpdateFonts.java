@@ -6,6 +6,7 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,7 +29,8 @@ import org.apache.commons.fileupload.*;
  * @author intbit
  */
 public class ServletUpdateFonts extends BrndBotBaseHttpServlet {
-
+    private static final Logger logger = Logger.getLogger(ServletUpdateFonts.class.getName());
+    
     String filePath;
     String fileName, fieldName, uploadPath, deletePath, file_name_to_delete;
     Fonts font;
@@ -40,7 +42,7 @@ public class ServletUpdateFonts extends BrndBotBaseHttpServlet {
         try {
            font = new Fonts();
         } catch (NamingException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
      
@@ -65,8 +67,8 @@ public class ServletUpdateFonts extends BrndBotBaseHttpServlet {
         int maxMemSize = 5000 * 1024;
         try {
 
-            uploadPath = getServletContext().getRealPath("") + "/fonts";
-            deletePath = getServletContext().getRealPath("") + "/fonts";
+            uploadPath = AppConstants.BASE_FONT_UPLOAD_PATH;
+            deletePath = AppConstants.BASE_FONT_UPLOAD_PATH;
             // Verify the content type
             String contentType = request.getContentType();
             if ((contentType.indexOf("multipart/form-data") >= 0)) {
@@ -75,7 +77,7 @@ public class ServletUpdateFonts extends BrndBotBaseHttpServlet {
                 // maximum size that will be stored in memory
                 factory.setSizeThreshold(maxMemSize);
                 // Location to save data that is larger than maxMemSize.
-                factory.setRepository(new File("c://temp"));
+                factory.setRepository(new File(AppConstants.TMP_FOLDER));
 
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -145,13 +147,10 @@ public class ServletUpdateFonts extends BrndBotBaseHttpServlet {
                 out.println("</html>");
             }
         } catch (Exception ex) {
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
+            logger.log(Level.SEVERE, "Exception while Updating fonts", ex);
         } finally {
             try {
                 out.close();
-                getSqlMethodsInstance().closeConnection();
-                font.sqlmethods.closeConnection();
             }catch (Exception e){}
         }
 

@@ -7,6 +7,7 @@ package admin.controller;
 
 import admin.controller.Looks;
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,6 +30,8 @@ import org.apache.commons.fileupload.*;
  * @author intbit
  */
 public class ServletChangeLooks extends BrndBotBaseHttpServlet {
+    
+    private static Logger logger = Logger.getLogger(ServletChangeLooks.class.getName());
 
    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,9 +60,6 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
         int maxFileSize = 5000 * 1024;
         int maxMemSize = 5000 * 1024;
         try {
-
-            uploadPath = getServletContext().getRealPath("") + "/images/Lookimages";
-            deletePath = getServletContext().getRealPath("") + "/images/Lookimages";
             // Verify the content type
             String contentType = request.getContentType();
             if ((contentType.indexOf("multipart/form-data") >= 0)) {
@@ -68,7 +68,7 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
                 // maximum size that will be stored in memory
                 factory.setSizeThreshold(maxMemSize);
                 // Location to save data that is larger than maxMemSize.
-                factory.setRepository(new File("c://temp"));
+                factory.setRepository(new File(AppConstants.TMP_FOLDER));
 
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -110,7 +110,7 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
                             fieldName = fi.getFieldName();
                             fileName = fi.getName();
 
-                            File uploadDir = new File(uploadPath);
+                            File uploadDir = new File(AppConstants.LOOK_IMAGES_HOME);
                             
                             if (!uploadDir.exists()) {
                                 uploadDir.mkdirs();
@@ -123,8 +123,8 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
                             boolean isInMemory = fi.isInMemory();
                             long sizeInBytes = fi.getSize();
 
-                            String file_path = uploadPath + File.separator + fileName;
-                            String delete_path = deletePath + File.separator + file_name_to_delete;
+                            String file_path = AppConstants.LOOK_IMAGES_HOME + File.separator + fileName;
+                            String delete_path = AppConstants.LOOK_IMAGES_HOME + File.separator + file_name_to_delete;
                             File deleteFile = new File(delete_path);
                             deleteFile.delete();
                             File storeFile = new File(file_path);
@@ -150,12 +150,9 @@ public class ServletChangeLooks extends BrndBotBaseHttpServlet {
                 out.println("</html>");
             }
         } catch (Exception ex) {
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
+            logger.log(Level.SEVERE, "Exception while editing the looks", ex);
         } finally {
             out.close();
-            getSqlMethodsInstance().closeConnection();
-            look.sqlmethods.closeConnection();
         }
 
     }

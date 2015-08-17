@@ -52,13 +52,10 @@ public class Model extends BrndBotBaseHttpServlet {
         String fileName, fieldName, uploadPath;
         boolean type_email = false;
         boolean type_social = false;
-        String upload_path = "";
         try {
             
             response.setContentType("text/html;charset=UTF-8");
-//            uploadPath = getServletContext().getRealPath("") + File.separator + "images" + "/xml";
-           uploadPath = getServletContext().getInitParameter("file-upload") + File.separator + "xml";
-            //        uploadPath = getServletContext().getContextPath() + "/xml";
+            uploadPath = AppConstants.BASE_XML_UPLOAD_PATH;
 
             Integer organization_id = Integer.parseInt(request.getParameter("organization"));
             Integer brand_id = Integer.parseInt(request.getParameter("brand"));
@@ -152,6 +149,11 @@ public class Model extends BrndBotBaseHttpServlet {
                     }
                 }
             }
+            
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
 
             // write the content into xml file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -169,7 +171,7 @@ public class Model extends BrndBotBaseHttpServlet {
             transformer.transform(source, result);
             transformer1.transform(source1, result1);
             layout.addLayouts(organization_id, user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, brand_id, block_id);
-            System.out.println("File saved!");
+            logger.log(Level.INFO, "File saved!");
             if (request.getParameter("mail") != null){
                  type_email = true;
                 response.sendRedirect(request.getContextPath() + "/admin/emaillayoutmodel.jsp");
@@ -191,8 +193,6 @@ public class Model extends BrndBotBaseHttpServlet {
                        logger.log(Level.SEVERE, util.Utility.logMessage(s, "Exception while updating org name:", getSqlMethodsInstance().error));
 
         }finally {
-            getSqlMethodsInstance().closeConnection();
-            layout.sqlmethods.closeConnection();
         }
 
     }
