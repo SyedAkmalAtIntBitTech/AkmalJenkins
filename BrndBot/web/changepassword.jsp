@@ -26,7 +26,7 @@
                     var password = $("#inputpassword").val();
                     var confirmpassword = $("#inputreenter").val();
                     if(password === ""){
-                        alert("password not entered, please enter the password");
+                        alert("password not entered: ABC");
                         $("#inputpassword").focus();
                         return false;
                     }

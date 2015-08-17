@@ -84,7 +84,7 @@
 
                         <div class="group">
                             <div class="col-md-3 col-md-offset-5">
-                                <p text-center >Add New Brand Personality:</p>
+                                <p>Add New Brand Personality:</p>
                             </div>
                         </div>
                     <div style="float:left; left:20px; padding-left: 166px;">
@@ -120,7 +120,7 @@
                     </div><br>    
                 <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
                     <div>
-                        Attach Image:<input type="file" style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="looks.fileName"/><br>
+                        Attach Image:<input type="file" style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"/><br>
                     </div><br>
                 </div>
 
@@ -167,7 +167,7 @@
                     <tr>
                         <td><%= number %></td>
                         <td><%= result_set.getString("brand_name")%></td>
-                        <td><a href="../images/Brandimages/<%= result_set.getString("image")%>"><%= result_set.getString("image")%></a></td>
+                        <td><a href="/BrndBot/DownloadImage?image_type=BRAND_PERSONALITY&image_name=<%= result_set.getString("image")%>"><%= result_set.getString("image")%></a></td>
                         <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editBrand(<%=result_set.getInt("id")%>,'<%=result_set.getString("brand_name")%>', '<%=result_set.getString("look_id")%>')">edit</button></td>
                         <td><button class="btn btn-info" id="brand" name="brand" value="delete" ng-click="deleteBrand(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>

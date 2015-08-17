@@ -5,38 +5,17 @@
  */
 package com.controller;
 
-import email.mandrill.Attachment;
 import email.mandrill.Message;
-import email.mandrill.Recipient;
-import email.mandrill.RecipientMetadata;
 import email.mandrill.SendMail;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import javax.servlet.annotation.WebServlet;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.HttpClients;
-import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -70,60 +49,60 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             String email_subject = request.getParameter("email_subject");
             String email_addresses = request.getParameter("email_addresses");
             String html_text = (String) getSqlMethodsInstance().session.getAttribute("htmldata");
-            
-            String reply_to_address = request.getParameter("reply_to_email_address");
+             String emaillist_name = (String) getSqlMethodsInstance().session.getAttribute("email_list");
+             String reply_to_address = request.getParameter("reply_to_email_address");
             String from_email_address = request.getParameter("from_email_address");
             String from_name = request.getParameter("from_name");
             Message message = new Message();
-
-            message.setKey(MANDRILL_KEY);
-
-            message.setHtml(html_text);
-            message.setSubject(email_subject);
-            message.setFrom_email(from_email_address);
-            message.setFrom_name(from_name);
-            message.setAsync(true);
-            message.setReply_to(reply_to_address);
-
-            //For Billing purposes.
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-            ArrayList<String> tags = new ArrayList<String>();
-            tags.add(String.valueOf(user_id));
 
-            message.setTags(tags);
-
-            ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
-
-            String emailids[] = email_addresses.split(",");
-
-            for (int i = 0; i < emailids.length; i++) {
-
-                String email = emailids[i];
-                Recipient rec = new Recipient();
-
-                rec.setEmail(email);
-                rec.setName(email);
-                rec.setType("to");
-                messageToList.add(rec);
-                message.setMessageTo(messageToList);
-                RecipientMetadata recipientMetadata1 = new RecipientMetadata();
-                recipientMetadata1.setRcpt(email);
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("key", "value");
-                recipientMetadata1.setValues(map);
-
-                ArrayList<RecipientMetadata> metadataList1 = new ArrayList<RecipientMetadata>();
-                metadataList1.add(recipientMetadata1);
-                message.setRecipient_metadata(metadataList1);
-
-            }
+//            message.setKey(MANDRILL_KEY);
+//
+//            message.setHtml(html_text);
+//            message.setSubject(email_subject);
+//            message.setFrom_email(from_email_address);
+//            message.setFrom_name(from_name);
+//            message.setAsync(true);
+//            message.setReply_to(reply_to_address);
+//
+//            //For Billing purposes.
+//            ArrayList<String> tags = new ArrayList<String>();
+//            tags.add(String.valueOf(user_id));
+//
+//            message.setTags(tags);
+//
+//            ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
+//
+//            String emailids[] = email_addresses.split(",");
+//
+//            for (int i = 0; i < emailids.length; i++) {
+//
+//                String email = emailids[i];
+//                Recipient rec = new Recipient();
+//
+//                rec.setEmail(email);
+//                rec.setName(email);
+//                rec.setType("to");
+//                messageToList.add(rec);
+//                message.setMessageTo(messageToList);
+//                RecipientMetadata recipientMetadata1 = new RecipientMetadata();
+//                recipientMetadata1.setRcpt(email);
+//                HashMap<String, String> map = new HashMap<String, String>();
+//                map.put("key", "value");
+//                recipientMetadata1.setValues(map);
+//
+//                ArrayList<RecipientMetadata> metadataList1 = new ArrayList<RecipientMetadata>();
+//                metadataList1.add(recipientMetadata1);
+//                message.setRecipient_metadata(metadataList1);
+//
+//            }
             
-            getSqlMethodsInstance().setEmailSentHistory(user_id, html_text, from_email_address, email_subject);
+            getSqlMethodsInstance().setEmailSentHistory(user_id, html_text, from_email_address, emaillist_name);
             send_email.sendMail(message);
             out.write("true");
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.write(getSqlMethodsInstance().error);
         } finally {
             out.close();

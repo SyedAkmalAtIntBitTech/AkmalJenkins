@@ -7,6 +7,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,14 +39,22 @@ public class SubBrandPersonality extends BrndBotBaseHttpServlet {
         getSqlMethodsInstance().session = request.getSession();
         try {
             String brandID = request.getParameter("brndID");
-
-            getSqlMethodsInstance().session.setAttribute("brandID", brandID);
-            request_dispatcher = request.getRequestDispatcher("/uploadlogo.jsp");
-            request_dispatcher.forward(request, response);
+            String type = request.getParameter("type");
+            
+            if (type.equalsIgnoreCase("insert")){
+                getSqlMethodsInstance().session.setAttribute("brandID", brandID);
+                request_dispatcher = request.getRequestDispatcher("/uploadlogo.jsp");
+                request_dispatcher.forward(request, response);
+            }else if(type.equalsIgnoreCase("update")){
+                Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+                getSqlMethodsInstance().updateBrandPersonality(user_id, Integer.parseInt(brandID));
+                out.write("true");
+            }
+            
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.println(getSqlMethodsInstance().error);
         }
         finally {

@@ -13,6 +13,8 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +26,7 @@ import org.json.simple.JSONObject;
  * @author Syed
  */
     public class GetImageGallery extends BrndBotBaseHttpServlet {
+        private static final Logger logger = Logger.getLogger(GetImageGallery.class.getName());
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,10 +48,11 @@ import org.json.simple.JSONObject;
         String image_name;
         Integer user_id, id;
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
+            user_id = (Integer)request.getSession().getAttribute("UID");
 
-            String query = "Select * from tbl_user_images where user_id="+user_id+"";
+            String query = "Select * from tbl_user_images where user_id=?";
             prepared_statement = connection.prepareStatement(query);
+            prepared_statement.setInt(1, user_id);
             result_set = prepared_statement.executeQuery();
             
             while(result_set.next()){
@@ -63,12 +67,14 @@ import org.json.simple.JSONObject;
             }
 //        String jsonText = obj.toJSONString();        
         String json = new Gson().toJson(json_arr);
+        logger.info(json);
         response.setContentType("application/json");
         response.getWriter().write(json);
             
         }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Exception while getting gallery images", e);
+                        logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         }finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);

@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,7 +70,6 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
 
             MindBodyProcessedData mind_body_processed_data = null;
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-//            Integer user_id = 40;
             String query = request.getParameter("query");
 
             String mindbody_query = request.getParameter("mindbody_query");
@@ -137,10 +137,11 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                 Integer studio_id = getSqlMethodsInstance().getStudioID(user_id);
                 int[] siteids = new int[]{studio_id};
                 mind_body_class = new MindBodyClass(siteids);
+                sub_category_name = sub_category_name.toLowerCase();
                 if (sub_category_name.equals("promote todays class")) {
                     GetClassesResult classResult = mind_body_class.getTodaysClass();
                     mind_body_processed_data = getMindBodyProcessedClassData(classResult);
-                } else if (sub_category_name.equals("promote class")) {
+                } else if (sub_category_name.equals("promote new class")) {
                     GetClassesResult classResult = mind_body_class.getClasses();
                     mind_body_processed_data = getMindBodyProcessedClassData(classResult);
                 } else if (sub_category_name.equals("promote work shop")) {
@@ -159,8 +160,8 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             e.printStackTrace();
         } finally {
             out.close();

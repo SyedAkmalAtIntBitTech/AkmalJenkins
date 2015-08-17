@@ -5,18 +5,13 @@
  */
 package com.intbit;
 
-import admin.controller.Categories;
 import admin.controller.Layout;
-import admin.controller.ServletAddCategories;
 import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -197,19 +192,15 @@ public class Model extends BrndBotBaseHttpServlet {
             }
 
         } catch (ParserConfigurationException pce) {
-            System.out.println(pce.getCause());
-            System.out.println(pce.getMessage());
-            System.out.println(pce.getStackTrace());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(pce, "Exception while updating org name:", getSqlMethodsInstance().error));
+
 
         } catch (TransformerException tfe) {
-            tfe.printStackTrace();
-            System.out.println(tfe.getCause());
-            System.out.println(tfe.getMessage());
-            System.out.println(tfe.getStackTrace());
+            logger.log(Level.SEVERE, util.Utility.logMessage(tfe, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         } catch (SQLException s) {
-            System.out.println(s.getCause());
-            System.out.println(s.getMessage());
-            System.out.println(s.getStackTrace());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(s, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         }finally {
             getSqlMethodsInstance().closeConnection();
             layout.sqlmethods.closeConnection();

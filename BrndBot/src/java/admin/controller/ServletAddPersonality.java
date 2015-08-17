@@ -6,6 +6,7 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,8 +30,7 @@ import org.apache.commons.fileupload.*;
  */
 public class ServletAddPersonality extends BrndBotBaseHttpServlet {
 
-    String filePath;
-    String file_name, field_name, upload_path;
+    String file_name, field_name;
     Brands brand;
     RequestDispatcher request_dispatcher;
     String brand_name, look_id;
@@ -65,7 +65,7 @@ public class ServletAddPersonality extends BrndBotBaseHttpServlet {
         int maxMemSize = 5000 * 1024;
         try {
 
-            upload_path = getServletContext().getRealPath("") + "/images/Brandimages";
+            String uploadPath = AppConstants.BRAND_IMAGES_HOME;
 
             // Verify the content type
             String contentType = request.getContentType();
@@ -75,7 +75,7 @@ public class ServletAddPersonality extends BrndBotBaseHttpServlet {
                 // maximum size that will be stored in memory
                 factory.setSizeThreshold(maxMemSize);
                 // Location to save data that is larger than maxMemSize.
-                factory.setRepository(new File("c://temp"));
+                factory.setRepository(new File("/tmp"));
 
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -112,7 +112,7 @@ public class ServletAddPersonality extends BrndBotBaseHttpServlet {
                                 field_name = fi.getFieldName();
                                 file_name = fi.getName();
 
-                                File uploadDir = new File(upload_path);
+                                File uploadDir = new File(uploadPath);
                                 if (!uploadDir.exists()) {
                                     uploadDir.mkdirs();
                                 }
@@ -124,7 +124,7 @@ public class ServletAddPersonality extends BrndBotBaseHttpServlet {
                                 boolean isInMemory = fi.isInMemory();
                                 long sizeInBytes = fi.getSize();
 
-                                String filePath = upload_path + File.separator + file_name;
+                                String filePath = uploadPath + File.separator + file_name;
                                 File storeFile = new File(filePath);
 
                                 fi.write(storeFile);

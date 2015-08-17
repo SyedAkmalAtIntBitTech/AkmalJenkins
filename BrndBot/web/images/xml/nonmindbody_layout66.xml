@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<layout>
+    <container Height="300" Width="500"/>
+    <element Blend="normal" background-image="url(https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS3xdfZuCFFg65DQaNC-WaaTmtCmarVCqyQtaVBJlOuqso3HSTK)" blend-background-color="#NaN0000" blur="undefined" brightness="undefined" contrast="undefined" grayscale="undefined" height="50px" huerotate="undefined" invert="undefined" opacity="1" saturate="undefined" sepia="undefined" tag="image" type="backgroundimage" width="50px" x-co-ordinates="183" y-co-ordinates="90"/>
+</layout>

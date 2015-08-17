@@ -5,8 +5,11 @@
  */
 package email.mandrill;
 
+import com.controller.SqlMethods;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,6 +24,8 @@ import org.json.JSONObject;
  * @author intbit
  */
 public class SendMail {
+
+        private static final Logger logger = Logger.getLogger(util.Utility.getClassName(SendMail.class));
 
     public final static String MANDRILL_KEY = "4jd3wIMvBAmJt9H0FcEb1w";
 
@@ -54,7 +59,7 @@ public class SendMail {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
     }
 
@@ -84,7 +89,7 @@ public class SendMail {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
     }
 

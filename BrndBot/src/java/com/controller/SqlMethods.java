@@ -13,13 +13,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -42,6 +38,7 @@ public class SqlMethods {
     public Integer upper_limit = 4;
     public String error = "system failure error";
     public static final String k_mind_body = "Mind_Body_Data";
+    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(SqlMethods.class));
 
     private static final ConnectionManager connectionManager 
             = ConnectionManager.getInstance();
@@ -56,14 +53,15 @@ public class SqlMethods {
                 rs.close();
 
             } catch (SQLException e) {
-                Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, e);
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
             }
         }
         if (ps != null) {
             try {
                 ps.close();
             } catch (SQLException e) {
-                Logger.getLogger(SqlMethods.class.getName()).log(Level.SEVERE, null, e);
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
             }
         }
     }
@@ -99,8 +97,8 @@ public class SqlMethods {
             upper_limit = ll;
             response.sendRedirect(request.getContextPath() + "/chooseLook.jsp");
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }
     }
 
@@ -119,8 +117,8 @@ public class SqlMethods {
             }
             response.sendRedirect(request.getContextPath() + "/chooseLook.jsp");
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }
 
     }
@@ -145,8 +143,8 @@ public class SqlMethods {
                 company_name = result_set.getString("company_name");
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -168,8 +166,8 @@ public class SqlMethods {
 
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -187,7 +185,7 @@ public class SqlMethods {
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         } finally {
             close(result_set, prepared_statement);
         }
@@ -209,8 +207,8 @@ public class SqlMethods {
                 org_id = result_set.getInt("organizationid");
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                     logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -232,8 +230,8 @@ public class SqlMethods {
                 org_name = result_set.getString("organization_name");
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -256,7 +254,7 @@ public class SqlMethods {
                 AL.add(result_set.getString("organization_name"));
             }
         } catch (Exception e) {
-            System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         } finally {
             close(result_set, prepared_statement);
         }
@@ -280,8 +278,8 @@ public class SqlMethods {
                 TC.setColorHex(result_set.getString("color_hex"));
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -306,7 +304,7 @@ public class SqlMethods {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         } finally {
             close(result_set, prepared_statement);
         }
@@ -330,7 +328,7 @@ public class SqlMethods {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         } finally {
             close(result_set, prepared_statement);
         }
@@ -354,7 +352,7 @@ public class SqlMethods {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getCause() + "," + e.getMessage() + "," + e.getStackTrace());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         } finally {
             close(result_set, prepared_statement);
         }
@@ -386,8 +384,8 @@ public class SqlMethods {
 
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -412,8 +410,8 @@ public class SqlMethods {
                 returnResult = true;
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -435,8 +433,8 @@ public class SqlMethods {
                 IDNO = result_set.getInt(1);
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -460,9 +458,8 @@ public class SqlMethods {
 
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -480,9 +477,8 @@ public class SqlMethods {
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
+                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -500,9 +496,8 @@ public class SqlMethods {
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
+                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -531,9 +526,8 @@ public class SqlMethods {
             prepared_statement.executeUpdate();
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -558,8 +552,8 @@ public class SqlMethods {
             prepared_statement.executeUpdate();
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -592,8 +586,8 @@ public class SqlMethods {
 
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                   logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -614,8 +608,8 @@ public class SqlMethods {
                 userid = result_set.getString("userid");
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -638,8 +632,8 @@ public class SqlMethods {
                 ID = result_set.getInt(1);
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -691,8 +685,8 @@ public class SqlMethods {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -722,8 +716,8 @@ public class SqlMethods {
             userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -762,8 +756,8 @@ public class SqlMethods {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
 
         } finally {
             close(result_set, prepared_statement);
@@ -788,8 +782,8 @@ public class SqlMethods {
                 studio_id = Integer.parseInt(result_set.getString(1));
             }
         }catch(Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }finally {
             close(result_set, prepared_statement);
         }
@@ -881,17 +875,43 @@ public class SqlMethods {
                 brand_id = Integer.parseInt(result_set.getString(1));
             }
         }catch(Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }finally {
             close(result_set, prepared_statement);
         }
         return brand_id;
     }
+    
+    public Integer getLookID(Integer user_id) {
+        Integer look_id = 0;
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+            
+            query_string = "Select look_id from tbl_user_preferences where user_id="+user_id;
+
+            prepared_statement = connection.prepareStatement(query_string);
+            result_set = prepared_statement.executeQuery();
+            
+            if (result_set.next()){
+                look_id = Integer.parseInt(result_set.getString(1));
+            }
+        }catch(Exception e){
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        }finally {
+            close(result_set, prepared_statement);
+        }
+        return look_id;
+    }
+    
     private static java.sql.Timestamp getCurrentTimeStamp() {
 
-	java.util.Date today = new java.util.Date();
-	return new java.sql.Timestamp(today.getTime());
+        java.util.Date today = new java.util.Date();
+        return new java.sql.Timestamp(today.getTime());
 
     }
 
@@ -900,12 +920,12 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+        try(Connection connection = ConnectionManager.getInstance().getConnection()){
 
-            query_string = "Insert into tbl_emailsenthistory(userid, timesent, contenthtml, emailaddress, emaillistname) Values (?,?,?,?,?)";
+            query_string = "Insert into tbl_emailsenthistory(user_id, timesent, contenthtml, emailaddress, emaillistname) Values (?,?,?,?,?)";
 
-            prepared_statement = getConnection().prepareStatement(query_string);
-            prepared_statement.setString(1, String.valueOf(userid));
+            prepared_statement = connection.prepareStatement(query_string);
+            prepared_statement.setInt(1, userid);
             prepared_statement.setTimestamp(2, getCurrentTimeStamp());
             prepared_statement.setString(3, contenthtml);
             prepared_statement.setString(4, emailaddress);
@@ -914,9 +934,8 @@ public class SqlMethods {
             prepared_statement.executeUpdate();
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
@@ -927,12 +946,12 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
-        try {
+         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
 
-            query_string = "Insert into tbl_emailsenthistory(userid, timesent, contenthtml, twitter, facebook, imagefilename) Values (?,?,?,?,?,?)";
+            query_string = "Insert into tbl_socialposthistory(user_id, timesent, contenthtml, twitter, facebook, imagefilename) Values (?,?,?,?,?,?)";
 
-            prepared_statement = getConnection().prepareStatement(query_string);
-            prepared_statement.setString(1, String.valueOf(userid));
+            prepared_statement = connection.prepareStatement(query_string);
+            prepared_statement.setInt(1, userid);
             prepared_statement.setTimestamp(2, getCurrentTimeStamp());
             prepared_statement.setString(3, contenthtml);
             prepared_statement.setBoolean(4, twitter);
@@ -942,14 +961,171 @@ public class SqlMethods {
             prepared_statement.executeUpdate();
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             close(result_set, prepared_statement);
         }
 
     }
-
     
+    public JSONObject getUserPreferencesBrand(Integer user_id){
+        String query_string = "", brand_name = "", image = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+        Integer brand_id = 0;
+        JSONObject json_brand = new JSONObject();
+         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+
+            query_string = "Select brand_id from tbl_user_preferences where user_id="+user_id+"";
+    
+            prepared_statement = connection.prepareStatement(query_string);
+            
+            result_set = prepared_statement.executeQuery();
+            
+            if (result_set.next()){
+                brand_id  = result_set.getInt(1);
+            }
+            
+            result_set.close();
+            prepared_statement.close();
+            
+            query_string = "Select brand_name,image from tbl_brand_personality where id="+brand_id+"";
+            
+            prepared_statement = connection.prepareStatement(query_string);
+            
+            result_set = prepared_statement.executeQuery();
+
+            if (result_set.next()){
+                brand_name  = result_set.getString(1);
+                image = result_set.getString(2);
+                json_brand.put("brand_name", brand_name);
+                json_brand.put("image_name", image);
+                
+            }
+            
+         }catch (Exception e){
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+         return json_brand;
+    }
+
+    public JSONObject getUserPreferencesLook(Integer user_id){
+        String query_string = "", look_name = "", image = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+        Integer look_id = 0;
+        JSONObject json_look = new JSONObject();
+         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+
+            query_string = "Select look_id from tbl_user_preferences where user_id="+user_id+"";
+    
+            prepared_statement = connection.prepareStatement(query_string);
+            
+            result_set = prepared_statement.executeQuery();
+            
+            if (result_set.next()){
+                look_id  = result_set.getInt(1);
+            }
+            
+            result_set.close();
+            prepared_statement.close();
+            
+            query_string = "Select look_name, file_name from tbl_look where id="+look_id+"";
+            
+            prepared_statement = connection.prepareStatement(query_string);
+            
+            result_set = prepared_statement.executeQuery();
+
+            if (result_set.next()){
+                look_name  = result_set.getString(1);
+                image = result_set.getString(2);
+                json_look.put("look_name", look_name);
+                json_look.put("image_name", image);
+                
+            }
+            
+         }catch (Exception e){
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+         return json_look;
+    }
+    
+    
+    public void updateBrandPersonality(Integer user_id, Integer brand_id){
+        String query_string = "", brand_name = "", image = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+        JSONObject json_brand = new JSONObject();
+         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+             
+              query_string = "UPDATE tbl_user_preferences"
+                    + " SET brand_id ='" + brand_id + "' WHERE user_id=" + user_id + "";
+
+            prepared_statement = connection.prepareStatement(query_string);
+            prepared_statement.executeUpdate();
+            prepared_statement.close();
+              
+         }catch (Exception e){
+                        logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+    }
+    public void updateLooks(Integer user_id, Integer look_id){
+        String query_string = "", brand_name = "", image = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+        JSONObject json_brand = new JSONObject();
+         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+             
+              query_string = "UPDATE tbl_user_preferences"
+                    + " SET look_id ='" + look_id + "' WHERE user_id=" + user_id + "";
+
+            prepared_statement = connection.prepareStatement(query_string);
+            prepared_statement.executeUpdate();
+            prepared_statement.close();
+              
+         }catch (Exception e){
+                        logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+    }
+
+    public String getLogofileName(int UID) {
+        String query_string = "", brand_name = "", image = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+        JSONObject json_brand = new JSONObject();
+         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+             
+            query_string = "Select logo_name from tbl_user_login_details where id="+UID;
+
+            prepared_statement = connection.prepareStatement(query_string);
+            
+            result_set = prepared_statement.executeQuery();
+
+            if (result_set.next()){
+                image  = result_set.getString(1);
+            }
+              
+         }catch (Exception e){
+                        logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        return image;
+    }
+
+
 }

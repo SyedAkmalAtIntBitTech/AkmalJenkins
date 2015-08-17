@@ -6,6 +6,7 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +27,10 @@ import org.json.simple.parser.JSONParser;
  */
 public class ServletDeleteBrands extends BrndBotBaseHttpServlet {
 
+    private static Logger logger = Logger.getLogger(ServletDeleteBrands.class.getName());
+    
     Brands brand;
-    String delete_path, file_name_to_delete;
+    String file_name_to_delete;
 
      public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -63,20 +66,17 @@ public class ServletDeleteBrands extends BrndBotBaseHttpServlet {
             JSONObject json_brand = null;
             json_brand = (JSONObject) parser.parse(string_buffer.toString());
             Long look_id = (Long) json_brand.get("brand_id");
-            delete_path = getServletContext().getRealPath("") + "/images/Brandimages";
             file_name_to_delete = brand.getFileName(look_id.intValue());
-            String deletePath = delete_path + File.separator + file_name_to_delete;
+            String deletePath = AppConstants.BRAND_IMAGES_HOME + File.separator + file_name_to_delete;
             File deleteFile = new File(deletePath);
             deleteFile.delete();
 
             brand.deleteBrands(look_id.intValue());
             out.write("true");
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Exception while deleting brands", e);
         }finally {
-            getSqlMethodsInstance().closeConnection();
-            brand.sqlmethods.closeConnection();
+            out.close();
         }
     }
 

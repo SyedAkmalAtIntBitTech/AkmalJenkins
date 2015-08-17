@@ -19,12 +19,12 @@ and open the template in the editor.
         <script>
             function studioController($scope, $http)
             {
+
+                $scope.createStudio = function (){
                 var siteid = $("#inputstudio").val();
 
                 var studio = {"studioid": siteid, "type": "set"};
 
-                $scope.createStudio = function ()
-                {
                     $http({
                         method: 'POST',
                         url: getHost() + 'SetStudioID',

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,7 +78,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
 
             JSONObject mapped_json_object = null;
             Object selected_object = mindbody_hash_map.get(mindbody_data_id);
-
+            sub_category_name = sub_category_name.toLowerCase();
             if (sub_category_name.contains("class")) {
                 Class mindbody_class = (Class) selected_object;
                 mapped_json_object = MindBodyDataMapper.mapTodaysClassData(mindbody_class, editor_mapper_file_name);
@@ -91,9 +92,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
                 response.getWriter().write(mapped_json_object.toString());
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
         } finally {
             out.close();
             getSqlMethodsInstance().closeConnection();

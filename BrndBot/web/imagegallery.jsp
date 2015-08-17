@@ -118,7 +118,6 @@ and open the template in the editor.
                             method : 'GET',
                             url : 'GetImageGallery'
                     }).success(function(data, status, headers, config) {
-                        
                         $scope.datalists = data;
                         
                     $scope.numberOfPages = function() {
@@ -241,7 +240,7 @@ and open the template in the editor.
                                          <li class="paginationclass" style="font-weight:bold;">Image Gallery</li>            
                                          <li class="paginationclass" ng-repeat="images in datalists | pagination: curPage * pageSize | limitTo: pageSize">
                                                     <div>
-                                                        <img id="{{images.id}}" class="img-responsive lookchooser5" src="images/Gallery/{{images.user_id}}/{{images.image_name}}"  onclick="showText({{images.id}})" width=100 height=120 />
+                                                        <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showText({{images.id}})" width=100 height=120 />
                     <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                         <button name="delete" id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
                                                     </div> 

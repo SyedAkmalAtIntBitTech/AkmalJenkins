@@ -2,5 +2,8 @@
 /BrndBot/dist/
 /BrndBot/build/
 /.project
-
-/.project
+/BrndBot/nbbuild/
+/BrndBot/nbdist/
+/BrndBot/nbactions.xml
+/BrndBot/nb-configuration.xml
+/BrndBot/.nb-gradle/

@@ -17,6 +17,7 @@ import com.intbit.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import model.look;
@@ -27,7 +28,6 @@ import model.look;
  */
 public class GetLooks extends BrndBotBaseHttpServlet {
 
-    String query = "", query1 = "";
     
     public static Integer ll1 = 4;
 
@@ -46,54 +46,66 @@ public class GetLooks extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String query = "", query1 = "";
         JSONObject jsonobject = new JSONObject();
         JSONArray jsonarr = new JSONArray();
         JSONArray jsonarr1 = new JSONArray();
 
-            PreparedStatement prepared_statement = null;
-    ResultSet result_set = null;
-
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
         getSqlMethodsInstance().session = request.getSession(true);
-        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            
-            query = "Select * from tbl_look limit 4";
-            prepared_statement = connection.prepareStatement(query);
-            result_set = prepared_statement.executeQuery();
-            while (result_set.next()) {
-                look lk = new look();
-                int id = result_set.getInt("id");
-                String look_name = result_set.getString("look_name");
-                lk.setId(id);
-                lk.setLook_name(look_name);
-                String file_name = result_set.getString("file_name");
-                lk.setFile_name(file_name);
-                jsonarr.add(lk);
-            }
-            result_set.close();  
-            prepared_statement.close();
-            jsonobject.put("first", jsonarr);
 
-            query1 = "Select * from tbl_look limit 4 OFFSET 4";
-            prepared_statement = connection.prepareStatement(query1);
-            result_set = prepared_statement.executeQuery();
-            while (result_set.next()) {
-                look lk = new look();
-                int id = result_set.getInt("id");
-                String look_name = result_set.getString("look_name");
-                lk.setId(id);
-                lk.setLook_name(look_name);
-                String file_name = result_set.getString("file_name");
-                lk.setFile_name(file_name);
-                jsonarr1.add(lk);
+//          String type = request.getParameter("type");
+          try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+        
+            if  (request.getParameter("type") != null){
+                    Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+
+                    jsonobject = getSqlMethodsInstance().getUserPreferencesLook(user_id);
+            }else {
+
+                        query = "Select * from tbl_look limit 4";
+                        prepared_statement = connection.prepareStatement(query);
+                        result_set = prepared_statement.executeQuery();
+                        while (result_set.next()) {
+                            look lk = new look();
+                            int id = result_set.getInt("id");
+                            String look_name = result_set.getString("look_name");
+                            lk.setId(id);
+                            lk.setLook_name(look_name);
+                            String file_name = result_set.getString("file_name");
+                            lk.setFile_name(file_name);
+                            jsonarr.add(lk);
+                        }
+                        result_set.close();  
+                        prepared_statement.close();
+                        jsonobject.put("first", jsonarr);
+
+                        query1 = "Select * from tbl_look limit 4 OFFSET 4";
+                        prepared_statement = connection.prepareStatement(query1);
+                        result_set = prepared_statement.executeQuery();
+                        while (result_set.next()) {
+                            look lk = new look();
+                            int id = result_set.getInt("id");
+                            String look_name = result_set.getString("look_name");
+                            lk.setId(id);
+                            lk.setLook_name(look_name);
+                            String file_name = result_set.getString("file_name");
+                            lk.setFile_name(file_name);
+                            jsonarr1.add(lk);
+                        }
+                        jsonobject.put("second", jsonarr1);
+
             }
-            jsonobject.put("second", jsonarr1);
             
             String json = new Gson().toJson(jsonobject);
             response.setContentType("application/json");
             response.getWriter().write(json);
+            
+            
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();

@@ -6,24 +6,20 @@
 package com.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 /**
  *
  * @author AR
  */
 public class BrndBotBaseHttpServlet extends HttpServlet {
+
+    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(BrndBotBaseHttpServlet.class));
 
     private SqlMethods sql_methods;
 

@@ -126,7 +126,7 @@
         </div>
 
     </body>
-    <script>
+        <script>
         var fl = document.getElementById('filesToUpload');
 
         fl.onchange = function (e) {
