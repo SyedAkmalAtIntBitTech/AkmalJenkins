@@ -6,6 +6,7 @@
 package social.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
@@ -59,7 +60,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String isTwitter = request.getParameter("isTwitter");
             String getImageFile = request.getParameter("imageToPost");
             String getFile = request.getParameter("imagePost");
-            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
+            String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
             String imagePostURL=request.getRequestURL().toString().replace("PostToSocial", "");
         
         if (isFacebook.equalsIgnoreCase("true")) {

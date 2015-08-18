@@ -162,13 +162,12 @@ public class Model extends BrndBotBaseHttpServlet {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(uploadPath + File.separator + "xml" + File.separator +layoutfilename + ".xml"));
+            StreamResult result = new StreamResult(new File(uploadPath + File.separator +layoutfilename + ".xml"));
 
             TransformerFactory transformerFactory1 = TransformerFactory.newInstance();
             Transformer transformer1 = transformerFactory1.newTransformer();
             DOMSource source1 = new DOMSource(doc1);
-            StreamResult result1 = new StreamResult(new File(uploadPath + File.separator + "xml" + File.separator + mapperfilename + ".xml"));
-//            String filepath=uploadPath + File.separator + layoutfilename + ".xml";
+            StreamResult result1 = new StreamResult(new File(uploadPath + File.separator + mapperfilename + ".xml"));
             // Output to console for testing
             // StreamResult result = new StreamResult(System.out);
             transformer.transform(source, result);

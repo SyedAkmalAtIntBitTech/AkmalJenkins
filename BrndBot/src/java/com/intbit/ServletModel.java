@@ -62,7 +62,7 @@ public class ServletModel extends BrndBotBaseHttpServlet {
 
             look = new Looks();
 //            uploadXmlPath = getServletContext().getRealPath("") + "/model";
-            uploadPath = getServletContext().getRealPath("") + "/model";
+            uploadPath = AppConstants.BASE_MODEL_PATH;
 
             // Verify the content type
             String contentType = request.getContentType();

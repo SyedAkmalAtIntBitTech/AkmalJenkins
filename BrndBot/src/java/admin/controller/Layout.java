@@ -14,6 +14,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.xml.parsers.DocumentBuilder;
@@ -29,7 +31,7 @@ import org.xml.sax.SAXException;
  * @author intbit
  */
 public class Layout {
-    
+    private static final Logger logger = Logger.getLogger(Layout.class.getName());
     public SqlMethods sqlmethods;
     String Style_image_name = "";
     
@@ -52,8 +54,7 @@ public class Layout {
                 check = true;
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
             
@@ -78,8 +79,7 @@ public class Layout {
                 fileName = result_set.getString("image");
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
             
@@ -110,8 +110,7 @@ public class Layout {
             prepared_statement.setString(11, Style_image_name);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
             
@@ -131,8 +130,7 @@ public class Layout {
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
             
@@ -152,8 +150,7 @@ public class Layout {
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
             
@@ -163,7 +160,7 @@ public class Layout {
     
     public String createImage(String layoutfilename, ServletContext servletContext) throws SAXException {
 //        throw new UnsupportedOperationException("Not supported yet.");
-        String uploadPath = AppConstants.BASE_UPLOAD_PATH;
+        String uploadPath = AppConstants.BASE_XML_UPLOAD_PATH;
         try {
             StringBuffer htmldata = new StringBuffer();
             String backgroundimage, margin_left, Blend_mode, margin_top, blend_mode, opacity, width, height, background_repeat, background_size;
@@ -173,7 +170,7 @@ public class Layout {
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
             
-            Document doc = docBuilder.parse(new File(uploadPath + File.separator + "xml" + File.separator + layoutfilename + ".xml"));
+            Document doc = docBuilder.parse(new File(uploadPath  + File.separator + layoutfilename + ".xml"));
             Element docEle = doc.getDocumentElement();
             // normalize text representation
             doc.getDocumentElement().normalize();
@@ -186,25 +183,25 @@ public class Layout {
              Element modelElementContent = (Element) firstContentNode;
              String containerWidth=modelElementContent.getAttribute("Width");
             String containerHeight=modelElementContent.getAttribute("Height");
-            System.out.println("Total no of models : " + totalModels);
+            logger.log(Level.INFO, "Total no of models : " + totalModels);
             
             for (int s = 0; s < listOfModels.getLength(); s++) {
                 
                 Node firstModelNode = listOfModels.item(s);
                 Element modelElement = (Element) firstModelNode;
                 
-                System.out.println(modelElement.getAttribute("tag"));
+                logger.log(Level.INFO, modelElement.getAttribute("tag"));
                 
                 if (modelElement.getAttribute("tag").equalsIgnoreCase("image")) {
                     String filter = "";
-                    System.out.println(modelElement.getAttribute("brightness"));
+                    logger.log(Level.INFO, modelElement.getAttribute("brightness"));
                     if (modelElement.getAttribute("blur")=="null" || modelElement.getAttribute("brightness") == " ") {
                         h_shadow = modelElement.getAttribute("h-shadow");
                         v_shadow = modelElement.getAttribute("v-shadow");
                         Blur = modelElement.getAttribute("blur");
                         Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
                         filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
-                        System.out.println(filter);
+                        logger.log(Level.INFO, filter);
                     } else {
                         Blur = modelElement.getAttribute("blur");
                         grayscale = (Double.parseDouble(modelElement.getAttribute("grayscale"))) * 100;
@@ -217,7 +214,7 @@ public class Layout {
 //                        blur(2px) grayscale(2%) sepia(2%) saturate(102%) hue-rotate(1deg) invert(1%) brightness(100%) contrast(101%) 
                         
                         filter = "blur(" + Blur + ") grayscale(" + (int) grayscale + "%) sepia(" + (int) sepia + "%) saturate(" + (int) saturate + "%) hue-rotate(" + huerotate + ") invert(" + (int) invert + "%) brightness(" + (int) brightness + "%) contrast(" + (int) contrast + "%)";                        
-                        System.out.println(filter);
+                        logger.log(Level.INFO, filter);
                     }
                     
                     backgroundimage = modelElement.getAttribute("background-image");
@@ -231,7 +228,7 @@ public class Layout {
                     background_repeat = "no-repeat";
                     background_size = "contain";
                     htmldata.append("<div style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + "; '></div>");
-                    System.out.println(htmldata);
+                    logger.log(Level.INFO, htmldata.toString());
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("text")) {
                     textData = modelElement.getAttribute("type");
                     margin_left = modelElement.getAttribute("x-co-ordinates");
@@ -260,14 +257,14 @@ public class Layout {
                     htmldata.append("<div style='margin-left: " + margin_left + "; margin-top:" + margin_top + ";background-image: " + backgroundimage + ";'></div>");
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("logo")) {
                     String filter = "";
-                    System.out.println(modelElement.getAttribute("brightness"));
+                    logger.log(Level.INFO, modelElement.getAttribute("brightness"));
                     if (modelElement.getAttribute("blur")=="null" || modelElement.getAttribute("brightness") == " ") {
                         h_shadow = modelElement.getAttribute("h-shadow");
                         v_shadow = modelElement.getAttribute("v-shadow");
                         Blur = modelElement.getAttribute("blur");
                         Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
                         filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
-                        System.out.println(filter);
+                        logger.log(Level.INFO, filter);
                     } else {
                         Blur = modelElement.getAttribute("blur");
                         grayscale = (Double.parseDouble(modelElement.getAttribute("grayscale"))) * 100;
@@ -280,7 +277,7 @@ public class Layout {
 //                        blur(2px) grayscale(2%) sepia(2%) saturate(102%) hue-rotate(1deg) invert(1%) brightness(100%) contrast(101%) 
                         
                         filter = "blur(" + Blur + ") grayscale(" + (int) grayscale + "%) sepia(" + (int) sepia + "%) saturate(" + (int) saturate + "%) hue-rotate(" + huerotate + ") invert(" + (int) invert + "%) brightness(" + (int) brightness + "%) contrast(" + (int) contrast + "%)";                        
-                        System.out.println(filter);
+                        logger.log(Level.INFO, filter);
                     }
                     
                     backgroundimage = modelElement.getAttribute("background-image");
@@ -294,7 +291,7 @@ public class Layout {
                     background_repeat = "no-repeat";
                     background_size = "contain";
                     htmldata.append("<div style='width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + "; '></div>");
-                    System.out.println(htmldata);
+                    logger.log(Level.INFO, htmldata.toString());
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("block")) {
                     String filter = "";
                     
@@ -303,7 +300,7 @@ public class Layout {
                     Blur = modelElement.getAttribute("blur");
                     Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
                     filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
-                    System.out.println(filter);
+                    logger.log(Level.INFO, filter);
                     
                     margin_left = modelElement.getAttribute("x-co-ordinates");
                     margin_top = modelElement.getAttribute("y-co-ordinates");
@@ -315,13 +312,13 @@ public class Layout {
                     htmldata.append("<div style='position: absolute; width:" + width + "; height:" + height + ";opacity:" + opacity + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-color:" + background_color + "; -webkit-filter:" + filter + ";  '></div>");
                 }
                 
-                System.out.println(htmldata);
+                logger.log(Level.INFO, htmldata.toString());
             }
             PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletContext);
             File imagePngFile = phantomImageConverter.getImage(htmldata.toString(),containerWidth, containerHeight, "0", "0");
             Style_image_name = imagePngFile.getName();
         } catch (Exception e) {
-            
+            logger.log(Level.SEVERE, "", e);
         }
         return Style_image_name;
     }
