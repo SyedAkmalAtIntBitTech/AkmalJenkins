@@ -147,14 +147,14 @@
                     Facebook Preview<br>
                     <img id="companyimage" class="companyimage" src="images/logo.png">
                     <p>Company name</p><br>
-                    <img id="facebookpreviewimage" src='temp/<%=imageName%>'>
+                    <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                 </div>
 
                 <div class="col-sm-3" id="twitterpreviewdiv">
                     Twitter Preview<br>
                     <img id="companyimage" class="companyimage" src="images/logo.png">
                     <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"></textarea><br><br>
-                    <img id="facebookpreviewimage" src='temp/<%=imageName%>'>
+                    <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                 </div>
             </div>
              <input type="hidden" id="imageToPost" name="imageToPost" value='<%=imageName%>'/>  

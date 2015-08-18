@@ -77,6 +77,9 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
                     }
                     imageBasePath = AppConstants.ORG_CATEGORIES_HOME + File.separator + orgId;
                     break;
+                case LAYOUT_IMAGES:
+                    imageBasePath = AppConstants.LAYOUT_IMAGES_HOME;
+                    break;
             }
             String imageName = request.getParameter("image_name");
             if (imageName == null || "".equals(imageName)) {
