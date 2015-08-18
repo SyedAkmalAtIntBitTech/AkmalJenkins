@@ -174,7 +174,7 @@ public class Layout {
             Element docEle = doc.getDocumentElement();
             // normalize text representation
             doc.getDocumentElement().normalize();
-//            System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
+//            logger.log(Level.INFO, "Root element of the doc is " + doc.getDocumentElement().getNodeName());
             
             NodeList listOfModels = docEle.getElementsByTagName("element");
             NodeList listOfContent = docEle.getElementsByTagName("container");

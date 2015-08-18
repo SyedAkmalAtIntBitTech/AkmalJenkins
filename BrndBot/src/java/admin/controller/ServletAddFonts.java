@@ -24,7 +24,7 @@ import org.json.simple.parser.JSONParser;
  * @author intbit
  */
 public class ServletAddFonts extends BrndBotBaseHttpServlet {
-
+    private static final Logger logger = Logger.getLogger(ServletAddFonts.class.getName());
     Organization organization;
     Fonts fonts;
 
@@ -37,7 +37,7 @@ public class ServletAddFonts extends BrndBotBaseHttpServlet {
             this.organization = new Organization();
             this.fonts = new Fonts();
         } catch (NamingException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
     /**
@@ -81,20 +81,17 @@ public class ServletAddFonts extends BrndBotBaseHttpServlet {
                 String font_name = (String) joFonts.get("font_name");
 //                    fonts.changeFont(Integer.parseInt(font_id), font_name);
                 out.write("true");
-                System.out.println(font_name);
+                logger.log(Level.INFO, font_name);
             } else if (type.equals("delete")) {
                 String font_id = (String) joFonts.get("font_id");
                 fonts.delete(Integer.parseInt(font_id));
                 out.write("true");
             }
         } catch (Exception ex) {
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
+            logger.log(Level.SEVERE, "", ex);
             out.write(getSqlMethodsInstance().error);
         } finally {
             out.close();
-            getSqlMethodsInstance().closeConnection();
-            organization.sqlmethods.closeConnection();
         }
     }
 

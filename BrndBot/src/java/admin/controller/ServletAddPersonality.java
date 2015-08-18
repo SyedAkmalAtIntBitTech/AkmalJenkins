@@ -29,7 +29,7 @@ import org.apache.commons.fileupload.*;
  * @author intbit
  */
 public class ServletAddPersonality extends BrndBotBaseHttpServlet {
-
+    private static final Logger logger = Logger.getLogger(ServletAddPersonality.class.getName());
     String file_name, field_name;
     Brands brand;
     RequestDispatcher request_dispatcher;
@@ -42,7 +42,7 @@ public class ServletAddPersonality extends BrndBotBaseHttpServlet {
             brand = new Brands();
             check = false;
         } catch (NamingException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
     /**
@@ -151,14 +151,14 @@ public class ServletAddPersonality extends BrndBotBaseHttpServlet {
                 out.println("</html>");
             }
         } catch (Exception ex) {
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
+            logger.log(Level.SEVERE, "", ex);
         } finally {
             try {
                         out.close();
-                        getSqlMethodsInstance().closeConnection();
-                        brand.sqlmethods.closeConnection();
-            }catch (Exception e){}        }
+            }catch (Exception e){
+                logger.log(Level.SEVERE, "", e);
+            }
+        }
 
     }
 

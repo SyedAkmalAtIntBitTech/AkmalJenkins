@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 
 /**
@@ -19,7 +21,8 @@ import javax.naming.NamingException;
  * @author intbit
  */
 public class ColorThemes {
-
+    private static final Logger logger = Logger.getLogger(ColorThemes.class.getName());
+    
     SqlMethods sqlmethods;
 
     public ColorThemes() throws NamingException {
@@ -40,8 +43,7 @@ public class ColorThemes {
                 check = true;
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }finally {
             sqlmethods.close(result_set, prepared_statement);
         }
@@ -63,12 +65,9 @@ public class ColorThemes {
             if (result_set.next()) {
                 fileName = result_set.getString("image");
             }
-            result_set.close();
-            prepared_statement.close();
-
+         
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
         }
@@ -91,9 +90,9 @@ public class ColorThemes {
 
             // Check ResultSet's scrollability
             if (result_set.getType() == ResultSet.TYPE_FORWARD_ONLY) {
-                System.out.println("ResultSet non-scrollable.");
+                logger.log(Level.INFO, "ResultSet non-scrollable.");
             } else {
-                System.out.println("ResultSet scrollable.");
+                logger.log(Level.INFO, "ResultSet scrollable.");
             }
 //            result_set = prepared_statement.executeQuery();
 //            
@@ -105,10 +104,8 @@ public class ColorThemes {
                 int NID = Integer.parseInt(EID) + 1;
                 theme = theme + NID;
             }
-            result_set.close();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -136,10 +133,8 @@ public class ColorThemes {
             prepared_statement.setString(9, theme);
 
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
         }
@@ -156,13 +151,10 @@ public class ColorThemes {
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+            logger.log(Level.SEVERE, "", e);
+        }finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
     }
@@ -177,13 +169,10 @@ public class ColorThemes {
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+            logger.log(Level.SEVERE, "", e);
+        }finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
     }
