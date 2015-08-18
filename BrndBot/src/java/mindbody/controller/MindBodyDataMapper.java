@@ -239,6 +239,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassName")) {
                             if (mindbody_class.getClassDescription().getName() != null) {
+                                
                                 json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getName());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);

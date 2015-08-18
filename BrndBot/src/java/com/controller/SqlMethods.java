@@ -902,10 +902,10 @@ public class SqlMethods {
 
         try {
 
-            query_string = "Insert into tbl_emailsenthistory(userid, timesent, contenthtml, emailaddress, emaillistname) Values (?,?,?,?,?)";
+            query_string = "Insert into tbl_emailsenthistory(user_id, timesent, contenthtml, emailaddress, emaillistname) Values (?,?,?,?,?)";
 
             prepared_statement = getConnection().prepareStatement(query_string);
-            prepared_statement.setString(1, String.valueOf(userid));
+            prepared_statement.setInt(1, userid);
             prepared_statement.setTimestamp(2, getCurrentTimeStamp());
             prepared_statement.setString(3, contenthtml);
             prepared_statement.setString(4, emailaddress);
@@ -929,10 +929,11 @@ public class SqlMethods {
 
         try {
 
-            query_string = "Insert into tbl_emailsenthistory(userid, timesent, contenthtml, twitter, facebook, imagefilename) Values (?,?,?,?,?,?)";
+            query_string = "Insert into tbl_socialposthistory(user_id, timesent, contenthtml, twitter, facebook, imagefilename) Values (?,?,?,?,?,?)";
 
             prepared_statement = getConnection().prepareStatement(query_string);
-            prepared_statement.setString(1, String.valueOf(userid));
+            
+            prepared_statement.setInt(1, userid);
             prepared_statement.setTimestamp(2, getCurrentTimeStamp());
             prepared_statement.setString(3, contenthtml);
             prepared_statement.setBoolean(4, twitter);

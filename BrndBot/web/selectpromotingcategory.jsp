@@ -152,7 +152,7 @@ and open the template in the editor.
 
                     angular.module("myapp", [])
                     .controller("controllerGetMindBody", function($scope, $http) {
-
+                    $("#continuebutton").hide();
                     $scope.showData = function(){
 
                     $scope.curPage = 0;
@@ -165,6 +165,8 @@ and open the template in the editor.
                                 
                                 if (data.mindbody_data.length == 0){
                                     $("#continuebutton").hide();
+                                }else{
+                                       $("#continuebutton").show();
                                 }
 
                             if (data === error){

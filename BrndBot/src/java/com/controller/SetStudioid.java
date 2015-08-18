@@ -19,7 +19,6 @@ import org.json.simple.parser.JSONParser;
  * @author intbit
  */
 public class SetStudioid extends BrndBotBaseHttpServlet {
-    StringBuffer string_buffer = new StringBuffer();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,6 +34,8 @@ public class SetStudioid extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
+        StringBuffer string_buffer = new StringBuffer();
+
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession();
 
@@ -47,10 +48,10 @@ public class SetStudioid extends BrndBotBaseHttpServlet {
               }
 
             JSONParser parser = new JSONParser();
-            JSONObject joUser = null;
-            joUser = (JSONObject) parser.parse(string_buffer.toString());
+            JSONObject joStudio = null;
+            joStudio = (JSONObject) parser.parse(string_buffer.toString());
 
-            String studioID = (String) joUser.get("IDNo");
+            String studioID = (String) joStudio.get("studioid");
             getSqlMethodsInstance().session.setAttribute("studioID", studioID);
             out.write("true");
         }catch(Exception e){

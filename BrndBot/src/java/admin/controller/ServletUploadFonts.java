@@ -28,11 +28,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  * @author intbit
  */
 public class ServletUploadFonts extends BrndBotBaseHttpServlet {
-    String filePath;
-    String file_name, field_name, upload_path;
     Fonts fonts;
-    RequestDispatcher request_dispatcher;
-    String font_name, look_id;
     boolean check;
     
      public void init(ServletConfig config) throws ServletException {
@@ -58,6 +54,11 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
+        String filePath;
+        String file_name = null, field_name, upload_path;
+        RequestDispatcher request_dispatcher;
+        String font_name = "", look_id;
+
         PrintWriter out = response.getWriter();
         File file;
         int maxFileSize = 5000 * 1024;
@@ -103,8 +104,8 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
 
                     }else {
                         
-                        check = fonts.checkAvailability(font_name);
-                        if (check == false){
+//                        check = fonts.checkAvailability(font_name);
+//                        if (check == false){
                             
                             field_name = fi.getFieldName();
                             file_name = fi.getName();
@@ -118,18 +119,19 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
                                 boolean isInMemory = fi.isInMemory();
                                 long sizeInBytes = fi.getSize();
 
-                                String filePath = upload_path + File.separator + file_name;
+                                filePath = upload_path + File.separator + file_name;
                                 File storeFile = new File(filePath);
 
                                 fi.write(storeFile);
-                                fonts.addFont(font_name, file_name);
 
                                 out.println("Uploaded Filename: " + filePath + "<br>");
+                            }
+                                fonts.addFont(font_name, file_name);
                                 response.sendRedirect(request.getContextPath() + "/admin/fontsfamily.jsp");
-                            }
-                            }else {
-                                response.sendRedirect(request.getContextPath() + "/admin/fontsfamily.jsp?exist=exist");
-                            }
+
+//                            }else {
+//                                response.sendRedirect(request.getContextPath() + "/admin/fontsfamily.jsp?exist=exist");
+//                            }
                         }
                     }
             }

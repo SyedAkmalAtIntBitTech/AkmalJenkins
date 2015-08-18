@@ -101,7 +101,7 @@ and open the template in the editor.
 
                         <p id="text3" class="company">  Hi <%= company%>!</p>
                         <p id="text3" class="message"> What would you like to do today?</p>
-                        <p id="text3" class="mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}">Click here</a></p>
+                        <p id="text3" class="mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}" target="_blank">Click here</a></p>
                         <ul id="promotelist">
                             
                             <li id="one" ng-repeat="category in categories">

@@ -62,8 +62,8 @@ public class Model extends BrndBotBaseHttpServlet {
         try {
             
             response.setContentType("text/html;charset=UTF-8");
-//            uploadPath = getServletContext().getRealPath("") + File.separator + "images" + "/xml";
-           uploadPath = getServletContext().getInitParameter("file-upload") + File.separator + "xml";
+           uploadPath = getServletContext().getRealPath("") + File.separator + "images" + "/xml";
+    //       uploadPath = getServletContext().getInitParameter("file-upload") + File.separator + "xml";
             //        uploadPath = getServletContext().getContextPath() + "/xml";
 
             Integer organization_id = Integer.parseInt(request.getParameter("organization"));

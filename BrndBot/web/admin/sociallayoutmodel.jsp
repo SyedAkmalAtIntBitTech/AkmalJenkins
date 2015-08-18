@@ -358,8 +358,9 @@
         </div>
         <div id="main">
             <form action="<%= application.getContextPath()%>/Model" method="post">
-                
+                    
                 Organization : <select name="organization" onchange="showUsers(this.value)">
+                    <option value="0">-Select-</option>
                     <% 
                         Connection conn = null;
                         try{
@@ -388,6 +389,8 @@
                                       </select>
                 
                                     Brand : <select name="brand" onchange="showbrand(this.value)">
+                                                            <option value="0">-Select-</option>
+
                     <%
                         try{
                             Query = "Select * from tbl_brand_personality";

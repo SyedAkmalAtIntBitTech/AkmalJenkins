@@ -456,6 +456,7 @@
             <form action="<%= application.getContextPath()%>/Model" method="post">
                 
                 Organization : <select name="organization" onchange="showUsers(this.value)">
+                    <option value="0">-Select</option>
                     <% 
                         Connection connection = null;
                         try {
@@ -485,6 +486,7 @@
                                       </select>
                 
                                     Brand : <select name="brand" onchange="showblocks(this.value)">
+                                        <option value="0">-Select-</option>
                     <%
                         try{
                             connection = ConnectionManager.getInstance().getConnection();

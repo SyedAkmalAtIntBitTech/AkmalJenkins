@@ -13,11 +13,11 @@ function validate() {
         $("#fontname").focus();
         return false;
     }
-    if (files == "") {
-        alert("No files selected, please select the file");
-        $("#filesToUpload").focus();
-        return false;
-    }
+//    if (files == "") {
+//        alert("No files selected, please select the file");
+//        $("#filesToUpload").focus();
+//        return false;
+//    }
     return true;
 }
 

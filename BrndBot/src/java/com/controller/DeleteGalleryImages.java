@@ -52,10 +52,10 @@ public class DeleteGalleryImages extends BrndBotBaseHttpServlet {
             Long user_id = (Long) json_gallery_image.get("user_id");
             String image_name = (String) json_gallery_image.get("image_name");
 
-            delete_path = getServletContext().getInitParameter("file-upload") +  File.separator + "Gallery" + File.separator + user_id;
-//            String path = "images" + File.separator + "Gallery" + File.separator + user_id;
+//            delete_path = getServletContext().getInitParameter("file-upload") +  File.separator + "Gallery" + File.separator + user_id;
+            String path = "images" + File.separator + "Gallery" + File.separator + user_id;
 //            
-//            delete_path = getServletContext().getRealPath("") + File.separator  + path;
+            delete_path = getServletContext().getRealPath("") + File.separator  + path;
             
 
             String deletePath = delete_path + File.separator + image_name;

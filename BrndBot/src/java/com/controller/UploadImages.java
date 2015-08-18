@@ -59,11 +59,11 @@ public class UploadImages extends BrndBotBaseHttpServlet {
         try {
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
             
-            String uploadPath = getServletContext().getInitParameter("file-upload") +  File.separator + "Gallery" + File.separator + user_id;
-//            upload_path = "images" + File.separator + "Gallery" + File.separator + user_id;
+//            String uploadPath = getServletContext().getInitParameter("file-upload") +  File.separator + "Gallery" + File.separator + user_id;
+            upload_path = "images" + File.separator + "Gallery" + File.separator + user_id;
             
-//            String uploadPath = getServletContext().getRealPath("")
-//                + File.separator + upload_path;
+            String uploadPath = getServletContext().getRealPath("")
+                + File.separator + upload_path;
             // creates the directory if it does not exist
 
             DiskFileItemFactory factory = new DiskFileItemFactory();

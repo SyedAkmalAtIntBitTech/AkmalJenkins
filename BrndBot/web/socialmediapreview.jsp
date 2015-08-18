@@ -18,13 +18,13 @@
 <%
     try {
     sql_methods.session = request.getSession();
-    String imageName = (String)sql_methods.session.getAttribute("image_file_name");
+     imageName = (String)sql_methods.session.getAttribute("image_file_name");
 //    String imageName=request.getParameter("imageName");
         
-    String isFacebook = request.getParameter("isFacebook");
-    String isTwitter = request.getParameter("isTwitter");
-    String accesstoken = "";
-    String[] twitteracesstoken = {"", ""};
+    isFacebook = request.getParameter("isFacebook");
+     isTwitter = request.getParameter("isTwitter");
+
+
     if (isFacebook.equalsIgnoreCase("true")) {
         accesstoken = request.getParameter("fbaccessTokenSend");
     }
@@ -161,8 +161,8 @@
             <input type="hidden" id="accesstoken" name="accesstoken" value='<%=accesstoken%>'/>
             <input type="hidden" id="twittweraccestoken" name="twittweraccestoken" value=<%=twitteracesstoken[0]%>>
             <input type="hidden" id="twitterTokenSecret" name="twitterTokenSecret" value=<%=twitteracesstoken[1]%>>
-            <input type="text" id="isFacebook" name="isFacebook" value='<%= isFacebook%>'/>
-            <input type="text" id="isTwitter" name="isTwitter" value='<%= isTwitter%>'/>
+            <input type="hidden" id="isFacebook" name="isFacebook" value='<%= isFacebook%>'/>
+            <input type="hidden" id="isTwitter" name="isTwitter" value='<%= isTwitter%>'/>
 
         </div>
         <script>
@@ -182,9 +182,8 @@
                 });
                             
             $(document).ready(function () {
-                var isFacebook = "xyz";
                 var isFacebook = $("#isFacebook").val();
-                alert(isFacebook);
+
                 
                 var isTwitter = $("#isTwitter").val();
 

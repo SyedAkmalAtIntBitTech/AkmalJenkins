@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SetLookid extends BrndBotBaseHttpServlet {
 
-    RequestDispatcher request_dispatcher;
-    StringBuffer string_buffered;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,6 +33,8 @@ public class SetLookid extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
+        RequestDispatcher request_dispatcher;
+        StringBuffer string_buffered;
         string_buffered = new StringBuffer();
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession();

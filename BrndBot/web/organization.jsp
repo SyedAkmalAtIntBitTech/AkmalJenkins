@@ -31,7 +31,7 @@
             <div id="contentdiv" class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <p id="comment1">Howdy!</p>
-                    <p id="comment1">We?re BrandBot, its nice to meet you.</p><br><br>
+                    <p id="comment1">We're BrndBot, its nice to meet you.</p><br><br>
                 </div>
                 <form class="form-horizontal" ng-model="organizations" ng-controller="MyController">
 

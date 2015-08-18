@@ -86,7 +86,7 @@ public class ServletColors extends BrndBotBaseHttpServlet {
                 String color_hex = (String) joFonts.get("color_hex");
                 String color_name = (String) joFonts.get("color_name");
                 boolean check = colors.checkAvailability(color_hex, color_name);
-                if (check) {
+                if (!check) {
                     out.write("false");
                 } else {
                     colors.edit(Integer.parseInt(color_id), color_hex, color_name);

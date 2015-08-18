@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<layout>
+    <container Height="300" Width="500"/>
+    <element Blend="normal" background-image="url(http://www.360training.co.za/wp-content/uploads/2013/03/YogaStress5.jpg)" blend-background-color="#NaN0000" blur="undefined" brightness="undefined" contrast="undefined" grayscale="undefined" height="299px" huerotate="undefined" invert="undefined" opacity="1" saturate="undefined" sepia="undefined" tag="image" type="backgroundimage" width="499px" x-co-ordinates="0" y-co-ordinates="1"/>
+    <element font-color="#ffffff" font-size="14px" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" type="header1" webkit-transform="0" x-co-ordinates="63" y-co-ordinates="31"/>
+    <element font-color="#ffffff" font-size="22px" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" type="header2" webkit-transform="0" x-co-ordinates="67" y-co-ordinates="105"/>
+</layout>

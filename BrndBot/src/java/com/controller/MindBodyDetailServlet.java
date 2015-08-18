@@ -77,7 +77,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
 
             JSONObject mapped_json_object = null;
             Object selected_object = mindbody_hash_map.get(mindbody_data_id);
-
+            sub_category_name = sub_category_name.toLowerCase();
             if (sub_category_name.contains("class")) {
                 Class mindbody_class = (Class) selected_object;
                 mapped_json_object = MindBodyDataMapper.mapTodaysClassData(mindbody_class, editor_mapper_file_name);

@@ -137,24 +137,24 @@
                             var imageUrl= $("#"+id).css("background-image");
                              if(id==="imac")
                              {
-                                $(".preview").css("width","850px").css("height","650px").css("overflow","none");
+                                $(".preview").css("width","850px").css("height","650px").css("overflow","hidden");
                                 $(".iphoneshow").css("background-image",imageUrl)
                                                 .css("display",'block')
                                                 .css("height","900px"); 
-                                $(".content").css("zoom","0.4");  
+                                $(".content").css("zoom","0.4").css("margin-left","190px");  
                             
                                     
                              }
                               else if(id==="iphone"){  
-                               $(".preview").css("width","450px").css("height","950px").css("overflow","none");
-                               $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("height","450px");
-                               $(".content").css("width","350px").css("height","420px").css("overflow","none");
+                               $(".preview").css("width","550px").css("height","950px").css("overflow","hidden").css("align","center");
+                               $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("height","450px").css("width","1200px").css("overflow-x","hidden");
+                               $(".content").css("margin-left","30px").css("width","500px").css("height","920px").css("overflow","none").css("zoom","0.365"); 
                             
                                 } 
                            else{
-                               $(".preview").css("width","850px").css("height","1050px").css("overflow","none");
+                               $(".preview").css("width","850px").css("height","1050px").css("overflow","none").css("overflow","hidden");
                                $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("height","500px");
-                                
+                                     $(".content").css("margin-left","190px"); 
                             }
                            }
                        
@@ -172,7 +172,7 @@
                                             },
                                         success: function (responseText) {
 
-                                            document.location.href = "emailpreview.jsp";
+                                            document.location.href = "emailsent.jsp";
                                         }
 
                                         });

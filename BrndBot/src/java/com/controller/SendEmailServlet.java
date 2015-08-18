@@ -70,55 +70,56 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             String email_subject = request.getParameter("email_subject");
             String email_addresses = request.getParameter("email_addresses");
             String html_text = (String) getSqlMethodsInstance().session.getAttribute("htmldata");
+            String emaillist_name = (String) getSqlMethodsInstance().session.getAttribute("email_list");
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
             
             String reply_to_address = request.getParameter("reply_to_email_address");
             String from_email_address = request.getParameter("from_email_address");
             String from_name = request.getParameter("from_name");
             Message message = new Message();
 
-            message.setKey(MANDRILL_KEY);
-
-            message.setHtml(html_text);
-            message.setSubject(email_subject);
-            message.setFrom_email(from_email_address);
-            message.setFrom_name(from_name);
-            message.setAsync(true);
-            message.setReply_to(reply_to_address);
-
-            //For Billing purposes.
-            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-            ArrayList<String> tags = new ArrayList<String>();
-            tags.add(String.valueOf(user_id));
-
-            message.setTags(tags);
-
-            ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
-
-            String emailids[] = email_addresses.split(",");
-
-            for (int i = 0; i < emailids.length; i++) {
-
-                String email = emailids[i];
-                Recipient rec = new Recipient();
-
-                rec.setEmail(email);
-                rec.setName(email);
-                rec.setType("to");
-                messageToList.add(rec);
-                message.setMessageTo(messageToList);
-                RecipientMetadata recipientMetadata1 = new RecipientMetadata();
-                recipientMetadata1.setRcpt(email);
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("key", "value");
-                recipientMetadata1.setValues(map);
-
-                ArrayList<RecipientMetadata> metadataList1 = new ArrayList<RecipientMetadata>();
-                metadataList1.add(recipientMetadata1);
-                message.setRecipient_metadata(metadataList1);
-
-            }
+//            message.setKey(MANDRILL_KEY);
+//
+//            message.setHtml(html_text);
+//            message.setSubject(email_subject);
+//            message.setFrom_email(from_email_address);
+//            message.setFrom_name(from_name);
+//            message.setAsync(true);
+//            message.setReply_to(reply_to_address);
+//
+//            //For Billing purposes.
+//            ArrayList<String> tags = new ArrayList<String>();
+//            tags.add(String.valueOf(user_id));
+//
+//            message.setTags(tags);
+//
+//            ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
+//
+//            String emailids[] = email_addresses.split(",");
+//
+//            for (int i = 0; i < emailids.length; i++) {
+//
+//                String email = emailids[i];
+//                Recipient rec = new Recipient();
+//
+//                rec.setEmail(email);
+//                rec.setName(email);
+//                rec.setType("to");
+//                messageToList.add(rec);
+//                message.setMessageTo(messageToList);
+//                RecipientMetadata recipientMetadata1 = new RecipientMetadata();
+//                recipientMetadata1.setRcpt(email);
+//                HashMap<String, String> map = new HashMap<String, String>();
+//                map.put("key", "value");
+//                recipientMetadata1.setValues(map);
+//
+//                ArrayList<RecipientMetadata> metadataList1 = new ArrayList<RecipientMetadata>();
+//                metadataList1.add(recipientMetadata1);
+//                message.setRecipient_metadata(metadataList1);
+//
+//            }
             
-            getSqlMethodsInstance().setEmailSentHistory(user_id, html_text, from_email_address, email_subject);
+            getSqlMethodsInstance().setEmailSentHistory(user_id, html_text, from_email_address, emaillist_name);
             send_email.sendMail(message);
             out.write("true");
         } catch (Exception e) {

@@ -141,6 +141,9 @@ and open the template in the editor.
                 margin-left: 2px;
                 padding-right: 5px;
             }
+            .border-highlight {
+                border:2px solid #0088cc;   
+            }
         </style>
 
         <%!
@@ -169,6 +172,13 @@ and open the template in the editor.
                     var block_id = "0";
                     var blockIdSelected="defaultblock1";
                     var mindbodydataId = $("#mindbodydata").val();
+                    var temp_style_id;
+                    var temp_style_layout;
+                    var temp_block_id;
+                    var temp_mind_body_query;
+                    $(document).ready(function() {
+                        $('#continueblock').prop('disabled', true);
+                    });
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
@@ -191,9 +201,8 @@ and open the template in the editor.
                             $scope.showStylesAfterData = function(){
                            
                                     blockIdSelected = $(selectedBlockId).attr("id").toString();
-                                    block_id = blockIdSelected.replace("block", "");
-                                 
-//                      
+                                    var arr = blockIdSelected.split('SSS');
+                                    block_id = arr[0].replace("block", "");
                             };
                             $scope.showStyles = function(){
 //                                alert("in style");
@@ -254,22 +263,43 @@ and open the template in the editor.
                                     // or server returns response with an error status.
                             });
                             };
+                            $scope.showImageOfBlock = function(id,mind_body_query){
+                                $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data,status){
+                                    var jsondataDefault = data;
+                                        var allLayoutFilename = [];
+                                        $(jsondataDefault).each(function (i, val) {
+                                            var i = 0;
+                                           $.each(val, function (k, v) {
+                                                allLayoutFilename[i] = v;
+                                                i++;
+                                            });
+                                            });
+                                          
+                                           
+                                           $("#"+id).attr('src','images/Layout-styles/'+allLayoutFilename[1]+'.jpeg');
+                                           $("#"+id).attr('onclick',"showSomething('"+id+"','"+allLayoutFilename[0]+"','"+allLayoutFilename[1]+"','"+mind_body_query+"')");
+                                          
+                               }).error();
+
+                            };
+                            $scope.showDataTemp = function(){
+                                $scope.showData(temp_block_id, temp_mind_body_query);
+                            }
                             $scope.showData = function(id, mind_body_query){
+                               
                             block_clicked = "true";
                             blockIdSelected = "";
                             block_id = id;
                             if (mind_body_query == "null")
                             {
                                 mindbodydataId = "0";
-                                $scope.showStyles();
+                                //$scope.showStyles();
+                                showText(temp_style_id,temp_style_layout);
                                 $("#tabs-1").show();
                                 $("#tabs-2").hide();
                                 $("#tabs-3").hide();
                                 $("#tabs-4").hide();
-                                if (block_clicked == "true" || blockIdSelected != "defaultblock1")
-                               {
-                               alert("Please select a style from the style`s tab for the block"); 
-                            }
+                                
                             }
                             else
                             {
@@ -301,15 +331,13 @@ and open the template in the editor.
                             $scope.select_category_details = function(id) {
                             
                             mindbodydataId = id;
-                            $scope.showStyles();
+                            //$scope.showStyles();
+                            showText(temp_style_id,temp_style_layout);
                                     $("#tabs-1").show();
                                 $("#tabs-2").hide();
                                 $("#tabs-3").hide();
                                 $("#tabs-4").hide();
-                            if (block_clicked == "true" || blockIdSelected != "defaultblock1")
-                            {
-                               alert("Please select a style from the style`s tab for the block"); 
-                            }
+                            
                             }
 
                     $scope.showImages = function(){
@@ -360,9 +388,23 @@ and open the template in the editor.
 //
 //                    }
 
+
+
+                            function showSomething(block_id_temp,id, style, mind_body_query){
+                                temp_style_id = id;
+                                temp_style_layout = style;
+                                temp_block_id = block_id_temp;
+                                temp_mind_body_query= mind_body_query;
+                                $('.blockchooser').removeClass('border-highlight');
+                               
+                                $("#"+block_id_temp).addClass('border-highlight');
+                                 //$("#continueblock").attr('ng-click',"showData('"+block_id_temp+"','"+ mind_body_query +"')");
+                                 $('#continueblock').prop('disabled', false);
+                               
+                            }
                     //var countBlock = 1;
                             function showText(id, layout){
-//    alert(id+""+layout);
+                        //    alert(id+":"+layout+":"+mindbodydataId);
                             var layoutfilename = layout;
                                     $("#clickid").val(layout);
                                     //alert(mindbodydataId);
@@ -387,11 +429,13 @@ and open the template in the editor.
                             }
 
                     function displayElement(id, layout, data){
-                    //countBlock++;
+                    var random_number = Math.floor(Math.random() * 200) + 1 
                     if (blockIdSelected == "defaultblock1")
                             blockId = "defaultblock1";
+                        else if(blockIdSelected.indexOf("SSS") >= 0)
+                            blockId = blockIdSelected;
                             else
-                            blockId = "block" + block_id;
+                            blockId = "block" + block_id + "SSS" + random_number;
                             
                             jsondata = data;
                             
@@ -412,6 +456,7 @@ and open the template in the editor.
                                             width = $(this).find('container').attr("Width");
                                             $(".preview #" + blockId).css("width", width + "px");
                                             $(".preview #" + blockId).css("height", height + "px");
+                                            $(".preview #" + blockId).css("position", "relative");
                                     }
 
                                     );
@@ -460,11 +505,14 @@ and open the template in the editor.
                                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
                                             //alert(".preview #" + blockId);
                                             $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + blockId + type + ") id=" + blockId + type + ">" + elementdata + "</textarea>");
-                                            $("#" + blockId + type).css("color", "" + fontcolor).css("position", "relative").css("left", "" + left + "px").css("top", "" + top + "px")
+                                            $("#" + blockId + type).css("color", "" + fontcolor)
+                                                    .css("position", "absolute")
+                                                    .css("left", "" + left + "px").css("top", "" + top + "px")
                                             .css("font-size", "" + fontsize).css("font-style", "" + fontstyle).css("font-weight", "" + fontweight)
                                             .css("letter-spacing", "" + letterspacing).css("line-height", "" + lineheight)
                                             .css("opacity", "" + opacity).css("text-align", "" + textalign)
-                                            .css("text-shadow", "" + dropshadow).css("webkit-transform", "rotate(" + webkittransform + "deg)");
+                                            .css("text-shadow", "" + dropshadow).css("webkit-transform", "rotate(" + webkittransform + "deg)").css("background-color", "inherit" );
+              
                                     }
 
                                     if (tag === "image")
@@ -472,6 +520,7 @@ and open the template in the editor.
                                     var blendmode = $(this).attr("background-blend-mode");
                                             var width = $(this).attr("width");
                                             var height = $(this).attr("height");
+                                            var background_image=$(this).attr("background-image")
                                             //                    alert("image");
                                             $(".preview #" + blockId).append("<div onclick=getImageid(" + blockId + type + ") id=" + blockId + type + " ></div>");
                                             $("#" + blockId + type)
@@ -481,11 +530,12 @@ and open the template in the editor.
                                             .css("background-blend-mode", "" + blendmode)
                                             .css("opacity", "" + opacity)
                                             .css("width", "" + width)
+                                            .css("position", "absolute")
                                             .css("height", "" + height)
-                                            .css("background", "url(http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg)")
+                                            .css("background", ""+background_image)
                                             .css("background-repeat", "no-repeat")
                                             .css("-webkit-background-size", "contain")
-                                            .css("position", "absolute");
+                                            .css("position", "relative");
                                     }
 
                                     if (tag === "button")
@@ -508,7 +558,7 @@ and open the template in the editor.
                                             .css("left", "" + left + "px")
                                             .css("top", "" + top + "px")
                                             .css("width", "" + width)
-                                            .css("height", "" + height);
+                                            .css("height", "" + height).css("position", "absolute");
                                     }
 
                                     }
@@ -786,16 +836,18 @@ and open the template in the editor.
                                             ADD A NEW BLOCK
                                             <div>
                                                 <div>
+                                                    <button id="continueblock" ng-click="showDataTemp()" style="background-color: orange;position: relative;top:30%;left:30%">Continue</button>
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="blocks in datalists| pagination: curPage * pageSize | limitTo: pageSize">
-                                                            <div style="background-color: grey;width:300px;height:100px;">
-                                                                <button ng-click="showData(blocks.block_id, blocks.mindbody_query)" style="background-color: orange;position: relative;top:30%;left:30%">Continue</button>
-                                                                <!-- <li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>-->
+                                                            <img id="{{blocks.block_id}}" class="img-responsive blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)" src=""  width=250 height=150 />
+<!--                                                            <div style="background-color: grey;width:300px;height:100px;">
+                                                                
+                                                                 <li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>
 
-                                                                <!-- <img id="{{blocks.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
-                                                                                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 /> -->
-                                                            </div> 
+                                                                 <img id="{{blocks.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
+                                                                                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 /> 
+                                                            </div> -->
                                                             <div><p id=''></p></div>
                                                             <label>{{blocks.block_name}}</label>
                                                             <div></div><p>&nbsp;</p>

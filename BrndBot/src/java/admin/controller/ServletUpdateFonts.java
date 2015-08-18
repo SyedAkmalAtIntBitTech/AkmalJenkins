@@ -29,12 +29,8 @@ import org.apache.commons.fileupload.*;
  */
 public class ServletUpdateFonts extends BrndBotBaseHttpServlet {
 
-    String filePath;
-    String fileName, fieldName, uploadPath, deletePath, file_name_to_delete;
-    Fonts font;
-    RequestDispatcher request_dispatcher;
-    String fontname, fontid, lookid;
-    
+        Fonts font;
+
      public void init(ServletConfig config) throws ServletException {
         super.init(config);
         try {
@@ -59,6 +55,10 @@ public class ServletUpdateFonts extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String filePath = null;
+        String fileName = null, fieldName = null, uploadPath = null, deletePath = null, file_name_to_delete = "";
+        RequestDispatcher request_dispatcher;
+        String fontname = null, fontid = null, lookid;
 
         File file;
         int maxFileSize = 5000 * 1024;

@@ -54,6 +54,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
         try {
             getSqlMethodsInstance().session = request.getSession();
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+
             String htmlString = (String)getSqlMethodsInstance().session.getAttribute("htmlString");
             String isFacebook = request.getParameter("isFacebook");
             String isTwitter = request.getParameter("isTwitter");
@@ -70,22 +71,22 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String description = request.getParameter("description");
             String url = request.getParameter("url");
             
-            facebook = new FacebookFactory().getInstance();
-            facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
-            facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
-            facebook.setOAuthAccessToken(new AccessToken(accessToken));
-            if (title == "") {
-                PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL+"temp/"+getImageFile));
-                facebook.postFeed(post);
-            } else {
-                PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL+"temp/"+getImageFile))
-                        .name(title)
-                        .link(new URL(url))
-                        .description(description);
-                facebook.postFeed(post);
-            }
+//            facebook = new FacebookFactory().getInstance();
+//            facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
+//            facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
+//            facebook.setOAuthAccessToken(new AccessToken(accessToken));
+//            if (title == "") {
+//                PostUpdate post = new PostUpdate(posttext)
+//                        .picture(new URL(imagePostURL+"temp/"+getImageFile));
+//                facebook.postFeed(post);
+//            } else {
+//                PostUpdate post = new PostUpdate(posttext)
+//                        .picture(new URL(imagePostURL+"temp/"+getImageFile))
+//                        .name(title)
+//                        .link(new URL(url))
+//                        .description(description);
+//                facebook.postFeed(post);
+//            }
             try {
                 
             getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, "temp/"+getImageFile);
@@ -96,43 +97,44 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
         }
         if (isTwitter.equalsIgnoreCase("true")) {
 
-            try {
+//            try {
 
-                twitter4j.auth.AccessToken accTok = null;
-
-                ConfigurationBuilder twitterConfigBuilder = new ConfigurationBuilder();
-                twitterConfigBuilder.setDebugEnabled(true);
-                twitterConfigBuilder.setOAuthConsumerKey("V9n3gzTRP7EwcRqW4OZAZS13l");
-                twitterConfigBuilder.setOAuthConsumerSecret("7qnu29n7vLRPIFmkPI14yD3EhyYHUJzhe39dfHBnF67KAgDHgV");
-                twitterConfigBuilder.setOAuthAccessToken(request.getParameter("twittweraccestoken"));
-                twitterConfigBuilder.setOAuthAccessTokenSecret(request.getParameter("twitterTokenSecret"));
-
-                Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
-                String statusMessage = request.getParameter("text");
-//                String file_image_path = getServletContext().getRealPath("") + "/images/Blackandwhite.jpg";
-                File file = new File(file_image_path);
-
-                StatusUpdate status = new StatusUpdate(statusMessage);
-                status.setMedia(file); // set the image to be uploaded here.
-                twitter.updateStatus(status);
+//                twitter4j.auth.AccessToken accTok = null;
+//
+//                ConfigurationBuilder twitterConfigBuilder = new ConfigurationBuilder();
+//                twitterConfigBuilder.setDebugEnabled(true);
+//                twitterConfigBuilder.setOAuthConsumerKey("V9n3gzTRP7EwcRqW4OZAZS13l");
+//                twitterConfigBuilder.setOAuthConsumerSecret("7qnu29n7vLRPIFmkPI14yD3EhyYHUJzhe39dfHBnF67KAgDHgV");
+//                twitterConfigBuilder.setOAuthAccessToken(request.getParameter("twittweraccestoken"));
+//                twitterConfigBuilder.setOAuthAccessTokenSecret(request.getParameter("twitterTokenSecret"));
+//
+//                Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
+//                String statusMessage = request.getParameter("text");
+////                String file_image_path = getServletContext().getRealPath("") + "/images/Blackandwhite.jpg";
+//                File file = new File(file_image_path);
+//
+//                StatusUpdate status = new StatusUpdate(statusMessage);
+//                status.setMedia(file); // set the image to be uploaded here.
+//                twitter.updateStatus(status);
                 try {
-                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, imagePostURL);
+                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, "temp/"+getImageFile);
                     }catch (Exception ex){
                         System.out.println(ex.getCause());
                         System.out.println(ex.getMessage());
                     }
 
-            } catch (TwitterException te) {
-
-                PrintWriter out1 = response.getWriter();
-                out1.println("Twitter Exception: " + te.getMessage());
-            } catch (Exception e) {
-                PrintWriter out1 = response.getWriter();
-                out1.println("Exception: " + e.getMessage());
-            }
+//            } catch (TwitterException te) {
+//
+//                PrintWriter out1 = response.getWriter();
+//                out1.println("Twitter Exception: " + te.getMessage());
+//            } catch (Exception e) {
+//                PrintWriter out1 = response.getWriter();
+//                out1.println("Exception: " + e.getMessage());
+//            }
 
         }
-        } catch (FacebookException e) {
+//        } catch (FacebookException e) {
+        }catch (Exception e){
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
         }

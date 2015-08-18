@@ -7,6 +7,7 @@
 angular.module("myapp", [])
         .controller("controllerCategories", function ($scope, $http) {
             $scope.categories = {};
+        $(".mindbodyactivationstatus").hide();
             $scope.mindbodyactivated = {};
             $scope.SubCategories = {};
             $http({
@@ -15,6 +16,7 @@ angular.module("myapp", [])
             }).success(function (data, status, headers, config) {
                 var mindbody_data = data;
                 if (data.status === "unactivated") {
+                    $(".mindbodyactivationstatus").show();
                     $(".message").hide();
                     if (data.activation_link === "") {
                         $scope.mindbodyactivationmessage = "Mindbody not activated. Unknown error has occured.";

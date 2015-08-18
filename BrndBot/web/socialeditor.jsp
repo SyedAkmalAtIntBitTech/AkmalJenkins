@@ -234,7 +234,7 @@ and open the template in the editor.
             };
             });
                     function showText(id, layout){
-//    alert(id+""+layout);
+//   alert(id+""+layout);
 
                     layoutfilename = layout;
                             $("#clickid").val(layout);
@@ -267,7 +267,7 @@ and open the template in the editor.
                                                             $(jsondata).each(function (i, val) {
 
                                                     $.each(val, function (k, v) {
-//                               alert(k + " : " + v+ ":"+ type);
+//                            alert(k + " : " + v+ ":"+ type);
                                                     if (type.trim() == k.trim()) {
 //                                                    alert();
                                                             elementdata = v;
@@ -281,6 +281,7 @@ and open the template in the editor.
                                                             var left = $(this).attr("x-co-ordinates");
                                                             var top = $(this).attr("y-co-ordinates");
                                                             var opacity = $(this).attr("opacity");
+       
                                                             if (tag === "text")
                                                     {
 
@@ -298,12 +299,15 @@ and open the template in the editor.
                                                             $("#" + type).css("color", "" + fontcolor).css("position", "absolute").css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
                                                             .css("font-size", "" + fontsize).css("font-style", "" + fontstyle).css("font-weight", "" + fontweight)
                                                             .css("letter-spacing", "" + letterspacing).css("line-height", "" + lineheight)
+                                                            .css("background-color","inherit")
+                                                         .css("border","0px")
                                                             .css("opacity", "" + opacity).css("text-align", "" + textalign)
                                                             .css("text-shadow", "" + dropshadow).css("webkit-transform", "rotate(" + webkittransform + "deg)");
                                                     }
 
                                                     if (tag === "image")
                                                     {
+                                                    var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
                                                     var width = $(this).attr("width");
                                                     var height = $(this).attr("height");
@@ -317,7 +321,7 @@ and open the template in the editor.
                                                             .css("opacity", "" + opacity)
                                                             .css("width", "" + width)
                                                             .css("height", "" + height)
-                                                            .css("background","url(http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg)")
+                                                            .css("background", ""+background_image)
                                                             .css("background-repeat", "no-repeat")
                                                             .css("-webkit-background-size","contain")
                                                             .css("position", "absolute"); 
@@ -327,7 +331,7 @@ and open the template in the editor.
                                                     {
 
                                                     $(".preview").append("<div><img src='" + elementdata + "'id=" + type + " alt='button'/>");
-                                                            $("#" + type).css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
+                                                            $("#" + type) .css("position", "absolute").css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
                                                             .attr("src", "buttons/button1.png");
                                                     }
 
@@ -341,7 +345,9 @@ and open the template in the editor.
                                                             $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
                                                             $("#" + type).css("background-color", "" + backgroundcolor).css("margin-left", "" + left + "px")
                                                             .css("margin-top", "" + top + "px").css("width", "" + width)
-                                                            .css("height", "" + height);
+                                                    .css("position", "absolute")
+                                                            .css("height", "" + height)
+                                                     .css("opacity", "" + opacity);
                                                     }
 
                                                     }
@@ -683,7 +689,7 @@ and open the template in the editor.
                                    },
                                    success: function (responseText) {
                                            var image=responseText;
-
+//                                           alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
 
                                    }
