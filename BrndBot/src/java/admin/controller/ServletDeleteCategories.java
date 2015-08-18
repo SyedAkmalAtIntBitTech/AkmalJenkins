@@ -76,11 +76,8 @@ public class ServletDeleteCategories extends BrndBotBaseHttpServlet {
             category.delete(category_id.intValue());
             out.write("true");
         }catch(Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }finally {
-            getSqlMethodsInstance().closeConnection();
-            category.sqlmethods.closeConnection();
         }
     }
 

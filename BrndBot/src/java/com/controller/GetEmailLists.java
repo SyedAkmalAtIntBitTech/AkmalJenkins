@@ -133,8 +133,7 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
             }
         }
         }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE,"", e);
         }
         return emailIDs;
     }

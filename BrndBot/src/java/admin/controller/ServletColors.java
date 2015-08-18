@@ -98,12 +98,10 @@ public class ServletColors extends BrndBotBaseHttpServlet {
                 out.write("true");
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }finally {
             out.close();
-            getSqlMethodsInstance().closeConnection();
-            colors.sqlmethods.closeConnection();
+            
         }
     }
 

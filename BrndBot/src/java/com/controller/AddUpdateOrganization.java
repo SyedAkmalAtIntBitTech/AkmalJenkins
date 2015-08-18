@@ -56,7 +56,7 @@ public class AddUpdateOrganization extends BrndBotBaseHttpServlet {
             String Company = (String) joUser.get("company");
             String organization_id = (String) joUser.get("org");
 
-            System.out.println(Company);
+            logger.log(Level.INFO, Company);
 
             String emailid = (String) getSqlMethodsInstance().session.getAttribute("EmailID");
             Integer idno = getSqlMethodsInstance().getUserID(emailid);

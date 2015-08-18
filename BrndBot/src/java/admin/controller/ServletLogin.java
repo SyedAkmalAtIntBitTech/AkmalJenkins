@@ -66,7 +66,7 @@ public class ServletLogin extends BrndBotBaseHttpServlet {
             joUser = (JSONObject) parser.parse(string_buffer.toString());
             String User_id = (String) joUser.get("emailid");
             String password = (String) joUser.get("password");
-            System.out.println("text");
+            logger.log(Level.INFO, "text");
             if (User_id.equals("intbit") && password.equals("password")){
                  getSqlMethodsInstance().admin_session.setAttribute("AdminChecked", "true");
                 out.write("true");

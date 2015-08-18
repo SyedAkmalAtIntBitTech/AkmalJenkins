@@ -641,7 +641,7 @@ public class SqlMethods {
     }
 
     public void setLookID() throws IOException {
-        System.out.println("LookID" + ":" + "LookID");
+        logger.log(Level.INFO, "LookID" + ":" + "LookID");
     }
 
     public String getMapperFile(Integer user_id, Integer organization_id, Integer category_id, Integer sub_category_id, Integer model_mapper_id, Integer block_id, String editorType) throws SQLException {
@@ -664,9 +664,9 @@ public class SqlMethods {
 
                 // Check ResultSet's scrollability
                 if (result_set.getType() == ResultSet.FETCH_FORWARD) {
-                    System.out.println("ResultSet non-scrollable.");
+                    logger.log(Level.INFO, "ResultSet non-scrollable.");
                 } else {
-                    System.out.println("ResultSet scrollable.");
+                    logger.log(Level.INFO, "ResultSet scrollable.");
                 }
 
                 if (result_set.first()) {
@@ -685,7 +685,7 @@ public class SqlMethods {
             }
 
         } catch (Exception e) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
 
         } finally {
             close(result_set, prepared_statement);
@@ -716,7 +716,7 @@ public class SqlMethods {
             userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
 
         } catch (Exception e) {
-                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
 
         } finally {
             close(result_set, prepared_statement);

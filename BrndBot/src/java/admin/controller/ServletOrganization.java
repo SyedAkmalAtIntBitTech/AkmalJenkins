@@ -88,14 +88,13 @@ public class ServletOrganization extends BrndBotBaseHttpServlet {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }finally {
             try {
                 out.close();
-                getSqlMethodsInstance().closeConnection();
-                organization.sqlmethods.closeConnection();
-            }catch (Exception e){}
+            }catch (Exception e){
+                logger.log(Level.SEVERE, "", e);
+            }
         }
     }
 

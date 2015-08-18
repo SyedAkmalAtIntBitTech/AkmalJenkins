@@ -151,12 +151,9 @@ public class ServletEditPersonality extends BrndBotBaseHttpServlet {
                 out.println("</html>");
             }
         } catch (Exception ex) {
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
+            logger.log(Level.SEVERE, "", ex);
         } finally {
             out.close();
-           getSqlMethodsInstance().closeConnection();
-           brand.sqlmethods.closeConnection();
         }
 
     }

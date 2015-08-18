@@ -38,7 +38,7 @@ public class CropImage extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-         System.out.println("enter in servlet");
+         logger.log(Level.INFO, "enter in servlet");
 //        sqlmethods.session = request.getSession(true);
         StringBuffer string_buffer = new StringBuffer();
         boolean check = true;
@@ -53,7 +53,7 @@ public class CropImage extends BrndBotBaseHttpServlet {
             JSONObject joUser = null;
             joUser = (JSONObject) parser.parse(string_buffer.toString());
             String User_id = (String) joUser.get("image");
-            System.out.println("enter in servlet");
+            logger.log(Level.INFO, "enter in servlet");
 //            String imageString=
 //   
 //            BASE64Decoder decoder = new BASE64Decoder();
@@ -65,7 +65,7 @@ public class CropImage extends BrndBotBaseHttpServlet {
 
         }
         catch(Exception e){
-                        logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
         } finally {
             out.close();

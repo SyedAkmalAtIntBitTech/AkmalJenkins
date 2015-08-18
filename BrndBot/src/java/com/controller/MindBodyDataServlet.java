@@ -154,18 +154,16 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                 getSqlMethodsInstance().session.setAttribute(getSqlMethodsInstance().k_mind_body, mind_body_processed_data.getData_hash_map());
                 
                 String jsonn = new Gson().toJson(mind_body_processed_data.getJSON());
-                System.out.println(jsonn);
+                logger.log(Level.INFO, jsonn);
                 response.setContentType("application/json");
                 out.write(jsonn);
             }
 
         } catch (Exception e) {
-                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
-            e.printStackTrace();
         } finally {
             out.close();
-            getSqlMethodsInstance().closeConnection();
         }
     }
 

@@ -9,6 +9,7 @@ import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -85,14 +86,11 @@ public class ServletBlock extends BrndBotBaseHttpServlet {
             }
             
         }catch (Exception ex){
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
+            logger.log(Level.SEVERE, "", ex);
             out.write(getSqlMethodsInstance().error);
         }
         finally {
             out.close();
-            getSqlMethodsInstance().closeConnection();
-            block.sqlmethods.closeConnection();
         }
     }
 
