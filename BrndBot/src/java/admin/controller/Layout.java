@@ -290,7 +290,7 @@ public class Layout {
                     height = modelElement.getAttribute("height");
                     background_repeat = "no-repeat";
                     background_size = "contain";
-                    htmldata.append("<div style='width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + "; '></div>");
+                    htmldata.append("<div style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + "; '></div>");
                     logger.log(Level.INFO, htmldata.toString());
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("block")) {
                     String filter = "";

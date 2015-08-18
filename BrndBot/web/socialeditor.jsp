@@ -41,6 +41,15 @@ and open the template in the editor.
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
 
+        <script src="//use.typekit.net/wnn8jyx.js"></script>
+        <script>
+            try{
+                Typekit.load({ async: true });
+            }
+            catch(e){}
+                </script>
+        
+        
         <style>
             .socialimage{
                 width: 100px;
@@ -156,6 +165,12 @@ and open the template in the editor.
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
 
+        <script src="//use.typekit.net/wnn8jyx.js"></script>
+        <script>
+            try{
+                Typekit.load({ async: true });}
+            catch(e){}</script>
+        
         <script>
                     var jsondata;
                     var selectedDivId;
