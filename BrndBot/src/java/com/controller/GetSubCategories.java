@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,12 +78,12 @@ public class GetSubCategories extends BrndBotBaseHttpServlet {
             out.write(jsonn);
         } catch (ParseException e) {
             out.write(getSqlMethodsInstance().error);
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         } catch (Exception e) {
             out.write(getSqlMethodsInstance().error);
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         } finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);

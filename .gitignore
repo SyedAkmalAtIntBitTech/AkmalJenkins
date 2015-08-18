@@ -1,6 +1,9 @@
 /BrndBot/nbproject/private/
 /BrndBot/dist/
 /BrndBot/build/
-
-
 /.project
+/BrndBot/nbbuild/
+/BrndBot/nbdist/
+/BrndBot/nbactions.xml
+/BrndBot/nb-configuration.xml
+/BrndBot/.nb-gradle/

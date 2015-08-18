@@ -18,6 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -26,6 +28,8 @@ import javax.imageio.ImageIO;
  * @author intbit
  */
 public class GetColorFromImage extends Component {
+
+        private static final Logger logger = Logger.getLogger(util.Utility.getClassName(GetColorFromImage.class));
 
     public static boolean ASC = true;
     public static boolean DESC = false;
@@ -41,8 +45,8 @@ public class GetColorFromImage extends Component {
             int blue = pixel & 0x000000ff;
             hex = String.format("#%02x%02x%02x", red, green, blue);
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }
         return hex;
     }
@@ -78,8 +82,8 @@ public class GetColorFromImage extends Component {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                        logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }
         return null;
     }
@@ -109,8 +113,8 @@ public class GetColorFromImage extends Component {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
         }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }
         return sortedMap;
     }
@@ -122,8 +126,8 @@ public class GetColorFromImage extends Component {
                         + entry.getValue());
             }
         }catch(Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }
     }
 
@@ -139,7 +143,8 @@ public class GetColorFromImage extends Component {
             }
 
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
             
         }
         return list;

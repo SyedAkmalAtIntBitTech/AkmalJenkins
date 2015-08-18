@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
 import model.organization;
 import org.json.simple.JSONArray;
 
@@ -52,9 +53,8 @@ public class GetOrganizations extends BrndBotBaseHttpServlet {
             response.setContentType("application/json");
             out.write(json);
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.println(getSqlMethodsInstance().error);
         }finally {
             out.close();

@@ -8,6 +8,7 @@ package social.controller;
 import com.controller.BrndBotBaseHttpServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,8 +68,8 @@ public class ServletUserPreferencesTwitter extends BrndBotBaseHttpServlet {
            }
             
         }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         }finally {
             getSqlMethodsInstance().closeConnection();
         }

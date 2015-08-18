@@ -9,6 +9,7 @@ import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,8 +50,8 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
              sqlmethods.session.setAttribute("emailaddress", emailaddress);
             
         }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         }
     }
 

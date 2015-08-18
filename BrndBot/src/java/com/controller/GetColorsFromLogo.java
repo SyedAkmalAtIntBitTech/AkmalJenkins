@@ -6,10 +6,12 @@
 package com.controller;
 
 import com.google.gson.Gson;
+import com.intbit.AppConstants;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,8 +27,6 @@ public class GetColorsFromLogo extends BrndBotBaseHttpServlet {
 
     GetColorFromImage getcolorsfromimages = new GetColorFromImage();
 
-    String filePath;
-    String fileName, fieldName, uploadPath;
     ArrayList<String> list = new ArrayList<String>();
 
     /**
@@ -47,14 +47,20 @@ public class GetColorsFromLogo extends BrndBotBaseHttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
         JSONArray jarr = new JSONArray();
+        String filePath;
+        String fileName, fieldName, uploadPath;
+
         getSqlMethodsInstance().session = request.getSession(true);
         try {
-            uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + "Customers";
+            
+            uploadPath = AppConstants.USER_LOGO;
 
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
             uploadPath = uploadPath + File.separator + user_id + File.separator + "logo";
+            
             String FileName = (String) getSqlMethodsInstance().session.getAttribute("ImageFileName");
+
             String FilePath = uploadPath + File.separator + FileName;
             list = getcolorsfromimages.getColors(FilePath);
 
@@ -79,8 +85,8 @@ public class GetColorsFromLogo extends BrndBotBaseHttpServlet {
                 out.write(jsonn);
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();

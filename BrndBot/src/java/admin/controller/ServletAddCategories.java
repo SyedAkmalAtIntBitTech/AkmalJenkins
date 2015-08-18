@@ -6,6 +6,7 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,8 +30,10 @@ import org.apache.commons.fileupload.*;
  */
 public class ServletAddCategories extends BrndBotBaseHttpServlet {
 
+    private static final Logger logger = Logger.getLogger(ServletAddCategories.class.getName());
+    
     String filePath;
-    String file_name, field_name, upload_path;
+    String file_name, field_name;
     Categories categories;
     RequestDispatcher request_dispatcher;
     String category_name, organization_id;
@@ -41,7 +44,7 @@ public class ServletAddCategories extends BrndBotBaseHttpServlet {
         try {
             this.categories = new Categories();
         } catch (NamingException ex) {
-            Logger.getLogger(ServletAddCategories.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
 
     }
@@ -66,7 +69,7 @@ public class ServletAddCategories extends BrndBotBaseHttpServlet {
         int maxMemSize = 5000 * 1024;
         try {
 
-            upload_path = getServletContext().getRealPath("") + "/images/Organizations/Categories";
+            String uploadPath = AppConstants.ORG_CATEGORIES_HOME;
 
             // Verify the content type
             String contentType = request.getContentType();
@@ -76,7 +79,7 @@ public class ServletAddCategories extends BrndBotBaseHttpServlet {
                 // maximum size that will be stored in memory
                 factory.setSizeThreshold(maxMemSize);
                 // Location to save data that is larger than maxMemSize.
-                factory.setRepository(new File("c://temp"));
+                factory.setRepository(new File(AppConstants.TMP_FOLDER));
 
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -104,7 +107,7 @@ public class ServletAddCategories extends BrndBotBaseHttpServlet {
                         }
                         if (field_name.equals("organization")) {
                             organization_id = fi.getString();
-                            upload_path = upload_path + File.separator + organization_id;
+                            uploadPath = uploadPath + File.separator + organization_id;
                         }
 
                     } else {
@@ -114,7 +117,7 @@ public class ServletAddCategories extends BrndBotBaseHttpServlet {
                         if (file_name != "") {
                             check = categories.checkAvailability(category_name, Integer.parseInt(organization_id));
                             if (check == false){
-                                File uploadDir = new File(upload_path);
+                                File uploadDir = new File(uploadPath);
                                 if (!uploadDir.exists()) {
                                     uploadDir.mkdirs();
                                 }
@@ -126,7 +129,7 @@ public class ServletAddCategories extends BrndBotBaseHttpServlet {
                                 boolean isInMemory = fi.isInMemory();
                                 long sizeInBytes = fi.getSize();
 
-                                String filePath = upload_path + File.separator + file_name;
+                                String filePath = uploadPath + File.separator + file_name;
                                 File storeFile = new File(filePath);
 
                                 fi.write(storeFile);
@@ -153,12 +156,9 @@ public class ServletAddCategories extends BrndBotBaseHttpServlet {
                 out.println("</html>");
             }
         } catch (Exception ex) {
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
+            logger.log(Level.SEVERE, "Exception while adding categories", ex);
         } finally {
             out.close();
-            getSqlMethodsInstance().closeConnection();
-            categories.sqlmethods.closeConnection();
         }
     }
 

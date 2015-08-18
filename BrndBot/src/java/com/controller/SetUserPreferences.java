@@ -8,6 +8,7 @@ package com.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,20 +60,38 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
             String brand_id = (String)getSqlMethodsInstance().session.getAttribute("brandID");
             String look_id = (String)getSqlMethodsInstance().session.getAttribute("LookID");
             String studio_id = (String)getSqlMethodsInstance().session.getAttribute("studioID");
+            String type = (String)json_user_preferences.get("type");
 
-            getSqlMethodsInstance().session.setAttribute("Checked", "true");
+            if (type.equalsIgnoreCase("update")){
+                JSONObject json_user_preferences_from_database = getSqlMethodsInstance().getJSONUserPreferences(user_id);
+                
+                json_user_preferences_from_database.put(IConstants.kColor1 , json_user_preferences.get(IConstants.kColor1));
+                json_user_preferences_from_database.put(IConstants.kColor2 , json_user_preferences.get(IConstants.kColor2));
+                json_user_preferences_from_database.put(IConstants.kColor3, json_user_preferences.get(IConstants.kColor3));
+                json_user_preferences_from_database.put(IConstants.kColor4 , json_user_preferences.get(IConstants.kColor4));
+                json_user_preferences_from_database.put(IConstants.kColor5 , json_user_preferences.get(IConstants.kColor5));
+                json_user_preferences_from_database.put(IConstants.kColor6 , json_user_preferences.get(IConstants.kColor6));
 
-            Integer font_theme_id = getSqlMethodsInstance().getFontthemeid(brand_id);
-            getSqlMethodsInstance().addUserPreferences(user_id, Integer.parseInt(brand_id), font_theme_id,  studio_id, Integer.parseInt(look_id), json_user_preferences);
+                getSqlMethodsInstance().updateJSONUserPreference(user_id, json_user_preferences_from_database);
+
+            }else {
+
+                getSqlMethodsInstance().session.setAttribute("Checked", "true");
+
+                Integer font_theme_id = getSqlMethodsInstance().getFontthemeid(brand_id);
+                getSqlMethodsInstance().addUserPreferences(user_id, Integer.parseInt(brand_id), font_theme_id,  studio_id, Integer.parseInt(look_id), json_user_preferences);
+                
+            }
         }catch(Exception e){
-             System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();
             getSqlMethodsInstance().closeConnection();
         }
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

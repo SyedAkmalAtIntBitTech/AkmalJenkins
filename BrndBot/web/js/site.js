@@ -4,7 +4,7 @@ var widthContainer;
 var heightContainer;
 var containerY, containerX;
 var selectedTextID;
-var addTextCount, addImageCount, addButtonCount, addBlockCount, addElementCount;
+var addTextCount, addImageCount, addButtonCount, addBlockCount, addElementCount, addLogocount;
 var textareadetails = [];
 var selectElementsArray = [];
 var allElementsTextArray = [];
@@ -321,6 +321,12 @@ $(document).ready(function () {
 //        alert($("#textFontFamily").val());
         $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
     });
+    $("#fontColor").change(function () {
+//        alert($("#fontColor").val());
+//            alert($("#fontColor option:selected").text());
+        $("#" + selectedTextID).css("color", $("#fontColor").val());
+    });
+
 //confirmation plugin is used to show model dialogue box
     $("#deleteTextButton").easyconfirm();
     $("#deleteTextButton").click(function () {
@@ -344,6 +350,11 @@ $(document).ready(function () {
         deleteElements(selectedTextID);
     });
 
+    $("#deleteLogoButton").easyconfirm();
+    $("#deleteLogoButton").click(function () {
+        $("#" + selectedTextID).parent().remove();
+        deleteElements(selectedTextID);
+    });
     $(function () {
         $("#tabs").tabs();
     });
@@ -493,10 +504,7 @@ $(document).ready(function () {
 
         addImageCount++;
         addElements($("#elementText").find('option:selected').text());
-        $("#" + selectedTextID).css("background", "url(../images/default.png)");
-        $("#" + selectedTextID).css("background-size", "contain");
-        $("#" + selectedTextID).css("-webkit-background-size", "contain");
-        $("#" + selectedTextID).css("background-repeat", "no-repeat");
+        $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("-webkit-background-size","contain");                                    
         $("#" + selectedTextID).css("width", "100px");
         $("#" + selectedTextID).css("height", "100px");
         addDefault();
@@ -827,6 +835,170 @@ $(document).ready(function () {
             reloadTabs(0);
         });
     });
+    $("#addLogoButton").click(function () {
+
+        //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
+        $(".container").append("<div class=\"draggableLogo\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
+        selectedTextID = $("#elementText").find('option:selected').text();
+
+        addLogocount++;
+        addElements($("#elementText").find('option:selected').text());
+        $("#" + selectedTextID).css("background", "url(../images/logo.png)");
+        $("#" + selectedTextID).css("background-size", "contain");
+        $("#" + selectedTextID).css("-webkit-background-size", "contain");
+        $("#" + selectedTextID).css("background-repeat", "no-repeat");
+        $("#" + selectedTextID).css("width", "100px");
+        $("#" + selectedTextID).css("height", "100px");
+        addDefault();
+        reloadTabs(1);
+
+        $("#opacityImage").keyup(function (e) {
+
+            if (e.keyCode == 13)
+            {
+
+                $("#" + selectedTextID).css("opacity", $("#opacityImage").val());
+
+            }
+        });
+        $(function () {
+            $(".filters").spinner({
+                min: 0,
+                max: 100,
+                step: 1,
+                stop: filters,
+                change: filters
+            });
+            $(".moreFilters").spinner({
+                min: 0,
+                max: 200,
+                step: 1,
+                stop: filters,
+                change: filters
+            });
+            $(".someMoreFilters").spinner({
+                min: 0,
+                max: 360,
+                step: 1,
+                stop: filters,
+                change: filters
+            });
+
+
+            function filters() {
+
+                var filters = "blur(" + $("#blurFilter").val() + "px) grayscale(" + $("#grayscaleFilter").val() + "%) sepia(" + $("#sepiaFilter").val() + "%)" + " saturate(" + $("#saturateFilter").val() + "%) hue-rotate(" + $("#hueRotateFilter").val() + "deg) invert(" + $("#invertFilter").val() + "%) brightness(" + $("#brightnessFilter").val() + "%) contrast(" + $("#contrastFilter").val() + "%)";
+//alert(filters);
+                $("#" + selectedTextID).css('filter', filters)
+                        .css('-webkit-filter', filters)
+                        .css('mozFilter', filters)
+                        .css('oFilter', filters)
+                        .css('msFilter', filters);
+
+            }
+        });
+        $("#fileButton").click(function () {
+            $("#" + selectedTextID).css('background', "url('" + $("#filePath").val() + "')");
+            $("#" + selectedTextID).css("background-size", "contain");
+            $("#" + selectedTextID).css("-webkit-background-size", "contain");
+            $("#" + selectedTextID).css("background-repeat", "no-repeat");
+        });
+        $(function () {
+            function blendColor() {
+                //alert("test");
+                $("#" + selectedTextID).css("background-color", $("#blendColorPick").val());
+                $("#" + selectedTextID).css("background-blend-mode", $("#blendColorSelect").find('option:selected').text());
+                $("#" + selectedTextID).css("-webkit-background-color", $("#blendColorPick").val());
+                $("#" + selectedTextID).css("-webkit-background-blend-mode", $("#blendColorSelect").find('option:selected').text());
+            }
+            $("#blendColorSelect").change(function () {
+                blendColor();
+            });
+            $("#blendColorPick").spectrum({
+                change: blendColor,
+                stop: blendColor,
+                preferredFormat: "hex",
+                showPalette: true,
+                palette: [
+                    ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
+                    ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
+                    ["#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#cfe2f3", "#d9d2e9", "#ead1dc"],
+                    ["#ea9999", "#f9cb9c", "#ffe599", "#b6d7a8", "#a2c4c9", "#9fc5e8", "#b4a7d6", "#d5a6bd"],
+                    ["#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0"],
+                    ["#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79"],
+                    ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
+                    ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
+                ]
+            });
+        });
+
+        $(function () {
+            $(".dropShadowFilters").spinner({
+                min: 1,
+                max: 99,
+                step: 1,
+                change: dropShadowFilter,
+                stop: dropShadowFilter
+            });
+            function dropShadowFilter() {
+                var dropShadowFilter1 = "drop-shadow(" + $("#hShadowDropShadowFilter").val() + "px " + $("#vShadowDropShadowFilter").val() + "px " + $("#blurDropShadowFilter").val() + "px" + " " + $("#dropShadowFilterColorPick").val() + ")";
+//alert(dropShadowFilter1);            
+                $("#" + selectedTextID).css('filter', dropShadowFilter1)
+                        .css('-webkit-filter', dropShadowFilter1);
+            }
+
+            $("#dropShadowFilterColorPick").spectrum({
+                change: dropShadowFilter,
+                preferredFormat: "hex",
+                showPalette: true,
+                palette: [
+                    ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
+                    ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
+                    ["#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#cfe2f3", "#d9d2e9", "#ead1dc"],
+                    ["#ea9999", "#f9cb9c", "#ffe599", "#b6d7a8", "#a2c4c9", "#9fc5e8", "#b4a7d6", "#d5a6bd"],
+                    ["#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0"],
+                    ["#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79"],
+                    ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
+                    ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
+                ]
+            });
+
+        });
+
+        $("#" + selectedTextID).resizable({
+        });
+
+        $(".draggableLogo").draggable({
+            scroll: false,
+            cursor: "move"
+        });
+
+        $(".draggableLogo").click(function (e) {
+            //alert($("#"+selectedTextID).css("background-blend-mode"));
+            var id = $(this).children("div").attr("id");
+
+            selectedTextID = id;
+            //alert(selectedTextID);
+            hideMapper();
+            var childPos = $("#" + id).offset();
+            var parentPos = $(this).parent().offset();
+//alert(Math.round(childPos.left) + ", "+ parentPos.left);
+            var childOffset = {
+                top: childPos.top - parentPos.top,
+                left: childPos.left - parentPos.left
+            }
+            //alert($("#"+id).css("height"));
+            x = Math.round(childOffset.left);
+            y = Math.round(childOffset.top);
+            $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
+            $(".position").text("Co ordinates: X=" + x + ", Y=" + y);
+            $(".size").text("Height=" + $("#" + id).css("height") + ", Width=" + $("#" + id).css("width"));
+            reloadTabs(1);
+        });
+
+
+    });
+
 });
 
 //.............................................................................
@@ -839,7 +1011,7 @@ function addDefault() {
     var fontnameis = [];
     var sub_category_type = $("#subcategories").val();
     var block_mindbody_query = $("#mindbodyquery").val();
-
+//   alert($("#mindbodyquery").val());
 
     var mindbody_xml_url = "";
     if (block_mindbody_query !== "null") {
@@ -958,10 +1130,35 @@ function popupwindow() {
 }
 
 function passvaluetoinputfield() {
+    alert("error1");
+    alert($(".container").html());
+ var containerWidth=$(".container").css("width");
+ var containerHeight=$(".container").css("height");
+alert(containerWidth+":"+containerHeight);
 
 
-    popupwindow();
+//    $.ajax({
+//        url: getHost() +'AdminHtmlToImageServlet',
+//        type: "POST",
+//        data: {  htmlString: $(".container").html(),
+//                containerWidth:containerWidth,
+//                containerHeight:containerHeight
+//                },
+//        success: function (responseText) {
+//            var image = responseText;
+//            alert(image);
+//            $("#imagename").val(""+image);
+//           
+//
+//        },
+//        error: function (e) {
+//            alert(JSON.stringify(e));
+//        }
+//
+//    });
 
+ 
+  popupwindow();
     var containerstyle = "Width!" + $("#containerWidth").val() +
             " Height!" + $("#containerHeight").val();
 
@@ -975,10 +1172,11 @@ function passvaluetoinputfield() {
         var style1;
         var angle = getRotationDegrees($("#" + addElementsArray[i]));
         var contenttype = $("#" + addElementsArray[i]).parent().attr("class");
+//        alert(contenttype);
 
         var dropshadow = $("#" + addElementsArray[i]).css("text-shadow");
         var dropshadowarr = dropshadow.split(" ");
-        var dropshadowdata = " H-shadow:" + dropshadowarr[3] + " V-shadow:" + dropshadowarr[4] + " blur:" + dropshadowarr[5];
+        var dropshadowdata = " H-shadow!" + dropshadowarr[3] + " V-shadow!" + dropshadowarr[4] + " blur!" + dropshadowarr[5];
 
         var dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
 
@@ -1040,17 +1238,35 @@ function passvaluetoinputfield() {
                     " blend-background-color!" + "#" + color3;
 
         }
+        if (contenttype.startsWith('draggableLogo')) {
+//            alert($("#" + addElementsArray[i]).css("background-image"));
+            style1 = " tag!" + "logo" +
+                    " x-co-ordinates!" + x1 +
+                    " y-co-ordinates!" + y1 +
+                    " width!" + $("#" + addElementsArray[i]).css("width") +
+                    " height!" + $("#" + addElementsArray[i]).css("height") +
+                    " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
+                    " background-image!" + $("#" + addElementsArray[i]).css("background-image") +
+                    dropshadowdata1 +
+//                    " filter:" + $("#" + addElementsArray[i]).css("-webkit-filter") +
+                    " Blend!" + $("#" + addElementsArray[i]).css("background-blend-mode") +
+                    " blend-background-color!" + "#" + color3;
+
+        }
 
         if (contenttype.startsWith('draggableText')) {
+//            alert($("#textArea" ).val());
             style1 = " tag!" + "text" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
+                    " width!" + $("#" + addElementsArray[i]).css("width") +
+                    " height!" + $("#" + addElementsArray[i]).css("height") +
                     " font-weight!" + $("#" + addElementsArray[i]).css("font-weight") +
                     " font-style!" + $("#" + addElementsArray[i]).css("font-style") +
                     " text-align!" + $("#" + addElementsArray[i]).css("text-align") +
                     " font-size!" + $("#" + addElementsArray[i]).css("font-size") +
                     " font-color!" + "#" + color1 +
-                    " text-shadow!" + "#" + color2 +
+                    " text-shadow!" + "#" + color2.substr(0,6) +
                     dropshadowdata +
                     " line-height!" + $("#" + addElementsArray[i]).css("line-height") +
                     " letter-spacing!" + $("#" + addElementsArray[i]).css("letter-spacing") +
@@ -1059,6 +1275,7 @@ function passvaluetoinputfield() {
 
         }
         if (contenttype.startsWith('draggableButton')) {
+            
 
             style1 = " tag!" + "button" +
                     " x-co-ordinates!" + x1 +
@@ -1077,14 +1294,14 @@ function passvaluetoinputfield() {
                     " background-color!" + "#" + color3 + dropshadowdata1;
         }
         textareadetails[i] = style1 + " type!" + addElementsArray[i];
-        //alert(textareadetails); 
+       alert(textareadetails); 
 
 
 
         $("#textstyle").val(textareadetails);
 
     }
-    alert(mapperdata);
+//    alert(mapperdata);
     $("#element").val(mapperdata);
 
 } 

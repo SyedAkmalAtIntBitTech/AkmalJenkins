@@ -43,7 +43,8 @@
                     </div>
 
                     <div class="form-group">
-                        <p id="comment3"  class="col-md-4 col-md-offset-4">Please select an organization:</p><br><br>
+                        <p id="comment1"  class="col-md-4 col-md-offset-4">Please select an organization:</p><br>
+                        <p id="text-left-1" class="col-md-4 col-md-offset-4">If you do not have an organization, choose "No Organization".</p><br>
                         <div class="col-md-3 col-md-offset-4">
                             <select id="organizationdropdown" class="form-control" ng-model="organizations.org">
                                 <option ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}} </option>

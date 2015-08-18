@@ -6,6 +6,7 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,6 +29,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  * @author intbit
  */
 public class ServletUploadFonts extends BrndBotBaseHttpServlet {
+    private static Logger logger = Logger.getLogger(ServletUpdateFonts.class.getName());
+    
+    String filePath;
+    String file_name, field_name;
     Fonts fonts;
     boolean check;
     
@@ -37,7 +42,7 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
             fonts = new Fonts();
             check = false;
         } catch (NamingException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
     /**
@@ -65,7 +70,6 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
         int maxMemSize = 5000 * 1024;
         
         try {
-            upload_path = getServletContext().getRealPath("") + "/fonts";
 
             // Verify the content type
             String contentType = request.getContentType();
@@ -75,7 +79,7 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
                 // maximum size that will be stored in memory
                 factory.setSizeThreshold(maxMemSize);
                 // Location to save data that is larger than maxMemSize.
-                factory.setRepository(new File("c://temp"));
+                factory.setRepository(new File(AppConstants.TMP_FOLDER));
 
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -88,11 +92,6 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
                 // Process the uploaded file items
                 Iterator i = fileItems.iterator();
 
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>JSP File upload</title>");
-                out.println("</head>");
-                out.println("<body>");
                 while (i.hasNext()) {
                     FileItem fi = (FileItem) i.next();
                     if (fi.isFormField()) {
@@ -111,7 +110,7 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
                             file_name = fi.getName();
 
                             if (file_name != ""){
-                                File uploadDir = new File(upload_path);
+                                File uploadDir = new File(AppConstants.BASE_FONT_UPLOAD_PATH);
                                 if (!uploadDir.exists()) {
                                     uploadDir.mkdirs();
                                 }
@@ -119,7 +118,7 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
                                 boolean isInMemory = fi.isInMemory();
                                 long sizeInBytes = fi.getSize();
 
-                                filePath = upload_path + File.separator + file_name;
+                                filePath = AppConstants.BASE_FONT_UPLOAD_PATH + File.separator + file_name;
                                 File storeFile = new File(filePath);
 
                                 fi.write(storeFile);
@@ -137,11 +136,7 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
             }
             
         }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-        }finally {
-            getSqlMethodsInstance().closeConnection();
-            fonts.sqlmethods.closeConnection();
+            logger.log(Level.SEVERE, "Exception while uploading fonts", e);
         }
     }
 

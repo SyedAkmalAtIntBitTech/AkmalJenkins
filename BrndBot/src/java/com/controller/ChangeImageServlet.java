@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +54,8 @@ public class ChangeImageServlet extends BrndBotBaseHttpServlet {
             out.println("<h1>Servlet ChangeImageServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while change image:", getSqlMethodsInstance().error));
         }
     }
 

@@ -5,11 +5,14 @@
  */
 package mindbody.controller;
 
+import com.controller.SqlMethods;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.Program;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilder;
@@ -27,7 +30,8 @@ import org.xml.sax.SAXParseException;
  * @author intbit
  */
 public class MindBodyDataMapper {
-    
+        private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindBodyDataMapper.class));
+
      public static JSONObject mapEnrollmentData(ClassSchedule mindbody_enrollments, String socialEditorLayoutFileName) {
         JSONObject json_mindbody_enrollment_data = new JSONObject();
         try {
@@ -182,15 +186,14 @@ public class MindBodyDataMapper {
 
             }
         } catch (SAXParseException err) {
-            System.out.println("** Parsing error" + ", line " + err.getLineNumber() + ", uri " + err.getSystemId());
-            System.out.println(" " + err.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while updating org name:", null));
+
 
         } catch (SAXException e) {
-            Exception x = e.getException();
-            ((x == null) ? e : x).printStackTrace();
+                               logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
 
         } catch (Throwable t) {
-            t.printStackTrace();
         }
             //System.exit (0);        
 
@@ -324,15 +327,14 @@ public class MindBodyDataMapper {
 
             }
         } catch (SAXParseException err) {
-            System.out.println("** Parsing error" + ", line " + err.getLineNumber() + ", uri " + err.getSystemId());
-            System.out.println(" " + err.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while updating org name:", null));
+
 
         } catch (SAXException e) {
-            Exception x = e.getException();
-            ((x == null) ? e : x).printStackTrace();
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
 
         } catch (Throwable t) {
-            t.printStackTrace();
         }
             //System.exit (0);        
 
@@ -464,15 +466,12 @@ public class MindBodyDataMapper {
 
             }
         } catch (SAXParseException err) {
-            System.out.println("** Parsing error" + ", line " + err.getLineNumber() + ", uri " + err.getSystemId());
-            System.out.println(" " + err.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while updating org name:", null));
 
         } catch (SAXException e) {
-            Exception x = e.getException();
-            ((x == null) ? e : x).printStackTrace();
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
 
         } catch (Throwable t) {
-            t.printStackTrace();
         }
             //System.exit (0);        
 

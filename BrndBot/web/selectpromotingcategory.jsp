@@ -74,14 +74,16 @@ and open the template in the editor.
                 padding-left: 5px;
                 font-size: 18px;
 */
- .datafromindbody li{
-     display:inline-table;
-     position: relative;
-     left:200px;
-                font-size: 21.6px;
-                margin-left: -20px;
-            }
-            #paginationbar{
+.datafromindbody li{
+        vertical-align:middle; 
+        display: table-cell;
+        position: relative;
+        height: 82px;
+        width: 739px;
+
+}   
+
+#paginationbar{
                 position: relative;
                 margin-top: 100px;
                 margin-left: 70px;    
@@ -90,19 +92,18 @@ and open the template in the editor.
                position: relative;
                 top: 85px;
             }
-            .datafromindbody:hover{
-                background-color: #00CC99;
-            }
-            .datafromindbody:focus{
-                background-color: #00CC99;
-            }
-            .mindbodyOneRowData:focus {
-                background-color: #00CC99;
+            
+            .mindbodyOneRowData:hover {
+                    background-color: #00CC99;
+                    color: whitesmoke;
+               
             }
             .mindbodyOneRowData{
                 position: relative;
+                height: 82px;
+                width: 800px;
                 margin-top: 46px;
-                left:-80px;
+                left:85px;
                 font-family: "proxima-nova",sans-serif;
                 font-weight: 600;
                 font-size: 21.6px;
@@ -162,11 +163,11 @@ and open the template in the editor.
                                     url : 'MindBodyDataServlet'
                             }).success(function(data, status, headers, config) {
                                 $scope.datalists = data;
-                                
+
                                 if (data.mindbody_data.length == 0){
                                     $("#continuebutton").hide();
-                                }else{
-                                       $("#continuebutton").show();
+                                } else {
+                                    $("#continuebutton").show();
                                 }
 
                             if (data === error){
@@ -192,7 +193,6 @@ and open the template in the editor.
                     function select_category_details(id){
                     selected_id = id;
         
-                    
                             $("#continuebutton").prop("disabled", false);
                             //                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +id;
                             //                    window.open(configuration, "_self")
@@ -217,7 +217,7 @@ and open the template in the editor.
 
                 <div class="col-md-6">
                     <p id="text3">{{datalists.title}}  </p><br> </div><br><br> 
-                <div class="col-md-5">  <input type="button"  id="continuebutton" class="btn btn-info col-md-offset-2" onclick="selected_category()" value="CONTINUE" disabled="true">
+                    <div class="col-md-5">  <input type="button"  id="continuebutton" class="btn btn-info col-md-offset-2" onclick="selected_category()" value="CONTINUE" disabled="true">
 
                 </div>
             </div>  
@@ -226,20 +226,17 @@ and open the template in the editor.
             <div class="col-md-11 diff">
                 
                 <div  class="tab-pane active" id="picktheme" ng-init="showData()">
-                    <div>
-                      
-                            <span style="width: 700px;">
+                       
+                          
                                 <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
 <!--                                    {{jsonclass}}-->
 
-                     <div class='mindbodyOneRowData' onclick="select_category_details('{{jsonclass.id}}')">
-                                    <li style="width: 200px">{{jsonclass.column1}}</li>
-                                    <li style="width: 200px">{{jsonclass.column2}}</li>
-                                    <li style="width: 200px">{{jsonclass.column3}}</li>
+<div class="mindbodyOneRowData" onclick="select_category_details('{{jsonclass.id}}')" >
+                                    <li style="width: 300px;left:10px;">{{jsonclass.column1}}</li>
+                                    <li style="width: 300px">{{jsonclass.column2}}</li>
+                                    <li style="width: 150px">{{jsonclass.column3}}</li>
                                 </ul>
-                            </span>
-                        </div>
-
+                  
                     </div>
 
                 </div>

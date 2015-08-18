@@ -6,6 +6,7 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +26,8 @@ import org.json.simple.parser.JSONParser;
  * @author intbit
  */
 public class ServletDeleteFonts extends BrndBotBaseHttpServlet {
-
+    private static Logger logger = Logger.getLogger(ServletDeleteFonts.class.getName());
+    
     Fonts font;
     String delete_path, file_name_to_delete;
 
@@ -34,7 +36,7 @@ public class ServletDeleteFonts extends BrndBotBaseHttpServlet {
         try {
             font = new Fonts();
         } catch (NamingException ex) {
-            Logger.getLogger(BrndBotBaseHttpServlet.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -64,7 +66,7 @@ public class ServletDeleteFonts extends BrndBotBaseHttpServlet {
             JSONObject jsonLook = null;
             jsonLook = (JSONObject) parser.parse(string_buffer.toString());
             Long font_id = (Long) jsonLook.get("font_id");
-            delete_path = getServletContext().getRealPath("") + "/fonts";
+            delete_path = AppConstants.BASE_FONT_UPLOAD_PATH;
             file_name_to_delete = font.getFileName(font_id.intValue());
             if (file_name_to_delete != "") {
                 String deletePath = delete_path + File.separator + file_name_to_delete;
@@ -74,11 +76,8 @@ public class ServletDeleteFonts extends BrndBotBaseHttpServlet {
             font.delete(font_id.intValue());
             out.write("true");
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Exception while deleting fonts", e);
         }finally {
-            getSqlMethodsInstance().closeConnection();
-            font.sqlmethods.closeConnection();
         }
     }
 

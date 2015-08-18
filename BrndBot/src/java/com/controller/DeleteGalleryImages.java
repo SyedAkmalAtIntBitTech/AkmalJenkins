@@ -5,10 +5,13 @@
  */
 package com.controller;
 
+import com.intbit.AppConstants;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +23,7 @@ import org.json.simple.parser.JSONParser;
  * @author intbit
  */
 public class DeleteGalleryImages extends BrndBotBaseHttpServlet {
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,10 +38,8 @@ public class DeleteGalleryImages extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        String delete_path;
-        PrintWriter out = response.getWriter();
-        StringBuffer string_buffer = new StringBuffer();
-        try {
+        StringBuilder string_buffer = new StringBuilder();
+        try(PrintWriter out = response.getWriter()) {
             BufferedReader reader = request.getReader();
             String line = null;
             while ((line = reader.readLine()) != null) {
@@ -51,26 +52,15 @@ public class DeleteGalleryImages extends BrndBotBaseHttpServlet {
             Long image_id = (Long) json_gallery_image.get("image_id");
             Long user_id = (Long) json_gallery_image.get("user_id");
             String image_name = (String) json_gallery_image.get("image_name");
-
-//            delete_path = getServletContext().getInitParameter("file-upload") +  File.separator + "Gallery" + File.separator + user_id;
-            String path = "images" + File.separator + "Gallery" + File.separator + user_id;
-//            
-            delete_path = getServletContext().getRealPath("") + File.separator  + path;
-            
-
-            String deletePath = delete_path + File.separator + image_name;
+            String deletePath = AppConstants.USER_IMAGE_HOME + File.separator + user_id + File.separator + image_name;
             File deleteFile = new File(deletePath);
             deleteFile.delete();
 
             getSqlMethodsInstance().deleteImages(image_id.intValue());
             out.write("true");
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            out.write(getSqlMethodsInstance().error);
-        } finally {
-            getSqlMethodsInstance().closeConnection();
-        }
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting image:", getSqlMethodsInstance().error));
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

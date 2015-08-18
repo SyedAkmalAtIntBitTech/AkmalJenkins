@@ -26,7 +26,6 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
-        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script src="js/socialmedia.js" type="text/javascript"></script>
 <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <title>social media</title>
@@ -37,6 +36,7 @@
                 height: 100px;
                 margin-left:  5px;
             } 
+            
             #popup
             {
                 /*                   display:none;*/
@@ -246,35 +246,24 @@
             });   
            });
            
+           function imgchng(){
+               document.getElementById("fb").src="images/fb_icon.png";
+               
+           }
+           
         </script>
      
     </head>
 <body>
     <div class="row">
-        <div id="sidebar-wrapper" class="col-md-1">
-                    <nav class="navbar navbar-default " role="navigation">
-                        <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
-                        <button class="hamburger">&#9776;</button>
-                        <button class="cross">&#9776;</button>
-                        <ul class="nav nav-stacked menu">
-                            <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
-                            <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
-                            <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
-                            <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
-                            <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br></li> 
-                            <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br></li> 
-                        </ul>
-                        <!-- /.navbar-collapse -->
-                    </nav>
-        </div><!--/end left column-->
+       <jsp:include page="leftmenu.html"/><!--/end left column-->
 
         <div class="col-md-10 col-md-offset-1">
-            <p id="text3">Great!<br> 
-                Which social media platform(s)<br>
+            <p id="textgrt">Great! Which social media platform(s)<br>
                 would you like to post it on?</p> 
             <ul id="promotebuttonlist">
-                <li><img class="socialimage" src="images/fb_icon.png" /> </a><input type="checkbox" id="facebook" name="social" value="facebook"> </li>
-                <li><img class="socialimage" src="images/twitter.jpeg" > <input type="checkbox" id="twitter" name="social" value="twitter"><br> </li>
+                <li><img id="fb"class="socialimage" src="images/fbButton.svg" /> <input type="checkbox" id="facebook" name="social"  value="facebook"> </li>
+                <li><img id="twt" class="socialimage" src="images/twtButton.svg" > <input type="checkbox" id="twitter" name="social" value="twitter"><br> </li>
                 <li><div class="col-md-4 col-md-offset-6">
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
                             <input type="hidden" id="imageName" name="imageName" value ='<%=ImageName%>'/>
