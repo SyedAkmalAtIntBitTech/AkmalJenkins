@@ -453,7 +453,7 @@ and open the template in the editor.
                                     success: function (xml) {
                             
                                             if (block_clicked == "true")
-                                            $(".preview").append("<div onclick=getBlockId(" + blockId + ") id='" + blockId + "' name='"+ mindbodydataId +"'></div>");
+                                            $(".preview").append("<div onclick=getBlockId(" + blockId + ") id='" + blockId + "' blockdetails='"+ id +" name='"+ mindbodydataId +"'></div>");
                                             else
                                             $(".preview #" + blockId).empty();
                                             block_clicked = "false";
@@ -549,7 +549,7 @@ and open the template in the editor.
                                             .css("background", ""+background_image)
                                             .css("background-repeat", "no-repeat")
                                             .css("-webkit-background-size", "contain")
-                                            .css("position", "relative");
+                                            .css("position", "absolute");
                                     }
 
                                     if (tag === "button")
@@ -557,6 +557,7 @@ and open the template in the editor.
 
                                     $(".preview #" + blockId).append("<div><img src='" + elementdata + "'id=" + blockId + type + " alt='button'/>");
                                             $("#" + blockId + type).css("left", "" + left + "px")
+                                                                   .css("position", "absolute")
                                                                    .css("top", "" + top + "px")
                                                                    .attr("src", "buttons/button1.png");
                                     }

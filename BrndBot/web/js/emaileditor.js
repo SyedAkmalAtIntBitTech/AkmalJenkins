@@ -118,7 +118,7 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
         jsondata = data;
-        $(".preview").append("<div onclick=getBlockId(defaultblock1) id='defaultblock1' name='"+mindbodydataId+"'></div>");
+        $(".preview").append("<div onclick=getBlockId(defaultblock1) id='defaultblock1' blockdetails='"+ allLayoutFilename[0] +"' name='"+mindbodydataId+"'></div>");
             $.ajax({
                 type: "GET",
                 url: "http://localhost:8080/BrndBot/DownloadXml?file_name=" + allLayoutFilename[1] + ".xml",
@@ -181,8 +181,8 @@ $(document).ready(function () {
                             var webkittransform = $(this).attr("webkit-transform");
                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
 //                    alert($(this).attr("text-shadow"));
-                            $(".preview #defaultblock1").append("<div><textarea class=textAreas readonly onclick=getTectId(defaultblock1"+type+") id=defaultblock1" + type + ">" + elementdata + "</textarea>");
-                            $("#defaultblock1" + type).css("color", "" + fontcolor)
+                            $(".preview #defaultblock1").append("<div><textarea class=textAreas readonly onclick=getTectId("+type+"SSSdefaultblock1) id=" + type + "SSSdefaultblock1>" + elementdata + "</textarea>");
+                            $("#" + type+"SSSdefaultblock1").css("color", "" + fontcolor)
                                          .css("position", "absolute")
                                         .css("left", "" + left + "px")
                                         .css("top", "" + top + "px")
@@ -208,8 +208,8 @@ $(document).ready(function () {
                             var height = $(this).attr("height");
                             var background_image = $(this).attr("background-image");
 //                    alert("image");
-                           $(".preview #defaultblock1").append("<div onclick=getImageid(defaultblock1" + type + ") id=defaultblock1" + type + " ></div>");
-                            $("#defaultblock1" + type)
+                           $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "SSSdefaultblock1) id=" + type + "SSSdefaultblock1></div>");
+                            $("#" + type+"SSSdefaultblock1")
                                     .css("color", "" + fontcolor)
                                 .css("position", "absolute")
                                     .css("left", "" + left + "px")
@@ -228,11 +228,11 @@ $(document).ready(function () {
                         if (tag === "button")
                         {
 //                            alert("button");
-                            $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=defaultblock1" + type + " alt='button'/>");
-                            $("#defaultblock1" + type).css("left", "" + left + "px")
+                            $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=" + type + "SSSdefaultblock1 alt='button'/>");
+                            $("#" + type +"SSSdefaultblock1").css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .attr("src", "buttons/button1.png")
-                                    .css("position", "relative");   
+                                    .css("position", "absolute");   
                         }
 
                         if (tag === "block")
@@ -242,13 +242,14 @@ $(document).ready(function () {
                             var height = $(this).attr("height");
                             var backgroundcolor = $(this).attr("background-color");
 //                 alert(backgroundcolor);
-                            $(".preview #defaultblock1").append("<div onclick=getDivId(defaultblock1" + type + ") id=defaultblock1" + type + "></div>");
-                            $("#defaultblock1" + type).css("background-color", "" + backgroundcolor)
+                            $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "SSSdefaultblock1) id=" + type + "SSSdefaultblock1></div>");
+                            $("#" + type +"SSSdefaultblock1").css("background-color", "" + backgroundcolor)
                                     .css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .css("width", "" + width)
                                     .css("height", "" + height)
-                                    .css("position", "relative");   
+                                    .css("opacity", "" + opacity)
+                                    .css("position", "absolute");   
                         }
 
                     }
