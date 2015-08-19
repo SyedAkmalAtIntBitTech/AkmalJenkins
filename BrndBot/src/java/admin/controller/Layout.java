@@ -253,8 +253,8 @@ public class Layout {
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("button")) {
                     margin_left = modelElement.getAttribute("x-co-ordinates");
                     margin_top = modelElement.getAttribute("y-co-ordinates");
-                    backgroundimage = modelElement.getAttribute("type");
-                    htmldata.append("<div style='margin-left: " + margin_left + "; margin-top:" + margin_top + ";background-image: " + backgroundimage + ";'></div>");
+                    backgroundimage = modelElement.getAttribute("src").replace("url(", "").replace(")", "");
+                    htmldata.append("<img style='position: absolute; margin-left: " + margin_left + "; margin-top:" + margin_top + ";' src='"+backgroundimage+"'/>");
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("logo")) {
                     String filter = "";
                     logger.log(Level.INFO, modelElement.getAttribute("brightness"));

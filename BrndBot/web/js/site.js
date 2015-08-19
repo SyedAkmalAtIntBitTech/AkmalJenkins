@@ -843,7 +843,7 @@ $(document).ready(function () {
 
         addLogocount++;
         addElements($("#elementText").find('option:selected').text());
-        $("#" + selectedTextID).css("background", "url(../images/logo.png)");
+        $("#" + selectedTextID).css("background", "url(../images/logo.svg)");
         $("#" + selectedTextID).css("background-size", "contain");
         $("#" + selectedTextID).css("-webkit-background-size", "contain");
         $("#" + selectedTextID).css("background-repeat", "no-repeat");
@@ -1276,8 +1276,9 @@ alert(containerWidth+":"+containerHeight);
         }
         if (contenttype.startsWith('draggableButton')) {
             
-
+            alert($("#" + addElementsArray[i]).attr("src"));
             style1 = " tag!" + "button" +
+                    " src!" + $("#" + addElementsArray[i]).attr("src") +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1;
 

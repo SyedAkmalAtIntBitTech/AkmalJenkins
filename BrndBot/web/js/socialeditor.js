@@ -89,6 +89,22 @@ $(document).ready(function () {
 
 //    alert(layoutfilename);
 
+ $.ajax({
+       type: 'POST',
+       url: "GetLayoutStyles?editorType=email",
+       dataType: 'json',
+       success: function (data) {
+           var jsondataDefault = data;
+           var allLayoutFilename = [];
+//       alert(JSON.stringify(data));
+           $(jsondataDefault).each(function (i, val) {
+               var i = 0;
+               $.each(val, function (k, v) {
+                   allLayoutFilename[i] = v;
+                   i++;
+               });
+//                alert( allLayoutFilename[i] );
+           });
 
 
     $.ajax({
@@ -98,10 +114,9 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             jsondata = data;
-
             $.ajax({
                 type: "GET",
-                url: "xml/layout.xml",
+                url: "http://localhost:8080/BrndBot/DownloadXml?file_name="+ allLayoutFilename[1]+ ".xml",
                 dataType: "xml",
                 success: function (xml) {
                     $(xml).find('layout').each(function () {
@@ -219,6 +234,8 @@ $(document).ready(function () {
 
         }
     });
+       }
+   });
 
     $("#text").click(function () {
         $("#tabs-1").show();

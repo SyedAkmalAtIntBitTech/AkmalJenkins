@@ -76,56 +76,78 @@ Connection connection = null;
 //                    brand_id = rs2.getInt(1);
                     Statement stmt3 = connection.createStatement();
                     ResultSet rs3 = stmt3.executeQuery("Select * From tbl_brand_font_family where brand_id="+brand_id+"");
+//                    JSONArray json_font_names = new JSONArray();
                     JSONArray json_font_names = new JSONArray();
                     JSONArray json_font_sizes = new JSONArray();
-
+                    JSONObject json_font;
                     if (rs3.next()){
                             Integer font_id1 = rs3.getInt("font_id1");
+                            json_font = new JSONObject();
                             Statement stmt4 = connection.createStatement();
                             ResultSet rs4 = stmt4.executeQuery("Select * From tbl_font_family where id="+font_id1+"");
                                 if (rs4.next()){
                                     String font_name1 = rs4.getString("font_name");
-                                    json_font_names.add(font_name1);
+                                    String font_family_name1 = rs4.getString("font_family_name");
+                                    
+                                    json_font.put("font_name", font_name1);
+                                    json_font.put("font_family_name", font_family_name1);
                                 }
+                                json_font_names.add(json_font);
                             rs4.close();
                             stmt4.close();
                             Integer font_id2 = rs3.getInt("font_id2");
+                            json_font = new JSONObject();
                             Statement stmt5 = connection.createStatement();
                             ResultSet rs5 = stmt5.executeQuery("Select * From tbl_font_family where id="+font_id2+"");
                                 if (rs5.next()){
                                     String font_name2 = rs5.getString("font_name");
-                                    json_font_names.add(font_name2);
+                                    String font_family_name2 = rs5.getString("font_family_name");
+                                    json_font.put("font_name", font_name2);
+                                    json_font.put("font_family_name", font_family_name2);
                                 }
+                                json_font_names.add(json_font);
                             rs4.close();
                             stmt4.close();
                             Integer font_id3 = rs3.getInt("font_id3");
-
+                            json_font = new JSONObject();
                             Statement stmt6 = connection.createStatement();
                             ResultSet rs6 = stmt6.executeQuery("Select * From tbl_font_family where id="+font_id3+"");
                                 if (rs6.next()){
                                     String font_name3 = rs6.getString("font_name");
-                                    json_font_names.add(font_name3);
+                                    String font_family_name3 = rs6.getString("font_family_name");
+                                    json_font.put("font_name", font_name3);
+                                    json_font.put("font_family_name", font_family_name3);
                                 }
+                            json_font_names.add(json_font);
+
                             rs4.close();
                             stmt4.close();
                             Integer font_id4 = rs3.getInt("font_id4");
+                            json_font = new JSONObject();
 
                             Statement stmt7 = connection.createStatement();
                             ResultSet rs7 = stmt7.executeQuery("Select * From tbl_font_family where id="+font_id4+"");
                                 if (rs7.next()){
                                     String font_name4 = rs7.getString("font_name");
-                                    json_font_names.add(font_name4);
+                                    String font_family_name4 = rs7.getString("font_family_name");
+                                    json_font.put("font_name", font_name4);
+                                    json_font.put("font_family_name", font_family_name4);
                                 }
+                            json_font_names.add(json_font);
                             rs4.close();
                             stmt4.close();
                             Integer font_id5 = rs3.getInt("font_id5");
+                            json_font = new JSONObject();
 
                             Statement stmt8 = connection.createStatement();
                             ResultSet rs8 = stmt8.executeQuery("Select * From tbl_font_family where id="+font_id5+"");
                                 if (rs8.next()){
                                     String font_name5 = rs8.getString("font_name");
-                                    json_font_names.add(font_name5);
+                                    String font_family_name5 = rs8.getString("font_family_name");
+                                    json_font.put("font_name", font_name5);
+                                    json_font.put("font_family_name", font_family_name5);
                                 }
+                            json_font_names.add(json_font);
                             rs4.close();
                             stmt4.close();
 
@@ -188,6 +210,7 @@ Connection connection = null;
             user_preferences.put("user_colors", json_colors);
             user_preferences.put("user_font_names", json_font_names);
             user_preferences.put("user_font_sizes", json_font_sizes);
+            
             
         String json = new Gson().toJson(user_preferences);
         response.setContentType("application/json");

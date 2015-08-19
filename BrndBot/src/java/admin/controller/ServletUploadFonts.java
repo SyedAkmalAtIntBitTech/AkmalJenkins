@@ -63,7 +63,7 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
         String file_name = null, field_name, upload_path;
         RequestDispatcher request_dispatcher;
         String font_name = "", look_id;
-
+        String font_family_name = "";
         PrintWriter out = response.getWriter();
         File file;
         int maxFileSize = 5000 * 1024;
@@ -100,6 +100,9 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
                         if (field_name.equals("fontname")){
                             font_name = fi.getString();
                         }
+                        if (field_name.equals("fontstylecss")){
+                            font_family_name = fi.getString();
+                        }
 
                     }else {
                         
@@ -125,7 +128,7 @@ public class ServletUploadFonts extends BrndBotBaseHttpServlet {
 
                                 out.println("Uploaded Filename: " + filePath + "<br>");
                             }
-                                fonts.addFont(font_name, file_name);
+                                fonts.addFont(font_name, file_name,font_family_name );
                                 response.sendRedirect(request.getContextPath() + "/admin/fontsfamily.jsp");
 
 //                            }else {

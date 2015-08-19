@@ -43,6 +43,12 @@ and open the template in the editor.
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
+        <script>
+            try{
+                Typekit.load({ async: true });
+            }
+            catch(e){}
+       </script>
 
         <style>
             .socialimage{
@@ -187,6 +193,7 @@ and open the template in the editor.
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
+                        
                     $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_names = data.user_font_names;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -441,7 +448,7 @@ and open the template in the editor.
                             
                             $.ajax({
                             type: "GET",
-                                    url: "images/xml/" + layout + ".xml",
+                                    url: "http://localhost:8080/BrndBot/DownloadXml?file_name="+ layout+".xml",
                                     dataType: "xml",
                                     success: function (xml) {
                             
@@ -491,29 +498,36 @@ and open the template in the editor.
                                             var left = $(this).attr("x-co-ordinates");
                                             var top = $(this).attr("y-co-ordinates");
                                             var opacity = $(this).attr("opacity");
-                                            if (tag === "text")
-                                    {
+                                   if (tag === "text")
+                                        {
 
-                                    fontcolor = $(this).attr("font-color");
-                                            fontsize = $(this).attr("font-size");
-                                            fontstyle = $(this).attr("font-style");
-                                            var fontweight = $(this).attr("font-weight");
-                                            var letterspacing = $(this).attr("letter-spacing");
-                                            var lineheight = $(this).attr("line-height");
-                                            var textalign = $(this).attr("text-align");
-                                            var webkittransform = $(this).attr("webkit-transform");
-                                            var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-                                            //alert(".preview #" + blockId);
-                                            $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + blockId + type + ") id=" + blockId + type + ">" + elementdata + "</textarea>");
-                                            $("#" + blockId + type).css("color", "" + fontcolor)
-                                                    .css("position", "absolute")
-                                                    .css("left", "" + left + "px").css("top", "" + top + "px")
-                                            .css("font-size", "" + fontsize).css("font-style", "" + fontstyle).css("font-weight", "" + fontweight)
-                                            .css("letter-spacing", "" + letterspacing).css("line-height", "" + lineheight)
-                                            .css("opacity", "" + opacity).css("text-align", "" + textalign)
-                                            .css("text-shadow", "" + dropshadow).css("webkit-transform", "rotate(" + webkittransform + "deg)").css("background-color", "inherit" );
-              
-                                    }
+                                                fontcolor = $(this).attr("font-color");
+                                                fontsize = $(this).attr("font-size");
+                                                fontstyle = $(this).attr("font-style");
+                                                var fontweight = $(this).attr("font-weight");
+                                                var letterspacing = $(this).attr("letter-spacing");
+                                                var lineheight = $(this).attr("line-height");
+                                                var textalign = $(this).attr("text-align");
+                                                var webkittransform = $(this).attr("webkit-transform");
+                                                var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
+                                                //alert(".preview #" + blockId);
+                                                $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + blockId + type + ") id=" + blockId + type + ">" + elementdata + "</textarea>");
+                                                $("#" + blockId + type).css("color", "" + fontcolor)
+                                                                       .css("position", "absolute")
+                                                                       .css("left", "" + left + "px")
+                                                                       .css("top", "" + top + "px")
+                                                                       .css("font-size", "" + fontsize)
+                                                                       .css("font-style", "" + fontstyle)
+                                                                       .css("font-weight", "" + fontweight)
+                                                                       .css("letter-spacing", "" + letterspacing)
+                                                                       .css("line-height", "" + lineheight)
+                                                                       .css("opacity", "" + opacity)
+                                                                       .css("text-align", "" + textalign)
+                                                                       .css("text-shadow", "" + dropshadow)
+                                                                       .css("webkit-transform", "rotate(" + webkittransform + "deg)")
+                                                                       .css("background-color", "inherit" );
+
+                                        }
 
                                     if (tag === "image")
                                     {
@@ -542,23 +556,31 @@ and open the template in the editor.
                                     {
 
                                     $(".preview #" + blockId).append("<div><img src='" + elementdata + "'id=" + blockId + type + " alt='button'/>");
-                                            $("#" + blockId + type).css("left", "" + left + "px").css("top", "" + top + "px")
-                                            .attr("src", "buttons/button1.png");
+                                            $("#" + blockId + type).css("left", "" + left + "px")
+                                                                   .css("top", "" + top + "px")
+                                                                   .attr("src", "buttons/button1.png");
                                     }
 
                                     if (tag === "block")
                                     {
-//                  alert("block");
-                                    var width = $(this).attr("width");
-                                            var height = $(this).attr("height");
-                                            var backgroundcolor = $(this).attr("background-color");
-//                 alert(backgroundcolor);
-                                            $(".preview #" + blockId).append("<div onclick=getDivId(" + blockId + type + ") id=" + blockId + type + "></div>");
-                                            $("#" + blockId + type).css("background-color", "" + backgroundcolor)
-                                            .css("left", "" + left + "px")
-                                            .css("top", "" + top + "px")
-                                            .css("width", "" + width)
-                                            .css("height", "" + height).css("position", "absolute");
+                                    
+                                        var width = $(this).attr("width");
+                                        var height = $(this).attr("height");
+                                        var backgroundcolor = $(this).attr("background-color");                                                          
+                                        var drop_shadow=$(this).attr("Drop-shadow-color");                                               
+                                        var h_shadow =  $(this).attr("H-shadow"); 
+                                        var v_shadow=$(this).attr("V-shadow");
+                                        var Blur=$(this).attr("blur");
+                                      
+                                        $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
+                                        $("#" + type).css("background-color", "" + backgroundcolor)
+                                                     .css("margin-left", "" + left + "px")
+                                                     .css("margin-top", "" + top + "px")
+                                                     .css("width", "" + width)
+                                                     .css("position", "absolute")
+                                                     .css("height", "" + height)
+                                                     .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
+                                                     .css("opacity", "" + opacity);
                                     }
 
                                     }
@@ -717,7 +739,7 @@ and open the template in the editor.
                                                 <li>
                                                     <p id="editorheadere">font Name:</p>
                                                     <select id="fontname" style="margin: 2px;font-size: 15px; ">
-                                                        <option ng-repeat ="names in user_preferences_font_names" value="{{names}}">{{names}} </option>
+                                                        <option ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
                                                     </select>
                                                 </li>
                                                 <li><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
