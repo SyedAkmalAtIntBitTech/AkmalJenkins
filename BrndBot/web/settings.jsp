@@ -10,13 +10,14 @@ and open the template in the editor.
         <title>setting</title>
         <meta charset="UTF-8" >
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <script src="js/configurations.js" type="text/javascript"></script>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="/resources/demos/style.css">
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
@@ -179,35 +180,9 @@ and open the template in the editor.
         <div ng-controller="controllerUserChanges">
 
             <div class="row">
-                <div id="leftnav" class="col-md-1">
-                    <nav class="navbar navbar-default " role="navigation">
-                        <div class="navbar-header pull-lefts">
+                <jsp:include page="mainmenu.html"/><!--/end left column-->
 
-                            <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                        </div>
-
-                        <div class="collapse navbar-collapse">
-                            <ul class="nav nav-stacked cen">
-
-                                <li><img style="position:relative;height:100px;top:2px;left:0.7em;" src="images/Nav_Icons/NavLogoFull.svg"  alt="logo" class="img-responsive" width="50"><br><br><br></li>
-                                <li><a href="dashboard.jsp"><p id="text1"><img class="navicons" src="images/Nav_Icons/NavIcon_Home.svg"/>&nbsp;&nbsp;HOME</p></a></li>
-                                <li><a href="emaillists.jsp"><p id="text1"><img src="images/Nav_Icons/NavIcon_Email.svg" class="navicons"/>&nbsp;&nbsp;EMAIL</p></a></li>
-                                <li><a href="social.html"><p id="text1"><img src="images/Nav_Icons/NavIcon_Social.svg" class="navicons"/>&nbsp;SOCIAL</p></a></li>
-                                <li><a href="imagegallery.jsp"><p id="text1"><img src="images/Nav_Icons/NavIcon_ImageGallery.svg" class="navicons"/>&nbsp;&nbsp;IMAGE GALLERY</p></a></li>   
-                                <li><a href="#"><p id="text1"><img src="images/Nav_Icons/NavIcon_Settings.svg" class="navicons navgap"/>SETTINGS</p></a></li> 
-                                <li><a href="signout.jsp"><p id="text2">LOG OUT</p></a></li> 
-
-                            </ul>
-                        </div><!-- /.navbar-collapse -->
-                    </nav>
-
-                </div><!--/end left column-->
-
-                <div class="col-md-10">
+                <div class="col-md-10 col-md-offset-2">
                     <div class="col-md-10 ">
                         <p id="text3"> Setting page</p>
 

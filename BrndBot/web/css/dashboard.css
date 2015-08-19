@@ -7,18 +7,21 @@ and open the template in the editor.
     Created on : Jun 11, 2015, 5:24:12 PM
     Author     : Sandeep Kumar at IntBit Technologies.
 */
-.navicons {
-         left: 0.5em;
-         position: relative;
+.navicon {
+    position:relative;
+    height:30px;
+    top:-7px;
+    left:0.99em;
 }
 .navicons img{
-         height:1.5px;
-         left: 0.22em;
+         height:5em;
+         left: 0em;
          position:relative;
-         width:5px;
+         width:50px;
 }
 .navicons:hover{ color:#2D4355;
 }
+
 
 .navgap{
     margin-top:30px;
@@ -28,10 +31,9 @@ and open the template in the editor.
     position:fixed;
     z-index:10000;
     text-align:center;
-    width:130px;
+    width:100px;
     line-height:100%;  
-    height:120%;
-    max-height:100%;
+    height:100%;
     
     
 }
@@ -53,7 +55,7 @@ and open the template in the editor.
    font-weight: 500;
    position: relative;
    margin-top:0.8px;
-   left:0.05em;
+   left:-2em;
    font-style:normal;
    text-align:center;
    line-height:1.1em;
@@ -61,6 +63,7 @@ and open the template in the editor.
    opacity:1;
 }
 #text1:hover{
+    
     color:#2D4355;
 }
 
@@ -77,21 +80,48 @@ and open the template in the editor.
    text-align:center;
    line-height:10px;   
    opacity:1;
+   left:-1.9em;
 }
 /*#text2{
     font-size:small;
     font-weight: bold;
 }*/
-.cen p{
-    position:relative;
-    text-align:center;
-    
+
+.hidhov li a:hover{
+    background-color: transparent;
 }
-#text3
-{
-    position: relative;
+
+#text3 {
+    position:relative;
+    padding-top:14%;   
+    font-family: "proxima-nova",sans-serif;
+    font-weight: 600;
+    font-size:34.2px;
+    color:#454141;
+    font-style: normal;
+    text-align:left;
+    line-height: 41px;
+    letter-spacing: 0em;
+    width:600px;
+}
+#text3-1{
+    position:relative;
     left: 120px;
-    top: 120px;   
+    top: 22%;  
+    font-family: "proxima-nova",sans-serif;
+    font-weight: 600;
+    font-size:34.2px;
+    color:#454141;
+    font-style: normal;
+    text-align:left;
+    line-height: 41px;
+    letter-spacing: 0em;
+    width:600px;
+}
+#text3-2 {
+    position:fixed;
+    left: 120px;
+    top: 26%;   
     font-family: "proxima-nova",sans-serif;
     font-weight: 600;
     font-size:34.2px;
@@ -159,7 +189,7 @@ and open the template in the editor.
 }*/
 #soceml{
     position: relative;
-    left: 2.5em;
+    left: 3.5em;
     font-family: "proxima-nova-soft",sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -182,11 +212,17 @@ and open the template in the editor.
     letter-spacing: 0em;
 }
 
+#promotelist{
+    position:relative;
+    padding-top:9%;  
+    padding-bottom: 2%;
+    padding-right: 3%;
+}
+
+
 #promotelist li{
     display: inline-block;
     position:relative;
-    left: 85px;
-    top: 142px;
     font-family: "proxima-nova-soft",sans-serif;
     font-weight: 400;
     font-size:13px;
@@ -208,30 +244,19 @@ and open the template in the editor.
 
 #promotebuttonlist li{
         display: inline-block;
-          margin: 0px -20px 0px 0px;
+        left:-100px;
         position: relative;
-        left: 50px;
-        top: 140px;
-        margin-left:20px;
-}
+        padding-top: 6%;
+        width: 150px;
+        margin-left: 53px;
+       }
 
-#promotelist img{
-    margin: 0px 39px 0px 0px;
-    left: 150px;
-    font-family: "proxima-nova",sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1.13em;
-    color: #2d4355;
-    text-align: left;
-    line-height: 1.21em;
-    letter-spacing: 0em;
-}
 
 #subpromotelist  li{
                 list-style-type: none;
                 font-weight: bold;
                 position:relative;
+                top:10px;
                 left: 30px;
                 font-family: "proxima-nova",sans-serif;
                 font-weight: 600;

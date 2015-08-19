@@ -30,6 +30,7 @@
                 position: relative;
                 overflow: hidden;
                 margin: 10px;
+                left:-20px;
             }
             .fileUpload input.upload {
                 position: absolute;
@@ -101,20 +102,20 @@
             </div>
             <div id="contentdiv">
                 <div class="row">
-                    <div class="col-md-4 col-md-offset-5">
+                    <div class="col-md-4 col-md-offset-4">
                         <p id="comment1"> Upload your logo </p> 
                         <p id="comment2">Please upload in a .PNG, .JPEG,</p> <br><br>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-md-offset-5">
+                    <div class="col-md-4 col-md-offset-4">
                         <img id="logoimage" src="images/question-mark-black-background.png" alt="logo" class="img-responsive" width="80" height="100"><br><br><br>
                     </div>
                 </div>
 
                 <div class="group" ng-controller="myCtrl">
                     <div class="span5 col-md-offset-5 ">
-                        <button id="Servicecontinue" type="submit"  class="btn btn-info" disabled ng-click="uploadFile()">UPLOAD LOGO</button><br><br>
+                        <button id="Servicecontinue" type="submit" class="btn btn-info" disabled ng-click="uploadFile()">UPLOAD LOGO</button><br><br>
                         <div class="fileUpload btn ">
                             <span>Click to upload a logo</span>
                             <input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="myFile" />

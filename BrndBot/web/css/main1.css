@@ -8,6 +8,20 @@ and open the template in the editor.
     Author     : development
 */
 
+.simplebox1 {
+
+ border: none ;
+
+ -webkit-box-shadow: none !important;
+ -moz-box-shadow: none !important;
+   box-shadow: none !important ;
+  border-bottom:1px solid #757575;
+  border-radius:0px; 
+  position: relative;
+  top:22px;
+  margin-bottom: 50px;
+  
+}
 
 .simplebox {
 
@@ -19,25 +33,33 @@ and open the template in the editor.
   border-bottom:1px solid #757575;
   border-radius:0px; 
   
+  
 }
 
 
 
 
 /*////// signup page animation    //////*/
-
-
+#std >div,a {
+    position: relative;
+    padding-top: 40px;
+}
+#std > div label{
+    position: relative;
+    top:-50px;
+    left:-4px;
+}
 .group1 label {
+
     font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 400;
-font-size: 16px;
-color: #2c4355;
+font-size: 22px;
+color: #999;
 text-align: left;
 line-height: 14.4px;
 letter-spacing:0em;
-opacity: 1;
-    
+opacity: 1;    
 }
 .group1 label p{
     font-family: "proxima-nova",sans-serif;
@@ -48,10 +70,28 @@ color: #2c4355;
 text-align: left;
 letter-spacing:0em;
 opacity: 1;
+
 }
-
-
-.group  div label{     
+.group label{
+    position: relative;
+    top:-30px;
+    left:-2px;
+}
+.group2 label{
+    position: relative;
+    top:-60px;
+    left:-2px;
+    font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+color: #2c4355;
+text-align: left;
+line-height: 14.4px;
+letter-spacing:0em;
+opacity: 1;
+}
+.group  div label{
  font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 400;
@@ -88,7 +128,7 @@ input:focus         { outline:none; }
 /* LABEL ======================================= */
 label                {
   color:#999; 
-  font-size:13px;
+  font-size:14px;
   font-weight:normal;
   position:absolute;
   pointer-events:none;
@@ -130,13 +170,14 @@ label                {
 
 
 #inputcompanyname:focus ~ label, #inputcompanyname:valid ~ label        {
-  left:-155px;
+  
+    left:-155px;
   font-size:13px;
   color:#999;
 }
 
 #inputstudio:focus ~ label, #inputstudio:valid ~ label        {
-  left:-50px;
+  left:-70px;
   font-size:13px;
   color:#999;
 }
@@ -160,8 +201,9 @@ label                {
    
 }
 #logo{
-    margin: 0 auto;
-    
+    position: relative;
+    padding-top: 20px;
+    left: 509px;
 }
 .text-left-1{
     font-family: "proxima-nova",sans-serif;
@@ -188,7 +230,6 @@ label                {
     opacity: 1;    
 }
 .form-group{
-     
  text-decoration: none !important;
 }
 
@@ -269,6 +310,7 @@ opacity: 1;
     background-color: #40B89A; 
     border-radius: 5px;
     color: white;
+    bottom: 0px;
 }
 
 .btn-info:hover{
@@ -287,7 +329,11 @@ text-align: left;
 line-height: 20.4px;
 letter-spacing: 0em;
 opacity:1;
+border-radius: 0px;
     
+}
+#contemporary1:hover{
+    background-color:  #5cc2a5;
 }
 
 #image1{
@@ -302,7 +348,7 @@ opacity:1;
 
 /*................css for logo upload....*/
 .commentlin{
-    font-family: "proxima-nova",sans-serif;
+font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 100;
 font-size: 15.5px;
@@ -311,14 +357,15 @@ text-align: left;
 line-height: 15.8px;
 letter-spacing: 0em;
 opacity: 1;
-width: 400px;
+width: 720px;
+}
+.cmlinpos{
 position: relative;
 top:1px;
-    
+left: 50px;
 }
-
 #comment1{   
-  font-family: "proxima-nova",sans-serif;
+font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 600;
 font-size: 21.5px;
@@ -327,6 +374,7 @@ text-align: left;
 line-height: 25.8px;
 letter-spacing: 0em;
 opacity: 1;
+width:500px;
 }
 #comment2{
     font-size: 12px;
@@ -348,7 +396,7 @@ opacity: 1;
 }
 #contentdiv {
     position: relative;
-    top:70px;
+    top:114px;
 }
 
 #continuelookchooser{
@@ -375,19 +423,29 @@ opacity: 1;
     border-radius: 5px;
 }
 
-
+.blankcolor-box1{
+   float: left;
+        width: 36px;
+        height: 15px;
+        border-radius: 50px;
+        margin-left:  120px;
+        margin-top: 10px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(0,0,0,.2); 
+}
 
 
 
 .color-box{
     float: left;
-    width: 70px;
-    height: 35px;
-    margin: 5px;
-    border-width: 2px;
+    width: 26px;
+    height: 11px;
+    margin:5px;
+    border-width: 1px;
     border-style: solid;
     border-color: rgba(0,0,0,.2);
-    border-radius: 10px;
+    border-radius: 3px;
     
 }
 .blankcolor-box{
@@ -495,6 +553,7 @@ opacity: 1;
 #organisationbutton{
     position: relative;
     left:5px;
+    top:35px;
     
 }
 
@@ -505,6 +564,11 @@ opacity: 1;
     position: relative;
     margin-left: 8px;
     
+}
+#Servicecontinue{
+    top:70px;
+    left:10px;
+    position: relative;
 }
 
 
@@ -538,5 +602,5 @@ opacity: 1;
 
 #loochooserbutton{
     position: relative;
-   left: 27px;
+   left: 35px;
 }

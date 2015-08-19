@@ -15,7 +15,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <link href="css/leftnavbar.css" rel="stylesheet" type="text/css"/>
+ <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/leftmenuhamburger.js" type="text/javascript"></script>
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
@@ -184,24 +184,9 @@
 
 
         <div class="row">
-            <div id="sidebar-wrapper" class="col-md-1">
-                <nav class="navbar navbar-default " role="navigation">
-                    <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
-                    <button class="hamburger">&#9776;</button>
-                    <button class="cross">&#9776;</button>
-                    <ul class="nav nav-stacked menu">
-                        <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
-                        <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
-                        <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
-                        <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
-                        <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br></li> 
-                        <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br></li> 
-                    </ul>
-                    <!-- /.navbar-collapse -->
-                </nav>
-            </div>
-            <div class="col-md-6 col-md-offset-1">
-                <p id="text1">EDIT THIS EMAIL</p>
+           <jsp:include page="leftmenu.html"/>
+            <div class="col-md-4 col-md-offset-1">
+                <p id="textgrt">SEND EMAIL PREVIEW</p>
                 <p id="text2">go back</p>
                 <form class="form-horizontal" id="emailform">
                      <div class="group">

@@ -382,7 +382,7 @@ Please arrange them with most used to least used in your designs.</p>
                                     <input type="hidden" id="finalcolor6" name="finalcolor6" ng-model="selColor.finalcolor6"/>
 
                                     <div class="span4 col-md-offset-0">
-                                        <button  type="button" class="btn btn-info" ng-click="createUserPreferences()">CONTINUE</button>
+                                        <button style="position: relative;bottom:20px; " type="button" class="btn btn-info" ng-click="createUserPreferences()">CONTINUE</button>
                                     </div>
 
                                 </form>
