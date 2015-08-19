@@ -8,6 +8,7 @@ package com.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,8 +56,11 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
             String str_new = str.replace("&quot;", "\"");
             json_user_preferences = (JSONObject) parser.parse(str_new);
             
-            String type = (String)json_user_preferences.get("type");
             Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
+            String brand_id = (String)getSqlMethodsInstance().session.getAttribute("brandID");
+            String look_id = (String)getSqlMethodsInstance().session.getAttribute("LookID");
+            String studio_id = (String)getSqlMethodsInstance().session.getAttribute("studioID");
+            String type = (String)json_user_preferences.get("type");
 
             if (type.equalsIgnoreCase("update")){
                 JSONObject json_user_preferences_from_database = getSqlMethodsInstance().getJSONUserPreferences(user_id);
@@ -72,10 +76,6 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
 
             }else {
 
-                String brand_id = (String)getSqlMethodsInstance().session.getAttribute("brandID");
-                String look_id = (String)getSqlMethodsInstance().session.getAttribute("LookID");
-                String studio_id = (String)getSqlMethodsInstance().session.getAttribute("studioID");
-
                 getSqlMethodsInstance().session.setAttribute("Checked", "true");
 
                 Integer font_theme_id = getSqlMethodsInstance().getFontthemeid(brand_id);
@@ -83,8 +83,8 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
                 
             }
         }catch(Exception e){
-             System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();

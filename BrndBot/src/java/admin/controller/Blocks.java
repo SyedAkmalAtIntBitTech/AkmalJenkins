@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 
 /**
@@ -18,6 +20,8 @@ import javax.naming.NamingException;
  * @author intbit
  */
 public class Blocks {
+    private static final Logger logger = Logger.getLogger(Blocks.class.getName());
+    
     SqlMethods sqlmethods;
 
     public Blocks() throws NamingException {
@@ -38,8 +42,7 @@ public class Blocks {
                 check = true;
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }
         finally {
             sqlmethods.close(result_set, prepared_statement);
@@ -62,10 +65,8 @@ public class Blocks {
             prepared_statement.setInt(4, sub_category_id);
             
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }
         finally {
             sqlmethods.close(result_set, prepared_statement);
@@ -83,10 +84,8 @@ public class Blocks {
             
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }finally {
             sqlmethods.close(result_set, prepared_statement);
         }
@@ -103,10 +102,8 @@ public class Blocks {
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }
         finally {
             sqlmethods.close(result_set, prepared_statement);

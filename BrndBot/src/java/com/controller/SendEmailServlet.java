@@ -5,38 +5,17 @@
  */
 package com.controller;
 
-import email.mandrill.Attachment;
 import email.mandrill.Message;
-import email.mandrill.Recipient;
-import email.mandrill.RecipientMetadata;
 import email.mandrill.SendMail;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import javax.servlet.annotation.WebServlet;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.HttpClients;
-import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -70,12 +49,13 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             String email_subject = request.getParameter("email_subject");
             String email_addresses = request.getParameter("email_addresses");
             String html_text = (String) getSqlMethodsInstance().session.getAttribute("htmldata");
-             String emaillist_name = (String) getSqlMethodsInstance().session.getAttribute("email_list");
-             String reply_to_address = request.getParameter("reply_to_email_address");
+            String emaillist_name = (String) getSqlMethodsInstance().session.getAttribute("email_list");
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+            
+            String reply_to_address = request.getParameter("reply_to_email_address");
             String from_email_address = request.getParameter("from_email_address");
             String from_name = request.getParameter("from_name");
             Message message = new Message();
-            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
 //            message.setKey(MANDRILL_KEY);
 //
@@ -122,8 +102,8 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             send_email.sendMail(message);
             out.write("true");
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.write(getSqlMethodsInstance().error);
         } finally {
             out.close();

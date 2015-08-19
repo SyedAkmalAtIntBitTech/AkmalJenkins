@@ -5,12 +5,15 @@
  */
 package admin.controller;
 
+import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.SqlMethods;
 import com.intbit.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 
 /**
@@ -18,7 +21,7 @@ import javax.naming.NamingException;
  * @author intbit
  */
 public class SubCategories {
-
+    private static final Logger logger = Logger.getLogger(SubCategories.class.getName());
     SqlMethods sqlmethods;
 
     public SubCategories() throws NamingException {
@@ -39,11 +42,9 @@ public class SubCategories {
                 check = true;
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
-
         }
 
         return check;
@@ -64,8 +65,7 @@ public class SubCategories {
                 category_name = result_set.getString("category_name");
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -90,8 +90,7 @@ public class SubCategories {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -115,8 +114,7 @@ public class SubCategories {
 
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -135,8 +133,7 @@ public class SubCategories {
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -155,8 +152,7 @@ public class SubCategories {
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 

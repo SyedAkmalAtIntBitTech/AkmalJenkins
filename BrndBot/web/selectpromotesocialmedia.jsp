@@ -224,7 +224,8 @@
                                 },
                                 success: function (responseText) {
     //                            $("#tokenHere").html(responseText);
-                                    alert("sucess");$("#popup").hide(); 
+                   
+                                    $("#popup").hide(); 
                                      $("#submitbutton").prop("disabled",false);
                                 }
                             });

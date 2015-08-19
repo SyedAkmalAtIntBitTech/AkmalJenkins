@@ -69,7 +69,7 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
             try {
                 responseObject.put("Error", "Request unsuccessfull");
             } catch (Exception ex) {
-                Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
             }
         } finally {
             getSqlMethodsInstance().closeConnection();
@@ -133,8 +133,7 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
             }
         }
         }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE,"", e);
         }
         return emailIDs;
     }

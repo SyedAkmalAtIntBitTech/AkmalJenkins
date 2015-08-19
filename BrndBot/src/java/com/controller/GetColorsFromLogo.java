@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,9 +54,7 @@ public class GetColorsFromLogo extends BrndBotBaseHttpServlet {
         getSqlMethodsInstance().session = request.getSession(true);
         try {
             
-            uploadPath = AppConstants.BASE_UPLOAD_PATH + File.separator + AppConstants.USER_LOGO;
-
-//            uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + "Customers";
+            uploadPath = AppConstants.USER_LOGO;
 
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
@@ -78,7 +78,7 @@ public class GetColorsFromLogo extends BrndBotBaseHttpServlet {
                     jarr.add(colors);
                 }
 
-                System.out.println(jarr);
+                logger.log(Level.INFO, jarr.toJSONString());
 
                 json.put("Colors", jarr);
                 String jsonn = new Gson().toJson(json);
@@ -86,8 +86,8 @@ public class GetColorsFromLogo extends BrndBotBaseHttpServlet {
                 out.write(jsonn);
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();

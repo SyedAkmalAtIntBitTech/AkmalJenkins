@@ -68,14 +68,22 @@
             <div class="jumbotron" style="height: 280px; margin-top: 0px; padding-top: 20px; text-align: center;">
                 <form name="formfontfamily" action="<%= application.getContextPath() %>/ServletUploadFonts" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
+               <div>
+                    <div class="col-md-3 col-md-offset-2">
+                        <p class="text-center">Add Font Style Css:</p>
+                         <input type="text"  class="form-control simplebox" id="fontstylecss" name="fontstylecss"/><br>
+                    </div>
+                </div>
+                    
+                    
                 <div>
-                    <div class="col-md-3 col-md-offset-5">
+                    <div class="col-md-3 col-md-offset-1">
                         <p class="text-center">Add New Font:</p>
                     </div>
                 </div>
                     
-                    <div class="group">
-                    <div class="col-md-3 col-md-offset-5">
+                    <div class="group"> 
+                    <div class="col-md-3 col-md-offset-1">
                         <%= exist1 %>
                         <input type="text"  class="form-control simplebox" id="fontname" name="fontname"/><br>
                         Attach Font: <input type="file" style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="fontfileName" /><br>

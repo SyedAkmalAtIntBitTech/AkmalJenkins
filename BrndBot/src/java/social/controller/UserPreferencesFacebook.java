@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,6 +25,7 @@ import org.postgresql.util.PGobject;
 public class UserPreferencesFacebook {
 
     private SqlMethods sqlMethods;
+    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(UserPreferencesFacebook.class));
 
     public UserPreferencesFacebook() throws NamingException {
     }
@@ -168,8 +171,8 @@ public class UserPreferencesFacebook {
 
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         } finally {
             sqlMethods.close(result_set, prepared_statement);
         }

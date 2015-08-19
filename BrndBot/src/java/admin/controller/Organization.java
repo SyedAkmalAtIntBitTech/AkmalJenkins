@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 
 /**
@@ -18,7 +20,7 @@ import javax.naming.NamingException;
  * @author intbit
  */
 public class Organization {
-
+    private static final Logger logger = Logger.getLogger(Organization.class.getName());
     SqlMethods sqlmethods;
 
     public Organization() throws NamingException {
@@ -39,8 +41,7 @@ public class Organization {
                 check = true;
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }        finally {
                         sqlmethods.close(result_set, prepared_statement);
 
@@ -60,8 +61,7 @@ public class Organization {
             prepared_statement.setString(1, organization_name);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }        finally {
                         sqlmethods.close(result_set, prepared_statement);
 
@@ -80,8 +80,7 @@ public class Organization {
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }        finally {
                         sqlmethods.close(result_set, prepared_statement);
 
@@ -100,8 +99,7 @@ public class Organization {
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }        finally {
                         sqlmethods.close(result_set, prepared_statement);
 

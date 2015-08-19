@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
 
@@ -19,6 +20,7 @@ import org.apache.commons.io.FileUtils;
  */
 public class PhantomImageConverter {
 
+    private static final Logger logger = Logger.getLogger(PhantomImageConverter.class.getName());
     private static final String kEncoding = "UTF-8";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
     private static String templateHTMLFilePath;
@@ -28,10 +30,14 @@ public class PhantomImageConverter {
 
     public PhantomImageConverter(ServletContext context) throws Exception {
 
-        path = context.getRealPath(File.separator);
+        path = context.getRealPath("");
         templateJSFilePath = path + "/template.js";
         templateHTMLFilePath = path + "/template.html";
-        tempPath = path + "/temp/";
+        tempPath = AppConstants.LAYOUT_IMAGES_HOME + File.separator;
+        File tempPathDir = new File(tempPath);
+        if (!tempPathDir.exists()){
+            tempPathDir.mkdirs();
+        }
     }
 
     public File getImage(String htmlString, String width, String height, String x, String y) throws Exception {
@@ -43,7 +49,8 @@ public class PhantomImageConverter {
  
         Process process = runTime.exec(execPath);
         int exitStatus = process.waitFor();
-        File tempImagePath = new File(tempPath + createdJSFile.getName().replace("js", "png"));
+        File tempImagePath = new File(tempPath + File.separator + createdJSFile.getName().replace("js", "png"));
+        logger.info(tempImagePath.getPath());
         createdHtmlFile.delete();
         createdJSFile.delete();
 

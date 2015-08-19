@@ -3,6 +3,7 @@
     Created on : Jul 10, 2015, 10:03:32 AM
     Author     : intbit
 --%>
+<%@page import="com.intbit.AppConstants"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.io.File"%>
 <%@page import="javax.swing.JFileChooser"%>
@@ -41,6 +42,15 @@ and open the template in the editor.
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
 
+        <script src="//use.typekit.net/wnn8jyx.js"></script>
+        <script>
+            try{
+                Typekit.load({ async: true });
+            }
+            catch(e){}
+       </script>
+        
+        
         <style>
             .socialimage{
                 width: 100px;
@@ -156,6 +166,12 @@ and open the template in the editor.
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
 
+        <script src="//use.typekit.net/wnn8jyx.js"></script>
+        <script>
+            try{
+                Typekit.load({ async: true });}
+            catch(e){}</script>
+        
         <script>
                     var jsondata;
                     var selectedDivId;
@@ -168,6 +184,7 @@ and open the template in the editor.
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
+//                        alert(JSON.stringify(data.user_font_names));
                     $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_names = data.user_font_names;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -187,7 +204,7 @@ and open the template in the editor.
                                     method : 'GET',
                                             url : 'GetLayoutStyles?editorType=social'
                                     }).success(function(data, status, headers, config) {
-
+                                            alert(JSON.stringify(data));
                                     $scope.datalists = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
@@ -234,10 +251,9 @@ and open the template in the editor.
             };
             });
                     function showText(id, layout){
-//    alert(id+""+layout);
-
-                    layoutfilename = layout;
+//   alert(id+""+layout);
                             $("#clickid").val(layout);
+                            alert('http://localhost:8080/BrndBot/DownloadXml?file_name='+ layout +'.xml');
                             $.ajax({
                                     type: 'GET',
                                     url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + '&editor_type=social',
@@ -247,7 +263,7 @@ and open the template in the editor.
                                     jsondata = data;
                                             $.ajax({
                                             type: "GET",
-                                                    url: "images/xml/" + layout + ".xml",
+                                                    url: "http://localhost:8080/BrndBot/DownloadXml?file_name="+layout+".xml",
                                                     dataType: "xml",
                                                     success: function (xml) {
                                                     $(".preview").empty();
@@ -267,7 +283,7 @@ and open the template in the editor.
                                                             $(jsondata).each(function (i, val) {
 
                                                     $.each(val, function (k, v) {
-//                               alert(k + " : " + v+ ":"+ type);
+//                            alert(k + " : " + v+ ":"+ type);
                                                     if (type.trim() == k.trim()) {
 //                                                    alert();
                                                             elementdata = v;
@@ -281,9 +297,9 @@ and open the template in the editor.
                                                             var left = $(this).attr("x-co-ordinates");
                                                             var top = $(this).attr("y-co-ordinates");
                                                             var opacity = $(this).attr("opacity");
-                                                            if (tag === "text")
+       
+                                                   if (tag === "text")
                                                     {
-
                                                             fontcolor = $(this).attr("font-color");
                                                             fontsize = $(this).attr("font-size");
                                                             fontstyle = $(this).attr("font-style");
@@ -294,16 +310,27 @@ and open the template in the editor.
                                                             var webkittransform = $(this).attr("webkit-transform");
                                                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
 //                    alert($(this).attr("text-shadow"));
-                                                            $(".preview").append("<div><textarea class=textAreas onclick=getTectId() id=" + type + ">" + elementdata + "</textarea>");
-                                                            $("#" + type).css("color", "" + fontcolor).css("position", "absolute").css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
-                                                            .css("font-size", "" + fontsize).css("font-style", "" + fontstyle).css("font-weight", "" + fontweight)
-                                                            .css("letter-spacing", "" + letterspacing).css("line-height", "" + lineheight)
-                                                            .css("opacity", "" + opacity).css("text-align", "" + textalign)
-                                                            .css("text-shadow", "" + dropshadow).css("webkit-transform", "rotate(" + webkittransform + "deg)");
+                                                        $(".preview").append("<div><textarea class=textAreas onclick=getTectId() id=" + type + ">" + elementdata + "</textarea>");
+                                                        $("#" + type).css("color", "" + fontcolor)
+                                                                .css("position", "absolute")
+                                                                .css("margin-left", "" + left + "px")
+                                                                .css("margin-top", "" + top + "px")
+                                                                .css("font-size", "" + fontsize)
+                                                                .css("font-style", "" + fontstyle)
+                                                                .css("font-weight", "" + fontweight)
+                                                                .css("letter-spacing", "" + letterspacing)
+                                                                .css("line-height", "" + lineheight)
+                                                                .css("background-color","inherit")
+                                                                .css("border","0px")
+                                                                .css("opacity", "" + opacity)
+                                                                .css("text-align", "" + textalign)
+                                                                .css("text-shadow", "" + dropshadow)
+                                                                .css("webkit-transform", "rotate(" + webkittransform + "deg)");
                                                     }
 
-                                                    if (tag === "image")
+                                               if (tag === "image")
                                                     {
+                                                    var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
                                                     var width = $(this).attr("width");
                                                     var height = $(this).attr("height");
@@ -317,31 +344,65 @@ and open the template in the editor.
                                                             .css("opacity", "" + opacity)
                                                             .css("width", "" + width)
                                                             .css("height", "" + height)
-                                                            .css("background","url(http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg)")
+                                                            .css("background", ""+background_image)
                                                             .css("background-repeat", "no-repeat")
                                                             .css("-webkit-background-size","contain")
+                                                            .css("position", "absolute"); 
+                                                    }
+                                                    
+                                                      if (tag === "logo")
+                                                    {
+                                                    var background_image = $(this).attr("background-image");
+                                                    var blendmode = $(this).attr("background-blend-mode");
+                                                    var width = $(this).attr("width");
+                                                    var height = $(this).attr("height");
+                                                
+                                    
+                        //                    alert("image");
+                                                   $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
+                                                    $("#" + type)
+                                                            .css("color", "" + fontcolor)
+                                                            .css("margin-left", "" + left + "px")
+                                                            .css("margin-top", "" + top + "px")
+                                                            .css("background-blend-mode", "" + blendmode)
+                                                            .css("opacity", "" + opacity)
+                                                            .css("width", "" + width)
+                                                            .css("height", "" + height)
+                                                            .css("background", ""+background_image)
+                                                            .css("background-repeat", "no-repeat")
+                                                            .css("-webkit-background-size","contain")
+                                                            
                                                             .css("position", "absolute"); 
                                                     }
 
                                                     if (tag === "button")
                                                     {
-
-                                                    $(".preview").append("<div><img src='" + elementdata + "'id=" + type + " alt='button'/>");
-                                                            $("#" + type).css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
-                                                            .attr("src", "buttons/button1.png");
+                                                       var imageSrc= $(this).attr("src");    
+                                                            $(".preview").append("<div><img src='" + elementdata + "'id=" + type + " alt='button'/>");
+                                                             $("#" + type) .css("position", "absolute")
+                                                                           .css("margin-left", "" + left + "px")
+                                                                           .css("margin-top", "" + top + "px")
+                                                                           .attr("src", "imageSrc");
                                                     }
 
                                                     if (tag === "block")
                                                     {
-//                  alert("block");
                                                             var width = $(this).attr("width");
                                                             var height = $(this).attr("height");
-                                                            var backgroundcolor = $(this).attr("background-color");
-//                 alert(backgroundcolor);
+                                                            var backgroundcolor = $(this).attr("background-color");           
+                                                            var drop_shadow=$(this).attr("Drop-shadow-color");
+                                                            var h_shadow =  $(this).attr("H-shadow"); 
+                                                            var v_shadow=$(this).attr("V-shadow");
+                                                            var Blur=$(this).attr("blur");
                                                             $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                                                            $("#" + type).css("background-color", "" + backgroundcolor).css("margin-left", "" + left + "px")
-                                                            .css("margin-top", "" + top + "px").css("width", "" + width)
-                                                            .css("height", "" + height);
+                                                            $("#" + type).css("background-color", "" + backgroundcolor)
+                                                                    .css("margin-left", "" + left + "px")
+                                                                    .css("margin-top", "" + top + "px")
+                                                                    .css("width", "" + width)
+                                                                    .css("position", "absolute")
+                                                                    .css("height", "" + height)
+                                                                    .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
+                                                                    .css("opacity", "" + opacity);
                                                     }
 
                                                     }
@@ -483,8 +544,10 @@ and open the template in the editor.
                                                 <li>
                                                     <p id="editorheadere">font style</p>
                                                     
+
                                                     <select id="fontname" style="margin:2px;font-size:15px;width:80px;">
-                                                        <option ng-repeat ="names in user_preferences_font_names" value="{{names}}">{{names}}</option>
+                                                        <option ng-repeat ="names in user_preferences_font_names" value="{{ names.font_family_name}}">{{ names.font_name}} </option>
+
                                                     </select>
                                                 </li>
                                                 <li><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
@@ -563,7 +626,7 @@ and open the template in the editor.
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="styles in datalists| pagination: curPage * pageSize | limitTo: pageSize">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
@@ -685,7 +748,7 @@ $(this).addClass('highlight');
                                    },
                                    success: function (responseText) {
                                            var image=responseText;
-
+//                                           alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
 
                                    }

@@ -5,18 +5,13 @@
  */
 package com.intbit;
 
-import admin.controller.Categories;
 import admin.controller.Layout;
-import admin.controller.ServletAddCategories;
 import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +26,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -58,13 +54,10 @@ public class Model extends BrndBotBaseHttpServlet {
         String fileName, fieldName, uploadPath;
         boolean type_email = false;
         boolean type_social = false;
-        String upload_path = "";
         try {
             
             response.setContentType("text/html;charset=UTF-8");
-//            uploadPath = getServletContext().getRealPath("") + File.separator + "images" + "/xml";
-           uploadPath = getServletContext().getInitParameter("file-upload") + File.separator + "xml";
-            //        uploadPath = getServletContext().getContextPath() + "/xml";
+            uploadPath = AppConstants.BASE_XML_UPLOAD_PATH;
 
             Integer organization_id = Integer.parseInt(request.getParameter("organization"));
             Integer brand_id = Integer.parseInt(request.getParameter("brand"));
@@ -73,6 +66,7 @@ public class Model extends BrndBotBaseHttpServlet {
             Integer sub_category_id = 0;
             String mapperfilename = request.getParameter("mapper");
             String layoutfilename = request.getParameter("layout");
+            String Style_image_name=request.getParameter("imagename");
             Integer block_id = 0;
             
             if (request.getParameter("categories") != null){
@@ -158,24 +152,35 @@ public class Model extends BrndBotBaseHttpServlet {
                     }
                 }
             }
+            
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
 
             // write the content into xml file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(uploadPath + File.separator + layoutfilename + ".xml"));
+            StreamResult result = new StreamResult(new File(uploadPath + File.separator +layoutfilename + ".xml"));
 
             TransformerFactory transformerFactory1 = TransformerFactory.newInstance();
             Transformer transformer1 = transformerFactory1.newTransformer();
             DOMSource source1 = new DOMSource(doc1);
             StreamResult result1 = new StreamResult(new File(uploadPath + File.separator + mapperfilename + ".xml"));
-
             // Output to console for testing
             // StreamResult result = new StreamResult(System.out);
             transformer.transform(source, result);
             transformer1.transform(source1, result1);
-            layout.addLayouts(organization_id, user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, brand_id, block_id);
-            System.out.println("File saved!");
+
+            try {
+            String image_name=  layout.createImage(layoutfilename,getServletContext());
+             layout.addLayouts(organization_id, user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, brand_id, block_id,image_name);
+            } catch (SAXException ex) {
+                Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            logger.log(Level.INFO, "File saved!");
             if (request.getParameter("mail") != null){
                  type_email = true;
                 response.sendRedirect(request.getContextPath() + "/admin/emaillayoutmodel.jsp");
@@ -187,22 +192,16 @@ public class Model extends BrndBotBaseHttpServlet {
             }
 
         } catch (ParserConfigurationException pce) {
-            System.out.println(pce.getCause());
-            System.out.println(pce.getMessage());
-            System.out.println(pce.getStackTrace());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(pce, "Exception while updating org name:", getSqlMethodsInstance().error));
+
 
         } catch (TransformerException tfe) {
-            tfe.printStackTrace();
-            System.out.println(tfe.getCause());
-            System.out.println(tfe.getMessage());
-            System.out.println(tfe.getStackTrace());
+            logger.log(Level.SEVERE, util.Utility.logMessage(tfe, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         } catch (SQLException s) {
-            System.out.println(s.getCause());
-            System.out.println(s.getMessage());
-            System.out.println(s.getStackTrace());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(s, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         }finally {
-            getSqlMethodsInstance().closeConnection();
-            layout.sqlmethods.closeConnection();
         }
 
     }

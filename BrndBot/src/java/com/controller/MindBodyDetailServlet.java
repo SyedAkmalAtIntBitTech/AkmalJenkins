@@ -5,12 +5,14 @@
  */
 package com.controller;
 
+import com.intbit.AppConstants;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,8 +24,6 @@ import org.json.JSONObject;
  * @author intbit
  */
 public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
-
-    protected String xml_file_directory = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -71,9 +71,8 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
                 mindbody_hash_map = (HashMap<String, Object>) getSqlMethodsInstance().session.getAttribute(getSqlMethodsInstance().k_mind_body);
             }
 
-            xml_file_directory = getServletContext().getRealPath("") + File.separator + "images";
             String mapperFileName = getSqlMethodsInstance().getMapperFile(user_id, organization_id, Integer.parseInt(category_id), Integer.parseInt(sub_category_id), model_mapper_id, block_id, editor_type);
-            String editor_mapper_file_name = xml_file_directory + File.separator + "xml" + File.separator + mapperFileName  + ".xml";
+            String editor_mapper_file_name = AppConstants.BASE_XML_UPLOAD_PATH + File.separator + mapperFileName  + ".xml";
 
             JSONObject mapped_json_object = null;
             Object selected_object = mindbody_hash_map.get(mindbody_data_id);
@@ -91,9 +90,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
                 response.getWriter().write(mapped_json_object.toString());
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
         } finally {
             out.close();
             getSqlMethodsInstance().closeConnection();

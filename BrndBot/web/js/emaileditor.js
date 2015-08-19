@@ -28,6 +28,10 @@ function setSocialParameters(title, teacher, date) {
 $(document).ready(function () {
 //
 //    alert("clicked");
+ $("#tabs-1").show();
+        $("#tabs-2").hide();
+        $("#tabs-3").hide();
+        $("#tabs-4").hide();
     $('.color-box').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
@@ -97,14 +101,14 @@ $(document).ready(function () {
        success: function (data) {
            var jsondataDefault = data;
            var allLayoutFilename = [];
-
+//       alert(JSON.stringify(data));
            $(jsondataDefault).each(function (i, val) {
                var i = 0;
                $.each(val, function (k, v) {
                    allLayoutFilename[i] = v;
                    i++;
                });
-
+//                alert( allLayoutFilename[i] );
            });
 
     $.ajax({
@@ -114,10 +118,10 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
         jsondata = data;
-        $(".preview").append("<div onclick=getBlockId(defaultblock1) id='defaultblock1' name='"+mindbodydataId+"'></div>");
+        $(".preview").append("<div onclick=getBlockId(defaultblock1) id='defaultblock1' blockdetails='"+ allLayoutFilename[0] +"' name='"+mindbodydataId+"'></div>");
             $.ajax({
                 type: "GET",
-                url: "xml/" + allLayoutFilename[1] + ".xml",
+                url: "http://localhost:8080/BrndBot/DownloadXml?file_name=" + allLayoutFilename[1] + ".xml",
                 dataType: "xml",
                 success: function (xml) {
                     $(xml).find('layout').each(function () {
@@ -131,6 +135,7 @@ $(document).ready(function () {
                         $(".preview").css("overflow", "scroll");
                         $(".preview #defaultblock1").css("width", width + "px");
                         $(".preview #defaultblock1").css("height", height + "px");
+                        $(".preview #defaultblock1").css("position", "relative");
                     }
 
                     );
@@ -176,9 +181,9 @@ $(document).ready(function () {
                             var webkittransform = $(this).attr("webkit-transform");
                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
 //                    alert($(this).attr("text-shadow"));
-                            $(".preview #defaultblock1").append("<div><textarea class=textAreas readonly onclick=getTectId(block1"+type+") id=block1" + type + ">" + elementdata + "</textarea>");
-                            $("#" + type).css("color", "" + fontcolor)
-                                        .css("position", "relative")
+                            $(".preview #defaultblock1").append("<div><textarea class=textAreas readonly onclick=getTectId("+type+"SSSdefaultblock1) id=" + type + "SSSdefaultblock1>" + elementdata + "</textarea>");
+                            $("#" + type+"SSSdefaultblock1").css("color", "" + fontcolor)
+                                         .css("position", "absolute")
                                         .css("left", "" + left + "px")
                                         .css("top", "" + top + "px")
                                         .css("font-size", "" + fontsize)
@@ -191,6 +196,7 @@ $(document).ready(function () {
                                         .css("text-shadow", "" + dropshadow)
                                         .css("webkit-transform", "rotate(" + webkittransform + "deg)")
                                         .css("resize", "none")
+                                        .css("background-color","inherit")
                                         .css("border", "none")
                                         .css("focus", "none");
                         }
@@ -200,30 +206,33 @@ $(document).ready(function () {
                             var blendmode = $(this).attr("background-blend-mode");
                             var width = $(this).attr("width");
                             var height = $(this).attr("height");
+                            var background_image = $(this).attr("background-image");
 //                    alert("image");
-                           $(".preview #defaultblock1").append("<div onclick=getImageid(block1" + type + ") id=block1" + type + " ></div>");
-                            $("#block1" + type)
+                           $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "SSSdefaultblock1) id=" + type + "SSSdefaultblock1></div>");
+                            $("#" + type+"SSSdefaultblock1")
                                     .css("color", "" + fontcolor)
+                                .css("position", "absolute")
                                     .css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .css("background-blend-mode", "" + blendmode)
                                     .css("opacity", "" + opacity)
                                     .css("width", "" + width)
                                     .css("height", "" + height)
-                                    .css("background","url(http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg)")
+                                    .css("background",""+background_image)
                                     .css("background-repeat", "no-repeat")
                                     .css("-webkit-background-size","contain")
-                                    .css("position", "relative");   
+                                .css("position", "absolute");
+          
                         }
 
                         if (tag === "button")
                         {
 //                            alert("button");
-                            $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=block1" + type + " alt='button'/>");
-                            $("#block1" + type).css("left", "" + left + "px")
+                            $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=" + type + "SSSdefaultblock1 alt='button'/>");
+                            $("#" + type +"SSSdefaultblock1").css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .attr("src", "buttons/button1.png")
-                                    .css("position", "relative");   
+                                    .css("position", "absolute");   
                         }
 
                         if (tag === "block")
@@ -233,13 +242,14 @@ $(document).ready(function () {
                             var height = $(this).attr("height");
                             var backgroundcolor = $(this).attr("background-color");
 //                 alert(backgroundcolor);
-                            $(".preview #defaultblock1").append("<div onclick=getDivId(block1" + type + ") id=block1" + type + "></div>");
-                            $("#block1" + type).css("background-color", "" + backgroundcolor)
+                            $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "SSSdefaultblock1) id=" + type + "SSSdefaultblock1></div>");
+                            $("#" + type +"SSSdefaultblock1").css("background-color", "" + backgroundcolor)
                                     .css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .css("width", "" + width)
                                     .css("height", "" + height)
-                                    .css("position", "relative");   
+                                    .css("opacity", "" + opacity)
+                                    .css("position", "absolute");   
                         }
 
                     }
@@ -265,17 +275,8 @@ $("#sortUpBlock").click(function(){
 });
  $("#deleteBlock").easyconfirm();
 $("#deleteBlock").click(function(){
-    
     var tempSelectedBlockId = $(selectedBlockId).attr("id");
-
-    if(tempSelectedBlockId != "block1")
-    {
     $("#"+tempSelectedBlockId).remove();
-    }
-    else
-    {
-        alert("Sorry defalt block can`t be deleted.");
-    }
 });
 $("#sortDownBlock").click(function(){
 
@@ -478,7 +479,10 @@ function getBlockId(id) {
     selectedBlockId = id;
     
     mindbodydataId = $(selectedBlockId).attr("name").toString();
-    
+     $("#tabs-1").show();
+        $("#tabs-2").hide();
+        $("#tabs-3").hide();
+        $("#tabs-4").hide();
 }
 
 function getTectId(id) {

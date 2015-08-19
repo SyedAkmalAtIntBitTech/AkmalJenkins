@@ -18,6 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -26,6 +28,8 @@ import javax.imageio.ImageIO;
  * @author intbit
  */
 public class GetColorFromImage extends Component {
+
+        private static final Logger logger = Logger.getLogger(util.Utility.getClassName(GetColorFromImage.class));
 
     public static boolean ASC = true;
     public static boolean DESC = false;
@@ -41,8 +45,7 @@ public class GetColorFromImage extends Component {
             int blue = pixel & 0x000000ff;
             hex = String.format("#%02x%02x%02x", red, green, blue);
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
         return hex;
     }
@@ -64,7 +67,7 @@ public class GetColorFromImage extends Component {
                 }
             }
 
-            System.out.println("After sorting ascending order......");
+            logger.log(Level.INFO, "After sorting ascending order......");
             Map<String, Integer> sortedMapAsc = sortByComparator(colorMap, ASC);
             // printMap(sortedMapAsc);
 
@@ -78,8 +81,7 @@ public class GetColorFromImage extends Component {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
         return null;
     }
@@ -109,8 +111,7 @@ public class GetColorFromImage extends Component {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
         }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
         return sortedMap;
     }
@@ -118,12 +119,11 @@ public class GetColorFromImage extends Component {
     public static void printMap(Map<String, Integer> sortedMapAsc) {
         try{
             for (Entry<String, Integer> entry : sortedMapAsc.entrySet()) {
-                System.out.println("Key : " + entry.getKey() + " Value : "
+                logger.log(Level.INFO, "Key : " + entry.getKey() + " Value : "
                         + entry.getValue());
             }
         }catch(Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
     }
 
@@ -135,12 +135,12 @@ public class GetColorFromImage extends Component {
             list = marchThroughImage(image, 10);
 
             for (String color : list) {
-                System.out.println(color);
+                logger.log(Level.INFO, color);
             }
 
         } catch (IOException e) {
-            System.err.println(e.getMessage());
-            
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
         }
         return list;
     }

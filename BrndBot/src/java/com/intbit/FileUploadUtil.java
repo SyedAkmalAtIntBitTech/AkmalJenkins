@@ -26,18 +26,17 @@ public class FileUploadUtil {
     private static final int maxFileSize = 30000 * 1024;
     private static final int maxMemSize = 30000 * 1024;
     
-    public static String uploadFile(String pathSuffix,
+    public static String uploadFile(String uploadPath,
             HttpServletRequest request) throws FileUploadException, Exception {
         logger.info("FileUploadUtil::Entering FileUploadUtil#uploadFile");
         
         String fileName = null;
-        String uploadPath = AppConstants.BASE_UPLOAD_PATH + File.separator + pathSuffix;
         logger.info("FileUploadUtil::Upload path without filename: " + uploadPath);
         DiskFileItemFactory factory = new DiskFileItemFactory();
         // maximum size that will be stored in memory
         factory.setSizeThreshold(maxMemSize);
         // Location to save data that is larger than maxMemSize.
-        factory.setRepository(new File("/tmp"));
+        factory.setRepository(new File(AppConstants.TMP_FOLDER));
 
         // Create a new file upload handler
         ServletFileUpload upload = new ServletFileUpload(factory);

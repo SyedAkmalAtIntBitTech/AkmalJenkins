@@ -152,7 +152,6 @@ and open the template in the editor.
                     angular.module("myapp", [])
                     .controller("controllerGetMindBody", function($scope, $http) {
                     $("#continuebutton").hide();
-
                     $scope.showData = function(){
 
                     $scope.curPage = 0;

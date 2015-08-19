@@ -86,7 +86,7 @@ public class ServletColors extends BrndBotBaseHttpServlet {
                 String color_hex = (String) joFonts.get("color_hex");
                 String color_name = (String) joFonts.get("color_name");
                 boolean check = colors.checkAvailability(color_hex, color_name);
-                if (check) {
+                if (!check) {
                     out.write("false");
                 } else {
                     colors.edit(Integer.parseInt(color_id), color_hex, color_name);
@@ -98,12 +98,10 @@ public class ServletColors extends BrndBotBaseHttpServlet {
                 out.write("true");
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }finally {
             out.close();
-            getSqlMethodsInstance().closeConnection();
-            colors.sqlmethods.closeConnection();
+            
         }
     }
 

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,9 @@ import org.w3c.dom.Element;
  * @author intbit
  */
 public class ServletModel extends BrndBotBaseHttpServlet {
+    
+    private static Logger logger = Logger.getLogger(ServletModel.class.getName());
+    
     String filePath;
     String fileName, fieldName, uploadPath, uploadXmlPath;
     Looks look;
@@ -57,7 +62,7 @@ public class ServletModel extends BrndBotBaseHttpServlet {
 
             look = new Looks();
 //            uploadXmlPath = getServletContext().getRealPath("") + "/model";
-            uploadPath = getServletContext().getRealPath("") + "/model";
+            uploadPath = AppConstants.BASE_MODEL_PATH;
 
             // Verify the content type
             String contentType = request.getContentType();
@@ -67,7 +72,7 @@ public class ServletModel extends BrndBotBaseHttpServlet {
                 // maximum size that will be stored in memory
                 factory.setSizeThreshold(maxMemSize);
                 // Location to save data that is larger than maxMemSize.
-                factory.setRepository(new File("c://temp"));
+                factory.setRepository(new File(AppConstants.TMP_FOLDER));
 
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -243,8 +248,8 @@ public class ServletModel extends BrndBotBaseHttpServlet {
                 out.println("</html>");
             }
         } catch (Exception ex) {
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.println(getSqlMethodsInstance().error);
         } finally {
             out.close();

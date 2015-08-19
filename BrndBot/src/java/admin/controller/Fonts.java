@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 
 /**
@@ -18,6 +20,7 @@ import javax.naming.NamingException;
  * @author intbit
  */
 public class Fonts {
+    private static final Logger logger = Logger.getLogger(Fonts.class.getName());
 
     SqlMethods sqlmethods;
 
@@ -40,8 +43,7 @@ public class Fonts {
                 check = true;
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }        finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -67,8 +69,7 @@ public class Fonts {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }        finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -76,23 +77,21 @@ public class Fonts {
 
         return fileName;
     }
-
-    public void addFont(String font_name, String file_name) throws SQLException {
+    public void addFont(String font_name, String file_name, String font_family_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Insert into tbl_font_family (font_name, file_name) values(?,?)";
+            query_string = "Insert into tbl_font_family (font_name, file_name, font_family_name) values(?,?,?)";
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setString(1, font_name);
             prepared_statement.setString(2, file_name);
+            prepared_statement.setString(3, font_family_name);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }        finally {
                         sqlmethods.close(result_set, prepared_statement);
 
@@ -111,10 +110,8 @@ public class Fonts {
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }        finally {
                         sqlmethods.close(result_set, prepared_statement);
 
@@ -133,10 +130,8 @@ public class Fonts {
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
-            prepared_statement.close();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }        finally {
                         sqlmethods.close(result_set, prepared_statement);
 

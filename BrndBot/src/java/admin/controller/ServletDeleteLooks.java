@@ -6,6 +6,7 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,7 @@ import org.json.simple.parser.JSONParser;
  */
 public class ServletDeleteLooks extends BrndBotBaseHttpServlet {
 
+    private static Logger logger = Logger.getLogger(ServletDeleteLooks.class.getName());
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,7 +45,7 @@ public class ServletDeleteLooks extends BrndBotBaseHttpServlet {
         PrintWriter out = response.getWriter();
         StringBuffer string_buffer = new StringBuffer();    
         Looks looks = new Looks();
-        String delete_path, file_name_to_delete;
+        String file_name_to_delete;
 
         try {
             BufferedReader reader = request.getReader();
@@ -55,20 +57,17 @@ public class ServletDeleteLooks extends BrndBotBaseHttpServlet {
             JSONObject jsonLook = null;
             jsonLook = (JSONObject) parser.parse(string_buffer.toString());
             Long look_id = (Long) jsonLook.get("look_id");
-            delete_path = getServletContext().getRealPath("") + "/images/Lookimages";
             file_name_to_delete = looks.getFileName(look_id.intValue());
-            String deletePath = delete_path + File.separator + file_name_to_delete;
+            String deletePath = AppConstants.LOOK_IMAGES_HOME + File.separator + file_name_to_delete;
             File deleteFile = new File(deletePath);
             deleteFile.delete();
 
             looks.deleteLooks(look_id.intValue());
             out.write("true");
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Exception while deleting Looks", e);
         }finally {
-             getSqlMethodsInstance().closeConnection();
-             looks.sqlmethods.closeConnection();
+            out.close();
         }
     }
 

@@ -106,12 +106,10 @@ public class ServletSubCategory extends BrndBotBaseHttpServlet {
                     }
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
             out.write(getSqlMethodsInstance().error);
         }finally {
-            getSqlMethodsInstance().closeConnection();
-            sub_categories.sqlmethods.closeConnection();
+            
         }
     }
 

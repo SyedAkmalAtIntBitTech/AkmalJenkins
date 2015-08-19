@@ -6,6 +6,7 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -63,23 +64,20 @@ public class ServletDeleteCategories extends BrndBotBaseHttpServlet {
             JSONObject jsonCategory = null;
             jsonCategory = (JSONObject) parser.parse(string_buffer.toString());
             Long category_id = (Long) jsonCategory.get("category_id");
-            delete_path = getServletContext().getRealPath("") + "/images/Organizations/Categories";
+            String deletePath = AppConstants.ORG_CATEGORIES_HOME;
 
             Integer organization_id = category.getOrganizationID(category_id.intValue());
             file_name_to_delete = category.getFileName(category_id.intValue());
             if (file_name_to_delete != ""){
-                String deletePath = delete_path + File.separator + organization_id + File.separator + file_name_to_delete;
+                deletePath += File.separator + organization_id + File.separator + file_name_to_delete;
                 File deleteFile = new File(deletePath);
                 deleteFile.delete();
             }            
             category.delete(category_id.intValue());
             out.write("true");
         }catch(Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }finally {
-            getSqlMethodsInstance().closeConnection();
-            category.sqlmethods.closeConnection();
         }
     }
 

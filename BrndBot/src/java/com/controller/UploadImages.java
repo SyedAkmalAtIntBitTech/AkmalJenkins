@@ -39,14 +39,15 @@ public class UploadImages extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         try {
-            Integer user_id = (Integer) request.getSession().getAttribute("UID");
+			Integer user_id = (Integer) request.getSession().getAttribute("UID");
             String pathSuffix = AppConstants.USER_IMAGE_HOME + File.separator + user_id;
             String fileName = FileUploadUtil.uploadFile(pathSuffix, request);
             getSqlMethodsInstance().AddImages(user_id, fileName);
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, "Exception while uploading image to gallery", ex);
-        }
-    }
+                    logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
+}
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

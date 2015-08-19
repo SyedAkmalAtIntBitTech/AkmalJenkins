@@ -9,6 +9,8 @@ import com.controller.BrndBotBaseHttpServlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -23,6 +25,9 @@ import org.json.simple.parser.ParseException;
  * @author intbit
  */
 public class ServletLogin extends BrndBotBaseHttpServlet {
+    
+    private static Logger logger = Logger.getLogger(ServletLogin.class.getName());
+    
     RequestDispatcher request_dispatcher;
     
      public void init(ServletConfig config) throws ServletException {
@@ -61,7 +66,7 @@ public class ServletLogin extends BrndBotBaseHttpServlet {
             joUser = (JSONObject) parser.parse(string_buffer.toString());
             String User_id = (String) joUser.get("emailid");
             String password = (String) joUser.get("password");
-            System.out.println("text");
+            logger.log(Level.INFO, "text");
             if (User_id.equals("intbit") && password.equals("password")){
                  getSqlMethodsInstance().admin_session.setAttribute("AdminChecked", "true");
                 out.write("true");
@@ -72,12 +77,10 @@ public class ServletLogin extends BrndBotBaseHttpServlet {
 
             response.setContentType("text/html");
         } catch (ParseException e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Exception while parsing JSON in admin login", e);
             out.write(getSqlMethodsInstance().error);
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Exception in admin login JSON", e);
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();

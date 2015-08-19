@@ -18,13 +18,13 @@
 <%
     try {
     sql_methods.session = request.getSession();
-    String imageName = (String)sql_methods.session.getAttribute("image_file_name");
+     imageName = (String)sql_methods.session.getAttribute("image_file_name");
 //    String imageName=request.getParameter("imageName");
         
-    String isFacebook = request.getParameter("isFacebook");
-    String isTwitter = request.getParameter("isTwitter");
-    String accesstoken = "";
-    String[] twitteracesstoken = {"", ""};
+    isFacebook = request.getParameter("isFacebook");
+     isTwitter = request.getParameter("isTwitter");
+
+
     if (isFacebook.equalsIgnoreCase("true")) {
         accesstoken = request.getParameter("fbaccessTokenSend");
     }
@@ -134,14 +134,14 @@
                     <p id="fbprev"> Facebook Preview</p><br>
                     <img id="companyimage" class="companyimage" src="images/logo.png">
                     <p>Company name</p><br>
-                    <img id="facebookpreviewimage" src='temp/<%=imageName%>'>
+                    <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                 </div>
 
                 <div class="col-sm-4" id="twitterpreviewdiv">
                     <p id="fbprev"> Twitter Preview</p><br>
                     <img id="companyimage" class="companyimage" src="images/logo.png">
                     <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"></textarea><br><br>
-                    <img id="facebookpreviewimage" src='temp/<%=imageName%>'>
+                    <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                 </div>
             </div>
              <input type="hidden" id="imageToPost" name="imageToPost" value='<%=imageName%>'/>  
@@ -169,9 +169,8 @@
                 });
                             
             $(document).ready(function () {
-                var isFacebook = "xyz";
                 var isFacebook = $("#isFacebook").val();
-                alert(isFacebook);
+
                 
                 var isTwitter = $("#isTwitter").val();
 

@@ -1,22 +1,25 @@
-package com.controller;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package util;
 
-import java.io.BufferedReader;
+import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.PhantomImageConverter;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 /**
  *
- * @author intbit
+ * @author sandeep-kumar
  */
-public class CheckAvailability extends BrndBotBaseHttpServlet {
-
-    StringBuffer string_buffer = new StringBuffer();
+public class AdminHtmlToImageServlet extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,33 +36,30 @@ public class CheckAvailability extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        boolean check = true;
-        try {
-            BufferedReader reader = request.getReader();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                string_buffer.append(line);
-            }
-
-            JSONParser parser = new JSONParser();
-            JSONObject joUser = null;
-            joUser = (JSONObject) parser.parse(string_buffer.toString());
-
-            String User_id = (String) joUser.get("emailID");
-
-            check = getSqlMethodsInstance().checkForDuplicateUser(User_id);
-            response.setContentType("text/html");
-
-            if (check) {
-                out.write("false");
-            }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while checking availability:", getSqlMethodsInstance().error));
-            out.println(getSqlMethodsInstance().error);
-        } finally {
-            out.close();
-            getSqlMethodsInstance().closeConnection();
+        try{
+             String htmlString = request.getParameter("htmlString");
+             String width= request.getParameter("containerWidth").replace("px", "");
+            String height= request.getParameter("containerHeight").replace("px", "");
+           PhantomImageConverter phantomImageConverter = new PhantomImageConverter(getServletContext());
+           File imagePngFile = phantomImageConverter.getImage(htmlString, width, height, "0", "0");
+        
+        String filename=imagePngFile.getName();
+        System.err.println(filename);
+        
+         response.setContentType("text/plain");
+        response.getWriter().write(filename);
         }
+        catch(Exception e){
+        response.setContentType("text/html;charset=UTF-8");
+           StringBuffer sb = new StringBuffer();
+           out = response.getWriter();
+           sb.append("<html><body><h2>");
+           sb.append(e.getLocalizedMessage());
+           sb.append("</body></html>");
+           out.println(sb);
+           out.close();
+        }
+   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

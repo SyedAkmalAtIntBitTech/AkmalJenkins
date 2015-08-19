@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -54,7 +56,7 @@ public class AddUpdateOrganization extends BrndBotBaseHttpServlet {
             String Company = (String) joUser.get("company");
             String organization_id = (String) joUser.get("org");
 
-            System.out.println(Company);
+            logger.log(Level.INFO, Company);
 
             String emailid = (String) getSqlMethodsInstance().session.getAttribute("EmailID");
             Integer idno = getSqlMethodsInstance().getUserID(emailid);
@@ -66,12 +68,10 @@ public class AddUpdateOrganization extends BrndBotBaseHttpServlet {
             getSqlMethodsInstance().updateUsersOrg(idno, Integer.parseInt(organization_id), Company);
             out.write("true");
         } catch (ParseException e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
             out.write(getSqlMethodsInstance().error);
-        } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+        } catch (IOException | SQLException | NumberFormatException | ClassNotFoundException e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();

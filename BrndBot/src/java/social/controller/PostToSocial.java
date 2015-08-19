@@ -6,6 +6,7 @@
 package social.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
@@ -59,7 +60,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String isTwitter = request.getParameter("isTwitter");
             String getImageFile = request.getParameter("imageToPost");
             String getFile = request.getParameter("imagePost");
-            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
+            String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
             String imagePostURL=request.getRequestURL().toString().replace("PostToSocial", "");
         
         if (isFacebook.equalsIgnoreCase("true")) {
@@ -126,15 +127,19 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
 
                 PrintWriter out1 = response.getWriter();
                 out1.println("Twitter Exception: " + te.getMessage());
+                                      logger.log(Level.SEVERE, util.Utility.logMessage(te, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             } catch (Exception e) {
                 PrintWriter out1 = response.getWriter();
                 out1.println("Exception: " + e.getMessage());
+                                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             }
 
         }
         } catch (FacebookException e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
         }
     }
 

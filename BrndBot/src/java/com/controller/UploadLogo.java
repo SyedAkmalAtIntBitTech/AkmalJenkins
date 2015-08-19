@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -50,9 +51,7 @@ public class UploadLogo extends BrndBotBaseHttpServlet {
         int maxFileSize = 5000 * 1024;
         int maxMemSize = 5000 * 1024;
         try {
-            uploadPath = AppConstants.BASE_UPLOAD_PATH + File.separator + AppConstants.USER_LOGO;
-
-//            uploadPath = getServletContext().getRealPath("") + "/images/Customers";
+            uploadPath = AppConstants.USER_LOGO;
 
             // Verify the content type
             String contentType = request.getContentType();
@@ -63,7 +62,7 @@ public class UploadLogo extends BrndBotBaseHttpServlet {
                         // maximum size that will be stored in memory
                         factory.setSizeThreshold(maxMemSize);
                         // Location to save data that is larger than maxMemSize.
-                        factory.setRepository(new File("c://temp"));
+                        factory.setRepository(new File(AppConstants.TMP_FOLDER));
 
                         // Create a new file upload handler
                         ServletFileUpload upload = new ServletFileUpload(factory);
@@ -122,8 +121,8 @@ public class UploadLogo extends BrndBotBaseHttpServlet {
                 
             
         } catch (Exception ex) {
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
+                       logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
+
             out.println(getSqlMethodsInstance().error);
         } finally {
             out.close();

@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 
 /**
@@ -18,7 +20,9 @@ import javax.naming.NamingException;
  * @author intbit
  */
 public class Looks {
-
+    
+    private static final Logger logger = Logger.getLogger(Looks.class.getName());
+        
     SqlMethods sqlmethods;
 
     public Looks() {
@@ -43,8 +47,7 @@ public class Looks {
                 check = false;
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -68,8 +71,7 @@ public class Looks {
                 check = true;
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -94,8 +96,7 @@ public class Looks {
                 fileName = result_set.getString("file_name");
             }
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -118,8 +119,7 @@ public class Looks {
             prepared_statement.setInt(3, organization_id);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -141,8 +141,7 @@ public class Looks {
             prepared_statement.executeUpdate();
             
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
         }
@@ -163,8 +162,7 @@ public class Looks {
             prepared_statement.executeUpdate();
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 
@@ -184,8 +182,7 @@ public class Looks {
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             sqlmethods.close(result_set, prepared_statement);
 

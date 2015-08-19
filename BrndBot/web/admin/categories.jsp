@@ -144,7 +144,7 @@
                         <td><%= number%></td>
                         <td><%= result_set.getString("organization_id")%></td>
                         <td><%= result_set.getString("category_name")%></td>
-                        <td><a href="../images/Organizations/Categories/<%= result_set.getString("organization_id")%>/<%= result_set.getString("image_name")%>"><%= result_set.getString("image_name")%></a></td>
+                        <td><a href="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&org_id=<%= result_set.getString("organization_id")%>&image_name=<%= result_set.getString("image_name")%>"><%= result_set.getString("image_name")%></a></td>
                         <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editCategory(<%=result_set.getInt("id")%>, '<%=result_set.getString("category_name")%>', '<%=result_set.getString("organization_id")%>')">edit</button></td>
                         <td><button class="btn btn-info" id="brand" name="brand" value="delete" ng-click="deleteCategory(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
