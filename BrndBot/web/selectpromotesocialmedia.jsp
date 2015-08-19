@@ -36,8 +36,19 @@
                 height: 100px;
                 position: relative;
                 left:-40px;
+                margin-right: 5px;
                 
             } 
+            #facebook{
+                 position: absolute;
+                margin-left: -70px;
+           
+            }
+            #twitter{
+                position: absolute;
+                margin-left: -70px;
+           
+            }
             
             #popup
             {
@@ -265,8 +276,8 @@
                 would you like to post it on?</p>
             <p class="smltxt">Click which social media platforms you want to post it on</p>
             <ul id="promotebuttonlist">
-                <li><img id="facebook"class="socialimage fb" src="images/fbButton.svg" /> <p>Facebook</p></li>
-                <li><img id="twitter" class="socialimage twt" src="images/twtButton.svg" /> <p>Twitter</p></li>
+               <li><img id="fb"class="socialimage" src="images/fbButton.svg" /> <input type="checkbox" id="facebook" name="social"  value="facebook"> </li>
+                <li><img id="twt" class="socialimage" src="images/twtButton.svg" > <input type="checkbox" id="twitter" name="social" value="twitter"><br> </li>
                 <li><div class="col-md-6 col-md-offset-6">
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
                             <input type="hidden" id="imageName" name="imageName" value ='<%=ImageName%>'/>
