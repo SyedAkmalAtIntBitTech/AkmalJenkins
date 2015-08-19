@@ -159,8 +159,8 @@
             </div>
              <input type="hidden" id="imageToPost" name="imageToPost" value='<%=imageName%>'/>  
             <input type="hidden" id="accesstoken" name="accesstoken" value='<%=accesstoken%>'/>
-            <input type="hidden" id="twittweraccestoken" name="twittweraccestoken" value=<%=twitteracesstoken[0]%>>
-            <input type="hidden" id="twitterTokenSecret" name="twitterTokenSecret" value=<%=twitteracesstoken[1]%>>
+            <input type="hidden" id="twittweraccestoken" name="twittweraccestoken" value='<%=twitteracesstoken[0]%>'>
+            <input type="hidden" id="twitterTokenSecret" name="twitterTokenSecret" value='<%=twitteracesstoken[1]%>'>
             <input type="hidden" id="isFacebook" name="isFacebook" value='<%= isFacebook%>'/>
             <input type="hidden" id="isTwitter" name="isTwitter" value='<%= isTwitter%>'/>
 

@@ -263,7 +263,7 @@ and open the template in the editor.
                                     jsondata = data;
                                             $.ajax({
                                             type: "GET",
-                                                    url: "http://localhost:8080/BrndBot/DownloadXml?file_name="+layout+".xml",
+                                                    url: global_host_address + "DownloadXml?file_name="+layout+".xml",
                                                     dataType: "xml",
                                                     success: function (xml) {
                                                     $(".preview").empty();
