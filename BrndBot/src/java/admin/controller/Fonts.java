@@ -77,18 +77,18 @@ public class Fonts {
 
         return fileName;
     }
-
-    public void addFont(String font_name, String file_name) throws SQLException {
+    public void addFont(String font_name, String file_name, String font_family_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Insert into tbl_font_family (font_name, file_name) values(?,?)";
+            query_string = "Insert into tbl_font_family (font_name, file_name, font_family_name) values(?,?,?)";
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setString(1, font_name);
             prepared_statement.setString(2, file_name);
+            prepared_statement.setString(3, font_family_name);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
