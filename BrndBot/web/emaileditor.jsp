@@ -78,6 +78,31 @@ and open the template in the editor.
                 font-weight:bold;
                 overflow: auto;
             }
+            
+            #previewpopup
+            {
+                display:none;
+                position: fixed;
+                width: 600px;
+                height:auto;
+                top: 30%;
+                left: 40%;
+                margin-left:-155px;
+                margin-top:-110px;
+                border:5px solid #686868 ;
+                background-color:#CDCDFF;
+                padding:30px;
+                z-index:102;
+                font-family:Verdana;
+                font-size:10pt;
+                border-radius:10px;
+                -webkit-border-radius:20px;
+                -moz-border-radius:20px;
+                font-weight:bold;
+                overflow: auto;
+            }
+            
+            
 
             #imagespopup{
 
@@ -182,8 +207,31 @@ and open the template in the editor.
                     var temp_style_layout;
                     var temp_block_id;
                     var temp_mind_body_query;
+                    $("#previewpopup").hide();
                     $(document).ready(function() {
                         $('#continueblock').prop('disabled', true);
+                        
+                        $("#preview").click(function(){
+                           $.ajax({
+                                    url: getHost() + "PreviewServlet",
+                                            method: "post",
+                                            data:{htmlString: $(".dataForEmail").html()},
+                                            success: function (responseText) {
+                                            
+                                                //show popup showing
+                                            $("#previewcontent").empty();
+                                            $("#previewcontent").append(responseText);
+                                            
+                                            $("#previewpopup").show();
+                                            
+                                            }
+                                    }); 
+                         
+                        });
+                            $("#closepreview").click(function(){
+                                $("#previewpopup").hide();
+                            });
+                        
                     });
                     angular.module("myapp", [])
 
@@ -349,6 +397,7 @@ and open the template in the editor.
 
                     $scope.showImages = function(){
                     $("#popup").hide();
+                    
                             $("#imagespopup").show();
                             $scope.curPage = 0;
                             $scope.pageSize = 4;
@@ -448,7 +497,7 @@ and open the template in the editor.
                             
                             $.ajax({
                             type: "GET",
-                                    url: "http://localhost:8080/BrndBot/DownloadXml?file_name="+ layout+".xml",
+                                    url: global_host_address + "DownloadXml?file_name="+ layout+".xml",
                                     dataType: "xml",
                                     success: function (xml) {
                             
@@ -619,7 +668,8 @@ and open the template in the editor.
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0">
-                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp;<p id="edit">go back</p> 
+                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp;<p id="edit">go back</p> &nbsp;&nbsp;<p id="preview">preview</p>
+
                             <div class="sortDelete" style="position:absolute;top:380px; left:0px;margin: 0px;">
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
@@ -686,6 +736,12 @@ and open the template in the editor.
                                         <input id="closepopup" type="Button" value="close"/>  
 
                                     </form>
+                                </div>   
+                            </div>
+                            <div id="previewpopup" name="previewpopup">
+                                <div id="closepreview" style="position:absolute;top:0px;">close</div>
+                                <div id="previewcontent" style="padding-top:30px;">
+                                    
                                 </div>   
                             </div>
                             <div id="cropper_popup" name="cropper_popup">

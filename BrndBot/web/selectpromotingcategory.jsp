@@ -78,7 +78,7 @@ and open the template in the editor.
 */
 .datafib{
     position: relative;
-    padding-top: 5%;
+    padding-top: 10%;
 }
 .datafromindbody li{
         vertical-align:middle; 
@@ -105,7 +105,7 @@ and open the template in the editor.
             .mindbodyOneRowData{
                 position: relative;
                 width: 800px;
-                left:-50px;
+                left:0px;
                 font-family: "proxima-nova",sans-serif;
                 font-weight: 600;
                 font-size: 21.6px;
@@ -152,6 +152,7 @@ and open the template in the editor.
                     angular.module("myapp", [])
                     .controller("controllerGetMindBody", function($scope, $http) {
                     $("#continuebutton").hide();
+
                     $scope.showData = function(){
 
                     $scope.curPage = 0;
@@ -213,9 +214,9 @@ and open the template in the editor.
 
             <div class="col-md-11 col-md-offset-1">
 
-                <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-10 col-md-offset-0">
                    <p id="text3">{{datalists.title}}  </p>
-                   <input style="position:relative;top:-47px;left:70%;" type="button" id="continuebutton" class="btn btn-info" onclick="selected_category()" value="CONTINUE" disabled="true"></div>  
+                   <input style="position:relative;top:0px;left:80%;" type="button" id="continuebutton" class="btn btn-info" onclick="selected_category()" value="CONTINUE" disabled="true"></div>  
 
 
             <div class="col-md-10 col-md-offset-1 datafib">

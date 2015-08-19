@@ -12,10 +12,10 @@ ul.tabs1
 ul.tabs1 li
 {
 	position:relative;
-    margin: 0;
+    margin-top: 10px;
     margin-right:0px; /*distance between tabs*/
 	height:31px;
-	width:130px;
+	width:200px;
 }
         
 ul.tabs1 li a
@@ -24,7 +24,7 @@ ul.tabs1 li a
     text-decoration: none;
     position: relative;
     padding: 6px 16px;
-	width:130px;
+    width:130px;
     border: 1px solid #CCC;
     border-bottom-color:#AAA;
     color: #000;

@@ -20,7 +20,7 @@
         <div class="row">
         <jsp:include page="mainmenu.html"/>
             <div>
-              <img style="position: relative;left:3%;margin-top:12%; " src="images/Mailsent.png"  width="100" height="150">
+              <img style="position: relative;left:3%;margin-top:12%; " src="images/Mailsent.png" />
               <div id="text5"> Email Sent!</div> 
             </div>
     </body>

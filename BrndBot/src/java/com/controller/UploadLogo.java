@@ -43,9 +43,9 @@ public class UploadLogo extends BrndBotBaseHttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession();
-    String filePath = null;
-    String fileName = null, fieldName = null, uploadPath = null, uploadType = null;
-    RequestDispatcher request_dispatcher = null;
+        String filePath = null;
+        String fileName = null, fieldName = null, uploadPath = null, uploadType = null;
+        RequestDispatcher request_dispatcher = null;
 
         File file;
         int maxFileSize = 5000 * 1024;
@@ -82,6 +82,8 @@ public class UploadLogo extends BrndBotBaseHttpServlet {
                         out.println("<body>");
                         while (i.hasNext()) {
                             FileItem fi = (FileItem) i.next();
+                            boolean ch = fi.isFormField();
+
                             if (!fi.isFormField()) {
                                 
                                 // Get the uploaded file parameters
@@ -121,7 +123,7 @@ public class UploadLogo extends BrndBotBaseHttpServlet {
                 
             
         } catch (Exception ex) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
 
             out.println(getSqlMethodsInstance().error);
         } finally {

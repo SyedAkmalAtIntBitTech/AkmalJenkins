@@ -6,12 +6,13 @@
 package social.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -38,31 +39,72 @@ public class ServletUserPreferencesFacebook extends BrndBotBaseHttpServlet {
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession();
         String access_token_from_table = "";
-        String access_token = "", method_type = "";
+        JSONObject fb_details = new JSONObject();
+        String default_access_token = "", method_type = "", fb_user_profile_name = "", settings = "";
+        String default_page_name = "";
+
         try {
             user_preferences = new UserPreferencesFacebook();
             Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
             if (request.getParameter("access_token") != null) {
-                access_token = request.getParameter("access_token");
+                default_access_token = request.getParameter("access_token");
             }
             if (request.getParameter("access_token_method") != null) {
                 method_type = request.getParameter("access_token_method");
             }
-
-            if (method_type.equals("setAccessToken")) {
-                user_preferences.updatePreference(user_id, access_token);
-            } else if (method_type.equals("getAccessToken")) {
-                access_token_from_table = user_preferences.getUserPreferenceForAccessToken(user_id);
+            
+            if (request.getParameter("fb_user_profile_name") != null) {
+                fb_user_profile_name = request.getParameter("fb_user_profile_name");
             }
 
+            if (request.getParameter("default_page_name") != null) {
+                default_page_name = request.getParameter("default_page_name");
+            }
+            
+//            switch (method_type) {
+//                case "setAccessToken":
+//                    user_preferences.updatePreference(user_id, default_access_token, fb_user_profile_name);
+//                    break;
+//                case "getAccessToken":
+//                    break;
+//            }
+            
             if (method_type.equals("getAccessToken")) {
-                response.setContentType("application/plain");
-                out.write(access_token_from_table);
+                fb_details = user_preferences.getUserPreferenceForAccessToken(user_id);
+                
+                if (fb_details.size() != 0 ){
+                    
+                    default_access_token = (String)fb_details.get("fb_default_page_access_token");
+                    fb_user_profile_name = (String)fb_details.get("user_profile_page");
+                    default_page_name = (String)fb_details.get("fb_default_page_name");
+                }
+
+                if (request.getParameter("settings") != null) {
+                    settings = request.getParameter("settings");
+                    
+                    if (fb_details.get("FacebookLoggedIn") == null){
+                        fb_details.put("FacebookLoggedIn", "false");
+                        fb_details.put("user_profile_page", "fb not configured");
+                    }
+                        String jsonn = new Gson().toJson(fb_details);
+                        response.setContentType("application/json");
+                        out.write(jsonn);
+                    
+                }else {
+                    response.setContentType("application/plain");
+                    out.write(default_access_token+","+fb_user_profile_name+","+default_page_name);
+                }
+                
+            }else if(method_type.equals("setAccessToken")){
+                    user_preferences.updatePreference(user_id, default_access_token, fb_user_profile_name, default_page_name);
+            }else if(method_type.equals("clearFacebookDetails")){
+                    user_preferences.deletePreferences(user_id);
             }
 
         } catch (Exception e) {
-                                  logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
-
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }finally {
             getSqlMethodsInstance().closeConnection();
         }

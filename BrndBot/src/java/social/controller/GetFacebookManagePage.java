@@ -55,8 +55,8 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             
         }catch (Exception e){
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
-
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
         }finally {
             out.close();
         }
@@ -85,7 +85,13 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
                 PrintWriter out = response.getWriter();
                 out.println(facebook.getOAuthAccessToken(fbCode));
                 // facebook.setOAuthAccessToken(facebook.getOAuthAccessToken(fbCode));
+                    String first_name = facebook.getMe().getFirstName();
+                    String last_name = facebook.getMe().getLastName();
+                    
+                    String user_name = facebook.getName();
+                    
                 ResponseList<Account> accounts = facebook.getAccounts();
+                
                 out.println(accounts.size());
 
                 JSONObject obj = new JSONObject();
@@ -109,6 +115,7 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
 //               jsonarray.add(i, request);
                 }
                 request.setAttribute("objkey", jsonarray);
+                request.setAttribute("user_profile_name", user_name);
 //                response.sendRedirect(request.getContextPath() + "/selectpromotesocialmedia.jsp?objkey="+jsonarray);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/selectpromotesocialmedia.jsp");   // jsp to which i

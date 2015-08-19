@@ -17,6 +17,8 @@ public interface IConstants {
     final static String kEmailListNameKey = "emailListName";
     final static String kEmailAddressesKey = "emailAddresses";
     final static String kEmailAddressKey = "emailAddress";
+    final static String kFacebookKey = "facebook";
+    final static String kTwitterKey = "twitter";
     final static String kColor1 = "color1";
     final static String kColor2 = "color2";
     final static String kColor3 = "color3";

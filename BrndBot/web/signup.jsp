@@ -26,32 +26,34 @@
                 
             <img id="logo" src="images/HelloLogo.svg" class="img-responsive" width="100" height="140"> <br>
                 <form class="form-horizontal" id="signform" ng-controller="UserController" ng-submit="createUser()" >
-                     <div class="group">
+                        <div class="group">
                              <div class="col-md-3 col-md-offset-5">                            
-                                 <p class="text-left">Sign Up Free Today!</p><br>
-                                 <p class="text-left-1">Be a better marketer in only a couple minutes!</p>
+                                  <p class="text-left">Sign Up</p>
                              </div>
-                        
-                                     
+                        </div>
+                    
+                        <div class="group">
                              <div class="col-md-3 col-md-offset-5">                            
                                  <input id="inputemail" class="form-control simplebox" type="text" required ng-model="user.emailid" ng-blur="checkAvailability()" >
                                  <label>EMAIL</label><br>
 
                              </div>
-                       
-                        
+                        </div>
+
+                        <div class="group">
                             <div class="col-md-3 col-md-offset-5">
                                 <input id="inputpassword" class="form-control simplebox" type="password" required ng-model="user.password">
                                 <label>PASSWORD</label><br>
                             </div>
-                       
+                        </div>
 
-                        
+                        <div class="group">
                             <div class="col-md-3 col-md-offset-5">
                                 <input id="inputreenter" class="form-control simplebox" type="password" required ng-model="user.confirmPassword">
                                 <label> CONFIRM PASSWORD</label><br><br>
                             </div>
-                     </div>
+                        </div>
+          
                         <div  class="form-group">
                              <div class="col-md-5 col-md-offset-5">
                                  <button type="submit"  class="btn btn-info" >CREATE MY ACCOUNT</button><br><br><br>
@@ -62,7 +64,7 @@
 
         </div>
           <script>
-            alert($("body").height()+":"+$("body").width() );
-                    </script>  
+//            alert($("body").height()+":"+$("body").width() );
+          </script>  
     </body>
 </html>

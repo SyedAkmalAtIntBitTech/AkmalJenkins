@@ -477,7 +477,7 @@ and open the template in the editor.
                                 <li ><a href="#view1" style="width:180px;">Password</a></li>
                                 <li><a href="#view2"  style="width:180px;" ng-click="showColors()">Color Palette</a></li>
                                 <li><a href="#view3"  style="width:180px;" ng-click="getLooks()">Look</a></li>
-                                <li><a href="#view4"  style="width:180px;" ng-click="getBrands()">Brand Personality</a></li>
+                                <li><a href="#view4" ng-click="getBrands()">Brand Personality</a></li>
                                 <li><a href="#view5"  style="width:180px;" ng-click="getLogo()">Logo</a></li>
                             </ul>
                         </div>                        
