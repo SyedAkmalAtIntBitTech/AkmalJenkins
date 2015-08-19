@@ -22,14 +22,20 @@ $(document).ready(function () {
                 success: function (responseText) {
 //                           $("#tokenHere").html(responseText);
 //                           alert(responseText);
-                    if (responseText == "") {
+                        var fb_details = responseText.split(",");
+                    
+                    if (fb_details[0] == "") {
 
                         document.location.href = "GetFacebookManagePage";
 
                         $("#isFacebook").val(facebookcheck);
 
                     } else {
-                        $("#fbaccessTokenSend").val(responseText);
+                        
+//                        var fb_details = responseText.split(",");
+                        
+                        $("#fbaccessTokenSend").val(fb_details[0]);
+                        $("#pagenameSend").val(fb_details[2]);
                         $("#fbdefaultAccessToken").val("true");
                         $("#isFacebook").val("true");
 

@@ -34,7 +34,9 @@
             .socialimage{
                 width: 100px;
                 height: 100px;
-                margin-left:  5px;
+                position: relative;
+                left:-40px;
+                
             } 
             
             #popup
@@ -257,12 +259,13 @@
 <body>
     <div class="row">
        <jsp:include page="leftmenu.html"/><!--/end left column-->
-
-        <div class="col-md-10 col-md-offset-1">
+       
+        <div class="col-md-11 col-md-offset-2">
             <p id="textgrt">Great! Which social media platform(s)<br>
-                would you like to post it on?</p> 
+                would you like to post it on?</p>
+            <p class="smltxt">Click which social media platforms you want to post it on</p>
             <ul id="promotebuttonlist">
-                <li><img id="fb"class="socialimage" src="images/fbButton.svg" /> <input type="checkbox" id="facebook" name="social"  value="facebook"> </li>
+                <li><img id="fb" class="socialimage" src="images/fbButton.svg" /> <input type="checkbox" id="facebook" name="social"  value="facebook"> </li>
                 <li><img id="twt" class="socialimage" src="images/twtButton.svg" > <input type="checkbox" id="twitter" name="social" value="twitter"><br> </li>
                 <li><div class="col-md-4 col-md-offset-6">
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
@@ -298,4 +301,12 @@
         </div>        
     </div>
 </body>
+<style>
+    .fb:active {
+    background-color:#3C5A99;
+}
+.twt:active {
+    background-color:#5FA9DD;
+}
+</style>
 </html>

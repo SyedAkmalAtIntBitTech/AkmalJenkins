@@ -29,7 +29,7 @@ function colorthemeController($scope, $http) {
                 sel = sel + 1;
             }
         }
-        alert(sel);
+//        alert(sel);
         if (sel == 0) {
             alert("No color selected, please select six color");
             document.getElementById("color").focus();

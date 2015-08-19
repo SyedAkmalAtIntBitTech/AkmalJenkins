@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
+        <script src="js/configurations.js"></script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.11.3.min.js"></script>
@@ -22,7 +23,6 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/main1.css">
-        <script src="js/configurations.js"></script>
 
         <title>upload logo</title>
         <style>
@@ -30,6 +30,7 @@
                 position: relative;
                 overflow: hidden;
                 margin: 10px;
+                left:-20px;
             }
             .fileUpload input.upload {
                 position: absolute;
@@ -101,20 +102,20 @@
             </div>
             <div id="contentdiv">
                 <div class="row">
-                    <div class="col-md-4 col-md-offset-5">
+                    <div class="col-md-4 col-md-offset-4">
                         <p id="comment1"> Upload your logo </p> 
-                        <p id="comment2">Please upload in a .PNG, .JPEG,</p> <br><br>
+                        <p id="comment2">Please upload in a .PNG, .JPEG, .SVG</p> <br><br>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-md-offset-5">
+                    <div class="col-md-4 col-md-offset-4">
                         <img id="logoimage" src="images/question-mark-black-background.png" alt="logo" class="img-responsive" width="80" height="100"><br><br><br>
                     </div>
                 </div>
 
                 <div class="group" ng-controller="myCtrl">
                     <div class="span5 col-md-offset-5 ">
-                        <button id="Servicecontinue" type="submit"  class="btn btn-info" disabled ng-click="uploadFile()">UPLOAD LOGO</button><br><br>
+                        <button id="Servicecontinue" type="submit" class="btn btn-info" disabled ng-click="uploadFile()">UPLOAD LOGO</button><br><br>
                         <div class="fileUpload btn ">
                             <span>Click to upload a logo</span>
                             <input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="myFile" />
@@ -139,6 +140,8 @@
                 case 'JPG':
                 case 'PNG':
                 case 'JPEG':
+                case 'svg':
+                case 'SVG':
                     break;
                 default:
                     alert('This type of image is not allowed');

@@ -54,7 +54,7 @@ public class SetLookid extends BrndBotBaseHttpServlet {
                 out.write("true");
             }
         } catch (Exception e) {
-                        logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
             out.println(getSqlMethodsInstance().error);
         }finally {

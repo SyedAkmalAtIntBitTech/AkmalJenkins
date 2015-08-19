@@ -30,17 +30,17 @@ and open the template in the editor.
 }
 #edit{
     position: relative;
-    top:9px;
+    top:-52px;
     font-family:"proxima-nova",sans-serif;
     font-weight:400;
     font-size:14px;
-    left: 13em;
+    left: 15em;
     color: #2D4444;
     
 }
 .edit{
     position: relative;
-    top:43px;
+    padding-top:7%;
     font-family:"proxima-nova",sans-serif;
     font-weight:400;
     font-size: large;
@@ -51,10 +51,30 @@ and open the template in the editor.
     position: relative;
     left: 105px;
 }
+#txtlog{
+    font-size: 10px;
+    width: 50px; 
+    top:13px;
+    position: relative;
+    right: 9px;   
+    color: whitesmoke;
+}
+#txtpost{
+    position:relative;
+    margin-top:  -5%;
+    padding-left: 9.5%;
+    width: 600px;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    color:  #010101;
+    line-height: 35px;
+    letter-spacing: 0em;
+    }
 #textgrt{
     position: relative;
-    top:122px;
-    left:62px;
+    padding-top: 14%;
     width: 600px;
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
@@ -76,7 +96,7 @@ and open the template in the editor.
     letter-spacing: 0em;
     
 }
-#hov:hover{
+.hov:hover{
     background-color: white;
     color: #000;
 }
@@ -84,7 +104,7 @@ and open the template in the editor.
 
 #text1{
     position: relative;
-    right: 10px;
+    right: 30px;
     text-align: center;
     font-size:smaller;
 }
@@ -96,26 +116,25 @@ and open the template in the editor.
 .prev{
     left:2px;
     position: relative;
-    width: 620px;
+    width: 560px;
     
 }
 .preview{
     position: relative;
-    top: 60px;
-    width: 617px;
-    height: 334px;
+    padding-top: 10%;
+    width: auto;
+    height: auto;
     background-color: #ffffff;
     border: 3px solid;
     border-color: #000000;
 }
 .editor{
     position:absolute;
-    margin-top:22%;
+    padding-top: 38%;
     width:350px;
-    height: 574px;
+    height: 500px;
     border-style:hidden;
     background-color: #fff;
-    margin-left: 60px;
 
 }
 #text2{
@@ -137,20 +156,29 @@ and open the template in the editor.
     list-style: none;
 }
 #textmodification li{
+    position: relative;
+    padding-top: 5%;
     margin: 7px;
-    padding: 4px;
     display:inline-table;
 
 }
 #imagemodification li{
     margin: 7px;
+    margin-left: -7px;
     padding: 4px;
     display:inline-table;
 }
-
+#shapecontainer{
+    position: relative;
+    padding-top: 5%;
+}
+#imagecontainer{
+     position: relative;
+    padding-top: 5%;
+}
 #shapemodificatoin li{
     margin: 0;
-    padding: 0;
+    padding-top: 5%;
     display:inline-table;
 }
      #filterImageList li{
@@ -173,18 +201,13 @@ and open the template in the editor.
 }
 #continue{
     position: relative;
-    margin-top: 136px;
-    margin-left: 10px;
+    margin-top: 17%;
     height: 30px;
     width:129px;
     background-color: #00A37A;
     color: #FFF;
     border-radius: 5px;
     border-color:  #00A37A;
-}
-#tabs{
-    position: relative;
-    top:100px;
 }
 
 
@@ -193,15 +216,25 @@ and open the template in the editor.
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 10px;
+    font-size: 12px;
     color: #66676b;
     text-align: left;
     line-height: 12px;
     letter-spacing:0em;
-    font-size: small;
+}
+#editpal{
+    font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+color: #66676b;
+text-align:  left;
+line-height: 14.4px;
+letter-spacing:0em;
+    
 }
 #editorhead{
-    font-family: "proxima-nova",sans-serif;
+font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 600;
 font-size: 12px;
@@ -210,7 +243,6 @@ font-style:  normal;
 text-align: left;
 line-height: 14.4px;
 letter-spacing:0em;
-    
 }
 
 .row{
@@ -223,27 +255,50 @@ letter-spacing:0em;
     transition: all .4s ease 0s;
     height: 100%
 }
+#promotebuttonlist input{
+    position: relative;
+    padding-top: 2%;
+    left:8%;
+}
+#promotebuttonlist li > img{
+    position: relative;
+    padding-top: 9%;
+    margin: 0px;
+    margin-right: 35px;
+}
+#promotebuttonlist li> p{
+    position: relative;
+    padding-top: 2%;
+    left:-17px;
+}
+#promotebuttonlist {
+        width: 600px;
+}
 #promotebuttonlist li{
         display: inline-block;
-          margin: 0px -20px 0px 0px;
         position: relative;
-        left: 50px;
-        top: 140px;
-        margin-left:20px;
+        padding-top: 9%;
 }
-
+#promotebuttonlist  li input{
+        position: relative;
+        left:5px;
+}
 
 #sidebar-wrapper {
     left:0em;
-    width: 80px;
+    width: 5%;
     background: #384656;
     position: fixed;
     height: 100%;
     z-index: 10000;
     overflow-y: hidden;
+    overflow-x:hidden; 
     transition: all .4s ease 0s;
 }
-
+#sidebar-wrapper1 div > ul{
+    position: relative;
+    padding-top: 150%;
+}
 #sidebar-wrapper1 {
     right:0px;
     width: 60px;
@@ -264,7 +319,6 @@ letter-spacing:0em;
     height: 67px;
     width: 60px;
     list-style: none;
-    padding:0px;
 }
 #page-content-wrapper {
     padding-left: 0px;
@@ -383,22 +437,77 @@ letter-spacing:0em;
     transition: all .4s ease 0s;
 }
 }*/
+#twitterpreviewdiv{
+     position: relative;
+    margin-top: 40px;
+}
+
+#fabookpreviewdiv{
+    position: relative;
+    margin-top: 40px;
+    
+}
+#fbprev{
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 21.5px;
+    color: #404043;
+    text-align: left;
+    line-height: 25.8px;
+    letter-spacing: 0em;
+    opacity: 1;
+}
+.psttxt{
+    font-family: "proxima-nova",sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 13.7px;
+    color: #2b2f35;
+    text-align: left;
+    
+}
+.ptpos{
+    position: relative;
+    margin-top: 50px;
+}
+.smltxt{
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    color: #66676b;
+    text-align: left;
+    padding-top: 2%;
+    padding-left:0%;
+    line-height: 12px;
+    letter-spacing:0em;
+}
 
 .navbar-default {
     background-color: #384656;
     border-color: #384656;
     position: absolute;
-    left:4px;
+    left:2px;
 }
 
 .hamburger,.cross{
-    margin-left: 20px;
+    font-size:25px;
+    background-color:transparent; 
+    border:transparent; 
+    color: white;
+    margin-left: 11px;
+    margin-top: 10px;
+ 
 }
 .logo{
-    margin-left: 5px;
+    position: relative;
+    width:150px;
+    margin-top: 5px;
+    margin-left: -46px;
 }
 .menu li a,p{
-    margin-left: 5px;
+    margin-left: 0px;
 }
 .menu li a:hover{
     background-color : transparent;
@@ -407,6 +516,10 @@ letter-spacing:0em;
 .sidebar-nav li {
     line-height: 40px;
     text-indent: 20px;
+    right: 40px;
+    width: 100px;
+    position: relative;
+    padding-top:50%;
 }
 
 .sidebar-nav li a {
@@ -441,46 +554,63 @@ letter-spacing:0em;
     background: none;
 }
 #selectedshapecolorbox{
+    position: relative;
     height: 11px;
     width: 26px;
-    margin-top: 10px;;
+    margin-top: 5%;
+    padding-left: 15%;
     
 }
+
 .blankcolor-box {
     float: left;
     width: 26px;
     height: 11px;
-    margin-left:  100px;
-    padding-left: 1px;
+    margin-left: 20px;
     border-width: 1px;
     border-radius: 3px;
-    border-style: solid;
+    border-style: solid;    
     border-color: rgba(0,0,0,.2);
-   
-    
 }
-.blankcolor-box1{
+.fontcolor-box{
         float: left;
         width: 36px;
         height: 15px;
-        border-radius: 2px;
-        margin-left:  10px;
+        border-radius: 3px;
+        margin-top: 10px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(0,0,0,.2);
+}
+
+.headblankcolor-box{
+        float: left;
+        width: 36px;
+        height: 15px;
+        border-radius: 3px;
+        margin-left:  120px;
         margin-top: 10px;
         border-width: 1px;
         border-style: solid;
         border-color: rgba(0,0,0,.2);
     
 }
-
-#colorpalette li{
+#colcontainer ul
+{
+margin: 0;
+padding: 0;
+list-style-type: none;
+text-align: center;
+}
+#colcontainer ul li{
+    display: inline;
+}
+#colorpalette li div{
     position: relative;
     left: -10px;
     float: left;
-    width: 120px;
-    height: 15px;
-    margin-right: 10px;
-/*    padding-left: 10px;*/
-    display: inline;
+    
+    height: 12px;
     border-width: 1px;
 }
 #style1{

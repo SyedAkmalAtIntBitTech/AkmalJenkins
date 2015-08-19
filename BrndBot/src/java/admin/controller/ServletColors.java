@@ -98,7 +98,7 @@ public class ServletColors extends BrndBotBaseHttpServlet {
                 out.write("true");
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "", e);
+            logger.log(Level.SEVERE, "Exception in colors", e);
         }finally {
             out.close();
             

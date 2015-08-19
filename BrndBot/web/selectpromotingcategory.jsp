@@ -40,9 +40,11 @@ and open the template in the editor.
                 width: 120px;
                 border-color: #E65C00;
                 border-radius: 5px; 
-                margin-left:auto;
                 display:block;
-                margin-right:auto;
+                
+            }
+            .btn:hover{
+                background-color:  #B24700;
             }
             .btn-info:hover,.btn-info:focus{
                 background-color: #B24700;
@@ -74,24 +76,26 @@ and open the template in the editor.
                 padding-left: 5px;
                 font-size: 18px;
 */
+.datafib{
+    position: relative;
+    padding-top: 10%;
+}
 .datafromindbody li{
         vertical-align:middle; 
+        height: 6%;
         display: table-cell;
         position: relative;
-        height: 82px;
+        padding-top: 3%;
+        padding-bottom: 3%;
         width: 739px;
 
-}   
-
+}
 #paginationbar{
                 position: relative;
                 margin-top: 100px;
                 margin-left: 70px;    
             }
-            #continuebutton{
-               position: relative;
-                top: 85px;
-            }
+            
             
             .mindbodyOneRowData:hover {
                     background-color: #00CC99;
@@ -100,10 +104,8 @@ and open the template in the editor.
             }
             .mindbodyOneRowData{
                 position: relative;
-                height: 82px;
                 width: 800px;
-                margin-top: 46px;
-                left:85px;
+                left:0px;
                 font-family: "proxima-nova",sans-serif;
                 font-weight: 600;
                 font-size: 21.6px;
@@ -112,10 +114,6 @@ and open the template in the editor.
                 text-align: left;
                 line-height: 25.9px;
                 letter-spacing: 0em;
-            }
-            .diff{
-              position: relative;
-              top:100px;
             }
 
         </style>
@@ -154,6 +152,7 @@ and open the template in the editor.
                     angular.module("myapp", [])
                     .controller("controllerGetMindBody", function($scope, $http) {
                     $("#continuebutton").hide();
+
                     $scope.showData = function(){
 
                     $scope.curPage = 0;
@@ -163,7 +162,7 @@ and open the template in the editor.
                                     url : 'MindBodyDataServlet'
                             }).success(function(data, status, headers, config) {
                                 $scope.datalists = data;
-
+                                $("#picktheme").css("overflow-y","scroll");
                                 if (data.mindbody_data.length == 0){
                                     $("#continuebutton").hide();
                                 } else {
@@ -213,28 +212,23 @@ and open the template in the editor.
              <jsp:include page="mainmenu.html"/>
            <!--/end left column-->
 
-            <div class="col-md-11 ">
+            <div class="col-md-11 col-md-offset-1">
 
-                <div class="col-md-6">
-                    <p id="text3">{{datalists.title}}  </p><br> </div><br><br> 
-                    <div class="col-md-5">  <input type="button"  id="continuebutton" class="btn btn-info col-md-offset-2" onclick="selected_category()" value="CONTINUE" disabled="true">
-
-                </div>
-            </div>  
+                <div class="col-md-10 col-md-offset-0">
+                   <p id="text3">{{datalists.title}}  </p>
+                   <input style="position:relative;top:0px;left:80%;" type="button" id="continuebutton" class="btn btn-info" onclick="selected_category()" value="CONTINUE" disabled="true"></div>  
 
 
-            <div class="col-md-11 diff">
+            <div class="col-md-10 col-md-offset-1 datafib">
                 
-                <div  class="tab-pane active" id="picktheme" ng-init="showData()">
-                       
-                          
+                <div  style="position:fixed;height:50%;" class=" tab-pane active" id="picktheme" ng-init="showData()">
                                 <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
 <!--                                    {{jsonclass}}-->
 
-<div class="mindbodyOneRowData" onclick="select_category_details('{{jsonclass.id}}')" >
-                                    <li style="width: 300px;left:10px;">{{jsonclass.column1}}</li>
+                <div class="mindbodyOneRowData" onclick="select_category_details('{{jsonclass.id}}')" >
+                                    <li style="width: 350px;left:20px;">{{jsonclass.column1}}</li>
                                     <li style="width: 300px">{{jsonclass.column2}}</li>
-                                    <li style="width: 150px">{{jsonclass.column3}}</li>
+                                    <li style="width: 100px">{{jsonclass.column3}}</li>
                                 </ul>
                   
                     </div>

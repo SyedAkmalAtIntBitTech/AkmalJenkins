@@ -11,17 +11,75 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-       <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="js/angular.min.js" type="text/javascript"></script>
+        <script src="js/configurations.js" type="text/javascript"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<!--        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <link href="css/popup.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
-        <script src="js/angular.min.js" type="text/javascript"></script>
-        <script src="js/configurations.js" type="text/javascript"></script>
         <title>email subject</title>
         <style>
             
+        #drop-zone {
+            /*Sort of important*/
+            width: 300px;
+            /*Sort of important*/
+            height: 200px;
+            position:absolute;
+            left:50%;
+            top:100px;
+            margin-left:-150px;
+            border: 2px dashed rgba(0,0,0,.3);
+            border-radius: 20px;
+            font-family: Arial;
+            text-align: center;
+            position: relative;
+            line-height: 180px;
+            font-size: 20px;
+            color: rgba(0,0,0,.3);
+            }
+
+            #drop-zone input {
+                /*Important*/
+                position: absolute;
+                /*Important*/
+                cursor: pointer;
+                left: 0px;
+                top: 0px;
+                /*Important This is only comment out for demonstration purpeses.
+                opacity:0; */
+            }
+
+            /*Important*/
+            #drop-zone.mouse-over {
+                border: 2px dashed rgba(0,0,0,.5);
+                color: rgba(0,0,0,.5);
+            }
+
+
+            /*If you dont want the button*/
+            #clickHere {
+                position: absolute;
+                cursor: pointer;
+                left: 0%;
+                top: 0%;
+                margin-left: 20px;
+                margin-top: 20px;
+                line-height: 26px;
+                color: white;
+                font-size: 12px;
+                width: 270px;
+                height: 150px;
+                border-radius: 4px;
+                background-color: #3b85c3;
+            }
+
+            #clickHere:hover {
+                background-color: #4499DD;
+
+            }            
         .header1{
             font-family: "proxima-nova",sans-serif;
             font-style: normal;
@@ -33,8 +91,8 @@
             letter-spacing: 0em;
             opacity: 1;
             position: relative;
-            top:90px;
-            left:100px;
+            padding-top: 17%;
+           
         }
         .header2{
             font-family: "proxima-nova",sans-serif;
@@ -47,10 +105,6 @@
             letter-spacing: 0em;
             opacity: 1;
             position: relative;
-            top:95px;
-            left:100px;
-        
-        
         }
             .hideinputborder{
                 background-color:transparent;
@@ -59,8 +113,7 @@
                 width:450px;
                 font-size:35px;
                 position: relative;
-                top:110px;
-                left:100px;
+                padding-top:7%;
             }
             .hideinputborder:focus{
                 outline: none;
@@ -78,14 +131,12 @@
             }
             #chooseEmailList{
                 position: relative;
-                top:80px;
-                left:100px;
+                padding-top: 7%;
                 background-color: #e4e4e4;
                 border: 1px solid #DADADA;
-                height:50px;
+                height:1rem;
                 width:350px;
                 font-size: 18px;
-                
                 border-radius: 5px;
             }
             #chooseEmailId:focus{
@@ -98,9 +149,26 @@
             }
             .btn-primary{
                 border-radius:10px;
-                position: relative;
-                top:200px;
-                left:100px;             
+                position: fixed;
+                top: 85%;
+                width: 150px;
+                background-color: #00A37A;
+                border-color: #00A37A;
+            }
+            .btn-csv{
+                border-radius:10px;
+                position: fixed;
+                top: 30%;
+                left:66%;
+                width: 200px;
+                background-color:transparent;
+                border-color: #00A37A;
+            }
+            .btn-prim{
+                border-radius:10px;
+                position: fixed;
+                top: 70%;
+                left:18%;
                 width: 150px;
                 background-color: #00A37A;
                 border-color: #00A37A;
@@ -122,9 +190,7 @@
                 filter: alpha(opacity=0);
             }
 
-            #datadiv{
-                margin-top:120px;
-            }
+        
 
             .header1{
                 font-size: 28px;
@@ -160,78 +226,206 @@
             #chooseEmailId:focus{
                 outline: none;
             }
+
+          
            
-            #addCsvFileButton{
-                width: 250px;
-               margin-left:150px;
-            }
         </style>
         <%! String mindbody_id=""; %>
         <% mindbody_id = request.getParameter("id"); %>
-         <script>
-           $(document).ready(function () { 
-            $(".cross").hide();
-            $(".menu").hide();
-            $("#emaillist").hide();
-            $("#popup").hide();
-
-            $(".hamburger").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".hamburger").hide();
-                    $(".cross").show();
-                });
-            });
-            $(".cross").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".cross").hide();
-                    $(".hamburger").show();
-                });
-            });
-
-            $("#emailSubjectContinueButton").click(function () {
-                $("#emaillist").show();
-                $("#emailsubjectdiv").hide();
-            });
+        <script>
             
-             $("#popupCancel").click(function () {      
-                $("#popup").hide();
-            });
-        });
-            function selectCsvFile(){
-                  $("#popup").show();
+            $(document).ready(function () {
                 
+                
+                $(".cross").hide();
+                $(".menu").hide();
+                $("#emaillist").hide();
+                $("#popup").hide();
+
+                $(".hamburger").click(function () {
+                    $(".menu").slideToggle("slow", function () {
+                        $(".hamburger").hide();
+                        $(".cross").show();
+                    });
+                });
+                $(".cross").click(function () {
+                    $(".menu").slideToggle("slow", function () {
+                        $(".cross").hide();
+                        $(".hamburger").show();
+                    });
+                });
+
+                $("#emailSubjectContinueButton").click(function () {
+                    
+                    $("#chooseEmailList").show();
+                    $("#emailsubjectdiv").hide();
+                    $("#emailaddresses").hide();
+                    $("#drop-zone").hide();
+                    $("#clickHere").hide();
+                    $("#upload").hide();
+                    $("#emaillist").show();
+
+                });
+          
+                $("#chooseEmailList").change(function () {
+                var x = document.getElementById("chooseEmailList").selectedIndex;
+                var List_name = document.getElementsByTagName("option")[x].value;
+                
+                if (List_name == 0){
+                    $("#emailaddresses").hide();
+                    $("#drop-zone").hide();
+                    $("#clickHere").hide();
+                    $("#upload").hide();
+                }else {
+                    
+                    $("#email_list_name").val(List_name);
+                    $.ajax({
+                            url: getHost() + "GetEmailLists",
+                            data: {
+                                update: "emailsForEmailList",
+                                list_name: List_name
+                            },
+                            success: function(result){
+    //                            alert(JSON.stringify(result));
+                                var email_addresses = JSON.stringify(result.emailAddresses);
+                                var email_add = email_addresses.replace("\"",'');
+                                var email_address = email_add.replace("\"",'');
+                                $("#emailaddresses").val(email_address);
+                            }
+                    });
+                }
+                });
+
+                $("#emailIdContinueButton").click(function () {
+                    var email_subject = $("#emailsubject").val();
+                    var email_addresses = $("#emailaddresses").val();
+                    var email_list = $("#chooseEmailList").val();
+                        $.ajax({
+                        url: getHost() + "EmailTextDataServlet",
+//                        dataType: 'json',
+                        data: {
+                            email_subject: email_subject,
+                            email_addresses: email_addresses,
+                            email_list : email_list
+                        },
+                        success: function(result){
+//                            alert("Email sent successfully");
+                        document.location.href = "emaileditor.jsp?id="+<%= mindbody_id %>;
+                        }
+                });
+
+        //
+//
+//                 $("#popupCancel").click(function () {      
+//                    $("#popup").hide();
+//                });
+                
+            
+
+            });
+              });
+            
+        </script>
+        
+         <script>
+//           $(document).ready(function () { 
+//               
+//            
+//        });
+//        
+            function selectCsvFile(){
+                    $("#chooseEmailList").show();
+//                    $("#emailsubjectdiv").show();
+                    $("#emailaddresses").show();
+                    $("#drop-zone").show();
+                    $("#clickHere").show();
+                    $("#upload").show();
+                    $(function () {
+                        
+                    var dropZoneId = "drop-zone";
+                    var buttonId = "clickHere";
+                    var mouseOverClass = "mouse-over";
+
+                    var dropZone = $("#" + dropZoneId);
+                    var ooleft = dropZone.offset().left;
+                    var ooright = dropZone.outerWidth() + ooleft;
+                    var ootop = dropZone.offset().top;
+                    var oobottom = dropZone.outerHeight() + ootop;
+                    var inputFile = dropZone.find("input");
+
+                    document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        dropZone.addClass(mouseOverClass);
+                        var x = e.pageX;
+                        var y = e.pageY;
+
+                        if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
+                            inputFile.offset({ top: y - 15, left: x - 100 });
+                        } else {
+                            inputFile.offset({ top: -400, left: -400 });
+                        }
+
+                    }, true);
+
+                    if (buttonId != "") {
+                        var clickZone = $("#" + buttonId);
+
+                        var oleft = clickZone.offset().left;
+                        var oright = clickZone.outerWidth() + oleft;
+                        var otop = clickZone.offset().top;
+                        var obottom = clickZone.outerHeight() + otop;
+
+                        $("#" + buttonId).mousemove(function (e) {
+                            var x = e.pageX;
+                            var y = e.pageY;
+                            if (!(x < oleft || x > oright || y < otop || y > obottom)) {
+                                inputFile.offset({ top: y - 15, left: x - 160 });
+                            } else {
+                                inputFile.offset({ top: -400, left: -400 });
+                            }
+                        });
+                    }
+
+                    document.getElementById(dropZoneId).addEventListener("drop", function (e) {
+                        $("#" + dropZoneId).removeClass(mouseOverClass);
+                        alert("file have been added, click on the upload button to load the csv file");
+    //                    upload();
+                    }, true);
+                    });
+
             }
-   
-   function uploadCsvFileData(){
-        var fileUpload = document.getElementById("selectedCsvFile");
-               var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
-               if (regex.test(fileUpload.value.toLowerCase())) {
-                   if (typeof (FileReader) != "undefined") {
-                       var reader = new FileReader();
-                       reader.onload = function (e) {
-                           var table = document.createElement("table");
-                           var rows = e.target.result.split("\n");
-//                           alert(rows);
-                           document.getElementById("textArea").value = rows;
-//                            for (var i = 0; i < rows.length; i++) {
-//                                var row = table.insertRow(-1);
-//                                var cells = rows[i].split(",");
-//                                for (var j = 0; j < cells.length; j++) {
-//                                   var cell = row.insertCell(-1);
-//                                   cell.innerHTML = cells[j];
-//                                }
-//                            }
-                       }
-                       reader.readAsText(fileUpload.files[0]);
-                       
-                   } else {
-                       alert("This browser does not support HTML5.");
-                   }
-               } else {
-                   alert("Please upload a valid CSV file.");
-               }
-               
-           }
+            //   
+//   function uploadCsvFileData(){
+//        var fileUpload = document.getElementById("selectedCsvFile");
+//               var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+//               if (regex.test(fileUpload.value.toLowerCase())) {
+//                   if (typeof (FileReader) != "undefined") {
+//                       var reader = new FileReader();
+//                       reader.onload = function (e) {
+//                           var table = document.createElement("table");
+//                           var rows = e.target.result.split("\n");
+////                           alert(rows);
+//                           document.getElementById("textArea").value = rows;
+////                            for (var i = 0; i < rows.length; i++) {
+////                                var row = table.insertRow(-1);
+////                                var cells = rows[i].split(",");
+////                                for (var j = 0; j < cells.length; j++) {
+////                                   var cell = row.insertCell(-1);
+////                                   cell.innerHTML = cells[j];
+////                                }
+////                            }
+//                       }
+//                       reader.readAsText(fileUpload.files[0]);
+//                       
+//                   } else {
+//                       alert("This browser does not support HTML5.");
+//                   }
+//               } else {
+//                   alert("Please upload a valid CSV file.");
+//               }
+//               
+//           }
 //           
 //          function saveEmailList(){
 //               var emailId=$("#textArea").val();
@@ -249,50 +443,94 @@
         </script>
         <script>
             
-        $(document).ready(function () { 
+//        $(document).ready(function () { 
+//            $(function () {
+//                
+//
+//                var dropZoneId = "drop-zone";
+//                var buttonId = "clickHere";
+//                var mouseOverClass = "mouse-over";
+//
+//                var dropZone = $("#" + dropZoneId);
+//                var ooleft = dropZone.offset().left;
+//                var ooright = dropZone.outerWidth() + ooleft;
+//                var ootop = dropZone.offset().top;
+//                var oobottom = dropZone.outerHeight() + ootop;
+//                var inputFile = dropZone.find("input");
+//                
+//                document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
+//                    e.preventDefault();
+//                    e.stopPropagation();
+//                    dropZone.addClass(mouseOverClass);
+//                    var x = e.pageX;
+//                    var y = e.pageY;
+//
+//                    if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
+//                        inputFile.offset({ top: y - 15, left: x - 100 });
+//                    } else {
+//                        inputFile.offset({ top: -400, left: -400 });
+//                    }
+//
+//                }, true);
+//
+//                if (buttonId != "") {
+//                    var clickZone = $("#" + buttonId);
+//
+//                    var oleft = clickZone.offset().left;
+//                    var oright = clickZone.outerWidth() + oleft;
+//                    var otop = clickZone.offset().top;
+//                    var obottom = clickZone.outerHeight() + otop;
+//
+//                    $("#" + buttonId).mousemove(function (e) {
+//                        var x = e.pageX;
+//                        var y = e.pageY;
+//                        if (!(x < oleft || x > oright || y < otop || y > obottom)) {
+//                            inputFile.offset({ top: y - 15, left: x - 160 });
+//                        } else {
+//                            inputFile.offset({ top: -400, left: -400 });
+//                        }
+//                    });
+//                }
+//
+//                document.getElementById(dropZoneId).addEventListener("drop", function (e) {
+//                    $("#" + dropZoneId).removeClass(mouseOverClass);
+//                    alert("file have been added, click on the upload button to load the csv file");
+////                    upload();
+//                }, true);
+//            });
+
+              function upload() {
+                var fileUpload = document.getElementById("file");
+                alert(fileUpload.value.toLowerCase());
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+                if (regex.test(fileUpload.value.toLowerCase())) {
+                    if (typeof (FileReader) != "undefined") {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var table = document.createElement("table");
+                            var rows = e.target.result.split("\n");
+                            alert(rows);
+//                            $('#emailaddresses').val(rows);
+//                            $('#emailaddresses').append(rows);
+                             if ($('#emailaddresses').val() == "") {
+                                $('#emailaddresses').val(rows);
+                            } else {
+                                $('#emailaddresses').val($('#emailaddresses').val() + ", " + rows);
+                            }
+                        }
+                        reader.readAsText(fileUpload.files[0]);
+
+                    } else {
+                        alert("This browser does not support HTML5.");
+                    }
+                } else {
+                    alert("Please upload a valid CSV file.");
+                }
+            }
             
-              $("#chooseEmailList").change(function () {
-                var x = document.getElementById("chooseEmailList").selectedIndex;
-                var List_name = document.getElementsByTagName("option")[x].value;
-                $("#email_list_name").val(List_name);
-
-                $.ajax({
-                        url: getHost() + "GetEmailLists",
-                        data: {
-                            update: "emailsForEmailList",
-                            list_name: List_name
-                        },
-                        success: function(result){
-//                            alert(JSON.stringify(result));
-                            var email_addresses = JSON.stringify(result.emailAddresses);
-                            var email_add = email_addresses.replace("\"",'');
-                            var email_address = email_add.replace("\"",'');
-                            $("#emailaddresses").val(email_address);
-                        }
-                });
                 
-                });
-
-                $("#emailIdContinueButton").click(function () {
-                    var email_subject = $("#emailsubject").val();
-                    var email_addresses = $("#emailaddresses").val();
-                    var email_list = $("#chooseEmailList").val();
-                        $.ajax({
-                        url: getHost() + "EmailTextDataServlet",
-//                        dataType: 'json',
-                        data: {
-                            email_subject: email_subject,
-                            email_addresses: email_addresses,
-                            email_list:email_list
-                        },
-                        success: function(result){
-//                            alert("Email sent successfully");
-                        document.location.href = "emaileditor.jsp?id="+<%= mindbody_id %>;
-                        }
-                });
-                
-                });        
-        });
+//                });        
+//        });
             
                 function EmailListController($scope, $http) {
 
@@ -324,7 +562,7 @@
                         var emailids = {"update": "allEmailListNames"};
                         $http({
                             method: 'GET',
-                            url: getHost() + 'GetEmailLists?update=allEmailListNames',
+                            url: getHost() + 'GetEmailLists?update=allEmailListNames'
                     }).success(function(data, status, headers, config) {
                             $scope.emailLists = data.allEmailListNames
                             if (data === "true") {
@@ -355,30 +593,41 @@
         }catch (Exception e){
             
         }
-        %>
+     %>
     <body ng-app>
                    <div class="row">
                  <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div><!--/end left column-->
-            <div id="datadiv" class="col-md-8 col-md-offset-2">
+            <div id="datadiv" class="col-md-10 col-md-offset-2">
                 <div id="emailsubjectdiv">
                     <p class="header1"> Enter the Subject Line of the Email:</p>
                     <p class="header2">This can be edited later.</p><br><br>
                     <input type="text" class="hideinputborder" id="emailsubject" name="emailsubject" placeholder="SUBJECT LINE">
-                    <hr style="position:relative;top:90px;left:-20px;width:550px;height:1px;background-color:#777;">
+                    <hr style="position:relative;left:-22%;width:550px;height:1px;background-color:#777;">
                     <input  id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="CONTINUE">
                 </div>
 
-                <div id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
+                <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
                     <p class="header1"> Who do you want to send this email to?</p>
                     <p class="header2">This can be edited later.</p><br><br>
+                    <div id="drop-zone">
+                        Drop files here...
+                        <div id="clickHere">
+                            or click here..
+                            <input type="file" name="file" id="file" style="width:800px;"/><br><br>
+                        </div>
+                    </div>
+
                     
-                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
+                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden>
+                            <option value="0">SELECT</option>
                             <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                    </select><input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-primary" value="Add CSV or Email Manually">
-                    <textarea style="width:300px; height:100px;position:relative;left:40em;top:20px;" id="emailaddresses"></textarea><br><br>
-<!--                    <input type="text" id="htmltext" name="htmltext" value=""/>-->
+                    </select>
                     
+                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:20em;top:20px;"/>
+                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-primary" value="Add CSV or Email Manually">
+                    <textarea style="width:300px; height:100px;position:relative;left:10em;top:20px;" id="emailaddresses"></textarea><br><br>
+               
 
                     <div id="popup">
                         <div id="content">
@@ -392,19 +641,12 @@
                                 <input type="button" id="popupCancel" class="btn btn-default" value="Cancel">
                             </center>
                         </div>   
-                    </div>           
-                    <br><br><br>
-                    
-                    
+                    </div>                          
 <!--                    <input type="text" class="hideinputEmailId" id="emailId" name="emailsubject" placeholder="Add CSV or Email Manually"> <br><br><br><br><br>-->
-                    <input  id="emailIdContinueButton" type="button" class="btn btn-primary" value="CONTINUE">
-                </div>                   
+                    <input  id="emailIdContinueButton" type="button" class=" btn btn-primary btn-prim" value="CONTINUE">
+                   </div>                   
             </div>      
-        </div>
-
-       
-        
-
+<!--        </div>-->
        
     </body>
 </html>

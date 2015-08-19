@@ -61,8 +61,9 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String getImageFile = request.getParameter("imageToPost");
             String getFile = request.getParameter("imagePost");
             String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
-            String imagePostURL=request.getRequestURL().toString().replace("PostToSocial", "");
-        
+//            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
+//            String imagePostURL=request.getRequestURL().toString().replace("PostToSocial", "");
+            String imagePostURL = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
         if (isFacebook.equalsIgnoreCase("true")) {
             
             String accessToken = request.getParameter("accesstoken");
@@ -77,11 +78,11 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             facebook.setOAuthAccessToken(new AccessToken(accessToken));
             if (title == "") {
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL+"temp/"+getImageFile));
+                        .picture(new URL(imagePostURL));
                 facebook.postFeed(post);
             } else {
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL+"temp/"+getImageFile))
+                        .picture(new URL(imagePostURL))
                         .name(title)
                         .link(new URL(url))
                         .description(description);
@@ -89,10 +90,10 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             }
             try {
                 
-            getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, "temp/"+getImageFile);
+            getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile);
             }catch (Exception ex){
-                System.out.println(ex.getCause());
-                System.out.println(ex.getMessage());
+                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
+                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());
             }
         }
         if (isTwitter.equalsIgnoreCase("true")) {
@@ -117,29 +118,28 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 status.setMedia(file); // set the image to be uploaded here.
                 twitter.updateStatus(status);
                 try {
-                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, "temp/"+getImageFile);
+                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile);
                     }catch (Exception ex){
-                        System.out.println(ex.getCause());
-                        System.out.println(ex.getMessage());
+                        Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
+                        Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());
                     }
 
             } catch (TwitterException te) {
 
                 PrintWriter out1 = response.getWriter();
                 out1.println("Twitter Exception: " + te.getMessage());
-                                      logger.log(Level.SEVERE, util.Utility.logMessage(te, "Exception while updating org name:", getSqlMethodsInstance().error));
-
+                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, te.getCause());
+                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, te.getMessage());
+            
             } catch (Exception e) {
                 PrintWriter out1 = response.getWriter();
                 out1.println("Exception: " + e.getMessage());
-                                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
-
             }
 
         }
         } catch (FacebookException e) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
-
+                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getCause());
+                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
         }
     }
 

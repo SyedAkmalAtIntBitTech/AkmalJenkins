@@ -20,7 +20,7 @@
         <script>
                 function showText(brandid,image_name){
                              $("#hiddenform").val(brandid);
-                             $("#image1").attr('src', 'images/Brandimages/'+image_name);
+                             $("#image1").attr('src', '/BrndBot/DownloadImage?image_type=BRAND_PERSONALITY&image_name='+image_name);
                  }    
                  function sendbrandID(){
                     var brandID = $("#hiddenform").val() ;
@@ -65,14 +65,14 @@
             <div id="contemporarycontainer">
                  <div class="span5 col-md-offset-1 ">
                 <p id="comment1">Choose a brand personality</p>
-                <p class="commentlin">Color is no object! Please choose the brand personality you think
+                <p class="commentlin">Color is no object! Please choose the brand personality you think<br>
 most represents your company and ignore the colors for now.</p>
                  </div>
                     <div class="row" id="buttonlength">
                         <div class="span7">
                             <div class="col-md-7 pull-right pull-up">
 
-                                    <div class="item"><p >preview</p>
+                                    <div class="item col-md-offset-2"><p >preview</p>
                                         <img id="image1" class="img-responsive" src="" width="700" height="400"><br>
 
                                     </div>

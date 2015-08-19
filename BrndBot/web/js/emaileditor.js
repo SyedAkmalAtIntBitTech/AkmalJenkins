@@ -121,7 +121,7 @@ $(document).ready(function () {
         $(".preview").append("<div onclick=getBlockId(defaultblock1) id='defaultblock1' blockdetails='"+ allLayoutFilename[0] +"' name='"+mindbodydataId+"'></div>");
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/BrndBot/DownloadXml?file_name=" + allLayoutFilename[1] + ".xml",
+                url: global_host_address + "DownloadXml?file_name=" + allLayoutFilename[1] + ".xml",
                 dataType: "xml",
                 success: function (xml) {
                     $(xml).find('layout').each(function () {
