@@ -6,6 +6,7 @@
 package social.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
@@ -59,9 +60,10 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String isTwitter = request.getParameter("isTwitter");
             String getImageFile = request.getParameter("imageToPost");
             String getFile = request.getParameter("imagePost");
-            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
-            String imagePostURL=request.getRequestURL().toString().replace("PostToSocial", "");
-        
+            String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
+//            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
+//            String imagePostURL=request.getRequestURL().toString().replace("PostToSocial", "");
+            String imagePostURL = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
         if (isFacebook.equalsIgnoreCase("true")) {
             
             String accessToken = request.getParameter("accesstoken");
@@ -76,11 +78,11 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             facebook.setOAuthAccessToken(new AccessToken(accessToken));
             if (title == "") {
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL+"temp/"+getImageFile));
+                        .picture(new URL(imagePostURL));
                 facebook.postFeed(post);
             } else {
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL+"temp/"+getImageFile))
+                        .picture(new URL(imagePostURL))
                         .name(title)
                         .link(new URL(url))
                         .description(description);
@@ -88,7 +90,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             }
             try {
                 
-            getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, "temp/"+getImageFile);
+            getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile);
             }catch (Exception ex){
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());
@@ -116,7 +118,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 status.setMedia(file); // set the image to be uploaded here.
                 twitter.updateStatus(status);
                 try {
-                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, "temp/"+getImageFile);
+                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile);
                     }catch (Exception ex){
                         Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
                         Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());
