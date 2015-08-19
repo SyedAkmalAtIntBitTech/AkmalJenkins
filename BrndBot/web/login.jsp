@@ -24,7 +24,7 @@
     <body class="container">
         <div id="signupdiv">
 
-            <img id="logo" src="images/logo.png" class="img-responsive" width="100" height="150"> <br>
+            <img id="logo" src="images/logo.svg" class="img-responsive" width="100" height="150"> <br>
             <form class="form-horizontal" id="signform" ng-controller="loginController" ng-submit="checkUser()" >
                 <div class="group">
                     <div class="col-md-3 col-md-offset-5">                            

@@ -91,8 +91,8 @@
             letter-spacing: 0em;
             opacity: 1;
             position: relative;
-            top:90px;
-            left:100px;
+            padding-top: 17%;
+           
         }
         .header2{
             font-family: "proxima-nova",sans-serif;
@@ -105,10 +105,6 @@
             letter-spacing: 0em;
             opacity: 1;
             position: relative;
-            top:95px;
-            left:100px;
-        
-        
         }
             .hideinputborder{
                 background-color:transparent;
@@ -117,8 +113,7 @@
                 width:450px;
                 font-size:35px;
                 position: relative;
-                top:110px;
-                left:100px;
+                padding-top:7%;
             }
             .hideinputborder:focus{
                 outline: none;
@@ -136,14 +131,12 @@
             }
             #chooseEmailList{
                 position: relative;
-                top:80px;
-                left:100px;
+                padding-top: 7%;
                 background-color: #e4e4e4;
                 border: 1px solid #DADADA;
-                height:50px;
+                height:1rem;
                 width:350px;
                 font-size: 18px;
-                
                 border-radius: 5px;
             }
             #chooseEmailId:focus{
@@ -156,9 +149,26 @@
             }
             .btn-primary{
                 border-radius:10px;
-                position: relative;
-                top:200px;
-                left:100px;             
+                position: fixed;
+                top: 85%;
+                width: 150px;
+                background-color: #00A37A;
+                border-color: #00A37A;
+            }
+            .btn-csv{
+                border-radius:10px;
+                position: fixed;
+                top: 30%;
+                left:66%;
+                width: 200px;
+                background-color:transparent;
+                border-color: #00A37A;
+            }
+            .btn-prim{
+                border-radius:10px;
+                position: fixed;
+                top: 70%;
+                left:18%;
                 width: 150px;
                 background-color: #00A37A;
                 border-color: #00A37A;
@@ -180,9 +190,7 @@
                 filter: alpha(opacity=0);
             }
 
-            #datadiv{
-                margin-top:120px;
-            }
+        
 
             .header1{
                 font-size: 28px;
@@ -218,11 +226,9 @@
             #chooseEmailId:focus{
                 outline: none;
             }
+
+          
            
-            #addCsvFileButton{
-                width: 250px;
-               margin-left:150px;
-            }
         </style>
         <%! String mindbody_id=""; %>
         <% mindbody_id = request.getParameter("id"); %>
@@ -592,16 +598,16 @@
                    <div class="row">
                  <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div><!--/end left column-->
-            <div id="datadiv" class="col-md-8 col-md-offset-2">
+            <div id="datadiv" class="col-md-10 col-md-offset-2">
                 <div id="emailsubjectdiv">
                     <p class="header1"> Enter the Subject Line of the Email:</p>
                     <p class="header2">This can be edited later.</p><br><br>
                     <input type="text" class="hideinputborder" id="emailsubject" name="emailsubject" placeholder="SUBJECT LINE">
-                    <hr style="position:relative;top:90px;left:-20px;width:550px;height:1px;background-color:#777;">
+                    <hr style="position:relative;left:-22%;width:550px;height:1px;background-color:#777;">
                     <input  id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="CONTINUE">
                 </div>
 
-                <div id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
+                <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
                     <p class="header1"> Who do you want to send this email to?</p>
                     <p class="header2">This can be edited later.</p><br><br>
                     <div id="drop-zone">
@@ -621,8 +627,7 @@
                     <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:20em;top:20px;"/>
                     <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-primary" value="Add CSV or Email Manually">
                     <textarea style="width:300px; height:100px;position:relative;left:10em;top:20px;" id="emailaddresses"></textarea><br><br>
-<!--                    <input type="text" id="htmltext" name="htmltext" value=""/>-->
-                    
+               
 
                     <div id="popup">
                         <div id="content">
@@ -636,13 +641,10 @@
                                 <input type="button" id="popupCancel" class="btn btn-default" value="Cancel">
                             </center>
                         </div>   
-                    </div>           
-                    <br><br><br>
-                    
-                    
+                    </div>                          
 <!--                    <input type="text" class="hideinputEmailId" id="emailId" name="emailsubject" placeholder="Add CSV or Email Manually"> <br><br><br><br><br>-->
-                    <input  id="emailIdContinueButton" type="button" class="btn btn-primary" value="CONTINUE">
-                </div>                   
+                    <input  id="emailIdContinueButton" type="button" class=" btn btn-primary btn-prim" value="CONTINUE">
+                   </div>                   
             </div>      
 <!--        </div>-->
        

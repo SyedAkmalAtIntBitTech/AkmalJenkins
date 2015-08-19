@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>setting</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+            <link href="css/newtab.css" rel="stylesheet" type="text/css"/>
+
+        <style>
+            .glyphicon.glyphicon-home,.glyphicon.glyphicon-envelope,.glyphicon.glyphicon-comment, .glyphicon.glyphicon-picture, .glyphicon.glyphicon-cog{
+                font-size:20px;
+                position: relative;
+                left:-15px;
+                padding: 7px;
+            }
+            
+            #tabview{
+                position:fixed;
+                top:0px;
+                left:52%;
+                right:1em;
+                height:100%;
+                width:600px;
+            }
+            
+            
+        </style>
+    </head>
+    <body>
+        <div > 
+            <div class="row">
+                <div id="leftnav" class="col-md-1">
+    <nav class="navbar navbar-default " role="navigation">
+        <div class="navbar-header pull-lefts">
+
+            <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav nav-stacked cen">
+                
+                <li><img style="position:relative;height:100px;top:2px;left:0.7em;" src="images/Nav_Icons/NavLogoFull.svg"  alt="logo" class="img-responsive" width="50"><br><br><br></li>
+                <li><a href="dashboard.jsp"><p id="text1"><img class="navicons" src="images/Nav_Icons/NavIcon_Home.svg"/>&nbsp;&nbsp;HOME</p></a></li>
+                <li><a href="emaillists.jsp"><p id="text1"><img src="images/Nav_Icons/NavIcon_Email.svg" class="navicons"/>&nbsp;&nbsp;EMAIL</p></a></li>
+                <li><a href="social.html"><p id="text1"><img src="images/Nav_Icons/NavIcon_Social.svg" class="navicons"/>&nbsp;SOCIAL</p></a></li>
+                <li><a href="imagegallery.jsp"><p id="text1"><img src="images/Nav_Icons/NavIcon_ImageGallery.svg" class="navicons"/>&nbsp;&nbsp;IMAGE GALLERY</p></a></li>   
+                <li><a href="setting.html"><p id="text1"><img src="images/Nav_Icons/NavIcon_Settings.svg" class="navicons navgap"/>SETTINGS</p></a></li> 
+                <li><a href="signout.jsp"><p id="text2">LOG OUT</p></a></li> 
+                
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+
+</div><!--/end left column-->
+
+                <div class="col-md-10">
+                    <div class="col-md-10 ">
+                        <p id="text3"> Setting page</p>
+                    </div>
+                    <div id="tabview">
+<div class="tabs-left">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#a" data-toggle="tab"><span class="glyphicon" ></span></a></li>
+          <li><a href="#b" data-toggle="tab"><span class="glyphicon"></span></a></li>
+          <li><a href="#c" data-toggle="tab"><span class="glyphicon"></span></a></li>
+          <li><a href="#d" data-toggle="tab"><span class="glyphicon"></span></a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="a">
+            <h3>New Tab</h3>
+            <ul class="list-group pull-left">
+              <li class="list-group-item">
+                <h4>Jen &nbsp; &nbsp;<span class="badge pull-right">100%</span></h4>
+              </li>
+              <li class="list-group-item">
+                <h4>Dezi &nbsp; &nbsp;<span class="badge pull-right">100%</span></h4>
+              </li>
+              <li class="list-group-item">
+                <h4>Eli &nbsp; &nbsp;<span class="badge pull-right">100%</span></h4>
+              </li>
+              <li class="list-group-item">
+                <h4>Mojo &nbsp; &nbsp;<span class="badge pull-right">83%</span></h4>
+              </li>
+              <li class="list-group-item">
+                <h4>Myself &nbsp; &nbsp;<span class="badge pull-right">100%</span></h4>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-pane" id="b">
+            <h3>What's your Favorite?</h3>
+            <ul class="list-group pull-left">
+              <li class="list-group-item">
+                <h4>Crystals &nbsp; &nbsp;<span class="badge pull-right">100%</span></h4>
+              </li>
+              <li class="list-group-item">
+                <h4>Healing &nbsp; &nbsp;<span class="badge pull-right">90%</span></h4>
+              </li>
+              <li class="list-group-item">
+                <h4>Exploring &nbsp; &nbsp;<span class="badge pull-right">78%</span></h4>
+              </li>
+              <li class="list-group-item">
+                <h4>QiGong &nbsp; &nbsp;<span class="badge pull-right">83%</span></h4>
+              </li>
+              <li class="list-group-item">
+                <h4>Myself &nbsp; &nbsp;<span class="badge pull-right">100%</span>
+                </h4></li>
+            </ul>
+          </div>
+    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

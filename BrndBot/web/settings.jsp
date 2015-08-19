@@ -10,13 +10,14 @@ and open the template in the editor.
         <title>setting</title>
         <meta charset="UTF-8" >
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <script src="js/configurations.js" type="text/javascript"></script>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="/resources/demos/style.css">
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
@@ -179,9 +180,9 @@ and open the template in the editor.
         <div ng-controller="controllerUserChanges">
 
             <div class="row">
-                 <jsp:include page="mainmenu.html"/><!--/end left column-->
+                <jsp:include page="mainmenu.html"/><!--/end left column-->
 
-                <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-10 col-md-offset-2">
                     <div class="col-md-10 ">
                         <p id="text3"> Setting page</p>
 

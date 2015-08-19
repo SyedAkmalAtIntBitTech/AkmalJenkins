@@ -12,7 +12,10 @@
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js"></script>
         <script type="text/javascript" src="js/form.js"></script>
-
+                <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+                <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/cs-select.css" />
+		<link rel="stylesheet" type="text/css" href="css/cs-skin-border.css" />
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -35,21 +38,23 @@
                 </div>
                 <form class="form-horizontal" ng-model="organizations" ng-controller="MyController">
 
-                    <div class="group">
+                    <div class="group2">
                         <div class="col-md-3 col-md-offset-4">
-                            <input id="inputcompanyname" class="form-control simplebox" type="text" required ng-model="organizations.company">
-                            <label>YOUR COMPANY NAME</label><br><br>
+                             
+                            <input id="inputcompanyname" class="form-control simplebox1" type="text" required ng-model="organizations.company">
+                             <label>YOUR COMPANY NAME</label><br>
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" >
                         <p id="comment1"  class="col-md-4 col-md-offset-4">Please select an organization:</p><br>
                         <p id="text-left-1" class="col-md-4 col-md-offset-4">If you do not have an organization, choose "No Organization".</p><br>
                         <div class="col-md-3 col-md-offset-4">
-                            <select id="organizationdropdown" class="form-control" ng-model="organizations.org">
+                          <select id="organizationdropdown" class="form-control" ng-model="organizations.org">
                                 <option ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}} </option>
                             </select>
                         </div>
+                        
                     </div>
 
                     <div  class="form-group">
@@ -62,4 +67,14 @@
         </div>
 
     </body>
+    <script src="js/classie.js"></script>
+    <script src="js/selectFx.js"></script>
+    <script>
+			(function() {
+				[].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {	
+					new SelectFx(el);
+				} );
+			})();
+		</script>
+           
 </html>

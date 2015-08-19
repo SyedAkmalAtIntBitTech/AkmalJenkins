@@ -78,13 +78,14 @@
             <div id="contentdiv" class="row">
                 <div  class="span3 col-md-offset-1 ">
                     <p id="comment1" class="lookcomment1">Please choose a “look” for your company</p></<br>
-                    <p class="commentlin">These are the looks we found for Yoga Studios. Please choose one-- don't worry if it is not exact!
-We know every company’s look is different and we just use this as a starting point.</p>
+                    <p class="commentlin cmlinpos span3 col-md-offset-1">These are the looks we found for Yoga Studios. Please choose one-- don't worry if it is not exact!<br>
+                        We know every company’s look is different and we just use this as a starting point.</p>
                 </div>
                 <div class="row col-md-offset-2" >
                     <div ng-controller="MyController">
                         {{first}}
                         <div class="col-md-12 step_wrapper">
+
                             <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
                                 <img id="{{first.id}}" class="img-responsive lookchooser1 " src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}" onclick="showText({{first.id}})" width=250 height=150 />
                             </div>
@@ -92,6 +93,7 @@ We know every company’s look is different and we just use this as a starting p
                             <div class="col-md-12"></div>
                             <div class="col-md-2 step_box" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
                                 <img id="{{second.id}}" class="img-responsive lookchooser1" src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{second.file_name}}" onclick="showText({{second.id}})" width=250 height=150 />
+
                             </div>
 
                         </div>

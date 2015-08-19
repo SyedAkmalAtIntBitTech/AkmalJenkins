@@ -437,8 +437,8 @@ and open the template in the editor.
                     <div class="row">
 
                         <!--              preview container-->
-                        <div class="col-md-7 prev">
-                            <p class="edit">EDIT THIS POST </p><p id="edit">go back</p> 
+                        <div class="col-md-5 col-md-offset-0 prev">
+                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edit">go back</p> 
                             <div class="preview">
                                 <!--  {{mindbody_data}}-->
                                 <!--
@@ -522,28 +522,32 @@ and open the template in the editor.
                         </div>
 
                         <!--        editor container      -->
-                        <div class="col-md-5">
+                        <div class="col-md-3 col-md-offset-1">
                             <div class="well lead editor" id="editor">
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
                                             <p id="text3">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li><p id="editorheadere">font color</p><div class="color-box blankcolor-box1" id="picker"></div></li>
+                                                <li><p id="editorheadere">font color</p>
+                                                    <div class="fontcolor-box" id="picker" style="left:-20px;"></div>
+                                                </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
                                                     <p id="editorheadere">font size</p>
-                                                    <select  id="fontsize" style="margin: 2px; font-size: 15px; ">
+                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px; ">
                                                         <option ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
-                                                    </select>
+                                                    </select> 
                                                 </li>
 
                                                 <li>
                                                     <p id="editorheadere">font style</p>
                                                     
-                                                    <select id="fontname" style="margin:2px;font-size:15px;">
+
+                                                    <select id="fontname" style="margin:2px;font-size:15px;width:80px;">
                                                         <option ng-repeat ="names in user_preferences_font_names" value="{{ names.font_family_name}}">{{ names.font_name}} </option>
+
                                                     </select>
                                                 </li>
                                                 <li><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
@@ -564,16 +568,16 @@ and open the template in the editor.
                                             <p  id="text3">SHAPES</p>
                                             <ul id="shapemodificatoin">
                                                 <li> <p id="editorhead">Header Background<p></li>
-                                                <li><div class="blankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                <li>
+                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                <li><p id="editpal">your palette</p></li>
+                                                <li id="colcontainer">
                                                     <ul id="colorpalette">
-                                                        <li><div class="blankcolor-box" id="shapecolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                       <li><div class="blankcolor-box" id="shapecolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
                                                         <li><div class="blankcolor-box" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
                                                         <li><div class="blankcolor-box" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
                                                         <li><div class="blankcolor-box" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
                                                         <li> <div class="blankcolor-box" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
                                                         <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
-                                                        <li>
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -582,7 +586,7 @@ and open the template in the editor.
                                         <div id="imagecontainer">
                                             <p  id="text3">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><p id="editorhead">Image Name</p></li>
+                                                <li><p id="editorhead">Teacher Image</p></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
                                                 <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
                                                 <li></li>
@@ -662,15 +666,23 @@ and open the template in the editor.
             </div>
             <div id="sidebar-wrapper1">
                 <div id="tabs">
-                    <ul class="sidebar-nav category_list">
-                        <li id="hov"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"></a><p id="text1">EDIT</p></li>
-                        <li id="hov"><a href="#tabs-2" id="style"><img class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"></a><p id="text1">STYLE</p></li>                  
+                    <ul class="sidebar-nav">
+                        <li id="edt" class="hov" onclick="hle();"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"></a><p id="text1">EDIT</p></li>
+                        <li id="stl" class="hov" onclick="hls();"><a href="#tabs-2" id="style"><img class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"></a><p id="text1">STYLE</p></li>                  
                     </ul>
                 </div>
             </div>
 
         </div> 
                                         <script>
+                                            function hle(){
+                                                document.getElementById('edt').style.backgroundColor = '#fff';
+                                                document.getElementById('stl').style.backgroundColor = 'transparent';
+                                            }
+                                            function hls(){
+                                                document.getElementById('edt').style.backgroundColor = 'transparent';
+                                                document.getElementById('stl').style.backgroundColor = '#fff';
+                                            }
                                             $('.category_list li').click(function(){
     $('.highlight').removeClass('highlight');
 $(this).addClass('highlight');

@@ -54,14 +54,14 @@ and open the template in the editor.
             }
             #subpromotelist {
                 display: inline-block;
-                position: relative;
                 /*                    left: 25px;
                                     top: 180px;*/
             }
-           #subpromotelist  li{
+           #subpromotelist  li {
                 list-style-type: none;
                 font-weight: bold;
                 position:relative;
+                top:180px;
                 left: 35px;
                 font-family:ProximaNova,Semibold;
                 font-size: 1.13em;
@@ -95,14 +95,13 @@ and open the template in the editor.
         <div>
             <div class="row">
                 <jsp:include page="mainmenu.html"/>
-                <div class="col-md-10" ng-app="myapp">
+                <div class="col-md-11 col-md-offset-1 " ng-app="myapp">
 
-                    <div class="col-md-10 " ng-controller="controllerCategories">
+                    <div class="col-md-10 col-md-offset-1" ng-controller="controllerCategories">
 
-                        <p id="text3" class="company">  Hi <%= company%>!</p>
-                        <p id="text3" class="message"> What would you like to do today?</p>
-                        <p id="text3" class="mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}" target="_blank">Click here</a></p>
-                        <ul id="promotelist">
+                        <p id="text3" class="company">  Hi <%= company%>!<br>What would you like to do today?</p>
+                        <p id="text3-1" class="mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}" target="_blank">Click here</a></p>
+                       <ul id="promotelist">
                             
                             <li id="one" ng-repeat="category in categories">
                                 <a href=""><img id="promoteimage" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91"/></a><p id="text4">{{category.categoryName}}</p>

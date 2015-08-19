@@ -210,7 +210,7 @@
     <body ng-app>
         <div class="row">
              <jsp:include page="mainmenu.html"/>
-            <div id="datadiv" class="col-md-8 col-md-offset-2">
+            <div id="datadiv" class="col-md-10 col-md-offset-2">
                 <div id="emailsubjectdiv" ng-controller="EmailListController">
                     <p class="header1">Email List:</p>
                     <input type="button" name="addlist" value="Add List" class="btn btn-primary" id="addlist" onclick="showTextBox()"/>

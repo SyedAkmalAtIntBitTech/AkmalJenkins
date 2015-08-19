@@ -608,22 +608,7 @@ and open the template in the editor.
         <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
                 
-                <div id="sidebar-wrapper" class="col-md-1">
-                    <nav class="navbar navbar-default " role="navigation">
-                        <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
-                        <button class="hamburger">&#9776;</button>
-                        <button class="cross">&#9776;</button>
-                        <ul class="nav nav-stacked menu">
-                            <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
-                            <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
-                            <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
-                            <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
-                            <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br></li> 
-                            <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br></li> 
-                        </ul>
-                        <!-- /.navbar-collapse -->
-                    </nav>
-                </div><!--/end left column-->
+                <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div>
 
             <!-- Page content -->
@@ -633,8 +618,8 @@ and open the template in the editor.
                     <div class="row">
 
                         <!--              preview container-->
-                        <div class="col-md-7">
-                            <p>EDIT THIS POST </p><p>go back</p> 
+                        <div class="col-md-5 col-md-offset-0">
+                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp;<p id="edit">go back</p> 
                             <div class="sortDelete" style="position:absolute;top:380px; left:0px;margin: 0px;">
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
@@ -644,10 +629,9 @@ and open the template in the editor.
                                 <div ng-click="showStylesAfterData()" class="preview">
 
                                 </div></div>
-                            <br><br><br><br><br><br>
                             <div class="span3 col-md-offset-0" >
-
-                                <input id="continue" type="button" class="btn btn-primary" value="CONTINUE"><br><br>
+   <input id="continue" type="button" value="CONTINUE">
+                               <br><br>
                                 <script>
 //                                            $("#continue").click(function (){
 //                                                document.location.href = "selectpromotesocialmedia.jsp";
@@ -720,26 +704,26 @@ and open the template in the editor.
                         </div>
 
                         <!--        editor container      -->
-                        <div class="col-md-5">
+                        <div class="col-md-3 col-md-offset-2">
                             <div class="well lead editor" id="editor">
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
-                                            <p>TEXT</p> 
+                                            <p id="text3">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li><p id="editorheadere">font color</p><div class="color-box blankcolor-box1" id="picker"></div></li>
+                                                <li><p id="editorheadere">font color</p><div class="fontcolor-box blankcolor-box1" id="picker"></div></li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
-                                                    <p id="editorheadere">font size:</p>
-                                                    <select  id="fontsize" style="margin: 2px; font-size: 15px; ">
+                                                    <p id="editorheadere">font size</p>
+                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;">
                                                         <option ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                     </select>
                                                 </li>
 
                                                 <li>
                                                     <p id="editorheadere">font Name:</p>
-                                                    <select id="fontname" style="margin: 2px;font-size: 15px; ">
+                                                    <select id="fontname" style="margin: 2px;font-size: 15px;width:80px;">
                                                         <option ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
                                                     </select>
                                                 </li>
@@ -754,15 +738,16 @@ and open the template in the editor.
 
                                         </div>
 
-                                        <input type="hidden" id="mindbodydata" value=<%= mindbody_data_id%>>
+                                        <input type="hidden" id="mindbodydata" value='<%= mindbody_data_id%>'>
                                         <input type="hidden" id='clickid'>
 
                                         <div id="shapecontainer">
-                                            <p>SHAPES</p>
+                                            <p  id="text3">SHAPES</p>
                                             <ul id="shapemodificatoin">
-                                                <li> <p id="editorheadere">Header background<p></li>
-                                                <li><div class="blankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                <li>
+                                                <li> <p id="editorhead">Header Background<p></li>
+                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                  <li><p id="editpal">your palette</p></li>                                                                                         
+                                                <li id="colcontainer">
                                                     <ul id="colorpalette">
                                                         <li><div class="blankcolor-box" id="shapecolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
                                                         <li><div class="blankcolor-box" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
@@ -777,9 +762,9 @@ and open the template in the editor.
                                         </div>
 
                                         <div id="imagecontainer">
-                                            <p>IMAGE</p>
+                                            <p  id="text3">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><p id="editorheadere">Image Name</p></li>
+                                                <li><p id="editorhead">Teacher Image</p></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
                                                 <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
                                                 <li></li>
@@ -798,15 +783,15 @@ and open the template in the editor.
                                             </ul>
                                         </div>
                                         <div id="cropImageContainer" style="display: none">
-                                            <!--                                                <p>CROP</p>-->
+<!--                                                <p>CROP</p>-->
+                                             
 
-
-                                            <!--
-                                                    NOTE: To change the aspect ratio, look in crop.css
-                                                    The class 'default' links the div to the innit(); function
-                                            -->
-
-                                            <br><br>
+                                                    <!--
+                                                            NOTE: To change the aspect ratio, look in crop.css
+                                                            The class 'default' links the div to the innit(); function
+                                                    -->
+                                  
+                                                <br><br>
                                             <input type="button" id="done" class="btn btn-primary" onclick="saveImageEdit()" value="DONE"> 
                                         </div>
 
@@ -947,14 +932,12 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-
-
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav" id="sidebar">
-                        <li><a href="#tabs-1" id="text"><span class="glyphicon glyphicon-edit"></span><p id="text1">EDIT</p></a></li>
-                        <li><a href="#tabs-2" id="style" ><span class="glyphicon glyphicon-th" ng-click="showStyles()"><p id="text1" >STYLE</p></span></a></li>
-                        <li><a href="#tabs-3" id="block" ><span class="glyphicon glyphicon-plus" ng-click="showBlocks()"><p id="text1" >Block</p></span></a></li>
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"></a><p id="text1">EDIT</p></li>
+                        <li id="stl" class="hov"  onclick="hls();"><a href="#tabs-2" id="style" ><img class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"></a><p id="text1">STYLE</p></li>
+                        <li id="blk" class="hov"  onclick="hlb();"><a href="#tabs-3" id="block" ><img class="optbtn" src="images/sidebar/Icons_blockButton.svg" alt="" width="40" height="40"  ng-click="showBlocks()"></a><p id="text1">BLOCK</p></li>
                         <!--<li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>--> 
                     </ul>
                 </div>
@@ -998,6 +981,24 @@ and open the template in the editor.
         
                 </script>-->
         <script>
+             function hle(){
+                 document.getElementById('edt').style.backgroundColor = '#fff';
+                 document.getElementById('stl').style.backgroundColor = 'transparent';
+                 document.getElementById('blk').style.backgroundColor = 'transparent';
+                }
+                function hls(){
+                document.getElementById('edt').style.backgroundColor = 'transparent';
+                document.getElementById('stl').style.backgroundColor = '#fff';
+                document.getElementById('blk').style.backgroundColor = 'transparent';
+                }
+                 function hlb(){
+                document.getElementById('edt').style.backgroundColor = 'transparent';
+                document.getElementById('stl').style.backgroundColor = 'transparent';
+                document.getElementById('blk').style.backgroundColor = '#fff';
+                }
+            
+            
+            
                                             $("#menu-toggle").click(function (e) {
                                     e.preventDefault();
                                             $("#wrapper").toggleClass("active");

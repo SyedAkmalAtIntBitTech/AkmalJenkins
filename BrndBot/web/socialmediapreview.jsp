@@ -108,25 +108,12 @@
 
     <body>
         <div class="container-fluid">
-            <div id="sidebar-wrapper" class="col-md-1">
-               <nav class="navbar navbar-default " role="navigation">
-                   <img src="images/logo.png"  alt="logo" class="img-responsive logo" width="50" ><br>
-                    <button class="hamburger">&#9776;</button>
-                       <button class="cross">&#9776;</button>
-                       <ul class="nav nav-stacked menu">
-                          <li><a href="dashboard.jsp"><span class="glyphicon glyphicon-home"></span></a><p id="text1">HOME</p></li>
-                            <li><a href="emaillists.jsp"><span class="glyphicon glyphicon-envelope"></span></a><p id="text1">EMAIL</p></li>
-                            <li><a href="social.html"><span class="glyphicon glyphicon-comment"></span></a><p id="text1">SOCIAL</p></li>
-                            <li><a href="imagegallery.jsp"><span class="glyphicon glyphicon-picture"></span></a><p id="text1">IMAGE GALLERY</p></li>   
-                            <li><a href="setting.html"><span class="glyphicon glyphicon-cog"></span></a><br></li> 
-                            <li><br><a href="signout.jsp"><p id="text2">LOG OUT</p></a><br><br></li> 
-                       </ul>
-               </nav>
-           </div>
+            <jsp:include page="leftmenu.html"/>
             <div class="row">
-                <div class="col-sm-3 col-sm-offset-1">
-                   
-                    What social media would you like to promote?<br><br>
+                <p id="txtpost">POST TO SOCIAL MEDIA</p>
+                <div class="col-sm-2 col-sm-offset-1">
+                    <p class="psttxt ptpos">What social media would you like to post on?</p>
+        
                     <img class="socialimage" id="facebookimage" src="images/fb_icon.png"><span id="facebookcancel" class="glyphicon glyphicon-remove-sign"> </span>
                     <img class="socialimage" id="twitterimage" src="images/twitter.jpeg"><span id="twittercancel" class="glyphicon glyphicon-remove-sign"></span><br><br><br>
                     <div id="fbtextcontainer">
@@ -134,24 +121,24 @@
                     <br><br>
                     <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
                     <div id="linkpostdiv">
-                        Link Title<input class="hideinputborder"  id="title" type="text" placeholder="post text goes here"><br>
-                        Link Description<input class="hideinputborder" id="description" type="text" placeholder="post text goes here"><br>
-                        Link URL<input class="hideinputborder" type="text" id="url" placeholder="post text goes here" ><br>
+                        <p class="psttxt"> Link Title</p><input class="hideinputborder"  id="title" type="text" placeholder="post text goes here"><br>
+                        <p class="psttxt"> Link Description</p><input class="hideinputborder" id="description" type="text" placeholder="post text goes here"><br>
+                        <p class="psttxt"> Link URL</p><input class="hideinputborder" type="text" id="url" placeholder="post text goes here" ><br>
 
                         <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
                     </div></div>
                     <input type="button" class="btn btn-primary" id="posttofb" value="POST TO SOCIAL MEDIA">
                 </div>
 
-                <div class="col-sm-4" id="fabookpreviewdiv">
-                    Facebook Preview<br>
+                <div class="col-sm-4 col-sm-offset-1 " id="fabookpreviewdiv">
+                    <p id="fbprev"> Facebook Preview</p><br>
                     <img id="companyimage" class="companyimage" src="images/logo.png">
                     <p>Company name</p><br>
                     <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                 </div>
 
-                <div class="col-sm-3" id="twitterpreviewdiv">
-                    Twitter Preview<br>
+                <div class="col-sm-4" id="twitterpreviewdiv">
+                    <p id="fbprev"> Twitter Preview</p><br>
                     <img id="companyimage" class="companyimage" src="images/logo.png">
                     <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"></textarea><br><br>
                     <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>

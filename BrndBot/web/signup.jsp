@@ -24,7 +24,7 @@
         
         <div id="signupdiv">
                 
-            <img id="logo" src="images/logo.png" class="img-responsive" width="100" height="150"> <br>
+            <img id="logo" src="images/HelloLogo.svg" class="img-responsive" width="100" height="140"> <br>
                 <form class="form-horizontal" id="signform" ng-controller="UserController" ng-submit="createUser()" >
                         <div class="group">
                              <div class="col-md-3 col-md-offset-5">                            
@@ -33,7 +33,6 @@
                         </div>
                     
                         <div class="group">
-                  
                              <div class="col-md-3 col-md-offset-5">                            
                                  <input id="inputemail" class="form-control simplebox" type="text" required ng-model="user.emailid" ng-blur="checkAvailability()" >
                                  <label>EMAIL</label><br>
