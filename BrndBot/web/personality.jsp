@@ -20,7 +20,7 @@
         <script>
                 function showText(brandid,image_name){
                              $("#hiddenform").val(brandid);
-                             $("#image1").attr('src', 'images/Brandimages/'+image_name);
+                             $("#image1").attr('src', '/BrndBot/DownloadImage?image_type=BRAND_PERSONALITY&image_name='+image_name);
                  }    
                  function sendbrandID(){
                     var brandID = $("#hiddenform").val() ;

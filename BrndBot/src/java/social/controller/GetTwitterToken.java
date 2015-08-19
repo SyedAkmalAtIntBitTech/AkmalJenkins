@@ -104,25 +104,29 @@ public class GetTwitterToken extends BrndBotBaseHttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-         String pin = request.getParameter("pin");
+        String pin = request.getParameter("pin");
         AccessToken accessToken = null;
+        String user_name = "";
          try{
-         if(pin.length() > 0){
-           accessToken = twitter.getOAuthAccessToken(requestToken, pin);
-         }else{
-           accessToken = twitter.getOAuthAccessToken();
-         }
-      } catch (TwitterException te) {
-        if(401 == te.getStatusCode()){
-          System.out.println("Unable to get the access token.");
-        }else{
-          te.printStackTrace();
-        }
-      }
+                if(pin.length() > 0){
+                  accessToken = twitter.getOAuthAccessToken(requestToken, pin);
+                }else{
+                  accessToken = twitter.getOAuthAccessToken();
+                }
+                twitter4j.User user = twitter.showUser(twitter.getScreenName());
+                user_name = user.getName();
+             } catch (TwitterException te) {
+                if(401 == te.getStatusCode()){
+                  System.out.println("Unable to get the access token.");
+                }else{
+                  te.printStackTrace();
+                }
+            }
+        
         token = accessToken.getToken();
         tokenSecret = accessToken.getTokenSecret();   
         response.setContentType("text/plain");
-        response.getWriter().write(token+", "+tokenSecret);
+        response.getWriter().write(token+", "+tokenSecret+","+user_name);
         
     }
 

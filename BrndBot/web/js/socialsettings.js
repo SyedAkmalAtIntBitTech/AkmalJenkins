@@ -3,15 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 var facebookcheck;
 var twittercheck;
 $(document).ready(function () {
 
     $("#facebook").click(function () {
 
-        facebookcheck = document.getElementById("facebook").checked;
-
-        if (facebookcheck) {
+//        facebookcheck = document.getElementById("facebook").checked;
+//
+//        if (facebookcheck) {
 
             $.ajax({
                 url: 'ServletUserPreferencesFacebook',
@@ -26,30 +33,31 @@ $(document).ready(function () {
                     
                     if (fb_details[0] == "") {
 
-                        document.location.href = "GetFacebookManagePage";
+                        document.location.href = "GetUserFacebookManagePages";
 
-                        $("#isFacebook").val(facebookcheck);
+//                        $("#isFacebook").val(facebookcheck);
 
                     } else {
-                        
-//                        var fb_details = responseText.split(",");
-                        
-                        $("#fbaccessTokenSend").val(fb_details[0]);
-                        $("#pagenameSend").val(fb_details[2]);
-                        $("#fbdefaultAccessToken").val("true");
-                        $("#isFacebook").val("true");
-
-                        $("#submitbutton").prop("disabled", false);
+                        document.location.href = "GetUserFacebookManagePages";
+//
+////                        var fb_details = responseText.split(",");
+//                        
+//                        $("#fbaccessTokenSend").val(fb_details[0]);
+//                        $("#pagenameSend").val(fb_details[2]);
+//                        $("#fbdefaultAccessToken").val("true");
+//                        $("#isFacebook").val("true");
+//
+//                        $("#submitbutton").prop("disabled", false);
                     }
                 }
             });
 
-        } else {
-            $("#isFacebook").val(facebookcheck);
-            $("#submitbutton").prop("disabled", true);
-            $("#fbaccessTokenSend").val("");
-            $("#fbdefaultAccessToken").val("");
-        }
+//        } else {
+//            $("#isFacebook").val(facebookcheck);
+//            $("#submitbutton").prop("disabled", true);
+//            $("#fbaccessTokenSend").val("");
+//            $("#fbdefaultAccessToken").val("");
+//        }
 
 
         $("#close").click(function () {
@@ -66,13 +74,13 @@ $(document).ready(function () {
         $("#isTwitter").val(twittercheck);
         var twitter_access_tokens = "";
 
-        if (twittercheck) {
+//        if (twittercheck) {
 
             $.ajax({
                 url: 'ServletUserPreferencesTwitter',
                 method: 'post',
                 data: {
-                    access_token_method: "getAccessToken",
+                    access_token_method: "getAccessToken"
                 },
                 success: function (responseText) {
                     if (responseText == "") {
@@ -109,6 +117,8 @@ $(document).ready(function () {
                                                 twitter_access_tokens: twitter_access_tokens
                                             },
                                             success: function (responseText) {
+                                    angular.element(document.getElementById('controllerSocial')).scope().getTwitterDetails();                                    
+                                                
                                             }
                                         });
 
@@ -135,13 +145,13 @@ $(document).ready(function () {
                 }
             });
 
-        }
-        else
-        {
-            $("#twaccessTokenSend").val("");
-            $("#twitterpopup").hide();
-            $("#submitbutton").prop("disabled", true);
-        }
+//        }
+//        else
+//        {
+//            $("#twaccessTokenSend").val("");
+//            $("#twitterpopup").hide();
+//            $("#submitbutton").prop("disabled", true);
+//        }
 
     });
     $("#closetwitter").click(function () {

@@ -42,7 +42,7 @@ public class Colors {
                 check = true;
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "", e);
+            logger.log(Level.SEVERE, "Exception in colors", e);
         }        finally {
                         sqlmethods.close(result_set, prepared_statement);
 
@@ -64,9 +64,9 @@ public class Colors {
             prepared_statement.executeUpdate();
             prepared_statement.close();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "", e);
+            logger.log(Level.SEVERE, "Exception in colors", e);
         }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
+            sqlmethods.close(result_set, prepared_statement);
 
         }
 
@@ -84,11 +84,10 @@ public class Colors {
             prepared_statement.executeUpdate();
             prepared_statement.close();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "", e);
-
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+            logger.log(Level.SEVERE, "Exception in colors", e);
+        }
+        finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
     }

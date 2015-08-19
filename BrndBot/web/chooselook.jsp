@@ -17,7 +17,8 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/configurations.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!--        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
         <script src="js/angular.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/main1.css">
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
@@ -35,7 +36,7 @@
 
             function sendLookID(){
                 var LookID = $("#lookid").val();
-                 if (LookID == ""){
+                if (LookID == ""){
                     alert('Please select a look');
                 }
                 else{
@@ -46,7 +47,7 @@
             
             function nextLooks(){
                 var lt = 0;
-                        lt = lt + 4;
+                lt = lt + 4;
             }
         </script>  
         <script>
@@ -54,7 +55,7 @@
             angular.module("myapp", [])
                 .controller("MyController", function($scope, $http) {
                 $http({
-                method : 'GET',
+                        method : 'GET',
                         url : 'GetLooks'
                 }).success(function(data, status, headers, config) {
                         $scope.First = data.first;
@@ -85,12 +86,12 @@ We know every company’s look is different and we just use this as a starting p
                         {{first}}
                         <div class="col-md-12 step_wrapper">
                             <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
-                                <img id="{{first.id}}" class="img-responsive lookchooser1 " src="images/Lookimages/{{ first.file_name}}"  onclick="showText({{first.id}})" width=250 height=150 />
+                                <img id="{{first.id}}" class="img-responsive lookchooser1 " src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}" onclick="showText({{first.id}})" width=250 height=150 />
                             </div>
 
                             <div class="col-md-12"></div>
                             <div class="col-md-2 step_box" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
-                                <img id="{{second.id}}" class="img-responsive lookchooser1" src="images/Lookimages/{{ second.file_name}}" onclick="showText({{second.id}})" width=250 height=150 />
+                                <img id="{{second.id}}" class="img-responsive lookchooser1" src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{second.file_name}}" onclick="showText({{second.id}})" width=250 height=150 />
                             </div>
 
                         </div>
@@ -99,7 +100,7 @@ We know every company’s look is different and we just use this as a starting p
                                 <div  class="form-group">
                                     <input type="hidden" name="lookid" id="lookid">
                                     <div class="span3 col-md-offset-0 ">
-                                        <button id="loochooserbutton" type="submit"  onclick="sendLookID()" class="btn btn-info">CONTINUE</button><br><br><br>
+                                        <button id="loochooserbutton" type="submit" onclick="sendLookID()" class="btn btn-info">CONTINUE</button><br><br><br>
                                     </div>
                                 </div>
                             </div>

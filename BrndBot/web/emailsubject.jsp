@@ -373,7 +373,7 @@
                     <p class="header1"> Who do you want to send this email to?</p>
                     <p class="header2">This can be edited later.</p><br><br>
                     
-                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
+                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden>
                             <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                     </select><input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-primary" value="Add CSV or Email Manually">
                     <textarea style="width:300px; height:100px;position:relative;left:40em;top:20px;" id="emailaddresses"></textarea><br><br>
@@ -400,7 +400,7 @@
                     <input  id="emailIdContinueButton" type="button" class="btn btn-primary" value="CONTINUE">
                 </div>                   
             </div>      
-        </div>
+<!--        </div>-->
 
        
         

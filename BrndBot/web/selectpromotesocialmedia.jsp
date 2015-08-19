@@ -262,7 +262,7 @@
             <p id="textgrt">Great! Which social media platform(s)<br>
                 would you like to post it on?</p> 
             <ul id="promotebuttonlist">
-                <li><img id="fb"class="socialimage" src="images/fbButton.svg" /> <input type="checkbox" id="facebook" name="social"  value="facebook"> </li>
+                <li><img id="fb" class="socialimage" src="images/fbButton.svg" /> <input type="checkbox" id="facebook" name="social"  value="facebook"> </li>
                 <li><img id="twt" class="socialimage" src="images/twtButton.svg" > <input type="checkbox" id="twitter" name="social" value="twitter"><br> </li>
                 <li><div class="col-md-4 col-md-offset-6">
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">

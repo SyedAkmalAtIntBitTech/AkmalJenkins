@@ -179,35 +179,9 @@ and open the template in the editor.
         <div ng-controller="controllerUserChanges">
 
             <div class="row">
-                <div id="leftnav" class="col-md-1">
-                    <nav class="navbar navbar-default " role="navigation">
-                        <div class="navbar-header pull-lefts">
+                 <jsp:include page="mainmenu.html"/><!--/end left column-->
 
-                            <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                        </div>
-
-                        <div class="collapse navbar-collapse">
-                            <ul class="nav nav-stacked cen">
-
-                                <li><img style="position:relative;height:100px;top:2px;left:0.7em;" src="images/Nav_Icons/NavLogoFull.svg"  alt="logo" class="img-responsive" width="50"><br><br><br></li>
-                                <li><a href="dashboard.jsp"><p id="text1"><img class="navicons" src="images/Nav_Icons/NavIcon_Home.svg"/>&nbsp;&nbsp;HOME</p></a></li>
-                                <li><a href="emaillists.jsp"><p id="text1"><img src="images/Nav_Icons/NavIcon_Email.svg" class="navicons"/>&nbsp;&nbsp;EMAIL</p></a></li>
-                                <li><a href="social.html"><p id="text1"><img src="images/Nav_Icons/NavIcon_Social.svg" class="navicons"/>&nbsp;SOCIAL</p></a></li>
-                                <li><a href="imagegallery.jsp"><p id="text1"><img src="images/Nav_Icons/NavIcon_ImageGallery.svg" class="navicons"/>&nbsp;&nbsp;IMAGE GALLERY</p></a></li>   
-                                <li><a href="#"><p id="text1"><img src="images/Nav_Icons/NavIcon_Settings.svg" class="navicons navgap"/>SETTINGS</p></a></li> 
-                                <li><a href="signout.jsp"><p id="text2">LOG OUT</p></a></li> 
-
-                            </ul>
-                        </div><!-- /.navbar-collapse -->
-                    </nav>
-
-                </div><!--/end left column-->
-
-                <div class="col-md-10">
+                <div class="col-md-10 col-md-offset-1">
                     <div class="col-md-10 ">
                         <p id="text3"> Setting page</p>
 
@@ -502,7 +476,7 @@ and open the template in the editor.
                                 <li ><a href="#view1" style="width:180px;">Password</a></li>
                                 <li><a href="#view2"  style="width:180px;" ng-click="showColors()">Color Palette</a></li>
                                 <li><a href="#view3"  style="width:180px;" ng-click="getLooks()">Look</a></li>
-                                <li><a href="#view4"  style="width:180px;" ng-click="getBrands()">Brand Personality</a></li>
+                                <li><a href="#view4" ng-click="getBrands()">Brand Personality</a></li>
                                 <li><a href="#view5"  style="width:180px;" ng-click="getLogo()">Logo</a></li>
                             </ul>
                         </div>                        

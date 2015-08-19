@@ -105,7 +105,7 @@ and open the template in the editor.
                         <ul id="promotelist">
                             
                             <li id="one" ng-repeat="category in categories">
-                                <a href=""><img id="promoteimage" src="images/Organizations/Categories/{{category.organizationId}}/{{category.image_name}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91" /></a><p id="text4">{{category.categoryName}}</p>
+                                <a href=""><img id="promoteimage" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91"/></a><p id="text4">{{category.categoryName}}</p>
                             </li>
                         </ul>
                         <div>
