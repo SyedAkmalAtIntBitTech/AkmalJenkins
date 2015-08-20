@@ -1130,11 +1130,11 @@ function popupwindow() {
 }
 
 function passvaluetoinputfield() {
-    alert("error1");
-    alert($(".container").html());
+//    alert("error1");
+//    alert($(".container").html());
  var containerWidth=$(".container").css("width");
  var containerHeight=$(".container").css("height");
-alert(containerWidth+":"+containerHeight);
+//alert(containerWidth+":"+containerHeight);
 
 
 //    $.ajax({
@@ -1276,7 +1276,7 @@ alert(containerWidth+":"+containerHeight);
         }
         if (contenttype.startsWith('draggableButton')) {
             
-            alert($("#" + addElementsArray[i]).attr("src"));
+//            alert($("#" + addElementsArray[i]).attr("src"));
             style1 = " tag!" + "button" +
                     " src!" + $("#" + addElementsArray[i]).attr("src") +
                     " x-co-ordinates!" + x1 +
