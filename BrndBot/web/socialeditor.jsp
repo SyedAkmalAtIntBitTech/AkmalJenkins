@@ -28,6 +28,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
@@ -449,7 +450,7 @@ and open the template in the editor.
                             </div>
                             <div class="span3 col-md-offset-0" >
 
-                                <input id="continue" type="button" value="CONTINUE"><br><br>
+                                <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
                                 <script>
 //                                            $("#continue").click(function (){
 //                                                document.location.href = "selectpromotesocialmedia.jsp";
@@ -467,7 +468,7 @@ and open the template in the editor.
                                             <ul>
                                                 <li class="paginationclass" ng-repeat="images in datalistimages | pagination: curPage * pageSize | limitTo: pageSize">
                                                     <div>
-                                                        <img id="{{images.id}}" class="img-responsive lookchooser5" src="images/Gallery/{{images.user_id}}/{{images.image_name}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width=50 height=50 />
+                                                        <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width=50 height=50 />
                                                     </div> 
                                                 </li>
                                             </ul>

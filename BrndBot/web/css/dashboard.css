@@ -11,7 +11,7 @@ and open the template in the editor.
     position:relative;
     height:30px;
     top:-7px;
-    left:0.99em;
+    left:0px;
 }
 .navicons img{
          height:5em;
@@ -31,7 +31,7 @@ and open the template in the editor.
     position:fixed;
     z-index:10000;
     text-align:center;
-    width:100px;
+    width:120px;
     line-height:100%;  
     height:100%;
     
@@ -55,7 +55,7 @@ and open the template in the editor.
    font-weight: 500;
    position: relative;
    margin-top:0.8px;
-   left:-2em;
+   left:-1em;
    font-style:normal;
    text-align:center;
    line-height:1.1em;
@@ -80,15 +80,15 @@ and open the template in the editor.
    text-align:center;
    line-height:10px;   
    opacity:1;
-   left:-1.9em;
+   left:-0.7em;
 }
 /*#text2{
     font-size:small;
     font-weight: bold;
 }*/
 
-.hidhov li,a,p,img:hover{
-    background-color:transparent;
+.hidhov img:hover,p:hover,li:hover{
+    background-color:transparent ;
 }
 
 #text3 {
@@ -155,7 +155,7 @@ and open the template in the editor.
 }
 #text5{ 
     position:relative;
-    left:43%;
+    left:45%;
     top:50%;
     font-family: "proxima-nova",sans-serif;
     font-weight: 600;
@@ -201,7 +201,7 @@ and open the template in the editor.
 }
 #text4{
     position: relative;
-    left: 0.3em;
+    left: 1em;
     font-family: "proxima-nova-soft",sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -213,10 +213,12 @@ and open the template in the editor.
 }
 
 #promotelist{
-    position:relative;
-    padding-top:9%;  
+  position:relative;
+/*    padding-top:9%;  
     padding-bottom: 2%;
-    padding-right: 3%;
+    padding-right: 3%;*/
+        padding: 0px;
+        padding-top: 7%;
 }
 
 
@@ -241,32 +243,21 @@ and open the template in the editor.
 /*    margin-top: 160px;*/
 /*    margin-left:  12px;*/
    
-
+#promotebuttonlist img{
+    width:110px;
+    height:110px;
+}
 #promotebuttonlist li{
         display: inline-block;
         left:-100px;
         position: relative;
-        padding-top: 6%;
+        padding-top: 2%;
         width: 150px;
-        margin-left: 53px;
+        margin-left: 50px;
        }
 
 
-#subpromotelist  li{
-                list-style-type: none;
-                font-weight: bold;
-                position:relative;
-                top:10px;
-                left: 30px;
-                font-family: "proxima-nova",sans-serif;
-                font-weight: 600;
-                font-size: 1.13em;
-                color: #2d4355;
-                font-style: normal;
-                text-align: center;
-                line-height: 1.21em;
-                letter-spacing: 0em;
-}
+
 
 #promoteimage{
     margin: 10px;

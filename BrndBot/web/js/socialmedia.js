@@ -7,7 +7,7 @@ var facebookcheck;
 var twittercheck;
 $(document).ready(function () {
 
-    $("#facebook").click(function () {
+    $("#fb").click(function () {
 
         facebookcheck = document.getElementById("facebook").checked;
 
@@ -59,7 +59,7 @@ $(document).ready(function () {
         });
     });
 
-    $("#twitter").click(function () {
+    $("#twt").click(function () {
         twittercheck = document.getElementById("twitter").checked;
 //            alert(twittercheck);
         $("#submitbutton").prop("disabled", true);

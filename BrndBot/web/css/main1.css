@@ -336,6 +336,7 @@ border-radius: 0px;
     
 }
 #contemporary1:hover{
+    color: #ffffff;
     background-color:  #5cc2a5;
 }
 
@@ -569,6 +570,7 @@ opacity: 1;
     
 }
 #Servicecontinue{
+
     top:120px;
     left:0px;
     position: relative;

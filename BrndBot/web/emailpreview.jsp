@@ -15,7 +15,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
- <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/leftmenuhamburger.js" type="text/javascript"></script>
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
@@ -47,7 +46,7 @@
             .images li{
                 display: inline-table;
                 margin-right: 10px;
-                margin-top: 150px;
+                margin-top: 100px;
             }
 
             .vlightbox {
@@ -132,7 +131,21 @@
     htmlData=(String)sqlmethods.session.getAttribute("htmldata");
     %>
 <script>
-                       
+    $(document).ready(function() {
+     $.ajax({
+                                    url: getHost() + "PreviewServlet",
+                                            method: "post",
+                                            data:{htmlString: $(".content").html()},
+                                            success: function (responseText) {
+                                            
+                                                //show popup showing
+                                            $(".content").empty();
+                                            $(".content").append(responseText);
+                                            
+                                            
+                                            }
+                                    }); 
+                       }); 
                            function show(id){
                             var imageUrl= $("#"+id).css("background-image");
                              if(id==="imac")
@@ -141,21 +154,29 @@
                                 $(".iphoneshow").css("background-image",imageUrl)
                                                 .css("display",'block')
                                                 .css("height","900px"); 
-                                $(".content").css("zoom","0.4").css("margin-left","190px");  
-                            
+                                $(".content").css("zoom","0.45").css("margin-left","-27px").css("margin-top","-117px")
+                                        .css("width","500px");  
+                           
                                     
                              }
                               else if(id==="iphone"){  
                                $(".preview").css("width","550px").css("height","950px").css("overflow","hidden").css("align","center");
-                               $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("height","450px").css("width","1200px").css("overflow-x","hidden");
-                               $(".content").css("margin-left","30px").css("width","500px").css("height","920px").css("overflow","none").css("zoom","0.365"); 
-                            
+                               $(".iphoneshow").css("background-image",imageUrl)
+                                       .css("display",'block').css("height","450px").css("width","200px")
+                                       .css("overflow-x","hidden");
+                               $(".content").css("margin-left","-72px").css("margin-top","-92px").css("width","500px").css("height","920px").css("overflow","none").css("zoom","0.250"); 
+                             
                                 } 
                            else{
                                $(".preview").css("width","850px").css("height","1050px").css("overflow","none").css("overflow","hidden");
                                $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("height","500px");
-                                     $(".content").css("margin-left","190px"); 
+                                     $(".content").css("margin-left","-27px").css("margin-top","-117px").css("zoom","0.450")
+                                             .css("width","700px"); 
                             }
+                             
+                          
+                         
+                        
                            }
                        
                      function sendEmail(){
@@ -255,6 +276,6 @@
                        
             </div>
         </div>
-                       
+                
     </body>
 </html>
