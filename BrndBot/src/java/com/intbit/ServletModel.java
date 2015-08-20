@@ -136,7 +136,7 @@ public class ServletModel extends BrndBotBaseHttpServlet {
                     String containerstylearray[] = containerstyle.split(" ");
                     String mapfiledataarray[] = mapfiledata.split(",");
             //        String image = request.getParameter("image");
-                    System.out.println(containerstyle);
+                    logger.log(Level.INFO, containerstyle);
 
                         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
                         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -248,12 +248,10 @@ public class ServletModel extends BrndBotBaseHttpServlet {
                 out.println("</html>");
             }
         } catch (Exception ex) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
             out.println(getSqlMethodsInstance().error);
         } finally {
             out.close();
-            getSqlMethodsInstance().closeConnection();
         }
 
     }

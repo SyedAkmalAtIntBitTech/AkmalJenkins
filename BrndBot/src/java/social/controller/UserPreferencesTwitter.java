@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -24,6 +26,9 @@ import org.postgresql.util.PGobject;
  * @author intbit
  */
 public class UserPreferencesTwitter {
+    
+    private static final Logger logger = Logger.getLogger(UserPreferencesTwitter.class.getName());
+    
     SqlMethods sql_methods;
     PreparedStatement prepared_statement;
     ResultSet result_set;
@@ -80,8 +85,7 @@ public class UserPreferencesTwitter {
             prepared_statement.executeUpdate();
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }finally {
             prepared_statement.close();
         }
@@ -119,8 +123,7 @@ public class UserPreferencesTwitter {
             
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }finally {
             result_set.close();
             prepared_statement.close();
@@ -176,8 +179,7 @@ public class UserPreferencesTwitter {
             prepared_statement.close();
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             result_set.close();
             prepared_statement.close();

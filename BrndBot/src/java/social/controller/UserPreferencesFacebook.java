@@ -5,6 +5,7 @@
  */
 package social.controller;
 
+import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.IConstants;
 import com.controller.SqlMethods;
 import com.intbit.ConnectionManager;
@@ -12,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,6 +26,8 @@ import org.postgresql.util.PGobject;
  */
 public class UserPreferencesFacebook {
 
+    private static Logger logger = Logger.getLogger(UserPreferencesFacebook.class.getName());
+    
     private SqlMethods sqlMethods = new SqlMethods();
 
     public void updatePreference(Integer user_id, String default_page_access_token, String fb_user_profile_name, String default_page_name ) throws SQLException {
@@ -76,11 +81,9 @@ public class UserPreferencesFacebook {
             prepared_statement.executeUpdate();
             prepared_statement.close();
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }finally {
-            prepared_statement.close();
-            result_set.close();
+            sqlMethods.close(result_set, prepared_statement);
         }
     }
 
@@ -127,12 +130,9 @@ public class UserPreferencesFacebook {
 
             
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
-            result_set.close();
-            prepared_statement.close();
-            
+            sqlMethods.close(result_set, prepared_statement);
         }
             return json_fb;
 
@@ -188,8 +188,7 @@ public class UserPreferencesFacebook {
             prepared_statement.close();
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             result_set.close();
             prepared_statement.close();
