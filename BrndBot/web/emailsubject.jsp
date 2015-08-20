@@ -604,7 +604,7 @@
                     <p class="header2">This can be edited later.</p><br><br>
                     <input type="text" class="hideinputborder" id="emailsubject" name="emailsubject" placeholder="SUBJECT LINE">
                     <hr style="position:relative;left:-22%;width:550px;height:1px;background-color:#777;">
-                    <input  id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="CONTINUE">
+                    <input id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="CONTINUE">
                 </div>
 
                 <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
@@ -619,7 +619,7 @@
                     </div>
 
                     
-                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden>
+                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
                             <option value="0">SELECT</option>
                             <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                     </select>

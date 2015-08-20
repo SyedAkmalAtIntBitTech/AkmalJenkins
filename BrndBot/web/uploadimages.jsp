@@ -116,7 +116,7 @@
                         <button id="Servicecontinue" class="btn btn-info" disabled ng-click="uploadFile()">CONTINUE</button><br><br>
                         <div class="fileUpload btn ">
                             <span>Click to upload a logo</span>
-                            <input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="myFile" />
+                            <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload" file-model="myFile" />
                         </div>
                     </div>
                 </div>
