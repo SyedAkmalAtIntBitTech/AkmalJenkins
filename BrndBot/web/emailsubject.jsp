@@ -130,11 +130,9 @@
                 outline: none;
             }
             #chooseEmailList{
-                position: relative;
-                padding-top: 7%;
                 background-color: #e4e4e4;
                 border: 1px solid #DADADA;
-                height:1rem;
+                height:50px;
                 width:350px;
                 font-size: 18px;
                 border-radius: 5px;

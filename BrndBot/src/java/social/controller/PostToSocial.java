@@ -60,7 +60,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String isTwitter = request.getParameter("isTwitter");
             String getImageFile = request.getParameter("imageToPost");
             String getFile = request.getParameter("imagePost");
-            response.sendRedirect(request.getContextPath() + "/DownloadImageServlet?image_type=LAYOUT_IMAGES&image_name="+ getImageFile);
+//            response.sendRedirect(request.getContextPath() + "/DownloadImageServlet?image_type=LAYOUT_IMAGES&image_name="+ getImageFile);
             String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
             
 //            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;

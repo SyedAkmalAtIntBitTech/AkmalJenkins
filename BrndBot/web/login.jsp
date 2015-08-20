@@ -49,7 +49,7 @@
                 <div  class="form-group">
                     <div class="col-md-5 col-md-offset-5">
                         <button type="submit"  class="btn btn-info">Login</button><br><br>
-                        <p><a href="<%= application.getContextPath()%>/resetpassword.jsp">Forgot password</a></p>
+                        <br><br><p><a href="<%= application.getContextPath()%>/resetpassword.jsp">Forgot password</a></p>
                     </div>
                 </div>
             </form>
