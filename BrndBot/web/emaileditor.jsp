@@ -699,7 +699,7 @@ and open the template in the editor.
                                         <ul>
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">
                                                 <div>
-                                                    <img id="{{images.id}}" class="img-responsive lookchooser5" src="images/Gallery/{{images.user_id}}/{{images.image_name}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width=50 height=50 />
+                                                    <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width=50 height=50 />
                                                 </div> 
                                             </li>
                                         </ul>
