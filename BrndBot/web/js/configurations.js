@@ -5,14 +5,14 @@
  */
 //var global_host_address = "http://production.brndbot.intbittech.com:8080/BrndBot/";
 //var global_host_address = "http://development.brndbot.intbittech.com:8080/BrndBot/";
-var global_host_address = "http://localhost:8084/BrndBot/";
+var global_host_address = "http://localhost:8080/BrndBot/";
 
 var error = "system failure error";    
 
 function getHost(){
 //    return "http://production.brndbot.intbittech.com:8080/BrndBot/";
 //    return "http://development.brndbot.intbittech.com:8080/BrndBot/";
-    return "http://localhost:8084/BrndBot/";
+    return "http://localhost:8080/BrndBot/";
 }
 
 function kUserPreference_HasLoggedInFacebook (){

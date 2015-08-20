@@ -80,6 +80,17 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
                 case LAYOUT_IMAGES:
                     imageBasePath = AppConstants.LAYOUT_IMAGES_HOME;
                     break;
+                case USER_LOGO:
+                    userId = request.getParameter("user_id");
+                    if (userId == null || "".equals("user_id")) {
+                        Map<String, String> responseMap = new HashMap<>();
+                        responseMap.put("error", "user_id is required to view Gallery Images");
+                        response.getWriter().write(new Gson().toJson(responseMap));
+                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                        return;
+                    }
+                    imageBasePath = AppConstants.USER_LOGO + File.separator + userId + File.separator + "logo";
+                    break;
             }
             String imageName = request.getParameter("image_name");
             if (imageName == null || "".equals(imageName)) {
