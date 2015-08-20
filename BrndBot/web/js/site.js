@@ -1130,11 +1130,9 @@ function popupwindow() {
 }
 
 function passvaluetoinputfield() {
-    alert("error1");
-    alert($(".container").html());
  var containerWidth=$(".container").css("width");
  var containerHeight=$(".container").css("height");
-alert(containerWidth+":"+containerHeight);
+
 
 
 //    $.ajax({
@@ -1275,8 +1273,6 @@ alert(containerWidth+":"+containerHeight);
 
         }
         if (contenttype.startsWith('draggableButton')) {
-            
-            alert($("#" + addElementsArray[i]).attr("src"));
             style1 = " tag!" + "button" +
                     " src!" + $("#" + addElementsArray[i]).attr("src") +
                     " x-co-ordinates!" + x1 +
@@ -1295,7 +1291,7 @@ alert(containerWidth+":"+containerHeight);
                     " background-color!" + "#" + color3 + dropshadowdata1;
         }
         textareadetails[i] = style1 + " type!" + addElementsArray[i];
-       alert(textareadetails); 
+
 
 
 
