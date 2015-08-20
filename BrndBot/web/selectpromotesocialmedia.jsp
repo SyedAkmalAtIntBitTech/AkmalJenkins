@@ -24,6 +24,7 @@
        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
         <script src="js/socialmedia.js" type="text/javascript"></script>
@@ -32,12 +33,12 @@
 
         <style>
             .socialimage{
-                width: 100px;
-                height: 100px;
+                width: 120px;
+                height: 120px;
                 position: relative;
-                left:40px;
-                margin-right: 5px;
-                
+                top:-25px;
+                left:-40px;
+                margin-right: 0px;
             } 
             #facebook{
                  position: absolute;
@@ -271,14 +272,14 @@
     <div class="row">
        <jsp:include page="leftmenu.html"/><!--/end left column-->
        
-        <div class="col-md-11 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-2">
             <p id="textgrt">Great! Which social media platform(s)<br>
                 would you like to post it on?</p>
             <p class="smltxt">Click which social media platforms you want to post it on</p>
             <ul id="promotebuttonlist">
 
-               <li><img id="fb"class="socialimage" src="images/fbButton.svg" /> <input type="checkbox" id="facebook" name="social"  value="facebook"> </li>
-                <li><img id="twt" class="socialimage" src="images/twtButton.svg" > <input type="checkbox" id="twitter" name="social" value="twitter"><br> </li>
+                <li><img id="fb" class="socialimage fb" src="images/fbButton.svg" onclick="changeImagef();"/> <input type="checkbox" id="facebook" name="social"  value="facebook" hidden="true"><p class="">Facebook</p></li>
+                <li><img id="twt" class="socialimage twt" src="images/twtButton.svg" onclick="changeImaget();"/> <input type="checkbox" id="twitter" name="social" value="twitter" hidden="true"><p class="">&nbsp;&nbsp;Twitter</p></li>
                 <li><div class="col-md-6 col-md-offset-6">
 
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
@@ -288,7 +289,7 @@
                             <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
                             <input type="hidden" id="isFacebook" name="isFacebook" value="false">
                             <input type="hidden" id="isTwitter" name="isTwitter" value="false">
-                            <input type="submit"  id="submitbutton" class="btn btn-primary" value="Continue" disabled>
+                            <input type="submit"  id="submitbutton" class="button button--moema button--text-thick button--text-upper button--size-s" value="Continue" disabled>
                         </form> 
                     </div>
                 </li>
@@ -314,12 +315,30 @@
         </div>        
     </div>
 </body>
-<style>
-    .fb:active {
-    background-color:#3C5A99;
+<script>
+    function changeImagef() {
+       var x = document.getElementById("facebook").checked;
+       if(x == false){
+       document.getElementById("facebook").checked=true;
+       document.getElementById("fb").src="images/fb_icon.png"; 
+   }
+   else
+   {
+       document.getElementById("fb").src="images/fbButton.svg"; 
+   document.getElementById("facebook").checked=false;    
+   }
+       
+   }
+      function changeImaget() {
+       var x = document.getElementById("twitter").checked;
+       if(x == false){
+       document.getElementById("twitter").checked=true;
+       document.getElementById("twt").src="images/twitter.jpeg"; 
+   }
+   else
+   {
+   document.getElementById("twitter").checked=false;    
+   }
 }
-.twt:active {
-    background-color:#5FA9DD;
-}
-</style>
+</script>
 </html>

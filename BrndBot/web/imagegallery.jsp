@@ -195,7 +195,7 @@ and open the template in the editor.
                <div class="row">
                    <jsp:include page="mainmenu.html"/>
     
-                    <div class="col-md-10" >
+                    <div class="col-md-10 col-md-offset-2" >
                         <div class="col-md-10 " id="uploadModule">
                             <p id="text3"> Image Gallery </p>
                             <div>

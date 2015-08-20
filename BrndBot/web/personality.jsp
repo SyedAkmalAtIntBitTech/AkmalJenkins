@@ -11,7 +11,7 @@
         <title>personality</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       
+          <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> 
         <script src="js/angular.min.js" type="text/javascript"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -77,7 +77,7 @@ most represents your company and ignore the colors for now.</p>
 
                                     </div>
                             </div>
-                     </div>
+                     </ div>
                         <form class="form-horizontal"  ng-controller="MyController" ng-model="brands">
                             <input id="hiddenform" name="hiddenform" type="hidden" ng-model="brands.brandName"><br>
                             <div ng-repeat="first in First" class="span5 col-md-offset-1 ">
@@ -85,7 +85,7 @@ most represents your company and ignore the colors for now.</p>
                             </div>  
                             
                             <div class="span4 col-md-offset-1">
-                                <button type="button" class="btn btn-info" onclick="sendbrandID()">CONTINUE</button>
+                                <button type="button" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="sendbrandID()">CONTINUE</button>
                             </div>
                         </form>
                      
