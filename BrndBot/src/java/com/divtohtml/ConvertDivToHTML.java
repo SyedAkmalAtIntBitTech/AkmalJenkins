@@ -34,15 +34,15 @@ public class ConvertDivToHTML {
     private final static String tableDelimiter = "::";
     private ServletRequest servletRequest;
 
-    private ConvertDivToHTML(ServletRequest servletRequest) {
+    public ConvertDivToHTML(ServletRequest servletRequest) {
         this.servletRequest = servletRequest;
     }
 
     public String getResponsiveHTMLFromDiv(String divContent) throws IOException, Exception {
 
-//        String divContent = getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/divhtml.html");
-//
-//        String tableContent = getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/Templatewithtable");
+        divContent = getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/divhtml.html");
+
+        String tableContent = getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/Templatewithtable");
 
         StringBuilder newHtml = new StringBuilder();
         

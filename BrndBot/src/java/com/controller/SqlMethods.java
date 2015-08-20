@@ -1147,7 +1147,7 @@ public class SqlMethods {
             orderByParameter.append("id="+list.get(i).getModelId() + " DESC");
             orderByParameter.append(",");
         }
-        queryParmeter.substring(0, queryParmeter.length()-1);
+        queryParmeter = queryParmeter.substring(0, queryParmeter.length()-1) + ")";
         orderByParameter.substring(0, orderByParameter.length()-1);
         queryParmeter.append(")");
          try(Connection connection = ConnectionManager.getInstance().getConnection()) {
