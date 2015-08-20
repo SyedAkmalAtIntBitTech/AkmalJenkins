@@ -276,7 +276,7 @@ and open the template in the editor.
                             }
                             
                             $http({
-                            method : 'GET',
+                                 method : 'GET',
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
                                 
@@ -302,11 +302,11 @@ and open the template in the editor.
                             $scope.curPage = 0;
                                     $scope.pageSize = 2;
                                     $http({
-                                    method : 'GET',
+                                            method : 'GET',
                                             url : 'GetBlocks'
                                     }).success(function(data, status, headers, config) {
 
-                            $scope.datalists = data;
+                                    $scope.datalists = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
                                     };
@@ -372,8 +372,8 @@ and open the template in the editor.
                                 };
                                 if (data === error){
                                     alert(data);
-                            }
-                            $("#tabs-1").hide();
+                                }
+                                    $("#tabs-1").hide();
                                     $("#tabs-2").hide();
                                     $("#tabs-3").hide();
                                     $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
@@ -860,9 +860,9 @@ and open the template in the editor.
                                                 <div>
                                                     <ul>
                                                         
-                                                        <li class="paginationclass" ng-repeat="styles in datalistsstyles| pagination: curPage * pageSize | limitTo: pageSize">
+                                                        <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
@@ -871,7 +871,7 @@ and open the template in the editor.
                                                         </li>
                                                     </ul>
 
-                                                    <div class="pagination pagination-centered" ng-show="datalistsstyles.length">
+<!--                                                    <div class="pagination pagination-centered" ng-show="datalistsstyles.length">
                                                         <ul class="pagination-controle pagination">
                                                             <li>
                                                                 <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
@@ -886,7 +886,7 @@ and open the template in the editor.
                                                                         ng-click="curPage = curPage + 1">NEXT &gt;</button>
                                                             </li>
                                                         </ul>
-                                                    </div>
+                                                    </div>-->
                                                 </div>
 
                                             </div>
@@ -904,7 +904,7 @@ and open the template in the editor.
                                                     <button id="continueblock" ng-click="showDataTemp()" style="background-color: orange;position: relative;top:30%;left:30%">Continue</button>
                                                     <ul>
                                                         <!--{{datalists}}-->
-                                                        <li class="paginationclass" ng-repeat="blocks in datalists| pagination: curPage * pageSize | limitTo: pageSize">
+                                                        <li class="paginationclass" ng-repeat="blocks in datalists">
                                                             <img id="{{blocks.block_id}}" class="img-responsive blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)" src=""  width=250 height=150 />
 <!--                                                            <div style="background-color: grey;width:300px;height:100px;">
                                                                 
@@ -919,7 +919,7 @@ and open the template in the editor.
                                                         </li>
                                                     </ul>
 
-                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
+<!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
                                                         <ul class="pagination-controle pagination">
                                                             <li>
                                                                 <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
@@ -934,7 +934,7 @@ and open the template in the editor.
                                                                         ng-click="curPage = curPage + 1">NEXT &gt;</button>
                                                             </li>
                                                         </ul>
-                                                    </div>
+                                                    </div>-->
                                                 </div>
 
                                             </div>

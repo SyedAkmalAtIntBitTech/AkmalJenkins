@@ -60,9 +60,9 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String isTwitter = request.getParameter("isTwitter");
             String getImageFile = request.getParameter("imageToPost");
             String getFile = request.getParameter("imagePost");
-            response.sendRedirect(request.getContextPath() + "/DownloadImageServlet?image_type=LAYOUT_IMAGES&image_name="+ getImageFile);
-            String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
-            
+
+            String file_image_path = AppConstants.LAYOUT_IMAGES_HOME +File.separator+ getImageFile;
+
 //            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
             String imagePostURL=request.getRequestURL().toString().replace("PostToSocial", "");
             //String imagePostURL = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
@@ -80,11 +80,11 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             facebook.setOAuthAccessToken(new AccessToken(accessToken));
             if (title == "") {
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL + "BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile));
+                        .picture(new URL(imagePostURL + "/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile));
                 facebook.postFeed(post);
             } else {
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL + "BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
+                        .picture(new URL(imagePostURL + "/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
                         .name(title)
                         .link(new URL(url))
                         .description(description);

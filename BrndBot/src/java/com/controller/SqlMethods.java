@@ -1,7 +1,9 @@
 package com.controller;
 
 import com.divtohtml.DivHTMLModel;
+import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +19,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -1165,11 +1168,14 @@ public class SqlMethods {
                 DivHTMLModel model = list.get(i++);
                 String html_file_name = result_set.getString(1);
                 model.setHtmlFileName(html_file_name);
+                String htmlPath = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator + html_file_name;
+                File file = new File(htmlPath);
+                model.setHtmlFileContent(FileUtils.readFileToString(file, "UTF-8"));
                 newList.add(model);
             }
               
          }catch (Exception e){
-                        logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
 
         } finally {
             close(result_set, prepared_statement);

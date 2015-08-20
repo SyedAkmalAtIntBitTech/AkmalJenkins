@@ -140,6 +140,7 @@
                 border-radius: 5px;
             }
             #chooseEmailList{
+
                 color:black;
                 border: 1px solid #DADADA;
                 height:50px;

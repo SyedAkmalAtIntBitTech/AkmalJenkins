@@ -32,10 +32,11 @@ public class EmailHtmlData extends BrndBotBaseHttpServlet {
     @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try{
-             getSqlMethodsInstance().session = request.getSession();
+             getSqlMethodsInstance().session = request.getSession(true);
            String html_data = request.getParameter("htmlString");
            getSqlMethodsInstance().session.setAttribute("htmldata", html_data);
       

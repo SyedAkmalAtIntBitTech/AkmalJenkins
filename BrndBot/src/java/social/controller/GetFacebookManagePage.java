@@ -55,8 +55,7 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             
         }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }finally {
             out.close();
         }
@@ -81,7 +80,7 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
                 processRequest(request, response);
             } else {
 
-                System.out.println(fbCode);
+                logger.log(Level.INFO, fbCode);
                 PrintWriter out = response.getWriter();
                 out.println(facebook.getOAuthAccessToken(fbCode));
                 // facebook.setOAuthAccessToken(facebook.getOAuthAccessToken(fbCode));
@@ -102,7 +101,7 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
                     String pageAccessToken = yourPageAccount.getAccessToken();
                     String pageId = yourPageAccount.getId();
                     String profilepicture = facebook.getPagePictureURL(pageId).toString();
-                    System.out.println(yourPageAccount.getName() + " - " + pageAccessToken);
+                    logger.log(Level.INFO, yourPageAccount.getName() + " - " + pageAccessToken);
                     facebook.setOAuthAccessToken(new AccessToken(pageAccessToken));
 
                     jsonarray.add(yourPageAccount.getName());

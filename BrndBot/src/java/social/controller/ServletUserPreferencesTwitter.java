@@ -6,9 +6,11 @@
 package social.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -96,8 +98,7 @@ public class ServletUserPreferencesTwitter extends BrndBotBaseHttpServlet {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         } finally {
             getSqlMethodsInstance().closeConnection();
         }

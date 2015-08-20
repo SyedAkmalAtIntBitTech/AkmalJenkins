@@ -269,7 +269,7 @@ and open the template in the editor.
                                                                 <script type="text/javascript">
                                                                 </script>
                                                                 <div ng-repeat="colors in theme" id="rep1" >
-                                                                    <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
+                                                                    <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="blankcolor-box step_box" style="background-color:{{colors.colorHex}};"></div>
                                                                     <div><p id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</p></div>
                                                                 </div> 
                                                                 <div id='id'>

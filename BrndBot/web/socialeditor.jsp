@@ -190,8 +190,8 @@ and open the template in the editor.
                             $scope.user_preferences_font_names = data.user_font_names;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
                             if (data === error){
-                    alert(data);
-                    }
+                                alert(data);
+                                }
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
@@ -205,14 +205,14 @@ and open the template in the editor.
                                     method : 'GET',
                                             url : 'GetLayoutStyles?editorType=social'
                                     }).success(function(data, status, headers, config) {
-                                            alert(JSON.stringify(data));
+//                                            alert(JSON.stringify(data));
                                     $scope.datalists = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
                                     };
                                     if (data === error){
-                            alert(data);
-                            }
+                                        alert(data);
+                                        }
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -531,7 +531,7 @@ and open the template in the editor.
                                             <p id="text3">TEXT</p> 
                                             <ul id="textmodification">
                                                 <li><p id="editorheadere">font color</p>
-                                                    <div class="fontcolor-box" id="picker" style="left:-20px;"></div>
+                                                    <div class="color-box blankcolor-box1" id="picker" style="left:-20px;"></div>
                                                 </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->

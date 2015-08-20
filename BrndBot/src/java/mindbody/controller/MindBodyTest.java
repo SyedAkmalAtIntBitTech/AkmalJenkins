@@ -27,11 +27,14 @@ import com.mindbodyonline.clients.api._0_5Class.ClassDescription;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesRequest;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 public class MindBodyTest {
-
+    private static final Logger logger = Logger.getLogger(MindBodyTest.class.getName());
+    
     private static String sourcePassword = "WBQ2o/mat0gOfT1WeoXDKP1eH8Y=";
     private static String sourceName = "BrndbotLLC";
 
@@ -39,7 +42,7 @@ public class MindBodyTest {
         int[] siteIds = new int[]{7335};
         MindBody mindBody = new MindBody(sourceName, sourcePassword, siteIds);
         GetActivationCodeResult result = MindBody.getActivationCode(sourceName, sourcePassword, siteIds);
-        System.out.println(result.getActivationCode());
+        logger.log(Level.INFO, result.getActivationCode());
 
         GetClassesRequest classesRequest = new GetClassesRequest();
         classesRequest.setXMLDetail(XMLDetailLevel.FULL);
@@ -88,7 +91,7 @@ public class MindBodyTest {
                 XMLGregorianCalendar calendarStartDateTime = (XMLGregorianCalendar)calendarStart.getValue();
                 XMLGregorianCalendar calendarEndDateTime = (XMLGregorianCalendar)calendarEnd.getValue();
                 
-                System.out.println(i +" " + name + " " + staff.getFirstName() + " " + staff.getLastName() + " " + calendarStartDateTime);
+                logger.log(Level.INFO, i +" " + name + " " + staff.getFirstName() + " " + staff.getLastName() + " " + calendarStartDateTime);
                 }
         }
     }
