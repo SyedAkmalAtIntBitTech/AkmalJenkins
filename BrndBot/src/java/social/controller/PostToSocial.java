@@ -78,11 +78,11 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             facebook.setOAuthAccessToken(new AccessToken(accessToken));
             if (title == "") {
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL));
+                        .picture(new URL("/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile));
                 facebook.postFeed(post);
             } else {
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL))
+                        .picture(new URL("/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
                         .name(title)
                         .link(new URL(url))
                         .description(description);
