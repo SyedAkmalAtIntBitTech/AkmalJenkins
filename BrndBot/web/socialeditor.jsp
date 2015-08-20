@@ -530,7 +530,7 @@ and open the template in the editor.
                                             <p id="text3">TEXT</p> 
                                             <ul id="textmodification">
                                                 <li><p id="editorheadere">font color</p>
-                                                    <div class="fontcolor-box" id="picker" style="left:-20px;"></div>
+                                                    <div class="color-box blankcolor-box1" id="picker" style="left:-20px;"></div>
                                                 </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
