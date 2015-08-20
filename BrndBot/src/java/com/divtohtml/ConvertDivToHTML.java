@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import org.apache.commons.io.FileUtils;
 
@@ -111,7 +110,10 @@ public class ConvertDivToHTML {
                         Elements backgroundImageTdElement = item.select("td"); 
                         Element tdOfBackgroundImage = backgroundImageTdElement.get(0);
                         backgroundImageWithBlocksHTML.append("<div "+tdOfBackgroundImage.attributes().toString()+"></div>");
-                      
+                        String backgroundImageStyle = tdOfBackgroundImage.attributes().get("style");
+                        HashMap<String, String> backgroundImageStyleMap = getKeyValuePair(backgroundImageStyle);
+                        String backgroundImageWidth = backgroundImageStyleMap.get("width");
+                        String backgroundImageHeight = backgroundImageStyleMap.get("height");
                         // This is the background image with new style
 
                         if (!StringUtil.isEmpty(id) && orderOfLayeringId.length > 2) {
@@ -151,7 +153,7 @@ public class ConvertDivToHTML {
                                         backgroundImageWithBlocksHTML.append(StringUtil.lineSeparator()+colorBlocksDiv);
                                         String filePath = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator;
                                         PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletRequest.getServletContext(), filePath);
-                                        File compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), "400", "400", "0", "0");
+                                        File compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), backgroundImageWidth, backgroundImageHeight, "0", "0");
                                         //Should create the compressed image out of this and replace the background with it.
                                         item.attr(BackgroundImageProperties.backgroundURLKey, servletRequest.getServerName()+compressedBackgroundImageFile.getPath());
                                 }
