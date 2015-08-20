@@ -1,6 +1,8 @@
 package com.divtohtml;
 
 import com.controller.SqlMethods;
+import com.intbit.AppConstants;
+import com.intbit.PhantomImageConverter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -29,10 +32,15 @@ public class ConvertDivToHTML {
     private final static String idSearchPattern = "*[id]";
     private final static String blockDetailsSearchPattern = "*[blockdetails]";
     private final static String tableDelimiter = "::";
+    private ServletContext context;
 
-    public String getResponsiveHTMLFromDiv() throws IOException {
+    private ConvertDivToHTML(ServletContext context) {
+        this.context = context;
+    }
 
-        ConvertDivToHTML con = new ConvertDivToHTML();
+    public String getResponsiveHTMLFromDiv(ServletContext context) throws IOException, Exception {
+
+        ConvertDivToHTML con = new ConvertDivToHTML(context);
         String divContent = con
                 .getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/divhtml.html");
 
@@ -50,7 +58,7 @@ public class ConvertDivToHTML {
         return newHtml.toString();
     }
 
-    private String getHTMLForModel(DivHTMLModel divModel) {
+    private String getHTMLForModel(DivHTMLModel divModel) throws Exception {
         HashMap<String, ArrayList<?>> divHashMap = getDivHashMap(divModel.getDivContent());
         return populatedTable(divHashMap, divModel.getHtmlFileContent());
     }
@@ -69,7 +77,7 @@ public class ConvertDivToHTML {
         return divContentSplit;
     }
 
-    private String populatedTable(HashMap<String, ArrayList<?>> divHashMap, String tableContent) {
+    private String populatedTable(HashMap<String, ArrayList<?>> divHashMap, String tableContent) throws Exception {
         HashMap<String, String> replaceContentMap = new HashMap<String, String>();
         HashMap<String, String> replaceStyleMap = new HashMap<String, String>();
         StringBuilder backgroundImageWithBlocksHTML = new StringBuilder();
@@ -84,8 +92,6 @@ public class ConvertDivToHTML {
                 HashMap<String, String> styleMap = new HashMap<String, String>();
                 styleMap = getKeyValuePair(style);
                 if (BackgroundImageProperties.isBackgroundImage(id)) {
-                        if(true)
-                        continue;
 
                         String[] orderOfLayeringId = id.split(tableDelimiter);
                         String backgroundImageId = orderOfLayeringId[0];
@@ -96,12 +102,18 @@ public class ConvertDivToHTML {
                                 String parsedId = backgroundImageProperty.getId().split(
                                                 divDelimiter)[0];
                                 if (backgroundImageId.equalsIgnoreCase(parsedId)) {
-                                        styleMap.put(backgroundImageProperty.backgroundURLKey,
+                                        //we need to check if its outside or inside
+                                        item.attr(BackgroundImageProperties.backgroundURLKey,
                                                         backgroundImageProperty.getBackgroundURL());
                                 }
                         }
-                        item.attr(styleKey, createKeyValuePair(styleMap));
-                        backgroundImageWithBlocksHTML.append(item.toString());
+                          //we dont need to set the style map since we know nothing's gonna change
+                        //item.attr(styleKey, createKeyValuePair(styleMap));
+                        
+                        Elements backgroundImageTdElement = item.select("td"); 
+                        Element tdOfBackgroundImage = backgroundImageTdElement.get(0);
+                        backgroundImageWithBlocksHTML.append("<div "+tdOfBackgroundImage.attributes().toString()+"></div>");
+                      
                         // This is the background image with new style
 
                         if (!StringUtil.isEmpty(id) && orderOfLayeringId.length > 2) {
@@ -139,9 +151,11 @@ public class ConvertDivToHTML {
                                         }
                                         //merging all color blocks and background image code
                                         backgroundImageWithBlocksHTML.append(StringUtil.lineSeparator()+colorBlocksDiv);
-                                        //Should create an image out of this and replace the background with it.
-                                        File compressedBackgroundImageFile = new File("he");
-                                        styleMap.put(BackgroundImageProperties.backgroundURLKey, compressedBackgroundImageFile.getPath());
+                                        String filePath = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator;
+                                        PhantomImageConverter phantomImageConverter = new PhantomImageConverter(context, filePath);
+                                        File compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), "400", "400", "0", "0");
+                                        //Should create the compressed image out of this and replace the background with it.
+                                        item.attr(BackgroundImageProperties.backgroundURLKey, context.getContextPath()+compressedBackgroundImageFile.getPath());
                                 }
                         }
                         //Now style map contains the latest line with newly created background image
