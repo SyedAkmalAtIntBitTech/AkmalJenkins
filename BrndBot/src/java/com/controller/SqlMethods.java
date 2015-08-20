@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.divtohtml.DivHTMLModel;
 import com.intbit.ConnectionManager;
 import java.io.IOException;
 import java.sql.Connection;
@@ -1128,5 +1129,52 @@ public class SqlMethods {
         return image;
     }
 
+    public ArrayList<DivHTMLModel> getHTMLforDivHTMLModelList(ArrayList<DivHTMLModel> list) {
+        ArrayList<DivHTMLModel> newList = new ArrayList<>(list.size());
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+        StringBuilder queryParmeter = new StringBuilder();
+        StringBuilder orderByParameter = new StringBuilder();
+        
+        queryParmeter.append("(");
+        for (int i = 0; i < list.size(); i++) {
+            queryParmeter.append("?");
+            queryParmeter.append(",");
+            orderByParameter.append("id="+list.get(i).getModelId() + " DESC");
+            orderByParameter.append(",");
+        }
+        queryParmeter.substring(0, queryParmeter.length()-1);
+        orderByParameter.substring(0, orderByParameter.length()-1);
+        queryParmeter.append(")");
+         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+            
+             
+            query_string = "Select id,html_file_name from tbl_model_name_value where id in "+queryParmeter+" ORDER BY "+orderByParameter;
+            prepared_statement = connection.prepareStatement(query_string);
+            for (int i = 0; i < list.size(); i++) {
+                prepared_statement.setInt(1, Integer.parseInt(list.get(i).getModelId()));
+            }
+            
+            prepared_statement = connection.prepareStatement(query_string);
+            
+            result_set = prepared_statement.executeQuery();
+
+            int i = 0;
+            if (result_set.next()){
+                DivHTMLModel model = list.get(i++);
+                String html_file_name = result_set.getString(1);
+                model.setHtmlFileName(html_file_name);
+                newList.add(model);
+            }
+              
+         }catch (Exception e){
+                        logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        return newList;
+    }
 
 }
