@@ -331,7 +331,7 @@ and open the template in the editor.
                                             });
                                           
                                            
-                                           $("#"+id).attr('src','images/Layout-styles/'+allLayoutFilename[1]+'.jpeg');
+                                           $("#"+id).attr('src','/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name='+allLayoutFilename[2]);
                                            $("#"+id).attr('onclick',"showSomething('"+id+"','"+allLayoutFilename[0]+"','"+allLayoutFilename[1]+"','"+mind_body_query+"')");
                                           
                                }).error();
@@ -699,7 +699,7 @@ and open the template in the editor.
                                         <ul>
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">
                                                 <div>
-                                                    <img id="{{images.id}}" class="img-responsive lookchooser5" src="images/Gallery/{{images.user_id}}/{{images.image_name}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width=50 height=50 />
+                                                    <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width=50 height=50 />
                                                 </div> 
                                             </li>
                                         </ul>
@@ -861,7 +861,7 @@ and open the template in the editor.
                                                         
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles| pagination: curPage * pageSize | limitTo: pageSize">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
