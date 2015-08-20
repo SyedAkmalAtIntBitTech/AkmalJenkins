@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
 import org.apache.commons.io.FileUtils;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -32,24 +33,21 @@ public class ConvertDivToHTML {
     private final static String idSearchPattern = "*[id]";
     private final static String blockDetailsSearchPattern = "*[blockdetails]";
     private final static String tableDelimiter = "::";
-    private ServletContext context;
+    private ServletRequest servletRequest;
 
-    private ConvertDivToHTML(ServletContext context) {
-        this.context = context;
+    private ConvertDivToHTML(ServletRequest servletRequest) {
+        this.servletRequest = servletRequest;
     }
 
-    public String getResponsiveHTMLFromDiv(ServletContext context) throws IOException, Exception {
+    public String getResponsiveHTMLFromDiv(String divContent) throws IOException, Exception {
 
-        ConvertDivToHTML con = new ConvertDivToHTML(context);
-        String divContent = con
-                .getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/divhtml.html");
-
-        String tableContent = con
-                .getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/Templatewithtable");
+//        String divContent = getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/divhtml.html");
+//
+//        String tableContent = getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/Templatewithtable");
 
         StringBuilder newHtml = new StringBuilder();
         
-        ArrayList<DivHTMLModel> divContentSplit = con.splitDivContent(divContent);
+        ArrayList<DivHTMLModel> divContentSplit = splitDivContent(divContent);
         SqlMethods sqlMethods = new SqlMethods();
         divContentSplit = sqlMethods.getHTMLforDivHTMLModelList(divContentSplit);
         for (DivHTMLModel divModel : divContentSplit) {
@@ -152,10 +150,10 @@ public class ConvertDivToHTML {
                                         //merging all color blocks and background image code
                                         backgroundImageWithBlocksHTML.append(StringUtil.lineSeparator()+colorBlocksDiv);
                                         String filePath = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator;
-                                        PhantomImageConverter phantomImageConverter = new PhantomImageConverter(context, filePath);
+                                        PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletRequest.getServletContext(), filePath);
                                         File compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), "400", "400", "0", "0");
                                         //Should create the compressed image out of this and replace the background with it.
-                                        item.attr(BackgroundImageProperties.backgroundURLKey, context.getContextPath()+compressedBackgroundImageFile.getPath());
+                                        item.attr(BackgroundImageProperties.backgroundURLKey, servletRequest.getServerName()+compressedBackgroundImageFile.getPath());
                                 }
                         }
                         //Now style map contains the latest line with newly created background image
