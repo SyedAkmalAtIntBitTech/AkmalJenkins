@@ -618,7 +618,6 @@
                         </div>
                     </div>
 
-                    
                     <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
                             <option value="0">SELECT</option>
                             <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
