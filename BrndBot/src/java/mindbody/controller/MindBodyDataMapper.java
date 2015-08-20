@@ -44,11 +44,11 @@ public class MindBodyDataMapper {
 
                 // normalize text representation
                 doc.getDocumentElement().normalize();
-                System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
+                logger.log(Level.INFO, "Root element of the doc is " + doc.getDocumentElement().getNodeName());
 
                 NodeList listOfModels = doc.getElementsByTagName("model");
                 int totalModels = listOfModels.getLength();
-                System.out.println("Total no of models : " + totalModels);
+                logger.log(Level.INFO, "Total no of models : " + totalModels);
 
                 for (int s = 0; s < listOfModels.getLength(); s++) {
 
@@ -60,7 +60,7 @@ public class MindBodyDataMapper {
                         String element = modelElement.getAttribute("element");
                         String class_model_option = modelElement.getAttribute("option");
                         String defaultValue = modelElement.getAttribute("default");
-                        System.out.println(modelElement.getAttribute("option"));
+                        logger.log(Level.INFO, modelElement.getAttribute("option"));
 
                         if (class_model_option.equalsIgnoreCase("EnrollmentID")) {
                             if (mindbody_enrollments.getID().getValue() != null) {
@@ -213,11 +213,11 @@ public class MindBodyDataMapper {
 
                 // normalize text representation
                 doc.getDocumentElement().normalize();
-                System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
+                logger.log(Level.INFO, "Root element of the doc is " + doc.getDocumentElement().getNodeName());
 
                 NodeList listOfModels = doc.getElementsByTagName("model");
                 int totalModels = listOfModels.getLength();
-                System.out.println("Total no of models : " + totalModels);
+                logger.log(Level.INFO, "Total no of models : " + totalModels);
 
                 for (int s = 0; s < listOfModels.getLength(); s++) {
 
@@ -229,7 +229,7 @@ public class MindBodyDataMapper {
                         String element = modelElement.getAttribute("element");
                         String class_model_option = modelElement.getAttribute("option");
                         String defaultValue = modelElement.getAttribute("default");
-                        System.out.println(modelElement.getAttribute("option"));
+                        logger.log(Level.INFO, modelElement.getAttribute("option"));
 
                         if (class_model_option.equalsIgnoreCase("ClassID")) {
                             if (mindbody_class.getID().getValue() != null) {
@@ -354,11 +354,11 @@ public class MindBodyDataMapper {
 
                 // normalize text representation
                 doc.getDocumentElement().normalize();
-                System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
+                logger.log(Level.INFO, "Root element of the doc is " + doc.getDocumentElement().getNodeName());
 
                 NodeList listOfModels = doc.getElementsByTagName("model");
                 int totalModels = listOfModels.getLength();
-                System.out.println("Total no of models : " + totalModels);
+                logger.log(Level.INFO, "Total no of models : " + totalModels);
 
                 for (int s = 0; s < listOfModels.getLength(); s++) {
 
@@ -370,7 +370,7 @@ public class MindBodyDataMapper {
                         String element = modelElement.getAttribute("element");
                         String class_model_option = modelElement.getAttribute("option");
                         String defaultValue = modelElement.getAttribute("default");
-                        System.out.println(modelElement.getAttribute("option"));
+                        logger.log(Level.INFO, modelElement.getAttribute("option"));
 
                         if (class_model_option.equalsIgnoreCase("ClassID")) {
                             if (mindbody_class.getID().getValue() != null) {
