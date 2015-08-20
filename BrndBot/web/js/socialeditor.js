@@ -91,7 +91,7 @@ $(document).ready(function () {
 
  $.ajax({
        type: 'POST',
-       url: "GetLayoutStyles?editorType=email",
+       url: "GetLayoutStyles?editorType=social",
        dataType: 'json',
        success: function (data) {
            var jsondataDefault = data;
@@ -103,7 +103,7 @@ $(document).ready(function () {
                    allLayoutFilename[i] = v;
                    i++;
                });
-//                alert( allLayoutFilename[i] );
+              alert( allLayoutFilename[i] );
            });
 
 
@@ -116,7 +116,7 @@ $(document).ready(function () {
             jsondata = data;
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/BrndBot/DownloadXml?file_name="+ allLayoutFilename[1]+ ".xml",
+                url: global_host_address + "DownloadXml?file_name="+ allLayoutFilename[1]+ ".xml",
                 dataType: "xml",
                 success: function (xml) {
                     $(xml).find('layout').each(function () {

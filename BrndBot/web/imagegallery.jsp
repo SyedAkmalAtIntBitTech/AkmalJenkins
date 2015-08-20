@@ -207,7 +207,7 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="col-md-4 col-md-offset-5">
                                             <p id="comment1"> Upload Images </p>
-                                            <p id="comment2">Please upload a .PNG, .JPEG,</p> <br><br>
+                                            <p id="comment2">Please upload a .PNG, .JPEG, .SVG</p> <br><br>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -221,7 +221,7 @@ and open the template in the editor.
                                             <button id="Servicecontinue" class="btn btn-info" disabled ng-click="uploadFile()">CONTINUE</button><br><br>
                                             <div class="fileUpload btn ">
                                                 <span>Click to upload a image</span>
-                                                <input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="myFile" />
+                                                <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload"/>
                                             </div>
                                         </div>
                                     </div>
@@ -240,11 +240,11 @@ and open the template in the editor.
                                          <li class="paginationclass" style="font-weight:bold;">Image Gallery</li>            
                                          <li class="paginationclass" ng-repeat="images in datalists | pagination: curPage * pageSize | limitTo: pageSize">
                                                     <div>
-                                                        <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showText({{images.id}})" width=100 height=120 />
+                                                        <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}" onclick="showText({{images.id}})" width=100 height=120 />
                     <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                         <button name="delete" id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
                                                     </div> 
-                                                    <div><p id=''></p></div>
+                                                    <div><p></p></div>
                                                 <div></div><p>&nbsp;</p>
                                          </li>
                                     </ul> 
@@ -289,7 +289,9 @@ and open the template in the editor.
                 case 'JPG':
                 case 'PNG':
                 case 'JPEG':
-                    break;
+                case 'svg':
+                case 'SVG':
+                break;
                 default:
                     alert('This type of image is not allowed');
                     this.value = '';
