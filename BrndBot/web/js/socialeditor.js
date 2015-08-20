@@ -25,8 +25,7 @@ function setSocialParameters(title, teacher, date) {
 }
 
 $(document).ready(function () {
-//
-//    alert("clicked");
+
     $('.color-box').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
@@ -324,101 +323,57 @@ $(document).ready(function () {
     });
 
 
-
-//    $('#cropButton').on("click", function () {
-//        // grab width and height of .crop-img for canvas
-//        var width = $('.crop-container').width() - 80, // new image width
-//                height = $('.crop-container').height() - 80;  // new image height
-//
-//        $('canvas').remove();
-//        $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');
-//
-//        var ctx = document.getElementById('canvas').getContext('2d'),
-//                img = new Image,
-//                w = coordinates(one).w,
-//                h = coordinates(one).h,
-//                x = coordinates(one).x,
-//                y = coordinates(one).y;
-//
-//        img.src = coordinates(one).image;
-//
-//        img.onload = function () {
-//
-//            // draw image
-////            alert("crop test");
-//            ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
-//
-//            // display canvas image
-//            $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
-//
-//            // save the image to server
-//            $.ajax({
-//                type: "post",
-//                dataType: "json",
-//                url: "CropImage",
-//                data: {image: canvas.toDataURL()}
-//            })
-//                    .done(function (data) {
-//
-//                        // You can pull the image URL using data.url, e.g.:
-//                        // $('body').append('<img src="'+data.url+'" />');
-//
-//                    });
-//
-//        }
-//
-//    });
-    
-//    $('.uploadfile').change(function () {
-//
-//        loadImageFile();
-//
-//        // resets input file
-//        $('.uploadfile').wrap('<form>').closest('form').get(0).reset();
-//        $('.uploadfile').unwrap();
-//
-//    });
-
-
-    //  get input type=file IMG through base64 and send it to the cropper
-    // --------------------------------------------------------------------------
-
-//    oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
-//    function loadImageFile() {
-//
-//        if (document.getElementById("uploadfile").files.length === 0)
-//            return;
-//
-//        var oFile = document.getElementById("uploadfile").files[0];
-//
-//        if (!rFilter.test(oFile.type)) {
-//            return;
-//        }
-//
-//        oFReader.readAsDataURL(oFile);
-//    }
-//
-//    oFReader.onload = function (oFREvent) {
-//        $('.preview').html('<div class="default"><div class="cropMain"></div>');
-//        // create new object crop
-//        // you may change the "one" variable to anything
-//        one = new CROP();
-//
-//        // link the .default class to the crop function
-//        one.init('.default');
-//
-//        // load image into crop
-//        one.loadImg(oFREvent.target.result);
-//
-//    };
-
 });
 
 function getTectId(id) {
+
     $("textarea").click(function () {
         selectedTextareaId = id.id;
+       var textDefaultcolor= $("#"+selectedTextareaId).css("color");
+
+    var textDefaultAline= $("#"+selectedTextareaId).css("text-align");
+    var textDefaultFontSize= $("#"+selectedTextareaId).css("font-size");
+    var textDefaultFontFamily= $("#"+selectedTextareaId).css("font-style");
+    $("#picker").css("background-color",""+textDefaultcolor);
+    reload_alignButtons1(textDefaultAline);
+        
     });
 }
+
+ function reload_alignButtons1(align)
+    {
+            alert(align);
+        if (align === "left")
+        {
+            $("#left").css("background-color", "#99b1f2");
+            $("#center").css("background-color", "inherit");
+            $("#right").css("background-color", "inherit");
+            $("#justify").css("background-color", "inherit");
+        }
+        else if (align === "center")
+        {
+            $("#left").css("background-color", "inherit");
+            $("#center").css("background-color", "#99b1f2");
+            $("#right").css("background-color", "inherit");
+            $("#justify").css("background-color", "inherit");
+        }
+        else if (align === "right")
+        {
+            $("#left").css("background-color", "inherit");
+            $("#center").css("background-color", "inherit");
+            $("#justify").css("background-color", "inherit");
+            $("#right").css("background-color", "#99b1f2");
+        }
+        else if (align === "justify")
+        {
+            $("#left").css("background-color", "inherit");
+            $("#right").css("background-color", "inherit");
+            $("#center").css("background-color", "inherit");
+            $("#justify").css("background-color", "#99b1f2");
+        }
+    }
+
+
 
 function getDivId(divid) {
     selectedDivId = divid.id;

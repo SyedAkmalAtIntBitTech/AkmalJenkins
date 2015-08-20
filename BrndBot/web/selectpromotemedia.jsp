@@ -39,8 +39,8 @@
                     <div class="col-md-10 col-md-offset-2">
                         <p id="text3">How would you like to promote it?</p> 
                         <ul id="promotebuttonlist"> 
-                            <li><a onclick="selected_media('socialeditor')"><img src="images/Nav_Icons/NavIcon_Social.svg" id="social" class="glyphicon glyphicon-comment"/></a><p id="soceml">Social</p></li>
-                                <li><a onclick="selected_media('emailsubject')" ><img src="images/Nav_Icons/NavIcon_Email.svg" id="email" class="glyphicon glyphicon-envelope"/></a><p id="soceml">Email</p></li>
+                            <li><a onclick="selected_media('socialeditor')"><img src="images/NavIcon_Social-white.svg" id="social" class="glyphicon glyphicon-comment"/></a><p id="soceml">Social</p></li>
+                            <li><a onclick="selected_media('emailsubject')" ><img src="images/NavIcon_Email-white.svg" id="email" class="glyphicon glyphicon-envelope"/></a><p id="soceml">Email</p></li>
 <!--                                <li><a ><span id="print" class="glyphicon glyphicon-print"></span></a><p id="promotebutton">Print</p></li>-->
                         </ul>    
                         </div>

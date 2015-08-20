@@ -19,8 +19,8 @@
    <body>
         <div class="row">
         <jsp:include page="mainmenu.html"/>
-            <div>
-              <img style="position: relative;left:3%;margin-top:12%; " src="images/Mailsent.png" />
+        <div class="col-md-11">
+              <img style="position:relative;left:0%;margin-top:9%;" src="images/Mailsent.png" width="150"/>
               <div id="text5"> Email Sent!</div> 
             </div>
     </body>

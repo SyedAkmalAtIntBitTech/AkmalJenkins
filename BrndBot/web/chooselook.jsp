@@ -21,6 +21,7 @@
         <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
         <script src="js/angular.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/main1.css">
+         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
 
         <script>
@@ -102,7 +103,7 @@
                                 <div  class="form-group">
                                     <input type="hidden" name="lookid" id="lookid">
                                     <div class="span3 col-md-offset-0 ">
-                                        <button id="loochooserbutton" type="submit" onclick="sendLookID()" class="btn btn-info">CONTINUE</button><br><br><br>
+                                        <button id="loochooserbutton" type="submit" onclick="sendLookID()" class="button button--moema button--text-thick button--text-upper button--size-s">CONTINUE</button><br><br><br>
                                     </div>
                                 </div>
                             </div>

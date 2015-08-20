@@ -52,26 +52,22 @@ and open the template in the editor.
                 left:-15px;
                 padding: 7px;
             }
-            #subpromotelist {
-                display: inline-block;
-                /*                    left: 25px;
-                                    top: 180px;*/
-            }
-           #subpromotelist  li {
+           
+            #subpromotelist li
+            {
+                width: 200px;
                 list-style-type: none;
                 font-weight: bold;
-                position:relative;
-                top:180px;
-                left: 35px;
-                font-family:ProximaNova,Semibold;
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 600;
                 font-size: 1.13em;
                 color: #2d4355;
-                font-style: normal;
                 text-align: center;
+                font-style: normal;
                 line-height: 1.21em;
                 letter-spacing: 0em;
-
             }
+
             #sidebar-wrapper {
                 margin-left:-80px;
                 left: 60px;

@@ -30,7 +30,7 @@
             height: 200px;
             position:absolute;
             left:80%;
-            top:0px;
+            top:-100px;
             margin-left:-50px;
             border: 2px dashed rgba(0,0,0,.3);
             border-radius: 20px;
@@ -130,14 +130,25 @@
             .hideinputEmailId{
                 outline: none;
             }
+            #chooseEmailListopt{
+               
+                color:black;
+                border: 1px solid #DADADA;
+                height:2em;
+                width:350px;
+                font-size: 18px;
+                border-radius: 5px;
+            }
             #chooseEmailList{
-                background-color: #e4e4e4;
+
+                color:black;
                 border: 1px solid #DADADA;
                 height:50px;
                 width:350px;
                 font-size: 18px;
                 border-radius: 5px;
             }
+            
             #chooseEmailId:focus{
                 outline: none;
             }
@@ -149,16 +160,16 @@
             .btn-primary{
                 border-radius:10px;
                 position: fixed;
-                top: 60%;
-                width: 150px;
+                top: 70%;
+                width: 200px;
                 background-color: #00A37A;
                 border-color: #00A37A;
             }
             .btn-csv{
                 border-radius:10px;
                 position: fixed;
-                top: 30%;
-                left:66%;
+                top: 65%;
+                right:50%;
                 width: 200px;
                 background-color:transparent;
                 border-color: #00A37A;
@@ -606,7 +617,13 @@
 
                 <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
                     <p class="header1"> Who do you want to send this email to?</p>
-                    <br><br>
+                    <br><br>   
+                   
+                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
+                            <option value="0">SELECT</option>
+                            <option value="1">Check</option>
+                            <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                    </select>
                     <div id="drop-zone">
                         Drop files here...
                         <div id="clickHere">
@@ -615,14 +632,11 @@
                         </div>
                     </div>
 
-                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
-                            <option value="0">SELECT</option>
-                            <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                    </select>
+                  
                     
-                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:20em;top:20px;"/>
-                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-primary" value="Add CSV or Email Manually">
-                    <textarea style="width:300px; height:100px;position:relative;left:10em;top:20px;" id="emailaddresses"></textarea><br><br>
+                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:50em;top:-160px;"/>
+                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-csv" value="Add CSV or Email Manually">
+                    <textarea style="width:300px; height:100px;position:relative;left:38em;top:-20px;" id="emailaddresses"></textarea><br><br>
                
 
                     <div id="popup">
