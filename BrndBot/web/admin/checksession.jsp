@@ -3,7 +3,7 @@
     Created on : Jul 8, 2015, 2:44:42 PM
     Author     : intbit
 --%>
-<%@page import="sun.util.logging.PlatformLogger.Level"%>
+<%@page import="java.util.logging.Level"%>
 <%@page import="java.util.logging.Logger"%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
