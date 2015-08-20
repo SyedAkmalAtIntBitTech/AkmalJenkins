@@ -28,7 +28,7 @@ import org.json.simple.JSONObject;
  *
  * @author sandeep-kumar
  */
-public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
+public class GetUserFacebookManagePages extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,7 +55,8 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             
         }catch (Exception e){
-            logger.log(Level.SEVERE, "", e);
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
         }finally {
             out.close();
         }
@@ -80,7 +81,7 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
                 processRequest(request, response);
             } else {
 
-                logger.log(Level.INFO, fbCode);
+                System.out.println(fbCode);
                 PrintWriter out = response.getWriter();
                 out.println(facebook.getOAuthAccessToken(fbCode));
                 // facebook.setOAuthAccessToken(facebook.getOAuthAccessToken(fbCode));
@@ -101,7 +102,7 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
                     String pageAccessToken = yourPageAccount.getAccessToken();
                     String pageId = yourPageAccount.getId();
                     String profilepicture = facebook.getPagePictureURL(pageId).toString();
-                    logger.log(Level.INFO, yourPageAccount.getName() + " - " + pageAccessToken);
+                    System.out.println(yourPageAccount.getName() + " - " + pageAccessToken);
                     facebook.setOAuthAccessToken(new AccessToken(pageAccessToken));
 
                     jsonarray.add(yourPageAccount.getName());
@@ -117,7 +118,7 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
                 request.setAttribute("user_profile_name", user_name);
 //                response.sendRedirect(request.getContextPath() + "/selectpromotesocialmedia.jsp?objkey="+jsonarray);
 
-                RequestDispatcher rd = request.getRequestDispatcher("/selectpromotesocialmedia.jsp");   // jsp to which i
+                RequestDispatcher rd = request.getRequestDispatcher("/social.jsp");   // jsp to which i
 ////                 want to send data
                 rd.forward(request, response);
 

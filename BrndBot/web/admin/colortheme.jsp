@@ -4,6 +4,8 @@
     Author     : intbit
 --%>
 
+<%@page import="sun.util.logging.PlatformLogger.Level"%>
+<%@page import="java.util.logging.Logger"%>
 <%@page import="com.intbit.ConnectionManager"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="com.controller.SqlMethods"%>
@@ -35,6 +37,7 @@
     </head>
 <jsp:include page="checksession.jsp" />
     <jsp:declaration>
+        Logger logger = Logger.getLogger("colortheme.jsp");
         Integer num = 1;
         String exist = "";
         String exist1 = "";
@@ -75,8 +78,7 @@
                                 <%
                                     }
                                     }catch (Exception e){
-                                        System.out.println(e.getCause());
-                                        System.out.println(e.getMessage());
+                                        logger.log(Level.SEVERE, "", e);
                                     }finally {
                                         result_set.close();
                                         prepared_statement.close();
@@ -104,8 +106,7 @@
                                 <%
                                     }
                                     }catch (Exception e){
-                                        System.out.println(e.getCause());
-                                        System.out.println(e.getMessage());
+                                        logger.log(Level.SEVERE, "", e);
                                     }finally {
                                         result_set.close();
                                         prepared_statement.close();
@@ -173,8 +174,7 @@
                                 number = number + 1;
                             }
                             }catch (Exception e){
-                                System.out.println(e.getCause());
-                                System.out.println(e.getMessage());
+                                logger.log(Level.SEVERE, "", e);
                             }finally {
                                 result_set.close();
                                 prepared_statement.close();

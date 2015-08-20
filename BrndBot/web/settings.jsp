@@ -269,7 +269,7 @@ and open the template in the editor.
                                                                 <script type="text/javascript">
                                                                 </script>
                                                                 <div ng-repeat="colors in theme" id="rep1" >
-                                                                    <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
+                                                                    <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="blankcolor-box step_box" style="background-color:{{colors.colorHex}};"></div>
                                                                     <div><p id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</p></div>
                                                                 </div> 
                                                                 <div id='id'>
@@ -354,7 +354,7 @@ and open the template in the editor.
                                             <div class="col-md-7 pull-right pull-up">
 
                                                 <div class="item"><p>Selected look preview</p>
-                                                    <img id="image1" class="img-responsive" src="images/Lookimages/{{UserLooks.image_name}}" width="700" height="400"><br>
+                                                    <img id="image1" class="img-responsive" src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{UserLooks.image_name}}" width="700" height="400"><br>
 
                                                 </div>
                                             </div>
@@ -364,12 +364,12 @@ and open the template in the editor.
                                     <p>Choose a look</p>
                                     <div class="col-md-12 step_wrapper">
                                         <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
-                                            <img id="{{first.id}}" class="img-responsive lookchooser1 " src="images/Lookimages/{{ first.file_name}}"  onclick="showLook({{first.id}})" width=250 height=150 />
+                                            <img id="{{first.id}}" class="img-responsive lookchooser1 " src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}"  onclick="showLook({{first.id}})" width=250 height=150 />
                                         </div>
 
                                         <div class="col-md-12"></div>
                                         <div class="col-md-2 step_box" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
-                                            <img id="{{second.id}}" class="img-responsive lookchooser1" src="images/Lookimages/{{ second.file_name}}" onclick="showLook({{second.id}})" width=250 height=150 />
+                                            <img id="{{second.id}}" class="img-responsive lookchooser1" src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{second.file_name}}" onclick="showLook({{second.id}})" width=250 height=150 />
                                         </div>
 
                                     </div>
@@ -393,7 +393,7 @@ and open the template in the editor.
                                             <div class="col-md-7 pull-right pull-up">
 
                                                 <div class="item"><p>Selected brand preview</p>
-                                                    <img id="image1" class="img-responsive" src="images/Brandimages/{{UserBrand.image_name}}" width="700" height="400"><br>
+                                                    <img id="image1" class="img-responsive" src="/BrndBot/DownloadImage?image_type=BRAND_PERSONALITY&image_name={{UserBrand.image_name}}" width="700" height="400"><br>
 
                                                 </div>
                                             </div>
@@ -447,7 +447,7 @@ and open the template in the editor.
                                             <div class="col-md-7 pull-right pull-up">
 
                                                 <div class="item"><p>Selected logo</p>
-                                                    <img id="image1" class="img-responsive" src="images/Customers/<%= user_id %>/logo/<%= file_name %>" width="700" height="400"><br>
+                                                    <img id="image1" class="img-responsive" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id %>&image_name=<%= file_name %>" width="700" height="400"><br>
 
                                                 </div>
                                             </div>

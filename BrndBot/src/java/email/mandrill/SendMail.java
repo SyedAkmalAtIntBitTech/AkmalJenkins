@@ -25,13 +25,13 @@ import org.json.JSONObject;
  */
 public class SendMail {
 
-        private static final Logger logger = Logger.getLogger(util.Utility.getClassName(SendMail.class));
+    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(SendMail.class));
 
     public final static String MANDRILL_KEY = "4jd3wIMvBAmJt9H0FcEb1w";
 
     public static void sendMail(Message message) {
         try {
-            System.out.println("Message:" + message.toJSONString());
+            logger.log(Level.INFO, "Message:" + message.toJSONString());
 
             HttpClient httpclient = HttpClients.createDefault();
             HttpPost httppost = new HttpPost("https://mandrillapp.com/api/1.0/messages/send.json");
@@ -53,13 +53,13 @@ public class SendMail {
                     MessageResponses messageResponses = new MessageResponses(theString);
                     //Do whateveer is needed with the response.
 
-                    System.out.println(theString);
+                    logger.log(Level.INFO, theString);
                 } finally {
                     instream.close();
                 }
             }
         } catch (Exception e) {
-                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
     }
 
@@ -83,13 +83,13 @@ public class SendMail {
                     StringWriter writer = new StringWriter();
                     IOUtils.copy(instream, writer, "UTF-8");
                     String theString = writer.toString();
-                    System.out.println(theString);
+                    logger.log(Level.INFO, theString);
                 } finally {
                     instream.close();
                 }
             }
         } catch (Exception e) {
-                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
     }
 

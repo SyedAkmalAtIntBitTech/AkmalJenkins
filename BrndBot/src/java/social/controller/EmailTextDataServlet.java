@@ -59,8 +59,7 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
         }catch (Exception e){
             Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e.getCause());
             Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e.getMessage());
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "", e);
         }
     }
 

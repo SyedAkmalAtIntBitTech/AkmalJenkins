@@ -20,6 +20,7 @@ import com.restfb.Version;
 import com.restfb.scope.ExtendedPermissions;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.FacebookType;
+import java.util.logging.Level;
 /**
  *
  * @author sandeep-kumar
@@ -41,15 +42,14 @@ public class Fblogin extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        try  
-        (PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-         System.out.println("hi");
+         logger.log(Level.INFO, "hi");
          String MY_ACCESS_TOKEN = "CAACEdEose0cBAHgOnGKwWZBRRHUj9ZAZCUlZANlePFlDZCxjAsKtbD7NxHdKD44PAeiLYNmzerSWU2MZCTC8KC6hZAg71te5rA9arhggulnbmjZCkghuGVvSrjUmbx6hvMaUt0DQs4CZALQFpZA39drGXMz2sS3g1ytdSMFIdkBZAMZCZC6fOmBZB9x89nm8ro8PB7Cg8PwiCskQtMBkgUXcX6ZCJrs";
 	 String MY_APP_ID = "1572856859649560";
 	 String REDIRECT_URL = "https://www.facebook.com/connect/login_success.html";
 	 String APP_SECRET = "997c5f81d6c69922e49f61121a3af3e9";
-          System.out.println("hi");
+         logger.log(Level.INFO, "hi");
 	 String PAGE_NAME = "541233806015717"; 
          String Page_Id = "541233806015717"; 
          
@@ -65,7 +65,7 @@ public class Fblogin extends BrndBotBaseHttpServlet {
                     = facebookClient.publish("me/feed", FacebookType.class,
                             Parameter.with("message", " After each 10 min j2111ava121 code"));
 
-            System.out.println("Published message ID: " + publishMessageResponse.getId());     
+            logger.log(Level.INFO, "Published message ID: " + publishMessageResponse.getId());     
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");

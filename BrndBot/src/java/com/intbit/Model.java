@@ -95,7 +95,7 @@ public class Model extends BrndBotBaseHttpServlet {
             String containerstylearray[] = containerstyle.split(" ");
             String mapfiledataarray[] = mapfiledata.split(",");
             //        String image = request.getParameter("image");
-            System.out.println(containerstyle);
+            logger.log(Level.INFO, containerstyle);
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -199,8 +199,7 @@ public class Model extends BrndBotBaseHttpServlet {
             logger.log(Level.SEVERE, util.Utility.logMessage(tfe, "Exception while updating org name:", getSqlMethodsInstance().error));
 
         } catch (SQLException s) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(s, "Exception while updating org name:", getSqlMethodsInstance().error));
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(s, "Exception while updating org name:", getSqlMethodsInstance().error));
         }finally {
         }
 

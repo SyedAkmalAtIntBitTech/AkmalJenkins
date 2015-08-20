@@ -87,8 +87,8 @@ and open the template in the editor.
     font-weight: bold;
 }*/
 
-.hidhov li a:hover{
-    background-color: transparent;
+.hidhov li,a,p,img:hover{
+    background-color:transparent;
 }
 
 #text3 {

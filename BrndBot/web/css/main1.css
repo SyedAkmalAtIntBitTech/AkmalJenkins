@@ -298,7 +298,7 @@ opacity: 1;
 }
 
 .btn-info{
-   font-family: "proxima-nova",sans-serif;
+font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
@@ -312,7 +312,10 @@ opacity: 1;
     color: white;
     bottom: 0px;
 }
-
+#fp{
+   position: relative;
+   top: 35px;
+}
 .btn-info:hover{
     background-color: #00A37A;
     color:white;
@@ -566,8 +569,8 @@ opacity: 1;
     
 }
 #Servicecontinue{
-    top:70px;
-    left:10px;
+    top:120px;
+    left:0px;
     position: relative;
 }
 

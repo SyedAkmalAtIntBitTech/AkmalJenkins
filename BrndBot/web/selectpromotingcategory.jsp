@@ -21,6 +21,7 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
         <script src="js/mindbodyutility.js" type="text/javascript"></script>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
@@ -78,7 +79,8 @@ and open the template in the editor.
 */
 .datafib{
     position: relative;
-    padding-top: 10%;
+    top:20px;
+    left:50px;
 }
 .datafromindbody li{
         vertical-align:middle; 
@@ -214,20 +216,20 @@ and open the template in the editor.
 
             <div class="col-md-11 col-md-offset-1">
 
-                <div class="col-md-10 col-md-offset-0">
+                <div class="col-md-6 col-md-offset-1">
                    <p id="text3">{{datalists.title}}  </p>
-                   <input style="position:relative;top:0px;left:80%;" type="button" id="continuebutton" class="btn btn-info" onclick="selected_category()" value="CONTINUE" disabled="true"></div>  
+                   <input style="position:relative;bottom:5em;left:50em;" type="button" id="continuebutton" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="selected_category()" value="CONTINUE" disabled="true"></div>  
 
 
-            <div class="col-md-10 col-md-offset-1 datafib">
+            <div class="col-md-10 col-md-offset-0 datafib">
                 
-                <div  style="position:fixed;height:50%;" class=" tab-pane active" id="picktheme" ng-init="showData()">
+                <div  style="position:fixed;height:45%;" class=" tab-pane active" id="picktheme" ng-init="showData()">
                                 <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
 <!--                                    {{jsonclass}}-->
 
                 <div class="mindbodyOneRowData" onclick="select_category_details('{{jsonclass.id}}')" >
-                                    <li style="width: 350px;left:20px;">{{jsonclass.column1}}</li>
-                                    <li style="width: 300px">{{jsonclass.column2}}</li>
+                                    <li style="width: 400px;left:20px;">{{jsonclass.column1}}</li>
+                                    <li style="width: 250px">{{jsonclass.column2}}</li>
                                     <li style="width: 100px">{{jsonclass.column3}}</li>
                                 </ul>
                   

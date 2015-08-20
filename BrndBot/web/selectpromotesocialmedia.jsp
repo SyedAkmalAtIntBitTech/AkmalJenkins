@@ -35,7 +35,7 @@
                 width: 100px;
                 height: 100px;
                 position: relative;
-                left:-40px;
+                left:40px;
                 margin-right: 5px;
                 
             } 

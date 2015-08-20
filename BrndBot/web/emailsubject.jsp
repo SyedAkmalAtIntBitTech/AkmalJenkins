@@ -17,6 +17,7 @@
 <!--        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <link href="css/popup.css" rel="stylesheet" type="text/css"/>
+           <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
         <title>email subject</title>
@@ -28,9 +29,9 @@
             /*Sort of important*/
             height: 200px;
             position:absolute;
-            left:50%;
-            top:100px;
-            margin-left:-150px;
+            left:80%;
+            top:0px;
+            margin-left:-50px;
             border: 2px dashed rgba(0,0,0,.3);
             border-radius: 20px;
             font-family: Arial;
@@ -63,7 +64,7 @@
             #clickHere {
                 position: absolute;
                 cursor: pointer;
-                left: 0%;
+                left: -2%;
                 top: 0%;
                 margin-left: 20px;
                 margin-top: 20px;
@@ -113,7 +114,7 @@
                 width:450px;
                 font-size:35px;
                 position: relative;
-                padding-top:7%;
+                padding-top:10%;
             }
             .hideinputborder:focus{
                 outline: none;
@@ -130,11 +131,9 @@
                 outline: none;
             }
             #chooseEmailList{
-                position: relative;
-                padding-top: 7%;
                 background-color: #e4e4e4;
                 border: 1px solid #DADADA;
-                height:1rem;
+                height:50px;
                 width:350px;
                 font-size: 18px;
                 border-radius: 5px;
@@ -150,7 +149,7 @@
             .btn-primary{
                 border-radius:10px;
                 position: fixed;
-                top: 85%;
+                top: 60%;
                 width: 150px;
                 background-color: #00A37A;
                 border-color: #00A37A;
@@ -165,13 +164,9 @@
                 border-color: #00A37A;
             }
             .btn-prim{
-                border-radius:10px;
                 position: fixed;
-                top: 70%;
-                left:18%;
-                width: 150px;
-                background-color: #00A37A;
-                border-color: #00A37A;
+                top: 60%;
+                left:16%;
             }
             .fileUpload {
                 position: relative;
@@ -598,28 +593,29 @@
                    <div class="row">
                  <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div><!--/end left column-->
-            <div id="datadiv" class="col-md-10 col-md-offset-2">
+            <div id="datadiv" class="col-md-8 col-md-offset-2">
                 <div id="emailsubjectdiv">
                     <p class="header1"> Enter the Subject Line of the Email:</p>
-                    <p class="header2">This can be edited later.</p><br><br>
+                    
                     <input type="text" class="hideinputborder" id="emailsubject" name="emailsubject" placeholder="SUBJECT LINE">
-                    <hr style="position:relative;left:-22%;width:550px;height:1px;background-color:#777;">
-                    <input  id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="CONTINUE">
+
+                    <hr style="position:relative;left:-15%;width:550px;height:1px;background-color:#777;">
+                    <input  id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
+
                 </div>
 
                 <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
                     <p class="header1"> Who do you want to send this email to?</p>
-                    <p class="header2">This can be edited later.</p><br><br>
+                    <br><br>
                     <div id="drop-zone">
                         Drop files here...
                         <div id="clickHere">
                             or click here..
-                            <input type="file" name="file" id="file" style="width:800px;"/><br><br>
+                            <input type="file" name="file" id="file" style="width:300px;"/><br><br>
                         </div>
                     </div>
 
-                    
-                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden>
+                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
                             <option value="0">SELECT</option>
                             <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                     </select>
@@ -643,7 +639,7 @@
                         </div>   
                     </div>                          
 <!--                    <input type="text" class="hideinputEmailId" id="emailId" name="emailsubject" placeholder="Add CSV or Email Manually"> <br><br><br><br><br>-->
-                    <input  id="emailIdContinueButton" type="button" class=" btn btn-primary btn-prim" value="CONTINUE">
+                    <input  id="emailIdContinueButton" type="button" class=" button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
                    </div>                   
             </div>      
 <!--        </div>-->
