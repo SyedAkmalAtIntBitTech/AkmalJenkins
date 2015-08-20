@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -19,7 +21,8 @@ import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 public class ConvertDivToHTML {
-
+    private static final Logger logger = Logger.getLogger(ConvertDivToHTML.class.getName());
+    
     private final static String divDelimiter = "SSS";
     private final static String styleKey = "style";
     private final static String idKey = "id";
@@ -76,7 +79,7 @@ public class ConvertDivToHTML {
         Elements divElements = doc.select(idSearchPattern);
         for (Element item : divElements) {
                 String id = item.attr(idKey);
-                System.out.println(id);
+                logger.log(Level.INFO, id);
                 String style = item.attr(styleKey);
                 HashMap<String, String> styleMap = new HashMap<String, String>();
                 styleMap = getKeyValuePair(style);

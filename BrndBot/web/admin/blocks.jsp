@@ -4,6 +4,8 @@
     Author     : intbit
 --%>
 
+<%@page import="java.util.logging.Level"%>
+<%@page import="java.util.logging.Logger"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="com.intbit.ConnectionManager"%>
 <%@page import="javax.naming.NamingException"%>
@@ -30,7 +32,7 @@
     </head>
 <jsp:include page="checksession.jsp" />
 <jsp:declaration>
-
+        Logger logger = Logger.getLogger("blocks.jsp");
         Integer num = 1;
         String exist = "";
         String exist1 = "";
@@ -80,8 +82,7 @@
                         <%
                             }
                         }catch (Exception e) {
-                            System.out.println(e.getCause());
-                            System.out.println(e.getMessage());
+                            logger.log(Level.SEVERE, "", e);
                         }finally {
                             result_set.close();
                             prepared_statement.close();
@@ -105,8 +106,7 @@
                         <%
                             }
                         }catch (Exception e) {
-                            System.out.println(e.getCause());
-                            System.out.println(e.getMessage());
+                            logger.log(Level.SEVERE, "", e);
                         }finally {
                             result_set.close();
                             prepared_statement.close();
@@ -174,8 +174,7 @@
                         result_set.close();
                         prepared_statement.close();
                     }catch (Exception e){
-                        System.out.println(e.getCause());
-                        System.out.println(e.getMessage());
+                        logger.log(Level.SEVERE, "", e);
                         //out.println(sql_methods.error);
                     }finally {
                             ConnectionManager.getInstance().closeConnection(conn);

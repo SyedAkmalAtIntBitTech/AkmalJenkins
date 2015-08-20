@@ -441,11 +441,11 @@
 
                             <input type="hidden" name="mindbodyquery" id="mindbodyquery">
                             <input type="hidden" name="containerstyle" id="containerstyle">
-                            <input type="text" name="textstyle" id="textstyle">
-                            <input type="text" name="element" id="element">
-                            <input type="text" name="mapper" id="mapper">
-                            <input type="text" name="layout" id="layout" >
-                            <input type="text" name="imagename" id="imagename">
+                            <input type="hidden" name="textstyle" id="textstyle">
+                            <input type="hidden" name="element" id="element">
+                            <input type="hidden" name="mapper" id="mapper">
+                            <input type="hidden" name="layout" id="layout" >
+                            <input type="hidden" name="imagename" id="imagename">
                             <input type="button" value="save" onclick="passvaluetoinputfield();">
 
                             <div id="popup">

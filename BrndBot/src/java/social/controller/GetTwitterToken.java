@@ -117,9 +117,9 @@ public class GetTwitterToken extends BrndBotBaseHttpServlet {
                 user_name = user.getName();
              } catch (TwitterException te) {
                 if(401 == te.getStatusCode()){
-                  System.out.println("Unable to get the access token.");
+                  logger.log(Level.SEVERE, "Unable to get the access token.", te);
                 }else{
-                  te.printStackTrace();
+                  logger.log(Level.SEVERE, "", te);
                 }
             }
         

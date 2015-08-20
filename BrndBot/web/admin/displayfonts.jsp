@@ -9,7 +9,8 @@
 <%@page import="java.sql.*"%>
 <%@include file="checksession.jsp" %>
 
-<%!    
+<%!   
+    Logger logger = Logger.getLogger("displayfonts.jsp");
     //SqlMethods SM = new SqlMethods();
     String buffer1 = "";
     String buffer2 = "";
@@ -173,10 +174,7 @@
 
         }
     } catch (Exception e) {
-
-        System.out.println(e.getCause());
-        System.out.println(e.getMessage());
-
+       logger.log(Level.SEVERE, "", e);
     } finally {
         ConnectionManager.getInstance().closeConnection(conn);
     }
