@@ -46,7 +46,7 @@
             .hideinputEmailId{
                 outline: none;
             }
-            #chooseEmailList{
+            #chooseEmailList {
                 background-color: #e4e4e4;
                 border: 1px solid #DADADA;
                 height:50px;

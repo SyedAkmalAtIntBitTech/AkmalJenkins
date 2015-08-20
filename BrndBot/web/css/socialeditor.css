@@ -201,12 +201,7 @@ and open the template in the editor.
 #continue{
     position: relative;
     margin-top: 17%;
-    height: 30px;
-    width:129px;
-    background-color: #00A37A;
-    color: #FFF;
-    border-radius: 5px;
-    border-color:  #00A37A;
+    
 }
 
 
@@ -256,8 +251,7 @@ letter-spacing:0em;
 }
 #promotebuttonlist input{
     position: relative;
-    padding-top: 2%;
-    left:8%;
+    left:1%;
 }
 #promotebuttonlist li > img{
     position: relative;
