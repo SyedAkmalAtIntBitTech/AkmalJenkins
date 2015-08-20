@@ -189,8 +189,8 @@ and open the template in the editor.
                             $scope.user_preferences_font_names = data.user_font_names;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
                             if (data === error){
-                    alert(data);
-                    }
+                                alert(data);
+                                }
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
@@ -204,14 +204,14 @@ and open the template in the editor.
                                     method : 'GET',
                                             url : 'GetLayoutStyles?editorType=social'
                                     }).success(function(data, status, headers, config) {
-                                            alert(JSON.stringify(data));
+//                                            alert(JSON.stringify(data));
                                     $scope.datalists = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
                                     };
                                     if (data === error){
-                            alert(data);
-                            }
+                                        alert(data);
+                                        }
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs

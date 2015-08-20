@@ -192,7 +192,7 @@ public class Model extends BrndBotBaseHttpServlet {
             }
 
         } catch (ParserConfigurationException pce) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(pce, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(pce, "Exception while updating org name:", getSqlMethodsInstance().error));
 
 
         } catch (TransformerException tfe) {
