@@ -1135,6 +1135,7 @@ function passvaluetoinputfield() {
 
 
 
+
 //    $.ajax({
 //        url: getHost() +'AdminHtmlToImageServlet',
 //        type: "POST",
