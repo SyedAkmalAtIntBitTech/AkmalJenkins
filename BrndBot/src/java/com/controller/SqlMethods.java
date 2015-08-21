@@ -1158,7 +1158,7 @@ public class SqlMethods {
             result_set = prepared_statement.executeQuery();
 
             int i = 0;
-            if (result_set.next()){
+            while (result_set.next()){
                 DivHTMLModel model = list.get(i++);
                 String html_file_name = result_set.getString("html_file_name");
                 model.setHtmlFileName(html_file_name);

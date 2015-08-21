@@ -2,7 +2,7 @@ package com.divtohtml;
 
 public class ImageProperties  extends BaseProperties {
 
-	public static final String backgroundURLKey = "background: url";
+	public static final String backgroundURLKey = "background";
 	
 	private String backgroundURL;
 
