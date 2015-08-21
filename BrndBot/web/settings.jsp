@@ -19,7 +19,7 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="/resources/demos/style.css">
-        <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
+        <link href="css/colpick.css" rel="stylesheet" type="text/css">
         <script src="js/colpick.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/main1.css">
         <script src="js/prettify.js"></script>
@@ -319,7 +319,7 @@ and open the template in the editor.
                                                         </div> 
                                                     </div><br>
                                                     <div>
-                                                        <div  class="form-group">
+                                                        <div class="form-group">
                                                             <div class="col-sm-offset-0 col-md-4" >
                                                                 <form class="form-horizontal">
                                                                     <input type="hidden" id="finalcolor1" name="finalcolor1" ng-model="selColor.finalcolor1"  />
