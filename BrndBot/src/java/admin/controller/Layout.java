@@ -194,15 +194,21 @@ public class Layout {
                 
                 if (modelElement.getAttribute("tag").equalsIgnoreCase("image")) {
                     String filter = "";
-                    logger.log(Level.INFO, modelElement.getAttribute("brightness"));
-                    if (modelElement.getAttribute("blur")=="null" || modelElement.getAttribute("brightness") == " ") {
+                    if (modelElement.getAttribute("filterEnable").equalsIgnoreCase("false")) {
                         h_shadow = modelElement.getAttribute("h-shadow");
                         v_shadow = modelElement.getAttribute("v-shadow");
                         Blur = modelElement.getAttribute("blur");
                         Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
                         filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
                         logger.log(Level.INFO, filter);
-                    } else {
+                    } 
+                    else if(modelElement.getAttribute("blur").equalsIgnoreCase("undefined")) {
+                       
+                        filter = "blur(0px) grayscale(0%) sepia(0%) saturate(100%) hue-rotate(0deg) invert(0%) brightness(100%) contrast(100%)";  
+                       
+     
+                    }
+                    else{
                         Blur = modelElement.getAttribute("blur");
                         grayscale = (Double.parseDouble(modelElement.getAttribute("grayscale"))) * 100;
                         sepia = (Double.parseDouble(modelElement.getAttribute("sepia"))) * 100;
@@ -211,11 +217,10 @@ public class Layout {
                         invert = (Double.parseDouble(modelElement.getAttribute("invert"))) * 100;
                         brightness = (Double.parseDouble(modelElement.getAttribute("brightness"))) * 100;
                         contrast = (Double.parseDouble(modelElement.getAttribute("contrast"))) * 100;
-//                        blur(2px) grayscale(2%) sepia(2%) saturate(102%) hue-rotate(1deg) invert(1%) brightness(100%) contrast(101%) 
                         
                         filter = "blur(" + Blur + ") grayscale(" + (int) grayscale + "%) sepia(" + (int) sepia + "%) saturate(" + (int) saturate + "%) hue-rotate(" + huerotate + ") invert(" + (int) invert + "%) brightness(" + (int) brightness + "%) contrast(" + (int) contrast + "%)";                        
-                        logger.log(Level.INFO, filter);
-                    }
+                        logger.log(Level.INFO, filter);                    
+                        }
                     
                     backgroundimage = modelElement.getAttribute("background-image");
                     margin_left = modelElement.getAttribute("x-co-ordinates");
@@ -256,16 +261,23 @@ public class Layout {
                     backgroundimage = modelElement.getAttribute("src").replace("url(", "").replace(")", "");
                     htmldata.append("<img style='position: absolute; margin-left: " + margin_left + "; margin-top:" + margin_top + ";' src='"+backgroundimage+"'/>");
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("logo")) {
+                  
                     String filter = "";
-                    logger.log(Level.INFO, modelElement.getAttribute("brightness"));
-                    if (modelElement.getAttribute("blur")=="null" || modelElement.getAttribute("brightness") == " ") {
+                    if (modelElement.getAttribute("filterEnable").equalsIgnoreCase("false")) {
                         h_shadow = modelElement.getAttribute("h-shadow");
                         v_shadow = modelElement.getAttribute("v-shadow");
                         Blur = modelElement.getAttribute("blur");
                         Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
                         filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
                         logger.log(Level.INFO, filter);
-                    } else {
+                    } 
+                    else if(modelElement.getAttribute("blur").equalsIgnoreCase("undefined")) {
+                       
+                        filter = "blur(0px) grayscale(0%) sepia(0%) saturate(100%) hue-rotate(0deg) invert(0%) brightness(100%) contrast(100%)";  
+                       
+     
+                    }
+                    else{
                         Blur = modelElement.getAttribute("blur");
                         grayscale = (Double.parseDouble(modelElement.getAttribute("grayscale"))) * 100;
                         sepia = (Double.parseDouble(modelElement.getAttribute("sepia"))) * 100;
@@ -274,11 +286,10 @@ public class Layout {
                         invert = (Double.parseDouble(modelElement.getAttribute("invert"))) * 100;
                         brightness = (Double.parseDouble(modelElement.getAttribute("brightness"))) * 100;
                         contrast = (Double.parseDouble(modelElement.getAttribute("contrast"))) * 100;
-//                        blur(2px) grayscale(2%) sepia(2%) saturate(102%) hue-rotate(1deg) invert(1%) brightness(100%) contrast(101%) 
                         
                         filter = "blur(" + Blur + ") grayscale(" + (int) grayscale + "%) sepia(" + (int) sepia + "%) saturate(" + (int) saturate + "%) hue-rotate(" + huerotate + ") invert(" + (int) invert + "%) brightness(" + (int) brightness + "%) contrast(" + (int) contrast + "%)";                        
-                        logger.log(Level.INFO, filter);
-                    }
+                        logger.log(Level.INFO, filter);                    
+                        }
                     
                     backgroundimage = modelElement.getAttribute("background-image");
                     margin_left = modelElement.getAttribute("x-co-ordinates");
@@ -292,6 +303,13 @@ public class Layout {
                     background_size = "contain";
                     htmldata.append("<div style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + "; '></div>");
                     logger.log(Level.INFO, htmldata.toString());
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("block")) {
                     String filter = "";
                     

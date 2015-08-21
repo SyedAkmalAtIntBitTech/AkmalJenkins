@@ -355,6 +355,16 @@
                 <p>
                     <input type="button" class="blockButton" id="blockButton" value="Apply" />
                 </p>
+                <p>
+                    <select id="blockColorFromDropDown">
+                        <option value="red">Font Color 1</option>
+                                    <option value="blue">Font Color 2</option>
+                                    <option value="green">Font Color 3</option>
+                                    <option value="yellow">Font Color 4</option>
+                                    <option value="Lime">Font Color 5</option>
+                        
+                    </select>
+                </p>
                 <hr>
                 <p>
                     Drop shadow:<br /><br />
