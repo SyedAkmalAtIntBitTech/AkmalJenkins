@@ -59,11 +59,11 @@ public class ConvertDivToHTML {
 
     private String getHTMLForModel(DivHTMLModel divModel) throws Exception {
         HashMap<String, ArrayList<?>> divHashMap = getDivHashMap(divModel.getDivContent());
-        return populateTable(divHashMap, divModel.getHtmlFileContent());
+        return populateTable(divHashMap, divModel.getHtmlFileContent(), divModel.getDivContent());
     }
 
     private ArrayList<DivHTMLModel> splitDivContent(String divContent) {
-        ArrayList<DivHTMLModel> divContentSplit = new ArrayList<DivHTMLModel>();
+        ArrayList<DivHTMLModel> divContentSplit = new ArrayList<>();
         Document doc = Jsoup.parse(divContent);
         Elements divElements = doc.select(blockDetailsSearchPattern);
         for (Element item : divElements) {
@@ -76,9 +76,8 @@ public class ConvertDivToHTML {
         return divContentSplit;
     }
 
-    private String populateTable(HashMap<String, ArrayList<?>> divHashMap, String tableContent) throws Exception {
+    private String populateTable(HashMap<String, ArrayList<?>> divHashMap, String tableContent, String divContent) throws Exception {
         HashMap<String, String> replaceLinesWithIdMap = new HashMap<String, String>();
-        StringBuilder backgroundImageWithBlocksHTML = new StringBuilder();
 
         Document doc = Jsoup.parse(tableContent);
 
@@ -100,69 +99,11 @@ public class ConvertDivToHTML {
                             divDelimiter)[0];
                     if (backgroundImageId.equalsIgnoreCase(parsedId)) {
                         if (!StringUtil.isEmpty(backgroundImageProperty.getBackgroundURL())) {
-                            //we need to check if its outside or inside
-                            item.attr(BackgroundImageProperties.backgroundURLKey,
-                                    backgroundImageProperty.getBackgroundURL());
+                            String picLocation = getColorBlocksForThisBackgroundImage(item, orderOfLayeringId, id, divHashMap, divContent);
+                            item.attr("background",picLocation);
                         }
-
                     }
                 }
-                //we dont need to set the style map since we know nothing's gonna change
-                //item.attr(styleKey, createKeyValuePair(styleMap));
-
-                Elements backgroundImageTdElement = item.select("td");
-                Element tdOfBackgroundImage = backgroundImageTdElement.get(0);
-                backgroundImageWithBlocksHTML.append("<div " + tdOfBackgroundImage.attributes().toString() + "></div>");
-                String backgroundImageStyle = tdOfBackgroundImage.attributes().get("style");
-                HashMap<String, String> backgroundImageStyleMap = getKeyValuePair(backgroundImageStyle);
-                String backgroundImageWidth = backgroundImageStyleMap.get("width");
-                String backgroundImageHeight = backgroundImageStyleMap.get("height");
-                // This is the background image with new style
-
-                if (!StringUtil.isEmpty(id) && orderOfLayeringId.length > 1) {
-                    ArrayList<BlockProperties> blockProperties = (ArrayList<BlockProperties>) divHashMap
-                            .get(BlockProperties.class.getName());
-                    //zero was the backgroundImage
-                    for (int i = 1; i < orderOfLayeringId.length; i++) {
-                        String blockId = orderOfLayeringId[i];
-                        StringBuilder colorBlocksDiv = new StringBuilder();
-
-                        for (BlockProperties block : blockProperties) {
-                            String parsedId = block.getId().split(divDelimiter)[0];
-                            HashMap<String, String> colorBlockStyleMap = new HashMap<String, String>();
-                            if (blockId.equalsIgnoreCase(parsedId)) {
-                                colorBlockStyleMap.put(BlockProperties.backgroundColorKey,
-                                        block.getBackgroundColor());
-                                colorBlockStyleMap.put(BlockProperties.heightKey,
-                                        block.getHeight());
-                                colorBlockStyleMap.put(BlockProperties.widthKey,
-                                        block.getWidth());
-                                colorBlockStyleMap.put(BlockProperties.marginBottomKey,
-                                        block.getMarginBottom());
-                                colorBlockStyleMap.put(BlockProperties.marginLeftKey,
-                                        block.getMarginLeft());
-                                colorBlockStyleMap.put(BlockProperties.marginRightKey,
-                                        block.getMarginRight());
-                                colorBlockStyleMap.put(BlockProperties.marginTopKey,
-                                        block.getMarginTop());
-                                colorBlockStyleMap.put(BlockProperties.opacityKey,
-                                        block.getOpacity());
-                            }
-                            //Generated new div tags for color blocks
-                            colorBlocksDiv.append("<div id=\"" + blockId + "\" style=\"" + createKeyValuePair(colorBlockStyleMap) + "\"></div>" + StringUtil.lineSeparator());
-
-                        }
-                        //merging all color blocks and background image code
-                        backgroundImageWithBlocksHTML.append(StringUtil.lineSeparator() + colorBlocksDiv);
-                        String filePath = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator;
-                        PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletRequest.getServletContext(), filePath);
-                        File compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), backgroundImageWidth, backgroundImageHeight, "0", "0");
-                        //Should create the compressed image out of this and replace the background with it.
-                        item.attr(BackgroundImageProperties.backgroundURLKey, servletRequest.getServerName() + compressedBackgroundImageFile.getPath());
-                    }
-                }
-                //Now style map contains the latest line with newly created background image
-
             } else if (TextAreaProperties.isTextArea(id)) {
                 ArrayList<TextAreaProperties> textareaProperties = (ArrayList<TextAreaProperties>) divHashMap.get(TextAreaProperties.class.getName());
                 for (TextAreaProperties textArea : textareaProperties) {
@@ -291,10 +232,9 @@ public class ConvertDivToHTML {
                 block.setBackgroundColor(styleMap.get(BlockProperties.backgroundColorKey));
                 block.setHeight(styleMap.get(BlockProperties.heightKey));
                 block.setWidth(styleMap.get(BlockProperties.widthKey));
-                block.setMarginBottom(styleMap.get(BlockProperties.marginBottomKey));
-                block.setMarginLeft(styleMap.get(BlockProperties.marginLeftKey));
-                block.setMarginRight(styleMap.get(BlockProperties.marginRightKey));
-                block.setMarginTop(styleMap.get(BlockProperties.marginTopKey));
+                block.setTop(styleMap.get(BlockProperties.topKey));
+                block.setLeft(styleMap.get(BlockProperties.leftKey));
+                block.setBlockPosition(styleMap.get(BlockProperties.positionKey));
                 block.setOpacity(styleMap.get(BlockProperties.opacityKey));
                 blockList.add(block);
             } else if (LogoProperties.isLogo(id)) {
@@ -361,5 +301,77 @@ public class ConvertDivToHTML {
         File file = new File(fileName);
         result = FileUtils.readFileToString(file, "UTF-8");
         return result;
+    }
+
+    private String getColorBlocksForThisBackgroundImage(Element item, String[] orderOfLayeringId, String id, HashMap<String, ArrayList<?>> divHashMap, String divContent) throws Exception {
+        File compressedBackgroundImageFile = null;
+        Elements backgroundImageTdElement = item.select("td");
+        Element tdOfBackgroundImage = backgroundImageTdElement.get(0);
+        String backgroundImageStyle = tdOfBackgroundImage.attributes().get("style");
+        StringBuilder backgroundImageWithBlocksHTML = new StringBuilder();
+
+        Document doc = Jsoup.parse(divContent);
+        Elements divElements = doc.select(idSearchPattern);
+        for (Element divItem : divElements) {
+            String divId = divItem.attr(idKey);
+            String parsedDivId = divId.split(divDelimiter)[0];
+            String backgroundImageId = orderOfLayeringId[0];
+
+            System.out.println("divId==" + divId + "    id==" + id);
+            if (parsedDivId.equalsIgnoreCase(backgroundImageId)) {
+
+                backgroundImageWithBlocksHTML.append(divItem.toString());
+                break;
+            }
+        }
+
+        HashMap<String, String> backgroundImageStyleMap = getKeyValuePair(backgroundImageStyle);
+        String backgroundImageWidth = backgroundImageStyleMap.get("width");
+        String backgroundImageHeight = backgroundImageStyleMap.get("height");
+        // This is the background image with new style
+
+        if (!StringUtil.isEmpty(id) && orderOfLayeringId.length > 1) {
+            ArrayList<BlockProperties> blockProperties = (ArrayList<BlockProperties>) divHashMap
+                    .get(BlockProperties.class.getName());
+            //zero was the backgroundImage
+            for (int i = 1; i < orderOfLayeringId.length; i++) {
+                String blockId = orderOfLayeringId[i];
+                StringBuilder colorBlocksDiv = new StringBuilder();
+
+                for (BlockProperties block : blockProperties) {
+                    String parsedId = block.getId().split(divDelimiter)[0];
+                    HashMap<String, String> colorBlockStyleMap = new HashMap<String, String>();
+                    if (blockId.equalsIgnoreCase(parsedId)) {
+                        colorBlockStyleMap.put(BlockProperties.backgroundColorKey,
+                                block.getBackgroundColor());
+                        colorBlockStyleMap.put(BlockProperties.heightKey,
+                                block.getHeight());
+                        colorBlockStyleMap.put(BlockProperties.widthKey,
+                                block.getWidth());
+                        colorBlockStyleMap.put(BlockProperties.topKey,
+                                block.getTop());
+                        colorBlockStyleMap.put(BlockProperties.leftKey,
+                                block.getLeft());
+                        colorBlockStyleMap.put(BlockProperties.positionKey,
+                                block.getBlockPosition());
+                        colorBlockStyleMap.put(BlockProperties.opacityKey,
+                                block.getOpacity());
+                    }
+                    //Generated new div tags for color blocks
+                    colorBlocksDiv.append("<div id=\"" + blockId + "\" style=\"" + createKeyValuePair(colorBlockStyleMap) + "\"></div>" + StringUtil.lineSeparator());
+
+                }
+                //merging all color blocks and background image code
+                backgroundImageWithBlocksHTML.append(StringUtil.lineSeparator() + colorBlocksDiv);
+
+            }
+            String filePath = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator;
+
+            PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletRequest.getServletContext(), filePath);
+            compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), backgroundImageWidth, backgroundImageHeight, "0", "0");
+            //Should create the compressed image out of this and replace the background with it.
+
+        }
+        return servletRequest.getServerName() + compressedBackgroundImageFile.getPath();
     }
 }

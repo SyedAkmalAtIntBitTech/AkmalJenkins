@@ -2,161 +2,123 @@ package com.divtohtml;
 
 public class BlockProperties extends BaseProperties {
 
-	public final static String backgroundColorKey = "background-color";
-	public final static String opacityKey = "opacity";
-	public final static String marginLeftKey = "margin-left";
-	public final static String marginRightKey = "margin-right";
-	public final static String marginTopKey = "margin-top";
-	public final static String marginBottomKey = "margin-bottom";
-	public final static String heightKey = "margin-height";
-	public final static String widthKey = "margin-width";
+    public final static String backgroundColorKey = "background-color";
+    public final static String opacityKey = "opacity";
+    public final static String topKey = "top";
+    public final static String leftKey = "left";
+    public final static String heightKey = "height";
+    public final static String widthKey = "width";
+    public final static String positionKey = "position";
 
+    private String backgroundColor;
+    private String opacity;
+    private String left;
+    private String top;
+    private String height;
+    private String width;
+    private String blockPosition;
 
-	private String backgroundColor;
-	private String opacity;
-	private String marginLeft;
-	private String marginRight;
-	private String marginTop;
-	private String marginBottom;
-	private String height;
-	private String width;
+    public String getLeft() {
+        if (StringUtil.isEmpty(left)) {
+            left = "0";
+        }
+        return left;
+    }
 
-	/**
-	 * @return the marginTop
-	 */
-	public String getMarginTop() {
-		if(StringUtil.isEmpty(marginTop)) {
-			return "0";
-		}
-		return marginTop;
-	}
+    public void setLeft(String left) {
+        this.left = left;
+    }
 
-	/**
-	 * @param marginTop the marginTop to set
-	 */
-	public void setMarginTop(String marginTop) {
-		this.marginTop = marginTop;
-	}
+    public String getTop() {
+        if (StringUtil.isEmpty(top)) {
+            top = "0";
+        }
+        return top;
+    }
 
-	/**
-	 * @return the marginBottom
-	 */
-	public String getMarginBottom() {
-		if(StringUtil.isEmpty(marginBottom)) {
-			return "0";
-		}
-		return marginBottom;
-	}
+    public void setTop(String top) {
+        this.top = top;
+    }
 
-	/**
-	 * @param marginBottom the marginBottom to set
-	 */
-	public void setMarginBottom(String marginBottom) {
-		this.marginBottom = marginBottom;
-	}	
+    public String getBlockPosition() {
+        if (StringUtil.isEmpty(blockPosition)) {
+            blockPosition = "absolute";
+        }
+        return blockPosition;
+    }
 
-	/**
-	 * @return the marginLeft
-	 */
-	public String getMarginLeft() {
-		if(StringUtil.isEmpty(marginLeft)) {
-			return "0";
-		}
-		return marginLeft;
-	}
+    public void setBlockPosition(String blockPosition) {
+        this.blockPosition = blockPosition;
+    }
 
-	/**
-	 * @param marginLeft the marginLeft to set
-	 */
-	public void setMarginLeft(String marginLeft) {
-		this.marginLeft = marginLeft;
-	}
+    /**
+     * @return the height
+     */
+    public String getHeight() {
+        if (StringUtil.isEmpty(height)) {
+            return "0";
+        }
+        return height;
+    }
 
-	/**
-	 * @return the marginRight
-	 */
-	public String getMarginRight() {
-		if(StringUtil.isEmpty(marginRight)) {
-			return "0";
-		}
-		return marginRight;
-	}
+    /**
+     * @param height the height to set
+     */
+    public void setHeight(String height) {
+        this.height = height;
+    }
 
-	/**
-	 * @param marginRight the marginRight to set
-	 */
-	public void setMarginRight(String marginRight) {
-		this.marginRight = marginRight;
-	}
+    /**
+     * @return the width
+     */
+    public String getWidth() {
+        if (StringUtil.isEmpty(width)) {
+            return "0";
+        }
+        return width;
+    }
 
-	/**
-	 * @return the height
-	 */
-	public String getHeight() {
-		if(StringUtil.isEmpty(height)) {
-			return "0";
-		}
-		return height;
-	}
+    /**
+     * @param width the width to set
+     */
+    public void setWidth(String width) {
+        this.width = width;
+    }
 
-	/**
-	 * @param height the height to set
-	 */
-	public void setHeight(String height) {
-		this.height = height;
-	}
+    /**
+     * @return the backgroundcolorkey
+     */
+    public static String getBackgroundcolorkey() {
+        return backgroundColorKey;
+    }
 
-	/**
-	 * @return the width
-	 */
-	public String getWidth() {
-		if(StringUtil.isEmpty(width)) {
-			return "0";
-		}
-		return width;
-	}
+    public String getBackgroundColor() {
+        if (StringUtil.isEmpty(backgroundColor)) {
+            return "white";
+        }
+        return backgroundColor;
+    }
 
-	/**
-	 * @param width the width to set
-	 */
-	public void setWidth(String width) {
-		this.width = width;
-	}
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
 
-	/**
-	 * @return the backgroundcolorkey
-	 */
-	public static String getBackgroundcolorkey() {
-		return backgroundColorKey;
-	}
+    public String getOpacity() {
+        if (StringUtil.isEmpty(opacity)) {
+            return "0";
+        }
+        return opacity;
+    }
 
+    public void setOpacity(String opacity) {
+        this.opacity = opacity;
+    }
 
-	public String getBackgroundColor() {
-		if(StringUtil.isEmpty(backgroundColor)) {
-			return "white";
-		}
-		return backgroundColor;
-	}
-
-	public void setBackgroundColor(String backgroundColor) {
-		this.backgroundColor = backgroundColor;
-	}
-
-	public String getOpacity() {
-		if(StringUtil.isEmpty(opacity)) {
-			return "0";
-		}
-		return opacity;
-	}
-
-	public void setOpacity(String opacity) {
-		this.opacity = opacity;
-	}
-
-	public static boolean isColorBlock(String id) {
-		if (id.contains("colorblock"))
-			return true;
-		return false;
-	}
+    public static boolean isColorBlock(String id) {
+        if (id.contains("colorblock")) {
+            return true;
+        }
+        return false;
+    }
 
 }
