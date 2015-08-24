@@ -598,7 +598,7 @@ and open the template in the editor.
                                             .css("height", "" + height)
                                             .css("background", ""+background_image)
                                             .css("background-repeat", "no-repeat")
-                                            .css("-webkit-background-size", "contain")
+                                            .css("background-position", "center center")
                                             .css("position", "absolute");
                                     }
 

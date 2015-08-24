@@ -46,7 +46,16 @@
         <link href="../css/spectrum.css" rel="stylesheet" type="text/css"/>
         <script src="../js/configurations.js" type="text/javascript"></script>
      <script language="javascript" type="text/javascript">  
-
+$(document).ready(function () {
+    var textSize = 5;
+    
+    while(textSize<155)
+    {
+       
+        $("#textSize").append(new Option(textSize+"px", textSize));
+        textSize=textSize+5;
+    }
+});
       var xmlHttp;  
       
             function brandChange(){   
@@ -277,14 +286,14 @@
 
                 <p>
                 Font Size: <select id="textSize">
-                                 <option value="8">8px</option>
+<!--                                 <option value="8">8px</option>
                                  <option value="12">12px</option>
                                  <option value="14">14px</option>
                                  <option value="18">18px</option>
                                  <option value="22">22px</option>
                                  <option value="26">26px</option>
                                  <option value="30">30px</option>
-                                 <option value="34">34px</option>                           
+                                 <option value="34">34px</option>                           -->
                                </select>
                 </p>
 

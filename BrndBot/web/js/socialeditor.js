@@ -194,7 +194,7 @@ $(document).ready(function () {
                                     .css("height", "" + height)
                                     .css("background","url(http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg)")
                                     .css("background-repeat", "no-repeat")
-                                    .css("-webkit-background-size","contain")
+                                    .css("background-position", "center center")
                                     .css("position", "absolute");   
                         }
 
