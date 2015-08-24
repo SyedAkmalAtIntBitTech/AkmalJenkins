@@ -153,7 +153,7 @@
                     <div style="float:left; left:20px; padding-left: 166px;">
                         <input type="text" id="sub_category_name" name="sub_category_name" value=""/><br>
                         External Source: <select name="external_source" id="external_source">
-                            <option value="0">-- Select --</option>
+                            <option value="null">-- Select --</option>
                             <option value="Mindbody">Mindbody</option>
                         </select><br><br>
                         Select Categories: <select name="category" id="category" style="width:180px;">

@@ -243,7 +243,7 @@
             }
 
 
-<<<<<<< HEAD
+
     
       </script>          
       <script>
@@ -336,9 +336,7 @@
 
           
       </script>
-=======
-        </script>          
->>>>>>> 03b795a57ff0531e01b2208fdc00ff3e0ca8ef53
+
     </head>
     <body>
         <%@include file="menus.jsp" %>
@@ -566,15 +564,10 @@
             </div>
         </div>
         <div id="main">
-<<<<<<< HEAD
             <form>
                 
                 Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">
-=======
-            <form action="<%= application.getContextPath()%>/Model" method="post">
 
-                Organization : <select name="organization" onchange="showUsers(this.value)">
->>>>>>> 03b795a57ff0531e01b2208fdc00ff3e0ca8ef53
                     <option value="0">-Select</option>
                     <%
                         Connection connection = null;
@@ -602,20 +595,14 @@
                         }
 
                     %>
-<<<<<<< HEAD
+
                                       </select>
                 
                                     Brand : <select name="brand" id="brand" onchange="showblocks(this.value)">
                                         <option value="0">-Select-</option>
                     <%
-                        try{
-=======
-                </select>
 
-                Brand : <select name="brand" onchange="showblocks(this.value)">
-                    <option value="0">-Select-</option>
-                    <%                        try {
->>>>>>> 03b795a57ff0531e01b2208fdc00ff3e0ca8ef53
+                    try {
                             connection = ConnectionManager.getInstance().getConnection();
                             Query = "Select * from tbl_brand_personality";
                             ps = connection.prepareStatement(Query);
@@ -638,8 +625,7 @@
                         }
 
                     %>
-<<<<<<< HEAD
-                       </select><br><br>
+                </select><br><br>
 
                 Users: <select id='users' name="users">
                             <option value="0">Select</option>
@@ -679,43 +665,6 @@
 <!--                            <input type="submit" value="submit">-->
                         </form>
             
-=======
-                </select><br><br>
-
-                Users: <select id='users' name="users">
-                    <option value="0"></option>
-                </select>
-                Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
-                    <option value="0"></option>
-                </select><br><br>
-                Sub Categories: <select id="subcategories" name="subcategories">
-                    <option value="0"></option>
-                </select>
-                Blocks : <select name="blocks" id="blocks" onchange="showmindbodyquery(this.value)">
-                    <option value="0">Select</option>
-                </select><br><br>
-
-                Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
-                <input type="hidden" name="mindbodyquery" id="mindbodyquery">
-                <input type="hidden" name="containerstyle" id="containerstyle">
-                <input type="hidden" name="textstyle" id="textstyle">
-                <input type="hidden" name="element" id="element">
-                <input type="hidden" name="mapper" id="mapper">
-                <input type="hidden" name="layout" id="layout" >
-                <input type="button" value="save" onclick="passvaluetoinputfield();">
-
-                <div id="popup">
-                    <div id="content">
-                        Mapper file name<input type="text" id="mapperxml" required><br><br>
-                        Layout file name<input type="text" id="layoutxml" requireds><br>
-                        <input type="hidden" name="mail" value="mail"/>
-                        <input type="submit" id="popupclose" type="Button" value="Done"/>   
-                    </div>   
-
-                </div>
-
-                <!--                            <input type="submit" value="submit">-->
-            </form>
 
             <!-- Added by Syed Ilyas on 24/08/2015 -->
             <!-- This adds zoom functionality -->
@@ -740,7 +689,6 @@
                 });
             </script>
             <!-- End -->
->>>>>>> 03b795a57ff0531e01b2208fdc00ff3e0ca8ef53
             <div class="container">
 
             </div>

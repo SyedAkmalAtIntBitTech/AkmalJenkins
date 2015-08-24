@@ -292,6 +292,10 @@
         <servlet-name>ServletValidateModel</servlet-name>
         <servlet-class>admin.controller.ServletValidateModel</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAddHtmlTemplate</servlet-name>
+        <servlet-class>admin.controller.ServletAddHtmlTemplate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -595,6 +599,10 @@
     <servlet-mapping>
         <servlet-name>ServletValidateModel</servlet-name>
         <url-pattern>/ServletValidateModel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAddHtmlTemplate</servlet-name>
+        <url-pattern>/ServletAddHtmlTemplate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

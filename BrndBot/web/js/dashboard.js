@@ -55,26 +55,41 @@ angular.module("myapp", [])
 
             $scope.getSubCategories = function (CatID) {
                 var CategoryID = {"CategoryID": CatID.toString()};
-
+                $scope.SubCategories = "";
                 $http({
                     method: 'POST',
                     url: getHost() + 'GetSubCategories',
                     headers: {'Content-Type': 'application/json'},
                     data: CategoryID
                 }).success(function (data)
-                {
-                    $scope.SubCategories = data;
+                {   
+                    var JSONData = data;
+                    var i = 0;
+                    for(i = 0; i<=JSONData.length; i++){
+                        var mindbody_data = JSONData[i];
+                        if (mindbody_data.external_source == "null"){
+                            window.open(getHost() + 'selectpromotemedia.jsp', "_self");
+                        }else {
+                            $scope.SubCategories = data;
+                        }
+                    }
+                        
+//                    if (data.external_source == null) {
+//                        alert("no external source");
+//                    }else {
+//                        $scope.SubCategories = data;
+//                    }
+                    
                     if (data === error) {
                         alert(data);
                     }
 
-                })
-                        .error(function (data, status) {
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
+                }).error(function (data, status) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
 
-                            alert("request not succesful");
-                        });
+                    alert("request not succesful");
+                });
                         
                 if (CatID === 1) { 
                     $("#subpromotelist").css("position","relative").css("left", "-80px").css("top", "-10px").css("width","100px");
