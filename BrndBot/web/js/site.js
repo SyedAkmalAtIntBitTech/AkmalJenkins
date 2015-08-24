@@ -504,7 +504,7 @@ $(document).ready(function () {
 
         addImageCount++;
         addElements($("#elementText").find('option:selected').text());
-        $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("-webkit-background-size","contain");                                    
+        $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("background-position", "center center");                                    
         $("#" + selectedTextID).css("width", "100px");
         $("#" + selectedTextID).css("height", "100px");
         addDefault();
@@ -557,9 +557,7 @@ $(document).ready(function () {
         });
         $("#fileButton").click(function () {
             $("#" + selectedTextID).css('background', "url('" + $("#filePath").val() + "')");
-            $("#" + selectedTextID).css("background-size", "contain");
-            $("#" + selectedTextID).css("-webkit-background-size", "contain");
-            $("#" + selectedTextID).css("background-repeat", "no-repeat");
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
         });
         $(function () {
             function blendColor() {
@@ -899,9 +897,8 @@ $(document).ready(function () {
         });
         $("#fileButton").click(function () {
             $("#" + selectedTextID).css('background', "url('" + $("#filePath").val() + "')");
-            $("#" + selectedTextID).css("background-size", "contain");
-            $("#" + selectedTextID).css("-webkit-background-size", "contain");
-            $("#" + selectedTextID).css("background-repeat", "no-repeat");
+           
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
         });
         $(function () {
             function blendColor() {
