@@ -39,19 +39,19 @@ public class Layout {
         this.sqlmethods = new SqlMethods();
     }
     
-    public boolean checkAvailability(String brand_name) throws SQLException {
+    public String checkAvailability(String model_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         
-        boolean check = false;
+        String check = "no";
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "select * from tbl_brand_personality where brand_name='" + brand_name + "'";
+            query_string = "select * from tbl_model where model_name='" + model_name + "'";
             
             prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
-                check = true;
+                check = "yes";
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
@@ -63,38 +63,39 @@ public class Layout {
         return check;
     }
     
-    public String getFileName(Integer brand_id) {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        
-        String fileName = "";
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from tbl_brand_personality where id=" + brand_id + "";
-            
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-            
-            if (result_set.next()) {
-                fileName = result_set.getString("image");
-            }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "", e);
-        } finally {
-            sqlmethods.close(result_set, prepared_statement);
-            
-        }
-        
-        return fileName;
-    }
+//    
+//    public String getFileName(Integer brand_id) {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//        
+//        String fileName = "";
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "Select * from tbl_brand_personality where id=" + brand_id + "";
+//            
+//            prepared_statement = connection.prepareStatement(query_string);
+//            result_set = prepared_statement.executeQuery();
+//            
+//            if (result_set.next()) {
+//                fileName = result_set.getString("image");
+//            }
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, "", e);
+//        } finally {
+//            sqlmethods.close(result_set, prepared_statement);
+//            
+//        }
+//        
+//        return fileName;
+//    }
     
-    public void addLayouts(Integer organization_id, Integer user_id, Integer category_id, String layout, String model, boolean email, boolean social, Integer sub_category_id, Integer brand_id, Integer block_id, String Style_image_name) throws SQLException {
+    public void addLayouts(Integer organization_id, Integer user_id, Integer category_id, String layout, String model, boolean email, boolean social, Integer sub_category_id, Integer brand_id, Integer block_id, String Style_image_name, String file_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Insert into tbl_model (organization_id, user_id, category_id, layout_file_name, model_file_name, email, social, sub_category_id, brand_id, block_id,image_file_name) values(?,?,?,?,?,?,?,?,?,?,?)";
+            query_string = "Insert into tbl_model (organization_id, user_id, category_id, layout_file_name, model_file_name, email, social, sub_category_id, brand_id, block_id,image_file_name, model_name) values(?,?,?,?,?,?,?,?,?,?,?,?)";
             
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setInt(1, organization_id);
@@ -108,6 +109,7 @@ public class Layout {
             prepared_statement.setInt(9, brand_id);
             prepared_statement.setInt(10, block_id);
             prepared_statement.setString(11, Style_image_name);
+            prepared_statement.setString(12, file_name);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
@@ -118,45 +120,45 @@ public class Layout {
         
     }
     
-    public void editBrands(Integer brand_id, String brand_name, Integer look_id, String image) throws SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "UPDATE tbl_brand_personality"
-                    + " SET brand_name='" + brand_name + "', look_id=" + look_id + ", image='" + image + "'  WHERE id='" + brand_id + "'";
-            
-            prepared_statement = connection.prepareStatement(query_string);
-            prepared_statement.executeUpdate();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "", e);
-        } finally {
-            sqlmethods.close(result_set, prepared_statement);
-            
-        }
-        
-    }
-    
-    public void deleteBrands(Integer org_id) throws SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Delete From tbl_brand_personality"
-                    + " WHERE id='" + org_id + "'";
-            
-            prepared_statement = connection.prepareStatement(query_string);
-            prepared_statement.executeUpdate();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "", e);
-        } finally {
-            sqlmethods.close(result_set, prepared_statement);
-            
-        }
-        
-    }
+//    public void editBrands(Integer brand_id, String brand_name, Integer look_id, String image) throws SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//        
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "UPDATE tbl_brand_personality"
+//                    + " SET brand_name='" + brand_name + "', look_id=" + look_id + ", image='" + image + "'  WHERE id='" + brand_id + "'";
+//            
+//            prepared_statement = connection.prepareStatement(query_string);
+//            prepared_statement.executeUpdate();
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, "", e);
+//        } finally {
+//            sqlmethods.close(result_set, prepared_statement);
+//            
+//        }
+//        
+//    }
+//    
+//    public void deleteBrands(Integer org_id) throws SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//        
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "Delete From tbl_brand_personality"
+//                    + " WHERE id='" + org_id + "'";
+//            
+//            prepared_statement = connection.prepareStatement(query_string);
+//            prepared_statement.executeUpdate();
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, "", e);
+//        } finally {
+//            sqlmethods.close(result_set, prepared_statement);
+//            
+//        }
+//        
+//    }
     
     public String createImage(String layoutfilename, ServletContext servletContext) throws SAXException {
 //        throw new UnsupportedOperationException("Not supported yet.");

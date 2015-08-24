@@ -10,7 +10,7 @@ and open the template in the editor.
         <title>setting</title>
         <meta charset="UTF-8" >
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -56,126 +56,126 @@ and open the template in the editor.
                 filter: alpha(opacity=0);
             }
 
-                     .container{
-                            position: absolute;
-                            float: left;
-/*                            margin-left: -250px;*/
-                        }
+            .container{
+                position: absolute;
+                float: left;
+                /*                            margin-left: -250px;*/
+            }
 
         </style>
         <script>
                     var ElementID;
-        /*------ get selected element ID -----*/
-                function getElementID(IDNo){
-                ElementID = IDNo;
-                $('.step_wrapper').on('click', '.step_box', function () {
-        $(this).parent().find('.step_box').css('width', '').css('height', '').css('border-color', '').css('border-radius', '');
-                        $(this).css('width', '80px').css('height', '40px').css('border-color', '#FF0000').css('border-radius', '10px');
-                });
-                        $("#sortable").sortable();
-                        $("#sortable").disableSelection();
-                }
-        /*------ pass color into the selected element got by id-----*/
-        function getIDNo(IDNo){
-            alert(IDNo);
-        var s = $("#" + IDNo).attr("style");
-                var s1 = s.split(":");
-                $("#" + ElementID).css("background-color", s1[1].replace(";" , " "));
-        }
-            
-            
-                  var id = 1;
-          var theme_id = 0;
-        function doSomething(theme_id){
-            alert("clicked");
-            if (theme_id == "theme1"){
-                    var s = $("#color1").attr("style");
-                    var s1 = s.split(":");
-                    alert(s1[1]);
-                    var s = $("#color2").attr("style");
-                    var s2 = s.split(":");
-                    var s = $("#color3").attr("style");
-                    var s3 = s.split(":");
-                    var s = $("#color4").attr("style");
-                    var s4 = s.split(":");
-                    var s = $("#color5").attr("style");
-                    var s5 = s.split(":");
-                    var s = $("#color6").attr("style");
-                    var s6 = s.split(":");
-                    $("#themeid").val("theme1");
-                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";" ," "));
-                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";" ," "));
-                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";" ," "));
-                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";" ," "));
-                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";" ," "));
-                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";" ," "));
-            }else if(theme_id == "theme2"){
-                var s = $("#color7").attr("style");
-                        var s1 = s.split(":");
-                        var s = $("#color8").attr("style");
-                        var s2 = s.split(":");
-                        var s = $("#color9").attr("style");
-                        var s3 = s.split(":");
-                        var s = $("#color10").attr("style");
-                        var s4 = s.split(":");
-                        var s = $("#color11").attr("style");
-                        var s5 = s.split(":");
-                        var s = $("#color12").attr("style");
-                        var s6 = s.split(":");
-                        $("#themeid").val("theme2");
-                     $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";" ," "));
-                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";" ," "));
-                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";" ," "));
-                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";" ," "));
-                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";" ," "));
-                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";" ," "));
-            }else if(theme_id == "theme3"){
-                var s = $("#color13").attr("style");
-                        var s1 = s.split(":");
-                        var s = $("#color14").attr("style");
-                        var s2 = s.split(":");
-                        var s = $("#color15").attr("style");
-                        var s3 = s.split(":");
-                        var s = $("#color16").attr("style");
-                        var s4 = s.split(":");
-                        var s = $("#color17").attr("style");
-                        var s5 = s.split(":");
-                        var s = $("#color18").attr("style");
-                        var s6 = s.split(":");
-                        $("#themeid").val("theme2");
-                       $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";" ," "));
-                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";" ," "));
-                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";" ," "));
-                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";" ," "));
-                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";" ," "));
-                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";" ," "));
-            }else if(theme_id == "theme4"){
-                var s = $("#color19").attr("style");
-                        var s1 = s.split(":");
-                        var s = $("#color20").attr("style");
-                        var s2 = s.split(":");
-                        var s = $("#color21").attr("style");
-                        var s3 = s.split(":");
-                        var s = $("#color22").attr("style");
-                        var s4 = s.split(":");
-                        var s = $("#color23").attr("style");
-                        var s5 = s.split(":");
-                        var s = $("#color24").attr("style");
-                        var s6 = s.split(":");
-                        $("#themeid").val("theme2");
-                        $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";" ," "));
-                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";" ," "));
-                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";" ," "));
-                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";" ," "));
-                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";" ," "));
-                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";" ," "));
-            }
+                    /*------ get selected element ID -----*/
+                            function getElementID(IDNo){
+                            ElementID = IDNo;
+                                    $('.step_wrapper').on('click', '.step_box', function () {
+                            $(this).parent().find('.step_box').css('width', '').css('height', '').css('border-color', '').css('border-radius', '');
+                                    $(this).css('width', '80px').css('height', '40px').css('border-color', '#FF0000').css('border-radius', '10px');
+                            });
+                                    $("#sortable").sortable();
+                                    $("#sortable").disableSelection();
+                            }
+                    /*------ pass color into the selected element got by id-----*/
+                    function getIDNo(IDNo){
+                    alert(IDNo);
+                            var s = $("#" + IDNo).attr("style");
+                            var s1 = s.split(":");
+                            $("#" + ElementID).css("background-color", s1[1].replace(";", " "));
+                    }
 
-        }
+
+                    var id = 1;
+                            var theme_id = 0;
+                            function doSomething(theme_id){
+                            alert("clicked");
+                                    if (theme_id == "theme1"){
+                            var s = $("#color1").attr("style");
+                                    var s1 = s.split(":");
+                                    alert(s1[1]);
+                                    var s = $("#color2").attr("style");
+                                    var s2 = s.split(":");
+                                    var s = $("#color3").attr("style");
+                                    var s3 = s.split(":");
+                                    var s = $("#color4").attr("style");
+                                    var s4 = s.split(":");
+                                    var s = $("#color5").attr("style");
+                                    var s5 = s.split(":");
+                                    var s = $("#color6").attr("style");
+                                    var s6 = s.split(":");
+                                    $("#themeid").val("theme1");
+                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
+                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
+                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
+                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
+                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
+                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
+                            } else if (theme_id == "theme2"){
+                            var s = $("#color7").attr("style");
+                                    var s1 = s.split(":");
+                                    var s = $("#color8").attr("style");
+                                    var s2 = s.split(":");
+                                    var s = $("#color9").attr("style");
+                                    var s3 = s.split(":");
+                                    var s = $("#color10").attr("style");
+                                    var s4 = s.split(":");
+                                    var s = $("#color11").attr("style");
+                                    var s5 = s.split(":");
+                                    var s = $("#color12").attr("style");
+                                    var s6 = s.split(":");
+                                    $("#themeid").val("theme2");
+                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
+                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
+                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
+                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
+                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
+                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
+                            } else if (theme_id == "theme3"){
+                            var s = $("#color13").attr("style");
+                                    var s1 = s.split(":");
+                                    var s = $("#color14").attr("style");
+                                    var s2 = s.split(":");
+                                    var s = $("#color15").attr("style");
+                                    var s3 = s.split(":");
+                                    var s = $("#color16").attr("style");
+                                    var s4 = s.split(":");
+                                    var s = $("#color17").attr("style");
+                                    var s5 = s.split(":");
+                                    var s = $("#color18").attr("style");
+                                    var s6 = s.split(":");
+                                    $("#themeid").val("theme2");
+                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
+                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
+                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
+                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
+                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
+                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
+                            } else if (theme_id == "theme4"){
+                            var s = $("#color19").attr("style");
+                                    var s1 = s.split(":");
+                                    var s = $("#color20").attr("style");
+                                    var s2 = s.split(":");
+                                    var s = $("#color21").attr("style");
+                                    var s3 = s.split(":");
+                                    var s = $("#color22").attr("style");
+                                    var s4 = s.split(":");
+                                    var s = $("#color23").attr("style");
+                                    var s5 = s.split(":");
+                                    var s = $("#color24").attr("style");
+                                    var s6 = s.split(":");
+                                    $("#themeid").val("theme2");
+                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
+                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
+                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
+                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
+                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
+                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
+                            }
+
+                            }
         </script>
     </head>
-    
-    
+
+
     <body ng-app>
         <div ng-controller="controllerUserChanges">
 
@@ -264,42 +264,20 @@ and open the template in the editor.
                                                         <br>
                                                         <%! Integer i = 1;%>
                                                         <div class="tab-pane active" id="picktheme">
-                                                            <div ng-repeat= "theme in themes" id="rep" >
+                                                            <div style="height:250px; overflow-y:scroll;">
+                                                                
+                                                                <div ng-repeat= "theme in themes" id="rep" >
 
-                                                                <script type="text/javascript">
-                                                                </script>
-                                                                <div ng-repeat="colors in theme" id="rep1" >
-                                                                    <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="blankcolor-box step_box" style="background-color:{{colors.colorHex}};"></div>
-                                                                    <div><p id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</p></div>
-                                                                </div> 
-                                                                <div id='id'>
-                                                                    <p><br/></p>
+                                                                    <div ng-repeat="colors in theme" id="rep1" >
+                                                                        <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="blankcolor-box step_box" style="background-color:{{colors.colorHex}};"></div>
+                                                                        <div><p id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</p></div>
+                                                                    </div> 
+                                                                    <div id='id'>
+                                                                        <p><br/></p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
-                                                            <!--                                                            <div class="pagination pagination-centered" ng-show="datalists.length">
-                                                                                                                        <ul class="pagination-controle pagination">
-                                                                                                                         <li>
-                                                                                                                          <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
-                                                                                                                         ng-click="curPage=curPage-1"> &lt; PREV</button>
-                                                                                                                         </li>
-                                                                                                                         <li>
-                                                                                                                         <span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
-                                                                                                                         </li>
-                                                                                                                         <li>
-                                                                                                                         <button type="button" class="btn btn-primary"
-                                                                                                                         ng-disabled="curPage >= themes.length/pageSize - 1"
-                                                                                                                         ng-click="curPage = curPage+1">NEXT &gt;</button>
-                                                                                                                         </li>
-                                                                                                                        </ul>
-                                                                                                                        </div>-->
-
-                                                            <!--                      <div class="col-md-3 pull-right ">
-                                                                                            <div><p id="p1">USE THEME1</p></div><br>
-                                                                                            <div><p id="p2">USE THEME2</p></div><br>
-                                                                                            <div><p id="p3">USE THEME3</p></div><br>
-                                                                                            <div><p id="p4">USE THEME4</p></div><br>
-                                                                                        </div>-->
                                                         </div>
 
                                                         <div class="tab-pane" id="custom">
@@ -310,8 +288,8 @@ and open the template in the editor.
                                                         </div>
 
                                                         <div class="tab-pane" id="logocolor" >
-                                                            <div  class="tab-pane active" id="picktheme">
-                                                                <div><button type="button" class="btn btn-primary" value="click to display colors" ng-click="getLogoColors()">click to display colors</button></div>
+                                                            <div class="tab-pane active" id="picktheme" ng-init="getLogoColors()">
+<!--                                                                <div><button type="button" class="btn btn-primary" value="click to display colors" ng-click="getLogoColors()">click to display colors</button></div>-->
                                                                 <div ng-repeat="col in color">
                                                                     <div  id="{{col.id}}" class="foo" style="background-color:{{col.colorHex}};" onclick="getIDNo('{{col.id}}')"></div>
                                                                 </div>
@@ -428,16 +406,16 @@ and open the template in the editor.
 
                                     <b>Change Logo</b>
                                     <%!
-                                         SqlMethods sqlmethods = new SqlMethods();
-                                         Integer user_id = 0;
-                                         String file_name = null;
+                                        SqlMethods sqlmethods = new SqlMethods();
+                                        Integer user_id = 0;
+                                        String file_name = null;
                                     %>
                                     <%
-                                        try{
+                                        try {
                                             sqlmethods.session = request.getSession(true);
-                                            user_id = (Integer)sqlmethods.session.getAttribute("UID");
-                                            file_name = (String)sqlmethods.session.getAttribute("ImageFileName");
-                                        }catch (Exception e){
+                                            user_id = (Integer) sqlmethods.session.getAttribute("UID");
+                                            file_name = (String) sqlmethods.session.getAttribute("ImageFileName");
+                                        } catch (Exception e) {
                                             System.out.println(e.getCause());
                                             System.out.println(e.getMessage());
                                         }
@@ -447,7 +425,7 @@ and open the template in the editor.
                                             <div class="col-md-7 pull-right pull-up">
 
                                                 <div class="item"><p>Selected logo</p>
-                                                    <img id="image1" class="img-responsive" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id %>&image_name=<%= file_name %>" width="700" height="400"><br>
+                                                    <img id="image1" class="img-responsive" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= file_name%>" width="700" height="400"><br>
 
                                                 </div>
                                             </div>
@@ -455,7 +433,7 @@ and open the template in the editor.
 
 
                                     </div>
-                                    
+
                                     <div style="width:540px;">
                                         <form name="formpersonality" action="<%= application.getContextPath()%>/changeLogo" enctype="multipart/form-data" method="post">
                                             <input type="hidden" name="upload" value="update"/>

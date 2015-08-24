@@ -78,7 +78,7 @@
                                 <%
                                     }
                                     }catch (Exception e){
-                                        logger.log(Level.SEVERE, "", e);
+
                                     }finally {
                                         result_set.close();
                                         prepared_statement.close();
@@ -106,7 +106,7 @@
                                 <%
                                     }
                                     }catch (Exception e){
-                                        logger.log(Level.SEVERE, "", e);
+
                                     }finally {
                                         result_set.close();
                                         prepared_statement.close();
@@ -174,7 +174,7 @@
                                 number = number + 1;
                             }
                             }catch (Exception e){
-                                logger.log(Level.SEVERE, "", e);
+
                             }finally {
                                 result_set.close();
                                 prepared_statement.close();

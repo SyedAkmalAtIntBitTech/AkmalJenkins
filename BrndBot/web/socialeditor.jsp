@@ -622,7 +622,7 @@ and open the template in the editor.
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
                                             <div>
-                                                <div>
+                                                <div style="height:500px; overflow-y: scroll;">
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="styles in datalists| pagination: curPage * pageSize | limitTo: pageSize">
@@ -635,7 +635,7 @@ and open the template in the editor.
                                                         </li>
                                                     </ul>
 
-                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
+<!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
                                                         <ul class="pagination-controle pagination">
                                                             <li>
                                                                 <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
@@ -650,7 +650,7 @@ and open the template in the editor.
                                                                         ng-click="curPage = curPage + 1">NEXT &gt;</button>
                                                             </li>
                                                         </ul>
-                                                    </div>
+                                                    </div>-->
                                                 </div>
 
                                             </div>

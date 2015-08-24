@@ -1044,7 +1044,7 @@ function addDefault() {
 //            alert( addElementsArray[num1]);
                 $("#lab").append('<div class="col-md-5 " id="appenddiv' + addElementsArray[num1 - 1] + '" style="display:none"><p id="' + num1 + '"> ' + addElementsArray[num1 - 1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
                                           <p id="hidepara' + num1 + '" class="col-md-3 "> Default Value <input id="inputfield' + num1 + '" type="text" value="default"><br> \n\
-                                            Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" ></p><div>');
+                                          Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" ></p><div>');
                 $(xml).find('optionelement').each(function () {
                     fontnameis[num] = $(this).find('element').text();
 
@@ -1109,6 +1109,47 @@ function getRotationDegrees(obj) {
     return (angle < 0) ? angle + 360 : angle;
 }
 
+function validate(){
+      var model_name = $("#namexml").val();
+
+      if (model_name == ""){
+          alert("model name not entered");
+          $("#namexml").focus();
+          return false;
+      }else {
+        $.ajax({
+            url: 'ServletValidateModel',
+            method: 'post',
+            data: {
+                model_name : model_name
+            },
+            success: function (responseText) {
+                //alert(responseText);
+                if (responseText == "yes"){
+                    alert("name already exist, please give some other name");
+                    $("#namexml").focus();
+                    return false;
+                }else {
+                    var file_name = $("#namexml").val();
+                    var mapperxml = file_name + "_" + "mapper";
+                    var layoutxml = file_name + "_" + "layout";
+
+                    $("#mapper").val(mapperxml);
+                    $("#layout").val(layoutxml);
+                    $("#model_name").val($("#namexml").val());
+                    $("#tabs *").attr("disabled", false);
+                    $("#main *").attr("disabled", false);
+                    $("#right *").attr("disabled", false);
+                    $('#popup').hide("slow");
+                    
+                }
+            }
+        });
+
+      }
+      return true;          
+  }
+          
 function popupwindow() {
     $('#popup').show("slow");
     $("#tabs *").attr("disabled", "disabled");
@@ -1118,8 +1159,13 @@ function popupwindow() {
 
     $('#popupclose').click(function () {
 
-        $("#mapper").val($("#mapperxml").val());
-        $("#layout").val($("#layoutxml").val());
+        var file_name = $("#namexml").val();
+        var mapperxml = file_name + "_" + "mapper";
+        var layoutxml = file_name + "_" + "layout";
+        
+        $("#mapper").val(mapperxml);
+        $("#layout").val(layoutxml);
+        $("#model_name").val($("#namexml").val());
         $("#tabs *").attr("disabled", false);
         $("#main *").attr("disabled", false);
         $("#right *").attr("disabled", false);
@@ -1130,11 +1176,11 @@ function popupwindow() {
 }
 
 function passvaluetoinputfield() {
-    alert("error1");
-    alert($(".container").html());
+//    alert("error1");
+//    alert($(".container").html());
  var containerWidth=$(".container").css("width");
  var containerHeight=$(".container").css("height");
-alert(containerWidth+":"+containerHeight);
+//alert(containerWidth+":"+containerHeight);
 
 
 //    $.ajax({
@@ -1276,7 +1322,7 @@ alert(containerWidth+":"+containerHeight);
         }
         if (contenttype.startsWith('draggableButton')) {
             
-            alert($("#" + addElementsArray[i]).attr("src"));
+//            alert($("#" + addElementsArray[i]).attr("src"));
             style1 = " tag!" + "button" +
                     " src!" + $("#" + addElementsArray[i]).attr("src") +
                     " x-co-ordinates!" + x1 +

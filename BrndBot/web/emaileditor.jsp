@@ -696,7 +696,7 @@ and open the template in the editor.
 
                             <div id="imagespopup">
                                 <div id="content">
-                                    <div>
+                                    <div style="height:350px; overflow-y:scroll">
                                         <ul>
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">
                                                 <div>
@@ -705,7 +705,7 @@ and open the template in the editor.
                                             </li>
                                         </ul>
 
-                                        <div class="pagination pagination-centered" ng-show="datalistimages.length">
+<!--                                        <div class="pagination pagination-centered" ng-show="datalistimages.length">
                                             <ul class="pagination-controle pagination">
                                                 <li>
                                                     <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
@@ -720,7 +720,7 @@ and open the template in the editor.
                                                             ng-click="curPage = curPage + 1">NEXT &gt;</button>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <input id="selectimage" name="selectimage" type="Button" value="select"/>  
                                     <input type="hidden" name="image_name" id="image_name"/>
@@ -857,9 +857,8 @@ and open the template in the editor.
                                         <div id="stylecontainer">
                                             
                                             <div>
-                                                <div>
+                                                <div style="height:500px; overflow-y:scroll;">
                                                     <ul>
-                                                        
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
                                                                 <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
@@ -900,7 +899,7 @@ and open the template in the editor.
                                         <div id="blockcontainer">
                                             ADD A NEW BLOCK
                                             <div>
-                                                <div>
+                                                <div style="height:500px; overflow-y:scroll">
                                                     <button id="continueblock" ng-click="showDataTemp()" style="background-color: orange;position: relative;top:30%;left:30%">Continue</button>
                                                     <ul>
                                                         <!--{{datalists}}-->

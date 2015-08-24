@@ -139,6 +139,38 @@
 
     
       </script>          
+      <script>
+          
+//          function validate(){
+//              var model_name = $("#model_name").val();
+//              
+//              if (model_name == ""){
+//                  alert("model name not entered");
+//                  $("#model_name").focus();
+//                  return false;
+//              }else {
+//                $.ajax({
+//                    url: 'ServletValidateModel',
+//                    method: 'post',
+//                    data: {
+//                        model_name : model_name
+//                    },
+//                    success: function (responseText) {
+//                        //alert(responseText);
+//                        if (responseText == "yes"){
+//                            alert("name already exist, please give some other name");
+//                            $("#model_name").focus();
+//                            return false;
+//                        }
+//                    }
+//                });
+//                  
+//              }
+//              return true;          
+//          }
+          
+      </script>
+
     </head>
     <body>
         <%@include file="menus.jsp" %>
@@ -367,7 +399,7 @@
             </div>
         </div>
         <div id="main">
-            <form action="<%= application.getContextPath()%>/Model" method="post">
+            <form action="<%= application.getContextPath()%>/Model" method="post" onsubmit="return validate()">
                     
                 Organization : <select name="organization" onchange="showUsers(this.value)">
                     <option value="0">-Select-</option>
@@ -398,8 +430,8 @@
                     %>
                                       </select>
                 
-                                    Brand : <select name="brand" onchange="showbrand(this.value)">
-                                                            <option value="0">-Select-</option>
+                Brand : <select name="brand" onchange="showbrand(this.value)">
+                                        <option value="0">-Select-</option>
 
                     <%
                         try{
@@ -432,10 +464,10 @@
                          </select>
                 Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
                                     <option value="0"></option>
-                                </select><br><br>
+                            </select><br><br>
                 Sub Categories: <select id="subcategories" name="subcategories">
                                         <option value="0"></option>
-                                        </select><br><br>
+                                </select><br><br>
 
                 Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
 
@@ -445,17 +477,18 @@
                             <input type="hidden" name="element" id="element">
                             <input type="hidden" name="mapper" id="mapper">
                             <input type="hidden" name="layout" id="layout" >
+                            <input type="hidden" name="model_name" id="model_name">
                             <input type="hidden" name="imagename" id="imagename">
                             <input type="button" value="save" onclick="passvaluetoinputfield();">
 
                             <div id="popup">
-                             <div id="content">
-                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
-                                 Layout file name<input type="text" id="layoutxml" requireds><br>
-                                 <input type="hidden" name="socialmedia" value="socialmedia"/>
-                                 <input type="submit" id="popupclose" type="Button" value="Done"/>   
-                              </div>   
-
+                                <div id="content">
+   <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
+                                        Layout file name<input type="text" id="layoutxml" required><br>-->
+                                    file name: <input type="text" id="namexml" ><br>
+                                    <input type="hidden" name="socialmedia" value="socialmedia"/>
+                                    <input type="submit" type="Button" value="Done"/>   
+                                </div>
                              </div>
 
 <!--                            <input type="submit" value="submit">-->

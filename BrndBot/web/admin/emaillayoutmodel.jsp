@@ -543,12 +543,15 @@
                             <input type="hidden" name="element" id="element">
                             <input type="hidden" name="mapper" id="mapper">
                             <input type="hidden" name="layout" id="layout" >
+                            <input type="hidden" name="model_name" id="model_name" >
+                            
                             <input type="button" value="save" onclick="passvaluetoinputfield();">
 
                             <div id="popup">
                              <div id="content">
-                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
-                                 Layout file name<input type="text" id="layoutxml" requireds><br>
+<!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
+                                 Layout file name<input type="text" id="layoutxml" required><br>-->
+                                 file name<input type="text" id="namexml" required><br>-->
                                  <input type="hidden" name="mail" value="mail"/>
                                  <input type="submit" id="popupclose" type="Button" value="Done"/>   
                               </div>   

@@ -288,6 +288,10 @@
         <servlet-name>GetUserFacebookManagePages</servlet-name>
         <servlet-class>social.controller.GetUserFacebookManagePages</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletValidateModel</servlet-name>
+        <servlet-class>admin.controller.ServletValidateModel</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -587,6 +591,10 @@
     <servlet-mapping>
         <servlet-name>GetUserFacebookManagePages</servlet-name>
         <url-pattern>/GetUserFacebookManagePages</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletValidateModel</servlet-name>
+        <url-pattern>/ServletValidateModel</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

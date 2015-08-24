@@ -47,15 +47,15 @@
                     return false;
                 }
                 
-                x = document.getElementById("external_source").selectedIndex;
-
-                external_source = document.getElementsByTagName("option")[x].value;
-                
-                if (external_source == 0){
-                    alert("No external source selected, please select the external source");
-                    document.getElementById("external_source").focus();
-                    return false;
-                }
+//                x = document.getElementById("external_source").selectedIndex;
+//
+//                external_source = document.getElementsByTagName("option")[x].value;
+//                
+//                if (external_source == 0){
+//                    alert("No external source selected, please select the external source");
+//                    document.getElementById("external_source").focus();
+//                    return false;
+//                }
                  var cat = document.getElementById("category");
                  y = document.getElementById("category").selectedIndex;
 
@@ -187,7 +187,7 @@ Select Categories: <select name="category" id="category" style="width:180px;">
                         </select><br>
                     </div><br>    
 
-                    <div style="position: absolute; float:left; left:550px; top: 350px;">
+                    <div style="position: relative; float:start; left:0px; top: 50px;">
                         <div>
                             <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="updateCategory()">edit</button>
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
