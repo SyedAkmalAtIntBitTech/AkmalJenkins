@@ -318,8 +318,13 @@ Please arrange them with most used to least used in your designs.</p>
                                     <script type="text/javascript">
                                     </script>
                                     <div ng-repeat="colors in theme" id="rep1">
+                                        <div ng-show="colors.theme_id == null">
                                         <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
-                                        <div><p id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</p></div>
+                                        </div>
+                                        <div ng-show="colors.id == null" style="position:relative; padding-top: 10px;">
+                                            
+                                        <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>
+                                        </div>
                                     </div> 
                                     <div id='id'>
                                         <p><br/></p>
