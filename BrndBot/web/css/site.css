@@ -6,7 +6,7 @@
 #main{ float:left; height:600px;width:600px;background-color: white;}
 #move {width:140px;float:left;}
 
-.textAreas { border:0px; background-color:inherit; text-align:left; font-size:12px; font-family: "Arial"; color: "#000000"; line-height:15px; letter-spacing:0px; }
+.textAreas { border:0px; background-color:inherit; text-align:left; font-size:15px; font-family: "Arial"; color: "#000000"; line-height:15px; letter-spacing:0px; }
 
 #textArea { border:1px solid; height:60px;width:240px;}
 #right{ float:left; height:autopx;width:200px; background-color: white;}
