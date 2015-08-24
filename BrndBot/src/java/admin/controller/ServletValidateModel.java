@@ -43,8 +43,10 @@ public class ServletValidateModel extends BrndBotBaseHttpServlet {
             
             String check = layout.checkAvailability(model_name);
 
-            if (check.equalsIgnoreCase("yes") ){
+            if (check.equalsIgnoreCase("yes")){
                 out.write("yes");
+            }else{
+                out.write("no");
             }            
             
         }catch (Exception e){

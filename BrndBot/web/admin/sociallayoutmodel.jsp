@@ -12,7 +12,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="checksession.jsp" %>
 
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -150,33 +149,135 @@ $(document).ready(function () {
       </script>          
       <script>
           
-//          function validate(){
-//              var model_name = $("#model_name").val();
-//              
-//              if (model_name == ""){
-//                  alert("model name not entered");
-//                  $("#model_name").focus();
-//                  return false;
-//              }else {
-//                $.ajax({
-//                    url: 'ServletValidateModel',
-//                    method: 'post',
-//                    data: {
-//                        model_name : model_name
-//                    },
-//                    success: function (responseText) {
-//                        //alert(responseText);
-//                        if (responseText == "yes"){
-//                            alert("name already exist, please give some other name");
-//                            $("#model_name").focus();
-//                            return false;
-//                        }
-//                    }
-//                });
-//                  
-//              }
-//              return true;          
-//          }
+function validate(){
+      var model_name = $("#namexml").val();
+
+      if (model_name == ""){
+          alert("model name not entered");
+          $("#namexml").focus();
+          return false;
+      }else {
+          alert("text");
+        $.ajax({
+            url: global_host_address + 'ServletValidateModel',
+            method: 'post',
+            data: {
+                model_name : model_name,
+            },
+            success: function (responseText) {
+        alert(responseText);
+        if (responseText == "yes"){
+            alert("name already exist, please give some other name");
+            $("#namexml").focus();
+            return false;
+        }else if (responseText == "no") {
+            var file_name = $("#namexml").val();
+            var mapperxml = file_name + "_" + "mapper";
+            var layoutxml = file_name + "_" + "layout";
+
+            $("#mapper").val(mapperxml);
+            $("#layout").val(layoutxml);
+            $("#model_name").val($("#namexml").val());
+//                    $("#tabs *").attr("disabled", false);
+//                    $("#main *").attr("disabled", false);
+//                    $("#right *").attr("disabled", false);
+            $('#popup').hide("slow");
+
+            var organization = $("#organization").val();
+            alert(organization);
+            var brand = $("#brand").val();
+            var users = $("#users").val();
+            var categories = $("#categories").val();
+            var subcategories = $("#subcategories").val();
+            var mindbodyquery = $("#mindbodyquery").val();
+            var containerstyle = $("#containerstyle").val();
+            var textstyle = $("#textstyle").val();
+            var element = $("#element").val();
+
+            var model_name = $("#namexml").val();
+            var mapperxml = model_name + "_" + "mapper";
+            var layoutxml = model_name + "_" + "layout";
+
+            var imagename = $("#imagename").val();
+            var social = $("#socialmedia").val();
+
+              $.ajax({
+                      url: global_host_address + 'Model',
+                      method: 'post',
+                      data: {
+                          organization : organization,
+                          brand : brand,
+                          users : users,
+                          categories : categories,
+                          subcategories : subcategories,
+                          mindbodyquery : mindbodyquery,
+                          containerstyle : containerstyle,
+                          textstyle : textstyle,
+                          element : element,
+                          mapper : mapperxml,
+                          layout : layoutxml,
+                          model_name : model_name,
+                          imagename : imagename,
+                          socialmedia : social
+                      },
+                      success: function (responseText) {
+                        alert("Model saved successfully");
+                        window.open(getHost() + 'admin/sociallayoutmodel.jsp', "_self");
+                      }                    
+                   });    
+
+                }
+            }
+        });
+
+      }
+//      return true;          
+  }
+  function submitModel(){
+      if (validate()){
+      var organization = $("#organization").val();
+      alert(organization);
+      var brand = $("#brand").val();
+      var users = $("#users").val();
+      var categories = $("#categories").val();
+      var subcategories = $("#subcategories").val();
+      var mindbodyquery = $("#mindbodyquery").val();
+      var containerstyle = $("#containerstyle").val();
+      var textstyle = $("#textstyle").val();
+      var element = $("#element").val();
+
+      var model_name = $("#namexml").val();
+      var mapperxml = model_name + "_" + "mapper";
+      var layoutxml = model_name + "_" + "layout";
+
+      var imagename = $("#imagename").val();
+      var social = $("#socialmedia").val();
+      
+        $.ajax({
+                url: global_host_address + 'Model',
+                method: 'post',
+                data: {
+                    organization : organization,
+                    brand : brand,
+                    users : users,
+                    categories : categories,
+                    subcategories : subcategories,
+                    mindbodyquery : mindbodyquery,
+                    containerstyle : containerstyle,
+                    textstyle : textstyle,
+                    element : element,
+                    mapper : mapperxml,
+                    layout : layoutxml,
+                    model_name : model_name,
+                    imagename : imagename,
+                    socialmedia : social
+                },
+                success: function (responseText) {
+
+                }                    
+         });
+      }
+  }
           
       </script>
 
@@ -408,7 +509,7 @@ $(document).ready(function () {
                 </p>
                 <hr>
                 <p>
-                    Drop shadow:<br /><br />
+                    Drop shadow:<br/><br/>
 
                     Color: <input type="text" class='basic' id="dropShadowColorPickBlock" value="black" />
                     Blur: <input class="dropShadowBlock" id="blurDropShadowBlock" maxlength="2" size="2" value="0" /> px  <br /><br />
@@ -418,9 +519,9 @@ $(document).ready(function () {
             </div>
         </div>
         <div id="main">
-            <form action="<%= application.getContextPath()%>/Model" method="post" onsubmit="return validate()">
+            <form>
                     
-                Organization : <select name="organization" onchange="showUsers(this.value)">
+                Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">
                     <option value="0">-Select-</option>
                     <% 
                         Connection conn = null;
@@ -447,10 +548,10 @@ $(document).ready(function () {
                                 }
 
                     %>
-                                      </select>
+                                </select>
                 
-                Brand : <select name="brand" onchange="showbrand(this.value)">
-                                        <option value="0">-Select-</option>
+                        Brand : <select name="brand" id="brand" onchange="showbrand(this.value)">
+                          <option value="0">-Select-</option>
 
                     <%
                         try{
@@ -479,13 +580,13 @@ $(document).ready(function () {
                     %>
                                                 </select><br><br>
                 Users: <select id='users' name="users">
-                            <option value="0"></option>
-                         </select>
+                            <option value="0">Select</option>
+                       </select>
                 Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
-                                    <option value="0"></option>
+                                    <option value="0">Select</option>
                             </select><br><br>
                 Sub Categories: <select id="subcategories" name="subcategories">
-                                        <option value="0"></option>
+                                        <option value="0">Select</option>
                                 </select><br><br>
 
                 Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
@@ -505,8 +606,8 @@ $(document).ready(function () {
    <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                                         Layout file name<input type="text" id="layoutxml" required><br>-->
                                     file name: <input type="text" id="namexml" ><br>
-                                    <input type="hidden" name="socialmedia" value="socialmedia"/>
-                                    <input type="submit" type="Button" value="Done"/>   
+                                    <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
+                                    <input type="button" onclick="validate()" value="Done"/>   
                                 </div>
                              </div>
 

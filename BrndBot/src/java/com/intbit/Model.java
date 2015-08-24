@@ -63,9 +63,9 @@ public class Model extends BrndBotBaseHttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             uploadPath = AppConstants.BASE_XML_UPLOAD_PATH;
 
-            Integer organization_id = Integer.parseInt(request.getParameter("organization"));
-            Integer brand_id = Integer.parseInt(request.getParameter("brand"));
-            Integer user_id = Integer.parseInt(request.getParameter("users"));
+            String organization_id = request.getParameter("organization");
+            String brand_id = request.getParameter("brand");
+            String user_id = request.getParameter("users");
             Integer category_id = 0;
             Integer sub_category_id = 0;
             String mapperfilename = request.getParameter("mapper");
@@ -181,7 +181,7 @@ public class Model extends BrndBotBaseHttpServlet {
 
             try {
                 String image_name=  layout.createImage(layoutfilename,getServletContext());
-                layout.addLayouts(organization_id, user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, brand_id, block_id,image_name,modelname);
+                layout.addLayouts(Integer.parseInt(organization_id), Integer.parseInt(user_id), category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, Integer.parseInt(brand_id), block_id,image_name,modelname);
             } catch (SAXException ex) {
                 Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -206,6 +206,7 @@ public class Model extends BrndBotBaseHttpServlet {
             logger.log(Level.SEVERE, util.Utility.logMessage(s, "Exception while creating model:", getSqlMethodsInstance().error));
 
         }catch (Exception e){
+            e.printStackTrace();
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while creating model:", getSqlMethodsInstance().error));
         }finally {
         }        
