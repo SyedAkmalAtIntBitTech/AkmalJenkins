@@ -28,6 +28,13 @@ function setSocialParameters(title, teacher, date) {
 $(document).ready(function () {
 //
 //    alert("clicked");
+            $("#left").hide();
+            $("#right").hide();
+            $("#center").hide();
+            $("#justify").hide();
+            $("#plus").hide();
+            $("#minus").hide();
+           var status = "true";
  $("#tabs-1").show();
         $("#tabs-2").hide();
         $("#tabs-3").hide();
@@ -113,7 +120,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: 'GET',
-        url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId+"&editor_type=email",
+        url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + allLayoutFilename[0] + "&editor_type=email",
         data: {get_param: 'value'},
         dataType: 'json',
         success: function (data) {
@@ -181,8 +188,8 @@ $(document).ready(function () {
                             var webkittransform = $(this).attr("webkit-transform");
                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
 //                    alert($(this).attr("text-shadow"));
-                            $(".preview #defaultblock1").append("<div><textarea class=textAreas readonly onclick=getTectId("+type+"SSSdefaultblock1) id=" + type + "SSSdefaultblock1>" + elementdata + "</textarea>");
-                            $("#" + type+"SSSdefaultblock1").css("color", "" + fontcolor)
+                            $(".preview #defaultblock1").append("<div><textarea class=textAreas readonly onclick=getTectId(defaultblock1EEE"+type+") id=defaultblock1EEE" + type + ">" + elementdata + "</textarea>");
+                            $("#defaultblock1EEE" + type).css("color", "" + fontcolor)
                                          .css("position", "absolute")
                                         .css("left", "" + left + "px")
                                         .css("top", "" + top + "px")
@@ -208,8 +215,8 @@ $(document).ready(function () {
                             var height = $(this).attr("height");
                             var background_image = $(this).attr("background-image");
 //                    alert("image");
-                           $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "SSSdefaultblock1) id=" + type + "SSSdefaultblock1></div>");
-                            $("#" + type+"SSSdefaultblock1")
+                           $(".preview #defaultblock1").append("<div onclick=getImageid(defaultblock1EEE" + type + ") id=defaultblock1EEE" + type + "></div>");
+                            $("#defaultblock1EEE" + type)
                                     .css("color", "" + fontcolor)
                                 .css("position", "absolute")
                                     .css("left", "" + left + "px")
@@ -228,8 +235,8 @@ $(document).ready(function () {
                         if (tag === "button")
                         {
 //                            alert("button");
-                            $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=" + type + "SSSdefaultblock1 alt='button'/>");
-                            $("#" + type +"SSSdefaultblock1").css("left", "" + left + "px")
+                            $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=defaultblock1EEE" + type + " alt='button'/>");
+                            $("#defaultblock1EEE" + type).css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .attr("src", "buttons/button1.png")
                                     .css("position", "absolute");   
@@ -242,8 +249,8 @@ $(document).ready(function () {
                             var height = $(this).attr("height");
                             var backgroundcolor = $(this).attr("background-color");
 //                 alert(backgroundcolor);
-                            $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "SSSdefaultblock1) id=" + type + "SSSdefaultblock1></div>");
-                            $("#" + type +"SSSdefaultblock1").css("background-color", "" + backgroundcolor)
+                            $(".preview #defaultblock1").append("<div onclick=getDivId(defaultblock1EEE" + type + ") id=defaultblock1EEE" + type + "></div>");
+                            $("#defaultblock1EEE" + type).css("background-color", "" + backgroundcolor)
                                     .css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .css("width", "" + width)
@@ -360,7 +367,7 @@ $("#sortDownBlock").click(function(){
 
         $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 5) + "px");
     });
-    var status = "false";
+    
     $("#hidealignbutton").click(function () {
 
         if (status === "true") {

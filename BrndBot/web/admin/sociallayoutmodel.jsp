@@ -18,14 +18,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Layout Model</title>
-<!--         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
-          <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!--         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
         <link href="../css/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <link href="../css/site.css" rel="stylesheet" type="text/css"/>
-       
+
         <script src="../js/jquery.blend.min.js" type="text/javascript"></script>
         <script src="../js/jquery-1.10.2.js" type="text/javascript"></script>
         <script src="../js/jquery-ui.js" type="text/javascript"></script>
@@ -34,7 +34,7 @@
         <link href="../css/colorpicker.css" rel="stylesheet" type="text/css"/>
         <script src="../js/colorpicker.js" type="text/javascript"></script>
         <!-- For confirm dialog box -->
-     	
+
         <script src="../js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
 
         <!-- For image filter -->
@@ -42,61 +42,61 @@
         <!-- For better color picker --> 
 
         <script src="../js/spectrum.js" type="text/javascript"></script>
-       
+
         <link href="../css/spectrum.css" rel="stylesheet" type="text/css"/>
         <script src="../js/configurations.js" type="text/javascript"></script>
-     <script language="javascript" type="text/javascript">  
-$(document).ready(function () {
-    var textSize = 5;
-    
-    while(textSize<155)
-    {
-       
-        $("#textSize").append(new Option(textSize+"px", textSize));
-        textSize=textSize+5;
-    }
-});
-      var xmlHttp;  
-      
-            function usersChange(){   
+        <script language="javascript" type="text/javascript">
+            $(document).ready(function () {
+                var textSize = 5;
 
-            if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){   
+                while (textSize < 155)
+                {
 
-                  var response = xmlHttp.responseText;
+                    $("#textSize").append(new Option(textSize + "px", textSize));
+                    textSize = textSize + 5;
+                }
+            });
+            var xmlHttp;
 
-                  var response1, response2, response3, response4, response5, response6;
-                  var len = response.length;
-                  var no1 = response.indexOf(",");
-                  response1 = response.substr(0, no1);
-                  response2 = response.substr(no1+1,len);
+            function usersChange() {
 
-                  document.getElementById("users").innerHTML=response1;
-                  document.getElementById("categories").innerHTML=response2;
-            }   
+                if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
+
+                    var response = xmlHttp.responseText;
+
+                    var response1, response2, response3, response4, response5, response6;
+                    var len = response.length;
+                    var no1 = response.indexOf(",");
+                    response1 = response.substr(0, no1);
+                    response2 = response.substr(no1 + 1, len);
+
+                    document.getElementById("users").innerHTML = response1;
+                    document.getElementById("categories").innerHTML = response2;
+                }
             }
-            
-            function showUsers(str){
 
-                if (typeof XMLHttpRequest !== "undefined"){
+            function showUsers(str) {
 
-                xmlHttp= new XMLHttpRequest();
+                if (typeof XMLHttpRequest !== "undefined") {
 
-                }
-                else if (window.ActiveXObject){
-
-                xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+                    xmlHttp = new XMLHttpRequest();
 
                 }
-                if (xmlHttp===null){
+                else if (window.ActiveXObject) {
 
-                alert("Browser does not support XMLHTTP Request");
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 
-                return;
-                } 
+                }
+                if (xmlHttp === null) {
 
-                var url="users.jsp";
+                    alert("Browser does not support XMLHTTP Request");
 
-                url +="?org_id=" +str;
+                    return;
+                }
+
+                var url = "users.jsp";
+
+                url += "?org_id=" + str;
 
                 xmlHttp.onreadystatechange = usersChange;
 
@@ -104,30 +104,30 @@ $(document).ready(function () {
 
                 xmlHttp.send(null);
 
-      }
+            }
 
-            function showSubCategories(str){
+            function showSubCategories(str) {
 
-                if (typeof XMLHttpRequest !== "undefined"){
+                if (typeof XMLHttpRequest !== "undefined") {
 
-                xmlHttp= new XMLHttpRequest();
-
-                }
-                else if (window.ActiveXObject){
-
-                xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+                    xmlHttp = new XMLHttpRequest();
 
                 }
-                if (xmlHttp===null){
+                else if (window.ActiveXObject) {
 
-                alert("Browser does not support XMLHTTP Request");
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 
-                return;
-                } 
+                }
+                if (xmlHttp === null) {
 
-                var url="displaysubcategories.jsp";
+                    alert("Browser does not support XMLHTTP Request");
 
-                url +="?category_id=" +str;
+                    return;
+                }
+
+                var url = "displaysubcategories.jsp";
+
+                url += "?category_id=" + str;
 
                 xmlHttp.onreadystatechange = categoryChange;
 
@@ -135,31 +135,30 @@ $(document).ready(function () {
 
                 xmlHttp.send(null);
 
-      }
-      
-      function categoryChange(){
+            }
 
-        if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){
+            function categoryChange() {
 
-              var response = xmlHttp.responseText;
-              document.getElementById("subcategories").innerHTML=response;
-        }
-      }
+                if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
 
-    
-      </script>          
+                    var response = xmlHttp.responseText;
+                    document.getElementById("subcategories").innerHTML = response;
+                }
+            }
+
+
+        </script>          
     </head>
     <body>
         <%@include file="menus.jsp" %>
-<%!
-        PreparedStatement ps;
-        ResultSet rs;
-        String Query = "";
-        Integer id = 0;
-        String org_name = "";
-        String brand_name = "";
-        String font_name="";
-%>
+        <%!    PreparedStatement ps;
+            ResultSet rs;
+            String Query = "";
+            Integer id = 0;
+            String org_name = "";
+            String brand_name = "";
+            String font_name = "";
+        %>
 
         <div id="tabs">
             <ul>
@@ -188,16 +187,16 @@ $(document).ready(function () {
                 </p>
 
                 <p>
-                Font Size: <select id="textSize">
-<!--                                 <option value="8">8px</option>
-                                 <option value="12">12px</option>
-                                 <option value="14">14px</option>
-                                 <option value="18">18px</option>
-                                 <option value="22">22px</option>
-                                 <option value="26">26px</option>
-                                 <option value="30">30px</option>
-                                 <option value="34">34px</option>   -->
-                               </select>
+                    Font Size: <select id="textSize">
+                        <!--                                 <option value="8">8px</option>
+                                                         <option value="12">12px</option>
+                                                         <option value="14">14px</option>
+                                                         <option value="18">18px</option>
+                                                         <option value="22">22px</option>
+                                                         <option value="26">26px</option>
+                                                         <option value="30">30px</option>
+                                                         <option value="34">34px</option>   -->
+                    </select>
                 </p>
 
                 <p>
@@ -208,20 +207,20 @@ $(document).ready(function () {
                         <option value="Futura">Font Family 4</option>
                         <option value="Times New Roman">Font Family 5</option>
                     </select>
-                    
- <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
-                        <option value="0"></option>
-                    </select>-->
+
+                    <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
+                                           <option value="0"></option>
+                                       </select>-->
                 </p>
                 <p>
-<!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
+                    <!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
                     Font Color: <select id="fontColor">
-                                    <option value="red">Font Color 1</option>
-                                    <option value="blue">Font Color 2</option>
-                                    <option value="green">Font Color 3</option>
-                                    <option value="yellow">Font Color 4</option>
-                                    <option value="Lime">Font Color 5</option>
-                                </select>
+                        <option value="red">Font Color 1</option>
+                        <option value="blue">Font Color 2</option>
+                        <option value="green">Font Color 3</option>
+                        <option value="yellow">Font Color 4</option>
+                        <option value="Lime">Font Color 5</option>
+                    </select>
                 </p>
                 <hr>
                 <p>
@@ -334,8 +333,8 @@ $(document).ready(function () {
                         <option value="4">Button4</option>
                         <option value="5">Button5</option>
                     </select>
-                    
-                        
+
+
                 </p>
             </div>
             <div id="tabs-4">
@@ -367,11 +366,11 @@ $(document).ready(function () {
                 <p>
                     <select id="blockColorFromDropDown">
                         <option value="red">Font Color 1</option>
-                                    <option value="blue">Font Color 2</option>
-                                    <option value="green">Font Color 3</option>
-                                    <option value="yellow">Font Color 4</option>
-                                    <option value="Lime">Font Color 5</option>
-                        
+                        <option value="blue">Font Color 2</option>
+                        <option value="green">Font Color 3</option>
+                        <option value="yellow">Font Color 4</option>
+                        <option value="Lime">Font Color 5</option>
+
                     </select>
                 </p>
                 <hr>
@@ -387,146 +386,169 @@ $(document).ready(function () {
         </div>
         <div id="main">
             <form action="<%= application.getContextPath()%>/Model" method="post">
-                    
+
                 Organization : <select name="organization" onchange="showUsers(this.value)">
                     <option value="0">-Select-</option>
-                    <% 
+                    <%
                         Connection conn = null;
-                        try{
+                        try {
                             try {
                                 conn = ConnectionManager.getInstance().getConnection();
                                 Query = "Select * from tbl_organization";
                                 ps = conn.prepareStatement(Query);
 
                                 rs = ps.executeQuery();
-                                while(rs.next()){
+                                while (rs.next()) {
                                     id = rs.getInt("id");
                                     org_name = rs.getString("organization_name");
-                        %>            
-                                    <option value="<%= id %>"><%= org_name %></option>
-                        <%
-                                }
-                                }catch (Exception e){
-                                    System.out.println(e. getCause());
-                                    System.out.println(e.getMessage());
-                                }finally{
-                                    ps.close();
-                                    rs.close();
-                                }
+                    %>            
+                    <option value="<%= id%>"><%= org_name%></option>
+                    <%
+                            }
+                        } catch (Exception e) {
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        } finally {
+                            ps.close();
+                            rs.close();
+                        }
 
                     %>
-                                      </select>
-                
-                                    Brand : <select name="brand" onchange="showbrand(this.value)">
-                                                            <option value="0">-Select-</option>
+                </select>
 
-                    <%
-                        try{
+                Brand : <select name="brand" onchange="showbrand(this.value)">
+                    <option value="0">-Select-</option>
+
+                    <%                        try {
                             Query = "Select * from tbl_brand_personality";
                             ps = conn.prepareStatement(Query);
 
                             rs = ps.executeQuery();
-                            while(rs.next()){
+                            while (rs.next()) {
                                 id = rs.getInt("id");
                                 brand_name = rs.getString("brand_name");
                     %>
-                            <option value="<%= id %>"><%= brand_name %></option>
+                    <option value="<%= id%>"><%= brand_name%></option>
                     <%
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 System.out.println(e.getCause());
                                 System.out.println(e.getMessage());
-                            }finally{
+                            } finally {
                                 rs.close();
                                 ps.close();
                             }
-                        }finally{
+                        } finally {
                             ConnectionManager.getInstance().closeConnection(conn);
                         }
-                            
+
                     %>
-                                                </select><br><br>
+                </select><br><br>
                 Users: <select id='users' name="users">
-                            <option value="0"></option>
-                         </select>
+                    <option value="0"></option>
+                </select>
                 Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
-                                    <option value="0"></option>
-                                </select><br><br>
+                    <option value="0"></option>
+                </select><br><br>
                 Sub Categories: <select id="subcategories" name="subcategories">
-                                        <option value="0"></option>
-                                        </select><br><br>
+                    <option value="0"></option>
+                </select><br><br>
 
                 Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
 
-                            <input type="hidden" name="mindbodyquery" id="mindbodyquery">
-                            <input type="hidden" name="containerstyle" id="containerstyle">
-                            <input type="hidden" name="textstyle" id="textstyle">
-                            <input type="hidden" name="element" id="element">
-                            <input type="hidden" name="mapper" id="mapper">
-                            <input type="hidden" name="layout" id="layout" >
-                            <input type="hidden" name="imagename" id="imagename">
-                            <input type="button" value="save" onclick="passvaluetoinputfield();">
+                <input type="hidden" name="mindbodyquery" id="mindbodyquery">
+                <input type="hidden" name="containerstyle" id="containerstyle">
+                <input type="hidden" name="textstyle" id="textstyle">
+                <input type="hidden" name="element" id="element">
+                <input type="hidden" name="mapper" id="mapper">
+                <input type="hidden" name="layout" id="layout" >
+                <input type="hidden" name="imagename" id="imagename">
+                <input type="button" value="save" onclick="passvaluetoinputfield();">
 
-                            <div id="popup">
-                             <div id="content">
-                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
-                                 Layout file name<input type="text" id="layoutxml" requireds><br>
-                                 <input type="hidden" name="socialmedia" value="socialmedia"/>
-                                 <input type="submit" id="popupclose" type="Button" value="Done"/>   
-                              </div>   
+                <div id="popup">
+                    <div id="content">
+                        Mapper file name<input type="text" id="mapperxml" required><br><br>
+                        Layout file name<input type="text" id="layoutxml" requireds><br>
+                        <input type="hidden" name="socialmedia" value="socialmedia"/>
+                        <input type="submit" id="popupclose" type="Button" value="Done"/>   
+                    </div>   
 
-                             </div>
+                </div>
 
-<!--                            <input type="submit" value="submit">-->
-                        </form>
-<!--             <div class='col-md-10'>
-                        <ul id='list2' class='col-md-3' >
-                            <li id="lab"></li>
-                        </ul> 
-             </div>-->
-            
+                <!--                            <input type="submit" value="submit">-->
+            </form>
+            <!--             <div class='col-md-10'>
+                                    <ul id='list2' class='col-md-3' >
+                                        <li id="lab"></li>
+                                    </ul> 
+                         </div>-->
+
+            <!-- Added by Syed Ilyas on 24/08/2015 -->
+            <!-- This adds zoom functionality -->
+            <br />
+            <div id="slider" title="Please don`t slide after element is placed"></div>
+
+            <script>
+                $(function () {
+                    $(function () {
+                        $(document).tooltip();
+                    });
+                    $("#slider").slider({
+                        min: 1,
+                        max: 1000,
+                        value: 500,
+                        range: "min",
+                        slide: function (event, ui) {
+                            var divZoom = ui.value / 1000;
+                            $(".container").css("zoom", "" + divZoom);
+                        }
+                    });
+                });
+            </script>
+            <!-- End -->
+
             <div class="container">
 
             </div>
 
         </div>
 
-    <div id="right">
-        <center>
-            <p>
-                Select Element: <select id="elementText">
-                </select>
-            </p>
-            <p>
-                <input type="button" class="rightButton" id="addTextButton" value="Add Text" />
-                <input type="button" class="rightButton" id="deleteTextButton" value="Delete Text" />
-            </p>
+        <div id="right">
+            <center>
+                <p>
+                    Select Element: <select id="elementText">
+                    </select>
+                </p>
+                <p>
+                    <input type="button" class="rightButton" id="addTextButton" value="Add Text" />
+                    <input type="button" class="rightButton" id="deleteTextButton" value="Delete Text" />
+                </p>
 
-            <p>
-                <input type="button" class="rightButton" id="addImageButton" value="Add Image" />
-                <input type="button" class="rightButton" id="deleteImageButton" value="Delete Image" />
-            </p>
+                <p>
+                    <input type="button" class="rightButton" id="addImageButton" value="Add Image" />
+                    <input type="button" class="rightButton" id="deleteImageButton" value="Delete Image" />
+                </p>
 
-            <p>
-                <input type="button" class="rightButton" id="addButton" value="Add Button" />
-                <input type="button" class="rightButton" id="deleteButton" value="Delete Button" />
-            </p>
+                <p>
+                    <input type="button" class="rightButton" id="addButton" value="Add Button" />
+                    <input type="button" class="rightButton" id="deleteButton" value="Delete Button" />
+                </p>
 
-            <p>
-                <input type="button" class="rightButton" id="addBlockButton" value="Add Block" />
-                <input type="button" class="rightButton" id="deleteBlockButton" value="Delete Block" />
-            </p>
-            <p>
-                <input type="button" class="rightButton" id="addLogoButton" value="Add Logo" />
-                <input type="button" class="rightButton" id="deleteLogoButton" value="Delete Logo" />
-            </p>
-            <div class='col-md-10' style="position: absolute; left: 1050px; top:70px; width: 600px; ">
-                        <ul id='list2' class='col-md-10' >
-                            <li id="lab"></li>
-                        </ul> 
-            </div>
-            
-    </div>
+                <p>
+                    <input type="button" class="rightButton" id="addBlockButton" value="Add Block" />
+                    <input type="button" class="rightButton" id="deleteBlockButton" value="Delete Block" />
+                </p>
+                <p>
+                    <input type="button" class="rightButton" id="addLogoButton" value="Add Logo" />
+                    <input type="button" class="rightButton" id="deleteLogoButton" value="Delete Logo" />
+                </p>
+                <div class='col-md-10' style="position: absolute; left: 1050px; top:70px; width: 600px; ">
+                    <ul id='list2' class='col-md-10' >
+                        <li id="lab"></li>
+                    </ul> 
+                </div>
+
+        </div>
 
     </body>
 </html>

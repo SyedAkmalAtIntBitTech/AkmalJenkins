@@ -561,8 +561,8 @@ and open the template in the editor.
                                                 var webkittransform = $(this).attr("webkit-transform");
                                                 var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
                                                 //alert(".preview #" + blockId);
-                                                $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + blockId + type + ") id=" + blockId + type + ">" + elementdata + "</textarea>");
-                                                $("#" + blockId + type).css("color", "" + fontcolor)
+                                                $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + blockId + "EEE" + type + ") id=" + blockId + "EEE"  + type + ">" + elementdata + "</textarea>");
+                                                $("#" + blockId + "EEE"  + type).css("color", "" + fontcolor)
                                                                        .css("position", "absolute")
                                                                        .css("left", "" + left + "px")
                                                                        .css("top", "" + top + "px")
@@ -586,8 +586,8 @@ and open the template in the editor.
                                             var height = $(this).attr("height");
                                             var background_image=$(this).attr("background-image")
                                             //                    alert("image");
-                                            $(".preview #" + blockId).append("<div onclick=getImageid(" + blockId + type + ") id=" + blockId + type + " ></div>");
-                                            $("#" + blockId + type)
+                                            $(".preview #" + blockId).append("<div onclick=getImageid(" + blockId + "EEE"  + type + ") id=" + blockId + "EEE"  + type + " ></div>");
+                                            $("#" + blockId + "EEE"  + type)
                                             .css("color", "" + fontcolor)
                                             .css("margin-left", "" + left + "px")
                                             .css("margin-top", "" + top + "px")
@@ -605,8 +605,8 @@ and open the template in the editor.
                                     if (tag === "button")
                                     {
 
-                                    $(".preview #" + blockId).append("<div><img src='" + elementdata + "'id=" + blockId + type + " alt='button'/>");
-                                            $("#" + blockId + type).css("left", "" + left + "px")
+                                    $(".preview #" + blockId).append("<div><img src='" + elementdata + "'id=" + blockId + "EEE"  + type + " alt='button'/>");
+                                            $("#" + blockId + "EEE"  + type).css("left", "" + left + "px")
                                                                    .css("position", "absolute")
                                                                    .css("top", "" + top + "px")
                                                                    .attr("src", "buttons/button1.png");
@@ -623,8 +623,8 @@ and open the template in the editor.
                                         var v_shadow=$(this).attr("V-shadow");
                                         var Blur=$(this).attr("blur");
                                       
-                                        $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                                        $("#" + type).css("background-color", "" + backgroundcolor)
+                                        $(".preview #" + blockId).append("<div onclick=getDivId(" + blockId + "EEE" + type + ") id=" + blockId + "EEE" + type + "></div>");
+                                        $("#" + blockId + "EEE"  + type).css("background-color", "" + backgroundcolor)
                                                      .css("margin-left", "" + left + "px")
                                                      .css("margin-top", "" + top + "px")
                                                      .css("width", "" + width)
@@ -676,7 +676,7 @@ and open the template in the editor.
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
                             </div>
-                            <div class="dataForEmail"> 
+                            <div class="dataForEmail" style="zoom: 0.5;"> 
                                 <div ng-click="showStylesAfterData()" class="preview">
 
                                 </div></div>

@@ -440,7 +440,7 @@ and open the template in the editor.
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0 prev">
                             <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edit">go back</p> 
-                            <div class="preview">
+                            <div class="preview"  style="zoom: 0.5;">
                                 <!--  {{mindbody_data}}-->
                                 <!--
                                         NOTE: To change the aspect ratio, look in crop.css
