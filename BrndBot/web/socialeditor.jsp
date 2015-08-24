@@ -109,10 +109,10 @@ and open the template in the editor.
 
                 display:none;
                 position: fixed;
-                width: 450px;
-                height:400px;
-                top: 40%;
-                left: 50%;
+                width: 625px;
+                height:500px;
+                top: 20%;
+                left: 25%;
                 margin-left:-155px;
                 margin-top:-110px;
                 border:5px solid #686868 ;
@@ -228,7 +228,7 @@ and open the template in the editor.
                                     method : 'GET',
                                             url : 'GetUserImages'
                                     }).success(function(data, status, headers, config) {
-
+                                        alert(JSON.stringify(data));
                                     $scope.datalistimages = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalistimages.length / $scope.pageSize);
@@ -440,7 +440,7 @@ and open the template in the editor.
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0 prev">
                             <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edit">go back</p> 
-                            <div class="preview">
+                            <div class="preview"  style="zoom: 0.5;">
                                 <!--  {{mindbody_data}}-->
                                 <!--
                                         NOTE: To change the aspect ratio, look in crop.css
@@ -973,8 +973,8 @@ $(this).addClass('highlight');
 //                                        alert(image_file);
                                         id = "image" + i;
                                         $("#cropper_popup").show();
-                                        $('#cropper_popup').draggable();
-                                        $("#cropper_popup").resizable();
+//                                        $('#cropper_popup').draggable();
+//                                        $("#cropper_popup").resizable();
 
 //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
                              
@@ -993,8 +993,8 @@ $(this).addClass('highlight');
                                     
                                     $('.uploadfile').change(function() {
                                         $("#cropper_popup").show();
-                                        $('#cropper_popup').draggable();
-                                        $("#cropper_popup").resizable();
+//                                        $('#cropper_popup').draggable();
+//                                        $("#cropper_popup").resizable();
                                        loadImageFile( $('.uploadfile').val());
                                     // resets input file
                                         $('.uploadfile').wrap('<form>').closest('form').get(0).reset();

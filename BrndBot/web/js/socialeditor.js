@@ -25,6 +25,14 @@ function setSocialParameters(title, teacher, date) {
 }
 
 $(document).ready(function () {
+    
+            $("#left").hide();
+            $("#right").hide();
+            $("#center").hide();
+            $("#justify").hide();
+            $("#plus").hide();
+            $("#minus").hide();
+           var status = "true";
 
     $('.color-box').colpick({
         colorScheme: 'dark',
@@ -298,7 +306,7 @@ $(document).ready(function () {
 
         $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 5) + "px");
     });
-    var status = "false";
+   
     $("#hidealignbutton").click(function () {
 
         if (status === "true") {
