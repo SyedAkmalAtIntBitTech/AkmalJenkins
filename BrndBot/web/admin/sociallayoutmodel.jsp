@@ -146,7 +146,7 @@
             }
 
 
-<<<<<<< HEAD
+
     
       </script>          
       <script>
@@ -235,6 +235,7 @@ function validate(){
       }
 //      return true;          
   }
+  
   function submitModel(){
       if (validate()){
       var organization = $("#organization").val();
@@ -283,9 +284,6 @@ function validate(){
           
       </script>
 
-=======
-        </script>          
->>>>>>> 03b795a57ff0531e01b2208fdc00ff3e0ca8ef53
     </head>
     <body>
         <%@include file="menus.jsp" %>
@@ -523,15 +521,9 @@ function validate(){
             </div>
         </div>
         <div id="main">
-<<<<<<< HEAD
             <form>
                     
                 Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">
-=======
-            <form action="<%= application.getContextPath()%>/Model" method="post">
-
-                Organization : <select name="organization" onchange="showUsers(this.value)">
->>>>>>> 03b795a57ff0531e01b2208fdc00ff3e0ca8ef53
                     <option value="0">-Select-</option>
                     <%
                         Connection conn = null;
@@ -546,7 +538,7 @@ function validate(){
                                     id = rs.getInt("id");
                                     org_name = rs.getString("organization_name");
                     %>            
-                    <option value="<%= id%>"><%= org_name%></option>
+                    <option value="<%=id%>"><%= org_name%></option>
                     <%
                             }
                         } catch (Exception e) {
@@ -558,17 +550,11 @@ function validate(){
                         }
 
                     %>
-<<<<<<< HEAD
+
                                 </select>
                 
                         Brand : <select name="brand" id="brand" onchange="showbrand(this.value)">
                           <option value="0">-Select-</option>
-=======
-                </select>
->>>>>>> 03b795a57ff0531e01b2208fdc00ff3e0ca8ef53
-
-                Brand : <select name="brand" onchange="showbrand(this.value)">
-                    <option value="0">-Select-</option>
 
                     <%                        try {
                             Query = "Select * from tbl_brand_personality";
@@ -596,7 +582,7 @@ function validate(){
                     %>
                 </select><br><br>
                 Users: <select id='users' name="users">
-<<<<<<< HEAD
+
                             <option value="0">Select</option>
                        </select>
                 Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
@@ -636,44 +622,6 @@ function validate(){
                         </ul> 
              </div>-->
             
-=======
-                    <option value="0"></option>
-                </select>
-                Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
-                    <option value="0"></option>
-                </select><br><br>
-                Sub Categories: <select id="subcategories" name="subcategories">
-                    <option value="0"></option>
-                </select><br><br>
-
-                Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
-
-                <input type="hidden" name="mindbodyquery" id="mindbodyquery">
-                <input type="hidden" name="containerstyle" id="containerstyle">
-                <input type="hidden" name="textstyle" id="textstyle">
-                <input type="hidden" name="element" id="element">
-                <input type="hidden" name="mapper" id="mapper">
-                <input type="hidden" name="layout" id="layout" >
-                <input type="hidden" name="imagename" id="imagename">
-                <input type="button" value="save" onclick="passvaluetoinputfield();">
-
-                <div id="popup">
-                    <div id="content">
-                        Mapper file name<input type="text" id="mapperxml" required><br><br>
-                        Layout file name<input type="text" id="layoutxml" requireds><br>
-                        <input type="hidden" name="socialmedia" value="socialmedia"/>
-                        <input type="submit" id="popupclose" type="Button" value="Done"/>   
-                    </div>   
-
-                </div>
-
-                <!--                            <input type="submit" value="submit">-->
-            </form>
-            <!--             <div class='col-md-10'>
-                                    <ul id='list2' class='col-md-3' >
-                                        <li id="lab"></li>
-                                    </ul> 
-                         </div>-->
 
             <!-- Added by Syed Ilyas on 24/08/2015 -->
             <!-- This adds zoom functionality -->
@@ -699,7 +647,6 @@ function validate(){
             </script>
             <!-- End -->
 
->>>>>>> 03b795a57ff0531e01b2208fdc00ff3e0ca8ef53
             <div class="container">
 
             </div>
