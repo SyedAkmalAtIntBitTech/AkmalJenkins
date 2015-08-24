@@ -25,7 +25,16 @@
 <element type="label" tag="header8"/>
 </elements>
 <elements>
-<element type="image" tag="backgroundimage"/>
+<element type="image" tag="backgroundimage1"/>
+</elements>
+<elements>
+<element type="image" tag="backgroundimage2"/>
+</elements>
+<elements>
+<element type="image" tag="backgroundimage3"/>
+</elements>
+<elements>
+<element type="image" tag="backgroundimage4"/>
 </elements>
 <elements>
 <element type="image" tag="logo"/>

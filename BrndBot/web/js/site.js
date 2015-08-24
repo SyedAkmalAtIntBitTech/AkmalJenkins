@@ -326,6 +326,12 @@ $(document).ready(function () {
 //            alert($("#fontColor option:selected").text());
         $("#" + selectedTextID).css("color", $("#fontColor").val());
     });
+    
+       $("#blockColorFromDropDown").change(function () {
+      alert($("#blockColorFromDropDown").val());
+//            alert($("#fontColor option:selected").text());
+        $("#" + selectedTextID).css("background-color", $("#blockColorFromDropDown").val());
+    });
 
 //confirmation plugin is used to show model dialogue box
     $("#deleteTextButton").easyconfirm();
@@ -506,7 +512,7 @@ $(document).ready(function () {
         addElements($("#elementText").find('option:selected').text());
         $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("background-position", "center center");                                    
         $("#" + selectedTextID).css("width", "100px");
-        $("#" + selectedTextID).css("height", "100px");
+        $("#" + selectedTextID).css("height", "100px").css("border","1px solid black").css("object-fit","fill");
         addDefault();
         reloadTabs(1);
 
@@ -656,7 +662,7 @@ $(document).ready(function () {
     });
     $("#addTextButton").click(function () {
 
-        $(".container").append("<div class=\"draggableText\"><textarea class =\"textAreas\" id=\"" + $("#elementText").find('option:selected').text() + "\">" + $("#elementText").find('option:selected').text() + "</textarea></div>");
+        $(".container").append("<div class=\"draggableText\"><textarea class =\"textAreas\" id=\"" + $("#elementText").find('option:selected').text() + "\"style='border: 1px solid black' >" + $("#elementText").find('option:selected').text() + "</textarea></div>");
         $("#textArea").val($("#elementText").find('option:selected').text());
         selectedTextID = $("#elementText").find('option:selected').text();
         selectElementsArray[textcount - 1] = selectedTextID;
@@ -1127,11 +1133,10 @@ function popupwindow() {
 }
 
 function passvaluetoinputfield() {
-//    alert("error1");
-//    alert($(".container").html());
  var containerWidth=$(".container").css("width");
  var containerHeight=$(".container").css("height");
-//alert(containerWidth+":"+containerHeight);
+
+
 
 
 //    $.ajax({
@@ -1192,6 +1197,7 @@ function passvaluetoinputfield() {
         var color4 = rgbToHex(parseInt(arr3[0]), parseInt(arr3[1]), parseInt(arr3[2]));
 
         var dropshadowdata1;
+        var filterEnable;
         var childPos = $("#" + addElementsArray[i]).offset();
         var parentPos = $("#" + addElementsArray[i]).parent().parent().offset();
 //            alert($("#" + addElementsArray[i]).attr("class"));          
@@ -1203,7 +1209,8 @@ function passvaluetoinputfield() {
         var y1 = Math.round(childOffset.top);
 
         if (isNaN(dropshadow1[0])) {
-
+            
+            filterEnable="true";
             var filterdata = $("#" + addElementsArray[i]).css("-webkit-filter").replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '');
 //          alert(filterdata);
             var filterdataarray = filterdata.split(' ');
@@ -1214,6 +1221,7 @@ function passvaluetoinputfield() {
 
         }
         else {
+            filterEnable="false";
             var dropshadowarr1 = dropshadow1.split(" ");
             dropshadowdata1 = " Drop-shadow-color!" + "#" + color4 + " H-shadow!" + dropshadowarr1[3] + " V-shadow!" + dropshadowarr1[4] + " blur!" + dropshadowarr1[5];
         }
@@ -1225,6 +1233,7 @@ function passvaluetoinputfield() {
             style1 = " tag!" + "image" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
+                    " filterEnable!" + filterEnable+
                     " width!" + $("#" + addElementsArray[i]).css("width") +
                     " height!" + $("#" + addElementsArray[i]).css("height") +
                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
@@ -1240,6 +1249,7 @@ function passvaluetoinputfield() {
             style1 = " tag!" + "logo" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
+                    " filterEnable!" + filterEnable+
                     " width!" + $("#" + addElementsArray[i]).css("width") +
                     " height!" + $("#" + addElementsArray[i]).css("height") +
                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
@@ -1272,8 +1282,6 @@ function passvaluetoinputfield() {
 
         }
         if (contenttype.startsWith('draggableButton')) {
-            
-//            alert($("#" + addElementsArray[i]).attr("src"));
             style1 = " tag!" + "button" +
                     " src!" + $("#" + addElementsArray[i]).attr("src") +
                     " x-co-ordinates!" + x1 +
@@ -1292,11 +1300,12 @@ function passvaluetoinputfield() {
                     " background-color!" + "#" + color3 + dropshadowdata1;
         }
         textareadetails[i] = style1 + " type!" + addElementsArray[i];
-       alert(textareadetails); 
+
 
 
 
         $("#textstyle").val(textareadetails);
+        alert(textareadetails);
 
     }
 //    alert(mapperdata);
