@@ -152,6 +152,7 @@
             <input type="hidden" id="isTwitter" name="isTwitter" value='<%= isTwitter%>'/>
 
         </div>
+            
         <script>
                 $(".cross").hide();
                 $(".menu").hide();
@@ -267,6 +268,8 @@
 
             });
 
-        </script>    
+        </script> 
+        <div style="position: relative;top:-27em;" class="col-md-1 col-md-offset-9"><a href="selectpromotesocialmedia.jsp"><p id="edit">go back</p></a></div>
     </body> 
+
 </html>

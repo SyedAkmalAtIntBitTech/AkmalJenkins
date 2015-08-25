@@ -34,6 +34,7 @@ and open the template in the editor.
         <script src="js/jquery-ui.js" type="text/javascript"></script>
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
 
+        <script src="js/jquery.autogrow-textarea.js" type="text/javascript"></script>
 
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
@@ -210,6 +211,9 @@ and open the template in the editor.
                     var temp_mind_body_query;
                     $("#previewpopup").hide();
                     $(document).ready(function() {
+                        
+                        
+                        
                         $('#continueblock').prop('disabled', true);
                         
                         $("#preview").click(function(){
@@ -548,10 +552,11 @@ and open the template in the editor.
                                             var left = $(this).attr("x-co-ordinates");
                                             var top = $(this).attr("y-co-ordinates");
                                             var opacity = $(this).attr("opacity");
+                                            var width = $(this).attr("width");
+                                            var height = $(this).attr("height");
                                    if (tag === "text")
                                         {
-
-                                                fontcolor = $(this).attr("font-color");
+                                                var colorName=$(this).attr("font-color-name");
                                                 fontsize = $(this).attr("font-size");
                                                 fontstyle = $(this).attr("font-style");
                                                 var fontweight = $(this).attr("font-weight");
@@ -560,12 +565,26 @@ and open the template in the editor.
                                                 var textalign = $(this).attr("text-align");
                                                 var webkittransform = $(this).attr("webkit-transform");
                                                 var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
+                                                       
+                                                for(var i=1;i<=6; i++)
+                                                        {
+                                                            if(colorName == "Font-Color-"+i)
+                                                            {
+                                                              fontcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                            }
+                                                            
+                                                        }
+//                                                fontcolor = $(this).attr("font-color");
+                                                
                                                 //alert(".preview #" + blockId);
-                                                $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + blockId + "EEE" + type + ") id=" + blockId + "EEE"  + type + ">" + elementdata + "</textarea>");
-                                                $("#" + blockId + "EEE"  + type).css("color", "" + fontcolor)
+                                                $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
+                                                $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
                                                                        .css("position", "absolute")
                                                                        .css("left", "" + left + "px")
                                                                        .css("top", "" + top + "px")
+                                                                       .css("width", "" + width)
+                                                                       .css("min-height", "" + height)
                                                                        .css("font-size", "" + fontsize)
                                                                        .css("font-style", "" + fontstyle)
                                                                        .css("font-weight", "" + fontweight)
@@ -576,18 +595,17 @@ and open the template in the editor.
                                                                        .css("text-shadow", "" + dropshadow)
                                                                        .css("webkit-transform", "rotate(" + webkittransform + "deg)")
                                                                        .css("background-color", "inherit" );
-
+                                                $("#" + type + "EEE" + blockId).autogrow();
                                         }
 
                                     if (tag === "image")
                                     {
                                     var blendmode = $(this).attr("background-blend-mode");
-                                            var width = $(this).attr("width");
-                                            var height = $(this).attr("height");
+                                            
                                             var background_image=$(this).attr("background-image")
                                             //                    alert("image");
-                                            $(".preview #" + blockId).append("<div onclick=getImageid(" + blockId + "EEE"  + type + ") id=" + blockId + "EEE"  + type + " ></div>");
-                                            $("#" + blockId + "EEE"  + type)
+                                            $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
+                                            $("#" + type + "EEE" + blockId)
                                             .css("color", "" + fontcolor)
                                             .css("margin-left", "" + left + "px")
                                             .css("margin-top", "" + top + "px")
@@ -601,12 +619,32 @@ and open the template in the editor.
                                             .css("background-position", "center center")
                                             .css("position", "absolute");
                                     }
+                                    
+                                    if (tag === "logo")
+                                    {
+                                        var background_image = $(this).attr("background-image");
+                                        var blendmode = $(this).attr("background-blend-mode");
+                                        $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
+                                        $("#" + type + "EEE" + blockId)
+                                                .css("color", "" + fontcolor)
+                                                .css("margin-left", "" + left + "px")
+                                                .css("margin-top", "" + top + "px")
+                                                .css("background-blend-mode", "" + blendmode)
+                                                .css("opacity", "" + opacity)
+                                                .css("width", "" + width)
+                                                .css("height", "" + height)
+                                                .css("background", ""+background_image)
+                                                .css("background-repeat", "no-repeat")
+                                                .css("background-position", "center center")
+
+                                                .css("position", "absolute"); 
+                                    }
 
                                     if (tag === "button")
                                     {
 
-                                    $(".preview #" + blockId).append("<div><img src='" + elementdata + "'id=" + blockId + "EEE"  + type + " alt='button'/>");
-                                            $("#" + blockId + "EEE"  + type).css("left", "" + left + "px")
+                                    $(".preview #" + blockId).append("<div><img src='" + elementdata + "' id=" + type + "EEE" + blockId + " alt='button'/>");
+                                            $("#" + type + "EEE" + blockId).css("left", "" + left + "px")
                                                                    .css("position", "absolute")
                                                                    .css("top", "" + top + "px")
                                                                    .attr("src", "buttons/button1.png");
@@ -614,17 +652,30 @@ and open the template in the editor.
 
                                     if (tag === "block")
                                     {
-                                    
+    
+                                        var colorName=$(this).attr("color-name");
+                                        var backgroundcolor;
                                         var width = $(this).attr("width");
                                         var height = $(this).attr("height");
-                                        var backgroundcolor = $(this).attr("background-color");                                                          
+//                                      var backgroundcolor = $(this).attr("background-color");                                                          
                                         var drop_shadow=$(this).attr("Drop-shadow-color");                                               
                                         var h_shadow =  $(this).attr("H-shadow"); 
                                         var v_shadow=$(this).attr("V-shadow");
                                         var Blur=$(this).attr("blur");
+                                                      
+                                        for(var i=1;i<=6; i++)
+                                               {
+                                                  if(colorName == "Color-"+i)
+                                                     {
+                                                       backgroundcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                      }
+                                                            
+                                                }           
+                                        
                                       
-                                        $(".preview #" + blockId).append("<div onclick=getDivId(" + blockId + "EEE" + type + ") id=" + blockId + "EEE" + type + "></div>");
-                                        $("#" + blockId + "EEE"  + type).css("background-color", "" + backgroundcolor)
+                                        $(".preview #" + blockId).append("<div onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
+                                        $("#" + type + "EEE" + blockId).css("background-color", "" + backgroundcolor)
                                                      .css("margin-left", "" + left + "px")
                                                      .css("margin-top", "" + top + "px")
                                                      .css("width", "" + width)
@@ -669,7 +720,7 @@ and open the template in the editor.
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0">
-                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp;<p id="edit">go back</p> &nbsp;&nbsp;<p id="preview">preview</p>
+                            <p class="edit">EDIT THIS POST </p><br><p id="edtgb"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview">preview</p>
 
                             <div class="sortDelete" style="position:absolute;top:380px; left:0px;margin: 0px;">
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />

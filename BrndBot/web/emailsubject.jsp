@@ -19,6 +19,7 @@
         <link href="css/popup.css" rel="stylesheet" type="text/css"/>
            <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
+                <link rel="stylesheet" href="css/main1.css">
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
         <title>email subject</title>
         <style>
@@ -112,10 +113,18 @@
                 border: 0px solid;
                 height:50px;
                 width:450px;
-                font-size:35px;
+                font-size:18.5px;
                 position: relative;
                 padding-top:10%;
             }
+/*            
+ #emailsubject:focus ~ input, #emailsubject:valid ~ input 
+ {     
+  left:-35px;
+  font-size:13px;
+  color:#999;
+}*/
+
             .hideinputborder:focus{
                 outline: none;
             }
@@ -169,7 +178,7 @@
                 border-radius:10px;
                 position: fixed;
                 top: 65%;
-                right:50%;
+                right:40%;
                 width: 200px;
                 background-color:transparent;
                 border-color: #00A37A;
@@ -607,10 +616,14 @@
             <div id="datadiv" class="col-md-8 col-md-offset-2">
                 <div id="emailsubjectdiv">
                     <p class="header1"> Enter the Subject Line of the Email:</p>
-                    
-                    <input type="text" class="hideinputborder" id="emailsubject" name="emailsubject" placeholder="SUBJECT LINE">
-
-                    <hr style="position:relative;left:-15%;width:550px;height:1px;background-color:#777;">
+                   <div class="sublingrp">
+                   <div class="col-md-5 col-md-offset-0">                            
+                       <input id="emailsubject" class="inputsubline" name="emailsubject"  type="text" required>
+                        <label>SUBJECT LINE</label><br>
+                    </div>
+                    </div>
+         
+              
                     <input  id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
 
                 </div>
@@ -620,9 +633,7 @@
                     <br><br>   
                    
                     <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
-                            <option value="0">SELECT</option>
-                            <option value="1">Check</option>
-                            <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                          <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                     </select>
                     <div id="drop-zone">
                         Drop files here...
@@ -634,9 +645,9 @@
 
                   
                     
-                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:50em;top:-160px;"/>
+                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:33em;top:-100px;"/>
                     <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-csv" value="Add CSV or Email Manually">
-                    <textarea style="width:300px; height:100px;position:relative;left:38em;top:-20px;" id="emailaddresses"></textarea><br><br>
+                    <textarea style="width:300px; height:100px;position:relative;left:42em;top:-20px;" id="emailaddresses"></textarea><br><br>
                
 
                     <div id="popup">

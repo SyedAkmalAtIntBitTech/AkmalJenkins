@@ -178,6 +178,31 @@
                     <input type="button" class="alignButton" id="rightButton" value="right" />
                 </p>
 
+<!--                        <% 
+                        Connection connection = null;
+                        try {
+                            connection = ConnectionManager.getInstance().getConnection();
+                            Query = "Select * from tbl_brand_font_family where brand_id=";
+                            ps = connection.prepareStatement(Query);
+
+                            rs = ps.executeQuery();
+                            }catch (Exception e){
+                            System.out.println(e. getCause());
+                            System.out.println(e.getMessage());
+                        }finally{
+                            ps.close();
+                            rs.close();
+                            ConnectionManager.getInstance().closeConnection(connection);
+                        }
+                            
+                            %>
+                -->
+                
+                
+                
+                
+                
+                
                 <p>
                 Font Size: <select id="textSize">
                                  <option value="8">Font Size 1</option>

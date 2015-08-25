@@ -33,6 +33,7 @@ and open the template in the editor.
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
+        <script src="js/jquery.autogrow-textarea.js" type="text/javascript"></script>
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
         <script src="js/jquery.blend.min.js" type="text/javascript"></script>-->
@@ -198,7 +199,7 @@ and open the template in the editor.
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-//                        alert(JSON.stringify(data.user_font_names));
+//                        alert(JSON.stringify(data.user_colors));
                     $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_names = data.user_font_names;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -265,8 +266,8 @@ and open the template in the editor.
             };
             });
                     function showText(id, layout){
-//   alert(id+""+layout);
                             $("#clickid").val(layout);
+
 //                            alert('http://localhost:8080/BrndBot/DownloadXml?file_name='+ layout +'.xml');
                             $.ajax({
                                     type: 'GET',
@@ -288,12 +289,14 @@ and open the template in the editor.
                                                     }
 
                                                     );
+                                                            var count=1;
                                                             $(xml).find('element').each(function () {
                                                             var tag = $(this).attr("tag");
                                                             type = $(this).attr("type");
                                                             var h = "";
                                                             var t = "";
                                                             var elementdata;
+                                                            $(#editorhead)  .find('option').remove().end();
                                                             $(jsondata).each(function (i, val) {
 
                                                     $.each(val, function (k, v) {
@@ -311,10 +314,21 @@ and open the template in the editor.
                                                             var left = $(this).attr("x-co-ordinates");
                                                             var top = $(this).attr("y-co-ordinates");
                                                             var opacity = $(this).attr("opacity");
-       
+                                                            var width = $(this).attr("width");
+                                                            var height = $(this).attr("height");
                                                    if (tag === "text")
-                                                    {
-                                                            fontcolor = $(this).attr("font-color");
+                                                   {
+                                                        var colorName=$(this).attr("font-color-name");
+                                                        for(var i=1;i<=6; i++)
+                                                        {
+                                                            if(colorName == "Font-Color-"+i)
+                                                            {
+                                                              fontcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                            }
+                                                            
+                                                        }
+//                                                            fontcolor = $(this).attr("font-color");
                                                             fontsize = $(this).attr("font-size");
                                                             fontstyle = $(this).attr("font-style");
                                                             var fontweight = $(this).attr("font-weight");
@@ -329,6 +343,8 @@ and open the template in the editor.
                                                                 .css("position", "absolute")
                                                                 .css("margin-left", "" + left + "px")
                                                                 .css("margin-top", "" + top + "px")
+                                                                .css("width", "" + width)
+                                                                .css("min-height", "" + height)
                                                                 .css("font-size", "" + fontsize)
                                                                 .css("font-style", "" + fontstyle)
                                                                 .css("font-weight", "" + fontweight)
@@ -340,15 +356,18 @@ and open the template in the editor.
                                                                 .css("text-align", "" + textalign)
                                                                 .css("text-shadow", "" + dropshadow)
                                                                 .css("webkit-transform", "rotate(" + webkittransform + "deg)");
+                                                        $("#" + type).autogrow();
                                                     }
 
                                                if (tag === "image")
-                                                    {
+                                               {
+                                                 
                                                     var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
-                                                    var width = $(this).attr("width");
-                                                    var height = $(this).attr("height");
+                                                    
                         //                    alert("image");
+                                                    $(#editorhead).append("<option value="+background_image+">Image "+count+"<option>")
+                                                    count++;
                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
                                                             .css("color", "" + fontcolor)
@@ -364,16 +383,11 @@ and open the template in the editor.
                                                             .css("position", "absolute"); 
                                                     }
                                                     
-                                                      if (tag === "logo")
+                                                    if (tag === "logo")
                                                     {
                                                     var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
-                                                    var width = $(this).attr("width");
-                                                    var height = $(this).attr("height");
-                                                
-                                    
-                        //                    alert("image");
-                                                   $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
+                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
                                                             .css("color", "" + fontcolor)
                                                             .css("margin-left", "" + left + "px")
@@ -401,9 +415,20 @@ and open the template in the editor.
 
                                                     if (tag === "block")
                                                     {
+                                                        var colorName=$(this).attr("color-name");
+                                                        var backgroundcolor;
+                                                        for(var i=1;i<=6; i++)
+                                                        {
+                                                            if(colorName == "Color-"+i)
+                                                            {
+                                                              backgroundcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                            }
+                                                            
+                                                        }
                                                             var width = $(this).attr("width");
                                                             var height = $(this).attr("height");
-                                                            var backgroundcolor = $(this).attr("background-color");           
+//                                                            var backgroundcolor = $(this).attr("background-color");           
                                                             var drop_shadow=$(this).attr("Drop-shadow-color");
                                                             var h_shadow =  $(this).attr("H-shadow"); 
                                                             var v_shadow=$(this).attr("V-shadow");
@@ -452,8 +477,11 @@ and open the template in the editor.
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0 prev">
-                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edit">go back</p> 
-                            <div class="preview"  style="zoom: 0.5;">
+
+                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb"><a href="selectpromotemedia.jsp">go back</a></p>
+                            <div class="preview" style="zoom: 0.5;">
+
+                           
                                 <!--  {{mindbody_data}}-->
                                 <!--
                                         NOTE: To change the aspect ratio, look in crop.css
@@ -597,7 +625,7 @@ and open the template in the editor.
                                         <div id="imagecontainer">
                                             <p  id="text3">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><p id="editorhead">Teacher Image</p></li>
+                                                <li><select id="editorhead"></select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
                                                 <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
                                                 <li></li>
@@ -759,7 +787,7 @@ $(this).addClass('highlight');
                                    },
                                    success: function (responseText) {
                                            var image=responseText;
-//                                           alert(image);
+                                           alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
 
                                    }
@@ -769,7 +797,8 @@ $(this).addClass('highlight');
                                   // document.location.href = "selectpromotesocialmedia.jsp";
                        });                           
                                                                                     
-        </script>        
+        </script> 
+        
 <script>
 //    var selectedDivId;     
     var selectedImageId;
@@ -908,21 +937,23 @@ $(this).addClass('highlight');
 
                                     // draw image
                                     ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
-//                                    alert( img.src);
+                                   alert( img.src);
                                             // display canvas image
-                                            $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
+                                            $('canvas').addClass('output').show().delay('9000').fadeOut('slow');
                                             // save the image to server
-                                            var canvass = document.getElementById("canvas");
-                                            var dataURL = canvass.toDataURL();
-//                                            alert(dataURL);
+                                            var canvas = document.getElementById("canvas");
+                                            alert("1");
+                                            var dataURL =canvas.toDataURL("image/jpeg");
+                                            alert("2");
+                                           alert(dataURL);
                                             var cropped_image = {"image": "image"};
-//                                            alert("image");
+                                           alert("image");
                                                 $.ajax({
                                                     url: global_host_address + 'CropImage',
                                                     method: 'post',
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
-//                                                       alert(responseText);
+                                                      alert(responseText);
                                                         $("#"+selectedImageId).css("background","url(images/"+responseText+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                                     }
                                                 });                                            
@@ -965,8 +996,8 @@ $(this).addClass('highlight');
                                     $("#selectimage").click(function(){
                                         var image_file = global_host_address + $("#image_name").val();
 
-//                                        alert(image_file);
-//                                        alert(selectedImageId);
+                                       alert(image_file);
+                                        alert(selectedImageId);
                                         $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                         $("#imagespopup").hide();
                                     });

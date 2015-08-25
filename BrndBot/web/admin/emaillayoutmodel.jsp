@@ -63,7 +63,13 @@
                 if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
 
                     var response = xmlHttp.responseText;
-                    document.getElementById("blocks").innerHTML = response;
+                     var len = response.length;
+                    var no1 = response.indexOf(",");
+                    response1 = response.substr(0, no1);
+                    response2 = response.substr(no1 + 1, len);
+                    document.getElementById("textFontFamily").innerHTML = response1;
+                    document.getElementById("blocks").innerHTML = response2;
+                    
                 }
             }
 
@@ -86,16 +92,17 @@
                     return;
                 }
 
-                var url = "showblocks.jsp";
+                var url = "getfonts.jsp";
 
-                url += "?brand_id=" + str;
+                url += "?Brand_id=" + str;
 
                 xmlHttp.onreadystatechange = brandChange;
+            
 
                 xmlHttp.open("GET", url, true);
 
                 xmlHttp.send(null);
-
+          
             }
 
             function usersChange() {
@@ -241,7 +248,44 @@
                     document.getElementById("subcategories").innerHTML = response;
                 }
             }
+             function showbrand(Brand){
+                    if (typeof XMLHttpRequest !== "undefined") {
 
+                    xmlHttp = new XMLHttpRequest();
+
+                }
+                else if (window.ActiveXObject) {
+
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+                }
+                if (xmlHttp === null) {
+
+                    alert("Browser does not support XMLHTTP Request");
+
+                    return;
+                }
+
+                var url = "getfonts.jsp";
+
+                url += "?Brand_id=" + Brand;
+
+                xmlHttp.onreadystatechange =fontChange;
+
+                xmlHttp.open("GET", url, true);
+
+                xmlHttp.send(null);
+             
+           }
+              function fontChange() {
+
+                if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
+
+                    var response = xmlHttp.responseText;
+                    document.getElementById("textFontFamily").innerHTML = response;
+                }
+                
+            }
 
 
     
@@ -391,11 +435,7 @@
 
                 <p>
                     Font Family: <select id="textFontFamily">
-                        <option value="Arial">Font Family 1</option>
-                        <option value="Papyrus">Font Family 2</option>
-                        <option value="Montserrat">Font Family 3</option>
-                        <option value="Futura">Font Family 4</option>
-                        <option value="Times New Roman">Font Family 5</option>
+                        <option>select</option>
                     </select>
 
                     <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
@@ -405,12 +445,13 @@
                 <p>
                     <!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
                     Font Color: <select id="fontColor">
-                        <option value="red">Font Color 1</option>
-                        <option value="blue">Font Color 2</option>
-                        <option value="green">Font Color 3</option>
-                        <option value="yellow">Font Color 4</option>
-                        <option value="Lime">Font Color 5</option>
-                    </select>
+                                    <option value="red">Font-Color-1</option>
+                                    <option value="blue">Font-Color-2</option>
+                                    <option value="green">Font-Color-3</option>
+                                    <option value="yellow">Font-Color-4</option>
+                                    <option value="Lime">Font-Color-5</option>
+                                    <option value="indigo">Font-Color-6</option>
+                                </select>
                 </p>
                 <hr>
                 <!--                <p>
@@ -549,6 +590,18 @@
                 <p>
                     Block Color: <input type='text' class='basic' id='blockColor' value='black' />
                 </p>
+                <p>
+                    <select id="blockColorFromDropDown">
+                                    <option>Color-1</option>
+                                    <option>Color-2</option>
+                                    <option>Color-3</option>
+                                    <option>Color-4</option>
+                                    <option>Color-5</option>
+                                    <option>Color-6</option>
+                        
+                    </select>
+                </p>
+                
                 <p>
                     <input type="button" class="blockButton" id="blockButton" value="Apply" />
                 </p>

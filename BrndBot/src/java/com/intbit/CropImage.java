@@ -6,13 +6,19 @@
 package com.intbit;
 
 import com.controller.BrndBotBaseHttpServlet;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -21,6 +27,7 @@ import org.json.simple.parser.JSONParser;
  * @author sandeep-kumar
  */
 public class CropImage extends BrndBotBaseHttpServlet {
+    private Object dateFormat;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,6 +44,8 @@ public class CropImage extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
+           Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHH:mm:ssSSS");
         PrintWriter out = response.getWriter();
          logger.log(Level.INFO, "enter in servlet");
 //        sqlmethods.session = request.getSession(true);
@@ -44,25 +53,16 @@ public class CropImage extends BrndBotBaseHttpServlet {
         boolean check = true;
         try {
 
-            BufferedReader reader = request.getReader();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                string_buffer.append(line);
-            }
-            JSONParser parser = new JSONParser();
-            JSONObject joUser = null;
-            joUser = (JSONObject) parser.parse(string_buffer.toString());
-            String User_id = (String) joUser.get("image");
-            logger.log(Level.INFO, "enter in servlet");
-//            String imageString=
-//   
-//            BASE64Decoder decoder = new BASE64Decoder();
-//            imageByte = decoder.decodeBuffer(imageString);
-//            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
-//            image = ImageIO.read(bis);
-//            bis.close();
-
-
+            String imageData = request.getParameter("image");
+            
+            imageData = imageData.replaceAll("^data:image[^;]+;base64,", "");
+            logger.log(Level.INFO, getServletContext().getRealPath(""));
+            byte[] data = Base64.decodeBase64(imageData);
+             try (OutputStream stream = new FileOutputStream(getServletContext().getRealPath("")+"/images/temp_image/"+dateFormat.format(date)+".png")) {
+                stream.write(data);
+                 response.setContentType("text/plain");
+                  response.getWriter().write(dateFormat.format(date)+".png");
+             } 
         }
         catch(Exception e){
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
