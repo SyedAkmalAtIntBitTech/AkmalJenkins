@@ -63,15 +63,6 @@ public class CropImage extends BrndBotBaseHttpServlet {
                  response.setContentType("text/plain");
                   response.getWriter().write(dateFormat.format(date)+".png");
              } 
-//            String imageString=
-//   
-//            BASE64Decoder decoder = new BASE64Decoder();
-//            imageByte = decoder.decodeBuffer(imageString);
-//            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
-//            image = ImageIO.read(bis);
-//            bis.close();
-
-
         }
         catch(Exception e){
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));

@@ -144,8 +144,47 @@
                     document.getElementById("subcategories").innerHTML = response;
                 }
             }
+           function showbrand(Brand){
+                    if (typeof XMLHttpRequest !== "undefined") {
 
+                    xmlHttp = new XMLHttpRequest();
 
+                }
+                else if (window.ActiveXObject) {
+
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+                }
+                if (xmlHttp === null) {
+
+                    alert("Browser does not support XMLHTTP Request");
+
+                    return;
+                }
+
+                var url = "getfonts.jsp";
+
+                url += "?Brand_id=" + Brand;
+
+                xmlHttp.onreadystatechange =fontChange;
+
+                xmlHttp.open("GET", url, true);
+
+                xmlHttp.send(null);
+             
+           }
+              function fontChange() {
+
+                if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
+
+                    var response = xmlHttp.responseText;
+                    var len = response.length;
+                    var no1 = response.indexOf(",");
+                    response1 = response.substr(0, no1);
+                    response2 = response.substr(no1 + 1, len);
+                    document.getElementById("textFontFamily").innerHTML = response1;
+                }
+            }
 
     
       </script>          
@@ -337,11 +376,7 @@ function validate(){
 
                 <p>
                     Font Family: <select id="textFontFamily">
-                        <option value="Arial">Font Family 1</option>
-                        <option value="Papyrus">Font Family 2</option>
-                        <option value="Montserrat">Font Family 3</option>
-                        <option value="Futura">Font Family 4</option>
-                        <option value="Times New Roman">Font Family 5</option>
+                    
                     </select>
 
                     <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
