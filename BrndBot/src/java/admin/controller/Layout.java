@@ -39,19 +39,19 @@ public class Layout {
         this.sqlmethods = new SqlMethods();
     }
     
-    public boolean checkAvailability(String brand_name) throws SQLException {
+    public String checkAvailability(String model_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         
-        boolean check = false;
+        String check = "no";
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "select * from tbl_brand_personality where brand_name='" + brand_name + "'";
+            query_string = "select * from tbl_model where model_name='" + model_name + "'";
             
             prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
-                check = true;
+                check = "yes";
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
@@ -63,38 +63,39 @@ public class Layout {
         return check;
     }
     
-    public String getFileName(Integer brand_id) {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        
-        String fileName = "";
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from tbl_brand_personality where id=" + brand_id + "";
-            
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-            
-            if (result_set.next()) {
-                fileName = result_set.getString("image");
-            }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "", e);
-        } finally {
-            sqlmethods.close(result_set, prepared_statement);
-            
-        }
-        
-        return fileName;
-    }
+//    
+//    public String getFileName(Integer brand_id) {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//        
+//        String fileName = "";
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "Select * from tbl_brand_personality where id=" + brand_id + "";
+//            
+//            prepared_statement = connection.prepareStatement(query_string);
+//            result_set = prepared_statement.executeQuery();
+//            
+//            if (result_set.next()) {
+//                fileName = result_set.getString("image");
+//            }
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, "", e);
+//        } finally {
+//            sqlmethods.close(result_set, prepared_statement);
+//            
+//        }
+//        
+//        return fileName;
+//    }
     
-    public void addLayouts(Integer organization_id, Integer user_id, Integer category_id, String layout, String model, boolean email, boolean social, Integer sub_category_id, Integer brand_id, Integer block_id, String Style_image_name) throws SQLException {
+    public void addLayouts(Integer organization_id, Integer user_id, Integer category_id, String layout, String model, boolean email, boolean social, Integer sub_category_id, Integer brand_id, Integer block_id, String Style_image_name, String file_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Insert into tbl_model (organization_id, user_id, category_id, layout_file_name, model_file_name, email, social, sub_category_id, brand_id, block_id,image_file_name) values(?,?,?,?,?,?,?,?,?,?,?)";
+            query_string = "Insert into tbl_model (organization_id, user_id, category_id, layout_file_name, model_file_name, email, social, sub_category_id, brand_id, block_id,image_file_name, model_name) values(?,?,?,?,?,?,?,?,?,?,?,?)";
             
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setInt(1, organization_id);
@@ -108,6 +109,7 @@ public class Layout {
             prepared_statement.setInt(9, brand_id);
             prepared_statement.setInt(10, block_id);
             prepared_statement.setString(11, Style_image_name);
+            prepared_statement.setString(12, file_name);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
@@ -118,45 +120,45 @@ public class Layout {
         
     }
     
-    public void editBrands(Integer brand_id, String brand_name, Integer look_id, String image) throws SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "UPDATE tbl_brand_personality"
-                    + " SET brand_name='" + brand_name + "', look_id=" + look_id + ", image='" + image + "'  WHERE id='" + brand_id + "'";
-            
-            prepared_statement = connection.prepareStatement(query_string);
-            prepared_statement.executeUpdate();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "", e);
-        } finally {
-            sqlmethods.close(result_set, prepared_statement);
-            
-        }
-        
-    }
-    
-    public void deleteBrands(Integer org_id) throws SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Delete From tbl_brand_personality"
-                    + " WHERE id='" + org_id + "'";
-            
-            prepared_statement = connection.prepareStatement(query_string);
-            prepared_statement.executeUpdate();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "", e);
-        } finally {
-            sqlmethods.close(result_set, prepared_statement);
-            
-        }
-        
-    }
+//    public void editBrands(Integer brand_id, String brand_name, Integer look_id, String image) throws SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//        
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "UPDATE tbl_brand_personality"
+//                    + " SET brand_name='" + brand_name + "', look_id=" + look_id + ", image='" + image + "'  WHERE id='" + brand_id + "'";
+//            
+//            prepared_statement = connection.prepareStatement(query_string);
+//            prepared_statement.executeUpdate();
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, "", e);
+//        } finally {
+//            sqlmethods.close(result_set, prepared_statement);
+//            
+//        }
+//        
+//    }
+//    
+//    public void deleteBrands(Integer org_id) throws SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//        
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "Delete From tbl_brand_personality"
+//                    + " WHERE id='" + org_id + "'";
+//            
+//            prepared_statement = connection.prepareStatement(query_string);
+//            prepared_statement.executeUpdate();
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, "", e);
+//        } finally {
+//            sqlmethods.close(result_set, prepared_statement);
+//            
+//        }
+//        
+//    }
     
     public String createImage(String layoutfilename, ServletContext servletContext) throws SAXException {
 //        throw new UnsupportedOperationException("Not supported yet.");
@@ -194,15 +196,21 @@ public class Layout {
                 
                 if (modelElement.getAttribute("tag").equalsIgnoreCase("image")) {
                     String filter = "";
-                    logger.log(Level.INFO, modelElement.getAttribute("brightness"));
-                    if (modelElement.getAttribute("blur")=="null" || modelElement.getAttribute("brightness") == " ") {
+                    if (modelElement.getAttribute("filterEnable").equalsIgnoreCase("false")) {
                         h_shadow = modelElement.getAttribute("h-shadow");
                         v_shadow = modelElement.getAttribute("v-shadow");
                         Blur = modelElement.getAttribute("blur");
                         Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
                         filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
                         logger.log(Level.INFO, filter);
-                    } else {
+                    } 
+                    else if(modelElement.getAttribute("blur").equalsIgnoreCase("undefined")) {
+                       
+                        filter = "blur(0px) grayscale(0%) sepia(0%) saturate(100%) hue-rotate(0deg) invert(0%) brightness(100%) contrast(100%)";  
+                       
+     
+                    }
+                    else{
                         Blur = modelElement.getAttribute("blur");
                         grayscale = (Double.parseDouble(modelElement.getAttribute("grayscale"))) * 100;
                         sepia = (Double.parseDouble(modelElement.getAttribute("sepia"))) * 100;
@@ -211,11 +219,10 @@ public class Layout {
                         invert = (Double.parseDouble(modelElement.getAttribute("invert"))) * 100;
                         brightness = (Double.parseDouble(modelElement.getAttribute("brightness"))) * 100;
                         contrast = (Double.parseDouble(modelElement.getAttribute("contrast"))) * 100;
-//                        blur(2px) grayscale(2%) sepia(2%) saturate(102%) hue-rotate(1deg) invert(1%) brightness(100%) contrast(101%) 
                         
                         filter = "blur(" + Blur + ") grayscale(" + (int) grayscale + "%) sepia(" + (int) sepia + "%) saturate(" + (int) saturate + "%) hue-rotate(" + huerotate + ") invert(" + (int) invert + "%) brightness(" + (int) brightness + "%) contrast(" + (int) contrast + "%)";                        
-                        logger.log(Level.INFO, filter);
-                    }
+                        logger.log(Level.INFO, filter);                    
+                        }
                     
                     backgroundimage = modelElement.getAttribute("background-image");
                     margin_left = modelElement.getAttribute("x-co-ordinates");
@@ -256,16 +263,23 @@ public class Layout {
                     backgroundimage = modelElement.getAttribute("src").replace("url(", "").replace(")", "");
                     htmldata.append("<img style='position: absolute; margin-left: " + margin_left + "; margin-top:" + margin_top + ";' src='"+backgroundimage+"'/>");
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("logo")) {
+                  
                     String filter = "";
-                    logger.log(Level.INFO, modelElement.getAttribute("brightness"));
-                    if (modelElement.getAttribute("blur")=="null" || modelElement.getAttribute("brightness") == " ") {
+                    if (modelElement.getAttribute("filterEnable").equalsIgnoreCase("false")) {
                         h_shadow = modelElement.getAttribute("h-shadow");
                         v_shadow = modelElement.getAttribute("v-shadow");
                         Blur = modelElement.getAttribute("blur");
                         Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
                         filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
                         logger.log(Level.INFO, filter);
-                    } else {
+                    } 
+                    else if(modelElement.getAttribute("blur").equalsIgnoreCase("undefined")) {
+                       
+                        filter = "blur(0px) grayscale(0%) sepia(0%) saturate(100%) hue-rotate(0deg) invert(0%) brightness(100%) contrast(100%)";  
+                       
+     
+                    }
+                    else{
                         Blur = modelElement.getAttribute("blur");
                         grayscale = (Double.parseDouble(modelElement.getAttribute("grayscale"))) * 100;
                         sepia = (Double.parseDouble(modelElement.getAttribute("sepia"))) * 100;
@@ -274,11 +288,10 @@ public class Layout {
                         invert = (Double.parseDouble(modelElement.getAttribute("invert"))) * 100;
                         brightness = (Double.parseDouble(modelElement.getAttribute("brightness"))) * 100;
                         contrast = (Double.parseDouble(modelElement.getAttribute("contrast"))) * 100;
-//                        blur(2px) grayscale(2%) sepia(2%) saturate(102%) hue-rotate(1deg) invert(1%) brightness(100%) contrast(101%) 
                         
                         filter = "blur(" + Blur + ") grayscale(" + (int) grayscale + "%) sepia(" + (int) sepia + "%) saturate(" + (int) saturate + "%) hue-rotate(" + huerotate + ") invert(" + (int) invert + "%) brightness(" + (int) brightness + "%) contrast(" + (int) contrast + "%)";                        
-                        logger.log(Level.INFO, filter);
-                    }
+                        logger.log(Level.INFO, filter);                    
+                        }
                     
                     backgroundimage = modelElement.getAttribute("background-image");
                     margin_left = modelElement.getAttribute("x-co-ordinates");
@@ -292,6 +305,13 @@ public class Layout {
                     background_size = "contain";
                     htmldata.append("<div style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + "; '></div>");
                     logger.log(Level.INFO, htmldata.toString());
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("block")) {
                     String filter = "";
                     

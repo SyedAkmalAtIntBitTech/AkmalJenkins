@@ -12,20 +12,19 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="checksession.jsp" %>
 
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Layout Model</title>
-<!--         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
-          <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!--         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
         <link href="../css/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <link href="../css/site.css" rel="stylesheet" type="text/css"/>
-       
+
         <script src="../js/jquery.blend.min.js" type="text/javascript"></script>
         <script src="../js/jquery-1.10.2.js" type="text/javascript"></script>
         <script src="../js/jquery-ui.js" type="text/javascript"></script>
@@ -34,7 +33,7 @@
         <link href="../css/colorpicker.css" rel="stylesheet" type="text/css"/>
         <script src="../js/colorpicker.js" type="text/javascript"></script>
         <!-- For confirm dialog box -->
-     	
+
         <script src="../js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
 
         <!-- For image filter -->
@@ -42,52 +41,61 @@
         <!-- For better color picker --> 
 
         <script src="../js/spectrum.js" type="text/javascript"></script>
-       
+
         <link href="../css/spectrum.css" rel="stylesheet" type="text/css"/>
         <script src="../js/configurations.js" type="text/javascript"></script>
-     <script language="javascript" type="text/javascript">  
+        <script language="javascript" type="text/javascript">
+            $(document).ready(function () {
+                var textSize = 5;
 
-      var xmlHttp;  
-      
-            function usersChange(){   
+                while (textSize < 155)
+                {
 
-            if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){   
+                    $("#textSize").append(new Option(textSize + "px", textSize));
+                    textSize = textSize + 5;
+                }
+            });
+            var xmlHttp;
 
-                  var response = xmlHttp.responseText;
+            function usersChange() {
 
-                  var response1, response2, response3, response4, response5, response6;
-                  var len = response.length;
-                  var no1 = response.indexOf(",");
-                  response1 = response.substr(0, no1);
-                  response2 = response.substr(no1+1,len);
+                if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
 
-                  document.getElementById("users").innerHTML=response1;
-                  document.getElementById("categories").innerHTML=response2;
-            }   
+                    var response = xmlHttp.responseText;
+
+                    var response1, response2, response3, response4, response5, response6;
+                    var len = response.length;
+                    var no1 = response.indexOf(",");
+                    response1 = response.substr(0, no1);
+                    response2 = response.substr(no1 + 1, len);
+
+                    document.getElementById("users").innerHTML = response1;
+                    document.getElementById("categories").innerHTML = response2;
+                }
             }
-            
-            function showUsers(str){
 
-                if (typeof XMLHttpRequest !== "undefined"){
+            function showUsers(str) {
 
-                xmlHttp= new XMLHttpRequest();
+                if (typeof XMLHttpRequest !== "undefined") {
 
-                }
-                else if (window.ActiveXObject){
-
-                xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+                    xmlHttp = new XMLHttpRequest();
 
                 }
-                if (xmlHttp===null){
+                else if (window.ActiveXObject) {
 
-                alert("Browser does not support XMLHTTP Request");
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 
-                return;
-                } 
+                }
+                if (xmlHttp === null) {
 
-                var url="users.jsp";
+                    alert("Browser does not support XMLHTTP Request");
 
-                url +="?org_id=" +str;
+                    return;
+                }
+
+                var url = "users.jsp";
+
+                url += "?org_id=" + str;
 
                 xmlHttp.onreadystatechange = usersChange;
 
@@ -95,30 +103,30 @@
 
                 xmlHttp.send(null);
 
-      }
+            }
 
-            function showSubCategories(str){
+            function showSubCategories(str) {
 
-                if (typeof XMLHttpRequest !== "undefined"){
+                if (typeof XMLHttpRequest !== "undefined") {
 
-                xmlHttp= new XMLHttpRequest();
-
-                }
-                else if (window.ActiveXObject){
-
-                xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+                    xmlHttp = new XMLHttpRequest();
 
                 }
-                if (xmlHttp===null){
+                else if (window.ActiveXObject) {
 
-                alert("Browser does not support XMLHTTP Request");
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 
-                return;
-                } 
+                }
+                if (xmlHttp === null) {
 
-                var url="displaysubcategories.jsp";
+                    alert("Browser does not support XMLHTTP Request");
 
-                url +="?category_id=" +str;
+                    return;
+                }
+
+                var url = "displaysubcategories.jsp";
+
+                url += "?category_id=" + str;
 
                 xmlHttp.onreadystatechange = categoryChange;
 
@@ -126,31 +134,167 @@
 
                 xmlHttp.send(null);
 
-      }
-      
-      function categoryChange(){
+            }
 
-        if (xmlHttp.readyState===4 || xmlHttp.readyState==="complete"){
+            function categoryChange() {
 
-              var response = xmlHttp.responseText;
-              document.getElementById("subcategories").innerHTML=response;
-        }
-      }
+                if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
+
+                    var response = xmlHttp.responseText;
+                    document.getElementById("subcategories").innerHTML = response;
+                }
+            }
+
+
 
     
       </script>          
+      <script>
+          
+function validate(){
+      var model_name = $("#namexml").val();
+
+      if (model_name == ""){
+          alert("model name not entered");
+          $("#namexml").focus();
+          return false;
+      }else {
+          alert("text");
+        $.ajax({
+            url: global_host_address + 'ServletValidateModel',
+            method: 'post',
+            data: {
+                model_name : model_name,
+            },
+            success: function (responseText) {
+        alert(responseText);
+        if (responseText == "yes"){
+            alert("name already exist, please give some other name");
+            $("#namexml").focus();
+            return false;
+        }else if (responseText == "no") {
+            var file_name = $("#namexml").val();
+            var mapperxml = file_name + "_" + "mapper";
+            var layoutxml = file_name + "_" + "layout";
+
+            $("#mapper").val(mapperxml);
+            $("#layout").val(layoutxml);
+            $("#model_name").val($("#namexml").val());
+//                    $("#tabs *").attr("disabled", false);
+//                    $("#main *").attr("disabled", false);
+//                    $("#right *").attr("disabled", false);
+            $('#popup').hide("slow");
+
+            var organization = $("#organization").val();
+            alert(organization);
+            var brand = $("#brand").val();
+            var users = $("#users").val();
+            var categories = $("#categories").val();
+            var subcategories = $("#subcategories").val();
+            var mindbodyquery = $("#mindbodyquery").val();
+            var containerstyle = $("#containerstyle").val();
+            var textstyle = $("#textstyle").val();
+            var element = $("#element").val();
+
+            var model_name = $("#namexml").val();
+            var mapperxml = model_name + "_" + "mapper";
+            var layoutxml = model_name + "_" + "layout";
+
+            var imagename = $("#imagename").val();
+            var social = $("#socialmedia").val();
+
+              $.ajax({
+                      url: global_host_address + 'Model',
+                      method: 'post',
+                      data: {
+                          organization : organization,
+                          brand : brand,
+                          users : users,
+                          categories : categories,
+                          subcategories : subcategories,
+                          mindbodyquery : mindbodyquery,
+                          containerstyle : containerstyle,
+                          textstyle : textstyle,
+                          element : element,
+                          mapper : mapperxml,
+                          layout : layoutxml,
+                          model_name : model_name,
+                          imagename : imagename,
+                          socialmedia : social
+                      },
+                      success: function (responseText) {
+                        alert("Model saved successfully");
+                        window.open(getHost() + 'admin/sociallayoutmodel.jsp', "_self");
+                      }                    
+                   });    
+
+                }
+            }
+        });
+
+      }
+//      return true;          
+  }
+  
+  function submitModel(){
+      if (validate()){
+      var organization = $("#organization").val();
+      alert(organization);
+      var brand = $("#brand").val();
+      var users = $("#users").val();
+      var categories = $("#categories").val();
+      var subcategories = $("#subcategories").val();
+      var mindbodyquery = $("#mindbodyquery").val();
+      var containerstyle = $("#containerstyle").val();
+      var textstyle = $("#textstyle").val();
+      var element = $("#element").val();
+
+      var model_name = $("#namexml").val();
+      var mapperxml = model_name + "_" + "mapper";
+      var layoutxml = model_name + "_" + "layout";
+
+      var imagename = $("#imagename").val();
+      var social = $("#socialmedia").val();
+      
+        $.ajax({
+                url: global_host_address + 'Model',
+                method: 'post',
+                data: {
+                    organization : organization,
+                    brand : brand,
+                    users : users,
+                    categories : categories,
+                    subcategories : subcategories,
+                    mindbodyquery : mindbodyquery,
+                    containerstyle : containerstyle,
+                    textstyle : textstyle,
+                    element : element,
+                    mapper : mapperxml,
+                    layout : layoutxml,
+                    model_name : model_name,
+                    imagename : imagename,
+                    socialmedia : social
+                },
+                success: function (responseText) {
+
+                }                    
+         });
+      }
+  }
+          
+      </script>
+
     </head>
     <body>
         <%@include file="menus.jsp" %>
-<%!
-        PreparedStatement ps;
-        ResultSet rs;
-        String Query = "";
-        Integer id = 0;
-        String org_name = "";
-        String brand_name = "";
-        String font_name="";
-%>
+        <%!    PreparedStatement ps;
+            ResultSet rs;
+            String Query = "";
+            Integer id = 0;
+            String org_name = "";
+            String brand_name = "";
+            String font_name = "";
+        %>
 
         <div id="tabs">
             <ul>
@@ -179,16 +323,16 @@
                 </p>
 
                 <p>
-                Font Size: <select id="textSize">
-                                 <option value="8">8px</option>
-                                 <option value="12">12px</option>
-                                 <option value="14">14px</option>
-                                 <option value="18">18px</option>
-                                 <option value="22">22px</option>
-                                 <option value="26">26px</option>
-                                 <option value="30">30px</option>
-                                 <option value="34">34px</option>   
-                               </select>
+                    Font Size: <select id="textSize">
+                        <!--                                 <option value="8">8px</option>
+                                                         <option value="12">12px</option>
+                                                         <option value="14">14px</option>
+                                                         <option value="18">18px</option>
+                                                         <option value="22">22px</option>
+                                                         <option value="26">26px</option>
+                                                         <option value="30">30px</option>
+                                                         <option value="34">34px</option>   -->
+                    </select>
                 </p>
 
                 <p>
@@ -199,20 +343,22 @@
                         <option value="Futura">Font Family 4</option>
                         <option value="Times New Roman">Font Family 5</option>
                     </select>
-                    
- <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
-                        <option value="0"></option>
-                    </select>-->
+
+                    <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
+                                           <option value="0"></option>
+                                       </select>-->
                 </p>
                 <p>
-<!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
+                    <!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
                     Font Color: <select id="fontColor">
-                                    <option value="red">Font Color 1</option>
-                                    <option value="blue">Font Color 2</option>
-                                    <option value="green">Font Color 3</option>
-                                    <option value="yellow">Font Color 4</option>
-                                    <option value="Lime">Font Color 5</option>
+                                    <option value="red">Font-Color-1</option>
+                                    <option value="blue">Font-Color-2</option>
+                                    <option value="green">Font-Color-3</option>
+                                    <option value="yellow">Font-Color-4</option>
+                                    <option value="Lime">Font-Color-5</option>
+                                    <option value="indigo">Font-Color-6</option>
                                 </select>
+
                 </p>
                 <hr>
                 <p>
@@ -325,8 +471,8 @@
                         <option value="4">Button4</option>
                         <option value="5">Button5</option>
                     </select>
-                    
-                        
+
+
                 </p>
             </div>
             <div id="tabs-4">
@@ -352,12 +498,25 @@
                 <p>
                     Block Color: <input type='text' class='basic' id='blockColor' value='black' />
                 </p>
+                    <p>
+                    <select id="blockColorFromDropDown">
+                                    <option>Color-1</option>
+                                    <option>Color-2</option>
+                                    <option>Color-3</option>
+                                    <option>Color-4</option>
+                                    <option>Color-5</option>
+                                    <option>Color-6</option>
+
+                    </select>
+                </p>
+                
                 <p>
                     <input type="button" class="blockButton" id="blockButton" value="Apply" />
                 </p>
+            
                 <hr>
                 <p>
-                    Drop shadow:<br /><br />
+                    Drop shadow:<br/><br/>
 
                     Color: <input type="text" class='basic' id="dropShadowColorPickBlock" value="black" />
                     Blur: <input class="dropShadowBlock" id="blurDropShadowBlock" maxlength="2" size="2" value="0" /> px  <br /><br />
@@ -367,75 +526,76 @@
             </div>
         </div>
         <div id="main">
-            <form action="<%= application.getContextPath()%>/Model" method="post">
+            <form>
                     
-                Organization : <select name="organization" onchange="showUsers(this.value)">
+                Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">
                     <option value="0">-Select-</option>
-                    <% 
+                    <%
                         Connection conn = null;
-                        try{
+                        try {
                             try {
                                 conn = ConnectionManager.getInstance().getConnection();
                                 Query = "Select * from tbl_organization";
                                 ps = conn.prepareStatement(Query);
 
                                 rs = ps.executeQuery();
-                                while(rs.next()){
+                                while (rs.next()) {
                                     id = rs.getInt("id");
                                     org_name = rs.getString("organization_name");
-                        %>            
-                                    <option value="<%= id %>"><%= org_name %></option>
-                        <%
-                                }
-                                }catch (Exception e){
-                                    System.out.println(e. getCause());
-                                    System.out.println(e.getMessage());
-                                }finally{
-                                    ps.close();
-                                    rs.close();
-                                }
+                    %>            
+                    <option value="<%=id%>"><%= org_name%></option>
+                    <%
+                            }
+                        } catch (Exception e) {
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        } finally {
+                            ps.close();
+                            rs.close();
+                        }
 
                     %>
-                                      </select>
-                
-                                    Brand : <select name="brand" onchange="showbrand(this.value)">
-                                                            <option value="0">-Select-</option>
 
-                    <%
-                        try{
+                                </select>
+                
+                        Brand : <select name="brand" id="brand" onchange="showbrand(this.value)">
+                          <option value="0">-Select-</option>
+
+                    <%                        try {
                             Query = "Select * from tbl_brand_personality";
                             ps = conn.prepareStatement(Query);
 
                             rs = ps.executeQuery();
-                            while(rs.next()){
+                            while (rs.next()) {
                                 id = rs.getInt("id");
                                 brand_name = rs.getString("brand_name");
                     %>
-                            <option value="<%= id %>"><%= brand_name %></option>
+                    <option value="<%= id%>"><%= brand_name%></option>
                     <%
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 System.out.println(e.getCause());
                                 System.out.println(e.getMessage());
-                            }finally{
+                            } finally {
                                 rs.close();
                                 ps.close();
                             }
-                        }finally{
+                        } finally {
                             ConnectionManager.getInstance().closeConnection(conn);
                         }
-                            
+
                     %>
-                                                </select><br><br>
+                </select><br><br>
                 Users: <select id='users' name="users">
-                            <option value="0"></option>
-                         </select>
+
+                            <option value="0">Select</option>
+                       </select>
                 Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
-                                    <option value="0"></option>
-                                </select><br><br>
+                                    <option value="0">Select</option>
+                            </select><br><br>
                 Sub Categories: <select id="subcategories" name="subcategories">
-                                        <option value="0"></option>
-                                        </select><br><br>
+                                        <option value="0">Select</option>
+                                </select><br><br>
 
                 Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
 
@@ -445,17 +605,18 @@
                             <input type="hidden" name="element" id="element">
                             <input type="hidden" name="mapper" id="mapper">
                             <input type="hidden" name="layout" id="layout" >
+                            <input type="hidden" name="model_name" id="model_name">
                             <input type="hidden" name="imagename" id="imagename">
                             <input type="button" value="save" onclick="passvaluetoinputfield();">
 
                             <div id="popup">
-                             <div id="content">
-                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
-                                 Layout file name<input type="text" id="layoutxml" requireds><br>
-                                 <input type="hidden" name="socialmedia" value="socialmedia"/>
-                                 <input type="submit" id="popupclose" type="Button" value="Done"/>   
-                              </div>   
-
+                                <div id="content">
+   <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
+                                        Layout file name<input type="text" id="layoutxml" required><br>-->
+                                    file name: <input type="text" id="namexml" ><br>
+                                    <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
+                                    <input type="button" onclick="validate()" value="Done"/>   
+                                </div>
                              </div>
 
 <!--                            <input type="submit" value="submit">-->
@@ -466,48 +627,73 @@
                         </ul> 
              </div>-->
             
+
+            <!-- Added by Syed Ilyas on 24/08/2015 -->
+            <!-- This adds zoom functionality -->
+            <br />
+            <div id="slider" title="Please don`t slide after element is placed"></div>
+
+            <script>
+                $(function () {
+                    $(function () {
+                        $(document).tooltip();
+                    });
+                    $("#slider").slider({
+                        min: 1,
+                        max: 1000,
+                        value: 500,
+                        range: "min",
+                        slide: function (event, ui) {
+                            var divZoom = ui.value / 1000;
+                            $(".container").css("zoom", "" + divZoom);
+                        }
+                    });
+                });
+            </script>
+            <!-- End -->
+
             <div class="container">
 
             </div>
 
         </div>
 
-    <div id="right">
-        <center>
-            <p>
-                Select Element: <select id="elementText">
-                </select>
-            </p>
-            <p>
-                <input type="button" class="rightButton" id="addTextButton" value="Add Text" />
-                <input type="button" class="rightButton" id="deleteTextButton" value="Delete Text" />
-            </p>
+        <div id="right">
+            <center>
+                <p>
+                    Select Element: <select id="elementText">
+                    </select>
+                </p>
+                <p>
+                    <input type="button" class="rightButton" id="addTextButton" value="Add Text" />
+                    <input type="button" class="rightButton" id="deleteTextButton" value="Delete Text" />
+                </p>
 
-            <p>
-                <input type="button" class="rightButton" id="addImageButton" value="Add Image" />
-                <input type="button" class="rightButton" id="deleteImageButton" value="Delete Image" />
-            </p>
+                <p>
+                    <input type="button" class="rightButton" id="addImageButton" value="Add Image" />
+                    <input type="button" class="rightButton" id="deleteImageButton" value="Delete Image" />
+                </p>
 
-            <p>
-                <input type="button" class="rightButton" id="addButton" value="Add Button" />
-                <input type="button" class="rightButton" id="deleteButton" value="Delete Button" />
-            </p>
+                <p>
+                    <input type="button" class="rightButton" id="addButton" value="Add Button" />
+                    <input type="button" class="rightButton" id="deleteButton" value="Delete Button" />
+                </p>
 
-            <p>
-                <input type="button" class="rightButton" id="addBlockButton" value="Add Block" />
-                <input type="button" class="rightButton" id="deleteBlockButton" value="Delete Block" />
-            </p>
-            <p>
-                <input type="button" class="rightButton" id="addLogoButton" value="Add Logo" />
-                <input type="button" class="rightButton" id="deleteLogoButton" value="Delete Logo" />
-            </p>
-            <div class='col-md-10' style="position: absolute; left: 1050px; top:70px; width: 600px; ">
-                        <ul id='list2' class='col-md-10' >
-                            <li id="lab"></li>
-                        </ul> 
-            </div>
-            
-    </div>
+                <p>
+                    <input type="button" class="rightButton" id="addBlockButton" value="Add Block" />
+                    <input type="button" class="rightButton" id="deleteBlockButton" value="Delete Block" />
+                </p>
+                <p>
+                    <input type="button" class="rightButton" id="addLogoButton" value="Add Logo" />
+                    <input type="button" class="rightButton" id="deleteLogoButton" value="Delete Logo" />
+                </p>
+                <div class='col-md-10' style="position: absolute; left: 1050px; top:70px; width: 600px; ">
+                    <ul id='list2' class='col-md-10' >
+                        <li id="lab"></li>
+                    </ul> 
+                </div>
+
+        </div>
 
     </body>
 </html>

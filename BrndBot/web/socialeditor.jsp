@@ -33,6 +33,7 @@ and open the template in the editor.
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
+        <script src="js/jquery.autogrow-textarea.js" type="text/javascript"></script>
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
         <script src="js/jquery.blend.min.js" type="text/javascript"></script>-->
@@ -109,10 +110,10 @@ and open the template in the editor.
 
                 display:none;
                 position: fixed;
-                width: 450px;
-                height:400px;
-                top: 40%;
-                left: 50%;
+                width: 625px;
+                height:500px;
+                top: 20%;
+                left: 25%;
                 margin-left:-155px;
                 margin-top:-110px;
                 border:5px solid #686868 ;
@@ -185,7 +186,7 @@ and open the template in the editor.
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-//                        alert(JSON.stringify(data.user_font_names));
+//                        alert(JSON.stringify(data.user_colors));
                     $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_names = data.user_font_names;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -228,7 +229,7 @@ and open the template in the editor.
                                     method : 'GET',
                                             url : 'GetUserImages'
                                     }).success(function(data, status, headers, config) {
-
+                                        alert(JSON.stringify(data));
                                     $scope.datalistimages = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalistimages.length / $scope.pageSize);
@@ -252,9 +253,9 @@ and open the template in the editor.
             };
             });
                     function showText(id, layout){
-//   alert(id+""+layout);
-                            $("#clickid").val(layout);
-                            alert('http://localhost:8080/BrndBot/DownloadXml?file_name='+ layout +'.xml');
+//                           alert(id+""+layout);
+//                            $("#clickid").val(layout);
+//                            alert('http://localhost:8080/BrndBot/DownloadXml?file_name='+ layout +'.xml');
                             $.ajax({
                                     type: 'GET',
                                     url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + '&editor_type=social',
@@ -298,10 +299,21 @@ and open the template in the editor.
                                                             var left = $(this).attr("x-co-ordinates");
                                                             var top = $(this).attr("y-co-ordinates");
                                                             var opacity = $(this).attr("opacity");
-       
+                                                            var width = $(this).attr("width");
+                                                            var height = $(this).attr("height");
                                                    if (tag === "text")
-                                                    {
-                                                            fontcolor = $(this).attr("font-color");
+                                                   {
+                                                        var colorName=$(this).attr("font-color-name");
+                                                        for(var i=1;i<=6; i++)
+                                                        {
+                                                            if(colorName == "Font-Color-"+i)
+                                                            {
+                                                              fontcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                            }
+                                                            
+                                                        }
+//                                                            fontcolor = $(this).attr("font-color");
                                                             fontsize = $(this).attr("font-size");
                                                             fontstyle = $(this).attr("font-style");
                                                             var fontweight = $(this).attr("font-weight");
@@ -316,6 +328,8 @@ and open the template in the editor.
                                                                 .css("position", "absolute")
                                                                 .css("margin-left", "" + left + "px")
                                                                 .css("margin-top", "" + top + "px")
+                                                                .css("width", "" + width)
+                                                                .css("min-height", "" + height)
                                                                 .css("font-size", "" + fontsize)
                                                                 .css("font-style", "" + fontstyle)
                                                                 .css("font-weight", "" + fontweight)
@@ -327,14 +341,14 @@ and open the template in the editor.
                                                                 .css("text-align", "" + textalign)
                                                                 .css("text-shadow", "" + dropshadow)
                                                                 .css("webkit-transform", "rotate(" + webkittransform + "deg)");
+                                                        $("#" + type).autogrow();
                                                     }
 
                                                if (tag === "image")
-                                                    {
+                                               {
                                                     var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
-                                                    var width = $(this).attr("width");
-                                                    var height = $(this).attr("height");
+                                                    
                         //                    alert("image");
                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
@@ -347,20 +361,15 @@ and open the template in the editor.
                                                             .css("height", "" + height)
                                                             .css("background", ""+background_image)
                                                             .css("background-repeat", "no-repeat")
-                                                            .css("-webkit-background-size","contain")
+                                                            .css("background-position", "center center")
                                                             .css("position", "absolute"); 
                                                     }
                                                     
-                                                      if (tag === "logo")
+                                                    if (tag === "logo")
                                                     {
                                                     var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
-                                                    var width = $(this).attr("width");
-                                                    var height = $(this).attr("height");
-                                                
-                                    
-                        //                    alert("image");
-                                                   $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
+                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
                                                             .css("color", "" + fontcolor)
                                                             .css("margin-left", "" + left + "px")
@@ -371,7 +380,7 @@ and open the template in the editor.
                                                             .css("height", "" + height)
                                                             .css("background", ""+background_image)
                                                             .css("background-repeat", "no-repeat")
-                                                            .css("-webkit-background-size","contain")
+                                                            .css("background-position", "center center")
                                                             
                                                             .css("position", "absolute"); 
                                                     }
@@ -388,9 +397,20 @@ and open the template in the editor.
 
                                                     if (tag === "block")
                                                     {
+                                                        var colorName=$(this).attr("color-name");
+                                                        var backgroundcolor;
+                                                        for(var i=1;i<=6; i++)
+                                                        {
+                                                            if(colorName == "Color-"+i)
+                                                            {
+                                                              backgroundcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                            }
+                                                            
+                                                        }
                                                             var width = $(this).attr("width");
                                                             var height = $(this).attr("height");
-                                                            var backgroundcolor = $(this).attr("background-color");           
+//                                                            var backgroundcolor = $(this).attr("background-color");           
                                                             var drop_shadow=$(this).attr("Drop-shadow-color");
                                                             var h_shadow =  $(this).attr("H-shadow"); 
                                                             var v_shadow=$(this).attr("V-shadow");
@@ -439,8 +459,11 @@ and open the template in the editor.
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0 prev">
+
                             <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb"><a href="selectpromotemedia.jsp">go back</a></p>
-                            <div class="preview">
+                            <div class="preview" style="zoom: 0.5;">
+
+                           
                                 <!--  {{mindbody_data}}-->
                                 <!--
                                         NOTE: To change the aspect ratio, look in crop.css
@@ -622,7 +645,7 @@ and open the template in the editor.
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
                                             <div>
-                                                <div>
+                                                <div style="height:500px; overflow-y: scroll;">
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="styles in datalists| pagination: curPage * pageSize | limitTo: pageSize">
@@ -635,7 +658,7 @@ and open the template in the editor.
                                                         </li>
                                                     </ul>
 
-                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
+<!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
                                                         <ul class="pagination-controle pagination">
                                                             <li>
                                                                 <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
@@ -650,7 +673,7 @@ and open the template in the editor.
                                                                         ng-click="curPage = curPage + 1">NEXT &gt;</button>
                                                             </li>
                                                         </ul>
-                                                    </div>
+                                                    </div>-->
                                                 </div>
 
                                             </div>
@@ -749,7 +772,7 @@ $(this).addClass('highlight');
                                    },
                                    success: function (responseText) {
                                            var image=responseText;
-//                                           alert(image);
+                                           alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
 
                                    }
@@ -759,7 +782,8 @@ $(this).addClass('highlight');
                                   // document.location.href = "selectpromotesocialmedia.jsp";
                        });                           
                                                                                     
-        </script>        
+        </script> 
+        
 <script>
 //    var selectedDivId;     
     var selectedImageId;
@@ -898,21 +922,23 @@ $(this).addClass('highlight');
 
                                     // draw image
                                     ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
-//                                    alert( img.src);
+                                   alert( img.src);
                                             // display canvas image
-                                            $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
+                                            $('canvas').addClass('output').show().delay('9000').fadeOut('slow');
                                             // save the image to server
-                                            var canvass = document.getElementById("canvas");
-                                            var dataURL = canvass.toDataURL();
-//                                            alert(dataURL);
+                                            var canvas = document.getElementById("canvas");
+                                            alert("1");
+                                            var dataURL =canvas.toDataURL("image/jpeg");
+                                            alert("2");
+                                           alert(dataURL);
                                             var cropped_image = {"image": "image"};
-//                                            alert("image");
+                                           alert("image");
                                                 $.ajax({
                                                     url: global_host_address + 'CropImage',
                                                     method: 'post',
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
-//                                                       alert(responseText);
+                                                      alert(responseText);
                                                         $("#"+selectedImageId).css("background","url(images/"+responseText+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                                     }
                                                 });                                            
@@ -955,8 +981,8 @@ $(this).addClass('highlight');
                                     $("#selectimage").click(function(){
                                         var image_file = global_host_address + $("#image_name").val();
 
-//                                        alert(image_file);
-//                                        alert(selectedImageId);
+                                       alert(image_file);
+                                        alert(selectedImageId);
                                         $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                         $("#imagespopup").hide();
                                     });
@@ -973,8 +999,8 @@ $(this).addClass('highlight');
 //                                        alert(image_file);
                                         id = "image" + i;
                                         $("#cropper_popup").show();
-                                        $('#cropper_popup').draggable();
-                                        $("#cropper_popup").resizable();
+//                                        $('#cropper_popup').draggable();
+//                                        $("#cropper_popup").resizable();
 
 //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
                              
@@ -993,8 +1019,8 @@ $(this).addClass('highlight');
                                     
                                     $('.uploadfile').change(function() {
                                         $("#cropper_popup").show();
-                                        $('#cropper_popup').draggable();
-                                        $("#cropper_popup").resizable();
+//                                        $('#cropper_popup').draggable();
+//                                        $("#cropper_popup").resizable();
                                        loadImageFile( $('.uploadfile').val());
                                     // resets input file
                                         $('.uploadfile').wrap('<form>').closest('form').get(0).reset();

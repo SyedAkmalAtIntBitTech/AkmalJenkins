@@ -69,6 +69,7 @@ public class GetSubCategories extends BrndBotBaseHttpServlet {
             while (result_set.next()) {
                 TblSubCategories TS = new TblSubCategories();
                 TS.setId(result_set.getInt("id"));
+                TS.setExternal_source(result_set.getString("external_source"));
                 TS.setCategory_id(result_set.getString("category_id"));
                 TS.setSub_category_name(result_set.getString("sub_category_name"));
                 jsonarr.add(TS);

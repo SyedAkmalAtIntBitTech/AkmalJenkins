@@ -34,6 +34,7 @@ and open the template in the editor.
         <script src="js/jquery-ui.js" type="text/javascript"></script>
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
 
+        <script src="js/jquery.autogrow-textarea.js" type="text/javascript"></script>
 
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
@@ -210,6 +211,9 @@ and open the template in the editor.
                     var temp_mind_body_query;
                     $("#previewpopup").hide();
                     $(document).ready(function() {
+                        
+                        
+                        
                         $('#continueblock').prop('disabled', true);
                         
                         $("#preview").click(function(){
@@ -548,10 +552,11 @@ and open the template in the editor.
                                             var left = $(this).attr("x-co-ordinates");
                                             var top = $(this).attr("y-co-ordinates");
                                             var opacity = $(this).attr("opacity");
+                                            var width = $(this).attr("width");
+                                            var height = $(this).attr("height");
                                    if (tag === "text")
                                         {
-
-                                                fontcolor = $(this).attr("font-color");
+                                                var colorName=$(this).attr("font-color-name");
                                                 fontsize = $(this).attr("font-size");
                                                 fontstyle = $(this).attr("font-style");
                                                 var fontweight = $(this).attr("font-weight");
@@ -560,12 +565,26 @@ and open the template in the editor.
                                                 var textalign = $(this).attr("text-align");
                                                 var webkittransform = $(this).attr("webkit-transform");
                                                 var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
+                                                       
+                                                for(var i=1;i<=6; i++)
+                                                        {
+                                                            if(colorName == "Font-Color-"+i)
+                                                            {
+                                                              fontcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                            }
+                                                            
+                                                        }
+//                                                fontcolor = $(this).attr("font-color");
+                                                
                                                 //alert(".preview #" + blockId);
-                                                $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + blockId + type + ") id=" + blockId + type + ">" + elementdata + "</textarea>");
-                                                $("#" + blockId + type).css("color", "" + fontcolor)
+                                                $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
+                                                $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
                                                                        .css("position", "absolute")
                                                                        .css("left", "" + left + "px")
                                                                        .css("top", "" + top + "px")
+                                                                       .css("width", "" + width)
+                                                                       .css("min-height", "" + height)
                                                                        .css("font-size", "" + fontsize)
                                                                        .css("font-style", "" + fontstyle)
                                                                        .css("font-weight", "" + fontweight)
@@ -576,18 +595,17 @@ and open the template in the editor.
                                                                        .css("text-shadow", "" + dropshadow)
                                                                        .css("webkit-transform", "rotate(" + webkittransform + "deg)")
                                                                        .css("background-color", "inherit" );
-
+                                                $("#" + type + "EEE" + blockId).autogrow();
                                         }
 
                                     if (tag === "image")
                                     {
                                     var blendmode = $(this).attr("background-blend-mode");
-                                            var width = $(this).attr("width");
-                                            var height = $(this).attr("height");
+                                            
                                             var background_image=$(this).attr("background-image")
                                             //                    alert("image");
-                                            $(".preview #" + blockId).append("<div onclick=getImageid(" + blockId + type + ") id=" + blockId + type + " ></div>");
-                                            $("#" + blockId + type)
+                                            $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
+                                            $("#" + type + "EEE" + blockId)
                                             .css("color", "" + fontcolor)
                                             .css("margin-left", "" + left + "px")
                                             .css("margin-top", "" + top + "px")
@@ -598,15 +616,35 @@ and open the template in the editor.
                                             .css("height", "" + height)
                                             .css("background", ""+background_image)
                                             .css("background-repeat", "no-repeat")
-                                            .css("-webkit-background-size", "contain")
+                                            .css("background-position", "center center")
                                             .css("position", "absolute");
+                                    }
+                                    
+                                    if (tag === "logo")
+                                    {
+                                        var background_image = $(this).attr("background-image");
+                                        var blendmode = $(this).attr("background-blend-mode");
+                                        $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
+                                        $("#" + type + "EEE" + blockId)
+                                                .css("color", "" + fontcolor)
+                                                .css("margin-left", "" + left + "px")
+                                                .css("margin-top", "" + top + "px")
+                                                .css("background-blend-mode", "" + blendmode)
+                                                .css("opacity", "" + opacity)
+                                                .css("width", "" + width)
+                                                .css("height", "" + height)
+                                                .css("background", ""+background_image)
+                                                .css("background-repeat", "no-repeat")
+                                                .css("background-position", "center center")
+
+                                                .css("position", "absolute"); 
                                     }
 
                                     if (tag === "button")
                                     {
 
-                                    $(".preview #" + blockId).append("<div><img src='" + elementdata + "'id=" + blockId + type + " alt='button'/>");
-                                            $("#" + blockId + type).css("left", "" + left + "px")
+                                    $(".preview #" + blockId).append("<div><img src='" + elementdata + "' id=" + type + "EEE" + blockId + " alt='button'/>");
+                                            $("#" + type + "EEE" + blockId).css("left", "" + left + "px")
                                                                    .css("position", "absolute")
                                                                    .css("top", "" + top + "px")
                                                                    .attr("src", "buttons/button1.png");
@@ -614,17 +652,30 @@ and open the template in the editor.
 
                                     if (tag === "block")
                                     {
-                                    
+    
+                                        var colorName=$(this).attr("color-name");
+                                        var backgroundcolor;
                                         var width = $(this).attr("width");
                                         var height = $(this).attr("height");
-                                        var backgroundcolor = $(this).attr("background-color");                                                          
+//                                      var backgroundcolor = $(this).attr("background-color");                                                          
                                         var drop_shadow=$(this).attr("Drop-shadow-color");                                               
                                         var h_shadow =  $(this).attr("H-shadow"); 
                                         var v_shadow=$(this).attr("V-shadow");
                                         var Blur=$(this).attr("blur");
+                                                      
+                                        for(var i=1;i<=6; i++)
+                                               {
+                                                  if(colorName == "Color-"+i)
+                                                     {
+                                                       backgroundcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                      }
+                                                            
+                                                }           
+                                        
                                       
-                                        $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                                        $("#" + type).css("background-color", "" + backgroundcolor)
+                                        $(".preview #" + blockId).append("<div onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
+                                        $("#" + type + "EEE" + blockId).css("background-color", "" + backgroundcolor)
                                                      .css("margin-left", "" + left + "px")
                                                      .css("margin-top", "" + top + "px")
                                                      .css("width", "" + width)
@@ -676,7 +727,7 @@ and open the template in the editor.
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
                             </div>
-                            <div class="dataForEmail"> 
+                            <div class="dataForEmail" style="zoom: 0.5;"> 
                                 <div ng-click="showStylesAfterData()" class="preview">
 
                                 </div></div>
@@ -696,7 +747,7 @@ and open the template in the editor.
 
                             <div id="imagespopup">
                                 <div id="content">
-                                    <div>
+                                    <div style="height:350px; overflow-y:scroll">
                                         <ul>
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">
                                                 <div>
@@ -705,7 +756,7 @@ and open the template in the editor.
                                             </li>
                                         </ul>
 
-                                        <div class="pagination pagination-centered" ng-show="datalistimages.length">
+<!--                                        <div class="pagination pagination-centered" ng-show="datalistimages.length">
                                             <ul class="pagination-controle pagination">
                                                 <li>
                                                     <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
@@ -720,7 +771,7 @@ and open the template in the editor.
                                                             ng-click="curPage = curPage + 1">NEXT &gt;</button>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <input id="selectimage" name="selectimage" type="Button" value="select"/>  
                                     <input type="hidden" name="image_name" id="image_name"/>
@@ -857,9 +908,8 @@ and open the template in the editor.
                                         <div id="stylecontainer">
                                             
                                             <div>
-                                                <div>
+                                                <div style="height:500px; overflow-y:scroll;">
                                                     <ul>
-                                                        
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
                                                                 <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
@@ -900,7 +950,7 @@ and open the template in the editor.
                                         <div id="blockcontainer">
                                             ADD A NEW BLOCK
                                             <div>
-                                                <div>
+                                                <div style="height:500px; overflow-y:scroll">
                                                     <button id="continueblock" ng-click="showDataTemp()" style="background-color: orange;position: relative;top:30%;left:30%">Continue</button>
                                                     <ul>
                                                         <!--{{datalists}}-->

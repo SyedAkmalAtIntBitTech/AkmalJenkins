@@ -204,6 +204,8 @@
                 case 'JPG':
                 case 'PNG':
                 case 'JPEG':
+                case 'svg':
+                case 'SVG':                      
                     break;
                 default:
                     alert('This type of image is not allowed');

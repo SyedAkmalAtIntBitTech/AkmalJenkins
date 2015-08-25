@@ -106,10 +106,12 @@
                     <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
                         <div>
                             Attach Image:<input type="file" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="categories.fileName" />
-                        </div><br>
+                        </div>
+                        <br>
+                        
                     </div>
 
-                    <div style="position: absolute; float:left; left:550px; top: 400px;">
+                    <div style="position:relative; float:left; left:0px; top:40px;">
                         <div>
                             <button id="Servicecontinue" type="submit" class="btn btn-info">Save</button>
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
@@ -178,6 +180,8 @@
                             case 'JPG':
                             case 'PNG':
                             case 'JPEG':
+                            case 'svg':
+                            case 'SVG':                                  
                             break;
                             default:
                             alert('This type of image is not allowed');
