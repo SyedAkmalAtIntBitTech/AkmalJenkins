@@ -312,46 +312,26 @@ Please arrange them with most used to least used in your designs.</p>
                         <br>
                         <%! Integer i=1; %>
                         <div ng-controller="controllerGetColourPalettes" class="tab-pane active" id="picktheme" ng-init="showData()">
-                            <div ng-repeat= "theme in datalists | pagination: curPage * pageSize | limitTo: pageSize" id="rep" >
-                                
-                                <script type="text/javascript">
-                                </script>
-                                <div ng-repeat="colors in theme" id="rep1" >
-                                    <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
-                                    <div><p id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</p></div>
-                                </div> 
-                                <div id='id'>
-                                    <p><br/></p>
+                            <div style="height:250px;  overflow-y: scroll">
+                                <div ng-repeat= "theme in datalists" id="rep"  >
+
+                                    <script type="text/javascript">
+                                    </script>
+                                    <div ng-repeat="colors in theme" id="rep1">
+                                        <div ng-show="colors.theme_id == null">
+                                        <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
+                                        </div>
+                                        <div ng-show="colors.id == null" style="position:relative; padding-top: 10px;">
+                                            
+                                        <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>
+                                        </div>
+                                    </div> 
+                                    <div id='id'>
+                                        <p><br/></p>
+                                    </div>
                                 </div>
-                                <script> 
-//                                    doSomething(id);
-//                                    id++; 
-                                </script>
                             </div>
 
-                            <div class="pagination pagination-centered" ng-show="datalists.length">
-                            <ul class="pagination-controle pagination">
-                             <li>
-                              <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
-                             ng-click="curPage=curPage-1"> &lt; PREV</button>
-                             </li>
-                             <li>
-                             <span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
-                             </li>
-                             <li>
-                             <button type="button" class="btn btn-primary"
-                             ng-disabled="curPage >= themes.length/pageSize - 1"
-                             ng-click="curPage = curPage+1">NEXT &gt;</button>
-                             </li>
-                            </ul>
-                            </div>
-                            
-<!--                      <div class="col-md-3 pull-right ">
-                                <div><p id="p1">USE THEME1</p></div><br>
-                                <div><p id="p2">USE THEME2</p></div><br>
-                                <div><p id="p3">USE THEME3</p></div><br>
-                                <div><p id="p4">USE THEME4</p></div><br>
-                            </div>-->
                         </div>
 
                         <div class="tab-pane" id="custom">
@@ -361,17 +341,17 @@ Please arrange them with most used to least used in your designs.</p>
 
                         </div>
 
-                        <div ng-controller="controllerGetColoursFromLogo" class="tab-pane" id="logocolor" >
-                            <div  class="tab-pane active" id="picktheme">
-                                <div><button type="button" class="btn btn-primary" value="click to display colors" ng-click="getLogoColors()">click to display colors</button></div>
+                        <div ng-controller="controllerGetColoursFromLogo" class="tab-pane" id="logocolor" ng-init="getLogoColors()" >
+                            <div class="tab-pane active" id="picktheme">
+<!--                                <div><button type="button" class="btn btn-primary" value="click to display colors" ng-click="getLogoColors()">click to display colors</button></div>-->
                                 <div ng-repeat="col in color">
                                     <div  id="{{col.id}}" class="foo" style="background-color:{{col.colorHex}};" onclick="getIDNo('{{col.id}}')"></div>
                                 </div>
                             </div>
                         </div> 
-                    </div><br>
+                    </div><br><br>
                     <div>
-                        <div  class="form-group">
+                        <div class="form-group">
                             <div class="col-sm-offset-0 col-md-4" ng-controller="controllerCreateUserPreferences" >
                                 <form class="form-horizontal">
                                     <input type="hidden" id="finalcolor1" name="finalcolor1" ng-model="selColor.finalcolor1"  />
@@ -381,17 +361,18 @@ Please arrange them with most used to least used in your designs.</p>
                                     <input type="hidden" id="finalcolor5" name="finalcolor5" ng-model="selColor.finalcolor5"/>
                                     <input type="hidden" id="finalcolor6" name="finalcolor6" ng-model="selColor.finalcolor6"/>
 
-                                    <div class="span4 col-md-offset-0">
-                                        <button style="position: relative;bottom:20px; " type="button" class="btn btn-info" ng-click="createUserPreferences()">CONTINUE</button>
+                                        <div class="span4 col-md-offset-0">
+                                        <button style="position: relative; bottom:0px; margin-top: 0px;" type="button" class="btn btn-info" ng-click="createUserPreferences()">CONTINUE</button>
                                     </div>
-
                                 </form>
+                                    
                             </div>
                         </div>
 
                     </div>
-
+                            
                 </div>
+                        
             </div>
         </div>
 

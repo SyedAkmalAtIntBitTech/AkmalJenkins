@@ -572,8 +572,8 @@ and open the template in the editor.
 //                                                fontcolor = $(this).attr("font-color");
                                                 
                                                 //alert(".preview #" + blockId);
-                                                $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + blockId + type + ") id=" + blockId + type + ">" + elementdata + "</textarea>");
-                                                $("#" + blockId + type).css("color", "" + fontcolor)
+                                                $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + blockId + "EEE" + type + ") id=" + blockId + "EEE"  + type + ">" + elementdata + "</textarea>");
+                                                $("#" + blockId + "EEE"  + type).css("color", "" + fontcolor)
                                                                        .css("position", "absolute")
                                                                        .css("left", "" + left + "px")
                                                                        .css("top", "" + top + "px")
@@ -597,8 +597,8 @@ and open the template in the editor.
                                             var height = $(this).attr("height");
                                             var background_image=$(this).attr("background-image")
                                             //                    alert("image");
-                                            $(".preview #" + blockId).append("<div onclick=getImageid(" + blockId + type + ") id=" + blockId + type + " ></div>");
-                                            $("#" + blockId + type)
+                                            $(".preview #" + blockId).append("<div onclick=getImageid(" + blockId + "EEE"  + type + ") id=" + blockId + "EEE"  + type + " ></div>");
+                                            $("#" + blockId + "EEE"  + type)
                                             .css("color", "" + fontcolor)
                                             .css("margin-left", "" + left + "px")
                                             .css("margin-top", "" + top + "px")
@@ -616,8 +616,8 @@ and open the template in the editor.
                                     if (tag === "button")
                                     {
 
-                                    $(".preview #" + blockId).append("<div><img src='" + elementdata + "'id=" + blockId + type + " alt='button'/>");
-                                            $("#" + blockId + type).css("left", "" + left + "px")
+                                    $(".preview #" + blockId).append("<div><img src='" + elementdata + "'id=" + blockId + "EEE"  + type + " alt='button'/>");
+                                            $("#" + blockId + "EEE"  + type).css("left", "" + left + "px")
                                                                    .css("position", "absolute")
                                                                    .css("top", "" + top + "px")
                                                                    .attr("src", "buttons/button1.png");
@@ -647,8 +647,8 @@ and open the template in the editor.
                                                 }           
                                         
                                       
-                                        $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                                        $("#" + type).css("background-color", "" + backgroundcolor)
+                                        $(".preview #" + blockId).append("<div onclick=getDivId(" + blockId + "EEE" + type + ") id=" + blockId + "EEE" + type + "></div>");
+                                        $("#" + blockId + "EEE"  + type).css("background-color", "" + backgroundcolor)
                                                      .css("margin-left", "" + left + "px")
                                                      .css("margin-top", "" + top + "px")
                                                      .css("width", "" + width)
@@ -700,7 +700,7 @@ and open the template in the editor.
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
                             </div>
-                            <div class="dataForEmail"> 
+                            <div class="dataForEmail" style="zoom: 0.5;"> 
                                 <div ng-click="showStylesAfterData()" class="preview">
 
                                 </div></div>
@@ -720,7 +720,7 @@ and open the template in the editor.
 
                             <div id="imagespopup">
                                 <div id="content">
-                                    <div>
+                                    <div style="height:350px; overflow-y:scroll">
                                         <ul>
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">
                                                 <div>
@@ -729,7 +729,7 @@ and open the template in the editor.
                                             </li>
                                         </ul>
 
-                                        <div class="pagination pagination-centered" ng-show="datalistimages.length">
+<!--                                        <div class="pagination pagination-centered" ng-show="datalistimages.length">
                                             <ul class="pagination-controle pagination">
                                                 <li>
                                                     <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
@@ -744,7 +744,7 @@ and open the template in the editor.
                                                             ng-click="curPage = curPage + 1">NEXT &gt;</button>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <input id="selectimage" name="selectimage" type="Button" value="select"/>  
                                     <input type="hidden" name="image_name" id="image_name"/>
@@ -881,9 +881,8 @@ and open the template in the editor.
                                         <div id="stylecontainer">
                                             
                                             <div>
-                                                <div>
+                                                <div style="height:500px; overflow-y:scroll;">
                                                     <ul>
-                                                        
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
                                                                 <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
@@ -924,7 +923,7 @@ and open the template in the editor.
                                         <div id="blockcontainer">
                                             ADD A NEW BLOCK
                                             <div>
-                                                <div>
+                                                <div style="height:500px; overflow-y:scroll">
                                                     <button id="continueblock" ng-click="showDataTemp()" style="background-color: orange;position: relative;top:30%;left:30%">Continue</button>
                                                     <ul>
                                                         <!--{{datalists}}-->

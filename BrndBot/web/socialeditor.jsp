@@ -461,7 +461,7 @@ and open the template in the editor.
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0 prev">
                             <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edit">go back</p> 
-                            <div class="preview">
+                            <div class="preview"  style="zoom: 0.5;">
                                 <!--  {{mindbody_data}}-->
                                 <!--
                                         NOTE: To change the aspect ratio, look in crop.css
@@ -643,7 +643,7 @@ and open the template in the editor.
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
                                             <div>
-                                                <div>
+                                                <div style="height:500px; overflow-y: scroll;">
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="styles in datalists| pagination: curPage * pageSize | limitTo: pageSize">
@@ -656,7 +656,7 @@ and open the template in the editor.
                                                         </li>
                                                     </ul>
 
-                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
+<!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
                                                         <ul class="pagination-controle pagination">
                                                             <li>
                                                                 <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
@@ -671,7 +671,7 @@ and open the template in the editor.
                                                                         ng-click="curPage = curPage + 1">NEXT &gt;</button>
                                                             </li>
                                                         </ul>
-                                                    </div>
+                                                    </div>-->
                                                 </div>
 
                                             </div>
