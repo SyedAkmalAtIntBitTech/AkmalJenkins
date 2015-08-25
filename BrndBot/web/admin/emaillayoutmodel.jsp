@@ -313,12 +313,13 @@ $(document).ready(function () {
                 <p>
 <!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
                     Font Color: <select id="fontColor">
-                        <option value="red">Font Color 1</option>
-                        <option value="blue">Font Color 2</option>
-                        <option value="green">Font Color 3</option>
-                        <option value="yellow">Font Color 4</option>
-                        <option value="Lime">Font Color 5</option>
-                    </select>
+                                    <option value="red">Font-Color-1</option>
+                                    <option value="blue">Font-Color-2</option>
+                                    <option value="green">Font-Color-3</option>
+                                    <option value="yellow">Font-Color-4</option>
+                                    <option value="Lime">Font-Color-5</option>
+                                    <option value="indigo">Font-Color-6</option>
+                                </select>
                 </p>
                 <hr>
 <!--                <p>
@@ -457,6 +458,18 @@ $(document).ready(function () {
                 <p>
                     Block Color: <input type='text' class='basic' id='blockColor' value='black' />
                 </p>
+                <p>
+                    <select id="blockColorFromDropDown">
+                                    <option>Color-1</option>
+                                    <option>Color-2</option>
+                                    <option>Color-3</option>
+                                    <option>Color-4</option>
+                                    <option>Color-5</option>
+                                    <option>Color-6</option>
+                        
+                    </select>
+                </p>
+                
                 <p>
                     <input type="button" class="blockButton" id="blockButton" value="Apply" />
                 </p>

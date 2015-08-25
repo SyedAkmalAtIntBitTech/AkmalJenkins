@@ -166,40 +166,50 @@ $(document).ready(function () {
                         var left = $(this).attr("x-co-ordinates");
                         var top = $(this).attr("y-co-ordinates");
                         var opacity = $(this).attr("opacity");
-                        if (tag === "text")
-                        {
+                                if (tag === "text")
+                                {
+                                    var colorName = $(this).attr("font-color-name");
+//                                  fontcolor = $(this).attr("font-color");
+                                    fontsize = $(this).attr("font-size");
+                                    fontstyle = $(this).attr("font-style");
+                                    var fontweight = $(this).attr("font-weight");
+                                    var letterspacing = $(this).attr("letter-spacing");
+                                    var lineheight = $(this).attr("line-height");
 
-                            fontcolor = $(this).attr("font-color");
-                            fontsize = $(this).attr("font-size");
-                            fontstyle = $(this).attr("font-style");
-                            var fontweight = $(this).attr("font-weight");
-                            var letterspacing = $(this).attr("letter-spacing");
-                            var lineheight = $(this).attr("line-height");
+                                    var textalign = $(this).attr("text-align");
 
-                            var textalign = $(this).attr("text-align");
+                                    var webkittransform = $(this).attr("webkit-transform");
+                                    var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
+//                                  alert($(this).attr("text-shadow"));
+                                    for (var i = 1; i <= 6; i++)
+                                    {
+                                        if (colorName === "Font-Color-" + i)
+                                        {
+                                            fontcolor = $("#shapecolorbox" + i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                        }
 
-                            var webkittransform = $(this).attr("webkit-transform");
-                            var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-//                    alert($(this).attr("text-shadow"));
-                            $(".preview #defaultblock1").append("<div><textarea class=textAreas readonly onclick=getTectId("+type+"SSSdefaultblock1) id=" + type + "SSSdefaultblock1>" + elementdata + "</textarea>");
-                            $("#" + type+"SSSdefaultblock1").css("color", "" + fontcolor)
-                                         .css("position", "absolute")
-                                        .css("left", "" + left + "px")
-                                        .css("top", "" + top + "px")
-                                        .css("font-size", "" + fontsize)
-                                        .css("font-style", "" + fontstyle)
-                                        .css("font-weight", "" + fontweight)
-                                        .css("letter-spacing", "" + letterspacing)
-                                        .css("line-height", "" + lineheight)
-                                        .css("opacity", "" + opacity)
-                                        .css("text-align", "" + textalign)
-                                        .css("text-shadow", "" + dropshadow)
-                                        .css("webkit-transform", "rotate(" + webkittransform + "deg)")
-                                        .css("resize", "none")
-                                        .css("background-color","inherit")
-                                        .css("border", "none")
-                                        .css("focus", "none");
-                        }
+                                    }
+
+                                    $(".preview #defaultblock1").append("<div><textarea class=textAreas readonly onclick=getTectId(" + type + "SSSdefaultblock1) id=" + type + "SSSdefaultblock1>" + elementdata + "</textarea>");
+                                    $("#" + type + "SSSdefaultblock1").css("color", "" + fontcolor)
+                                            .css("position", "absolute")
+                                            .css("left", "" + left + "px")
+                                            .css("top", "" + top + "px")
+                                            .css("font-size", "" + fontsize)
+                                            .css("font-style", "" + fontstyle)
+                                            .css("font-weight", "" + fontweight)
+                                            .css("letter-spacing", "" + letterspacing)
+                                            .css("line-height", "" + lineheight)
+                                            .css("opacity", "" + opacity)
+                                            .css("text-align", "" + textalign)
+                                            .css("text-shadow", "" + dropshadow)
+                                            .css("webkit-transform", "rotate(" + webkittransform + "deg)")
+                                            .css("resize", "none")
+                                            .css("background-color", "inherit")
+                                            .css("border", "none")
+                                            .css("focus", "none");
+                                }
 
                         if (tag === "image")
                         {
@@ -237,11 +247,22 @@ $(document).ready(function () {
 
                         if (tag === "block")
                         {
-//                  alert("block");
+                            var colorName=$(this).attr("color-name");
+                            var backgroundcolor;
                             var width = $(this).attr("width");
                             var height = $(this).attr("height");
-                            var backgroundcolor = $(this).attr("background-color");
-//                 alert(backgroundcolor);
+//                            var backgroundcolor = $(this).attr("background-color");
+                                for(var i=1;i<=6; i++)
+                                               {
+                                                  if(colorName === "Color-"+i)
+                                                     {
+                                                       backgroundcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                      }
+                                                            
+                                                } 
+
+
                             $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "SSSdefaultblock1) id=" + type + "SSSdefaultblock1></div>");
                             $("#" + type +"SSSdefaultblock1").css("background-color", "" + backgroundcolor)
                                     .css("left", "" + left + "px")

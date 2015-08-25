@@ -550,8 +550,7 @@ and open the template in the editor.
                                             var opacity = $(this).attr("opacity");
                                    if (tag === "text")
                                         {
-
-                                                fontcolor = $(this).attr("font-color");
+                                                var colorName=$(this).attr("font-color-name");
                                                 fontsize = $(this).attr("font-size");
                                                 fontstyle = $(this).attr("font-style");
                                                 var fontweight = $(this).attr("font-weight");
@@ -560,6 +559,18 @@ and open the template in the editor.
                                                 var textalign = $(this).attr("text-align");
                                                 var webkittransform = $(this).attr("webkit-transform");
                                                 var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
+                                                       
+                                                for(var i=1;i<=6; i++)
+                                                        {
+                                                            if(colorName == "Font-Color-"+i)
+                                                            {
+                                                              fontcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                            }
+                                                            
+                                                        }
+//                                                fontcolor = $(this).attr("font-color");
+                                                
                                                 //alert(".preview #" + blockId);
                                                 $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + blockId + type + ") id=" + blockId + type + ">" + elementdata + "</textarea>");
                                                 $("#" + blockId + type).css("color", "" + fontcolor)
@@ -614,14 +625,27 @@ and open the template in the editor.
 
                                     if (tag === "block")
                                     {
-                                    
+    
+                                        var colorName=$(this).attr("color-name");
+                                        var backgroundcolor;
                                         var width = $(this).attr("width");
                                         var height = $(this).attr("height");
-                                        var backgroundcolor = $(this).attr("background-color");                                                          
+//                                      var backgroundcolor = $(this).attr("background-color");                                                          
                                         var drop_shadow=$(this).attr("Drop-shadow-color");                                               
                                         var h_shadow =  $(this).attr("H-shadow"); 
                                         var v_shadow=$(this).attr("V-shadow");
                                         var Blur=$(this).attr("blur");
+                                                      
+                                        for(var i=1;i<=6; i++)
+                                               {
+                                                  if(colorName == "Color-"+i)
+                                                     {
+                                                       backgroundcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                      }
+                                                            
+                                                }           
+                                        
                                       
                                         $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
                                         $("#" + type).css("background-color", "" + backgroundcolor)

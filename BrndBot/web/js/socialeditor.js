@@ -102,7 +102,7 @@ $(document).ready(function () {
                    allLayoutFilename[i] = v;
                    i++;
                });
-              alert( allLayoutFilename[i] );
+//              alert( allLayoutFilename[i] );
            });
 
 
@@ -154,28 +154,45 @@ $(document).ready(function () {
                         var left = $(this).attr("x-co-ordinates");
                         var top = $(this).attr("y-co-ordinates");
                         var opacity = $(this).attr("opacity");
-                        if (tag === "text")
-                        {
+                                if (tag === "text")
+                                {
+                                 var colorName = $(this).attr("font-color-name");
+                                 for (var i = 1; i <= 6; i++)
+                                    {
+                                       if (colorName === "Font-Color-" + i)
+                                        {
+                                           fontcolor = $("#shapecolorbox" + i).css("background-color");
+//                                                             fontcolor=user_preferences_colors.color+""+i; 
+                                        }
 
-                            fontcolor = $(this).attr("font-color");
-                            fontsize = $(this).attr("font-size");
-                            fontstyle = $(this).attr("font-style");
-                            var fontweight = $(this).attr("font-weight");
-                            var letterspacing = $(this).attr("letter-spacing");
-                            var lineheight = $(this).attr("line-height");
+                                    }
+//                                    fontcolor = $(this).attr("font-color");
+                                    fontsize = $(this).attr("font-size");
+                                    fontstyle = $(this).attr("font-style");
+                                    var fontweight = $(this).attr("font-weight");
+                                    var letterspacing = $(this).attr("letter-spacing");
+                                    var lineheight = $(this).attr("line-height");
 
-                            var textalign = $(this).attr("text-align");
+                                    var textalign = $(this).attr("text-align");
 
-                            var webkittransform = $(this).attr("webkit-transform");
-                            var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
+                                    var webkittransform = $(this).attr("webkit-transform");
+                                    var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
 //                    alert($(this).attr("text-shadow"));
-                            $(".preview").append("<div><textarea class=textAreas onclick=getTectId("+type+") id=" + type + ">" + elementdata + "</textarea>");
-                            $("#" + type).css("color", "" + fontcolor).css("position", "absolute").css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
-                                    .css("font-size", "" + fontsize).css("font-style", "" + fontstyle).css("font-weight", "" + fontweight)
-                                    .css("letter-spacing", "" + letterspacing).css("line-height", "" + lineheight)
-                                    .css("opacity", "" + opacity).css("text-align", "" + textalign)
-                                    .css("text-shadow", "" + dropshadow).css("webkit-transform", "rotate(" + webkittransform + "deg)");
-                        }
+                                    $(".preview").append("<div><textarea class=textAreas onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
+                                    $("#" + type).css("color", "" + fontcolor)
+                                            .css("position", "absolute")
+                                            .css("margin-left", "" + left + "px")
+                                            .css("margin-top", "" + top + "px")
+                                            .css("font-size", "" + fontsize)
+                                            .css("font-style", "" + fontstyle)
+                                            .css("font-weight", "" + fontweight)
+                                            .css("letter-spacing", "" + letterspacing)
+                                            .css("line-height", "" + lineheight)
+                                            .css("opacity", "" + opacity)
+                                            .css("text-align", "" + textalign)
+                                            .css("text-shadow", "" + dropshadow)
+                                            .css("webkit-transform", "rotate(" + webkittransform + "deg)");
+                                }
 
                         if (tag === "image")
                         {
@@ -208,15 +225,27 @@ $(document).ready(function () {
 
                         if (tag === "block")
                         {
+                                    var colorName = $(this).attr("color-name");
+                                    var backgroundcolor;
+                                    for (var i = 1; i <= 6; i++)
+                                    {
+                                        if (colorName === "Color-" + i)
+                                        {
+                                            backgroundcolor = $("#shapecolorbox" + i).css("background-color");
+                                        }
+
+                                    }
 //                  alert("block");
                             var width = $(this).attr("width");
                             var height = $(this).attr("height");
-                            var backgroundcolor = $(this).attr("background-color");
+//                            var backgroundcolor = $(this).attr("background-color");
 //                 alert(backgroundcolor);
                             $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                            $("#" + type).css("background-color", "" + backgroundcolor).css("margin-left", "" + left + "px")
-                                    .css("margin-top", "" + top + "px").css("width", "" + width)
-                                    .css("height", "" + height);
+                            $("#" + type).css("background-color", "" + backgroundcolor)
+                                         .css("margin-left", "" + left + "px")
+                                         .css("margin-top", "" + top + "px")
+                                         .css("width", "" + width)
+                                         .css("height", "" + height);
                         }
 
                     }
@@ -342,7 +371,7 @@ function getTectId(id) {
 
  function reload_alignButtons1(align)
     {
-            alert(align);
+//            alert(align);
         if (align === "left")
         {
             $("#left").css("background-color", "#99b1f2");

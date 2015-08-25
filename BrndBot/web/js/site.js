@@ -323,16 +323,10 @@ $(document).ready(function () {
     });
     $("#fontColor").change(function () {
 //        alert($("#fontColor").val());
-//            alert($("#fontColor option:selected").text());
+            alert();
         $("#" + selectedTextID).css("color", $("#fontColor").val());
+         $("#" + selectedTextID).attr("name", $("#fontColor option:selected").text());
     });
-    
-       $("#blockColorFromDropDown").change(function () {
-      alert($("#blockColorFromDropDown").val());
-//            alert($("#fontColor option:selected").text());
-        $("#" + selectedTextID).css("background-color", $("#blockColorFromDropDown").val());
-    });
-
 //confirmation plugin is used to show model dialogue box
     $("#deleteTextButton").easyconfirm();
     $("#deleteTextButton").click(function () {
@@ -392,7 +386,7 @@ $(document).ready(function () {
             $("#" + selectedTextID).css("height", $("#blockHeight").val());
             $("#" + selectedTextID).css("opacity", $("#opacityBlock").val());
             $("#" + selectedTextID).css("background-color", $("#blockColor").val());
-
+            $("#" + selectedTextID).attr("name", $("#blockColorFromDropDown").find('option:selected').text());
         });
 
 
@@ -676,6 +670,9 @@ $(document).ready(function () {
         reloadTabs(0);
 
         addDefault();
+ 
+        
+        
         $("#lineHeight").val($("#" + selectedTextID).css("line-height").replace('px', ''));
 
         if ($("#" + selectedTextID).css("letter-spacing") == "0")
@@ -1262,7 +1259,7 @@ function passvaluetoinputfield() {
         }
 
         if (contenttype.startsWith('draggableText')) {
-//            alert($("#textArea" ).val());
+       alert($("#" + addElementsArray[i]).attr("name"));
             style1 = " tag!" + "text" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
@@ -1272,6 +1269,7 @@ function passvaluetoinputfield() {
                     " font-style!" + $("#" + addElementsArray[i]).css("font-style") +
                     " text-align!" + $("#" + addElementsArray[i]).css("text-align") +
                     " font-size!" + $("#" + addElementsArray[i]).css("font-size") +
+                    " font-color-name!" + $("#" + addElementsArray[i]).attr("name") +
                     " font-color!" + "#" + color1 +
                     " text-shadow!" + "#" + color2.substr(0,6) +
                     dropshadowdata +
@@ -1294,6 +1292,7 @@ function passvaluetoinputfield() {
             style1 = " tag!" + "block" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
+                    " color-name!" + $("#" + addElementsArray[i]).attr("name") +
                     " width!" + $("#" + addElementsArray[i]).css("width") +
                     " height!" + $("#" + addElementsArray[i]).css("height") +
                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
@@ -1308,7 +1307,7 @@ function passvaluetoinputfield() {
         alert(textareadetails);
 
     }
-//    alert(mapperdata);
+   alert(mapperdata);
     $("#element").val(mapperdata);
 
 } 
