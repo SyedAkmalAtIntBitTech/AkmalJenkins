@@ -276,12 +276,14 @@ and open the template in the editor.
                                                     }
 
                                                     );
+                                                            var count=1;
                                                             $(xml).find('element').each(function () {
                                                             var tag = $(this).attr("tag");
                                                             type = $(this).attr("type");
                                                             var h = "";
                                                             var t = "";
                                                             var elementdata;
+                                                            $(#editorhead)  .find('option').remove().end();
                                                             $(jsondata).each(function (i, val) {
 
                                                     $.each(val, function (k, v) {
@@ -346,10 +348,13 @@ and open the template in the editor.
 
                                                if (tag === "image")
                                                {
+                                                 
                                                     var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
                                                     
                         //                    alert("image");
+                                                    $(#editorhead).append("<option value="+background_image+">Image "+count+"<option>")
+                                                    count++;
                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
                                                             .css("color", "" + fontcolor)
@@ -610,7 +615,7 @@ and open the template in the editor.
                                         <div id="imagecontainer">
                                             <p  id="text3">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><p id="editorhead">Teacher Image</p></li>
+                                                <li><select id="editorhead"></select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
                                                 <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
                                                 <li></li>
