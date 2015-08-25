@@ -317,10 +317,11 @@ $(document).ready(function () {
 //            $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
 //    }
 
-    $("#textFontFamily").change(function () {
-//        alert($("#textFontFamily").val());
-        $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
-    });
+//    $("#textFontFamily").change(function () {
+////        alert($("#textFontFamily").val());
+//        $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
+//    });
+    
     $("#fontColor").change(function () {
 //        alert($("#fontColor").val());
             alert();

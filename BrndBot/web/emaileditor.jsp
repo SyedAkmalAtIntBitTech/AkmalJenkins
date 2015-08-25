@@ -197,6 +197,35 @@ and open the template in the editor.
 
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
+<script>
+            $(document).ready(function () {
+    
+            $("#fontname").change(function () {
+//            alert($(this).val());
+                var text = $("#fontname").find('option:selected').text();
+                alert(text);
+                var font_family_name = $("#fontname").val();
+                var font = font_family_name.split(",");
+                alert(font[0]);
+                var google_key_word = font[0].replace(" ", "+");
+                var ss = document.createElement("link");
+                ss.type = "text/css";
+                ss.rel = "stylesheet";
+                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+                document.getElementsByTagName("head")[0].appendChild(ss);
+
+                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+                alert(font_path);
+                var styles = "@font-face {"+
+                             "font-family:"+ text + ";"+
+                             "src: url("+font_path+");"
+                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+
+                $("#" + selectedTextareaId).css("font-family", font[0]);
+
+            });
+            });
+        </script>
 
         <script>
                     var jsondata;

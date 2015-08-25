@@ -168,11 +168,11 @@ and open the template in the editor.
                 var font_family_name = $("#fontname").val();
                 var font = font_family_name.split(",");
                 alert(font[0]);
-                
+                var google_key_word = font[0].replace(" ", "+");
                 var ss = document.createElement("link");
                 ss.type = "text/css";
                 ss.rel = "stylesheet";
-                ss.href = "https://fonts.googleapis.com/css?family="+ font[0];
+                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
                 document.getElementsByTagName("head")[0].appendChild(ss);
 
                 var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
@@ -194,12 +194,12 @@ and open the template in the editor.
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
-
+                        alert("test");
                     $http({
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-//                        alert(JSON.stringify(data.user_colors));
+                        alert(JSON.stringify(data.user_colors));
                     $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_names = data.user_font_names;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -289,14 +289,14 @@ and open the template in the editor.
                                                     }
 
                                                     );
-                                                            var count=1;
+//                                                            var count=1;
                                                             $(xml).find('element').each(function () {
                                                             var tag = $(this).attr("tag");
                                                             type = $(this).attr("type");
                                                             var h = "";
                                                             var t = "";
                                                             var elementdata;
-                                                            $(#editorhead)  .find('option').remove().end();
+//                                                            $(#editorhead)  .find('option').remove().end();
                                                             $(jsondata).each(function (i, val) {
 
                                                     $.each(val, function (k, v) {
@@ -366,8 +366,8 @@ and open the template in the editor.
                                                     var blendmode = $(this).attr("background-blend-mode");
                                                     
                         //                    alert("image");
-                                                    $(#editorhead).append("<option value="+background_image+">Image "+count+"<option>")
-                                                    count++;
+//                                                    $(#editorhead).append("<option value="+background_image+">Image "+count+"<option>")
+//                                                    count++;
                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
                                                             .css("color", "" + fontcolor)

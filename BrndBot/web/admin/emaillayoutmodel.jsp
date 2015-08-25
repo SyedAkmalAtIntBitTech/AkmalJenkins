@@ -63,7 +63,7 @@
                 if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
 
                     var response = xmlHttp.responseText;
-                     var len = response.length;
+                    var len = response.length;
                     var no1 = response.indexOf(",");
                     response1 = response.substr(0, no1);
                     response2 = response.substr(no1 + 1, len);
@@ -290,6 +290,37 @@
 
     
       </script>          
+      <script>
+            $(document).ready(function () {
+    
+            $("#textFontFamily").change(function () {
+//            alert($(this).val());
+                var text = $("#textFontFamily").find('option:selected').text();
+                alert(text);
+                var font_family_name = $("#textFontFamily").val();
+                var font = font_family_name.split("|");
+                alert(font[0]);
+                var google_key_word = font[0].replace(" ", "+");
+                var ss = document.createElement("link");
+                ss.type = "text/css";
+                ss.rel = "stylesheet";
+                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+                document.getElementsByTagName("head")[0].appendChild(ss);
+
+                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+                alert(font_path);
+                var styles = "@font-face {"+
+                             "font-family:"+ text + ";"+
+                             "src: url("+font_path+");"
+                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+
+                $(".textAreas").css("font-family", font[0]);
+
+            });
+            });
+          
+          
+      </script>
       <script>
     function validate(){
         var model_name = $("#namexml").val();

@@ -54,7 +54,9 @@
                     ResultSet rs4 = stmt4.executeQuery("Select * From tbl_font_family where id=" + font_id1 + "");
                     if (rs4.next()) {
                         String font_name1 = rs4.getString("font_name");
-                        buffer1 = buffer1 + "<option value='" + font_name1 + "'>" + font_name1 + "</option>";
+                        String font_file_name = rs4.getString("font_family_name");
+                        font_file_name = font_file_name + "|" + rs4.getString("file_name");
+                        buffer1 = buffer1 + "<option value='" + font_file_name + "'>" + font_name1 + "</option>";
                     }
                     rs4.close();
                     stmt4.close();
@@ -63,7 +65,10 @@
                     ResultSet rs5 = stmt5.executeQuery("Select * From tbl_font_family where id=" + font_id2 + "");
                     if (rs5.next()) {
                         String font_name2 = rs5.getString("font_name");
-                        buffer1 = buffer1 + "<option value='" + font_name2 + "'>" + font_name2 + "</option>";
+                        String font_file_name = rs5.getString("font_family_name");
+                        font_file_name = font_file_name + "|" + rs5.getString("file_name");
+                        
+                        buffer1 = buffer1 + "<option value='" + font_file_name + "'>" + font_name2 + "</option>";
                     }
                     rs4.close();
                     stmt4.close();
@@ -73,7 +78,10 @@
                     ResultSet rs6 = stmt6.executeQuery("Select * From tbl_font_family where id=" + font_id3 + "");
                     if (rs6.next()) {
                         String font_name3 = rs6.getString("font_name");
-                        buffer1 = buffer1 + "<option value='" + font_name3 + "'>" + font_name3 + "</option>";
+                        String font_file_name = rs6.getString("font_family_name");
+                        font_file_name = font_file_name + "|" + rs6.getString("file_name");
+                        
+                        buffer1 = buffer1 + "<option value='" + font_file_name + "'>" + font_name3 + "</option>";
                     }
                     rs4.close();
                     stmt4.close();
@@ -83,7 +91,9 @@
                     ResultSet rs7 = stmt7.executeQuery("Select * From tbl_font_family where id=" + font_id4 + "");
                     if (rs7.next()) {
                         String font_name4 = rs7.getString("font_name");
-                        buffer1 = buffer1 + "<option value='" + font_name4 + "'>" + font_name4 + "</option>";
+                        String font_file_name = rs7.getString("font_family_name");
+                        font_file_name = font_file_name + "|" + rs7.getString("file_name");
+                        buffer1 = buffer1 + "<option value='" + font_file_name + "'>" + font_name4 + "</option>";
                     }
                     rs4.close();
                     stmt4.close();
@@ -93,7 +103,9 @@
                     ResultSet rs8 = stmt8.executeQuery("Select * From tbl_font_family where id=" + font_id5 + "");
                     if (rs8.next()) {
                         String font_name5 = rs8.getString("font_name");
-                        buffer1 = buffer1 + "<option value='" + font_name5 + "'>" + font_name5 + "</option>";
+                        String font_file_name = rs8.getString("font_family_name");
+                        font_file_name = font_file_name + "|" + rs8.getString("file_name");
+                        buffer1 = buffer1 + "<option value='" + font_file_name + "'>" + font_name5 + "</option>";
                     }
                     rs4.close();
                     stmt4.close();
