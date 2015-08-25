@@ -84,13 +84,12 @@
             .content{
                 position: relative;
                 top: 90px;
-                margin-left: 60px;
-                 width: 300px;
-                height: 200px;
-                zoom: 0.5;
+/*                margin-left: 60px;
+                zoom: 0.5;*/
             }
             #popup{
-                width: 500px;
+                
+/*                width: 500px;*/
 /*                height: 500px;*/
             }
             .preview{
@@ -148,31 +147,31 @@
                        }); 
                            function show(id){
                             var imageUrl= $("#"+id).css("background-image");
+                            
+                              if(id==="ipad"){
+                               $(".preview").css("width","850px").css("height","850px").css("overflow","none").css("overflow","hidden");
+                               $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("width","239px").css("height","300px").css("overflow","hidden");
+                                     $(".content").css("margin-left","-54px").css("margin-top","-150px").css("zoom","29.8%")
+                                             .css("width","400px"); 
+                            }
                              if(id==="imac")
                              {
-                                $(".preview").css("width","850px").css("height","650px").css("overflow","hidden");
+                                $(".preview").css("width","850px").css("height","850px").css("overflow","hidden");
                                 $(".iphoneshow").css("background-image",imageUrl)
-                                                .css("display",'block')
-                                                .css("height","900px"); 
-                                $(".content").css("zoom","0.45").css("margin-left","-27px").css("margin-top","-117px")
-                                        .css("width","500px");  
-                           
-                                    
+                                                .css("display",'block').css("width","300px").css
+                                                .css("height","225px").css("overflow","hidden");
+                                $(".content").css("margin-left","-7px").css("margin-top","-50px")
+                                        .css("width","400px").css("zoom","0%");                                      
                              }
-                              else if(id==="iphone"){  
+                             if(id==="iphone"){  
                                $(".preview").css("width","550px").css("height","950px").css("overflow","hidden").css("align","center");
                                $(".iphoneshow").css("background-image",imageUrl)
-                                       .css("display",'block').css("height","450px").css("width","200px")
+                                       .css("display",'block').css("height","413px").css("width","195px")
                                        .css("overflow-x","hidden");
-                               $(".content").css("margin-left","-72px").css("margin-top","-92px").css("width","500px").css("height","920px").css("overflow","none").css("zoom","0.250"); 
+                               $(".content").css("margin-left","-85px").css("margin-top","-112px").css("width","450px").css("height","920px").css("overflow","none").css("zoom","25%"); 
                              
                                 } 
-                           else{
-                               $(".preview").css("width","850px").css("height","1050px").css("overflow","none").css("overflow","hidden");
-                               $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("height","500px");
-                                     $(".content").css("margin-left","-27px").css("margin-top","-117px").css("zoom","0.450")
-                                             .css("width","700px"); 
-                            }
+                          
                              
                           
                          
@@ -265,8 +264,7 @@
                         <li><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                         <li><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                         <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
-                
-                </ul>
+                  </ul>
 
         <div class="iphoneshow img-responsive"   id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
            <div class="content">  

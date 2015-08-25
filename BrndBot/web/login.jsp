@@ -34,7 +34,7 @@
 
                 <div class="group">
                     <div class="col-md-3 col-md-offset-5">                            
-                        <input id="inputemail" class="form-control simplebox" type="email" required ng-model="user.emailid">
+                        <input id="inputemail" class="form-control simplebox " type="email" required ng-model="user.emailid">
                         <label>EMAIL</label><br>
                     </div>
                 </div>

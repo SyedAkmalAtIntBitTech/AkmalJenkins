@@ -669,7 +669,7 @@ and open the template in the editor.
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0">
-                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp;<p id="edit">go back</p> &nbsp;&nbsp;<p id="preview">preview</p>
+                            <p class="edit">EDIT THIS POST </p><br><p id="edtgb"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview">preview</p>
 
                             <div class="sortDelete" style="position:absolute;top:380px; left:0px;margin: 0px;">
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />

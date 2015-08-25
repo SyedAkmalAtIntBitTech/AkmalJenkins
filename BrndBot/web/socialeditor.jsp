@@ -439,7 +439,7 @@ and open the template in the editor.
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0 prev">
-                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edit">go back</p> 
+                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb"><a href="selectpromotemedia.jsp">go back</a></p>
                             <div class="preview">
                                 <!--  {{mindbody_data}}-->
                                 <!--

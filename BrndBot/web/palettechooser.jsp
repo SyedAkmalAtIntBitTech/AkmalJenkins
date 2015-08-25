@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -382,7 +382,7 @@ Please arrange them with most used to least used in your designs.</p>
                                     <input type="hidden" id="finalcolor6" name="finalcolor6" ng-model="selColor.finalcolor6"/>
 
                                     <div class="span4 col-md-offset-0">
-                                        <button style="position: relative;bottom:20px; " type="button" class="btn btn-info" ng-click="createUserPreferences()">CONTINUE</button>
+                                        <button style="position: relative;bottom:20px; " type="button" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="createUserPreferences()">CONTINUE</button>
                                     </div>
 
                                 </form>

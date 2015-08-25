@@ -12,14 +12,15 @@
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js"></script>
         <script type="text/javascript" src="js/form.js"></script>
-                <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+<!--                <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
                 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 		<link rel="stylesheet" type="text/css" href="css/cs-select.css" />
-		<link rel="stylesheet" type="text/css" href="css/cs-skin-border.css" />
+		<link rel="stylesheet" type="text/css" href="css/cs-skin-border.css" />-->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/main1.css" rel="stylesheet" type="text/css"/>
         <title>organization</title>
     </head>
@@ -59,7 +60,7 @@
 
                     <div  class="form-group">
                         <div class="col-sm-offset-4 col-md-5">
-                            <button id="organisationbutton" type="submit"  class="btn btn-info" ng-click="createOrganization()">CONTINUE</button><br><br><br>
+                            <button id="organisationbutton" type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="createOrganization()">CONTINUE</button><br><br><br>
                         </div>
                     </div>
                 </form>
