@@ -32,11 +32,21 @@ and open the template in the editor.
     position: relative;
     top:-52px;
     font-family:"proxima-nova",sans-serif;
-    font-weight:400;
+    font-weight:500;
     font-size:14px;
     left: 15em;
     color: #2D4444;
     
+}
+#edtgb a{
+   
+    position: relative;
+    top:-15px;
+    font-family:"proxima-nova",sans-serif;
+    font-weight:500;
+    font-size:14px;
+    left: 0em;
+    color: #2D4444;
 }
 .edit{
     position: relative;

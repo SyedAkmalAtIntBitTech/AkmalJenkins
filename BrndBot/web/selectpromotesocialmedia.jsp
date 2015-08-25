@@ -283,7 +283,7 @@
                 <li><div class="col-md-6 col-md-offset-6">
 
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
-                            <input type="hidden" id="imageName" name="imageName" value ='<%=ImageName%>'/>
+                            <input type="hidden" id="imageName" name="imageName" value='<%=ImageName%>' >
                             <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend" >
                             <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
                             <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
