@@ -26,14 +26,15 @@ function setSocialParameters(title, teacher, date) {
 
 $(document).ready(function () {
     
-            $("#left").hide();
-            $("#right").hide();
-            $("#center").hide();
-            $("#justify").hide();
-            $("#plus").hide();
-            $("#minus").hide();
-           var status = "true";
-
+    $("#left").hide();
+    $("#right").hide();
+    $("#center").hide();
+    $("#justify").hide();
+    $("#plus").hide();
+    $("#minus").hide();
+    var status = "true";
+    $("#tabs-1").show();
+    $("#tabs-2").hide();
     $('.color-box').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
@@ -161,52 +162,79 @@ $(document).ready(function () {
                         var fontstyle;
                         var left = $(this).attr("x-co-ordinates");
                         var top = $(this).attr("y-co-ordinates");
+                        var width = $(this).attr("width");
+                        var height = $(this).attr("height");
                         var opacity = $(this).attr("opacity");
-                                if (tag === "text")
+                        if (tag === "text")
+                        {
+                         var colorName = $(this).attr("font-color-name");
+                         for (var i = 1; i <= 6; i++)
+                            {
+                               if (colorName === "Font-Color-" + i)
                                 {
-                                 var colorName = $(this).attr("font-color-name");
-                                 for (var i = 1; i <= 6; i++)
-                                    {
-                                       if (colorName === "Font-Color-" + i)
-                                        {
-                                           fontcolor = $("#shapecolorbox" + i).css("background-color");
+                                   fontcolor = $("#shapecolorbox" + i).css("background-color");
 //                                                             fontcolor=user_preferences_colors.color+""+i; 
-                                        }
-
-                                    }
-//                                    fontcolor = $(this).attr("font-color");
-                                    fontsize = $(this).attr("font-size");
-                                    fontstyle = $(this).attr("font-style");
-                                    var fontweight = $(this).attr("font-weight");
-                                    var letterspacing = $(this).attr("letter-spacing");
-                                    var lineheight = $(this).attr("line-height");
-
-                                    var textalign = $(this).attr("text-align");
-
-                                    var webkittransform = $(this).attr("webkit-transform");
-                                    var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-//                    alert($(this).attr("text-shadow"));
-                                    $(".preview").append("<div><textarea class=textAreas onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
-                                    $("#" + type).css("color", "" + fontcolor)
-                                            .css("position", "absolute")
-                                            .css("margin-left", "" + left + "px")
-                                            .css("margin-top", "" + top + "px")
-                                            .css("font-size", "" + fontsize)
-                                            .css("font-style", "" + fontstyle)
-                                            .css("font-weight", "" + fontweight)
-                                            .css("letter-spacing", "" + letterspacing)
-                                            .css("line-height", "" + lineheight)
-                                            .css("opacity", "" + opacity)
-                                            .css("text-align", "" + textalign)
-                                            .css("text-shadow", "" + dropshadow)
-                                            .css("webkit-transform", "rotate(" + webkittransform + "deg)");
                                 }
+
+                            }
+//                                    fontcolor = $(this).attr("font-color");
+                            fontsize = $(this).attr("font-size");
+                            fontstyle = $(this).attr("font-style");
+                            var fontweight = $(this).attr("font-weight");
+                            var letterspacing = $(this).attr("letter-spacing");
+                            var lineheight = $(this).attr("line-height");
+
+                            var textalign = $(this).attr("text-align");
+
+                            var webkittransform = $(this).attr("webkit-transform");
+                            var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
+//                    alert($(this).attr("text-shadow"));
+                            $(".preview").append("<div><textarea class=textAreas onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
+                            $("#" + type).css("color", "" + fontcolor)
+                                    .css("position", "absolute")
+                                    .css("margin-left", "" + left + "px")
+                                    .css("margin-top", "" + top + "px")
+                                    .css("width", "" + width)
+                                    .css("min-height", "" + height)
+                                    .css("font-size", "" + fontsize)
+                                    .css("font-style", "" + fontstyle)
+                                    .css("font-weight", "" + fontweight)
+                                    .css("letter-spacing", "" + letterspacing)
+                                    .css("line-height", "" + lineheight)
+                                    .css("background-color","inherit")
+                                    .css("border","0px")
+                                    .css("opacity", "" + opacity)
+                                    .css("text-align", "" + textalign)
+                                    .css("text-shadow", "" + dropshadow)
+                                    .css("webkit-transform", "rotate(" + webkittransform + "deg)");
+                            $("#" + type).autogrow();
+                        }
+
+                        if (tag === "logo")
+                        {
+                            var background_image = $(this).attr("background-image");
+                            var blendmode = $(this).attr("background-blend-mode");
+                            $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
+                            $("#" + type)
+                                .css("color", "" + fontcolor)
+                                .css("margin-left", "" + left + "px")
+                                .css("margin-top", "" + top + "px")
+                                .css("background-blend-mode", "" + blendmode)
+                                .css("opacity", "" + opacity)
+                                .css("width", "" + width)
+                                .css("height", "" + height)
+                                .css("background", ""+background_image)
+                                .css("background-repeat", "no-repeat")
+                                .css("background-position", "center center")
+
+                                .css("position", "absolute"); 
+                        }
 
                         if (tag === "image")
                         {
+                            var background_image = $(this).attr("background-image");
                             var blendmode = $(this).attr("background-blend-mode");
-                            var width = $(this).attr("width");
-                            var height = $(this).attr("height");
+                            
 //                    alert("image");
                            $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                             $("#" + type)
@@ -217,7 +245,7 @@ $(document).ready(function () {
                                     .css("opacity", "" + opacity)
                                     .css("width", "" + width)
                                     .css("height", "" + height)
-                                    .css("background","url(http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg)")
+                                    .css("background", ""+background_image)
                                     .css("background-repeat", "no-repeat")
                                     .css("background-position", "center center")
                                     .css("position", "absolute");   

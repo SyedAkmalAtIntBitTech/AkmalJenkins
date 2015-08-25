@@ -33,6 +33,7 @@ and open the template in the editor.
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
+        <script src="js/jquery.autogrow-textarea.js" type="text/javascript"></script>
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
         <script src="js/jquery.blend.min.js" type="text/javascript"></script>-->
@@ -298,9 +299,10 @@ and open the template in the editor.
                                                             var left = $(this).attr("x-co-ordinates");
                                                             var top = $(this).attr("y-co-ordinates");
                                                             var opacity = $(this).attr("opacity");
-       
+                                                            var width = $(this).attr("width");
+                                                            var height = $(this).attr("height");
                                                    if (tag === "text")
-                                                    {
+                                                   {
                                                         var colorName=$(this).attr("font-color-name");
                                                         for(var i=1;i<=6; i++)
                                                         {
@@ -326,6 +328,8 @@ and open the template in the editor.
                                                                 .css("position", "absolute")
                                                                 .css("margin-left", "" + left + "px")
                                                                 .css("margin-top", "" + top + "px")
+                                                                .css("width", "" + width)
+                                                                .css("min-height", "" + height)
                                                                 .css("font-size", "" + fontsize)
                                                                 .css("font-style", "" + fontstyle)
                                                                 .css("font-weight", "" + fontweight)
@@ -337,14 +341,14 @@ and open the template in the editor.
                                                                 .css("text-align", "" + textalign)
                                                                 .css("text-shadow", "" + dropshadow)
                                                                 .css("webkit-transform", "rotate(" + webkittransform + "deg)");
+                                                        $("#" + type).autogrow();
                                                     }
 
                                                if (tag === "image")
-                                                    {
+                                               {
                                                     var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
-                                                    var width = $(this).attr("width");
-                                                    var height = $(this).attr("height");
+                                                    
                         //                    alert("image");
                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
@@ -361,16 +365,11 @@ and open the template in the editor.
                                                             .css("position", "absolute"); 
                                                     }
                                                     
-                                                      if (tag === "logo")
+                                                    if (tag === "logo")
                                                     {
                                                     var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
-                                                    var width = $(this).attr("width");
-                                                    var height = $(this).attr("height");
-                                                
-                                    
-                        //                    alert("image");
-                                                   $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
+                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
                                                             .css("color", "" + fontcolor)
                                                             .css("margin-left", "" + left + "px")
