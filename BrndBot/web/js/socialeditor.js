@@ -445,7 +445,6 @@ function getTectId(id) {
 
     $("textarea").click(function () {
         selectedTextareaId = id.id;
-        alert(selectedTextareaId);
        var textDefaultcolor= $("#"+selectedTextareaId).css("color");
 
     var textDefaultAline= $("#"+selectedTextareaId).css("text-align");

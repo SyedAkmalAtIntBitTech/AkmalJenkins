@@ -13,13 +13,14 @@
 function htmlController($scope, $http) {
 
     $scope.createhtmltemplate = {};
-    var modelname, html_content;
+    var model_id, model_name, html_content;
     
     function validate() {
-        modelname = $("#modelname").val();
+        model_id = $("#modelname").val();
+        model_name = $("#modelname").find('option:selected').text()
         html_content = $("#html_content").val();
         
-        if (modelname === 0) {
+        if (model_name === 0) {
             alert("select the model name");
             $("#modelname").focus();
             return false;
@@ -38,7 +39,7 @@ function htmlController($scope, $http) {
     {
         if (validate())
         {
-            var html_template = {"modelname": modelname, "html_content":html_content, "type": "add"};
+            var html_template = {"model_id":model_id, "model_name":model_name, "html_content":html_content, "type": "add"};
 
             $http({
                 method: 'POST',
@@ -48,15 +49,15 @@ function htmlController($scope, $http) {
             }).success(function (data)
             {
                 $scope.status = data;
-//                if (data === "false") {
-//                    alert("Organization already exist");
-//                    $("#organizationname").focus();
-//                } else if (data === "true") {
-//                    alert("Organization saved successfully");
-//                    window.open(getHost() + 'admin/organizations.jsp', "_self");
-//                } else if (data === error) {
-//                    alert(data);
-//                }
+                if (data === "false") {
+                    alert("Organization already exist");
+                    $("#organizationname").focus();
+                } else if (data === "true") {
+                    alert("Organization saved successfully");
+                    window.open(getHost() + 'admin/addhtmltemplate.jsp', "_self");
+                } else if (data === error) {
+                    alert(data);
+                }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.

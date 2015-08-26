@@ -120,25 +120,24 @@ public class Layout {
         
     }
     
-//    public void editBrands(Integer brand_id, String brand_name, Integer look_id, String image) throws SQLException {
-//        String query_string = "";
-//        PreparedStatement prepared_statement = null;
-//        ResultSet result_set = null;
-//        
-//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-//            query_string = "UPDATE tbl_brand_personality"
-//                    + " SET brand_name='" + brand_name + "', look_id=" + look_id + ", image='" + image + "'  WHERE id='" + brand_id + "'";
-//            
-//            prepared_statement = connection.prepareStatement(query_string);
-//            prepared_statement.executeUpdate();
-//        } catch (Exception e) {
-//            logger.log(Level.SEVERE, "", e);
-//        } finally {
-//            sqlmethods.close(result_set, prepared_statement);
-//            
-//        }
-//        
-//    }
+    public void editModel(Integer model_id, String html_file_name) throws SQLException {
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+        
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "UPDATE tbl_model"
+                    + " SET html_file_name ='" + html_file_name + "' WHERE id='" + model_id + "'";
+            
+            prepared_statement = connection.prepareStatement(query_string);
+            prepared_statement.executeUpdate();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "", e);
+        } finally {
+            sqlmethods.close(result_set, prepared_statement);
+        }
+        
+    }
 //    
 //    public void deleteBrands(Integer org_id) throws SQLException {
 //        String query_string = "";

@@ -40,7 +40,7 @@
           <ul class="dropdown-menu">
               <li><a href="sociallayoutmodel.jsp">social</a></li>
               <li><a href="emaillayoutmodel.jsp">email</a></li>
-              <li><a href="#">Add new HTML Template</a></li>
+              <li><a href="addhtmltemplate.jsp">Add new HTML Template</a></li>
           </ul>
         </li>
 
