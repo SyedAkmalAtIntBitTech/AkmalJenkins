@@ -349,14 +349,18 @@
 //        });
 //        
             function selectCsvFile(){
-                    $("#chooseEmailList").show();
+                $("#chooseEmailList").show();
+                var x = document.getElementById("chooseEmailList").selectedIndex;
+                var list_name = document.getElementsByTagName("option")[x].value;
 //                    $("#emailsubjectdiv").show();
+                if (list_name != 0){
+
                     $("#emailaddresses").show();
                     $("#drop-zone").show();
                     $("#clickHere").show();
                     $("#upload").show();
                     $(function () {
-                        
+
                     var dropZoneId = "drop-zone";
                     var buttonId = "clickHere";
                     var mouseOverClass = "mouse-over";
@@ -408,6 +412,10 @@
     //                    upload();
                     }, true);
                     });
+
+                }else {
+                    alert("please select a list");
+                }
 
             }
             //   
@@ -628,12 +636,13 @@
 
                 </div>
 
-                <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
+                <div id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
                     <p class="header1"> Who do you want to send this email to?</p>
                     <br><br>   
                    
                     <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
-                          <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                        <option value="0">Select</option>
+                        <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                     </select>
                     <div id="drop-zone">
                         Drop files here...
