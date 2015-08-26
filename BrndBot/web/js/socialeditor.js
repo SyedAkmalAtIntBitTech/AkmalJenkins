@@ -82,7 +82,7 @@ $(document).ready(function () {
 //        
 //    });
 
-    
+    alert("loding");
 
     $.ajax({
         type: "GET",
@@ -114,7 +114,7 @@ $(document).ready(function () {
 
     var layoutfilename = $("#clickid").val();
 
-//    alert(layoutfilename);
+   alert(layoutfilename);
 
  $.ajax({
        type: 'POST',
@@ -123,14 +123,14 @@ $(document).ready(function () {
        success: function (data) {
            var jsondataDefault = data;
            var allLayoutFilename = [];
-//       alert(JSON.stringify(data));
+      alert(JSON.stringify(data));
            $(jsondataDefault).each(function (i, val) {
                var i = 0;
                $.each(val, function (k, v) {
                    allLayoutFilename[i] = v;
                    i++;
                });
-//              alert( allLayoutFilename[i] );
+             alert( allLayoutFilename[i] );
            });
 
 
@@ -155,7 +155,7 @@ $(document).ready(function () {
                     }
 
                     );
-
+                    var count=1;
                     $(xml).find('element').each(function () {
                         var tag = $(this).attr("tag");
                         type = $(this).attr("type");
@@ -253,8 +253,9 @@ $(document).ready(function () {
                         {
                             var background_image = $(this).attr("background-image");
                             var blendmode = $(this).attr("background-blend-mode");
-                            
+                            $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
 //                    alert("image");
+                                count++;
                            $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                             $("#" + type)
                                     .css("color", "" + fontcolor)

@@ -263,7 +263,8 @@ and open the template in the editor.
             };
             });
                     function showText(id, layout){
-                            $("#clickid").val(layout);
+//                          alert(id+""+layout);
+//                            $("#clickid").val(layout);
 
 //                            alert('http://localhost:8080/BrndBot/DownloadXml?file_name='+ layout +'.xml');
                             $.ajax({
@@ -286,14 +287,14 @@ and open the template in the editor.
                                                     }
 
                                                     );
-//                                                            var count=1;
+                                                            var count=1;
+                                                            $(".imagename").find('option').remove().end();
                                                             $(xml).find('element').each(function () {
                                                             var tag = $(this).attr("tag");
                                                             type = $(this).attr("type");
                                                             var h = "";
                                                             var t = "";
                                                             var elementdata;
-//                                                            $(#editorhead)  .find('option').remove().end();
                                                             $(jsondata).each(function (i, val) {
 
                                                     $.each(val, function (k, v) {
@@ -358,13 +359,12 @@ and open the template in the editor.
 
                                                if (tag === "image")
                                                {
-                                                 
                                                     var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
-                                                    
+//                                                   
+                                                    $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
                         //                    alert("image");
-//                                                    $(#editorhead).append("<option value="+background_image+">Image "+count+"<option>")
-//                                                    count++;
+                                                        count++;
                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
                                                             .css("color", "" + fontcolor)
@@ -622,7 +622,7 @@ and open the template in the editor.
                                         <div id="imagecontainer">
                                             <p  id="text3">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><select id="editorhead"></select></li>
+                                                <li><select class=imagename id="editorhead"> </select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
                                                 <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
                                                 <li></li>
@@ -1007,7 +1007,7 @@ $(this).addClass('highlight');
                                             $("#cropImageContainer").show();
                                         
                                         
-                                        var image_file=$("#"+selectedImageId).css("background-image").replace("url(","").replace(")","");
+                                        var image_file=$(".imagename").val().replace("url(","").replace(")","");
 //                                        alert(image_file);
                                         id = "image" + i;
                                         $("#cropper_popup").show();

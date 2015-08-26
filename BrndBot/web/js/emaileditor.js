@@ -146,7 +146,7 @@ $(document).ready(function () {
                     }
 
                     );
-
+                    var count=1;
                     $(xml).find('element').each(function () {
                         var tag = $(this).attr("tag");
                         type = $(this).attr("type");
@@ -228,7 +228,8 @@ $(document).ready(function () {
                         {
                             var blendmode = $(this).attr("background-blend-mode");
                             var background_image = $(this).attr("background-image");
-//                    alert("image");
+                            $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
+                              count++;
                            $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                             $("#" + type +"EEEdefaultblock1")
                                     .css("color", "" + fontcolor)
