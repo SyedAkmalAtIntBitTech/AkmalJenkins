@@ -48,6 +48,7 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
@@ -110,7 +111,7 @@
         <div class="container-fluid">
             <jsp:include page="leftmenu.html"/>
             <div class="row">
-                <p id="txtpost">POST TO SOCIAL MEDIA</p>
+                <p id="txtpost" class="MH1">POST TO SOCIAL MEDIA</p>
                 <div class="col-sm-2 col-sm-offset-1">
                     <p class="psttxt ptpos">What social media would you like to post on?</p>
         
@@ -269,7 +270,7 @@
             });
 
         </script> 
-        <div style="position: relative;top:-27em;" class="col-md-1 col-md-offset-9"><a href="selectpromotesocialmedia.jsp"><p id="edit">go back</p></a></div>
+        <div style="position: relative;top:-27em;" class="col-md-1 col-md-offset-9"><a href="selectpromotesocialmedia.jsp"><p id="edit" class="BT2">go back</p></a></div>
     </body> 
 
 </html>

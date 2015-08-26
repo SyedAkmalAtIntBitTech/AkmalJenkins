@@ -90,10 +90,13 @@ and open the template in the editor.
 .logo{
     margin-left: 5px;
 }
-.menu li a,p{
+.menu li p{
     margin-left: 5px;
 }
-
+.menu a{
+    position: relative;
+    margin-top: 0px;
+}
 
 .sidebar-nav li {
     line-height: 40px;
