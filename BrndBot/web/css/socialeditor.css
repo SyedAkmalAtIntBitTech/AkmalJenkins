@@ -219,8 +219,8 @@ and open the template in the editor.
     line-height: 12px;
     letter-spacing:0em;
 }
-#editpal{
-    font-family: "proxima-nova",sans-serif;
+.editpal{
+font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 400;
 font-size: 12px;

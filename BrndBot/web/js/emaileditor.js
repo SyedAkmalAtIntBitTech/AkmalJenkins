@@ -50,7 +50,30 @@ $(document).ready(function () {
         }
     })
             .css('background-color', '#ffffff');
-
+     $('.custom-color-box').colpick({
+        colorScheme: 'dark',
+        layout: 'rgbhex',
+        color: 'ff8800',
+        onSubmit: function (hsb, hex, rgb, el) {
+           $("#selectedshapecolorbox").css('background-color', '#' + hex);
+//            place block selected block
+            var blockId=$(".blockname").val();
+            $("#"+blockId).css('background-color', '#' + hex);
+            $(el).colpickHide();
+        }
+    })
+            .css('background-color', '#ffffff');
+    
+   $('#slider').slider({ 
+        min: 0, 
+        max: 1, 
+        step: 0.01, 
+        value: 1,
+        orientation: "horizontal",
+             slide: function(e,ui){
+                     $('#'+$(".blockname").val()).css('opacity', ui.value);
+             }                
+        }); 
     $(".blankcolor-box").click(function () {
         var color = $("#" + this.id).css("background-color");
         $("#selectedshapecolorbox").css("background-color", "" + color);
@@ -146,7 +169,8 @@ $(document).ready(function () {
                     }
 
                     );
-
+                    var count=1;
+                    var blockcount=1;
                     $(xml).find('element').each(function () {
                         var tag = $(this).attr("tag");
                         type = $(this).attr("type");
@@ -228,7 +252,8 @@ $(document).ready(function () {
                         {
                             var blendmode = $(this).attr("background-blend-mode");
                             var background_image = $(this).attr("background-image");
-//                    alert("image");
+                            $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
+                              count++;
                            $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                             $("#" + type +"EEEdefaultblock1")
                                     .css("color", "" + fontcolor)
@@ -292,7 +317,8 @@ $(document).ready(function () {
                                                             
                                                 } 
 
-
+                            $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                             blockcount++;
                             $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                             $("#" + type + "EEEdefaultblock1").css("background-color", "" + backgroundcolor)
                                     .css("left", "" + left + "px")

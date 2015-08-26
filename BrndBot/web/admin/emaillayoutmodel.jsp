@@ -17,7 +17,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Layout Model</title>
+        <title>Email Layout Model</title>
         <!--         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -57,13 +57,29 @@
                 }
             });
             var xmlHttp;
+            
+            function showSelected(str){
+                
+                if (str == 0){
+                   $("#selectedtype").val("non");
+                }else {
+                   $("#selectedtype").val("selected");
+                }
+        
+            }
 
             function brandChange() {
 
                 if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
 
                     var response = xmlHttp.responseText;
-                    document.getElementById("blocks").innerHTML = response;
+                    var len = response.length;
+                    var no1 = response.indexOf(",");
+                    response1 = response.substr(0, no1);
+                    response2 = response.substr(no1 + 1, len);
+                    document.getElementById("textFontFamily").innerHTML = response1;
+                    document.getElementById("blocks").innerHTML = response2;
+                    
                 }
             }
 
@@ -86,16 +102,17 @@
                     return;
                 }
 
-                var url = "showblocks.jsp";
+                var url = "getfonts.jsp";
 
-                url += "?brand_id=" + str;
+                url += "?Brand_id=" + str;
 
                 xmlHttp.onreadystatechange = brandChange;
+            
 
                 xmlHttp.open("GET", url, true);
 
                 xmlHttp.send(null);
-
+          
             }
 
             function usersChange() {
@@ -186,13 +203,15 @@
             function showmindbodyquery(str) {
 
 
-   //        if (str == 0){
-   //            $("#categories").attr("disabled", false);
-   //            $("#subcategories").attr("disabled", false);
-   //          }else {
-   //            $("#categories").attr("disabled", true);
-   //            $("#subcategories").attr("disabled", true);
-   //          }
+             if (str == 0){
+               $("#categories").attr("disabled", false);
+               $("#subcategories").attr("disabled", false);
+               $("#selectedtype").val("non");
+             }else {
+               $("#categories").attr("disabled", true);
+               $("#subcategories").attr("disabled", true);
+               $("#selectedtype").val("selected");
+             }
 
                 if (typeof XMLHttpRequest !== "undefined") {
 
@@ -229,6 +248,7 @@
 
                     var response = xmlHttp.responseText;
                     $("#mindbodyquery").val(response.trim());
+                    
    //              document.getElementById("subcategories").innerHTML=response;
                 }
             }
@@ -241,11 +261,80 @@
                     document.getElementById("subcategories").innerHTML = response;
                 }
             }
+             function showbrand(Brand){
+                    if (typeof XMLHttpRequest !== "undefined") {
 
+                    xmlHttp = new XMLHttpRequest();
+
+                }
+                else if (window.ActiveXObject) {
+
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+                }
+                if (xmlHttp === null) {
+
+                    alert("Browser does not support XMLHTTP Request");
+
+                    return;
+                }
+
+                var url = "getfonts.jsp";
+
+                url += "?Brand_id=" + Brand;
+
+                xmlHttp.onreadystatechange =fontChange;
+
+                xmlHttp.open("GET", url, true);
+
+                xmlHttp.send(null);
+             
+           }
+              function fontChange() {
+
+                if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
+
+                    var response = xmlHttp.responseText;
+                    document.getElementById("textFontFamily").innerHTML = response;
+                }
+                
+            }
 
 
     
       </script>          
+      <script>
+            $(document).ready(function () {
+    
+            $("#textFontFamily").change(function () {
+//            alert($(this).val());
+                var text = $("#textFontFamily").find('option:selected').text();
+                var font_family_name = $("#textFontFamily").val();
+                var font = font_family_name.split("|");
+                var google_key_word = font[0].split(' ').join('+')
+                var ss = document.createElement("link");
+                ss.type = "text/css";
+                ss.rel = "stylesheet";
+                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+                document.getElementsByTagName("head")[0].appendChild(ss);
+
+                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+                var styles = "@font-face {"+
+                             "font-family:"+ text + ";"+
+                             "src: url("+font_path+");"
+                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+
+                $(".textAreas").css("font-family", font[0]);
+
+            });
+            $("#hidepopup").click(function(){
+                $('#popup').hide("slow");
+            });
+            
+            });
+          
+          
+      </script>
       <script>
     function validate(){
         var model_name = $("#namexml").val();
@@ -340,7 +429,8 @@
     </head>
     <body>
         <%@include file="menus.jsp" %>
-        <%!    PreparedStatement ps;
+        <%! 
+            PreparedStatement ps;
             ResultSet rs;
             String Query = "";
             Integer id = 0;
@@ -391,11 +481,7 @@
 
                 <p>
                     Font Family: <select id="textFontFamily">
-                        <option value="Arial">Font Family 1</option>
-                        <option value="Papyrus">Font Family 2</option>
-                        <option value="Montserrat">Font Family 3</option>
-                        <option value="Futura">Font Family 4</option>
-                        <option value="Times New Roman">Font Family 5</option>
+                        <option>select</option>
                     </select>
 
                     <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
@@ -646,7 +732,7 @@
                 Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
                                     <option value="0">Select</option>
                             </select><br><br>
-                Sub Categories: <select id="subcategories" name="subcategories">
+                            Sub Categories: <select id="subcategories" name="subcategories" onchange="showSelected(this.value)">
                                         <option value="0">Select</option>
                                 </select>
                     Blocks : <select name="blocks" id="blocks" onchange="showmindbodyquery(this.value)">
@@ -661,6 +747,7 @@
                             <input type="hidden" name="mapper" id="mapper">
                             <input type="hidden" name="layout" id="layout" >
                             <input type="hidden" name="model_name" id="model_name" >
+                            <input type="hidden" name="selectedtype" id="selectedtype" value="non" >
                             
                             <input type="button" value="save" onclick="passvaluetoinputfield();">
 
@@ -671,6 +758,7 @@
                                  file name<input type="text" id="namexml" required><br>-->
                                  <input type="hidden" name="mail" value="mail"/>
                                  <input type="button" onclick="validate()" value="Done"/>   
+                                 <input type="button" id="hidepopup" value="Close"/>   
                               </div>   
 
                              </div>

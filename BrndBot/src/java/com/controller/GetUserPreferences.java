@@ -88,6 +88,7 @@ Connection connection = null;
                                 if (rs4.next()){
                                     String font_name1 = rs4.getString("font_name");
                                     String font_family_name1 = rs4.getString("font_family_name");
+                                    font_family_name1 = font_family_name1 + "," + rs4.getString("file_name");
                                     
                                     json_font.put("font_name", font_name1);
                                     json_font.put("font_family_name", font_family_name1);
@@ -102,6 +103,8 @@ Connection connection = null;
                                 if (rs5.next()){
                                     String font_name2 = rs5.getString("font_name");
                                     String font_family_name2 = rs5.getString("font_family_name");
+                                    font_family_name2 = font_family_name2 + "," + rs5.getString("file_name");
+                                    
                                     json_font.put("font_name", font_name2);
                                     json_font.put("font_family_name", font_family_name2);
                                 }
@@ -115,6 +118,8 @@ Connection connection = null;
                                 if (rs6.next()){
                                     String font_name3 = rs6.getString("font_name");
                                     String font_family_name3 = rs6.getString("font_family_name");
+                                    font_family_name3 = font_family_name3 + "," + rs6.getString("file_name");
+                                    
                                     json_font.put("font_name", font_name3);
                                     json_font.put("font_family_name", font_family_name3);
                                 }
@@ -130,6 +135,8 @@ Connection connection = null;
                                 if (rs7.next()){
                                     String font_name4 = rs7.getString("font_name");
                                     String font_family_name4 = rs7.getString("font_family_name");
+                                    font_family_name4 = font_family_name4 + "," + rs7.getString("file_name");
+
                                     json_font.put("font_name", font_name4);
                                     json_font.put("font_family_name", font_family_name4);
                                 }
@@ -144,6 +151,8 @@ Connection connection = null;
                                 if (rs8.next()){
                                     String font_name5 = rs8.getString("font_name");
                                     String font_family_name5 = rs8.getString("font_family_name");
+                                    font_family_name5 = font_family_name5 + "," + rs8.getString("file_name");
+                                    
                                     json_font.put("font_name", font_name5);
                                     json_font.put("font_family_name", font_family_name5);
                                 }

@@ -16,7 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Layout Model</title>
+        <title>Social Layout Model</title>
         <!--         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -56,7 +56,17 @@
                 }
             });
             var xmlHttp;
-
+            
+            function showSelected(str){
+                
+                if (str == 0){
+                   $("#selectedtype").val("non");
+                }else {
+                   $("#selectedtype").val("selected");
+                }
+        
+            }
+            
             function usersChange() {
 
                 if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
@@ -144,14 +154,88 @@
                     document.getElementById("subcategories").innerHTML = response;
                 }
             }
+           function showbrand(Brand){
+                    if (typeof XMLHttpRequest !== "undefined") {
 
+                    xmlHttp = new XMLHttpRequest();
 
+                }
+                else if (window.ActiveXObject) {
+
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+                }
+                if (xmlHttp === null) {
+
+                    alert("Browser does not support XMLHTTP Request");
+
+                    return;
+                }
+
+                var url = "getfonts.jsp";
+
+                url += "?Brand_id=" + Brand;
+
+                xmlHttp.onreadystatechange =fontChange;
+
+                xmlHttp.open("GET", url, true);
+
+                xmlHttp.send(null);
+             
+           }
+              function fontChange() {
+
+                if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
+
+                    var response = xmlHttp.responseText;
+                    var len = response.length;
+                    var no1 = response.indexOf(",");
+                    response1 = response.substr(0, no1);
+                    response2 = response.substr(no1 + 1, len);
+                    document.getElementById("textFontFamily").innerHTML = response1;
+                }
+            }
 
     
       </script>          
       <script>
+            $(document).ready(function () {
+    
+            $("#textFontFamily").change(function () {
+//            alert($(this).val());
+                var text = $("#textFontFamily").find('option:selected').text();
+                var font_family_name = $("#textFontFamily").val();
+                var font = font_family_name.split("|");
+                var google_key_word = font[0].split(' ').join('+')
+                
+                var ss = document.createElement("link");
+                ss.type = "text/css";
+                ss.rel = "stylesheet";
+                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+                document.getElementsByTagName("head")[0].appendChild(ss);
+
+                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+                var styles = "@font-face {"+
+                             "font-family:"+ text + ";"+
+                             "src: url("+font_path+");"
+                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+
+                $(".textAreas").css("font-family", font[0]);
+
+            });
+            
+            $("#hidepopup").click(function(){
+                        $('#popup').hide("slow");
+            });
+            });
           
-function validate(){
+          
+      </script>
+
+
+      <script>
+          
+    function validate(){
       var model_name = $("#namexml").val();
 
       if (model_name == ""){
@@ -236,52 +320,7 @@ function validate(){
 //      return true;          
   }
   
-  function submitModel(){
-      if (validate()){
-      var organization = $("#organization").val();
-      alert(organization);
-      var brand = $("#brand").val();
-      var users = $("#users").val();
-      var categories = $("#categories").val();
-      var subcategories = $("#subcategories").val();
-      var mindbodyquery = $("#mindbodyquery").val();
-      var containerstyle = $("#containerstyle").val();
-      var textstyle = $("#textstyle").val();
-      var element = $("#element").val();
-
-      var model_name = $("#namexml").val();
-      var mapperxml = model_name + "_" + "mapper";
-      var layoutxml = model_name + "_" + "layout";
-
-      var imagename = $("#imagename").val();
-      var social = $("#socialmedia").val();
-      
-        $.ajax({
-                url: global_host_address + 'Model',
-                method: 'post',
-                data: {
-                    organization : organization,
-                    brand : brand,
-                    users : users,
-                    categories : categories,
-                    subcategories : subcategories,
-                    mindbodyquery : mindbodyquery,
-                    containerstyle : containerstyle,
-                    textstyle : textstyle,
-                    element : element,
-                    mapper : mapperxml,
-                    layout : layoutxml,
-                    model_name : model_name,
-                    imagename : imagename,
-                    socialmedia : social
-                },
-                success: function (responseText) {
-
-                }                    
-         });
-      }
-  }
-          
+  
       </script>
 
     </head>
@@ -337,11 +376,7 @@ function validate(){
 
                 <p>
                     Font Family: <select id="textFontFamily">
-                        <option value="Arial">Font Family 1</option>
-                        <option value="Papyrus">Font Family 2</option>
-                        <option value="Montserrat">Font Family 3</option>
-                        <option value="Futura">Font Family 4</option>
-                        <option value="Times New Roman">Font Family 5</option>
+                    
                     </select>
 
                     <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
@@ -593,7 +628,7 @@ function validate(){
                 Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
                                     <option value="0">Select</option>
                             </select><br><br>
-                Sub Categories: <select id="subcategories" name="subcategories">
+                Sub Categories: <select id="subcategories" name="subcategories" onchange="showSelected(this.value)">
                                         <option value="0">Select</option>
                                 </select><br><br>
 
@@ -607,6 +642,7 @@ function validate(){
                             <input type="hidden" name="layout" id="layout" >
                             <input type="hidden" name="model_name" id="model_name">
                             <input type="hidden" name="imagename" id="imagename">
+                            <input type="hidden" name="selectedtype" id="selectedtype" value="non" >
                             <input type="button" value="save" onclick="passvaluetoinputfield();">
 
                             <div id="popup">
@@ -616,6 +652,7 @@ function validate(){
                                     file name: <input type="text" id="namexml" ><br>
                                     <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
                                     <input type="button" onclick="validate()" value="Done"/>   
+                                    <input type="button" id="hidepopup" value="Close"/>   
                                 </div>
                              </div>
 

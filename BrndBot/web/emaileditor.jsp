@@ -58,7 +58,10 @@ and open the template in the editor.
                 width: 100px;
                 height: 100px;
                 margin-left:  5px;
-            } 
+            }
+             #slider{
+                 width:600px;height: 20px;zoom: 0.2;
+             }
             #popup
             {
                 display:none;
@@ -198,6 +201,32 @@ and open the template in the editor.
 
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
+<script>
+            $(document).ready(function () {
+    
+            $("#fontname").change(function () {
+//            alert($(this).val());
+                var text = $("#fontname").find('option:selected').text();
+                var font_family_name = $("#fontname").val();
+                var font = font_family_name.split(",");
+                var google_key_word = font[0].split(' ').join('+')
+                var ss = document.createElement("link");
+                ss.type = "text/css";
+                ss.rel = "stylesheet";
+                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+                document.getElementsByTagName("head")[0].appendChild(ss);
+
+                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+                var styles = "@font-face {"+
+                             "font-family:"+ text + ";"+
+                             "src: url("+font_path+");"
+                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+
+                $("#" + selectedTextareaId).css("font-family", font[0]);
+
+            });
+            });
+        </script>
 
         <script>
                     var jsondata;
@@ -394,7 +423,7 @@ and open the template in the editor.
                             mindbodydataId = id;
                             //$scope.showStyles();
                             showText(temp_style_id,temp_style_layout);
-                                    $("#tabs-1").show();
+                                $("#tabs-1").show();
                                 $("#tabs-2").hide();
                                 $("#tabs-3").hide();
                                 $("#tabs-4").hide();
@@ -522,8 +551,12 @@ and open the template in the editor.
                                     }
 
                                     );
+                                            var count=1;
+                                            var blockcount=1;
+                                            $(".imagename").find('option').remove().end();
+                                            $(".blockname").find('option').remove().end();
                                             $(xml).find('element').each(function () {
-                                    var tag = $(this).attr("tag");
+                                            var tag = $(this).attr("tag");
                                             type = $(this).attr("type");
                                             var h = "";
                                             var t = "";
@@ -604,7 +637,9 @@ and open the template in the editor.
                                     var blendmode = $(this).attr("background-blend-mode");
                                             
                                             var background_image=$(this).attr("background-image")
-                                            //                    alert("image");
+                                             $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
+                        //                    alert("image");
+                                                        count++;
                                             $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
                                             $("#" + type + "EEE" + blockId)
                                             .css("color", "" + fontcolor)
@@ -673,7 +708,8 @@ and open the template in the editor.
                                                       }
                                                             
                                                 }           
-                                        
+                                        $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                                            blockcount++;
                                       
                                         $(".preview #" + blockId).append("<div onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
                                         $("#" + type + "EEE" + blockId).css("background-color", "" + backgroundcolor)
@@ -853,7 +889,10 @@ and open the template in the editor.
                                         <div id="shapecontainer">
                                             <p  id="text3" class="SS2">SHAPES</p>
                                             <ul id="shapemodificatoin">
-                                                <li> <p id="editorhead" class="LE1">Header Background<p></li>
+
+                                             
+                                                <li><select class="blockname LE1" id="editorhead"></select></li>
+
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
                                                   <li><p id="editpal">your palette</p></li>                                                                                         
                                                 <li id="colcontainer">
@@ -867,13 +906,17 @@ and open the template in the editor.
                                                         <li>
                                                     </ul>
                                                 </li>
+                                                <li><p class="editpal">pick from theme</p></li>
+                                                <li><p class="editpal custom-color-box" id="picker" style="margin-left: 120px;">custom</p><br></li>
+                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
                                             </ul>
                                         </div>
 
                                         <div id="imagecontainer">
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><p id="editorhead"  class="LE1">Teacher Image</p></li>
+
+                                                <li><select class="imagename LE1" id="editorhead"> </select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
                                                 <li><p  class="btn"  onclick="imageEdit()">edit</p></li>
                                                 <li></li>
@@ -1315,7 +1358,7 @@ and open the template in the editor.
                                                     $("#imagecontainer").hide();
                                                     $("#filtercontainer").show();
                                                     $("#cropImageContainer").show();
-                                                    var image_file = $("#" + selectedImageId).css("background-image").replace("url(", "").replace(")", "");
+                                                    var image_file = $(".imagename").val().replace("url(", "").replace(")", "");
                                                     //                                        alert(image_file);
                                                     id = "image" + i;
                                                     $("#cropper_popup").show();
