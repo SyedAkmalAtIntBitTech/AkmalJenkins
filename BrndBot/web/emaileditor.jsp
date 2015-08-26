@@ -521,8 +521,10 @@ and open the template in the editor.
                                     }
 
                                     );
+                                            var count=1;
+                                            $(".imagename").find('option').remove().end();
                                             $(xml).find('element').each(function () {
-                                    var tag = $(this).attr("tag");
+                                            var tag = $(this).attr("tag");
                                             type = $(this).attr("type");
                                             var h = "";
                                             var t = "";
@@ -603,7 +605,9 @@ and open the template in the editor.
                                     var blendmode = $(this).attr("background-blend-mode");
                                             
                                             var background_image=$(this).attr("background-image")
-                                            //                    alert("image");
+                                             $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
+                        //                    alert("image");
+                                                        count++;
                                             $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
                                             $("#" + type + "EEE" + blockId)
                                             .css("color", "" + fontcolor)
@@ -872,7 +876,7 @@ and open the template in the editor.
                                         <div id="imagecontainer">
                                             <p  id="text3">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><p id="editorhead">Teacher Image</p></li>
+                                                <li><select class=imagename id="editorhead"> </select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
                                                 <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
                                                 <li></li>
@@ -1314,7 +1318,7 @@ and open the template in the editor.
                                                     $("#imagecontainer").hide();
                                                     $("#filtercontainer").show();
                                                     $("#cropImageContainer").show();
-                                                    var image_file = $("#" + selectedImageId).css("background-image").replace("url(", "").replace(")", "");
+                                                    var image_file = $(".imagename").val().replace("url(", "").replace(")", "");
                                                     //                                        alert(image_file);
                                                     id = "image" + i;
                                                     $("#cropper_popup").show();
