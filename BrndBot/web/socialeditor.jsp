@@ -44,15 +44,6 @@ and open the template in the editor.
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
 
-        <script src="//use.typekit.net/wnn8jyx.js"></script>
-        <script>
-            try{
-                Typekit.load({ async: true });
-            }
-            catch(e){}
-       </script>
-        
-        
         <style>
             .socialimage{
                 width: 100px;
@@ -167,13 +158,35 @@ and open the template in the editor.
 
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
-
-        <script src="//use.typekit.net/wnn8jyx.js"></script>
         <script>
-            try{
-                Typekit.load({ async: true });}
-            catch(e){}</script>
-        
+            $(document).ready(function () {
+    
+            $("#fontname").change(function () {
+//            alert($(this).val());
+                var text = $("#fontname").find('option:selected').text();
+                alert(text);
+                var font_family_name = $("#fontname").val();
+                var font = font_family_name.split(",");
+                alert(font[0]);
+                var google_key_word = font[0].replace(" ", "+");
+                var ss = document.createElement("link");
+                ss.type = "text/css";
+                ss.rel = "stylesheet";
+                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+                document.getElementsByTagName("head")[0].appendChild(ss);
+
+                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+                alert(font_path);
+                var styles = "@font-face {"+
+                             "font-family:"+ text + ";"+
+                             "src: url("+font_path+");"
+                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+
+                $("#" + selectedTextareaId).css("font-family", font[0]);
+
+            });
+            });
+        </script>
         <script>
                     var jsondata;
                     var selectedDivId;
@@ -181,12 +194,12 @@ and open the template in the editor.
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
-
+                        alert("test");
                     $http({
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-//                        alert(JSON.stringify(data.user_colors));
+                        alert(JSON.stringify(data.user_colors));
                     $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_names = data.user_font_names;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -253,8 +266,9 @@ and open the template in the editor.
             };
             });
                     function showText(id, layout){
-                          alert(id+""+layout);
+//                          alert(id+""+layout);
 //                            $("#clickid").val(layout);
+
 //                            alert('http://localhost:8080/BrndBot/DownloadXml?file_name='+ layout +'.xml');
                             $.ajax({
                                     type: 'GET',
@@ -479,13 +493,10 @@ and open the template in the editor.
 
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
                                 <script>
-//                                            $("#continue").click(function (){
-//                                                document.location.href = "selectpromotesocialmedia.jsp";
-//                                            });
-                                            function showImageName(user_id, image_name){
-                                                var image_path = "images/Gallery/" + user_id +"/" + image_name;
-                                                $("#image_name").val(image_path);
-                                            }
+                                    function showImageName(user_id, image_name){
+                                        var image_path = "images/Gallery/" + user_id +"/" + image_name;
+                                        $("#image_name").val(image_path);
+                                    }
                                 </script>
                             </div>
 
@@ -493,14 +504,14 @@ and open the template in the editor.
                                 <div id="content">
                                         <div>
                                             <ul>
-                                                <li class="paginationclass" ng-repeat="images in datalistimages | pagination: curPage * pageSize | limitTo: pageSize">
+                                                <li class="paginationclass" ng-repeat="images in datalistimages">
                                                     <div>
                                                         <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width=50 height=50 />
                                                     </div> 
                                                 </li>
                                             </ul>
 
-                                            <div class="pagination pagination-centered" ng-show="datalistimages.length">
+<!--                                            <div class="pagination pagination-centered" ng-show="datalistimages.length">
                                                 <ul class="pagination-controle pagination">
                                                     <li>
                                                         <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
@@ -515,7 +526,7 @@ and open the template in the editor.
                                                                 ng-click="curPage = curPage + 1">NEXT &gt;</button>
                                                     </li>
                                                 </ul>
-                                            </div>
+                                            </div>-->
                                         </div>
                                         <input id="selectimage" name="selectimage" type="Button" value="select"/>  
                                         <input type="hidden" name="image_name" id="image_name"/>
@@ -652,7 +663,7 @@ and open the template in the editor.
                                                 <div style="height:500px; overflow-y: scroll;">
                                                     <ul>
                                                         <!--{{datalists}}-->
-                                                        <li class="paginationclass" ng-repeat="styles in datalists| pagination: curPage * pageSize | limitTo: pageSize">
+                                                        <li class="paginationclass" ng-repeat="styles in datalists">
                                                             <div>
                                                                 <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
