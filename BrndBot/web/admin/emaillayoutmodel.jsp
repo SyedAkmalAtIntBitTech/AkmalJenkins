@@ -17,7 +17,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Layout Model</title>
+        <title>Email Layout Model</title>
         <!--         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -57,6 +57,16 @@
                 }
             });
             var xmlHttp;
+            
+            function showSelected(str){
+                
+                if (str == 0){
+                   $("#selectedtype").val("non");
+                }else {
+                   $("#selectedtype").val("selected");
+                }
+        
+            }
 
             function brandChange() {
 
@@ -193,13 +203,15 @@
             function showmindbodyquery(str) {
 
 
-   //        if (str == 0){
-   //            $("#categories").attr("disabled", false);
-   //            $("#subcategories").attr("disabled", false);
-   //          }else {
-   //            $("#categories").attr("disabled", true);
-   //            $("#subcategories").attr("disabled", true);
-   //          }
+             if (str == 0){
+               $("#categories").attr("disabled", false);
+               $("#subcategories").attr("disabled", false);
+               $("#selectedtype").val("non");
+             }else {
+               $("#categories").attr("disabled", true);
+               $("#subcategories").attr("disabled", true);
+               $("#selectedtype").val("selected");
+             }
 
                 if (typeof XMLHttpRequest !== "undefined") {
 
@@ -236,6 +248,7 @@
 
                     var response = xmlHttp.responseText;
                     $("#mindbodyquery").val(response.trim());
+                    
    //              document.getElementById("subcategories").innerHTML=response;
                 }
             }
@@ -296,11 +309,9 @@
             $("#textFontFamily").change(function () {
 //            alert($(this).val());
                 var text = $("#textFontFamily").find('option:selected').text();
-                alert(text);
                 var font_family_name = $("#textFontFamily").val();
                 var font = font_family_name.split("|");
-                alert(font[0]);
-                var google_key_word = font[0].replace(" ", "+");
+                var google_key_word = font[0].split(' ').join('+')
                 var ss = document.createElement("link");
                 ss.type = "text/css";
                 ss.rel = "stylesheet";
@@ -308,7 +319,6 @@
                 document.getElementsByTagName("head")[0].appendChild(ss);
 
                 var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
-                alert(font_path);
                 var styles = "@font-face {"+
                              "font-family:"+ text + ";"+
                              "src: url("+font_path+");"
@@ -317,6 +327,10 @@
                 $(".textAreas").css("font-family", font[0]);
 
             });
+            $("#hidepopup").click(function(){
+                $('#popup').hide("slow");
+            });
+            
             });
           
           
@@ -415,7 +429,8 @@
     </head>
     <body>
         <%@include file="menus.jsp" %>
-        <%!    PreparedStatement ps;
+        <%! 
+            PreparedStatement ps;
             ResultSet rs;
             String Query = "";
             Integer id = 0;
@@ -717,7 +732,7 @@
                 Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
                                     <option value="0">Select</option>
                             </select><br><br>
-                Sub Categories: <select id="subcategories" name="subcategories">
+                            Sub Categories: <select id="subcategories" name="subcategories" onchange="showSelected(this.value)">
                                         <option value="0">Select</option>
                                 </select>
                     Blocks : <select name="blocks" id="blocks" onchange="showmindbodyquery(this.value)">
@@ -732,6 +747,7 @@
                             <input type="hidden" name="mapper" id="mapper">
                             <input type="hidden" name="layout" id="layout" >
                             <input type="hidden" name="model_name" id="model_name" >
+                            <input type="hidden" name="selectedtype" id="selectedtype" value="non" >
                             
                             <input type="button" value="save" onclick="passvaluetoinputfield();">
 
@@ -742,6 +758,7 @@
                                  file name<input type="text" id="namexml" required><br>-->
                                  <input type="hidden" name="mail" value="mail"/>
                                  <input type="button" onclick="validate()" value="Done"/>   
+                                 <input type="button" id="hidepopup" value="Close"/>   
                               </div>   
 
                              </div>

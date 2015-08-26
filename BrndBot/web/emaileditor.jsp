@@ -203,11 +203,9 @@ and open the template in the editor.
             $("#fontname").change(function () {
 //            alert($(this).val());
                 var text = $("#fontname").find('option:selected').text();
-                alert(text);
                 var font_family_name = $("#fontname").val();
                 var font = font_family_name.split(",");
-                alert(font[0]);
-                var google_key_word = font[0].replace(" ", "+");
+                var google_key_word = font[0].split(' ').join('+')
                 var ss = document.createElement("link");
                 ss.type = "text/css";
                 ss.rel = "stylesheet";
@@ -215,7 +213,6 @@ and open the template in the editor.
                 document.getElementsByTagName("head")[0].appendChild(ss);
 
                 var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
-                alert(font_path);
                 var styles = "@font-face {"+
                              "font-family:"+ text + ";"+
                              "src: url("+font_path+");"
