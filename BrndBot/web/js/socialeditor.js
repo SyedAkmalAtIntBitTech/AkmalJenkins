@@ -17,6 +17,7 @@ var date;
 var head1 = "Head1";
 var i = 1;
 
+
 function setSocialParameters(title, teacher, date) {
     title = $("#title").val();
     teacher = $("#teacher").val();
@@ -35,6 +36,7 @@ $(document).ready(function () {
     var status = "true";
     $("#tabs-1").show();
     $("#tabs-2").hide();
+   blockId=$(".blockname").val();
     $('.color-box').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
@@ -46,6 +48,32 @@ $(document).ready(function () {
         }
     })
             .css('background-color', '#ffffff');
+    
+     $('.custom-color-box').colpick({
+        colorScheme: 'dark',
+        layout: 'rgbhex',
+        color: 'ff8800',
+        onSubmit: function (hsb, hex, rgb, el) {
+           $("#selectedshapecolorbox").css('background-color', '#' + hex);
+//            place block selected block
+            var  blockId=$(".blockname").val();
+            $("#"+blockId).css('background-color', '#' + hex);
+            $(el).colpickHide();
+        }
+    })
+            .css('background-color', '#ffffff');
+    
+    
+      $('#slider').slider({ 
+        min: 0, 
+        max: 1, 
+        step: 0.01, 
+        value: 1,
+        orientation: "horizontal",
+             slide: function(e,ui){
+                     $('#'+$(".blockname").val()).css('opacity', ui.value);
+             }                
+        }); 
 
     $(".blankcolor-box").click(function () {
         var color = $("#" + this.id).css("background-color");
@@ -156,6 +184,7 @@ $(document).ready(function () {
 
                     );
                     var count=1;
+                    var blockcount=1;
                     $(xml).find('element').each(function () {
                         var tag = $(this).attr("tag");
                         type = $(this).attr("type");
@@ -283,6 +312,8 @@ $(document).ready(function () {
                         {
                                     var colorName = $(this).attr("color-name");
                                     var backgroundcolor;
+                                     $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                                     blockcount++;
                                     for (var i = 1; i <= 6; i++)
                                     {
                                         if (colorName === "Color-" + i)

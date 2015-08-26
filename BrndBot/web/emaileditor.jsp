@@ -57,7 +57,10 @@ and open the template in the editor.
                 width: 100px;
                 height: 100px;
                 margin-left:  5px;
-            } 
+            }
+             #slider{
+                 width:600px;height: 20px;zoom: 0.2;
+             }
             #popup
             {
                 display:none;
@@ -422,7 +425,7 @@ and open the template in the editor.
                             mindbodydataId = id;
                             //$scope.showStyles();
                             showText(temp_style_id,temp_style_layout);
-                                    $("#tabs-1").show();
+                                $("#tabs-1").show();
                                 $("#tabs-2").hide();
                                 $("#tabs-3").hide();
                                 $("#tabs-4").hide();
@@ -551,7 +554,9 @@ and open the template in the editor.
 
                                     );
                                             var count=1;
+                                            var blockcount=1;
                                             $(".imagename").find('option').remove().end();
+                                            $(".blockname").find('option').remove().end();
                                             $(xml).find('element').each(function () {
                                             var tag = $(this).attr("tag");
                                             type = $(this).attr("type");
@@ -705,7 +710,8 @@ and open the template in the editor.
                                                       }
                                                             
                                                 }           
-                                        
+                                        $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                                            blockcount++;
                                       
                                         $(".preview #" + blockId).append("<div onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
                                         $("#" + type + "EEE" + blockId).css("background-color", "" + backgroundcolor)
@@ -885,7 +891,7 @@ and open the template in the editor.
                                         <div id="shapecontainer">
                                             <p  id="text3">SHAPES</p>
                                             <ul id="shapemodificatoin">
-                                                <li> <p id="editorhead">Header Background<p></li>
+                                                <li><select class="blockname" id="editorhead"></select></li>
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
                                                   <li><p id="editpal">your palette</p></li>                                                                                         
                                                 <li id="colcontainer">
@@ -899,6 +905,9 @@ and open the template in the editor.
                                                         <li>
                                                     </ul>
                                                 </li>
+                                                <li><p class="editpal">pick from theme</p></li>
+                                                <li><p class="editpal custom-color-box" id="picker" style="margin-left: 120px;">custom</p><br></li>
+                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
                                             </ul>
                                         </div>
 
