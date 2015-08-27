@@ -104,7 +104,7 @@
 				-moz-user-select: none;
 				-o-user-select: none;
 				user-select: none;
-				background:transparent;
+				background:#4096ee;
 			}
 			
 			span.selectArrow,span.selected
