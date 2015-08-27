@@ -754,7 +754,7 @@
                              <div id="content">
 <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                                  Layout file name<input type="text" id="layoutxml" required><br>-->
-                                 file name<input type="text" id="namexml" required><br>-->
+                                 Model Name: <input type="text" id="namexml" required><br>-->
                                  <input type="hidden" id="mail" name="mail" value="mail"/>
                                  <input type="button" onclick="validate()" value="Done"/>   
                                  <input type="button" id="hidepopup" value="Close"/>   
