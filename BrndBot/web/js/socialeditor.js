@@ -192,10 +192,11 @@ $(document).ready(function () {
                             $(".preview").append("<div><textarea class=textAreas onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
                             $("#" + type).css("color", "" + fontcolor)
                                     .css("position", "absolute")
+                                    .css("overflow", "hidden")
                                     .css("margin-left", "" + left + "px")
                                     .css("margin-top", "" + top + "px")
                                     .css("width", "" + width)
-                                    .css("min-height", "" + height)
+                                    .css("height", "" + height)
                                     .css("font-size", "" + fontsize)
                                     .css("font-style", "" + fontstyle)
                                     .css("font-weight", "" + fontweight)
@@ -207,7 +208,23 @@ $(document).ready(function () {
                                     .css("text-align", "" + textalign)
                                     .css("text-shadow", "" + dropshadow)
                                     .css("webkit-transform", "rotate(" + webkittransform + "deg)");
-                            $("#" + type).autogrow();
+                            //$("#" + type).autogrow();
+                            
+                                    //resize of text to fit bound - By Syed Ilyas 26/8/2015
+                                    var tempfontsize = parseInt(fontsize.replace("px",""));
+                                    var tempHeight = parseInt(height.replace("px",""));
+                                    if($("#" + type).get(0).scrollHeight > tempHeight)
+                                    {
+                                        $("#" + type).css("line-height", "initial");
+                                    while ( $("#" + type).get(0).scrollHeight > tempHeight) {
+                                           tempfontsize = tempfontsize - 1;
+                                          $("#" + type).css("font-size", "" + tempfontsize +"px");
+                                    }
+                                     var xxyy = parseInt(tempfontsize);
+                                    xxyy = Math.round(xxyy * 1.2);
+                                     $("#" + type).css("line-height",""+xxyy+"px");
+                                    }
+                                    //resize end
                         }
 
                         if (tag === "logo")
@@ -261,8 +278,11 @@ $(document).ready(function () {
 
                         if (tag === "block")
                         {
+                            
                                     var colorName = $(this).attr("color-name");
+                                    var borderRadius = $(this).attr("border-radius");
                                     var backgroundcolor;
+                                    
                                     for (var i = 1; i <= 6; i++)
                                     {
                                         if (colorName === "Color-" + i)
@@ -271,17 +291,22 @@ $(document).ready(function () {
                                         }
 
                                     }
-//                  alert("block");
-                            var width = $(this).attr("width");
-                            var height = $(this).attr("height");
-//                            var backgroundcolor = $(this).attr("background-color");
-//                 alert(backgroundcolor);
-                            $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                            $("#" + type).css("background-color", "" + backgroundcolor)
-                                         .css("margin-left", "" + left + "px")
-                                         .css("margin-top", "" + top + "px")
-                                         .css("width", "" + width)
-                                         .css("height", "" + height);
+                                    var width = $(this).attr("width");
+                                    var height = $(this).attr("height");
+                                    var drop_shadow=$(this).attr("Drop-shadow-color");
+                                    var h_shadow =  $(this).attr("H-shadow"); 
+                                    var v_shadow=$(this).attr("V-shadow");
+                                    var Blur=$(this).attr("blur");
+                                    $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
+                                    $("#" + type).css("background-color", "" + backgroundcolor)
+                                                .css("margin-left", "" + left + "px")
+                                                .css("margin-top", "" + top + "px")
+                                                .css("width", "" + width)
+                                                .css("border-radius", "" + borderRadius)
+                                                .css("position", "absolute")
+                                                .css("height", "" + height)
+                                                .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
+                                                .css("opacity", "" + opacity);
                         }
 
                     }

@@ -20,12 +20,14 @@ and open the template in the editor.
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/jquery-ui.js" type="text/javascript"></script>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
         <script src="js/mindbodyutility.js" type="text/javascript"></script>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <style>
             .glyphicon.glyphicon-home,.glyphicon.glyphicon-envelope,.glyphicon.glyphicon-comment, .glyphicon.glyphicon-picture, .glyphicon.glyphicon-cog{
                 font-size:20px;
@@ -150,7 +152,7 @@ and open the template in the editor.
             }
         %>
         <script>
-
+            
                     angular.module("myapp", [])
                     .controller("controllerGetMindBody", function($scope, $http) {
                     $("#continuebutton").hide();
@@ -191,7 +193,17 @@ and open the template in the editor.
 //                    };
 //                    });
                     var selected_id;
+                    
                     function select_category_details(id){
+                       
+                      //  background-color: #00CC99;
+                   // color: whitesmoke;
+                   $(".mindbodyOneRowData").css("background-color","#ffffff");
+                   $(".mindbodyOneRowData").css("color","#2d4355");
+                   
+                        $("#"+id).css("background-color","#00CC99");
+                        $("#"+id).css("color","whitesmoke");
+                        
                     selected_id = id;
         
                             $("#continuebutton").prop("disabled", false);
@@ -204,6 +216,7 @@ and open the template in the editor.
             var configuration = global_host_address + "selectpromotemedia.jsp" + "?id=" + selected_id;
                     window.open(configuration, "_self");
             }
+            
         </script>
         
 
@@ -227,13 +240,13 @@ and open the template in the editor.
                                 <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
 <!--                                    {{jsonclass}}-->
 
-                <div class="mindbodyOneRowData" onclick="select_category_details('{{jsonclass.id}}')" >
+                <div id="{{jsonclass.id}}" class="mindbodyOneRowData" onclick="select_category_details('{{jsonclass.id}}')" >
                                     <li style="width: 400px;left:20px;">{{jsonclass.column1}}</li>
                                     <li style="width: 250px">{{jsonclass.column2}}</li>
                                     <li style="width: 100px">{{jsonclass.column3}}</li>
                                 </ul>
                   
-                    </div>
+                </div>
 
                 </div>
 

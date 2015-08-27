@@ -580,22 +580,47 @@ and open the template in the editor.
                                                 //alert(".preview #" + blockId);
                                                 $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
                                                 $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
-                                                                       .css("position", "absolute")
-                                                                       .css("left", "" + left + "px")
-                                                                       .css("top", "" + top + "px")
-                                                                       .css("width", "" + width)
-                                                                       .css("min-height", "" + height)
-                                                                       .css("font-size", "" + fontsize)
-                                                                       .css("font-style", "" + fontstyle)
-                                                                       .css("font-weight", "" + fontweight)
-                                                                       .css("letter-spacing", "" + letterspacing)
-                                                                       .css("line-height", "" + lineheight)
-                                                                       .css("opacity", "" + opacity)
-                                                                       .css("text-align", "" + textalign)
-                                                                       .css("text-shadow", "" + dropshadow)
-                                                                       .css("webkit-transform", "rotate(" + webkittransform + "deg)")
-                                                                       .css("background-color", "inherit" );
-                                                $("#" + type + "EEE" + blockId).autogrow();
+                                                                        .css("position", "absolute")
+                                                                        .css("overflow", "hidden")
+                                                                        .css("left", "" + left + "px")
+                                                                        .css("top", "" + top + "px")
+                                                                        .css("width", "" + width)
+
+                                                                        .css("height", "" + height)
+
+                                                                        .css("font-style", "" + fontstyle)
+                                                                        .css("font-weight", "" + fontweight)
+                                                                        .css("letter-spacing", "" + letterspacing)
+                                                                        .css("opacity", "" + opacity)
+                                                                        .css("text-align", "" + textalign)
+                                                                        .css("text-shadow", "" + dropshadow)
+                                                                        .css("webkit-transform", "rotate(" + webkittransform + "deg)")
+                                                                        .css("resize", "none")
+                                                                        .css("background-color", "inherit")
+                                                                        .css("border", "none")
+                                                                        .css("focus", "none")
+                                                                        .css("line-height", "" + lineheight); 
+                                                //$("#" + type + "EEE" + blockId).autogrow();
+                                                
+                                                //resize of text to fit bound - By Syed Ilyas 26/8/2015
+                                                var tempfontsize = parseInt(fontsize.replace("px",""));
+                                                var tempHeight = parseInt(height.replace("px",""));
+                                                $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize +"px");
+                                                if($("#" + type + "EEE" + blockId).get(0).scrollHeight > tempHeight)
+                                                {
+                                                    $("#" + type + "EEE" + blockId).css("line-height", "initial");
+                                                while ( $("#" + type + "EEE" + blockId).get(0).scrollHeight > tempHeight) {
+                                                       tempfontsize = tempfontsize - 1;
+                                                      $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize +"px");
+                                                }
+                                                 var xxyy = parseInt(tempfontsize);
+                                                xxyy = Math.round(xxyy * 1.2);
+                                                 $("#" + type + "EEE" + blockId).css("line-height",""+xxyy+"px");
+                                                }
+                                                //resize end
+                                                
+                                                
+                                                
                                         }
 
                                     if (tag === "image")
@@ -652,7 +677,7 @@ and open the template in the editor.
 
                                     if (tag === "block")
                                     {
-    
+                                        var borderRadius = $(this).attr("border-radius");
                                         var colorName=$(this).attr("color-name");
                                         var backgroundcolor;
                                         var width = $(this).attr("width");
@@ -679,6 +704,7 @@ and open the template in the editor.
                                                      .css("margin-left", "" + left + "px")
                                                      .css("margin-top", "" + top + "px")
                                                      .css("width", "" + width)
+                                                     .css("border-radius", "" + borderRadius)
                                                      .css("position", "absolute")
                                                      .css("height", "" + height)
                                                      .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
