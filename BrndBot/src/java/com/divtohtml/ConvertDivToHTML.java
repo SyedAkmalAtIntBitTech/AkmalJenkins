@@ -354,6 +354,6 @@ public class ConvertDivToHTML {
             //Should create the compressed image out of this and replace the background with it.
 
         }
-        return servletRequest.getServerName() + compressedBackgroundImageFile.getPath();
+        return servletRequest.getServerName()+":"+servletRequest.getServerPort() + compressedBackgroundImageFile.getPath();
     }
 }
