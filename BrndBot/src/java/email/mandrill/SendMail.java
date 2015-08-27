@@ -29,7 +29,7 @@ public class SendMail {
 
     public final static String MANDRILL_KEY = "4jd3wIMvBAmJt9H0FcEb1w";
 
-    public static void sendMail(Message message) {
+    public static MessageResponses sendMail(Message message) {
         try {
             logger.log(Level.INFO, "Message:" + message.toJSONString());
 
@@ -52,8 +52,8 @@ public class SendMail {
 
                     MessageResponses messageResponses = new MessageResponses(theString);
                     //Do whateveer is needed with the response.
-
                     logger.log(Level.INFO, theString);
+                    return messageResponses;
                 } finally {
                     instream.close();
                 }
@@ -61,6 +61,7 @@ public class SendMail {
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
+        return null;
     }
 
     public static void checkPingPong() {
