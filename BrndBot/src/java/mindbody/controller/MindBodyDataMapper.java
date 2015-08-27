@@ -5,7 +5,6 @@
  */
 package mindbody.controller;
 
-import com.controller.SqlMethods;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.Program;
@@ -19,20 +18,23 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
 /**
  *
  * @author intbit
  */
 public class MindBodyDataMapper {
-        private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindBodyDataMapper.class));
 
-     public static JSONObject mapEnrollmentData(ClassSchedule mindbody_enrollments, String socialEditorLayoutFileName) {
+    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindBodyDataMapper.class));
+
+    public static JSONObject mapEnrollmentData(ClassSchedule mindbody_enrollments, String socialEditorLayoutFileName) {
         JSONObject json_mindbody_enrollment_data = new JSONObject();
         try {
             if (mindbody_enrollments != null) {
@@ -73,7 +75,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("EnrollmentName")) {
                             if (mindbody_enrollments.getClassDescription().getName() != null) {
-                                json_mindbody_enrollment_data.put(element, mindbody_enrollments.getClassDescription().getName());
+                                json_mindbody_enrollment_data.put(element, Jsoup.parse(mindbody_enrollments.getClassDescription().getName()).text());
                             } else {
                                 json_mindbody_enrollment_data.put(element, defaultValue);
                             }
@@ -82,7 +84,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("EnrollmentDescription")) {
                             if (mindbody_enrollments.getClassDescription().getDescription() != null) {
-                                json_mindbody_enrollment_data.put(element, mindbody_enrollments.getClassDescription().getDescription());
+                                json_mindbody_enrollment_data.put(element, Jsoup.parse(mindbody_enrollments.getClassDescription().getDescription()).text());
                             } else {
                                 json_mindbody_enrollment_data.put(element, defaultValue);
                             }
@@ -93,7 +95,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("EnrollmentProgramName")) {
                             if (program.getName() != null) {
-                                json_mindbody_enrollment_data.put(element, program.getName());
+                                json_mindbody_enrollment_data.put(element, Jsoup.parse(program.getName()).text());
                             } else {
                                 json_mindbody_enrollment_data.put(element, defaultValue);
                             }
@@ -186,16 +188,14 @@ public class MindBodyDataMapper {
 
             }
         } catch (SAXParseException err) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while updating org name:", null));
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while updating org name:", null));
 
         } catch (SAXException e) {
-                               logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
 
         } catch (Throwable t) {
         }
-            //System.exit (0);        
+        //System.exit (0);        
 
         return json_mindbody_enrollment_data;
     }
@@ -242,8 +242,8 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassName")) {
                             if (mindbody_class.getClassDescription().getName() != null) {
-                                
-                                json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getName());
+
+                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getName()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -252,7 +252,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassDescription")) {
                             if (mindbody_class.getClassDescription().getDescription() != null) {
-                                json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getDescription());
+                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getDescription()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -262,7 +262,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassProgramName")) {
                             if (program.getName() != null) {
-                                json_mindbody_class_data.put(element, program.getName());
+                                json_mindbody_class_data.put(element, Jsoup.parse(program.getName()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -301,7 +301,7 @@ public class MindBodyDataMapper {
                             String Name = First_name + " " + Last_name;
 
                             if (Name != null) {
-                                json_mindbody_class_data.put(element, Name);
+                                json_mindbody_class_data.put(element, Jsoup.parse(Name).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -327,16 +327,14 @@ public class MindBodyDataMapper {
 
             }
         } catch (SAXParseException err) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while updating org name:", null));
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while updating org name:", null));
 
         } catch (SAXException e) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
 
         } catch (Throwable t) {
         }
-            //System.exit (0);        
+        //System.exit (0);        
 
         return json_mindbody_class_data;
     }
@@ -383,7 +381,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassName")) {
                             if (mindbody_class.getClassDescription().getName() != null) {
-                                json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getName());
+                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getName()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -392,7 +390,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassDescription")) {
                             if (mindbody_class.getClassDescription().getDescription() != null) {
-                                json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getDescription());
+                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getDescription()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -401,7 +399,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassProgramName")) {
                             if (mindbody_class.getClassDescription().getProgram() != null) {
-                                json_mindbody_class_data.put(element, mindbody_class.getClassDescription().getProgram());
+                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getProgram().getName()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -466,14 +464,14 @@ public class MindBodyDataMapper {
 
             }
         } catch (SAXParseException err) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while updating org name:", null));
 
         } catch (SAXException e) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
 
         } catch (Throwable t) {
         }
-            //System.exit (0);        
+        //System.exit (0);        
 
         return json_mindbody_class_data;
     }

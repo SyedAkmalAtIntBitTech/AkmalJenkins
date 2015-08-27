@@ -1,8 +1,8 @@
 package com.intbit;
 
+import com.divtohtml.StringUtil;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -27,7 +27,17 @@ public class PhantomImageConverter {
     private static String templateJSFilePath;
     private static String tempPath;
     private static String path = "";
+    private String outputFilePath;
 
+    public PhantomImageConverter(ServletContext context, String outputFilePath) throws Exception {
+        this(context);
+        this.outputFilePath = outputFilePath;                
+        File outputFilePathDir = new File(outputFilePath);
+        if (!outputFilePathDir.exists()){
+            outputFilePathDir.mkdirs();
+        }
+    }
+    
     public PhantomImageConverter(ServletContext context) throws Exception {
 
         path = context.getRealPath("");
@@ -45,16 +55,26 @@ public class PhantomImageConverter {
         File createdJSFile = tempJS(createdHtmlFile, width, height, x, y);
 
         Runtime runTime = Runtime.getRuntime();
-        String execPath = "phantomjs " + createdJSFile.getPath();
+        String execPath = "phantomjs "+createdJSFile.getPath();
+        //String execPath = "/Users/AR/Downloads/DevSoftware/PhantomJS/phantomjs " + createdJSFile.getPath();
  
         Process process = runTime.exec(execPath);
         int exitStatus = process.waitFor();
         File tempImagePath = new File(tempPath + File.separator + createdJSFile.getName().replace("js", "png"));
         logger.info(tempImagePath.getPath());
+        
+        File fileToSend = tempImagePath;
+        if (!StringUtil.isEmpty(this.outputFilePath)) {
+            File outputFile = new File(outputFilePath+File.separator+tempImagePath.getName());
+            FileUtils.copyFile(tempImagePath, outputFile);
+            fileToSend = outputFile;
+            tempImagePath.delete();
+        }
+        
         createdHtmlFile.delete();
         createdJSFile.delete();
 
-        return tempImagePath;
+        return fileToSend;
     }
 
     private File tempHTML(String bodyString) throws IOException {
