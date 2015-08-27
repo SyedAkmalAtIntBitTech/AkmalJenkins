@@ -17,6 +17,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/leftmenuhamburger.js" type="text/javascript"></script>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
         <style type="text/css">
@@ -83,18 +84,20 @@
             }
             .content{
                 position: relative;
-                top: 90px;
+                top: 95px;
 /*                margin-left: 60px;
                 zoom: 0.5;*/
             }
-            #popup{
-                
-/*                width: 500px;*/
-/*                height: 500px;*/
+            #popup {
+/*               
+                width: 500px;
+                height: 50em;*/
             }
             .preview{
                 
             }
+            
+         
         </style>
         <script type="text/javascript">
             var started;
@@ -150,25 +153,26 @@
                             
                               if(id==="ipad"){
                                $(".preview").css("width","850px").css("height","850px").css("overflow","none").css("overflow","hidden");
-                               $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("width","239px").css("height","300px").css("overflow","hidden");
+                               $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("width","239px").css("height","300px").css("overflow","hidden")
+                               .css("border-color","transparent").css("background-color","transparent").css("margin-left","-55px").css("margin-top","-80px");
                                      $(".content").css("margin-left","-54px").css("margin-top","-150px").css("zoom","29.8%")
                                              .css("width","400px"); 
                             }
-                             if(id==="imac")
+                           else  if(id==="imac")
                              {
-                                $(".preview").css("width","850px").css("height","850px").css("overflow","hidden");
-                                $(".iphoneshow").css("background-image",imageUrl)
-                                                .css("display",'block').css("width","300px").css
-                                                .css("height","225px").css("overflow","hidden");
-                                $(".content").css("margin-left","-7px").css("margin-top","-50px")
-                                        .css("width","400px").css("zoom","0%");                                      
-                             }
-                             if(id==="iphone"){  
                                $(".preview").css("width","550px").css("height","950px").css("overflow","hidden").css("align","center");
                                $(".iphoneshow").css("background-image",imageUrl)
-                                       .css("display",'block').css("height","413px").css("width","195px")
-                                       .css("overflow-x","hidden");
-                               $(".content").css("margin-left","-85px").css("margin-top","-112px").css("width","450px").css("height","920px").css("overflow","none").css("zoom","25%"); 
+                                       .css("display",'block').css("height","413px").css("width","295px").css("margin-left","-55px").css("margin-top","-80px")
+                                       .css("overflow-x","hidden").css("border-color","transparent").css("background-color","transparent");
+                               $(".content").css("margin-left","-33px").css("margin-top","-132px").css("width","440px").css("height","920px").css("overflow","none").css("zoom","37%"); 
+                             
+                                } 
+                            else {  
+                               $(".preview").css("width","550px").css("height","950px").css("overflow","hidden").css("align","center");
+                               $(".iphoneshow").css("background-image",imageUrl)
+                                       .css("display",'block').css("height","370px").css("width","195px").css("margin-left","-55px").css("margin-top","-80px")
+                                       .css("overflow-x","hidden").css("border-color","transparent").css("background-color","transparent");
+                               $(".content").css("margin-left","-97px").css("margin-top","-122px").css("width","400px").css("height","920px").css("overflow","none").css("zoom","22%"); 
                              
                                 } 
                           
@@ -206,7 +210,7 @@
         <div class="row">
            <jsp:include page="leftmenu.html"/>
             <div class="col-md-4 col-md-offset-1">
-                <p id="textgrt">SEND EMAIL PREVIEW</p>
+                <p id="textgrt" class="MH1">SEND EMAIL PREVIEW</p>
                 <p id="text2">go back</p>
                 <form class="form-horizontal" id="emailform">
                      <div class="group">
@@ -260,17 +264,23 @@
                 
                 </ul>-->
                 
-                  <ul class="images">
+                  <ul class="images ">
                         <li><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                         <li><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                         <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                   </ul>
 
+                  
         <div class="iphoneshow img-responsive"   id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
            <div class="content">  
                         <%=htmlData %>
                 </div>
          </div>
+                
+                
+                
+                
+                
                        
             </div>
         </div>

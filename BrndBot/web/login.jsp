@@ -19,7 +19,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <link rel="stylesheet" href="css/main1.css">
         
-        <title>user login</title>
+        <title>User Login</title>
     </head>
     <body class="container">
         <div id="signupdiv">
@@ -50,7 +50,7 @@
                     <div class="col-md-5 col-md-offset-5">
                         <button type="submit"  class="btn btn-info">Login</button><br><br>
                         <br><br><p><a href="<%= application.getContextPath()%>/resetpassword.jsp">Forgot password</a></p>
-
+                        <p class="sgnup"><a href="signup.jsp">Sign up</a></p>
                     </div>
                 </div>
             </form>
@@ -58,3 +58,12 @@
                     
     </body>
 </html>
+<style>
+   
+    .sgnup{
+        position: relative;
+        left:150px;
+        top:-2.15em;
+    }
+</style>
+    

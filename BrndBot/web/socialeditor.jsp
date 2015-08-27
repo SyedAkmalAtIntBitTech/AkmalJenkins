@@ -29,6 +29,7 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
@@ -489,7 +490,7 @@ and open the template in the editor.
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0 prev">
 
-                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb"><a href="selectpromotemedia.jsp">go back</a></p>
+                            <p class="edit SP1">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb" class="BT2"><a href="selectpromotemedia.jsp">go back</a></p>
                             <div class="preview" style="zoom: 0.5;">
 
                            
@@ -577,9 +578,9 @@ and open the template in the editor.
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
-                                            <p id="text3">TEXT</p> 
+                                            <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li><p id="editorheadere">font color</p>
+                                                <li><p id="editorheadere" class="SS1">font color</p>
                                                     <div class="color-box blankcolor-box1" id="picker" style="left:-20px;"></div>
                                                     <div >
                                                         <ul>
@@ -600,14 +601,14 @@ and open the template in the editor.
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
-                                                    <p id="editorheadere">font size</p>
+                                                    <p id="editorheadere" class="SS1">font size</p>
                                                     <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px; ">
                                                         <option ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                     </select> 
                                                 </li>
 
                                                 <li>
-                                                    <p id="editorheadere">font style</p>
+                                                    <p id="editorheadere" class="SS1">font style</p>
                                                     
 
                                                     <select id="fontname" style="margin:2px;font-size:15px;width:80px;">
@@ -630,9 +631,10 @@ and open the template in the editor.
                                         <input type="hidden" id='clickid'>
 
                                         <div id="shapecontainer">
-                                            <p  id="text3">SHAPES</p>
+                                            <p  id="text3" class="SS2">SHAPES</p>
                                             <ul id="shapemodificatoin">
-                                                <li><select class="blockname" id="editorhead"></select></li>
+
+                                                <li><select class="blockname LE1" id="editorhead"></select></li>
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li>
                                                 <li><p class="editpal" >your palette</p></li>
                                                 <li id="colcontainer">
@@ -653,11 +655,11 @@ and open the template in the editor.
                                         </div>
 
                                         <div id="imagecontainer">
-                                            <p  id="text3">IMAGE</p>
+                                            <p  id="text3" class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><select class="imagename" id="editorhead"> </select></li>
+                                                <li><select class="imagename LE1" id="editorhead"> </select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
-                                                <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
+                                                <li><p  class="btn" onclick="imageEdit()">edit</p></li>
                                                 <li></li>
                                             </ul>
                                         </div>

@@ -19,8 +19,10 @@ use this formate to call
 /* Common button styles */
 .button {
 	float: left;
-	min-width: 150px;
-	max-width: 250px;
+        line-height: 0px;
+        max-height: 40px;
+        min-width: 60px;
+	max-width: 150px;
 	display: block;
 	margin: 1em;
 	padding: 1em 2em;
@@ -49,7 +51,7 @@ use this formate to call
 
 /* Sizes */
 .button--size-s {
-	font-size: 14px;
+	font-size: 12px;
 }
 .button--size-m {
 	font-size: 16px;

@@ -1,14 +1,14 @@
 <%-- 
-    Document   : emaildashboard
-    Created on : Aug 21, 2015, 3:12:51 PM
+    Document   : history
+    Created on : Aug 25, 2015, 6:46:46 PM
     Author     : Syed Akmal at IntBit Technologies.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head> 
-             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
@@ -35,11 +35,8 @@
         <script src="js/jquery-ui.js" type="text/javascript"></script>
         <script src="js/jquery.autogrow-textarea.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Email Dashboard</title>
+    <title>History</title>
         <script src="js/crop.js" type="text/javascript"></script>
-       
-        
-        
     </head>
     <body ng-app="myapp">
         <div ng-controller="MyController" class="container" id="container"> 
@@ -49,8 +46,14 @@
 
       <jsp:include page="submenu.html"/>
     <div class="col-md-8 col-md-offset-2 " ng-app="myapp">
-        <div class="col-md-6 col-md-offset-2 bgcol"><p>ANALYTICS</p></div>
-        <div class="col-md-6 col-md-offset-1 ba"><p>Blog area? </p></div>
+        <div class="col-md-6 col-md-offset-0"><p id="hyshead">Sent Scheduled</p></div>
+        <div class="col-md-6 col-md-offset-0 bgcolh"></div>
+        <div class="col-md-6 col-md-offset-0 bgcolh"></div>
+        <div class="col-md-6 col-md-offset-0 bgcolh"></div>
+        <div class="col-md-6 col-md-offset-0 bgcolh"></div>
+        <div class="col-md-6 col-md-offset-0 bgcolh"></div>
+        <div class="col-md-6 col-md-offset-0 bgcolh"></div>
+        
         
     </div>
         </div>

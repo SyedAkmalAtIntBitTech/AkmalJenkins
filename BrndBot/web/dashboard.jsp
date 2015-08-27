@@ -40,6 +40,7 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
@@ -95,12 +96,12 @@ and open the template in the editor.
 
                     <div class="col-md-10 col-md-offset-1" ng-controller="controllerCategories">
 
-                        <p id="text3" class="company">  Hi <%= company%>!<br>What would you like to do today?</p>
+                        <p id="text3" class="company MH1">  Hi <%= company%>!<br>What would you like to do today?</p>
                         <p id="text3-1" class="mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}" target="_blank">Click here</a></p>
                        <ul id="promotelist">
                             
                             <li id="one" ng-repeat="category in categories">
-                                <a href=""><img id="promoteimage" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91"/></a><p id="text4">{{category.categoryName}}</p>
+                                <a href=""><img id="promoteimage" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91"/></a><p id="text4" class="il2">{{category.categoryName}}</p>
                             </li>
                         </ul>
                         <div>
