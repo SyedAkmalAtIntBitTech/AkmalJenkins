@@ -39,14 +39,16 @@ $(document).ready(function () {
         $("#tabs-2").hide();
         $("#tabs-3").hide();
         $("#tabs-4").hide();
-    $('.color-box').colpick({
+    $('.custom-color-box-text').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
         color: 'ff8800',
         onSubmit: function (hsb, hex, rgb, el) {
-            $(el).css('background-color', '#' + hex);
+            
             $("#" + selectedTextareaId).css('color', '#' + hex);
+            $("#picker").css('background-color', '#' + hex);
             $(el).colpickHide();
+            $("#pickColorForText").css("display", "none");
         }
     })
             .css('background-color', '#ffffff');
@@ -70,7 +72,7 @@ $(document).ready(function () {
         step: 0.01, 
         value: 1,
         orientation: "horizontal",
-             slide: function(e,ui){
+             slide: function(e,ui){   
                      $('#'+$(".blockname").val()).css('opacity', ui.value);
              }                
         }); 
@@ -79,7 +81,22 @@ $(document).ready(function () {
         $("#selectedshapecolorbox").css("background-color", "" + color);
         $("#" + selectedDivId).css("background-color", "" + color);
     });
-
+ $(".blankcolor-box1").click(function () {
+        alert("cli");
+        var display= $("#pickColorForText").css("display");
+        if (display === "none") {
+            $("#pickColorForText").css("display", "block");
+            $(".blankcolor-box-text").click(function () {
+                var color = $("#" + this.id).css("background-color");
+                $("#picker").css("background-color", "" + color);
+                $("#" + selectedTextareaId).css("color", "" + color);
+                $("#pickColorForText").css("display", "none");
+            });
+        }
+        else if (display) {
+            $("#pickColorForText").css("display", "none");
+        }
+    });
     $("#fontsize").change(function () {
 //          alert($("#fontsize").val());
         $("#" + selectedTextareaId).css("font-size", "" + $("#fontsize").val());
@@ -138,7 +155,7 @@ $(document).ready(function () {
                    allLayoutFilename[i] = v;
                    i++;
                });
-//                alert( allLayoutFilename[i] );
+               alert( allLayoutFilename[i] );
            });
 
     $.ajax({
@@ -317,7 +334,7 @@ $(document).ready(function () {
                                                             
                                                 } 
 
-                            $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                            $(".blockname").append("<option value="+type+"EEEdefaultblock1>Block "+blockcount+"</option>");
                              blockcount++;
                             $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                             $("#" + type + "EEEdefaultblock1").css("background-color", "" + backgroundcolor)

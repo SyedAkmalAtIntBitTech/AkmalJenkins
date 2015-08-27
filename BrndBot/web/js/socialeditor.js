@@ -22,7 +22,6 @@ function setSocialParameters(title, teacher, date) {
     title = $("#title").val();
     teacher = $("#teacher").val();
     date = $("#date").val();
-
 }
 
 $(document).ready(function () {
@@ -37,14 +36,16 @@ $(document).ready(function () {
     $("#tabs-1").show();
     $("#tabs-2").hide();
    blockId=$(".blockname").val();
-    $('.color-box').colpick({
+    $('.custom-color-box-text').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
         color: 'ff8800',
         onSubmit: function (hsb, hex, rgb, el) {
-            $(el).css('background-color', '#' + hex);
+            
             $("#" + selectedTextareaId).css('color', '#' + hex);
+            $("#picker").css('background-color', '#' + hex);
             $(el).colpickHide();
+            $("#pickColorForText").css("display", "none");
         }
     })
             .css('background-color', '#ffffff');
@@ -81,6 +82,22 @@ $(document).ready(function () {
         $("#" + selectedDivId).css("background-color", "" + color);
     });
 
+
+ $(".blankcolor-box1").click(function () {
+        var display= $("#pickColorForText").css("display");
+        if (display === "none") {
+            $("#pickColorForText").css("display", "block");
+            $(".blankcolor-box-text").click(function () {
+                var color = $("#" + this.id).css("background-color");
+                $("#picker").css("background-color", "" + color);
+                $("#" + selectedTextareaId).css("color", "" + color);
+                $("#pickColorForText").css("display", "none");
+            });
+        }
+        else if (display) {
+            $("#pickColorForText").css("display", "none");
+        }
+    });
     $("#fontsize").change(function () {
 //          alert($("#fontsize").val());
         $("#" + selectedTextareaId).css("font-size", "" + $("#fontsize").val());

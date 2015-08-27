@@ -323,7 +323,7 @@ and open the template in the editor.
                                  method : 'GET',
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
-                                
+                                alert(JSON.stringify(data));
                             $scope.datalistsstyles = data;
                             $scope.numberOfPages = function() {
                             return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
@@ -866,7 +866,24 @@ and open the template in the editor.
                                         <div id="textcontainer">
                                             <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li><p id="editorheadere" class="SS1">font color</p><div class="fontcolor-box blankcolor-box1" id="picker"></div></li>
+                                                <li>
+                                                    <p id="editorheadere" class="SS1">font color</p>
+                                                    <div class="blankcolor-box1" id="picker" ></div>
+                                                    
+                                                    <ul id="pickColorForText" style="display: none">
+                                                            <li><p style="font-size: 8px;">your palette</p>
+                                                                <ul>
+                                                                   <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                    <li> <div class="blankcolor-box-text" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><p class="editpal custom-color-box-text" style="font-size: 8px;">custom</p></li>
+                                                        </ul>
+                                                </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
@@ -917,15 +934,15 @@ and open the template in the editor.
                                                     </ul>
                                                 </li>
                                                 <li><p class="editpal">pick from theme</p></li>
-                                                <li><p class="editpal custom-color-box" id="picker" style="margin-left: 120px;">custom</p><br></li>
-                                                <li><p class="editpal">opacity</p><div id="slider"></div></li>
+                                                <li><p class="editpal custom-color-box" style="margin-left: 120px;">custom</p><br></li>
+                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
+
                                             </ul>
                                         </div>
 
                                         <div id="imagecontainer">
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
-
                                                 <li><select class="imagename LE1" id="editorhead"> </select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
                                                 <li><p  class="btn"  onclick="imageEdit()">edit</p></li>

@@ -406,7 +406,7 @@
                                   blocks : blocks,
                                   model_name : model_name,
                                   imagename : imagename,
-                                  socialmedia : mail
+                                  mail : mail
                               },
                               success: function (responseText) {
                                   alert("Model saved successfully");
