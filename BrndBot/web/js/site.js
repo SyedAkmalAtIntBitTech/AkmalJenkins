@@ -90,6 +90,13 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    $('#circleCheckBox').click(function () {
+    alert($("#" + selectedTextID).css("border-radius"));
+            if($('#circleCheckBox').prop("checked"))
+                $("#" + selectedTextID).css("border-radius", "50%");
+            else
+                $("#" + selectedTextID).css("border-radius", "0%");
+        });
     function componentToHex(c) {
         var hex = c.toString(16);
         return hex.length == 1 ? "0" + hex : hex;
@@ -363,6 +370,7 @@ $(document).ready(function () {
 
     }
     $("#addBlockButton").click(function () {
+        $("#slider").hide();
         //alert("<div class=\"draggableBlock\"><div width=\"50px\" height=\"100px\" title=" + $("#elementText").val() +" id=\"block" + addBlockCount + "></div></div>");
         $(".container").append("<div class=\"draggableBlock\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
@@ -380,10 +388,12 @@ $(document).ready(function () {
         reloadTabs(3);
         addDefault();
         $("#blockButton").click(function () {
+             
             $("#" + selectedTextID).css("width", $("#blockWidth").val());
             $("#" + selectedTextID).css("height", $("#blockHeight").val());
             $("#" + selectedTextID).css("opacity", $("#opacityBlock").val());
             $("#" + selectedTextID).css("background-color", $("#blockColor").val());
+            
             $("#" + selectedTextID).attr("name", $("#blockColorFromDropDown").find('option:selected').text());
         });
 
@@ -452,8 +462,14 @@ $(document).ready(function () {
         });
     });
     $("#addButton").click(function () {
+
+        $("#slider").hide();
+        var subcategories = $("#subcategories").val();
+        var blocks = $("#blocks").val();
+
         
         var selectedtype = $("#selectedtype").val();
+
         
         if ((selectedtype == "selected")){
         
@@ -502,7 +518,13 @@ $(document).ready(function () {
         }
     });
     $("#addImageButton").click(function () {
+
+        $("#slider").hide();
+        var subcategories = $("#subcategories").val();
+        var blocks = $("#blocks").val();
+
         var selectedtype = $("#selectedtype").val();
+
         
         if ((selectedtype == "selected")){
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
@@ -660,7 +682,13 @@ $(document).ready(function () {
 
     });
     $("#addTextButton").click(function () {
+
+        $("#slider").hide();
+        var subcategories = $("#subcategories").val();
+        var blocks = $("#blocks").val();
+
         var selectedtype = $("#selectedtype").val();
+
         
         if ((selectedtype == "selected")){
             
@@ -841,7 +869,7 @@ $(document).ready(function () {
         });
     });
     $("#addLogoButton").click(function () {
-
+        $("#slider").hide();
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
         $(".container").append("<div class=\"draggableLogo\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
@@ -1340,6 +1368,7 @@ function passvaluetoinputfield() {
                     " width!" + $("#" + addElementsArray[i]).css("width") +
                     " height!" + $("#" + addElementsArray[i]).css("height") +
                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
+                    " border-radius!" + $("#" + addElementsArray[i]).css("border-radius") +
                     " background-color!" + "#" + color3 + dropshadowdata1;
         }
         textareadetails[i] = style1 + " type!" + addElementsArray[i];

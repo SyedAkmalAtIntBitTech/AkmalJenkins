@@ -405,6 +405,7 @@
                                   blocks : blocks,
                                   model_name : model_name,
                                   imagename : imagename,
+
                                   mail : mail
                               },
                               success: function (responseText) {
@@ -620,6 +621,9 @@
                     <span class="position">Co ordinates: X = 0, Y = 0 </span>
                 </p>
                 <p>
+                    <input type="checkbox" id="circleCheckBox"> Circle
+                </p>
+                <p>
                     Block Size:
                 </p>
                 <p>
@@ -662,6 +666,7 @@
             </div>
         </div>
         <div id="main">
+            <h3>Email Layout Model</h3>
             <form>
                 
                 Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">

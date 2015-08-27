@@ -515,6 +515,10 @@
                 <p>
                     <span class="position">Co ordinates: X = 0, Y = 0 </span>
                 </p>
+                 <p>
+                    <input type="checkbox" id="circleCheckBox"> Circle
+                </p>
+                
                 <p>
                     Block Size:
                 </p>
@@ -542,6 +546,7 @@
 
                     </select>
                 </p>
+               
                 
                 <p>
                     <input type="button" class="blockButton" id="blockButton" value="Apply" />
@@ -559,6 +564,7 @@
             </div>
         </div>
         <div id="main">
+            <h3>Social Layout Model</h3>
             <form>
                     
                 Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">

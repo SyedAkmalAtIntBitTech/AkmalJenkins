@@ -149,7 +149,6 @@ $(document).ready(function () {
                    allLayoutFilename[i] = v;
                    i++;
                });
-//               alert( allLayoutFilename[i] );
            });
 
     $.ajax({
@@ -239,15 +238,16 @@ $(document).ready(function () {
                                      $(".preview #defaultblock1").append("<div><textarea class=textAreas onclick=getTectId("+type+"EEEdefaultblock1) id=" + type + "EEEdefaultblock1>" + elementdata + "</textarea>");
                                      $("#" + type + "EEEdefaultblock1").css("color", "" + fontcolor)
                                             .css("position", "absolute")
+                                            .css("overflow", "hidden")
                                             .css("left", "" + left + "px")
                                             .css("top", "" + top + "px")
                                             .css("width", "" + width)
-                                            .css("min-height", "" + height)
-                                            .css("font-size", "" + fontsize)
+                                            
+                                            .css("height", "" + height)
+                                            
                                             .css("font-style", "" + fontstyle)
                                             .css("font-weight", "" + fontweight)
                                             .css("letter-spacing", "" + letterspacing)
-                                            .css("line-height", "" + lineheight)
                                             .css("opacity", "" + opacity)
                                             .css("text-align", "" + textalign)
                                             .css("text-shadow", "" + dropshadow)
@@ -255,8 +255,35 @@ $(document).ready(function () {
                                             .css("resize", "none")
                                             .css("background-color", "inherit")
                                             .css("border", "none")
-                                            .css("focus", "none");
-                                    $("#" + type + "EEEdefaultblock1").autogrow();
+                                            .css("focus", "none")
+                                            .css("line-height", "" + lineheight);        
+                            
+                                    //$("#" + type + "EEEdefaultblock1").autogrow();
+                                    
+                                    
+                                    //resize of text to fit bound - By Syed Ilyas 26/8/2015
+                                     var tempfontsize = parseInt(fontsize.replace("px",""));
+                                     var tempHeight = parseInt(height.replace("px",""));
+                                     $("#" + type + "EEEdefaultblock1").css("font-size", "" + tempfontsize +"px");
+                                     //alert(tempfontsize+"#" + type + "EEEdefaultblock1");
+                                     //alert($("#" + type + "EEEdefaultblock1").get(0).scrollHeight + ":" + tempHeight);
+                                     if($("#" + type + "EEEdefaultblock1").get(0).scrollHeight > tempHeight)
+                                     {
+                                         $("#" + type + "EEEdefaultblock1").css("line-height", "initial");
+                                     while ( $("#" + type + "EEEdefaultblock1").get(0).scrollHeight > tempHeight) {
+                                         //alert(tempfontsize);
+                                         //    alert($("#" + type + "EEEdefaultblock1").get(0).scrollHeight + ":" + tempHeight);
+                                            tempfontsize = tempfontsize - 1;
+                                       //     alert(tempfontsize);
+                                           $("#" + type + "EEEdefaultblock1").css("font-size", "" + tempfontsize +"px");
+                                     }
+                                      var xxyy = parseInt(tempfontsize);
+                                     xxyy = Math.round(xxyy * 1.2);
+                                      $("#" + type + "EEEdefaultblock1").css("line-height",""+xxyy+"px");
+                                     }
+                                     //resize end
+                                     
+                                    
                                 }
 
                         if (tag === "image")
@@ -315,6 +342,7 @@ $(document).ready(function () {
                         {
                             var colorName=$(this).attr("color-name");
                             var backgroundcolor;
+                           var borderRadius = $(this).attr("border-radius");
                            
 //                            var backgroundcolor = $(this).attr("background-color");
                                 for(var i=1;i<=6; i++)
@@ -334,6 +362,7 @@ $(document).ready(function () {
                                     .css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .css("width", "" + width)
+                                    .css("border-radius", "" + borderRadius)
                                     .css("height", "" + height)
                                     .css("opacity", "" + opacity)
                                     .css("position", "absolute");   
@@ -561,6 +590,33 @@ $("#sortDownBlock").click(function(){
 //    };
 
 });
+//function textAreaKeyUp(id) {
+//    alert(id);
+//    var fontsize = parseInt($(id).css('font-size').replace("px", ""));
+//    alert("keyed1"+$(id).attr("id"));
+//    alert($(id).get(0).scrollHeight + "<=" + $(id).height()+"Fontsize:"+fontsize);
+//    if($(id).get(0).scrollHeight <= ($(id).height()+4))
+//    {
+//        
+//        while ($(id).get(0).scrollHeight <= ($(id).width()+4) && fontsize <= parseInt($(id).css('font-size').replace("px", ""))) 		  {
+//alert($(id).get(0).scrollHeight + "<=" + $(id).height()+"Fontsize:"+fontsize);
+//            fontsize = fontsize + 1;
+//            $(id).css('font-size', "" + fontsize + "px");
+//
+//        }
+//
+//        fontsize = fontsize - 1;
+//        $(id).css('font-size', "" + fontsize + "px");
+//
+//    } else {
+//        alert($(id).get(0).scrollHeight +":"+ $(id).height());
+//        while ($(id).get(0).scrollHeight > ($(id).height()+4)) {
+//            fontsize = fontsize - 1;
+//            $(id).css('font-size', "" + fontsize + "px");
+//        }
+//    }
+//}
+
 function getBlockId(id) {
     
     selectedBlockId = id;
@@ -577,6 +633,8 @@ function getTectId(id) {
         selectedTextareaId = id.id;
     });
 }
+
+
 
 function getDivId(divid) {
     selectedDivId = divid.id;
