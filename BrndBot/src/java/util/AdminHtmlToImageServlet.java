@@ -5,6 +5,7 @@
  */
 package util;
 
+import admin.controller.Layout;
 import com.controller.BrndBotBaseHttpServlet;
 import com.intbit.PhantomImageConverter;
 import java.io.File;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
 
 /**
  *
@@ -40,8 +42,13 @@ public class AdminHtmlToImageServlet extends BrndBotBaseHttpServlet {
              String htmlString = request.getParameter("htmlString");
              String width= request.getParameter("containerWidth").replace("px", "");
             String height= request.getParameter("containerHeight").replace("px", "");
-           PhantomImageConverter phantomImageConverter = new PhantomImageConverter(getServletContext());
-           File imagePngFile = phantomImageConverter.getImage(htmlString, width, height, "0", "0");
+            getSqlMethodsInstance().session = request.getSession();
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+            Integer brandID = getSqlMethodsInstance().getBrandID(user_id);
+            Layout layout = new Layout();
+            JSONArray json_font_list = layout.getFontList(brandID);
+            PhantomImageConverter phantomImageConverter = new PhantomImageConverter(getServletContext());
+            File imagePngFile = phantomImageConverter.getImage(htmlString, json_font_list, width, height, "0", "0");
         
         String filename=imagePngFile.getName();
         System.err.println(filename);

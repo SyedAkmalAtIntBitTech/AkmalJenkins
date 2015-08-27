@@ -324,7 +324,7 @@
                              "src: url("+font_path+");"
                 $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
-                $(".textAreas").css("font-family", font[0]);
+                $("#" + selectedTextID).css("font-family", font[0]);
 
             });
             $("#hidepopup").click(function(){
@@ -344,7 +344,6 @@
             $("#namexml").focus();
             return false;
         }else {
-            alert("text");
           $.ajax({
               url: global_host_address + 'ServletValidateModel',
               method: 'post',
@@ -352,7 +351,6 @@
                   model_name : model_name,
               },
               success: function (responseText) {
-                alert(responseText);
                 if (responseText == "yes"){
                     alert("name already exist, please give some other name");
                     $("#namexml").focus();
@@ -371,7 +369,6 @@
                     $('#popup').hide("slow");
 
                     var organization = $("#organization").val();
-                    alert(organization);
                     var brand = $("#brand").val();
                     var users = $("#users").val();
                     var categories = $("#categories").val();
@@ -387,7 +384,6 @@
 
                     var imagename = $("#imagename").val();
                     var mail = $("#mail").val();
-
                       $.ajax({
                               url: global_host_address + 'Model',
                               method: 'post',
@@ -406,12 +402,11 @@
                                   blocks : blocks,
                                   model_name : model_name,
                                   imagename : imagename,
-                                  mail : mail
+                                  mail : mail,
                               },
                               success: function (responseText) {
                                   alert("Model saved successfully");
                                   window.open(getHost() + 'admin/emaillayoutmodel.jsp', "_self");
-
                               }                    
                            });    
 
@@ -756,7 +751,7 @@
 <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                                  Layout file name<input type="text" id="layoutxml" required><br>-->
                                  file name<input type="text" id="namexml" required><br>-->
-                                 <input type="hidden" name="mail" value="mail"/>
+                                 <input type="hidden" id="mail" name="mail" value="mail"/>
                                  <input type="button" onclick="validate()" value="Done"/>   
                                  <input type="button" id="hidepopup" value="Close"/>   
                               </div>   

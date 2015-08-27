@@ -50,7 +50,30 @@ $(document).ready(function () {
         }
     })
             .css('background-color', '#ffffff');
-
+     $('.custom-color-box').colpick({
+        colorScheme: 'dark',
+        layout: 'rgbhex',
+        color: 'ff8800',
+        onSubmit: function (hsb, hex, rgb, el) {
+           $("#selectedshapecolorbox").css('background-color', '#' + hex);
+//            place block selected block
+            var blockId=$(".blockname").val();
+            $("#"+blockId).css('background-color', '#' + hex);
+            $(el).colpickHide();
+        }
+    })
+            .css('background-color', '#ffffff');
+    
+   $('#slider').slider({ 
+        min: 0, 
+        max: 1, 
+        step: 0.01, 
+        value: 1,
+        orientation: "horizontal",
+             slide: function(e,ui){
+                     $('#'+$(".blockname").val()).css('opacity', ui.value);
+             }                
+        }); 
     $(".blankcolor-box").click(function () {
         var color = $("#" + this.id).css("background-color");
         $("#selectedshapecolorbox").css("background-color", "" + color);
@@ -147,6 +170,7 @@ $(document).ready(function () {
 
                     );
                     var count=1;
+                    var blockcount=1;
                     $(xml).find('element').each(function () {
                         var tag = $(this).attr("tag");
                         type = $(this).attr("type");
@@ -182,6 +206,9 @@ $(document).ready(function () {
 //                                  fontcolor = $(this).attr("font-color");
                                     fontsize = $(this).attr("font-size");
                                     fontstyle = $(this).attr("font-style");
+                                    var font = $(this).attr("font-family");
+                                    var font_family_name = font.split("+").join(" ");
+
                                     var fontweight = $(this).attr("font-weight");
                                     var letterspacing = $(this).attr("letter-spacing");
                                     var lineheight = $(this).attr("line-height");
@@ -210,6 +237,7 @@ $(document).ready(function () {
                                             .css("min-height", "" + height)
                                             .css("font-size", "" + fontsize)
                                             .css("font-style", "" + fontstyle)
+                                            .css("font-family", "" + font_family_name)
                                             .css("font-weight", "" + fontweight)
                                             .css("letter-spacing", "" + letterspacing)
                                             .css("line-height", "" + lineheight)
@@ -293,7 +321,8 @@ $(document).ready(function () {
                                                             
                                                 } 
 
-
+                            $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                             blockcount++;
                             $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                             $("#" + type + "EEEdefaultblock1").css("background-color", "" + backgroundcolor)
                                     .css("left", "" + left + "px")

@@ -862,7 +862,7 @@ public class SqlMethods {
 
     }
 
-    Integer getBrandID(Integer user_id) {
+    public Integer getBrandID(Integer user_id) {
         Integer brand_id = 0;
         String query_string = "";
         PreparedStatement prepared_statement = null;

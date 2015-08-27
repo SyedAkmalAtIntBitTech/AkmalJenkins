@@ -211,7 +211,7 @@
                 var ss = document.createElement("link");
                 ss.type = "text/css";
                 ss.rel = "stylesheet";
-                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word ;
                 document.getElementsByTagName("head")[0].appendChild(ss);
 
                 var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
@@ -220,7 +220,7 @@
                              "src: url("+font_path+");"
                 $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
-                $(".textAreas").css("font-family", font[0]);
+                $("#" + selectedTextID).css("font-family", font[0]);
 
             });
             
@@ -243,7 +243,6 @@
           $("#namexml").focus();
           return false;
       }else {
-          alert("text");
         $.ajax({
             url: global_host_address + 'ServletValidateModel',
             method: 'post',
@@ -251,7 +250,6 @@
                 model_name : model_name,
             },
             success: function (responseText) {
-        alert(responseText);
         if (responseText == "yes"){
             alert("name already exist, please give some other name");
             $("#namexml").focus();
@@ -270,7 +268,6 @@
             $('#popup').hide("slow");
 
             var organization = $("#organization").val();
-            alert(organization);
             var brand = $("#brand").val();
             var users = $("#users").val();
             var categories = $("#categories").val();

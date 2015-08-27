@@ -50,6 +50,9 @@ and open the template in the editor.
                 height: 100px;
                 margin-left:  5px;
             } 
+             #slider{
+                 width:600px;height: 20px;zoom: 0.2;
+             }
             #popup
             {
                 display:none;
@@ -166,19 +169,21 @@ and open the template in the editor.
                 var text = $("#fontname").find('option:selected').text();
                 var font_family_name = $("#fontname").val();
                 var font = font_family_name.split(",");
-                var google_key_word = font[0].split(' ').join('+')
-                var ss = document.createElement("link");
-                ss.type = "text/css";
-                ss.rel = "stylesheet";
-                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
-                document.getElementsByTagName("head")[0].appendChild(ss);
+//                var google_key_word = font[0].split(' ').join('+')
+//
+//                var ss = document.createElement("link");
+//                ss.type = "text/css";
+//                ss.rel = "stylesheet";
+//                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+//                document.getElementsByTagName("head")[0].appendChild(ss);
+//
+//                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+//                var styles = "@font-face {"+
+//                             "font-family:"+ text + ";"+
+//                             "src: url("+font_path+");"
+//                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
-                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
-                var styles = "@font-face {"+
-                             "font-family:"+ text + ";"+
-                             "src: url("+font_path+");"
-                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
-
+                var font_name = font[0].split('+').join(' ');
                 $("#" + selectedTextareaId).css("font-family", font[0]);
 
             });
@@ -191,18 +196,44 @@ and open the template in the editor.
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
-                        alert("test");
                     $http({
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-                        alert(JSON.stringify(data.user_colors));
-                    $scope.user_preferences_colors = data.user_colors;
-                            $scope.user_preferences_font_names = data.user_font_names;
+//                        alert(JSON.stringify(data.user_colors));
+                            $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
-                            if (data === error){
-                                alert(data);
-                                }
+                            $scope.user_preferences_font_names = data.user_font_names;
+                            var i = 0;
+                            var font_object;
+                            var font_family_name;
+                            var font_name;
+                            for (i; i<= data.user_font_names.length; i++){
+                                font_object = data.user_font_names[i];
+                                font_name = font_object.font_name;
+                                font_family_name = font_object.font_family_name;
+                                
+                                var font = font_family_name.split(",");
+                                var google_key_word = font[0].split(' ').join('+')
+
+                                var ss = document.createElement("link");
+                                ss.type = "text/css";
+                                ss.rel = "stylesheet";
+                                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+                                document.getElementsByTagName("head")[0].appendChild(ss);
+
+                                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+                                var styles = "@font-face {"+
+                                             "font-family:"+ font_name + ";"+
+                                             "src: url("+font_path+");"
+                                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+
+
+                            }
+                            
+                    if (data === error){
+                        alert(data);
+                        }
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
@@ -245,8 +276,8 @@ and open the template in the editor.
                                     return Math.ceil($scope.datalistimages.length / $scope.pageSize);
                                     };
                                     if (data === error){
-                            alert(data);
-                            }
+                                        alert(data);
+                                    }
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -288,7 +319,9 @@ and open the template in the editor.
 
                                                     );
                                                             var count=1;
+                                                            var blockcount=1;
                                                             $(".imagename").find('option').remove().end();
+                                                            $(".blockname").find('option').remove().end();
                                                             $(xml).find('element').each(function () {
                                                             var tag = $(this).attr("tag");
                                                             type = $(this).attr("type");
@@ -330,6 +363,8 @@ and open the template in the editor.
                                                             fontsize = $(this).attr("font-size");
                                                             fontstyle = $(this).attr("font-style");
                                                             var fontweight = $(this).attr("font-weight");
+                                                            var font = $(this).attr("font-family");
+                                                            var font_family_name = font.split("+").join(" ");
                                                             var letterspacing = $(this).attr("letter-spacing");
                                                             var lineheight = $(this).attr("line-height");
                                                             var textalign = $(this).attr("text-align");
@@ -345,6 +380,7 @@ and open the template in the editor.
                                                                 .css("min-height", "" + height)
                                                                 .css("font-size", "" + fontsize)
                                                                 .css("font-style", "" + fontstyle)
+                                                                .css("font-family", "" + font_family_name)
                                                                 .css("font-weight", "" + fontweight)
                                                                 .css("letter-spacing", "" + letterspacing)
                                                                 .css("line-height", "" + lineheight)
@@ -423,6 +459,8 @@ and open the template in the editor.
                                                             }
                                                             
                                                         }
+                                                        $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                                                        blockcount++;
                                                             var width = $(this).attr("width");
                                                             var height = $(this).attr("height");
 //                                                            var backgroundcolor = $(this).attr("background-color");           
@@ -603,9 +641,9 @@ and open the template in the editor.
                                         <div id="shapecontainer">
                                             <p  id="text3">SHAPES</p>
                                             <ul id="shapemodificatoin">
-                                                <li> <p id="editorhead">Header Background<p></li>
+                                                <li><select class="blockname" id="editorhead"></select></li>
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                <li><p id="editpal">your palette</p></li>
+                                                <li><p class="editpal" >your palette</p></li>
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
                                                        <li><div class="blankcolor-box" id="shapecolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
@@ -616,6 +654,10 @@ and open the template in the editor.
                                                         <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                     </ul>
                                                 </li>
+                                                <li><p class="editpal">pick from theme</p></li>
+                                                <li><p class="editpal custom-color-box" id="picker" style="margin-left: 120px;">custom</p><br></li>
+                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
+
                                             </ul>
                                         </div>
 

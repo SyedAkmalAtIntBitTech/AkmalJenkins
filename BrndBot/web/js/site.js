@@ -324,7 +324,7 @@ $(document).ready(function () {
     
     $("#fontColor").change(function () {
 //        alert($("#fontColor").val());
-            alert();
+//            alert();
         $("#" + selectedTextID).css("color", $("#fontColor").val());
          $("#" + selectedTextID).attr("name", $("#fontColor option:selected").text());
     });
@@ -1322,7 +1322,10 @@ function passvaluetoinputfield() {
         }
 
         if (contenttype.startsWith('draggableText')) {
-       alert($("#" + addElementsArray[i]).attr("name"));
+//       alert($("#" + addElementsArray[i]).attr("name"));
+            var fontFamily= $("#" + addElementsArray[i]).css("font-family").split(' ').join('+');
+            fontFamily = fontFamily.split("'").join("");
+            
             style1 = " tag!" + "text" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
@@ -1332,6 +1335,7 @@ function passvaluetoinputfield() {
                     " font-style!" + $("#" + addElementsArray[i]).css("font-style") +
                     " text-align!" + $("#" + addElementsArray[i]).css("text-align") +
                     " font-size!" + $("#" + addElementsArray[i]).css("font-size") +
+                    " font-family!" + fontFamily +
                     " font-color-name!" + $("#" + addElementsArray[i]).attr("name") +
                     " font-color!" + "#" + color1 +
                     " text-shadow!" + "#" + color2.substr(0,6) +
@@ -1367,10 +1371,10 @@ function passvaluetoinputfield() {
 
 
         $("#textstyle").val(textareadetails);
-        alert(textareadetails);
+//        alert(textareadetails);
 
     }
-   alert(mapperdata);
+//   alert(mapperdata);
     $("#element").val(mapperdata);
 
 } 
