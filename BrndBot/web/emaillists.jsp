@@ -68,6 +68,7 @@
                 width: 150px;
                 background-color: #00A37A;
                 border-color: #00A37A;
+                bottom: 10px;
             }
             .fileUpload {
                 position: relative;
@@ -208,8 +209,10 @@
         </script>
     </head>
     <body ng-app>
+        
         <div class="row">
-             <jsp:include page="mainmenu.html"/>
+             <jsp:include page="leftmenu.html"/><!--/end left column-->
+              <jsp:include page="submenu.html"/>
             <div id="datadiv" class="col-md-10 col-md-offset-2">
                 <div id="emailsubjectdiv" ng-controller="EmailListController">
                     <p class="header1">Email List:</p>

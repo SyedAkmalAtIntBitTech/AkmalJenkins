@@ -17,11 +17,11 @@ var date;
 var head1 = "Head1";
 var i = 1;
 
+
 function setSocialParameters(title, teacher, date) {
     title = $("#title").val();
     teacher = $("#teacher").val();
     date = $("#date").val();
-
 }
 
 $(document).ready(function () {
@@ -35,17 +35,46 @@ $(document).ready(function () {
     var status = "true";
     $("#tabs-1").show();
     $("#tabs-2").hide();
-    $('.color-box').colpick({
+   blockId=$(".blockname").val();
+    $('.custom-color-box-text').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
         color: 'ff8800',
         onSubmit: function (hsb, hex, rgb, el) {
-            $(el).css('background-color', '#' + hex);
+            
             $("#" + selectedTextareaId).css('color', '#' + hex);
+            $("#picker").css('background-color', '#' + hex);
+            $(el).colpickHide();
+            $("#pickColorForText").css("display", "none");
+        }
+    })
+            .css('background-color', '#ffffff');
+    
+     $('.custom-color-box').colpick({
+        colorScheme: 'dark',
+        layout: 'rgbhex',
+        color: 'ff8800',
+        onSubmit: function (hsb, hex, rgb, el) {
+           $("#selectedshapecolorbox").css('background-color', '#' + hex);
+//            place block selected block
+            var  blockId=$(".blockname").val();
+            $("#"+blockId).css('background-color', '#' + hex);
             $(el).colpickHide();
         }
     })
             .css('background-color', '#ffffff');
+    
+    
+      $('#slider').slider({ 
+        min: 0, 
+        max: 1, 
+        step: 0.01, 
+        value: 1,
+        orientation: "horizontal",
+             slide: function(e,ui){
+                     $('#'+$(".blockname").val()).css('opacity', ui.value);
+             }                
+        }); 
 
     $(".blankcolor-box").click(function () {
         var color = $("#" + this.id).css("background-color");
@@ -53,17 +82,52 @@ $(document).ready(function () {
         $("#" + selectedDivId).css("background-color", "" + color);
     });
 
+
+ $(".blankcolor-box1").click(function () {
+        var display= $("#pickColorForText").css("display");
+        if (display === "none") {
+            $("#pickColorForText").css("display", "block");
+            $(".blankcolor-box-text").click(function () {
+                var color = $("#" + this.id).css("background-color");
+                $("#picker").css("background-color", "" + color);
+                $("#" + selectedTextareaId).css("color", "" + color);
+                $("#pickColorForText").css("display", "none");
+            });
+        }
+        else if (display) {
+            $("#pickColorForText").css("display", "none");
+        }
+    });
     $("#fontsize").change(function () {
 //          alert($("#fontsize").val());
         $("#" + selectedTextareaId).css("font-size", "" + $("#fontsize").val());
     });
 
-    $("#fontname").change(function () {
-//            alert($(this).val());
-        $("#" + selectedTextareaId).css("font-family", "" + $("#fontname").val());
-    });
+//    $("#fontname").change(function () {
+////            alert($(this).val());
+//        var text = $("#fontname").text();
+//        var font_family_name = $("#fontname").val();
+//        var font = font_family_name.split(",");
+//        alert(font[0]);
+//        
+//        var ss = document.createElement("link");
+//        ss.type = "text/css";
+//        ss.rel = "stylesheet";
+//        ss.href = "https://fonts.googleapis.com/css?family="+ font[0];
+//        document.getElementsByTagName("head")[0].appendChild(ss);
+//
+//        var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+//        alert(font_path);
+//        var styles = "@font-face {"+
+//                     "font-family:"+ text + ";"+
+//                     "src: url("+font[1]+");"
+//        $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+//
+//        $("#" + selectedTextareaId).css("font-family", text);
+//        
+//    });
 
-    
+    alert("loding");
 
     $.ajax({
         type: "GET",
@@ -95,7 +159,7 @@ $(document).ready(function () {
 
     var layoutfilename = $("#clickid").val();
 
-//    alert(layoutfilename);
+   alert(layoutfilename);
 
  $.ajax({
        type: 'POST',
@@ -104,14 +168,14 @@ $(document).ready(function () {
        success: function (data) {
            var jsondataDefault = data;
            var allLayoutFilename = [];
-//       alert(JSON.stringify(data));
+      alert(JSON.stringify(data));
            $(jsondataDefault).each(function (i, val) {
                var i = 0;
                $.each(val, function (k, v) {
                    allLayoutFilename[i] = v;
                    i++;
                });
-//              alert( allLayoutFilename[i] );
+             alert( allLayoutFilename[i] );
            });
 
 
@@ -136,7 +200,8 @@ $(document).ready(function () {
                     }
 
                     );
-
+                    var count=1;
+                    var blockcount=1;
                     $(xml).find('element').each(function () {
                         var tag = $(this).attr("tag");
                         type = $(this).attr("type");
@@ -251,8 +316,9 @@ $(document).ready(function () {
                         {
                             var background_image = $(this).attr("background-image");
                             var blendmode = $(this).attr("background-blend-mode");
-                            
+                            $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
 //                    alert("image");
+                                count++;
                            $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                             $("#" + type)
                                     .css("color", "" + fontcolor)
@@ -282,7 +348,10 @@ $(document).ready(function () {
                                     var colorName = $(this).attr("color-name");
                                     var borderRadius = $(this).attr("border-radius");
                                     var backgroundcolor;
-                                    
+
+                                     $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                                     blockcount++;
+
                                     for (var i = 1; i <= 6; i++)
                                     {
                                         if (colorName === "Color-" + i)

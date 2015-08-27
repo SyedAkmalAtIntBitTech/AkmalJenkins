@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+<link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+<style>
+    .subnav{
+        position: relative;
+        padding-left: 0px;
+        top:150px;
+        list-style: none;
+        text-align: left;
+        width: 100px;
+    }
+    .subnav li{
+        position: relative;
+        padding-top: 15px;
+      }
+ #text{
+   color:#000;
+   font-size:13px;
+   padding: 0em 0.5em 0.1em 0em;
+   font-family:"proxima-nova-soft",sans-serif;
+   font-weight: 500;
+   position: relative;
+   margin-top:0.8px;
+   left:-1em;
+   font-style:normal;
+   text-align:left;
+   line-height:1.1em;
+   letter-spacing:0em;
+   opacity:1;
+}
+#text:hover{
+   font-size:13.5px;
+    color:#2D43;
+}
+a {
+    text-decoration: none !important;
+}
+</style>
+</head>
+<div id="submenu" class="col-md-1">
+    <nav>
+       <div class="collapse navbar-collapse">
+            <ul class="subnav nav-stacked">
+                <li><a href="emaildashboard.jsp"><p id="text">Dashboard</p></a></li>
+                <li><a href="history.jsp"><p id="text">History</p></a></li>
+                <li><a href="emaillists.jsp"><p id="text">Email Lists</p></a></li>
+                <li><a href="emailsettings.jsp"><p id="text">Email Settings</p></a></li>               
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+
+</div>
+ 
+        <script>
+    $(".cross").hide();
+            $(".menu").hide();
+            $("#emaillist").hide();
+
+            $(".hamburger").click(function () {
+                $(".menu").slideToggle("slow", function () {
+                    $(".hamburger").hide();
+                    $(".cross").show();
+                });
+            });
+            $(".cross").click(function () {
+                $(".menu").slideToggle("slow", function () {
+                    $(".cross").hide();
+                    $(".hamburger").show();
+                });
+            });
+        </script>

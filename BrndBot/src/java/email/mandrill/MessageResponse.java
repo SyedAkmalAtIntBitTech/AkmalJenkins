@@ -14,6 +14,9 @@ public class MessageResponse {
         setEmail(object.getString("email"));
         setStatus(object.getString("status"));
         setId(object.getString("_id"));
+        if(object.get("reject_reason") != null){
+            setReject_reason(object.get("reject_reason").toString());   
+        }
     }
 
     /**

@@ -103,6 +103,24 @@ letter-spacing:0em;
 opacity: 1;
 
 }
+.sublingrp div input{
+    position: relative;
+    margin-top: 40px;
+}
+.sublingrp  div label{
+ font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+color: #2c4355;
+text-align: left;
+line-height: 14.4px;
+letter-spacing:0em;
+opacity: 1;
+position: relative;
+top:-25px;
+left:0px;
+}
 /* form starting stylings ------------------------------- */
 
 input               {
@@ -138,8 +156,19 @@ label                {
   -moz-transition:1s ease all; 
   -webkit-transition:1s ease all;
 }
-
+.inputsubline{
+                font-size:18px;
+                position: relative;
+                padding-top:10%;
+}
 /* active state */
+.inputsubline:focus ~ label, .inputsubline:valid ~ label        {
+  left:-100px;
+  font-size:13px;
+  color:#999;
+}
+
+
 #inputemail:focus ~ label, #inputemail:valid ~ label        {
   left:-35px;
   font-size:13px;

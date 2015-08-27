@@ -3,31 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit;
+package com.controller.email;
 
-import com.controller.BrndBotBaseHttpServlet;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
+import com.google.gson.Gson;
+import email.mandrill.MandrillApiHandler;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.codec.binary.Base64;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
- * @author sandeep-kumar
+ * @author Mohamed
  */
-public class CropImage extends BrndBotBaseHttpServlet {
-    private Object dateFormat;
+@WebServlet(name = "GetEmailDetailServlet", urlPatterns = {"/GetEmailDetail"})
+public class GetEmailDetailServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,39 +37,25 @@ public class CropImage extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-  
-    @Override
-    public void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
-           Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHH:mm:ssSSS");
-        PrintWriter out = response.getWriter();
-         logger.log(Level.INFO, "enter in servlet");
-//        sqlmethods.session = request.getSession(true);
-        StringBuffer string_buffer = new StringBuffer();
-        boolean check = true;
         try {
-
-            String imageData = request.getParameter("image");
-            
-            imageData = imageData.replaceAll("^data:image[^;]+;base64,", "");
-            logger.log(Level.INFO, getServletContext().getRealPath(""));
-            byte[] data = Base64.decodeBase64(imageData);
-             try (OutputStream stream = new FileOutputStream(getServletContext().getRealPath("")+"/images/temp_image/"+dateFormat.format(date)+".png")) {
-                stream.write(data);
-                 response.setContentType("text/plain");
-                  response.getWriter().write(dateFormat.format(date)+".png");
-             } 
-        }
-        catch(Exception e){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
-
-        } finally {
-            out.close();
-            getSqlMethodsInstance().closeConnection();
-        }
+            String mandrillEmailId = request.getParameter("mandrill_email_id");
+            if(StringUtils.isEmpty(mandrillEmailId)){
+                Map<String, String> responseMap = new HashMap<>();
+                responseMap.put("error", "mandrill_email_id is required request parameter");
+                response.getWriter().write(new Gson().toJson(responseMap));
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+            response.getWriter().write(
+                    new Gson().toJson(MandrillApiHandler.getEmailDetails(mandrillEmailId)));
+            response.getWriter().flush();
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(GetEmailDetailServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

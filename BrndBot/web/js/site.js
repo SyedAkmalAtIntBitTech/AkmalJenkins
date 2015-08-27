@@ -324,10 +324,11 @@ $(document).ready(function () {
 //            $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
 //    }
 
-    $("#textFontFamily").change(function () {
-//        alert($("#textFontFamily").val());
-        $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
-    });
+//    $("#textFontFamily").change(function () {
+////        alert($("#textFontFamily").val());
+//        $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
+//    });
+    
     $("#fontColor").change(function () {
 //        alert($("#fontColor").val());
             alert();
@@ -464,11 +465,16 @@ $(document).ready(function () {
         });
     });
     $("#addButton").click(function () {
+
         $("#slider").hide();
         var subcategories = $("#subcategories").val();
         var blocks = $("#blocks").val();
+
         
-        if ((subcategories != 0) || (blocks != 0)){
+        var selectedtype = $("#selectedtype").val();
+
+        
+        if ((selectedtype == "selected")){
         
         $(".container").append("<div class=\"draggableButton\"><img src=\"../buttons/button1.png\" id=\"" + $("#elementText").find('option:selected').text() + "\"></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
@@ -511,18 +517,20 @@ $(document).ready(function () {
             reloadTabs(2);
         });
 
-        }else if (subcategories == 0){
-            alert("no category selected, please select any one category");
-        }else if (blocks == 0){
-            alert("no block selected, please select any one block");
+        }else if (selectedtype == "non"){
+            alert("no category selected, please select any one category type");
         }
     });
     $("#addImageButton").click(function () {
+
         $("#slider").hide();
         var subcategories = $("#subcategories").val();
         var blocks = $("#blocks").val();
+
+        var selectedtype = $("#selectedtype").val();
+
         
-        if ((subcategories != 0) || (blocks != 0)){
+        if ((selectedtype == "selected")){
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
         $(".container").append("<div class=\"draggableImage\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
@@ -676,19 +684,21 @@ $(document).ready(function () {
             $(".size").text("Height=" + $("#" + id).css("height") + ", Width=" + $("#" + id).css("width"));
             reloadTabs(1);
         });
-        }else if (subcategories == 0){
-            alert("no category selected, please select any one category");
-        }else if (blocks == 0){
-            alert("no block selected, please select any one block");
+        }else if (selectedtype == "non"){
+            alert("no category selected, please select any one category type");
         }
 
     });
     $("#addTextButton").click(function () {
+
         $("#slider").hide();
         var subcategories = $("#subcategories").val();
         var blocks = $("#blocks").val();
+
+        var selectedtype = $("#selectedtype").val();
+
         
-        if ((subcategories != 0) || (blocks != 0)){
+        if ((selectedtype == "selected")){
             
             $(".container").append("<div class=\"draggableText\"><textarea class =\"textAreas\" id=\"" + $("#elementText").find('option:selected').text() + "\"style='border: 1px solid black' >" + $("#elementText").find('option:selected').text() + "</textarea></div>");
             $("#textArea").val($("#elementText").find('option:selected').text());
@@ -730,10 +740,8 @@ $(document).ready(function () {
                     }
 
             );
-        }else if (subcategories == 0){
-            alert("no category selected, please select any one category");
-        }else if (blocks == 0){
-            alert("no block selected, please select any one block");
+        }else if (selectedtype == "non"){
+            alert("no category selected, please select any one category type");
         }
         
         function reload_dropShadow()

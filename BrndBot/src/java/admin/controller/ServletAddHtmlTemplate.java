@@ -5,6 +5,7 @@
  */
 package admin.controller;
 
+import com.controller.BrndBotBaseHttpServlet;
 import com.intbit.AppConstants;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,6 +15,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +29,8 @@ import org.json.simple.parser.JSONParser;
  *
  * @author development
  */
-public class ServletAddHtmlTemplate extends HttpServlet {
+public class ServletAddHtmlTemplate extends BrndBotBaseHttpServlet {
+    private static final Logger logger = Logger.getLogger(ServletAddFonts.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +41,12 @@ public class ServletAddHtmlTemplate extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        Layout layout = new Layout();
         String fileName = null,filePath = null, fieldName = null, uploadPath = null, uploadType = null;
         StringBuffer string_buffer = new StringBuffer();
 
@@ -59,54 +65,30 @@ public class ServletAddHtmlTemplate extends HttpServlet {
             String type = (String) json_html_template.get("type");
             
 //            BufferedReader txtfile = new BufferedReader(new FileReader("c:\\test.txt"));
+            String model_id = (String)json_html_template.get("model_id");
             String model_name = (String)json_html_template.get("model_name");
             String html_content = (String)json_html_template.get("html_content");
             
-            filePath = uploadPath + File.separator + model_name + ".html";
-            
+            fileName = model_name + ".html";
+            filePath = uploadPath + File.separator + fileName;
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
             OutputStream htmlfile= new FileOutputStream(new File(filePath));
+            
             PrintStream printhtml = new PrintStream(htmlfile);
             
-//            String[] txtbyLine = new String[500];
-//            String temp = "";
-//            String txtfiledata = "";
+            layout.editModel(Integer.parseInt(model_id), fileName);
 
-//            String htmlheader="<html><head>";
-//            htmlheader+="<title>Equivalent HTML</title>";
-//            htmlheader+="</head><body>";
-//            String htmlfooter="</body></html>";
-//            int linenum = 0 ;
-//
-//            htmlheader = htmlheader + txtfile;
-            
-//            while ((txtfiledata = txtfile.readLine())!= null)
-//               {
-//                    txtbyLine[linenum] = txtfiledata;
-//                    linenum++;
-//               } 
-//            for(int i=0;i<linenum;i++)
-//                {
-//                    if(i == 0)
-//                    {
-//                        temp = htmlheader + txtbyLine[0];
-//                        txtbyLine[0] = temp;
-//                    }
-//                    if(linenum == i+1)
-//                    {
-//                        temp = txtbyLine[i] + htmlfooter;
-//                        txtbyLine[i] = temp;
-//                    }
-//                    printhtml.println(txtbyLine[i]);
-//                }
-                printhtml.print(html_content);
-                
-        printhtml.close();
-        htmlfile.close();
-//        txtfile.close();
-            
-        }catch (Exception e){
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
+            printhtml.print(html_content);
+
+            printhtml.close();
+            htmlfile.close();
+            out.write("true");
+        }catch (Exception ex){
+            logger.log(Level.SEVERE, "", ex);
+            out.write(getSqlMethodsInstance().error);
         }
     }
 

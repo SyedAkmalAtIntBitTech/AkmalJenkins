@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -408,13 +409,13 @@ public class SqlMethods {
 
             pg_object.setType("json");
             pg_object.setValue(userPreferenceJSON.toString());
-            prepared_statement.setObject(1, pg_object);
+            prepared_statement.setObject(1, pg_object, Types.OTHER);
             prepared_statement.setInt(2, user_id);
             if (prepared_statement.executeUpdate() == 1) {
                 returnResult = true;
             }
         } catch (Exception e) {
-                      logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
 
         } finally {
             close(result_set, prepared_statement);
@@ -708,6 +709,7 @@ public class SqlMethods {
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+            logger.info(query_string);
             prepared_statement = connection.prepareStatement(query_string);
 
             result_set = prepared_statement.executeQuery();
@@ -720,7 +722,7 @@ public class SqlMethods {
             userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
 
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
 
         } finally {
             close(result_set, prepared_statement);
@@ -740,6 +742,7 @@ public class SqlMethods {
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+            logger.log(Level.INFO, query_string);
             prepared_statement = connection.prepareStatement(query_string);
 
             result_set = prepared_statement.executeQuery();
@@ -760,7 +763,7 @@ public class SqlMethods {
             }
 
         } catch (Exception e) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
 
 
         } finally {
@@ -919,31 +922,38 @@ public class SqlMethods {
 
     }
 
-    public void setEmailSentHistory(Integer userid, String contenthtml, String emailaddress, String emaillistname) throws SQLException {
+    public int setEmailSentHistory(Integer userid, String contenthtml, 
+            String emailaddress, String emaillistname) 
+            throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-
+        int lastUpdateId = -1;
         try(Connection connection = ConnectionManager.getInstance().getConnection()){
 
-            query_string = "Insert into tbl_emailsenthistory(user_id, timesent, contenthtml, emailaddress, emaillistname) Values (?,?,?,?,?)";
-
+            query_string = "INSERT INTO tbl_emailsenthistory"
+                    + "(user_id, timesent, contenthtml, emailaddress, emaillistname) VALUES "
+                    + "(?,CURRENT_TIMESTAMP,?,?,?) RETURNING id";
             prepared_statement = getConnection().prepareStatement(query_string);
             prepared_statement.setInt(1, userid);
-            prepared_statement.setTimestamp(2, getCurrentTimeStamp());
-            prepared_statement.setString(3, contenthtml);
-            prepared_statement.setString(4, emailaddress);
-            prepared_statement.setString(5, emaillistname);
+            prepared_statement.setString(2, contenthtml);
+            prepared_statement.setString(3, emailaddress);
+            prepared_statement.setString(4, emaillistname);
 
-            prepared_statement.executeUpdate();
-
+            prepared_statement.execute();
+            result_set = prepared_statement.getResultSet();
+            
+            if(result_set.next()){
+                lastUpdateId = result_set.getInt(1);
+                logger.log(Level.INFO, "Id of new email history: " + lastUpdateId);
+            }
+            
         } catch (Exception e) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
         } finally {
             close(result_set, prepared_statement);
         }
-
+        return lastUpdateId;
     }
     public void setSocialPostHistory(Integer userid, String contenthtml, boolean twitter, boolean facebook, String imagefilename) throws SQLException {
         String query_string = "";
@@ -1142,31 +1152,25 @@ public class SqlMethods {
         
         queryParmeter.append("(");
         for (int i = 0; i < list.size(); i++) {
-            queryParmeter.append("?");
-            queryParmeter.append(",");
+            queryParmeter.append(list.get(i).getModelId());
             orderByParameter.append("id="+list.get(i).getModelId() + " DESC");
-            orderByParameter.append(",");
-        }
-        queryParmeter.substring(0, queryParmeter.length()-1);
-        orderByParameter.substring(0, orderByParameter.length()-1);
-        queryParmeter.append(")");
-         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            
-             
-            query_string = "Select id,html_file_name from tbl_model_name_value where id in "+queryParmeter+" ORDER BY "+orderByParameter;
-            prepared_statement = connection.prepareStatement(query_string);
-            for (int i = 0; i < list.size(); i++) {
-                prepared_statement.setInt(1, Integer.parseInt(list.get(i).getModelId()));
+            if (i < list.size()-1) {
+                queryParmeter.append(",");
+                orderByParameter.append(",");
             }
             
-            prepared_statement = connection.prepareStatement(query_string);
-            
+        }
+        queryParmeter.append(")");
+        
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "Select html_file_name from tbl_model where id in "+queryParmeter+" ORDER BY "+orderByParameter;
+            prepared_statement = connection.prepareStatement(query_string);            
             result_set = prepared_statement.executeQuery();
 
             int i = 0;
-            if (result_set.next()){
+            while (result_set.next()){
                 DivHTMLModel model = list.get(i++);
-                String html_file_name = result_set.getString(1);
+                String html_file_name = result_set.getString("html_file_name");
                 model.setHtmlFileName(html_file_name);
                 String htmlPath = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator + html_file_name;
                 File file = new File(htmlPath);
