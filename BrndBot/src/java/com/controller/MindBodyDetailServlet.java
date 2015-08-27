@@ -42,17 +42,17 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession(true);
         try {
-        Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-        Integer organization_id = 0, block_id = 0;
-        String mindbody_query = null, editor_type = null;
-        String category_id = (String) getSqlMethodsInstance().session.getAttribute("category_id");
-        String sub_category_id = (String) getSqlMethodsInstance().session.getAttribute("sub_category_id");
-        String sub_category_name = (String) getSqlMethodsInstance().session.getAttribute("sub_category_name");
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+            Integer organization_id = 0, block_id = 0;
+            String mindbody_query = null, editor_type = null;
+            String category_id = (String) getSqlMethodsInstance().session.getAttribute("category_id");
+            String sub_category_id = (String) getSqlMethodsInstance().session.getAttribute("sub_category_id");
+            String sub_category_name = (String) getSqlMethodsInstance().session.getAttribute("sub_category_name");
 
-        String mindbody_data_id = "";
-        Integer model_mapper_id = 0;
-        HashMap<String, Object> mindbody_hash_map = null;
-        
+            String mindbody_data_id = "";
+            Integer model_mapper_id = 0;
+            HashMap<String, Object> mindbody_hash_map = null;
+
             organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
             getSqlMethodsInstance().session = request.getSession(true);
             if (request.getParameter("mindbody_id") != null) {
@@ -64,7 +64,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
             editor_type = request.getParameter("editor_type");
             if (request.getParameter("query") != null && request.getParameter("query").equalsIgnoreCase("block")) {
                 mindbody_query = request.getParameter("mindbody_query");
-                mindbody_hash_map = (HashMap<String, Object>) getSqlMethodsInstance().session.getAttribute(getSqlMethodsInstance().k_mind_body+mindbody_query);
+                mindbody_hash_map = (HashMap<String, Object>) getSqlMethodsInstance().session.getAttribute(getSqlMethodsInstance().k_mind_body + mindbody_query);
                 sub_category_name = mindbody_query;//doing this since its a block and we are checking against the query to send appropriate file
                 block_id = Integer.parseInt(request.getParameter("block_id"));
             } else {
@@ -72,7 +72,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
             }
 
             String mapperFileName = getSqlMethodsInstance().getMapperFile(user_id, organization_id, Integer.parseInt(category_id), Integer.parseInt(sub_category_id), model_mapper_id, block_id, editor_type);
-            String editor_mapper_file_name = AppConstants.BASE_XML_UPLOAD_PATH + File.separator + mapperFileName  + ".xml";
+            String editor_mapper_file_name = AppConstants.BASE_XML_UPLOAD_PATH + File.separator + mapperFileName + ".xml";
 
             JSONObject mapped_json_object = null;
             Object selected_object = mindbody_hash_map.get(mindbody_data_id);
@@ -83,14 +83,14 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
             } else if (sub_category_name.contains("work shop") || sub_category_name.contains("workshop")) {
                 ClassSchedule mindbody_enrollments = (ClassSchedule) selected_object;
                 mapped_json_object = MindBodyDataMapper.mapEnrollmentData(mindbody_enrollments, editor_mapper_file_name);
-            }   
+            }
 
             if (mapped_json_object != null) {
                 response.setContentType("application/json");
                 response.getWriter().write(mapped_json_object.toString());
             }
         } catch (Exception e) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
         } finally {
             out.close();
             getSqlMethodsInstance().closeConnection();
