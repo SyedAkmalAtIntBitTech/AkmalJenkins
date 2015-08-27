@@ -29,6 +29,7 @@ and open the template in the editor.
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
@@ -58,9 +59,19 @@ and open the template in the editor.
                 height: 100px;
                 margin-left:  5px;
             }
-             #slider{
-                 width:600px;height: 20px;zoom: 0.2;
-             }
+                #slider{
+                width:150px;height: 5px;
+                position: relative;
+                left:60px;
+                top:-18px;
+            }
+            .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
+            {
+               width: 20px;
+               height:14px;
+/*                border-radius: 20px;*/
+               background-color: #FFF;
+            }
             #popup
             {
                 display:none;
@@ -204,7 +215,6 @@ and open the template in the editor.
             $(document).ready(function () {
     
             $("#fontname").change(function () {
-//            alert($(this).val());
                 var text = $("#fontname").find('option:selected').text();
                 var font_family_name = $("#fontname").val();
                 var font = font_family_name.split(",");
@@ -320,7 +330,6 @@ and open the template in the editor.
                                     block_id = arr[0].replace("block", "");
                             };
                             $scope.showStyles = function(){
-//                                alert("in style");
                             var queryurl;
                             $scope.curPage = 0;
                             $scope.pageSize = 2;
@@ -338,7 +347,6 @@ and open the template in the editor.
                                  method : 'GET',
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
-                                
                             $scope.datalistsstyles = data;
                             $scope.numberOfPages = function() {
                             return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
@@ -523,7 +531,6 @@ and open the template in the editor.
                         //    alert(id+":"+layout+":"+mindbodydataId);
                             var layoutfilename = layout;
                                     $("#clickid").val(layout);
-                                    //alert(mindbodydataId);
                             if (mindbodydataId != "0")
                             {
                             $.ajax({
@@ -598,7 +605,6 @@ and open the template in the editor.
                                     $.each(val, function (k, v) {
                                     //                               alert(k + " : " + v+ ":"+ type);
                                     if (type.trim() == k.trim()) {
-                                    //                                                    alert();
                                     elementdata = v;
                                     }
 
@@ -636,25 +642,49 @@ and open the template in the editor.
                                                         }
 //                                                fontcolor = $(this).attr("font-color");
                                                 
-                                                //alert(".preview #" + blockId);
                                                 $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
                                                 $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
-                                                                       .css("position", "absolute")
-                                                                       .css("left", "" + left + "px")
-                                                                       .css("top", "" + top + "px")
-                                                                       .css("width", "" + width)
-                                                                       .css("min-height", "" + height)
-                                                                       .css("font-size", "" + fontsize)
-                                                                       .css("font-style", "" + fontstyle)
-                                                                       .css("font-weight", "" + fontweight)
-                                                                       .css("letter-spacing", "" + letterspacing)
-                                                                       .css("line-height", "" + lineheight)
-                                                                       .css("opacity", "" + opacity)
-                                                                       .css("text-align", "" + textalign)
-                                                                       .css("text-shadow", "" + dropshadow)
-                                                                       .css("webkit-transform", "rotate(" + webkittransform + "deg)")
-                                                                       .css("background-color", "inherit" );
-                                                $("#" + type + "EEE" + blockId).autogrow();
+                                                                        .css("position", "absolute")
+                                                                        .css("overflow", "hidden")
+                                                                        .css("left", "" + left + "px")
+                                                                        .css("top", "" + top + "px")
+                                                                        .css("width", "" + width)
+
+                                                                        .css("height", "" + height)
+
+                                                                        .css("font-style", "" + fontstyle)
+                                                                        .css("font-weight", "" + fontweight)
+                                                                        .css("letter-spacing", "" + letterspacing)
+                                                                        .css("opacity", "" + opacity)
+                                                                        .css("text-align", "" + textalign)
+                                                                        .css("text-shadow", "" + dropshadow)
+                                                                        .css("webkit-transform", "rotate(" + webkittransform + "deg)")
+                                                                        .css("resize", "none")
+                                                                        .css("background-color", "inherit")
+                                                                        .css("border", "none")
+                                                                        .css("focus", "none")
+                                                                        .css("line-height", "" + lineheight); 
+                                                //$("#" + type + "EEE" + blockId).autogrow();
+                                                
+                                                //resize of text to fit bound - By Syed Ilyas 26/8/2015
+                                                var tempfontsize = parseInt(fontsize.replace("px",""));
+                                                var tempHeight = parseInt(height.replace("px",""));
+                                                $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize +"px");
+                                                if($("#" + type + "EEE" + blockId).get(0).scrollHeight > tempHeight)
+                                                {
+                                                    $("#" + type + "EEE" + blockId).css("line-height", "initial");
+                                                while ( $("#" + type + "EEE" + blockId).get(0).scrollHeight > tempHeight) {
+                                                       tempfontsize = tempfontsize - 1;
+                                                      $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize +"px");
+                                                }
+                                                 var xxyy = parseInt(tempfontsize);
+                                                xxyy = Math.round(xxyy * 1.2);
+                                                 $("#" + type + "EEE" + blockId).css("line-height",""+xxyy+"px");
+                                                }
+                                                //resize end
+                                                
+                                                
+                                                
                                         }
 
                                     if (tag === "image")
@@ -663,7 +693,6 @@ and open the template in the editor.
                                             
                                             var background_image=$(this).attr("background-image")
                                              $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
-                        //                    alert("image");
                                                         count++;
                                             $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
                                             $("#" + type + "EEE" + blockId)
@@ -713,7 +742,7 @@ and open the template in the editor.
 
                                     if (tag === "block")
                                     {
-    
+                                        var borderRadius = $(this).attr("border-radius");
                                         var colorName=$(this).attr("color-name");
                                         var backgroundcolor;
                                         var width = $(this).attr("width");
@@ -741,6 +770,7 @@ and open the template in the editor.
                                                      .css("margin-left", "" + left + "px")
                                                      .css("margin-top", "" + top + "px")
                                                      .css("width", "" + width)
+                                                     .css("border-radius", "" + borderRadius)
                                                      .css("position", "absolute")
                                                      .css("height", "" + height)
                                                      .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
@@ -757,9 +787,6 @@ and open the template in the editor.
                                     }
                             });
                     }
-//            $(".preview div").click(function(){
-//            alert($(this).attr("id"));
-//            })
 
         </script>
         <script src="js/emaileditor.js" type="text/javascript"></script>
@@ -782,7 +809,7 @@ and open the template in the editor.
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0">
-                            <p class="edit">EDIT THIS POST </p><br><p id="edtgb"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview">preview</p>
+                            <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview">preview</p>
 
                             <div class="sortDelete" style="position:absolute;top:380px; left:0px;margin: 0px;">
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
@@ -879,20 +906,39 @@ and open the template in the editor.
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
-                                            <p id="text3">TEXT</p> 
+                                            <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li><p id="editorheadere">font color</p><div class="fontcolor-box blankcolor-box1" id="picker"></div></li>
+                                                <li>
+                                                    <p id="editorheadere" class="SS1">font color</p>
+                                                    <div class="blankcolor-box1" id="picker" ></div>
+                                                    
+                                                    <ul id="pickColorForText" style="display: none">
+                                                        <li><p style="font-size: 8px;">your palette</p></li>
+                                                        <li><p class="editpal custom-color-box-text" style="font-size: 8px;">custom</p></li>
+                                                        <li>
+                                                                <ul>
+                                                                   <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                    <li> <div class="blankcolor-box-text" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                                </ul>
+                                                            </li>
+                                                            
+                                                        </ul>
+                                                </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
-                                                    <p id="editorheadere">font size</p>
+                                                    <p id="editorheadere" class="SS1">font size</p>
                                                     <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;">
                                                         <option ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                     </select>
                                                 </li>
 
                                                 <li>
-                                                    <p id="editorheadere">font Name:</p>
+                                                    <p id="editorheadere" class="SS1">font Name:</p>
                                                     <select id="fontname" style="margin: 2px;font-size: 15px;width:80px;">
                                                         <option ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
                                                     </select>
@@ -912,11 +958,14 @@ and open the template in the editor.
                                         <input type="hidden" id='clickid'>
 
                                         <div id="shapecontainer">
-                                            <p  id="text3">SHAPES</p>
+                                            <p  id="text3" class="SS2">SHAPES</p>
                                             <ul id="shapemodificatoin">
-                                                <li><select class="blockname" id="editorhead"></select></li>
+
+                                             
+                                                <li><select class="blockname LE1" id="editorhead"></select></li>
+
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
-                                                  <li><p id="editpal">your palette</p></li>                                                                                         
+                                                  <li><p class="editpal">your palette</p></li>                                                                                         
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
                                                         <li><div class="blankcolor-box" id="shapecolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
@@ -929,17 +978,18 @@ and open the template in the editor.
                                                     </ul>
                                                 </li>
                                                 <li><p class="editpal">pick from theme</p></li>
-                                                <li><p class="editpal custom-color-box" id="picker" style="margin-left: 120px;">custom</p><br></li>
+                                                <li><p class="editpal custom-color-box" style="margin-left: 120px;">custom</p><br></li>
                                                 <li><p class="editpal">opacity</p><div id="slider" ></div></li>
+
                                             </ul>
                                         </div>
 
                                         <div id="imagecontainer">
-                                            <p  id="text3">IMAGE</p>
+                                            <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><select class=imagename id="editorhead"> </select></li>
+                                                <li><select class="imagename LE1" id="editorhead"> </select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
-                                                <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
+                                                <li><p  class="btn"  onclick="imageEdit()">edit</p></li>
                                                 <li></li>
                                             </ul>
                                         </div>
@@ -1321,7 +1371,6 @@ and open the template in the editor.
                                                     var dataURL = canvass.toDataURL();
                                                     //                                            alert(dataURL);
                                                     var cropped_image = {"image": "image"};
-                                                    //                                            alert("image");
                                                     $.ajax({
                                                     url: global_host_address + 'CropImage',
                                                             method: 'post',
@@ -1368,8 +1417,6 @@ and open the template in the editor.
                                             one = new CROP();
                                             $("#selectimage").click(function(){
                                     var image_file = global_host_address + $("#image_name").val();
-                                            //                                        alert(image_file);
-                                            //                                        alert(selectedImageId);
                                             $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
                                             $("#imagespopup").hide();
                                     });
@@ -1379,8 +1426,7 @@ and open the template in the editor.
                                                     $("#imagecontainer").hide();
                                                     $("#filtercontainer").show();
                                                     $("#cropImageContainer").show();
-                                                    var image_file = $(".imagename").val().replace("url(", "").replace(")", "");
-                                                    //                                        alert(image_file);
+                                                    var image_file = $(".imagename").val().replace("url(", "").replace(")", "");                                                                                           
                                                     id = "image" + i;
                                                     $("#cropper_popup").show();
                                                     $('#cropper_popup').draggable();

@@ -348,7 +348,7 @@
               url: global_host_address + 'ServletValidateModel',
               method: 'post',
               data: {
-                  model_name : model_name,
+                  model_name : model_name
               },
               success: function (responseText) {
                 if (responseText == "yes"){
@@ -402,7 +402,7 @@
                                   blocks : blocks,
                                   model_name : model_name,
                                   imagename : imagename,
-                                  mail : mail,
+                                  mail : mail
                               },
                               success: function (responseText) {
                                   alert("Model saved successfully");
@@ -616,6 +616,9 @@
                     <span class="position">Co ordinates: X = 0, Y = 0 </span>
                 </p>
                 <p>
+                    <input type="checkbox" id="circleCheckBox"> Circle
+                </p>
+                <p>
                     Block Size:
                 </p>
                 <p>
@@ -658,6 +661,7 @@
             </div>
         </div>
         <div id="main">
+            <h3>Email Layout Model</h3>
             <form>
                 
                 Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">

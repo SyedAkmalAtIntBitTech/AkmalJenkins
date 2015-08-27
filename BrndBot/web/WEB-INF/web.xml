@@ -300,6 +300,14 @@
         <servlet-name>DownloadFontsServlet</servlet-name>
         <servlet-class>com.controller.DownloadFontsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetEmailHistoryListServlet</servlet-name>
+        <servlet-class>com.controller.email.GetEmailHistoryListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetEmailHistoryDetailServlet</servlet-name>
+        <servlet-class>com.controller.email.GetEmailHistoryDetailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -611,6 +619,14 @@
     <servlet-mapping>
         <servlet-name>DownloadFontsServlet</servlet-name>
         <url-pattern>/DownloadFonts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetEmailHistoryListServlet</servlet-name>
+        <url-pattern>/GetEmailHistoryList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetEmailHistoryDetailServlet</servlet-name>
+        <url-pattern>/GetEmailHistoryDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

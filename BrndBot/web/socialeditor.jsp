@@ -29,6 +29,7 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
@@ -50,9 +51,19 @@ and open the template in the editor.
                 height: 100px;
                 margin-left:  5px;
             } 
-             #slider{
-                 width:600px;height: 20px;zoom: 0.2;
-             }
+               #slider{
+                width:150px;height: 5px;
+                position: relative;
+                left:60px;
+                top:-18px;
+            }
+            .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
+            {
+               width: 20px;
+               height:14px;
+/*                border-radius: 20px;*/
+               background-color: #FFF;
+            }
             #popup
             {
                 display:none;
@@ -75,7 +86,7 @@ and open the template in the editor.
                 font-weight:bold;
                 overflow: auto;
             }
-            
+
             #imagespopup{
 
                 display:none;
@@ -99,7 +110,7 @@ and open the template in the editor.
                 text-align: center;
                 overflow:auto;
             }
-            
+
             #cropper_popup{
 
                 display:none;
@@ -163,7 +174,7 @@ and open the template in the editor.
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script>
             $(document).ready(function () {
-    
+
             $("#fontname").change(function () {
 //            alert($(this).val());
                 var text = $("#fontname").find('option:selected').text();
@@ -202,6 +213,7 @@ and open the template in the editor.
                     }).success(function(data, status, headers, config) {
 //                        alert(JSON.stringify(data.user_colors));
                             $scope.user_preferences_colors = data.user_colors;
+
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
                             $scope.user_preferences_font_names = data.user_font_names;
                             var i = 0;
@@ -270,7 +282,7 @@ and open the template in the editor.
                                     method : 'GET',
                                             url : 'GetUserImages'
                                     }).success(function(data, status, headers, config) {
-                                        alert(JSON.stringify(data));
+//                                        alert(JSON.stringify(data));
                                     $scope.datalistimages = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalistimages.length / $scope.pageSize);
@@ -294,10 +306,6 @@ and open the template in the editor.
             };
             });
                     function showText(id, layout){
-//                          alert(id+""+layout);
-//                            $("#clickid").val(layout);
-
-//                            alert('http://localhost:8080/BrndBot/DownloadXml?file_name='+ layout +'.xml');
                             $.ajax({
                                     type: 'GET',
                                     url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + '&editor_type=social',
@@ -315,6 +323,7 @@ and open the template in the editor.
                                                             height = $(this).find('container').attr("Height");
                                                             width = $(this).find('container').attr("Width");
                                                             $(".preview").css("width", width + "px");
+                                                            $(".preview").css("height", height + "px");
                                                     }
 
                                                     );
@@ -333,7 +342,6 @@ and open the template in the editor.
                                                     $.each(val, function (k, v) {
 //                            alert(k + " : " + v+ ":"+ type);
                                                     if (type.trim() == k.trim()) {
-//                                                    alert();
                                                             elementdata = v;
                                                     }
 
@@ -357,7 +365,7 @@ and open the template in the editor.
                                                               fontcolor= $("#shapecolorbox"+i).css("background-color");
 //                                                              fontcolor=user_preferences_colors.color+""+i; 
                                                             }
-                                                            
+
                                                         }
 //                                                            fontcolor = $(this).attr("font-color");
                                                             fontsize = $(this).attr("font-size");
@@ -370,14 +378,14 @@ and open the template in the editor.
                                                             var textalign = $(this).attr("text-align");
                                                             var webkittransform = $(this).attr("webkit-transform");
                                                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-//                    alert($(this).attr("text-shadow"));
                                                         $(".preview").append("<div><textarea class=textAreas onclick=getTectId("+ type +") id=" + type + ">" + elementdata + "</textarea>");
                                                         $("#" + type).css("color", "" + fontcolor)
                                                                 .css("position", "absolute")
+                                                                .css("overflow", "hidden")
                                                                 .css("margin-left", "" + left + "px")
                                                                 .css("margin-top", "" + top + "px")
                                                                 .css("width", "" + width)
-                                                                .css("min-height", "" + height)
+                                                                .css("height", "" + height)
                                                                 .css("font-size", "" + fontsize)
                                                                 .css("font-style", "" + fontstyle)
                                                                 .css("font-family", "" + font_family_name)
@@ -390,7 +398,24 @@ and open the template in the editor.
                                                                 .css("text-align", "" + textalign)
                                                                 .css("text-shadow", "" + dropshadow)
                                                                 .css("webkit-transform", "rotate(" + webkittransform + "deg)");
-                                                        $("#" + type).autogrow();
+                                                        //$("#" + type).autogrow();
+                                                        
+                                                        //resize of text to fit bound - By Syed Ilyas 26/8/2015
+                                                        var tempfontsize = parseInt(fontsize.replace("px",""));
+                                                        var tempHeight = parseInt(height.replace("px",""));
+                                                        if($("#" + type).get(0).scrollHeight > tempHeight)
+                                                        {
+                                                            $("#" + type).css("line-height", "initial");
+                                                        while ( $("#" + type).get(0).scrollHeight > tempHeight) {
+                                                               tempfontsize = tempfontsize - 1;
+                                                              $("#" + type).css("font-size", "" + tempfontsize +"px");
+                                                        }
+                                                         var xxyy = parseInt(tempfontsize);
+                                                        xxyy = Math.round(xxyy * 1.2);
+                                                         $("#" + type).css("line-height",""+xxyy+"px");
+                                                        }
+                                                        //resize end
+                                                        
                                                     }
 
                                                if (tag === "image")
@@ -399,7 +424,6 @@ and open the template in the editor.
                                                     var blendmode = $(this).attr("background-blend-mode");
 //                                                   
                                                     $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
-                        //                    alert("image");
                                                         count++;
                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
@@ -415,7 +439,7 @@ and open the template in the editor.
                                                             .css("background-position", "center center")
                                                             .css("position", "absolute"); 
                                                     }
-                                                    
+
                                                     if (tag === "logo")
                                                     {
                                                     var background_image = $(this).attr("background-image");
@@ -432,7 +456,7 @@ and open the template in the editor.
                                                             .css("background", ""+background_image)
                                                             .css("background-repeat", "no-repeat")
                                                             .css("background-position", "center center")
-                                                            
+
                                                             .css("position", "absolute"); 
                                                     }
 
@@ -448,6 +472,7 @@ and open the template in the editor.
 
                                                     if (tag === "block")
                                                     {
+                                                        var borderRadius = $(this).attr("border-radius");
                                                         var colorName=$(this).attr("color-name");
                                                         var backgroundcolor;
                                                         for(var i=1;i<=6; i++)
@@ -457,13 +482,12 @@ and open the template in the editor.
                                                               backgroundcolor= $("#shapecolorbox"+i).css("background-color");
 //                                                              fontcolor=user_preferences_colors.color+""+i; 
                                                             }
-                                                            
+
                                                         }
                                                         $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
                                                         blockcount++;
                                                             var width = $(this).attr("width");
                                                             var height = $(this).attr("height");
-//                                                            var backgroundcolor = $(this).attr("background-color");           
                                                             var drop_shadow=$(this).attr("Drop-shadow-color");
                                                             var h_shadow =  $(this).attr("H-shadow"); 
                                                             var v_shadow=$(this).attr("V-shadow");
@@ -473,6 +497,7 @@ and open the template in the editor.
                                                                     .css("margin-left", "" + left + "px")
                                                                     .css("margin-top", "" + top + "px")
                                                                     .css("width", "" + width)
+                                                                    .css("border-radius", "" + borderRadius)
                                                                     .css("position", "absolute")
                                                                     .css("height", "" + height)
                                                                     .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
@@ -513,10 +538,10 @@ and open the template in the editor.
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0 prev">
 
-                            <p class="edit">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb"><a href="selectpromotemedia.jsp">go back</a></p>
+                            <p class="edit SP1">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb" class="BT2"><a href="selectpromotemedia.jsp">go back</a></p>
                             <div class="preview" style="zoom: 0.5;">
 
-                           
+
                                 <!--  {{mindbody_data}}-->
                                 <!--
                                         NOTE: To change the aspect ratio, look in crop.css
@@ -566,7 +591,7 @@ and open the template in the editor.
                                         <input id="selectimage" name="selectimage" type="Button" value="select"/>  
                                         <input type="hidden" name="image_name" id="image_name"/>
                                         <input id="closeimagespopup" type="Button" value="close"/>  
-                                
+
                                 </div>
                             </div>
                             <div id="popup" name="popup">
@@ -576,7 +601,7 @@ and open the template in the editor.
                                     User Directory : <input type="button" id="UserUploadedImages" name="UserUploadedImages" value="Click" ng-click="showImages()" > <br> 
 
                                     <input id="closepopup" type="Button" value="close"/>  
-                                
+
                                     </form>
                                 </div>   
                             </div>
@@ -601,23 +626,38 @@ and open the template in the editor.
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
-                                            <p id="text3">TEXT</p> 
+                                            <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li><p id="editorheadere">font color</p>
-                                                    <div class="color-box blankcolor-box1" id="picker" style="left:-20px;"></div>
+                                                <li><p id="editorheadere" class="SS1">font color</p>
+                                                    <div class="blankcolor-box1" id="picker" ></div>
+                                                    
+                                                    <ul id="pickColorForText" style="display: none">
+                                                            <li><p style="font-size: 8px;">your palette</p>
+                                                                <ul>
+                                                                   <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                    <li> <div class="blankcolor-box-text" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><p class="editpal custom-color-box-text" style="font-size: 8px;">custom</p></li>
+                                                        </ul>
+                                                    
                                                 </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
-                                                    <p id="editorheadere">font size</p>
+                                                    <p id="editorheadere" class="SS1">font size</p>
                                                     <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px; ">
                                                         <option ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                     </select> 
                                                 </li>
 
                                                 <li>
-                                                    <p id="editorheadere">font style</p>
-                                                    
+                                                    <p id="editorheadere" class="SS1">font style</p>
+
 
                                                     <select id="fontname" style="margin:2px;font-size:15px;width:80px;">
                                                         <option ng-repeat ="names in user_preferences_font_names" value="{{ names.font_family_name}}">{{ names.font_name}} </option>
@@ -639,11 +679,12 @@ and open the template in the editor.
                                         <input type="hidden" id='clickid'>
 
                                         <div id="shapecontainer">
-                                            <p  id="text3">SHAPES</p>
+                                            <p  id="text3" class="SS2">SHAPES</p>
                                             <ul id="shapemodificatoin">
-                                                <li><select class="blockname" id="editorhead"></select></li>
-                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                <li><p class="editpal" >your palette</p></li>
+
+                                                <li><select class="blockname LE1" id="editorhead"></select></li>
+                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><p class="editpal">your palette</p></li>
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
                                                        <li><div class="blankcolor-box" id="shapecolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
@@ -655,18 +696,18 @@ and open the template in the editor.
                                                     </ul>
                                                 </li>
                                                 <li><p class="editpal">pick from theme</p></li>
-                                                <li><p class="editpal custom-color-box" id="picker" style="margin-left: 120px;">custom</p><br></li>
-                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
+                                                <li><p class="editpal custom-color-box" style="margin-left: 120px;">custom</p></li>
+                                                <li><p class="editpal" id="">opacity</p><div id="slider"></div></li>
 
                                             </ul>
                                         </div>
 
                                         <div id="imagecontainer">
-                                            <p  id="text3">IMAGE</p>
+                                            <p  id="text3" class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><select class=imagename id="editorhead"> </select></li>
+                                                <li><select class="imagename LE1" id="editorhead"> </select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
-                                                <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
+                                                <li><p  class="btn" onclick="imageEdit()">edit</p></li>
                                                 <li></li>
                                             </ul>
                                         </div>
@@ -684,13 +725,13 @@ and open the template in the editor.
                                         </div>
                                         <div id="cropImageContainer" style="display: none">
 <!--                                                <p>CROP</p>-->
-                                             
+
 
                                                     <!--
                                                             NOTE: To change the aspect ratio, look in crop.css
                                                             The class 'default' links the div to the innit(); function
                                                     -->
-                                  
+
                                                 <br><br>
                                             <input type="button" id="done" class="btn btn-primary" onclick="saveImageEdit()" value="DONE"> 
                                         </div>
@@ -767,39 +808,39 @@ $(this).addClass('highlight');
 
 });
                                         </script>     
-                                                            
- 
+
+
 <!--     <script>
 
-		// create new object crop
-		// you may change the "one" variable to anything
-		var one = new CROP();
+                // create new object crop
+                // you may change the "one" variable to anything
+                var one = new CROP();
 
-		// link the .default class to the crop function
-		one.init('.default');
+                // link the .default class to the crop function
+                one.init('.default');
 
-		// load image into crop
-		one.loadImg('images/logo.png');
+                // load image into crop
+                one.loadImg('images/logo.png');
 
-		// send coordinates for processing
-		// you may call the coordinates with the function coordinates(one);
-		$(document).on('click', 'button', function() {
+                // send coordinates for processing
+                // you may call the coordinates with the function coordinates(one);
+                $(document).on('click', 'button', function() {
 
-			$.ajax({
-				type: "post",
-				dataType: "json",
-				url: "save.php",
-				data: $.param(coordinates(one))
-			})
-			.done(function(data) {
+                        $.ajax({
+                                type: "post",
+                                dataType: "json",
+                                url: "save.php",
+                                data: $.param(coordinates(one))
+                        })
+                        .done(function(data) {
 
-				$('.example .output').remove();
-				$('.example').append('<img src="'+data.url+'" class="output" />')
-				$('.example .output').delay('4000').fadeOut('slow');
+                                $('.example .output').remove();
+                                $('.example').append('<img src="'+data.url+'" class="output" />')
+                                $('.example .output').delay('4000').fadeOut('slow');
 
-			});
+                        });
 
-		});
+                });
 
         </script>-->
         <script>
@@ -810,12 +851,12 @@ $(this).addClass('highlight');
         </script>
 
         <script>
-                    
+
                         $("#continue").click(function (){
                             var PreviewWidth=$(".preview").css("width");
                             var PreviewhHeight=$(".preview").css("height");
 //                            alert($(".preview").children());
-                            
+
                                 $.ajax({
                                    type: "POST",
                                    url: "ConvertHtmlToImageServlet",                                   
@@ -826,7 +867,7 @@ $(this).addClass('highlight');
                                    },
                                    success: function (responseText) {
                                            var image=responseText;
-                                           alert(image);
+//                                           alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
 
                                    }
@@ -835,19 +876,16 @@ $(this).addClass('highlight');
 
                                   // document.location.href = "selectpromotesocialmedia.jsp";
                        });                           
-                                                                                    
+
         </script> 
-        
-<script>
-//    var selectedDivId;     
+       
+<script>    
     var selectedImageId;
     function getImageid(Id){
         selectedImageId=Id.id;
-//       alert(Id.id);
         
     }
-    
-    window.onload = function () {
+     window.onload = function () {
     //get elements
     var f = 1,
             cvrt1 = document.getElementById('convert1'),
@@ -931,7 +969,7 @@ $(this).addClass('highlight');
         }
     };
 };
-    
+
 
                             $(".cross").hide();
                             $(".menu").hide();
@@ -976,23 +1014,19 @@ $(this).addClass('highlight');
 
                                     // draw image
                                     ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
-                                   alert( img.src);
+//                                   alert( img.src);
                                             // display canvas image
                                             $('canvas').addClass('output').show().delay('9000').fadeOut('slow');
                                             // save the image to server
-                                            var canvas = document.getElementById("canvas");
-                                            alert("1");
-                                            var dataURL =canvas.toDataURL("image/jpeg");
-                                            alert("2");
-                                           alert(dataURL);
-                                            var cropped_image = {"image": "image"};
-                                           alert("image");
+                                            var canvas = document.getElementById("canvas");                 
+                                            var dataURL =canvas.toDataURL("image/jpeg");                                                                                     
+                                            var cropped_image = {"image": "image"};                                      
                                                 $.ajax({
                                                     url: global_host_address + 'CropImage',
                                                     method: 'post',
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
-                                                      alert(responseText);
+//                                                      alert(responseText);
                                                         $("#"+selectedImageId).css("background","url(images/"+responseText+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                                     }
                                                 });                                            
@@ -1028,27 +1062,27 @@ $(this).addClass('highlight');
 
                                     // on input[type="file"] change
                                 oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
-                                    
+
                                         var i = 1;
                                         var id;
                                         one = new CROP();
                                     $("#selectimage").click(function(){
                                         var image_file = global_host_address + $("#image_name").val();
 
-                                       alert(image_file);
-                                        alert(selectedImageId);
+//                                       alert(image_file);
+//                                        alert(selectedImageId);
                                         $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                         $("#imagespopup").hide();
                                     });
-                                    
+
                                     function imageEdit() {
                                             $("#textcontainer").hide();
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();
                                             $("#filtercontainer").show();
                                             $("#cropImageContainer").show();
-                                        
-                                        
+
+
                                         var image_file=$(".imagename").val().replace("url(","").replace(")","");
 //                                        alert(image_file);
                                         id = "image" + i;
@@ -1057,7 +1091,7 @@ $(this).addClass('highlight');
 //                                        $("#cropper_popup").resizable();
 
 //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
-                             
+
                                         $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div><button class="cropButton">Crop</button><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
 
                                             i = i + 1;
@@ -1066,11 +1100,11 @@ $(this).addClass('highlight');
                                         // load image into crop
                                         one.loadImg(image_file);
                                         $("#imagespopup").hide();
-                                            
+
                                             }
-                                    
-                                    
-                                    
+
+
+
                                     $('.uploadfile').change(function() {
                                         $("#cropper_popup").show();
 //                                        $('#cropper_popup').draggable();
@@ -1085,7 +1119,7 @@ $(this).addClass('highlight');
                                     // --------------------------------------------------------------------------
 
 //                                    oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
-                                    
+
 //                                    function loadImageFileFromUser(image_file) {
 //
 //                                    if (document.getElementById("uploadfile").files.length === 0) return;
@@ -1096,7 +1130,7 @@ $(this).addClass('highlight');
 //
 //                                    oFReader.readAsDataURL(oFile);
 //                                    }
-                                    
+
                             function loadImageFile() {
 
                             if (document.getElementById("uploadfile").files.length === 0) return;
@@ -1122,7 +1156,7 @@ $(this).addClass('highlight');
                             };
 
         </script>  
-        
+
         <script>
 
                             //  get input type=file IMG through base64 and send it to the cropper
@@ -1131,7 +1165,7 @@ $(this).addClass('highlight');
                                     $("#popup").hide();
                                     $("#cropper_popup").hide();
                             }
-                            
+
                             $("#openImageDialog").click(function(){
                                 $('.default').hide();
                                 $("#popup").show();

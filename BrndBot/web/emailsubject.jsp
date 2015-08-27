@@ -18,6 +18,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <link href="css/popup.css" rel="stylesheet" type="text/css"/>
            <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
                 <link rel="stylesheet" href="css/main1.css">
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
@@ -86,7 +87,6 @@
             font-family: "proxima-nova",sans-serif;
             font-style: normal;
             font-weight: 600;
-            font-size:21.5px;
             color: #3f4042;
             text-align: left;
             line-height: 25.8px;
@@ -174,19 +174,22 @@
                 background-color: #00A37A;
                 border-color: #00A37A;
             }
+            .btn-csv:focus{
+             outline: none;
+            }
             .btn-csv{
-                border-radius:10px;
+                border-radius:20px;
                 position: fixed;
-                top: 65%;
-                right:40%;
+                top: 62%;
+                right:50%;
                 width: 200px;
                 background-color:transparent;
-                border-color: #00A37A;
+                border-color: #003399;
             }
             .btn-prim{
                 position: fixed;
                 top: 60%;
-                left:16%;
+                left:17%;
             }
             .fileUpload {
                 position: relative;
@@ -623,7 +626,7 @@
             </div><!--/end left column-->
             <div id="datadiv" class="col-md-8 col-md-offset-2">
                 <div id="emailsubjectdiv">
-                    <p class="header1"> Enter the Subject Line of the Email:</p>
+                    <p class="header1 MH2"> Enter the Subject Line of the Email:</p>
                    <div class="sublingrp">
                    <div class="col-md-5 col-md-offset-0">                            
                        <input id="emailsubject" class="inputsubline" name="emailsubject"  type="text" required>
@@ -636,8 +639,9 @@
 
                 </div>
 
-                <div id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
-                    <p class="header1"> Who do you want to send this email to?</p>
+
+                <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
+                    <p class="header1 MH2"> Who do you want to send this email to?</p>
                     <br><br>   
                    
                     <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
@@ -654,8 +658,8 @@
 
                   
                     
-                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:33em;top:-100px;"/>
-                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-csv" value="Add CSV or Email Manually">
+                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:32.7em;top:-90px;border-radius:15px;"/>
+                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-csv BT1" value="Add CSV or Email Manually">
                     <textarea style="width:300px; height:100px;position:relative;left:42em;top:-20px;" id="emailaddresses"></textarea><br><br>
                
 

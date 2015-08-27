@@ -1,5 +1,6 @@
 package com.intbit;
 
+import com.divtohtml.StringUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import util.Utility;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,6 +26,8 @@ import org.json.simple.JSONObject;
  *
  * @author ilyas
  */
+
+
 public class PhantomImageConverter {
 
     private static final Logger logger = Logger.getLogger(PhantomImageConverter.class.getName());
@@ -33,6 +37,16 @@ public class PhantomImageConverter {
     private static String templateJSFilePath;
     private static String tempPath;
     private static String path = "";
+    private String outputFilePath;
+
+    public PhantomImageConverter(ServletContext context, String outputFilePath) throws Exception {
+        this(context);
+        this.outputFilePath = outputFilePath;
+        File outputFilePathDir = new File(outputFilePath);
+        if (!outputFilePathDir.exists()) {
+            outputFilePathDir.mkdirs();
+        }
+    }
 
     public PhantomImageConverter(ServletContext context) throws Exception {
 
@@ -41,92 +55,66 @@ public class PhantomImageConverter {
         templateHTMLFilePath = path + "/template.html";
         tempPath = AppConstants.LAYOUT_IMAGES_HOME + File.separator;
         File tempPathDir = new File(tempPath);
-        if (!tempPathDir.exists()){
+        if (!tempPathDir.exists()) {
             tempPathDir.mkdirs();
         }
     }
 
-    public File getImage(String htmlString,JSONArray json_font_list, String width, String height, String x, String y) throws Exception {
+    public File getImage(String htmlString, JSONArray json_font_list, String width, String height, String x, String y) throws Exception {
         File createdHtmlFile = tempHTML(htmlString, json_font_list);
         File createdJSFile = tempJS(createdHtmlFile, width, height, x, y);
 
         Runtime runTime = Runtime.getRuntime();
         String execPath = "phantomjs " + createdJSFile.getPath();
- 
+        //String execPath = "/Users/AR/Downloads/DevSoftware/PhantomJS/phantomjs " + createdJSFile.getPath();
+
         Process process = runTime.exec(execPath);
         int exitStatus = process.waitFor();
         File tempImagePath = new File(tempPath + File.separator + createdJSFile.getName().replace("js", "png"));
         logger.info(tempImagePath.getPath());
+
+        File fileToSend = tempImagePath;
+        if (!StringUtil.isEmpty(this.outputFilePath)) {
+            File outputFile = new File(outputFilePath + File.separator + tempImagePath.getName());
+            FileUtils.copyFile(tempImagePath, outputFile);
+            fileToSend = outputFile;
+            tempImagePath.delete();
+        }
+
         createdHtmlFile.delete();
         createdJSFile.delete();
 
-        return tempImagePath;
+        return fileToSend;
     }
 
     private File tempHTML(String bodyString, JSONArray json_font_list) throws IOException {
         File newHtmlFile = null;
-        try{
-        File htmlTemplateFile = new File(templateHTMLFilePath);
-        
-        OutputStream htmlfile= new FileOutputStream(new File(templateHTMLFilePath));
+        StringBuilder html_content = new StringBuilder();
 
-        PrintStream printhtml = new PrintStream(htmlfile);
-        
-        String html_content = "";
-        
-        html_content = "<HTML>" + "\n";
-        html_content = html_content + "<head>" + "\n";
-        html_content = html_content + "<meta charset=UTF-8>" + "\n";
-        
-//        html_content = html_content + "<link type=\"text/css\" rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Dancing+Script\">\n";
-//        html_content = html_content + "<style type=\"text/css\">\n" +
-//                            "            @font-face {\n" +
-//                            "                        font-family:Dancing Script;\n" +
-//                            "                        src: url(http://localhost:8080/BrndBot/DownloadFonts?file_name=Dancing Script.ttf);\n" +
-//                            "            }\n" +
-//                            "        </style>";
-        for (Integer i = 0; i< json_font_list.size(); i++){
-            JSONObject json_font = (JSONObject)json_font_list.get(i);
-            String font_name = (String)json_font.get("font_name");
-            String font = (String)json_font.get("font_family_name");
-            String[] font_family_name = font.split(",");
-            String google_key_word = font_family_name[0].replace(" ", "+");
+        try {
 
-            Integer font_family_name_length = font_family_name.length;
-            
-            if(font_family_name_length == 1){
-                html_content = html_content + "<link type=\"text/css\" rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family="+google_key_word+"\">\n";
-            }else{
-                html_content = html_content + "<link type=\"text/css\" rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family="+google_key_word+"\">\n";
-                
-                html_content = html_content + "<style type=\"text/css\">\n" +
-                                            "            @font-face {\n" +
-                                            "                        font-family:"+ font_name +";\n" +
-                                            "                        src: url(http://localhost:8080/BrndBot/DownloadFonts?file_name="+font_family_name[1]+");\n" +
-                                            "            }\n" +
-                                            "        </style>";            
-            }
+            OutputStream htmlfile = new FileOutputStream(new File(templateHTMLFilePath));
 
-        }
-        
-        html_content = html_content + "</head>" + "\n";
-        html_content = html_content + "<body>" + "\n";
-        html_content = html_content + bodyString + "\n";
-        html_content = html_content + "</body>" + "\n";
-        html_content = html_content + "</HTML>";
-        
-        printhtml.print(html_content);
-        
-//        String htmlString = FileUtils.readFileToString(htmlTemplateFile, kEncoding);
-//        
-//        htmlString = htmlString.replace("$body", bodyString);
-        
-        String fileName = dateFormat.format(new Date());
-        //Using the date as the unique file name
-        newHtmlFile = new File(tempPath + fileName + ".html");
-        FileUtils.writeStringToFile(newHtmlFile, html_content, kEncoding);
-        
-        }catch (Exception e){
+            PrintStream printhtml = new PrintStream(htmlfile);
+            html_content.append("<HTML>" + "\n");
+            html_content.append("<head>" + "\n");
+            html_content.append("<meta charset=UTF-8>" + "\n");
+
+            html_content.append(Utility.injectFontsInHTML(json_font_list));
+            html_content.append("</head>" + "\n");
+            html_content.append("<body>" + "\n");
+            html_content.append(bodyString + "\n");
+            html_content.append("</body>" + "\n");
+            html_content.append("</HTML>");
+
+            printhtml.print(html_content.toString());
+
+            String fileName = dateFormat.format(new Date());
+            //Using the date as the unique file name
+            newHtmlFile = new File(tempPath + fileName + ".html");
+            FileUtils.writeStringToFile(newHtmlFile, html_content.toString(), kEncoding);
+
+        } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
         }
         return newHtmlFile;

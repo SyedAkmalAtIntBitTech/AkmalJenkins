@@ -238,7 +238,7 @@
     function validate(){
       var model_name = $("#namexml").val();
 
-      if (model_name == ""){
+      if (model_name === ""){
           alert("model name not entered");
           $("#namexml").focus();
           return false;
@@ -247,14 +247,14 @@
             url: global_host_address + 'ServletValidateModel',
             method: 'post',
             data: {
-                model_name : model_name,
+                model_name : model_name
             },
             success: function (responseText) {
-        if (responseText == "yes"){
+        if (responseText === "yes"){
             alert("name already exist, please give some other name");
             $("#namexml").focus();
             return false;
-        }else if (responseText == "no") {
+        }else if (responseText === "no") {
             var file_name = $("#namexml").val();
             var mapperxml = file_name + "_" + "mapper";
             var layoutxml = file_name + "_" + "layout";
@@ -514,6 +514,10 @@
                 <p>
                     <span class="position">Co ordinates: X = 0, Y = 0 </span>
                 </p>
+                 <p>
+                    <input type="checkbox" id="circleCheckBox"> Circle
+                </p>
+                
                 <p>
                     Block Size:
                 </p>
@@ -541,6 +545,7 @@
 
                     </select>
                 </p>
+               
                 
                 <p>
                     <input type="button" class="blockButton" id="blockButton" value="Apply" />
@@ -558,6 +563,7 @@
             </div>
         </div>
         <div id="main">
+            <h3>Social Layout Model</h3>
             <form>
                     
                 Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">

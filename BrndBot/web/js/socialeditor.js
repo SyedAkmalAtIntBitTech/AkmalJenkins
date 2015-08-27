@@ -22,7 +22,6 @@ function setSocialParameters(title, teacher, date) {
     title = $("#title").val();
     teacher = $("#teacher").val();
     date = $("#date").val();
-
 }
 
 $(document).ready(function () {
@@ -37,33 +36,39 @@ $(document).ready(function () {
     $("#tabs-1").show();
     $("#tabs-2").hide();
    blockId=$(".blockname").val();
-    $('.color-box').colpick({
+
+    $('.custom-color-box-text').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
         color: 'ff8800',
         onSubmit: function (hsb, hex, rgb, el) {
-            $(el).css('background-color', '#' + hex);
+            
             $("#" + selectedTextareaId).css('color', '#' + hex);
+            $("#picker").css('background-color', '#' + hex);
             $(el).colpickHide();
+            $("#pickColorForText").css("display", "none");
         }
     })
             .css('background-color', '#ffffff');
-    
+  
+     $('.custom-color-box').click(function (){
+//         $("#slider").hide();
      $('.custom-color-box').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
         color: 'ff8800',
         onSubmit: function (hsb, hex, rgb, el) {
            $("#selectedshapecolorbox").css('background-color', '#' + hex);
-//            place block selected block
             var  blockId=$(".blockname").val();
             $("#"+blockId).css('background-color', '#' + hex);
             $(el).colpickHide();
+//            $("#slider").show();
         }
     })
             .css('background-color', '#ffffff');
+//     $("#slider").show();
     
-    
+      });
       $('#slider').slider({ 
         min: 0, 
         max: 1, 
@@ -81,8 +86,23 @@ $(document).ready(function () {
         $("#" + selectedDivId).css("background-color", "" + color);
     });
 
+
+ $(".blankcolor-box1").click(function () {
+        var display= $("#pickColorForText").css("display");
+        if (display === "none") {
+            $("#pickColorForText").css("display", "block");
+            $(".blankcolor-box-text").click(function () {
+                var color = $("#" + this.id).css("background-color");
+                $("#picker").css("background-color", "" + color);
+                $("#" + selectedTextareaId).css("color", "" + color);
+                $("#pickColorForText").css("display", "none");
+            });
+        }
+        else if (display) {
+            $("#pickColorForText").css("display", "none");
+        }
+    });
     $("#fontsize").change(function () {
-//          alert($("#fontsize").val());
         $("#" + selectedTextareaId).css("font-size", "" + $("#fontsize").val());
     });
 
@@ -151,14 +171,14 @@ $(document).ready(function () {
        success: function (data) {
            var jsondataDefault = data;
            var allLayoutFilename = [];
-      alert(JSON.stringify(data));
+//             alert(JSON.stringify(data));
            $(jsondataDefault).each(function (i, val) {
                var i = 0;
                $.each(val, function (k, v) {
                    allLayoutFilename[i] = v;
                    i++;
                });
-             alert( allLayoutFilename[i] );
+//             alert( allLayoutFilename[i] );
            });
 
 
@@ -238,14 +258,14 @@ $(document).ready(function () {
 
                             var webkittransform = $(this).attr("webkit-transform");
                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-//                    alert($(this).attr("text-shadow"));
                             $(".preview").append("<div><textarea class=textAreas onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
                             $("#" + type).css("color", "" + fontcolor)
                                     .css("position", "absolute")
+                                    .css("overflow", "hidden")
                                     .css("margin-left", "" + left + "px")
                                     .css("margin-top", "" + top + "px")
                                     .css("width", "" + width)
-                                    .css("min-height", "" + height)
+                                    .css("height", "" + height)
                                     .css("font-size", "" + fontsize)
                                     .css("font-style", "" + fontstyle)
                                     .css("font-family", "" + font_family_name)
@@ -258,7 +278,23 @@ $(document).ready(function () {
                                     .css("text-align", "" + textalign)
                                     .css("text-shadow", "" + dropshadow)
                                     .css("webkit-transform", "rotate(" + webkittransform + "deg)");
-                            $("#" + type).autogrow();
+                            //$("#" + type).autogrow();
+                            
+                                    //resize of text to fit bound - By Syed Ilyas 26/8/2015
+                                    var tempfontsize = parseInt(fontsize.replace("px",""));
+                                    var tempHeight = parseInt(height.replace("px",""));
+                                    if($("#" + type).get(0).scrollHeight > tempHeight)
+                                    {
+                                        $("#" + type).css("line-height", "initial");
+                                    while ( $("#" + type).get(0).scrollHeight > tempHeight) {
+                                           tempfontsize = tempfontsize - 1;
+                                          $("#" + type).css("font-size", "" + tempfontsize +"px");
+                                    }
+                                     var xxyy = parseInt(tempfontsize);
+                                    xxyy = Math.round(xxyy * 1.2);
+                                     $("#" + type).css("line-height",""+xxyy+"px");
+                                    }
+                                    //resize end
                         }
 
                         if (tag === "logo")
@@ -286,7 +322,6 @@ $(document).ready(function () {
                             var background_image = $(this).attr("background-image");
                             var blendmode = $(this).attr("background-blend-mode");
                             $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
-//                    alert("image");
                                 count++;
                            $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                             $("#" + type)
@@ -305,7 +340,6 @@ $(document).ready(function () {
 
                         if (tag === "button")
                         {
-//                            alert("button");
                             $(".preview").append("<div><img src='" + elementdata + "'id=" + type + " alt='button'/>");
                             $("#" + type).css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
                                     .attr("src", "buttons/button1.png");
@@ -313,10 +347,14 @@ $(document).ready(function () {
 
                         if (tag === "block")
                         {
+                            
                                     var colorName = $(this).attr("color-name");
+                                    var borderRadius = $(this).attr("border-radius");
                                     var backgroundcolor;
+
                                      $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
                                      blockcount++;
+
                                     for (var i = 1; i <= 6; i++)
                                     {
                                         if (colorName === "Color-" + i)
@@ -325,17 +363,23 @@ $(document).ready(function () {
                                         }
 
                                     }
-//                  alert("block");
-                            var width = $(this).attr("width");
-                            var height = $(this).attr("height");
-//                            var backgroundcolor = $(this).attr("background-color");
-//                 alert(backgroundcolor);
-                            $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                            $("#" + type).css("background-color", "" + backgroundcolor)
-                                         .css("margin-left", "" + left + "px")
-                                         .css("margin-top", "" + top + "px")
-                                         .css("width", "" + width)
-                                         .css("height", "" + height);
+                                    var width = $(this).attr("width");
+                                    var height = $(this).attr("height");
+                                    var drop_shadow=$(this).attr("Drop-shadow-color");
+                                    var h_shadow =  $(this).attr("H-shadow"); 
+                                    var v_shadow=$(this).attr("V-shadow");
+                                    var Blur=$(this).attr("blur");
+                                    $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
+                                    $("#" + type).css("background-color", "" + backgroundcolor)
+                                                .css("margin-left", "" + left + "px")
+                                                .css("margin-top", "" + top + "px")
+                                                .css("width", "" + width)
+                                                .css("border-radius", "" + borderRadius)
+                                                .css("position", "absolute")
+                                                .css("height", "" + height)
+                                                .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
+                                                .css("opacity", "" + opacity);
+
                         }
 
                     }
@@ -375,7 +419,6 @@ $(document).ready(function () {
 
     function reload_alignButtons()
     {
-//            alert($("#"+selectedTextareaId).css("text-align"));
         if ($("#" + selectedTextareaId).css("text-align") === "left")
         {
             $("#left").css("background-color", "#99b1f2");
@@ -461,7 +504,6 @@ function getTectId(id) {
 
  function reload_alignButtons1(align)
     {
-//            alert(align);
         if (align === "left")
         {
             $("#left").css("background-color", "#99b1f2");
@@ -507,7 +549,6 @@ function uploadimage() {
 
     $('#popupclose').click(function () {
         $('#popup').hide("slow");
-//        alert($("#uploadImage").val());
         $(".preview").append("<img src=" + $("#uploadImage").val() + ">");
     });
 

@@ -33,8 +33,7 @@ and open the template in the editor.
     top:-52px;
     font-family:"proxima-nova",sans-serif;
     font-weight:500;
-    font-size:14px;
-    left: 15em;
+    left: 10em;
     color: #2D4444;
     
 }
@@ -44,7 +43,6 @@ and open the template in the editor.
     top:-15px;
     font-family:"proxima-nova",sans-serif;
     font-weight:500;
-    font-size:14px;
     left: 0em;
     color: #2D4444;
 }
@@ -53,7 +51,6 @@ and open the template in the editor.
     padding-top:7%;
     font-family:"proxima-nova",sans-serif;
     font-weight:400;
-    font-size: large;
     left: 0px;
     
 }
@@ -64,10 +61,12 @@ and open the template in the editor.
 #txtlog{
     font-size: 10px;
     width: 50px; 
-    top:13px;
+    margin-top: 2.5em;
     position: relative;
-    right: 9px;   
-    color: whitesmoke;
+    right: 9px; 
+    font-style: normal;
+    font-weight: 600;
+    color: white;
 }
 #txtpost{
     position:relative;
@@ -77,7 +76,6 @@ and open the template in the editor.
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 22px;
     color:  #010101;
     line-height: 35px;
     letter-spacing: 0em;
@@ -89,7 +87,6 @@ and open the template in the editor.
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
     color:  #010101;
     line-height: 35px;
     letter-spacing: 0em;
@@ -99,7 +96,6 @@ and open the template in the editor.
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 15px;
     color:  #96999d;
     text-align:left;
     line-height: 18px;
@@ -220,7 +216,6 @@ and open the template in the editor.
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
     color: #66676b;
     text-align: left;
     line-height: 12px;
@@ -235,13 +230,11 @@ color: #66676b;
 text-align:  left;
 line-height: 14.4px;
 letter-spacing:0em;
-    
 }
 #editorhead{
 font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 600;
-font-size: 12px;
 color: #66676b;
 font-style:  normal;
 text-align: left;
@@ -272,7 +265,7 @@ letter-spacing:0em;
 #promotebuttonlist li> p{
     position: relative;
     padding-top: 2%;
-    left:-17px;
+    left:-5px;
 }
 #promotebuttonlist {
         width: 600px;
@@ -478,7 +471,6 @@ letter-spacing:0em;
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 13px;
     color: #66676b;
     text-align: left;
     padding-top: 2%;
@@ -562,6 +554,7 @@ letter-spacing:0em;
     width: 26px;
     margin-top: 5%;
     padding-left: 15%;
+   
     
 }
 
@@ -587,6 +580,17 @@ letter-spacing:0em;
         border-color: rgba(0,0,0,.2);
     
 }
+.blankcolor-box-text{
+     float: left;
+    width: 26px;
+    height: 11px;
+    margin-left: 20px;
+    border-width: 1px;
+    border-radius: 3px;
+    border-style: solid;    
+    border-color: rgba(0,0,0,.2);
+    
+}
 
 .fontcolor-box{
         float: left;
@@ -600,6 +604,8 @@ letter-spacing:0em;
 }
 
 .headblankcolor-box{
+        position: relative;
+        left:43px;
         float: left;
         width: 36px;
         height: 15px;

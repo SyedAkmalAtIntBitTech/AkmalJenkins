@@ -26,8 +26,6 @@ function setSocialParameters(title, teacher, date) {
 }
 
 $(document).ready(function () {
-//
-//    alert("clicked");
             $("#left").hide();
             $("#right").hide();
             $("#center").hide();
@@ -39,14 +37,16 @@ $(document).ready(function () {
         $("#tabs-2").hide();
         $("#tabs-3").hide();
         $("#tabs-4").hide();
-    $('.color-box').colpick({
+    $('.custom-color-box-text').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
         color: 'ff8800',
         onSubmit: function (hsb, hex, rgb, el) {
-            $(el).css('background-color', '#' + hex);
+            
             $("#" + selectedTextareaId).css('color', '#' + hex);
+            $("#picker").css('background-color', '#' + hex);
             $(el).colpickHide();
+            $("#pickColorForText").css("display", "none");
         }
     })
             .css('background-color', '#ffffff');
@@ -70,7 +70,7 @@ $(document).ready(function () {
         step: 0.01, 
         value: 1,
         orientation: "horizontal",
-             slide: function(e,ui){
+             slide: function(e,ui){   
                      $('#'+$(".blockname").val()).css('opacity', ui.value);
              }                
         }); 
@@ -79,14 +79,26 @@ $(document).ready(function () {
         $("#selectedshapecolorbox").css("background-color", "" + color);
         $("#" + selectedDivId).css("background-color", "" + color);
     });
-
+ $(".blankcolor-box1").click(function () {
+        var display= $("#pickColorForText").css("display");
+        if (display === "none") {
+            $("#pickColorForText").css("display", "block");
+            $(".blankcolor-box-text").click(function () {
+                var color = $("#" + this.id).css("background-color");
+                $("#picker").css("background-color", "" + color);
+                $("#" + selectedTextareaId).css("color", "" + color);
+                $("#pickColorForText").css("display", "none");
+            });
+        }
+        else if (display) {
+            $("#pickColorForText").css("display", "none");
+        }
+    });
     $("#fontsize").change(function () {
-//          alert($("#fontsize").val());
         $("#" + selectedTextareaId).css("font-size", "" + $("#fontsize").val());
     });
 
     $("#fontname").change(function () {
-//            alert($(this).val());
         $("#" + selectedTextareaId).css("font-family", "" + $("#fontname").val());
     });
 
@@ -131,14 +143,12 @@ $(document).ready(function () {
        success: function (data) {
            var jsondataDefault = data;
            var allLayoutFilename = [];
-//       alert(JSON.stringify(data));
            $(jsondataDefault).each(function (i, val) {
                var i = 0;
                $.each(val, function (k, v) {
                    allLayoutFilename[i] = v;
                    i++;
                });
-//                alert( allLayoutFilename[i] );
            });
 
     $.ajax({
@@ -217,7 +227,7 @@ $(document).ready(function () {
 
                                     var webkittransform = $(this).attr("webkit-transform");
                                     var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-//                                  alert($(this).attr("text-shadow"));
+
                                     for (var i = 1; i <= 6; i++)
                                     {
                                         if (colorName === "Font-Color-" + i)
@@ -231,16 +241,17 @@ $(document).ready(function () {
                                      $(".preview #defaultblock1").append("<div><textarea class=textAreas onclick=getTectId("+type+"EEEdefaultblock1) id=" + type + "EEEdefaultblock1>" + elementdata + "</textarea>");
                                      $("#" + type + "EEEdefaultblock1").css("color", "" + fontcolor)
                                             .css("position", "absolute")
+                                            .css("overflow", "hidden")
                                             .css("left", "" + left + "px")
                                             .css("top", "" + top + "px")
                                             .css("width", "" + width)
-                                            .css("min-height", "" + height)
-                                            .css("font-size", "" + fontsize)
+                                            
+                                            .css("height", "" + height)
+                                            
                                             .css("font-style", "" + fontstyle)
                                             .css("font-family", "" + font_family_name)
                                             .css("font-weight", "" + fontweight)
                                             .css("letter-spacing", "" + letterspacing)
-                                            .css("line-height", "" + lineheight)
                                             .css("opacity", "" + opacity)
                                             .css("text-align", "" + textalign)
                                             .css("text-shadow", "" + dropshadow)
@@ -248,8 +259,35 @@ $(document).ready(function () {
                                             .css("resize", "none")
                                             .css("background-color", "inherit")
                                             .css("border", "none")
-                                            .css("focus", "none");
-                                    $("#" + type + "EEEdefaultblock1").autogrow();
+                                            .css("focus", "none")
+                                            .css("line-height", "" + lineheight);        
+                            
+                                    //$("#" + type + "EEEdefaultblock1").autogrow();
+                                    
+                                    
+                                    //resize of text to fit bound - By Syed Ilyas 26/8/2015
+                                     var tempfontsize = parseInt(fontsize.replace("px",""));
+                                     var tempHeight = parseInt(height.replace("px",""));
+                                     $("#" + type + "EEEdefaultblock1").css("font-size", "" + tempfontsize +"px");
+                                     //alert(tempfontsize+"#" + type + "EEEdefaultblock1");
+                                     //alert($("#" + type + "EEEdefaultblock1").get(0).scrollHeight + ":" + tempHeight);
+                                     if($("#" + type + "EEEdefaultblock1").get(0).scrollHeight > tempHeight)
+                                     {
+                                         $("#" + type + "EEEdefaultblock1").css("line-height", "initial");
+                                     while ( $("#" + type + "EEEdefaultblock1").get(0).scrollHeight > tempHeight) {
+                                         //alert(tempfontsize);
+                                         //    alert($("#" + type + "EEEdefaultblock1").get(0).scrollHeight + ":" + tempHeight);
+                                            tempfontsize = tempfontsize - 1;
+                                       //     alert(tempfontsize);
+                                           $("#" + type + "EEEdefaultblock1").css("font-size", "" + tempfontsize +"px");
+                                     }
+                                      var xxyy = parseInt(tempfontsize);
+                                     xxyy = Math.round(xxyy * 1.2);
+                                      $("#" + type + "EEEdefaultblock1").css("line-height",""+xxyy+"px");
+                                     }
+                                     //resize end
+                                     
+                                    
                                 }
 
                         if (tag === "image")
@@ -297,7 +335,6 @@ $(document).ready(function () {
 
                         if (tag === "button")
                         {
-//                            alert("button");
                             $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=" + type + "EEEdefaultblock1 alt='button'/>");
                             $("#" + type + "EEEdefaultblock1").css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
@@ -309,6 +346,7 @@ $(document).ready(function () {
                         {
                             var colorName=$(this).attr("color-name");
                             var backgroundcolor;
+                           var borderRadius = $(this).attr("border-radius");
                            
 //                            var backgroundcolor = $(this).attr("background-color");
                                 for(var i=1;i<=6; i++)
@@ -321,13 +359,14 @@ $(document).ready(function () {
                                                             
                                                 } 
 
-                            $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                            $(".blockname").append("<option value="+type+"EEEdefaultblock1>Block "+blockcount+"</option>");
                              blockcount++;
                             $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                             $("#" + type + "EEEdefaultblock1").css("background-color", "" + backgroundcolor)
                                     .css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .css("width", "" + width)
+                                    .css("border-radius", "" + borderRadius)
                                     .css("height", "" + height)
                                     .css("opacity", "" + opacity)
                                     .css("position", "absolute");   
@@ -555,6 +594,33 @@ $("#sortDownBlock").click(function(){
 //    };
 
 });
+//function textAreaKeyUp(id) {
+//    alert(id);
+//    var fontsize = parseInt($(id).css('font-size').replace("px", ""));
+//    alert("keyed1"+$(id).attr("id"));
+//    alert($(id).get(0).scrollHeight + "<=" + $(id).height()+"Fontsize:"+fontsize);
+//    if($(id).get(0).scrollHeight <= ($(id).height()+4))
+//    {
+//        
+//        while ($(id).get(0).scrollHeight <= ($(id).width()+4) && fontsize <= parseInt($(id).css('font-size').replace("px", ""))) 		  {
+//alert($(id).get(0).scrollHeight + "<=" + $(id).height()+"Fontsize:"+fontsize);
+//            fontsize = fontsize + 1;
+//            $(id).css('font-size', "" + fontsize + "px");
+//
+//        }
+//
+//        fontsize = fontsize - 1;
+//        $(id).css('font-size', "" + fontsize + "px");
+//
+//    } else {
+//        alert($(id).get(0).scrollHeight +":"+ $(id).height());
+//        while ($(id).get(0).scrollHeight > ($(id).height()+4)) {
+//            fontsize = fontsize - 1;
+//            $(id).css('font-size', "" + fontsize + "px");
+//        }
+//    }
+//}
+
 function getBlockId(id) {
     
     selectedBlockId = id;
@@ -572,6 +638,8 @@ function getTectId(id) {
     });
 }
 
+
+
 function getDivId(divid) {
     selectedDivId = divid.id;
 }
@@ -585,7 +653,6 @@ function uploadimage() {
 
     $('#popupclose').click(function () {
         $('#popup').hide("slow");
-//        alert($("#uploadImage").val());
         $(".preview").append("<img src=" + $("#uploadImage").val() + ">");
     });
 

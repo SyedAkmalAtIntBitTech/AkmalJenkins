@@ -65,8 +65,6 @@ $(document).ready(function () {
         url: "elements.xml",
         dataType: "xml",
         success: function (xml) {
-//Parse the givn XML
-//            alert("from ajax");
             var count = 0;
             $(xml).find('elements').each(function () {
 
@@ -92,6 +90,13 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    $('#circleCheckBox').click(function () {
+    alert($("#" + selectedTextID).css("border-radius"));
+            if($('#circleCheckBox').prop("checked"))
+                $("#" + selectedTextID).css("border-radius", "50%");
+            else
+                $("#" + selectedTextID).css("border-radius", "0%");
+        });
     function componentToHex(c) {
         var hex = c.toString(16);
         return hex.length == 1 ? "0" + hex : hex;
@@ -103,7 +108,6 @@ $(document).ready(function () {
 
     function addElements(addText)
     {
-        //alert(addText);
         addElementsArray[addElementCount++] = addText;
         //clear elementText dropdown code goes here
         $("#elementText").find('option').remove();
@@ -366,6 +370,7 @@ $(document).ready(function () {
 
     }
     $("#addBlockButton").click(function () {
+        $("#slider").hide();
         //alert("<div class=\"draggableBlock\"><div width=\"50px\" height=\"100px\" title=" + $("#elementText").val() +" id=\"block" + addBlockCount + "></div></div>");
         $(".container").append("<div class=\"draggableBlock\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
@@ -383,10 +388,12 @@ $(document).ready(function () {
         reloadTabs(3);
         addDefault();
         $("#blockButton").click(function () {
+             
             $("#" + selectedTextID).css("width", $("#blockWidth").val());
             $("#" + selectedTextID).css("height", $("#blockHeight").val());
             $("#" + selectedTextID).css("opacity", $("#opacityBlock").val());
             $("#" + selectedTextID).css("background-color", $("#blockColor").val());
+            
             $("#" + selectedTextID).attr("name", $("#blockColorFromDropDown").find('option:selected').text());
         });
 
@@ -455,8 +462,14 @@ $(document).ready(function () {
         });
     });
     $("#addButton").click(function () {
+
+        $("#slider").hide();
+        var subcategories = $("#subcategories").val();
+        var blocks = $("#blocks").val();
+
         
         var selectedtype = $("#selectedtype").val();
+
         
         if ((selectedtype == "selected")){
         
@@ -478,7 +491,6 @@ $(document).ready(function () {
         });
 
         $(".draggableButton").click(function (e) {
-            //	alert('imagedrag');
 
             var id = $(this).children("img").attr("id");
 
@@ -506,7 +518,13 @@ $(document).ready(function () {
         }
     });
     $("#addImageButton").click(function () {
+
+        $("#slider").hide();
+        var subcategories = $("#subcategories").val();
+        var blocks = $("#blocks").val();
+
         var selectedtype = $("#selectedtype").val();
+
         
         if ((selectedtype == "selected")){
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
@@ -557,7 +575,6 @@ $(document).ready(function () {
             function filters() {
 
                 var filters = "blur(" + $("#blurFilter").val() + "px) grayscale(" + $("#grayscaleFilter").val() + "%) sepia(" + $("#sepiaFilter").val() + "%)" + " saturate(" + $("#saturateFilter").val() + "%) hue-rotate(" + $("#hueRotateFilter").val() + "deg) invert(" + $("#invertFilter").val() + "%) brightness(" + $("#brightnessFilter").val() + "%) contrast(" + $("#contrastFilter").val() + "%)";
-//alert(filters);
                 $("#" + selectedTextID).css('filter', filters)
                         .css('-webkit-filter', filters)
                         .css('mozFilter', filters)
@@ -572,7 +589,6 @@ $(document).ready(function () {
         });
         $(function () {
             function blendColor() {
-                //alert("test");
                 $("#" + selectedTextID).css("background-color", $("#blendColorPick").val());
                 $("#" + selectedTextID).css("background-blend-mode", $("#blendColorSelect").find('option:selected').text());
                 $("#" + selectedTextID).css("-webkit-background-color", $("#blendColorPick").val());
@@ -645,7 +661,6 @@ $(document).ready(function () {
             var id = $(this).children("div").attr("id");
 
             selectedTextID = id;
-            //alert(selectedTextID);
             hideMapper();
             var childPos = $("#" + id).offset();
             var parentPos = $(this).parent().offset();
@@ -654,7 +669,6 @@ $(document).ready(function () {
                 top: childPos.top - parentPos.top,
                 left: childPos.left - parentPos.left
             }
-            //alert($("#"+id).css("height"));
             x = Math.round(childOffset.left);
             y = Math.round(childOffset.top);
             $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
@@ -668,7 +682,13 @@ $(document).ready(function () {
 
     });
     $("#addTextButton").click(function () {
+
+        $("#slider").hide();
+        var subcategories = $("#subcategories").val();
+        var blocks = $("#blocks").val();
+
         var selectedtype = $("#selectedtype").val();
+
         
         if ((selectedtype == "selected")){
             
@@ -719,7 +739,6 @@ $(document).ready(function () {
         function reload_dropShadow()
         {
             var data = $("#" + selectedTextID).css("text-shadow");
-            //alert(data);
             if (data == "none")
             {
                 $("#hShadow").val("0");
@@ -802,12 +821,10 @@ $(document).ready(function () {
             }
         }
         function reload_textSize() {
-            //alert("test"+$("select").val());
             $("#textSize").val($("#" + selectedTextID).css("font-size").replace('px', ''));
             //$(select).value("9");//$("#"+selectedTextID).css("font-size").replace('px','').toString().trim();
         }
         function reload_textFontFamily() {
-            //alert($("#"+selectedTextID).css("font-family").replace(/\'/g,''));
             $("#textFontFamily").val($("#" + selectedTextID).css("font-family").replace(/\'/g, ''));
             //$(select).value("9");//$("#"+selectedTextID).css("font-size").replace('px','').toString().trim();
         }
@@ -816,7 +833,6 @@ $(document).ready(function () {
         });
         $(".draggableText").click(function (e) {
             hideMapper();
-            //	alert('drag');
             //$(".draggableText").css("padding","5px");
             var id = $(this).children("textarea").attr("id");
             //var id = $(".draggable > ").children("area").attr("id");
@@ -853,7 +869,7 @@ $(document).ready(function () {
         });
     });
     $("#addLogoButton").click(function () {
-
+        $("#slider").hide();
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
         $(".container").append("<div class=\"draggableLogo\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
@@ -905,7 +921,6 @@ $(document).ready(function () {
             function filters() {
 
                 var filters = "blur(" + $("#blurFilter").val() + "px) grayscale(" + $("#grayscaleFilter").val() + "%) sepia(" + $("#sepiaFilter").val() + "%)" + " saturate(" + $("#saturateFilter").val() + "%) hue-rotate(" + $("#hueRotateFilter").val() + "deg) invert(" + $("#invertFilter").val() + "%) brightness(" + $("#brightnessFilter").val() + "%) contrast(" + $("#contrastFilter").val() + "%)";
-//alert(filters);
                 $("#" + selectedTextID).css('filter', filters)
                         .css('-webkit-filter', filters)
                         .css('mozFilter', filters)
@@ -921,7 +936,6 @@ $(document).ready(function () {
         });
         $(function () {
             function blendColor() {
-                //alert("test");
                 $("#" + selectedTextID).css("background-color", $("#blendColorPick").val());
                 $("#" + selectedTextID).css("background-blend-mode", $("#blendColorSelect").find('option:selected').text());
                 $("#" + selectedTextID).css("-webkit-background-color", $("#blendColorPick").val());
@@ -998,7 +1012,6 @@ $(document).ready(function () {
             hideMapper();
             var childPos = $("#" + id).offset();
             var parentPos = $(this).parent().offset();
-//alert(Math.round(childPos.left) + ", "+ parentPos.left);
             var childOffset = {
                 top: childPos.top - parentPos.top,
                 left: childPos.left - parentPos.left
@@ -1057,7 +1070,6 @@ function addDefault() {
             url: getHost() + mindbody_xml_url,
             dataType: "xml",
             success: function (xml) {
-//            alert( addElementsArray[num1]);
                 $("#lab").append('<div class="col-md-5 " id="appenddiv' + addElementsArray[num1 - 1] + '" style="display:none"><p id="' + num1 + '"> ' + addElementsArray[num1 - 1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
                                           <p id="hidepara' + num1 + '" class="col-md-3 "> Default Value <input id="inputfield' + num1 + '" type="text" value="default"><br> \n\
                                           Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" ></p><div>');
@@ -1289,7 +1301,6 @@ function passvaluetoinputfield() {
 
 
         if (contenttype.startsWith('draggableImage')) {
-//            alert($("#" + addElementsArray[i]).css("background-image"));
             style1 = " tag!" + "image" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
@@ -1305,7 +1316,6 @@ function passvaluetoinputfield() {
 
         }
         if (contenttype.startsWith('draggableLogo')) {
-//            alert($("#" + addElementsArray[i]).css("background-image"));
             style1 = " tag!" + "logo" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
@@ -1363,6 +1373,7 @@ function passvaluetoinputfield() {
                     " width!" + $("#" + addElementsArray[i]).css("width") +
                     " height!" + $("#" + addElementsArray[i]).css("height") +
                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
+                    " border-radius!" + $("#" + addElementsArray[i]).css("border-radius") +
                     " background-color!" + "#" + color3 + dropshadowdata1;
         }
         textareadetails[i] = style1 + " type!" + addElementsArray[i];
