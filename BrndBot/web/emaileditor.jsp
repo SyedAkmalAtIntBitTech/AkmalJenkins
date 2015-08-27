@@ -323,7 +323,6 @@ and open the template in the editor.
                                  method : 'GET',
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
-                                alert(JSON.stringify(data));
                             $scope.datalistsstyles = data;
                             $scope.numberOfPages = function() {
                             return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);

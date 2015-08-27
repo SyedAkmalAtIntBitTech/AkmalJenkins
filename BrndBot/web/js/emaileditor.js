@@ -82,7 +82,7 @@ $(document).ready(function () {
         $("#" + selectedDivId).css("background-color", "" + color);
     });
  $(".blankcolor-box1").click(function () {
-        alert("cli");
+        
         var display= $("#pickColorForText").css("display");
         if (display === "none") {
             $("#pickColorForText").css("display", "block");
@@ -155,7 +155,7 @@ $(document).ready(function () {
                    allLayoutFilename[i] = v;
                    i++;
                });
-               alert( allLayoutFilename[i] );
+               //alert( allLayoutFilename[i] );
            });
 
     $.ajax({
