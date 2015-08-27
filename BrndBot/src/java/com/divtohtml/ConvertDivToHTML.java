@@ -16,12 +16,10 @@ import java.util.logging.Logger;
 import javax.servlet.ServletRequest;
 import org.apache.commons.io.FileUtils;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
-import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
 public class ConvertDivToHTML {
@@ -42,9 +40,7 @@ public class ConvertDivToHTML {
 
     public String getResponsiveHTMLFromDiv(String divContent) throws IOException, Exception {
 
-        divContent = getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/divhtml.html");
-
-        String tableContent = getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/Templatewithtable");
+//        divContent = getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/divhtml.html");
 
         StringBuilder newHtml = new StringBuilder();
 
