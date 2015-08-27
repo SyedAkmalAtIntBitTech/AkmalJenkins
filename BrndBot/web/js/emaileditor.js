@@ -26,8 +26,6 @@ function setSocialParameters(title, teacher, date) {
 }
 
 $(document).ready(function () {
-//
-//    alert("clicked");
             $("#left").hide();
             $("#right").hide();
             $("#center").hide();
@@ -82,7 +80,6 @@ $(document).ready(function () {
         $("#" + selectedDivId).css("background-color", "" + color);
     });
  $(".blankcolor-box1").click(function () {
-        alert("cli");
         var display= $("#pickColorForText").css("display");
         if (display === "none") {
             $("#pickColorForText").css("display", "block");
@@ -98,12 +95,10 @@ $(document).ready(function () {
         }
     });
     $("#fontsize").change(function () {
-//          alert($("#fontsize").val());
         $("#" + selectedTextareaId).css("font-size", "" + $("#fontsize").val());
     });
 
     $("#fontname").change(function () {
-//            alert($(this).val());
         $("#" + selectedTextareaId).css("font-family", "" + $("#fontname").val());
     });
 
@@ -148,14 +143,13 @@ $(document).ready(function () {
        success: function (data) {
            var jsondataDefault = data;
            var allLayoutFilename = [];
-//       alert(JSON.stringify(data));
            $(jsondataDefault).each(function (i, val) {
                var i = 0;
                $.each(val, function (k, v) {
                    allLayoutFilename[i] = v;
                    i++;
                });
-               alert( allLayoutFilename[i] );
+//               alert( allLayoutFilename[i] );
            });
 
     $.ajax({
@@ -231,7 +225,7 @@ $(document).ready(function () {
 
                                     var webkittransform = $(this).attr("webkit-transform");
                                     var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-//                                  alert($(this).attr("text-shadow"));
+
                                     for (var i = 1; i <= 6; i++)
                                     {
                                         if (colorName === "Font-Color-" + i)
@@ -310,7 +304,6 @@ $(document).ready(function () {
 
                         if (tag === "button")
                         {
-//                            alert("button");
                             $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=" + type + "EEEdefaultblock1 alt='button'/>");
                             $("#" + type + "EEEdefaultblock1").css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
@@ -598,7 +591,6 @@ function uploadimage() {
 
     $('#popupclose').click(function () {
         $('#popup').hide("slow");
-//        alert($("#uploadImage").val());
         $(".preview").append("<img src=" + $("#uploadImage").val() + ">");
     });
 

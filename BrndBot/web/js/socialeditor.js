@@ -36,6 +36,7 @@ $(document).ready(function () {
     $("#tabs-1").show();
     $("#tabs-2").hide();
    blockId=$(".blockname").val();
+
     $('.custom-color-box-text').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
@@ -49,22 +50,25 @@ $(document).ready(function () {
         }
     })
             .css('background-color', '#ffffff');
-    
+  
+     $('.custom-color-box').click(function (){
+//         $("#slider").hide();
      $('.custom-color-box').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
         color: 'ff8800',
         onSubmit: function (hsb, hex, rgb, el) {
            $("#selectedshapecolorbox").css('background-color', '#' + hex);
-//            place block selected block
             var  blockId=$(".blockname").val();
             $("#"+blockId).css('background-color', '#' + hex);
             $(el).colpickHide();
+//            $("#slider").show();
         }
     })
             .css('background-color', '#ffffff');
+//     $("#slider").show();
     
-    
+      });
       $('#slider').slider({ 
         min: 0, 
         max: 1, 
@@ -99,7 +103,6 @@ $(document).ready(function () {
         }
     });
     $("#fontsize").change(function () {
-//          alert($("#fontsize").val());
         $("#" + selectedTextareaId).css("font-size", "" + $("#fontsize").val());
     });
 
@@ -127,7 +130,6 @@ $(document).ready(function () {
 //        
 //    });
 
-    alert("loding");
 
     $.ajax({
         type: "GET",
@@ -159,7 +161,6 @@ $(document).ready(function () {
 
     var layoutfilename = $("#clickid").val();
 
-   alert(layoutfilename);
 
  $.ajax({
        type: 'POST',
@@ -168,14 +169,14 @@ $(document).ready(function () {
        success: function (data) {
            var jsondataDefault = data;
            var allLayoutFilename = [];
-      alert(JSON.stringify(data));
+//             alert(JSON.stringify(data));
            $(jsondataDefault).each(function (i, val) {
                var i = 0;
                $.each(val, function (k, v) {
                    allLayoutFilename[i] = v;
                    i++;
                });
-             alert( allLayoutFilename[i] );
+//             alert( allLayoutFilename[i] );
            });
 
 
@@ -253,7 +254,6 @@ $(document).ready(function () {
 
                             var webkittransform = $(this).attr("webkit-transform");
                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-//                    alert($(this).attr("text-shadow"));
                             $(".preview").append("<div><textarea class=textAreas onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
                             $("#" + type).css("color", "" + fontcolor)
                                     .css("position", "absolute")
@@ -300,7 +300,6 @@ $(document).ready(function () {
                             var background_image = $(this).attr("background-image");
                             var blendmode = $(this).attr("background-blend-mode");
                             $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
-//                    alert("image");
                                 count++;
                            $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                             $("#" + type)
@@ -319,7 +318,6 @@ $(document).ready(function () {
 
                         if (tag === "button")
                         {
-//                            alert("button");
                             $(".preview").append("<div><img src='" + elementdata + "'id=" + type + " alt='button'/>");
                             $("#" + type).css("margin-left", "" + left + "px").css("margin-top", "" + top + "px")
                                     .attr("src", "buttons/button1.png");
@@ -339,11 +337,8 @@ $(document).ready(function () {
                                         }
 
                                     }
-//                  alert("block");
                             var width = $(this).attr("width");
                             var height = $(this).attr("height");
-//                            var backgroundcolor = $(this).attr("background-color");
-//                 alert(backgroundcolor);
                             $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
                             $("#" + type).css("background-color", "" + backgroundcolor)
                                          .css("margin-left", "" + left + "px")
@@ -389,7 +384,6 @@ $(document).ready(function () {
 
     function reload_alignButtons()
     {
-//            alert($("#"+selectedTextareaId).css("text-align"));
         if ($("#" + selectedTextareaId).css("text-align") === "left")
         {
             $("#left").css("background-color", "#99b1f2");
@@ -475,7 +469,6 @@ function getTectId(id) {
 
  function reload_alignButtons1(align)
     {
-//            alert(align);
         if (align === "left")
         {
             $("#left").css("background-color", "#99b1f2");
@@ -521,7 +514,6 @@ function uploadimage() {
 
     $('#popupclose').click(function () {
         $('#popup').hide("slow");
-//        alert($("#uploadImage").val());
         $(".preview").append("<img src=" + $("#uploadImage").val() + ">");
     });
 

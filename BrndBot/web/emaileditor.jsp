@@ -215,7 +215,6 @@ and open the template in the editor.
             $(document).ready(function () {
     
             $("#fontname").change(function () {
-//            alert($(this).val());
                 var text = $("#fontname").find('option:selected').text();
                 var font_family_name = $("#fontname").val();
                 var font = font_family_name.split(",");
@@ -305,7 +304,6 @@ and open the template in the editor.
                                     block_id = arr[0].replace("block", "");
                             };
                             $scope.showStyles = function(){
-//                                alert("in style");
                             var queryurl;
                             $scope.curPage = 0;
                             $scope.pageSize = 2;
@@ -323,7 +321,7 @@ and open the template in the editor.
                                  method : 'GET',
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
-                                alert(JSON.stringify(data));
+//                                alert(JSON.stringify(data));
                             $scope.datalistsstyles = data;
                             $scope.numberOfPages = function() {
                             return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
@@ -508,7 +506,6 @@ and open the template in the editor.
                         //    alert(id+":"+layout+":"+mindbodydataId);
                             var layoutfilename = layout;
                                     $("#clickid").val(layout);
-                                    //alert(mindbodydataId);
                             if (mindbodydataId != "0")
                             {
                             $.ajax({
@@ -583,7 +580,6 @@ and open the template in the editor.
                                     $.each(val, function (k, v) {
                                     //                               alert(k + " : " + v+ ":"+ type);
                                     if (type.trim() == k.trim()) {
-                                    //                                                    alert();
                                     elementdata = v;
                                     }
 
@@ -621,7 +617,6 @@ and open the template in the editor.
                                                         }
 //                                                fontcolor = $(this).attr("font-color");
                                                 
-                                                //alert(".preview #" + blockId);
                                                 $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
                                                 $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
                                                                        .css("position", "absolute")
@@ -648,7 +643,6 @@ and open the template in the editor.
                                             
                                             var background_image=$(this).attr("background-image")
                                              $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
-                        //                    alert("image");
                                                         count++;
                                             $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
                                             $("#" + type + "EEE" + blockId)
@@ -742,9 +736,6 @@ and open the template in the editor.
                                     }
                             });
                     }
-//            $(".preview div").click(function(){
-//            alert($(this).attr("id"));
-//            })
 
         </script>
         <script src="js/emaileditor.js" type="text/javascript"></script>
@@ -871,7 +862,9 @@ and open the template in the editor.
                                                     <div class="blankcolor-box1" id="picker" ></div>
                                                     
                                                     <ul id="pickColorForText" style="display: none">
-                                                            <li><p style="font-size: 8px;">your palette</p>
+                                                        <li><p style="font-size: 8px;">your palette</p></li>
+                                                        <li><p class="editpal custom-color-box-text" style="font-size: 8px;">custom</p></li>
+                                                        <li>
                                                                 <ul>
                                                                    <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
@@ -881,7 +874,7 @@ and open the template in the editor.
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                                 </ul>
                                                             </li>
-                                                            <li><p class="editpal custom-color-box-text" style="font-size: 8px;">custom</p></li>
+                                                            
                                                         </ul>
                                                 </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
@@ -1327,7 +1320,6 @@ and open the template in the editor.
                                                     var dataURL = canvass.toDataURL();
                                                     //                                            alert(dataURL);
                                                     var cropped_image = {"image": "image"};
-                                                    //                                            alert("image");
                                                     $.ajax({
                                                     url: global_host_address + 'CropImage',
                                                             method: 'post',
@@ -1374,8 +1366,6 @@ and open the template in the editor.
                                             one = new CROP();
                                             $("#selectimage").click(function(){
                                     var image_file = global_host_address + $("#image_name").val();
-                                            //                                        alert(image_file);
-                                            //                                        alert(selectedImageId);
                                             $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
                                             $("#imagespopup").hide();
                                     });
@@ -1385,8 +1375,7 @@ and open the template in the editor.
                                                     $("#imagecontainer").hide();
                                                     $("#filtercontainer").show();
                                                     $("#cropImageContainer").show();
-                                                    var image_file = $(".imagename").val().replace("url(", "").replace(")", "");
-                                                    //                                        alert(image_file);
+                                                    var image_file = $(".imagename").val().replace("url(", "").replace(")", "");                                                                                           
                                                     id = "image" + i;
                                                     $("#cropper_popup").show();
                                                     $('#cropper_popup').draggable();

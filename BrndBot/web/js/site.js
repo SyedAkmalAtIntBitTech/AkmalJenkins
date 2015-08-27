@@ -65,8 +65,6 @@ $(document).ready(function () {
         url: "elements.xml",
         dataType: "xml",
         success: function (xml) {
-//Parse the givn XML
-//            alert("from ajax");
             var count = 0;
             $(xml).find('elements').each(function () {
 
@@ -103,7 +101,6 @@ $(document).ready(function () {
 
     function addElements(addText)
     {
-        //alert(addText);
         addElementsArray[addElementCount++] = addText;
         //clear elementText dropdown code goes here
         $("#elementText").find('option').remove();
@@ -478,7 +475,6 @@ $(document).ready(function () {
         });
 
         $(".draggableButton").click(function (e) {
-            //	alert('imagedrag');
 
             var id = $(this).children("img").attr("id");
 
@@ -557,7 +553,6 @@ $(document).ready(function () {
             function filters() {
 
                 var filters = "blur(" + $("#blurFilter").val() + "px) grayscale(" + $("#grayscaleFilter").val() + "%) sepia(" + $("#sepiaFilter").val() + "%)" + " saturate(" + $("#saturateFilter").val() + "%) hue-rotate(" + $("#hueRotateFilter").val() + "deg) invert(" + $("#invertFilter").val() + "%) brightness(" + $("#brightnessFilter").val() + "%) contrast(" + $("#contrastFilter").val() + "%)";
-//alert(filters);
                 $("#" + selectedTextID).css('filter', filters)
                         .css('-webkit-filter', filters)
                         .css('mozFilter', filters)
@@ -572,7 +567,6 @@ $(document).ready(function () {
         });
         $(function () {
             function blendColor() {
-                //alert("test");
                 $("#" + selectedTextID).css("background-color", $("#blendColorPick").val());
                 $("#" + selectedTextID).css("background-blend-mode", $("#blendColorSelect").find('option:selected').text());
                 $("#" + selectedTextID).css("-webkit-background-color", $("#blendColorPick").val());
@@ -645,7 +639,6 @@ $(document).ready(function () {
             var id = $(this).children("div").attr("id");
 
             selectedTextID = id;
-            //alert(selectedTextID);
             hideMapper();
             var childPos = $("#" + id).offset();
             var parentPos = $(this).parent().offset();
@@ -654,7 +647,6 @@ $(document).ready(function () {
                 top: childPos.top - parentPos.top,
                 left: childPos.left - parentPos.left
             }
-            //alert($("#"+id).css("height"));
             x = Math.round(childOffset.left);
             y = Math.round(childOffset.top);
             $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
@@ -719,7 +711,6 @@ $(document).ready(function () {
         function reload_dropShadow()
         {
             var data = $("#" + selectedTextID).css("text-shadow");
-            //alert(data);
             if (data == "none")
             {
                 $("#hShadow").val("0");
@@ -802,12 +793,10 @@ $(document).ready(function () {
             }
         }
         function reload_textSize() {
-            //alert("test"+$("select").val());
             $("#textSize").val($("#" + selectedTextID).css("font-size").replace('px', ''));
             //$(select).value("9");//$("#"+selectedTextID).css("font-size").replace('px','').toString().trim();
         }
         function reload_textFontFamily() {
-            //alert($("#"+selectedTextID).css("font-family").replace(/\'/g,''));
             $("#textFontFamily").val($("#" + selectedTextID).css("font-family").replace(/\'/g, ''));
             //$(select).value("9");//$("#"+selectedTextID).css("font-size").replace('px','').toString().trim();
         }
@@ -816,7 +805,6 @@ $(document).ready(function () {
         });
         $(".draggableText").click(function (e) {
             hideMapper();
-            //	alert('drag');
             //$(".draggableText").css("padding","5px");
             var id = $(this).children("textarea").attr("id");
             //var id = $(".draggable > ").children("area").attr("id");
@@ -905,7 +893,6 @@ $(document).ready(function () {
             function filters() {
 
                 var filters = "blur(" + $("#blurFilter").val() + "px) grayscale(" + $("#grayscaleFilter").val() + "%) sepia(" + $("#sepiaFilter").val() + "%)" + " saturate(" + $("#saturateFilter").val() + "%) hue-rotate(" + $("#hueRotateFilter").val() + "deg) invert(" + $("#invertFilter").val() + "%) brightness(" + $("#brightnessFilter").val() + "%) contrast(" + $("#contrastFilter").val() + "%)";
-//alert(filters);
                 $("#" + selectedTextID).css('filter', filters)
                         .css('-webkit-filter', filters)
                         .css('mozFilter', filters)
@@ -921,7 +908,6 @@ $(document).ready(function () {
         });
         $(function () {
             function blendColor() {
-                //alert("test");
                 $("#" + selectedTextID).css("background-color", $("#blendColorPick").val());
                 $("#" + selectedTextID).css("background-blend-mode", $("#blendColorSelect").find('option:selected').text());
                 $("#" + selectedTextID).css("-webkit-background-color", $("#blendColorPick").val());
@@ -998,7 +984,6 @@ $(document).ready(function () {
             hideMapper();
             var childPos = $("#" + id).offset();
             var parentPos = $(this).parent().offset();
-//alert(Math.round(childPos.left) + ", "+ parentPos.left);
             var childOffset = {
                 top: childPos.top - parentPos.top,
                 left: childPos.left - parentPos.left
@@ -1057,7 +1042,6 @@ function addDefault() {
             url: getHost() + mindbody_xml_url,
             dataType: "xml",
             success: function (xml) {
-//            alert( addElementsArray[num1]);
                 $("#lab").append('<div class="col-md-5 " id="appenddiv' + addElementsArray[num1 - 1] + '" style="display:none"><p id="' + num1 + '"> ' + addElementsArray[num1 - 1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
                                           <p id="hidepara' + num1 + '" class="col-md-3 "> Default Value <input id="inputfield' + num1 + '" type="text" value="default"><br> \n\
                                           Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" ></p><div>');
@@ -1289,7 +1273,6 @@ function passvaluetoinputfield() {
 
 
         if (contenttype.startsWith('draggableImage')) {
-//            alert($("#" + addElementsArray[i]).css("background-image"));
             style1 = " tag!" + "image" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
@@ -1305,7 +1288,6 @@ function passvaluetoinputfield() {
 
         }
         if (contenttype.startsWith('draggableLogo')) {
-//            alert($("#" + addElementsArray[i]).css("background-image"));
             style1 = " tag!" + "logo" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
@@ -1322,7 +1304,6 @@ function passvaluetoinputfield() {
         }
 
         if (contenttype.startsWith('draggableText')) {
-       alert($("#" + addElementsArray[i]).attr("name"));
             style1 = " tag!" + "text" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
@@ -1367,10 +1348,10 @@ function passvaluetoinputfield() {
 
 
         $("#textstyle").val(textareadetails);
-        alert(textareadetails);
+//        alert(textareadetails);
 
     }
-   alert(mapperdata);
+//   alert(mapperdata);
     $("#element").val(mapperdata);
 
 } 

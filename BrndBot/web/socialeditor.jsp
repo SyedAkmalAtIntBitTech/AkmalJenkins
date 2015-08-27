@@ -205,12 +205,10 @@ and open the template in the editor.
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
-                        alert("test");
                     $http({
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-                        alert(JSON.stringify(data.user_colors));
                     $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_names = data.user_font_names;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -253,7 +251,7 @@ and open the template in the editor.
                                     method : 'GET',
                                             url : 'GetUserImages'
                                     }).success(function(data, status, headers, config) {
-                                        alert(JSON.stringify(data));
+//                                        alert(JSON.stringify(data));
                                     $scope.datalistimages = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalistimages.length / $scope.pageSize);
@@ -277,10 +275,6 @@ and open the template in the editor.
             };
             });
                     function showText(id, layout){
-//                          alert(id+""+layout);
-//                            $("#clickid").val(layout);
-
-//                            alert('http://localhost:8080/BrndBot/DownloadXml?file_name='+ layout +'.xml');
                             $.ajax({
                                     type: 'GET',
                                     url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + '&editor_type=social',
@@ -298,6 +292,7 @@ and open the template in the editor.
                                                             height = $(this).find('container').attr("Height");
                                                             width = $(this).find('container').attr("Width");
                                                             $(".preview").css("width", width + "px");
+                                                            $(".preview").css("height", height + "px");
                                                     }
 
                                                     );
@@ -316,7 +311,6 @@ and open the template in the editor.
                                                     $.each(val, function (k, v) {
 //                            alert(k + " : " + v+ ":"+ type);
                                                     if (type.trim() == k.trim()) {
-//                                                    alert();
                                                             elementdata = v;
                                                     }
 
@@ -351,7 +345,6 @@ and open the template in the editor.
                                                             var textalign = $(this).attr("text-align");
                                                             var webkittransform = $(this).attr("webkit-transform");
                                                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-//                    alert($(this).attr("text-shadow"));
                                                         $(".preview").append("<div><textarea class=textAreas onclick=getTectId("+ type +") id=" + type + ">" + elementdata + "</textarea>");
                                                         $("#" + type).css("color", "" + fontcolor)
                                                                 .css("position", "absolute")
@@ -379,7 +372,6 @@ and open the template in the editor.
                                                     var blendmode = $(this).attr("background-blend-mode");
 //                                                   
                                                     $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
-                        //                    alert("image");
                                                         count++;
                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
@@ -651,8 +643,8 @@ and open the template in the editor.
                                                     </ul>
                                                 </li>
                                                 <li><p class="editpal">pick from theme</p></li>
-                                                <li><p class="editpal custom-color-box" id="picker" style="margin-left: 120px;">custom</p></li>
-                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
+                                                <li><p class="editpal custom-color-box" style="margin-left: 120px;">custom</p></li>
+                                                <li><p class="editpal" id="">opacity</p><div id="slider"></div></li>
 
                                             </ul>
                                         </div>
@@ -822,7 +814,7 @@ $(this).addClass('highlight');
                                    },
                                    success: function (responseText) {
                                            var image=responseText;
-                                           alert(image);
+//                                           alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
 
                                    }
@@ -969,23 +961,19 @@ $(this).addClass('highlight');
 
                                     // draw image
                                     ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
-                                   alert( img.src);
+//                                   alert( img.src);
                                             // display canvas image
                                             $('canvas').addClass('output').show().delay('9000').fadeOut('slow');
                                             // save the image to server
-                                            var canvas = document.getElementById("canvas");
-                                            alert("1");
-                                            var dataURL =canvas.toDataURL("image/jpeg");
-                                            alert("2");
-                                           alert(dataURL);
-                                            var cropped_image = {"image": "image"};
-                                           alert("image");
+                                            var canvas = document.getElementById("canvas");                 
+                                            var dataURL =canvas.toDataURL("image/jpeg");                                                                                     
+                                            var cropped_image = {"image": "image"};                                      
                                                 $.ajax({
                                                     url: global_host_address + 'CropImage',
                                                     method: 'post',
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
-                                                      alert(responseText);
+//                                                      alert(responseText);
                                                         $("#"+selectedImageId).css("background","url(images/"+responseText+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                                     }
                                                 });                                            
@@ -1028,8 +1016,8 @@ $(this).addClass('highlight');
                                     $("#selectimage").click(function(){
                                         var image_file = global_host_address + $("#image_name").val();
 
-                                       alert(image_file);
-                                        alert(selectedImageId);
+//                                       alert(image_file);
+//                                        alert(selectedImageId);
                                         $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                         $("#imagespopup").hide();
                                     });

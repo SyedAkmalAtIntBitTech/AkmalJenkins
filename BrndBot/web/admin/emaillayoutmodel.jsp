@@ -349,10 +349,9 @@
               url: global_host_address + 'ServletValidateModel',
               method: 'post',
               data: {
-                  model_name : model_name,
+                  model_name : model_name
               },
               success: function (responseText) {
-                alert(responseText);
                 if (responseText == "yes"){
                     alert("name already exist, please give some other name");
                     $("#namexml").focus();
@@ -371,7 +370,7 @@
                     $('#popup').hide("slow");
 
                     var organization = $("#organization").val();
-                    alert(organization);
+//                    alert(organization);
                     var brand = $("#brand").val();
                     var users = $("#users").val();
                     var categories = $("#categories").val();
