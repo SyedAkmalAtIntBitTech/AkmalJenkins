@@ -581,22 +581,22 @@ and open the template in the editor.
                                             <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
                                                 <li><p id="editorheadere" class="SS1">font color</p>
-                                                    <div class="color-box blankcolor-box1" id="picker" style="left:-20px;"></div>
-                                                    <div >
-                                                        <ul>
+                                                    <div class="blankcolor-box1" id="picker" ></div>
+                                                    
+                                                    <ul id="pickColorForText" style="display: none">
                                                             <li><p style="font-size: 8px;">your palette</p>
                                                                 <ul>
-                                                                   <li><div class="blankcolor-box" id="shapecolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                                    <li><div class="blankcolor-box" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
-                                                                    <li><div class="blankcolor-box" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
-                                                                    <li><div class="blankcolor-box" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
-                                                                    <li> <div class="blankcolor-box" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
-                                                                    <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                                   <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                    <li> <div class="blankcolor-box-text" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                                 </ul>
                                                             </li>
-                                                            <li><p style="font-size: 8px;">custom</p></li>
+                                                            <li><p class="editpal custom-color-box-text" style="font-size: 8px;">custom</p></li>
                                                         </ul>
-                                                    </div>
+                                                    
                                                 </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
@@ -648,7 +648,7 @@ and open the template in the editor.
                                                     </ul>
                                                 </li>
                                                 <li><p class="editpal">pick from theme</p></li>
-                                                <li><p class="editpal custom-color-box" id="picker" style="margin-left: 120px;">custom</p><br></li>
+                                                <li><p class="editpal custom-color-box" style="margin-left: 120px;">custom</p><br></li>
                                                 <li><p class="editpal">opacity</p><div id="slider" ></div></li>
 
                                             </ul>
@@ -831,15 +831,13 @@ $(this).addClass('highlight');
                                                                                     
         </script> 
         
-<script>
-//    var selectedDivId;     
+<script>    
     var selectedImageId;
     function getImageid(Id){
         selectedImageId=Id.id;
-//       alert(Id.id);
         
     }
-    
+   
     window.onload = function () {
     //get elements
     var f = 1,
