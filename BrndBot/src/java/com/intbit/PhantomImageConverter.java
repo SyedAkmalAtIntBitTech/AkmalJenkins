@@ -3,7 +3,6 @@ package com.intbit;
 import com.divtohtml.StringUtil;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -56,7 +55,8 @@ public class PhantomImageConverter {
         File createdJSFile = tempJS(createdHtmlFile, width, height, x, y);
 
         Runtime runTime = Runtime.getRuntime();
-        String execPath = "phantomjs " + createdJSFile.getPath();
+        String execPath = "phantomjs "+createdJSFile.getPath();
+        //String execPath = "/Users/AR/Downloads/DevSoftware/PhantomJS/phantomjs " + createdJSFile.getPath();
  
         Process process = runTime.exec(execPath);
         int exitStatus = process.waitFor();

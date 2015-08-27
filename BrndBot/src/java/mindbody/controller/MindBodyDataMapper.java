@@ -5,7 +5,6 @@
  */
 package mindbody.controller;
 
-import com.controller.SqlMethods;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.Program;
@@ -76,7 +75,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("EnrollmentName")) {
                             if (mindbody_enrollments.getClassDescription().getName() != null) {
-                                json_mindbody_enrollment_data.put(element, Jsoup.parse(mindbody_enrollments.getClassDescription().getName()));
+                                json_mindbody_enrollment_data.put(element, Jsoup.parse(mindbody_enrollments.getClassDescription().getName()).text());
                             } else {
                                 json_mindbody_enrollment_data.put(element, defaultValue);
                             }
@@ -85,7 +84,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("EnrollmentDescription")) {
                             if (mindbody_enrollments.getClassDescription().getDescription() != null) {
-                                json_mindbody_enrollment_data.put(element, Jsoup.parse(mindbody_enrollments.getClassDescription().getDescription()));
+                                json_mindbody_enrollment_data.put(element, Jsoup.parse(mindbody_enrollments.getClassDescription().getDescription()).text());
                             } else {
                                 json_mindbody_enrollment_data.put(element, defaultValue);
                             }
@@ -96,7 +95,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("EnrollmentProgramName")) {
                             if (program.getName() != null) {
-                                json_mindbody_enrollment_data.put(element, Jsoup.parse(program.getName()));
+                                json_mindbody_enrollment_data.put(element, Jsoup.parse(program.getName()).text());
                             } else {
                                 json_mindbody_enrollment_data.put(element, defaultValue);
                             }
@@ -244,7 +243,7 @@ public class MindBodyDataMapper {
                         if (class_model_option.equalsIgnoreCase("ClassName")) {
                             if (mindbody_class.getClassDescription().getName() != null) {
 
-                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getName()));
+                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getName()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -253,7 +252,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassDescription")) {
                             if (mindbody_class.getClassDescription().getDescription() != null) {
-                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getDescription()));
+                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getDescription()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -263,7 +262,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassProgramName")) {
                             if (program.getName() != null) {
-                                json_mindbody_class_data.put(element, Jsoup.parse(program.getName()));
+                                json_mindbody_class_data.put(element, Jsoup.parse(program.getName()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -302,7 +301,7 @@ public class MindBodyDataMapper {
                             String Name = First_name + " " + Last_name;
 
                             if (Name != null) {
-                                json_mindbody_class_data.put(element, Jsoup.parse(Name));
+                                json_mindbody_class_data.put(element, Jsoup.parse(Name).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -382,7 +381,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassName")) {
                             if (mindbody_class.getClassDescription().getName() != null) {
-                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getName()));
+                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getName()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -391,7 +390,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassDescription")) {
                             if (mindbody_class.getClassDescription().getDescription() != null) {
-                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getDescription()));
+                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getDescription()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -400,7 +399,7 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassProgramName")) {
                             if (mindbody_class.getClassDescription().getProgram() != null) {
-                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getProgram().getName()));
+                                json_mindbody_class_data.put(element, Jsoup.parse(mindbody_class.getClassDescription().getProgram().getName()).text());
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }

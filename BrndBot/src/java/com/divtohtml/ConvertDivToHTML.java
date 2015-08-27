@@ -21,6 +21,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
+import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
 public class ConvertDivToHTML {
@@ -100,7 +101,9 @@ public class ConvertDivToHTML {
                     if (backgroundImageId.equalsIgnoreCase(parsedId)) {
                         if (!StringUtil.isEmpty(backgroundImageProperty.getBackgroundURL())) {
                             String picLocation = getColorBlocksForThisBackgroundImage(item, orderOfLayeringId, id, divHashMap, divContent);
-                            item.attr("background",picLocation);
+                            styleMap.put(BackgroundImageProperties.backgroundURLKey, "url(" + picLocation + ")");
+                            doc.getElementById(id).attr(styleKey, createKeyValuePair(styleMap));
+                            break;
                         }
                     }
                 }
@@ -117,7 +120,9 @@ public class ConvertDivToHTML {
                         styleMap.put(TextAreaProperties.letterSpacingKey, textArea.getLetterSpacing());
                         styleMap.put(TextAreaProperties.lineHeightKey, textArea.getLineHeight());
                         styleMap.put(TextAreaProperties.textAlignmentKey, textArea.getTextAlignment());
-                        item.text(textArea.getTextValue());
+                        doc.getElementById(id).attr(styleKey, createKeyValuePair(styleMap));
+                        doc.getElementById(id).text(textArea.getTextValue());
+                        break;
                     }
                 }
             } else if (ButtonProperties.isButton(id)) {
@@ -132,7 +137,8 @@ public class ConvertDivToHTML {
                             String parsedId = button.getId().split(divDelimiter)[0];
                             if (buttonId.equalsIgnoreCase(parsedId)) {
                                 link.attr("href", button.getURL());
-                                replaceLinesWithIdMap.put(link.attr(idKey), link.toString());
+                                doc.getElementById(id).attr("href", button.getURL());
+                                break;
                             }
                         }
                     }
@@ -142,35 +148,15 @@ public class ConvertDivToHTML {
                 for (LogoProperties logo : logoProperties) {
                     String parsedId = logo.getId().split(divDelimiter)[0];
                     if (id.equalsIgnoreCase(parsedId)) {
-                        styleMap.put(LogoProperties.backgroundURLKey, logo.getBackgroundURL());
+                        doc.getElementById(id).attr(LogoProperties.srcKey, logo.getBackgroundURL());
+                        break;
                     }
                 }
             }
-            item.attr(styleKey, createKeyValuePair(styleMap));
-            String cleanItemString = StringEscapeUtils.unescapeHtml4(item.toString());
-            replaceLinesWithIdMap.put(id, cleanItemString);
         }
-        String finalString = replaceExistingTds(replaceLinesWithIdMap, doc.toString());
-        return finalString;
-    }
+//        System.out.println(doc.toString());
 
-    private String replaceExistingTds(HashMap<String, String> replaceStyleMap,
-            String orgHtml) {
-        String[] lines = orgHtml.split(StringUtil.lineSeparator());
-        StringBuilder newHtml = new StringBuilder();
-        for (String line : lines) {
-            Iterator<Entry<String, String>> it = replaceStyleMap.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                if (line.contains(pair.getKey().toString())) {
-                    line = pair.getValue().toString();
-                    it.remove();
-                    break;
-                }
-            }
-            newHtml.append(line);
-        }
-        return newHtml.toString();
+        return doc.toString();
     }
 
     private HashMap<String, ArrayList<?>> getDivHashMap(String divContent) {
