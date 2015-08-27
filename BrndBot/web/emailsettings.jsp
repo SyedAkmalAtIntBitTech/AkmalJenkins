@@ -37,8 +37,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Email Settings</title>
         <script src="js/crop.js" type="text/javascript"></script>
+       
+        
+        
     </head>
-    <body ng-app="myapp">
+    <body ng-app="myapp" >
         <div  class="container" id="container"> 
             <div class="row">
                  <jsp:include page="leftmenu.html"/><!--/end left column-->
@@ -48,8 +51,11 @@
     <div class="col-md-8 col-md-offset-2 " ng-app="myapp">
         <div class="col-md-6 col-md-offset-0"><p id="hyshead">Email Settings</p></div>
         <div class="col-md-6 col-md-offset-0 bgcols">
-             
-    
+           
+            
+ 
+            
+            
         </div>
         
     </div>

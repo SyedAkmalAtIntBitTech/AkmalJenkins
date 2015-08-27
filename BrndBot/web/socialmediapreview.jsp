@@ -270,7 +270,7 @@
             });
 
         </script> 
-        <div style="position: relative;top:-27em;" class="col-md-1 col-md-offset-9"><a href="selectpromotesocialmedia.jsp"><p id="edit" class="BT2">go back</p></a></div>
+        <div style="position:relative;top:-27em;" class="col-md-1 col-md-offset-9"><a href="selectpromotesocialmedia.jsp"><p id="edit" class="BT2">go back</p></a></div>
     </body> 
 
 </html>

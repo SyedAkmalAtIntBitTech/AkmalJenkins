@@ -61,10 +61,12 @@ and open the template in the editor.
 #txtlog{
     font-size: 10px;
     width: 50px; 
-    top:13px;
+    margin-top: 2.5em;
     position: relative;
-    right: 9px;   
-    color: whitesmoke;
+    right: 9px; 
+    font-style: normal;
+    font-weight: 600;
+    color: white;
 }
 #txtpost{
     position:relative;
@@ -228,7 +230,6 @@ color: #66676b;
 text-align:  left;
 line-height: 14.4px;
 letter-spacing:0em;
-    
 }
 #editorhead{
 font-family: "proxima-nova",sans-serif;
@@ -553,6 +554,7 @@ letter-spacing:0em;
     width: 26px;
     margin-top: 5%;
     padding-left: 15%;
+   
     
 }
 
@@ -591,6 +593,8 @@ letter-spacing:0em;
 }
 
 .headblankcolor-box{
+        position: relative;
+        left:43px;
         float: left;
         width: 36px;
         height: 15px;

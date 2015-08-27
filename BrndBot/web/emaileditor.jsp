@@ -59,9 +59,19 @@ and open the template in the editor.
                 height: 100px;
                 margin-left:  5px;
             }
-             #slider{
-                 width:600px;height: 20px;zoom: 0.2;
-             }
+                #slider{
+                width:150px;height: 5px;
+                position: relative;
+                left:60px;
+                top:-18px;
+            }
+            .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
+            {
+               width: 20px;
+               height:14px;
+/*                border-radius: 20px;*/
+               background-color: #FFF;
+            }
             #popup
             {
                 display:none;
@@ -894,7 +904,7 @@ and open the template in the editor.
                                                 <li><select class="blockname LE1" id="editorhead"></select></li>
 
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
-                                                  <li><p id="editpal">your palette</p></li>                                                                                         
+                                                  <li><p class="editpal">your palette</p></li>                                                                                         
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
                                                         <li><div class="blankcolor-box" id="shapecolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
@@ -908,7 +918,7 @@ and open the template in the editor.
                                                 </li>
                                                 <li><p class="editpal">pick from theme</p></li>
                                                 <li><p class="editpal custom-color-box" id="picker" style="margin-left: 120px;">custom</p><br></li>
-                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
+                                                <li><p class="editpal">opacity</p><div id="slider"></div></li>
                                             </ul>
                                         </div>
 
