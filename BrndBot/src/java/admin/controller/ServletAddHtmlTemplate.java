@@ -6,33 +6,32 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.AppConstants;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author intbit
+ * @author development
  */
-public class ServletLogin extends BrndBotBaseHttpServlet {
-    
-    private static Logger logger = Logger.getLogger(ServletLogin.class.getName());
-    
-    RequestDispatcher request_dispatcher;
-    
-     public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-    }
+public class ServletAddHtmlTemplate extends BrndBotBaseHttpServlet {
+    private static final Logger logger = Logger.getLogger(ServletAddFonts.class.getName());
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,49 +41,54 @@ public class ServletLogin extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        StringBuffer string_buffer = new StringBuffer();
-        RequestDispatcher request_dispatcher;
-        boolean check = false;
         PrintWriter out = response.getWriter();
-        getSqlMethodsInstance().admin_session  = request.getSession(true);
+        Layout layout = new Layout();
+        String fileName = null,filePath = null, fieldName = null, uploadPath = null, uploadType = null;
+        StringBuffer string_buffer = new StringBuffer();
 
         try {
-
+            /* TODO output your page here. You may use following sample code. */
+            uploadPath = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH;
             BufferedReader reader = request.getReader();
             String line = null;
             while ((line = reader.readLine()) != null) {
                 string_buffer.append(line);
             }
-
+            
             JSONParser parser = new JSONParser();
-            JSONObject joUser = null;
-            joUser = (JSONObject) parser.parse(string_buffer.toString());
-            String User_id = (String) joUser.get("emailid");
-            String password = (String) joUser.get("password");
-            logger.log(Level.INFO, "text");
-            if (User_id.equals("intbit") && password.equals("password")){
-                 getSqlMethodsInstance().admin_session.setAttribute("AdminChecked", "true");
-                 getSqlMethodsInstance().admin_session.setMaxInactiveInterval(2 * 60 * 60);
-                out.write("true");
-            }else {
-                 getSqlMethodsInstance().admin_session.setAttribute("AdminChecked", "false");
-                out.write("false");
+            JSONObject json_html_template = null;
+            json_html_template = (JSONObject) parser.parse(string_buffer.toString());
+            String type = (String) json_html_template.get("type");
+            
+//            BufferedReader txtfile = new BufferedReader(new FileReader("c:\\test.txt"));
+            String model_id = (String)json_html_template.get("model_id");
+            String model_name = (String)json_html_template.get("model_name");
+            String html_content = (String)json_html_template.get("html_content");
+            
+            fileName = model_name + ".html";
+            filePath = uploadPath + File.separator + fileName;
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
             }
+            OutputStream htmlfile= new FileOutputStream(new File(filePath));
+            
+            PrintStream printhtml = new PrintStream(htmlfile);
+            
+            layout.editModel(Integer.parseInt(model_id), fileName);
 
-            response.setContentType("text/html");
-        } catch (ParseException e) {
-            logger.log(Level.SEVERE, "Exception while parsing JSON in admin login", e);
+            printhtml.print(html_content);
+
+            printhtml.close();
+            htmlfile.close();
+            out.write("true");
+        }catch (Exception ex){
+            logger.log(Level.SEVERE, "", ex);
             out.write(getSqlMethodsInstance().error);
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Exception in admin login JSON", e);
-            out.write(getSqlMethodsInstance().error);
-        }finally {
-            out.close();
         }
     }
 

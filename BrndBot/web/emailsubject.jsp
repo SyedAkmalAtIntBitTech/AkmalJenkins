@@ -18,7 +18,9 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <link href="css/popup.css" rel="stylesheet" type="text/css"/>
            <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
+                <link rel="stylesheet" href="css/main1.css">
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
         <title>email subject</title>
         <style>
@@ -85,7 +87,6 @@
             font-family: "proxima-nova",sans-serif;
             font-style: normal;
             font-weight: 600;
-            font-size:21.5px;
             color: #3f4042;
             text-align: left;
             line-height: 25.8px;
@@ -112,10 +113,18 @@
                 border: 0px solid;
                 height:50px;
                 width:450px;
-                font-size:35px;
+                font-size:18.5px;
                 position: relative;
                 padding-top:10%;
             }
+/*            
+ #emailsubject:focus ~ input, #emailsubject:valid ~ input 
+ {     
+  left:-35px;
+  font-size:13px;
+  color:#999;
+}*/
+
             .hideinputborder:focus{
                 outline: none;
             }
@@ -165,19 +174,22 @@
                 background-color: #00A37A;
                 border-color: #00A37A;
             }
+            .btn-csv:focus{
+             outline: none;
+            }
             .btn-csv{
-                border-radius:10px;
+                border-radius:20px;
                 position: fixed;
-                top: 65%;
+                top: 62%;
                 right:50%;
                 width: 200px;
                 background-color:transparent;
-                border-color: #00A37A;
+                border-color: #003399;
             }
             .btn-prim{
                 position: fixed;
                 top: 60%;
-                left:16%;
+                left:17%;
             }
             .fileUpload {
                 position: relative;
@@ -606,23 +618,25 @@
             </div><!--/end left column-->
             <div id="datadiv" class="col-md-8 col-md-offset-2">
                 <div id="emailsubjectdiv">
-                    <p class="header1"> Enter the Subject Line of the Email:</p>
-                    
-                    <input type="text" class="hideinputborder" id="emailsubject" name="emailsubject" placeholder="SUBJECT LINE">
-
-                    <hr style="position:relative;left:-15%;width:550px;height:1px;background-color:#777;">
+                    <p class="header1 MH2"> Enter the Subject Line of the Email:</p>
+                   <div class="sublingrp">
+                   <div class="col-md-5 col-md-offset-0">                            
+                       <input id="emailsubject" class="inputsubline" name="emailsubject"  type="text" required>
+                        <label>SUBJECT LINE</label><br>
+                    </div>
+                    </div>
+         
+              
                     <input  id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
 
                 </div>
 
                 <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
-                    <p class="header1"> Who do you want to send this email to?</p>
+                    <p class="header1 MH2"> Who do you want to send this email to?</p>
                     <br><br>   
                    
                     <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
-                            <option value="0">SELECT</option>
-                            <option value="1">Check</option>
-                            <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                          <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                     </select>
                     <div id="drop-zone">
                         Drop files here...
@@ -634,9 +648,9 @@
 
                   
                     
-                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:50em;top:-160px;"/>
-                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-csv" value="Add CSV or Email Manually">
-                    <textarea style="width:300px; height:100px;position:relative;left:38em;top:-20px;" id="emailaddresses"></textarea><br><br>
+                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:32.7em;top:-90px;border-radius:15px;"/>
+                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-csv BT1" value="Add CSV or Email Manually">
+                    <textarea style="width:300px; height:100px;position:relative;left:42em;top:-20px;" id="emailaddresses"></textarea><br><br>
                
 
                     <div id="popup">

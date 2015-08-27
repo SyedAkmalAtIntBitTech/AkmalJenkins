@@ -15,6 +15,7 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -31,7 +32,8 @@ and open the template in the editor.
             .fileUpload {
                 position: relative;
                 overflow: hidden;
-                margin: 10px;
+                margin-top:50px;
+                margin-left: -200px;
             }
             .fileUpload input.upload {
                 position: absolute;
@@ -218,7 +220,7 @@ and open the template in the editor.
 
                                     <div class="group" ng-controller="myCtrl">
                                         <div class="span5 col-md-offset-5 ">
-                                            <button id="Servicecontinue" class="btn btn-info" disabled ng-click="uploadFile()">CONTINUE</button><br><br>
+                                            <button id="Servicecontinue" class="button button--moema button--text-thick button--text-upper button--size-s" disabled ng-click="uploadFile()">CONTINUE</button><br><br>
                                             <div class="fileUpload btn ">
                                                 <span>Click to upload a image</span>
                                                 <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload" file-model="myFile" />

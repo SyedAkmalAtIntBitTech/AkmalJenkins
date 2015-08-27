@@ -8,7 +8,7 @@
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
-<%!
+    <%!
         Logger logger2 = Logger.getLogger("checksession.jsp");
         PreparedStatement prepared_statement;
         ResultSet result_set;

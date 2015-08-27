@@ -12,9 +12,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -54,18 +56,22 @@ public class Model extends BrndBotBaseHttpServlet {
         String fileName, fieldName, uploadPath;
         boolean type_email = false;
         boolean type_social = false;
+        RequestDispatcher request_dispatcher;
+        
         try {
             
             response.setContentType("text/html;charset=UTF-8");
             uploadPath = AppConstants.BASE_XML_UPLOAD_PATH;
 
-            Integer organization_id = Integer.parseInt(request.getParameter("organization"));
-            Integer brand_id = Integer.parseInt(request.getParameter("brand"));
-            Integer user_id = Integer.parseInt(request.getParameter("users"));
+            String organization_id = request.getParameter("organization");
+            String brand_id = request.getParameter("brand");
+            String user_id = request.getParameter("users");
             Integer category_id = 0;
             Integer sub_category_id = 0;
             String mapperfilename = request.getParameter("mapper");
             String layoutfilename = request.getParameter("layout");
+            String modelname = request.getParameter("model_name");
+            
             String Style_image_name=request.getParameter("imagename");
             Integer block_id = 0;
             
@@ -174,8 +180,8 @@ public class Model extends BrndBotBaseHttpServlet {
             transformer1.transform(source1, result1);
 
             try {
-            String image_name=  layout.createImage(layoutfilename,getServletContext());
-             layout.addLayouts(organization_id, user_id, category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, brand_id, block_id,image_name);
+                String image_name=  layout.createImage(layoutfilename,getServletContext());
+                layout.addLayouts(Integer.parseInt(organization_id), Integer.parseInt(user_id), category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, Integer.parseInt(brand_id), block_id,image_name,modelname);
             } catch (SAXException ex) {
                 Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -192,17 +198,18 @@ public class Model extends BrndBotBaseHttpServlet {
             }
 
         } catch (ParserConfigurationException pce) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(pce, "Exception while updating org name:", getSqlMethodsInstance().error));
-
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(pce, "Exception while creating model:", getSqlMethodsInstance().error));
         } catch (TransformerException tfe) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(tfe, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(tfe, "Exception while creating model:", getSqlMethodsInstance().error));
 
         } catch (SQLException s) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(s, "Exception while updating org name:", getSqlMethodsInstance().error));
-        }finally {
-        }
+            logger.log(Level.SEVERE, util.Utility.logMessage(s, "Exception while creating model:", getSqlMethodsInstance().error));
 
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while creating model:", getSqlMethodsInstance().error));
+        }finally {
+        }        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

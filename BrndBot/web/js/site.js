@@ -317,16 +317,17 @@ $(document).ready(function () {
 //            $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
 //    }
 
-    $("#textFontFamily").change(function () {
-//        alert($("#textFontFamily").val());
-        $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
-    });
+//    $("#textFontFamily").change(function () {
+////        alert($("#textFontFamily").val());
+//        $("#" + selectedTextID).css("font-family", $("#textFontFamily").val());
+//    });
+    
     $("#fontColor").change(function () {
 //        alert($("#fontColor").val());
-//            alert($("#fontColor option:selected").text());
+            alert();
         $("#" + selectedTextID).css("color", $("#fontColor").val());
+         $("#" + selectedTextID).attr("name", $("#fontColor option:selected").text());
     });
-
 //confirmation plugin is used to show model dialogue box
     $("#deleteTextButton").easyconfirm();
     $("#deleteTextButton").click(function () {
@@ -386,7 +387,7 @@ $(document).ready(function () {
             $("#" + selectedTextID).css("height", $("#blockHeight").val());
             $("#" + selectedTextID).css("opacity", $("#opacityBlock").val());
             $("#" + selectedTextID).css("background-color", $("#blockColor").val());
-
+            $("#" + selectedTextID).attr("name", $("#blockColorFromDropDown").find('option:selected').text());
         });
 
 
@@ -454,6 +455,11 @@ $(document).ready(function () {
         });
     });
     $("#addButton").click(function () {
+        
+        var selectedtype = $("#selectedtype").val();
+        
+        if ((selectedtype == "selected")){
+        
         $(".container").append("<div class=\"draggableButton\"><img src=\"../buttons/button1.png\" id=\"" + $("#elementText").find('option:selected').text() + "\"></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
         addButtonCount++;
@@ -495,18 +501,23 @@ $(document).ready(function () {
             reloadTabs(2);
         });
 
+        }else if (selectedtype == "non"){
+            alert("no category selected, please select any one category type");
+        }
     });
     $("#addImageButton").click(function () {
-
+        var selectedtype = $("#selectedtype").val();
+        
+        if ((selectedtype == "selected")){
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
         $(".container").append("<div class=\"draggableImage\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
 
         addImageCount++;
         addElements($("#elementText").find('option:selected').text());
-        $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("-webkit-background-size","contain");                                    
+        $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("background-position", "center center");                                    
         $("#" + selectedTextID).css("width", "100px");
-        $("#" + selectedTextID).css("height", "100px");
+        $("#" + selectedTextID).css("height", "100px").css("border","1px solid black").css("object-fit","fill");
         addDefault();
         reloadTabs(1);
 
@@ -541,8 +552,8 @@ $(document).ready(function () {
                 stop: filters,
                 change: filters
             });
-
-
+        
+        
             function filters() {
 
                 var filters = "blur(" + $("#blurFilter").val() + "px) grayscale(" + $("#grayscaleFilter").val() + "%) sepia(" + $("#sepiaFilter").val() + "%)" + " saturate(" + $("#saturateFilter").val() + "%) hue-rotate(" + $("#hueRotateFilter").val() + "deg) invert(" + $("#invertFilter").val() + "%) brightness(" + $("#brightnessFilter").val() + "%) contrast(" + $("#contrastFilter").val() + "%)";
@@ -557,9 +568,7 @@ $(document).ready(function () {
         });
         $("#fileButton").click(function () {
             $("#" + selectedTextID).css('background', "url('" + $("#filePath").val() + "')");
-            $("#" + selectedTextID).css("background-size", "contain");
-            $("#" + selectedTextID).css("-webkit-background-size", "contain");
-            $("#" + selectedTextID).css("background-repeat", "no-repeat");
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
         });
         $(function () {
             function blendColor() {
@@ -653,52 +662,60 @@ $(document).ready(function () {
             $(".size").text("Height=" + $("#" + id).css("height") + ", Width=" + $("#" + id).css("width"));
             reloadTabs(1);
         });
-
+        }else if (selectedtype == "non"){
+            alert("no category selected, please select any one category type");
+        }
 
     });
     $("#addTextButton").click(function () {
-
-        $(".container").append("<div class=\"draggableText\"><textarea class =\"textAreas\" id=\"" + $("#elementText").find('option:selected').text() + "\">" + $("#elementText").find('option:selected').text() + "</textarea></div>");
-        $("#textArea").val($("#elementText").find('option:selected').text());
-        selectedTextID = $("#elementText").find('option:selected').text();
-        selectElementsArray[textcount - 1] = selectedTextID;
-        textcount++;
-        addElements($("#elementText").find('option:selected').text());
-        reload_textButtons();
-        reload_alignButtons();
-        reload_textSize();
-        reload_textFontFamily();
-        reload_color();
-        reloadTabs(0);
-
-        addDefault();
-        $("#lineHeight").val($("#" + selectedTextID).css("line-height").replace('px', ''));
-
-        if ($("#" + selectedTextID).css("letter-spacing") == "0")
-            $("#letterSpace").val($("#" + selectedTextID).css("letter-spacing"));
-        else
-            $("#letterSpace").val($("#" + selectedTextID).css("letter-spacing").replace('px', ''));
-//TODO: reload_dropShadow();
-        $("#opacity").val($("#" + selectedTextID).css("opacity"));
-//$("#start").text("Selected item: "+ $("#"+selectedTextID).attr("name") +" and Co ordinates: X="+ x + ", Y="+ y);	
-
-
-        $(".alignButton").click(function () {
-            $("#" + selectedTextID).css("text-align", $(this).attr("value"));
+        var selectedtype = $("#selectedtype").val();
+        
+        if ((selectedtype == "selected")){
+            
+            $(".container").append("<div class=\"draggableText\"><textarea class =\"textAreas\" id=\"" + $("#elementText").find('option:selected').text() + "\"style='border: 1px solid black' >" + $("#elementText").find('option:selected').text() + "</textarea></div>");
+            $("#textArea").val($("#elementText").find('option:selected').text());
+            selectedTextID = $("#elementText").find('option:selected').text();
+            selectElementsArray[textcount - 1] = selectedTextID;
+            textcount++;
+            addElements($("#elementText").find('option:selected').text());
+            reload_textButtons();
             reload_alignButtons();
-        });
+            reload_textSize();
+            reload_textFontFamily();
+            reload_color();
+            reloadTabs(0);
+            addDefault();
+            $("#lineHeight").val($("#" + selectedTextID).css("line-height").replace('px', ''));
+
+
+            if ($("#" + selectedTextID).css("letter-spacing") == "0")
+                $("#letterSpace").val($("#" + selectedTextID).css("letter-spacing"));
+            else
+                $("#letterSpace").val($("#" + selectedTextID).css("letter-spacing").replace('px', ''));
+    //TODO: reload_dropShadow();
+            $("#opacity").val($("#" + selectedTextID).css("opacity"));
+    //$("#start").text("Selected item: "+ $("#"+selectedTextID).attr("name") +" and Co ordinates: X="+ x + ", Y="+ y);	
+
+
+            $(".alignButton").click(function () {
+                $("#" + selectedTextID).css("text-align", $(this).attr("value"));
+                reload_alignButtons();
+            });
 
 
 
-        $(".draggableText").draggable(
-                {
-                    scroll: false,
-                    cancel: "text",
-                    cursor: "move"
-                }
+            $(".draggableText").draggable(
+                    {
+                        scroll: false,
+                        cancel: "text",
+                        cursor: "move"
+                    }
 
-
-        );
+            );
+        }else if (selectedtype == "non"){
+            alert("no category selected, please select any one category type");
+        }
+        
         function reload_dropShadow()
         {
             var data = $("#" + selectedTextID).css("text-shadow");
@@ -899,9 +916,8 @@ $(document).ready(function () {
         });
         $("#fileButton").click(function () {
             $("#" + selectedTextID).css('background', "url('" + $("#filePath").val() + "')");
-            $("#" + selectedTextID).css("background-size", "contain");
-            $("#" + selectedTextID).css("-webkit-background-size", "contain");
-            $("#" + selectedTextID).css("background-repeat", "no-repeat");
+           
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
         });
         $(function () {
             function blendColor() {
@@ -1044,7 +1060,7 @@ function addDefault() {
 //            alert( addElementsArray[num1]);
                 $("#lab").append('<div class="col-md-5 " id="appenddiv' + addElementsArray[num1 - 1] + '" style="display:none"><p id="' + num1 + '"> ' + addElementsArray[num1 - 1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
                                           <p id="hidepara' + num1 + '" class="col-md-3 "> Default Value <input id="inputfield' + num1 + '" type="text" value="default"><br> \n\
-                                            Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" ></p><div>');
+                                          Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" ></p><div>');
                 $(xml).find('optionelement').each(function () {
                     fontnameis[num] = $(this).find('element').text();
 
@@ -1109,32 +1125,78 @@ function getRotationDegrees(obj) {
     return (angle < 0) ? angle + 360 : angle;
 }
 
+//function validate(){
+//      var model_name = $("#namexml").val();
+//
+//      if (model_name == ""){
+//          alert("model name not entered");
+//          $("#namexml").focus();
+//          return false;
+//      }else {
+//          alert("text");
+//        $.ajax({
+//            url: global_host_address + 'ServletValidateModel',
+//            method: 'post',
+//            data: {
+//                model_name : model_name,
+//            },
+//            success: function (responseText) {
+//                alert(responseText);
+//                if (responseText == "yes"){
+//                    alert("name already exist, please give some other name");
+//                    $("#namexml").focus();
+//                    return false;
+//                }else if (responseText == "no") {
+//                    var file_name = $("#namexml").val();
+//                    var mapperxml = file_name + "_" + "mapper";
+//                    var layoutxml = file_name + "_" + "layout";
+//
+//                    $("#mapper").val(mapperxml);
+//                    $("#layout").val(layoutxml);
+//                    $("#model_name").val($("#namexml").val());
+//                    $("#tabs *").attr("disabled", false);
+//                    $("#main *").attr("disabled", false);
+//                    $("#right *").attr("disabled", false);
+//                    $('#popup').hide("slow");
+//                    
+//                }
+//            }
+//        });
+//
+//      }
+//      return true;          
+//  }
+          
 function popupwindow() {
     $('#popup').show("slow");
-    $("#tabs *").attr("disabled", "disabled");
-    $("#main *").attr("disabled", "disabled");
-    $("#content *").attr("disabled", false);
-    $("#right *").attr("disabled", "disabled");
+//    $("#tabs *").attr("disabled", "disabled");
+//    $("#main *").attr("disabled", "disabled");
+//    $("#content *").attr("disabled", false);
+//    $("#right *").attr("disabled", "disabled");
 
-    $('#popupclose').click(function () {
-
-        $("#mapper").val($("#mapperxml").val());
-        $("#layout").val($("#layoutxml").val());
-        $("#tabs *").attr("disabled", false);
-        $("#main *").attr("disabled", false);
-        $("#right *").attr("disabled", false);
-        $('#popup').hide("slow");
-
-    });
+//    $('#popupclose').click(function () {
+//
+//        var file_name = $("#namexml").val();
+//        var mapperxml = file_name + "_" + "mapper";
+//        var layoutxml = file_name + "_" + "layout";
+//        
+//        $("#mapper").val(mapperxml);
+//        $("#layout").val(layoutxml);
+//        $("#model_name").val($("#namexml").val());
+//        $("#tabs *").attr("disabled", false);
+//        $("#main *").attr("disabled", false);
+//        $("#right *").attr("disabled", false);
+//        $('#popup').hide("slow");
+//
+//    });
 
 }
 
 function passvaluetoinputfield() {
-    alert("error1");
-    alert($(".container").html());
  var containerWidth=$(".container").css("width");
  var containerHeight=$(".container").css("height");
-alert(containerWidth+":"+containerHeight);
+
+
 
 
 //    $.ajax({
@@ -1195,6 +1257,7 @@ alert(containerWidth+":"+containerHeight);
         var color4 = rgbToHex(parseInt(arr3[0]), parseInt(arr3[1]), parseInt(arr3[2]));
 
         var dropshadowdata1;
+        var filterEnable;
         var childPos = $("#" + addElementsArray[i]).offset();
         var parentPos = $("#" + addElementsArray[i]).parent().parent().offset();
 //            alert($("#" + addElementsArray[i]).attr("class"));          
@@ -1206,7 +1269,8 @@ alert(containerWidth+":"+containerHeight);
         var y1 = Math.round(childOffset.top);
 
         if (isNaN(dropshadow1[0])) {
-
+            
+            filterEnable="true";
             var filterdata = $("#" + addElementsArray[i]).css("-webkit-filter").replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '');
 //          alert(filterdata);
             var filterdataarray = filterdata.split(' ');
@@ -1217,6 +1281,7 @@ alert(containerWidth+":"+containerHeight);
 
         }
         else {
+            filterEnable="false";
             var dropshadowarr1 = dropshadow1.split(" ");
             dropshadowdata1 = " Drop-shadow-color!" + "#" + color4 + " H-shadow!" + dropshadowarr1[3] + " V-shadow!" + dropshadowarr1[4] + " blur!" + dropshadowarr1[5];
         }
@@ -1228,6 +1293,7 @@ alert(containerWidth+":"+containerHeight);
             style1 = " tag!" + "image" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
+                    " filterEnable!" + filterEnable+
                     " width!" + $("#" + addElementsArray[i]).css("width") +
                     " height!" + $("#" + addElementsArray[i]).css("height") +
                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
@@ -1243,6 +1309,7 @@ alert(containerWidth+":"+containerHeight);
             style1 = " tag!" + "logo" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
+                    " filterEnable!" + filterEnable+
                     " width!" + $("#" + addElementsArray[i]).css("width") +
                     " height!" + $("#" + addElementsArray[i]).css("height") +
                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
@@ -1255,7 +1322,7 @@ alert(containerWidth+":"+containerHeight);
         }
 
         if (contenttype.startsWith('draggableText')) {
-//            alert($("#textArea" ).val());
+       alert($("#" + addElementsArray[i]).attr("name"));
             style1 = " tag!" + "text" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
@@ -1265,6 +1332,7 @@ alert(containerWidth+":"+containerHeight);
                     " font-style!" + $("#" + addElementsArray[i]).css("font-style") +
                     " text-align!" + $("#" + addElementsArray[i]).css("text-align") +
                     " font-size!" + $("#" + addElementsArray[i]).css("font-size") +
+                    " font-color-name!" + $("#" + addElementsArray[i]).attr("name") +
                     " font-color!" + "#" + color1 +
                     " text-shadow!" + "#" + color2.substr(0,6) +
                     dropshadowdata +
@@ -1275,8 +1343,6 @@ alert(containerWidth+":"+containerHeight);
 
         }
         if (contenttype.startsWith('draggableButton')) {
-            
-            alert($("#" + addElementsArray[i]).attr("src"));
             style1 = " tag!" + "button" +
                     " src!" + $("#" + addElementsArray[i]).attr("src") +
                     " x-co-ordinates!" + x1 +
@@ -1289,20 +1355,22 @@ alert(containerWidth+":"+containerHeight);
             style1 = " tag!" + "block" +
                     " x-co-ordinates!" + x1 +
                     " y-co-ordinates!" + y1 +
+                    " color-name!" + $("#" + addElementsArray[i]).attr("name") +
                     " width!" + $("#" + addElementsArray[i]).css("width") +
                     " height!" + $("#" + addElementsArray[i]).css("height") +
                     " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
                     " background-color!" + "#" + color3 + dropshadowdata1;
         }
         textareadetails[i] = style1 + " type!" + addElementsArray[i];
-       alert(textareadetails); 
+
 
 
 
         $("#textstyle").val(textareadetails);
+        alert(textareadetails);
 
     }
-//    alert(mapperdata);
+   alert(mapperdata);
     $("#element").val(mapperdata);
 
 } 

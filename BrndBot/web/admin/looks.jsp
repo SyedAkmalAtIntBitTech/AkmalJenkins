@@ -76,7 +76,6 @@
                     
                 <div class="group">
                     <div class="col-md-3 col-md-offset-5">
-                        <%= exist1 %>
                         <input type="text"  class="form-control simplebox" id="lookname" name="lookname"/><br>
                         <%= exist1 %>
     Select organization: <select name="organization" id="organization" style="width:180px;">
@@ -183,6 +182,8 @@
                 case 'JPG':
                 case 'PNG':
                 case 'JPEG':
+                case 'svg':
+                case 'SVG':                      
                     break;
                 default:
                     alert('This type of image is not allowed');

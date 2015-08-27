@@ -32,18 +32,25 @@ and open the template in the editor.
     position: relative;
     top:-52px;
     font-family:"proxima-nova",sans-serif;
-    font-weight:400;
-    font-size:14px;
-    left: 15em;
+    font-weight:500;
+    left: 10em;
     color: #2D4444;
     
+}
+#edtgb a{
+   
+    position: relative;
+    top:-15px;
+    font-family:"proxima-nova",sans-serif;
+    font-weight:500;
+    left: 0em;
+    color: #2D4444;
 }
 .edit{
     position: relative;
     padding-top:7%;
     font-family:"proxima-nova",sans-serif;
     font-weight:400;
-    font-size: large;
     left: 0px;
     
 }
@@ -67,7 +74,6 @@ and open the template in the editor.
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 22px;
     color:  #010101;
     line-height: 35px;
     letter-spacing: 0em;
@@ -79,7 +85,6 @@ and open the template in the editor.
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
     color:  #010101;
     line-height: 35px;
     letter-spacing: 0em;
@@ -89,7 +94,6 @@ and open the template in the editor.
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 15px;
     color:  #96999d;
     text-align:left;
     line-height: 18px;
@@ -210,14 +214,13 @@ and open the template in the editor.
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
     color: #66676b;
     text-align: left;
     line-height: 12px;
     letter-spacing:0em;
 }
-#editpal{
-    font-family: "proxima-nova",sans-serif;
+.editpal{
+font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
@@ -231,7 +234,6 @@ letter-spacing:0em;
 font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 600;
-font-size: 12px;
 color: #66676b;
 font-style:  normal;
 text-align: left;
@@ -262,7 +264,7 @@ letter-spacing:0em;
 #promotebuttonlist li> p{
     position: relative;
     padding-top: 2%;
-    left:-17px;
+    left:-5px;
 }
 #promotebuttonlist {
         width: 600px;
@@ -468,7 +470,6 @@ letter-spacing:0em;
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 13px;
     color: #66676b;
     text-align: left;
     padding-top: 2%;

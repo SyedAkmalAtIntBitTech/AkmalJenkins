@@ -28,6 +28,13 @@ function setSocialParameters(title, teacher, date) {
 $(document).ready(function () {
 //
 //    alert("clicked");
+            $("#left").hide();
+            $("#right").hide();
+            $("#center").hide();
+            $("#justify").hide();
+            $("#plus").hide();
+            $("#minus").hide();
+           var status = "true";
  $("#tabs-1").show();
         $("#tabs-2").hide();
         $("#tabs-3").hide();
@@ -43,7 +50,30 @@ $(document).ready(function () {
         }
     })
             .css('background-color', '#ffffff');
-
+     $('.custom-color-box').colpick({
+        colorScheme: 'dark',
+        layout: 'rgbhex',
+        color: 'ff8800',
+        onSubmit: function (hsb, hex, rgb, el) {
+           $("#selectedshapecolorbox").css('background-color', '#' + hex);
+//            place block selected block
+            var blockId=$(".blockname").val();
+            $("#"+blockId).css('background-color', '#' + hex);
+            $(el).colpickHide();
+        }
+    })
+            .css('background-color', '#ffffff');
+    
+   $('#slider').slider({ 
+        min: 0, 
+        max: 1, 
+        step: 0.01, 
+        value: 1,
+        orientation: "horizontal",
+             slide: function(e,ui){
+                     $('#'+$(".blockname").val()).css('opacity', ui.value);
+             }                
+        }); 
     $(".blankcolor-box").click(function () {
         var color = $("#" + this.id).css("background-color");
         $("#selectedshapecolorbox").css("background-color", "" + color);
@@ -113,7 +143,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: 'GET',
-        url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId+"&editor_type=email",
+        url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + allLayoutFilename[0] + "&editor_type=email",
         data: {get_param: 'value'},
         dataType: 'json',
         success: function (data) {
@@ -139,7 +169,8 @@ $(document).ready(function () {
                     }
 
                     );
-
+                    var count=1;
+                    var blockcount=1;
                     $(xml).find('element').each(function () {
                         var tag = $(this).attr("tag");
                         type = $(this).attr("type");
@@ -166,52 +197,67 @@ $(document).ready(function () {
                         var left = $(this).attr("x-co-ordinates");
                         var top = $(this).attr("y-co-ordinates");
                         var opacity = $(this).attr("opacity");
-                        if (tag === "text")
-                        {
+                        var width = $(this).attr("width");
+                        var height = $(this).attr("height");
+                            
+                                if (tag === "text")
+                                {
+                                    var colorName = $(this).attr("font-color-name");
+//                                  fontcolor = $(this).attr("font-color");
+                                    fontsize = $(this).attr("font-size");
+                                    fontstyle = $(this).attr("font-style");
+                                    var fontweight = $(this).attr("font-weight");
+                                    var letterspacing = $(this).attr("letter-spacing");
+                                    var lineheight = $(this).attr("line-height");
 
-                            fontcolor = $(this).attr("font-color");
-                            fontsize = $(this).attr("font-size");
-                            fontstyle = $(this).attr("font-style");
-                            var fontweight = $(this).attr("font-weight");
-                            var letterspacing = $(this).attr("letter-spacing");
-                            var lineheight = $(this).attr("line-height");
+                                    var textalign = $(this).attr("text-align");
 
-                            var textalign = $(this).attr("text-align");
+                                    var webkittransform = $(this).attr("webkit-transform");
+                                    var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
+//                                  alert($(this).attr("text-shadow"));
+                                    for (var i = 1; i <= 6; i++)
+                                    {
+                                        if (colorName === "Font-Color-" + i)
+                                        {
+                                            fontcolor = $("#shapecolorbox" + i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                        }
 
-                            var webkittransform = $(this).attr("webkit-transform");
-                            var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-//                    alert($(this).attr("text-shadow"));
-                            $(".preview #defaultblock1").append("<div><textarea class=textAreas readonly onclick=getTectId("+type+"SSSdefaultblock1) id=" + type + "SSSdefaultblock1>" + elementdata + "</textarea>");
-                            $("#" + type+"SSSdefaultblock1").css("color", "" + fontcolor)
-                                         .css("position", "absolute")
-                                        .css("left", "" + left + "px")
-                                        .css("top", "" + top + "px")
-                                        .css("font-size", "" + fontsize)
-                                        .css("font-style", "" + fontstyle)
-                                        .css("font-weight", "" + fontweight)
-                                        .css("letter-spacing", "" + letterspacing)
-                                        .css("line-height", "" + lineheight)
-                                        .css("opacity", "" + opacity)
-                                        .css("text-align", "" + textalign)
-                                        .css("text-shadow", "" + dropshadow)
-                                        .css("webkit-transform", "rotate(" + webkittransform + "deg)")
-                                        .css("resize", "none")
-                                        .css("background-color","inherit")
-                                        .css("border", "none")
-                                        .css("focus", "none");
-                        }
+                                    }
+
+                                     $(".preview #defaultblock1").append("<div><textarea class=textAreas onclick=getTectId("+type+"EEEdefaultblock1) id=" + type + "EEEdefaultblock1>" + elementdata + "</textarea>");
+                                     $("#" + type + "EEEdefaultblock1").css("color", "" + fontcolor)
+                                            .css("position", "absolute")
+                                            .css("left", "" + left + "px")
+                                            .css("top", "" + top + "px")
+                                            .css("width", "" + width)
+                                            .css("min-height", "" + height)
+                                            .css("font-size", "" + fontsize)
+                                            .css("font-style", "" + fontstyle)
+                                            .css("font-weight", "" + fontweight)
+                                            .css("letter-spacing", "" + letterspacing)
+                                            .css("line-height", "" + lineheight)
+                                            .css("opacity", "" + opacity)
+                                            .css("text-align", "" + textalign)
+                                            .css("text-shadow", "" + dropshadow)
+                                            .css("webkit-transform", "rotate(" + webkittransform + "deg)")
+                                            .css("resize", "none")
+                                            .css("background-color", "inherit")
+                                            .css("border", "none")
+                                            .css("focus", "none");
+                                    $("#" + type + "EEEdefaultblock1").autogrow();
+                                }
 
                         if (tag === "image")
                         {
                             var blendmode = $(this).attr("background-blend-mode");
-                            var width = $(this).attr("width");
-                            var height = $(this).attr("height");
                             var background_image = $(this).attr("background-image");
-//                    alert("image");
-                           $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "SSSdefaultblock1) id=" + type + "SSSdefaultblock1></div>");
-                            $("#" + type+"SSSdefaultblock1")
+                            $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
+                              count++;
+                           $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
+                            $("#" + type +"EEEdefaultblock1")
                                     .css("color", "" + fontcolor)
-                                .css("position", "absolute")
+                                    .css("position", "absolute")
                                     .css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .css("background-blend-mode", "" + blendmode)
@@ -220,16 +266,36 @@ $(document).ready(function () {
                                     .css("height", "" + height)
                                     .css("background",""+background_image)
                                     .css("background-repeat", "no-repeat")
-                                    .css("-webkit-background-size","contain")
-                                .css("position", "absolute");
+                                    .css("background-position", "center center")
+                                    .css("position", "absolute");
           
+                        }
+                        
+                        if (tag === "logo")
+                        {
+                            var background_image = $(this).attr("background-image");
+                            var blendmode = $(this).attr("background-blend-mode");
+                            $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
+                            $("#" + type +"EEEdefaultblock1")
+                                    .css("color", "" + fontcolor)
+                                    .css("margin-left", "" + left + "px")
+                                    .css("margin-top", "" + top + "px")
+                                    .css("background-blend-mode", "" + blendmode)
+                                    .css("opacity", "" + opacity)
+                                    .css("width", "" + width)
+                                    .css("height", "" + height)
+                                    .css("background", ""+background_image)
+                                    .css("background-repeat", "no-repeat")
+                                    .css("background-position", "center center")
+
+                                    .css("position", "absolute"); 
                         }
 
                         if (tag === "button")
                         {
 //                            alert("button");
-                            $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=" + type + "SSSdefaultblock1 alt='button'/>");
-                            $("#" + type +"SSSdefaultblock1").css("left", "" + left + "px")
+                            $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=" + type + "EEEdefaultblock1 alt='button'/>");
+                            $("#" + type + "EEEdefaultblock1").css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .attr("src", "buttons/button1.png")
                                     .css("position", "absolute");   
@@ -237,13 +303,24 @@ $(document).ready(function () {
 
                         if (tag === "block")
                         {
-//                  alert("block");
-                            var width = $(this).attr("width");
-                            var height = $(this).attr("height");
-                            var backgroundcolor = $(this).attr("background-color");
-//                 alert(backgroundcolor);
-                            $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "SSSdefaultblock1) id=" + type + "SSSdefaultblock1></div>");
-                            $("#" + type +"SSSdefaultblock1").css("background-color", "" + backgroundcolor)
+                            var colorName=$(this).attr("color-name");
+                            var backgroundcolor;
+                           
+//                            var backgroundcolor = $(this).attr("background-color");
+                                for(var i=1;i<=6; i++)
+                                               {
+                                                  if(colorName === "Color-"+i)
+                                                     {
+                                                       backgroundcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                                      }
+                                                            
+                                                } 
+
+                            $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                             blockcount++;
+                            $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
+                            $("#" + type + "EEEdefaultblock1").css("background-color", "" + backgroundcolor)
                                     .css("left", "" + left + "px")
                                     .css("top", "" + top + "px")
                                     .css("width", "" + width)
@@ -360,7 +437,7 @@ $("#sortDownBlock").click(function(){
 
         $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 5) + "px");
     });
-    var status = "false";
+    
     $("#hidealignbutton").click(function () {
 
         if (status === "true") {

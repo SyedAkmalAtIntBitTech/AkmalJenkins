@@ -109,7 +109,7 @@
                     <%
                         }
                     }catch (Exception e){
-                        logger.log(Level.SEVERE, "", e);
+
                     }finally {
                         result_set.close();
                         prepared_statement.close();
@@ -176,7 +176,6 @@
                             number = number + 1;
                         }
                     }catch (Exception e){
-                        logger.log(Level.SEVERE, "", e);
                     }finally {
                         result_set.close();
                         prepared_statement.close();
@@ -205,6 +204,8 @@
                 case 'JPG':
                 case 'PNG':
                 case 'JPEG':
+                case 'svg':
+                case 'SVG':                      
                     break;
                 default:
                     alert('This type of image is not allowed');

@@ -6,33 +6,21 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
-import java.io.BufferedReader;
+import static com.controller.BrndBotBaseHttpServlet.logger;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author intbit
+ * @author development
  */
-public class ServletLogin extends BrndBotBaseHttpServlet {
-    
-    private static Logger logger = Logger.getLogger(ServletLogin.class.getName());
-    
-    RequestDispatcher request_dispatcher;
-    
-     public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-    }
+public class ServletValidateModel extends BrndBotBaseHttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,44 +35,23 @@ public class ServletLogin extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        StringBuffer string_buffer = new StringBuffer();
-        RequestDispatcher request_dispatcher;
-        boolean check = false;
         PrintWriter out = response.getWriter();
-        getSqlMethodsInstance().admin_session  = request.getSession(true);
-
+        Layout layout = new Layout();
+        
         try {
+            String model_name = request.getParameter("model_name");
+            
+            String check = layout.checkAvailability(model_name);
 
-            BufferedReader reader = request.getReader();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                string_buffer.append(line);
-            }
-
-            JSONParser parser = new JSONParser();
-            JSONObject joUser = null;
-            joUser = (JSONObject) parser.parse(string_buffer.toString());
-            String User_id = (String) joUser.get("emailid");
-            String password = (String) joUser.get("password");
-            logger.log(Level.INFO, "text");
-            if (User_id.equals("intbit") && password.equals("password")){
-                 getSqlMethodsInstance().admin_session.setAttribute("AdminChecked", "true");
-                 getSqlMethodsInstance().admin_session.setMaxInactiveInterval(2 * 60 * 60);
-                out.write("true");
-            }else {
-                 getSqlMethodsInstance().admin_session.setAttribute("AdminChecked", "false");
-                out.write("false");
-            }
-
-            response.setContentType("text/html");
-        } catch (ParseException e) {
-            logger.log(Level.SEVERE, "Exception while parsing JSON in admin login", e);
-            out.write(getSqlMethodsInstance().error);
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Exception in admin login JSON", e);
-            out.write(getSqlMethodsInstance().error);
-        }finally {
-            out.close();
+            if (check.equalsIgnoreCase("yes")){
+                out.write("yes");
+            }else{
+                out.write("no");
+            }            
+            
+        }catch (Exception e){
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while validating model:", getSqlMethodsInstance().error));
+            
         }
     }
 
