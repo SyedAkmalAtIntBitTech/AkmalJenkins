@@ -51,7 +51,14 @@ and open the template in the editor.
                 margin-left:  5px;
             } 
              #slider{
-                 width:600px;height: 20px;zoom: 0.2;
+                 width:150px;height: 5px;;
+             }
+             .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
+             {
+                width: 20px;
+                height:14px;
+/*                border-radius: 20px;*/
+                background-color: #FFF;
              }
             #popup
             {
@@ -574,6 +581,21 @@ and open the template in the editor.
                                             <ul id="textmodification">
                                                 <li><p id="editorheadere">font color</p>
                                                     <div class="color-box blankcolor-box1" id="picker" style="left:-20px;"></div>
+                                                    <div >
+                                                        <ul>
+                                                            <li><p style="font-size: 8px;">your palette</p>
+                                                                <ul>
+                                                                   <li><div class="blankcolor-box" id="shapecolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                    <li><div class="blankcolor-box" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                    <li><div class="blankcolor-box" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                    <li><div class="blankcolor-box" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                    <li> <div class="blankcolor-box" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                    <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><p style="font-size: 8px;">custom</p></li>
+                                                        </ul>
+                                                    </div>
                                                 </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
@@ -633,7 +655,7 @@ and open the template in the editor.
                                         <div id="imagecontainer">
                                             <p  id="text3">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><select class=imagename id="editorhead"> </select></li>
+                                                <li><select class="imagename" id="editorhead"> </select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
                                                 <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
                                                 <li></li>

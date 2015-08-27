@@ -58,8 +58,15 @@ and open the template in the editor.
                 height: 100px;
                 margin-left:  5px;
             }
-             #slider{
-                 width:600px;height: 20px;zoom: 0.2;
+                   #slider{
+                 width:150px;height: 5px;;
+             }
+             .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
+             {
+                width: 20px;
+                height:14px;
+/*                border-radius: 20px;*/
+                background-color: #FFF;
              }
             #popup
             {
@@ -855,7 +862,7 @@ and open the template in the editor.
                                         <div id="textcontainer">
                                             <p id="text3">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li><p id="editorheadere">font color</p><div class="fontcolor-box blankcolor-box1" id="picker"></div></li>
+                                                <li><p id="editorheadere">font color</p><div class="fontcolor-box blankcolor-box1" id="picker"></div>  </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
@@ -911,7 +918,7 @@ and open the template in the editor.
                                         <div id="imagecontainer">
                                             <p  id="text3">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><select class=imagename id="editorhead"> </select></li>
+                                                <li><select class="imagename" id="editorhead"> </select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload">change</label></li>
                                                 <li><p id="editorheadere" onclick="imageEdit()">edit</p></li>
                                                 <li></li>
