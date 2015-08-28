@@ -5,15 +5,14 @@
  */
 package com.controller;
 
+import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.intbit.AppConstants;
-import com.mindbodyonline.clients.api._0_5Class.Class;
-import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mindbody.controller.MindBodyDataMapper;
@@ -21,9 +20,9 @@ import org.json.JSONObject;
 
 /**
  *
- * @author intbit
+ * @author development
  */
-public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
+public class GenericAnnouncementServlet extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,60 +40,39 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession(true);
+
         try {
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
             Integer organization_id = 0, block_id = 0;
-            String mindbody_query = null, editor_type = null;
+            String editor_type = null;
+            Integer model_mapper_id = 0;
+
             String category_id = (String) getSqlMethodsInstance().session.getAttribute("category_id");
             String sub_category_id = (String) getSqlMethodsInstance().session.getAttribute("sub_category_id");
             String sub_category_name = (String) getSqlMethodsInstance().session.getAttribute("sub_category_name");
-
-            String mindbody_data_id = "";
-            Integer model_mapper_id = 0;
-            HashMap<String, Object> mindbody_hash_map = null;
-
-            organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
-            getSqlMethodsInstance().session = request.getSession(true);
-            if (!(request.getParameter("mindbody_id").equals(""))) {
-                mindbody_data_id = request.getParameter("mindbody_id");
+            if (request.getParameter("editor_type") != null){
+                editor_type = request.getParameter("editor_type");
             }
             if (request.getParameter("model_mapper_id") != null){
                 model_mapper_id = Integer.parseInt(request.getParameter("model_mapper_id"));
             }
-            editor_type = request.getParameter("editor_type");
-            if (request.getParameter("query") != null && request.getParameter("query").equalsIgnoreCase("block")) {
-                mindbody_query = request.getParameter("mindbody_query");
-                mindbody_hash_map = (HashMap<String, Object>) getSqlMethodsInstance().session.getAttribute(getSqlMethodsInstance().k_mind_body + mindbody_query);
-                sub_category_name = mindbody_query;//doing this since its a block and we are checking against the query to send appropriate file
-                block_id = Integer.parseInt(request.getParameter("block_id"));
-            } else {
-                mindbody_hash_map = (HashMap<String, Object>) getSqlMethodsInstance().session.getAttribute(getSqlMethodsInstance().k_mind_body);
+            if (request.getParameter("block_id") != null){
+                block_id = Integer.parseInt(request.getParameter("block_id"));            
             }
-
+            organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
+            
             String mapperFileName = getSqlMethodsInstance().getMapperFile(user_id, organization_id, Integer.parseInt(category_id), Integer.parseInt(sub_category_id), model_mapper_id, block_id, editor_type);
             String editor_mapper_file_name = AppConstants.BASE_XML_UPLOAD_PATH + File.separator + mapperFileName + ".xml";
-
             JSONObject mapped_json_object = null;
             sub_category_name = sub_category_name.toLowerCase();
-            if (sub_category_name.contains("class")) {
-                Object selected_object = mindbody_hash_map.get(mindbody_data_id);
-                Class mindbody_class = (Class) selected_object;
-                mapped_json_object = MindBodyDataMapper.mapTodaysClassData(mindbody_class, editor_mapper_file_name);
-            } else if (sub_category_name.contains("work shop") || sub_category_name.contains("workshop")) {
-                Object selected_object = mindbody_hash_map.get(mindbody_data_id);
-                ClassSchedule mindbody_enrollments = (ClassSchedule) selected_object;
-                mapped_json_object = MindBodyDataMapper.mapEnrollmentData(mindbody_enrollments, editor_mapper_file_name);
-            }
 
+            mapped_json_object = GenericAnnouncementDataMapper.mapAnnouncements(editor_mapper_file_name);
             if (mapped_json_object != null) {
                 response.setContentType("application/json");
                 response.getWriter().write(mapped_json_object.toString());
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while displaying the mindbody data:", getSqlMethodsInstance().error));
-        } finally {
-            out.close();
-            getSqlMethodsInstance().closeConnection();
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while displaying the annoucement data:", getSqlMethodsInstance().error));
         }
     }
 

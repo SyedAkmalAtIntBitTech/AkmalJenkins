@@ -180,12 +180,17 @@ $(document).ready(function () {
                });
 //             alert( allLayoutFilename[i] );
            });
-
+           alert(mindbodydataId);
+    var layout_mapper_url = "";
+    if (mindbodydataId != ""){
+        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social';
+    }else{
+        layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
+    }
 
     $.ajax({
         type: 'GET',
-        url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social',
-        data: {get_param: 'value'},
+        url: layout_mapper_url,
         dataType: 'json',
         success: function (data) {
             jsondata = data;

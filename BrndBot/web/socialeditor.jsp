@@ -306,10 +306,16 @@ and open the template in the editor.
                     return input.slice(start);
             };
             });
+                var layout_mapper_url = "";
+                   if (mindbodydataId != ""){
+                       layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social';
+                   }else{
+                       layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
+                   }            
                     function showText(id, layout){
                             $.ajax({
                                     type: 'GET',
-                                    url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + '&editor_type=social',
+                                    url: layout_mapper_url,
                                     data: {get_param: 'value'},
                                     dataType: 'json',
                                     success: function (data) {

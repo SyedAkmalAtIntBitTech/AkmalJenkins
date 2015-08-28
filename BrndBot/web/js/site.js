@@ -1065,6 +1065,7 @@ function addDefault() {
     var fontnameis = [];
     var categories = $("#categories").find('option:selected').text();
     var sub_category_type = $("#subcategories").val();
+    var sub_category_type_text = $("#subcategories").find('option:selected').text();
     var block_mindbody_query = $("#mindbodyquery").val();
 //   alert($("#mindbodyquery").val());
 
@@ -1082,16 +1083,14 @@ function addDefault() {
         $(".form-control").prop("disabled", true);
     }
 
-    if (parseInt(sub_category_type) === 1) {
-        mindbody_xml_url = "images/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
-    } else if (parseInt(sub_category_type) === 2) {
-        mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
-    } else if (parseInt(sub_category_type) === 3) {
-        mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
-    }
-    if (categories.toLowerCase().contains("announcement")){
-        mindbody_xml_url = "images/layoutmodelxml/nodatapoints.xml";
-    }
+    if (sub_category_type_text.toLowerCase().contains("work")) {
+       mindbody_xml_url = "images/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
+   } else if (sub_category_type_text.toLowerCase().contains("class")) {
+       mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
+   } 
+   if (categories.toLowerCase().contains("announcement")){
+       mindbody_xml_url = "images/layoutmodelxml/nodatapoints.xml";
+   }
     if (addElementsArray.length === num1) {
         $.ajax({
             type: "GET",
