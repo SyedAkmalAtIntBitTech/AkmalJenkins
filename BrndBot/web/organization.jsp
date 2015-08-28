@@ -34,27 +34,41 @@
 				clear:both;
                                 font-weight:600;
 				color: #000000;
-                                background-color: #f6f6f6;
+                                background-color: #ccc;
 				border:1px solid #f6f6f6;
-/*                                border-radius:71px;*/
-				padding-top:20px;
-                                width:300px;
+                                border-radius:10px;
+				width:300px;
 			}
+                        option.optn{
+                            background-color:#d4d4d4;
+                            position: absolute;
+                            top:50px;
+                        }
+                        /*
+                option {
+                        color: #000;
+                        border-color: #000000;
+                        border: 5px;
+                        }
+                      option:first-child, option.first {
+                             color: #000;
+                        border-color: #000000;
+                        border: 5px;
+                }*/
                 
-                
-                    .slt option {
-/*                             position:absolute;
+/*                    .slt option {
+                             position:absolute;
 				top:35px;
-				left:0;*/
+				left:0;
 				width:188px;
-/*				border:1px solid #ccc;*/
-/*                                border-radius:70px;*/
-/*				overflow:hidden;*/
+				border:1px solid #ccc;
+                                border-radius:70px;
+				overflow:hidden;
 				background:#f6f6f6;
-/*				padding-top:2px;*/
-/*				display:block;*/
+				padding-top:2px;
+				display:block;
                              }
-                             
+                             */
                    
                 
             </style>
@@ -88,8 +102,8 @@
                         <p id="comment1"  class="col-md-4 col-md-offset-4">Please select an organization:</p><br>
                         <p id="text-left-1" class="col-md-4 col-md-offset-4">If you do not have an organization, choose "No Organization".</p><br>
                         <div class="col-md-3 col-md-offset-4">
-                          <select id="organizationdropdown" class="slt" ng-model="organizations.org">
-                              <option  ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}} </option>
+                          <select  id="organizationdropdown" ng-model="organizations.org">
+                              <option  class="optn" ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}}</option>
                             </select>
                         
                            
@@ -123,7 +137,7 @@
                 <style>
                        
                       
-                            #opt:hover
+/*                            #opt:hover
 			{
 				color: #000000;
 				background:#7ab5d3;
@@ -224,7 +238,7 @@
 				background:#7ab5d3;
                                 
 			}	
-                            
+                            */
                 </style>     
            
 </html>

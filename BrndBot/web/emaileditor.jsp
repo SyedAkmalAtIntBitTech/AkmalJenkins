@@ -54,6 +54,9 @@ and open the template in the editor.
        </script>
 
         <style>
+            body{
+                overflow-x: hidden;
+            }
             .socialimage{
                 width: 100px;
                 height: 100px;
@@ -934,15 +937,15 @@ and open the template in the editor.
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
                                                     <p id="editorheadere" class="SS1">font size</p>
-                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;">
-                                                        <option ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
+                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px;">
+                                                        <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                     </select>
                                                 </li>
 
                                                 <li>
                                                     <p id="editorheadere" class="SS1">font Name:</p>
-                                                    <select id="fontname" style="margin: 2px;font-size: 15px;width:80px;">
-                                                        <option ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
+                                                    <select id="fontname" style="margin: 2px;font-size: 15px;width:80px;color: #3f4042;background-color: #ccc;border-radius:5px;">
+                                                        <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
                                                     </select>
                                                 </li>
                                                 <li><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
