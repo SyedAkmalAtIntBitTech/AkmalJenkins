@@ -212,7 +212,7 @@
         
         <div class="row">
              <jsp:include page="leftmenu.html"/><!--/end left column-->
-              <jsp:include page="submenu.html"/>
+              <jsp:include page="emailsubmenu.html"/>
             <div id="datadiv" class="col-md-10 col-md-offset-2">
                 <div id="emailsubjectdiv" ng-controller="EmailListController">
                     <p class="header1">Email List:</p>
