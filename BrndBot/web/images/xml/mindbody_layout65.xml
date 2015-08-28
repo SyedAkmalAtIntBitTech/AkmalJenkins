@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<layout>
-    <container Height="300" Width="500"/>
-    <element Blend="normal" background-image="url(http://livingyoga101.com/wp-content/uploads/2014/01/yoga_for_soccer_players.jpg)" blend-background-color="#NaN0000" blur="undefined" brightness="undefined" contrast="undefined" grayscale="undefined" height="276px" huerotate="undefined" invert="undefined" opacity="1" saturate="undefined" sepia="undefined" tag="image" type="backgroundimage" width="510px" x-co-ordinates="23" y-co-ordinates="11"/>
-    <element font-color="#333333" font-size="12px" font-style="normal" font-weight="400" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#NaNNaNNaN" type="header1" webkit-transform="0" x-co-ordinates="55" y-co-ordinates="39"/>
-</layout>

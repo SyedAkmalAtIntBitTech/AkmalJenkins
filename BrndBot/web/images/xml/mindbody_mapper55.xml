@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<models>
-    <model default="default" element="backgroundimage" epoch="default" option="Select"/>
-    <model default="default" element="colorblock1" epoch="default" option="Select"/>
-    <model default="default" element="colorblock2" epoch="default" option="Select"/>
-    <model default="default" element="header1" epoch="default" option="ClassName"/>
-    <model default="default" element="header2" epoch="default" option="ClassDescription"/>
-    <model default="default" element="header3" epoch="default" option="StaffName"/>
-</models>
