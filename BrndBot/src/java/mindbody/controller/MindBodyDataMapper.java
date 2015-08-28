@@ -533,6 +533,57 @@ public class MindBodyDataMapper {
         return json_mindbody_class_data;
     }
 
+    public static JSONObject mapAnnouncements(String socialEditorLayoutFileName) throws JSONException {
+        JSONObject json_announcements = new JSONObject();
+
+        try {
+
+                DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+
+                Document doc = docBuilder.parse(new File(socialEditorLayoutFileName));
+
+                // normalize text representation
+                doc.getDocumentElement().normalize();
+                logger.log(Level.INFO, "Root element of the doc is " + doc.getDocumentElement().getNodeName());
+
+                NodeList listOfModels = doc.getElementsByTagName("model");
+                int totalModels = listOfModels.getLength();
+                logger.log(Level.INFO, "Total no of models : " + totalModels);
+
+                for (int s = 0; s < listOfModels.getLength(); s++) {
+
+                    Node firstModelNode = listOfModels.item(s);
+                    if (firstModelNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                        Element modelElement = (Element) firstModelNode;
+                        //-------
+                        String element = modelElement.getAttribute("element");
+                        String class_model_option = modelElement.getAttribute("option");
+                        String defaultValue = modelElement.getAttribute("default");
+                        String epochValue = modelElement.getAttribute("epoch");
+                        logger.log(Level.INFO, modelElement.getAttribute("option"));
+
+                        json_announcements.put(element, defaultValue);
+
+
+                }//end of for loop with s var
+
+            }
+        } catch (SAXParseException err) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while reading the xml file:", null));
+
+        } catch (SAXException e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while reading the xml file:", null));
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while reading the xml file:", null));
+        }
+        //System.exit (0);        
+
+        return json_announcements;
+    }
+    
     private static Date combineDateTime(XMLGregorianCalendar xmlcalendarStartDate, XMLGregorianCalendar xmlcalendarStartTime) {
 
         Calendar calendarA = Calendar.getInstance();

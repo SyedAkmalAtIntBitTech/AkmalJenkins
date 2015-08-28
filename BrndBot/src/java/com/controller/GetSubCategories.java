@@ -79,11 +79,11 @@ public class GetSubCategories extends BrndBotBaseHttpServlet {
             out.write(jsonn);
         } catch (ParseException e) {
             out.write(getSqlMethodsInstance().error);
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting sub categories:", getSqlMethodsInstance().error));
 
         } catch (Exception e) {
             out.write(getSqlMethodsInstance().error);
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting sub categories:", getSqlMethodsInstance().error));
 
         } finally {
             out.close();

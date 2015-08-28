@@ -226,12 +226,11 @@ Connection connection = null;
         response.getWriter().write(json);
 
         }catch (Exception e){
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting user preferences:", getSqlMethodsInstance().error));
         } finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
-            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

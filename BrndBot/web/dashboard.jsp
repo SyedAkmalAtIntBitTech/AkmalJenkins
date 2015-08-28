@@ -106,7 +106,7 @@ and open the template in the editor.
                         </ul>
                         <div>
                             <ul id="subpromotelist">
-                                <li ng-repeat="Sub in SubCategories" id="{{Sub.category_id}}"><br><p id="{{Sub.category_id}}" onclick="setSubCategoryID('{{Sub.category_id}}', '{{Sub.id}}', '{{Sub.sub_category_name}}')">{{Sub.sub_category_name}}</p></li>
+                                <li ng-repeat="Sub in SubCategories" id="{{Sub.category_id}}"><br><p id="{{Sub.category_id}}" onclick="setSubCategoryID('{{Sub.category_id}}', '{{Sub.id}}', '{{Sub.sub_category_name}}', '{{Sub.external_source}}')">{{Sub.sub_category_name}}</p></li>
                             </ul>
                         </div>
                     </div>

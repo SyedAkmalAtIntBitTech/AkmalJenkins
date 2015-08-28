@@ -156,12 +156,13 @@ and open the template in the editor.
 
         <%!
             StringBuffer string_buffer = new StringBuffer();
-            String mindbody_data_id;
+            String mindbody_data_id = "";
         %> 
         <%
             try {
-
-                mindbody_data_id = (String) request.getParameter("id");
+                if (!request.getParameter("id").equals("null")){
+                    mindbody_data_id = (String) request.getParameter("id");
+                }
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
 
@@ -208,7 +209,7 @@ and open the template in the editor.
 
                     .controller("MyController", function($scope, $http) {
                     $http({
-                    method : 'GET',
+                            method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
 //                        alert(JSON.stringify(data.user_colors));
@@ -675,7 +676,7 @@ and open the template in the editor.
 
                                         </div>
 
-                                        <input type="hidden" id="mindbodydata" value='<%= mindbody_data_id%>'>
+                                        <input type="hidden" id="mindbodydata" name="mindbodydata" value='<%= mindbody_data_id %>'>
                                         <input type="hidden" id='clickid'>
 
                                         <div id="shapecontainer">

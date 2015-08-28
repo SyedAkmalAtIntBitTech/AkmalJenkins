@@ -1038,6 +1038,7 @@ function addDefault() {
 
     var num = 0;
     var fontnameis = [];
+    var categories = $("#categories").find('option:selected').text();
     var sub_category_type = $("#subcategories").val();
     var block_mindbody_query = $("#mindbodyquery").val();
 //   alert($("#mindbodyquery").val());
@@ -1063,7 +1064,9 @@ function addDefault() {
     } else if (parseInt(sub_category_type) === 3) {
         mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
     }
-
+    if (categories.toLowerCase().contains("announcement")){
+        mindbody_xml_url = "images/layoutmodelxml/nodatapoints.xml";
+    }
     if (addElementsArray.length === num1) {
         $.ajax({
             type: "GET",
