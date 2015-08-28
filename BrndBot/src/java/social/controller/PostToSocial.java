@@ -102,22 +102,22 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
 
             try {
 
-                twitter4j.auth.AccessToken accTok = null;
+                 AccessToken accTok = null;
 
                 ConfigurationBuilder twitterConfigBuilder = new ConfigurationBuilder();
                 twitterConfigBuilder.setDebugEnabled(true);
-                twitterConfigBuilder.setOAuthConsumerKey("V9n3gzTRP7EwcRqW4OZAZS13l");
-                twitterConfigBuilder.setOAuthConsumerSecret("7qnu29n7vLRPIFmkPI14yD3EhyYHUJzhe39dfHBnF67KAgDHgV");
+                twitterConfigBuilder.setOAuthConsumerKey("wpbVT8lVnvQ0KQzHLds540JPZ");
+                twitterConfigBuilder.setOAuthConsumerSecret("eILgUX4xFEyOHYpDWEcvhOuskjZDeUSJrKAetgiGRJTD7XxMsd");
                 twitterConfigBuilder.setOAuthAccessToken(request.getParameter("twittweraccestoken"));
                 twitterConfigBuilder.setOAuthAccessTokenSecret(request.getParameter("twitterTokenSecret"));
 
                 Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
                 String statusMessage = request.getParameter("text");
-//                String file_image_path = getServletContext().getRealPath("") + "/images/Blackandwhite.jpg";
                 File file = new File(file_image_path);
 
                 StatusUpdate status = new StatusUpdate(statusMessage);
-                status.setMedia(file); // set the image to be uploaded here.
+            // set the image to be uploaded here.
+                status.setMedia(file);
                 twitter.updateStatus(status);
                 try {
                     getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile);

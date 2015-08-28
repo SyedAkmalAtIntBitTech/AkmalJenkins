@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<layout>
-    <container Height="300" Width="500"/>
-    <element H-shadow="4px" V-shadow="10px" blur="1px" font-color="#0000ff" font-size="14px" font-style="italic" font-weight="bold" letter-spacing="5px" line-height="20px" opacity="0.800000011920929" tag="text" text-align="left" text-shadow="#351c49" type="header1" webkit-transform="15" x-co-ordinates="193" y-co-ordinates="87"/>
-    <element Blend="normal" blend-background-color="#NaN0000" blur="undefined" brightness="undefined" contrast="undefined" grayscale="undefined" height="100px" huerotate="undefined" invert="undefined" opacity="1" saturate="undefined" sepia="undefined" tag="image" type="header2" width="100px" x-co-ordinates="2" y-co-ordinates="202"/>
-    <element H-shadow="3px" V-shadow="9px" blur="1px" font-color="#545454" font-size="12px" font-style="italic" font-weight="bold" letter-spacing="0" line-height="15px" opacity="1" tag="text" text-align="left" text-shadow="#00009f" type="body1" webkit-transform="0" x-co-ordinates="36" y-co-ordinates="242"/>
-    <element tag="button" type="body2" x-co-ordinates="429" y-co-ordinates="2"/>
-    <element background-color="#000000" blur="undefined" brightness="undefined" contrast="undefined" grayscale="undefined" height="40px" huerotate="undefined" invert="undefined" opacity="1" saturate="undefined" sepia="undefined" tag="block" type="footer1" width="80px" x-co-ordinates="54" y-co-ordinates="23"/>
-</layout>

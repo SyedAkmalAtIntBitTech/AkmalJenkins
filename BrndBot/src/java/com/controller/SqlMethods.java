@@ -923,7 +923,7 @@ public class SqlMethods {
     }
 
     public int setEmailSentHistory(Integer userid, String contenthtml, 
-            String emailaddress, String emaillistname) 
+            String emailaddress, String emaillistname, String tag) 
             throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -932,14 +932,14 @@ public class SqlMethods {
         try(Connection connection = ConnectionManager.getInstance().getConnection()){
 
             query_string = "INSERT INTO tbl_emailsenthistory"
-                    + "(user_id, timesent, contenthtml, emailaddress, emaillistname) VALUES "
-                    + "(?,CURRENT_TIMESTAMP,?,?,?) RETURNING id";
-            prepared_statement = getConnection().prepareStatement(query_string);
+                    + "(user_id, timesent, contenthtml, emailaddress, emaillistname, email_tag) VALUES "
+                    + "(?,CURRENT_TIMESTAMP,?,?,?,?) RETURNING id";
+            prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setInt(1, userid);
             prepared_statement.setString(2, contenthtml);
             prepared_statement.setString(3, emailaddress);
             prepared_statement.setString(4, emaillistname);
-
+            prepared_statement.setString(5, tag);
             prepared_statement.execute();
             result_set = prepared_statement.getResultSet();
             

@@ -93,8 +93,6 @@ public class ServletSubCategory extends BrndBotBaseHttpServlet {
                     String sub_category_name = (String) jo_category.get("sub_category_name");
                     String external_source = (String) jo_category.get("external_source");
                     String category_id = (String) jo_category.get("category");
-                    boolean isblock = (boolean)jo_category.get("isblock");
-                    boolean ismindbody = (boolean)jo_category.get("ismindbody");
 
                     String category = sub_categories.getCategoryName(Integer.parseInt(category_id));
                     check = sub_categories.checkAvailability(external_source, category, sub_category_name, category_id);

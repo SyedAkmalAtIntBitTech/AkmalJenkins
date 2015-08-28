@@ -198,12 +198,14 @@ and open the template in the editor.
 
         <%!
             StringBuffer string_buffer = new StringBuffer();
-            String mindbody_data_id;
+            String mindbody_data_id = "";
         %> 
         <%
             try {
+                if (!request.getParameter("id").equals("null")){
+                    mindbody_data_id = (String) request.getParameter("id");
+                }
 
-                mindbody_data_id = (String) request.getParameter("id");
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
 

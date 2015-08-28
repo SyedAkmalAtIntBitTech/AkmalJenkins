@@ -533,6 +533,7 @@ public class MindBodyDataMapper {
         return json_mindbody_class_data;
     }
 
+    
     private static Date combineDateTime(XMLGregorianCalendar xmlcalendarStartDate, XMLGregorianCalendar xmlcalendarStartTime) {
 
         Calendar calendarA = Calendar.getInstance();

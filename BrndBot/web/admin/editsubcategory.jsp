@@ -51,11 +51,11 @@
 //
 //                external_source = document.getElementsByTagName("option")[x].value;
 //                
-//                if (external_source == 0){
-//                    alert("No external source selected, please select the external source");
-//                    document.getElementById("external_source").focus();
-//                    return false;
-//                }
+                if (external_source == 0){
+                    alert("No external source selected, please select the external source");
+                    document.getElementById("external_source").focus();
+                    return false;
+                }
                  var cat = document.getElementById("category");
                  y = document.getElementById("category").selectedIndex;
 
