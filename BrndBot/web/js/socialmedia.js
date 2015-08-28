@@ -72,7 +72,7 @@ $(document).ready(function () {
                 url: 'ServletUserPreferencesTwitter',
                 method: 'post',
                 data: {
-                    access_token_method: "getAccessToken",
+                    access_token_method: "getAccessToken"
                 },
                 success: function (responseText) {
                     if (responseText == "") {
@@ -84,7 +84,7 @@ $(document).ready(function () {
                             method: 'get',
                             success: function (responseText) {
                                 $("#twitterlink").html("<a href='" + responseText + "' target='_blank'>click here</a>");
-                                //alert(responseText);
+                                alert(responseText);
                             }
                         });
                         $('#setPin').click(function () {

@@ -12,7 +12,7 @@
     String isFacebook = "";
     String isTwitter = "";
     String accesstoken = "";
-    String[] twitteracesstoken = {"", ""};
+    String[] twitteracesstoken = {"",""};
 
 %>
 <%
