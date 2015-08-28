@@ -283,7 +283,7 @@
                 <p id="comment1">Choose a color palette</p> 
                 <p id="comment2">Click on a color to change it or choose from a theme.<br>
 Please arrange them with most used to least used in your designs.</p>
-                <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
+                <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USED</span></p> </div>
 
                 <div id="sortable" class="step_wrapper">
                     <div id="elementToPutStyleInto1" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto1')"></div>
