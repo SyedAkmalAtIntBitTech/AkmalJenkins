@@ -20,6 +20,7 @@
         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <style type="text/css">
             a.fancybox div {
                 border: none;
@@ -246,11 +247,11 @@
                         </div>
                     </div>
                     <div  class="form-group">
-                        <div class="col-md-3 col-md-offset-5">
-                            <br><br><button type="button" onclick="sendEmail()" class="btn btn-info" >SEND</button><br><br><br>
+                        <div class="col-md-3 col-md-offset-2">
+                            <br><br><button type="button" onclick="sendEmail()" class="button button--moema button--text-thick button--text-upper button--size-s">SEND</button><br><br><br>
                         </div>
-                        <div class="col-md-2">
-                            <br><br> <button type="button"  class="btn btn-info" >SCHEDULE</button><br><br><br>
+                        <div class="col-md-1 col-md-offset-1">
+                            <br><br> <button type="button"  class="button button--moema button--text-thick button--text-upper button--size-s" >SCHEDULE</button><br><br><br>
                         </div>
                     </div>
                 </form>

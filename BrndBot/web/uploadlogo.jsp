@@ -21,6 +21,7 @@
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/main1.css">
         <script src="js/configurations.js"></script>
 
@@ -30,6 +31,7 @@
                 position: relative;
                 overflow: hidden;
                 margin: 10px;
+                left:-27%;
             }
             .fileUpload input.upload {
                 position: absolute;
@@ -114,7 +116,7 @@
 
                 <div class="group" ng-controller="myCtrl">
                     <div class="span5 col-md-offset-5 ">
-                        <button id="Servicecontinue" type="submit"  class="btn btn-info" disabled ng-click="uploadFile()">UPLOAD LOGO</button><br><br>
+                        <button id="Servicecontinue" type="submit"  class="button button--moema button--text-thick  button--size-s" disabled ng-click="uploadFile()">UPLOAD LOGO</button><br><br>
                         <div class="fileUpload btn ">
                             <span>Click to upload a logo</span>
                             <input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="myFile" />

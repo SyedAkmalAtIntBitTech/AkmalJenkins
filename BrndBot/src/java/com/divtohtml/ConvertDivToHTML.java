@@ -74,8 +74,6 @@ public class ConvertDivToHTML {
     }
 
     private String populateTable(HashMap<String, ArrayList<?>> divHashMap, String tableContent, String divContent) throws Exception {
-        HashMap<String, String> replaceLinesWithIdMap = new HashMap<String, String>();
-
         Document doc = Jsoup.parse(tableContent);
 
         Elements divElements = doc.select(idSearchPattern);
@@ -83,7 +81,7 @@ public class ConvertDivToHTML {
             String id = item.attr(idKey);
             logger.log(Level.INFO, id);
             String style = item.attr(styleKey);
-            HashMap<String, String> styleMap = new HashMap<String, String>();
+            HashMap<String, String> styleMap = new HashMap<>();
             styleMap = getKeyValuePair(style);
             if (BackgroundImageProperties.isBackgroundImage(id)) {
                 String[] orderOfLayeringId = id.split(tableDelimiter);
@@ -99,6 +97,25 @@ public class ConvertDivToHTML {
                             String picLocation = getColorBlocksForThisBackgroundImage(item, orderOfLayeringId, id, divHashMap, divContent);
                             styleMap.put(BackgroundImageProperties.backgroundURLKey, "url(" + picLocation + ")");
                             doc.getElementById(id).attr(styleKey, createKeyValuePair(styleMap));
+                            if (!StringUtil.isEmpty(id) && orderOfLayeringId.length > 1) {
+                                ArrayList<BlockProperties> blockProperties = (ArrayList<BlockProperties>) divHashMap
+                                        .get(BlockProperties.class.getName());
+
+                                for (int i = 1; i < orderOfLayeringId.length; i++) {
+                                    String blockId = orderOfLayeringId[i];
+
+                                    //removing the blocks associated with background image.
+                                    for (Iterator<BlockProperties> iterator = blockProperties.iterator(); iterator.hasNext();) {
+                                        BlockProperties blockProperty = iterator.next();
+                                        String blockParsedId = blockProperty.getId().split(divDelimiter)[0];
+                                        if (blockId.equalsIgnoreCase(blockParsedId)) {
+                                            iterator.remove();
+                                        }
+                                    }
+                                }
+
+                                divHashMap.put(BlockProperties.class.getName(), blockProperties);
+                            }
                             break;
                         }
                     }
@@ -148,29 +165,39 @@ public class ConvertDivToHTML {
                         break;
                     }
                 }
+            } else if (BlockProperties.isColorBlock(id)) {
+                ArrayList<BlockProperties> blockProperties = (ArrayList<BlockProperties>) divHashMap.get(BlockProperties.class.getName());
+                for (BlockProperties blockProperty : blockProperties) {
+                    String parsedId = blockProperty.getId().split(divDelimiter)[0];
+                    if (id.equalsIgnoreCase(parsedId)) {
+                        styleMap.put(BlockProperties.backgroundColorKey, blockProperty.getBackgroundColor());
+                        styleMap.put(BlockProperties.opacityKey, blockProperty.getOpacity());                        
+                        doc.getElementById(id).attr(styleKey, createKeyValuePair(styleMap));
+                        break;
+                    }
+                }
             }
         }
-        
-//        System.out.println(doc.toString());
 
+        logger.log(Level.INFO, "HTML String:"+doc.toString());
         return doc.toString();
     }
 
     private HashMap<String, ArrayList<?>> getDivHashMap(String divContent) {
 
-        HashMap<String, ArrayList<?>> map = new HashMap<String, ArrayList<?>>();
-        ArrayList<TextAreaProperties> textAreaList = new ArrayList<TextAreaProperties>();
-        ArrayList<ButtonProperties> buttonList = new ArrayList<ButtonProperties>();
-        ArrayList<BlockProperties> blockList = new ArrayList<BlockProperties>();
-        ArrayList<LogoProperties> logoList = new ArrayList<LogoProperties>();
-        ArrayList<BackgroundImageProperties> backgroundImageList = new ArrayList<BackgroundImageProperties>();
+        HashMap<String, ArrayList<?>> map = new HashMap<>();
+        ArrayList<TextAreaProperties> textAreaList = new ArrayList<>();
+        ArrayList<ButtonProperties> buttonList = new ArrayList<>();
+        ArrayList<BlockProperties> blockList = new ArrayList<>();
+        ArrayList<LogoProperties> logoList = new ArrayList<>();
+        ArrayList<BackgroundImageProperties> backgroundImageList = new ArrayList<>();
 
         Document doc = Jsoup.parse(divContent);
         Elements divElements = doc.select(idSearchPattern);
         for (Element item : divElements) {
             String id = item.attr(idKey);
             String style = item.attr(styleKey);
-            HashMap<String, String> styleMap = new HashMap<String, String>();
+            HashMap<String, String> styleMap = new HashMap<>();
             styleMap = getKeyValuePair(style);
 
             if (TextAreaProperties.isTextArea(id)) {
@@ -242,7 +269,7 @@ public class ConvertDivToHTML {
     }
 
     private HashMap<String, String> getKeyValuePair(String rawValues) {
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         if (!StringUtil.isEmpty(rawValues)) {
             String[] entries = rawValues.split("; *(?![^\\[\\]]*\\])");
             for (String entry : entries) {
@@ -300,7 +327,7 @@ public class ConvertDivToHTML {
             String parsedDivId = divId.split(divDelimiter)[0];
             String backgroundImageId = orderOfLayeringId[0];
 
-            System.out.println("divId==" + divId + "    id==" + id);
+            logger.log(Level.INFO, "divId==" + divId + "    id==" + id);
             if (parsedDivId.equalsIgnoreCase(backgroundImageId)) {
 
                 backgroundImageWithBlocksHTML.append(divItem.toString());
@@ -323,7 +350,7 @@ public class ConvertDivToHTML {
 
                 for (BlockProperties block : blockProperties) {
                     String parsedId = block.getId().split(divDelimiter)[0];
-                    HashMap<String, String> colorBlockStyleMap = new HashMap<String, String>();
+                    HashMap<String, String> colorBlockStyleMap = new HashMap<>();
                     if (blockId.equalsIgnoreCase(parsedId)) {
                         colorBlockStyleMap.put(BlockProperties.backgroundColorKey,
                                 block.getBackgroundColor());
@@ -351,10 +378,10 @@ public class ConvertDivToHTML {
             String filePath = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator;
 
             PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletRequest.getServletContext(), filePath);
-            compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(),null, backgroundImageWidth, backgroundImageHeight, "0", "0");
+            compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), null, backgroundImageWidth, backgroundImageHeight, "0", "0");
             //Should create the compressed image out of this and replace the background with it.
 
         }
-        return servletRequest.getServerName()+":"+servletRequest.getServerPort() + compressedBackgroundImageFile.getPath();
+        return servletRequest.getServerName() + ":" + servletRequest.getServerPort() + compressedBackgroundImageFile.getPath();
     }
 }

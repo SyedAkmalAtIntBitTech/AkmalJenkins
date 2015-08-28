@@ -55,10 +55,10 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
 
             organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
             getSqlMethodsInstance().session = request.getSession(true);
-            if (request.getParameter("mindbody_id") != null) {
+            if (!(request.getParameter("mindbody_id").equals(""))) {
                 mindbody_data_id = request.getParameter("mindbody_id");
             }
-            if (request.getParameter("model_mapper_id") != null) {
+            if (request.getParameter("model_mapper_id") != null){
                 model_mapper_id = Integer.parseInt(request.getParameter("model_mapper_id"));
             }
             editor_type = request.getParameter("editor_type");
@@ -75,14 +75,17 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
             String editor_mapper_file_name = AppConstants.BASE_XML_UPLOAD_PATH + File.separator + mapperFileName + ".xml";
 
             JSONObject mapped_json_object = null;
-            Object selected_object = mindbody_hash_map.get(mindbody_data_id);
             sub_category_name = sub_category_name.toLowerCase();
             if (sub_category_name.contains("class")) {
+                Object selected_object = mindbody_hash_map.get(mindbody_data_id);
                 Class mindbody_class = (Class) selected_object;
                 mapped_json_object = MindBodyDataMapper.mapTodaysClassData(mindbody_class, editor_mapper_file_name);
             } else if (sub_category_name.contains("work shop") || sub_category_name.contains("workshop")) {
+                Object selected_object = mindbody_hash_map.get(mindbody_data_id);
                 ClassSchedule mindbody_enrollments = (ClassSchedule) selected_object;
                 mapped_json_object = MindBodyDataMapper.mapEnrollmentData(mindbody_enrollments, editor_mapper_file_name);
+            }else if (sub_category_name.contains("closed")){
+                mapped_json_object = MindBodyDataMapper.mapAnnouncements(editor_mapper_file_name);
             }
 
             if (mapped_json_object != null) {
@@ -90,7 +93,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
                 response.getWriter().write(mapped_json_object.toString());
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while displaying the mindbody data:", getSqlMethodsInstance().error));
         } finally {
             out.close();
             getSqlMethodsInstance().closeConnection();

@@ -27,6 +27,31 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    
+    $.ajax({
+       type: 'GET',
+       url: "/BrndBot/ServletListAdminBackgroundImages",
+       dataType: 'json',
+       success: function (data) {
+           var jsondataDefault = data;
+           var allLayoutFilename = [];
+           for(var i = 0; i<jsondataDefault.length; i++){
+               $("#adminBackgroundImage").append(new Option(jsondataDefault[i].filename, jsondataDefault[i].filename));
+             }
+
+       },
+       error: function(xhr, ajaxOptions, thrownError){
+           
+        alert(thrownError);
+       }
+       
+    });
+    $("#adminBackgroundImage").change(function(){
+        
+         $("#" + selectedTextID).css('background', "url('/BrndBot/DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&image_name=" + $("#adminBackgroundImage").val() + "')");
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
+    });
+    
     $(".basic").spectrum({
         preferredFormat: "hex",
         showPalette: true,
@@ -1038,7 +1063,9 @@ function addDefault() {
 
     var num = 0;
     var fontnameis = [];
+    var categories = $("#categories").find('option:selected').text();
     var sub_category_type = $("#subcategories").val();
+    var sub_category_type_text = $("#subcategories").find('option:selected').text();
     var block_mindbody_query = $("#mindbodyquery").val();
 //   alert($("#mindbodyquery").val());
 
@@ -1056,14 +1083,15 @@ function addDefault() {
         $(".form-control").prop("disabled", true);
     }
 
-    if (parseInt(sub_category_type) === 1) {
-        mindbody_xml_url = "admin/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
-    } else if (parseInt(sub_category_type) === 2) {
-        mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
-    } else if (parseInt(sub_category_type) === 3) {
-        mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
-    }
 
+    if (sub_category_type_text.toLowerCase().contains("work")) {
+        mindbody_xml_url = "admin/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
+    } else if (sub_category_type_text.toLowerCase().contains("class")) {
+        mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
+    } 
+    if (categories.toLowerCase().contains("announcement")){
+        mindbody_xml_url = "admin/layoutmodelxml/nodatapoints.xml";
+    }
     if (addElementsArray.length === num1) {
         $.ajax({
             type: "GET",
@@ -1072,7 +1100,8 @@ function addDefault() {
             success: function (xml) {
                 $("#lab").append('<div class="col-md-5 " id="appenddiv' + addElementsArray[num1 - 1] + '" style="display:none"><p id="' + num1 + '"> ' + addElementsArray[num1 - 1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
                                           <p id="hidepara' + num1 + '" class="col-md-3 "> Default Value <input id="inputfield' + num1 + '" type="text" value="default"><br> \n\
-                                          Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" ></p><div>');
+                                          Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" >\n\
+                                          <a href="epochexample.html" target="_blank">Epoch Example</a> </p><div>');
                 $(xml).find('optionelement').each(function () {
                     fontnameis[num] = $(this).find('element').text();
 

@@ -101,12 +101,13 @@ and open the template in the editor.
                        <ul id="promotelist">
                             
                             <li id="one" ng-repeat="category in categories">
-                                <a href=""><img id="promoteimage" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91"/></a><p id="text4" class="il2">{{category.categoryName}}</p>
+                                <a href=""><img id="promoteimage" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91"/></a>
+                                <p id="text4" class="il2">{{category.categoryName}}</p>
                             </li>
                         </ul>
                         <div>
                             <ul id="subpromotelist">
-                                <li ng-repeat="Sub in SubCategories" id="{{Sub.category_id}}"><br><p id="{{Sub.category_id}}" onclick="setSubCategoryID('{{Sub.category_id}}', '{{Sub.id}}', '{{Sub.sub_category_name}}')">{{Sub.sub_category_name}}</p></li>
+                                <li ng-repeat="Sub in SubCategories" id="{{Sub.category_id}}"><br><p id="{{Sub.category_id}}" onclick="setSubCategoryID('{{Sub.category_id}}', '{{Sub.id}}', '{{Sub.sub_category_name}}', '{{Sub.external_source}}')">{{Sub.sub_category_name}}</p></li>
                             </ul>
                         </div>
                     </div>

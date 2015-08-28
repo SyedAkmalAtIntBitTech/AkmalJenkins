@@ -63,22 +63,7 @@ angular.module("myapp", [])
                     data: CategoryID
                 }).success(function (data)
                 {   
-                    var JSONData = data;
-                    var i = 0;
-                    for(i = 0; i<=JSONData.length; i++){
-                        var mindbody_data = JSONData[i];
-                        if (mindbody_data.external_source == "null"){
-                            window.open(getHost() + 'selectpromotemedia.jsp', "_self");
-                        }else {
-                            $scope.SubCategories = data;
-                        }
-                    }
-                        
-//                    if (data.external_source == null) {
-//                        alert("no external source");
-//                    }else {
-//                        $scope.SubCategories = data;
-//                    }
+                    $scope.SubCategories = data;
                     
                     if (data === error) {
                         alert(data);
@@ -131,8 +116,18 @@ angular.module("myapp", [])
             };
         });
 
-function setSubCategoryID(category_id, id, sub_category_name) {
-    var configuration = global_host_address + "selectpromotingcategory.jsp?category_id=" + category_id + "&sub_category_name=" + sub_category_name + "&sub_category_id=" + id;
-    window.open(configuration, "_self");
+function setSubCategoryID(category_id, id, sub_category_name, external_source) {
+            if (external_source == "null"){
+                var sub_category_data_id = id;
+                var category_data_id = category_id;
+                var sub_category_data_name = sub_category_name;
+
+                var configuration = global_host_address + "selectpromotemedia.jsp?category_id=" + category_data_id + "&sub_category_name=" + sub_category_data_name + "&sub_category_id=" + sub_category_data_id;
+                window.open(configuration, "_self");
+            }else {
+
+                var configuration = global_host_address + "selectpromotingcategory.jsp?category_id=" + category_id + "&sub_category_name=" + sub_category_name + "&sub_category_id=" + id;
+                window.open(configuration, "_self");
+            }    
 }
 

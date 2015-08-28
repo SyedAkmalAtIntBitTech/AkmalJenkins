@@ -3,32 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.controller.email;
+package admin.controller;
 
+import com.controller.BrndBotBaseHttpServlet;
+import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.google.gson.Gson;
-import com.intbit.dao.EmailHistoryDAO;
-import email.mandrill.MandrillApiHandler;
+import com.google.gson.JsonElement;
+import com.intbit.AppConstants;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
- * @author Mohamed
+ * @author ilyas
  */
-@WebServlet(name = "GetEmailTagsServlet", urlPatterns = {"/GetEmailTags"})
-public class GetEmailTagsServlet extends HttpServlet {
+public class ServletListAdminBackgroundImages extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,34 +38,35 @@ public class GetEmailTagsServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Map<String, Object>> tagsFromMandrill = MandrillApiHandler.getTags();
-        List<Map<String, Object>> tagsFromMandrillForUser = new ArrayList<>();
-        
-        HttpSession session = request.getSession();
-        if ( session.getAttribute("UID") == null || 
-                StringUtils.isEmpty(session.getAttribute("UID").toString())){
-            Map<String, String> responseMap = new HashMap<>();
-            responseMap.put("error", "user is not logged in");
-            response.getWriter().write(new Gson().toJson(responseMap));
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
-        int userId = Integer.parseInt(session.getAttribute("UID").toString());
-        Set<String> tagsForUser = EmailHistoryDAO.getTagsForUser(userId);
-        for(Map<String,Object> mTag : tagsFromMandrill){
-            if ( mTag.get("tag") != null){
-                if(tagsForUser.contains(mTag.get("tag").toString())){
-                    tagsFromMandrillForUser.add(mTag);
+        super.processRequest(request, response);
+        response.setContentType("application/json");
+        try (PrintWriter out = response.getWriter()) {
+            String imageBasePath = "";
+            imageBasePath = AppConstants.ADMIN_LAYOUT_BACKGROUNDIMAGES_HOME;
+            File backgroundImagesFolder = new File(imageBasePath);
+            File[] listOfImageFiles = backgroundImagesFolder.listFiles();
+            
+        JSONArray json_arr = new JSONArray();
+            for (int i = 0; i < listOfImageFiles.length; i++) {
+                JSONObject json_ob = new JSONObject();
+                if (listOfImageFiles[i].isFile()) {
+                    json_ob.put("id",""+i);
+                    json_ob.put("filename", listOfImageFiles[i].getName());
+                    
+                    
+                    json_arr.add(json_ob);
+                   
                 }
             }
+            
+            out.write(new Gson().toJson(json_arr));
+            
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while reading admin background images:", e.getMessage()));
+
         }
-        response.getWriter().write(
-                new Gson().toJson(tagsFromMandrillForUser));
-        
-        response.getWriter().flush();
-        response.setStatus(HttpServletResponse.SC_OK);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

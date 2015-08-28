@@ -162,7 +162,7 @@ and open the template in the editor.
                     $scope.curPage = 0;
                             $scope.pageSize = 4;
                             $http({
-                            method : 'GET',
+                                    method : 'GET',
                                     url : 'MindBodyDataServlet'
                             }).success(function(data, status, headers, config) {
                                 $scope.datalists = data;

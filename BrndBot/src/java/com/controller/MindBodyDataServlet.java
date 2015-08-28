@@ -47,7 +47,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
 
     static final SimpleDateFormat newFormat = new SimpleDateFormat("MM/dd/yy");
     static final SimpleDateFormat existingFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
-
+    static final String kClassCancelled = "Class Cancelled";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -188,6 +188,10 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
 
                 String name = class_description.getName();
                 Staff staff = enrollmentInstance.getStaff();
+                if (staff.getName().equalsIgnoreCase(kClassCancelled)) {
+                    continue;
+                    //Dont add canceled classes
+                }
                 XMLGregorianCalendar calendarStartDateTime = (XMLGregorianCalendar) calendarStart.getValue();
                 XMLGregorianCalendar calendarEndDateTime = (XMLGregorianCalendar) calendarEnd.getValue();
 
@@ -232,6 +236,10 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                 JAXBElement<XMLGregorianCalendar> calendarEnd = classInstance.getEndDateTime();
                 Staff staff = classInstance.getStaff();
 
+                if (staff.getName().equalsIgnoreCase(kClassCancelled)) {
+                    continue;
+                    //Dont add canceled classes
+                }
                 ClassDescription class_description = classInstance.getClassDescription();
 
                 String name = class_description.getName();
@@ -312,7 +320,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
     }
 
     private MindBodyProcessedData getMindBodyProcessedStaffData(GetStaffResult result) throws JSONException {
-        HashMap<String, Object> hash_map = new HashMap<String, Object>();
+        HashMap<String, Object> hash_map = new HashMap<>();
         MindBodyProcessedData mind_body_process_data = new MindBodyProcessedData();
         ArrayOfStaff array_of_staff = result.getStaffMembers();
         JSONArray json_data_array = new JSONArray();
@@ -323,6 +331,10 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                 com.mindbodyonline.clients.api._0_5Staff.Staff staffInstance = staffList.get(i);
                 String staff_id = String.valueOf(staffInstance.getID().getValue());
 
+                if (staffInstance.getName().equalsIgnoreCase(kClassCancelled)) {
+                    continue;
+                    //Dont add canceled classes
+                }
                 hash_map.put(staff_id, staffInstance);
 
                 org.json.simple.JSONObject newJSONObject = new org.json.simple.JSONObject();

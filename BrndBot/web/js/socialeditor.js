@@ -159,7 +159,7 @@ $(document).ready(function () {
 
     jsondata;
     mindbodydataId = $("#mindbodydata").val();
-
+   
     var layoutfilename = $("#clickid").val();
 
 //   alert(layoutfilename);
