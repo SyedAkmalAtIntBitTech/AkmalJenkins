@@ -26,16 +26,10 @@ and open the template in the editor.
         <element>EnrollmentImageURL</element>
     </optionelement>
     <optionelement>
-        <element>EnrollmentStartDate</element>
+        <element>EnrollmentStartDateTime</element>
     </optionelement>
     <optionelement>
-        <element>EnrollmentEndDate</element>
-    </optionelement>
-    <optionelement>
-        <element>EnrollmentStartTime</element>
-    </optionelement>
-    <optionelement>
-        <element>EnrollmentEndTime</element>
+        <element>EnrollmentEndDateTime</element>
     </optionelement>
     <optionelement>
         <element>StaffName</element>
