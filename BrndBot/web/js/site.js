@@ -47,7 +47,7 @@ $(document).ready(function () {
        
     });
     $("#adminBackgroundImage").change(function(){
-        alert($("#adminBackgroundImage").val());
+        
          $("#" + selectedTextID).css('background', "url('/BrndBot/DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&image_name=" + $("#adminBackgroundImage").val() + "')");
             $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
     });
@@ -1084,13 +1084,13 @@ function addDefault() {
     }
 
     if (sub_category_type_text.toLowerCase().contains("work")) {
-       mindbody_xml_url = "images/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
-   } else if (sub_category_type_text.toLowerCase().contains("class")) {
-       mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
-   } 
-   if (categories.toLowerCase().contains("announcement")){
-       mindbody_xml_url = "images/layoutmodelxml/nodatapoints.xml";
-   }
+        mindbody_xml_url = "images/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
+    } else if (sub_category_type_text.toLowerCase().contains("class")) {
+        mindbody_xml_url = "images/layoutmodelxml/mindbodyclassdatapoints.xml";
+    } 
+    if (categories.toLowerCase().contains("announcement")){
+        mindbody_xml_url = "images/layoutmodelxml/nodatapoints.xml";
+    }
     if (addElementsArray.length === num1) {
         $.ajax({
             type: "GET",

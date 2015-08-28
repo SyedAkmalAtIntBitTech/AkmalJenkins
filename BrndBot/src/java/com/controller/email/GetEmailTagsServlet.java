@@ -6,14 +6,22 @@
 package com.controller.email;
 
 import com.google.gson.Gson;
+import com.intbit.dao.EmailHistoryDAO;
 import email.mandrill.MandrillApiHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -33,11 +41,32 @@ public class GetEmailTagsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        List<Map<String, Object>> tagsFromMandrill = MandrillApiHandler.getTags();
+        List<Map<String, Object>> tagsFromMandrillForUser = new ArrayList<>();
+        
+        HttpSession session = request.getSession();
+        if ( session.getAttribute("UID") == null || 
+                StringUtils.isEmpty(session.getAttribute("UID").toString())){
+            Map<String, String> responseMap = new HashMap<>();
+            responseMap.put("error", "user is not logged in");
+            response.getWriter().write(new Gson().toJson(responseMap));
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return;
+        }
+        int userId = Integer.parseInt(session.getAttribute("UID").toString());
+        Set<String> tagsForUser = EmailHistoryDAO.getTagsForUser(userId);
+        for(Map<String,Object> mTag : tagsFromMandrill){
+            if ( mTag.get("tag") != null){
+                if(tagsForUser.contains(mTag.get("tag").toString())){
+                    tagsFromMandrillForUser.add(mTag);
+                }
+            }
+        }
         response.getWriter().write(
-                new Gson().toJson(MandrillApiHandler.getTags()));
+                new Gson().toJson(tagsFromMandrillForUser));
+        
         response.getWriter().flush();
         response.setStatus(HttpServletResponse.SC_OK);
-        return;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
