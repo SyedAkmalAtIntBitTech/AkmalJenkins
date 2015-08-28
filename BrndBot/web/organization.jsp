@@ -23,6 +23,43 @@
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/main1.css" rel="stylesheet" type="text/css"/>
         <title>organization</title>
+            <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+   
+            <style>
+                             .slt {
+                                position:relative;
+				display:inline-block;
+				text-align:left;
+				line-height:30px;
+				clear:both;
+                                font-weight:600;
+				color: #000000;
+                                background-color: #f6f6f6;
+				border:1px solid #f6f6f6;
+/*                                border-radius:71px;*/
+				padding-top:20px;
+                                width:300px;
+			}
+                
+                
+                    .slt option {
+/*                             position:absolute;
+				top:35px;
+				left:0;*/
+				width:188px;
+/*				border:1px solid #ccc;*/
+/*                                border-radius:70px;*/
+/*				overflow:hidden;*/
+				background:#f6f6f6;
+/*				padding-top:2px;*/
+/*				display:block;*/
+                             }
+                             
+                   
+                
+            </style>
+            
+           
     </head>
     <body>
         <div class="container" ng-app="myapp">
@@ -54,10 +91,13 @@
                           <select id="organizationdropdown" class="slt" ng-model="organizations.org">
                               <option  ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}} </option>
                             </select>
+                        
+                           
                         </div>
                         
-                       
-                        
+                    
+
+                            
                     </div>
 
                     <div  class="form-group">
@@ -81,39 +121,109 @@
 		</script>
                 
                 <style>
-                                .slt {
-                                position:relative;
-				display:inline-block;
-				text-align:left;
-				line-height:30px;
-				clear:both;
-                                font-weight:600;
-				color: #000000;
-                                background-color: #C6C6C6;
-				border:1px solid #ccc;
-                                border-radius:7px;
-				padding-top:20px;
-                                width:300px;
-			}
-                         option{
-                                display:block;
-				width:100%;
-				line-height:20px;
-				padding:5px 10%;
-                                 position:relative;
-				text-align:left;
-				clear:both;
-                                font-weight:600;
-				color: #000000;
-                                border-radius: 5px;
-                                background-color: #C6C6C6;
-                             }
+                       
+                      
                             #opt:hover
 			{
 				color: #000000;
 				background:#7ab5d3;
                                 
-			}	    
+			}	 
+                        
+                        div.selectBox
+			{
+				position:relative;
+				display:inline-block;
+				cursor:default;
+				text-align:left;
+				line-height:30px;
+				clear:both;
+                                font-weight:600;
+				color: #000000;
+                                border-top-left-radius: 5px;
+                                border-bottom-left-radius:  5px;
+                               background-color: #C6C6C6;
+                                border:transparent;
+			}
+                        .selectBox{
+                                position:relative;
+				display:inline-block;
+				cursor:default;
+				text-align:left;
+				line-height:30px;
+				clear:both;
+                                font-weight:600;
+				color: #000000;
+                                border-top-left-radius: 5px;
+                                border-bottom-left-radius:  5px;
+                                background-color: #C6C6C6;
+                                border:transparent;
+                                
+                        }
+			span.selected
+			{
+				width:167px;
+				text-indent:10px;
+				border:0px solid #ccc;
+                                border-top-left-radius: 5px;
+                                border-bottom-left-radius:  5px;
+				border-right:none;
+				background-color: #C6C6C6;
+				overflow:hidden;
+			}
+			span.selectArrow
+			{
+				width:20px;
+				text-align:center;
+				font-size:22px;
+                                border-top-right-radius:5px;
+                                border-bottom-right-radius:5px;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-o-user-select: none;
+				user-select: none;
+				background-image: url('images/dropdown.png');
+                                background-repeat: space;
+			}
+			
+			span.selectArrow,span.selected
+			{
+				position:relative;
+				float:left;
+				height:30px;
+				z-index:1;
+			}
+			
+			div.selectOptions
+			{
+				position:absolute;
+				top:35px;
+				left:0;
+				width:188px;
+				border:1px solid #ccc;
+                                border-radius:7px;
+				overflow:hidden;
+				background:#f6f6f6;
+				padding-top:2px;
+				display:none;
+			}
+				
+			span.selectOption
+			{   
+                             
+				display:block;
+				width:100%;
+				line-height:20px;
+				padding:5px 10%;
+                        }
+			
+			span.selectOption:hover
+			{
+				color: #000000;
+				background:#7ab5d3;
+                                
+			}	
                             
                 </style>     
            

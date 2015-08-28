@@ -23,6 +23,7 @@
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>History</title>
         <script src="js/crop.js" type="text/javascript"></script>
@@ -47,8 +48,55 @@
                 });        
                 }
             }
+        
+            
         </script>
-
+        <style>.emlhisdata li{
+                display: table-cell;
+                position: relative;
+                width: 150px;
+                text-align: center;
+            }
+            .emlist{
+                overflow-y: scroll;
+                position: relative;
+                width: 900px;
+                left:300px;
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 300;
+                color: #2d4355;
+                font-style: normal;
+                text-align: left;
+                line-height: 25.9px;
+                letter-spacing: 0em;
+            }
+            .emlOneRowData li{
+                    font-family: "proxima-nova",sans-serif;
+                    font-weight: 400;
+                    color: #2d4355;
+                    vertical-align:middle; 
+                    left:30px;
+                    height: 10%;
+                    display: table-cell;
+                    position: relative;
+                    padding-top: 3%;
+                    padding-bottom: 3%;
+            }
+            .emlOneRowData{
+                   
+                            position: relative;
+                            width: 900px;
+                            text-align: center;
+                    }
+                    ul.L2 li{ 
+                         
+                        font-family: "proxima-nova",sans-serif;
+                        font-weight: 600;
+                        color: #2d4355;
+                        font-style: normal;
+                    }
+                   
+        </style>
     </head>
     <body ng-app>
         <div ng-controller="emailHistory" class="container" id="container"> 
@@ -59,27 +107,27 @@
             <jsp:include page="emailsubmenu.html"/>
             <div class="col-md-8 col-md-offset-2 " >
                 
-                <div class="col-md-6 col-md-offset-0">
-                    <p id="hyshead">Email History and Analytics</p>
-                    <div>
-                        <ul>
+                <div class="col-md-5 col-md-offset-0">
+                    <p id="hyshead" class="MH2">Email History and Analytics</p>
+                    <div class="col-md-4 col-md-offset-0" >
+                        <ul class="emlhisdata emlist FL2">
                             <li>Number of Sent</li>
                             <li>Open Rate</li>
                             <li>Click Through Rate</li>
                             <li>Unsubscribed</li>
                         </ul>
                     </div>
-                    
-                    <p>_____________________________________________________________</p>
-                    <div ng-init="displayemailhistory()">
-                        <ul ng-repeat="email in email_history">                            
-                            <li>{{email.tag}}</li>
-                            <li>{{email.sent}}</li>
-                            <li>{{email.opens}}</li>
-                            <li>{{email.clicks}}</li>
-                            <li>{{email.unsubs}}</li>
+                    <hr style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
+                   
+                    <div  class="col-md-6" ng-init="displayemailhistory()">
+                        <ul  class="emlOneRowData L2 LE2" ng-repeat="email in email_history">                            
+                            <li style="width:450px;text-align:left;left:-35px;">{{email.tag}}</li>
+                            <li style="width: 250px">{{email.sent}}</li>
+                            <li style="width: 250px">{{email.opens}}</li>
+                            <li style="width: 250px">{{email.clicks}}</li>
+                            <li style="width: 250px">{{email.unsubs}}</li>
                         </ul>
-                        
+                       
                     </div>
                 </div>
 

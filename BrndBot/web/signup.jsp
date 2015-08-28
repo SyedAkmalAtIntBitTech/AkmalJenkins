@@ -57,7 +57,7 @@
           
                         <div  class="form-group">
                              <div class="col-md-5 col-md-offset-5">
-                                 <button type="submit"  class="button button--moema button--text-thick  button--size-s" style="white-space: nowrap;max-width: 300px;">CREATE MY ACCOUNT</button><br><br><br>
+                                 <button type="submit"  class="button button--moema button--text-thick  button--size-s" style="width:200px;">CREATE MY ACCOUNT</button><br><br><br>
                              </div>
                         </div>
 
