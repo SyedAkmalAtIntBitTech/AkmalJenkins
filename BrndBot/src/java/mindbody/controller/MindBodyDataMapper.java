@@ -5,11 +5,18 @@
  */
 package mindbody.controller;
 
+import com.divtohtml.StringUtil;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.Program;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBElement;
@@ -62,6 +69,8 @@ public class MindBodyDataMapper {
                         String element = modelElement.getAttribute("element");
                         String class_model_option = modelElement.getAttribute("option");
                         String defaultValue = modelElement.getAttribute("default");
+                        String epochValue = modelElement.getAttribute("epoch");
+
                         logger.log(Level.INFO, modelElement.getAttribute("option"));
 
                         if (class_model_option.equalsIgnoreCase("EnrollmentID")) {
@@ -111,42 +120,63 @@ public class MindBodyDataMapper {
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("EnrollmentStartDate")) {
+                        if (class_model_option.equalsIgnoreCase("EnrollmentStartDateTime")) {
 
-                            JAXBElement<XMLGregorianCalendar> calendarStart = mindbody_enrollments.getStartDate();
+                            JAXBElement<XMLGregorianCalendar> jcalendarStartDate = mindbody_enrollments.getStartDate();
+                            JAXBElement<XMLGregorianCalendar> jcalendarStartTime = mindbody_enrollments.getStartTime();
 
-                            XMLGregorianCalendar calendarStartDateTime = (XMLGregorianCalendar) calendarStart.getValue();
+                            XMLGregorianCalendar xmlcalendarStartDate = (XMLGregorianCalendar) jcalendarStartDate.getValue();
+                            XMLGregorianCalendar xmlcalendarStartTime = (XMLGregorianCalendar) jcalendarStartTime.getValue();
 
-                            if (calendarStartDateTime != null) {
-                                json_mindbody_enrollment_data.put(element, calendarStartDateTime);
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEE h:mm a");
+                            String formattedDate = "";
+                            if (!StringUtil.isEmpty(epochValue)) {
+                                dateFormat = new SimpleDateFormat(epochValue);
+                            }
+
+                            if (xmlcalendarStartDate != null && xmlcalendarStartTime != null) {
+
+                                Date finalDate = combineDateTime(xmlcalendarStartDate, xmlcalendarStartTime);
+                                try {
+                                    formattedDate = dateFormat.format(finalDate);
+                                } catch (Exception e) {
+                                    //This is double make sure that the client doesn't enter garbage values
+                                    dateFormat = new SimpleDateFormat("EEEEE h:mm a");
+                                    formattedDate = dateFormat.format(finalDate);
+                                }
+
+                                json_mindbody_enrollment_data.put(element, formattedDate);
                             } else {
                                 json_mindbody_enrollment_data.put(element, defaultValue);
                             }
 
                         }
 
-                        if (class_model_option.equalsIgnoreCase("EnrollmentStartTime")) {
+                        if (class_model_option.equalsIgnoreCase("EnrollmentEndDateTime")) {
 
-                            JAXBElement<XMLGregorianCalendar> calendarStart = mindbody_enrollments.getStartTime();
+                            JAXBElement<XMLGregorianCalendar> jcalendarEndDate = mindbody_enrollments.getEndDate();
+                            JAXBElement<XMLGregorianCalendar> jcalendarEndTime = mindbody_enrollments.getEndTime();
 
-                            XMLGregorianCalendar calendarStartTime = (XMLGregorianCalendar) calendarStart.getValue();
+                            XMLGregorianCalendar xmlcalendarEndDate = (XMLGregorianCalendar) jcalendarEndDate.getValue();
+                            XMLGregorianCalendar xmlcalendarEndTime = (XMLGregorianCalendar) jcalendarEndTime.getValue();
 
-                            if (calendarStartTime != null) {
-                                json_mindbody_enrollment_data.put(element, calendarStartTime);
-                            } else {
-                                json_mindbody_enrollment_data.put(element, defaultValue);
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEE h:mm a");
+                            String formattedDate = "";
+                            if (!StringUtil.isEmpty(epochValue)) {
+                                dateFormat = new SimpleDateFormat(epochValue);
                             }
 
-                        }
+                            if (xmlcalendarEndDate != null && xmlcalendarEndTime != null) {
 
-                        if (class_model_option.equalsIgnoreCase("EnrollmentEndTime")) {
-
-                            JAXBElement<XMLGregorianCalendar> calendarEnd = mindbody_enrollments.getEndTime();
-
-                            XMLGregorianCalendar calendarEndTime = (XMLGregorianCalendar) calendarEnd.getValue();
-
-                            if (calendarEndTime != null) {
-                                json_mindbody_enrollment_data.put(element, calendarEndTime);
+                                Date finalDate = combineDateTime(xmlcalendarEndDate, xmlcalendarEndTime);
+                                try {
+                                    formattedDate = dateFormat.format(finalDate);
+                                } catch (Exception e) {
+                                    //This is double make sure that the client doesn't enter garbage values
+                                    dateFormat = new SimpleDateFormat("EEEEE h:mm a");
+                                    formattedDate = dateFormat.format(finalDate);
+                                }
+                                json_mindbody_enrollment_data.put(element, formattedDate);
                             } else {
                                 json_mindbody_enrollment_data.put(element, defaultValue);
                             }
@@ -229,6 +259,7 @@ public class MindBodyDataMapper {
                         String element = modelElement.getAttribute("element");
                         String class_model_option = modelElement.getAttribute("option");
                         String defaultValue = modelElement.getAttribute("default");
+                        String epochValue = modelElement.getAttribute("epoch");
                         logger.log(Level.INFO, modelElement.getAttribute("option"));
 
                         if (class_model_option.equalsIgnoreCase("ClassID")) {
@@ -279,13 +310,26 @@ public class MindBodyDataMapper {
                         }
 
                         if (class_model_option.equalsIgnoreCase("ClassStartDateTime")) {
-
                             JAXBElement<XMLGregorianCalendar> calendarStart = mindbody_class.getStartDateTime();
 
                             XMLGregorianCalendar calendarStartDateTime = (XMLGregorianCalendar) calendarStart.getValue();
 
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEE h:mm a");
+                            String formattedDate = "";
+                            if (!StringUtil.isEmpty(epochValue)) {
+                                dateFormat = new SimpleDateFormat(epochValue);
+                            }
+
                             if (calendarStartDateTime != null) {
-                                json_mindbody_class_data.put(element, calendarStartDateTime);
+                                try {
+                                    formattedDate = dateFormat.format(calendarStartDateTime);
+                                } catch (Exception e) {
+                                    //This is double make sure that the client doesn't enter garbage values                                    
+                                    dateFormat = new SimpleDateFormat("EEEEE h:mm a");
+                                    formattedDate = dateFormat.format(calendarStartDateTime);
+                                }
+
+                                json_mindbody_class_data.put(element, formattedDate);
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -310,12 +354,25 @@ public class MindBodyDataMapper {
 
                         if (class_model_option.equalsIgnoreCase("ClassEndDateTime")) {
 
+                            SimpleDateFormat dateFormat = null;
+                            String formattedDate = "";
+                            if (!StringUtil.isEmpty(epochValue)) {
+                                dateFormat = new SimpleDateFormat(epochValue);
+                            }
+
                             JAXBElement<XMLGregorianCalendar> calendarEnd = mindbody_class.getEndDateTime();
 
                             XMLGregorianCalendar calendarEndDateTime = (XMLGregorianCalendar) calendarEnd.getValue();
 
                             if (calendarEndDateTime != null) {
-                                json_mindbody_class_data.put(element, calendarEndDateTime);
+                                try {
+                                    formattedDate = dateFormat.format(calendarEndDateTime);
+                                } catch (Exception e) {
+                                    dateFormat = new SimpleDateFormat("EEEEE h:mm a");
+                                    formattedDate = dateFormat.format(calendarEndDateTime);
+                                }
+
+                                json_mindbody_class_data.put(element, formattedDate);
                             } else {
                                 json_mindbody_class_data.put(element, defaultValue);
                             }
@@ -474,5 +531,28 @@ public class MindBodyDataMapper {
         //System.exit (0);        
 
         return json_mindbody_class_data;
+    }
+
+    private static Date combineDateTime(XMLGregorianCalendar xmlcalendarStartDate, XMLGregorianCalendar xmlcalendarStartTime) {
+
+        Calendar calendarA = Calendar.getInstance();
+        calendarA.setTime(toDate(xmlcalendarStartDate));
+        Calendar calendarB = Calendar.getInstance();
+        calendarB.setTime(toDate(xmlcalendarStartTime));
+
+        calendarA.set(Calendar.HOUR_OF_DAY, calendarB.get(Calendar.HOUR_OF_DAY));
+        calendarA.set(Calendar.MINUTE, calendarB.get(Calendar.MINUTE));
+        calendarA.set(Calendar.SECOND, calendarB.get(Calendar.SECOND));
+        calendarA.set(Calendar.MILLISECOND, calendarB.get(Calendar.MILLISECOND));
+
+        Date result = calendarA.getTime();
+        return result;
+    }
+
+    private static Date toDate(XMLGregorianCalendar calendar) {
+        if (calendar == null) {
+            return null;
+        }
+        return calendar.toGregorianCalendar().getTime();
     }
 }

@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package util;
+
+import admin.controller.Layout;
 import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
 import com.intbit.PhantomImageConverter;
@@ -14,13 +16,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
 
 /**
  *
  * @author sandeep-kumar
  */
 public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
-  
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,35 +36,38 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
     @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-   super.processRequest(request, response);
-   
-    try{
-             String htmlString = request.getParameter("htmlString");
-             String width= request.getParameter("containerWidth").replace("px", "");
-        String height= request.getParameter("containerHeight").replace("px", "");
-          getSqlMethodsInstance().session = request.getSession();
-           PhantomImageConverter phantomImageConverter = new PhantomImageConverter(getServletContext());
-           File imagePngFile = phantomImageConverter.getImage(htmlString, width, height, "0", "0");
-        
-        String filename=imagePngFile.getName();
-        getSqlMethodsInstance().session.setAttribute("image_file_name", filename);
-        System.err.println(filename);
-        
-         response.setContentType("text/plain");
-        response.getWriter().write(filename);
+        super.processRequest(request, response);
+
+        try {
+            String htmlString = request.getParameter("htmlString");
+            String width = request.getParameter("containerWidth").replace("px", "");
+            String height = request.getParameter("containerHeight").replace("px", "");
+            getSqlMethodsInstance().session = request.getSession();
+            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+            Integer brandID = getSqlMethodsInstance().getBrandID(user_id);
+            Layout layout = new Layout();
+            JSONArray json_font_list = layout.getFontList(brandID);
+            PhantomImageConverter phantomImageConverter = new PhantomImageConverter(getServletContext());
+            File imagePngFile = phantomImageConverter.getImage(htmlString, json_font_list, width, height, "0", "0");
+
+            String filename = imagePngFile.getName();
+            getSqlMethodsInstance().session.setAttribute("image_file_name", filename);
+            System.err.println(filename);
+
+            response.setContentType("text/plain");
+            response.getWriter().write(filename);
+        } catch (Exception e) {
+            response.setContentType("text/html;charset=UTF-8");
+            StringBuffer sb = new StringBuffer();
+            PrintWriter out = response.getWriter();
+            sb.append("<html><body><h2>");
+            sb.append(e.getLocalizedMessage());
+            sb.append("</body></html>");
+            out.println(sb);
+            out.close();
+        } finally {
+            getSqlMethodsInstance().closeConnection();
         }
-        catch(Exception e){
-        response.setContentType("text/html;charset=UTF-8");
-           StringBuffer sb = new StringBuffer();
-           PrintWriter out = response.getWriter();
-           sb.append("<html><body><h2>");
-           sb.append(e.getLocalizedMessage());
-           sb.append("</body></html>");
-           out.println(sb);
-           out.close();
-        }finally{
-          getSqlMethodsInstance().closeConnection();
-    	}
 
     }
 

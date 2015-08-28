@@ -211,7 +211,7 @@
                 var ss = document.createElement("link");
                 ss.type = "text/css";
                 ss.rel = "stylesheet";
-                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word ;
                 document.getElementsByTagName("head")[0].appendChild(ss);
 
                 var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
@@ -220,7 +220,7 @@
                              "src: url("+font_path+");"
                 $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
-                $(".textAreas").css("font-family", font[0]);
+                $("#" + selectedTextID).css("font-family", font[0]);
 
             });
             
@@ -238,25 +238,23 @@
     function validate(){
       var model_name = $("#namexml").val();
 
-      if (model_name == ""){
+      if (model_name === ""){
           alert("model name not entered");
           $("#namexml").focus();
           return false;
       }else {
-          alert("text");
         $.ajax({
             url: global_host_address + 'ServletValidateModel',
             method: 'post',
             data: {
-                model_name : model_name,
+                model_name : model_name
             },
             success: function (responseText) {
-        alert(responseText);
-        if (responseText == "yes"){
+        if (responseText === "yes"){
             alert("name already exist, please give some other name");
             $("#namexml").focus();
             return false;
-        }else if (responseText == "no") {
+        }else if (responseText === "no") {
             var file_name = $("#namexml").val();
             var mapperxml = file_name + "_" + "mapper";
             var layoutxml = file_name + "_" + "layout";
@@ -270,7 +268,6 @@
             $('#popup').hide("slow");
 
             var organization = $("#organization").val();
-            alert(organization);
             var brand = $("#brand").val();
             var users = $("#users").val();
             var categories = $("#categories").val();
@@ -517,6 +514,10 @@
                 <p>
                     <span class="position">Co ordinates: X = 0, Y = 0 </span>
                 </p>
+                 <p>
+                    <input type="checkbox" id="circleCheckBox"> Circle
+                </p>
+                
                 <p>
                     Block Size:
                 </p>
@@ -544,6 +545,7 @@
 
                     </select>
                 </p>
+               
                 
                 <p>
                     <input type="button" class="blockButton" id="blockButton" value="Apply" />
@@ -561,6 +563,7 @@
             </div>
         </div>
         <div id="main">
+            <h3>Social Layout Model</h3>
             <form>
                     
                 Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">
@@ -649,7 +652,7 @@
                                 <div id="content">
    <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                                         Layout file name<input type="text" id="layoutxml" required><br>-->
-                                    file name: <input type="text" id="namexml" ><br>
+                                    Model Name: <input type="text" id="namexml" ><br>
                                     <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
                                     <input type="button" onclick="validate()" value="Done"/>   
                                     <input type="button" id="hidepopup" value="Close"/>   

@@ -90,7 +90,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
                 response.getWriter().write(mapped_json_object.toString());
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while displaying the mindbody data:", getSqlMethodsInstance().error));
         } finally {
             out.close();
             getSqlMethodsInstance().closeConnection();

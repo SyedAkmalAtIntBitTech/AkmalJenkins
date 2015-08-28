@@ -3,25 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package com.controller.email;
 
-import admin.controller.Layout;
-import com.controller.BrndBotBaseHttpServlet;
-import com.intbit.PhantomImageConverter;
-import java.io.File;
+import com.google.gson.Gson;
+import email.mandrill.MandrillApiHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONArray;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
- * @author sandeep-kumar
+ * @author Mohamed
  */
-public class AdminHtmlToImageServlet extends BrndBotBaseHttpServlet {
+@WebServlet(name = "GetEmailDetailServlet", urlPatterns = {"/GetEmailDetail"})
+public class GetEmailDetailServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,41 +37,25 @@ public class AdminHtmlToImageServlet extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    public void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try{
-             String htmlString = request.getParameter("htmlString");
-             String width= request.getParameter("containerWidth").replace("px", "");
-            String height= request.getParameter("containerHeight").replace("px", "");
-            getSqlMethodsInstance().session = request.getSession();
-            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-            Integer brandID = getSqlMethodsInstance().getBrandID(user_id);
-            Layout layout = new Layout();
-            JSONArray json_font_list = layout.getFontList(brandID);
-            PhantomImageConverter phantomImageConverter = new PhantomImageConverter(getServletContext());
-            File imagePngFile = phantomImageConverter.getImage(htmlString, json_font_list, width, height, "0", "0");
-        
-        String filename=imagePngFile.getName();
-        System.err.println(filename);
-        
-         response.setContentType("text/plain");
-        response.getWriter().write(filename);
-        }
-        catch(Exception e){
-        response.setContentType("text/html;charset=UTF-8");
-           StringBuffer sb = new StringBuffer();
-           out = response.getWriter();
-           sb.append("<html><body><h2>");
-           sb.append(e.getLocalizedMessage());
-           sb.append("</body></html>");
-           out.println(sb);
-           out.close();
-        }
-   
+        try {
+            String mandrillEmailId = request.getParameter("mandrill_email_id");
+            if(StringUtils.isEmpty(mandrillEmailId)){
+                Map<String, String> responseMap = new HashMap<>();
+                responseMap.put("error", "mandrill_email_id is required request parameter");
+                response.getWriter().write(new Gson().toJson(responseMap));
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+            response.getWriter().write(
+                    new Gson().toJson(MandrillApiHandler.getEmailDetails(mandrillEmailId)));
+            response.getWriter().flush();
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(GetEmailDetailServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -180,19 +180,21 @@ and open the template in the editor.
                 var text = $("#fontname").find('option:selected').text();
                 var font_family_name = $("#fontname").val();
                 var font = font_family_name.split(",");
-                var google_key_word = font[0].split(' ').join('+')
-                var ss = document.createElement("link");
-                ss.type = "text/css";
-                ss.rel = "stylesheet";
-                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
-                document.getElementsByTagName("head")[0].appendChild(ss);
+//                var google_key_word = font[0].split(' ').join('+')
+//
+//                var ss = document.createElement("link");
+//                ss.type = "text/css";
+//                ss.rel = "stylesheet";
+//                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+//                document.getElementsByTagName("head")[0].appendChild(ss);
+//
+//                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+//                var styles = "@font-face {"+
+//                             "font-family:"+ text + ";"+
+//                             "src: url("+font_path+");"
+//                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
-                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
-                var styles = "@font-face {"+
-                             "font-family:"+ text + ";"+
-                             "src: url("+font_path+");"
-                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
-
+                var font_name = font[0].split('+').join(' ');
                 $("#" + selectedTextareaId).css("font-family", font[0]);
 
             });
@@ -205,18 +207,45 @@ and open the template in the editor.
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
-                        alert("test");
                     $http({
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-                        alert(JSON.stringify(data.user_colors));
-                    $scope.user_preferences_colors = data.user_colors;
-                            $scope.user_preferences_font_names = data.user_font_names;
+//                        alert(JSON.stringify(data.user_colors));
+                            $scope.user_preferences_colors = data.user_colors;
+
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
-                            if (data === error){
-                                alert(data);
-                                }
+                            $scope.user_preferences_font_names = data.user_font_names;
+                            var i = 0;
+                            var font_object;
+                            var font_family_name;
+                            var font_name;
+                            for (i; i<= data.user_font_names.length; i++){
+                                font_object = data.user_font_names[i];
+                                font_name = font_object.font_name;
+                                font_family_name = font_object.font_family_name;
+                                
+                                var font = font_family_name.split(",");
+                                var google_key_word = font[0].split(' ').join('+')
+
+                                var ss = document.createElement("link");
+                                ss.type = "text/css";
+                                ss.rel = "stylesheet";
+                                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+                                document.getElementsByTagName("head")[0].appendChild(ss);
+
+                                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+                                var styles = "@font-face {"+
+                                             "font-family:"+ font_name + ";"+
+                                             "src: url("+font_path+");"
+                                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+
+
+                            }
+                            
+                    if (data === error){
+                        alert(data);
+                        }
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
@@ -253,14 +282,14 @@ and open the template in the editor.
                                     method : 'GET',
                                             url : 'GetUserImages'
                                     }).success(function(data, status, headers, config) {
-                                        alert(JSON.stringify(data));
+//                                        alert(JSON.stringify(data));
                                     $scope.datalistimages = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalistimages.length / $scope.pageSize);
                                     };
                                     if (data === error){
-                            alert(data);
-                            }
+                                        alert(data);
+                                    }
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -277,10 +306,6 @@ and open the template in the editor.
             };
             });
                     function showText(id, layout){
-//                          alert(id+""+layout);
-//                            $("#clickid").val(layout);
-
-//                            alert('http://localhost:8080/BrndBot/DownloadXml?file_name='+ layout +'.xml');
                             $.ajax({
                                     type: 'GET',
                                     url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + '&editor_type=social',
@@ -298,6 +323,7 @@ and open the template in the editor.
                                                             height = $(this).find('container').attr("Height");
                                                             width = $(this).find('container').attr("Width");
                                                             $(".preview").css("width", width + "px");
+                                                            $(".preview").css("height", height + "px");
                                                     }
 
                                                     );
@@ -316,7 +342,6 @@ and open the template in the editor.
                                                     $.each(val, function (k, v) {
 //                            alert(k + " : " + v+ ":"+ type);
                                                     if (type.trim() == k.trim()) {
-//                                                    alert();
                                                             elementdata = v;
                                                     }
 
@@ -346,21 +371,24 @@ and open the template in the editor.
                                                             fontsize = $(this).attr("font-size");
                                                             fontstyle = $(this).attr("font-style");
                                                             var fontweight = $(this).attr("font-weight");
+                                                            var font = $(this).attr("font-family");
+                                                            var font_family_name = font.split("+").join(" ");
                                                             var letterspacing = $(this).attr("letter-spacing");
                                                             var lineheight = $(this).attr("line-height");
                                                             var textalign = $(this).attr("text-align");
                                                             var webkittransform = $(this).attr("webkit-transform");
                                                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-//                    alert($(this).attr("text-shadow"));
                                                         $(".preview").append("<div><textarea class=textAreas onclick=getTectId("+ type +") id=" + type + ">" + elementdata + "</textarea>");
                                                         $("#" + type).css("color", "" + fontcolor)
                                                                 .css("position", "absolute")
+                                                                .css("overflow", "hidden")
                                                                 .css("margin-left", "" + left + "px")
                                                                 .css("margin-top", "" + top + "px")
                                                                 .css("width", "" + width)
-                                                                .css("min-height", "" + height)
+                                                                .css("height", "" + height)
                                                                 .css("font-size", "" + fontsize)
                                                                 .css("font-style", "" + fontstyle)
+                                                                .css("font-family", "" + font_family_name)
                                                                 .css("font-weight", "" + fontweight)
                                                                 .css("letter-spacing", "" + letterspacing)
                                                                 .css("line-height", "" + lineheight)
@@ -370,7 +398,24 @@ and open the template in the editor.
                                                                 .css("text-align", "" + textalign)
                                                                 .css("text-shadow", "" + dropshadow)
                                                                 .css("webkit-transform", "rotate(" + webkittransform + "deg)");
-                                                        $("#" + type).autogrow();
+                                                        //$("#" + type).autogrow();
+                                                        
+                                                        //resize of text to fit bound - By Syed Ilyas 26/8/2015
+                                                        var tempfontsize = parseInt(fontsize.replace("px",""));
+                                                        var tempHeight = parseInt(height.replace("px",""));
+                                                        if($("#" + type).get(0).scrollHeight > tempHeight)
+                                                        {
+                                                            $("#" + type).css("line-height", "initial");
+                                                        while ( $("#" + type).get(0).scrollHeight > tempHeight) {
+                                                               tempfontsize = tempfontsize - 1;
+                                                              $("#" + type).css("font-size", "" + tempfontsize +"px");
+                                                        }
+                                                         var xxyy = parseInt(tempfontsize);
+                                                        xxyy = Math.round(xxyy * 1.2);
+                                                         $("#" + type).css("line-height",""+xxyy+"px");
+                                                        }
+                                                        //resize end
+                                                        
                                                     }
 
                                                if (tag === "image")
@@ -379,7 +424,6 @@ and open the template in the editor.
                                                     var blendmode = $(this).attr("background-blend-mode");
 //                                                   
                                                     $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
-                        //                    alert("image");
                                                         count++;
                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
@@ -428,6 +472,7 @@ and open the template in the editor.
 
                                                     if (tag === "block")
                                                     {
+                                                        var borderRadius = $(this).attr("border-radius");
                                                         var colorName=$(this).attr("color-name");
                                                         var backgroundcolor;
                                                         for(var i=1;i<=6; i++)
@@ -443,7 +488,6 @@ and open the template in the editor.
                                                         blockcount++;
                                                             var width = $(this).attr("width");
                                                             var height = $(this).attr("height");
-//                                                            var backgroundcolor = $(this).attr("background-color");           
                                                             var drop_shadow=$(this).attr("Drop-shadow-color");
                                                             var h_shadow =  $(this).attr("H-shadow"); 
                                                             var v_shadow=$(this).attr("V-shadow");
@@ -453,6 +497,7 @@ and open the template in the editor.
                                                                     .css("margin-left", "" + left + "px")
                                                                     .css("margin-top", "" + top + "px")
                                                                     .css("width", "" + width)
+                                                                    .css("border-radius", "" + borderRadius)
                                                                     .css("position", "absolute")
                                                                     .css("height", "" + height)
                                                                     .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
@@ -653,8 +698,8 @@ and open the template in the editor.
                                                     </ul>
                                                 </li>
                                                 <li><p class="editpal">pick from theme</p></li>
-                                                <li><p class="editpal custom-color-box" id="picker" style="margin-left: 120px;">custom</p></li>
-                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
+                                                <li><p class="editpal custom-color-box" style="margin-left: 120px;">custom</p></li>
+                                                <li><p class="editpal" id="">opacity</p><div id="slider"></div></li>
 
                                             </ul>
                                         </div>
@@ -824,7 +869,7 @@ $(this).addClass('highlight');
                                    },
                                    success: function (responseText) {
                                            var image=responseText;
-                                           alert(image);
+//                                           alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
 
                                    }
@@ -971,23 +1016,19 @@ $(this).addClass('highlight');
 
                                     // draw image
                                     ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
-                                   alert( img.src);
+//                                   alert( img.src);
                                             // display canvas image
                                             $('canvas').addClass('output').show().delay('9000').fadeOut('slow');
                                             // save the image to server
-                                            var canvas = document.getElementById("canvas");
-                                            alert("1");
-                                            var dataURL =canvas.toDataURL("image/jpeg");
-                                            alert("2");
-                                           alert(dataURL);
-                                            var cropped_image = {"image": "image"};
-                                           alert("image");
+                                            var canvas = document.getElementById("canvas");                 
+                                            var dataURL =canvas.toDataURL("image/jpeg");                                                                                     
+                                            var cropped_image = {"image": "image"};                                      
                                                 $.ajax({
                                                     url: global_host_address + 'CropImage',
                                                     method: 'post',
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
-                                                      alert(responseText);
+//                                                      alert(responseText);
                                                         $("#"+selectedImageId).css("background","url(images/"+responseText+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                                     }
                                                 });                                            
@@ -1030,8 +1071,8 @@ $(this).addClass('highlight');
                                     $("#selectimage").click(function(){
                                         var image_file = global_host_address + $("#image_name").val();
 
-                                       alert(image_file);
-                                        alert(selectedImageId);
+//                                       alert(image_file);
+//                                        alert(selectedImageId);
                                         $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                         $("#imagespopup").hide();
                                     });

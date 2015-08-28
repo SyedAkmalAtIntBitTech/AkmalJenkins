@@ -2,12 +2,20 @@ package com.intbit;
 
 import com.divtohtml.StringUtil;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import util.Utility;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,6 +26,8 @@ import org.apache.commons.io.FileUtils;
  *
  * @author ilyas
  */
+
+
 public class PhantomImageConverter {
 
     private static final Logger logger = Logger.getLogger(PhantomImageConverter.class.getName());
@@ -31,13 +41,13 @@ public class PhantomImageConverter {
 
     public PhantomImageConverter(ServletContext context, String outputFilePath) throws Exception {
         this(context);
-        this.outputFilePath = outputFilePath;                
+        this.outputFilePath = outputFilePath;
         File outputFilePathDir = new File(outputFilePath);
-        if (!outputFilePathDir.exists()){
+        if (!outputFilePathDir.exists()) {
             outputFilePathDir.mkdirs();
         }
     }
-    
+
     public PhantomImageConverter(ServletContext context) throws Exception {
 
         path = context.getRealPath("");
@@ -45,47 +55,68 @@ public class PhantomImageConverter {
         templateHTMLFilePath = path + "/template.html";
         tempPath = AppConstants.LAYOUT_IMAGES_HOME + File.separator;
         File tempPathDir = new File(tempPath);
-        if (!tempPathDir.exists()){
+        if (!tempPathDir.exists()) {
             tempPathDir.mkdirs();
         }
     }
 
-    public File getImage(String htmlString, String width, String height, String x, String y) throws Exception {
-        File createdHtmlFile = tempHTML(htmlString);
+    public File getImage(String htmlString, JSONArray json_font_list, String width, String height, String x, String y) throws Exception {
+        File createdHtmlFile = tempHTML(htmlString, json_font_list);
         File createdJSFile = tempJS(createdHtmlFile, width, height, x, y);
 
         Runtime runTime = Runtime.getRuntime();
-        String execPath = "phantomjs "+createdJSFile.getPath();
+        String execPath = "phantomjs " + createdJSFile.getPath();
         //String execPath = "/Users/AR/Downloads/DevSoftware/PhantomJS/phantomjs " + createdJSFile.getPath();
- 
+
         Process process = runTime.exec(execPath);
         int exitStatus = process.waitFor();
         File tempImagePath = new File(tempPath + File.separator + createdJSFile.getName().replace("js", "png"));
         logger.info(tempImagePath.getPath());
-        
+
         File fileToSend = tempImagePath;
         if (!StringUtil.isEmpty(this.outputFilePath)) {
-            File outputFile = new File(outputFilePath+File.separator+tempImagePath.getName());
+            File outputFile = new File(outputFilePath + File.separator + tempImagePath.getName());
             FileUtils.copyFile(tempImagePath, outputFile);
             fileToSend = outputFile;
             tempImagePath.delete();
         }
-        
+
         createdHtmlFile.delete();
         createdJSFile.delete();
 
         return fileToSend;
     }
 
-    private File tempHTML(String bodyString) throws IOException {
+    private File tempHTML(String bodyString, JSONArray json_font_list) throws IOException {
+        File newHtmlFile = null;
+        StringBuilder html_content = new StringBuilder();
 
-        File htmlTemplateFile = new File(templateHTMLFilePath);
-        String htmlString = FileUtils.readFileToString(htmlTemplateFile, kEncoding);
-        htmlString = htmlString.replace("$body", bodyString);
-        String fileName = dateFormat.format(new Date());
-        //Using the date as the unique file name
-        File newHtmlFile = new File(tempPath + fileName + ".html");
-        FileUtils.writeStringToFile(newHtmlFile, htmlString, kEncoding);
+        try {
+
+            OutputStream htmlfile = new FileOutputStream(new File(templateHTMLFilePath));
+
+            PrintStream printhtml = new PrintStream(htmlfile);
+            html_content.append("<HTML>" + "\n");
+            html_content.append("<head>" + "\n");
+            html_content.append("<meta charset=UTF-8>" + "\n");
+
+            html_content.append(Utility.injectFontsInHTML(json_font_list));
+            html_content.append("</head>" + "\n");
+            html_content.append("<body>" + "\n");
+            html_content.append(bodyString + "\n");
+            html_content.append("</body>" + "\n");
+            html_content.append("</HTML>");
+
+            printhtml.print(html_content.toString());
+
+            String fileName = dateFormat.format(new Date());
+            //Using the date as the unique file name
+            newHtmlFile = new File(tempPath + fileName + ".html");
+            FileUtils.writeStringToFile(newHtmlFile, html_content.toString(), kEncoding);
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "", e);
+        }
         return newHtmlFile;
     }
 

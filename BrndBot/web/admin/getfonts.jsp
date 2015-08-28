@@ -43,8 +43,6 @@
             stmt.close();
             rs.close();
  
-
-
                 Statement stmt3 = conn.createStatement();
                 ResultSet rs3 = stmt3.executeQuery("Select * From tbl_brand_font_family where brand_id=" + Brand_id + "");
 

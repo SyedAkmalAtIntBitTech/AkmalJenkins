@@ -217,7 +217,7 @@
                  <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div>
 
-      <jsp:include page="submenu.html"/>
+      <jsp:include page="emailsubmenu.html"/>
     <div class="col-md-8 col-md-offset-2 " ng-app="myapp">
         <div class="col-md-6 col-md-offset-0"><p id="hyshead">Email Settings</p></div>
         <div class="col-md-6 col-md-offset-0 bgcols">
