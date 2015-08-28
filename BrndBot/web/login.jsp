@@ -18,7 +18,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <link rel="stylesheet" href="css/main1.css">
-        
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <title>User Login</title>
     </head>
     <body class="container">
@@ -48,7 +48,7 @@
 
                 <div  class="form-group">
                     <div class="col-md-5 col-md-offset-5">
-                        <button type="submit"  class="btn btn-info">Login</button><br><br>
+                        <button style="left:-10px;" type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Login</button><br><br>
                         <br><br><p><a href="<%= application.getContextPath()%>/resetpassword.jsp">Forgot password</a></p>
                         <p class="sgnup"><a href="signup.jsp">Sign up</a></p>
                     </div>

@@ -80,6 +80,9 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
                 case LAYOUT_IMAGES:
                     imageBasePath = AppConstants.LAYOUT_IMAGES_HOME;
                     break;
+                case ADMIN_LAYOUT_BACKGROUNDIMAGES:
+                    imageBasePath = AppConstants.ADMIN_LAYOUT_BACKGROUNDIMAGES_HOME;
+                    break;
                 case USER_LOGO:
                     userId = request.getParameter("user_id");
                     if (userId == null || "".equals("user_id")) {

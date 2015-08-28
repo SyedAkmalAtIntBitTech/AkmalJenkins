@@ -27,6 +27,31 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    
+    $.ajax({
+       type: 'GET',
+       url: "/BrndBot/ServletListAdminBackgroundImages",
+       dataType: 'json',
+       success: function (data) {
+           var jsondataDefault = data;
+           var allLayoutFilename = [];
+           for(var i = 0; i<jsondataDefault.length; i++){
+               $("#adminBackgroundImage").append(new Option(jsondataDefault[i].filename, jsondataDefault[i].filename));
+             }
+
+       },
+       error: function(xhr, ajaxOptions, thrownError){
+           
+        alert(thrownError);
+       }
+       
+    });
+    $("#adminBackgroundImage").change(function(){
+        alert($("#adminBackgroundImage").val());
+         $("#" + selectedTextID).css('background', "url('/BrndBot/DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&image_name=" + $("#adminBackgroundImage").val() + "')");
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
+    });
+    
     $(".basic").spectrum({
         preferredFormat: "hex",
         showPalette: true,

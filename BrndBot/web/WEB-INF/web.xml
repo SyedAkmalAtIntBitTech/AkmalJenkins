@@ -309,6 +309,10 @@
         <servlet-class>com.controller.email.GetEmailHistoryDetailServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ServletListAdminBackgroundImages</servlet-name>
+        <servlet-class>admin.controller.ServletListAdminBackgroundImages</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetEmailTagsServlet</servlet-name>
         <servlet-class>com.controller.email.GetEmailTagsServlet</servlet-class>
     </servlet>
@@ -633,8 +637,14 @@
         <url-pattern>/GetEmailHistoryDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
+        <servlet-name>ServletListAdminBackgroundImages</servlet-name>
+        <url-pattern>/ServletListAdminBackgroundImages</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetEmailTagsServlet</servlet-name>
         <url-pattern>/GetEmailTagsServlet</url-pattern>
+
     </servlet-mapping>
     <session-config>
         <session-timeout>

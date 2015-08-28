@@ -19,6 +19,7 @@
         <script src="js/jquery-1.11.3.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/main1.css">
         <title>change password</title>
     </head>
@@ -32,17 +33,18 @@
                                   <p class="text-left">enter  your email id</p>
                              </div>
                         </div>
-                    
+                        
                         <div class="group">
-                             <div class="col-md-3 col-md-offset-5">                            
-                                 <input id="inputemail" class="form-control simplebox" type="text" ng-model="user.emailid">
-                                 <label>EMAIL</label><br>
-                             </div>
-                        </div>
+                    <div class="col-md-3 col-md-offset-5">                            
+                        <input id="inputemail" class="form-control simplebox " type="email" required ng-model="user.emailid">
+                        <label>EMAIL</label><br>
+                    </div>
+                </div>
+                        
 
                         <div  class="form-group">
                                <div class="col-md-5 col-md-offset-5">
-                                   <button type="submit" class="btn btn-info">Enter</button><br><br>
+                                   <button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br><br>
                                </div>
                         </div>
                 </form>

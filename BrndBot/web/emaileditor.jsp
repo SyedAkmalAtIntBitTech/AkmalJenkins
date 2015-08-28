@@ -914,11 +914,13 @@ and open the template in the editor.
                                                     <p id="editorheadere" class="SS1">font color</p>
                                                     <div class="blankcolor-box1" id="picker" ></div>
                                                     
-                                                    <ul id="pickColorForText" style="display: none">
-                                                        <li><p style="font-size: 8px;">your palette</p></li>
-                                                        <li><p class="editpal custom-color-box-text" style="font-size: 8px;">custom</p></li>
-                                                        <li>
-                                                                <ul>
+                                                    <ul id="pickColorForText" style="display:none;left:-26px;position:relative;">
+                                                        <li><br><p class="editpal palpos">your palette</p></li>
+                                                         <li><p class="editpal custom-color-box" style="margin-left:150px;position:relative;top:20px;">custom</p></li>
+                                                            <li id="fcolcontainer">
+                                                                <ul id="colorpalette ">
+
+                                                  
                                                                    <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
@@ -927,7 +929,7 @@ and open the template in the editor.
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                                 </ul>
                                                             </li>
-                                                            
+
                                                         </ul>
                                                 </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
@@ -1159,9 +1161,9 @@ and open the template in the editor.
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav" id="sidebar">
-                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"></a><p id="text1">EDIT</p></li>
-                        <li id="stl" class="hov"  onclick="hls();"><a href="#tabs-2" id="style" ><img class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"></a><p id="text1">STYLE</p></li>
-                        <li id="blk" class="hov"  onclick="hlb();"><a href="#tabs-3" id="block" ><img class="optbtn" src="images/sidebar/Icons_blockButton.svg" alt="" width="40" height="40"  ng-click="showBlocks()"></a><p id="text1">BLOCK</p></li>
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"><p id="text1">EDIT</p></a></li>
+                        <li id="stl" class="hov"  onclick="hls();"><a href="#tabs-2" id="style" ><img class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>
+                        <li id="blk" class="hov"  onclick="hlb();"><a href="#tabs-3" id="block" ><img class="optbtn" src="images/sidebar/Icons_blockButton.svg" alt="" width="40" height="40"  ng-click="showBlocks()"><p id="text1">BLOCK</p></a></li>
                         <!--<li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>--> 
                     </ul>
                 </div>

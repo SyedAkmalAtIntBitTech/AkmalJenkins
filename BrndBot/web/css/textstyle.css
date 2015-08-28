@@ -9,54 +9,57 @@ and open the template in the editor.
 */
 
 .MH1{
-    font-size: 25px;    
+    font-size: 1.56em;    
 }
 
 .MH2{
-    font-size: 30px;
+    font-size: 1.88em;
 }
 .SP1{
-    font-size: 20px;
+    font-size: 1.25em;
+}
+.SP2{
+    font-size: 1.44em;
 }
 .SH1{
-    font-size: 16px;
+    font-size: 1em;
 }
 .SH2{
-    font-size: 22px;
+    font-size: 1.38em;
 }
 .SS1{
-   font-size: 12px; 
+   font-size: 0.75em; 
 }
 .SS2{
-  font-size: 14px;  
+  font-size: 0.88em;  
 }
 .BT1{
-     font-size: 13px;
+     font-size: 0.81em;
 }
 .BT2{
-     font-size: 18px;
+     font-size: 1.13em;
 }
 .BC1{
-    font-size: 12px;
+    font-size: 0.75em;
 }
 .BC2{
-    font-size: 16px;
+    font-size: 1em;
 }
 .FL1{
-     font-size: 12px;
+     font-size: 0.75em;
 }
 .FL2{
-     font-size: 15px;
+     font-size: 0.94em;
 }
 .il1{
-     font-size: 10px;
+     font-size: 0.63em;
 }
 .il2{
-     font-size: 12px;
+     font-size: 0.75em;
 }
 .LE1{
-     font-size: 13px;
+     font-size:0.81em;
 }
 .LE2{
-    font-size: 16px;
+    font-size: 1em;
 }

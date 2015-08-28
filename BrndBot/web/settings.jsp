@@ -25,7 +25,7 @@ and open the template in the editor.
         <script src="js/prettify.js"></script>
         <script src="js/jquery.bsFormAlerts.js"></script>
         <script type="text/javascript" src="jscolor/jscolor.js"></script>
-
+   <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/tabcontent.js" type="text/javascript"></script>
         <script src="js/settings.js" type="text/javascript"></script>
         <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
@@ -217,7 +217,7 @@ and open the template in the editor.
 
                                         <div  class="form-group">
                                             <div class="col-md-5 col-md-offset-5">
-                                                <button type="submit"  class="btn btn-info">Enter</button><br>
+                                                <button type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br>
                                             </div>
                                         </div>
 
@@ -308,7 +308,7 @@ and open the template in the editor.
                                                                     <input type="hidden" id="finalcolor6" name="finalcolor6" ng-model="selColor.finalcolor6"/>
 
                                                                     <div class="span4 col-md-offset-0">
-                                                                        <button  type="button" class="btn btn-info" ng-click="createUserPreferences()">SAVE</button>
+                                                                        <button  type="button" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="createUserPreferences()">SAVE</button>
                                                                     </div>
 
                                                                 </form>
@@ -356,7 +356,7 @@ and open the template in the editor.
                                             <div  class="form-group">
                                                 <input type="hidden" name="lookid" id="lookid">
                                                 <div class="span3 col-md-offset-0 ">
-                                                    <button id="loochooserbutton" type="submit"  ng-click="updateLooks()" class="btn btn-info">SAVE</button><br><br><br>
+                                                    <button id="loochooserbutton" type="submit"  ng-click="updateLooks()" class="button button--moema button--text-thick button--text-upper button--size-s">SAVE</button><br><br><br>
                                                 </div>
                                             </div>
                                         </div>
@@ -395,7 +395,7 @@ and open the template in the editor.
                                             </div>  
 
                                             <div class="span4 col-md-offset-1">
-                                                <button type="button" class="btn btn-info" ng-click="updateBrands()">SAVE</button>
+                                                <button type="button" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="updateBrands()">SAVE</button>
                                             </div>
                                         </form>
 
@@ -441,8 +441,8 @@ and open the template in the editor.
 
                                             <div style="position: absolute; float:left;">
                                                 <div>
-                                                    <button id="Servicecontinue" type="submit" class="btn btn-info">Save</button>
-                                                    <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
+                                                    <button id="Servicecontinue" type="submit" class="button button--moema button--text-thick button--text-upper button--size-s">Save</button>
+                                                    <button id="Servicecontinue" type="reset" value="Reset" class="button button--moema button--text-thick button--text-upper button--size-s">Reset</button><br>
                                                 </div>
                                             </div>
 
