@@ -460,6 +460,11 @@
                     <input type="text" size="35" id="filePath" /> <br /><br />
                     <input type="button" class="fileButton" id="fileButton" value="Submit" />
                 </p>
+                <p>
+                    image:<br /><br />
+                    <select id="adminBackgroundImage"><option value="none">---select---</option></select>
+                    
+                </p>
                 <hr>
                 <p>
                     Filters:

@@ -283,7 +283,7 @@
                 <p id="comment1">Choose a color palette</p> 
                 <p id="comment2">Click on a color to change it or choose from a theme.<br>
 Please arrange them with most used to least used in your designs.</p>
-                <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
+                <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USED</span></p> </div>
 
                 <div id="sortable" class="step_wrapper">
                     <div id="elementToPutStyleInto1" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto1')"></div>
@@ -321,10 +321,9 @@ Please arrange them with most used to least used in your designs.</p>
                                         <div ng-show="colors.theme_id == null">
                                         <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
                                         </div>
-                                        <div ng-show="colors.id == null" style="position:relative; padding-top: 10px;">
                                             
                                         <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>
-                                        </div>
+                                        
                                     </div> 
                                     <div id='id'>
                                         <p><br/></p>
