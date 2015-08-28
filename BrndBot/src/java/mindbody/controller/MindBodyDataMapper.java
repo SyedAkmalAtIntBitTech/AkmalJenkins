@@ -128,7 +128,7 @@ public class MindBodyDataMapper {
                             XMLGregorianCalendar xmlcalendarStartDate = (XMLGregorianCalendar) jcalendarStartDate.getValue();
                             XMLGregorianCalendar xmlcalendarStartTime = (XMLGregorianCalendar) jcalendarStartTime.getValue();
 
-                            SimpleDateFormat dateFormat = null;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEE h:mm a");
                             String formattedDate = "";
                             if (!StringUtil.isEmpty(epochValue)) {
                                 dateFormat = new SimpleDateFormat(epochValue);
@@ -140,6 +140,7 @@ public class MindBodyDataMapper {
                                 try {
                                     formattedDate = dateFormat.format(finalDate);
                                 } catch (Exception e) {
+                                    //This is double make sure that the client doesn't enter garbage values
                                     dateFormat = new SimpleDateFormat("EEEEE h:mm a");
                                     formattedDate = dateFormat.format(finalDate);
                                 }
@@ -159,7 +160,7 @@ public class MindBodyDataMapper {
                             XMLGregorianCalendar xmlcalendarEndDate = (XMLGregorianCalendar) jcalendarEndDate.getValue();
                             XMLGregorianCalendar xmlcalendarEndTime = (XMLGregorianCalendar) jcalendarEndTime.getValue();
 
-                            SimpleDateFormat dateFormat = null;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEE h:mm a");
                             String formattedDate = "";
                             if (!StringUtil.isEmpty(epochValue)) {
                                 dateFormat = new SimpleDateFormat(epochValue);
@@ -171,24 +172,11 @@ public class MindBodyDataMapper {
                                 try {
                                     formattedDate = dateFormat.format(finalDate);
                                 } catch (Exception e) {
+                                    //This is double make sure that the client doesn't enter garbage values
                                     dateFormat = new SimpleDateFormat("EEEEE h:mm a");
                                     formattedDate = dateFormat.format(finalDate);
                                 }
                                 json_mindbody_enrollment_data.put(element, formattedDate);
-                            } else {
-                                json_mindbody_enrollment_data.put(element, defaultValue);
-                            }
-
-                        }
-
-                        if (class_model_option.equalsIgnoreCase("EnrollmentEndDateTime")) {
-
-                            JAXBElement<XMLGregorianCalendar> calendarEnd = mindbody_enrollments.getEndTime();
-
-                            XMLGregorianCalendar calendarEndTime = (XMLGregorianCalendar) calendarEnd.getValue();
-
-                            if (calendarEndTime != null) {
-                                json_mindbody_enrollment_data.put(element, calendarEndTime);
                             } else {
                                 json_mindbody_enrollment_data.put(element, defaultValue);
                             }
@@ -326,7 +314,7 @@ public class MindBodyDataMapper {
 
                             XMLGregorianCalendar calendarStartDateTime = (XMLGregorianCalendar) calendarStart.getValue();
 
-                            SimpleDateFormat dateFormat = null;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEE h:mm a");
                             String formattedDate = "";
                             if (!StringUtil.isEmpty(epochValue)) {
                                 dateFormat = new SimpleDateFormat(epochValue);
@@ -336,6 +324,7 @@ public class MindBodyDataMapper {
                                 try {
                                     formattedDate = dateFormat.format(calendarStartDateTime);
                                 } catch (Exception e) {
+                                    //This is double make sure that the client doesn't enter garbage values                                    
                                     dateFormat = new SimpleDateFormat("EEEEE h:mm a");
                                     formattedDate = dateFormat.format(calendarStartDateTime);
                                 }
