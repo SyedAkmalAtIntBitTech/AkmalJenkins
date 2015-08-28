@@ -44,7 +44,7 @@ and open the template in the editor.
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
-
+        <link href="css/imagecropper.css" rel="stylesheet" type="text/css"/>
         <style>
             .socialimage{
                 width: 100px;
@@ -112,22 +112,34 @@ and open the template in the editor.
             }
 
             #cropper_popup{
-
+                  position: fixed;
+                top: 40%;
+                left: 50%;
+                z-index: 2147483583;
+                width: 460px;
+                margin: -250px 0 0 -280px;
+                background-color: #F4F0F8;
+                border: 1px solid #999;
+                border: 1px solid rgba(0, 0, 0, 0.3);
+                *border: 1px solid #999;
+                border-radius: 6px;
+                box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+                background-clip: padding-box;
                 display:none;
                 position: fixed;
-                width: 625px;
-                height:500px;
-                top: 20%;
-                left: 25%;
-                margin-left:-155px;
-                margin-top:-110px;
-                border:5px solid #686868 ;
-                background-color:#CDCDFF;
-                padding:30px;
-                z-index:102;
+/*                width: 625px;*/
+               height:605px;
+/*                top: 20%;
+                left: 25%;*/
+/*                margin-left:-155px;
+                margin-top:-110px;*/
+/*                border:5px solid #686868 ;*/
+/*                background-color:#CDCDFF;*/
+/*                padding:30px;
+                z-index:102;*/
                 font-family:Verdana;
                 font-size:10pt;
-                border-radius:10px;
+/*                border-radius:10px;*/
                 -webkit-border-radius:20px;
                 -moz-border-radius:20px;
                 font-weight:bold;
@@ -364,6 +376,7 @@ and open the template in the editor.
                                                             var height = $(this).attr("height");
                                                    if (tag === "text")
                                                    {
+                                                       
                                                         var colorName=$(this).attr("font-color-name");
                                                         for(var i=1;i<=6; i++)
                                                         {
@@ -612,18 +625,50 @@ and open the template in the editor.
                                     </form>
                                 </div>   
                             </div>
-                            <div id="cropper_popup" name="cropper_popup">
+                            <div id="cropper_popup" class="cropper_popup" name="cropper_popup">
+                                 <div class="imagecropper_header">
+                        <div class="imagecropper_close">×</div>
+                             <h3 class="imagecropper_title">Cropping image</h3>
+                                 
+                        </div>
                                 <div class="crop_image">
-<!--                                        <div class="cropMain"></div>
-                                        <div class="cropSlider"></div>-->
                                         <button class="cropButton">Crop</button>
 
-<!--                                    System Directory : <input type="file" class="uploadfile" id="uploadfile" name="uploadfile" > <br>
-                                    User Directory : <input type="button" id="UserUploadedImages" name="UserUploadedImages" value="Click" ng-click="showImages()" > <br> -->
 
-                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>
+                
+<!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
                                 </div>   
+                                    <div class="imagecropper_footer">
+                        <button class="imagecropper_no" onclick=closeCropper()>Skip</button>
+                        <button class="imagecropper_ok cropButton">Crop</button>
+                    </div>
                             </div>
+                            
+                            
+<!--                <div class="imagecropper_modal fade in" id="cropper_popup" name="cropper_popup" style="width: 384px; margin-left: -177px; margin-top: -325.5px;">
+                    <div class="imagecropper_header">
+                        <div class="imagecropper_close >×</div>
+                        <h3 class="imagecropper_title">Cropping image</h3>
+                        <input type="text" placeholder="width">
+                        <input type="text" placeholder="height">
+                    </div>
+                    <div class="imagecropper_content" style="height: 531px;">
+                        <canvas width="354" height="531"></canvas>
+                        <div class="crop_image"></div>
+                    </div>
+                    <div class="imagecropper_footer">
+                        <button class="imagecropper_no" onclick=closeCropper()>Skip</button>
+                        <button class="imagecropper_ok cropButton">Crop</button>
+                    </div>
+                </div>           
+
+                </div>           -->
+                            
+                            
+                            
+                            
+                            
+                            
 
                         </div>
 
@@ -1101,7 +1146,7 @@ $(this).addClass('highlight');
 
 //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
 
-                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div><button class="cropButton">Crop</button><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
+                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
 
                                             i = i + 1;
 
@@ -1153,7 +1198,7 @@ $(this).addClass('highlight');
                             }
 
                             oFReader.onload = function (oFREvent) {
-                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div><button class="cropButton">Crop</button><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');                                     
+                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');                                     
                                         $('.crop_image').draggable();
                                         $(".crop_image").resizable();
 
