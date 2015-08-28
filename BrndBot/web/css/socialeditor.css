@@ -104,7 +104,7 @@ and open the template in the editor.
 }
 .hov:hover{
     background-color: white;
-    color: #000;
+    color: black;
 }
 .highlight {background-color:white;}
 
@@ -220,6 +220,11 @@ and open the template in the editor.
     text-align: left;
     line-height: 12px;
     letter-spacing:0em;
+}
+.palpos{
+    position: relative;
+    left:-15px;
+    
 }
 .editpal{
 font-family: "proxima-nova",sans-serif;
@@ -524,7 +529,7 @@ letter-spacing:0em;
 }
 
 .sidebar-nav li a:hover {
-    color: #fff;
+    color: #000;
     background: rgba(255,255,255,0.2);
     text-decoration: none;
 }
@@ -617,6 +622,18 @@ letter-spacing:0em;
         border-color: rgba(0,0,0,.2);
     
 }
+#fcolcontainer ul
+{
+margin: 0;
+padding: 0;
+list-style-type: none;
+text-align: center;
+width:360px;
+}
+#fcolcontainer ul li{
+    display: inline;
+    
+}
 #colcontainer ul
 {
 margin: 0;
@@ -631,7 +648,7 @@ text-align: center;
     position: relative;
     left: -10px;
     float: left;
-    
+    display: inline;
     height: 12px;
     border-width: 1px;
 }

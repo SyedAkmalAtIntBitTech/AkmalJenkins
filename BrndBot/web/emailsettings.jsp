@@ -65,10 +65,9 @@
 		};		
 // END Data and stores here for store-based selects
  
-    
-    
+   
     </script>
-
+ 
     <style type='text/css'>
 			div.selectBox
 			{
@@ -78,33 +77,53 @@
 				text-align:left;
 				line-height:30px;
 				clear:both;
-				color:#888;
+                                font-weight:600;
+				color: #000000;
+                                border-top-left-radius: 5px;
+                                border-bottom-left-radius:  5px;
+                               background-color: #C6C6C6;
+                                border:transparent;
 			}
+                        .selectBox{
+                                position:relative;
+				display:inline-block;
+				cursor:default;
+				text-align:left;
+				line-height:30px;
+				clear:both;
+                                font-weight:600;
+				color: #000000;
+                                border-top-left-radius: 5px;
+                                border-bottom-left-radius:  5px;
+                                background-color: #C6C6C6;
+                                border:transparent;
+                                
+                        }
 			span.selected
 			{
 				width:167px;
-				text-indent:20px;
-				border:1px solid #ccc;
+				text-indent:10px;
+				border:0px solid #ccc;
+                                border-top-left-radius: 5px;
+                                border-bottom-left-radius:  5px;
 				border-right:none;
-				border-top-left-radius:5px;
-				border-bottom-left-radius:5px;
-				background:#f6f6f6;
+				background-color: #C6C6C6;
 				overflow:hidden;
 			}
 			span.selectArrow
 			{
-				width:30px;
-				border:1px solid #60abf8;
-				border-top-right-radius:5px;
-				border-bottom-right-radius:5px;
+				width:20px;
 				text-align:center;
-				font-size:20px;
+				font-size:22px;
+                                border-top-right-radius:5px;
+                                border-bottom-right-radius:5px;
 				-webkit-user-select: none;
 				-khtml-user-select: none;
 				-moz-user-select: none;
 				-o-user-select: none;
 				user-select: none;
-				background:#4096ee;
+				background-image: url('images/dropdown.png');
+                                background-repeat: space;
 			}
 			
 			span.selectArrow,span.selected
@@ -118,12 +137,11 @@
 			div.selectOptions
 			{
 				position:absolute;
-				top:28px;
+				top:35px;
 				left:0;
-				width:198px;
+				width:188px;
 				border:1px solid #ccc;
-				border-bottom-right-radius:5px;
-				border-bottom-left-radius:5px;
+                                border-radius:7px;
 				overflow:hidden;
 				background:#f6f6f6;
 				padding-top:2px;
@@ -131,18 +149,32 @@
 			}
 				
 			span.selectOption
-			{
+			{   
+                             
 				display:block;
-				width:80%;
+				width:100%;
 				line-height:20px;
 				padding:5px 10%;
-			}
+                        }
 			
 			span.selectOption:hover
 			{
-				color:#f6f6f6;
-				background:#4096ee;	
-			}			
+				color: #000000;
+				background:#7ab5d3;
+                                
+			}	
+                        
+                        #s11{
+                            position:relative;
+				display:inline-block;
+				cursor:default;
+				text-align:left;
+				line-height:30px;
+				clear:both;
+				color: #000000;
+                                background: #888;
+                            
+                        }
 		</style>
     <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <script type='text/javascript'><!--
@@ -172,7 +204,8 @@
 					});
 				});				
 			}//-->
-		</script>
+             		
+    </script>
         
         
         
@@ -190,20 +223,8 @@
         <div class="col-md-6 col-md-offset-0 bgcols">
 
            
- <select id="s11" data-dojo-id="s11" data-dojo-type="dijit.form.Select"  data-dojo-props="name:'s11',store:new dojo.data.ItemFileWriteStore({data:dojo.clone(data1)})">
- </select>
 
- <div class='selectBox'>
-			<span class='selected'></span>
-			<span class='selectArrow'>&#9660</span>
-			<div class="selectOptions" >
-				<span class="selectOption" value="Option 1">Option 1</span>
-				<span class="selectOption" value="Option 2">Option 2</span>
-				<span class="selectOption" value="Option 3">Option 3</span>
-			</div>
-		</div>
- 
-        
+
     </div>
         </div>
     </body>

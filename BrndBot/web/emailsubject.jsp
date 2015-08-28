@@ -149,13 +149,13 @@
                 border-radius: 5px;
             }
             #chooseEmailList{
-
-                color:black;
+                
+                color:#000;
                 border: 1px solid #DADADA;
                 height:50px;
-                width:350px;
+                width:300px;
                 font-size: 18px;
-                border-radius: 5px;
+                border-radius: 7px;
             }
             
             #chooseEmailId:focus{

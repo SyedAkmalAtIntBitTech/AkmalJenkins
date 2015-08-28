@@ -51,10 +51,12 @@
                         <p id="comment1"  class="col-md-4 col-md-offset-4">Please select an organization:</p><br>
                         <p id="text-left-1" class="col-md-4 col-md-offset-4">If you do not have an organization, choose "No Organization".</p><br>
                         <div class="col-md-3 col-md-offset-4">
-                          <select id="organizationdropdown" class="form-control" ng-model="organizations.org">
-                                <option ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}} </option>
+                          <select id="organizationdropdown" class="slt" ng-model="organizations.org">
+                              <option  ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}} </option>
                             </select>
                         </div>
+                        
+                       
                         
                     </div>
 
@@ -77,5 +79,42 @@
 				} );
 			})();
 		</script>
+                
+                <style>
+                                .slt {
+                                position:relative;
+				display:inline-block;
+				text-align:left;
+				line-height:30px;
+				clear:both;
+                                font-weight:600;
+				color: #000000;
+                                background-color: #C6C6C6;
+				border:1px solid #ccc;
+                                border-radius:7px;
+				padding-top:20px;
+                                width:300px;
+			}
+                         option{
+                                display:block;
+				width:100%;
+				line-height:20px;
+				padding:5px 10%;
+                                 position:relative;
+				text-align:left;
+				clear:both;
+                                font-weight:600;
+				color: #000000;
+                                border-radius: 5px;
+                                background-color: #C6C6C6;
+                             }
+                            #opt:hover
+			{
+				color: #000000;
+				background:#7ab5d3;
+                                
+			}	    
+                            
+                </style>     
            
 </html>

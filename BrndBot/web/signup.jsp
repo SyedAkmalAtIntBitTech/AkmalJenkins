@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.11.3.min.js"></script>
@@ -56,7 +57,7 @@
           
                         <div  class="form-group">
                              <div class="col-md-5 col-md-offset-5">
-                                 <button type="submit"  class="btn btn-info" >CREATE MY ACCOUNT</button><br><br><br>
+                                 <button type="submit"  class="button button--moema button--text-thick  button--size-s" style="white-space: nowrap;max-width: 300px;">CREATE MY ACCOUNT</button><br><br><br>
                              </div>
                         </div>
 
