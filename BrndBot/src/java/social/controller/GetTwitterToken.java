@@ -75,7 +75,7 @@ public class GetTwitterToken extends BrndBotBaseHttpServlet {
         try
          {
             twitter = new TwitterFactory().getInstance();
-            twitter.setOAuthConsumer("V9n3gzTRP7EwcRqW4OZAZS13l", "7qnu29n7vLRPIFmkPI14yD3EhyYHUJzhe39dfHBnF67KAgDHgV");
+            twitter.setOAuthConsumer("wpbVT8lVnvQ0KQzHLds540JPZ", "eILgUX4xFEyOHYpDWEcvhOuskjZDeUSJrKAetgiGRJTD7XxMsd");
             //twitter.setOAuthConsumer("G6fPQU023izaVT8RtAurlHmUW", "d6jMSiwI9XqVbNDMQ4XJmIzD9XrKwZC5mKjrbujepTOqgrnMEW");
             requestToken = twitter.getOAuthRequestToken();
             
@@ -126,7 +126,7 @@ public class GetTwitterToken extends BrndBotBaseHttpServlet {
         token = accessToken.getToken();
         tokenSecret = accessToken.getTokenSecret();   
         response.setContentType("text/plain");
-        response.getWriter().write(token+", "+tokenSecret+","+user_name);
+        response.getWriter().write(token+","+tokenSecret+","+user_name);
         
     }
 
