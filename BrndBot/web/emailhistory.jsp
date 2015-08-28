@@ -34,7 +34,7 @@
                 $scope.displayemailhistory = function (){
                 $http({
                         method : 'GET',
-                        url : 'GetEmailTagsServlet'
+                        url : 'GetEmailTags'
                 }).success(function(data, status, headers, config) {
     //                        alert(JSON.stringify(data.user_colors));
                     $scope.email_history = data;

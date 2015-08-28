@@ -112,7 +112,7 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             
             MessageResponses mandrillResponse = send_email.sendMail(message);
             int lastUpdateId = getSqlMethodsInstance().setEmailSentHistory(user_id, 
-                    html_text, from_email_address, emaillist_name);
+                    html_text, from_email_address, emaillist_name, tag);
             if ( mandrillResponse != null && lastUpdateId != -1){
                 EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
             }
