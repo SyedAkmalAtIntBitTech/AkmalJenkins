@@ -17,12 +17,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Social Layout Model</title>
-        <!--         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> 
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-        <link href="../css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<!--        <link href="../css/jquery-ui.css" rel="stylesheet" type="text/css"/>-->
         <link href="../css/site.css" rel="stylesheet" type="text/css"/>
 
         <script src="../js/jquery.blend.min.js" type="text/javascript"></script>
@@ -455,11 +455,11 @@
                     <input type='text' class='basic' id='blendColorPick' value='black' />
                 </p>  
                 <hr>
-                <p>
+<!--                <p>
                     File Path:<br /><br />
                     <input type="text" size="35" id="filePath" /> <br /><br />
                     <input type="button" class="fileButton" id="fileButton" value="Submit" />
-                </p>
+                </p>-->
                 <p>
                     image:<br /><br />
                     <select id="adminBackgroundImage"><option value="none">---select---</option></select>
