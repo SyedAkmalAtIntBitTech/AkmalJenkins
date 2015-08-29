@@ -24,7 +24,24 @@
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
         <title>email subject</title>
         <style>
-            
+/*            .slt {
+                                position:relative;
+				display:inline-block;
+				text-align:left;
+				line-height:30px;
+				clear:both;
+                                font-weight:600;
+				color: #000000;
+                                background-color: #f6f6f6;
+				border:1px solid #f6f6f6;
+                                border-radius:10px;
+				width:300px;
+			}
+                        option.optn{
+                            background-color:#d4d4d4;
+                            position: absolute;
+                            top:50px;
+                        }*/
         #drop-zone {
             /*Sort of important*/
             width: 300px;
@@ -150,12 +167,13 @@
             }
             #chooseEmailList{
                 
-                color:#000;
+                color: #3f4042;
+                background-color: #ccc;
                 border: 1px solid #DADADA;
-                height:50px;
+                height:40px;
                 width:300px;
                 font-size: 18px;
-                border-radius: 7px;
+                border-radius: 5px;
             }
             
             #chooseEmailId:focus{
@@ -644,9 +662,9 @@
                     <p class="header1 MH2"> Who do you want to send this email to?</p>
                     <br><br>   
                    
-                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
+                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist slt" hidden="true">
                         <option value="0">Select</option>
-                        <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                        <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                     </select>
                     <div id="drop-zone">
                         Drop files here...

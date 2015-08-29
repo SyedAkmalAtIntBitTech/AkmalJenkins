@@ -95,10 +95,10 @@
                         color: #2d4355;
                         font-style: normal;
                     }
-                   
+                   #scrl{overflow-y: scroll;overflow-x: hidden;width:950px;height:450px;}
         </style>
     </head>
-    <body ng-app>
+    <body ng-app style="overflow: hidden;">
         <div ng-controller="emailHistory" class="container" id="container"> 
             <div class="row">
                 <jsp:include page="leftmenu.html"/><!--/end left column-->
@@ -119,7 +119,7 @@
                     </div>
                     <hr style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
                    
-                    <div  class="col-md-6" ng-init="displayemailhistory()">
+                    <div id="scrl" class="col-md-6" ng-init="displayemailhistory()">
                         <ul  class="emlOneRowData L2 LE2" ng-repeat="email in email_history">                            
                             <li style="width:450px;text-align:left;left:-35px;">{{email.tag}}</li>
                             <li style="width: 250px">{{email.sent}}</li>

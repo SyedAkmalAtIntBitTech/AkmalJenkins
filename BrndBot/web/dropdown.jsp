@@ -138,16 +138,34 @@
 				background:#7ab5d3;
                                 
 			}	
-                        
+                        select#s11 option{
+                            border: 20px red solid ;
+                            border-width: 200px;
+                            border-radius: 10px;
+                            position: relative;
+                            font-size: 18pt;
+                            font-weight:normal;
+                            color: #888;
+                            background: #fff;
+                            
+                        }
+                        select#s11 option:focus{
+                            color: #000000;
+                            background: #7ab5d3;
+                        }
                         #s11{
+                            font-size: 18pt;
+                            font-weight:normal;
                             position:relative;
+                            left:50%;
 				display:inline-block;
 				cursor:default;
 				text-align:left;
 				line-height:30px;
 				clear:both;
-				color: #000000;
-                                background: #888;
+				color: #000;
+                                background: #ccc;
+                                border-radius: 5px;
                             
                         }
 		</style>
@@ -198,12 +216,10 @@
     </head>
     <body>
       
-        <select maxheight="-1" data-dojo-type="dijit/form/Select"> <option class="opt" value="">Select an option</option> <option value="1">option 1</option> <option value="2">option 2</option> <option value="3">option 3</option> </select>
+        <select id="s11" maxheight="-1" data-dojo-type="dijit/form/Select"><option  value="">Select an option</option> <option value="1">option 1</option> <option value="2">option 2</option> <option value="3">option 3</option> </select>
         
         
-         <select id="s11" data-dojo-id="s11" data-dojo-type="dijit.form.Select"  data-dojo-props="name:'s11',store:new dojo.data.ItemFileWriteStore({data:dojo.clone(data1)})">
- </select>
-           
+        
             <div class='selectBox'>
 			<span class='selected'></span>
 			<span class='selectArrow'></span>

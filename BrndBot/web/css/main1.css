@@ -574,27 +574,46 @@ opacity: 1;
 
 #organizationdropdown{
     border: none ;
+    width: 250px;
+    height: 30px;
      -webkit-appearance: none;
     -moz-appearance: none;
      box-shadow: none !important ;
     appearance: none;
-    padding: 2px 1px 2px 2px;
+    padding: 2px 1px 2px 5px;
     border: 1px solid #dadada;
     background: url("../images/dropdown.png") no-repeat right center;
     position:relative;
     font-weight:600;
-    color: #606163;
-    background-color: #E0E0E0;
-    border-radius:7px;
+    color: #3f4042;
+    background-color: #ccc;
+    border-radius:5px;
 				
 }
-#organizationdropdown option{
-    color: #606163;
-}
+select#organizationdropdown option{
+                            border: 10px #888 solid ;
+                            border-radius: 10px;
+                            position: relative;
+                            margin: 30px 30px 30px 30px;
+                            padding: 30px 30px 30px 30px;
+                            padding: 2em;
+                            font-size: 13pt;
+                            font-weight:normal;
+                            color: #888;
+                            background: #fff;
+                            
+                        }
+/*#organizationdropdown option{
+                        color: black;
+                        border-color: #000000;
+                        border-radius: 10px;
+                        }
+                      
+    
 #organizationdropdown option:hover{
    color: #000000;
    background:#7ab5d3;
-}
+}*/
 
 #organisationbutton{
     position: relative;
