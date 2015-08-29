@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        <script type="text/javascript" src="js/angular.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -33,7 +34,7 @@
         </style>
         <title>email preview</title>
         <style>
-         #iphone{
+            #iphone{
                 width: 25px;
                 height: 50px;
             }
@@ -86,19 +87,19 @@
             .content{
                 position: relative;
                 top: 95px;
-/*                margin-left: 60px;
-                zoom: 0.5;*/
+                /*                margin-left: 60px;
+                                zoom: 0.5;*/
             }
             #popup {
-/*               
-                width: 500px;
-                height: 50em;*/
+                /*               
+                                width: 500px;
+                                height: 50em;*/
             }
             .preview{
-                
+
             }
-            
-         
+
+
         </style>
         <script type="text/javascript">
             var started;
@@ -119,102 +120,124 @@
             }
         </script>
 
-    </head>
     <%!
-    String emailSubject="";
-    String emailList="";
-    String htmlData="";
-    SqlMethods sqlmethods = new SqlMethods();
+        String emailSubject = "";
+        String emailList = "";
+        String htmlData = "";
+        SqlMethods sqlmethods = new SqlMethods();
     %>
     <%
-    sqlmethods.session = request.getSession(true);
-    
-    emailSubject=(String)sqlmethods.session.getAttribute("email_subject");
-    emailList = (String)sqlmethods.session.getAttribute("email_list");
-    htmlData=(String)sqlmethods.session.getAttribute("htmldata");
+        sqlmethods.session = request.getSession(true);
+
+        emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
+        emailList = (String) sqlmethods.session.getAttribute("email_list");
+        htmlData = (String) sqlmethods.session.getAttribute("htmldata");
     %>
-<script>
-    $(document).ready(function() {
-     $.ajax({
-                                    url: getHost() + "PreviewServlet",
-                                            method: "post",
-                                            data:{htmlString: $(".content").html()},
-                                            success: function (responseText) {
-                                            
-                                                //show popup showing
-                                            $(".content").empty();
-                                            $(".content").append(responseText);
-                                            
-                                            
-                                            }
-                                    }); 
-                       }); 
-                           function show(id){
-                            var imageUrl= $("#"+id).css("background-image");
-                            
-                              if(id==="ipad"){
-                               $(".preview").css("width","850px").css("height","850px").css("overflow","none").css("overflow","hidden");
-                               $(".iphoneshow").css("background-image",imageUrl).css("display",'block').css("width","239px").css("height","300px").css("overflow","hidden")
-                               .css("border-color","transparent").css("background-color","transparent").css("margin-left","-55px").css("margin-top","-80px");
-                                     $(".content").css("margin-left","-54px").css("margin-top","-150px").css("zoom","29.8%")
-                                             .css("width","400px"); 
-                            }
-                           else  if(id==="imac")
-                             {
-                               $(".preview").css("width","550px").css("height","950px").css("overflow","hidden").css("align","center");
-                               $(".iphoneshow").css("background-image",imageUrl)
-                                       .css("display",'block').css("height","413px").css("width","295px").css("margin-left","-55px").css("margin-top","-80px")
-                                       .css("overflow-x","hidden").css("border-color","transparent").css("background-color","transparent");
-                               $(".content").css("margin-left","-33px").css("margin-top","-132px").css("width","440px").css("height","920px").css("overflow","none").css("zoom","37%"); 
-                             
-                                } 
-                            else {  
-                               $(".preview").css("width","550px").css("height","950px").css("overflow","hidden").css("align","center");
-                               $(".iphoneshow").css("background-image",imageUrl)
-                                       .css("display",'block').css("height","370px").css("width","195px").css("margin-left","-55px").css("margin-top","-80px")
-                                       .css("overflow-x","hidden").css("border-color","transparent").css("background-color","transparent");
-                               $(".content").css("margin-left","-97px").css("margin-top","-122px").css("width","400px").css("height","920px").css("overflow","none").css("zoom","22%"); 
-                             
-                                } 
-                          
-                             
-                          
-                         
-                        
-                           }
-                       
-                     function sendEmail(){
-                           alert("clicked");
-                           $.ajax({  
-                                        url: getHost() + "SendEmailServlet", 
-                                        method: "post",
-                                        data:{
-                                            from_name: $("#name").val(),
-                                            email_subject: $("#subject").val(),
-                                            email_addresses:$("#toaddress").val(),
-                                            from_email_address: $("#formaddress").val(),
-                                            reply_to_email_address: $("#email").val()
-                                            },
-                                        success: function (responseText) {
+    <script>
+        function emailSettings($scope, $http){
+            
+            $scope.getEmailSettings = function(){
+                
+                var email_settings = {"type": "get"};
+                
+                $http({
+                        method : 'POST',
+                        url : 'EmailSettingsServlet',
+                        headers: {'Content-Type': 'application/json'},
+                        data: email_settings
+                }).success(function(data, status, headers, config) {
+                    $scope.email_settings = data;
+                    if (data === error){
+                        alert(data);
+                    }
+                }).error(function(data, status, headers, config) {
+                    alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                });        
+                
+            };
+        }
+        
+    </script>
+    
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: getHost() + "PreviewServlet",
+                method: "post",
+                data: {htmlString: $(".content").html()},
+                success: function (responseText) {
 
-                                            document.location.href = "emailsent.jsp";
-                                        }
-
-                                        });
-                           
-                       }
-                           
-                       </script> 
-    <body>
+                    //show popup showing
+                    $(".content").empty();
+                    $(".content").append(responseText);
 
 
-        <div class="row">
-           <jsp:include page="leftmenu.html"/>
-            <div class="col-md-4 col-md-offset-1">
+                }
+            });
+        });
+        function show(id) {
+            var imageUrl = $("#" + id).css("background-image");
+
+            if (id === "ipad") {
+                $(".preview").css("width", "850px").css("height", "850px").css("overflow", "none").css("overflow", "hidden");
+                $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px").css("overflow", "hidden")
+                        .css("border-color", "transparent").css("background-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px");
+                $(".content").css("margin-left", "-54px").css("margin-top", "-150px").css("zoom", "29.8%")
+                        .css("width", "400px");
+            }
+            else if (id === "imac")
+            {
+                $(".preview").css("width", "550px").css("height", "950px").css("overflow", "hidden").css("align", "center");
+                $(".iphoneshow").css("background-image", imageUrl)
+                        .css("display", 'block').css("height", "413px").css("width", "295px").css("margin-left", "-55px").css("margin-top", "-80px")
+                        .css("overflow-x", "hidden").css("border-color", "transparent").css("background-color", "transparent");
+                $(".content").css("margin-left", "-33px").css("margin-top", "-132px").css("width", "440px").css("height", "920px").css("overflow", "none").css("zoom", "37%");
+
+            }
+            else {
+                $(".preview").css("width", "550px").css("height", "950px").css("overflow", "hidden").css("align", "center");
+                $(".iphoneshow").css("background-image", imageUrl)
+                        .css("display", 'block').css("height", "370px").css("width", "195px").css("margin-left", "-55px").css("margin-top", "-80px")
+                        .css("overflow-x", "hidden").css("border-color", "transparent").css("background-color", "transparent");
+                $(".content").css("margin-left", "-97px").css("margin-top", "-122px").css("width", "400px").css("height", "920px").css("overflow", "none").css("zoom", "22%");
+
+            }
+        }
+
+        function sendEmail() {
+            alert("clicked");
+            $.ajax({
+                url: getHost() + "SendEmailServlet",
+                method: "post",
+                data: {
+                    from_name: $("#name").val(),
+                    email_subject: $("#subject").val(),
+                    email_addresses: $("#toaddress").val(),
+                    from_email_address: $("#formaddress").val(),
+                    reply_to_email_address: $("#email").val()
+                },
+                success: function (responseText) {
+
+                    document.location.href = "emailsent.jsp";
+                }
+
+            });
+
+        }
+
+    </script>
+    </head>
+
+    <body ng-app>
+        <div class="row" ng-controller="emailSettings">
+            <jsp:include page="leftmenu.html"/>
+            <div class="col-md-4 col-md-offset-1" ng-init="getEmailSettings()">
                 <p id="textgrt" class="MH1">SEND EMAIL PREVIEW</p>
                 <p id="text2">go back</p>
                 <form class="form-horizontal" id="emailform">
-                     <div class="group">
+                    <div class="group">
                         <div class="col-md-5 col-md-offset-5">
                             <input id="name" class="form-control simplebox" name="from_name" type="text" required>
                             <label>NAME</label><br>
@@ -222,27 +245,27 @@
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">                            
-                            <input id="subject" class="form-control simplebox" name="email_subject" type="text" value= <%=emailSubject %>>
+                            <input id="subject" class="form-control simplebox" name="email_subject" type="text" value='<%= emailSubject %>'>
                             <label>SUBJECT</label><br>
                         </div>
                     </div>
 
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="formaddress" class="form-control simplebox" name="from_email_address" type="text" required>
+                            <input id="formaddress" class="form-control simplebox" name="from_email_address" type="text" required value="{{email_settings.from_address}}">
                             <label>FROM ADDRESS</label><br>
                         </div>
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                             <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value=<%=emailList %>>
+                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value='<%=emailList %>'>
                             <label>TO ADDRESS</label><br>
                         </div>
                     </div>
 
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="email" class="form-control simplebox" name="reply_to_email_address" type="text" required>
+                            <input id="email" class="form-control simplebox" name="reply_to_email_address" type="text" required value="{{email_settings.reply_email_address}}">
                             <label>EMAIL</label><br><br>
                         </div>
                     </div>
@@ -257,34 +280,34 @@
                 </form>
             </div>
             <div class="col-md-4">
-<!--
-                <ul class="images">
-                    <li><div id="iphone" class="img-responsive fancybox" onMouseOver="javascript:showLightBox()" onMouseOut="javascript:stopShowLightBox()" style="cursor: pointer;background-image: url('images/iphone 6 screen.png');"></div></li>
-                    <li><img id="imac" class="img-responsive fancybox" src="images/IMAC.png"></li>
-                    <li ><img id="ipad" class="img-responsive fancybox" src="images/IPAD3.png"></li>
-                
-                </ul>-->
-                
-                  <ul class="images ">
-                        <li><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
-                        <li><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
-                        <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
-                  </ul>
+                <!--
+                                <ul class="images">
+                                    <li><div id="iphone" class="img-responsive fancybox" onMouseOver="javascript:showLightBox()" onMouseOut="javascript:stopShowLightBox()" style="cursor: pointer;background-image: url('images/iphone 6 screen.png');"></div></li>
+                                    <li><img id="imac" class="img-responsive fancybox" src="images/IMAC.png"></li>
+                                    <li ><img id="ipad" class="img-responsive fancybox" src="images/IPAD3.png"></li>
+                                
+                                </ul>-->
 
-                  
-        <div class="iphoneshow img-responsive"   id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
-           <div class="content">  
+                <ul class="images ">
+                    <li><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
+                    <li><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
+                    <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
+                </ul>
+
+
+                <div class="iphoneshow img-responsive"   id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
+                    <div class="content">  
                         <%=htmlData %>
+                    </div>
                 </div>
-         </div>
-                
-                
-                
-                
-                
-                       
+
+
+
+
+
+
             </div>
         </div>
-                
+
     </body>
 </html>
