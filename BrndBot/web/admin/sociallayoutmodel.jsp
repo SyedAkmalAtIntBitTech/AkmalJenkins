@@ -461,8 +461,8 @@
                     <input type="button" class="fileButton" id="fileButton" value="Submit" />
                 </p>-->
                 <p>
-                    image:<br /><br />
-                    <select id="adminBackgroundImage"><option value="none">---select---</option></select>
+                    <label id="selectImage" title="Please upload all your images using FTP client in the following folder: admin/AdminLayoutBackgroundImages">Please Select Image:</label><br /><br />
+                    <select id="adminBackgroundImage"  title="Please upload all your images using FTP client in the following folder: admin/AdminLayoutBackgroundImages"><option value="none">---select---</option></select>
                     
                 </p>
                 <hr>
@@ -719,10 +719,10 @@
                     <input type="button" class="rightButton" id="deleteImageButton" value="Delete Image" />
                 </p>
 
-                <p>
+<!--                <p>
                     <input type="button" class="rightButton" id="addButton" value="Add Button" />
                     <input type="button" class="rightButton" id="deleteButton" value="Delete Button" />
-                </p>
+                </p>-->
 
                 <p>
                     <input type="button" class="rightButton" id="addBlockButton" value="Add Block" />
