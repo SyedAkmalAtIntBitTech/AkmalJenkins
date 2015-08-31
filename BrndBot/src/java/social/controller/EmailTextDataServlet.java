@@ -65,9 +65,9 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
 
     
  private Boolean updateEmailListPreference(Integer user_id, String emailListName, String emailAddresses) throws JSONException, SQLException {
-        JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
+        org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
 
-        if (emailListArrayJSON.length() == 0){
+        if (emailListArrayJSON.size() == 0){
                 org.json.simple.JSONArray json_user_email_addresses_array = new org.json.simple.JSONArray();
                 JSONObject json_user_preferences_email = new JSONObject();
                 JSONObject json_user_preferences_listnames = new JSONObject();
@@ -79,12 +79,12 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
 
                 json_user_preferences_email.put(IConstants.kEmailListNameKey, emailListName);
                 json_user_preferences_email.put(IConstants.kEmailAddressesKey, emailAddresses);
-                emailListArrayJSON.put(json_user_preferences_email);
+                emailListArrayJSON.add(json_user_preferences_email);
                 return AddEmailListUserPreference(user_id, emailListArrayJSON);
         }else{
                 org.json.simple.JSONArray json_user_email_addresses_array = new org.json.simple.JSONArray();
                 JSONObject json_user_preferences_email = new JSONObject();
-                org.json.JSONObject emailListJSONObject = new org.json.JSONObject();
+                JSONObject emailListJSONObject = new JSONObject();
                 String array_email_list[] = emailAddresses.split(",");
 
                 for (int i = 0; i< array_email_list.length; i++){
@@ -92,13 +92,13 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
                 }
 
                 Boolean foundEmailListToUpdate = false;
-                for (int i = 0; i < emailListArrayJSON.length(); i++) {
-                    emailListJSONObject = emailListArrayJSON.getJSONObject(i);
-                    String currentListName = emailListJSONObject.getString(IConstants.kEmailListNameKey);
+                for (int i = 0; i < emailListArrayJSON.size(); i++) {
+                    emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
+                    String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
                     if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
                         if (emailListName.equals(currentListName)) {
                             emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddresses);
-                            emailListArrayJSON.put(i, emailListJSONObject);
+                            emailListArrayJSON.add(i, emailListJSONObject);
                             foundEmailListToUpdate = true;
                             break;
                         }
@@ -107,10 +107,10 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
                 
                 if(!foundEmailListToUpdate)
                 {
-                    emailListJSONObject = new org.json.JSONObject();
+                    emailListJSONObject = new JSONObject();
                     emailListJSONObject.put(IConstants.kEmailListNameKey, emailListName);
                     emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddresses);
-                   emailListArrayJSON.put(emailListJSONObject);
+                   emailListArrayJSON.add(emailListJSONObject);
                 }
                 
                 return updateEmailListUserPreference(user_id, emailListArrayJSON);
@@ -118,13 +118,13 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
         }
     }
  
-    private Boolean AddEmailListUserPreference(Integer user_id, JSONArray json_user_preferences_emails) throws SQLException {
+    private Boolean AddEmailListUserPreference(Integer user_id, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
         org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
         userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
         return getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);
     }
 
-    private Boolean updateEmailListUserPreference(Integer user_id, org.json.JSONArray json_user_preferences_emails) throws SQLException {
+    private Boolean updateEmailListUserPreference(Integer user_id, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
         org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
         userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
         return getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);

@@ -730,7 +730,7 @@ public class SqlMethods {
         return userPreferencesJSONObject;
     }
 
-    public JSONArray getEmailListsPreferences(Integer user_id) {
+    public org.json.simple.JSONArray getEmailListsPreferences(Integer user_id) {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
@@ -738,7 +738,7 @@ public class SqlMethods {
         PGobject pgobject = new PGobject();
         JSONParser parser = new JSONParser();
         org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
-        JSONArray emailListJSONArray = new JSONArray();
+        org.json.simple.JSONArray emailListJSONArray = new org.json.simple.JSONArray();
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
@@ -758,7 +758,7 @@ public class SqlMethods {
             if (userPreferencesJSONObject != null && emailLists != null) {
                 for (int i = 0; i < emailLists.size(); i++) {
                     org.json.simple.JSONObject emailJSONObject = (org.json.simple.JSONObject) emailLists.get(i);
-                    emailListJSONArray.put(emailJSONObject);
+                    emailListJSONArray.add(emailJSONObject);
                 }
             }
 
