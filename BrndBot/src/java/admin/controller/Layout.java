@@ -21,6 +21,8 @@ import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import org.apache.commons.io.FileUtils;
+import org.apache.struts.chain.commands.servlet.CreateAction;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.w3c.dom.Document;
@@ -257,13 +259,13 @@ public class Layout {
     return json_font_names;
     }
     
-    public String createImage(String layoutfilename, ServletContext servletContext) throws SAXException {
+    public String createImage(String layoutfilename, ServletContext servletContext, String modelname) throws SAXException {
 //        throw new UnsupportedOperationException("Not supported yet.");
         String uploadPath = AppConstants.BASE_XML_UPLOAD_PATH;
         try {
             StringBuffer htmldata = new StringBuffer();
             String backgroundimage,border_radius, margin_left, Blend_mode, margin_top, blend_mode, opacity, width, height, background_repeat, background_size;
-            String textData,font_family, huerotate, font_weight, Drop_shadow_color, font_style, text_align, font_size, font_color, text_shadow, line_height, letter_spacing, webkit_transform, h_shadow, v_shadow, Blur;
+            String textData,font_family, huerotate, font_weight, Drop_shadow_color, font_style, text_align, font_size, font_color, text_shadow, line_height, letter_spacing, webkit_transform, h_shadow, v_shadow, Blur, id;
             double grayscale, sepia, saturate, invert, brightness, contrast;
             
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -290,7 +292,7 @@ public class Layout {
                 Element modelElement = (Element) firstModelNode;
                 
                 logger.log(Level.INFO, modelElement.getAttribute("tag"));
-                
+                id = modelElement.getAttribute("type");
                 if (modelElement.getAttribute("tag").equalsIgnoreCase("image")) {
                     String filter = "";
                     if (modelElement.getAttribute("filterEnable").equalsIgnoreCase("false")) {
@@ -328,7 +330,7 @@ public class Layout {
                     height = modelElement.getAttribute("height");
                     background_repeat = "no-repeat";
                     background_size = "contain";
-                    htmldata.append("<div style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + "; '></div>");
+                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + "; '></div>");
                     logger.log(Level.INFO, htmldata.toString());
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("text")) {
                     textData = modelElement.getAttribute("type");
@@ -352,12 +354,12 @@ public class Layout {
                     opacity = modelElement.getAttribute("opacity");
                     webkit_transform = modelElement.getAttribute("webkit-transform");
                     
-                    htmldata.append("<textarea style='position: absolute; font-weight:" + font_weight + ";font-family:"+font_family+"; width: "+width+"; height:"+height+"; font-style:" + font_style + "; resize:none ; outline:0 ;text-align:" + text_align + "; margin-left:" + margin_left +"px; margin-top:" + margin_top +"px; font-size:" + font_size + "; color:" + font_color + ";text-shadow: " + h_shadow + " " + v_shadow + " " + Blur + " " + text_shadow + "; line-height: " + line_height + ";letter-spacing: " + letter_spacing + "; opacity:" + opacity + ";-webkit-transform: rotate(" + webkit_transform + "deg);background-color: inherit; border:none;'>" + textData + "</textarea>");
+                    htmldata.append("<textarea id='" + id + "' style='position: absolute; font-weight:" + font_weight + ";font-family:"+font_family+"; width: "+width+"; height:"+height+"; font-style:" + font_style + "; resize:none ; outline:0 ;text-align:" + text_align + "; margin-left:" + margin_left +"px; margin-top:" + margin_top +"px; font-size:" + font_size + "; color:" + font_color + ";text-shadow: " + h_shadow + " " + v_shadow + " " + Blur + " " + text_shadow + "; line-height: " + line_height + ";letter-spacing: " + letter_spacing + "; opacity:" + opacity + ";-webkit-transform: rotate(" + webkit_transform + "deg);background-color: inherit; border:none;'>" + textData + "</textarea>");
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("button")) {
                     margin_left = modelElement.getAttribute("x-co-ordinates");
                     margin_top = modelElement.getAttribute("y-co-ordinates");
                     backgroundimage = modelElement.getAttribute("src").replace("url(", "").replace(")", "");
-                    htmldata.append("<img style='position: absolute; margin-left: " + margin_left + "; margin-top:" + margin_top + ";' src='"+backgroundimage+"'/>");
+                    htmldata.append("<img id='" + id + "' style='position: absolute; margin-left: " + margin_left + "; margin-top:" + margin_top + ";' src='"+backgroundimage+"'/>");
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("logo")) {
                   
                     String filter = "";
@@ -399,7 +401,7 @@ public class Layout {
                     height = modelElement.getAttribute("height");
                     background_repeat = "no-repeat";
                     background_size = "contain";
-                    htmldata.append("<div style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + "; '></div>");
+                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + "; '></div>");
                     logger.log(Level.INFO, htmldata.toString());
                     
                     
@@ -425,15 +427,23 @@ public class Layout {
                     height = modelElement.getAttribute("height");
                     opacity = modelElement.getAttribute("opacity");
                     String background_color = modelElement.getAttribute("background-color");
-                    htmldata.append("<div style='position: absolute; width:" + width + "; height:" + height + ";opacity:" + opacity + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-color:" + background_color + "; -webkit-filter:" + filter + ";border-radius:"+border_radius+"; '></div>");
+                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + ";opacity:" + opacity + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-color:" + background_color + "; -webkit-filter:" + filter + ";border-radius:"+border_radius+"; '></div>");
                 }
                 
                 logger.log(Level.INFO, htmldata.toString());
+                logger.info(htmldata.toString());
             }
             PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletContext);
             
             File imagePngFile = phantomImageConverter.getImage(htmldata.toString(), json_font_list, containerWidth, containerHeight, "0", "0");
             Style_image_name = imagePngFile.getName();
+            
+            File htmlFolder = new File(AppConstants.LAYOUT_HTML_HOME);
+            if (!htmlFolder.exists()) {
+                htmlFolder.mkdirs();
+            }
+            FileUtils.writeStringToFile(new File(htmlFolder.getPath()+File.separator+modelname+".html"), htmldata.toString(), "UTF-8");
+            
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
         }

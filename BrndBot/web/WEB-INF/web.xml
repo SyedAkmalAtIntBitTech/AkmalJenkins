@@ -324,6 +324,10 @@
         <servlet-name>EmailSettingsServlet</servlet-name>
         <servlet-class>com.controller.email.EmailSettingsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletDisplayLayoutHTML</servlet-name>
+        <servlet-class>admin.controller.ServletDisplayLayoutHTML</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -659,6 +663,10 @@
     <servlet-mapping>
         <servlet-name>EmailSettingsServlet</servlet-name>
         <url-pattern>/EmailSettingsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletDisplayLayoutHTML</servlet-name>
+        <url-pattern>/ServletDisplayLayoutHTML</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

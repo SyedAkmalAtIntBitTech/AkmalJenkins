@@ -112,7 +112,7 @@ and open the template in the editor.
             }
 
             #cropper_popup{
-                  position: fixed;
+                position: fixed;
                 top: 40%;
                 left: 50%;
                 z-index: 2147483583;
@@ -127,19 +127,9 @@ and open the template in the editor.
                 background-clip: padding-box;
                 display:none;
                 position: fixed;
-/*                width: 625px;*/
-               height:605px;
-/*                top: 20%;
-                left: 25%;*/
-/*                margin-left:-155px;
-                margin-top:-110px;*/
-/*                border:5px solid #686868 ;*/
-/*                background-color:#CDCDFF;*/
-/*                padding:30px;
-                z-index:102;*/
+                height:605px;
                 font-family:Verdana;
                 font-size:10pt;
-/*                border-radius:10px;*/
                 -webkit-border-radius:20px;
                 -moz-border-radius:20px;
                 font-weight:bold;
@@ -446,7 +436,7 @@ and open the template in the editor.
                                                     var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
 //                                                   
-                                                    $(".imagename").append("<option value="+background_image+">Image "+count+"</option>");
+                                                    $(".imagename").append("<option value="+background_image+" name="+ type +">Image "+count+"</option>");
                                                         count++;
                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
@@ -629,50 +619,24 @@ and open the template in the editor.
                                 </div>   
                             </div>
                             <div id="cropper_popup" class="cropper_popup" name="cropper_popup">
-                                 <div class="imagecropper_header">
-                        <div class="imagecropper_close">×</div>
-                             <h3 class="imagecropper_title">Cropping image</h3>
-                                 
-                        </div>
+                                <div class="imagecropper_header">
+                                    <div class="imagecropper_close" onclick="closeCropper()">×</div>
+                                    <h3 class="imagecropper_title">Cropping image</h3>
+
+                                </div>
                                 <div class="crop_image">
-                                        <button class="cropButton">Crop</button>
+<!--                                        <button class="cropButton">Crop</button>-->
 
 
                 
 <!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
                                 </div>   
-                                    <div class="imagecropper_footer">
-                        <button class="imagecropper_no" onclick=closeCropper()>Skip</button>
-                        <button class="imagecropper_ok cropButton">Crop</button>
-                    </div>
+                                <div class="imagecropper_footer">
+                                    <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
+                                    <button class="imagecropper_ok cropButton">Crop</button>
+                                </div>
                             </div>
-                            
-                            
-<!--                <div class="imagecropper_modal fade in" id="cropper_popup" name="cropper_popup" style="width: 384px; margin-left: -177px; margin-top: -325.5px;">
-                    <div class="imagecropper_header">
-                        <div class="imagecropper_close >×</div>
-                        <h3 class="imagecropper_title">Cropping image</h3>
-                        <input type="text" placeholder="width">
-                        <input type="text" placeholder="height">
-                    </div>
-                    <div class="imagecropper_content" style="height: 531px;">
-                        <canvas width="354" height="531"></canvas>
-                        <div class="crop_image"></div>
-                    </div>
-                    <div class="imagecropper_footer">
-                        <button class="imagecropper_no" onclick=closeCropper()>Skip</button>
-                        <button class="imagecropper_ok cropButton">Crop</button>
-                    </div>
-                </div>           
-
-                </div>           -->
-                            
-                            
-                            
-                            
-                            
-                            
-
+  
                         </div>
 
                         <!--        editor container      -->
@@ -686,21 +650,7 @@ and open the template in the editor.
                                                 <li><p id="editorheadere" class="SS1">font color</p>
                                                     <div class="blankcolor-box1" id="picker" ></div>
                                                     
-                                                    <ul id="pickColorForText" style="display:none;left:-26px;position:relative;">
-                                                        <li><br><p class="editpal palpos">your palette</p></li>
-                                                        <li><p class="editpal custom-color-box" id="picker" style="margin-left:150px;position:relative;top:20px;">custom</p></li>
-                                                        <li id="fcolcontainer">
-                                                            <ul id="colorpalette ">
-                                                                   <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
-                                                                    <li> <div class="blankcolor-box-text" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
-                                                                </ul>
-                                                            </li>
-                                                            
-                                                        </ul>
+                                                  
                                                     
                                                 </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
@@ -720,6 +670,23 @@ and open the template in the editor.
                                                         <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{ names.font_family_name}}">{{ names.font_name}} </option>
 
                                                     </select>
+                                                </li>
+                                                <li> 
+                                                    <ul id="pickColorForText" style="display:none;left:-26px;position:relative;margin-top: -50px;">
+                                                        <li><br><p class="editpal">your palette</p></li>
+                                                        <li><p class="editpal custom-color-box-text" style="margin-left:150px;position:relative;top:20px;">custom</p></li>
+                                                        <li id="fcolcontainer">
+                                                            <ul id="colorpalette ">
+                                                                   <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                    <li> <div class="blankcolor-box-text" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                                </ul>
+                                                            </li>
+                                                            
+                                                        </ul>
                                                 </li>
                                                 <li><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
@@ -924,7 +891,7 @@ $(this).addClass('highlight');
                                    },
                                    success: function (responseText) {
                                            var image=responseText;
-//                                           alert(image);
+                                          alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
 
                                    }
@@ -954,72 +921,79 @@ $(this).addClass('highlight');
 
     //button click event
     cvrt1.onclick = function () {
+         var image_Id= $('.imagename option:selected').attr("name");
+        
         if (f) {
-            $("#"+selectedImageId).css("-webkit-filter", "grayscale(100%)");
+            $("#"+image_Id).css("-webkit-filter", "grayscale(100%)");
             f = 0;
         }
         else {
-            $("#"+selectedImageId).css("-webkit-filter", "");
+            $("#"+image_Id).css("-webkit-filter", "");
 
             f = 1;
 
         }
     };
     cvrt2.onclick = function () {
+        var image_Id= $('.imagename option:selected').attr("name");
         if (f) {
-            $("#"+selectedImageId).css("-webkit-filter", "textured(100%)");
+            $("#"+image_Id).css("-webkit-filter", "textured(100%)");
             f = 0;
         }
         else {
-            $("#"+selectedImageId).css("-webkit-filter", "");
+            $("#"+image_Id).css("-webkit-filter", "");
 
             f = 1;
 
         }
     };
     cvrt3.onclick = function () {
+        var image_Id= $('.imagename option:selected').attr("name");
         if (f) {
-            $("#"+selectedImageId).css("-webkit-filter", "brightness(150%)");
+            $("#"+image_Id).css("-webkit-filter", "brightness(150%)");
             f = 0;
         }
         else {
-            $("#"+selectedImageId).css("-webkit-filter", "");
+            $("#"+image_Id).css("-webkit-filter", "");
 
             f = 1;
 
         }
     };
     cvrt4.onclick = function () {
+        var image_Id= $('.imagename option:selected').attr("name");
         if (f) {
-            $("#"+selectedImageId).css("-webkit-filter", "grayscale(100%)");
+            $("#"+image_Id).css("-webkit-filter", "grayscale(100%)");
             f = 0;
         }
         else {
-            $("#"+selectedImageId).css("-webkit-filter", "");
+            $("#"+image_Id).css("-webkit-filter", "");
 
             f = 1;
 
         }
     };
     cvrt5.onclick = function () {
+        var image_Id= $('.imagename option:selected').attr("name");
         if (f) {
-            $("#"+selectedImageId).css("-webkit-filter", "sepia(100%)");
+            $("#"+image_Id).css("-webkit-filter", "sepia(100%)");
             f = 0;
         }
         else {
-            $("#"+selectedImageId).css("-webkit-filter", "");
+            $("#"+image_Id).css("-webkit-filter", "");
 
             f = 1;
 
         }
     };
     cvrt6.onclick = function () {
+        var image_Id= $('.imagename option:selected').attr("name");
         if (f) {
-            $("#"+selectedImageId).css("-webkit-filter", "Statue(100%)");
+            $("#"+image_Id).css("-webkit-filter", "Statue(100%)");
             f = 0;
         }
         else {
-            $("#"+selectedImageId).css("-webkit-filter", "");
+            $("#"+image_Id).css("-webkit-filter", "");
 
             f = 1;
 
@@ -1071,51 +1045,32 @@ $(this).addClass('highlight');
 
                                     // draw image
                                     ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
-//                                   alert( img.src);
+//                                  alert( img.src);
                                             // display canvas image
-                                            $('canvas').addClass('output').show().delay('9000').fadeOut('slow');
+//                                            $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
                                             // save the image to server
                                             var canvas = document.getElementById("canvas");                 
-                                            var dataURL =canvas.toDataURL("image/jpeg");                                                                                     
+                                            var dataURL =canvas.toDataURL("image/jpeg");   
+//                                            alert(dataURL);
                                             var cropped_image = {"image": "image"};                                      
                                                 $.ajax({
                                                     url: global_host_address + 'CropImage',
                                                     method: 'post',
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
-//                                                      alert(responseText);
-                                                        $("#"+selectedImageId).css("background","url(images/"+responseText+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
+                                                     alert(responseText);
+                                                         var image_Id= $('.imagename option:selected').attr("name");
+                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
+//                                                        $("#cropper_popup").hide();
+                                                         $("#cropper_popup").hide();
                                                     }
-                                                });                                            
-//                                            $.ajax({
-//                                            url: global_host_address +'CropImage ',
-//                                            method: 'post',
-//                                            data: {
-//                                                    imageData : "dataURL" 
-//                                            },
-//                                            success: function (responseText) {
-//                                            }
-//                                        });
-//                                            $.ajax({
-//                                                type:"post",
-//                                                url: "CropImage",
-//                                                data: {
-//                                                    imageData : dataURL 
-//                                                },
-//                                                succes: function (responseText){
-//                                                    alert(responseText);
-//                                                }
-//                                            });
+                                                });                                                                          
                                     }
-//                                    alert(data+""+data.url);
 
                             });
                                     //  on click of .upload class, open .uploadfile (input file)
                                     // --------------------------------------------------------------------------
 
-//		$('body').on("click", ".newupload", function() {
-//		    $('.uploadfile').click();
-//		});
 
                                     // on input[type="file"] change
                                 oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
@@ -1125,9 +1080,8 @@ $(this).addClass('highlight');
                                         one = new CROP();
                                     $("#selectimage").click(function(){
                                         var image_file = global_host_address + $("#image_name").val();
-
-//                                       alert(image_file);
-//                                        alert(selectedImageId);
+                       
+                                        alert(selectedImageId);
                                         $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                         $("#imagespopup").hide();
                                     });
@@ -1196,7 +1150,7 @@ $(this).addClass('highlight');
                                     return;
                                     }
                             oFReader.readAsDataURL(oFile);
-//                            alert(oFile.valueOf());
+                            alert(oFile.valueOf());
                             $("#"+selectedImageId).css("backgroung-image","url("+oFile+")");
                             }
 

@@ -37,6 +37,8 @@ public class AppConstants {
     
     public static final String LAYOUT_IMAGES_HOME = ADMIN_IMAGE_HOME + File.separator + "LayoutImages";
     
+    public static final String LAYOUT_HTML_HOME = BASE_UPLOAD_PATH + File.separator + "LayoutHTML";
+    
     public static final String ADMIN_LAYOUT_BACKGROUNDIMAGES_HOME = ADMIN_IMAGE_HOME + File.separator + "AdminLayoutBackgroundImages";
     
     public static final String TMP_FOLDER = "/tmp";

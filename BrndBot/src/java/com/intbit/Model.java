@@ -98,7 +98,7 @@ public class Model extends BrndBotBaseHttpServlet {
             String containerstyle = request.getParameter("containerstyle");
             String mapfiledata = request.getParameter("element");
             String textstylearray[] = textstyleinfo.split(",");
-            String containerstylearray[] = containerstyle.split(" ");
+            String containerstylearray[] = containerstyle.split("%%");
             String mapfiledataarray[] = mapfiledata.split(",");
             //        String image = request.getParameter("image");
             logger.log(Level.INFO, containerstyle);
@@ -129,11 +129,11 @@ public class Model extends BrndBotBaseHttpServlet {
             for (int i = 0; i <= textstylearray.length - 1; i++) {
                 Element element = doc.createElement("element");
                 rootElement.appendChild(element);
-                String field1[] = textstylearray[i].split(" ");
+                String field1[] = textstylearray[i].split("%%");
 
                 for (int j = 0; j <= field1.length - 1; j++) {
                     String field2[] = field1[j].split("!");
-
+//                    logger.info(field2[j]);
                     for (int k = 0; k < field2.length - 1; k++) {
                         Attr attr = doc.createAttribute(field2[0]);
                         attr.setValue("" + field2[1]);
@@ -148,7 +148,7 @@ public class Model extends BrndBotBaseHttpServlet {
             for (int i = 0; i <= mapfiledataarray.length - 1; i++) {
                 Element element1 = doc1.createElement("model");
                 rootElement1.appendChild(element1);
-                String field1[] = mapfiledataarray[i].split(" ");
+                String field1[] = mapfiledataarray[i].split("%%");
                 for (int j = 0; j <= field1.length - 1; j++) {
                     String field2[] = field1[j].split("!");
                     for (int k = 0; k < field2.length - 1; k++) {
@@ -181,7 +181,7 @@ public class Model extends BrndBotBaseHttpServlet {
 
             try {
                 layout.getFontList(Integer.parseInt(brand_id));
-                String image_name=  layout.createImage(layoutfilename,getServletContext());
+                String image_name=  layout.createImage(layoutfilename,getServletContext(),modelname);
                 layout.addLayouts(Integer.parseInt(organization_id), Integer.parseInt(user_id), category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, Integer.parseInt(brand_id), block_id,image_name,modelname);
             } catch (SAXException ex) {
                 Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);

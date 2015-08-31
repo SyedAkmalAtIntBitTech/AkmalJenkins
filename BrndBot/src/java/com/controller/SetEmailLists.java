@@ -149,7 +149,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                 JSONObject json_user_preferences_email = new JSONObject();
 
                 json_user_preferences_email.put(IConstants.kEmailListNameKey, emailListName);
-                json_user_preferences_email.put(IConstants.kEmailAddressesKey, "");
+                json_user_preferences_email.put(IConstants.kEmailAddressesKey, "0");
                 json_user_preferences_email.put(IConstants.kEmailListDefaultFromName, defaultName);
                 json_user_preferences_email.put(IConstants.kEmailListListDescription, listDescription);
 
@@ -159,7 +159,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                 JSONObject json_user_preferences_email = new JSONObject();
 
                 json_user_preferences_email.put(IConstants.kEmailListNameKey, emailListName);
-                json_user_preferences_email.put(IConstants.kEmailAddressesKey, "");
+                json_user_preferences_email.put(IConstants.kEmailAddressesKey, "0");
                 
                 json_user_preferences_email.put(IConstants.kEmailListDefaultFromName, defaultName);
                 json_user_preferences_email.put(IConstants.kEmailListListDescription, listDescription);

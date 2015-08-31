@@ -223,7 +223,7 @@ and open the template in the editor.
 }
 .palpos{
     position: relative;
-    left:-15px;
+/*    left:-15px;*/
     
 }
 .editpal{
