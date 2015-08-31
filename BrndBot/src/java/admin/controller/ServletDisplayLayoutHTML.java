@@ -6,10 +6,12 @@
 package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.intbit.AppConstants;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +43,9 @@ public class ServletDisplayLayoutHTML extends BrndBotBaseHttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String layoutHTML = FileUtils.readFileToString(new File(AppConstants.LAYOUT_HTML_HOME+File.separator+modelname+".html"), "UTF-8");
             out.write(layoutHTML);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception:", e.getMessage()));
+
         }
     }
 
