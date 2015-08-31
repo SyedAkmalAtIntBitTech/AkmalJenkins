@@ -1263,13 +1263,13 @@ function passvaluetoinputfield() {
  
   popupwindow();
     var containerstyle = "Width!" + $("#containerWidth").val() +
-            " Height!" + $("#containerHeight").val();
+            "%%Height!" + $("#containerHeight").val();
 
     $("#containerstyle").val(containerstyle);
     var mapperdata = [];
     for (var i = 0; i <= addElementsArray.length - 1; i++) {
 
-        mapperdata[i] = " element!" + addElementsArray[i] + " option!" + $("#Footer1dropdown-" + (i + 1)).find('option:selected').text() + " default!" + $("#inputfield" + (i + 1)).val() + " epoch!" + $("#inputfield1" + (i + 1)).val();
+        mapperdata[i] = "%%element!" + addElementsArray[i] + "%%option!" + $("#Footer1dropdown-" + (i + 1)).find('option:selected').text() + "%%default!" + $("#inputfield" + (i + 1)).val() + "%%epoch!" + $("#inputfield1" + (i + 1)).val();
 //        alert(mapperdata);
 
         var style1;
@@ -1279,7 +1279,7 @@ function passvaluetoinputfield() {
 
         var dropshadow = $("#" + addElementsArray[i]).css("text-shadow");
         var dropshadowarr = dropshadow.split(" ");
-        var dropshadowdata = " H-shadow!" + dropshadowarr[3] + " V-shadow!" + dropshadowarr[4] + " blur!" + dropshadowarr[5];
+        var dropshadowdata = "%%H-shadow!" + dropshadowarr[3] + "%%V-shadow!" + dropshadowarr[4] + "%%blur!" + dropshadowarr[5];
 
         var dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
 
@@ -1315,48 +1315,48 @@ function passvaluetoinputfield() {
             var filterdata = $("#" + addElementsArray[i]).css("-webkit-filter").replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '').replace('(', ' ').replace(')', '');
 //          alert(filterdata);
             var filterdataarray = filterdata.split(' ');
-            dropshadowdata1 = " blur!" + filterdataarray[1] + " grayscale!" + filterdataarray[3] + " sepia!" + filterdataarray[5] + " saturate!" + filterdataarray[7] +
-                    " huerotate!" + filterdataarray[9] + " invert!" + filterdataarray[11] +
-                    " brightness!" + filterdataarray[13] + " contrast!" + filterdataarray[15];
+            dropshadowdata1 = "%%blur!" + filterdataarray[1] + "%%grayscale!" + filterdataarray[3] + "%%sepia!" + filterdataarray[5] + "%%saturate!" + filterdataarray[7] +
+                    "%%huerotate!" + filterdataarray[9] + "%%invert!" + filterdataarray[11] +
+                    "%%brightness!" + filterdataarray[13] + "%%contrast!" + filterdataarray[15];
 //           alert(dropshadowdata1);
 
         }
         else {
             filterEnable="false";
             var dropshadowarr1 = dropshadow1.split(" ");
-            dropshadowdata1 = " Drop-shadow-color!" + "#" + color4 + " H-shadow!" + dropshadowarr1[3] + " V-shadow!" + dropshadowarr1[4] + " blur!" + dropshadowarr1[5];
+            dropshadowdata1 = "%%Drop-shadow-color!" + "#" + color4 + "%%H-shadow!" + dropshadowarr1[3] + "%%V-shadow!" + dropshadowarr1[4] + "%%blur!" + dropshadowarr1[5];
         }
 
 
 
         if (contenttype.startsWith('draggableImage')) {
-            style1 = " tag!" + "image" +
-                    " x-co-ordinates!" + x1 +
-                    " y-co-ordinates!" + y1 +
-                    " filterEnable!" + filterEnable+
-                    " width!" + $("#" + addElementsArray[i]).css("width") +
-                    " height!" + $("#" + addElementsArray[i]).css("height") +
-                    " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
-                    " background-image!" + $("#" + addElementsArray[i]).css("background-image") +
+            style1 = "tag!" + "image" +
+                    "%%x-co-ordinates!" + x1 +
+                    "%%y-co-ordinates!" + y1 +
+                    "%%filterEnable!" + filterEnable+
+                    "%%width!" + $("#" + addElementsArray[i]).css("width") +
+                    "%%height!" + $("#" + addElementsArray[i]).css("height") +
+                    "%%opacity!" + $("#" + addElementsArray[i]).css("opacity") +
+                    "%%background-image!" + $("#" + addElementsArray[i]).css("background-image") +
                     dropshadowdata1 +
 //                    " filter:" + $("#" + addElementsArray[i]).css("-webkit-filter") +
-                    " Blend!" + $("#" + addElementsArray[i]).css("background-blend-mode") +
-                    " blend-background-color!" + "#" + color3;
+                    "%%Blend!" + $("#" + addElementsArray[i]).css("background-blend-mode") +
+                    "%%blend-background-color!" + "#" + color3;
 
         }
         if (contenttype.startsWith('draggableLogo')) {
-            style1 = " tag!" + "logo" +
-                    " x-co-ordinates!" + x1 +
-                    " y-co-ordinates!" + y1 +
-                    " filterEnable!" + filterEnable+
-                    " width!" + $("#" + addElementsArray[i]).css("width") +
-                    " height!" + $("#" + addElementsArray[i]).css("height") +
-                    " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
-                    " background-image!" + $("#" + addElementsArray[i]).css("background-image") +
+            style1 = "tag!" + "logo" +
+                    "%%x-co-ordinates!" + x1 +
+                    "%%y-co-ordinates!" + y1 +
+                    "%%filterEnable!" + filterEnable+
+                    "%%width!" + $("#" + addElementsArray[i]).css("width") +
+                    "%%height!" + $("#" + addElementsArray[i]).css("height") +
+                    "%%opacity!" + $("#" + addElementsArray[i]).css("opacity") +
+                    "%%background-image!" + $("#" + addElementsArray[i]).css("background-image") +
                     dropshadowdata1 +
 //                    " filter:" + $("#" + addElementsArray[i]).css("-webkit-filter") +
-                    " Blend!" + $("#" + addElementsArray[i]).css("background-blend-mode") +
-                    " blend-background-color!" + "#" + color3;
+                    "%%Blend!" + $("#" + addElementsArray[i]).css("background-blend-mode") +
+                    "%%blend-background-color!" + "#" + color3;
 
         }
 
@@ -1365,53 +1365,53 @@ function passvaluetoinputfield() {
             var fontFamily= $("#" + addElementsArray[i]).css("font-family").split(' ').join('+');
             fontFamily = fontFamily.split("'").join("");
             
-            style1 = " tag!" + "text" +
-                    " x-co-ordinates!" + x1 +
-                    " y-co-ordinates!" + y1 +
-                    " width!" + $("#" + addElementsArray[i]).css("width") +
-                    " height!" + $("#" + addElementsArray[i]).css("height") +
-                    " font-weight!" + $("#" + addElementsArray[i]).css("font-weight") +
-                    " font-style!" + $("#" + addElementsArray[i]).css("font-style") +
-                    " text-align!" + $("#" + addElementsArray[i]).css("text-align") +
-                    " font-size!" + $("#" + addElementsArray[i]).css("font-size") +
-                    " font-family!" + fontFamily +
-                    " font-color-name!" + $("#" + addElementsArray[i]).attr("name") +
-                    " font-color!" + "#" + color1 +
-                    " text-shadow!" + "#" + color2.substr(0,6) +
+            style1 = "tag!" + "text" +
+                    "%%x-co-ordinates!"+ x1 +
+                    "%%y-co-ordinates!"+ y1 +
+                    "%%width!"+ $("#" + addElementsArray[i]).css("width") +
+                    "%%height!"+ $("#" + addElementsArray[i]).css("height") +
+                    "%%font-weight!"+ $("#" + addElementsArray[i]).css("font-weight") +
+                    "%%font-style!"+ $("#" + addElementsArray[i]).css("font-style") +
+                    "%%text-align!"+ $("#" + addElementsArray[i]).css("text-align") +
+                    "%%font-size!"+ $("#" + addElementsArray[i]).css("font-size") +
+                    "%%font-family!"+ fontFamily +
+                    "%%font-color-name!"+ $("#" + addElementsArray[i]).attr("name") +
+                    "%%font-color!"+ "#" + color1 +
+                    "%%text-shadow!"+ "#" + color2.substr(0,6) +
                     dropshadowdata +
-                    " line-height!" + $("#" + addElementsArray[i]).css("line-height") +
-                    " letter-spacing!" + $("#" + addElementsArray[i]).css("letter-spacing") +
-                    " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
-                    " webkit-transform!" + angle;
+                    "%%line-height!"+ $("#" + addElementsArray[i]).css("line-height") +
+                    "%%letter-spacing!"+ $("#" + addElementsArray[i]).css("letter-spacing") +
+                    "%%opacity!"+ $("#" + addElementsArray[i]).css("opacity") +
+                    "%%webkit-transform!"+ angle;
 
         }
         if (contenttype.startsWith('draggableButton')) {
-            style1 = " tag!" + "button" +
-                    " src!" + $("#" + addElementsArray[i]).attr("src") +
-                    " x-co-ordinates!" + x1 +
-                    " y-co-ordinates!" + y1;
+            style1 = "tag!" + "button" +
+                    "%%src!" + $("#" + addElementsArray[i]).attr("src") +
+                    "%%x-co-ordinates!" + x1 +
+                    "%%y-co-ordinates!" + y1;
 
         }
 
         if (contenttype.startsWith('draggableBlock')) {
 
-            style1 = " tag!" + "block" +
-                    " x-co-ordinates!" + x1 +
-                    " y-co-ordinates!" + y1 +
-                    " color-name!" + $("#" + addElementsArray[i]).attr("name") +
-                    " width!" + $("#" + addElementsArray[i]).css("width") +
-                    " height!" + $("#" + addElementsArray[i]).css("height") +
-                    " opacity!" + $("#" + addElementsArray[i]).css("opacity") +
-                    " border-radius!" + $("#" + addElementsArray[i]).css("border-radius") +
-                    " background-color!" + "#" + color3 + dropshadowdata1;
+            style1 = "tag!" + "block" +
+                    "%%x-co-ordinates!" + x1 +
+                    "%%y-co-ordinates!" + y1 +
+                    "%%color-name!" + $("#" + addElementsArray[i]).attr("name") +
+                    "%%width!" + $("#" + addElementsArray[i]).css("width") +
+                    "%%height!" + $("#" + addElementsArray[i]).css("height") +
+                    "%%opacity!" + $("#" + addElementsArray[i]).css("opacity") +
+                    "%%border-radius!" + $("#" + addElementsArray[i]).css("border-radius") +
+                    "%%background-color!" + "#" + color3 + dropshadowdata1;
         }
-        textareadetails[i] = style1 + " type!" + addElementsArray[i];
+        textareadetails[i] = style1 + "%%type!" + addElementsArray[i];
 
 
 
 
         $("#textstyle").val(textareadetails);
-//        alert(textareadetails);
+       alert(textareadetails);
 
     }
 //   alert(mapperdata);

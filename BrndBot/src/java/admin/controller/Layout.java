@@ -429,6 +429,7 @@ public class Layout {
                 }
                 
                 logger.log(Level.INFO, htmldata.toString());
+                logger.info(htmldata.toString());
             }
             PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletContext);
             
