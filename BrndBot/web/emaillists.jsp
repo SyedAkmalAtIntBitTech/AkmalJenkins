@@ -235,7 +235,7 @@
                 </div>
             </div>
         </div>
-        <!--                <div id="emaillist">
+                <!--    <div id="emaillist">
                             <p class="header1"> Choose an email list to send to,<br>
                                 or enter email addresses.</p>
                             <p class="header2">This can be edited later.</p><br><br>
@@ -266,11 +266,6 @@
                 });
             });
 
-//            $(document).ready(function (){
-//                    alert("text");
-//                
-//            }
-
             $("#fileUpload").change(function () {
 
                 loadImageFile();
@@ -278,34 +273,6 @@
                 $('.fileUpload').wrap('<form>').closest('form').get(0).reset();
                 $('.fileUpload').unwrap();
             });
-
-//                    function loadImageFile() {
-//                        
-////                        var input  = "All work","and no play","makes Jack","a dull boy..." +
-////                                            "All work","and no play","makes Jack","a dull boy..." +
-////                                            "All work","and no play","makes Jack","a dull boy..." +
-////                                            "All work","and no play","makes Jack","a dull boy..." +
-////                                            "All work","and no play","makes Jack","a dull boy..." +
-////                                            "All work","and no play","makes Jack","a dull boy..." +
-////                                            "All work","and no play","makes Jack","a dull boy..." +
-////                                            "All work","and no play","makes Jack","a dull boy..." +
-////                                            "All work","and no play","makes Jack","a dull boy..." +
-////                                            "All work","and no play","makes Jack","a dull boy..."";
-////                                    
-////                                    var result = $.csv.toArrays(input);
-////                                    alert(result);
-////                       if (document.getElementById("uploadfile").files.length === 0) return;
-////                               var oFile = document.getElementById("uploadfile").files[0];
-////                               if (!rFilter.test(oFile.type)) {
-////                               return;
-////                              }
-////                           oFReader.readAsDataURL(oFile);
-////                        alert(oFile);
-//       //            $("#emailSubjectContinueButton").click(function () {
-//       //                $("#emaillist").show();
-//       //                $("#emailsubjectdiv").hide();
-//       //            });
-//                   }
 
         </script>
     </body>
