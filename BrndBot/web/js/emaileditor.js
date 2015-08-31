@@ -26,6 +26,7 @@ function setSocialParameters(title, teacher, date) {
 }
 
 $(document).ready(function () {
+   
     $("#left").hide();
     $("#right").hide();
     $("#center").hide();
@@ -652,7 +653,6 @@ function getButtonid(ID) {
 }
 
 function getTectId(id) {
-    alert(id);
     $("textarea").click(function () {
         selectedTextareaId = id.id;
     });

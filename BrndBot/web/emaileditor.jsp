@@ -40,6 +40,8 @@ and open the template in the editor.
         
         <script src="js/jquery.autogrow-textarea.js" type="text/javascript"></script>
         <script src="js/jquery.reveal.js" type="text/javascript"></script>
+        <script src="js/showalert.js" type="text/javascript"></script>
+        
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
         <script src="js/jquery.blend.min.js" type="text/javascript"></script>-->
@@ -222,7 +224,7 @@ and open the template in the editor.
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
 <script>
             $(document).ready(function () {
-    
+                
             $("#fontname").change(function () {
                 var text = $("#fontname").find('option:selected').text();
                 var font_family_name = $("#fontname").val();
@@ -741,8 +743,8 @@ and open the template in the editor.
 
                                     if (tag === "button")
                                     {
-
-                                    $(".preview #" + blockId).append("<div><img src='" + elementdata + "' id=" + type + "EEE" + blockId + " alt='button'/>");
+                                         var src_image = $(this).attr("src");
+                                    $(".preview #" + blockId).append("<div><a href=\"#\" data-reveal-id=\"myModal\"><img src='" + src_image + "' buttonLink='"+elementdata+"' id=" + type + "EEE" + blockId + " onclick=getButtonid('" + type + "EEE"+ blockId +"') alt='button'/></a>");
                                             $("#" + type + "EEE" + blockId).css("left", "" + left + "px")
                                                                    .css("position", "absolute")
                                                                    .css("top", "" + top + "px")
