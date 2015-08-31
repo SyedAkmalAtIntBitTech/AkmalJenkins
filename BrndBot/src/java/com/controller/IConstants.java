@@ -15,6 +15,8 @@ public interface IConstants {
     final static String kUserPreferencesTableKey = "user_preferences";
     final static String kEmailAddressUserPreferenceKey = "emailLists";
     final static String kEmailListNameKey = "emailListName";
+    final static String kEmailListDefaultFromName = "defaultFromName";
+    final static String kEmailListListDescription = "listDescription";
     final static String kEmailAddressesKey = "emailAddresses";
     final static String kEmailAddressKey = "emailAddress";
     final static String kFacebookKey = "facebook";

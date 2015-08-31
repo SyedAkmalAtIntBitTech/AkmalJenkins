@@ -129,6 +129,26 @@ function htmlController($scope, $http) {
     };
 }
 
+$(function(){
+   $("#modelname").change(function()
+   {
+       var selectedmodelname = $("#modelname").find('option:selected').text()
+       $.ajax({
+       type: 'POST',
+       url: "/BrndBot/ServletDisplayLayoutHTML",
+       dataType: 'text',
+       data : { modelname : selectedmodelname },
+       success: function (data) {
+           $("#html_content").val(data);
+       },
+       error: function(xhr, ajaxOptions, thrownError){
+           
+        alert(thrownError);
+       }
+       
+    });
+   });
+});
 
 
 
