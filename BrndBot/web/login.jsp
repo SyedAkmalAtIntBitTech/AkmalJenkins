@@ -6,11 +6,11 @@
 <!DOCTYPE html>
 <html ng-app>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="js/configurations.js"></script>
         <script src="js/form.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> 
         <script src="js/bootstrap.min.js"></script>
@@ -20,6 +20,14 @@
         <link rel="stylesheet" href="css/main1.css">
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <title>User Login</title>
+        <style>
+            .sgnup{
+                position: relative;
+                left:150px;
+                top:-2.15em;
+            }
+        </style>
+        
     </head>
     <body class="container">
         <div id="signupdiv">
@@ -58,12 +66,4 @@
                     
     </body>
 </html>
-<style>
-   
-    .sgnup{
-        position: relative;
-        left:150px;
-        top:-2.15em;
-    }
-</style>
     

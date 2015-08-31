@@ -16,16 +16,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/><!--
-        <link rel="stylesheet" href="/resources/demos/style.css">-->
-<!--        <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
-        <script src="js/colpick.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="css/main1.css">
-        <script src="js/prettify.js"></script>
-        <script src="js/jquery.bsFormAlerts.js"></script>
-        <script type="text/javascript" src="jscolor/jscolor.js"></script>-->
-<!--<link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-        <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>-->
+        <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <script src="js/tabcontent.js" type="text/javascript"></script>
         <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
         <script src="js/socialsettings.js" type="text/javascript"></script>
