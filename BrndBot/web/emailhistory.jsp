@@ -34,10 +34,18 @@
                 $scope.displayemailhistory = function (){
                 $http({
                         method : 'GET',
-                        url : 'GetEmailTags'
+                        url : 'GetEmailTagsServlet'
                 }).success(function(data, status, headers, config) {
-    //                        alert(JSON.stringify(data.user_colors));
-                    $scope.email_history = data;
+                    if (data == ""){
+                        $scope.email_history = "No email history present";
+                        $("#scrl").hide();
+                        $("#email_headings").hide();
+                        $("#nohistory").show();
+                    }else {
+                        $("#scrl").show();
+                        $("#nohistory").hide();
+                        $scope.email_history = data;
+                    }
                     if (data === error){
                         alert(data);
                     }
@@ -84,18 +92,18 @@
             }
             .emlOneRowData{
                    
-                            position: relative;
-                            width: 900px;
-                            text-align: center;
-                    }
-                    ul.L2 li{ 
-                         
-                        font-family: "proxima-nova",sans-serif;
-                        font-weight: 600;
-                        color: #2d4355;
-                        font-style: normal;
-                    }
-                   #scrl{overflow-y: scroll;overflow-x: hidden;width:950px;height:450px;}
+                position: relative;
+                width: 900px;
+                text-align: center;
+            }
+            ul.L2 li{ 
+
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 600;
+                color: #2d4355;
+                font-style: normal;
+            }
+            #scrl{overflow-y: scroll;overflow-x: hidden;width:950px;height:450px;}
         </style>
     </head>
     <body ng-app style="overflow: hidden;">
@@ -109,7 +117,7 @@
                 
                 <div class="col-md-5 col-md-offset-0">
                     <p id="hyshead" class="MH2">Email History and Analytics</p>
-                    <div class="col-md-4 col-md-offset-0" >
+                    <div id="email_headings" class="col-md-4 col-md-offset-0" >
                         <ul class="emlhisdata emlist FL2">
                             <li>Number of Sent</li>
                             <li>Open Rate</li>
@@ -117,10 +125,12 @@
                             <li>Unsubscribed</li>
                         </ul>
                     </div>
-                    <hr style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
-                   
+                    <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
+                    <div id="nohistory">
+                        <p>{{email_history}}</p>
+                    </div>
                     <div id="scrl" class="col-md-6" ng-init="displayemailhistory()">
-                        <ul  class="emlOneRowData L2 LE2" ng-repeat="email in email_history">                            
+                        <ul class="emlOneRowData L2 LE2" ng-repeat="email in email_history">                            
                             <li style="width:450px;text-align:left;left:-35px;">{{email.tag}}</li>
                             <li style="width: 250px">{{email.sent}}</li>
                             <li style="width: 250px">{{email.opens}}</li>

@@ -178,7 +178,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                     emailListJSONObject = new org.json.JSONObject();
                     emailListJSONObject.put(IConstants.kEmailListNameKey, emailListName);
                     emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddresses);
-                   emailListArrayJSON.put(emailListJSONObject);
+                    emailListArrayJSON.put(emailListJSONObject);
                 }
                 
                 return updateEmailListUserPreference(user_id, emailListArrayJSON);

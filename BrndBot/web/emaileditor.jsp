@@ -24,8 +24,11 @@ and open the template in the editor.
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+        <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>-->
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
@@ -34,9 +37,9 @@ and open the template in the editor.
         <script src="js/colpick.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
-
+        
         <script src="js/jquery.autogrow-textarea.js" type="text/javascript"></script>
-
+        <script src="js/jquery.reveal.js" type="text/javascript"></script>
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
         <script src="js/jquery.blend.min.js" type="text/javascript"></script>-->
@@ -47,6 +50,9 @@ and open the template in the editor.
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagecropper.css" rel="stylesheet" type="text/css"/>
+
+        <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
+
         <script>
             try{
                 Typekit.load({ async: true });
@@ -803,6 +809,16 @@ and open the template in the editor.
 
     </head>
     <body ng-app="myapp">
+        
+        <div id="myModal" class="reveal-modal">
+            <br />
+            <p><strong>Please enter the url:</strong> <input type="text" id="buttonURLText" value=""></p>
+            <p><input type="button" id="buttonOKURL" class="button button--moema button--text-thick button--text-upper button--size-s" value="SUBMIT"></p>
+            
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+        
+        
         <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
                 

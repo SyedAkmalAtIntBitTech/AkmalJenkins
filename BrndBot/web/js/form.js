@@ -4,11 +4,6 @@
  * and open the template in the editor.
  */
 
-//var host_address = "http://localhost:8084/BrndBot/";
-
-//var registrationURL = 'http://localhost:8084/BrndBot/ServletUserRegistration';
-//var organizationURL = 'http://localhost:8084/BrndBot/organization.jsp';
-
 function UserController($scope, $http)
 {
     $scope.user = {};

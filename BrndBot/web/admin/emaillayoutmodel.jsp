@@ -562,9 +562,9 @@
                     <input type="text" size="35" id="filePath" /> <br /><br />
                     <input type="button" class="fileButton" id="fileButton" value="Submit" />
                 </p>-->
-                <p>
-                    image:<br /><br />
-                    <select id="adminBackgroundImage"><option value="none">---select---</option></select>
+               <p>
+                    <label id="selectImage" title="Please upload all your images using FTP client in the following folder: admin/AdminLayoutBackgroundImages">Please Select Image:</label><br /><br />
+                    <select id="adminBackgroundImage"  title="Please upload all your images using FTP client in the following folder: admin/AdminLayoutBackgroundImages"><option value="none">---select---</option></select>
                     
                 </p>
                 <hr>

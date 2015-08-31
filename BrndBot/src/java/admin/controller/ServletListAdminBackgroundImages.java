@@ -45,24 +45,27 @@ public class ServletListAdminBackgroundImages extends BrndBotBaseHttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String imageBasePath = "";
             imageBasePath = AppConstants.ADMIN_LAYOUT_BACKGROUNDIMAGES_HOME;
+
             File backgroundImagesFolder = new File(imageBasePath);
+            if (!backgroundImagesFolder.exists()) {
+                backgroundImagesFolder.mkdirs();
+            }
             File[] listOfImageFiles = backgroundImagesFolder.listFiles();
-            
-        JSONArray json_arr = new JSONArray();
+
+            JSONArray json_arr = new JSONArray();
             for (int i = 0; i < listOfImageFiles.length; i++) {
                 JSONObject json_ob = new JSONObject();
                 if (listOfImageFiles[i].isFile()) {
-                    json_ob.put("id",""+i);
+                    json_ob.put("id", "" + i);
                     json_ob.put("filename", listOfImageFiles[i].getName());
-                    
-                    
+
                     json_arr.add(json_ob);
-                   
+
                 }
             }
-            
+
             out.write(new Gson().toJson(json_arr));
-            
+
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while reading admin background images:", e.getMessage()));
 

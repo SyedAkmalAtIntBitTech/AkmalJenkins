@@ -25,7 +25,7 @@ function showBrand(brandid, image_name) {
     $("#image2").attr('src', '/BrndBot/DownloadImage?image_type=BRAND_PERSONALITY&image_name=' + image_name);
 }
 
-function validat() {
+function validate() {
     var password = $("#inputpassword").val();
     var confirmpassword = $("#inputreenter").val();
     if (password === "") {
@@ -177,7 +177,7 @@ function controllerUserChanges($scope, $http) {
         var password = $("#inputpassword").val();
         var confirmpassword = $("#inputreenter").val();
 
-        if (validat()) {
+        if (validate()) {
 
             var password_object = {"password": password, "confirmpassword": confirmpassword, "type": "update"};
 
@@ -198,13 +198,12 @@ function controllerUserChanges($scope, $http) {
                 } else if (data === error) {
                     alert(data);
                 }
-            })
-                    .error(function (data, status) {
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
 
-                        alert("request not succesful");
-                    });
+                alert("request not succesful");
+            });
         }
     };
 
