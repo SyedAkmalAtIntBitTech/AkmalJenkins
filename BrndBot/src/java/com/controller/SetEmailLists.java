@@ -58,10 +58,19 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
             getSqlMethodsInstance().session = request.getSession();
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
-            if (queryParameter.equalsIgnoreCase("addUpdateEmailList")) {
+            if (queryParameter.equalsIgnoreCase("addEmailList")){
+                String emailListName = (String)json_update.get(IConstants.kEmailListNameKey);
+                String emailDefaultName = (String)json_update.get(IConstants.kEmailListDefaultFromName);
+                String emailListDescription = (String)json_update.get(IConstants.kEmailListListDescription);
+                
+                Boolean result = addEmailListPreference(user_id, emailListName, emailDefaultName, emailListDescription);
+                responseObject.put(queryParameter, result);
+                if (result){
+                    dataresponse = "true";
+                }
+            }else if (queryParameter.equalsIgnoreCase("UpdateEmailList")) {
                 String emailListName = (String)json_update.get(IConstants.kEmailListNameKey);
                 String emailAddresses = (String)json_update.get(IConstants.kEmailAddressesKey);
-                org.json.simple.JSONObject json_user_preferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
                 
                 Boolean result = updateEmailListPreference(user_id, emailListName, emailAddresses);
                 responseObject.put(queryParameter, result);
@@ -131,74 +140,73 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private Boolean updateEmailListPreference(Integer user_id, String emailListName, String emailAddresses) throws JSONException, SQLException {
-        JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
-
-        if (emailListArrayJSON.length() == 0){
-                org.json.simple.JSONArray json_user_email_addresses_array = new org.json.simple.JSONArray();
+    
+    
+    private boolean addEmailListPreference(Integer user_id, String emailListName, String defaultName, String listDescription)throws SQLException{
+        org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
+        
+        if (emailListArrayJSON.size() != 0){
                 JSONObject json_user_preferences_email = new JSONObject();
-                JSONObject json_user_preferences_listnames = new JSONObject();
-                String array_email_list[] = emailAddresses.split(",");
-
-                for (int i = 0; i< array_email_list.length; i++){
-                    json_user_email_addresses_array.add(array_email_list[i]);
-                }
 
                 json_user_preferences_email.put(IConstants.kEmailListNameKey, emailListName);
-                json_user_preferences_email.put(IConstants.kEmailAddressesKey, emailAddresses);
-                emailListArrayJSON.put(json_user_preferences_email);
+                json_user_preferences_email.put(IConstants.kEmailAddressesKey, "");
+                json_user_preferences_email.put(IConstants.kEmailListDefaultFromName, defaultName);
+                json_user_preferences_email.put(IConstants.kEmailListListDescription, listDescription);
+
+                emailListArrayJSON.add(json_user_preferences_email);
                 return AddEmailListUserPreference(user_id, emailListArrayJSON);
-        }else{
-                org.json.simple.JSONArray json_user_email_addresses_array = new org.json.simple.JSONArray();
+        }else {
                 JSONObject json_user_preferences_email = new JSONObject();
-                org.json.JSONObject emailListJSONObject = new org.json.JSONObject();
-                String array_email_list[] = emailAddresses.split(",");
 
-                for (int i = 0; i< array_email_list.length; i++){
-                    json_user_email_addresses_array.add(array_email_list[i]);
-                }
+                json_user_preferences_email.put(IConstants.kEmailListNameKey, emailListName);
+                json_user_preferences_email.put(IConstants.kEmailAddressesKey, "");
+                
+                json_user_preferences_email.put(IConstants.kEmailListDefaultFromName, defaultName);
+                json_user_preferences_email.put(IConstants.kEmailListListDescription, listDescription);
 
-                Boolean foundEmailListToUpdate = false;
-                for (int i = 0; i < emailListArrayJSON.length(); i++) {
-                    emailListJSONObject = emailListArrayJSON.getJSONObject(i);
-                    String currentListName = emailListJSONObject.getString(IConstants.kEmailListNameKey);
-                    if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
-                        if (emailListName.equals(currentListName)) {
-                            emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddresses);
-                            emailListArrayJSON.put(i, emailListJSONObject);
-                            foundEmailListToUpdate = true;
-                            break;
-                        }
-                    }
-                }
-                
-                if(!foundEmailListToUpdate)
-                {
-                    emailListJSONObject = new org.json.JSONObject();
-                    emailListJSONObject.put(IConstants.kEmailListNameKey, emailListName);
-                    emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddresses);
-                    emailListArrayJSON.put(emailListJSONObject);
-                }
-                
-                return updateEmailListUserPreference(user_id, emailListArrayJSON);
-        
+                org.json.simple.JSONArray emailListArray = new org.json.simple.JSONArray();
+                emailListArray.add(json_user_preferences_email);
+                return AddEmailListUserPreference(user_id, emailListArray);
         }
     }
 
-    private Boolean deleteEmailFromEmailList(Integer user_id, String emailListName, String emailid) throws JSONException, SQLException {
-        JSONArray emailListArrayJSON = (JSONArray) getSqlMethodsInstance().getEmailListsPreferences(user_id);
-        
-        for (int i = 0; i < emailListArrayJSON.length(); i++) {
-            org.json.JSONObject emailListJSONObject = emailListArrayJSON.getJSONObject(i);
-            String currentListName = emailListJSONObject.getString(IConstants.kEmailListNameKey);
+    private boolean updateEmailListPreference(Integer user_id, String emailListName, String emailAddresses) throws JSONException, SQLException {
+        org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
+
+        JSONObject json_user_preferences_email = new JSONObject();
+        JSONObject emailListJSONObject = new JSONObject();
+
+        Boolean foundEmailListToUpdate = false;
+        for (int i = 0; i < emailListArrayJSON.size(); i++) {
+            emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
+            String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
             if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
                 if (emailListName.equals(currentListName)) {
-                    String emailAddresses = emailListJSONObject.getString(IConstants.kEmailAddressesKey);
+                    emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddresses);
+                    emailListArrayJSON.set(i, emailListJSONObject);
+                    foundEmailListToUpdate = true;
+                    break;
+                }
+            }
+        }
+
+        return updateEmailListUserPreference(user_id, emailListArrayJSON);
+        
+    }
+
+    private boolean deleteEmailFromEmailList(Integer user_id, String emailListName, String emailid) throws JSONException, SQLException {
+        org.json.simple.JSONArray emailListArrayJSON = (org.json.simple.JSONArray) getSqlMethodsInstance().getEmailListsPreferences(user_id);
+        
+        for (int i = 0; i < emailListArrayJSON.size(); i++) {
+            JSONObject emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
+            String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
+            if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
+                if (emailListName.equals(currentListName)) {
+                    String emailAddresses = (String)emailListJSONObject.get(IConstants.kEmailAddressesKey);
                     emailAddresses = emailAddresses.replace(emailid+",", "");
                     emailAddresses = emailAddresses.replace(emailid, "");
                     emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddresses);
-                    emailListArrayJSON.put(i,emailListJSONObject);
+                    emailListArrayJSON.add(i,emailListJSONObject);
                     break;
                 }
             }
@@ -207,10 +215,10 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
     }
 //
     private Boolean deleteEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
-        JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
-        for (int i = 0; i < emailListArrayJSON.length(); i++) {
-            org.json.JSONObject emailListJSONObject = emailListArrayJSON.getJSONObject(i);
-            String currentListName = emailListJSONObject.getString(IConstants.kEmailListNameKey);
+        org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
+        for (int i = 0; i < emailListArrayJSON.size(); i++) {
+            JSONObject emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
+            String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
             if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
                 if (emailListName.equals(currentListName)) {
                     emailListArrayJSON.remove(i);
@@ -221,13 +229,13 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
         return updateEmailListUserPreference(user_id, emailListArrayJSON);
     }
 
-    private Boolean AddEmailListUserPreference(Integer user_id, JSONArray json_user_preferences_emails) throws SQLException {
+    private Boolean AddEmailListUserPreference(Integer user_id, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
         org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
         userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
         return getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);
     }
 
-    private Boolean updateEmailListUserPreference(Integer user_id, org.json.JSONArray json_user_preferences_emails) throws SQLException {
+    private Boolean updateEmailListUserPreference(Integer user_id, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
         org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
         userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
         return getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);

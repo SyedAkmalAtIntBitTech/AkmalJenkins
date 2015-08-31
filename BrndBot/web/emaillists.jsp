@@ -90,6 +90,7 @@
         <script>
 
             var update = "";
+            var selectedlistname = "";
             $(document).ready(function () {
 
                 $("#chooseEmailList").change(function () {
@@ -113,13 +114,17 @@
 
                 });
             });
-
+            
+            function setSelectedlistName(listname){
+                alert(listname);
+                $("#email_list_name").val(listname);
+            }
+            
             function showTextBox() {
                 $(".emaillist").hide();
                 $("#email_list_name").val("");
                 $("#email_list_name").show();
                 $("#email_list_name").focus();
-
             }
 
             function upload() {
@@ -154,15 +159,65 @@
                 $("#email_list_name").hide();
 
             }
+            function validate() {
+                    var emailListName = $("#list_name").val();
+                    var defaultFromName = $("#default_from_name").val();
+                    var listDescription = $("#list_description").val();
+                
+                if (emailListName === "") {
+                    alert("email list name not entered, please enter the from email list");
+                    $("#list_name").focus();
+                    return false;
+                }
+                
+                if ($.trim(defaultFromName).length == 0) {
+                    alert('Please enter default from name');
+                    $("#default_from_name").focus();
+                    return false;
+                }
+                
 
+                if (listDescription === "") {
+                    alert("list description not entered, please enter the list description");
+                    $("#reply_email_address").focus();
+                    return false;
+                }
+                
+                return true;
+            }
 
             function EmailListController($scope, $http) {
 
-                $scope.addEmailList = function () {
+
+                $scope.createEmailList = function () {
+                    var emailListName = $("#list_name").val();
+                    var defaultFromName = $("#default_from_name").val();
+                    var listDescription = $("#list_description").val();
+                    if (validate()){
+                        var Emails = {"emailListName": emailListName, "defaultFromName": defaultFromName, "listDescription":listDescription, "update": "addEmailList"};
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'SetEmailLists',
+                            headers: {'Content-Type': 'application/json'},
+                            data: Emails
+                        }).success(function (data)
+                        {
+                            if (data === "true") {
+                                alert("Data saved successfully");
+                                window.open(getHost() + 'emaillists.jsp', "_self");
+                            } else if (data === error) {
+                                alert(data);
+                            }
+                        });
+                        
+                    }
+                    
+                };
+                $scope.updateEmailList = function () {
                     var email_list_name = $("#email_list_name").val();
                     var email_list = $("#textArea").val();
 
-                    var Emails = {"emailListName": email_list_name, "emailAddresses": email_list, "update": "addUpdateEmailList"};
+                    var Emails = {"emailListName": email_list_name, "emailAddresses": email_list, "update": "UpdateEmailList"};
                     $http({
                         method: 'POST',
                         url: getHost() + 'SetEmailLists',
@@ -188,7 +243,26 @@
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=allEmailListNames',
                     }).success(function (data, status, headers, config) {
-                        $scope.emailLists = data.allEmailListNames
+                        $scope.emailLists1 = data.allEmailListNames
+                        if (data === "true") {
+//                                window.open(getHost() + 'emaillists.jsp', "_self");
+                        } else if (data === error) {
+                            alert(data);
+                        }
+                    });
+                };
+
+                $scope.showEmailListWithContacts = function () {
+                    $(".emaillist").show();
+                    $("#email_list_name").hide();
+
+                    var emailids = {"update": "allEmailListNames"};
+                    $http({
+                        method: 'GET',
+                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts',
+                    }).success(function (data, status, headers, config) {
+                        $scope.emailLists = data.allEmailListWithNoOfContacts;
+                        
                         if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
                         } else if (data === error) {
@@ -203,6 +277,62 @@
                     $("#fileUpload").val("");
                     $("#chooseEmailList").val("");
                 };
+                
+                $scope.updateList = function (list_name) {
+//                    alert(list_name);
+                    $("#email_list_name").val(list_name);
+                    $http({
+                        method: 'GET',
+                        url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
+                    }).success(function (data, status, headers, config) {
+                        $scope.emailAddresses = data.emailAddresses;
+                        
+                        if (data.emailAddresses !== "") {
+                            $("#tab3").show();
+                            $("#tab1").hide();
+//                                window.open(getHost() + 'emaillists.jsp', "_self");
+                        } else if (data === error) {
+                            alert(data);
+                        }
+                    });
+                    
+                };
+                
+                $scope.getEmailList = function () {
+
+                    var list_name = $("#email_list_name").val();
+                    alert(list_name);                    
+                    $http({
+                        method: 'GET',
+                        url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
+                    }).success(function (data, status, headers, config) {
+                        
+                        if (data.emailAddresses !== "") {
+                            $("#tab4").show();
+                            $("#tab1").hide();
+                            var i = 0;
+                            var emails;
+                            for(i=0; i<data.emailAddresses.length; i++){
+                                emails = data.emailAddresses[i] + "," + emails;
+                            }
+                            $("#textArea").val(emails);
+//                                window.open(getHost() + 'emaillists.jsp', "_self");
+                        } else if (data === error) {
+                            alert(data);
+                        }
+                    });
+                    
+                };
+                
+                $scope.showAddContacts = function (){
+                    $("#tab3").hide();
+                    $("#tab4").show();
+                };
+                
+                $scope.showCreateContacts = function(){
+                    $("#tab2").show();
+                    $("#tab1").hide();
+                };
             }
 
 
@@ -210,17 +340,108 @@
     </head>
     <body ng-app>
         
-        <div class="row">
+        <div class="row" ng-controller="EmailListController">
              <jsp:include page="leftmenu.html"/><!--/end left column-->
               <jsp:include page="emailsubmenu.html"/>
-            <div id="datadiv" class="col-md-10 col-md-offset-2">
+              
+                <div id="tab1" class="col-md-8 col-md-offset-2">
+                    <p id="hyshead" class="MH2">Email Lists</p>
+                    <div id="email_headings" class="col-md-4 col-md-offset-0" >
+                        <ul class="emlhisdata emlist FL2">
+                            <li><button type="button" name="createNew" id="createNew" value="CREATE NEW" ng-click="showCreateContacts()">CREATE NEW</button></li>
+                        </ul>
+                    </div>
+                    
+                    <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
+
+                    <div id="scrl" class="col-md-6" ng-init="showEmailListWithContacts()">
+                        <ul class="emlOneRowData L2 LE2" ng-repeat="email in emailLists">                            
+                            <li style="width: 450px;text-align:left;left:-35px;" onclick="setSelectedlistName('{{email.emailListName}}')">{{email.emailListName}}</li>
+                            <li style="width: 250px">{{email.listDescription}}</li>
+                            <li style="width: 250px">{{email.noofcontants}}</li>
+                            <li style="width: 250px">contacts</li>
+                            <li style="width: 250px"><button type="button" ng-click="updateList(email.emailListName)">edit</button> </li>
+                        </ul>
+                       
+                    </div><br><br>
+                    <div id="email_headings" class="col-md-4 col-md-offset-0" >
+                        <ul class="emlhisdata emlist FL2">
+                            <li><button type="button" name="addtolist" id="addtolist" value="CREATE NEW" ng-click="getEmailList()">ADD TO LIST</button></li>
+                        </ul>
+                    </div>
+
+                </div>
+              <div id="tab2" class="col-md-8 col-md-offset-2 " style="display:none">
+                  <div class="col-md-6 col-md-offset-0"><p id="hyshead">Create a new list(MH2)</p></div><br><br><br><br>
+                <p>Create a new email list. After you hit save, you will then be
+                able to add new contacts. (SS2)</p>
+                <div class="col-md-6 col-md-offset-0 bgcols">
+                    <div id="view1" style="width:550px; height:100px ">
+
+                        <form class="form-horizontal" id="signform" >
+
+                            <div class="group">
+                                <div class="col-md-3 col-md-offset-5">                            
+                                    <p class="text-left"></p>
+                                </div>
+                            </div>
+
+                            <div class="group">
+                                <div class="col-md-3 col-md-offset-5">                            
+                                    <label>LIST NAME</label><br>
+                                    <input id="list_name" class="form-control simplebox" type="text" name="list_name" />
+                                </div>
+                            </div>
+                            <div class="group">
+                                <div class="col-md-3 col-md-offset-5">                            
+                                    <label>DEFAULT FROM NAME    </label><br>
+                                    <input id="default_from_name" class="form-control simplebox" type="text" name="default_from_name"/>
+                                </div>
+                            </div>
+                            <div class="group">
+                                <div class="col-md-3 col-md-offset-5">                            
+                                    <label>LIST DESCRIPTION</label><br>
+                                    <input id="list_description" class="form-control simplebox" type="text" name="list_description"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-5 col-md-offset-4">
+                                    <br><button type="submit" class="button" ng-click="createEmailList()">Enter</button><br>
+                                </div>
+                            </div>
+
+                        </form> 
+                    </div>
+
+
+                </div>
+            </div>
+            
+              <div id="tab3" class="col-md-8 col-md-offset-2" style="display:none">
+                <div ng-controller="EmailListController">
+                    
+                    <div class="col-md-6 col-md-offset-0"><p id="hyshead">Manage "List Name" List</p></div><br>
+                    
+                <div>
+                    <button type="button" ng-click="showAddContacts()" >ADD CONTACTS</button>
+                    <ul><li>delete selected</li></ul>
+                    <ul><li><input type="checkbox">email address</li></ul>
+                </div>
+                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
+
+                <div id="scrl" class="col-md-6">
+                    <ul class="emlOneRowData L2 LE2" ng-repeat="email in emailAddresses">
+                        <li><input type="checkbox">{{email}}</li>
+                    </ul>
+                </div>
+                </div>
+
+            </div>
+              
+              <div id="tab4" class="col-md-10 col-md-offset-2" style="display:none">
                 <div id="emailsubjectdiv" ng-controller="EmailListController">
                     <p class="header1">Email List:</p>
-                    <input type="button" name="addlist" value="Add List" class="btn btn-primary" id="addlist" onclick="showTextBox()"/>
-                    <input type="button" name="editlist" value="Edit List" class="btn btn-primary" id="editlist" ng-click="showEmailList()"/><br><br>
-                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist" hidden="true">
-                        <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                    </select>
                     <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/> <br><br><br>
                     <div class="col-md-offset-1">
                         <label id="">Upload CSV</label>
@@ -230,7 +451,7 @@
                     <div id="dvCSV"></div>
                     <textarea width="400" height="500" id="textArea"></textarea><br><br>
 
-                    <input  id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="Update" ng-click="addEmailList()">
+                    <input  id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="Update" ng-click="updateEmailList()">
                     <input  id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="Clear" ng-click="clearfields()">
                 </div>
             </div>

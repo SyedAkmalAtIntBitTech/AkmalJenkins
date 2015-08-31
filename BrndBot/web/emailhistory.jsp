@@ -133,8 +133,8 @@
                         <ul class="emlOneRowData L2 LE2" ng-repeat="email in email_history">                            
                             <li style="width:450px;text-align:left;left:-35px;">{{email.tag}}</li>
                             <li style="width: 250px">{{email.sent}}</li>
-                            <li style="width: 250px">{{email.opens}}</li>
-                            <li style="width: 250px">{{email.clicks}}</li>
+                            <li style="width: 250px">{{(email.opens/email.sent)*100}}%</li>
+                            <li style="width: 250px">{{(email.clicks/email.sent)*100}}%</li>
                             <li style="width: 250px">{{email.unsubs}}</li>
                         </ul>
                        
