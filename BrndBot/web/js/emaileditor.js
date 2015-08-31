@@ -38,6 +38,7 @@ $(document).ready(function () {
     $("#tabs-2").hide();
     $("#tabs-3").hide();
     $("#tabs-4").hide();
+    
     $('.custom-color-box-text').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
