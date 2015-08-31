@@ -436,7 +436,7 @@ and open the template in the editor.
                                                     var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
 //                                                   
-                                                    $(".imagename").append("<option value="+background_image+" name="+ type +">Image "+count+"</option>");
+                                                    $(".imagename").append("<option name="+background_image+" value="+ type +">Image "+count+"</option>");
                                                         count++;
                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
@@ -891,7 +891,7 @@ $(this).addClass('highlight');
                                    },
                                    success: function (responseText) {
                                            var image=responseText;
-                                          alert(image);
+//                                          alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
 
                                    }
@@ -907,6 +907,7 @@ $(this).addClass('highlight');
     var selectedImageId;
     function getImageid(Id){
         selectedImageId=Id.id;
+        $('.imagename').val(""+selectedImageId).trigger('change');
         
     }
      window.onload = function () {
@@ -921,7 +922,7 @@ $(this).addClass('highlight');
 
     //button click event
     cvrt1.onclick = function () {
-         var image_Id= $('.imagename option:selected').attr("name");
+         var image_Id= $('.imagename option:selected').val();
         
         if (f) {
             $("#"+image_Id).css("-webkit-filter", "grayscale(100%)");
@@ -935,7 +936,7 @@ $(this).addClass('highlight');
         }
     };
     cvrt2.onclick = function () {
-        var image_Id= $('.imagename option:selected').attr("name");
+        var image_Id= $('.imagename option:selected').val();
         if (f) {
             $("#"+image_Id).css("-webkit-filter", "textured(100%)");
             f = 0;
@@ -948,7 +949,7 @@ $(this).addClass('highlight');
         }
     };
     cvrt3.onclick = function () {
-        var image_Id= $('.imagename option:selected').attr("name");
+        var image_Id= $('.imagename option:selected').val();
         if (f) {
             $("#"+image_Id).css("-webkit-filter", "brightness(150%)");
             f = 0;
@@ -961,7 +962,7 @@ $(this).addClass('highlight');
         }
     };
     cvrt4.onclick = function () {
-        var image_Id= $('.imagename option:selected').attr("name");
+        var image_Id= $('.imagename option:selected').val();
         if (f) {
             $("#"+image_Id).css("-webkit-filter", "grayscale(100%)");
             f = 0;
@@ -974,7 +975,7 @@ $(this).addClass('highlight');
         }
     };
     cvrt5.onclick = function () {
-        var image_Id= $('.imagename option:selected').attr("name");
+        var image_Id= $('.imagename option:selected').val();
         if (f) {
             $("#"+image_Id).css("-webkit-filter", "sepia(100%)");
             f = 0;
@@ -987,7 +988,7 @@ $(this).addClass('highlight');
         }
     };
     cvrt6.onclick = function () {
-        var image_Id= $('.imagename option:selected').attr("name");
+        var image_Id= $('.imagename option:selected').val();
         if (f) {
             $("#"+image_Id).css("-webkit-filter", "Statue(100%)");
             f = 0;
@@ -1059,7 +1060,7 @@ $(this).addClass('highlight');
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
                                                      alert(responseText);
-                                                         var image_Id= $('.imagename option:selected').attr("name");
+                                                         var image_Id= $('.imagename option:selected').val();
                                                         $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
 //                                                        $("#cropper_popup").hide();
                                                          $("#cropper_popup").hide();
@@ -1081,7 +1082,7 @@ $(this).addClass('highlight');
                                     $("#selectimage").click(function(){
                                         var image_file = global_host_address + $("#image_name").val();
                        
-                                        alert(selectedImageId);
+//                                        alert(selectedImageId);
                                         $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                         $("#imagespopup").hide();
                                     });
@@ -1090,11 +1091,13 @@ $(this).addClass('highlight');
                                             $("#textcontainer").hide();
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();
+//                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
+                                           
                                             $("#filtercontainer").show();
                                             $("#cropImageContainer").show();
 
-
-                                        var image_file=$(".imagename").val().replace("url(","").replace(")","");
+                
+                                        var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
 //                                        alert(image_file);
                                         id = "image" + i;
                                         $("#cropper_popup").show();
@@ -1150,7 +1153,7 @@ $(this).addClass('highlight');
                                     return;
                                     }
                             oFReader.readAsDataURL(oFile);
-                            alert(oFile.valueOf());
+//                            alert(oFile.valueOf());
                             $("#"+selectedImageId).css("backgroung-image","url("+oFile+")");
                             }
 

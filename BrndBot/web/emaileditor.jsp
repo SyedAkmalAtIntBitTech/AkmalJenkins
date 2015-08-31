@@ -706,7 +706,7 @@ and open the template in the editor.
                                     var blendmode = $(this).attr("background-blend-mode");
                                             
                                             var background_image=$(this).attr("background-image")
-                                             $(".imagename").append("<option value="+background_image+" name=" + type + "EEE" + blockId + ">Image "+count+"</option>");
+                                             $(".imagename").append("<option name="+background_image+" value=" + type + "EEE" + blockId + ">Image "+count+"</option>");
                                              count++;
                                             $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
                                             $("#" + type + "EEE" + blockId)
@@ -776,7 +776,7 @@ and open the template in the editor.
                                                       }
                                                             
                                                 }           
-                                        $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                                        $(".blockname").append("<option value=" + type + "EEE" + blockId + ">Block "+blockcount+"</option>")
                                             blockcount++;
                                       
                                         $(".preview #" + blockId).append("<div onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
@@ -1277,8 +1277,7 @@ and open the template in the editor.
                                             var selectedImageId;
                                             function getImageid(Id){
                                             selectedImageId = Id.id;
-                                                    //       alert(Id.id);
-
+                                               $('.imagename').val(""+selectedImageId).trigger('change');
                                             }
 
                                     window.onload = function () {
@@ -1292,7 +1291,7 @@ and open the template in the editor.
                                             cvrt6 = document.getElementById('convert6');
                                             //button click event
                                             cvrt1.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').attr("name");
+                                                var image_Id= $('.imagename option:selected').val();
                                             if (f) {
                                             $("#" + image_Id).css("-webkit-filter", "grayscale(100%)");
                                                     f = 0;
@@ -1303,7 +1302,7 @@ and open the template in the editor.
                                             }
                                             };
                                             cvrt2.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').attr("name");
+                                                var image_Id= $('.imagename option:selected').val();
                                             if (f) {
                                             $("#" + image_Id).css("-webkit-filter", "textured(100%)");
                                                     f = 0;
@@ -1314,7 +1313,7 @@ and open the template in the editor.
                                             }
                                             };
                                             cvrt3.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').attr("name");
+                                                var image_Id= $('.imagename option:selected').val();
                                             if (f) {
                                             $("#" + image_Id).css("-webkit-filter", "brightness(150%)");
                                                     f = 0;
@@ -1325,7 +1324,7 @@ and open the template in the editor.
                                             }
                                             };
                                             cvrt4.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').attr("name");
+                                                var image_Id= $('.imagename option:selected').val();
                                             if (f) {
                                             $("#" + image_Id).css("-webkit-filter", "grayscale(100%)");
                                                     f = 0;
@@ -1336,7 +1335,7 @@ and open the template in the editor.
                                             }
                                             };
                                             cvrt5.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').attr("name");
+                                                var image_Id= $('.imagename option:selected').val();
                                             if (f) {
                                             $("#" + image_Id).css("-webkit-filter", "sepia(100%)");
                                                     f = 0;
@@ -1347,7 +1346,7 @@ and open the template in the editor.
                                             }
                                             };
                                             cvrt6.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').attr("name");
+                                                var image_Id= $('.imagename option:selected').val();
                                             if (f) {
                                             $("#" + image_Id).css("-webkit-filter", "Statue(100%)");
                                                     f = 0;
@@ -1414,7 +1413,7 @@ and open the template in the editor.
                                                             method: 'post',
                                                             data: { image: dataURL},
                                                             success: function (responseText) {
-                                                                    var image_Id= $('.imagename option:selected').attr("name");
+                                                                    var image_Id= $('.imagename option:selected').val();
                                                                     $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
                                                                     $("#cropper_popup").hide();
                                                             }
@@ -1446,7 +1445,7 @@ and open the template in the editor.
                                                     $("#imagecontainer").hide();
                                                     $("#filtercontainer").show();
                                                     $("#cropImageContainer").show();
-                                                    var image_file = $(".imagename").val().replace("url(", "").replace(")", "");                                                                                           
+                                                    var image_file = $(".imagename").attr("name").replace("url(", "").replace(")", "");                                                                                           
                                                     id = "image" + i;
                                                     $("#cropper_popup").show();
 //                                                    $('#cropper_popup').draggable();

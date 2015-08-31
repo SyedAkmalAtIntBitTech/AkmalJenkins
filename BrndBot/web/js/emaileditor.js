@@ -77,8 +77,13 @@ $(document).ready(function () {
     });
     $(".blankcolor-box").click(function () {
         var color = $("#" + this.id).css("background-color");
+        var blockId = $(".blockname").val();
         $("#selectedshapecolorbox").css("background-color", "" + color);
-        $("#" + selectedDivId).css("background-color", "" + color);
+//        $("#" + selectedDivId).css("background-color", "" + color);
+      
+        $("#" + blockId).css('background-color', '#' + color);
+         
+        
     });
     $(".blankcolor-box1").click(function () {
         var display = $("#pickColorForText").css("display");
@@ -299,7 +304,7 @@ $(document).ready(function () {
                                 {
                                     var blendmode = $(this).attr("background-blend-mode");
                                     var background_image = $(this).attr("background-image");
-                                    $(".imagename").append("<option value=" + background_image + ">Image " + count + "</option>");
+                                    $(".imagename").append("<option name=" + background_image + " value="+ type + "EEEdefaultblock1>Image " + count + "</option>");
                                     count++;
                                     $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                                     $("#" + type + "EEEdefaultblock1")
@@ -653,7 +658,7 @@ function getButtonid(ID) {
 }
 
 function getTectId(id) {
-    alert(id);
+//    alert(id);
     $("textarea").click(function () {
         selectedTextareaId = id.id;
     });
@@ -663,6 +668,7 @@ function getTectId(id) {
 
 function getDivId(divid) {
     selectedDivId = divid.id;
+    $('.blockname').val(""+selectedDivId).trigger('change');
 }
 
 function getImgId(divid) {
