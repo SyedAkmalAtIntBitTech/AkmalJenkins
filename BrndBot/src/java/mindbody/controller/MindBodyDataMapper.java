@@ -70,9 +70,11 @@ public class MindBodyDataMapper {
                         String class_model_option = modelElement.getAttribute("option");
                         String defaultValue = modelElement.getAttribute("default");
                         String epochValue = modelElement.getAttribute("epoch");
-
+                        
                         logger.log(Level.INFO, modelElement.getAttribute("option"));
-
+                        if (class_model_option.equalsIgnoreCase("Select") && element.toLowerCase().contains("button")) {
+                             json_mindbody_enrollment_data.put(element, defaultValue);
+                         }
                         if (class_model_option.equalsIgnoreCase("EnrollmentID")) {
                             if (mindbody_enrollments.getID().getValue() != null) {
                                 json_mindbody_enrollment_data.put(element, mindbody_enrollments.getID().getValue());
@@ -261,7 +263,9 @@ public class MindBodyDataMapper {
                         String defaultValue = modelElement.getAttribute("default");
                         String epochValue = modelElement.getAttribute("epoch");
                         logger.log(Level.INFO, modelElement.getAttribute("option"));
-
+                         if (class_model_option.equalsIgnoreCase("Select") && element.toLowerCase().contains("button")) {
+                             json_mindbody_class_data.put(element, defaultValue);
+                         }
                         if (class_model_option.equalsIgnoreCase("ClassID")) {
                             if (mindbody_class.getID().getValue() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getID().getValue());
@@ -426,7 +430,9 @@ public class MindBodyDataMapper {
                         String class_model_option = modelElement.getAttribute("option");
                         String defaultValue = modelElement.getAttribute("default");
                         logger.log(Level.INFO, modelElement.getAttribute("option"));
-
+                        if (class_model_option.equalsIgnoreCase("Select") && element.toLowerCase().contains("button")) {
+                             json_mindbody_class_data.put(element, defaultValue);
+                        }
                         if (class_model_option.equalsIgnoreCase("ClassID")) {
                             if (mindbody_class.getID().getValue() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getID().getValue());

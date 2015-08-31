@@ -129,7 +129,7 @@ $(document).ready(function () {
 
 
 
-    jsondata;
+    var jsondata;
     mindbodydataId = $("#mindbodydata").val();
 
     var layoutfilename = $("#clickid").val();
@@ -339,7 +339,9 @@ $(document).ready(function () {
 
                                 if (tag === "button")
                                 {
-                                    $(".preview #defaultblock1").append("<div><img src='" + elementdata + "'id=" + type + "EEEdefaultblock1 alt='button'/>");
+                                    var src_image = $(this).attr("src");
+                                    
+                                    $(".preview #defaultblock1").append("<div><a href=\"#\" data-reveal-id=\"myModal\"><img src='" + src_image + "' buttonLink = '"+elementdata+"' id=" + type + "EEEdefaultblock1 onclick=getButtonid('" + type + "EEEdefaultblock1') alt='button'/></a>");
                                     $("#" + type + "EEEdefaultblock1").css("left", "" + left + "px")
                                             .css("top", "" + top + "px")
                                             .attr("src", "buttons/button1.png")
@@ -392,6 +394,7 @@ $(document).ready(function () {
             });
         }
     });
+    
     $("#sortUpBlock").click(function () {
 
         var current = $("#" + $(selectedBlockId).attr("id"));
@@ -624,7 +627,13 @@ $(document).ready(function () {
 //        }
 //    }
 //}
-
+$(function(){
+    $("#buttonOKURL").click(function(){
+       
+       $("#"+selectedButtonId).attr("buttonlink",$("#buttonURLText").val());
+        $(".close-reveal-modal").click();
+    });
+});
 function getBlockId(id) {
 
     selectedBlockId = id;
@@ -635,8 +644,15 @@ function getBlockId(id) {
     $("#tabs-3").hide();
     $("#tabs-4").hide();
 }
+function getButtonid(ID) {
+    
+    //alert($("#"+ID).attr("buttonlink"));
+    selectedButtonId = ID;
+    $("#buttonURLText").val($("#"+ID).attr("buttonlink"));
+}
 
 function getTectId(id) {
+    alert(id);
     $("textarea").click(function () {
         selectedTextareaId = id.id;
     });
