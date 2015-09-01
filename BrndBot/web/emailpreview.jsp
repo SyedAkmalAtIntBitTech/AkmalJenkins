@@ -207,8 +207,8 @@
         }
 
         function sendEmail() {
-            alert("clicked");
-            $.ajax({
+            var formattedHTML = $(".content").html();
+                $.ajax({
                 url: getHost() + "SendEmailServlet",
                 method: "post",
                 data: {
@@ -217,7 +217,7 @@
                     email_addresses: $("#toaddress").val(),
                     from_email_address: $("#formaddress").val(),
                     reply_to_email_address: $("#email").val(),
-                    htmldata:$("htmldata").val() ,
+                    htmldata:formattedHTML,
                     email_list:$("email_list").val()
                 },
                 success: function (responseText) {
