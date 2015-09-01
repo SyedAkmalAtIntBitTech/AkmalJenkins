@@ -140,7 +140,7 @@
                             if ($('#textArea').val() == "") {
                                 $('#textArea').val(rows);
                             } else {
-                                $('#textArea').val($('#textArea').val() + ", " + rows);
+                                $('#textArea').val($('#textArea').val() + rows);
                             }
                         }
                         reader.readAsText(fileUpload.files[0]);
@@ -311,7 +311,7 @@
                             $("#tab4").show();
                             $("#tab1").hide();
                             var i = 0;
-                            var emails;
+                            var emails = "";
                             for(i=0; i<data.emailAddresses.length; i++){
                                 emails = data.emailAddresses[i] + "," + emails;
                             }
@@ -322,6 +322,19 @@
                         }
                     });
                     
+                };
+                
+                $scope.selectCheckBox = function (){
+                    
+                    $("#selectAll").click(function (){
+                       var selectAll = $("#selectAll").val();
+                       
+                       if (selectAll){
+                            $(".email").attr("checked", true);
+                       }else {
+                            $(".email").attr("checked", false);
+                       }
+                    });
                 };
                 
                 $scope.showAddContacts = function (){
@@ -418,21 +431,21 @@
                 </div>
             </div>
             
-              <div id="tab3" class="col-md-8 col-md-offset-2" style="display:none">
+            <div id="tab3" class="col-md-8 col-md-offset-2" style="display:none">
                 <div ng-controller="EmailListController">
                     
                     <div class="col-md-6 col-md-offset-0"><p id="hyshead">Manage "List Name" List</p></div><br>
                     
                 <div>
-                    <button type="button" ng-click="showAddContacts()" >ADD CONTACTS</button>
+                    <button type="button" ng-click="showAddContacts()">ADD CONTACTS</button>
                     <ul><li>delete selected</li></ul>
-                    <ul><li><input type="checkbox">email address</li></ul>
+                    <ul><li><input id="selectAll" type="checkbox" ng-click="selectCheckBox()">email address</li></ul>
                 </div>
                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
 
                 <div id="scrl" class="col-md-6">
                     <ul class="emlOneRowData L2 LE2" ng-repeat="email in emailAddresses">
-                        <li><input type="checkbox">{{email}}</li>
+                        <li><input class="email" type="checkbox" value="">{{email}}</li>
                     </ul>
                 </div>
                 </div>
