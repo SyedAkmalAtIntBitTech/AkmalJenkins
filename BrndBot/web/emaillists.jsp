@@ -243,6 +243,7 @@
                         if (data === "true") {
                             alert("Data saved successfully");
                             window.open(getHost() + 'emaillists.jsp', "_self");
+                            
                         } else if (data === error) {
                             alert(data);
                         }
@@ -350,10 +351,10 @@
                 
                 $scope.deleteSelected = function (){
                     var selectAll = document.getElementById("selectAll").checked;
-                    
+                    var email_list_name = "";
                     if (selectAll){
                         
-                        var email_list_name = $("#email_list_name").val();
+                        email_list_name = $("#email_list_name").val();
                         var Emails = {"update": "deleteAllEmailsFromList", "emailListName":email_list_name};
                         $http({
                             method: 'POST',
@@ -364,13 +365,15 @@
                         {
                             if (data === "true") {
                                 alert("Data deleted successfully");
+//                                $scope.updateList(email_list_name);
+                                
                                 window.open(getHost() + 'emaillists.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);
                             }
                         });
                     }else{
-                        var email_list_name = $("#email_list_name").val();
+                        email_list_name = $("#email_list_name").val();
                         var Emails = {"update": "deleteEmailInEmailList", "emailListName":email_list_name, "emailAddresses":selectedemailids};
                         $http({
                             method: 'POST',
@@ -381,7 +384,9 @@
                         {
                             if (data === "true") {
                                 alert("Data deleted successfully");
-                                window.open(getHost() + 'emaillists.jsp', "_self");
+                                $scope.updateList(email_list_name);
+                                
+//                                window.open(getHost() + 'emaillists.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);
                             }
@@ -427,11 +432,6 @@
                         </ul>
                        
                     </div><br><br>
-                    <div id="email_headings" class="col-md-4 col-md-offset-0" >
-                        <ul class="emlhisdata emlist FL2">
-                            <li><button type="button" name="addtolist" id="addtolist" value="CREATE NEW" ng-click="getEmailList()">ADD TO LIST</button></li>
-                        </ul>
-                    </div>
 
                 </div>
               <div id="tab2" class="col-md-8 col-md-offset-2 " style="display:none">
@@ -487,7 +487,7 @@
                     <div class="col-md-6 col-md-offset-0"><p id="hyshead">Manage "List Name" List</p></div><br>
                     
                 <div>
-                    <button type="button" ng-click="showAddContacts()">ADD CONTACTS</button>
+                    <button type="button" ng-click="getEmailList()">ADD CONTACTS</button>
                     <ul><li><p ng-click="deleteSelected()">delete selected</p></li></ul>
                     <ul><li><input id="selectAll" type="checkbox" ng-click="selectCheckBox()">email address</li></ul>
                 </div>
@@ -515,7 +515,6 @@
                     <textarea width="400" height="500" id="textArea"></textarea><br><br>
 
                     <input  id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="Update" ng-click="updateEmailList()">
-                    <input  id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="Clear" ng-click="clearfields()">
                 </div>
             </div>
         </div>
