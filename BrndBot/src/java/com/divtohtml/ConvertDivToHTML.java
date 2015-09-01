@@ -26,7 +26,7 @@ public class ConvertDivToHTML {
 
     private static final Logger logger = Logger.getLogger(ConvertDivToHTML.class.getName());
 
-    private final static String divDelimiter = "SSS";
+    private final static String divDelimiter = "EEE";
     private final static String styleKey = "style";
     private final static String idKey = "id";
     private final static String idSearchPattern = "*[id]";
@@ -40,11 +40,12 @@ public class ConvertDivToHTML {
 
     public String getResponsiveHTMLFromDiv(String divContent) throws IOException, Exception {
 
-//        divContent = getFile("/Users/AR/Documents/Projects/EclipseWorkspace/ConvertDivToHTMLTemplate/divhtml.html");
+        //divContent = getFile("/Users/AR/Desktop/testdiv.html");
 
         StringBuilder newHtml = new StringBuilder();
-
+        
         ArrayList<DivHTMLModel> divContentSplit = splitDivContent(divContent);
+
         SqlMethods sqlMethods = new SqlMethods();
         divContentSplit = sqlMethods.getHTMLforDivHTMLModelList(divContentSplit);
 
@@ -194,7 +195,8 @@ public class ConvertDivToHTML {
         Document doc = Jsoup.parse(divContent);
         Elements divElements = doc.select(idSearchPattern);
         for (Element item : divElements) {
-            String id = item.attr(idKey);
+            String id = item.attr(idKey).split(divDelimiter)[0];
+            
             String style = item.attr(styleKey);
             HashMap<String, String> styleMap = new HashMap<>();
             styleMap = getKeyValuePair(style);
@@ -223,6 +225,7 @@ public class ConvertDivToHTML {
                 ButtonProperties button = new ButtonProperties();
                 button.setId(id);
                 button.setURL(item.attr(ButtonProperties.buttonLinkKey));
+                buttonList.add(button);
             } else if (BlockProperties.isColorBlock(id)) {
                 BlockProperties block = new BlockProperties();
                 block.setId(id);
