@@ -144,7 +144,6 @@ public class ConvertDivToHTML {
                     List<Node> nodes = link.childNodes(); //Picking the button encapsulated in ahref
                     for (Node node : nodes) {
                         String buttonId = node.attr(idKey); //getting the button
-
                         ArrayList<ButtonProperties> buttonProperties = (ArrayList<ButtonProperties>) divHashMap.get(ButtonProperties.class.getName());
                         for (ButtonProperties button : buttonProperties) {
                             String parsedId = button.getId().split(divDelimiter)[0];
@@ -223,19 +222,7 @@ public class ConvertDivToHTML {
             } else if (ButtonProperties.isButton(id)) {
                 ButtonProperties button = new ButtonProperties();
                 button.setId(id);
-
-                Elements links = doc.select("a");//Getting all a hrefs.
-                for (Element link : links) {
-                    List<Node> nodes = link.childNodes(); //Picking the button encapsulated in ahref
-                    for (Node node : nodes) {
-                        String buttonId = node.attr(idKey); //getting the b
-                        if (buttonId.equalsIgnoreCase(id)) {
-                            button.setURL(link.attr("href"));
-                            buttonList.add(button);
-                            break;
-                        }
-                    }
-                }
+                button.setURL(item.attr(ButtonProperties.buttonLinkKey));
             } else if (BlockProperties.isColorBlock(id)) {
                 BlockProperties block = new BlockProperties();
                 block.setId(id);

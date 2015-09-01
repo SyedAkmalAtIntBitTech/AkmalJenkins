@@ -57,8 +57,8 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
         try {
             String email_subject = request.getParameter("email_subject");
             String email_addresses = request.getParameter("email_addresses");
-            String html_text = (String) getSqlMethodsInstance().session.getAttribute("htmldata");
-            String emaillist_name = (String) getSqlMethodsInstance().session.getAttribute("email_list");
+            String html_text = request.getParameter("htmldata");
+            String emaillist_name = request.getParameter("email_list");
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
             
             String reply_to_address = request.getParameter("reply_to_email_address");
