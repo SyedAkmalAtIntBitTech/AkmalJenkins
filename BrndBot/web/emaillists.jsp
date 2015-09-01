@@ -91,6 +91,21 @@
 
             var update = "";
             var selectedlistname = "";
+            var selectedemailids = "";
+            
+            function selectEmailId(id){
+                
+                var selectedid  = document.getElementById(id).checked;
+                
+                if (selectedid){
+                    emailid = $("#"+id).val();
+                    selectedemailids = emailid + "," + selectedemailids;
+                }else{
+                    emailid = $("#"+id).val();
+                    selectedemailids = selectedemailids.replace(emailid+",","");
+                }
+            }
+            
             $(document).ready(function () {
 
                 $("#chooseEmailList").change(function () {
@@ -301,7 +316,6 @@
                 $scope.getEmailList = function () {
 
                     var list_name = $("#email_list_name").val();
-                    alert(list_name);                    
                     $http({
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
@@ -313,7 +327,7 @@
                             var i = 0;
                             var emails = "";
                             for(i=0; i<data.emailAddresses.length; i++){
-                                emails = data.emailAddresses[i] + "," + emails;
+                                emails = data.emailAddresses[i].emailid + "," + emails;
                             }
                             $("#textArea").val(emails);
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
@@ -325,18 +339,55 @@
                 };
                 
                 $scope.selectCheckBox = function (){
-                    
-                    $("#selectAll").click(function (){
-                       var selectAll = $("#selectAll").val();
-                       
-                       if (selectAll){
-                            $(".email").attr("checked", true);
-                       }else {
-                            $(".email").attr("checked", false);
-                       }
-                    });
+                    var selectAll = document.getElementById("selectAll").checked;
+                    if (selectAll){
+                         $(".email").attr("checked", true);
+                    }else {
+                         $(".email").attr("checked", false);
+                    }
+
                 };
                 
+                $scope.deleteSelected = function (){
+                    var selectAll = document.getElementById("selectAll").checked;
+                    
+                    if (selectAll){
+                        
+                        var email_list_name = $("#email_list_name").val();
+                        var Emails = {"update": "deleteAllEmailsFromList", "emailListName":email_list_name};
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'SetEmailLists',
+                            headers: {'Content-Type': 'application/json'},
+                            data: Emails
+                        }).success(function (data)
+                        {
+                            if (data === "true") {
+                                alert("Data deleted successfully");
+                                window.open(getHost() + 'emaillists.jsp', "_self");
+                            } else if (data === error) {
+                                alert(data);
+                            }
+                        });
+                    }else{
+                        var email_list_name = $("#email_list_name").val();
+                        var Emails = {"update": "deleteEmailInEmailList", "emailListName":email_list_name, "emailAddresses":selectedemailids};
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'SetEmailLists',
+                            headers: {'Content-Type': 'application/json'},
+                            data: Emails
+                        }).success(function (data)
+                        {
+                            if (data === "true") {
+                                alert("Data deleted successfully");
+                                window.open(getHost() + 'emaillists.jsp', "_self");
+                            } else if (data === error) {
+                                alert(data);
+                            }
+                        });
+                    }
+                };
                 $scope.showAddContacts = function (){
                     $("#tab3").hide();
                     $("#tab4").show();
@@ -347,7 +398,6 @@
                     $("#tab1").hide();
                 };
             }
-
 
         </script>
     </head>
@@ -438,14 +488,14 @@
                     
                 <div>
                     <button type="button" ng-click="showAddContacts()">ADD CONTACTS</button>
-                    <ul><li>delete selected</li></ul>
+                    <ul><li><p ng-click="deleteSelected()">delete selected</p></li></ul>
                     <ul><li><input id="selectAll" type="checkbox" ng-click="selectCheckBox()">email address</li></ul>
                 </div>
                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
 
                 <div id="scrl" class="col-md-6">
                     <ul class="emlOneRowData L2 LE2" ng-repeat="email in emailAddresses">
-                        <li><input class="email" type="checkbox" value="">{{email}}</li>
+                        <li><input id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}</li>
                     </ul>
                 </div>
                 </div>

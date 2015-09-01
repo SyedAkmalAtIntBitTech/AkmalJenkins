@@ -116,7 +116,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('#circleCheckBox').click(function () {
-    alert($("#" + selectedTextID).css("border-radius"));
+//    alert($("#" + selectedTextID).css("border-radius"));
             if($('#circleCheckBox').prop("checked"))
                 $("#" + selectedTextID).css("border-radius", "50%");
             else
@@ -1411,7 +1411,7 @@ function passvaluetoinputfield() {
 
 
         $("#textstyle").val(textareadetails);
-       alert(textareadetails);
+//       alert(textareadetails);
 
     }
 //   alert(mapperdata);

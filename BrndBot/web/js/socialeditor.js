@@ -82,8 +82,11 @@ $(document).ready(function () {
 
     $(".blankcolor-box").click(function () {
         var color = $("#" + this.id).css("background-color");
+        var blockId = $(".blockname").val();
         $("#selectedshapecolorbox").css("background-color", "" + color);
-        $("#" + selectedDivId).css("background-color", "" + color);
+//        $("#" + selectedDivId).css("background-color", "" + color);
+        $("#" + blockId).css('background-color', '#' + color);
+       
     });
 
 
@@ -301,7 +304,7 @@ $(document).ready(function () {
                                 {
                                     var background_image = $(this).attr("background-image");
                                     var blendmode = $(this).attr("background-blend-mode");
-                                    $(".imagename").append("<option value=" + background_image + ">Image " + count + "</option>");
+                                    $(".imagename").append("<option name=" + background_image + " value="+ type +">Image " + count + "</option>");
                                     count++;
                                     $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                     $("#" + type)
@@ -332,7 +335,7 @@ $(document).ready(function () {
                                     var borderRadius = $(this).attr("border-radius");
                                     var backgroundcolor;
 
-                                    $(".blockname").append("<option value=" + type + ">Block " + blockcount + "</option>")
+                                    $(".blockname").append("<option value=" + type + ">Block " + blockcount + "</option>");
                                     blockcount++;
 
                                     for (var i = 1; i <= 6; i++)
@@ -518,6 +521,7 @@ function reload_alignButtons1(align)
 
 function getDivId(divid) {
     selectedDivId = divid.id;
+     $('.blockname').val(""+selectedDivId).trigger('change');
 }
 
 //function getImgId(divid) {
