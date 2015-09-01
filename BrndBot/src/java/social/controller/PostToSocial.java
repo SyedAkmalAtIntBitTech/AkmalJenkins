@@ -12,6 +12,8 @@ import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
 import facebook4j.PostUpdate;
 import facebook4j.auth.AccessToken;
+import facebook4j.Media;
+import facebook4j.PhotoUpdate;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -77,11 +79,16 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             facebook = new FacebookFactory().getInstance();
             facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
             facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
+//            File file = new File(file_image_path);
             facebook.setOAuthAccessToken(new AccessToken(accessToken));
+            
             if (title == "") {
-                PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL + "/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile));
-                facebook.postFeed(post);
+                
+//                PostUpdate post = new PostUpdate(posttext)
+////                          .picture(new URL(imagePostURL + "/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
+//     
+//                facebook.postFeed(post);
+                facebook.postPhoto(new Media(new File(file_image_path)));
             } else {
                 PostUpdate post = new PostUpdate(posttext)
                         .picture(new URL(imagePostURL + "/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))

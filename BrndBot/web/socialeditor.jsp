@@ -311,13 +311,14 @@ and open the template in the editor.
                     return input.slice(start);
             };
             });
-                var layout_mapper_url = "";
+                          
+                    function showText(id, layout){
+                         var layout_mapper_url = "";
                    if (mindbodydataId != ""){
                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social';
                    }else{
                        layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
-                   }            
-                    function showText(id, layout){
+                   } 
                             $.ajax({
                                     type: 'GET',
                                     url: layout_mapper_url,
