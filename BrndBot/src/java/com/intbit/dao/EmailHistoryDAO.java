@@ -6,12 +6,14 @@
 package com.intbit.dao;
 
 import com.intbit.ConnectionManager;
+import com.intbit.EmailAndSocialStatus;
 import email.mandrill.MessageResponse;
 import email.mandrill.MessageResponses;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -73,4 +75,45 @@ public class EmailHistoryDAO {
         }
         return tagSet;
     }
+    
+    public static int addToEmailHistory(
+            Integer userid, 
+            String contenthtml,
+            String emailaddress, 
+            String emaillistname,
+            String emailSubject,
+            String tag
+    ) throws SQLException {
+        int lastUpdateId = -1;
+        try (Connection connection = connectionManager.getConnection()) {
+            connection.setAutoCommit(false);
+            try {
+                String query_string = "INSERT INTO tbl_emailsenthistory "
+                        + " (user_id, timesent, contenthtml, emailaddress, emaillistname, email_tag, subject) VALUES "
+                        + " (?,CURRENT_TIMESTAMP,?,?,?,?,?) RETURNING id";
+                try (PreparedStatement prepared_statement = connection.prepareStatement(query_string)) {
+                    prepared_statement.setInt(1, userid);
+                    prepared_statement.setString(2, contenthtml);
+                    prepared_statement.setString(3, emailaddress);
+                    prepared_statement.setString(4, emaillistname);
+                    prepared_statement.setString(5, tag);
+                    prepared_statement.setString(6, emailSubject);
+                    prepared_statement.execute();
+                    try (ResultSet result_set = prepared_statement.getResultSet()) {
+
+                        if (result_set.next()) {
+                            lastUpdateId = result_set.getInt(1);
+                            logger.log(Level.INFO, "Id of new email history: " + lastUpdateId);
+                        }
+                    }
+                }
+                connection.commit();
+            } catch (SQLException ex) {
+                connection.rollback();
+                throw ex;
+            }
+        }
+        return lastUpdateId;
+    }
+
 }
