@@ -104,6 +104,14 @@ $(document).ready(function () {
     $("#fontsize").change(function () {
         $("#" + selectedTextareaId).css("font-size", "" + $("#fontsize").val());
     });
+    $("#minusFont").click(function () {
+        var minusFont =  parseInt($("#" + selectedTextareaId).css("font-size").replace("px","")) - 5;
+         $("#" + selectedTextareaId).css("font-size", ""+minusFont+"px");
+    });
+    $("#plusFont").click(function () {
+        var plusFont =  parseInt($("#" + selectedTextareaId).css("font-size").replace("px","")) + 5;
+         $("#" + selectedTextareaId).css("font-size",""+plusFont+"px");
+    });
 
     $("#fontname").change(function () {
         $("#" + selectedTextareaId).css("font-family", "" + $("#fontname").val());
