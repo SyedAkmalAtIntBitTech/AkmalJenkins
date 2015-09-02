@@ -24,11 +24,17 @@
        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
+        <!--<script src="js/foundation.min.js" type="text/javascript"></script>-->
+        <script src="js/jquery.reveal.js" type="text/javascript"></script>
+        
         <script src="js/socialmedia.js" type="text/javascript"></script>
+        
+<link href="css/reveal.css" rel="stylesheet" type="text/css"/>
 <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <title>social media</title>
 
@@ -134,6 +140,7 @@
         
            <script>
             $(document).ready(function () {
+               
                      $(".cross").hide();
                             $(".menu").hide();
                             $(".hamburger").click(function () {
@@ -155,6 +162,14 @@
         <script>
             
             $(document).ready(function () {
+                
+                // $('#myModal').trigger('reveal:open');
+                
+//                $("#abc").click(function () {
+//                    alert("close already!");
+//                   
+//                    $('#myModal').foundation('reveal', 'close');
+//                });
                 var myVar1 = '<%= code %>';    /* retrieve json from request attribute */
                 var mytest = eval('(' + myVar1 + ')');
 //                alert(JSON.stringify(myVar1));      // display complete json
@@ -164,12 +179,13 @@
                 //       alert(pages.length);
 
                 if (myVar1 === "null") {
-                    $("#popup").hide();
+                    //$("#popup").hide();
+                    $(".close-reveal-modal").click();
                 }
                 else {
 //                    alert("contain value");
-                    $("#popup").show();
-
+                    //$("#popup").show();
+                    $(".clickthis").click();
                     for (var i = 0; i < pages.length; i = i + 3) {
                         $("#fbmanagepages").append("<tr  id=page#" + i + "><td>" + pages[i] + "</td><td><input type=hidden id=access" + i + " value=" + pages[i + 1] + "></td><td><img src=" + pages[i + 2] + "></td></tr>");
                     }
@@ -238,12 +254,14 @@
                                 success: function (responseText) {
     //                            $("#tokenHere").html(responseText);
                    
-                                    $("#popup").hide(); 
+                                    //$("#popup").hide(); 
+                                    $(".close-reveal-modal").click();
                                      $("#submitbutton").prop("disabled",false);
                                 }
                             });
                     }else if((check_default_managed_page == false) && (check_default == "true")) { 
-                        $("#popup").hide(); 
+                        //$("#popup").hide(); 
+                        $(".close-reveal-modal").click();
                         $("#submitbutton").prop("disabled",false);
                     }else {
                         alert("No default page selected");
@@ -255,7 +273,8 @@
                     $("#fbdefaultAccessToken").val("");
                     $("#isFacebook").val("false");
                     $("#facebook").prop("checked",false);
-                    $("#popup").hide();
+                    //$("#popup").hide();
+                    $(".close-reveal-modal").click();
                     $("#twitterpopup").hide();
                     $("#submitbutton").prop("disabled",true);
             });   
@@ -267,9 +286,11 @@
            }
            
         </script>
-     
+<!--        <link href="css/foundation.css" rel="stylesheet" type="text/css"/>-->
     </head>
 <body>
+    <a href="#" data-reveal-id="myModal" class="clickthis" style="display: none;">Click Me For A Modal</a>
+    <a href="#" data-reveal-id="myModal1" class="clicktwitter" style="display: none;">Click Me For A Modal</a>
     <div class="row">
        <jsp:include page="leftmenu.html"/><!--/end left column-->
        
@@ -297,24 +318,30 @@
             </ul>  
         </div>
 
-        <div id="popup">
+        <div id="myModal" class="reveal-modal">
             <div id="content">
                 <center>
                     <table id="fbmanagepages">
                     </table>
                 </center>
             </div>   
+            <a class="close-reveal-modal">&#215;</a>
         </div>
-        <div id="twitterpopup" style="display: none">
+        <div id="myModal1" class="reveal-modal">
             <div id="content">
                 <p>Please click the url and get the pin</p>
                 <div id="twitterlink">wait...</div>
                 Enter the pin<input type="text" id="pinTextBox" name="pinTextBox"><br><br><br>
                 <input id="setPin" type="button" class="btn btn-primary" value="ok">
 <!--                <input id="closetwitter" type="button" class="btn btn-primary" value="cancel">-->
-            </div>   
+            </div> 
+<!--            <a class="close-reveal-modal">&#215;</a>  -->
         </div>        
     </div>
+                            <script>
+                                        <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
+                                
+                            </script>
 </body>
 <script>
     function changeImagef() {
@@ -341,5 +368,6 @@
    document.getElementById("twitter").checked=false;    
    }
 }
+
 </script>
 </html>

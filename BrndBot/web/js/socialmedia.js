@@ -54,14 +54,14 @@ $(document).ready(function () {
 
         $("#close").click(function () {
 
-            $("#popup").hide();
-
+            //$("#popup").hide();
+            $(".close-reveal-modal").click();
         });
     });
 
     $("#twt").click(function () {
         twittercheck = document.getElementById("twitter").checked;
-//            alert(twittercheck);
+           
         $("#submitbutton").prop("disabled", true);
         $("#isTwitter").val(twittercheck);
         var twitter_access_tokens = "";
@@ -77,14 +77,14 @@ $(document).ready(function () {
                 success: function (responseText) {
                     if (responseText == "") {
 
-                        $("#twitterpopup").show();
-
+                        //$("#twitterpopup").show();
+                        
+                        $(".clicktwitter").click();
                         $.ajax({
                             url: 'GetTwitterToken',
                             method: 'get',
                             success: function (responseText) {
                                 $("#twitterlink").html("<a href='" + responseText + "' target='_blank'>click here</a>");
-                                alert(responseText);
                             }
                         });
                         $('#setPin').click(function () {
@@ -115,9 +115,9 @@ $(document).ready(function () {
                                         $("#submitbutton").prop("disabled", false);
                                     }
                                 });
-
-                                $("#twitterpopup").hide();
-
+                                
+                                //$("#twitterpopup").hide();
+                                $(".close-reveal-modal").click();
 
                             } else {
                                 alert("Please enter the pin code");
@@ -139,14 +139,16 @@ $(document).ready(function () {
         else
         {
             $("#twaccessTokenSend").val("");
-            $("#twitterpopup").hide();
+            //$("#twitterpopup").hide();
+            $(".close-reveal-modal").click();
             $("#submitbutton").prop("disabled", true);
         }
 
     });
     $("#closetwitter").click(function () {
 
-        $("#twitterpopup").hide();
+        //$("#twitterpopup").hide();
+        $(".close-reveal-modal").click();
         $("#submitbutton").prop("disabled", true);
 
 
