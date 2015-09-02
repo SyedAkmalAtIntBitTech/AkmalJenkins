@@ -94,9 +94,11 @@ public class ConvertDivToHTML {
                             divDelimiter)[0];
                     if (backgroundImageId.equalsIgnoreCase(parsedId)) {
                         if (!StringUtil.isEmpty(backgroundImageProperty.getBackgroundURL())) {
-                            String picLocation = getColorBlocksForThisBackgroundImage(item, orderOfLayeringId, id, divHashMap, divContent);
+                            String picLocation = getColorBlocksForThisBackgroundImage(item, orderOfLayeringId, id, divHashMap, divContent, backgroundImageProperty.getWidth(), backgroundImageProperty.getHeight());
                             styleMap.put(BackgroundImageProperties.backgroundURLKey, "url(" + picLocation + ")");
-                            doc.getElementById(id).attr(styleKey, createKeyValuePair(styleMap));
+                            doc.getElementById(id).attr(BackgroundImageProperties.backgroundURLKey, picLocation);
+                            
+//                            doc.getElementById(id).attr(styleKey, createKeyValuePair(styleMap));
                             if (!StringUtil.isEmpty(id) && orderOfLayeringId.length > 1) {
                                 ArrayList<BlockProperties> blockProperties = (ArrayList<BlockProperties>) divHashMap
                                         .get(BlockProperties.class.getName());
@@ -245,6 +247,8 @@ public class ConvertDivToHTML {
                 BackgroundImageProperties backgroundImage = new BackgroundImageProperties();
                 backgroundImage.setId(id);
                 backgroundImage.setBackgroundURL(styleMap.get(BackgroundImageProperties.backgroundURLKey));
+                backgroundImage.setWidth(styleMap.get(BackgroundImageProperties.widthKey));
+                backgroundImage.setHeight(styleMap.get(BackgroundImageProperties.heightKey));
                 backgroundImageList.add(backgroundImage);
             }
             map.put(TextAreaProperties.class.getName(), textAreaList);
@@ -306,11 +310,10 @@ public class ConvertDivToHTML {
         return result;
     }
 
-    private String getColorBlocksForThisBackgroundImage(Element item, String[] orderOfLayeringId, String id, HashMap<String, ArrayList<?>> divHashMap, String divContent) throws Exception {
+    private String getColorBlocksForThisBackgroundImage(Element item, String[] orderOfLayeringId, String id, HashMap<String, ArrayList<?>> divHashMap, String divContent, String width, String height) throws Exception {
         File compressedBackgroundImageFile = null;
         Elements backgroundImageTdElement = item.select("td");
         Element tdOfBackgroundImage = backgroundImageTdElement.get(0);
-        String backgroundImageStyle = tdOfBackgroundImage.attributes().get("style");
         StringBuilder backgroundImageWithBlocksHTML = new StringBuilder();
 
         Document doc = Jsoup.parse(divContent);
@@ -327,11 +330,6 @@ public class ConvertDivToHTML {
                 break;
             }
         }
-
-        HashMap<String, String> backgroundImageStyleMap = getKeyValuePair(backgroundImageStyle);
-        String backgroundImageWidth = backgroundImageStyleMap.get("width");
-        String backgroundImageHeight = backgroundImageStyleMap.get("height");
-        // This is the background image with new style
 
         logger.log(Level.INFO, "orderOfLayeringId==" + orderOfLayeringId + "    id==" + id);
         if (!StringUtil.isEmpty(id) && orderOfLayeringId != null && orderOfLayeringId.length > 1) {
@@ -373,7 +371,7 @@ public class ConvertDivToHTML {
         String filePath = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator;
 
         PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletRequest.getServletContext(), filePath);
-        compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), null, backgroundImageWidth, backgroundImageHeight, "0", "0");
+        compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), null, width, height, "0", "0");
             //Should create the compressed image out of this and replace the background with it.
 
         return servletRequest.getServerName() + ":" + servletRequest.getServerPort() + compressedBackgroundImageFile.getPath();
