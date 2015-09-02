@@ -1264,9 +1264,12 @@ and open the template in the editor.
 
                                             $("#continue").click(function (){
                                     $.ajax({
-                                    url: getHost() + "EmailHtmlData",
+                                    url: getHost() + "SaveKeyValueSessionServlet",
                                             method: "post",
-                                            data:{htmlString: $(".dataForEmail").html()},
+                                            data:{
+                                                sessionkey:"htmldata"
+                                                sessionValue: $(".dataForEmail").html()
+                                            },
                                             success: function (responseText) {
 
                                             document.location.href = "emailpreview.jsp";

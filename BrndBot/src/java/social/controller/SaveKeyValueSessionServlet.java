@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sandeep-kumar
  */
-public class EmailHtmlData extends BrndBotBaseHttpServlet {
+public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,12 +36,13 @@ public class EmailHtmlData extends BrndBotBaseHttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try{
-             getSqlMethodsInstance().session = request.getSession(true);
-           String html_data = request.getParameter("htmlString");
-           getSqlMethodsInstance().session.setAttribute("htmldata", html_data);
+           getSqlMethodsInstance().session = request.getSession(true);
+           String sessionValue = request.getParameter("sessionValue");
+           String sessionKey = request.getParameter("sessionKey");
+           getSqlMethodsInstance().session.setAttribute(sessionKey, sessionValue);
       
         }catch (Exception e){
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
         }
     }

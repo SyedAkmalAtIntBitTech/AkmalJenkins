@@ -136,7 +136,7 @@ public class TextAreaProperties  extends BaseProperties {
 	
 	public String getFontFamily() {
 		if(StringUtil.isEmpty(fontFamily)) {
-			return "Arial, Georgia, Serif";
+			return "Arial, San serif, Georgia";
 		}
 		return fontFamily;
 	}
