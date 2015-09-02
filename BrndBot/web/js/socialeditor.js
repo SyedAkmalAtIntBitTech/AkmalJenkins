@@ -521,8 +521,19 @@ function reload_alignButtons1(align)
 
 function getDivId(divid) {
     selectedDivId = divid.id;
+    var divBackgroundColor=$("#"+selectedDivId).css("background-color");
+    var opcity=$("#"+selectedDivId).css("opacity");
      $('.blockname').val(""+selectedDivId).trigger('change');
+     $('#selectedshapecolorbox').css("background-color",""+divBackgroundColor);
+       $('#slider').slider({
+        min: 0,
+        max: 1,
+        step: 0.01,
+        value: ""+opcity,
+        orientation: "horizontal" 
+    });
 }
+
 
 //function getImgId(divid) {
 //    selectedImgDiv = divid;
