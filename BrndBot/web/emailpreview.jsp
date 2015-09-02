@@ -245,7 +245,7 @@
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
                             <input id="name" class="form-control simplebox" name="from_name" type="text" required>
-                            <label>NAME</label><br>
+                            <label>FROM NAME</label><br>
                         </div>
                     </div>
                     <div class="group">
@@ -271,7 +271,7 @@
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
                             <input id="email" class="form-control simplebox" name="reply_to_email_address" type="text" required value="{{email_settings.reply_email_address}}">
-                            <label>EMAIL</label><br><br>
+                            <label>REPLY TO EMAIL</label><br><br>
                         </div>
                     </div>
                     <div  class="form-group">
