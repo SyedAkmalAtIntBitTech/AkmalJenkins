@@ -934,13 +934,13 @@ and open the template in the editor.
 
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor">
+                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:38px;overflow-y:scroll;width:370px;overflow-x:hidden;">
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
                                             <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li>
+                                               <li style="position:relative;left:-9px;">
                                                     <p id="editorheadere" class="SS1">font color</p>
                                                     <div class="blankcolor-box1" id="picker" ></div>
                                                     
@@ -961,11 +961,11 @@ and open the template in the editor.
                                                     </select>
                                                 </li>
                                                  <li> 
-                                                    <ul id="pickColorForText" style="display:none;left:-26px;position:relative;margin-top: -50px;">
-                                                        <li><br><p class="editpal">your palette</p></li>
-                                                        <li><p class="editpal custom-color-box-text" style="margin-left:150px;position:relative;top:20px;">custom</p></li>
+                                                    <ul id="pickColorForText" style="display:none;left:-14px;position:relative;margin-top:-80px;">
+                                                        <li><p class="editpal">your palette</p></li>
+                                                        <li><p class="editcus custom-color-box-text" style="margin-left:130px;position:relative;">custom</p></li>
                                                         <li id="fcolcontainer">
-                                                            <ul id="colorpalette ">
+                                                            <ul id="colorpalette " style="position:relative;left:-12px;">
                                                                    <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
@@ -977,7 +977,7 @@ and open the template in the editor.
                                                             
                                                         </ul>
                                                 </li>
-                                                <li><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
+                                                <li style="left:-9px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-left alignButton" id="left"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-center alignButton" id="center"></div></li>
@@ -1013,7 +1013,7 @@ and open the template in the editor.
                                                 </li>
                                                 <li><p class="editpal">pick from theme</p></li>
                                                 <li><p class="editpal custom-color-box" style="margin-left: 120px;">custom</p><br></li>
-                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
+                                                <li><p class="opcty">opacity</p><div id="slider" ></div></li>
 
                                             </ul>
                                         </div>
@@ -1057,7 +1057,7 @@ and open the template in the editor.
                                         <div id="stylecontainer">
                                             
                                             <div>
-                                                <div style="height:500px; overflow-y:scroll;">
+                                                <div style="height:500px;">
                                                     <ul>
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
@@ -1099,7 +1099,7 @@ and open the template in the editor.
                                         <div id="blockcontainer">
                                             ADD A NEW BLOCK
                                             <div>
-                                                <div style="height:500px; overflow-y:scroll">
+                                                <div style="height:500px;">
                                                     <button id="continueblock" ng-click="showDataTemp()" style="background-color: orange;position: relative;top:30%;left:30%">Continue</button>
                                                     <ul>
                                                         <!--{{datalists}}-->

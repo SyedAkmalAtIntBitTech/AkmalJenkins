@@ -135,7 +135,7 @@ and open the template in the editor.
 }
 .editor{
     position:absolute;
-    padding-top: 38%;
+    padding-top: 0%;
     width:350px;
     height: 500px;
     border-style:hidden;
@@ -163,13 +163,14 @@ and open the template in the editor.
 #textmodification li{
     position: relative;
     padding-top: 5%;
-    margin: 7px;
+    margin: 5px;
+    padding-left: -20px;
     display:inline-table;
 
 }
 #imagemodification li{
     margin: 7px;
-    margin-left: -7px;
+    margin-left: -4px;
     padding: 4px;
     display:inline-table;
 }
@@ -180,6 +181,7 @@ and open the template in the editor.
 #imagecontainer{
      position: relative;
     padding-top: 5%;
+    left:-2px;
 }
 #shapemodificatoin li{
     margin: 0;
@@ -220,12 +222,40 @@ and open the template in the editor.
     text-align: left;
     line-height: 12px;
     letter-spacing:0em;
+
+    
 }
 .palpos{
     position: relative;
 /*    left:-15px;*/
     
 }
+.opcty{font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+color: #66676b;
+text-align:  left;
+line-height: 14.4px;
+letter-spacing:0em;
+position: relative;
+margin-bottom: 5%;
+left:-4px;
+}
+.editcus{font-family: "proxima-nova",sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+color: #66676b;
+text-align:  left;
+line-height: 14.4px;
+letter-spacing:0em;
+position: relative;
+margin-top: 50px;
+margin-bottom: 10px;
+}
+
+
 .editpal{
 font-family: "proxima-nova",sans-serif;
 font-style: normal;
@@ -235,6 +265,10 @@ color: #66676b;
 text-align:  left;
 line-height: 14.4px;
 letter-spacing:0em;
+position: relative;
+margin-top: 15px;
+margin-bottom: 0%;
+left:-4px;
 }
 #editorhead{
 font-family: "proxima-nova",sans-serif;
@@ -246,6 +280,8 @@ text-align: left;
 line-height: 14.4px;
 letter-spacing:0em;
 border-radius: 5px;
+position:relative;
+left:-4px;
 }
 
 .row{
@@ -568,7 +604,7 @@ border-radius: 5px;
     float: left;
     width: 26px;
     height: 11px;
-    margin-left: 20px;
+    margin-left: 16px;
     border-width: 1px;
     border-radius: 3px;
     border-style: solid;    
@@ -577,20 +613,22 @@ border-radius: 5px;
 
 .blankcolor-box1{
         float: left;
-        width: 36px;
-        height: 15px;
+        width: 26px;
+        height: 11px;
         border-radius: 3px;
         margin-top: 10px;
         border-width: 1px;
         border-style: solid;
         border-color: rgba(0,0,0,.2);
+        left:0px;
+        position:relative;
     
 }
 .blankcolor-box-text{
      float: left;
     width: 26px;
     height: 11px;
-    margin-left: 20px;
+    margin-left: 16px;
     border-width: 1px;
     border-radius: 3px;
     border-style: solid;    
@@ -600,8 +638,8 @@ border-radius: 5px;
 
 .fontcolor-box{
         float: left;
-        width: 36px;
-        height: 15px;
+        width:26px;
+        height: 11px;
         border-radius: 3px;
         margin-top: 10px;
         border-width: 1px;
@@ -610,13 +648,13 @@ border-radius: 5px;
 }
 
 .headblankcolor-box{
-        position: relative;
-        left:43px;
+        position: absolute;
+        left:85px;
         float: left;
-        width: 36px;
-        height: 15px;
+        width: 26px;
+        height: 11px;
         border-radius: 3px;
-        margin-left:  120px;
+        margin-left:  95px;
         margin-top: 10px;
         border-width: 1px;
         border-style: solid;
@@ -625,7 +663,8 @@ border-radius: 5px;
 }
 #fcolcontainer ul
 {
-margin: 0;
+margin-top: -20px;
+margin-left: -7px;
 padding: 0;
 list-style-type: none;
 text-align: center;
@@ -633,14 +672,16 @@ width:360px;
 }
 #fcolcontainer ul li{
     display: inline;
-    
-}
+    margin-top:15px;
+    }
 #colcontainer ul
 {
 margin: 0;
 padding: 0;
 list-style-type: none;
 text-align: center;
+position:relative;
+left:-6px;
 }
 #colcontainer ul li{
     display: inline;
