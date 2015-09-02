@@ -100,7 +100,7 @@
                             Attach Image:<input type="file" style="border: 1px solid;" name="filesToUpload" id="filesToUpload" class="upload"/><br>
                             <!--  <label>Organization Name:</label>-->
                             <button type="button" id="uploadhtml" onclick="upload()" name="uploadhtml">Upload HTML</button><br><br>
-                            HTML Content: <textArea name="html_content" id="html_content" maxlength="3000" cols="50" rows="10"></textArea> 
+                            HTML Content: <textArea name="html_content" id="html_content" maxlength="100000" cols="50" rows="10"></textArea> 
                     </div><br>
                 </div>
 

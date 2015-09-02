@@ -26,7 +26,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author Mohamed
  */
-@WebServlet(name = "GetScheduledEntityDetailServlet", urlPatterns = {"/GetScheduledEntityDetail"})
+@WebServlet(name = "GetScheduledEntityDetailServlet", urlPatterns = {"/GetScheduledEmailDetail"})
 public class GetScheduledEmailDetailServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(GetScheduledEmailDetailServlet.class.getName());
 

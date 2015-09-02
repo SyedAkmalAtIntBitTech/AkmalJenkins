@@ -999,7 +999,11 @@ and open the template in the editor.
                                             <ul id="shapemodificatoin">
 
                                              
-                                                <li><select class="blockname LE1" id="editorhead"></select></li>
+                                                <li>
+                                                    <select class="blockname LE1" id="editorhead">
+                                                        <option>select</option>
+                                                    </select>
+                                                </li>
 
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
                                                   <li><p class="editpal">your palette</p></li>                                                                                         
@@ -1265,12 +1269,12 @@ and open the template in the editor.
 
         <script>
 
-                                            $("#continue").click(function (){
+                                     $("#continue").click(function (){
                                     $.ajax({
                                     url: getHost() + "SaveKeyValueSessionServlet",
                                             method: "post",
                                             data:{
-                                                sessionkey:"htmldata"
+                                                sessionKey:"htmldata",
                                                 sessionValue: $(".dataForEmail").html()
                                             },
                                             success: function (responseText) {

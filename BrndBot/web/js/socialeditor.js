@@ -10,10 +10,10 @@ var type;
 var selectedTextareaId;
 var selectedDivId;
 //var selectedImgDiv;
+ var blockId ="";
 var title;
 var teacher;
 var date;
-
 var head1 = "Head1";
 var i = 1;
 
@@ -35,7 +35,6 @@ $(document).ready(function () {
     var status = "true";
     $("#tabs-1").show();
     $("#tabs-2").hide();
-    blockId = $(".blockname").val();
 
     $('.custom-color-box-text').colpick({
         colorScheme: 'dark',
@@ -62,22 +61,10 @@ $(document).ready(function () {
                 var blockId = $(".blockname").val();
                 $("#" + blockId).css('background-color', '#' + hex);
                 $(el).colpickHide();
-//            $("#slider").show();
             }
         })
                 .css('background-color', '#ffffff');
-//     $("#slider").show();
 
-    });
-    $('#slider').slider({
-        min: 0,
-        max: 1,
-        step: 0.01,
-        value: 1,
-        orientation: "horizontal",
-        slide: function (e, ui) {
-            $('#' + $(".blockname").val()).css('opacity', ui.value);
-        }
     });
 
     $(".blankcolor-box").click(function () {
@@ -88,7 +75,19 @@ $(document).ready(function () {
         $("#" + blockId).css('background-color', '#' + color);
        
     });
-
+$(".blockname").change(function (){
+    var blockId = $(".blockname").val();
+    var divBackgroundColor=$("#"+blockId).css("background-color");
+    var opcity=$("#"+blockId).css("opacity");
+     $('#selectedshapecolorbox').css("background-color",""+divBackgroundColor);
+       $('#slider').slider({
+        min: 0,
+        max: 1,
+        step: 0.01,
+        value: ""+opcity,
+        orientation: "horizontal" 
+    });
+});
 
     $(".blankcolor-box1").click(function () {
         var display = $("#pickColorForText").css("display");
@@ -390,6 +389,17 @@ $(document).ready(function () {
         }
     });
 
+    
+    $('#slider').slider({
+        min: 0,
+        max: 1,
+        step: 0.01,
+        value: 0,
+        orientation: "horizontal",
+        slide: function (e, ui) {
+            $('#' + $(".blockname").val()).css('opacity', ui.value);
+        }
+    });
     $("#text").click(function () {
         $("#tabs-1").show();
         $("#tabs-2").hide();
@@ -529,17 +539,9 @@ function reload_alignButtons1(align)
 
 function getDivId(divid) {
     selectedDivId = divid.id;
-    var divBackgroundColor=$("#"+selectedDivId).css("background-color");
-    var opcity=$("#"+selectedDivId).css("opacity");
+    
      $('.blockname').val(""+selectedDivId).trigger('change');
-     $('#selectedshapecolorbox').css("background-color",""+divBackgroundColor);
-       $('#slider').slider({
-        min: 0,
-        max: 1,
-        step: 0.01,
-        value: ""+opcity,
-        orientation: "horizontal" 
-    });
+
 }
 
 
