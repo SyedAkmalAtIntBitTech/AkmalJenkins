@@ -1267,7 +1267,7 @@ and open the template in the editor.
                                     url: getHost() + "SaveKeyValueSessionServlet",
                                             method: "post",
                                             data:{
-                                                sessionkey:"htmldata",
+                                                sessionKey:"htmldata",
                                                 sessionValue: $(".dataForEmail").html()
                                             },
                                             success: function (responseText) {
