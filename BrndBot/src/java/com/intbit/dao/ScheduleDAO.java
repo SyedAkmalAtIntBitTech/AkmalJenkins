@@ -168,7 +168,8 @@ public class ScheduleDAO {
                 + " tbl_scheduled_entity_type_color tc "
                 + " WHERE user_id = ? "
                 + " AND date(schedule_time) = ? "
-                + " AND slist.entity_type = tc.entity_type";
+                + " AND slist.entity_type = tc.entity_type"
+                + " AND slist.status = 'scheduled'";
         try(Connection connection = connectionManager.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(1, userId);
@@ -179,7 +180,7 @@ public class ScheduleDAO {
                     scheduleDetailMap.put("schedule_id", rs.getInt("id"));
                     scheduleDetailMap.put("entity_id", rs.getInt("entity_id"));
                     scheduleDetailMap.put("schedule_title", rs.getString("schedule_title"));
-                    scheduleDetailMap.put("schedule_time", rs.getTimestamp("schedule_time"));
+                    scheduleDetailMap.put("schedule_time", rs.getTimestamp("schedule_time").getTime());
                     scheduleDetailMap.put("entity_type", rs.getString("entity_type"));
                     scheduleDetailMap.put("status", rs.getString("status"));
                     scheduleDetailMap.put("user_id", rs.getInt("user_id"));

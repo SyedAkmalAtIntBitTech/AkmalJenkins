@@ -482,6 +482,8 @@ $(document).ready(function () {
             y = Math.round(childOffset.top);
             $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
             $(".position").text("Co ordinates: X=" + x + ", Y=" + y);
+            $("#blockX").val(x);
+            $("#blockY").val(y);
             //$("#size").text("Height="+$("#"+id).css("height")+", Width="+$("#"+id).css("width"));
             reloadTabs(3);
         });
@@ -534,6 +536,8 @@ $(document).ready(function () {
             y = Math.round(childOffset.top);
             $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
             $(".position").text("Co ordinates: X=" + x + ", Y=" + y);
+            $("#buttonX").val(x);
+            $("#buttonY").val(y);
             //$("#size").text("Height="+$("#"+id).css("height")+", Width="+$("#"+id).css("width"));
             reloadTabs(2);
         });
@@ -698,6 +702,8 @@ $(document).ready(function () {
             y = Math.round(childOffset.top);
             $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
             $(".position").text("Co ordinates: X=" + x + ", Y=" + y);
+            $("#imageX").val(x);
+            $("#imageY").val(y);
             $(".size").text("Height=" + $("#" + id).css("height") + ", Width=" + $("#" + id).css("width"));
             reloadTabs(1);
         });
@@ -877,14 +883,16 @@ $(document).ready(function () {
             y = Math.round(childOffset.top);
             $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
             $(".position").text("Co ordinates: X=" + x + ", Y=" + y);
+            $("#textX").val(x);
+            $("#textY").val(y);
             reload_textButtons();
             reload_alignButtons();
             reload_textSize();
             reload_textFontFamily();
             reload_color();
             $("#lineHeight").val($("#" + selectedTextID).css("line-height").replace('px', ''));
-
-            if ($("#" + selectedTextID).css("letter-spacing") === "0")
+            
+            if ($("#" + selectedTextID).css("letter-spacing") === 0)
                 $("#letterSpace").val($("#" + selectedTextID).css("letter-spacing"));
             else
                 $("#letterSpace").val($("#" + selectedTextID).css("letter-spacing").replace('px', ''));
@@ -892,6 +900,56 @@ $(document).ready(function () {
             //reload_dropShadow();
             reloadTabs(0);
         });
+    });
+    $("#textX").keypress(function(){
+//        var childPos = $("#" + selectedTextID).parent().offset();
+//            var parentPos = $(".container").offset();
+////alert(Math.round(childPos.left) + ", "+ parentPos.left);
+//            var childOffset = {
+//                top: childPos.top - parentPos.top,
+//                left: childPos.left - parentPos.left
+//            };
+//            //alert(childOffset.left+ " ,"+childOffset.top);
+//            x11 = Math.round(childOffset.left);
+//            y11 = Math.round(childOffset.top);
+//        alert(x11 +":"+y11);
+//        alert($("#" + selectedTextID).parent().css("left"));
+//        alert("parent"+parentPos.left);
+//        var finx = parentPos.left + parseInt($("#textX").val());
+//        alert(finx);
+//        $("#" + selectedTextID).parent().css("left", ""+finx+"px");
+    });
+    $(".coordButton").click(function(){
+        var tempX, tempY;
+        if($("#tabs").tabs('option', 'active')=="0")
+        {
+            tempX = $("#textX").val();
+            tempY = $("#textY").val(); 
+        }
+        else if($("#tabs").tabs('option', 'active')=="1")
+        {
+            tempX = $("#imageX").val();
+            tempY = $("#imageY").val(); 
+        }
+        else if($("#tabs").tabs('option', 'active')=="2")
+        {
+            tempX = $("#buttonX").val();
+            tempY = $("#buttonY").val(); 
+        }
+        else if($("#tabs").tabs('option', 'active')=="3")
+        {
+            tempX = $("#blockX").val();
+            tempY = $("#blockY").val(); 
+        }
+            
+        var parentPos = $(".container").offset();
+       
+        var finx = parentPos.left + parseInt(tempX);
+        var finy = parentPos.top + parseInt(tempY);
+        x = finx;
+        y = finy;
+        $("#" + selectedTextID).parent().css("left", ""+finx+"px");
+        $("#" + selectedTextID).parent().css("top", ""+finy+"px");
     });
     $("#addLogoButton").click(function () {
         $("#slider").hide();
@@ -1046,6 +1104,8 @@ $(document).ready(function () {
             y = Math.round(childOffset.top);
             $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
             $(".position").text("Co ordinates: X=" + x + ", Y=" + y);
+            $("#imageX").val(x);
+            $("#imageY").val(y);
             $(".size").text("Height=" + $("#" + id).css("height") + ", Width=" + $("#" + id).css("width"));
             reloadTabs(1);
         });
