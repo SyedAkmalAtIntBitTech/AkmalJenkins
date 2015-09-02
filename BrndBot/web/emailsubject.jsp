@@ -304,32 +304,32 @@
                 });
           
                 $("#chooseEmailList").change(function () {
-                var x = document.getElementById("chooseEmailList").selectedIndex;
-                var List_name = document.getElementsByTagName("option")[x].value;
-                
-                if (List_name == 0){
-                    $("#emailaddresses").hide();
-                    $("#drop-zone").hide();
-                    $("#clickHere").hide();
-                    $("#upload").hide();
-                }else {
-                    
-                    $("#email_list_name").val(List_name);
-                    $.ajax({
-                            url: getHost() + "GetEmailLists",
-                            data: {
-                                update: "emailsForEmailList",
-                                list_name: List_name
-                            },
-                            success: function(result){
-    //                            alert(JSON.stringify(result));
-                                var email_addresses = JSON.stringify(result.emailAddresses);
-                                var email_add = email_addresses.replace("\"",'');
-                                var email_address = email_add.replace("\"",'');
-                                $("#emailaddresses").val(email_address);
-                            }
-                    });
-                }
+                    var x = document.getElementById("chooseEmailList").selectedIndex;
+                    var List_name = document.getElementsByTagName("option")[x].value;
+
+                    if (List_name == 0){
+                        $("#emailaddresses").hide();
+                        $("#drop-zone").hide();
+                        $("#clickHere").hide();
+                        $("#upload").hide();
+                    }else {
+
+                        $("#email_list_name").val(List_name);
+                        $.ajax({
+                                url: getHost() + "GetEmailLists",
+                                data: {
+                                    update: "emailsForEmailList",
+                                    list_name: List_name
+                                },
+                                success: function(result){
+        //                            alert(JSON.stringify(result));
+                                    var email_addresses = JSON.stringify(result.emailAddresses.emailid);
+                                    var email_add = email_addresses.replace("\"",'');
+                                    var email_address = email_add.replace("\"",'');
+                                    $("#emailaddresses").val(email_address);
+                                }
+                        });
+                    }
                 });
 
                 $("#emailIdContinueButton").click(function () {
@@ -608,7 +608,8 @@
                             method: 'GET',
                             url: getHost() + 'GetEmailLists?update=allEmailListNames'
                     }).success(function(data, status, headers, config) {
-                            $scope.emailLists = data.allEmailListNames
+                            $scope.emailLists = data.allEmailListNames;
+                            alert(JSON.stringify(data.allEmailListNames));
                             if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
                             } else if (data === error) {
@@ -639,8 +640,8 @@
         }
      %>
     <body ng-app>
-                   <div class="row">
-                 <jsp:include page="leftmenu.html"/><!--/end left column-->
+            <div class="row">
+            <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div><!--/end left column-->
             <div id="datadiv" class="col-md-8 col-md-offset-2">
                 <div id="emailsubjectdiv">

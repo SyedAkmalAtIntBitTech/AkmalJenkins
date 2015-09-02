@@ -157,6 +157,30 @@
                 });        
                 
             };
+            
+            $scope.setScheduling = function(){
+                    
+                var from_name = $("#name").val();
+                var email_subject = $("#subject").val();
+                var to_email_addresses = $("#toaddress").val();
+                var from_email_address = $("#formaddress").val();
+                var reply_to_email_address = $("#email").val();
+                var htmldata = $("htmldata").val();
+                var email_list = $("email_list").val();
+
+                
+                var email_scheduling = {}
+                $http({
+                        method : 'POST',
+                        url : 'ScheduleEmail',
+                        headers : {'Content-Type':'application/json'},
+                        data: email_scheduling
+                }).success(function(data){
+                    
+                }).error(function(data){
+                    alert("No data available, problem fetching the data");
+                });
+            };
         }
         
     </script>
@@ -172,7 +196,6 @@
                     //show popup showing
                     $(".content").empty();
                     $(".content").append(responseText);
-
 
                 }
             });
