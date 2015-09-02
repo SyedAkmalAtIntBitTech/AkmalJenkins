@@ -9,6 +9,9 @@
 <%! 
     SqlMethods sql_methods = new SqlMethods();
     String imageName = "";
+    Integer user_id = 0;
+    String logoImageName=null;
+    String companyName="";
     String isFacebook = "";
     String isTwitter = "";
     String accesstoken = "";
@@ -19,7 +22,9 @@
     try {
     sql_methods.session = request.getSession();
      imageName = (String)sql_methods.session.getAttribute("image_file_name");
-//    String imageName=request.getParameter("imageName");
+     user_id = (Integer)sql_methods.session.getAttribute("UID");
+     logoImageName =(String)sql_methods.session.getAttribute("ImageFileName");
+     companyName =(String)sql_methods.session.getAttribute("company");
         
     isFacebook = request.getParameter("isFacebook");
      isTwitter = request.getParameter("isTwitter");
@@ -133,14 +138,15 @@
 
                 <div class="col-sm-4 col-sm-offset-1 " id="fabookpreviewdiv">
                     <p id="fbprev"> Facebook Preview</p><br>
-                    <img id="companyimage" class="companyimage" src="images/logo.png">
-                    <p>Company name</p><br>
+                    <img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>">
+                    <p><%=companyName%></p><br>
                     <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                 </div>
 
                 <div class="col-sm-4" id="twitterpreviewdiv">
                     <p id="fbprev"> Twitter Preview</p><br>
-                    <img id="companyimage" class="companyimage" src="images/logo.png">
+                    <img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>">
+                    <p><%=companyName%></p><br>
                     <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"></textarea><br><br>
                     <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                 </div>

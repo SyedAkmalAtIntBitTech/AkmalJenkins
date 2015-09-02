@@ -46,6 +46,9 @@ and open the template in the editor.
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagecropper.css" rel="stylesheet" type="text/css"/>
         <style>
+            body{
+                font-family: proxima nova;
+            }
             .socialimage{
                 width: 100px;
                 height: 100px;
@@ -178,7 +181,11 @@ and open the template in the editor.
 
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
+       
+        <script src="//use.typekit.net/wnn8jyx.js"></script>
+            <script>try{Typekit.load({ async: true });}catch(e){}</script>
         <script>
+            
             $(document).ready(function () {
 
             $("#fontname").change(function () {
@@ -311,13 +318,14 @@ and open the template in the editor.
                     return input.slice(start);
             };
             });
-                var layout_mapper_url = "";
+                          
+                    function showText(id, layout){
+                         var layout_mapper_url = "";
                    if (mindbodydataId != ""){
                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social';
                    }else{
                        layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
-                   }            
-                    function showText(id, layout){
+                   } 
                             $.ajax({
                                     type: 'GET',
                                     url: layout_mapper_url,
@@ -1061,7 +1069,7 @@ $(this).addClass('highlight');
                                                     success: function (responseText) {
                                                      alert(responseText);
                                                          var image_Id= $('.imagename option:selected').val();
-                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
+                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center");
 //                                                        $("#cropper_popup").hide();
                                                          $("#cropper_popup").hide();
                                                     }

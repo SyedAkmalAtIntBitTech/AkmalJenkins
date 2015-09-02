@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.EmailIds;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
@@ -47,7 +48,6 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
         org.json.simple.JSONArray emailListNames = new org.json.simple.JSONArray();
         try {
             
-
             String queryParameter = request.getParameter("update");
             sql_methods.session = request.getSession();
             Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
@@ -60,9 +60,15 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
                 String emailIds = getEmailIds(user_id, emailListName);
                 org.json.simple.JSONArray json_email_ids = new org.json.simple.JSONArray();
                 String emails[] = emailIds.split(",");
+                String email = "email";
                 
                 for(int i = 0; i< emails.length; i++){
-                    json_email_ids.add(emails[i]);
+                    EmailIds email_model = new EmailIds();
+                    int j = i + 1;
+                    email = "email" + j;
+                    email_model.setEmailid(emails[i]);
+                    email_model.setId(email);
+                    json_email_ids.add(email_model);
                 }
                 responseObject.put(IConstants.kEmailListNameKey, emailListName);
                 responseObject.put(IConstants.kEmailAddressesKey, json_email_ids);

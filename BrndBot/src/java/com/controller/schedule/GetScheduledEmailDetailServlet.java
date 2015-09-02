@@ -3,33 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.controller.email;
+package com.controller.schedule;
 
-import com.google.gson.Gson;
-import com.intbit.ConnectionManager;
+import com.intbit.AppConstants;
+import com.intbit.dao.ScheduleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author Mohamed
  */
-public class GetEmailHistoryListServlet extends HttpServlet {
+@WebServlet(name = "GetScheduledEntityDetailServlet", urlPatterns = {"/GetScheduledEntityDetail"})
+public class GetScheduledEmailDetailServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(GetScheduledEmailDetailServlet.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,45 +41,46 @@ public class GetEmailHistoryListServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        ConnectionManager connectionManager = ConnectionManager.getInstance();
-        List<Map<String, Object>> emailHistoryList = new ArrayList<>();
-        if ( session.getAttribute("UID") != null){
-            Integer userId = Integer.parseInt(session.getAttribute("UID").toString());
-            String sql = "SELECT * FROM tbl_emailsenthistory WHERE user_id = ? ORDER BY timesent DESC";
-            try(Connection conn = connectionManager.getConnection();
-                    PreparedStatement ps = conn.prepareStatement(sql)){
-                ps.setInt(1, userId);
-                try(ResultSet rs = ps.executeQuery()){
-                    while(rs.next()){
-                        Map<String, Object> emailHistoryMap = new HashMap<>();
-                        emailHistoryMap.put("history_id", rs.getInt("id"));
-                        emailHistoryMap.put("user_id", rs.getInt("user_id"));
-                        emailHistoryMap.put("sent_on", rs.getTimestamp("timesent").getTime());
-                        emailHistoryMap.put("email_content", rs.getString("contenthtml"));
-                        emailHistoryMap.put("from_address", rs.getString("emailaddress"));
-                        emailHistoryMap.put("email_list_name", rs.getString("emaillistname"));
-                        emailHistoryMap.put("status", rs.getString("status"));
-                        emailHistoryList.add(emailHistoryMap);
-                    }
-                }
-                response.getWriter().write(new Gson().toJson(emailHistoryList));
-                response.getWriter().flush();
-                response.setStatus(HttpServletResponse.SC_OK);
-                return;
-            } catch (SQLException ex) {
-                Logger.getLogger(GetEmailHistoryListServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else{
-            Map<String, String> responseMap = new HashMap<>();
-            responseMap.put("error", "user is not logged in");
-            response.getWriter().write(new Gson().toJson(responseMap));
+        if (session.getAttribute("UID") == null) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", "User is not logged in");
+            response.getWriter().write(AppConstants.GSON.toJson(error));
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().flush();
+            response.setContentType("application/json");
+            return;
+        }
+        Integer userId = Integer.parseInt(session.getAttribute("UID").toString());
+        if ( StringUtils.isEmpty(request.getParameter("schedule_id")) ){
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", "Schedule id is missing");
+            response.getWriter().write(AppConstants.GSON.toJson(error));
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().flush();
+            response.setContentType("application/json");
             return;
         }
         
-        
+        try{
+            Integer scheduleEmailId = Integer.parseInt(request.getParameter("schedule_id"));
+            Map<String, Object> scheduleEmailDetails = 
+                    ScheduleDAO.getScheduleEmailDetails(userId, scheduleEmailId);
+            response.getWriter().write(AppConstants.GSON.toJson(scheduleEmailDetails));
+            response.getWriter().flush();
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_OK);
+        }catch(NumberFormatException ex){
+            logger.log(Level.SEVERE, null, ex);
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", "Schedule id cannot be parsed to integer");
+            response.getWriter().write(AppConstants.GSON.toJson(error));
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().flush();
+            response.setContentType("application/json");
+        } catch (SQLException ex) {
+            Logger.getLogger(GetScheduledEmailDetailServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

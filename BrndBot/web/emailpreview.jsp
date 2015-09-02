@@ -162,13 +162,14 @@
     </script>
     
     <script>
+        var formattedHTMLData = "";
         $(document).ready(function () {
             $.ajax({
                 url: getHost() + "PreviewServlet",
                 method: "post",
                 data: {htmlString: $(".content").html()},
                 success: function (responseText) {
-
+                    formattedHTMLData = responseText;
                     //show popup showing
                     $(".content").empty();
                     $(".content").append(responseText);
@@ -207,8 +208,7 @@
         }
 
         function sendEmail() {
-            alert("clicked");
-            $.ajax({
+                $.ajax({
                 url: getHost() + "SendEmailServlet",
                 method: "post",
                 data: {
@@ -216,7 +216,9 @@
                     email_subject: $("#subject").val(),
                     email_addresses: $("#toaddress").val(),
                     from_email_address: $("#formaddress").val(),
-                    reply_to_email_address: $("#email").val()
+                    reply_to_email_address: $("#email").val(),
+                    htmldata:formattedHTMLData,
+                    email_list:$("email_list").val()
                 },
                 success: function (responseText) {
 
@@ -277,6 +279,8 @@
                             <br><br> <button type="button"  class="button button--moema button--text-thick button--text-upper button--size-s" >SCHEDULE</button><br><br><br>
                         </div>
                     </div>
+                            <input type="hidden" id="htmldata" value='<%=htmlData %>'> 
+                            <input type="hidden" id="email_list" value='<%=emailList%>'>
                 </form>
             </div>
             <div class="col-md-4">

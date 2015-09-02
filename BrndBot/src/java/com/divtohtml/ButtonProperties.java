@@ -3,6 +3,7 @@ package com.divtohtml;
 public class ButtonProperties extends BaseProperties {
 
 	public static final String URLKey = "background: url";
+        public static final String buttonLinkKey = "buttonlink";
 
 	private String URL;
 
