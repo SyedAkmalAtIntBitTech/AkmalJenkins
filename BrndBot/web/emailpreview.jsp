@@ -210,19 +210,22 @@
         function sendEmail() {
                 $.ajax({
                 url: getHost() + "SendEmailServlet",
-                method: "post",
+                type: "post",
                 data: {
                     from_name: $("#name").val(),
                     email_subject: $("#subject").val(),
                     email_addresses: $("#toaddress").val(),
                     from_email_address: $("#formaddress").val(),
                     reply_to_email_address: $("#email").val(),
-                    htmldata:formattedHTMLData,
-                    email_list:$("email_list").val()
+                    htmldata:formattedHTMLData
+               
                 },
                 success: function (responseText) {
 
                     document.location.href = "emailsent.jsp";
+                },
+                error: function (){
+                    alert("error");
                 }
 
             });
