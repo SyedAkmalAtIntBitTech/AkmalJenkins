@@ -5,6 +5,7 @@
  */
 package com.intbit;
 
+import com.google.gson.Gson;
 import java.io.File;
 
 /**
@@ -12,6 +13,9 @@ import java.io.File;
  * @author Mohamed
  */
 public class AppConstants {
+    
+    public static final Gson GSON = new Gson();
+    
     public static final String BASE_UPLOAD_PATH = "/home/tomcat/BrndBot";
     
     public static final String BASE_IMAGE_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "Images";

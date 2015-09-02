@@ -162,13 +162,14 @@
     </script>
     
     <script>
+        var formattedHTMLData = "";
         $(document).ready(function () {
             $.ajax({
                 url: getHost() + "PreviewServlet",
                 method: "post",
                 data: {htmlString: $(".content").html()},
                 success: function (responseText) {
-
+                    formattedHTMLData = responseText;
                     //show popup showing
                     $(".content").empty();
                     $(".content").append(responseText);
@@ -207,8 +208,7 @@
         }
 
         function sendEmail() {
-            alert("clicked");
-            $.ajax({
+                $.ajax({
                 url: getHost() + "SendEmailServlet",
                 method: "post",
                 data: {
@@ -217,7 +217,7 @@
                     email_addresses: $("#toaddress").val(),
                     from_email_address: $("#formaddress").val(),
                     reply_to_email_address: $("#email").val(),
-                    htmldata:$("htmldata").val() ,
+                    htmldata:formattedHTMLData,
                     email_list:$("email_list").val()
                 },
                 success: function (responseText) {
