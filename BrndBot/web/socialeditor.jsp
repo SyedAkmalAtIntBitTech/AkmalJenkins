@@ -714,7 +714,11 @@ and open the template in the editor.
                                             <p  id="text3" class="SS2">SHAPES</p>
                                             <ul id="shapemodificatoin">
 
-                                                <li><select class="blockname LE1" id="editorhead"></select></li>
+                                                        <li>
+                                                            <select class="blockname LE1" id="editorhead">
+                                                                <option>select</option>
+                                                            </select>
+                                                        </li>
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
                                                 <li><p class="editpal">your palette</p></li>
                                                 <li id="colcontainer">

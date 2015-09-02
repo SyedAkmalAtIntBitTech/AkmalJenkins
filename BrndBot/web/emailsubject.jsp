@@ -333,6 +333,9 @@
                 });
 
                 $("#emailIdContinueButton").click(function () {
+                    var selectedEmail=$("#emailaddresses").val();
+                    if(selectedEmail!=="")
+                    {
                     var email_subject = $("#emailsubject").val();
                     var email_addresses = $("#emailaddresses").val();
                     var email_list = $("#chooseEmailList").val();
@@ -349,6 +352,13 @@
                         document.location.href = "emaileditor.jsp?id="+<%= mindbody_id %>;
                         }
                 });
+                }
+                else{
+                alert("please select at least one email list or add email manually");
+                selectCsvFile();
+                
+                
+                }
 
         //
 //
@@ -663,7 +673,7 @@
                     <br><br>   
                    
                     <select id="chooseEmailList" name="chooseEmailList" class="emaillist slt" hidden="true">
-                        <option value="0">Select</option>
+                        <option value="1">Manual</option>
                         <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                     </select>
                     <div id="drop-zone">

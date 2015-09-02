@@ -386,7 +386,7 @@ $(".blockname").change(function (){
         min: 0,
         max: 1,
         step: 0.01,
-        value: 1,
+        value: 0,
         orientation: "horizontal",
         slide: function (e, ui) {
             $('#' + $(".blockname").val()).css('opacity', ui.value);
