@@ -305,7 +305,7 @@ ul::-webkit-scrollbar-thumb {
                     var temp_style_layout;
                     var temp_block_id;
                     var temp_mind_body_query;
-                    $("#previewpopup").hide();
+                    //$("#previewpopup").hide();
                     $(document).ready(function() {
                         
                         
@@ -323,15 +323,15 @@ ul::-webkit-scrollbar-thumb {
                                             $("#previewcontent").empty();
                                             $("#previewcontent").append(responseText);
                                             
-                                            $("#previewpopup").show();
-                                            
+                                            //$("#previewpopup").show();
+                                            $(".clickpreview").click();
                                             }
                                     }); 
                          
                         });
-                            $("#closepreview").click(function(){
-                                $("#previewpopup").hide();
-                            });
+//                            $("#closepreview").click(function(){
+//                                $("#previewpopup").hide();
+//                            });
                         
                     });
                     angular.module("myapp", [])
@@ -942,15 +942,19 @@ ul::-webkit-scrollbar-thumb {
                                     </form>
                                 </div>   
                             </div>
-                            <div id="previewpopup" name="previewpopup">
-                                <div id="closepreview" style="position:absolute;top:0px;">close</div>
+                            <a href="#" data-reveal-id="previewpopup1" class="clickpreview"  style="display:none;">Click Me For A Modal</a>
+                            <div id="previewpopup1" class="reveal-modal" name="previewpopup" style="top:10px;left:90%;">
+                                <a class="close-reveal-modal">&#215;</a>
+                                
                                 <div id="previewcontent" style="padding-top:30px;">
-                                    
+                                    xxxxx
                                 </div>   
                             </div>
-                            <div id="cropper_popup" class="cropper_popup" name="cropper_popup">
-                                <div class="imagecropper_header">
-                                    <div class="imagecropper_close" onclick="closeCropper()">×</div>
+                            <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display:none;">Click Me For A Modal</a>
+                            <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;left:90%;">
+                                <a class="close-reveal-modal">&#215;</a>
+                                <div class="imagecropper_header" style="text-align: center;">
+                                    
                                     <h3 class="imagecropper_title">Cropping image</h3>
 
                                 </div>
@@ -961,10 +965,10 @@ ul::-webkit-scrollbar-thumb {
                 
 <!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
                                 </div>   
-                                <div class="imagecropper_footer">
+                                
                                     <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
                                     <button class="imagecropper_ok cropButton">Crop</button>
-                                </div>
+                               
                             </div>
 
                         </div>
@@ -1053,8 +1057,7 @@ ul::-webkit-scrollbar-thumb {
                                                         <li>
                                                     </ul>
                                                 </li>
-                                                <li><p class="editpal">pick from theme</p></li>
-                                                <li><p class="editpal custom-color-box" style="margin-left: 120px;">custom</p><br></li>
+                                                <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
                                                 <li><p class="editpal">opacity</p><div id="slider" ></div></li>
 
                                             </ul>
@@ -1437,7 +1440,8 @@ ul::-webkit-scrollbar-thumb {
                                                             success: function (responseText) {
                                                                     var image_Id= $('.imagename option:selected').val();
                                                                     $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-repeat","no-repeat").css("background-position", "center center");
-                                                                    $("#cropper_popup").hide();
+                                                                    //$("#cropper_popup").hide();
+                                                                    $(".close-reveal-modal").click();
                                                             }
                                                     });
                                             }
@@ -1472,7 +1476,8 @@ ul::-webkit-scrollbar-thumb {
                                                     var image_file = $(".imagename option:selected").attr("name").replace("url(", "").replace(")", "");   
                               
                                                     id = "image" + i;
-                                                    $("#cropper_popup").show();
+                                                    //$("#cropper_popup").show();
+                                                    $(".clickthis").click();
 //                                                    $('#cropper_popup').draggable();
 //                                                    $("#cropper_popup").resizable();
                                                     //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
@@ -1488,7 +1493,7 @@ ul::-webkit-scrollbar-thumb {
 
 
                                     $('.uploadfile').change(function() {
-                                    $("#cropper_popup").show();
+                                            $("#cropper_popup").show();
                                             $('#cropper_popup').draggable();
                                             $("#cropper_popup").resizable();
                                             loadImageFile($('.uploadfile').val());
@@ -1542,7 +1547,8 @@ ul::-webkit-scrollbar-thumb {
                                                                                                                                                             // --------------------------------------------------------------------------
                                                                                                                                                                     function closeCropper(){
                                                                                                                                                                     $("#popup").hide();
-                                                                                                                                                                            $("#cropper_popup").hide();
+                                                                                                                                                                            //$("#cropper_popup").hide();
+                                                                                                                                                                            $(".close-reveal-modal").click();
                                                                                                                                                                     }
 
 //                                                                                                                                                            $("#openImageDialog").click(function(){
@@ -1557,7 +1563,8 @@ ul::-webkit-scrollbar-thumb {
 //                                                                                                                                                            });
                                                                                                                                                              $("#closepopup").click(function(){
                                                                                                                                                                     $("#popup").hide();
-                                                                                                                                                                    $("#cropper_popup").hide();
+                                                                                                                                                                    //$("#cropper_popup").hide();
+                                                                                                                                                                    $(".close-reveal-modal").click();
                                                                                                                                                                  });
                                                                                                                                                              $("#UserUploadedImages").click(function(){
                                                                                                                                                                     $("#popup").hide();
@@ -1572,7 +1579,8 @@ ul::-webkit-scrollbar-thumb {
 //                                                                                                                                                                    $("#tabs-5").hide();
 //                                                                                                                                                                });
                                                                                                                                                              $("#close_cropper_popup").click(function(){
-                                                                                                                                                                    $("#cropper_popup").hide();
+                                                                                                                                                                    //$("#cropper_popup").hide();
+                                                                                                                                                                    $(".close-reveal-modal").click();
                                                                                                                                                                   });
 
 
