@@ -97,13 +97,16 @@
 
 }
 .cropSlider .noUi-connect {
-    background:Teal
+    background:Teal;
 }
 .cropSlider .noUi-background {
-    background:#fbc93d
+    background:#fbc93d;
 }
 .cropSlider .noUi-origin-lower {
-	background:#eee;
+	background-color:#eee;
+}
+.cropSlider .noUi-origin .noUi-origin-lower {
+    background-color:red;
 }
 .cropSlider .noUi-origin {
     position:absolute;

@@ -248,7 +248,7 @@ and open the template in the editor.
 
                     $("#" + selectedTextareaId).css("font-family", font[0]);
             });
-            });        </script>
+            });</script>
 
         <script>
                     var jsondata;
@@ -278,7 +278,7 @@ and open the template in the editor.
                     $("#previewcontent").empty();
                             $("#previewcontent").append(responseText);
                             $("#previewpopup").show();
-                   }
+                    }
             });
             });
                     $("#closepreview").click(function(){
@@ -918,9 +918,10 @@ and open the template in the editor.
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
                                                     <p id="editorheadere" class="SS1">font size</p>
-                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px;">
-                                                        <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
-                                                    </select>
+                                                    <!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px;">
+                                                                                                            <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
+                                                                                                        </select>-->
+                                                    <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
                                                 </li>
 
                                                 <li>
@@ -965,7 +966,11 @@ and open the template in the editor.
                                             <ul id="shapemodificatoin">
 
 
-                                                <li><select class="blockname LE1" id="editorhead"></select></li>
+                                                <li>
+                                                    <select class="blockname LE1" id="editorhead">
+                                                        <option>select</option>
+                                                    </select>
+                                                </li>
 
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
                                                 <li><p class="editpal">your palette</p></li>                                                                                         
@@ -1231,13 +1236,14 @@ and open the template in the editor.
 
         <script>
 
+
                                     $("#continue").click(function (){
                             $.ajax({
-                                       url: getHost() + "SaveKeyValueSessionServlet",
+                            url: getHost() + "SaveKeyValueSessionServlet",
                                     method: "post",
-                                      data:{
-                                    sessionkey:"htmldata",
-                                  sessionValue: $(".dataForEmail").html()
+                                    data:{
+                                    sessionKey:"htmldata",
+                                            sessionValue: $(".dataForEmail").html()
                                     },
                                     success: function (responseText) {
 

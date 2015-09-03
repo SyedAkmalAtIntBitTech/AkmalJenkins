@@ -166,6 +166,7 @@ and open the template in the editor.
                                     url : 'MindBodyDataServlet'
                             }).success(function(data, status, headers, config) {
                                 $scope.datalists = data;
+//                                alert(JSON.stringify(data));
                                 $("#picktheme").css("overflow-y","scroll");
                                 if (data.mindbody_data.length == 0){
                                     $("#continuebutton").hide();

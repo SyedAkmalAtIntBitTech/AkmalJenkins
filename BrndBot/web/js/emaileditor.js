@@ -70,7 +70,7 @@ $(document).ready(function () {
         min: 0,
         max: 1,
         step: 0.01,
-        value: 1,
+        value: 0,
         orientation: "horizontal",
         slide: function (e, ui) {
             $('#' + $(".blockname").val()).css('opacity', ui.value);
@@ -101,8 +101,31 @@ $(document).ready(function () {
             $("#pickColorForText").css("display", "none");
         }
     });
+   
+    $(".blockname").change(function (){
+    var blockId = $(".blockname").val();
+    var divBackgroundColor=$("#"+blockId).css("background-color");
+    var opcity=$("#"+blockId).css("opacity");
+     $('#selectedshapecolorbox').css("background-color",""+divBackgroundColor);
+       $('#slider').slider({
+        min: 0,
+        max: 1,
+        step: 0.01,
+        value: ""+opcity,
+        orientation: "horizontal" 
+    });
+});
+    
     $("#fontsize").change(function () {
         $("#" + selectedTextareaId).css("font-size", "" + $("#fontsize").val());
+    });
+    $("#minusFont").click(function () {
+        var minusFont =  parseInt($("#" + selectedTextareaId).css("font-size").replace("px","")) - 5;
+         $("#" + selectedTextareaId).css("font-size", ""+minusFont+"px");
+    });
+    $("#plusFont").click(function () {
+        var plusFont =  parseInt($("#" + selectedTextareaId).css("font-size").replace("px","")) + 5;
+         $("#" + selectedTextareaId).css("font-size",""+plusFont+"px");
     });
 
     $("#fontname").change(function () {

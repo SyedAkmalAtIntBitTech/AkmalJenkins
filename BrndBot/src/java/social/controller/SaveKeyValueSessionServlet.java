@@ -38,7 +38,7 @@ public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
         try{
            getSqlMethodsInstance().session = request.getSession(true);
            String sessionValue = request.getParameter("sessionValue");
-           String sessionKey = request.getParameter("sessionkey");
+           String sessionKey = request.getParameter("sessionKey");
            getSqlMethodsInstance().session.setAttribute(sessionKey, sessionValue);
       
         }catch (Exception e){
