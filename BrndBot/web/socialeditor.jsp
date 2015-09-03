@@ -739,8 +739,8 @@ and open the template in the editor.
                                                         <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                     </ul>
                                                 </li>
-                                                <li><p class="editpal">pick from theme</p></li>
-                                                <li><p class="editpal custom-color-box" style="margin-left: 120px;">custom</p></li>
+                                                
+                                                <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
                                                 <li><p class="editpal" id="">opacity</p><div id="slider"></div></li>
 
                                             </ul>
