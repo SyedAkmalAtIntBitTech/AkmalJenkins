@@ -947,7 +947,7 @@ ul::-webkit-scrollbar-thumb {
                                 <a class="close-reveal-modal">&#215;</a>
                                 
                                 <div id="previewcontent" style="padding-top:30px;">
-                                    xxxxx
+                                    
                                 </div>   
                             </div>
                             <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display:none;">Click Me For A Modal</a>
