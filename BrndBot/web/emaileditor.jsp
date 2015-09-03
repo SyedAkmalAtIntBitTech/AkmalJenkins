@@ -205,6 +205,42 @@ and open the template in the editor.
             .border-highlight {
                 border:2px solid #0088cc;   
             }
+/*            ul.imageGallery {
+                display:inline-block;  
+                list-style:none;   
+            }
+            ul.imageGallery li{
+                 display:inline-block; 
+                padding: 10px;
+                width: 400PX;
+            }*/
+
+#imageGallery ul {
+      width: 450px;
+  }
+#imageGallery  li {
+    margin-top: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    float: top;
+  }
+  #imageGallery  li img{
+     top: 0px;
+  }
+  
+ ul::-webkit-scrollbar {
+    width: 10px;
+    height: 200px;
+}
+ul::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+ul::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
+}
         </style>
 
         <%!
@@ -229,6 +265,9 @@ and open the template in the editor.
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
 <script>
             $(document).ready(function () {
+                
+                  var numitems =  $("#imageGallery li").length;
+                  $("ul#imageGallery").css("column-count",numitems/2);
                 
             $("#fontname").change(function () {
                 var text = $("#fontname").find('option:selected').text();
@@ -438,6 +477,7 @@ and open the template in the editor.
                                 $("#tabs-2").hide();
                                 $("#tabs-3").hide();
                                 $("#tabs-4").hide();
+                                $("#tabs-5").hide();
                                 
                             }
                             else
@@ -460,6 +500,7 @@ and open the template in the editor.
                                     $("#tabs-2").hide();
                                     $("#tabs-3").hide();
                                     $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
+                                    $("#tabs-5").hide();
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -476,11 +517,17 @@ and open the template in the editor.
                                 $("#tabs-2").hide();
                                 $("#tabs-3").hide();
                                 $("#tabs-4").hide();
+                                 $("#tabs-5").hide();
                             
                             }
 
                     $scope.showImages = function(){
                     $("#popup").hide();
+                    $("#tabs-1").hide();
+                    $("#tabs-2").hide();
+                    $("#tabs-3").hide();
+                    $("#tabs-4").hide();
+                    $("#tabs-5").show().css("width", "430px").show("slide", { direction: "right" }, 1000);                                                                                                                                                
                     
                             $("#imagespopup").show();
                             $scope.curPage = 0;
@@ -489,8 +536,8 @@ and open the template in the editor.
                             method : 'GET',
                                     url : 'GetUserImages'
                             }).success(function(data, status, headers, config) {
-
-                    $scope.datalistimages = data;
+//                                    alert(JSON.stringify(data));
+                            $scope.datalistimages = data;
                             $scope.numberOfPages = function() {
                             return Math.ceil($scope.datalistimages.length / $scope.pageSize);
                             };
@@ -849,18 +896,23 @@ and open the template in the editor.
                             <div class="span3 col-md-offset-0" >
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE">
                                <br><br>
-                                <script>
-//                                            $("#continue").click(function (){
-//                                                document.location.href = "selectpromotesocialmedia.jsp";
-//                                            });
-                                                            function showImageName(user_id, image_name){
-                                                            var image_path = "images/Gallery/" + user_id + "/" + image_name;
-                                                                    $("#image_name").val(image_path);
-                                                            }
+                            <script>
+                               function showImageName(user_id, image_name){
+                                              var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
+                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                                    $("#imagespopup").hide(); 
+                                                    $(".imagename option:selected").attr("name","url(" + global_host_address +""+image_path+ ")");
+                                                    $("#tabs-1").show();
+                                                    $("#tabs-2").hide();
+                                                    $("#tabs-3").hide();
+                                                    $("#tabs-4").hide();
+                                                    $("#tabs-5").hide();
+                                                                    
+                                                       }
                                 </script>
                             </div>
 
-                            <div id="imagespopup">
+<!--                            <div id="imagespopup">
                                 <div id="content">
                                     <div style="height:350px; overflow-y:scroll">
                                         <ul>
@@ -870,35 +922,18 @@ and open the template in the editor.
                                                 </div> 
                                             </li>
                                         </ul>
-
-<!--                                        <div class="pagination pagination-centered" ng-show="datalistimages.length">
-                                            <ul class="pagination-controle pagination">
-                                                <li>
-                                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
-                                                            ng-click="curPage = curPage - 1"> &lt; PREV</button>
-                                                </li>
-                                                <li>
-                                                    <span>Page {{curPage + 1}} of {{ numberOfPages()}}</span>
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="btn btn-primary"
-                                                            ng-disabled="curPage >= datalistimages.length / pageSize - 1"
-                                                            ng-click="curPage = curPage + 1">NEXT &gt;</button>
-                                                </li>
-                                            </ul>
-                                        </div>-->
                                     </div>
                                     <input id="selectimage" name="selectimage" type="Button" value="select"/>  
                                     <input type="hidden" name="image_name" id="image_name"/>
                                     <input id="closeimagespopup" type="Button" value="close"/>  
 
                                 </div>
-                            </div>
+                            </div>-->
                             <div id="popup" name="popup">
                                 <div id="content">
                                     <form action="">
                                         <!--                                    System Directory : <input type="file" class="uploadfile" id="uploadfile" name="uploadfile" > <br> -->
-                                        User Directory : <input type="button" id="UserUploadedImages" name="UserUploadedImages" value="Click" ng-click="showImages()" > <br> 
+                                        User Directory : <input type="button" id="UserUploadedImages" name="UserUploadedImages" value="Click"> <br> 
 
                                         <input id="closepopup" type="Button" value="close"/>  
 
@@ -1026,7 +1061,7 @@ and open the template in the editor.
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
                                                 <li><select class="imagename LE1" id="editorhead"> </select></li>
-                                                <li><label id="openImageDialog" class="btn  newupload">change</label></li>
+                                                <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
                                                 <li><p  class="btn"  onclick="imageEdit()">edit</p></li>
                                                 <li></li>
                                             </ul>
@@ -1183,6 +1218,16 @@ and open the template in the editor.
 
                                         </div> 
                                     </li>
+                                    <li id="tabs-5">
+                                                   <ul id="imageGallery" style="height: 500px;width: 450px;position: relative;right: 80px;overflow-y:scroll">
+                                                       <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
+                                               
+                                                       <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
+                                                           <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                                       </li>
+                                                   </ul>
+<!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
+                                    </li>
 
 
                                 </ul>
@@ -1205,41 +1250,6 @@ and open the template in the editor.
 
         </div> 
 
-
-
-        <!--     <script>
-        
-                        // create new object crop
-                        // you may change the "one" variable to anything
-                        var one = new CROP();
-        
-                        // link the .default class to the crop function
-                        one.init('.default');
-        
-                        // load image into crop
-                        one.loadImg('images/logo.png');
-        
-                        // send coordinates for processing
-                        // you may call the coordinates with the function coordinates(one);
-                        $(document).on('click', 'button', function() {
-        
-                                $.ajax({
-                                        type: "post",
-                                        dataType: "json",
-                                        url: "save.php",
-                                        data: $.param(coordinates(one))
-                                })
-                                .done(function(data) {
-        
-                                        $('.example .output').remove();
-                                        $('.example').append('<img src="'+data.url+'" class="output" />')
-                                        $('.example .output').delay('4000').fadeOut('slow');
-        
-                                });
-        
-                        });
-        
-                </script>-->
         <script>
              function hle(){
                  document.getElementById('edt').style.backgroundColor = '#fff';
@@ -1449,12 +1459,15 @@ and open the template in the editor.
                                             $("#imagespopup").hide();
                                     });
                                             function imageEdit() {
-                                            $("#textcontainer").hide();
+                                               
+                                                    $("#textcontainer").hide();
                                                     $("#shapecontainer").hide();
                                                     $("#imagecontainer").hide();
                                                     $("#filtercontainer").show();
                                                     $("#cropImageContainer").show();
-                                                    var image_file = $(".imagename").attr("name").replace("url(", "").replace(")", "");                                                                                           
+                                                    
+                                                    var image_file = $(".imagename option:selected").attr("name").replace("url(", "").replace(")", "");   
+                              
                                                     id = "image" + i;
                                                     $("#cropper_popup").show();
 //                                                    $('#cropper_popup').draggable();
@@ -1529,24 +1542,35 @@ and open the template in the editor.
                                                                                                                                                                             $("#cropper_popup").hide();
                                                                                                                                                                     }
 
-                                                                                                                                                            $("#openImageDialog").click(function(){
-                                                                                                                                                            $('.default').hide();
-                                                                                                                                                                    $("#popup").show();
-                                                                                                                                                            });
-                                                                                                                                                                    $("#closepopup").click(function(){
-                                                                                                                                                            $("#popup").hide();
+//                                                                                                                                                            $("#openImageDialog").click(function(){
+//                                                                                                                                                                
+//                                                                                                                                                                     $("#tabs-1").hide();
+//                                                                                                                                                                    $("#tabs-2").hide();
+//                                                                                                                                                                    $("#tabs-3").hide();
+//                                                                                                                                                                    $("#tabs-4").hide();
+//                                                                                                                                                                    $("#tabs-4").hide();
+//                                                                                                                                                                    $("#tabs-5").show().css("width", "430px").show("slide", { direction: "right" }, 1000);
+//                                                                                                                                                                
+//                                                                                                                                                            });
+                                                                                                                                                             $("#closepopup").click(function(){
+                                                                                                                                                                    $("#popup").hide();
                                                                                                                                                                     $("#cropper_popup").hide();
-                                                                                                                                                            });
-                                                                                                                                                                    $("#UserUploadedImages").click(function(){
-                                                                                                                                                            $("#popup").hide();
+                                                                                                                                                                 });
+                                                                                                                                                             $("#UserUploadedImages").click(function(){
+                                                                                                                                                                    $("#popup").hide();
                                                                                                                                                                     $("#imagespopup").show();
-                                                                                                                                                            });
-                                                                                                                                                                    $("#closeimagespopup").click(function(){
-                                                                                                                                                            $("#imagespopup").hide();
-                                                                                                                                                            });
-                                                                                                                                                                    $("#close_cropper_popup").click(function(){
-                                                                                                                                                            $("#cropper_popup").hide();
-                                                                                                                                                            });
+                                                                                                                                                                });
+//                                                                                                                                                             $("#closeimagespopup").click(function(){
+////                                                                                                                                                                     $("#imagespopup").hide();
+//                                                                                                                                                                    $("#tabs-1").show();
+//                                                                                                                                                                    $("#tabs-2").hide();
+//                                                                                                                                                                    $("#tabs-3").hide();
+//                                                                                                                                                                    $("#tabs-4").hide();
+//                                                                                                                                                                    $("#tabs-5").hide();
+//                                                                                                                                                                });
+                                                                                                                                                             $("#close_cropper_popup").click(function(){
+                                                                                                                                                                    $("#cropper_popup").hide();
+                                                                                                                                                                  });
 
 
         </script>  
