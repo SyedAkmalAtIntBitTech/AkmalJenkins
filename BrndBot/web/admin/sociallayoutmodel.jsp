@@ -344,7 +344,9 @@
                     <span class="selectedElement">Selected Item: None</span>
                 </p>
                 <p>
-                    <span class="position">Co ordinates: X = 0, Y = 0 </span>
+<!--                    <span class="position">Co ordinates: X = 0, Y = 0 </span>-->
+                    <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="textX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="textY" value="0" /></span>
+                    <input type="button" class="coordButton" value="done">
                 </p>
                 <p>
                     Enter Text: <br /><textarea id="textArea"></textarea>
@@ -424,7 +426,9 @@
                     <span class="selectedElement">Selected Item: None</span>
                 </p>
                 <p>
-                    <span class="position">Co ordinates: X = 0, Y = 0 </span>
+                    <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
+                    <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="imageX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="imageY" value="0" /></span>
+                    <input type="button" class="coordButton" value="done">
                 </p>
                 <p>
                     <span class="size">Height=0px, Width=0px</span>
@@ -498,7 +502,9 @@
                     <span class="selectedElement">Selected Item: None</span>
                 </p>
                 <p>
-                    <span class="position">Co ordinates: X = 0, Y = 0 </span>
+                    <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
+                    <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="buttonX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="buttonY" value="0" /></span>
+                    <input type="button" class="coordButton" value="done">
                 </p>
                 <p>
                     Button Style: <select id="buttonSelect">
@@ -517,7 +523,9 @@
                     <span class="selectedElement">Selected Item: None</span>
                 </p>
                 <p>
-                    <span class="position">Co ordinates: X = 0, Y = 0 </span>
+                    <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
+                    <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="blockX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="blockY" value="0" /></span>
+                    <input type="button" class="coordButton" value="done">
                 </p>
                  <p>
                     <input type="checkbox" id="circleCheckBox"> Circle
@@ -527,10 +535,10 @@
                     Block Size:
                 </p>
                 <p>
-                    Width: <input type="text" id="blockWidth" maxlength="3" size="3" value="80" /> px 
+                    Width: <input type="text" id="blockWidth" maxlength="6" size="6" value="80" /> px 
                 </p>
                 <p>
-                    height: <input type="text" id="blockHeight" maxlength="3" size="3" value="40" /> px
+                    height: <input type="text" id="blockHeight" maxlength="6" size="6" value="40" /> px
                 </p>
 
                 <p>

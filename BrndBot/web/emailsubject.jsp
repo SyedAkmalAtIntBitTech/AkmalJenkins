@@ -322,11 +322,14 @@
                                     list_name: List_name
                                 },
                                 success: function(result){
-        //                            alert(JSON.stringify(result));
-                                    var email_addresses = JSON.stringify(result.emailAddresses.emailid);
-                                    var email_add = email_addresses.replace("\"",'');
-                                    var email_address = email_add.replace("\"",'');
-                                    $("#emailaddresses").val(email_address);
+                                    var i = 0;
+                                    var emails = "";
+                                    for(i=0; i<result.emailAddresses.length; i++){
+                                        if (result.emailAddresses[i].emailid != ""){
+                                            emails = result.emailAddresses[i].emailid + "," + emails;
+                                    }
+                                    }
+                                    $("#emailaddresses").val(emails);
                                 }
                         });
                     }
@@ -349,31 +352,17 @@
                         document.location.href = "emaileditor.jsp?id="+<%= mindbody_id %>;
                         }
                 });
-
-        //
-//
-//                 $("#popupCancel").click(function () {      
-//                    $("#popup").hide();
-//                });
-                
-            
-
-            });
+                });
               });
             
         </script>
         
          <script>
-//           $(document).ready(function () { 
-//               
-//            
-//        });
-//        
+      
             function selectCsvFile(){
                 $("#chooseEmailList").show();
                 var x = document.getElementById("chooseEmailList").selectedIndex;
                 var list_name = document.getElementsByTagName("option")[x].value;
-//                    $("#emailsubjectdiv").show();
                 if (list_name != 0){
 
                     $("#emailaddresses").show();
@@ -486,62 +475,6 @@
    
         </script>
         <script>
-            
-//        $(document).ready(function () { 
-//            $(function () {
-//                
-//
-//                var dropZoneId = "drop-zone";
-//                var buttonId = "clickHere";
-//                var mouseOverClass = "mouse-over";
-//
-//                var dropZone = $("#" + dropZoneId);
-//                var ooleft = dropZone.offset().left;
-//                var ooright = dropZone.outerWidth() + ooleft;
-//                var ootop = dropZone.offset().top;
-//                var oobottom = dropZone.outerHeight() + ootop;
-//                var inputFile = dropZone.find("input");
-//                
-//                document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
-//                    e.preventDefault();
-//                    e.stopPropagation();
-//                    dropZone.addClass(mouseOverClass);
-//                    var x = e.pageX;
-//                    var y = e.pageY;
-//
-//                    if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
-//                        inputFile.offset({ top: y - 15, left: x - 100 });
-//                    } else {
-//                        inputFile.offset({ top: -400, left: -400 });
-//                    }
-//
-//                }, true);
-//
-//                if (buttonId != "") {
-//                    var clickZone = $("#" + buttonId);
-//
-//                    var oleft = clickZone.offset().left;
-//                    var oright = clickZone.outerWidth() + oleft;
-//                    var otop = clickZone.offset().top;
-//                    var obottom = clickZone.outerHeight() + otop;
-//
-//                    $("#" + buttonId).mousemove(function (e) {
-//                        var x = e.pageX;
-//                        var y = e.pageY;
-//                        if (!(x < oleft || x > oright || y < otop || y > obottom)) {
-//                            inputFile.offset({ top: y - 15, left: x - 160 });
-//                        } else {
-//                            inputFile.offset({ top: -400, left: -400 });
-//                        }
-//                    });
-//                }
-//
-//                document.getElementById(dropZoneId).addEventListener("drop", function (e) {
-//                    $("#" + dropZoneId).removeClass(mouseOverClass);
-//                    alert("file have been added, click on the upload button to load the csv file");
-////                    upload();
-//                }, true);
-//            });
 
               function upload() {
                 var fileUpload = document.getElementById("file");
@@ -553,9 +486,6 @@
                         reader.onload = function (e) {
                             var table = document.createElement("table");
                             var rows = e.target.result.split("\n");
-                            alert(rows);
-//                            $('#emailaddresses').val(rows);
-//                            $('#emailaddresses').append(rows);
                              if ($('#emailaddresses').val() == "") {
                                 $('#emailaddresses').val(rows);
                             } else {
@@ -571,10 +501,6 @@
                     alert("Please upload a valid CSV file.");
                 }
             }
-            
-                
-//                });        
-//        });
             
                 function EmailListController($scope, $http) {
 
@@ -609,7 +535,6 @@
                             url: getHost() + 'GetEmailLists?update=allEmailListNames'
                     }).success(function(data, status, headers, config) {
                             $scope.emailLists = data.allEmailListNames;
-                            alert(JSON.stringify(data.allEmailListNames));
                             if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
                             } else if (data === error) {

@@ -130,8 +130,8 @@ and open the template in the editor.
     width: 500px;
     height: 300px;
     background-color: #ffffff;
-    border: 3px solid;
-    border-color: #000000;
+    border: 16px solid #E3E4E8;
+    border-color: #E3E4E8;
 }
 .editor{
     position:absolute;
