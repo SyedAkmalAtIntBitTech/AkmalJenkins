@@ -30,83 +30,45 @@ import java.util.logging.Logger;
  *
  * @author intbit
  */
-
 public class MindBodyClass {
-        private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindBodyClass.class));
 
-            private static String sourcePassword = "WBQ2o/mat0gOfT1WeoXDKP1eH8Y=";
-            private static String sourceName = "BrndbotLLC";
-            private MindBody mindBody;
-           int[] siteIds = new int[]{};
-            
+    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindBodyClass.class));
+
+    private static String sourcePassword = "WBQ2o/mat0gOfT1WeoXDKP1eH8Y=";
+    private static String sourceName = "BrndbotLLC";
+    private MindBody mindBody;
+    int[] siteIds = new int[]{};
+
     public MindBodyClass(int[] siteIds) {
-        
-        mindBody = new MindBody(sourceName, sourcePassword, siteIds);        
+
+        mindBody = new MindBody(sourceName, sourcePassword, siteIds);
         this.siteIds = siteIds;
-        
+
     }
-    
-    public GetActivationCodeResult getActivationCode()
-    {
-        
+
+    public GetActivationCodeResult getActivationCode() {
         GetActivationCodeResult result = MindBody.getActivationCode(sourceName, sourcePassword, siteIds);
         return result;
-
-    }    
-    public GetClassesResult getClasses()throws Exception{
-                GetClassesRequest classesRequest = new GetClassesRequest();
-                classesRequest.setXMLDetail(XMLDetailLevel.FULL);
-                classesRequest.setCurrentPageIndex(0);
-
-                GregorianCalendar startDate = new GregorianCalendar();
-                startDate.setTime(new Date());
-                XMLGregorianCalendar calendarStartDate = null;
-                calendarStartDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(startDate);
-
-                classesRequest.setStartDateTime(calendarStartDate);
-
-                GregorianCalendar nextTenDays =new GregorianCalendar();
-                nextTenDays.add(Calendar.DATE, 10);
-
-                XMLGregorianCalendar calendarDateNextTenDays = null;
-
-                calendarDateNextTenDays = DatatypeFactory.newInstance().newXMLGregorianCalendar(nextTenDays);
-
-                classesRequest.setEndDateTime(calendarDateNextTenDays);
-                classesRequest.setHideCanceledClasses(false);
-                GetClassesResult classesResult = mindBody.getClasses(classesRequest);
-                
-                return classesResult;
     }
-    
-    public GetClassesResult getTodaysClass() {
-        GetClassesResult classesResult = null;
+
+    public GetStaffResult getStaff() {
+        GetStaffResult staffResult = null;
         try {
+            GetStaffRequest staffRequest = new GetStaffRequest();
+            staffRequest.setXMLDetail(XMLDetailLevel.FULL);
+            staffRequest.setCurrentPageIndex(0);
 
-            GetClassesRequest classesRequest = new GetClassesRequest();
-            classesRequest.setXMLDetail(XMLDetailLevel.FULL);
-            classesRequest.setCurrentPageIndex(0);
+            staffResult = mindBody.getStaff(staffRequest);
 
-            GregorianCalendar startDate = new GregorianCalendar();
-            startDate.setTime(new Date());
-            XMLGregorianCalendar calendarStartDate = null;
-            calendarStartDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(startDate);
-
-            classesRequest.setStartDateTime(calendarStartDate);
-
-            classesRequest.setEndDateTime(calendarStartDate);
-            classesRequest.setHideCanceledClasses(true);
-            classesResult = mindBody.getClasses(classesRequest);
-        } catch (DatatypeConfigurationException D) {
-                                  logger.log(Level.SEVERE, util.Utility.logMessage(D, "Exception while updating org name:", null));
         } catch (Exception e) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting staff:", null));
 
         }
-        return classesResult;
+        return staffResult;
     }
-    
-    public GetEnrollmentsResult getTodaysEnrollments() {
+
+    public GetEnrollmentsResult getEnrollments(MindBodyDuration mindBodyDuration) {
+
         GetEnrollmentsResult enrollmentsResult = null;
         try {
 
@@ -120,43 +82,52 @@ public class MindBodyClass {
             enrollmentsRequest.setCurrentPageIndex(0);
 
             enrollmentsRequest.setStartDate(calendarStartDate);
-            enrollmentsRequest.setEndDate(calendarStartDate);
+
+            enrollmentsRequest.setEndDate(getEndDate(mindBodyDuration));
             enrollmentsResult = mindBody.getEnrollments(enrollmentsRequest);
 
         } catch (DatatypeConfigurationException D) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(D, "Exception while updating org name:", null));
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(D, "Exception while  getting enrollments:", null));
         } catch (Exception e) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting enrollments:", null));
         }
         return enrollmentsResult;
     }
 
-    public GetStaffResult getStaff() {
-        GetStaffResult staffResult = null;
+    public GetClassesResult getClasses(MindBodyDuration mindBodyDuration) {
+        GetClassesResult classesResult = null;
         try {
+
+            GetClassesRequest classesRequest = new GetClassesRequest();
+            classesRequest.setXMLDetail(XMLDetailLevel.FULL);
+            classesRequest.setCurrentPageIndex(0);
 
             GregorianCalendar startDate = new GregorianCalendar();
             startDate.setTime(new Date());
             XMLGregorianCalendar calendarStartDate = null;
             calendarStartDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(startDate);
 
-            GetStaffRequest staffRequest = new GetStaffRequest();
-            staffRequest.setXMLDetail(XMLDetailLevel.FULL);
-            staffRequest.setCurrentPageIndex(0);
-
-            staffResult = mindBody.getStaff(staffRequest);
-
+            classesRequest.setStartDateTime(calendarStartDate);
+            classesRequest.setEndDateTime(getEndDate(mindBodyDuration));
+            classesRequest.setHideCanceledClasses(true);
+            classesResult = mindBody.getClasses(classesRequest);
         } catch (DatatypeConfigurationException D) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(D, "Exception while updating org name:", null));
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(D, "Exception while getting classes:", null));
         } catch (Exception e) {
-                                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting classes:", null));
 
         }
-        return staffResult;
+        return classesResult;
     }
 
+    private static XMLGregorianCalendar getEndDate(MindBodyDuration duration) throws DatatypeConfigurationException {
+        GregorianCalendar nextTenDays = new GregorianCalendar();
+        nextTenDays.add(Calendar.DATE, duration.getDuration());
+
+        XMLGregorianCalendar calendarDateNextTenDays = null;
+
+        calendarDateNextTenDays = DatatypeFactory.newInstance().newXMLGregorianCalendar(nextTenDays);
+        return calendarDateNextTenDays;
+    }
 
 }

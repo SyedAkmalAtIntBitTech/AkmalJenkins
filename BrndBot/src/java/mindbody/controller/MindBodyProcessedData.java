@@ -15,6 +15,7 @@ import org.json.simple.JSONArray;
 public class MindBodyProcessedData {
     private HashMap<String, Object> data_hash_map;
     private JSONArray jsonData;
+    private JSONArray columnHeader;
     private String title;
 
     public HashMap< String, Object> getData_hash_map() {
@@ -32,6 +33,14 @@ public class MindBodyProcessedData {
     public void setJsonData(JSONArray jsonData) {
         this.jsonData = jsonData;
     }
+    
+    public JSONArray getColumnHeader() {
+        return columnHeader;
+    }
+
+    public void setColumnHeader(JSONArray columnHeader) {
+        this.columnHeader = columnHeader;
+    }
    
     public String getTitle() {
         return title;
@@ -45,6 +54,7 @@ public class MindBodyProcessedData {
         org.json.simple.JSONObject object = new org.json.simple.JSONObject();
         object.put("mindbody_data", getJsonData());
         object.put("title", getTitle());
+        object.put("column_header", getColumnHeader());
         return object;
     }
     

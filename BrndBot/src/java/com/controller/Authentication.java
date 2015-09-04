@@ -49,6 +49,7 @@ public class Authentication extends BrndBotBaseHttpServlet {
     
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession(true);
+        getSqlMethodsInstance().session.setMaxInactiveInterval(0);
 
         try {
 

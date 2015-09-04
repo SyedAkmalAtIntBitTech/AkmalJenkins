@@ -90,6 +90,8 @@ and open the template in the editor.
 .logo{
     margin-left: 5px;
 }
+
+
 .menu li p{
     margin-left: 5px;
 }
@@ -99,7 +101,7 @@ and open the template in the editor.
 }
 
 .sidebar-nav li {
-    line-height: 40px;
+    line-height: 10px;
     text-indent: 20px;
 }
 
