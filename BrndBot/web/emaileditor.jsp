@@ -3,6 +3,7 @@
     Created on : Jul 10, 2015, 10:03:32 AM
     Author     : intbit
 --%>
+<%@page import="com.controller.SqlMethods"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.io.File"%>
 <%@page import="javax.swing.JFileChooser"%>
@@ -56,7 +57,7 @@ and open the template in the editor.
         <link href="css/imagecropper.css" rel="stylesheet" type="text/css"/>
 
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
-
+        <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
         <script>
             try{
                 Typekit.load({ async: true });
@@ -246,11 +247,17 @@ ul::-webkit-scrollbar-thumb {
         </style>
 
         <%!
+            SqlMethods sql_methods = new SqlMethods();
             StringBuffer string_buffer = new StringBuffer();
             String mindbody_data_id = "";
+            Integer user_id = 0;
+            String logoImageName=null;
         %> 
         <%
             try {
+                sql_methods.session = request.getSession();
+                 user_id = (Integer)sql_methods.session.getAttribute("UID");
+                 logoImageName =(String)sql_methods.session.getAttribute("ImageFileName");
                 if (!request.getParameter("id").equals("null")){
                     mindbody_data_id = (String) request.getParameter("id");
                 }
@@ -650,6 +657,7 @@ ul::-webkit-scrollbar-thumb {
                                     );
                                             var count=1;
                                             var blockcount=1;
+                                            var textcount=1;
                                             $(".imagename").find('option').remove().end();
                                             $(".blockname").find('option').remove().end();
                                             $(xml).find('element').each(function () {
@@ -706,7 +714,7 @@ ul::-webkit-scrollbar-thumb {
                                                             
                                                         }
 //                                                fontcolor = $(this).attr("font-color");
-                                                
+                                                textcount++;
                                                 $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
                                                 $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
                                                                         .css("position", "absolute")
@@ -777,7 +785,8 @@ ul::-webkit-scrollbar-thumb {
                                     
                                     if (tag === "logo")
                                     {
-                                        var background_image = $(this).attr("background-image");
+                                         var userId=$("#userid").val();
+                                         var userLogonmae = $("#userlogo").val();                            
                                         var blendmode = $(this).attr("background-blend-mode");
                                         $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
                                         $("#" + type + "EEE" + blockId)
@@ -788,7 +797,7 @@ ul::-webkit-scrollbar-thumb {
                                                 .css("opacity", "" + opacity)
                                                 .css("width", "" + width)
                                                 .css("height", "" + height)
-                                                .css("background", ""+background_image)
+                                                .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')")
                                                 .css("background-repeat", "no-repeat")
                                                 .css("background-position", "center center")
 
@@ -842,9 +851,13 @@ ul::-webkit-scrollbar-thumb {
                                                      .css("opacity", "" + opacity);
                                     }
 
-                                    }
-
-                                    );
+                                    });
+                                        if(count==1 ){$("#imagecontainer").hide();}                                                   
+                                        if(blockcount==1){$("#shapecontainer").hide();}
+                                        if(textcount==1){$("#textcontainer").hide();}
+                                        if(count!=1){$("#imagecontainer").show();}
+                                        if(blockcount!=1){$("#shapecontainer").show();}
+                                        if(textcount!=1){$("#textcontainer").show();}                                      
                                     },
                                     error: function (e)
                                     {
@@ -854,13 +867,15 @@ ul::-webkit-scrollbar-thumb {
                     }
 
         </script>
-        <script src="js/emaileditor.js" type="text/javascript"></script>
+        
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script src="js/crop.js" type="text/javascript"></script>
 
     </head>
     <body ng-app="myapp">
-        
+         <input type="hidden" id='userlogo'value=<%= logoImageName%>>
+        <input type="hidden" id='userid' value=<%= user_id%>>
+        <script src="js/emaileditor.js" type="text/javascript"></script>
         <div id="myModal" class="reveal-modal">
             <br />
             <p><strong>Please enter the url:</strong> <input type="text" id="buttonURLText" value=""></p>
@@ -886,7 +901,7 @@ ul::-webkit-scrollbar-thumb {
                         <div class="col-md-5 col-md-offset-0">
                             <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview">preview</p>
 
-                            <div class="sortDelete" style="position:absolute;top:380px; left:0px;margin: 0px;">
+                            <div class="sortDelete" style="position:absolute;top:380px; left:-16px;margin: 0px;">
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
@@ -1073,12 +1088,12 @@ ul::-webkit-scrollbar-thumb {
                                         <div id="filtercontainer" style="display: none">
                                             <p>IMAGE FILTER</p>
                                             <ul id="filterImageList">
-                                                <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p id="filtername">Black <br>And White</p> </li>
-                                                <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p id="filtername">Textured</p></li>
-                                                <li><img class="imageFilter" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p id="filtername">Light</p></li>
-                                                <li><img class="imageFilter" id="convert4" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Heroic</p> </li>
-                                                <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Statue</p> </li>
-                                                <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Workout</p> </li>
+                                                                                                <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p class="filtername">Still</p> </li>
+                                                <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Peace</p></li>
+                                                <li><img class="imageFilter" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Sunrise</p></li>
+                                                <li><img class="imageFilter" id="convert4" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Strength</p> </li>
+                                                <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vivid</p> </li>
+                                                <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Intense</p> </li>
                                             </ul>
                                         </div>
                                         <div id="cropImageContainer" style="display: none">
@@ -1304,7 +1319,7 @@ ul::-webkit-scrollbar-thumb {
 
                                     window.onload = function () {
                                     //get elements
-                                    var f = 1,
+                                           var f = 1,
                                             cvrt1 = document.getElementById('convert1'),
                                             cvrt2 = document.getElementById('convert2'),
                                             cvrt3 = document.getElementById('convert3'),
@@ -1312,72 +1327,73 @@ ul::-webkit-scrollbar-thumb {
                                             cvrt5 = document.getElementById('convert5'),
                                             cvrt6 = document.getElementById('convert6');
                                             //button click event
-                                            cvrt1.onclick = function () {
+                                              cvrt1.onclick = function () {
                                                 var image_Id= $('.imagename option:selected').val();
-                                            if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "grayscale(100%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
-                                            cvrt2.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').val();
-                                            if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "textured(100%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
-                                            cvrt3.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').val();
-                                            if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "brightness(150%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
-                                            cvrt4.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').val();
-                                            if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "grayscale(100%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
-                                            cvrt5.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').val();
-                                            if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "sepia(100%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
-                                            cvrt6.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').val();
-                                            if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "Statue(100%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
+                                                $("#"+image_Id).removeClass("ig-valencia")
+                                                              .removeClass("ig-toaster")
+                                                              .removeClass("ig-sutro")
+                                                              .removeClass("ig-kelvin")
+                                                              .removeClass("ig-brannan");
+                                               $("#"+image_Id).toggleClass("ig-willow");
+                                       //        if (f) {
+                                       //            $("#"+image_Id).css("-webkit-filter", "grayscale(100%)");
+                                       //            f = 0;
+                                       //        }
+                                       //        else {
+                                       //            $("#"+image_Id).css("-webkit-filter", "");
+                                       //
+                                       //            f = 1;
+                                       //
+                                       //        }
+                                           };
+                                           cvrt2.onclick = function () {
+                                               var image_Id= $('.imagename option:selected').val();
+                                               $("#"+image_Id).removeClass("ig-toaster")
+                                                              .removeClass("ig-sutro")
+                                                              .removeClass("ig-kelvin")
+                                                              .removeClass("ig-brannan")
+                                                              .removeClass("ig-willow");
+
+                                               $("#"+image_Id).toggleClass("ig-valencia");
+                                           };
+                                           cvrt3.onclick = function () {
+                                               var image_Id= $('.imagename option:selected').val();
+                                               $("#"+image_Id).removeClass("ig-valencia")
+                                                              .removeClass("ig-sutro")
+                                                              .removeClass("ig-kelvin")
+                                                              .removeClass("ig-brannan")
+                                                              .removeClass("ig-willow");
+
+                                               $("#"+image_Id).toggleClass("ig-toaster");
+                                           };
+                                           cvrt4.onclick = function () {
+                                               var image_Id= $('.imagename option:selected').val();
+                                               $("#"+image_Id).removeClass("ig-valencia")
+                                                              .removeClass("ig-toaster")
+                                                              .removeClass("ig-kelvin")
+                                                              .removeClass("ig-brannan")
+                                                              .removeClass("ig-willow");
+                                               $("#"+image_Id).toggleClass("ig-sutro");
+                                           };
+                                           cvrt5.onclick = function () {
+                                               var image_Id= $('.imagename option:selected').val();
+                                               $("#"+image_Id).removeClass("ig-valencia")
+                                                              .removeClass("ig-toaster")
+                                                              .removeClass("ig-sutro")
+                                                              .removeClass("ig-brannan")
+                                                              .removeClass("ig-willow");
+                                               $("#"+image_Id).toggleClass("ig-kelvin");
+                                           };
+                                           cvrt6.onclick = function () {
+                                               var image_Id= $('.imagename option:selected').val();
+                                               $("#"+image_Id).removeClass("ig-valencia")
+                                                              .removeClass("ig-toaster")
+                                                              .removeClass("ig-sutro")
+                                                              .removeClass("ig-kelvin")
+                                                              .removeClass("ig-willow");
+                                               $("#"+image_Id).toggleClass("ig-brannan");
+                                           };
+                                           
                                     };
                                             $(".cross").hide();
                                             $(".menu").hide();

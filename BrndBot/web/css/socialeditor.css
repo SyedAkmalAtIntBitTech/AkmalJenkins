@@ -130,7 +130,8 @@ and open the template in the editor.
     width: 500px;
     height: 300px;
     background-color: #ffffff;
-    border: 16px solid #E3E4E8;
+    border: 1px solid #E3E4E8;
+    outline: #E3E4E8 solid 16px;
     border-color: #E3E4E8;
 }
 .editor{
@@ -699,6 +700,7 @@ text-align: center;
                 width: 50px;
                 height: 50px;
             }
-            #filtername{
-                font-size: xx-small;
+            .filtername{
+                font-size: small;
+              text-align: center;
             }

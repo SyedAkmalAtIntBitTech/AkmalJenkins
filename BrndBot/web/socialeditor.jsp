@@ -3,6 +3,7 @@
     Created on : Jul 10, 2015, 10:03:32 AM
     Author     : intbit
 --%>
+<%@page import="com.controller.SqlMethods"%>
 <%@page import="com.intbit.AppConstants"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.io.File"%>
@@ -49,6 +50,7 @@ and open the template in the editor.
         
         <script src="js/jquery.reveal.js" type="text/javascript"></script>
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
+        <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
         <style>
             body{
                 font-family: proxima nova;
@@ -164,14 +166,46 @@ and open the template in the editor.
             body{
                 overflow-x: hidden;
             }
+            #imageGallery ul {
+      width: 450px;
+  }
+#imageGallery  li {
+    margin-top: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    float: top;
+  }
+  #imageGallery  li img{
+     top: 0px;
+  }
+  
+ul::-webkit-scrollbar {
+    width: 10px;
+    height: 200px;
+}
+ul::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+ul::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
+}
         </style>
 
         <%!
+            SqlMethods sql_methods = new SqlMethods();
             StringBuffer string_buffer = new StringBuffer();
             String mindbody_data_id = "";
+            Integer user_id = 0;
+            String logoImageName=null;
         %> 
         <%
             try {
+                sql_methods.session = request.getSession();
+                 user_id = (Integer)sql_methods.session.getAttribute("UID");
+                 logoImageName =(String)sql_methods.session.getAttribute("ImageFileName");
                 if (!request.getParameter("id").equals("null")){
                     mindbody_data_id = (String) request.getParameter("id");
                 }
@@ -184,8 +218,10 @@ and open the template in the editor.
             }
 
         %>
-        <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
-       
+        
+        
+        
+        
         <script src="//use.typekit.net/wnn8jyx.js"></script>
             <script>try{Typekit.load({ async: true });}catch(e){}</script>
         <script>
@@ -292,7 +328,9 @@ and open the template in the editor.
                             };
                             $scope.showImages = function(){
                                     $("#popup").hide();
-                                    $("#imagespopup").show();
+                                    $("#tabs-1").hide();
+                                    $("#tabs-2").hide();         
+                                    $("#tabs-3").show().css("width", "430px").show("slide", { direction: "right" }, 1000);                                                                                                                                                                                                                                             
                                     $scope.curPage = 0;
                                     $scope.pageSize = 4;
                                     $http({
@@ -325,11 +363,11 @@ and open the template in the editor.
                           
                     function showText(id, layout){
                          var layout_mapper_url = "";
-                   if (mindbodydataId != ""){
-                       layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social';
-                   }else{
-                       layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
-                   } 
+                    if (mindbodydataId != ""){
+                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social';
+                    }else{
+                        layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
+                    } 
                             $.ajax({
                                     type: 'GET',
                                     url: layout_mapper_url,
@@ -353,8 +391,10 @@ and open the template in the editor.
                                                     );
                                                             var count=1;
                                                             var blockcount=1;
+                                                            var textcount=1;
                                                             $(".imagename").find('option').remove().end();
                                                             $(".blockname").find('option').remove().end();
+                                                            
                                                             $(xml).find('element').each(function () {
                                                             var tag = $(this).attr("tag");
                                                             type = $(this).attr("type");
@@ -392,6 +432,7 @@ and open the template in the editor.
                                                             }
 
                                                         }
+                                                        textcount++;
 //                                                            fontcolor = $(this).attr("font-color");
                                                             fontsize = $(this).attr("font-size");
                                                             fontstyle = $(this).attr("font-style");
@@ -467,7 +508,8 @@ and open the template in the editor.
 
                                                     if (tag === "logo")
                                                     {
-                                                    var background_image = $(this).attr("background-image");
+                                                     var userId=$("#userid").val();
+                                                    var userLogonmae = $("#userlogo").val();
                                                     var blendmode = $(this).attr("background-blend-mode");
                                                     $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
@@ -478,7 +520,7 @@ and open the template in the editor.
                                                             .css("opacity", "" + opacity)
                                                             .css("width", "" + width)
                                                             .css("height", "" + height)
-                                                            .css("background", ""+background_image)
+                                                            .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')")
                                                             .css("background-repeat", "no-repeat")
                                                             .css("background-position", "center center")
 
@@ -529,9 +571,13 @@ and open the template in the editor.
                                                                     .css("opacity", "" + opacity);
                                                     }
 
-                                                    }
-
-                                                    );
+                                                    } );
+                                                    if(count==1 ){$("#imagecontainer").hide();}                                                   
+                                                    if(blockcount==1){$("#shapecontainer").hide();}
+                                                    if(textcount==1){$("#textcontainer").hide();}
+                                                    if(count!=1){$("#imagecontainer").show();}
+                                                    if(blockcount!=1){$("#shapecontainer").show();}
+                                                    if(textcount!=1){$("#textcontainer").show();}
                                                     },
                                                     error: function (e)
                                                     {
@@ -544,11 +590,14 @@ and open the template in the editor.
 
 
         </script>
-        <script src="js/socialeditor.js" type="text/javascript"></script>
+        
         <script src="js/crop.js" type="text/javascript"></script>
 
     </head>
     <body ng-app="myapp">
+        <input type="hidden" id='userlogo'value=<%= logoImageName%>>
+        <input type="hidden" id='userid' value=<%= user_id%>>
+        <script src="js/socialeditor.js" type="text/javascript"></script>
         <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
                  <jsp:include page="leftmenu.html"/><!--/end left column-->
@@ -579,45 +628,15 @@ and open the template in the editor.
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
                                 <script>
                                     function showImageName(user_id, image_name){
-                                        var image_path = "images/Gallery/" + user_id +"/" + image_name;
-                                        $("#image_name").val(image_path);
+                                        var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
+                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                                    $("#imagespopup").hide(); 
+                                                    $(".imagename option:selected").attr("name","url(" + global_host_address +""+image_path+ ")");
+                                                    $("#tabs-1").show();
+                                                    $("#tabs-2").hide();
+                                                    $("#tabs-3").hide();                                                 
                                     }
                                 </script>
-                            </div>
-
-                            <div id="imagespopup">
-                                <div id="content">
-                                        <div>
-                                            <ul>
-                                                <li class="paginationclass" ng-repeat="images in datalistimages">
-                                                    <div>
-                                                        <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width=50 height=50 />
-                                                    </div> 
-                                                </li>
-                                            </ul>
-
-<!--                                            <div class="pagination pagination-centered" ng-show="datalistimages.length">
-                                                <ul class="pagination-controle pagination">
-                                                    <li>
-                                                        <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
-                                                                ng-click="curPage = curPage - 1"> &lt; PREV</button>
-                                                    </li>
-                                                    <li>
-                                                        <span>Page {{curPage + 1}} of {{ numberOfPages()}}</span>
-                                                    </li>
-                                                    <li>
-                                                        <button type="button" class="btn btn-primary"
-                                                                ng-disabled="curPage >= datalistimages.length / pageSize - 1"
-                                                                ng-click="curPage = curPage + 1">NEXT &gt;</button>
-                                                    </li>
-                                                </ul>
-                                            </div>-->
-                                        </div>
-                                        <input id="selectimage" name="selectimage" type="Button" value="select"/>  
-                                        <input type="hidden" name="image_name" id="image_name"/>
-                                        <input id="closeimagespopup" type="Button" value="close"/>  
-
-                                </div>
                             </div>
                             <div id="popup" name="popup">
                                 <div id="content">
@@ -724,7 +743,7 @@ and open the template in the editor.
 
                                                         <li>
                                                             <select class="blockname LE1" id="editorhead">
-                                                                <option>select</option>
+                                                                <option value="select">select</option>
                                                             </select>
                                                         </li>
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
@@ -749,8 +768,12 @@ and open the template in the editor.
                                         <div id="imagecontainer">
                                             <p  id="text3" class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><select class="imagename LE1" id="editorhead"> </select></li>
-                                                <li><label id="openImageDialog" class="btn  newupload">change</label></li>
+                                                <li>
+                                                    <select class="imagename LE1" id="editorhead">
+                                                        <option value="select">select</option>
+                                                    </select>
+                                                </li>
+                                                <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
                                                 <li><p  class="btn" onclick="imageEdit()">edit</p></li>
                                                 <li></li>
                                             </ul>
@@ -759,12 +782,16 @@ and open the template in the editor.
                                         <div id="filtercontainer" style="display: none">
                                             <p>IMAGE FILTER</p>
                                             <ul id="filterImageList">
-                                                <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p id="filtername">Black <br>And White</p> </li>
-                                                <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p id="filtername">Textured</p></li>
-                                                <li><img class="imageFilter" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p id="filtername">Light</p></li>
-                                                <li><img class="imageFilter" id="convert4" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Heroic</p> </li>
-                                                <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Statue</p> </li>
-                                                <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Workout</p> </li>
+                                                <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p class="filtername">Still</p> </li>
+                                                <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Peace</p></li>
+                                                <li><img class="imageFilter" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Sunrise</p></li>
+                                                <li><img class="imageFilter" id="convert4" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Strength</p> </li>
+                                                <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vivid</p> </li>
+                                                <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Intense</p> </li>
+<!--                                                <li><img class="imageFilter" id="convert7" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vibrant</p> </li>
+                                                <li><img class="imageFilter" id="convert8" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vintage</p> </li>
+                                                <li><img class="imageFilter" id="convert9" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Shade</p> </li>
+                                                <li><img class="imageFilter" id="convert10" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Fade</p> </li>-->
                                             </ul>
                                         </div>
                                         <div id="cropImageContainer" style="display: none">
@@ -797,28 +824,22 @@ and open the template in the editor.
                                                         </li>
                                                     </ul>
 
-<!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
-                                                        <ul class="pagination-controle pagination">
-                                                            <li>
-                                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
-                                                                        ng-click="curPage = curPage - 1"> &lt; PREV</button>
-                                                            </li>
-                                                            <li>
-                                                                <span>Page {{curPage + 1}} of {{ numberOfPages()}}</span>
-                                                            </li>
-                                                            <li>
-                                                                <button type="button" class="btn btn-primary"
-                                                                        ng-disabled="curPage >= datalists.length / pageSize - 1"
-                                                                        ng-click="curPage = curPage + 1">NEXT &gt;</button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>-->
                                                 </div>
 
                                             </div>
 
                                         </div>
 
+                                    </li>
+                                    <li id="tabs-3">
+                                          <ul id="imageGallery" style="height: 500px;width: 450px;position: relative;right: 80px;overflow-y:scroll">
+                                            <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
+                                               
+                                                <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
+                                                          <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                                </li>
+                                            </ul>
+<!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
                                     </li>
                                 </ul>
 
@@ -847,10 +868,10 @@ and open the template in the editor.
                                                 document.getElementById('stl').style.backgroundColor = '#fff';
                                             }
                                             $('.category_list li').click(function(){
-    $('.highlight').removeClass('highlight');
-$(this).addClass('highlight');
+                                                $('.highlight').removeClass('highlight');
+                                                $(this).addClass('highlight');
 
-});
+                                                });
                                         </script>     
 
 
@@ -943,82 +964,69 @@ $(this).addClass('highlight');
     //button click event
     cvrt1.onclick = function () {
          var image_Id= $('.imagename option:selected').val();
-        
-        if (f) {
-            $("#"+image_Id).css("-webkit-filter", "grayscale(100%)");
-            f = 0;
-        }
-        else {
-            $("#"+image_Id).css("-webkit-filter", "");
-
-            f = 1;
-
-        }
+         $("#"+image_Id).removeClass("ig-valencia")
+                       .removeClass("ig-toaster")
+                       .removeClass("ig-sutro")
+                       .removeClass("ig-kelvin")
+                       .removeClass("ig-brannan");
+        $("#"+image_Id).toggleClass("ig-willow");
+//        if (f) {
+//            $("#"+image_Id).css("-webkit-filter", "grayscale(100%)");
+//            f = 0;
+//        }
+//        else {
+//            $("#"+image_Id).css("-webkit-filter", "");
+//
+//            f = 1;
+//
+//        }
     };
     cvrt2.onclick = function () {
         var image_Id= $('.imagename option:selected').val();
-        if (f) {
-            $("#"+image_Id).css("-webkit-filter", "textured(100%)");
-            f = 0;
-        }
-        else {
-            $("#"+image_Id).css("-webkit-filter", "");
-
-            f = 1;
-
-        }
+        $("#"+image_Id).removeClass("ig-toaster")
+                       .removeClass("ig-sutro")
+                       .removeClass("ig-kelvin")
+                       .removeClass("ig-brannan")
+                       .removeClass("ig-willow");
+ 
+        $("#"+image_Id).toggleClass("ig-valencia");
     };
     cvrt3.onclick = function () {
         var image_Id= $('.imagename option:selected').val();
-        if (f) {
-            $("#"+image_Id).css("-webkit-filter", "brightness(150%)");
-            f = 0;
-        }
-        else {
-            $("#"+image_Id).css("-webkit-filter", "");
-
-            f = 1;
-
-        }
+        $("#"+image_Id).removeClass("ig-valencia")
+                       .removeClass("ig-sutro")
+                       .removeClass("ig-kelvin")
+                       .removeClass("ig-brannan")
+                       .removeClass("ig-willow");
+               
+        $("#"+image_Id).toggleClass("ig-toaster");
     };
     cvrt4.onclick = function () {
         var image_Id= $('.imagename option:selected').val();
-        if (f) {
-            $("#"+image_Id).css("-webkit-filter", "grayscale(100%)");
-            f = 0;
-        }
-        else {
-            $("#"+image_Id).css("-webkit-filter", "");
-
-            f = 1;
-
-        }
+        $("#"+image_Id).removeClass("ig-valencia")
+                       .removeClass("ig-toaster")
+                       .removeClass("ig-kelvin")
+                       .removeClass("ig-brannan")
+                       .removeClass("ig-willow");
+        $("#"+image_Id).toggleClass("ig-sutro");
     };
     cvrt5.onclick = function () {
         var image_Id= $('.imagename option:selected').val();
-        if (f) {
-            $("#"+image_Id).css("-webkit-filter", "sepia(100%)");
-            f = 0;
-        }
-        else {
-            $("#"+image_Id).css("-webkit-filter", "");
-
-            f = 1;
-
-        }
+        $("#"+image_Id).removeClass("ig-valencia")
+                       .removeClass("ig-toaster")
+                       .removeClass("ig-sutro")
+                       .removeClass("ig-brannan")
+                       .removeClass("ig-willow");
+        $("#"+image_Id).toggleClass("ig-kelvin");
     };
     cvrt6.onclick = function () {
         var image_Id= $('.imagename option:selected').val();
-        if (f) {
-            $("#"+image_Id).css("-webkit-filter", "Statue(100%)");
-            f = 0;
-        }
-        else {
-            $("#"+image_Id).css("-webkit-filter", "");
-
-            f = 1;
-
-        }
+        $("#"+image_Id).removeClass("ig-valencia")
+                       .removeClass("ig-toaster")
+                       .removeClass("ig-sutro")
+                       .removeClass("ig-kelvin")
+                       .removeClass("ig-willow");
+        $("#"+image_Id).toggleClass("ig-brannan");
     };
 };
 

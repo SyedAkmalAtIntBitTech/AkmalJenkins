@@ -304,7 +304,7 @@
 
                 <div class="iphoneshow img-responsive"   id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
                     <div class="content">  
-                        <%=htmlData %>
+                        '<%=htmlData %>'
                     </div>
                 </div>
 
