@@ -711,3 +711,8 @@ select#organizationdropdown option{
     position: relative;
    left: 35px;
 }
+
+#dividerline{
+    height:1px;
+    background-color:#000;
+}
