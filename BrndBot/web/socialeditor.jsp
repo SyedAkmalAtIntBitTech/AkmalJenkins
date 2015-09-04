@@ -1116,7 +1116,6 @@ ul::-webkit-scrollbar-thumb {
                                                     method: 'post',
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
-                                                     alert(responseText);
                                                          var image_Id= $('.imagename option:selected').val();
                                                         $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center");
 //                                                        $("#cropper_popup").hide();

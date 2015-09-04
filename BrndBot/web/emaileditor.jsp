@@ -853,7 +853,7 @@ and open the template in the editor.
             <a class="close-reveal-modal">&#215;</a>
         </div>
         
-        <a href="#" data-reveal-id="cropper_popup1" class="clickthis">Click Me For A Modal</a>
+        <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display: none;">Click Me For A Modal</a>
     <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;">
     <a class="close-reveal-modal">&#215;</a>
     <div class="imagecropper_header" style="text-align: center;">
@@ -1447,7 +1447,6 @@ and open the template in the editor.
 
                 
                                         var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
-                                       alert(image_file);
                                         id = "image" + i;
                                        // $("#cropper_popup").show();
                                         $(".clickthis").click();

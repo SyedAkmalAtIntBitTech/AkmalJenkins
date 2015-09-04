@@ -194,7 +194,6 @@
             });
             
             function setSelectedlistName(listname){
-                alert(listname);
                 $("#email_list_name").val(listname);
             }
             
