@@ -51,6 +51,39 @@
                 margin-right: 10px;
                 margin-top: 100px;
             }
+            #popupschedule
+            {
+                display:none;
+                position: fixed;
+                width:350px;
+                height:300px;
+                top: 40%;
+                left: 50%;
+                margin-left:-155px;
+                margin-top:-110px;
+                border:5px solid #686868 ;
+                background-color:#CDCDFF;
+                padding:30px;
+                z-index:102;
+                font-family:Verdana;
+                font-size:10pt;
+                border-radius:10px;
+                -webkit-border-radius:20px;
+                -moz-border-radius:20px;
+                font-weight:bold;
+            }
+            #content
+            {
+                height:auto;
+                width:300px;
+                margin:5px auto;
+            }
+            #popupclose
+            {
+                margin:35px 0 0 80px;
+                width:50px;
+
+            }
 
             .vlightbox {
                 display:-moz-inline-stack;
@@ -87,13 +120,13 @@
             .content{
                 position: relative;
                 top: 95px;
-                /*                margin-left: 60px;
-                                zoom: 0.5;*/
+/*                margin-left: 60px;
+                zoom: 0.5;*/
             }
             #popup {
-                /*               
-                                width: 500px;
-                                height: 50em;*/
+/*               
+                width: 500px;
+                height: 50em;*/
             }
             .preview{
 
@@ -157,6 +190,35 @@
                 });        
                 
             };
+            
+            $scope.setScheduling = function(){
+                    
+                var from_name = $("#name").val();
+                var email_subject = $("#subject").val();
+                var to_email_addresses = $("#toaddress").val();
+                var from_email_address = $("#formaddress").val();
+                var reply_to_email_address = $("#email").val();
+                var email_body = formattedHTMLData;
+                var email_list = $("#email_list").val();
+                var schedule_title = $("#schedule_title").val();
+                var schedule = $("#schedule_time").val();
+                var schedule_time = Date.parse(schedule);
+                alert(email_body)
+                var email_scheduling = {"from_name": from_name, "email_subject":email_subject, "to_email_addresses":to_email_addresses, "from_email_address":from_email_address, "reply_to_email_address":reply_to_email_address, "email_list":email_list, "schedule_title":schedule_title, "schedule_time":schedule_time, "email_body":email_body}
+                $http({
+                        method : 'POST',
+                        url : 'ScheduleEmail',
+                        headers : {'Content-Type':'application/json'},
+                        data: email_scheduling
+                }).success(function(data){
+                    if (data != ""){
+                        alert("details saved successfully");
+                        document.location.href = "dashboard.jsp";
+                    }
+                }).error(function(data){
+                    alert("No data available, problem fetching the data");
+                });
+            };
         }
         
     </script>
@@ -171,9 +233,9 @@
                 success: function (responseText) {
                     formattedHTMLData = responseText;
                     //show popup showing
+                    alert(formattedHTMLData);
                     $(".content").empty();
                     $(".content").append(responseText);
-
 
                 }
             });
@@ -206,7 +268,60 @@
 
             }
         }
+        function displaySchedule(){
+            if (validate()){
+                $("#popupschedule").show();
+            }
+        }
+        function hidepopup(){
+            $("#popupschedule").hide();
+            $("#schedule_title").val("");
+            $("#schedule_time").val("");
+        }
+        function validate(){
+            var from_name = $("#name").val();
+            var email_subject = $("#subject").val();
+            var to_email_addresses = $("#toaddress").val();
+            var from_email_address = $("#formaddress").val();
+            var reply_to_email_address = $("#email").val();
+            var htmldata = formattedHTMLData;
+            var email_list = $("email_list").val();
+            var schedule_title = $("#schedule_title").val("");
+            var schedule_time = $("#schedule_time").val("");
 
+            if (from_name == ""){
+                alert("from name not entered, please enter the from name");
+                $("#name").focus();
+                return false;
+            }
+            if (email_subject == ""){
+                alert("email subject name not entered, please enter the email subject");
+                $("#subject").focus();
+                return false;
+            }
+            if (to_email_addresses == ""){
+                alert("email addresses not entered, please enter the email addresses");
+                $("#toaddress").focus();
+                return false;
+            }
+            if (from_email_address == ""){
+                alert("from email addresses not entered, please enter the from email addresses");
+                $("#formaddress").focus();
+                return false;
+            }
+            if (reply_to_email_address == ""){
+                alert("reply to email addresses not entered, please enter the reply to email addresses");
+                $("#email").focus();
+                return false;
+            }
+            if (email_list == ""){
+                alert("email list not entered, please enter the email list");
+                $("#email_list").focus();
+                return false;
+            }
+            return true;
+        }
+        
         function sendEmail() {
                 $.ajax({
                 url: getHost() + "SendEmailServlet",
@@ -217,8 +332,8 @@
                     email_addresses: $("#toaddress").val(),
                     from_email_address: $("#formaddress").val(),
                     reply_to_email_address: $("#email").val(),
-                    htmldata:formattedHTMLData
-               
+                    htmldata: formattedHTMLData,
+                    email_list: $("email_list").val()
                 },
                 success: function (responseText) {
 
@@ -279,10 +394,10 @@
                             <br><br><button type="button" onclick="sendEmail()" class="button button--moema button--text-thick button--text-upper button--size-s">SEND</button><br><br><br>
                         </div>
                         <div class="col-md-1 col-md-offset-1">
-                            <br><br> <button type="button"  class="button button--moema button--text-thick button--text-upper button--size-s" >SCHEDULE</button><br><br><br>
+                            <br><br><button type="button" onclick="displaySchedule()" class="button button--moema button--text-thick button--text-upper button--size-s">SCHEDULE</button><br><br><br>
                         </div>
                     </div>
-                            <input type="hidden" id="htmldata" value='<%=htmlData %>'> 
+                            <input type="hidden" id="htmldata" value='<%= htmlData %>' name="htmldata"> 
                             <input type="hidden" id="email_list" value='<%=emailList%>'>
                 </form>
             </div>
@@ -300,9 +415,22 @@
                     <li><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                     <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                 </ul>
+                
+                <div id="popupschedule">
+                    <div id="content">
+<!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
+                            Layout file name<input type="text" id="layoutxml" required><br>-->
+                        Title: <input type="text" class="form-control simplebox" id="schedule_title" name="schedule_title"><br>
+                        Date : <input type="datetime-local" class="form-control simplebox" id="schedule_time" name="schedule_time"><br>
+
+                        <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
+                        <input type="button" ng-click="setScheduling()" value="Done"/>   
+                        <input type="button" id="hidepopup" value="Close" onclick="hidepopup()"/>   
+                    </div>
+                 </div>
 
 
-                <div class="iphoneshow img-responsive"   id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
+                <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
                     <div class="content">  
                         <%=htmlData %>
                     </div>

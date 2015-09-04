@@ -119,6 +119,11 @@
                 margin-left: 2px;
                 padding-right: 5px;
             }
+            #submitbutton{
+                position:relative;
+                top:120px;
+                left:0px;
+            }
            
         </style>
         <%! 
@@ -308,7 +313,7 @@
 
                 <li><img id="fb" class="socialimage fb" src="images/fbButton.svg" onclick="changeImagef();"/> <input type="checkbox" id="facebook" name="social"  value="facebook" hidden="true"><p class="il2">Facebook</p></li>
                 <li><img id="twt" class="socialimage twt" src="images/twtButton.svg" onclick="changeImaget();"/> <input type="checkbox" id="twitter" name="social" value="twitter" hidden="true"><p class="il2">Twitter</p></li>
-                <li><div class="col-md-6 col-md-offset-6">
+                <li><div style="left:-380px;" class="col-md-5 col-md-offset-0">
 
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
                             <input type="hidden" id="imageName" name="imageName" value='<%=ImageName%>' >
@@ -354,7 +359,7 @@
        var x = document.getElementById("facebook").checked;
        if(x == false){
        document.getElementById("facebook").checked=true;
-       document.getElementById("fb").src="images/fb_icon.png"; 
+       document.getElementById("fb").src="images/fbButton_darkblue_new.svg"; 
    }
    else
    {
@@ -367,7 +372,7 @@
        var x = document.getElementById("twitter").checked;
        if(x == false){
        document.getElementById("twitter").checked=true;
-       document.getElementById("twt").src="images/twitter.jpeg"; 
+       document.getElementById("twt").src="images/twtButton_lightblue_new.svg"; 
    }
    else
    {

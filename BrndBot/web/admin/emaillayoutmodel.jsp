@@ -610,11 +610,12 @@
                 </p>
                 <p>
                     Button Style: <select id="buttonSelect">
-                        <option value="1">Button1</option>
-                        <option value="2">Button2</option>
-                        <option value="3">Button3</option>
-                        <option value="4">Button4</option>
-                        <option value="5">Button5</option>
+                        <option value="FilledButton_White.png">FilledButton_White</option>
+                        <option value="FilledButton_dark.png">FilledButton_dark</option>
+                        <option value="OutlineButton_dark.png">OutlineButton_dark</option>
+                        <option value="OutlineButton_white.png">OutlineButton_white</option>
+                        <option value="TextButton_Dark.png">TextButton_Dark</option>
+                        <option value="TextButton_White.png">TextButton_White</option>
                     </select>
 
                 </p>

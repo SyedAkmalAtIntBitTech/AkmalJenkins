@@ -24,7 +24,7 @@ and open the template in the editor.
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
-        
+
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
@@ -37,13 +37,11 @@ and open the template in the editor.
         <script src="js/colpick.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
-        
-        
-        
+
         <script src="js/jquery.autogrow-textarea.js" type="text/javascript"></script>
         <script src="js/jquery.reveal.js" type="text/javascript"></script>
         <script src="js/showalert.js" type="text/javascript"></script>
-        
+
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
         <script src="js/jquery.blend.min.js" type="text/javascript"></script>-->
@@ -58,11 +56,11 @@ and open the template in the editor.
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
 
         <script>
-            try{
-                Typekit.load({ async: true });
-            }
-            catch(e){}
-       </script>
+                    try{
+                    Typekit.load({ async: true });
+                    }
+            catch (e){}
+        </script>
 
         <style>
             body{
@@ -73,7 +71,7 @@ and open the template in the editor.
                 height: 100px;
                 margin-left:  5px;
             }
-                #slider{
+            #slider{
                 width:150px;height: 5px;
                 position: relative;
                 left:60px;
@@ -81,10 +79,10 @@ and open the template in the editor.
             }
             .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
             {
-               width: 20px;
-               height:14px;
-/*                border-radius: 20px;*/
-               background-color: #FFF;
+                width: 20px;
+                height:14px;
+                /*                border-radius: 20px;*/
+                background-color: #FFF;
             }
             #popup
             {
@@ -108,7 +106,7 @@ and open the template in the editor.
                 font-weight:bold;
                 overflow: auto;
             }
-            
+
             #previewpopup
             {
                 display:none;
@@ -131,8 +129,8 @@ and open the template in the editor.
                 font-weight:bold;
                 overflow: auto;
             }
-            
-            
+
+
 
             #imagespopup{
 
@@ -158,7 +156,7 @@ and open the template in the editor.
                 overflow:auto;
             }
             .datafromindbody li{
-               display: inline-table;
+                display: inline-table;
             }
 
             #cropper_popup{
@@ -230,19 +228,19 @@ and open the template in the editor.
      top: 0px;
   }
   
- ul::-webkit-scrollbar {
-    width: 10px;
-    height: 200px;
-}
-ul::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    border-radius: 10px;
-}
+  #editor::-webkit-scrollbar {
+     width: 10px;
+     height: 200px;
+    }
+    #editor::-webkit-scrollbar-track {
+     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+     border-radius: 10px;
+    }
 
-ul::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
-}
+    #editor::-webkit-scrollbar-thumb {
+     border-radius: 10px;
+     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
+    }
         </style>
 
         <%!
@@ -251,13 +249,12 @@ ul::-webkit-scrollbar-thumb {
         %> 
         <%
             try {
-                if (!request.getParameter("id").equals("null")){
+                if (!request.getParameter("id").equals("null")) {
                     mindbody_data_id = (String) request.getParameter("id");
                 }
 
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
-
             } catch (Exception e) {
                 System.out.println(e.getCause());
                 System.out.println(e.getMessage());
@@ -265,41 +262,48 @@ ul::-webkit-scrollbar-thumb {
 
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
-<script>
-            $(document).ready(function () {
+        <script>
+            
+    
+    
+    
+    $(document).ready(function () {
+                document.getElementById('edtimg').src="images/sidebar/Icons_editButton_blue_new.svg";
+                document.getElementById('edt').style.backgroundColor = '#fff';
+                 document.getElementById('stl').style.backgroundColor = 'transparent';
+                 document.getElementById('blk').style.backgroundColor = 'transparent';
                 
                   var numitems =  $("#imageGallery li").length;
                   $("ul#imageGallery").css("column-count",numitems/2);
-                
+
             $("#fontname").change(function () {
-                var text = $("#fontname").find('option:selected').text();
-                var font_family_name = $("#fontname").val();
-                var font = font_family_name.split(",");
-//                var google_key_word = font[0].split(' ').join('+')
-//                var ss = document.createElement("link");
-//                ss.type = "text/css";
-//                ss.rel = "stylesheet";
-//                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
-//                document.getElementsByTagName("head")[0].appendChild(ss);
-//
-//                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
-//                var styles = "@font-face {"+
-//                             "font-family:"+ text + ";"+
-//                             "src: url("+font_path+");"
-//                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+                    var text = $("#fontname").find('option:selected').text();
+                    var font_family_name = $("#fontname").val();
+                    var font = font_family_name.split(",");
+                    //                var google_key_word = font[0].split(' ').join('+')
+                    //                var ss = document.createElement("link");
+                    //                ss.type = "text/css";
+                    //                ss.rel = "stylesheet";
+                    //                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+                    //                document.getElementsByTagName("head")[0].appendChild(ss);
+                    //
+                    //                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+                    //                var styles = "@font-face {"+
+                    //                             "font-family:"+ text + ";"+
+                    //                             "src: url("+font_path+");"
+                    //                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
-                $("#" + selectedTextareaId).css("font-family", font[0]);
-
+                    $("#" + selectedTextareaId).css("font-family", font[0]);
             });
             });
-        </script>
+         </script>
 
         <script>
                     var jsondata;
                     var selectedDivId;
                     var block_clicked = "false";
                     var block_id = "0";
-                    var blockIdSelected="defaultblock1";
+                    var blockIdSelected = "defaultblock1";
                     var mindbodydataId = $("#mindbodydata").val();
                     var temp_style_id;
                     var temp_style_layout;
@@ -342,79 +346,71 @@ ul::-webkit-scrollbar-thumb {
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-                        
-                            $scope.user_preferences_colors = data.user_colors;
+
+                    $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
                             $scope.user_preferences_font_names = data.user_font_names;
                             var i = 0;
                             var font_object;
                             var font_family_name;
                             var font_name;
-                            for (i; i<= data.user_font_names.length; i++){
-                                font_object = data.user_font_names[i];
-                                font_name = font_object.font_name;
-                                font_family_name = font_object.font_family_name;
-                                
-                                var font = font_family_name.split(",");
-                                var google_key_word = font[0].split(' ').join('+')
+                            for (i; i <= data.user_font_names.length; i++){
+                    font_object = data.user_font_names[i];
+                            font_name = font_object.font_name;
+                            font_family_name = font_object.font_family_name;
+                            var font = font_family_name.split(",");
+                            var google_key_word = font[0].split(' ').join('+')
 
-                                var ss = document.createElement("link");
-                                ss.type = "text/css";
-                                ss.rel = "stylesheet";
-                                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
-                                document.getElementsByTagName("head")[0].appendChild(ss);
-
-                                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
-                                var styles = "@font-face {"+
-                                             "font-family:"+ font_name + ";"+
-                                             "src: url("+font_path+");"
-                                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
-
-
-                            }
-                            if (data === error){
-                                alert(data);
-                            }
+                            var ss = document.createElement("link");
+                            ss.type = "text/css";
+                            ss.rel = "stylesheet";
+                            ss.href = "https://fonts.googleapis.com/css?family=" + google_key_word;
+                            document.getElementsByTagName("head")[0].appendChild(ss);
+                            var font_path = global_host_address + "DownloadFonts?file_name=" + font[1];
+                            var styles = "@font-face {" +
+                            "font-family:" + font_name + ";" +
+                            "src: url(" + font_path + ");"
+                            $('<style type="text/css">' + styles + '</style>').appendTo(document.head);
+                    }
+                    if (data === error){
+                    alert(data);
+                    }
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                     });
                             $scope.showStylesAfterData = function(){
-                           
-                                    blockIdSelected = $(selectedBlockId).attr("id").toString();
+
+                            blockIdSelected = $(selectedBlockId).attr("id").toString();
                                     var arr = blockIdSelected.split('SSS');
                                     block_id = arr[0].replace("block", "");
                             };
                             $scope.showStyles = function(){
                             var queryurl;
-                            $scope.curPage = 0;
-                            $scope.pageSize = 2;
-                            if (block_clicked == "true" || blockIdSelected != "defaultblock1")
+                                    $scope.curPage = 0;
+                                    $scope.pageSize = 2;
+                                    if (block_clicked == "true" || blockIdSelected != "defaultblock1")
                             {
-                                    queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
-                                    
+                            queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
                             }
                             else
                             {
-                                    queryurl = 'GetLayoutStyles?editorType=email';
+                            queryurl = 'GetLayoutStyles?editorType=email';
                             }
-                            
+
                             $http({
-                                 method : 'GET',
+                            method : 'GET',
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
                             $scope.datalistsstyles = data;
-                            $scope.numberOfPages = function() {
-                            return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
-                            };
-                            
-                            
-                            
-                            if (data === error){
-                                alert(data);
+                                    $scope.numberOfPages = function() {
+                                    return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
+                                    };
+                                    if (data === error){
+                            alert(data);
                             }
-                            
+
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -426,11 +422,11 @@ ul::-webkit-scrollbar-thumb {
                             $scope.curPage = 0;
                                     $scope.pageSize = 2;
                                     $http({
-                                            method : 'GET',
+                                    method : 'GET',
                                             url : 'GetBlocks'
                                     }).success(function(data, status, headers, config) {
 
-                                    $scope.datalists = data;
+                            $scope.datalists = data;
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
                                     };
@@ -443,31 +439,27 @@ ul::-webkit-scrollbar-thumb {
                                     // or server returns response with an error status.
                             });
                             };
-                            $scope.showImageOfBlock = function(id,mind_body_query){
-                                $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data,status){
-                                    var jsondataDefault = data;
-                                        var allLayoutFilename = [];
-                                        $(jsondataDefault).each(function (i, val) {
-                                            var i = 0;
-                                           $.each(val, function (k, v) {
-                                                allLayoutFilename[i] = v;
-                                                i++;
-                                            });
-                                            });
-                                          
-                                           
-                                           $("#"+id).attr('src','/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name='+allLayoutFilename[2]);
-                                           $("#"+id).attr('onclick',"showSomething('"+id+"','"+allLayoutFilename[0]+"','"+allLayoutFilename[1]+"','"+mind_body_query+"')");
-                                          
-                               }).error();
-
+                            $scope.showImageOfBlock = function(id, mind_body_query){
+                            $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
+                            var jsondataDefault = data;
+                                    var allLayoutFilename = [];
+                                    $(jsondataDefault).each(function (i, val) {
+                            var i = 0;
+                                    $.each(val, function (k, v) {
+                                    allLayoutFilename[i] = v;
+                                            i++;
+                                    });
+                            });
+                                    $("#" + id).attr('src', '/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=' + allLayoutFilename[2]);
+                                    $("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
+                            }).error();
                             };
                             $scope.showDataTemp = function(){
-                                $scope.showData(temp_block_id, temp_mind_body_query);
+                            $scope.showData(temp_block_id, temp_mind_body_query);
                             }
-                            $scope.showData = function(id, mind_body_query){
-                               
-                            block_clicked = "true";
+                    $scope.showData = function(id, mind_body_query){
+
+                    block_clicked = "true";
                             blockIdSelected = "";
                             block_id = id;
                             if (mind_body_query == "null")
@@ -510,8 +502,22 @@ ul::-webkit-scrollbar-thumb {
                             });
                             }
                             };
+                            if (data === error){
+                    alert(data);
+                    }
+                    $("#tabs-1").hide();
+                            $("#tabs-2").hide();
+                            $("#tabs-3").hide();
+                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
+                    }).error(function(data, status, headers, config) {
+                    alert("No data available, problem fetching the data");
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                    });
+                    }
+                    };
                             $scope.select_category_details = function(id) {
-                            
+
                             mindbodydataId = id;
                             //$scope.showStyles();
                             showText(temp_style_id,temp_style_layout);
@@ -519,7 +525,7 @@ ul::-webkit-scrollbar-thumb {
                                 $("#tabs-2").hide();
                                 $("#tabs-3").hide();
                                 $("#tabs-4").hide();
-                                 $("#tabs-5").hide();
+                                $("#tabs-5").hide();
                             
                             }
 
@@ -579,279 +585,273 @@ ul::-webkit-scrollbar-thumb {
 
 
 
-                            function showSomething(block_id_temp,id, style, mind_body_query){
-                                temp_style_id = id;
-                                temp_style_layout = style;
-                                temp_block_id = block_id_temp;
-                                temp_mind_body_query= mind_body_query;
-                                $('.blockchooser').removeClass('border-highlight');
-                               
-                                $("#"+block_id_temp).addClass('border-highlight');
-                                 //$("#continueblock").attr('ng-click',"showData('"+block_id_temp+"','"+ mind_body_query +"')");
-                                 $('#continueblock').prop('disabled', false);
-                               
-                            }
-                    //var countBlock = 1;
-                            function showText(id, layout){
-                        //    alert(id+":"+layout+":"+mindbodydataId);
-                            var layoutfilename = layout;
-                                    $("#clickid").val(layout);
-                            if (mindbodydataId != "0")
-                            {
-                            $.ajax({
-                            type: 'GET',
-                                    url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email",
-                                    data: {get_param: 'value'},
-                                    dataType: 'json',
-                                    success: function (data) {
-                                     
-                                    displayElement(id, layout, data);
-                                    }
-                            });
-                            }
-                            else
-                            {
-                                
-                            displayElement(id, layout, null)
-                            }
-                            }
-
-                    function displayElement(id, layout, data){
-                    var random_number = Math.floor(Math.random() * 200) + 1 
-                    if (blockIdSelected == "defaultblock1")
-                            blockId = "defaultblock1";
-                        else if(blockIdSelected.indexOf("SSS") >= 0)
-                            blockId = blockIdSelected;
-                            else
-                            blockId = "block" + block_id + "SSS" + random_number;
-                            
-                            jsondata = data;
-                            
-                            $.ajax({
-                            type: "GET",
-                                    url: global_host_address + "DownloadXml?file_name="+ layout+".xml",
-                                    dataType: "xml",
-                                    success: function (xml) {
-                            
-                                            if (block_clicked == "true")
-                                            $(".preview").append("<div onclick=getBlockId(" + blockId + ") id='" + blockId + "' blockdetails='"+ id +" name='"+ mindbodydataId +"'></div>");
-                                            else
-                                            $(".preview #" + blockId).empty();
-                                            block_clicked = "false";
-                                            //  $(".preview").empty();
-                                            $(xml).find('layout').each(function () {
-                                    height = $(this).find('container').attr("Height");
-                                            width = $(this).find('container').attr("Width");
-                                            $(".preview #" + blockId).css("width", width + "px");
-                                            $(".preview #" + blockId).css("height", height + "px");
-                                            $(".preview #" + blockId).css("position", "relative");
-                                    }
-
-                                    );
-                                            var count=1;
-                                            var blockcount=1;
-                                            $(".imagename").find('option').remove().end();
-                                            $(".blockname").find('option').remove().end();
-                                            $(xml).find('element').each(function () {
-                                            var tag = $(this).attr("tag");
-                                            type = $(this).attr("type");
-                                            var h = "";
-                                            var t = "";
-                                            var elementdata;
-                                     if (jsondata == null)
-                                    {
-                                     
-                                    elementdata = type;
-                                    }
-                                    else{
-                                     
-                                    $(jsondata).each(function (i, val) {
-
-                                    $.each(val, function (k, v) {
-                                    //                               alert(k + " : " + v+ ":"+ type);
-                                    if (type.trim() == k.trim()) {
-                                    elementdata = v;
-                                    }
-
-                                    });
-                                    });
-                                    }
-                                    var fontcolor;
-                                            var fontsize;
-                                            var fontstyle;
-                                            var left = $(this).attr("x-co-ordinates");
-                                            var top = $(this).attr("y-co-ordinates");
-                                            var opacity = $(this).attr("opacity");
-                                            var width = $(this).attr("width");
-                                            var height = $(this).attr("height");
-                                   if (tag === "text")
-                                        {
-                                                var colorName=$(this).attr("font-color-name");
-                                                fontsize = $(this).attr("font-size");
-                                                fontstyle = $(this).attr("font-style");
-                                                var fontweight = $(this).attr("font-weight");
-                                                var letterspacing = $(this).attr("letter-spacing");
-                                                var lineheight = $(this).attr("line-height");
-                                                var textalign = $(this).attr("text-align");
-                                                var webkittransform = $(this).attr("webkit-transform");
-                                                var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-                                                       
-                                                for(var i=1;i<=6; i++)
-                                                        {
-                                                            if(colorName == "Font-Color-"+i)
-                                                            {
-                                                              fontcolor= $("#shapecolorbox"+i).css("background-color");
-//                                                              fontcolor=user_preferences_colors.color+""+i; 
-                                                            }
-                                                            
-                                                        }
-//                                                fontcolor = $(this).attr("font-color");
-                                                
-                                                $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
-                                                $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
-                                                                        .css("position", "absolute")
-                                                                        .css("overflow", "hidden")
-                                                                        .css("left", "" + left + "px")
-                                                                        .css("top", "" + top + "px")
-                                                                        .css("width", "" + width)
-
-                                                                        .css("height", "" + height)
-
-                                                                        .css("font-style", "" + fontstyle)
-                                                                        .css("font-weight", "" + fontweight)
-                                                                        .css("letter-spacing", "" + letterspacing)
-                                                                        .css("opacity", "" + opacity)
-                                                                        .css("text-align", "" + textalign)
-                                                                        .css("text-shadow", "" + dropshadow)
-                                                                        .css("webkit-transform", "rotate(" + webkittransform + "deg)")
-                                                                        .css("resize", "none")
-                                                                        .css("background-color", "inherit")
-                                                                        .css("border", "none")
-                                                                        .css("focus", "none")
-                                                                        .css("line-height", "" + lineheight); 
-                                                //$("#" + type + "EEE" + blockId).autogrow();
-                                                
-                                                //resize of text to fit bound - By Syed Ilyas 26/8/2015
-                                                var tempfontsize = parseInt(fontsize.replace("px",""));
-                                                var tempHeight = parseInt(height.replace("px",""));
-                                                $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize +"px");
-                                                if($("#" + type + "EEE" + blockId).get(0).scrollHeight > tempHeight)
-                                                {
-                                                    $("#" + type + "EEE" + blockId).css("line-height", "initial");
-                                                while ( $("#" + type + "EEE" + blockId).get(0).scrollHeight > tempHeight) {
-                                                       tempfontsize = tempfontsize - 1;
-                                                      $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize +"px");
-                                                }
-                                                 var xxyy = parseInt(tempfontsize);
-                                                xxyy = Math.round(xxyy * 1.2);
-                                                 $("#" + type + "EEE" + blockId).css("line-height",""+xxyy+"px");
-                                                }
-                                                //resize end
-                                                
-                                                
-                                                
-                                        }
-
-                                    if (tag === "image")
-                                    {
-                                    var blendmode = $(this).attr("background-blend-mode");
-                                            
-                                            var background_image=$(this).attr("background-image")
-                                             $(".imagename").append("<option name="+background_image+" value=" + type + "EEE" + blockId + ">Image "+count+"</option>");
-                                             count++;
-                                            $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
-                                            $("#" + type + "EEE" + blockId)
-                                            .css("color", "" + fontcolor)
-                                            .css("margin-left", "" + left + "px")
-                                            .css("margin-top", "" + top + "px")
-                                            .css("background-blend-mode", "" + blendmode)
-                                            .css("opacity", "" + opacity)
-                                            .css("width", "" + width)
-                                            .css("position", "absolute")
-                                            .css("height", "" + height)
-                                            .css("background", ""+background_image)
-                                            .css("background-repeat", "no-repeat")
-                                            .css("background-position", "center center")
-                                            .css("position", "absolute");
-                                    }
-                                    
-                                    if (tag === "logo")
-                                    {
-                                        var background_image = $(this).attr("background-image");
-                                        var blendmode = $(this).attr("background-blend-mode");
-                                        $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
-                                        $("#" + type + "EEE" + blockId)
-                                                .css("color", "" + fontcolor)
-                                                .css("margin-left", "" + left + "px")
-                                                .css("margin-top", "" + top + "px")
-                                                .css("background-blend-mode", "" + blendmode)
-                                                .css("opacity", "" + opacity)
-                                                .css("width", "" + width)
-                                                .css("height", "" + height)
-                                                .css("background", ""+background_image)
-                                                .css("background-repeat", "no-repeat")
-                                                .css("background-position", "center center")
-
-                                                .css("position", "absolute"); 
-                                    }
-
-                                    if (tag === "button")
-                                    {
-                                         var src_image = $(this).attr("src");
-                                    $(".preview #" + blockId).append("<div><a href=\"#\" data-reveal-id=\"myModal\"><img src='" + src_image + "' buttonLink='"+elementdata+"' id=" + type + "EEE" + blockId + " onclick=getButtonid('" + type + "EEE"+ blockId +"') alt='button'/></a>");
-                                            $("#" + type + "EEE" + blockId).css("left", "" + left + "px")
-                                                                   .css("position", "absolute")
-                                                                   .css("top", "" + top + "px")
-                                                                   .attr("src", "buttons/button1.png");
-                                    }
-
-                                    if (tag === "block")
-                                    {
-                                        var borderRadius = $(this).attr("border-radius");
-                                        var colorName=$(this).attr("color-name");
-                                        var backgroundcolor;
-                                        var width = $(this).attr("width");
-                                        var height = $(this).attr("height");
-//                                      var backgroundcolor = $(this).attr("background-color");                                                          
-                                        var drop_shadow=$(this).attr("Drop-shadow-color");                                               
-                                        var h_shadow =  $(this).attr("H-shadow"); 
-                                        var v_shadow=$(this).attr("V-shadow");
-                                        var Blur=$(this).attr("blur");
-                                                      
-                                        for(var i=1;i<=6; i++)
-                                               {
-                                                  if(colorName == "Color-"+i)
-                                                     {
-                                                       backgroundcolor= $("#shapecolorbox"+i).css("background-color");
-//                                                              fontcolor=user_preferences_colors.color+""+i; 
-                                                      }
-                                                            
-                                                }           
-                                        $(".blockname").append("<option value=" + type + "EEE" + blockId + ">Block "+blockcount+"</option>")
-                                            blockcount++;
-                                      
-                                        $(".preview #" + blockId).append("<div onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
-                                        $("#" + type + "EEE" + blockId).css("background-color", "" + backgroundcolor)
-                                                     .css("margin-left", "" + left + "px")
-                                                     .css("margin-top", "" + top + "px")
-                                                     .css("width", "" + width)
-                                                     .css("border-radius", "" + borderRadius)
-                                                     .css("position", "absolute")
-                                                     .css("height", "" + height)
-                                                     .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
-                                                     .css("opacity", "" + opacity);
-                                    }
-
-                                    }
-
-                                    );
-                                    },
-                                    error: function (e)
-                                    {
-                                    alert("error in xml file read");
-                                    }
-                            });
+                    function showSomething(block_id_temp, id, style, mind_body_query){
+                    temp_style_id = id;
+                            temp_style_layout = style;
+                            temp_block_id = block_id_temp;
+                            temp_mind_body_query = mind_body_query;
+                            $('.blockchooser').removeClass('border-highlight');
+                            $("#" + block_id_temp).addClass('border-highlight');
+                            //$("#continueblock").attr('ng-click',"showData('"+block_id_temp+"','"+ mind_body_query +"')");
+                            $('#continueblock').prop('disabled', false);
                     }
+            //var countBlock = 1;
+            function showText(id, layout){
+            //    alert(id+":"+layout+":"+mindbodydataId);
+            var layoutfilename = layout;
+                    $("#clickid").val(layout);
+                    if (mindbodydataId != "0")
+            {
+            $.ajax({
+            type: 'GET',
+                    url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email",
+                    data: {get_param: 'value'},
+                    dataType: 'json',
+                    success: function (data) {
+
+                    displayElement(id, layout, data);
+                    }
+            });
+            }
+            else
+            {
+
+            displayElement(id, layout, null)
+            }
+            }
+
+            function displayElement(id, layout, data){
+            var random_number = Math.floor(Math.random() * 200) + 1
+                    if (blockIdSelected == "defaultblock1")
+                    blockId = "defaultblock1";
+                    else if (blockIdSelected.indexOf("SSS") >= 0)
+                    blockId = blockIdSelected;
+                    else
+                    blockId = "block" + block_id + "SSS" + random_number;
+                    jsondata = data;
+                    $.ajax({
+                    type: "GET",
+                            url: global_host_address + "DownloadXml?file_name=" + layout + ".xml",
+                            dataType: "xml",
+                            success: function (xml) {
+
+                            if (block_clicked == "true")
+                                    $(".preview").append("<div onclick=getBlockId(" + blockId + ") id='" + blockId + "' blockdetails='" + id + " name='" + mindbodydataId + "'></div>");
+                                    else
+                                    $(".preview #" + blockId).empty();
+                                    block_clicked = "false";
+                                    //  $(".preview").empty();
+                                    $(xml).find('layout').each(function () {
+                            height = $(this).find('container').attr("Height");
+                                    width = $(this).find('container').attr("Width");
+                                    $(".preview #" + blockId).css("width", width + "px");
+                                    $(".preview #" + blockId).css("height", height + "px");
+                                    $(".preview #" + blockId).css("position", "relative");
+                            }
+
+                            );
+                                    var count = 1;
+                                    var blockcount = 1;
+                                    $(".imagename").find('option').remove().end();
+                                    $(".blockname").find('option').remove().end();
+                                    $(xml).find('element').each(function () {
+                            var tag = $(this).attr("tag");
+                                    type = $(this).attr("type");
+                                    var h = "";
+                                    var t = "";
+                                    var elementdata;
+                                    if (jsondata == null)
+                            {
+
+                            elementdata = type;
+                            }
+                            else{
+
+                            $(jsondata).each(function (i, val) {
+
+                            $.each(val, function (k, v) {
+                            //                               alert(k + " : " + v+ ":"+ type);
+                            if (type.trim() == k.trim()) {
+                            elementdata = v;
+                            }
+
+                            });
+                            });
+                            }
+                            var fontcolor;
+                                    var fontsize;
+                                    var fontstyle;
+                                    var left = $(this).attr("x-co-ordinates");
+                                    var top = $(this).attr("y-co-ordinates");
+                                    var opacity = $(this).attr("opacity");
+                                    var width = $(this).attr("width");
+                                    var height = $(this).attr("height");
+                                    if (tag === "text")
+                            {
+                            var colorName = $(this).attr("font-color-name");
+                                    fontsize = $(this).attr("font-size");
+                                    fontstyle = $(this).attr("font-style");
+                                    var fontweight = $(this).attr("font-weight");
+                                    var letterspacing = $(this).attr("letter-spacing");
+                                    var lineheight = $(this).attr("line-height");
+                                    var textalign = $(this).attr("text-align");
+                                    var webkittransform = $(this).attr("webkit-transform");
+                                    var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
+                                    for (var i = 1; i <= 6; i++)
+                            {
+                            if (colorName == "Font-Color-" + i)
+                            {
+                            fontcolor = $("#shapecolorbox" + i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                            }
+
+                            }
+//                                                fontcolor = $(this).attr("font-color");
+
+                            $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
+                                    $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
+                                    .css("position", "absolute")
+                                    .css("overflow", "hidden")
+                                    .css("left", "" + left + "px")
+                                    .css("top", "" + top + "px")
+                                    .css("width", "" + width)
+
+                                    .css("height", "" + height)
+
+                                    .css("font-style", "" + fontstyle)
+                                    .css("font-weight", "" + fontweight)
+                                    .css("letter-spacing", "" + letterspacing)
+                                    .css("opacity", "" + opacity)
+                                    .css("text-align", "" + textalign)
+                                    .css("text-shadow", "" + dropshadow)
+                                    .css("webkit-transform", "rotate(" + webkittransform + "deg)")
+                                    .css("resize", "none")
+                                    .css("background-color", "inherit")
+                                    .css("border", "none")
+                                    .css("focus", "none")
+                                    .css("line-height", "" + lineheight);
+                                    //$("#" + type + "EEE" + blockId).autogrow();
+
+                                    //resize of text to fit bound - By Syed Ilyas 26/8/2015
+                                    var tempfontsize = parseInt(fontsize.replace("px", ""));
+                                    var tempHeight = parseInt(height.replace("px", ""));
+                                    $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize + "px");
+                                    if ($("#" + type + "EEE" + blockId).get(0).scrollHeight > tempHeight)
+                            {
+                            $("#" + type + "EEE" + blockId).css("line-height", "initial");
+                                    while ($("#" + type + "EEE" + blockId).get(0).scrollHeight > tempHeight) {
+                            tempfontsize = tempfontsize - 1;
+                                    $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize + "px");
+                            }
+                            var xxyy = parseInt(tempfontsize);
+                                    xxyy = Math.round(xxyy * 1.2);
+                                    $("#" + type + "EEE" + blockId).css("line-height", "" + xxyy + "px");
+                            }
+                            //resize end
+
+
+
+                            }
+
+                            if (tag === "image")
+                            {
+                            var blendmode = $(this).attr("background-blend-mode");
+                                    var background_image = $(this).attr("background-image")
+                                    $(".imagename").append("<option name=" + background_image + " value=" + type + "EEE" + blockId + ">Image " + count + "</option>");
+                                    count++;
+                                    $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
+                                    $("#" + type + "EEE" + blockId)
+                                    .css("color", "" + fontcolor)
+                                    .css("margin-left", "" + left + "px")
+                                    .css("margin-top", "" + top + "px")
+                                    .css("background-blend-mode", "" + blendmode)
+                                    .css("opacity", "" + opacity)
+                                    .css("width", "" + width)
+                                    .css("position", "absolute")
+                                    .css("height", "" + height)
+                                    .css("background", "" + background_image)
+                                    .css("background-repeat", "no-repeat")
+                                    .css("background-position", "center center")
+                                    .css("position", "absolute");
+                            }
+
+                            if (tag === "logo")
+                            {
+                            var background_image = $(this).attr("background-image");
+                                    var blendmode = $(this).attr("background-blend-mode");
+                                    $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
+                                    $("#" + type + "EEE" + blockId)
+                                    .css("color", "" + fontcolor)
+                                    .css("margin-left", "" + left + "px")
+                                    .css("margin-top", "" + top + "px")
+                                    .css("background-blend-mode", "" + blendmode)
+                                    .css("opacity", "" + opacity)
+                                    .css("width", "" + width)
+                                    .css("height", "" + height)
+                                    .css("background", "" + background_image)
+                                    .css("background-repeat", "no-repeat")
+                                    .css("background-position", "center center")
+
+                                    .css("position", "absolute");
+                            }
+
+                            if (tag === "button")
+                            {
+                            var src_image = $(this).attr("src");
+                                    $(".preview #" + blockId).append("<div><a href=\"#\" data-reveal-id=\"myModal\"><img src='" + src_image + "' buttonLink='" + elementdata + "' id=" + type + "EEE" + blockId + " onclick=getButtonid('" + type + "EEE" + blockId + "') alt='button'/></a>");
+                                    $("#" + type + "EEE" + blockId).css("left", "" + left + "px")
+                                    .css("position", "absolute")
+                                    .css("top", "" + top + "px")
+                                    .attr("src", "buttons/button1.png");
+                            }
+
+                            if (tag === "block")
+                            {
+                            var borderRadius = $(this).attr("border-radius");
+                                    var colorName = $(this).attr("color-name");
+                                    var backgroundcolor;
+                                    var width = $(this).attr("width");
+                                    var height = $(this).attr("height");
+//                                      var backgroundcolor = $(this).attr("background-color");                                                          
+                                    var drop_shadow = $(this).attr("Drop-shadow-color");
+                                    var h_shadow = $(this).attr("H-shadow");
+                                    var v_shadow = $(this).attr("V-shadow");
+                                    var Blur = $(this).attr("blur");
+                                    for (var i = 1; i <= 6; i++)
+                            {
+                            if (colorName == "Color-" + i)
+                            {
+                            backgroundcolor = $("#shapecolorbox" + i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                            }
+
+                            }
+                            $(".blockname").append("<option value=" + type + "EEE" + blockId + ">Block " + blockcount + "</option>")
+                                    blockcount++;
+                                    $(".preview #" + blockId).append("<div onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
+                                    $("#" + type + "EEE" + blockId).css("background-color", "" + backgroundcolor)
+                                    .css("margin-left", "" + left + "px")
+                                    .css("margin-top", "" + top + "px")
+                                    .css("width", "" + width)
+                                    .css("border-radius", "" + borderRadius)
+                                    .css("position", "absolute")
+                                    .css("height", "" + height)
+                                    .css("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")")
+                                    .css("opacity", "" + opacity);
+                            }
+
+                            }
+
+                            );
+                            },
+                            error: function (e)
+                            {
+                            alert("error in xml file read");
+                            }
+                    });
+            }
+            
+             
 
         </script>
         <script src="js/emaileditor.js" type="text/javascript"></script>
@@ -860,19 +860,19 @@ ul::-webkit-scrollbar-thumb {
 
     </head>
     <body ng-app="myapp">
-        
+
         <div id="myModal" class="reveal-modal">
             <br />
             <p><strong>Please enter the url:</strong> <input type="text" id="buttonURLText" value=""></p>
             <p><input type="button" id="buttonOKURL" class="button button--moema button--text-thick button--text-upper button--size-s" value="SUBMIT"></p>
-            
+
             <a class="close-reveal-modal">&#215;</a>
         </div>
-        
-        
+
+
         <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
-                
+
                 <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div>
 
@@ -923,91 +923,44 @@ ul::-webkit-scrollbar-thumb {
                                                     <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width=50 height=50 />
                                                 </div> 
                                             </li>
-                                        </ul>
+                                        </ul>-->
+
                                     </div>
-                                    <input id="selectimage" name="selectimage" type="Button" value="select"/>  
-                                    <input type="hidden" name="image_name" id="image_name"/>
-                                    <input id="closeimagespopup" type="Button" value="close"/>  
-
-                                </div>
-                            </div>-->
-                            <div id="popup" name="popup">
-                                <div id="content">
-                                    <form action="">
-                                        <!--                                    System Directory : <input type="file" class="uploadfile" id="uploadfile" name="uploadfile" > <br> -->
-                                        User Directory : <input type="button" id="UserUploadedImages" name="UserUploadedImages" value="Click"> <br> 
-
-                                        <input id="closepopup" type="Button" value="close"/>  
-
-                                    </form>
-                                </div>   
-                            </div>
-                            <a href="#" data-reveal-id="previewpopup1" class="clickpreview"  style="display:none;">Click Me For A Modal</a>
-                            <div id="previewpopup1" class="reveal-modal" name="previewpopup" style="top:10px;left:90%;">
-                                <a class="close-reveal-modal">&#215;</a>
-                                
-                                <div id="previewcontent" style="padding-top:30px;">
-                                    
-                                </div>   
-                            </div>
-                            <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display:none;">Click Me For A Modal</a>
-                            <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;left:90%;">
-                                <a class="close-reveal-modal">&#215;</a>
-                                <div class="imagecropper_header" style="text-align: center;">
-                                    
-                                    <h3 class="imagecropper_title">Cropping image</h3>
-
-                                </div>
-                                <div class="crop_image">
-<!--                                        <button class="cropButton">Crop</button>-->
-
-
-                
-<!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
-                                </div>   
-                                
-                                    <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
-                                    <button class="imagecropper_ok cropButton">Crop</button>
-                               
-                            </div>
-
-                        </div>
-
-                        <!--        editor container      -->
+                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor">
+                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:36px;overflow-y:scroll;width:370px;overflow-x:hidden;">
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
                                             <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li>
+                                               <li style="position:relative;left:-9px;">
                                                     <p id="editorheadere" class="SS1">font color</p>
                                                     <div class="blankcolor-box1" id="picker" ></div>
-                                                    
+
                                                 </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
                                                     <p id="editorheadere" class="SS1">font size</p>
-<!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px;">
-                                                        <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
-                                                    </select>-->
+                                                    <!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px;">
+                                                                                                            <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
+                                                                                                        </select>-->
                                                     <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
                                                 </li>
 
-                                                <li>
+                                                <li style="width:100px;">
                                                     <p id="editorheadere" class="SS1">font Name:</p>
                                                     <select id="fontname" style="margin: 2px;font-size: 15px;width:80px;color: #3f4042;background-color: #ccc;border-radius:5px;">
                                                         <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
                                                     </select>
                                                 </li>
                                                  <li> 
-                                                    <ul id="pickColorForText" style="display:none;left:-26px;position:relative;margin-top: -50px;">
-                                                        <li><br><p class="editpal">your palette</p></li>
-                                                        <li><p class="editpal custom-color-box-text" style="margin-left:150px;position:relative;top:20px;">custom</p></li>
+                                                    <ul id="pickColorForText" style="display:none;left:-14px;position:relative;margin-top:-80px;">
+                                                        <li><p class="editpal">your palette</p></li>
+                                                        <li><p class="editcus custom-color-box-text" style="margin-left:130px;position:relative;">custom</p></li>
                                                         <li id="fcolcontainer">
-                                                            <ul id="colorpalette ">
+                                                            <ul id="colorpalette " style="position:relative;left:-12px;">
                                                                    <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
@@ -1019,7 +972,7 @@ ul::-webkit-scrollbar-thumb {
                                                             
                                                         </ul>
                                                 </li>
-                                                <li><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
+                                                <li style="left:-6px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-left alignButton" id="left"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-center alignButton" id="center"></div></li>
@@ -1037,7 +990,7 @@ ul::-webkit-scrollbar-thumb {
                                             <p  id="text3" class="SS2">SHAPES</p>
                                             <ul id="shapemodificatoin">
 
-                                             
+
                                                 <li>
                                                     <select class="blockname LE1" id="editorhead">
                                                         <option>select</option>
@@ -1045,7 +998,7 @@ ul::-webkit-scrollbar-thumb {
                                                 </li>
 
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
-                                                  <li><p class="editpal">your palette</p></li>                                                                                         
+                                                <li><p class="editpal">your palette</p></li>                                                                                         
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
                                                         <li><div class="blankcolor-box" id="shapecolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
@@ -1057,8 +1010,10 @@ ul::-webkit-scrollbar-thumb {
                                                         <li>
                                                     </ul>
                                                 </li>
+
                                                 <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
                                                 <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
+
 
                                             </ul>
                                         </div>
@@ -1074,7 +1029,7 @@ ul::-webkit-scrollbar-thumb {
                                         </div>
 
                                         <div id="filtercontainer" style="display: none">
-                                            <p>IMAGE FILTER</p>
+                                            <p  id="text3" class="SS2">IMAGE FILTER</p>
                                             <ul id="filterImageList">
                                                 <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p id="filtername">Black <br>And White</p> </li>
                                                 <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p id="filtername">Textured</p></li>
@@ -1085,6 +1040,7 @@ ul::-webkit-scrollbar-thumb {
                                             </ul>
                                         </div>
                                         <div id="cropImageContainer" style="display: none">
+
 <!--                                                <p>CROP</p>-->
                                              
 
@@ -1094,44 +1050,45 @@ ul::-webkit-scrollbar-thumb {
                                                     -->
                                   
                                                 <br><br>
-                                            <input type="button" id="done" class="btn btn-primary" onclick="saveImageEdit()" value="DONE"> 
+                                            <input type="button" id="done" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="saveImageEdit()" value="DONE"> 
+
                                         </div>
 
                                     </li>
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
-                                            
+
                                             <div>
                                                 <p id="text3" class="SS2">SELECT A STYLE</p>
-                                                <div style="height:500px; overflow-y:scroll;">
+                                                <div style="height:500px;">
                                                     <ul>
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" height="150" />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
                                                             <div></div><p>&nbsp;</p>
-                                                            
+
                                                         </li>
                                                     </ul>
 
-<!--                                                    <div class="pagination pagination-centered" ng-show="datalistsstyles.length">
-                                                        <ul class="pagination-controle pagination">
-                                                            <li>
-                                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
-                                                                        ng-click="curPage = curPage - 1"> &lt; PREV</button>
-                                                            </li>
-                                                            <li>
-                                                                <span>Page {{curPage + 1}} of {{ numberOfPages()}}</span>
-                                                            </li>
-                                                            <li>
-                                                                <button type="button" class="btn btn-primary"
-                                                                        ng-disabled="curPage >= datalistsstyles.length / pageSize - 1"
-                                                                        ng-click="curPage = curPage + 1">NEXT &gt;</button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>-->
+                                                    <!--                                                    <div class="pagination pagination-centered" ng-show="datalistsstyles.length">
+                                                                                                            <ul class="pagination-controle pagination">
+                                                                                                                <li>
+                                                                                                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                                                                                            ng-click="curPage = curPage - 1"> &lt; PREV</button>
+                                                                                                                </li>
+                                                                                                                <li>
+                                                                                                                    <span>Page {{curPage + 1}} of {{ numberOfPages()}}</span>
+                                                                                                                </li>
+                                                                                                                <li>
+                                                                                                                    <button type="button" class="btn btn-primary"
+                                                                                                                            ng-disabled="curPage >= datalistsstyles.length / pageSize - 1"
+                                                                                                                            ng-click="curPage = curPage + 1">NEXT &gt;</button>
+                                                                                                                </li>
+                                                                                                            </ul>
+                                                                                                        </div>-->
                                                 </div>
 
                                             </div>
@@ -1145,41 +1102,41 @@ ul::-webkit-scrollbar-thumb {
                                         <div id="blockcontainer">
                                             ADD A NEW BLOCK
                                             <div>
-                                                <div style="height:500px; overflow-y:scroll">
-                                                    <button id="continueblock" ng-click="showDataTemp()" style="background-color: orange;position: relative;top:30%;left:30%">Continue</button>
+                                                <div style="height:500px;">
+                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:30%;left:30%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="blocks in datalists">
                                                             <img id="{{blocks.block_id}}" class="img-responsive blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)" src=""  width=250 height=150 />
-<!--                                                            <div style="background-color: grey;width:300px;height:100px;">
-                                                                
-                                                                 <li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>
-
-                                                                 <img id="{{blocks.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
-                                                                                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 /> 
-                                                            </div> -->
+                                                            <!--                                                            <div style="background-color: grey;width:300px;height:100px;">
+                                                                                                                            
+                                                                                                                             <li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>
+                                                            
+                                                                                                                             <img id="{{blocks.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
+                                                                                                                                                                    <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 /> 
+                                                                                                                        </div> -->
                                                             <div><p id=''></p></div>
                                                             <label>{{blocks.block_name}}</label>
                                                             <div></div><p>&nbsp;</p>
                                                         </li>
                                                     </ul>
 
-<!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
-                                                        <ul class="pagination-controle pagination">
-                                                            <li>
-                                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
-                                                                        ng-click="curPage = curPage - 1"> &lt; PREV</button>
-                                                            </li>
-                                                            <li>
-                                                                <span>Page {{curPage + 1}} of {{ numberOfPages()}}</span>
-                                                            </li>
-                                                            <li>
-                                                                <button type="button" class="btn btn-primary"
-                                                                        ng-disabled="curPage >= datalists.length / pageSize - 1"
-                                                                        ng-click="curPage = curPage + 1">NEXT &gt;</button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>-->
+                                                    <!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
+                                                                                                            <ul class="pagination-controle pagination">
+                                                                                                                <li>
+                                                                                                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                                                                                            ng-click="curPage = curPage - 1"> &lt; PREV</button>
+                                                                                                                </li>
+                                                                                                                <li>
+                                                                                                                    <span>Page {{curPage + 1}} of {{ numberOfPages()}}</span>
+                                                                                                                </li>
+                                                                                                                <li>
+                                                                                                                    <button type="button" class="btn btn-primary"
+                                                                                                                            ng-disabled="curPage >= datalists.length / pageSize - 1"
+                                                                                                                            ng-click="curPage = curPage + 1">NEXT &gt;</button>
+                                                                                                                </li>
+                                                                                                            </ul>
+                                                                                                        </div>-->
                                                 </div>
 
                                             </div>
@@ -1241,15 +1198,64 @@ ul::-webkit-scrollbar-thumb {
 
                             </div>
                         </div> 
+                                    <input type="hidden" id="selectimage" name="selectimage" type="Button" value="select"/>  
+                                    <input type="hidden" name="image_name" id="image_name"/>
+                                    <input type="hidden" id="closeimagespopup" type="Button" value="close"/>  
+
+                                </div>
+                            </div>
+                            <div id="popup" name="popup">
+                                <div id="content">
+                                    <form action="">
+                                        <!--                                    System Directory : <input type="file" class="uploadfile" id="uploadfile" name="uploadfile" > <br> -->
+                                        User Directory : <input type="button" id="UserUploadedImages" name="UserUploadedImages" value="Click"> <br> 
+
+                                        <input id="closepopup" type="Button" value="close"/>  
+
+                                    </form>
+                                </div>   
+                            </div>
+                            <a href="#" data-reveal-id="previewpopup1" class="clickpreview"  style="display:none;">Click Me For A Modal</a>
+                            <div id="previewpopup1" class="reveal-modal" name="previewpopup" style="top:10px;left:90%;">
+                                <a class="close-reveal-modal">&#215;</a>
+                                
+                                <div id="previewcontent" style="padding-top:30px;">
+
+                                </div>   
+                            </div>
+                            <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display:none;">Click Me For A Modal</a>
+                            <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;left:90%;">
+                                <a class="close-reveal-modal">&#215;</a>
+                                <div class="imagecropper_header" style="text-align: center;">
+                                    
+                                    <h3 class="imagecropper_title">Cropping image</h3>
+
+                                </div>
+                                <div class="crop_image">
+                                    <!--                                        <button class="cropButton">Crop</button>-->
+
+
+
+                                    <!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
+                                </div>   
+                                
+                                    <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
+                                    <button class="imagecropper_ok cropButton">Crop</button>
+                               
+                            </div>
+
+                        </div>
+
+                       
                     </div>
                 </div>
             </div>
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav" id="sidebar">
-                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"><p id="text1">EDIT</p></a></li>
-                        <li id="stl" class="hov"  onclick="hls();"><a href="#tabs-2" id="style" ><img class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>
-                        <li id="blk" class="hov"  onclick="hlb();"><a href="#tabs-3" id="block" ><img class="optbtn" src="images/sidebar/Icons_blockButton.svg" alt="" width="40" height="40"  ng-click="showBlocks()"><p id="text1">BLOCK</p></a></li>
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img  id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="40" height="40"><p id="text1">EDIT</p></a></li>
+                        <li id="stl" class="hov"  onclick="hls();"><a href="#tabs-2" id="style" ><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>
+                        <li id="blk" class="hov"  onclick="hlb();"><a href="#tabs-3" id="block" ><img id="blkimg" class="optbtn" src="images/sidebar/Icons_blockButton.svg" alt="" width="40" height="40"  ng-click="showBlocks()"><p id="text1">BLOCK</p></a></li>
                         <!--<li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>--> 
                     </ul>
                 </div>
@@ -1258,154 +1264,247 @@ ul::-webkit-scrollbar-thumb {
         </div> 
 
         <script>
-             function hle(){
-                 document.getElementById('edt').style.backgroundColor = '#fff';
-                 document.getElementById('stl').style.backgroundColor = 'transparent';
-                 document.getElementById('blk').style.backgroundColor = 'transparent';
-                }
-                function hls(){
-                document.getElementById('edt').style.backgroundColor = 'transparent';
-                document.getElementById('stl').style.backgroundColor = '#fff';
-                document.getElementById('blk').style.backgroundColor = 'transparent';
-                }
-                 function hlb(){
-                document.getElementById('edt').style.backgroundColor = 'transparent';
-                document.getElementById('stl').style.backgroundColor = 'transparent';
-                document.getElementById('blk').style.backgroundColor = '#fff';
-                }
-            
-            
-            
-                                            $("#menu-toggle").click(function (e) {
-                                    e.preventDefault();
-                                            $("#wrapper").toggleClass("active");
-                                    });</script>
+                                    function hle(){ 
+                                      document.getElementById('edtimg').src="images/sidebar/Icons_editButton_blue_new.svg";
+                                      document.getElementById('stlimg').src="images/sidebar/Icons_styleButton.svg";
+                                      document.getElementById('blkimg').src="images/sidebar/Icons_blockButton.svg";
+                                      document.getElementById('edt').style.backgroundColor = '#fff';
+                                            document.getElementById('stl').style.backgroundColor = 'transparent';
+                                            document.getElementById('blk').style.backgroundColor = 'transparent';
+                                    }
+                            function hls(){
+                                
+                                 document.getElementById('stlimg').src="images/sidebar/Icons_styleButton_blue_new.svg";
+                                 document.getElementById('blkimg').src="images/sidebar/Icons_blockButton.svg";
+                                 document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
+                            document.getElementById('edt').style.backgroundColor = 'transparent';
+                                    document.getElementById('stl').style.backgroundColor = '#fff';
+                                    document.getElementById('blk').style.backgroundColor = 'transparent';
+                            }
+                            function hlb(){
+                                document.getElementById('stlimg').src="images/sidebar/Icons_styleButton.svg";
+                                 document.getElementById('blkimg').src="images/sidebar/Icons_blockButton_blue_new.svg";
+                                 document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
+                            document.getElementById('edt').style.backgroundColor = 'transparent';
+                                    document.getElementById('stl').style.backgroundColor = 'transparent';
+                                    document.getElementById('blk').style.backgroundColor = '#fff';
+                            }
+
+
+
+                            $("#menu-toggle").click(function (e) {
+                            e.preventDefault();
+                                    $("#wrapper").toggleClass("active");
+                            });</script>
 
         <script>
 
-                                     $("#continue").click(function (){
-                                    $.ajax({
-                                    url: getHost() + "SaveKeyValueSessionServlet",
-                                            method: "post",
-                                            data:{
-                                                sessionKey:"htmldata",
-                                                sessionValue: $(".dataForEmail").html()
-                                            },
-                                            success: function (responseText) {
 
-                                            document.location.href = "emailpreview.jsp";
-                                            }
+                                    $("#continue").click(function (){
+                                        alert($(".dataForEmail").html());
+                            $.ajax({
+                            url: getHost() + "SaveKeyValueSessionServlet",
+                                    method: "post",
+                                    data:{
+                                    sessionKey:"htmldata",
+                                    sessionValue: $(".dataForEmail").html()
+                                    },
+                                    success: function (responseText) {
 
-                                    });
-                                    });</script>        
+                                    document.location.href = "emailpreview.jsp";
+                                    }
+
+                            });
+                            });</script>        
         <script>
-                                            //    var selectedDivId;     
-                                            var selectedImageId;
-                                            function getImageid(Id){
-                                            selectedImageId = Id.id;
-                                               $('.imagename').val(""+selectedImageId).trigger('change');
-                                            }
+                                    //    var selectedDivId;     
+                                    var selectedImageId;
+                                    function getImageid(Id){
+                                    selectedImageId = Id.id;
+                                            $('.imagename').val("" + selectedImageId).trigger('change');
+                                    }
 
-                                    window.onload = function () {
-                                    //get elements
-                                    var f = 1,
-                                            cvrt1 = document.getElementById('convert1'),
-                                            cvrt2 = document.getElementById('convert2'),
-                                            cvrt3 = document.getElementById('convert3'),
-                                            cvrt4 = document.getElementById('convert4'),
-                                            cvrt5 = document.getElementById('convert5'),
-                                            cvrt6 = document.getElementById('convert6');
-                                            //button click event
-                                            cvrt1.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').val();
+                            window.onload = function () {
+                            //get elements
+                            var f = 1,
+                                    cvrt1 = document.getElementById('convert1'),
+                                    cvrt2 = document.getElementById('convert2'),
+                                    cvrt3 = document.getElementById('convert3'),
+                                    cvrt4 = document.getElementById('convert4'),
+                                    cvrt5 = document.getElementById('convert5'),
+                                    cvrt6 = document.getElementById('convert6');
+                                    //button click event
+                                    cvrt1.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
                                             if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "grayscale(100%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
-                                            cvrt2.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').val();
-                                            if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "textured(100%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
-                                            cvrt3.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').val();
-                                            if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "brightness(150%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
-                                            cvrt4.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').val();
-                                            if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "grayscale(100%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
-                                            cvrt5.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').val();
-                                            if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "sepia(100%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
-                                            cvrt6.onclick = function () {
-                                                var image_Id= $('.imagename option:selected').val();
-                                            if (f) {
-                                            $("#" + image_Id).css("-webkit-filter", "Statue(100%)");
-                                                    f = 0;
-                                            }
-                                            else {
-                                            $("#" + image_Id).css("-webkit-filter", "");
-                                                    f = 1;
-                                            }
-                                            };
+                                    $("#" + image_Id).css("-webkit-filter", "grayscale(100%)");
+                                            f = 0;
+                                    }
+                                    else {
+                                    $("#" + image_Id).css("-webkit-filter", "");
+                                            f = 1;
+                                    }
                                     };
-                                            $(".cross").hide();
-                                            $(".menu").hide();
-                                            $(".hamburger").click(function () {
-                                    $(".menu").slideToggle("slow", function () {
-                                    $(".hamburger").hide();
-                                            $(".cross").show();
-                                    });
-                                    });
-                                            $(".cross").click(function () {
-                                    $(".menu").slideToggle("slow", function () {
-                                    $(".cross").hide();
-                                            $(".hamburger").show();
-                                    });
-                                    });
-                                            //  cropper settings
-                                            // --------------------------------------------------------------------------
+                                    cvrt2.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
+                                            if (f) {
+                                    $("#" + image_Id).css("-webkit-filter", "textured(100%)");
+                                            f = 0;
+                                    }
+                                    else {
+                                    $("#" + image_Id).css("-webkit-filter", "");
+                                            f = 1;
+                                    }
+                                    };
+                                    cvrt3.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
+                                            if (f) {
+                                    $("#" + image_Id).css("-webkit-filter", "brightness(150%)");
+                                            f = 0;
+                                    }
+                                    else {
+                                    $("#" + image_Id).css("-webkit-filter", "");
+                                            f = 1;
+                                    }
+                                    };
+                                    cvrt4.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
+                                            if (f) {
+                                    $("#" + image_Id).css("-webkit-filter", "grayscale(100%)");
+                                            f = 0;
+                                    }
+                                    else {
+                                    $("#" + image_Id).css("-webkit-filter", "");
+                                            f = 1;
+                                    }
+                                    };
+                                    cvrt5.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
+                                            if (f) {
+                                    $("#" + image_Id).css("-webkit-filter", "sepia(100%)");
+                                            f = 0;
+                                    }
+                                    else {
+                                    $("#" + image_Id).css("-webkit-filter", "");
+                                            f = 1;
+                                    }
+                                    };
+                                    cvrt6.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
+                                            if (f) {
+                                    $("#" + image_Id).css("-webkit-filter", "Statue(100%)");
+                                            f = 0;
+                                    }
+                                    else {
+                                    $("#" + image_Id).css("-webkit-filter", "");
+                                            f = 1;
+                                    }
+                                    };
+                            };
+                              
+                              $(".cross").hide();
+                            $(".menu").hide();
+                            $(".hamburger").click(function () {
+                                 $(".menu").slideToggle("slow", function () {
+                                     $(".hamburger").hide();
+                                             $(".cross").show();
+                                 });
+                             });
+                            $(".cross").click(function () {
+                                $(".menu").slideToggle("slow", function () {
+                                $(".cross").hide();
+                                        $(".hamburger").show();
+                                });
+                            });
+                                    //  cropper settings
+                                    // --------------------------------------------------------------------------
 
-                                            // create new object crop
-                                            // you may change the "one" variable to anything
+                                    // create new object crop
+                                    // you may change the "one" variable to anything
 
 
-                                            //  on click of button, crop the image
-                                            // --------------------------------------------------------------------------
+                                    //  on click of button, crop the image
+                                    // --------------------------------------------------------------------------
+
+                                    $('body').on("click", "button", function() {
+
+                            // grab width and height of .crop-img for canvas
+                            var width = $('.crop-container').width() - 80, // new image width
+                                    height = $('.crop-container').height() - 80; // new image height
+
+                                    $('canvas').remove();
+                                    $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');
+                                    var ctx = document.getElementById('canvas').getContext('2d'),
+                                    img = new Image,
+                                    w = coordinates(one).w,
+                                    h = coordinates(one).h,
+                                    x = coordinates(one).x,
+                                    y = coordinates(one).y;
+                                    img.src = coordinates(one).image;
+                                    img.onload = function() {
+
+                                    // draw image
+                                    ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
+                                            //                                    alert( img.src);
+                                            // display canvas image
+                                            $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
+                                            // save the image to server
+                                            var canvass = document.getElementById("canvas");
+                                            var dataURL = canvass.toDataURL();
+                                            //                                            alert(dataURL);
+                                            var cropped_image = {"image": "image"};
+                                            $.ajax({
+                                            url: global_host_address + 'CropImage',
+                                                    method: 'post',
+                                                    data: { image: dataURL},
+                                                    success: function (responseText) {
+                                                    var image_Id = $('.imagename option:selected').val();
+                                                            $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-repeat", "no-repeat").css("background-position", "center center");
+                                                            $("#cropper_popup").hide();
+                                                    }
+                                            });
+                                    }
+                            //                                    alert(data+""+data.url);
+
+                            });
+                                    //  on click of .upload class, open .uploadfile (input file)
+                                    // --------------------------------------------------------------------------
+
+                                    //		$('body').on("click", ".newupload", function() {
+                                    //		    $('.uploadfile').click();
+                                    //		});
+
+                                    // on input[type="file"] change
+                                    oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+                                    var i = 1;
+                                    var id;
+                                    one = new CROP();
+                                    $("#selectimage").click(function(){
+                            var image_file = global_host_address + $("#image_name").val();
+                                    $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                    $("#imagespopup").hide();
+                            });
+                                    function imageEdit() {
+                                    $("#textcontainer").hide();
+                                            $("#shapecontainer").hide();
+                                            $("#imagecontainer").hide();
+                                            $("#filtercontainer").show();
+                                            $("#cropImageContainer").show();
+                                            var image_file = $(".imagename").attr("name").replace("url(", "").replace(")", "");
+                                            id = "image" + i;
+                                            $("#cropper_popup").show();
+//                                                    $('#cropper_popup').draggable();
+//                                                    $("#cropper_popup").resizable();
+                                            //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
+
+                                            $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
+                                            i = i + 1;
+                                            one.init('.crop_image');
+                                            // load image into crop
+                                            one.loadImg(image_file);
+                                            $("#imagespopup").hide();
+                                    }
+
 
                                             $('body').on("click", "button", function() {
 
@@ -1448,10 +1547,19 @@ ul::-webkit-scrollbar-thumb {
                                             }
                                     //                                    alert(data+""+data.url);
 
-                                    });
-                                            //  on click of .upload class, open .uploadfile (input file)
-                                            // --------------------------------------------------------------------------
 
+                            $('.uploadfile').change(function() {
+                            $("#cropper_popup").show();
+                                    $('#cropper_popup').draggable();
+                                    $("#cropper_popup").resizable();
+                                    loadImageFile($('.uploadfile').val());
+                                    // resets input file
+                                    $('.uploadfile').wrap('<form>').closest('form').get(0).reset();
+                                    $('.uploadfile').unwrap();
+                                    $("#popup").hide();
+                            });
+                                    //  get input type=file IMG through base64 and send it to the cropper
+                                            // --------------------------------------------------------------------------
                                             //		$('body').on("click", ".newupload", function() {
                                             //		    $('.uploadfile').click();
                                             //		});

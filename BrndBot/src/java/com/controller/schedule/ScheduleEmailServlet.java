@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,7 @@ public class ScheduleEmailServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
         try {
             HttpSession session = request.getSession();
             if ( session.getAttribute("UID") == null){
@@ -52,7 +54,6 @@ public class ScheduleEmailServlet extends HttpServlet {
                 response.getWriter().write(AppConstants.GSON.toJson(error));
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.getWriter().flush();
-                response.setContentType("application/json");
                 return;
             }
             Integer userId = Integer.parseInt(session.getAttribute("UID").toString());
@@ -64,7 +65,6 @@ public class ScheduleEmailServlet extends HttpServlet {
                 response.getWriter().write(AppConstants.GSON.toJson(error));
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().flush();
-                response.setContentType("application/json");
                 return;
             }
             
@@ -75,9 +75,9 @@ public class ScheduleEmailServlet extends HttpServlet {
                 response.getWriter().write(AppConstants.GSON.toJson(error));
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().flush();
-                response.setContentType("application/json");
                 return;
             }
+            Double schedule = (Double)requestBodyMap.get("schedule_time");
             Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
                     userId,
                     requestBodyMap.get("email_subject").toString(),
@@ -87,12 +87,11 @@ public class ScheduleEmailServlet extends HttpServlet {
                     requestBodyMap.get("from_name").toString(),
                     requestBodyMap.get("to_email_addresses").toString().split(","),
                     requestBodyMap.get("schedule_title").toString(),
-                    new Timestamp(Long.parseLong(requestBodyMap.get("schedule_time").toString()))
+                    new Timestamp(schedule.longValue())
             );
+            response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(AppConstants.GSON.toJson(idMap));
             response.getWriter().flush();
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_OK);
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleEmailServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberFormatException ex){
@@ -102,8 +101,6 @@ public class ScheduleEmailServlet extends HttpServlet {
             response.getWriter().write(AppConstants.GSON.toJson(error));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().flush();
-            response.setContentType("application/json");
-            return;
         }
     }
     
@@ -142,7 +139,7 @@ public class ScheduleEmailServlet extends HttpServlet {
     private boolean mapContainsKey(Map<String, Object> requestBodyMap, String key){
         if ( !requestBodyMap.containsKey(key) || 
                 requestBodyMap.get(key) == null ||
-                StringUtils.isEmpty(key)){
+                StringUtils.isEmpty(requestBodyMap.get(key).toString())){
             return false;
         }
         return true;

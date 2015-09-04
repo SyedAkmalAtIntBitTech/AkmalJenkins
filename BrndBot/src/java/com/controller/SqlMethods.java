@@ -51,7 +51,13 @@ public class SqlMethods {
     public static Connection getConnection() throws SQLException {
         return connectionManager.getConnection();
     }
-
+    
+    public HttpSession getSession(){
+        this.session = request.getSession(true);
+        this.session.setMaxInactiveInterval(0);
+        return this.session;
+    }
+    
     public void close(ResultSet rs, Statement ps) {
         if (rs != null) {
             try {

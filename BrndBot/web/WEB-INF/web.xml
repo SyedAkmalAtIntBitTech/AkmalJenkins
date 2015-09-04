@@ -328,6 +328,18 @@
         <servlet-name>ServletDisplayLayoutHTML</servlet-name>
         <servlet-class>admin.controller.ServletDisplayLayoutHTML</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetScheduledEmailDetailServlet</servlet-name>
+        <servlet-class>com.controller.schedule.GetScheduledEmailDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetScheduledEntitiesServlet</servlet-name>
+        <servlet-class>com.controller.schedule.GetScheduledEntitiesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ScheduleEmailServlet</servlet-name>
+        <servlet-class>com.controller.schedule.ScheduleEmailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -667,6 +679,18 @@
     <servlet-mapping>
         <servlet-name>ServletDisplayLayoutHTML</servlet-name>
         <url-pattern>/ServletDisplayLayoutHTML</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetScheduledEntitiesServlet</servlet-name>
+        <url-pattern>/GetScheduledEntities</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleEmailServlet</servlet-name>
+        <url-pattern>/ScheduleEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetScheduledEmailDetailServlet</servlet-name>
+        <url-pattern>/GetScheduledEmailDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -206,8 +206,8 @@ label                {
 }
 
 #inputstudio:focus ~ label, #inputstudio:valid ~ label        {
-  left:-70px;
-  font-size:13px;
+  left:-120px;
+  font-size:22px;
   color:#999;
 }
 
@@ -483,8 +483,8 @@ width:500px;
 }
 .blankcolor-box{
     float: left;
-    width: 70px;
-    height: 35px;
+    width: 26px;
+    height: 11px;
     margin: 5px;
     border-width: 1px;
     border-style: solid;
