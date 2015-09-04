@@ -500,7 +500,7 @@ $(document).ready(function () {
         
         if ((selectedtype == "selected")){
         
-        $(".container").append("<div class=\"draggableButton\"><img src=\"../buttons/button1.png\" id=\"" + $("#elementText").find('option:selected').text() + "\"></div>");
+        $(".container").append("<div class=\"draggableButton\"><img src=\"../admin/buttons/FilledButton_White.png\" id=\"" + $("#elementText").find('option:selected').text() + "\"></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
         addButtonCount++;
         addElements($("#elementText").find('option:selected').text());
