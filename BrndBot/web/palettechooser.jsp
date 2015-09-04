@@ -66,7 +66,7 @@
                 $scope.showData = function( ){
 
                  $scope.curPage = 0;
-                 $scope.pageSize = 4;
+                 $scope.pageSize = 10;
 
                     $http({
                             method : 'GET',
@@ -182,89 +182,17 @@
        
           var id = 1;
           var theme_id = 0;
-        function doSomething(theme_id){
-            if (theme_id == "theme1"){
-                    var s = $("#color1").attr("style");
-                    var s1 = s.split(":");
-                    var s = $("#color2").attr("style");
-                    var s2 = s.split(":");
-                    var s = $("#color3").attr("style");
-                    var s3 = s.split(":");
-                    var s = $("#color4").attr("style");
-                    var s4 = s.split(":");
-                    var s = $("#color5").attr("style");
-                    var s5 = s.split(":");
-                    var s = $("#color6").attr("style");
-                    var s6 = s.split(":");
-                    $("#themeid").val("theme1");
-                    $("#elementToPutStyleInto1").css("background-color", s1[1]);
-                    $("#elementToPutStyleInto2").css("background-color", s2[1]);
-                    $("#elementToPutStyleInto3").css("background-color", s3[1]);
-                    $("#elementToPutStyleInto4").css("background-color", s4[1]);
-                    $("#elementToPutStyleInto5").css("background-color", s5[1]);
-                    $("#elementToPutStyleInto6").css("background-color", s6[1]);
-            }else if(theme_id == "theme2"){
-                var s = $("#color7").attr("style");
-                        var s1 = s.split(":");
-                        var s = $("#color8").attr("style");
-                        var s2 = s.split(":");
-                        var s = $("#color9").attr("style");
-                        var s3 = s.split(":");
-                        var s = $("#color10").attr("style");
-                        var s4 = s.split(":");
-                        var s = $("#color11").attr("style");
-                        var s5 = s.split(":");
-                        var s = $("#color12").attr("style");
-                        var s6 = s.split(":");
-                        $("#themeid").val("theme2");
-                        $("#elementToPutStyleInto1").css("background-color", s1[1]);
-                        $("#elementToPutStyleInto2").css("background-color", s2[1]);
-                        $("#elementToPutStyleInto3").css("background-color", s3[1]);
-                        $("#elementToPutStyleInto4").css("background-color", s4[1]);
-                        $("#elementToPutStyleInto5").css("background-color", s5[1]);
-                        $("#elementToPutStyleInto6").css("background-color", s6[1]);
-            }else if(theme_id == "theme3"){
-                var s = $("#color13").attr("style");
-                        var s1 = s.split(":");
-                        var s = $("#color14").attr("style");
-                        var s2 = s.split(":");
-                        var s = $("#color15").attr("style");
-                        var s3 = s.split(":");
-                        var s = $("#color16").attr("style");
-                        var s4 = s.split(":");
-                        var s = $("#color17").attr("style");
-                        var s5 = s.split(":");
-                        var s = $("#color18").attr("style");
-                        var s6 = s.split(":");
-                        $("#themeid").val("theme2");
-                        $("#elementToPutStyleInto1").css("background-color", s1[1]);
-                        $("#elementToPutStyleInto2").css("background-color", s2[1]);
-                        $("#elementToPutStyleInto3").css("background-color", s3[1]);
-                        $("#elementToPutStyleInto4").css("background-color", s4[1]);
-                        $("#elementToPutStyleInto5").css("background-color", s5[1]);
-                        $("#elementToPutStyleInto6").css("background-color", s6[1]);
-            }else if(theme_id == "theme4"){
-                var s = $("#color19").attr("style");
-                        var s1 = s.split(":");
-                        var s = $("#color20").attr("style");
-                        var s2 = s.split(":");
-                        var s = $("#color21").attr("style");
-                        var s3 = s.split(":");
-                        var s = $("#color22").attr("style");
-                        var s4 = s.split(":");
-                        var s = $("#color23").attr("style");
-                        var s5 = s.split(":");
-                        var s = $("#color24").attr("style");
-                        var s6 = s.split(":");
-                        $("#themeid").val("theme2");
-                        $("#elementToPutStyleInto1").css("background-color", s1[1]);
-                        $("#elementToPutStyleInto2").css("background-color", s2[1]);
-                        $("#elementToPutStyleInto3").css("background-color", s3[1]);
-                        $("#elementToPutStyleInto4").css("background-color", s4[1]);
-                        $("#elementToPutStyleInto5").css("background-color", s5[1]);
-                        $("#elementToPutStyleInto6").css("background-color", s6[1]);
+        function doSomething(theme_id){     
+            var theamNum = parseInt(theme_id.replace("theme",""));
+            theamNum--;
+            var num=theamNum*6;
+            $("#themeid").val(theme_id);
+            for(var i=1; i<=6;i++){
+                var colorid="color"+(i+num);
+                $("#elementToPutStyleInto"+i).css("background-color",$("#"+colorid).css("background-color"));
+                  
+                
             }
-
         }
 
     </script>
@@ -312,7 +240,7 @@ Please arrange them with most used to least used in your designs.</p>
                         <br>
                         <%! Integer i=1; %>
                         <div ng-controller="controllerGetColourPalettes" class="tab-pane active" id="picktheme" ng-init="showData()">
-                            <div style="height:250px;  overflow-y: scroll">
+                            <div style="height:270px;  overflow-y: scroll">
                                 <div ng-repeat= "theme in datalists" id="rep"  >
 
                                     <script type="text/javascript">
@@ -322,7 +250,8 @@ Please arrange them with most used to least used in your designs.</p>
                                         <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
                                         </div>
                                             
-                                        <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>
+                                        <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')"><div ng-show="colors.id == null" style="padding-top: 10px;">{{colors.theme_name}}</div></div>
+<!--<div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>-->
                                         
                                     </div> 
                                     <div id='id'>

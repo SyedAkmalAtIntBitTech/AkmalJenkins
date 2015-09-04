@@ -1058,7 +1058,7 @@ ul::-webkit-scrollbar-thumb {
                                                     </ul>
                                                 </li>
                                                 <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
-                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
+                                                <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
 
                                             </ul>
                                         </div>
@@ -1102,6 +1102,7 @@ ul::-webkit-scrollbar-thumb {
                                         <div id="stylecontainer">
                                             
                                             <div>
+                                                <p id="text3" class="SS2">SELECT A STYLE</p>
                                                 <div style="height:500px; overflow-y:scroll;">
                                                     <ul>
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">

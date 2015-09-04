@@ -690,7 +690,7 @@ and open the template in the editor.
                                                 <li> 
                                                     <ul id="pickColorForText" style="display:none;left:-26px;position:relative;margin-top: -50px;">
                                                         <li><br><p class="editpal">your palette</p></li>
-                                                        <li><p class="editpal custom-color-box-text" style="margin-left:150px;position:relative;top:20px;">custom</p></li>
+                                                        <li><p class="editpal custom-color-box-text" style="margin-left:200px;position:relative;top:20px;">custom</p></li>
                                                         <li id="fcolcontainer">
                                                             <ul id="colorpalette ">
                                                                    <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
@@ -741,7 +741,7 @@ and open the template in the editor.
                                                 </li>
                                                 
                                                 <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
-                                                <li><p class="editpal" id="">opacity</p><div id="slider"></div></li>
+                                                <li><p class="editpal" id="blockopacity">opacity</p><div id="slider"></div></li>
 
                                             </ul>
                                         </div>
@@ -783,7 +783,9 @@ and open the template in the editor.
                                     </li>
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
+                                            
                                             <div>
+                                                 <p id="text3" class="SS2">SELECT A STYLE</p>
                                                 <div style="height:500px; overflow-y: scroll;">
                                                     <ul>
                                                         <!--{{datalists}}-->

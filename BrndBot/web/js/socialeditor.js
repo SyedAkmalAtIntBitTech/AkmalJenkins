@@ -37,7 +37,7 @@ $(document).ready(function () {
     $("#tabs-2").hide();
 
     $('.custom-color-box-text').colpick({
-        colorScheme: 'dark',
+        colorScheme: 'light',
         layout: 'rgbhex',
         color: 'ff8800',
         onSubmit: function (hsb, hex, rgb, el) {
@@ -51,20 +51,32 @@ $(document).ready(function () {
             .css('background-color', '#ffffff');
 
     $('.custom-color-box').click(function () {
-//         $("#slider").hide();
+       
+        
         $('.custom-color-box').colpick({
-            colorScheme: 'dark',
+            colorScheme: 'light',
             layout: 'rgbhex',
             color: 'ff8800',
             onSubmit: function (hsb, hex, rgb, el) {
+                $("#slider").show();
+                $("#blockopacity").show();
                 $("#selectedshapecolorbox").css('background-color', '#' + hex);
                 var blockId = $(".blockname").val();
                 $("#" + blockId).css('background-color', '#' + hex);
                 $(el).colpickHide();
+              
+            },
+            onShow: function ()
+            {
+                $("#slider").hide();
+                $("#blockopacity").hide();
+            },
+            onHide: function ()
+            {
+                $("#slider").show();
+                $("#blockopacity").show();
             }
-        })
-                .css('background-color', '#ffffff');
-
+        });
     });
 
     $(".blankcolor-box").click(function () {
