@@ -1,7 +1,7 @@
 <%-- 
     Document   : history
     Created on : Aug 25, 2015, 6:46:46 PM
-    Author     : Syed Akmal at IntBit Technologies.
+    Author     : Syed Akmal at IntBit Technologies
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
