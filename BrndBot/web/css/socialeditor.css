@@ -31,7 +31,7 @@ and open the template in the editor.
 #edit{
     position: relative;
     top:-52px;
-    font-family:"proxima-nova",sans-serif;
+    font-family:"proxima-nova";
     font-weight:500;
     left: 10em;
     color: #2D4444;
@@ -41,16 +41,16 @@ and open the template in the editor.
    
     position: relative;
     top:-15px;
-    font-family:"proxima-nova",sans-serif;
+    font-family:"proxima-nova";
     font-weight:500;
     left: 0em;
     color: #2D4444;
 }
 .edit{
+    font-family:"proxima-nova";
+    font-weight:400;
     position: relative;
     padding-top:7%;
-    font-family:"proxima-nova",sans-serif;
-    font-weight:400;
     left: 0px;
     
 }
@@ -70,10 +70,10 @@ and open the template in the editor.
 }
 #txtpost{
     position:relative;
-    margin-top:  -5%;
+    top: 0px;
     padding-left: 9.5%;
     width: 600px;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 500;
     color:  #010101;
@@ -84,7 +84,7 @@ and open the template in the editor.
     position: relative;
     padding-top: 14%;
     width: 600px;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 600;
     color:  #010101;
@@ -93,7 +93,7 @@ and open the template in the editor.
 }
 #text3{
        
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 600;
     color:  #96999d;
@@ -145,7 +145,7 @@ and open the template in the editor.
 #text2{
    color:#fff;
    font-size:12px;
-   font-family:"proxima-nova-soft",sans-serif;
+   font-family:"proxima-nova";
    width: 50px;
    position: relative;
    font-style:normal;
@@ -215,7 +215,7 @@ and open the template in the editor.
 
 
 #editorheadere{
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 400;
     color: #66676b;
@@ -230,7 +230,7 @@ and open the template in the editor.
 /*    left:-15px;*/
     
 }
-.opcty{font-family: "proxima-nova",sans-serif;
+.opcty{font-family: "proxima-nova";
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
@@ -242,7 +242,7 @@ position: relative;
 margin-bottom: 5%;
 left:-4px;
 }
-.editcus{font-family: "proxima-nova",sans-serif;
+.editcus{font-family: "proxima-nova";
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
@@ -257,7 +257,7 @@ margin-bottom: 10px;
 
 
 .editpal{
-font-family: "proxima-nova",sans-serif;
+font-family: "proxima-nova";
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
@@ -271,7 +271,7 @@ margin-bottom: 0%;
 left:-4px;
 }
 #editorhead{
-font-family: "proxima-nova",sans-serif;
+font-family: "proxima-nova";
 font-style: normal;
 font-weight: 600;
 color: #66676b;
@@ -349,8 +349,9 @@ left:-4px;
 }
 .optbtn {
    position: relative;
-   right: 7px;    
+   right: 7px;
 }
+
 .sidebar-nav {
     display: block;
     float: left;
@@ -477,16 +478,18 @@ left:-4px;
 }*/
 #twitterpreviewdiv{
      position: relative;
-    margin-top: 40px;
+    margin-top: 10px;
+    
 }
 
 #fabookpreviewdiv{
     position: relative;
-    margin-top: 40px;
+    margin-top: 10px;
+    
     
 }
 #fbprev{
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 600;
     font-size: 21.5px;
@@ -497,7 +500,7 @@ left:-4px;
     opacity: 1;
 }
 .psttxt{
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-weight: 600;
     font-style: normal;
     font-size: 13.7px;
@@ -507,10 +510,10 @@ left:-4px;
 }
 .ptpos{
     position: relative;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .smltxt{
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 400;
     color: #66676b;
@@ -649,7 +652,7 @@ left:-4px;
 
 .headblankcolor-box{
         position: absolute;
-        left:85px;
+        left:38px;
         float: left;
         width: 26px;
         height: 11px;

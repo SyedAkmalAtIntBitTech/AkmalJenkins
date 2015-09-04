@@ -187,7 +187,8 @@ and open the template in the editor.
         <script>
             
             $(document).ready(function () {
-
+                         document.getElementById('edt').style.backgroundColor = '#fff';
+                                                document.getElementById('stl').style.backgroundColor = 'transparent';
             $("#fontname").change(function () {
 //            alert($(this).val());
                 var text = $("#fontname").find('option:selected').text();
@@ -649,7 +650,7 @@ and open the template in the editor.
 
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-1" >
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:38px;overflow-y:scroll;width:370px;overflow-x:hidden;">                       
+                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:370px;overflow-x:hidden;">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -671,7 +672,7 @@ and open the template in the editor.
                                                     <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
                                                 </li>
 
-                                                <li>
+                                                <li style="width:100px;">
                                                     <p id="editorheadere" class="SS1">font style</p>
 
 
@@ -770,7 +771,7 @@ and open the template in the editor.
                                                     -->
 
                                                 <br><br>
-                                            <input type="button" id="done" class="btn btn-primary" onclick="saveImageEdit()" value="DONE"> 
+                                            <input type="button" id="done" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="saveImageEdit()" value="DONE"> 
                                         </div>
 
                                     </li>
@@ -823,7 +824,7 @@ and open the template in the editor.
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav">
-                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"><p id="text1">EDIT</p></a></li>
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1">EDIT</p></a></li>
                         <li id="stl" class="hov" onclick="hls();"><a href="#tabs-2" id="style"><img class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>                  
                     </ul>
                 </div>

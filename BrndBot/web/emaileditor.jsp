@@ -231,7 +231,9 @@ and open the template in the editor.
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
 <script>
             $(document).ready(function () {
-                
+                document.getElementById('edt').style.backgroundColor = '#fff';
+                 document.getElementById('stl').style.backgroundColor = 'transparent';
+                 document.getElementById('blk').style.backgroundColor = 'transparent';
             $("#fontname").change(function () {
                 var text = $("#fontname").find('option:selected').text();
                 var font_family_name = $("#fontname").val();
@@ -957,7 +959,7 @@ and open the template in the editor.
                                                     <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
                                                 </li>
 
-                                                <li>
+                                                <li style="width:100px;">
                                                     <p id="editorheadere" class="SS1">font Name:</p>
                                                     <select id="fontname" style="margin: 2px;font-size: 15px;width:80px;color: #3f4042;background-color: #ccc;border-radius:5px;">
                                                         <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
@@ -980,7 +982,7 @@ and open the template in the editor.
                                                             
                                                         </ul>
                                                 </li>
-                                                <li style="left:-9px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
+                                                <li style="left:-6px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-left alignButton" id="left"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-center alignButton" id="center"></div></li>
@@ -1056,7 +1058,7 @@ and open the template in the editor.
                                                     -->
                                   
                                                 <br><br>
-                                            <input type="button" id="done" class="btn btn-primary" onclick="saveImageEdit()" value="DONE"> 
+                                            <input type="button" id="done" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="saveImageEdit()" value="DONE"> 
                                         </div>
 
                                     </li>
@@ -1107,7 +1109,7 @@ and open the template in the editor.
                                             ADD A NEW BLOCK
                                             <div>
                                                 <div style="height:500px;">
-                                                    <button id="continueblock" ng-click="showDataTemp()" style="background-color: orange;position: relative;top:30%;left:30%">Continue</button>
+                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:30%;left:30%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="blocks in datalists">

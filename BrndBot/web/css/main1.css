@@ -206,8 +206,8 @@ label                {
 }
 
 #inputstudio:focus ~ label, #inputstudio:valid ~ label        {
-  left:-70px;
-  font-size:13px;
+  left:-120px;
+  font-size:22px;
   color:#999;
 }
 
