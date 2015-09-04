@@ -1238,12 +1238,13 @@ and open the template in the editor.
 
 
                                     $("#continue").click(function (){
+                                        alert($(".dataForEmail").html());
                             $.ajax({
                             url: getHost() + "SaveKeyValueSessionServlet",
                                     method: "post",
                                     data:{
                                     sessionKey:"htmldata",
-                                            sessionValue: $(".dataForEmail").html()
+                                    sessionValue: $(".dataForEmail").html()
                                     },
                                     success: function (responseText) {
 

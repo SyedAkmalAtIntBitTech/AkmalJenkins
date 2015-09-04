@@ -157,8 +157,69 @@
                 width: 220px;
                 height: 35px;
             }
+            
+            #dvPriorityDialog, #dvFastingDialog{
+                position:fixed;
+                height:100%;
+                background:cyan;
+                width:600px;
+                right:0px;
+                margin-right: -610px;
+            }
+            #slider-button{
+                position:fixed;
+                width:20px;
+                height:50px;
+                right:-20px;
+                background:green;
+                top: 40px;
+            }
+
+            li {
+                cursor: default;
+            }
+            
         </style>
         <script>
+
+            $(document).ready(function()
+            {
+                var sliderDialog = "#dvPriorityDialog";
+                var prevSliderDialog = "";
+                $("#liPriority").click(function() {
+                    sliderDialog = "#dvPriorityDialog";
+                    $('#slider-button').click();
+                    prevSliderDialog = "#dvPriorityDialog";
+                });
+
+                $("#liFasting").click(function() {
+                    sliderDialog = "#dvFastingDialog";
+                    $('#slider-button').click();
+                    prevSliderDialog = "#dvFastingDialog";
+                });
+
+              $('#slider-button').click(function() {
+                  //To hide the dialog if user click on another node
+                  if (prevSliderDialog != "" && prevSliderDialog != sliderDialog){
+                      if($('#slider-button').css("margin-right") == "400px")
+                      {
+                          $(prevSliderDialog).animate({"margin-right": '-=400'});
+                          $('#slider-button').animate({"margin-right": '-=400'});
+                      }
+                  }
+
+                if($('#slider-button').css("margin-right") == "400px")
+                {
+                    $(sliderDialog).animate({"margin-right": '-=400'});
+                    $('#slider-button').animate({"margin-right": '-=400'});
+                }
+                else
+                {
+                    $(sliderDialog).animate({"margin-right": '+=400'});
+                    $('#slider-button').animate({"margin-right": '+=400'});
+                }
+              });
+             });     
 
             function validateEmail(sEmail) {
                 var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -274,6 +335,9 @@
                         $scope.entitiesdetails = data;
                         var date = new Date(schedule_time);
                         $scope.entities_time = date.toUTCString();
+                        $(".content").empty();
+                        $(".content").append(data.body);
+
                     }).error(function (data){
                        alert("request not successful"); 
                     });
@@ -328,6 +392,10 @@
             <div class="col-md-8 col-md-offset-2 " ng-init="getCampaigns()">
                 <div class="col-md-6 col-md-offset-0"><p id="hyshead">Your Plan</p><p id="hyshead">Marketing Campaign</p>
                 <div class="col-md-5 ">
+                    <ul>
+                        <li id="liPriority">Priority</li>
+                        <li id="liFasting">Fasting</li>
+                    </ul>
                         <ul>
                             <p>Today</p>
                             <li ng-repeat="entity in entitiestoday" style="height:30px;">
@@ -355,15 +423,14 @@
             </div>
             <div class="col-md-8 col-md-offset-2">
                 <div class="col-md-5 ">
-                    {{entitiesdetails}}
+
                     <div style="border:1px solid #7ab5d3">
                         <div>
                             <p>{{entitiesdetails.subject}}</p>
                         </div>
-                        <div>
-                            <p>Saved Post</p><p>Preview</p>
-                            {{entitiesdetails.body}}
-                        </div>
+                        <p>Saved Post</p>
+                        <p>Preview</p><br>
+                        <div class="content"></div>
                         <p>Post details</p>
                         <div>
                             {{entities_time}}
@@ -380,6 +447,46 @@
                         </ul>-->
                 </div>
             </div>
+        <div id="dvSliderDialog">
+            <div id="dvFastingDialog" class="pollSlider">
+                <div id="dvFastingContent">
+                    this is some content
+                </div>
+                <div id="dvButtonContainer">
+                        <input type="button" value="Save" />
+                        <input type="button" value="Cancel" />
+                    </div>
+            </div>
+            <div id="dvPriorityDialog" class="pollSlider">
+                <div id="dvPriorityContent">
+                        <table border="1px solid blue">
+                            <tr>
+                                <th>First</th>
+                                <th>Second</th>
+                                <th>Third</th>
+                            </tr>
+                            <tr>
+                                <td>One</td>
+                                <td>Two</td>
+                                <td>Three</td>
+                            </tr>
+                            <tr>
+                                <td>One One</td>
+                                <td>Two Two</td>
+                                <td>Three Three</td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <textarea cols="28" rows="4"></textarea>
+                    </div>
+                    <div id="dvButtonContainer">
+                        <input type="button" value="Save" />
+                        <input type="button" value="Cancel" />
+                    </div>
+            </div>
+            <div id="slider-button"></div>
+        </div>    
+            
             
         </div>     
     </body>
