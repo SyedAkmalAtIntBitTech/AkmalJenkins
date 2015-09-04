@@ -164,6 +164,22 @@ and open the template in the editor.
             body{
                 overflow-x: hidden;
             }
+            
+            #editor::-webkit-scrollbar {
+     width: 10px;
+     height: 200px;
+    }
+    #editor::-webkit-scrollbar-track {
+     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+     border-radius: 10px;
+    }
+
+    #editor::-webkit-scrollbar-thumb {
+     border-radius: 10px;
+     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
+    }
+            
+            
         </style>
 
         <%!

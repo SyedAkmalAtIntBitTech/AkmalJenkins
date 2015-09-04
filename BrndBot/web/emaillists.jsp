@@ -24,9 +24,9 @@
             .emlhisdata li{
                 display: table-cell;
                 position: relative;
-                left:56em;
+                left:58em;
                 bottom:0px;
-                top:0px;
+                top:-65px;
             }
             .emlist {
                 overflow-y: scroll;
@@ -453,13 +453,12 @@
                 
                 <div class="col-md-6 col-md-offset-0">
                     <p id="hyshead" class="MH2">Email Lists</p>
-                    <div id="email_headings"  class="col-md-4 col-md-offset-0 ">
-                        <ul class="emlhisdata  FL2">
-                            <li><button class="button button--moema button--text-thick button--text-upper button--size-s" style="width:150px;" type="button" name="createNew" id="createNew" value="CREATE NEW" ng-click="showCreateContacts()">CREATE NEW</button></li>
+                    <div id="email_headings">
+                        <ul class="emlhisdata FL2 ">
+                            <li><button class=" button button--moema button--text-thick button--text-upper button--size-s" style="width:135px;" type="button" name="createNew" id="createNew" value="CREATE NEW" ng-click="showCreateContacts()">CREATE NEW</button></li>
                         </ul>
                     </div>
-                    
-                    <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
+                    <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;top:-60px;">
 
                     <div id="scrl" class="col-md-6" ng-init="showEmailListWithContacts()">
                         <ul class="emlOneRowData L2 LE2" ng-repeat="email in emailLists">                            

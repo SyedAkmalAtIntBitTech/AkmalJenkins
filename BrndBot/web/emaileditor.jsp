@@ -228,19 +228,19 @@ and open the template in the editor.
      top: 0px;
   }
   
- ul::-webkit-scrollbar {
-    width: 10px;
-    height: 200px;
-}
-ul::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    border-radius: 10px;
-}
+  #editor::-webkit-scrollbar {
+     width: 10px;
+     height: 200px;
+    }
+    #editor::-webkit-scrollbar-track {
+     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+     border-radius: 10px;
+    }
 
-ul::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
-}
+    #editor::-webkit-scrollbar-thumb {
+     border-radius: 10px;
+     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
+    }
         </style>
 
         <%!
@@ -263,7 +263,12 @@ ul::-webkit-scrollbar-thumb {
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script>
-            $(document).ready(function () {
+            
+    
+    
+    
+    $(document).ready(function () {
+                document.getElementById('edtimg').src="images/sidebar/Icons_editButton_blue_new.svg";
                 document.getElementById('edt').style.backgroundColor = '#fff';
                  document.getElementById('stl').style.backgroundColor = 'transparent';
                  document.getElementById('blk').style.backgroundColor = 'transparent';
@@ -845,6 +850,8 @@ ul::-webkit-scrollbar-thumb {
                             }
                     });
             }
+            
+             
 
         </script>
         <script src="js/emaileditor.js" type="text/javascript"></script>
@@ -917,58 +924,11 @@ ul::-webkit-scrollbar-thumb {
                                                 </div> 
                                             </li>
                                         </ul>-->
+
                                     </div>
-                                    <input id="selectimage" name="selectimage" type="Button" value="select"/>  
-                                    <input type="hidden" name="image_name" id="image_name"/>
-                                    <input id="closeimagespopup" type="Button" value="close"/>  
-
-                                </div>
-                            </div>-->
-                            <div id="popup" name="popup">
-                                <div id="content">
-                                    <form action="">
-                                        <!--                                    System Directory : <input type="file" class="uploadfile" id="uploadfile" name="uploadfile" > <br> -->
-                                        User Directory : <input type="button" id="UserUploadedImages" name="UserUploadedImages" value="Click"> <br> 
-
-                                        <input id="closepopup" type="Button" value="close"/>  
-
-                                    </form>
-                                </div>   
-                            </div>
-                            <a href="#" data-reveal-id="previewpopup1" class="clickpreview"  style="display:none;">Click Me For A Modal</a>
-                            <div id="previewpopup1" class="reveal-modal" name="previewpopup" style="top:10px;left:90%;">
-                                <a class="close-reveal-modal">&#215;</a>
-                                
-                                <div id="previewcontent" style="padding-top:30px;">
-
-                                </div>   
-                            </div>
-                            <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display:none;">Click Me For A Modal</a>
-                            <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;left:90%;">
-                                <a class="close-reveal-modal">&#215;</a>
-                                <div class="imagecropper_header" style="text-align: center;">
-                                    
-                                    <h3 class="imagecropper_title">Cropping image</h3>
-
-                                </div>
-                                <div class="crop_image">
-                                    <!--                                        <button class="cropButton">Crop</button>-->
-
-
-
-                                    <!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
-                                </div>   
-                                
-                                    <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
-                                    <button class="imagecropper_ok cropButton">Crop</button>
-                               
-                            </div>
-
-                        </div>
-
-                        <!--        editor container      -->
+                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:38px;overflow-y:scroll;width:370px;overflow-x:hidden;">
+                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:36px;overflow-y:scroll;width:370px;overflow-x:hidden;">
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -1069,7 +1029,7 @@ ul::-webkit-scrollbar-thumb {
                                         </div>
 
                                         <div id="filtercontainer" style="display: none">
-                                            <p>IMAGE FILTER</p>
+                                            <p  id="text3" class="SS2">IMAGE FILTER</p>
                                             <ul id="filterImageList">
                                                 <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p id="filtername">Black <br>And White</p> </li>
                                                 <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p id="filtername">Textured</p></li>
@@ -1103,7 +1063,7 @@ ul::-webkit-scrollbar-thumb {
                                                     <ul>
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" height="150" />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
@@ -1237,15 +1197,64 @@ ul::-webkit-scrollbar-thumb {
 
                             </div>
                         </div> 
+                                    <input type="hidden" id="selectimage" name="selectimage" type="Button" value="select"/>  
+                                    <input type="hidden" name="image_name" id="image_name"/>
+                                    <input type="hidden" id="closeimagespopup" type="Button" value="close"/>  
+
+                                </div>
+                            </div>
+                            <div id="popup" name="popup">
+                                <div id="content">
+                                    <form action="">
+                                        <!--                                    System Directory : <input type="file" class="uploadfile" id="uploadfile" name="uploadfile" > <br> -->
+                                        User Directory : <input type="button" id="UserUploadedImages" name="UserUploadedImages" value="Click"> <br> 
+
+                                        <input id="closepopup" type="Button" value="close"/>  
+
+                                    </form>
+                                </div>   
+                            </div>
+                            <a href="#" data-reveal-id="previewpopup1" class="clickpreview"  style="display:none;">Click Me For A Modal</a>
+                            <div id="previewpopup1" class="reveal-modal" name="previewpopup" style="top:10px;left:90%;">
+                                <a class="close-reveal-modal">&#215;</a>
+                                
+                                <div id="previewcontent" style="padding-top:30px;">
+
+                                </div>   
+                            </div>
+                            <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display:none;">Click Me For A Modal</a>
+                            <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;left:90%;">
+                                <a class="close-reveal-modal">&#215;</a>
+                                <div class="imagecropper_header" style="text-align: center;">
+                                    
+                                    <h3 class="imagecropper_title">Cropping image</h3>
+
+                                </div>
+                                <div class="crop_image">
+                                    <!--                                        <button class="cropButton">Crop</button>-->
+
+
+
+                                    <!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
+                                </div>   
+                                
+                                    <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
+                                    <button class="imagecropper_ok cropButton">Crop</button>
+                               
+                            </div>
+
+                        </div>
+
+                       
                     </div>
                 </div>
             </div>
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav" id="sidebar">
-                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"><p id="text1">EDIT</p></a></li>
-                        <li id="stl" class="hov"  onclick="hls();"><a href="#tabs-2" id="style" ><img class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>
-                        <li id="blk" class="hov"  onclick="hlb();"><a href="#tabs-3" id="block" ><img class="optbtn" src="images/sidebar/Icons_blockButton.svg" alt="" width="40" height="40"  ng-click="showBlocks()"><p id="text1">BLOCK</p></a></li>
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img  id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="40" height="40"><p id="text1">EDIT</p></a></li>
+                        <li id="stl" class="hov"  onclick="hls();"><a href="#tabs-2" id="style" ><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>
+                        <li id="blk" class="hov"  onclick="hlb();"><a href="#tabs-3" id="block" ><img id="blkimg" class="optbtn" src="images/sidebar/Icons_blockButton.svg" alt="" width="40" height="40"  ng-click="showBlocks()"><p id="text1">BLOCK</p></a></li>
                         <!--<li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>--> 
                     </ul>
                 </div>
@@ -1254,17 +1263,27 @@ ul::-webkit-scrollbar-thumb {
         </div> 
 
         <script>
-                                    function hle(){
-                                    document.getElementById('edt').style.backgroundColor = '#fff';
+                                    function hle(){ 
+                                      document.getElementById('edtimg').src="images/sidebar/Icons_editButton_blue_new.svg";
+                                      document.getElementById('stlimg').src="images/sidebar/Icons_styleButton.svg";
+                                      document.getElementById('blkimg').src="images/sidebar/Icons_blockButton.svg";
+                                      document.getElementById('edt').style.backgroundColor = '#fff';
                                             document.getElementById('stl').style.backgroundColor = 'transparent';
                                             document.getElementById('blk').style.backgroundColor = 'transparent';
                                     }
                             function hls(){
+                                
+                                 document.getElementById('stlimg').src="images/sidebar/Icons_styleButton_blue_new.svg";
+                                 document.getElementById('blkimg').src="images/sidebar/Icons_blockButton.svg";
+                                 document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
                             document.getElementById('edt').style.backgroundColor = 'transparent';
                                     document.getElementById('stl').style.backgroundColor = '#fff';
                                     document.getElementById('blk').style.backgroundColor = 'transparent';
                             }
                             function hlb(){
+                                document.getElementById('stlimg').src="images/sidebar/Icons_styleButton.svg";
+                                 document.getElementById('blkimg').src="images/sidebar/Icons_blockButton_blue_new.svg";
+                                 document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
                             document.getElementById('edt').style.backgroundColor = 'transparent';
                                     document.getElementById('stl').style.backgroundColor = 'transparent';
                                     document.getElementById('blk').style.backgroundColor = '#fff';
@@ -1381,19 +1400,20 @@ ul::-webkit-scrollbar-thumb {
                                     }
                                     };
                             };
-                                    $(".cross").hide();
-                                    $(".menu").hide();
-                                    $(".hamburger").click(function () {
-                            $(".menu").slideToggle("slow", function () {
-                            $(".hamburger").hide();
-                                    $(".cross").show();
-                            });
-                            });
-                                    $(".cross").click(function () {
-                            $(".menu").slideToggle("slow", function () {
-                            $(".cross").hide();
-                                    $(".hamburger").show();
-                            });
+                              
+                              $(".cross").hide();
+                            $(".menu").hide();
+                            $(".hamburger").click(function () {
+                                 $(".menu").slideToggle("slow", function () {
+                                     $(".hamburger").hide();
+                                             $(".cross").show();
+                                 });
+                             });
+                            $(".cross").click(function () {
+                                $(".menu").slideToggle("slow", function () {
+                                $(".cross").hide();
+                                        $(".hamburger").show();
+                                });
                             });
                                     //  cropper settings
                                     // --------------------------------------------------------------------------
