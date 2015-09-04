@@ -226,6 +226,7 @@ $(document).ready(function () {
                             );
                             var count = 1;
                             var blockcount = 1;
+                            var textcount=1;
                             $(xml).find('element').each(function () {
                                 var tag = $(this).attr("tag");
                                 type = $(this).attr("type");
@@ -360,7 +361,8 @@ $(document).ready(function () {
 
                                 if (tag === "logo")
                                 {
-                                    var background_image = $(this).attr("background-image");
+                                    var userId=$("#userid").val();
+                                    var userLogonmae = $("#userlogo").val();
                                     var blendmode = $(this).attr("background-blend-mode");
                                     $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                                     $("#" + type + "EEEdefaultblock1")
@@ -371,7 +373,7 @@ $(document).ready(function () {
                                             .css("opacity", "" + opacity)
                                             .css("width", "" + width)
                                             .css("height", "" + height)
-                                            .css("background", "" + background_image)
+                                            .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')")
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
 
@@ -419,9 +421,10 @@ $(document).ready(function () {
                                             .css("position", "absolute");
                                 }
 
-                            }
-
-                            );
+                            });
+                            if(count===1 ){$("#imagecontainer").hide();}                                                   
+                            if(blockcount===1){$("#shapecontainer").hide();}
+                            if(textcount===1){$("#textcontainer").hide();}
 
                         },
                         error: function (e)

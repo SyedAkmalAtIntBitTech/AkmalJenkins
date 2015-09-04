@@ -85,11 +85,10 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             
             if (title == "") {
                 
-//                PostUpdate post = new PostUpdate(posttext)
-////                          .picture(new URL(imagePostURL + "/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
-//     
-//                facebook.postFeed(post);
-                facebook.postPhoto(new Media(new File(file_image_path)));
+                Media media = new Media(new File(file_image_path));
+                PhotoUpdate update = new PhotoUpdate(media);
+                update.message(posttext);
+                facebook.postPhoto(update);  
             } else {
                 PostUpdate post = new PostUpdate(posttext)
                         .picture(new URL(imagePostURL + "/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
