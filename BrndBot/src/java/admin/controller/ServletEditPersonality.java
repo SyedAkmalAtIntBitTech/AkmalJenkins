@@ -118,10 +118,11 @@ public class ServletEditPersonality extends BrndBotBaseHttpServlet {
                             uploadDir.mkdirs();
                         }
 
-                        int inStr = fileName.indexOf(".");
-                        String Str = fileName.substring(0, inStr);
-
-                        fileName = brandname + "_" + Str + ".jpeg";
+//                        int inStr = fileName.indexOf(".");
+//                        String Str = fileName.substring(0, inStr);
+//
+//                        fileName = brandname + "_" + Str + ".jpeg";
+                        fileName = brandname + "_" + fileName;
                         boolean isInMemory = fi.isInMemory();
                         long sizeInBytes = fi.getSize();
 
