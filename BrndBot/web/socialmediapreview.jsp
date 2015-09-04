@@ -152,7 +152,7 @@
                          <img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>">
                        <p><%=companyName%></p>
                        <input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here"><br><br> 
-                    <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
+                       <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                      </div>
                 </div>
 

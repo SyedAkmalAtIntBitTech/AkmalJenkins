@@ -343,7 +343,6 @@ and open the template in the editor.
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-                    alert(JSON.stringify(data));
                             $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
                             $scope.user_preferences_font_names = data.user_font_names;
@@ -576,7 +575,7 @@ and open the template in the editor.
                     }
             //var countBlock = 1;
             function showText(id, layout){
-            alert(id+":"+layout+":"+mindbodydataId);
+//            alert(id+":"+layout+":"+mindbodydataId);
             var layoutfilename = layout;
                     $("#clickid").val(layout);
                     if (mindbodydataId != "0")
@@ -1036,7 +1035,6 @@ and open the template in the editor.
                                             <input type="button" id="done" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="saveImageEdit()" value="DONE"> 
 
                                         </div>
-
                                     </li>
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
@@ -1232,8 +1230,8 @@ and open the template in the editor.
 
         <script>
 
-                                            $("#continue").click(function (){
-                                    alert($(".dataForEmail").html());
+                                      $("#continue").click(function (){
+//                                    alert($(".dataForEmail").html());
                                             $.ajax({
                                             url: getHost() + "SaveKeyValueSessionServlet",
                                                     method: "post",
@@ -1414,7 +1412,8 @@ and open the template in the editor.
                                             $("#imagespopup").hide();
                                     });
                                             function imageEdit() {
-                                                         $("#textcontainer").hide();
+                                                
+                                             $("#textcontainer").hide();
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();
 //                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
@@ -1424,7 +1423,7 @@ and open the template in the editor.
 
                 
                                         var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
-//                                        alert(image_file);
+                                       alert(image_file);
                                         id = "image" + i;
                                        // $("#cropper_popup").show();
                                         $(".clickthis").click();
