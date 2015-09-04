@@ -3,6 +3,7 @@
     Created on : Jul 10, 2015, 10:03:32 AM
     Author     : intbit
 --%>
+<%@page import="com.controller.SqlMethods"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.io.File"%>
 <%@page import="javax.swing.JFileChooser"%>
@@ -54,7 +55,7 @@ and open the template in the editor.
         <link href="css/imagecropper.css" rel="stylesheet" type="text/css"/>
 
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
-
+        <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
         <script>
                     try{
                     Typekit.load({ async: true });
@@ -205,50 +206,56 @@ and open the template in the editor.
             .border-highlight {
                 border:2px solid #0088cc;   
             }
-/*            ul.imageGallery {
-                display:inline-block;  
-                list-style:none;   
+            /*            ul.imageGallery {
+                            display:inline-block;  
+                            list-style:none;   
+                        }
+                        ul.imageGallery li{
+                             display:inline-block; 
+                            padding: 10px;
+                            width: 400PX;
+                        }*/
+
+            #imageGallery ul {
+                width: 450px;
             }
-            ul.imageGallery li{
-                 display:inline-block; 
-                padding: 10px;
-                width: 400PX;
-            }*/
+            #imageGallery  li {
+                margin-top: 10px;
+                margin-right: 10px;
+                display: inline-block;
+                float: top;
+            }
+            #imageGallery  li img{
+                top: 0px;
+            }
 
-#imageGallery ul {
-      width: 450px;
-  }
-#imageGallery  li {
-    margin-top: 10px;
-    margin-right: 10px;
-    display: inline-block;
-    float: top;
-  }
-  #imageGallery  li img{
-     top: 0px;
-  }
-  
-  #editor::-webkit-scrollbar {
-     width: 10px;
-     height: 200px;
-    }
-    #editor::-webkit-scrollbar-track {
-     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-     border-radius: 10px;
-    }
+            #editor::-webkit-scrollbar {
+                width: 10px;
+                height: 200px;
+            }
+            #editor::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+                border-radius: 10px;
+            }
 
-    #editor::-webkit-scrollbar-thumb {
-     border-radius: 10px;
-     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
-    }
+            #editor::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
+            }
         </style>
 
         <%!
+            SqlMethods sql_methods = new SqlMethods();
             StringBuffer string_buffer = new StringBuffer();
             String mindbody_data_id = "";
+            Integer user_id = 0;
+            String logoImageName = null;
         %> 
         <%
             try {
+                sql_methods.session = request.getSession();
+                user_id = (Integer) sql_methods.session.getAttribute("UID");
+                logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
                 if (!request.getParameter("id").equals("null")) {
                     mindbody_data_id = (String) request.getParameter("id");
                 }
@@ -263,21 +270,15 @@ and open the template in the editor.
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script>
-            
-    
-    
-    
-    $(document).ready(function () {
-                document.getElementById('edtimg').src="images/sidebar/Icons_editButton_blue_new.svg";
-                document.getElementById('edt').style.backgroundColor = '#fff';
-                 document.getElementById('stl').style.backgroundColor = 'transparent';
-                 document.getElementById('blk').style.backgroundColor = 'transparent';
-                
-                  var numitems =  $("#imageGallery li").length;
-                  $("ul#imageGallery").css("column-count",numitems/2);
-
-            $("#fontname").change(function () {
-                    var text = $("#fontname").find('option:selected').text();
+            $(document).ready(function () {
+            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
+                    document.getElementById('edt').style.backgroundColor = '#fff';
+                    document.getElementById('stl').style.backgroundColor = 'transparent';
+                    document.getElementById('blk').style.backgroundColor = 'transparent';
+                    var numitems = $("#imageGallery li").length;
+                    $("ul#imageGallery").css("column-count", numitems / 2);
+                    $("#fontname").change(function () {
+            var text = $("#fontname").find('option:selected').text();
                     var font_family_name = $("#fontname").val();
                     var font = font_family_name.split(",");
                     //                var google_key_word = font[0].split(' ').join('+')
@@ -295,8 +296,7 @@ and open the template in the editor.
 
                     $("#" + selectedTextareaId).css("font-family", font[0]);
             });
-            });
-         </script>
+            });        </script>
 
         <script>
                     var jsondata;
@@ -311,33 +311,30 @@ and open the template in the editor.
                     var temp_mind_body_query;
                     //$("#previewpopup").hide();
                     $(document).ready(function() {
-                        
-                        
-                        
-                        $('#continueblock').prop('disabled', true);
-                        
-                        $("#preview").click(function(){
-                           $.ajax({
-                                    url: getHost() + "PreviewServlet",
-                                            method: "post",
-                                            data:{htmlString: $(".dataForEmail").html()},
-                                            success: function (responseText) {
-                                            
-                                                //show popup showing
-                                            $("#previewcontent").empty();
-                                            $("#previewcontent").append(responseText);
-                                            
-                                            //$("#previewpopup").show();
-                                            $(".clickpreview").click();
-                                            }
-                                    }); 
-                         
-                        });
+
+
+
+            $('#continueblock').prop('disabled', true);
+                    $("#preview").click(function(){
+            $.ajax({
+            url: getHost() + "PreviewServlet",
+                    method: "post",
+                    data:{htmlString: $(".dataForEmail").html()},
+                    success: function (responseText) {
+
+                    //show popup showing
+                    $("#previewcontent").empty();
+                            $("#previewcontent").append(responseText);
+                            //$("#previewpopup").show();
+                            $(".clickpreview").click();
+                   }
+            });
+            });
 //                            $("#closepreview").click(function(){
 //                                $("#previewpopup").hide();
 //                            });
-                        
-                    });
+
+            });
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
@@ -346,8 +343,8 @@ and open the template in the editor.
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-
-                    $scope.user_preferences_colors = data.user_colors;
+                    alert(JSON.stringify(data));
+                            $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
                             $scope.user_preferences_font_names = data.user_font_names;
                             var i = 0;
@@ -359,8 +356,7 @@ and open the template in the editor.
                             font_name = font_object.font_name;
                             font_family_name = font_object.font_family_name;
                             var font = font_family_name.split(",");
-                            var google_key_word = font[0].split(' ').join('+')
-
+                            var google_key_word = font[0].split(' ').join('+');
                             var ss = document.createElement("link");
                             ss.type = "text/css";
                             ss.rel = "stylesheet";
@@ -463,44 +459,28 @@ and open the template in the editor.
                             blockIdSelected = "";
                             block_id = id;
                             if (mind_body_query == "null")
-                            {
-                                mindbodydataId = "0";
-                                //$scope.showStyles();
-                                showText(temp_style_id,temp_style_layout);
-                                $("#tabs-1").show();
-                                $("#tabs-2").hide();
-                                $("#tabs-3").hide();
-                                $("#tabs-4").hide();
-                                $("#tabs-5").hide();
-                                
-                            }
-                            else
-                            {
-                                $scope.curPage = 0;
-                                $scope.pageSize = 4;
-                                $http({
-                                method : 'GET',
-                                        url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
-                                }).success(function(data, status, headers, config) {
+                    {
+                    mindbodydataId = "0";
+                            //$scope.showStyles();
+                            showText(temp_style_id, temp_style_layout);
+                            $("#tabs-1").show();
+                            $("#tabs-2").hide();
+                            $("#tabs-3").hide();
+                            $("#tabs-4").hide();
+                            $("#tabs-5").hide();
+                    }
+                    else
+                    {
+                    $scope.curPage = 0;
+                            $scope.pageSize = 4;
+                            $http({
+                            method : 'GET',
+                                    url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
+                            }).success(function(data, status, headers, config) {
 
-                                $scope.datalists = data;
-                                $scope.numberOfPages = function() {
-                                return Math.ceil($scope.datalists.length / $scope.pageSize);
-                                };
-                                if (data === error){
-                                    alert(data);
-                                }
-                                    $("#tabs-1").hide();
-                                    $("#tabs-2").hide();
-                                    $("#tabs-3").hide();
-                                    $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
-                                    $("#tabs-5").hide();
-                            }).error(function(data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
-                                    // called asynchronously if an error occurs
-                                    // or server returns response with an error status.
-                            });
-                            }
+                    $scope.datalists = data;
+                            $scope.numberOfPages = function() {
+                            return Math.ceil($scope.datalists.length / $scope.pageSize);
                             };
                             if (data === error){
                     alert(data);
@@ -509,6 +489,7 @@ and open the template in the editor.
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
                             $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
+                            $("#tabs-5").hide();
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
@@ -519,24 +500,22 @@ and open the template in the editor.
                             $scope.select_category_details = function(id) {
 
                             mindbodydataId = id;
-                            //$scope.showStyles();
-                            showText(temp_style_id,temp_style_layout);
-                                $("#tabs-1").show();
-                                $("#tabs-2").hide();
-                                $("#tabs-3").hide();
-                                $("#tabs-4").hide();
-                                $("#tabs-5").hide();
-                            
+                                    //$scope.showStyles();
+                                    showText(temp_style_id, temp_style_layout);
+                                    $("#tabs-1").show();
+                                    $("#tabs-2").hide();
+                                    $("#tabs-3").hide();
+                                    $("#tabs-4").hide();
+                                    $("#tabs-5").hide();
                             }
 
                     $scope.showImages = function(){
                     $("#popup").hide();
-                    $("#tabs-1").hide();
-                    $("#tabs-2").hide();
-                    $("#tabs-3").hide();
-                    $("#tabs-4").hide();
-                    $("#tabs-5").show().css("width", "430px").show("slide", { direction: "right" }, 1000);                                                                                                                                                
-                    
+                            $("#tabs-1").hide();
+                            $("#tabs-2").hide();
+                            $("#tabs-3").hide();
+                            $("#tabs-4").hide();
+                            $("#tabs-5").show().css("width", "430px").show("slide", { direction: "right" }, 1000);
                             $("#imagespopup").show();
                             $scope.curPage = 0;
                             $scope.pageSize = 4;
@@ -545,7 +524,7 @@ and open the template in the editor.
                                     url : 'GetUserImages'
                             }).success(function(data, status, headers, config) {
 //                                    alert(JSON.stringify(data));
-                            $scope.datalistimages = data;
+                    $scope.datalistimages = data;
                             $scope.numberOfPages = function() {
                             return Math.ceil($scope.datalistimages.length / $scope.pageSize);
                             };
@@ -597,7 +576,7 @@ and open the template in the editor.
                     }
             //var countBlock = 1;
             function showText(id, layout){
-            //    alert(id+":"+layout+":"+mindbodydataId);
+            alert(id+":"+layout+":"+mindbodydataId);
             var layoutfilename = layout;
                     $("#clickid").val(layout);
                     if (mindbodydataId != "0")
@@ -616,12 +595,12 @@ and open the template in the editor.
             else
             {
 
-            displayElement(id, layout, null)
+            displayElement(id,layout,null);
             }
             }
 
             function displayElement(id, layout, data){
-            var random_number = Math.floor(Math.random() * 200) + 1
+            var random_number = Math.floor(Math.random() * 200) + 1;
                     if (blockIdSelected == "defaultblock1")
                     blockId = "defaultblock1";
                     else if (blockIdSelected.indexOf("SSS") >= 0)
@@ -652,6 +631,7 @@ and open the template in the editor.
                             );
                                     var count = 1;
                                     var blockcount = 1;
+                                    var textcount=1;
                                     $(".imagename").find('option').remove().end();
                                     $(".blockname").find('option').remove().end();
                                     $(xml).find('element').each(function () {
@@ -707,8 +687,8 @@ and open the template in the editor.
 
                             }
 //                                                fontcolor = $(this).attr("font-color");
-
-                            $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
+                            textcount++;
+                                    $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
                                     $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
                                     .css("position", "absolute")
                                     .css("overflow", "hidden")
@@ -777,7 +757,8 @@ and open the template in the editor.
 
                             if (tag === "logo")
                             {
-                            var background_image = $(this).attr("background-image");
+                            var userId = $("#userid").val();
+                                    var userLogonmae = $("#userlogo").val();
                                     var blendmode = $(this).attr("background-blend-mode");
                                     $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
                                     $("#" + type + "EEE" + blockId)
@@ -788,7 +769,7 @@ and open the template in the editor.
                                     .css("opacity", "" + opacity)
                                     .css("width", "" + width)
                                     .css("height", "" + height)
-                                    .css("background", "" + background_image)
+                                    .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=" + userId + "&image_name=" + userLogonmae + "')")
                                     .css("background-repeat", "no-repeat")
                                     .css("background-position", "center center")
 
@@ -824,7 +805,6 @@ and open the template in the editor.
                             backgroundcolor = $("#shapecolorbox" + i).css("background-color");
 //                                                              fontcolor=user_preferences_colors.color+""+i; 
                             }
-
                             }
                             $(".blockname").append("<option value=" + type + "EEE" + blockId + ">Block " + blockcount + "</option>")
                                     blockcount++;
@@ -840,27 +820,31 @@ and open the template in the editor.
                                     .css("opacity", "" + opacity);
                             }
 
-                            }
-
-                            );
+                            });
+                            if (count == 1){$("#imagecontainer").hide(); }
+                            if (blockcount == 1){$("#shapecontainer").hide(); }
+                            if (textcount == 1){$("#textcontainer").hide(); }
+                            if (count != 1){$("#imagecontainer").show(); }
+                            if (blockcount != 1){$("#shapecontainer").show(); }
+                            if (textcount != 1){$("#textcontainer").show();}
                             },
-                            error: function (e)
-                            {
-                            alert("error in xml file read");
-                            }
-                    });
-            }
-            
-             
+                                    error: function (e)
+                                    {
+                                    alert("error in xml file read");
+                                    }
+                            });
+                    }
 
         </script>
-        <script src="js/emaileditor.js" type="text/javascript"></script>
+
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script src="js/crop.js" type="text/javascript"></script>
 
     </head>
     <body ng-app="myapp">
-
+        <input type="hidden" id='userlogo'value=<%= logoImageName%>>
+        <input type="hidden" id='userid' value=<%= user_id%>>
+        <script src="js/emaileditor.js" type="text/javascript"></script>
         <div id="myModal" class="reveal-modal">
             <br />
             <p><strong>Please enter the url:</strong> <input type="text" id="buttonURLText" value=""></p>
@@ -886,7 +870,7 @@ and open the template in the editor.
                         <div class="col-md-5 col-md-offset-0">
                             <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview">preview</p>
 
-                            <div class="sortDelete" style="position:absolute;top:380px; left:0px;margin: 0px;">
+                            <div class="sortDelete" style="position:absolute;top:380px; left:-16px;margin: 0px;">
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
@@ -897,36 +881,35 @@ and open the template in the editor.
                                 </div></div>
                             <div class="span3 col-md-offset-0" >
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE">
-                               <br><br>
-                            <script>
-                               function showImageName(user_id, image_name){
-                                              var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
-                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
-                                                    $("#imagespopup").hide(); 
-                                                    $(".imagename option:selected").attr("name","url(" + global_host_address +""+image_path+ ")");
-                                                    $("#tabs-1").show();
-                                                    $("#tabs-2").hide();
-                                                    $("#tabs-3").hide();
-                                                    $("#tabs-4").hide();
-                                                    $("#tabs-5").hide();
-                                                                    
-                                                       }
+                                <br><br>
+                                <script>
+                                                            function showImageName(user_id, image_name){
+                                                            var image_path = "DownloadImage?image_type=GALLERY&image_name=" + image_name + "&user_id=" + user_id + "";
+                                                                    $("#" + $(".imagename").val()).css("background", "url(" + global_host_address + "" + image_path + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                                                    $("#imagespopup").hide();
+                                                                    $(".imagename option:selected").attr("name", "url(" + global_host_address + "" + image_path + ")");
+                                                                    $("#tabs-1").show();
+                                                                    $("#tabs-2").hide();
+                                                                    $("#tabs-3").hide();
+                                                                    $("#tabs-4").hide();
+                                                                    $("#tabs-5").hide();
+                                                            }
                                 </script>
                             </div>
 
-<!--                            <div id="imagespopup">
-                                <div id="content">
-                                    <div style="height:350px; overflow-y:scroll">
-                                        <ul>
-                                            <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">
-                                                <div>
-                                                    <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width=50 height=50 />
-                                                </div> 
-                                            </li>
-                                        </ul>-->
+                            <!--                            <div id="imagespopup">
+                                                            <div id="content">
+                                                                <div style="height:350px; overflow-y:scroll">
+                                                                    <ul>
+                                                                        <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">
+                                                                            <div>
+                                                                                <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width=50 height=50 />
+                                                                            </div> 
+                                                                        </li>
+                                                                    </ul>-->
 
-                                    </div>
-                         <!--        editor container      -->
+                        </div>
+                        <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
                             <div class="well lead editor" id="editor" style="height:500px;top:100px;left:36px;overflow-y:scroll;width:370px;overflow-x:hidden;">
                                 <ul>
@@ -934,7 +917,7 @@ and open the template in the editor.
                                         <div id="textcontainer">
                                             <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
-                                               <li style="position:relative;left:-9px;">
+                                                <li style="position:relative;left:-9px;">
                                                     <p id="editorheadere" class="SS1">font color</p>
                                                     <div class="blankcolor-box1" id="picker" ></div>
 
@@ -955,22 +938,22 @@ and open the template in the editor.
                                                         <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
                                                     </select>
                                                 </li>
-                                                 <li> 
+                                                <li> 
                                                     <ul id="pickColorForText" style="display:none;left:-14px;position:relative;margin-top:-80px;">
                                                         <li><p class="editpal">your palette</p></li>
                                                         <li><p class="editcus custom-color-box-text" style="margin-left:130px;position:relative;">custom</p></li>
                                                         <li id="fcolcontainer">
                                                             <ul id="colorpalette " style="position:relative;left:-12px;">
-                                                                   <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
-                                                                    <li> <div class="blankcolor-box-text" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
-                                                                </ul>
-                                                            </li>
-                                                            
-                                                        </ul>
+                                                                <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                <li> <div class="blankcolor-box-text" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                            </ul>
+                                                        </li>
+
+                                                    </ul>
                                                 </li>
                                                 <li style="left:-6px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
@@ -1031,25 +1014,25 @@ and open the template in the editor.
                                         <div id="filtercontainer" style="display: none">
                                             <p  id="text3" class="SS2">IMAGE FILTER</p>
                                             <ul id="filterImageList">
-                                                <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p id="filtername">Black <br>And White</p> </li>
-                                                <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p id="filtername">Textured</p></li>
-                                                <li><img class="imageFilter" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p id="filtername">Light</p></li>
-                                                <li><img class="imageFilter" id="convert4" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Heroic</p> </li>
-                                                <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Statue</p> </li>
-                                                <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p id="filtername">Workout</p> </li>
+                                                <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p class="filtername">Still</p> </li>
+                                                <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Peace</p></li>
+                                                <li><img class="imageFilter" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Sunrise</p></li>
+                                                <li><img class="imageFilter" id="convert4" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Strength</p> </li>
+                                                <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vivid</p> </li>
+                                                <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Intense</p> </li>
                                             </ul>
                                         </div>
                                         <div id="cropImageContainer" style="display: none">
 
-<!--                                                <p>CROP</p>-->
-                                             
+                                            <!--                                                <p>CROP</p>-->
 
-                                                    <!--
-                                                            NOTE: To change the aspect ratio, look in crop.css
-                                                            The class 'default' links the div to the innit(); function
-                                                    -->
-                                  
-                                                <br><br>
+
+                                            <!--
+                                                    NOTE: To change the aspect ratio, look in crop.css
+                                                    The class 'default' links the div to the innit(); function
+                                            -->
+
+                                            <br><br>
                                             <input type="button" id="done" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="saveImageEdit()" value="DONE"> 
 
                                         </div>
@@ -1063,7 +1046,7 @@ and open the template in the editor.
                                                     <ul>
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" height="150" />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
@@ -1182,14 +1165,14 @@ and open the template in the editor.
                                         </div> 
                                     </li>
                                     <li id="tabs-5">
-                                                   <ul id="imageGallery" style="height: 500px;width: 450px;position: relative;right: 80px;overflow-y:scroll">
-                                                       <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
-                                               
-                                                       <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
-                                                           <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
-                                                       </li>
-                                                   </ul>
-<!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
+                                        <ul id="imageGallery" style="height: 500px;width: 450px;position: relative;right: 80px;overflow-y:scroll">
+                                            <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
+
+                                            <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
+                                                <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                            </li>
+                                        </ul>
+                                        <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
                                     </li>
 
 
@@ -1197,58 +1180,9 @@ and open the template in the editor.
 
                             </div>
                         </div> 
-                                    <input type="hidden" id="selectimage" name="selectimage" type="Button" value="select"/>  
-                                    <input type="hidden" name="image_name" id="image_name"/>
-                                    <input type="hidden" id="closeimagespopup" type="Button" value="close"/>  
-
-                                </div>
-                            </div>
-                            <div id="popup" name="popup">
-                                <div id="content">
-                                    <form action="">
-                                        <!--                                    System Directory : <input type="file" class="uploadfile" id="uploadfile" name="uploadfile" > <br> -->
-                                        User Directory : <input type="button" id="UserUploadedImages" name="UserUploadedImages" value="Click"> <br> 
-
-                                        <input id="closepopup" type="Button" value="close"/>  
-
-                                    </form>
-                                </div>   
-                            </div>
-                            <a href="#" data-reveal-id="previewpopup1" class="clickpreview"  style="display:none;">Click Me For A Modal</a>
-                            <div id="previewpopup1" class="reveal-modal" name="previewpopup" style="top:10px;left:90%;">
-                                <a class="close-reveal-modal">&#215;</a>
-                                
-                                <div id="previewcontent" style="padding-top:30px;">
-
-                                </div>   
-                            </div>
-                            <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display:none;">Click Me For A Modal</a>
-                            <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;left:90%;">
-                                <a class="close-reveal-modal">&#215;</a>
-                                <div class="imagecropper_header" style="text-align: center;">
-                                    
-                                    <h3 class="imagecropper_title">Cropping image</h3>
-
-                                </div>
-                                <div class="crop_image">
-                                    <!--                                        <button class="cropButton">Crop</button>-->
-
-
-
-                                    <!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
-                                </div>   
-                                
-                                    <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
-                                    <button class="imagecropper_ok cropButton">Crop</button>
-                               
-                            </div>
-
-                        </div>
-
-                       
                     </div>
                 </div>
-            </div>
+            </div>   
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav" id="sidebar">
@@ -1263,247 +1197,163 @@ and open the template in the editor.
         </div> 
 
         <script>
-                                    function hle(){ 
-                                      document.getElementById('edtimg').src="images/sidebar/Icons_editButton_blue_new.svg";
-                                      document.getElementById('stlimg').src="images/sidebar/Icons_styleButton.svg";
-                                      document.getElementById('blkimg').src="images/sidebar/Icons_blockButton.svg";
-                                      document.getElementById('edt').style.backgroundColor = '#fff';
-                                            document.getElementById('stl').style.backgroundColor = 'transparent';
+                                            function hle(){
+                                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
+                                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
+                                                    document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
+                                                    document.getElementById('edt').style.backgroundColor = '#fff';
+                                                    document.getElementById('stl').style.backgroundColor = 'transparent';
+                                                    document.getElementById('blk').style.backgroundColor = 'transparent';
+                                            }
+                                    function hls(){
+
+                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
+                                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
+                                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+                                            document.getElementById('edt').style.backgroundColor = 'transparent';
+                                            document.getElementById('stl').style.backgroundColor = '#fff';
                                             document.getElementById('blk').style.backgroundColor = 'transparent';
                                     }
-                            function hls(){
-                                
-                                 document.getElementById('stlimg').src="images/sidebar/Icons_styleButton_blue_new.svg";
-                                 document.getElementById('blkimg').src="images/sidebar/Icons_blockButton.svg";
-                                 document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
-                            document.getElementById('edt').style.backgroundColor = 'transparent';
-                                    document.getElementById('stl').style.backgroundColor = '#fff';
-                                    document.getElementById('blk').style.backgroundColor = 'transparent';
-                            }
-                            function hlb(){
-                                document.getElementById('stlimg').src="images/sidebar/Icons_styleButton.svg";
-                                 document.getElementById('blkimg').src="images/sidebar/Icons_blockButton_blue_new.svg";
-                                 document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
-                            document.getElementById('edt').style.backgroundColor = 'transparent';
-                                    document.getElementById('stl').style.backgroundColor = 'transparent';
-                                    document.getElementById('blk').style.backgroundColor = '#fff';
-                            }
+                                    function hlb(){
+                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
+                                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
+                                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+                                            document.getElementById('edt').style.backgroundColor = 'transparent';
+                                            document.getElementById('stl').style.backgroundColor = 'transparent';
+                                            document.getElementById('blk').style.backgroundColor = '#fff';
+                                    }
 
 
 
-                            $("#menu-toggle").click(function (e) {
-                            e.preventDefault();
-                                    $("#wrapper").toggleClass("active");
-                            });</script>
+                                    $("#menu-toggle").click(function (e) {
+                                    e.preventDefault();
+                                            $("#wrapper").toggleClass("active");
+                                    });</script>
 
         <script>
 
-
-                                    $("#continue").click(function (){
-                                        alert($(".dataForEmail").html());
-                            $.ajax({
-                            url: getHost() + "SaveKeyValueSessionServlet",
-                                    method: "post",
-                                    data:{
-                                    sessionKey:"htmldata",
-                                    sessionValue: $(".dataForEmail").html()
-                                    },
-                                    success: function (responseText) {
-
-                                    document.location.href = "emailpreview.jsp";
-                                    }
-
-                            });
-                            });</script>        
-        <script>
-                                    //    var selectedDivId;     
-                                    var selectedImageId;
-                                    function getImageid(Id){
-                                    selectedImageId = Id.id;
-                                            $('.imagename').val("" + selectedImageId).trigger('change');
-                                    }
-
-                            window.onload = function () {
-                            //get elements
-                            var f = 1,
-                                    cvrt1 = document.getElementById('convert1'),
-                                    cvrt2 = document.getElementById('convert2'),
-                                    cvrt3 = document.getElementById('convert3'),
-                                    cvrt4 = document.getElementById('convert4'),
-                                    cvrt5 = document.getElementById('convert5'),
-                                    cvrt6 = document.getElementById('convert6');
-                                    //button click event
-                                    cvrt1.onclick = function () {
-                                    var image_Id = $('.imagename option:selected').val();
-                                            if (f) {
-                                    $("#" + image_Id).css("-webkit-filter", "grayscale(100%)");
-                                            f = 0;
-                                    }
-                                    else {
-                                    $("#" + image_Id).css("-webkit-filter", "");
-                                            f = 1;
-                                    }
-                                    };
-                                    cvrt2.onclick = function () {
-                                    var image_Id = $('.imagename option:selected').val();
-                                            if (f) {
-                                    $("#" + image_Id).css("-webkit-filter", "textured(100%)");
-                                            f = 0;
-                                    }
-                                    else {
-                                    $("#" + image_Id).css("-webkit-filter", "");
-                                            f = 1;
-                                    }
-                                    };
-                                    cvrt3.onclick = function () {
-                                    var image_Id = $('.imagename option:selected').val();
-                                            if (f) {
-                                    $("#" + image_Id).css("-webkit-filter", "brightness(150%)");
-                                            f = 0;
-                                    }
-                                    else {
-                                    $("#" + image_Id).css("-webkit-filter", "");
-                                            f = 1;
-                                    }
-                                    };
-                                    cvrt4.onclick = function () {
-                                    var image_Id = $('.imagename option:selected').val();
-                                            if (f) {
-                                    $("#" + image_Id).css("-webkit-filter", "grayscale(100%)");
-                                            f = 0;
-                                    }
-                                    else {
-                                    $("#" + image_Id).css("-webkit-filter", "");
-                                            f = 1;
-                                    }
-                                    };
-                                    cvrt5.onclick = function () {
-                                    var image_Id = $('.imagename option:selected').val();
-                                            if (f) {
-                                    $("#" + image_Id).css("-webkit-filter", "sepia(100%)");
-                                            f = 0;
-                                    }
-                                    else {
-                                    $("#" + image_Id).css("-webkit-filter", "");
-                                            f = 1;
-                                    }
-                                    };
-                                    cvrt6.onclick = function () {
-                                    var image_Id = $('.imagename option:selected').val();
-                                            if (f) {
-                                    $("#" + image_Id).css("-webkit-filter", "Statue(100%)");
-                                            f = 0;
-                                    }
-                                    else {
-                                    $("#" + image_Id).css("-webkit-filter", "");
-                                            f = 1;
-                                    }
-                                    };
-                            };
-                              
-                              $(".cross").hide();
-                            $(".menu").hide();
-                            $(".hamburger").click(function () {
-                                 $(".menu").slideToggle("slow", function () {
-                                     $(".hamburger").hide();
-                                             $(".cross").show();
-                                 });
-                             });
-                            $(".cross").click(function () {
-                                $(".menu").slideToggle("slow", function () {
-                                $(".cross").hide();
-                                        $(".hamburger").show();
-                                });
-                            });
-                                    //  cropper settings
-                                    // --------------------------------------------------------------------------
-
-                                    // create new object crop
-                                    // you may change the "one" variable to anything
-
-
-                                    //  on click of button, crop the image
-                                    // --------------------------------------------------------------------------
-
-                                    $('body').on("click", "button", function() {
-
-                            // grab width and height of .crop-img for canvas
-                            var width = $('.crop-container').width() - 80, // new image width
-                                    height = $('.crop-container').height() - 80; // new image height
-
-                                    $('canvas').remove();
-                                    $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');
-                                    var ctx = document.getElementById('canvas').getContext('2d'),
-                                    img = new Image,
-                                    w = coordinates(one).w,
-                                    h = coordinates(one).h,
-                                    x = coordinates(one).x,
-                                    y = coordinates(one).y;
-                                    img.src = coordinates(one).image;
-                                    img.onload = function() {
-
-                                    // draw image
-                                    ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
-                                            //                                    alert( img.src);
-                                            // display canvas image
-                                            $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
-                                            // save the image to server
-                                            var canvass = document.getElementById("canvas");
-                                            var dataURL = canvass.toDataURL();
-                                            //                                            alert(dataURL);
-                                            var cropped_image = {"image": "image"};
+                                            $("#continue").click(function (){
+                                    alert($(".dataForEmail").html());
                                             $.ajax({
-                                            url: global_host_address + 'CropImage',
-                                                    method: 'post',
-                                                    data: { image: dataURL},
+                                            url: getHost() + "SaveKeyValueSessionServlet",
+                                                    method: "post",
+                                                    data:{
+                                                    sessionKey:"htmldata",
+                                                            sessionValue: $(".dataForEmail").html()
+                                                    },
                                                     success: function (responseText) {
-                                                    var image_Id = $('.imagename option:selected').val();
-                                                            $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-repeat", "no-repeat").css("background-position", "center center");
-                                                            $("#cropper_popup").hide();
+
+                                                    document.location.href = "emailpreview.jsp";
                                                     }
+
                                             });
-                                    }
-                            //                                    alert(data+""+data.url);
+                                    });        </script>        
+        <script>
+                                            //    var selectedDivId;     
+                                            var selectedImageId;
+                                            function getImageid(Id){
+                                            selectedImageId = Id.id;
+                                                    $('.imagename').val("" + selectedImageId).trigger('change');
+                                            }
 
-                            });
-                                    //  on click of .upload class, open .uploadfile (input file)
-                                    // --------------------------------------------------------------------------
+                                    window.onload = function () {
+                                    //get elements
+                                    var f = 1,
+                                            cvrt1 = document.getElementById('convert1'),
+                                            cvrt2 = document.getElementById('convert2'),
+                                            cvrt3 = document.getElementById('convert3'),
+                                            cvrt4 = document.getElementById('convert4'),
+                                            cvrt5 = document.getElementById('convert5'),
+                                            cvrt6 = document.getElementById('convert6');
+                                            //button click event
+                                            cvrt1.onclick = function () {
+                                            var image_Id = $('.imagename option:selected').val();
+                                                    $("#" + image_Id).removeClass("ig-valencia")
+                                                    .removeClass("ig-toaster")
+                                                    .removeClass("ig-sutro")
+                                                    .removeClass("ig-kelvin")
+                                                    .removeClass("ig-brannan");
+                                                    $("#" + image_Id).toggleClass("ig-willow");
+                                                    //        if (f) {
+                                                    //            $("#"+image_Id).css("-webkit-filter", "grayscale(100%)");
+                                                    //            f = 0;
+                                                    //        }
+                                                    //        else {
+                                                    //            $("#"+image_Id).css("-webkit-filter", "");
+                                                    //
+                                                    //            f = 1;
+                                                    //
+                                                    //        }
+                                            };
+                                            cvrt2.onclick = function () {
+                                            var image_Id = $('.imagename option:selected').val();
+                                                    $("#" + image_Id).removeClass("ig-toaster")
+                                                    .removeClass("ig-sutro")
+                                                    .removeClass("ig-kelvin")
+                                                    .removeClass("ig-brannan")
+                                                    .removeClass("ig-willow");
+                                                    $("#" + image_Id).toggleClass("ig-valencia");
+                                            };
+                                            cvrt3.onclick = function () {
+                                            var image_Id = $('.imagename option:selected').val();
+                                                    $("#" + image_Id).removeClass("ig-valencia")
+                                                    .removeClass("ig-sutro")
+                                                    .removeClass("ig-kelvin")
+                                                    .removeClass("ig-brannan")
+                                                    .removeClass("ig-willow");
+                                                    $("#" + image_Id).toggleClass("ig-toaster");
+                                            };
+                                            cvrt4.onclick = function () {
+                                            var image_Id = $('.imagename option:selected').val();
+                                                    $("#" + image_Id).removeClass("ig-valencia")
+                                                    .removeClass("ig-toaster")
+                                                    .removeClass("ig-kelvin")
+                                                    .removeClass("ig-brannan")
+                                                    .removeClass("ig-willow");
+                                                    $("#" + image_Id).toggleClass("ig-sutro");
+                                            };
+                                            cvrt5.onclick = function () {
+                                            var image_Id = $('.imagename option:selected').val();
+                                                    $("#" + image_Id).removeClass("ig-valencia")
+                                                    .removeClass("ig-toaster")
+                                                    .removeClass("ig-sutro")
+                                                    .removeClass("ig-brannan")
+                                                    .removeClass("ig-willow");
+                                                    $("#" + image_Id).toggleClass("ig-kelvin");
+                                            };
+                                            cvrt6.onclick = function () {
+                                            var image_Id = $('.imagename option:selected').val();
+                                                    $("#" + image_Id).removeClass("ig-valencia")
+                                                    .removeClass("ig-toaster")
+                                                    .removeClass("ig-sutro")
+                                                    .removeClass("ig-kelvin")
+                                                    .removeClass("ig-willow");
+                                                    $("#" + image_Id).toggleClass("ig-brannan");
+                                            };
+                                    };
+                                            $(".cross").hide();
+                                            $(".menu").hide();
+                                            $(".hamburger").click(function () {
+                                    $(".menu").slideToggle("slow", function () {
+                                    $(".hamburger").hide();
+                                            $(".cross").show();
+                                    });
+                                    });
+                                            $(".cross").click(function () {
+                                    $(".menu").slideToggle("slow", function () {
+                                    $(".cross").hide();
+                                            $(".hamburger").show();
+                                    });
+                                    });
+                                            //  cropper settings
+                                            // --------------------------------------------------------------------------
 
-                                    //		$('body').on("click", ".newupload", function() {
-                                    //		    $('.uploadfile').click();
-                                    //		});
+                                            // create new object crop
+                                            // you may change the "one" variable to anything
 
-                                    // on input[type="file"] change
-                                    oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
-                                    var i = 1;
-                                    var id;
-                                    one = new CROP();
-                                    $("#selectimage").click(function(){
-                            var image_file = global_host_address + $("#image_name").val();
-                                    $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
-                                    $("#imagespopup").hide();
-                            });
-                                    function imageEdit() {
-                                    $("#textcontainer").hide();
-                                            $("#shapecontainer").hide();
-                                            $("#imagecontainer").hide();
-                                            $("#filtercontainer").show();
-                                            $("#cropImageContainer").show();
-                                            var image_file = $(".imagename").attr("name").replace("url(", "").replace(")", "");
-                                            id = "image" + i;
-                                            $("#cropper_popup").show();
-//                                                    $('#cropper_popup').draggable();
-//                                                    $("#cropper_popup").resizable();
-                                            //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
 
-                                            $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
-                                            i = i + 1;
-                                            one.init('.crop_image');
-                                            // load image into crop
-                                            one.loadImg(image_file);
-                                            $("#imagespopup").hide();
-                                    }
-
+                                            //  on click of button, crop the image
+                                            // --------------------------------------------------------------------------
 
                                             $('body').on("click", "button", function() {
 
@@ -1533,32 +1383,22 @@ and open the template in the editor.
                                                     //                                            alert(dataURL);
                                                     var cropped_image = {"image": "image"};
                                                     $.ajax({
-                                                            url: global_host_address + 'CropImage',
+                                                    url: global_host_address + 'CropImage',
                                                             method: 'post',
                                                             data: { image: dataURL},
                                                             success: function (responseText) {
-                                                                    var image_Id= $('.imagename option:selected').val();
-                                                                    $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-repeat","no-repeat").css("background-position", "center center");
-                                                                    //$("#cropper_popup").hide();
-                                                                    $(".close-reveal-modal").click();
+                                                            var image_Id = $('.imagename option:selected').val();
+                                                                    $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-repeat", "no-repeat").css("background-position", "center center");
+                                                                    $("#cropper_popup").hide();
                                                             }
                                                     });
                                             }
                                     //                                    alert(data+""+data.url);
 
-
-                            $('.uploadfile').change(function() {
-                            $("#cropper_popup").show();
-                                    $('#cropper_popup').draggable();
-                                    $("#cropper_popup").resizable();
-                                    loadImageFile($('.uploadfile').val());
-                                    // resets input file
-                                    $('.uploadfile').wrap('<form>').closest('form').get(0).reset();
-                                    $('.uploadfile').unwrap();
-                                    $("#popup").hide();
-                            });
-                                    //  get input type=file IMG through base64 and send it to the cropper
+                                    });
+                                            //  on click of .upload class, open .uploadfile (input file)
                                             // --------------------------------------------------------------------------
+
                                             //		$('body').on("click", ".newupload", function() {
                                             //		    $('.uploadfile').click();
                                             //		});
@@ -1569,39 +1409,44 @@ and open the template in the editor.
                                             var id;
                                             one = new CROP();
                                             $("#selectimage").click(function(){
-                                             var image_file = global_host_address + $("#image_name").val();
+                                    var image_file = global_host_address + $("#image_name").val();
                                             $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
                                             $("#imagespopup").hide();
                                     });
                                             function imageEdit() {
-                                               
-                                                    $("#textcontainer").hide();
-                                                    $("#shapecontainer").hide();
-                                                    $("#imagecontainer").hide();
-                                                    $("#filtercontainer").show();
-                                                    $("#cropImageContainer").show();
-                                                    
-                                                    var image_file = $(".imagename option:selected").attr("name").replace("url(", "").replace(")", "");   
-                              
-                                                    id = "image" + i;
-                                                    //$("#cropper_popup").show();
-                                                    $(".clickthis").click();
-//                                                    $('#cropper_popup').draggable();
-//                                                    $("#cropper_popup").resizable();
-                                                    //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
+                                                         $("#textcontainer").hide();
+                                            $("#shapecontainer").hide();
+                                            $("#imagecontainer").hide();
+//                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
+                                           
+                                            $("#filtercontainer").show();
+                                            $("#cropImageContainer").show();
 
-                                                    $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
-                                                    i = i + 1;
-                                                    one.init('.crop_image');
-                                                    // load image into crop
-                                                    one.loadImg(image_file);
-                                                    $("#imagespopup").hide();
+                
+                                        var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
+//                                        alert(image_file);
+                                        id = "image" + i;
+                                       // $("#cropper_popup").show();
+                                        $(".clickthis").click();
+//                                        $('#cropper_popup').draggable();
+//                                        $("#cropper_popup").resizable();
+
+//                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
+
+                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
+
+                                            i = i + 1;
+
+                                        one.init('.crop_image');
+                                        // load image into crop
+                                        one.loadImg(image_file);
+                                        $("#imagespopup").hide();
                                             }
 
 
 
                                     $('.uploadfile').change(function() {
-                                            $("#cropper_popup").show();
+                                    $("#cropper_popup").show();
                                             $('#cropper_popup').draggable();
                                             $("#cropper_popup").resizable();
                                             loadImageFile($('.uploadfile').val());
@@ -1669,15 +1514,15 @@ and open the template in the editor.
 //                                                                                                                                                                    $("#tabs-5").show().css("width", "430px").show("slide", { direction: "right" }, 1000);
 //                                                                                                                                                                
 //                                                                                                                                                            });
-                                                                                                                                                             $("#closepopup").click(function(){
-                                                                                                                                                                    $("#popup").hide();
+                                                                                                                                                            $("#closepopup").click(function(){
+                                                                                                                                                            $("#popup").hide();
                                                                                                                                                                     //$("#cropper_popup").hide();
                                                                                                                                                                     $(".close-reveal-modal").click();
-                                                                                                                                                                 });
-                                                                                                                                                             $("#UserUploadedImages").click(function(){
-                                                                                                                                                                    $("#popup").hide();
+                                                                                                                                                            });
+                                                                                                                                                                    $("#UserUploadedImages").click(function(){
+                                                                                                                                                            $("#popup").hide();
                                                                                                                                                                     $("#imagespopup").show();
-                                                                                                                                                                });
+                                                                                                                                                            });
 //                                                                                                                                                             $("#closeimagespopup").click(function(){
 ////                                                                                                                                                                     $("#imagespopup").hide();
 //                                                                                                                                                                    $("#tabs-1").show();
@@ -1686,10 +1531,10 @@ and open the template in the editor.
 //                                                                                                                                                                    $("#tabs-4").hide();
 //                                                                                                                                                                    $("#tabs-5").hide();
 //                                                                                                                                                                });
-                                                                                                                                                             $("#close_cropper_popup").click(function(){
-                                                                                                                                                                    //$("#cropper_popup").hide();
-                                                                                                                                                                    $(".close-reveal-modal").click();
-                                                                                                                                                                  });
+                                                                                                                                                                    $("#close_cropper_popup").click(function(){
+                                                                                                                                                            //$("#cropper_popup").hide();
+                                                                                                                                                            $(".close-reveal-modal").click();
+                                                                                                                                                            });
 
 
         </script>  
