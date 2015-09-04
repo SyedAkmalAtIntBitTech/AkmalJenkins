@@ -576,7 +576,7 @@ and open the template in the editor.
                     }
             //var countBlock = 1;
             function showText(id, layout){
-            //    alert(id+":"+layout+":"+mindbodydataId);
+            alert(id+":"+layout+":"+mindbodydataId);
             var layoutfilename = layout;
                     $("#clickid").val(layout);
                     if (mindbodydataId != "0")
@@ -595,12 +595,12 @@ and open the template in the editor.
             else
             {
 
-            displayElement(id, layout, null)
+            displayElement(id,layout,null);
             }
             }
 
             function displayElement(id, layout, data){
-            var random_number = Math.floor(Math.random() * 200) + 1
+            var random_number = Math.floor(Math.random() * 200) + 1;
                     if (blockIdSelected == "defaultblock1")
                     blockId = "defaultblock1";
                     else if (blockIdSelected.indexOf("SSS") >= 0)
@@ -631,6 +631,7 @@ and open the template in the editor.
                             );
                                     var count = 1;
                                     var blockcount = 1;
+                                    var textcount=1;
                                     $(".imagename").find('option').remove().end();
                                     $(".blockname").find('option').remove().end();
                                     $(xml).find('element').each(function () {
@@ -820,12 +821,12 @@ and open the template in the editor.
                             }
 
                             });
-                                    if (count == 1){$("#imagecontainer").hide(); }
+                            if (count == 1){$("#imagecontainer").hide(); }
                             if (blockcount == 1){$("#shapecontainer").hide(); }
                             if (textcount == 1){$("#textcontainer").hide(); }
                             if (count != 1){$("#imagecontainer").show(); }
                             if (blockcount != 1){$("#shapecontainer").show(); }
-                            if (textcount != 1){$("#textcontainer").show();
+                            if (textcount != 1){$("#textcontainer").show();}
                             },
                                     error: function (e)
                                     {
@@ -1045,7 +1046,7 @@ and open the template in the editor.
                                                     <ul>
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name='{{styles.image_file_name}}'"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" height="150" />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
@@ -1413,25 +1414,33 @@ and open the template in the editor.
                                             $("#imagespopup").hide();
                                     });
                                             function imageEdit() {
-                                            $("#textcontainer").hide();
-                                                    $("#shapecontainer").hide();
-                                                    $("#imagecontainer").hide();
-                                                    $("#filtercontainer").show();
-                                                    $("#cropImageContainer").show();
-                                                    var image_file = $(".imagename option:selected").attr("name").replace("url(", "").replace(")", "");
-                                                    id = "image" + i;
-                                                    //$("#cropper_popup").show();
-                                                    $(".clickthis").click();
-//                                                    $('#cropper_popup').draggable();
-//                                                    $("#cropper_popup").resizable();
-                                                    //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
+                                                         $("#textcontainer").hide();
+                                            $("#shapecontainer").hide();
+                                            $("#imagecontainer").hide();
+//                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
+                                           
+                                            $("#filtercontainer").show();
+                                            $("#cropImageContainer").show();
 
-                                                    $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
-                                                    i = i + 1;
-                                                    one.init('.crop_image');
-                                                    // load image into crop
-                                                    one.loadImg(image_file);
-                                                    $("#imagespopup").hide();
+                
+                                        var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
+//                                        alert(image_file);
+                                        id = "image" + i;
+                                       // $("#cropper_popup").show();
+                                        $(".clickthis").click();
+//                                        $('#cropper_popup').draggable();
+//                                        $("#cropper_popup").resizable();
+
+//                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
+
+                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
+
+                                            i = i + 1;
+
+                                        one.init('.crop_image');
+                                        // load image into crop
+                                        one.loadImg(image_file);
+                                        $("#imagespopup").hide();
                                             }
 
 
