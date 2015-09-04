@@ -508,7 +508,7 @@ $(document).ready(function () {
         addDefault();
         $("#buttonSelect").change(function () {
             //alert("buttons/button"+$("#buttonSelect").val());
-            $("#" + selectedTextID).attr('src', "buttons/button" + $("#buttonSelect").val() + ".png");
+            $("#" + selectedTextID).attr('src', "buttons/" + $("#buttonSelect").val());
 
         });
 
