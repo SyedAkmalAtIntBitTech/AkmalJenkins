@@ -51,7 +51,13 @@ public class SqlMethods {
     public static Connection getConnection() throws SQLException {
         return connectionManager.getConnection();
     }
-
+    
+    public HttpSession getSession(){
+        this.session = request.getSession(true);
+        this.session.setMaxInactiveInterval(0);
+        return this.session;
+    }
+    
     public void close(ResultSet rs, Statement ps) {
         if (rs != null) {
             try {
@@ -922,39 +928,6 @@ public class SqlMethods {
 
     }
 
-    public int setEmailSentHistory(Integer userid, String contenthtml, 
-            String emailaddress, String emaillistname, String tag) 
-            throws SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        int lastUpdateId = -1;
-        try(Connection connection = ConnectionManager.getInstance().getConnection()){
-
-            query_string = "INSERT INTO tbl_emailsenthistory"
-                    + "(user_id, timesent, contenthtml, emailaddress, emaillistname, email_tag) VALUES "
-                    + "(?,CURRENT_TIMESTAMP,?,?,?,?) RETURNING id";
-            prepared_statement = connection.prepareStatement(query_string);
-            prepared_statement.setInt(1, userid);
-            prepared_statement.setString(2, contenthtml);
-            prepared_statement.setString(3, emailaddress);
-            prepared_statement.setString(4, emaillistname);
-            prepared_statement.setString(5, tag);
-            prepared_statement.execute();
-            result_set = prepared_statement.getResultSet();
-            
-            if(result_set.next()){
-                lastUpdateId = result_set.getInt(1);
-                logger.log(Level.INFO, "Id of new email history: " + lastUpdateId);
-            }
-            
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return lastUpdateId;
-    }
     public void setSocialPostHistory(Integer userid, String contenthtml, boolean twitter, boolean facebook, String imagefilename) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;

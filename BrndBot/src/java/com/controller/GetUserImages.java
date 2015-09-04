@@ -41,6 +41,7 @@ public class GetUserImages extends BrndBotBaseHttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json_ob = new JSONObject();
+        getSqlMethodsInstance().session = request.getSession(true);
         JSONArray json_arr = new JSONArray();
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;

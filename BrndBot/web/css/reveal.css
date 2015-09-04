@@ -15,6 +15,7 @@
 		}
 	
 	.reveal-modal {
+            position: fixed;
 		visibility: hidden;
 		top: 100px; 
 		left: 50%;
@@ -40,7 +41,7 @@
 	.reveal-modal .close-reveal-modal {
 		font-size: 22px;
 		line-height: .5;
-		position: absolute;
+		position: fixed;
 		top: 8px;
 		right: 11px;
 		color: #aaa;

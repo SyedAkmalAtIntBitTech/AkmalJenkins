@@ -8,6 +8,8 @@ package email.mandrill;
 import com.controller.SqlMethods;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
@@ -92,6 +94,13 @@ public class SendMail {
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
+    }
+    
+    public static String getTag(String subject){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH-mm");
+        String formattedDate = sdf.format(new Date());
+        String tag =  subject + " - " + formattedDate;
+        return tag;
     }
 
 }

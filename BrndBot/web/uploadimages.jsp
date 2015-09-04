@@ -102,7 +102,7 @@
                 <div class="row">
                     <div class="col-md-4 col-md-offset-5">
                         <p id="comment1"> Upload your logo </p> 
-                        <p id="comment2">Please upload a .PNG, .JPEG,</p> <br><br>
+                        <p id="comment2">Please upload a .PNG, .JPEG, .SVG</p> <br><br>
                     </div>
                 </div>
                 <div class="row">
@@ -138,6 +138,8 @@
                 case 'JPG':
                 case 'PNG':
                 case 'JPEG':
+                case 'SVG':
+                case 'svg':
                     break;
                 default:
                     alert('This type of image is not allowed');

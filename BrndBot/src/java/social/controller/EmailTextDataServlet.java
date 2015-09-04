@@ -64,58 +64,26 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
     }
 
     
- private Boolean updateEmailListPreference(Integer user_id, String emailListName, String emailAddresses) throws JSONException, SQLException {
+    private boolean updateEmailListPreference(Integer user_id, String emailListName, String emailAddresses) throws JSONException, SQLException {
         org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
 
-        if (emailListArrayJSON.size() == 0){
-                org.json.simple.JSONArray json_user_email_addresses_array = new org.json.simple.JSONArray();
-                JSONObject json_user_preferences_email = new JSONObject();
-                JSONObject json_user_preferences_listnames = new JSONObject();
-                String array_email_list[] = emailAddresses.split(",");
+        JSONObject json_user_preferences_email = new JSONObject();
+        JSONObject emailListJSONObject = new JSONObject();
 
-                for (int i = 0; i< array_email_list.length; i++){
-                    json_user_email_addresses_array.add(array_email_list[i]);
-                }
-
-                json_user_preferences_email.put(IConstants.kEmailListNameKey, emailListName);
-                json_user_preferences_email.put(IConstants.kEmailAddressesKey, emailAddresses);
-                emailListArrayJSON.add(json_user_preferences_email);
-                return AddEmailListUserPreference(user_id, emailListArrayJSON);
-        }else{
-                org.json.simple.JSONArray json_user_email_addresses_array = new org.json.simple.JSONArray();
-                JSONObject json_user_preferences_email = new JSONObject();
-                JSONObject emailListJSONObject = new JSONObject();
-                String array_email_list[] = emailAddresses.split(",");
-
-                for (int i = 0; i< array_email_list.length; i++){
-                    json_user_email_addresses_array.add(array_email_list[i]);
-                }
-
-                Boolean foundEmailListToUpdate = false;
-                for (int i = 0; i < emailListArrayJSON.size(); i++) {
-                    emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
-                    String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
-                    if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
-                        if (emailListName.equals(currentListName)) {
-                            emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddresses);
-                            emailListArrayJSON.add(i, emailListJSONObject);
-                            foundEmailListToUpdate = true;
-                            break;
-                        }
-                    }
-                }
-                
-                if(!foundEmailListToUpdate)
-                {
-                    emailListJSONObject = new JSONObject();
-                    emailListJSONObject.put(IConstants.kEmailListNameKey, emailListName);
+        for (int i = 0; i < emailListArrayJSON.size(); i++) {
+            emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
+            String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
+            if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
+                if (emailListName.equals(currentListName)) {
                     emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddresses);
-                   emailListArrayJSON.add(emailListJSONObject);
+                    emailListArrayJSON.set(i, emailListJSONObject);
+                    break;
                 }
-                
-                return updateEmailListUserPreference(user_id, emailListArrayJSON);
-        
+            }
         }
+
+        return updateEmailListUserPreference(user_id, emailListArrayJSON);
+        
     }
  
     private Boolean AddEmailListUserPreference(Integer user_id, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {

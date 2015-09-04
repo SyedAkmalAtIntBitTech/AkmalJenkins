@@ -5,6 +5,7 @@
  */
 package com.controller;
 
+import com.intbit.EmailAndSocialStatus;
 import com.intbit.dao.EmailHistoryDAO;
 import email.mandrill.Message;
 import email.mandrill.MessageResponses;
@@ -75,13 +76,9 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             message.setReply_to(reply_to_address);
 
             //For Billing purposes.
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH-mm");
-            String formattedDate = sdf.format(new Date());
-            
             ArrayList<String> tags = new ArrayList<String>();
-            String tag =  email_subject + " - " + formattedDate;
-            tags.add(tag);
-            logger.info("Mandrill Tag: "+tag);
+            tags.add(SendMail.getTag(email_subject));
+            logger.info("Mandrill Tag: "+SendMail.getTag(email_subject));
             message.setTags(tags);
 
             ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
@@ -111,11 +108,12 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             }
             
             MessageResponses mandrillResponse = send_email.sendMail(message);
-            int lastUpdateId = getSqlMethodsInstance().setEmailSentHistory(user_id, 
-                    html_text, from_email_address, emaillist_name, tag);
-            if ( mandrillResponse != null && lastUpdateId != -1){
-                EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
-            }
+//            int lastUpdateId = EmailHistoryDAO.addToEmailHistory(user_id, 
+//                    html_text, from_email_address, emaillist_name, email_subject, 
+//                    SendMail.getTag(email_subject));
+//            if ( mandrillResponse != null && lastUpdateId != -1){
+//                EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
+//            }
             out.write("true");
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error), e);

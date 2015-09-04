@@ -107,10 +107,11 @@ public class ServletAddLooks extends BrndBotBaseHttpServlet {
                                 uploadDir.mkdirs();
                             }
 
-                            int inStr = fileName.indexOf(".");
-                            String Str = fileName.substring(0, inStr);
-
-                            fileName = look_name + "_" + Str + ".png";
+//                            int inStr = fileName.indexOf(".");
+//                            String Str = fileName.substring(0, inStr);
+//
+//                            fileName = look_name + "_" + Str + ".png";
+                            fileName = look_name + "_" + fileName;
                             boolean isInMemory = fi.isInMemory();
                             long sizeInBytes = fi.getSize();
 

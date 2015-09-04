@@ -166,6 +166,7 @@ and open the template in the editor.
                                     url : 'MindBodyDataServlet'
                             }).success(function(data, status, headers, config) {
                                 $scope.datalists = data;
+//                                alert(JSON.stringify(data));
                                 $("#picktheme").css("overflow-y","scroll");
                                 if (data.mindbody_data.length == 0){
                                     $("#continuebutton").hide();
@@ -184,14 +185,6 @@ and open the template in the editor.
                     };
 
                     });
-//                    angular.module('myapp').filter('pagination', function()
-//                    {
-//                    return function(input, start)
-//                    {
-//                    start = + start;
-//                            return input.slice(start);
-//                    };
-//                    });
                     var selected_id;
                     
                     function select_category_details(id){
@@ -236,7 +229,7 @@ and open the template in the editor.
 
             <div class="col-md-10 col-md-offset-0 datafib">
                 
-                <div  style="position:fixed;height:45%;" class=" tab-pane active" id="picktheme" ng-init="showData()">
+                <div style="position:fixed;height:45%;" class=" tab-pane active" id="picktheme" ng-init="showData()">
                                 <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
 <!--                                    {{jsonclass}}-->
 
@@ -250,7 +243,7 @@ and open the template in the editor.
                   
                 </div>
 
-                </div>
+            </div>
 
             </div>      
         </div> 
