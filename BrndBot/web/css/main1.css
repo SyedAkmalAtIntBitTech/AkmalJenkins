@@ -122,7 +122,20 @@ top:-25px;
 left:0px;
 }
 /* form starting stylings ------------------------------- */
-
+#from_address,#reply_email_address,#list_name,#default_from_name,#list_description    {
+    border: none ;
+    -webkit-box-shadow: none !important;
+ -moz-box-shadow: none !important;
+   box-shadow: none !important ;
+  border-bottom:1px solid #757575;
+  border-radius:0px;
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:220px;
+  border:none;
+  border-bottom:1px solid #757575;
+}
 input               {
     border: none ;
 
@@ -162,12 +175,40 @@ label                {
                 padding-top:10%;
 }
 /* active state */
+#list_name:focus ~ label, .inputsubline:valid ~ label     {
+    left:-130px;
+  font-size:13px;
+  color:#999;
+ 
+}
+#default_from_name:focus ~ label, .inputsubline:valid ~ label     {
+    left:-170px;
+  font-size:13px;
+  color:#999;
+ 
+}
+#list_description:focus ~ label, .inputsubline:valid ~ label     {
+    left:-150px;
+  font-size:13px;
+  color:#999;
+}
+
 .inputsubline:focus ~ label, .inputsubline:valid ~ label        {
   left:-100px;
   font-size:13px;
   color:#999;
 }
+#reply_email_address:focus ~ label, #inputemail:valid ~ label        {
+  left:-185px;
+  font-size:13px;
+  color:#999;
+}
 
+#from_address:focus ~ label, #inputemail:valid ~ label        {
+  left:-160px;
+  font-size:13px;
+  color:#999;
+}
 
 #inputemail:focus ~ label, #inputemail:valid ~ label        {
   left:-35px;
@@ -669,4 +710,9 @@ select#organizationdropdown option{
 #loochooserbutton{
     position: relative;
    left: 35px;
+}
+
+#dividerline{
+    height:1px;
+    background-color:#000;
 }

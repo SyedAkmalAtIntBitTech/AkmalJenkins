@@ -844,6 +844,7 @@ and open the template in the editor.
         <input type="hidden" id='userlogo'value=<%= logoImageName%>>
         <input type="hidden" id='userid' value=<%= user_id%>>
         <script src="js/emaileditor.js" type="text/javascript"></script>
+        
         <div id="myModal" class="reveal-modal">
             <br />
             <p><strong>Please enter the url:</strong> <input type="text" id="buttonURLText" value=""></p>
@@ -851,6 +852,27 @@ and open the template in the editor.
 
             <a class="close-reveal-modal">&#215;</a>
         </div>
+        
+        <a href="#" data-reveal-id="cropper_popup1" class="clickthis">Click Me For A Modal</a>
+    <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;">
+    <a class="close-reveal-modal">&#215;</a>
+    <div class="imagecropper_header" style="text-align: center;">
+
+        <h3 class="imagecropper_title">Cropping image</h3>
+
+    </div>
+    <div class="crop_image">
+<!--                                        <button class="cropButton">Crop</button>-->
+
+
+
+<!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
+    </div>   
+
+        <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
+        <button class="imagecropper_ok cropButton">Crop</button>
+
+</div>
 
 
         <div ng-controller="MyController" class="container" id="container"> 
@@ -994,7 +1016,7 @@ and open the template in the editor.
                                                 </li>
 
                                                 <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
-                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
+                                                <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
 
 
                                             </ul>
@@ -1003,7 +1025,7 @@ and open the template in the editor.
                                         <div id="imagecontainer">
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><select class="imagename LE1" id="editorhead"> </select></li>
+                                                <li><select class="imagename LE1" id="editorhead"></select></li>
                                                 <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
                                                 <li><p  class="btn"  onclick="imageEdit()">edit</p></li>
                                                 <li></li>
@@ -1040,6 +1062,7 @@ and open the template in the editor.
                                         <div id="stylecontainer">
 
                                             <div>
+                                                <p id="text3" class="SS2">SELECT A STYLE</p>
                                                 <div style="height:500px;">
                                                     <ul>
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
@@ -1387,7 +1410,8 @@ and open the template in the editor.
                                                             success: function (responseText) {
                                                             var image_Id = $('.imagename option:selected').val();
                                                                     $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-repeat", "no-repeat").css("background-position", "center center");
-                                                                    $("#cropper_popup").hide();
+                                                                    //$("#cropper_popup").hide();
+                                                                    $(".close-reveal-modal").click();
                                                             }
                                                     });
                                             }

@@ -131,12 +131,16 @@
                     <img class="socialimage" id="facebookimage" src="images/fb_icon.png"><span id="facebookcancel" class="glyphicon glyphicon-remove-sign"> </span>
                     <img class="socialimage" id="twitterimage" src="images/twitter.jpeg"><span id="twittercancel" class="glyphicon glyphicon-remove-sign"></span><br><br><br>
                     <div id="fbtextcontainer">
+                        <div class="forfb">
                     Post text<input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here">
+                    </div>
                     <br><br>
                     <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
                     <div id="linkpostdiv">
+                        <div class="forfb">
                         <p class="psttxt"> Link Title</p><input class="hideinputborder"  id="title" type="text" placeholder="post text goes here"><br>
                         <p class="psttxt"> Link Description</p><input class="hideinputborder" id="description" type="text" placeholder="post text goes here"><br>
+                        </div>
                         <p class="psttxt"> Link URL</p><input class="hideinputborder" type="text" id="url" placeholder="post text goes here" ><br>
 
                         <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
@@ -201,12 +205,12 @@
                     $("#facebookimage").hide();
                     $("#fabookpreviewdiv").hide();
                     $("#facebookcancel").hide();
-                    $("#fbtextcontainer").hide();
+                    $(".forfb").hide();
                 }
                 else {
                     $("#facebookimage").show();
                     $("#fabookpreviewdiv").show();
-                    $("#fbtextcontainer").show();
+                    $(".forfb").show();
                 }
 
                 if (isTwitter == "false") {
@@ -217,14 +221,18 @@
                 else {
                     $("#twitterimage").show();
                     $("#twitterpreviewdiv").show();
+                    $("#fbtextcontainer").show();
                 }
 
                     $("#chnagetolinkpost").click(function () {
-
+                        $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 127 characters long");
+                        $("#twittertext").attr("maxlength", "127");
                     $("#linkpostdiv").show();
                 });
 
                 $("#removelink").click(function () {
+                    $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 140 characters long");
+                    $("#twittertext").attr("maxlength", "140");
                     $("#title").val("");
                     $("#description").val("");
                     $("#url").val("");
@@ -244,7 +252,7 @@
                     $("#facebookimage").hide();
                     $("#fabookpreviewdiv").hide();
                     $("#isFacebook").val("false");
-                    $("#fbtextcontainer").hide();
+                    $(".forfb").hide();
                 });
 
                 $("#posttofb").click(function () {

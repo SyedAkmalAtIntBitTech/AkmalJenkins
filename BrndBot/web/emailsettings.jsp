@@ -11,7 +11,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="css/main1.css">
+         <script src="js/form.js"></script>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -235,37 +239,35 @@
 
             <jsp:include page="emailsubmenu.html"/>
             <div class="col-md-8 col-md-offset-2 ">
-                <div class="col-md-6 col-md-offset-0"><p id="hyshead">Email Settings</p></div>
+                <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Email Settings</p></div>
                 <div class="col-md-6 col-md-offset-0 bgcols">
-                    <div id="view1" style="width:550px; height:230px ">
+                    <div id="view1" style="width:550px; height:230px;">
 
                         <form class="form-horizontal" id="signform" >
 
-                            <div class="group">
-                                <div class="col-md-3 col-md-offset-5">                            
-                                    <p class="text-left"></p>
-                                </div>
-                            </div>
+                         <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;top:-70px;">
+                          
+                         <div class="col-md-5 col-md-offset-1" style="left:100px;">              
 
-                            <div class="group">
-                                <div class="col-md-3 col-md-offset-5">                            
-                                    <label>FROM ADDRESS</label><br>
+                         <div class="group">
+                                <div class="">                            
                                     <input id="from_address" class="form-control simplebox" type="text" name="from_address" />
+                                    <label>FROM ADDRESS</label>
                                 </div>
                             </div>
                             <div class="group">
-                                <div class="col-md-3 col-md-offset-5">                            
-                                    <label>REPLY-TO EMAIL ADDRESS</label><br>
+                                <div class="">   
                                     <input id="reply_email_address" class="form-control simplebox" type="text" name="reply_email_address"/>
+                                    <label>REPLY-TO EMAIL ADDRESS</label>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-5 col-md-offset-4">
-                                    <br><button type="submit" class="button" ng-click="setEmailSettings()">Enter</button><br>
+                                <div class="">
+                                    <br><button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="setEmailSettings()">Enter</button><br>
                                 </div>
                             </div>
-
+                         </div>
                         </form> 
                     </div>
 

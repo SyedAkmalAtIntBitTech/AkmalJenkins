@@ -243,6 +243,7 @@ ul::-webkit-scrollbar-thumb {
         <script>
             
             $(document).ready(function () {
+                document.getElementById('edtimg').src="images/sidebar/Icons_editButton_blue_new.svg";
                          document.getElementById('edt').style.backgroundColor = '#fff';
                                                 document.getElementById('stl').style.backgroundColor = 'transparent';
             $("#fontname").change(function () {
@@ -777,7 +778,7 @@ ul::-webkit-scrollbar-thumb {
                                                 </li>
                                                 
                                                 <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
-                                                <li><p class="editpal" id="">opacity</p><div id="slider"></div></li>
+                                                <li><p class="editpal" id="blockopacity">opacity</p><div id="slider"></div></li>
 
                                             </ul>
                                         </div>
@@ -827,7 +828,10 @@ ul::-webkit-scrollbar-thumb {
                                     </li>
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
+                                            
                                             <div>
+
+                                                 <p id="text3" class="SS2">SELECT A STYLE</p>
                                                 <div style="height:500px;">
                                                     <ul>
                                                         <!--{{datalists}}-->
@@ -868,8 +872,8 @@ ul::-webkit-scrollbar-thumb {
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav">
-                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1">EDIT</p></a></li>
-                        <li id="stl" class="hov" onclick="hls();"><a href="#tabs-2" id="style"><img class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>                  
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1">EDIT</p></a></li>
+                        <li id="stl" class="hov" onclick="hls();"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>                  
                     </ul>
                 </div>
             </div>
@@ -881,10 +885,14 @@ ul::-webkit-scrollbar-thumb {
                                             }
     
                                             function hle(){
-                                                document.getElementById('edt').style.backgroundColor = '#fff';
+                                                 document.getElementById('edtimg').src="images/sidebar/Icons_editButton_blue_new.svg";
+                                                 document.getElementById('stlimg').src="images/sidebar/Icons_styleButton.svg";
+                                                   document.getElementById('edt').style.backgroundColor = '#fff';
                                                 document.getElementById('stl').style.backgroundColor = 'transparent';
                                             }
                                             function hls(){
+                                                document.getElementById('stlimg').src="images/sidebar/Icons_styleButton_blue_new.svg";
+                                                document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
                                                 document.getElementById('edt').style.backgroundColor = 'transparent';
                                                 document.getElementById('stl').style.backgroundColor = '#fff';
                                             }

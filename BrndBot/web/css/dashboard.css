@@ -24,7 +24,7 @@ and open the template in the editor.
 
 
 .navgap{
-    margin-top:45px;
+    margin-top:0px;
 }
 body{
     overflow-x:  hidden;
@@ -59,10 +59,10 @@ body{
     text-align: center;
 }
 .bgcols{
-    background-color: #e5e5e5;
+
     position: relative;
-    margin-top: 1%;
-    margin-left: 0%;
+    margin-top: 8%;
+
     width:900px;
     height: 500px;
     text-align: center;
@@ -89,7 +89,7 @@ body{
    margin-top: 50px;
 }
 #hyshead{
-    font-size: 20px;
+
     font-family:"proxima-nova-soft",sans-serif;
    font-weight: 500;
    position: relative;
