@@ -205,6 +205,42 @@ and open the template in the editor.
             .border-highlight {
                 border:2px solid #0088cc;   
             }
+/*            ul.imageGallery {
+                display:inline-block;  
+                list-style:none;   
+            }
+            ul.imageGallery li{
+                 display:inline-block; 
+                padding: 10px;
+                width: 400PX;
+            }*/
+
+#imageGallery ul {
+      width: 450px;
+  }
+#imageGallery  li {
+    margin-top: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    float: top;
+  }
+  #imageGallery  li img{
+     top: 0px;
+  }
+  
+ ul::-webkit-scrollbar {
+    width: 10px;
+    height: 200px;
+}
+ul::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+ul::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
+}
         </style>
 
         <%!
@@ -228,6 +264,31 @@ and open the template in the editor.
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script>
             $(document).ready(function () {
+<<<<<<< HEAD
+=======
+                
+                  var numitems =  $("#imageGallery li").length;
+                  $("ul#imageGallery").css("column-count",numitems/2);
+                
+            $("#fontname").change(function () {
+                var text = $("#fontname").find('option:selected').text();
+                var font_family_name = $("#fontname").val();
+                var font = font_family_name.split(",");
+//                var google_key_word = font[0].split(' ').join('+')
+//                var ss = document.createElement("link");
+//                ss.type = "text/css";
+//                ss.rel = "stylesheet";
+//                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+//                document.getElementsByTagName("head")[0].appendChild(ss);
+//
+//                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+//                var styles = "@font-face {"+
+//                             "font-family:"+ text + ";"+
+//                             "src: url("+font_path+");"
+//                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+
+                $("#" + selectedTextareaId).css("font-family", font[0]);
+>>>>>>> c868526ff3441eefaed598adda247df11e0121b9
 
             $("#fontname").change(function () {
             var text = $("#fontname").find('option:selected').text();
@@ -261,8 +322,9 @@ and open the template in the editor.
                     var temp_style_layout;
                     var temp_block_id;
                     var temp_mind_body_query;
-                    $("#previewpopup").hide();
+                    //$("#previewpopup").hide();
                     $(document).ready(function() {
+<<<<<<< HEAD
 
 
 
@@ -285,6 +347,35 @@ and open the template in the editor.
             $("#previewpopup").hide();
             });
             });
+=======
+                        
+                        
+                        
+                        $('#continueblock').prop('disabled', true);
+                        
+                        $("#preview").click(function(){
+                           $.ajax({
+                                    url: getHost() + "PreviewServlet",
+                                            method: "post",
+                                            data:{htmlString: $(".dataForEmail").html()},
+                                            success: function (responseText) {
+                                            
+                                                //show popup showing
+                                            $("#previewcontent").empty();
+                                            $("#previewcontent").append(responseText);
+                                            
+                                            //$("#previewpopup").show();
+                                            $(".clickpreview").click();
+                                            }
+                                    }); 
+                         
+                        });
+//                            $("#closepreview").click(function(){
+//                                $("#previewpopup").hide();
+//                            });
+                        
+                    });
+>>>>>>> c868526ff3441eefaed598adda247df11e0121b9
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
@@ -410,6 +501,7 @@ and open the template in the editor.
                             blockIdSelected = "";
                             block_id = id;
                             if (mind_body_query == "null")
+<<<<<<< HEAD
                     {
                     mindbodydataId = "0";
                             //$scope.showStyles();
@@ -431,6 +523,46 @@ and open the template in the editor.
                     $scope.datalists = data;
                             $scope.numberOfPages = function() {
                             return Math.ceil($scope.datalists.length / $scope.pageSize);
+=======
+                            {
+                                mindbodydataId = "0";
+                                //$scope.showStyles();
+                                showText(temp_style_id,temp_style_layout);
+                                $("#tabs-1").show();
+                                $("#tabs-2").hide();
+                                $("#tabs-3").hide();
+                                $("#tabs-4").hide();
+                                $("#tabs-5").hide();
+                                
+                            }
+                            else
+                            {
+                                $scope.curPage = 0;
+                                $scope.pageSize = 4;
+                                $http({
+                                method : 'GET',
+                                        url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
+                                }).success(function(data, status, headers, config) {
+
+                                $scope.datalists = data;
+                                $scope.numberOfPages = function() {
+                                return Math.ceil($scope.datalists.length / $scope.pageSize);
+                                };
+                                if (data === error){
+                                    alert(data);
+                                }
+                                    $("#tabs-1").hide();
+                                    $("#tabs-2").hide();
+                                    $("#tabs-3").hide();
+                                    $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
+                                    $("#tabs-5").hide();
+                            }).error(function(data, status, headers, config) {
+                            alert("No data available, problem fetching the data");
+                                    // called asynchronously if an error occurs
+                                    // or server returns response with an error status.
+                            });
+                            }
+>>>>>>> c868526ff3441eefaed598adda247df11e0121b9
                             };
                             if (data === error){
                     alert(data);
@@ -449,16 +581,36 @@ and open the template in the editor.
                             $scope.select_category_details = function(id) {
 
                             mindbodydataId = id;
+<<<<<<< HEAD
                                     //$scope.showStyles();
                                     showText(temp_style_id, temp_style_layout);
                                     $("#tabs-1").show();
                                     $("#tabs-2").hide();
                                     $("#tabs-3").hide();
                                     $("#tabs-4").hide();
+=======
+                            //$scope.showStyles();
+                            showText(temp_style_id,temp_style_layout);
+                                $("#tabs-1").show();
+                                $("#tabs-2").hide();
+                                $("#tabs-3").hide();
+                                $("#tabs-4").hide();
+                                 $("#tabs-5").hide();
+                            
+>>>>>>> c868526ff3441eefaed598adda247df11e0121b9
                             }
 
                     $scope.showImages = function(){
                     $("#popup").hide();
+<<<<<<< HEAD
+=======
+                    $("#tabs-1").hide();
+                    $("#tabs-2").hide();
+                    $("#tabs-3").hide();
+                    $("#tabs-4").hide();
+                    $("#tabs-5").show().css("width", "430px").show("slide", { direction: "right" }, 1000);                                                                                                                                                
+                    
+>>>>>>> c868526ff3441eefaed598adda247df11e0121b9
                             $("#imagespopup").show();
                             $scope.curPage = 0;
                             $scope.pageSize = 4;
@@ -466,8 +618,8 @@ and open the template in the editor.
                             method : 'GET',
                                     url : 'GetUserImages'
                             }).success(function(data, status, headers, config) {
-
-                    $scope.datalistimages = data;
+//                                    alert(JSON.stringify(data));
+                            $scope.datalistimages = data;
                             $scope.numberOfPages = function() {
                             return Math.ceil($scope.datalistimages.length / $scope.pageSize);
                             };
@@ -817,6 +969,7 @@ and open the template in the editor.
                                 </div></div>
                             <div class="span3 col-md-offset-0" >
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE">
+<<<<<<< HEAD
                                 <br><br>
                                 <script>
 //                                            $("#continue").click(function (){
@@ -826,10 +979,26 @@ and open the template in the editor.
                                                     var image_path = "images/Gallery/" + user_id + "/" + image_name;
                                                             $("#image_name").val(image_path);
                                                     }
+=======
+                               <br><br>
+                            <script>
+                               function showImageName(user_id, image_name){
+                                              var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
+                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                                    $("#imagespopup").hide(); 
+                                                    $(".imagename option:selected").attr("name","url(" + global_host_address +""+image_path+ ")");
+                                                    $("#tabs-1").show();
+                                                    $("#tabs-2").hide();
+                                                    $("#tabs-3").hide();
+                                                    $("#tabs-4").hide();
+                                                    $("#tabs-5").hide();
+                                                                    
+                                                       }
+>>>>>>> c868526ff3441eefaed598adda247df11e0121b9
                                 </script>
                             </div>
 
-                            <div id="imagespopup">
+<!--                            <div id="imagespopup">
                                 <div id="content">
                                     <div style="height:350px; overflow-y:scroll">
                                         <ul>
@@ -839,6 +1008,7 @@ and open the template in the editor.
                                                 </div> 
                                             </li>
                                         </ul>
+<<<<<<< HEAD
 
                                         <!--                                        <div class="pagination pagination-centered" ng-show="datalistimages.length">
                                                                                     <ul class="pagination-controle pagination">
@@ -856,33 +1026,39 @@ and open the template in the editor.
                                                                                         </li>
                                                                                     </ul>
                                                                                 </div>-->
+=======
+>>>>>>> c868526ff3441eefaed598adda247df11e0121b9
                                     </div>
                                     <input id="selectimage" name="selectimage" type="Button" value="select"/>  
                                     <input type="hidden" name="image_name" id="image_name"/>
                                     <input id="closeimagespopup" type="Button" value="close"/>  
 
                                 </div>
-                            </div>
+                            </div>-->
                             <div id="popup" name="popup">
                                 <div id="content">
                                     <form action="">
                                         <!--                                    System Directory : <input type="file" class="uploadfile" id="uploadfile" name="uploadfile" > <br> -->
-                                        User Directory : <input type="button" id="UserUploadedImages" name="UserUploadedImages" value="Click" ng-click="showImages()" > <br> 
+                                        User Directory : <input type="button" id="UserUploadedImages" name="UserUploadedImages" value="Click"> <br> 
 
                                         <input id="closepopup" type="Button" value="close"/>  
 
                                     </form>
                                 </div>   
                             </div>
-                            <div id="previewpopup" name="previewpopup">
-                                <div id="closepreview" style="position:absolute;top:0px;">close</div>
+                            <a href="#" data-reveal-id="previewpopup1" class="clickpreview"  style="display:none;">Click Me For A Modal</a>
+                            <div id="previewpopup1" class="reveal-modal" name="previewpopup" style="top:10px;left:90%;">
+                                <a class="close-reveal-modal">&#215;</a>
+                                
                                 <div id="previewcontent" style="padding-top:30px;">
 
                                 </div>   
                             </div>
-                            <div id="cropper_popup" class="cropper_popup" name="cropper_popup">
-                                <div class="imagecropper_header">
-                                    <div class="imagecropper_close" onclick="closeCropper()">×</div>
+                            <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display:none;">Click Me For A Modal</a>
+                            <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;left:90%;">
+                                <a class="close-reveal-modal">&#215;</a>
+                                <div class="imagecropper_header" style="text-align: center;">
+                                    
                                     <h3 class="imagecropper_title">Cropping image</h3>
 
                                 </div>
@@ -893,10 +1069,10 @@ and open the template in the editor.
 
                                     <!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
                                 </div>   
-                                <div class="imagecropper_footer">
+                                
                                     <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
                                     <button class="imagecropper_ok cropButton">Crop</button>
-                                </div>
+                               
                             </div>
 
                         </div>
@@ -985,8 +1161,7 @@ and open the template in the editor.
                                                         <li>
                                                     </ul>
                                                 </li>
-                                                <li><p class="editpal">pick from theme</p></li>
-                                                <li><p class="editpal custom-color-box" style="margin-left: 120px;">custom</p><br></li>
+                                                <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
                                                 <li><p class="editpal">opacity</p><div id="slider" ></div></li>
 
                                             </ul>
@@ -996,7 +1171,7 @@ and open the template in the editor.
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
                                                 <li><select class="imagename LE1" id="editorhead"> </select></li>
-                                                <li><label id="openImageDialog" class="btn  newupload">change</label></li>
+                                                <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
                                                 <li><p  class="btn"  onclick="imageEdit()">edit</p></li>
                                                 <li></li>
                                             </ul>
@@ -1153,6 +1328,16 @@ and open the template in the editor.
 
                                         </div> 
                                     </li>
+                                    <li id="tabs-5">
+                                                   <ul id="imageGallery" style="height: 500px;width: 450px;position: relative;right: 80px;overflow-y:scroll">
+                                                       <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
+                                               
+                                                       <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
+                                                           <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                                       </li>
+                                                   </ul>
+<!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
+                                    </li>
 
 
                                 </ul>
@@ -1175,41 +1360,6 @@ and open the template in the editor.
 
         </div> 
 
-
-
-        <!--     <script>
-        
-                        // create new object crop
-                        // you may change the "one" variable to anything
-                        var one = new CROP();
-        
-                        // link the .default class to the crop function
-                        one.init('.default');
-        
-                        // load image into crop
-                        one.loadImg('images/logo.png');
-        
-                        // send coordinates for processing
-                        // you may call the coordinates with the function coordinates(one);
-                        $(document).on('click', 'button', function() {
-        
-                                $.ajax({
-                                        type: "post",
-                                        dataType: "json",
-                                        url: "save.php",
-                                        data: $.param(coordinates(one))
-                                })
-                                .done(function(data) {
-        
-                                        $('.example .output').remove();
-                                        $('.example').append('<img src="'+data.url+'" class="output" />')
-                                        $('.example .output').delay('4000').fadeOut('slow');
-        
-                                });
-        
-                        });
-        
-                </script>-->
         <script>
                                     function hle(){
                                     document.getElementById('edt').style.backgroundColor = '#fff';
@@ -1442,6 +1592,49 @@ and open the template in the editor.
                                     }
 
 
+<<<<<<< HEAD
+=======
+                                            $('body').on("click", "button", function() {
+
+                                    // grab width and height of .crop-img for canvas
+                                    var width = $('.crop-container').width() - 80, // new image width
+                                            height = $('.crop-container').height() - 80; // new image height
+
+                                            $('canvas').remove();
+                                            $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');
+                                            var ctx = document.getElementById('canvas').getContext('2d'),
+                                            img = new Image,
+                                            w = coordinates(one).w,
+                                            h = coordinates(one).h,
+                                            x = coordinates(one).x,
+                                            y = coordinates(one).y;
+                                            img.src = coordinates(one).image;
+                                            img.onload = function() {
+
+                                            // draw image
+                                            ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
+                                                    //                                    alert( img.src);
+                                                    // display canvas image
+                                                    $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
+                                                    // save the image to server
+                                                    var canvass = document.getElementById("canvas");
+                                                    var dataURL = canvass.toDataURL();
+                                                    //                                            alert(dataURL);
+                                                    var cropped_image = {"image": "image"};
+                                                    $.ajax({
+                                                            url: global_host_address + 'CropImage',
+                                                            method: 'post',
+                                                            data: { image: dataURL},
+                                                            success: function (responseText) {
+                                                                    var image_Id= $('.imagename option:selected').val();
+                                                                    $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-repeat","no-repeat").css("background-position", "center center");
+                                                                    //$("#cropper_popup").hide();
+                                                                    $(".close-reveal-modal").click();
+                                                            }
+                                                    });
+                                            }
+                                    //                                    alert(data+""+data.url);
+>>>>>>> c868526ff3441eefaed598adda247df11e0121b9
 
                             $('.uploadfile').change(function() {
                             $("#cropper_popup").show();
@@ -1456,6 +1649,7 @@ and open the template in the editor.
                                     //  get input type=file IMG through base64 and send it to the cropper
                                             // --------------------------------------------------------------------------
 
+<<<<<<< HEAD
                                                     //                                    oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
 
                                                             //                                    function loadImageFileFromUser(image_file) {
@@ -1519,6 +1713,139 @@ and open the template in the editor.
                                                                                                                                                             $("#close_cropper_popup").click(function(){
                                                                                                                                                     $("#cropper_popup").hide();
                                                                                                                                                     });
+=======
+                                            //		$('body').on("click", ".newupload", function() {
+                                            //		    $('.uploadfile').click();
+                                            //		});
+
+                                            // on input[type="file"] change
+                                            oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+                                            var i = 1;
+                                            var id;
+                                            one = new CROP();
+                                            $("#selectimage").click(function(){
+                                             var image_file = global_host_address + $("#image_name").val();
+                                            $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                            $("#imagespopup").hide();
+                                    });
+                                            function imageEdit() {
+                                               
+                                                    $("#textcontainer").hide();
+                                                    $("#shapecontainer").hide();
+                                                    $("#imagecontainer").hide();
+                                                    $("#filtercontainer").show();
+                                                    $("#cropImageContainer").show();
+                                                    
+                                                    var image_file = $(".imagename option:selected").attr("name").replace("url(", "").replace(")", "");   
+                              
+                                                    id = "image" + i;
+                                                    //$("#cropper_popup").show();
+                                                    $(".clickthis").click();
+//                                                    $('#cropper_popup').draggable();
+//                                                    $("#cropper_popup").resizable();
+                                                    //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
+
+                                                    $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
+                                                    i = i + 1;
+                                                    one.init('.crop_image');
+                                                    // load image into crop
+                                                    one.loadImg(image_file);
+                                                    $("#imagespopup").hide();
+                                            }
+
+
+
+                                    $('.uploadfile').change(function() {
+                                            $("#cropper_popup").show();
+                                            $('#cropper_popup').draggable();
+                                            $("#cropper_popup").resizable();
+                                            loadImageFile($('.uploadfile').val());
+                                            // resets input file
+                                            $('.uploadfile').wrap('<form>').closest('form').get(0).reset();
+                                            $('.uploadfile').unwrap();
+                                            $("#popup").hide();
+                                    });
+                                            //  get input type=file IMG through base64 and send it to the cropper
+                                                    // --------------------------------------------------------------------------
+
+                                                            //                                    oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+                                                                    //                                    function loadImageFileFromUser(image_file) {
+                                                                            //
+                                                                                    //                                    if (document.getElementById("uploadfile").files.length === 0) return;
+                                                                                            //                                            var oFile = document.getElementById("uploadfile").files[0];
+                                                                                                    //                                            if (!rFilter.test(oFile.type)) {
+                                                                                                            //                                            return;
+                                                                                                                    //                                            }
+                                                                                                                            //
+                                                                                                                                    //                                    oFReader.readAsDataURL(oFile);
+                                                                                                                                            //                                    }
+
+                                                                                                                                                    function loadImageFile() {
+
+                                                                                                                                                    if (document.getElementById("uploadfile").files.length === 0) return;
+                                                                                                                                                            var oFile = document.getElementById("uploadfile").files[0];
+                                                                                                                                                            if (!rFilter.test(oFile.type)) {
+                                                                                                                                                    return;
+                                                                                                                                                    }
+                                                                                                                                                    oFReader.readAsDataURL(oFile);
+                                                                                                                                                            //                            alert(oFile.valueOf());
+                                                                                                                                                            $("#" + selectedImageId).css("backgroung-image", "url(" + oFile + ")");
+                                                                                                                                                    }
+
+                                                                                                                                            oFReader.onload = function (oFREvent) {
+                                                                                                                                            $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div><button class="cropButton">Crop</button><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
+                                                                                                                                                    $('.crop_image').draggable();
+                                                                                                                                                    $(".crop_image").resizable();
+                                                                                                                                                    one = new CROP();
+                                                                                                                                                    // link the .default class to the crop function
+                                                                                                                                                    one.init('.crop_image');
+                                                                                                                                                    // load image into crop
+                                                                                                                                                    one.loadImg(oFREvent.target.result);
+                                                                                                                                            };</script>  
+
+        <script>
+
+                                                                                                                                                    //  get input type=file IMG through base64 and send it to the cropper
+                                                                                                                                                            // --------------------------------------------------------------------------
+                                                                                                                                                                    function closeCropper(){
+                                                                                                                                                                    $("#popup").hide();
+                                                                                                                                                                            //$("#cropper_popup").hide();
+                                                                                                                                                                            $(".close-reveal-modal").click();
+                                                                                                                                                                    }
+
+//                                                                                                                                                            $("#openImageDialog").click(function(){
+//                                                                                                                                                                
+//                                                                                                                                                                     $("#tabs-1").hide();
+//                                                                                                                                                                    $("#tabs-2").hide();
+//                                                                                                                                                                    $("#tabs-3").hide();
+//                                                                                                                                                                    $("#tabs-4").hide();
+//                                                                                                                                                                    $("#tabs-4").hide();
+//                                                                                                                                                                    $("#tabs-5").show().css("width", "430px").show("slide", { direction: "right" }, 1000);
+//                                                                                                                                                                
+//                                                                                                                                                            });
+                                                                                                                                                             $("#closepopup").click(function(){
+                                                                                                                                                                    $("#popup").hide();
+                                                                                                                                                                    //$("#cropper_popup").hide();
+                                                                                                                                                                    $(".close-reveal-modal").click();
+                                                                                                                                                                 });
+                                                                                                                                                             $("#UserUploadedImages").click(function(){
+                                                                                                                                                                    $("#popup").hide();
+                                                                                                                                                                    $("#imagespopup").show();
+                                                                                                                                                                });
+//                                                                                                                                                             $("#closeimagespopup").click(function(){
+////                                                                                                                                                                     $("#imagespopup").hide();
+//                                                                                                                                                                    $("#tabs-1").show();
+//                                                                                                                                                                    $("#tabs-2").hide();
+//                                                                                                                                                                    $("#tabs-3").hide();
+//                                                                                                                                                                    $("#tabs-4").hide();
+//                                                                                                                                                                    $("#tabs-5").hide();
+//                                                                                                                                                                });
+                                                                                                                                                             $("#close_cropper_popup").click(function(){
+                                                                                                                                                                    //$("#cropper_popup").hide();
+                                                                                                                                                                    $(".close-reveal-modal").click();
+                                                                                                                                                                  });
+>>>>>>> c868526ff3441eefaed598adda247df11e0121b9
 
 
         </script>  

@@ -1129,9 +1129,11 @@ function addDefault() {
     var block_mindbody_query = $("#mindbodyquery").val();
 //   alert($("#mindbodyquery").val());
 
+//Make change in site.js, MindBodyDataServlet and MindBodyConstants
     var mindbody_xml_url = "";
     if (block_mindbody_query !== "null") {
-        if (block_mindbody_query.toLowerCase().contains("class")) {
+        //Make change in MindBodyDataServlet too
+        if (block_mindbody_query.toLowerCase().contains("class") || block_mindbody_query.toLowerCase().contains("classes")) {
             mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
         } else if (block_mindbody_query.toLowerCase().contains("work shop") || block_mindbody_query.contains("workshop")) {
             mindbody_xml_url = "admin/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";

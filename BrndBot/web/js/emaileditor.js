@@ -38,7 +38,7 @@ $(document).ready(function () {
     $("#tabs-2").hide();
     $("#tabs-3").hide();
     $("#tabs-4").hide();
-    
+    $("#tabs-5").hide();
     $('.custom-color-box-text').colpick({
         colorScheme: 'dark',
         layout: 'rgbhex',
@@ -445,6 +445,7 @@ $(document).ready(function () {
         $("#tabs-2").hide();
         $("#tabs-3").hide();
         $("#tabs-4").hide();
+        $("#tabs-5").hide();
     });
 
     $("#style").click(function () {
@@ -452,12 +453,14 @@ $(document).ready(function () {
         $("#tabs-2").show();
         $("#tabs-3").hide();
         $("#tabs-4").hide();
+        $("#tabs-5").hide();
     });
     $("#block").click(function () {
         $("#tabs-1").hide();
         $("#tabs-2").hide();
         $("#tabs-3").show();
         $("#tabs-4").hide();
+        $("#tabs-5").hide();
     });
     $("#data").click(function () {
         $("#tabs-1").hide();

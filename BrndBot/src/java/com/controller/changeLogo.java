@@ -102,10 +102,11 @@ public class changeLogo extends BrndBotBaseHttpServlet {
                                     uploadDir.mkdirs();
                                 }
 
-                                int inStr = fileName.indexOf(".");
-                                String Str = fileName.substring(0, inStr);
-
-                                fileName = Str + "_" + UID + ".jpeg";
+//                                int inStr = fileName.indexOf(".");
+//                                String Str = fileName.substring(0, inStr);
+//
+//                                fileName = Str + "_" + UID + ".jpeg";
+                                fileName = fileName + "_" + UID;
                                 getSqlMethodsInstance().session.setAttribute("ImageFileName", fileName);
                                 boolean isInMemory = fi.isInMemory();
                                 long sizeInBytes = fi.getSize();
