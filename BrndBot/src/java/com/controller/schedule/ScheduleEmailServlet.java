@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,7 @@ public class ScheduleEmailServlet extends HttpServlet {
                 response.setContentType("application/json");
                 return;
             }
+            Double schedule = (Double)requestBodyMap.get("schedule_time");
             Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
                     userId,
                     requestBodyMap.get("email_subject").toString(),
@@ -87,7 +89,7 @@ public class ScheduleEmailServlet extends HttpServlet {
                     requestBodyMap.get("from_name").toString(),
                     requestBodyMap.get("to_email_addresses").toString().split(","),
                     requestBodyMap.get("schedule_title").toString(),
-                    new Timestamp(Long.parseLong(requestBodyMap.get("schedule_time").toString()))
+                    new Timestamp(schedule.longValue())
             );
             response.getWriter().write(AppConstants.GSON.toJson(idMap));
             response.getWriter().flush();

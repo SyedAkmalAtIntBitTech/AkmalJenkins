@@ -120,10 +120,11 @@ public class ServletEditCategories extends BrndBotBaseHttpServlet {
                                 uploadDir.mkdirs();
                             }
 
-                            int inStr = file_name.indexOf(".");
-                            String Str = file_name.substring(0, inStr);
-
-                            file_name = category_name + "_" + Str + ".jpeg";
+//                            int inStr = file_name.indexOf(".");
+//                            String Str = file_name.substring(0, inStr);
+//
+//                            file_name = category_name + "_" + Str + ".jpeg";
+                            file_name = category_name + "_" + file_name;
                             boolean isInMemory = fi.isInMemory();
                             long sizeInBytes = fi.getSize();
 

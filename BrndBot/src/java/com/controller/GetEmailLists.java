@@ -84,11 +84,11 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
                     org.json.simple.JSONObject json_object = (org.json.simple.JSONObject)emailListArrayFromTable.get(i);
                     emailListObject.put(IConstants.kEmailListNameKey, json_object.get(IConstants.kEmailListNameKey));
                     String emails = json_object.get(IConstants.kEmailAddressesKey).toString();
-                    if (!emails.equalsIgnoreCase("0")){
+                    if (!emails.equals("")){
                         String email_addresses[] = json_object.get(IConstants.kEmailAddressesKey).toString().split(",");
                         emailListObject.put("noofcontants", email_addresses.length);
-                    }else {
-                        emailListObject.put("noofcontants", "0");
+                    }else if (emails.equals("")) {
+                        emailListObject.put("noofcontants", "");
                     }
 
                     emailListObject.put(IConstants.kEmailListDefaultFromName, json_object.get(IConstants.kEmailListDefaultFromName));
@@ -105,10 +105,10 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
             try {
                 responseObject.put("Error", "Request unsuccessfull");
             } catch (Exception ex) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating email list:", getSqlMethodsInstance().error));
             }
         } catch (Exception ex){
-           logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
+           logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating email list:", getSqlMethodsInstance().error));
         }
         finally {
             getSqlMethodsInstance().closeConnection();
@@ -183,7 +183,7 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
         org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id);
         
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
-            org.json.JSONObject emailListJSONObject = (org.json.JSONObject)emailListArrayJSON.get(i);
+            JSONObject emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
             emailListNamesJSON.put(emailListJSONObject.get(IConstants.kEmailListNameKey));
             emailListNamesjson.add(emailListJSONObject.get(IConstants.kEmailListNameKey));
         }

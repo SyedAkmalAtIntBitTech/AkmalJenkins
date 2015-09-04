@@ -28,6 +28,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
@@ -45,6 +46,9 @@ and open the template in the editor.
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagecropper.css" rel="stylesheet" type="text/css"/>
+        
+        <script src="js/jquery.reveal.js" type="text/javascript"></script>
+        <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <style>
             body{
                 font-family: proxima nova;
@@ -627,9 +631,12 @@ and open the template in the editor.
                                     </form>
                                 </div>   
                             </div>
-                            <div id="cropper_popup" class="cropper_popup" name="cropper_popup">
-                                <div class="imagecropper_header">
-                                    <div class="imagecropper_close" onclick="closeCropper()">×</div>
+                            
+                            <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display:none;">Click Me For A Modal</a>
+                            <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;left:90%;">
+                                <a class="close-reveal-modal">&#215;</a>
+                                <div class="imagecropper_header" style="text-align: center;">
+                                    
                                     <h3 class="imagecropper_title">Cropping image</h3>
 
                                 </div>
@@ -640,10 +647,10 @@ and open the template in the editor.
                 
 <!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
                                 </div>   
-                                <div class="imagecropper_footer">
+                                
                                     <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
                                     <button class="imagecropper_ok cropButton">Crop</button>
-                                </div>
+                               
                             </div>
   
                         </div>
@@ -733,9 +740,9 @@ and open the template in the editor.
                                                         <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                     </ul>
                                                 </li>
-                                                <li><p class="editpal">pick from theme</p></li>
-                                                <li><p class="editpal custom-color-box" style="margin-left: 120px;margin-bottom: 15px;">custom</p></li>
-                                                <li><p class="opcty" id="">opacity</p><div id="slider"></div></li>
+                                                
+                                                <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
+                                                <li><p class="editpal" id="">opacity</p><div id="slider"></div></li>
 
                                             </ul>
                                         </div>
@@ -1081,7 +1088,8 @@ $(this).addClass('highlight');
                                                          var image_Id= $('.imagename option:selected').val();
                                                         $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center");
 //                                                        $("#cropper_popup").hide();
-                                                         $("#cropper_popup").hide();
+                                                         //$("#cropper_popup").hide();
+                                                         $(".close-reveal-modal").click();
                                                     }
                                                 });                                                                          
                                     }
@@ -1118,7 +1126,8 @@ $(this).addClass('highlight');
                                         var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
 //                                        alert(image_file);
                                         id = "image" + i;
-                                        $("#cropper_popup").show();
+                                       // $("#cropper_popup").show();
+                                        $(".clickthis").click();
 //                                        $('#cropper_popup').draggable();
 //                                        $("#cropper_popup").resizable();
 
@@ -1195,7 +1204,8 @@ $(this).addClass('highlight');
                             // --------------------------------------------------------------------------
                             function closeCropper(){
                                     $("#popup").hide();
-                                    $("#cropper_popup").hide();
+                                    //$("#cropper_popup").hide();
+                                    $(".close-reveal-modal").click();
                             }
 
                             $("#openImageDialog").click(function(){
@@ -1204,7 +1214,8 @@ $(this).addClass('highlight');
                             });
                             $("#closepopup").click(function(){
                                     $("#popup").hide();
-                                    $("#cropper_popup").hide();
+                                    //$("#cropper_popup").hide();
+                                    $(".close-reveal-modal").click();
                             });
                             $("#UserUploadedImages").click(function(){
                                     $("#popup").hide();
@@ -1214,7 +1225,8 @@ $(this).addClass('highlight');
                                     $("#imagespopup").hide();
                             });
                             $("#close_cropper_popup").click(function(){                                
-                                    $("#cropper_popup").hide();
+                                    //$("#cropper_popup").hide();
+                                    $(".close-reveal-modal").click();
                             });
 
 

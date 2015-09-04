@@ -363,7 +363,9 @@
                             var i = 0;
                             var emails = "";
                             for(i=0; i<data.emailAddresses.length; i++){
-                                emails = data.emailAddresses[i].emailid + "," + emails;
+                                if (data.emailAddresses[i].emailid != ""){
+                                    emails = data.emailAddresses[i].emailid + "," + emails;
+                                }
                             }
                             $("#textArea").val(emails);
 //                                window.open(getHost() + 'emaillists.jsp', "_self");

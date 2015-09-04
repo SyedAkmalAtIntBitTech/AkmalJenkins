@@ -34,6 +34,8 @@ public class ServletUserRegistration extends BrndBotBaseHttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession(true);
+        getSqlMethodsInstance().session.setMaxInactiveInterval(0);
+
         StringBuffer string_buffer = new StringBuffer();
         boolean check = true;
         try {
@@ -61,7 +63,7 @@ public class ServletUserRegistration extends BrndBotBaseHttpServlet {
             }
 
         } catch (Exception e) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+                logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while saving the user details:", getSqlMethodsInstance().error));
 
             out.write(getSqlMethodsInstance().error);
         }finally {
