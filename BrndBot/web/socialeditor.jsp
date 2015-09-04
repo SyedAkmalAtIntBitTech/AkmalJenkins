@@ -62,7 +62,7 @@ and open the template in the editor.
                 width:150px;height: 5px;
                 position: relative;
                 left:60px;
-                top:-18px;
+                top:-17px;
             }
             .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
             {
@@ -164,6 +164,22 @@ and open the template in the editor.
             body{
                 overflow-x: hidden;
             }
+            
+            #editor::-webkit-scrollbar {
+     width: 10px;
+     height: 200px;
+    }
+    #editor::-webkit-scrollbar-track {
+     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+     border-radius: 10px;
+    }
+
+    #editor::-webkit-scrollbar-thumb {
+     border-radius: 10px;
+     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
+    }
+            
+            
         </style>
 
         <%!
@@ -191,7 +207,8 @@ and open the template in the editor.
         <script>
             
             $(document).ready(function () {
-
+                         document.getElementById('edt').style.backgroundColor = '#fff';
+                                                document.getElementById('stl').style.backgroundColor = 'transparent';
             $("#fontname").change(function () {
 //            alert($(this).val());
                 var text = $("#fontname").find('option:selected').text();
@@ -655,14 +672,14 @@ and open the template in the editor.
                         </div>
 
                         <!--        editor container      -->
-                        <div class="col-md-3 col-md-offset-1">
-                            <div class="well lead editor" id="editor">
+                        <div class="col-md-3 col-md-offset-1" >
+                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:370px;overflow-x:hidden;">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
                                             <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li><p id="editorheadere" class="SS1">font color</p>
+                                                <li  style="position:relative;left:-9px;"><p id="editorheadere" class="SS1">font color</p>
                                                     <div class="blankcolor-box1" id="picker" ></div>
                                                     
                                                   
@@ -678,7 +695,7 @@ and open the template in the editor.
                                                     <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
                                                 </li>
 
-                                                <li>
+                                                <li style="width:100px;">
                                                     <p id="editorheadere" class="SS1">font style</p>
 
 
@@ -688,12 +705,12 @@ and open the template in the editor.
                                                     </select>
                                                 </li>
                                                 <li> 
-                                                    <ul id="pickColorForText" style="display:none;left:-26px;position:relative;margin-top: -50px;">
-                                                        <li><br><p class="editpal">your palette</p></li>
-                                                        <li><p class="editpal custom-color-box-text" style="margin-left:150px;position:relative;top:20px;">custom</p></li>
+                                                    <ul id="pickColorForText" style="display:none;left:-13px;position:relative;margin-top:-80px;">
+                                                        <li><p class="editpal">your palette</p></li>
+                                                        <li><p class="editcus custom-color-box-text" style="margin-left:120px;position:relative;">custom</p></li>
                                                         <li id="fcolcontainer">
-                                                            <ul id="colorpalette ">
-                                                                   <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                            <ul id="colorpalette" style="position:relative;left:-4px;">
+                                                                   <li><div class="blankcolor-box-text" id="textcolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
@@ -704,7 +721,7 @@ and open the template in the editor.
                                                             
                                                         </ul>
                                                 </li>
-                                                <li><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
+                                                <li style="left:-6px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-left alignButton" id="left"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-center alignButton" id="center"></div></li>
@@ -777,14 +794,14 @@ and open the template in the editor.
                                                     -->
 
                                                 <br><br>
-                                            <input type="button" id="done" class="btn btn-primary" onclick="saveImageEdit()" value="DONE"> 
+                                            <input type="button" id="done" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="saveImageEdit()" value="DONE"> 
                                         </div>
 
                                     </li>
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
                                             <div>
-                                                <div style="height:500px; overflow-y: scroll;">
+                                                <div style="height:500px;">
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="styles in datalists">
@@ -830,7 +847,7 @@ and open the template in the editor.
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav">
-                        <li id="edt" class="hov" onclick="hle();"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"><p id="text1">EDIT</p></a></li>
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1">EDIT</p></a></li>
                         <li id="stl" class="hov" onclick="hls();"><a href="#tabs-2" id="style"><img class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>                  
                     </ul>
                 </div>
@@ -838,6 +855,10 @@ and open the template in the editor.
 
         </div> 
                                         <script>
+                                            function act(){
+                                                document.getElementById('edt').style.backgroundColor = '#555';
+                                            }
+    
                                             function hle(){
                                                 document.getElementById('edt').style.backgroundColor = '#fff';
                                                 document.getElementById('stl').style.backgroundColor = 'transparent';

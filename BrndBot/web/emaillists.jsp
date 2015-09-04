@@ -16,8 +16,43 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
          <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <title>Email Lists</title>
         <style>
+            
+            .emlhisdata li{
+                display: table-cell;
+                position: relative;
+                left:58em;
+                bottom:0px;
+                top:-65px;
+            }
+            .emlist {
+                overflow-y: scroll;
+                position: relative;
+                width: 900px;
+                left:300px;
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 300;
+                color: #2d4355;
+                font-style: normal;
+                text-align: left;
+                line-height: 25.9px;
+                letter-spacing: 0em;
+            }
+            .emlOneRowData li{
+                    font-family: "proxima-nova",sans-serif;
+                    font-weight: 400;
+                    color: #2d4355;
+                    vertical-align:middle; 
+                    left:30px;
+                    height: 10%;
+                    display: table-cell;
+                    position: relative;
+                    padding-top: 3%;
+                    padding-bottom: 3%;
+            }
             #datadiv{
                 margin-top:120px;
             }
@@ -414,15 +449,16 @@
              <jsp:include page="leftmenu.html"/><!--/end left column-->
               <jsp:include page="emailsubmenu.html"/>
               
-                <div id="tab1" class="col-md-8 col-md-offset-2">
+                <div class="col-md-8 col-md-offset-2 " >
+                
+                <div class="col-md-6 col-md-offset-0">
                     <p id="hyshead" class="MH2">Email Lists</p>
-                    <div id="email_headings" class="col-md-4 col-md-offset-0" >
-                        <ul class="emlhisdata emlist FL2">
-                            <li><button type="button" name="createNew" id="createNew" value="CREATE NEW" ng-click="showCreateContacts()">CREATE NEW</button></li>
+                    <div id="email_headings">
+                        <ul class="emlhisdata FL2 ">
+                            <li><button class=" button button--moema button--text-thick button--text-upper button--size-s" style="width:135px;" type="button" name="createNew" id="createNew" value="CREATE NEW" ng-click="showCreateContacts()">CREATE NEW</button></li>
                         </ul>
                     </div>
-                    
-                    <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
+                    <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;top:-60px;">
 
                     <div id="scrl" class="col-md-6" ng-init="showEmailListWithContacts()">
                         <ul class="emlOneRowData L2 LE2" ng-repeat="email in emailLists">                            
@@ -538,18 +574,7 @@
             $(".menu").hide();
             $("#emaillist").hide();
 
-            $(".hamburger").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".hamburger").hide();
-                    $(".cross").show();
-                });
-            });
-            $(".cross").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".cross").hide();
-                    $(".hamburger").show();
-                });
-            });
+           
 
             $("#fileUpload").change(function () {
 

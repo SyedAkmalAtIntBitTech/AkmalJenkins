@@ -23,7 +23,8 @@
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>History</title>
         <script src="js/crop.js" type="text/javascript"></script>
@@ -65,7 +66,7 @@
                 width: 150px;
                 text-align: center;
             }
-            .emlist{
+            .emlist {
                 overflow-y: scroll;
                 position: relative;
                 width: 900px;

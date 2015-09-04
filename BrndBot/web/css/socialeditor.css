@@ -31,7 +31,7 @@ and open the template in the editor.
 #edit{
     position: relative;
     top:-52px;
-    font-family:"proxima-nova",sans-serif;
+    font-family:"proxima-nova";
     font-weight:500;
     left: 10em;
     color: #2D4444;
@@ -41,16 +41,16 @@ and open the template in the editor.
    
     position: relative;
     top:-15px;
-    font-family:"proxima-nova",sans-serif;
+    font-family:"proxima-nova";
     font-weight:500;
     left: 0em;
     color: #2D4444;
 }
 .edit{
+    font-family:"proxima-nova";
+    font-weight:400;
     position: relative;
     padding-top:7%;
-    font-family:"proxima-nova",sans-serif;
-    font-weight:400;
     left: 0px;
     
 }
@@ -70,10 +70,10 @@ and open the template in the editor.
 }
 #txtpost{
     position:relative;
-    margin-top:  -5%;
+    top: 0px;
     padding-left: 9.5%;
     width: 600px;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 500;
     color:  #010101;
@@ -84,7 +84,7 @@ and open the template in the editor.
     position: relative;
     padding-top: 14%;
     width: 600px;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 600;
     color:  #010101;
@@ -93,7 +93,7 @@ and open the template in the editor.
 }
 #text3{
        
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 600;
     color:  #96999d;
@@ -135,7 +135,7 @@ and open the template in the editor.
 }
 .editor{
     position:absolute;
-    padding-top: 38%;
+    padding-top: 0%;
     width:350px;
     height: 500px;
     border-style:hidden;
@@ -145,7 +145,7 @@ and open the template in the editor.
 #text2{
    color:#fff;
    font-size:12px;
-   font-family:"proxima-nova-soft",sans-serif;
+   font-family:"proxima-nova";
    width: 50px;
    position: relative;
    font-style:normal;
@@ -163,13 +163,14 @@ and open the template in the editor.
 #textmodification li{
     position: relative;
     padding-top: 5%;
-    margin: 7px;
+    margin: 5px;
+    padding-left: -20px;
     display:inline-table;
 
 }
 #imagemodification li{
     margin: 7px;
-    margin-left: -7px;
+    margin-left: -4px;
     padding: 4px;
     display:inline-table;
 }
@@ -180,6 +181,7 @@ and open the template in the editor.
 #imagecontainer{
      position: relative;
     padding-top: 5%;
+    left:-2px;
 }
 #shapemodificatoin li{
     margin: 0;
@@ -213,21 +215,22 @@ and open the template in the editor.
 
 
 #editorheadere{
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 400;
     color: #66676b;
     text-align: left;
     line-height: 12px;
     letter-spacing:0em;
+
+    
 }
 .palpos{
     position: relative;
 /*    left:-15px;*/
     
 }
-.editpal{
-font-family: "proxima-nova",sans-serif;
+.opcty{font-family: "proxima-nova";
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
@@ -235,9 +238,40 @@ color: #66676b;
 text-align:  left;
 line-height: 14.4px;
 letter-spacing:0em;
+position: relative;
+margin-bottom: 5%;
+left:-4px;
+}
+.editcus{font-family: "proxima-nova";
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+color: #66676b;
+text-align:  left;
+line-height: 14.4px;
+letter-spacing:0em;
+position: relative;
+margin-top: 50px;
+margin-bottom: 10px;
+}
+
+
+.editpal{
+font-family: "proxima-nova";
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+color: #66676b;
+text-align:  left;
+line-height: 14.4px;
+letter-spacing:0em;
+position: relative;
+margin-top: 15px;
+margin-bottom: 0%;
+left:-4px;
 }
 #editorhead{
-font-family: "proxima-nova",sans-serif;
+font-family: "proxima-nova";
 font-style: normal;
 font-weight: 600;
 color: #66676b;
@@ -246,6 +280,8 @@ text-align: left;
 line-height: 14.4px;
 letter-spacing:0em;
 border-radius: 5px;
+position:relative;
+left:-4px;
 }
 
 .row{
@@ -313,8 +349,9 @@ border-radius: 5px;
 }
 .optbtn {
    position: relative;
-   right: 7px;    
+   right: 7px;
 }
+
 .sidebar-nav {
     display: block;
     float: left;
@@ -441,16 +478,18 @@ border-radius: 5px;
 }*/
 #twitterpreviewdiv{
      position: relative;
-    margin-top: 40px;
+    margin-top: 10px;
+    
 }
 
 #fabookpreviewdiv{
     position: relative;
-    margin-top: 40px;
+    margin-top: 10px;
+    
     
 }
 #fbprev{
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 600;
     font-size: 21.5px;
@@ -461,7 +500,7 @@ border-radius: 5px;
     opacity: 1;
 }
 .psttxt{
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-weight: 600;
     font-style: normal;
     font-size: 13.7px;
@@ -471,10 +510,10 @@ border-radius: 5px;
 }
 .ptpos{
     position: relative;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .smltxt{
-    font-family: "proxima-nova",sans-serif;
+    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 400;
     color: #66676b;
@@ -568,7 +607,7 @@ border-radius: 5px;
     float: left;
     width: 26px;
     height: 11px;
-    margin-left: 20px;
+    margin-left: 16px;
     border-width: 1px;
     border-radius: 3px;
     border-style: solid;    
@@ -577,20 +616,22 @@ border-radius: 5px;
 
 .blankcolor-box1{
         float: left;
-        width: 36px;
-        height: 15px;
+        width: 26px;
+        height: 11px;
         border-radius: 3px;
         margin-top: 10px;
         border-width: 1px;
         border-style: solid;
         border-color: rgba(0,0,0,.2);
+        left:0px;
+        position:relative;
     
 }
 .blankcolor-box-text{
      float: left;
     width: 26px;
     height: 11px;
-    margin-left: 20px;
+    margin-left: 16px;
     border-width: 1px;
     border-radius: 3px;
     border-style: solid;    
@@ -600,8 +641,8 @@ border-radius: 5px;
 
 .fontcolor-box{
         float: left;
-        width: 36px;
-        height: 15px;
+        width:26px;
+        height: 11px;
         border-radius: 3px;
         margin-top: 10px;
         border-width: 1px;
@@ -610,13 +651,13 @@ border-radius: 5px;
 }
 
 .headblankcolor-box{
-        position: relative;
-        left:43px;
+        position: absolute;
+        left:38px;
         float: left;
-        width: 36px;
-        height: 15px;
+        width: 26px;
+        height: 11px;
         border-radius: 3px;
-        margin-left:  120px;
+        margin-left:  95px;
         margin-top: 10px;
         border-width: 1px;
         border-style: solid;
@@ -625,7 +666,8 @@ border-radius: 5px;
 }
 #fcolcontainer ul
 {
-margin: 0;
+margin-top: -20px;
+margin-left: -7px;
 padding: 0;
 list-style-type: none;
 text-align: center;
@@ -633,14 +675,16 @@ width:360px;
 }
 #fcolcontainer ul li{
     display: inline;
-    
-}
+    margin-top:15px;
+    }
 #colcontainer ul
 {
 margin: 0;
 padding: 0;
 list-style-type: none;
 text-align: center;
+position:relative;
+left:-6px;
 }
 #colcontainer ul li{
     display: inline;
