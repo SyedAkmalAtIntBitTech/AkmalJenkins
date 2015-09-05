@@ -6,7 +6,7 @@
 package com.intbit.dao;
 
 import com.intbit.ConnectionManager;
-import com.intbit.EmailAndSocialStatus;
+import com.intbit.ScheduledEntityStatus;
 import com.intbit.ScheduledEntityType;
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +42,8 @@ public class ScheduleDAO {
             String[] toAddress,
             String scheduledTitle,
             String scheduleDesc,
-            Timestamp scheduledTime
+            Timestamp scheduledTime,
+            String templateStatus
     ) throws SQLException{
 
         int emailScheduleId = -1;
@@ -76,8 +78,9 @@ public class ScheduleDAO {
                         scheduleDesc, 
                         scheduledTime, 
                         ScheduledEntityType.email.toString(), 
-                        EmailAndSocialStatus.scheduled.toString(),
+                        ScheduledEntityStatus.scheduled.toString(),
                         userId,
+                        templateStatus,
                         connection);
                 
                 connection.commit();
@@ -130,28 +133,35 @@ public class ScheduleDAO {
         }
     }
     
-    public static int addToScheduleEntityList(int entityId, 
+    public static int addToScheduleEntityList(Integer entityId, 
             String scheduleTitle,
             String scheduleDesc,
             Timestamp scheduleTime,
             String entityType,
             String status, 
             int userId,
+            String templateStatus,
             Connection connection) throws SQLException{
         String sql = "INSERT INTO tbl_scheduled_entity_list"
-                + " (entity_id, schedule_title, schedule_desc, schedule_time, entity_type, status, user_id) VALUES"
-                + " (?, ?, ?, ?, ?, ?, ?) RETURNING id";
+                + " (entity_id, schedule_title, schedule_desc, schedule_time, entity_type, status, user_id, template_status) VALUES"
+                + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
         
         int scheduleId = -1;
         
         try(PreparedStatement ps = connection.prepareStatement(sql)){
-            ps.setInt(1, entityId);
+            if ( entityId == null){
+                ps.setNull(1, Types.INTEGER);
+            }else{
+                ps.setInt(1, entityId);
+            }
+            
             ps.setString(2, scheduleTitle);
             ps.setString(3, scheduleDesc);
             ps.setTimestamp(4, scheduleTime);
             ps.setString(5, entityType);
             ps.setString(6, status);
             ps.setInt(7, userId);
+            ps.setString(8, templateStatus);
             ps.execute();
             try(ResultSet rs = ps.getResultSet()){
                 if (rs.next()) {

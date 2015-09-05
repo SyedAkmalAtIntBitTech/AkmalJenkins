@@ -7,7 +7,9 @@ package com.controller.schedule;
 
 import com.google.gson.Gson;
 import com.intbit.AppConstants;
+import com.intbit.TemplateStatus;
 import com.intbit.dao.ScheduleDAO;
+import com.intbit.util.AuthenticationUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -47,16 +49,12 @@ public class ScheduleEmailServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try {
-            HttpSession session = request.getSession();
-            if ( session.getAttribute("UID") == null){
-                Map<String, Object> error = new HashMap<>();
-                error.put("error", "User is not logged in");
-                response.getWriter().write(AppConstants.GSON.toJson(error));
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                response.getWriter().flush();
+            if ( !AuthenticationUtil.isUserLoggedIn(request)){
+                AuthenticationUtil.printAuthErrorToResponse(response);
                 return;
             }
-            Integer userId = Integer.parseInt(session.getAttribute("UID").toString());
+            Integer userId = AuthenticationUtil.getUUID(request);
+            
             Map<String, Object> requestBodyMap =
                     AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             if ( requestBodyMap == null){
@@ -92,7 +90,8 @@ public class ScheduleEmailServlet extends HttpServlet {
                     requestBodyMap.get("to_email_addresses").toString().split(","),
                     requestBodyMap.get("schedule_title").toString(),
                     scheduleDesc, 
-                    new Timestamp(schedule.longValue())
+                    new Timestamp(schedule.longValue()),
+                    TemplateStatus.template_saved.toString()
             );
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(AppConstants.GSON.toJson(idMap));

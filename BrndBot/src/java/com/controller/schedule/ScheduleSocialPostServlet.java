@@ -7,6 +7,7 @@ package com.controller.schedule;
 
 import com.intbit.AppConstants;
 import com.intbit.ScheduledEntityType;
+import com.intbit.TemplateStatus;
 import com.intbit.dao.ScheduleSocialPostDAO;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -121,7 +122,8 @@ public class ScheduleSocialPostServlet extends HttpServlet {
                     requestBodyMap.get("type").toString(),
                     requestBodyMap.get("schedule_title").toString(),
                     scheduleDesc,
-                    scheduleTimeStamp);
+                    scheduleTimeStamp,
+                    TemplateStatus.template_saved.toString());
             
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(AppConstants.GSON.toJson(daoResponse));
