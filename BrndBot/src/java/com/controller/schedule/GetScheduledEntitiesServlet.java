@@ -13,6 +13,8 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +47,7 @@ public class GetScheduledEntitiesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
         try {
             HttpSession session = request.getSession();
             if (session.getAttribute("UID") == null) {
@@ -53,33 +56,57 @@ public class GetScheduledEntitiesServlet extends HttpServlet {
                 response.getWriter().write(AppConstants.GSON.toJson(error));
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.getWriter().flush();
-                response.setContentType("application/json");
                 return;
             }
             Integer userId = Integer.parseInt(session.getAttribute("UID").toString());
-            LocalDate scheduledOn = LocalDate.now();
-            if ( request.getParameter("offset") != null &&
-                    !StringUtils.isEmpty(request.getParameter("offset"))){
-                try{
-                    int offset = Integer.parseInt(request.getParameter("offset").toString());
-                    scheduledOn = scheduledOn.plusDays(offset);
-                }catch(NumberFormatException ex){
-                    logger.log(Level.SEVERE, null, ex);
-                    Map<String, Object> error = new HashMap<>();
-                    error.put("error", "Offset is not parseable integer");
-                    response.getWriter().write(AppConstants.GSON.toJson(error));
-                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    response.getWriter().flush();
-                    response.setContentType("application/json");
-                    return;
-                }
+            List<String> errorMsgs = new ArrayList<>();
+            
+            if ( StringUtils.isEmpty(request.getParameter("from")) ){
+                errorMsgs.add("from date parameter is missing");
+            }
+            if ( StringUtils.isEmpty(request.getParameter("to")) ){
+                errorMsgs.add("to date parameter is missing");
             }
             
-            List<Map<String, Object>> scheduledEntities = 
-                    ScheduleDAO.getScheduledEntities(userId, scheduledOn);
-            response.getWriter().write(AppConstants.GSON.toJson(scheduledEntities));
+            if ( !errorMsgs.isEmpty() ){
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                Map<String, Object> responseMap = new HashMap<>();
+                responseMap.put("error", errorMsgs);
+                response.getWriter().write(AppConstants.GSON.toJson(responseMap));
+                response.getWriter().flush();
+                return;
+            }
+            
+            LocalDate fromDate = null;
+            LocalDate toDate = null;
+            //Dates have to follow the format: 2011-12-03
+            try{
+                fromDate = LocalDate.parse(request.getParameter("from"));
+            }catch(DateTimeParseException ex){
+                errorMsgs.add("from parameter is not in the required yyyy-mm-dd format");
+                logger.log(Level.SEVERE, "", ex);
+            }
+            
+            try{
+                toDate = LocalDate.parse(request.getParameter("to"));
+            }catch(DateTimeParseException ex){
+                errorMsgs.add("to parameter is not in the required yyyy-mm-dd format");
+                logger.log(Level.SEVERE, "", ex);
+            }
+            if ( !errorMsgs.isEmpty() ){
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                Map<String, Object> responseMap = new HashMap<>();
+                responseMap.put("error", errorMsgs);
+                response.getWriter().write(AppConstants.GSON.toJson(responseMap));
+                response.getWriter().flush();
+                return;
+            }
+            
+            Map<String, List<Map<String, Object>>> scheduledEntities = 
+                     ScheduleDAO.getScheduledEntities(userId, fromDate, toDate);
             response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("application/json");
+            response.getWriter().write(AppConstants.GSON.toJson(scheduledEntities));
+            response.getWriter().flush();
         } catch (SQLException ex) {
             Logger.getLogger(GetScheduledEntitiesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
