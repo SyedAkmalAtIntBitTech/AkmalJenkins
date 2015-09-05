@@ -40,6 +40,7 @@ public class ScheduleDAO {
             String fromName,
             String[] toAddress,
             String scheduledTitle,
+            String scheduleDesc,
             Timestamp scheduledTime
     ) throws SQLException{
 
@@ -72,6 +73,7 @@ public class ScheduleDAO {
                 addToScheduleEmailRecipient(emailScheduleId, toAddress, connection);
                 scheduleEntityId = addToScheduleEntityList(emailScheduleId, 
                         scheduledTitle, 
+                        scheduleDesc, 
                         scheduledTime, 
                         ScheduledEntityType.email.toString(), 
                         EmailAndSocialStatus.scheduled.toString(),
@@ -130,24 +132,26 @@ public class ScheduleDAO {
     
     public static int addToScheduleEntityList(int entityId, 
             String scheduleTitle,
+            String scheduleDesc,
             Timestamp scheduleTime,
             String entityType,
             String status, 
             int userId,
             Connection connection) throws SQLException{
         String sql = "INSERT INTO tbl_scheduled_entity_list"
-                + " (entity_id, schedule_title, schedule_time, entity_type, status, user_id) VALUES"
-                + " (?, ?, ?, ?, ?, ?) RETURNING id";
+                + " (entity_id, schedule_title, schedule_desc, schedule_time, entity_type, status, user_id) VALUES"
+                + " (?, ?, ?, ?, ?, ?, ?) RETURNING id";
         
         int scheduleId = -1;
         
         try(PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(1, entityId);
             ps.setString(2, scheduleTitle);
-            ps.setTimestamp(3, scheduleTime);
-            ps.setString(4, entityType);
-            ps.setString(5, status);
-            ps.setInt(6, userId);
+            ps.setString(3, scheduleDesc);
+            ps.setTimestamp(4, scheduleTime);
+            ps.setString(5, entityType);
+            ps.setString(6, status);
+            ps.setInt(7, userId);
             ps.execute();
             try(ResultSet rs = ps.getResultSet()){
                 if (rs.next()) {

@@ -78,6 +78,10 @@ public class ScheduleEmailServlet extends HttpServlet {
                 return;
             }
             Double schedule = (Double)requestBodyMap.get("schedule_time");
+            //As of now schedule description is not yet mandatory.
+            String scheduleDesc = requestBodyMap.containsKey("schedule_desc") ? 
+                    String.valueOf(requestBodyMap.get("schedule_desc")):null;
+            
             Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
                     userId,
                     requestBodyMap.get("email_subject").toString(),
@@ -87,6 +91,7 @@ public class ScheduleEmailServlet extends HttpServlet {
                     requestBodyMap.get("from_name").toString(),
                     requestBodyMap.get("to_email_addresses").toString().split(","),
                     requestBodyMap.get("schedule_title").toString(),
+                    scheduleDesc, 
                     new Timestamp(schedule.longValue())
             );
             response.setStatus(HttpServletResponse.SC_OK);

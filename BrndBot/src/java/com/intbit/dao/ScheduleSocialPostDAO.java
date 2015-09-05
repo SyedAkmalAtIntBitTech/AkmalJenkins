@@ -36,6 +36,7 @@ public class ScheduleSocialPostDAO {
             Map<String, Object> metadataMap,
             String type,
             String scheduleTitle,
+            String scheduleDesc,
             Timestamp scheduleTime) throws SQLException {
         String sql = "INSERT INTO tbl_scheduled_socialpost_list "
                 + " (user_id, image_name, token_data, metadata, type) VALUES"
@@ -72,6 +73,7 @@ public class ScheduleSocialPostDAO {
                 } 
                 int scheduleId = ScheduleDAO.addToScheduleEntityList(scheduleSocialPostId, 
                         scheduleTitle, 
+                        scheduleDesc,
                         scheduleTime, 
                         type, 
                         EmailAndSocialStatus.scheduled.toString(), 
