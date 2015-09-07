@@ -404,7 +404,7 @@
 
                     }
                 };
-            }
+            };
 //                    var picker = $("#datetimepicker12").data('datetimepicker');
 //                    alert(picker.getDate());
 //
