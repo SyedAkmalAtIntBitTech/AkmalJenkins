@@ -17,6 +17,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://momentjs.com/downloads/moment.min.js"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
@@ -303,36 +304,48 @@
               ss=(s=this.getSeconds())<10?('0'+s):s;
               return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
             };
+            
+            function addDays(theDate, days) {
+                return new Date(theDate.getTime() + days*24*60*60*1000);
+            }
+
+
             function controllerMarketingCampaign($scope, $http) {
 
                 $scope.getCampaigns = function (){
-//                    var picker = $("#datetimepicker12").data('datetimepicker');
+//                    var picker = $("#some_datepicker").data('datetimepicker');
 //                    
 //                    var localDate = picker.getLocalDate(); // localDate === 2000-01-17 07:00
 //                    var utcDate = picker.getDate(); // utcDate === 2000-01-17 10:00
 //                    //
 //                    alert(utcDate);
+                    var currentdate = new Date();
+                    var curr_date = moment(currentdate).format('YYYY-MM-DD');
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetScheduledEntities'
+                        url: getHost() + 'GetScheduledEntities?from='+curr_date+'&to='+curr_date
                     }).success(function (data){
                         $scope.entitiestoday = data;
                     }).error(function (data){
                        alert("request not successful"); 
                     });
 
+                    var newDate = addDays(new Date(), 1);
+                    curr_date = moment(newDate).format('YYYY-MM-DD');
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetScheduledEntities?offset=1'
+                        url: getHost() + 'GetScheduledEntities?from='+curr_date+'&to='+curr_date
                     }).success(function (data){
                         $scope.entitiestomorrow = data;
                     }).error(function (data){
                        alert("request not successful"); 
                     });
                     
+                    var newDate = addDays(new Date(), 15);
+                    var new_date = moment(newDate).format('YYYY-MM-DD');
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetScheduledEntities?offset=2'
+                        url: getHost() + 'GetScheduledEntities?from='+curr_date+'&to='+new_date
                     }).success(function (data){
                         $scope.entitieslater = data;
                     }).error(function (data){
@@ -418,9 +431,11 @@
                                 </div>
                             </li>
                             <p>Tomorrow</p>
+                            {{entitiestomorrow}}
                             <li ng-repeat="entity in entitiestomorrow">
-                                <div class="foo col-md-1 col-md-offset-2" style="background-color:{{entity.color}};">
-                                    <div class="fo col-md-2 col-md-offset-2" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)" >{{entity.schedule_title}}</div>
+                                <div class="" style="background-color:{{entity.color}};">
+                                    <div class="" >{{entity[0].schedule_title}}</div>
+                                    <p>{{entity}}</p>
                                 </div>
                             </li>
                             <p>Later</p>
