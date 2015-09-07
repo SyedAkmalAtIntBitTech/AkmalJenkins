@@ -35,9 +35,9 @@ $(document).ready(function () {
     var status = "true";
     $("#tabs-1").show();
     $("#tabs-2").hide();
-
+     $("#tabs-3").hide();
     $('.custom-color-box-text').colpick({
-        colorScheme: 'dark',
+        colorScheme: 'light',
         layout: 'rgbhex',
         color: 'ff8800',
         onSubmit: function (hsb, hex, rgb, el) {
@@ -51,20 +51,32 @@ $(document).ready(function () {
             .css('background-color', '#ffffff');
 
     $('.custom-color-box').click(function () {
-//         $("#slider").hide();
+       
+        
         $('.custom-color-box').colpick({
-            colorScheme: 'dark',
+            colorScheme: 'light',
             layout: 'rgbhex',
             color: 'ff8800',
             onSubmit: function (hsb, hex, rgb, el) {
+                $("#slider").show();
+                $("#blockopacity").show();
                 $("#selectedshapecolorbox").css('background-color', '#' + hex);
                 var blockId = $(".blockname").val();
                 $("#" + blockId).css('background-color', '#' + hex);
                 $(el).colpickHide();
+              
+            },
+            onShow: function ()
+            {
+                $("#slider").hide();
+                $("#blockopacity").hide();
+            },
+            onHide: function ()
+            {
+                $("#slider").show();
+                $("#blockopacity").show();
             }
-        })
-                .css('background-color', '#ffffff');
-
+        });
     });
 
     $(".blankcolor-box").click(function () {
@@ -195,6 +207,7 @@ $(".blockname").change(function (){
                             );
                             var count = 1;
                             var blockcount = 1;
+                            var textcount=1;
                             $(xml).find('element').each(function () {
                                 var tag = $(this).attr("tag");
                                 type = $(this).attr("type");
@@ -235,6 +248,7 @@ $(".blockname").change(function (){
                                         }
 
                                     }
+                                    textcount++;
 //                                    fontcolor = $(this).attr("font-color");
                                     fontsize = $(this).attr("font-size");
                                     fontstyle = $(this).attr("font-style");
@@ -289,7 +303,8 @@ $(".blockname").change(function (){
 
                                 if (tag === "logo")
                                 {
-                                    var background_image = $(this).attr("background-image");
+                                    var userId=$("#userid").val();
+                                    var userLogonmae = $("#userlogo").val();
                                     var blendmode = $(this).attr("background-blend-mode");
                                     $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                     $("#" + type)
@@ -300,7 +315,7 @@ $(".blockname").change(function (){
                                             .css("opacity", "" + opacity)
                                             .css("width", "" + width)
                                             .css("height", "" + height)
-                                            .css("background", "" + background_image)
+                                            .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')" )
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
 
@@ -372,9 +387,10 @@ $(".blockname").change(function (){
 
                                 }
 
-                            }
-
-                            );
+                            } );
+                            if(count===1 ){$("#imagecontainer").hide();}                                                   
+                            if(blockcount===1){$("#shapecontainer").hide();}
+                            if(textcount===1){$("#textcontainer").hide();}
 
                         },
                         error: function (e)
@@ -403,12 +419,14 @@ $(".blockname").change(function (){
     $("#text").click(function () {
         $("#tabs-1").show();
         $("#tabs-2").hide();
+        $("#tabs-3").hide();
 
     });
 
     $("#style").click(function () {
         $("#tabs-1").hide();
         $("#tabs-2").show();
+        $("#tabs-3").hide();
     });
 
     $(".alignButton").click(function () {

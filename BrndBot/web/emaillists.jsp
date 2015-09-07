@@ -11,13 +11,75 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
         <script src="js/angular.min.js" type="text/javascript"></script>
+          <link rel="stylesheet" href="css/main1.css">
+           <link rel="stylesheet" href="css/bootstrap.min.css">
+           <script src="js/bootstrap.min.js"></script>
+              <script src="js/form.js"></script>
+                  <script src="js/jquery-1.11.3.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
          <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <title>Email Lists</title>
         <style>
+           .brdr{ 
+               text-align:left;
+               border:none;
+                border-bottom:1px solid #7ab5d3;
+           }
+            .emlhisdata li{
+                display: table-cell;
+                position: relative;
+                left:58em;
+                bottom:0px;
+                top:-65px;
+            }
+            .emlist {
+                position: relative;
+                width:200px;
+                left:-50px;
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 300;
+                color: #2d4355;
+                font-style: normal;
+                text-align: left;
+                line-height: 25.9px;
+                letter-spacing: 0em;
+            }
+            .delsel li{
+               font-family: "proxima-nova",sans-serif;
+                    color: #2d4355;
+                    position: relative;
+                    top:-60px;
+                    display: table-cell;
+                    padding: 3px;
+                    width: 250px; 
+            }
+            
+            
+            .emlOneRowDatalst li{
+                    font-family: "proxima-nova",sans-serif;
+                    color: #2d4355;
+                    position: relative;
+                    top:-70px;
+                    height: 10%;
+                    display: table-cell;
+                    padding: 3px;
+                    width: 250px;
+            }
+            .emlOneRowDatalst button{
+                font-family: "proxima-nova",sans-serif;
+                    color: #2d4355;
+                    width:100px;    
+                     background-color: transparent;
+                     border:1px #000 solid;
+                     border-radius: 5px;   
+                     position:relative;
+                    display: table-cell;
+            }
             #datadiv{
                 margin-top:120px;
             }
@@ -86,6 +148,7 @@
                 opacity: 0;
                 filter: alpha(opacity=0);
             }
+        
         </style>
         <script>
 
@@ -131,7 +194,6 @@
             });
             
             function setSelectedlistName(listname){
-                alert(listname);
                 $("#email_list_name").val(listname);
             }
             
@@ -414,65 +476,59 @@
              <jsp:include page="leftmenu.html"/><!--/end left column-->
               <jsp:include page="emailsubmenu.html"/>
               
-                <div id="tab1" class="col-md-8 col-md-offset-2">
+                <div class="col-md-8 col-md-offset-2 " >
+                
+                    <div id="tab1" class="col-md-6 col-md-offset-0">
                     <p id="hyshead" class="MH2">Email Lists</p>
-                    <div id="email_headings" class="col-md-4 col-md-offset-0" >
-                        <ul class="emlhisdata emlist FL2">
-                            <li><button type="button" name="createNew" id="createNew" value="CREATE NEW" ng-click="showCreateContacts()">CREATE NEW</button></li>
+                    <div id="email_headings">
+                        <ul class="emlhisdata FL2 ">
+                            <li><button class=" button button--moema button--text-thick button--text-upper button--size-s" style="width:135px;" type="button" name="createNew" id="createNew" value="CREATE NEW" ng-click="showCreateContacts()">CREATE NEW</button></li>
                         </ul>
                     </div>
-                    
-                    <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
+                    <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;top:-60px;">
 
-                    <div id="scrl" class="col-md-6" ng-init="showEmailListWithContacts()">
-                        <ul class="emlOneRowData L2 LE2" ng-repeat="email in emailLists">                            
-                            <li style="width: 450px;text-align:left;left:-35px;" onclick="setSelectedlistName('{{email.emailListName}}')">{{email.emailListName}}</li>
-                            <li style="width: 250px">{{email.listDescription}}</li>
-                            <li style="width: 250px">{{email.noofcontants}}</li>
-                            <li style="width: 250px">contacts</li>
-                            <li style="width: 250px"><button type="button" ng-click="updateList(email.emailListName)">edit</button> </li>
+                    <div id="scrl" class="col-md-6"  ng-init="showEmailListWithContacts()">
+                        <ul class="emlOneRowDatalst L2 " ng-repeat="email in emailLists">                            
+                            <li style="width:100px;left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')">{{email.emailListName}}<br><p class="BC1" style="width:80px;">{{email.listDescription}}</p></li>
+                            <li style="width:300px;text-align:center;left:200px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
+                            <li style="width:300px;text-align:center;   left:650px;"><button type="button" ng-click="updateList(email.emailListName)">EDIT LIST</button> </li>
                         </ul>
                        
                     </div><br><br>
 
                 </div>
-              <div id="tab2" class="col-md-8 col-md-offset-2 " style="display:none">
-                  <div class="col-md-6 col-md-offset-0"><p id="hyshead">Create a new list(MH2)</p></div><br><br><br><br>
-                <p>Create a new email list. After you hit save, you will then be
-                able to add new contacts. (SS2)</p>
+              <div id="tab2" class="col-md-8 col-md-offset-0 " style="display:none">
+                  <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Create a new list</p></div><br><br><br><br>
+                  <p class="SS2"style="left:20px;position:relative;" >Create a new email list. After you hit save, you will then be
+                able to add new contacts.</p>
                 <div class="col-md-6 col-md-offset-0 bgcols">
-                    <div id="view1" style="width:550px; height:100px ">
+                    <div id="view1" style="position:relative;left:-250px;" >
 
                         <form class="form-horizontal" id="signform" >
 
+                           
                             <div class="group">
-                                <div class="col-md-3 col-md-offset-5">                            
-                                    <p class="text-left"></p>
-                                </div>
-                            </div>
-
-                            <div class="group">
-                                <div class="col-md-3 col-md-offset-5">                            
+                                <div class="col-md-3 col-md-offset-5 ">                            
+                                    <input id="list_name" class="brdr form-control simplebox" type="text" name="list_name" />
                                     <label>LIST NAME</label><br>
-                                    <input id="list_name" class="form-control simplebox" type="text" name="list_name" />
                                 </div>
                             </div>
                             <div class="group">
                                 <div class="col-md-3 col-md-offset-5">                            
-                                    <label>DEFAULT FROM NAME    </label><br>
-                                    <input id="default_from_name" class="form-control simplebox" type="text" name="default_from_name"/>
+                                    <input id="default_from_name" class="brdr form-control simplebox" type="text" name="default_from_name"/>
+                                    <label>DEFAULT FROM NAME </label><br>
                                 </div>
                             </div>
                             <div class="group">
                                 <div class="col-md-3 col-md-offset-5">                            
+                                    <input id="list_description" class="brdr form-control simplebox" type="text" name="list_description"/>
                                     <label>LIST DESCRIPTION</label><br>
-                                    <input id="list_description" class="form-control simplebox" type="text" name="list_description"/>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-5 col-md-offset-4">
-                                    <br><button type="submit" class="button" ng-click="createEmailList()">Enter</button><br>
+                                <div class="col-md-5 col-md-offset-5">
+                                    <br><button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="createEmailList()">Enter</button><br>
                                 </div>
                             </div>
 
@@ -483,21 +539,26 @@
                 </div>
             </div>
             
-            <div id="tab3" class="col-md-8 col-md-offset-2" style="display:none">
+            <div id="tab3" class="col-md-10 col-md-offset-0" style="display:none">
                 <div ng-controller="EmailListController">
                     
-                    <div class="col-md-6 col-md-offset-0"><p id="hyshead">Manage "List Name" List</p></div><br>
+                    <div class="col-md-6 col-md-offset-0" style="width:400px;">
+                        <p id="hyshead" class="MH2">Manage "List Name" List</p>
+                        <button type="button" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:140px;position:relative;left:780px;top:-68px;" ng-click="getEmailList()">ADD CONTACTS</button>
+                    </div>
+                    <br>
                     
-                <div>
-                    <button type="button" ng-click="getEmailList()">ADD CONTACTS</button>
-                    <ul><li><p ng-click="deleteSelected()">delete selected</p></li></ul>
-                    <ul><li><input id="selectAll" type="checkbox" ng-click="selectCheckBox()">email address</li></ul>
-                </div>
-                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;">
+                    <div class="col-md-5 col-md-offset-0">
+                    
+                        <ul class="delsel L2 ">
+                            <li style="left:-50px;"><p  style="width:100px;" ng-click="deleteSelected()">delete selected</p></li>
+                            <li> <input style="top:17px;position:relative;left:-160px;" id="selectAll" type="checkbox" ng-click="selectCheckBox()">email address</li>
+                        </ul> </div>
+                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;top:-70px;">
 
-                <div id="scrl" class="col-md-6">
-                    <ul class="emlOneRowData L2 LE2" ng-repeat="email in emailAddresses">
-                        <li><input id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}</li>
+                <div id="scrl" class="col-md-6 ">
+                    <ul class="emlOneRowDatalst L2 LE2"ng-repeat="email in emailAddresses">
+                        <li style="width:300px;left:-30px;top:-80px;"><input  style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}</li>
                     </ul>
                 </div>
                 </div>
@@ -507,16 +568,16 @@
               <div id="tab4" class="col-md-10 col-md-offset-2" style="display:none">
                 <div id="emailsubjectdiv" ng-controller="EmailListController">
                     <p class="header1">Email List:</p>
-                    <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/> <br><br><br>
-                    <div class="col-md-offset-1">
-                        <label id="">Upload CSV</label>
-                        <input type="file" class="fileUpload" id="fileUpload" name="fileUpload">
-                        <input type="button" id="upload" value="Upload" onclick="upload()" />
+                    <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/> <br>
+                    <div class="col-md-7 col-md-offset-0">
+                        <label id="">Upload CSV</label><br><br>
+                        <input type="file" class="fileUpload" id="fileUpload" name="fileUpload"><br>
+                        <input class="button button--moema button--text-thick button--text-upper button--size-s" type="button" id="upload" value="Upload" onclick="upload()" /><br>
                     </div><br>
                     <div id="dvCSV"></div>
                     <textarea width="400" height="500" id="textArea"></textarea><br><br>
 
-                    <input  id="emailSubjectContinueButton" type="button" class="btn btn-primary" value="Update" ng-click="updateEmailList()">
+                    <input  id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s" value="Update" ng-click="updateEmailList()">
                 </div>
             </div>
         </div>
@@ -538,18 +599,7 @@
             $(".menu").hide();
             $("#emaillist").hide();
 
-            $(".hamburger").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".hamburger").hide();
-                    $(".cross").show();
-                });
-            });
-            $(".cross").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".cross").hide();
-                    $(".hamburger").show();
-                });
-            });
+           
 
             $("#fileUpload").change(function () {
 

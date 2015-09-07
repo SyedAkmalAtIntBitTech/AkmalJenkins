@@ -62,6 +62,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String isTwitter = request.getParameter("isTwitter");
             String getImageFile = request.getParameter("imageToPost");
             String getFile = request.getParameter("imagePost");
+            String url = request.getParameter("url");
 
             String file_image_path = AppConstants.LAYOUT_IMAGES_HOME +File.separator+ getImageFile;
 
@@ -74,7 +75,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String posttext = request.getParameter("postText");
             String title = request.getParameter("title");
             String description = request.getParameter("description");
-            String url = request.getParameter("url");
+            
             
             facebook = new FacebookFactory().getInstance();
             facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
@@ -84,11 +85,10 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             
             if (title == "") {
                 
-//                PostUpdate post = new PostUpdate(posttext)
-////                          .picture(new URL(imagePostURL + "/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
-//     
-//                facebook.postFeed(post);
-                facebook.postPhoto(new Media(new File(file_image_path)));
+                Media media = new Media(new File(file_image_path));
+                PhotoUpdate update = new PhotoUpdate(media);
+                update.message(posttext);
+                facebook.postPhoto(update);  
             } else {
                 PostUpdate post = new PostUpdate(posttext)
                         .picture(new URL(imagePostURL + "/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
@@ -120,6 +120,10 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
 
                 Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
                 String statusMessage = request.getParameter("text");
+                int urlLength = url.length()+1;
+                int statusLength = 140 - urlLength;
+                statusMessage = statusMessage.substring(0,statusLength);
+                statusMessage = statusMessage + " " + url;
                 File file = new File(file_image_path);
 
                 StatusUpdate status = new StatusUpdate(statusMessage);

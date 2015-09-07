@@ -119,6 +119,11 @@
                 margin-left: 2px;
                 padding-right: 5px;
             }
+            #submitbutton{
+                position:relative;
+                top:120px;
+                left:0px;
+            }
            
         </style>
         <%! 
@@ -172,7 +177,7 @@
 //                });
                 var myVar1 = '<%= code %>';    /* retrieve json from request attribute */
                 var mytest = eval('(' + myVar1 + ')');
-//                alert(JSON.stringify(myVar1));      // display complete json
+                //alert(JSON.stringify(myVar1));      // display complete json
 
                 var removecote = myVar1.replace("[", '').replace(/"/g, '').replace(']', '');
                 var pages = removecote.split(",");
@@ -183,14 +188,20 @@
                     $(".close-reveal-modal").click();
                 }
                 else {
-//                    alert("contain value");
-                    //$("#popup").show();
                     $(".clickthis").click();
+                    if(pages.length==1)
+                    {
+                        $("#fbmanagepages").append("<tr><td><strong>Please create atleast one <a href='https://www.facebook.com/help/104002523024878' target='_blank'>facebook page</a></strong></td></tr>");
+                    }
+                    else
+                    {
                     for (var i = 0; i < pages.length; i = i + 3) {
                         $("#fbmanagepages").append("<tr  id=page#" + i + "><td>" + pages[i] + "</td><td><input type=hidden id=access" + i + " value=" + pages[i + 1] + "></td><td><img src=" + pages[i + 2] + "></td></tr>");
                     }
 
                     $("#content").append(" <br><center><input id=isdefault name=isdefault type=checkbox class=btn btn-primary value=default>Default</input></center>");
+                    }
+                    
                     $("#content").append(" <br><center><input id=facebookok name=facebookok type=button class=btn btn-primary value=ok>&nbsp;&nbsp;<input id=close name=close type=button class=btn btn-primary value=cancel></center>");
                 }
  
@@ -302,7 +313,7 @@
 
                 <li><img id="fb" class="socialimage fb" src="images/fbButton.svg" onclick="changeImagef();"/> <input type="checkbox" id="facebook" name="social"  value="facebook" hidden="true"><p class="il2">Facebook</p></li>
                 <li><img id="twt" class="socialimage twt" src="images/twtButton.svg" onclick="changeImaget();"/> <input type="checkbox" id="twitter" name="social" value="twitter" hidden="true"><p class="il2">Twitter</p></li>
-                <li><div class="col-md-6 col-md-offset-6">
+                <li><div style="left:-380px;" class="col-md-5 col-md-offset-0">
 
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
                             <input type="hidden" id="imageName" name="imageName" value='<%=ImageName%>' >
@@ -348,7 +359,7 @@
        var x = document.getElementById("facebook").checked;
        if(x == false){
        document.getElementById("facebook").checked=true;
-       document.getElementById("fb").src="images/fb_icon.png"; 
+       document.getElementById("fb").src="images/fbButton_darkblue_new.svg"; 
    }
    else
    {
@@ -361,7 +372,7 @@
        var x = document.getElementById("twitter").checked;
        if(x == false){
        document.getElementById("twitter").checked=true;
-       document.getElementById("twt").src="images/twitter.jpeg"; 
+       document.getElementById("twt").src="images/twtButton_lightblue_new.svg"; 
    }
    else
    {

@@ -5,7 +5,7 @@
  */
 package com.controller;
 
-import com.intbit.EmailAndSocialStatus;
+import com.intbit.ScheduledEntityStatus;
 import com.intbit.dao.EmailHistoryDAO;
 import email.mandrill.Message;
 import email.mandrill.MessageResponses;

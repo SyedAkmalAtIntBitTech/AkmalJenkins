@@ -21,7 +21,6 @@ $(document).ready(function () {
                 },
                 success: function (responseText) {
 //                           $("#tokenHere").html(responseText);
-//                           alert(responseText);
                         var fb_details = responseText.split(",");
                     
                     if (fb_details[0] == "") {

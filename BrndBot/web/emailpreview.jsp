@@ -203,7 +203,6 @@
                 var schedule_title = $("#schedule_title").val();
                 var schedule = $("#schedule_time").val();
                 var schedule_time = Date.parse(schedule);
-                alert(email_body)
                 var email_scheduling = {"from_name": from_name, "email_subject":email_subject, "to_email_addresses":to_email_addresses, "from_email_address":from_email_address, "reply_to_email_address":reply_to_email_address, "email_list":email_list, "schedule_title":schedule_title, "schedule_time":schedule_time, "email_body":email_body}
                 $http({
                         method : 'POST',
@@ -432,7 +431,7 @@
 
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
                     <div class="content">  
-                        <%=htmlData %>
+                        '<%=htmlData %>'
                     </div>
                 </div>
 

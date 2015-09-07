@@ -77,6 +77,8 @@
                 border: 0px solid;
                 height:30px;
                 width:260px;
+                position:relative;
+                
             }
             .hideinputborder:focus{
                 outline: none;
@@ -93,19 +95,25 @@
                 display: none;
             }
             #facebookpreviewimage{
-                width: 300px;
-                height: 200px;
+                width: 325px;
+                height: 171px;
+            }
+            #twitterpreviewimage{
+                width: 334px;
+                height: 168px;
+                position:relative;
+                left:50px;
             }
             .row{
-                margin-top: 100px;
-                margin-left: 50px;
+                margin-top: 41px;
+                margin-left: 97px;
             }
             .companyimage{
                 width: 40px;
                 height: 40px;
             }
             #twittertext{
-                width: 250px;
+                width: 330px;
                 height: 50px;
             }
         </style>
@@ -115,20 +123,24 @@
     <body>
         <div class="container-fluid">
             <jsp:include page="leftmenu.html"/>
-            <div class="row">
-                <p id="txtpost" class="MH1">POST TO SOCIAL MEDIA</p>
-                <div class="col-sm-2 col-sm-offset-1">
+            <div class="col-md-10 col-md-offset-0 row">
+                <p id="txtpost" class="MH1">POST TO SOCIAL MEDIA</p><div style="position:relative;left:8em;" class="col-md-0 col-md-offset-10"><a href="selectpromotesocialmedia.jsp"><p id="edit" class="BT2">go back</p></a></div>
+                <div class="col-sm-3 col-sm-offset-1">
                     <p class="psttxt ptpos">What social media would you like to post on?</p>
         
                     <img class="socialimage" id="facebookimage" src="images/fb_icon.png"><span id="facebookcancel" class="glyphicon glyphicon-remove-sign"> </span>
                     <img class="socialimage" id="twitterimage" src="images/twitter.jpeg"><span id="twittercancel" class="glyphicon glyphicon-remove-sign"></span><br><br><br>
                     <div id="fbtextcontainer">
+                        <div class="forfb">
                     Post text<input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here">
+                    </div>
                     <br><br>
                     <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
                     <div id="linkpostdiv">
+                        <div class="forfb">
                         <p class="psttxt"> Link Title</p><input class="hideinputborder"  id="title" type="text" placeholder="post text goes here"><br>
                         <p class="psttxt"> Link Description</p><input class="hideinputborder" id="description" type="text" placeholder="post text goes here"><br>
+                        </div>
                         <p class="psttxt"> Link URL</p><input class="hideinputborder" type="text" id="url" placeholder="post text goes here" ><br>
 
                         <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
@@ -136,19 +148,26 @@
                     <input type="button" class="btn btn-primary" id="posttofb" value="POST TO SOCIAL MEDIA">
                 </div>
 
-                <div class="col-sm-4 col-sm-offset-1 " id="fabookpreviewdiv">
-                    <p id="fbprev"> Facebook Preview</p><br>
-                    <img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>">
-                    <p><%=companyName%></p><br>
-                    <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
+                <div class="col-sm-3 col-sm-offset-0 " id="fabookpreviewdiv">
+                     <p id="fbprev"> Facebook Preview</p><br>
+                       <div style="height:370px;width:350px;padding:7px; border-color:red;border:2px #cccccc solid;border-radius:10px;">
+                           <p style="font-weight:600;font-size:10px;bottom:-10px;position:relative;"> Everyone liked this.</p>
+                         <hr style="height:0.5px;background-color:#000;">
+                         <img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>">
+                       <p><%=companyName%></p>
+                       <input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here"><br><br> 
+                       <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
+                     </div>
                 </div>
 
-                <div class="col-sm-4" id="twitterpreviewdiv">
+                <div class="col-sm-3 col-sm-offset-2" id="twitterpreviewdiv">
                     <p id="fbprev"> Twitter Preview</p><br>
+                    <div style="height:320px;width:420px;padding:7px; border-color:red;border:2px #cccccc solid;border-radius:10px;">
                     <img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>">
-                    <p><%=companyName%></p><br>
-                    <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"></textarea><br><br>
-                    <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
+                    <p><%=companyName%></p>
+                    <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"  style="left:50px;"></textarea>
+                    <img id="twitterpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
+                    </div>
                 </div>
             </div>
              <input type="hidden" id="imageToPost" name="imageToPost" value='<%=imageName%>'/>  
@@ -186,12 +205,12 @@
                     $("#facebookimage").hide();
                     $("#fabookpreviewdiv").hide();
                     $("#facebookcancel").hide();
-                    $("#fbtextcontainer").hide();
+                    $(".forfb").hide();
                 }
                 else {
                     $("#facebookimage").show();
                     $("#fabookpreviewdiv").show();
-                    $("#fbtextcontainer").show();
+                    $(".forfb").show();
                 }
 
                 if (isTwitter == "false") {
@@ -202,14 +221,18 @@
                 else {
                     $("#twitterimage").show();
                     $("#twitterpreviewdiv").show();
+                    $("#fbtextcontainer").show();
                 }
 
                     $("#chnagetolinkpost").click(function () {
-
+                        $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 127 characters long");
+                        $("#twittertext").attr("maxlength", "127");
                     $("#linkpostdiv").show();
                 });
 
                 $("#removelink").click(function () {
+                    $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 140 characters long");
+                    $("#twittertext").attr("maxlength", "140");
                     $("#title").val("");
                     $("#description").val("");
                     $("#url").val("");
@@ -229,7 +252,7 @@
                     $("#facebookimage").hide();
                     $("#fabookpreviewdiv").hide();
                     $("#isFacebook").val("false");
-                    $("#fbtextcontainer").hide();
+                    $(".forfb").hide();
                 });
 
                 $("#posttofb").click(function () {
@@ -276,7 +299,7 @@
             });
 
         </script> 
-        <div style="position:relative;top:-27em;" class="col-md-1 col-md-offset-9"><a href="selectpromotesocialmedia.jsp"><p id="edit" class="BT2">go back</p></a></div>
+        
     </body> 
 
 </html>
