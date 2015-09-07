@@ -665,9 +665,9 @@
 
                   
                     
-                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:32.7em;top:-90px;border-radius:15px;"/>
+                    <input type="button" id="upload" value="Upload" onclick="upload()" class=" button button--moema button--text-thick button--text-upper button--size-s" style="position:relative;left:55em;top:-90px;"/>
                     <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-csv BT1" value="Add CSV or Email Manually">
-                    <textarea style="width:300px; height:100px;position:relative;left:42em;top:-20px;" id="emailaddresses"></textarea><br><br>
+                    <textarea style="width:300px; height:100px;position:relative;left:33em;top:-20px;" id="emailaddresses"></textarea><br><br>
                
 
                     <div id="popup">
