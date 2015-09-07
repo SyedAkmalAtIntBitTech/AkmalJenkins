@@ -116,6 +116,55 @@
                 width: 330px;
                 height: 50px;
             }
+            .fbfooter ul{
+              
+                
+            }
+            .fbfooter li{
+                display: inline-table;
+                font-size: 8px;
+            }
+            .fbText{
+                font-size: 10px;
+                margin-top: 5px;
+            }
+            .linkPostStyle{
+                outline: 2px #cccccc solid;
+                width: 325px;
+                height: 255px;
+                
+            }
+            .fbtable td{
+              padding: 5px;  
+            }
+            .likeComment td{
+                padding: 5px;  
+                font-size: 10px;
+                font-weight: bold;
+            }
+            .fbuserDestable  tr:nth-child(1) td {
+    padding-top: 0;
+}
+          .link_title{
+                font-family:AGaramondPro-Regular;
+                font-size:  13.8px;
+                color: #676767;
+                font-style: normal;
+                text-align: left;
+                line-height: 16.6px;
+                letter-spacing: 0em;
+                opacity: 1;
+            }
+            .link_description{
+                font-family:LucidaGrande;
+                font-size:  9px;
+                color: #676767;
+                font-style: normal;
+                text-align: left;
+                line-height: 10.8px;
+                letter-spacing: 0em;
+                opacity: 1;
+            }
         </style>
         
     </head>
@@ -131,10 +180,10 @@
                     <img class="socialimage" id="facebookimage" src="images/fb_icon.png"><span id="facebookcancel" class="glyphicon glyphicon-remove-sign"> </span>
                     <img class="socialimage" id="twitterimage" src="images/twitter.jpeg"><span id="twittercancel" class="glyphicon glyphicon-remove-sign"></span><br><br><br>
                     <div id="fbtextcontainer">
-                        <div class="forfb">
+<!--                        <div class="forfb">
                     Post text<input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here">
                     </div>
-                    <br><br>
+                    <br><br>-->
                     <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
                     <div id="linkpostdiv">
                         <div class="forfb">
@@ -144,20 +193,41 @@
                         <p class="psttxt"> Link URL</p><input class="hideinputborder" type="text" id="url" placeholder="post text goes here" ><br>
 
                         <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
-                    </div></div>
+                    </div>
+                    </div>
                     <input type="button" class="btn btn-primary" id="posttofb" value="POST TO SOCIAL MEDIA">
                 </div>
 
                 <div class="col-sm-3 col-sm-offset-0 " id="fabookpreviewdiv">
                      <p id="fbprev"> Facebook Preview</p><br>
-                       <div style="height:370px;width:350px;padding:7px; border-color:red;border:2px #cccccc solid;border-radius:10px;">
+                       <div id="previewchield" style="height:400px;width:350px;padding:7px; border-color:red;border:2px #cccccc solid;border-radius:10px;">
                            <p style="font-weight:600;font-size:10px;bottom:-10px;position:relative;"> Everyone liked this.</p>
                          <hr style="height:0.5px;background-color:#000;">
-                         <img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>">
-                       <p><%=companyName%></p>
+                         <table class="fbtable">
+                             <tr>
+                                 <td><img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>"></td>
+                                 <td><p><%=companyName%></p></td>
+                             </tr>
+                         </table>
                        <input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here"><br><br> 
+                       <div id="fblinkpostDiv">
                        <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
-                     </div>
+                       <table class="fbuserDestable"> 
+                           <tr><td><input id="link_title" type="text" class="link_title hideinputborder" placeholder="Link Title"><td></tr>
+                           <tr><td><input id="link_description" type="text" class="link_description hideinputborder" placeholder="Link Description"></td></tr>
+                           <tr><td><a id="fbHref" href="" ><input class="hideinputborder" type="text" id="Linkurl" placeholder="Link URL"></a></td></tr> 
+                      
+                       </table>
+                       </div>
+                       <p class="fbText">100 Likes 8 Comments 9 Shares</p>
+                       <table class="likeComment">
+                           <tr>
+                           <td>Like</td>
+                           <td>Comment</td>
+                           <td>Share</td>
+                          </tr>
+                       </table>
+                       </div>
                 </div>
 
                 <div class="col-sm-3 col-sm-offset-2" id="twitterpreviewdiv">
@@ -182,6 +252,9 @@
         <script>
                 $(".cross").hide();
                 $(".menu").hide();
+                $("#Linkurl").hide();
+                $(".link_title").hide();
+                $(".link_description").hide();
                 $(".hamburger").click(function () {
                      $(".menu").slideToggle("slow", function () {
                          $(".hamburger").hide();
@@ -197,11 +270,25 @@
                             
             $(document).ready(function () {
                 var isFacebook = $("#isFacebook").val();
-
-                
                 var isTwitter = $("#isTwitter").val();
+                
+                 $("#title").keyup(function (){
+                    $(".link_title").val($("#title").val());
+                    });
+                 $("#description").keyup(function (){
+                    $(".link_description").val($("#description").val()); 
+                });
+                
+                $("#url").focusout(function (){
+                    var link=$("#url").val();
+                    $("#Linkurl").val(link);
+                    $("#fbHref").attr("href","https://"+link);
+                    $("#twittertext").val($("#twittertext").val()+" "+link+"");
+                    
+                });
+                
 
-                if (isFacebook == "false") {
+                if (isFacebook === "false") {
                     $("#facebookimage").hide();
                     $("#fabookpreviewdiv").hide();
                     $("#facebookcancel").hide();
@@ -213,7 +300,7 @@
                     $(".forfb").show();
                 }
 
-                if (isTwitter == "false") {
+                if (isTwitter === "false") {
                     $("#twitterimage").hide();
                     $("#twitterpreviewdiv").hide();
                     $("#twittercancel").hide();
@@ -227,7 +314,12 @@
                     $("#chnagetolinkpost").click(function () {
                         $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 127 characters long");
                         $("#twittertext").attr("maxlength", "127");
-                    $("#linkpostdiv").show();
+                        $("#linkpostdiv").show();
+                        $("#fblinkpostDiv").addClass("linkPostStyle");
+                        $("#previewchield").css("height","480px");
+                        $("#Linkurl").show();
+                        $(".link_title").show();
+                        $(".link_description").show();
                 });
 
                 $("#removelink").click(function () {
@@ -237,6 +329,15 @@
                     $("#description").val("");
                     $("#url").val("");
                     $("#linkpostdiv").hide();
+                    $("#previewchield").css("height","400px");
+                    $("#Linkurl").hide();
+                    $(".link_title").hide();
+                    $(".link_description").hide();
+                    $("#Linkurl").val("");
+                    $(".link_title").val("");
+                    $(".link_description").val("");
+                     $("#fblinkpostDiv").removeClass("linkPostStyle");
+                     $("#twittertext").val("");
                 });
 
                 $("#twittercancel").click(function () {
