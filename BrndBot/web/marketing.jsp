@@ -319,39 +319,42 @@
 //                    var utcDate = picker.getDate(); // utcDate === 2000-01-17 10:00
 //                    //
 //                    alert(utcDate);
-                    var currentdate = new Date();
-                    var curr_date = moment(currentdate).format('YYYY-MM-DD');
-                    $http({
-                        method: 'GET',
-                        url: getHost() + 'GetScheduledEntities?from='+curr_date+'&to='+curr_date
-                    }).success(function (data){
-                        $scope.entitiestoday = data;
-                    }).error(function (data){
-                       alert("request not successful"); 
-                    });
-
-                    var newDate = addDays(new Date(), 1);
-                    curr_date = moment(newDate).format('YYYY-MM-DD');
-                    $http({
-                        method: 'GET',
-                        url: getHost() + 'GetScheduledEntities?from='+curr_date+'&to='+curr_date
-                    }).success(function (data){
-                        $scope.entitiestomorrow = data;
-                    }).error(function (data){
-                       alert("request not successful"); 
-                    });
-                    
-                    var newDate = addDays(new Date(), 15);
-                    var new_date = moment(newDate).format('YYYY-MM-DD');
+                    var curr_date = moment(new Date()).format('YYYY-MM-DD');
+                    var tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
+                    var new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
                     $http({
                         method: 'GET',
                         url: getHost() + 'GetScheduledEntities?from='+curr_date+'&to='+new_date
                     }).success(function (data){
-                        $scope.entitieslater = data;
+                        console.log(data);
+                        entitySet = {};
+                        $.each(data, function(key, value){
+                            /*
+                             * the below code is trying to create a model in the below form:
+                             * {
+                             *   'Today' : [{}, {}],
+                             *   'Tomorrow': [{}, {}],
+                             *   'Later': [{}, {}]
+                             * }
+                             */
+                            if ( key == curr_date){
+                                entitySet['Today'] = value;
+                            }else if ( key == tomorrowDate){
+                                entitySet['Tomorrow'] = value;
+                            }else{
+                                if (!('Later' in entitySet)){
+                                    entitySet['Later'] = [];
+                                }
+                                $.each(value, function(key2, value2){
+                                    entitySet['Later'].push(value2);
+                                });
+                            }
+                        });
+                        $scope.entitySet = entitySet;
+                        console.log(entitySet);
                     }).error(function (data){
                        alert("request not successful"); 
                     });
-        
                 };
                 
                 $scope.getScheduleDetails = function (schedule_id,schedule_time){
@@ -425,21 +428,31 @@
                     
                         <ul>
                             <p>Today</p>
-                            <li ng-repeat="entity in entitiestoday" style="height:30px;">
+                            <li ng-repeat="entity in entitySet['Today']">
+                                <div style="background-color:{{entity.color}};">
+                                    <div>{{entity.schedule_title}}</div>
+                                    <div>{{entity.schedule_time}}</div>
+                                    <div>{{entity.entity_type}}</div>
+                                </div>
                                 <div class="foo col-md-1 col-md-offset-2" style="background-color:{{entity.color}};">
                                     <div class="fo col-md-2 col-md-offset-2" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)" >{{entity.schedule_title}}</div>
                                 </div>
                             </li>
                             <p>Tomorrow</p>
-                            {{entitiestomorrow}}
-                            <li ng-repeat="entity in entitiestomorrow">
-                                <div class="" style="background-color:{{entity.color}};">
-                                    <div class="" >{{entity[0].schedule_title}}</div>
-                                    <p>{{entity}}</p>
+                            <li ng-repeat="entity in entitySet['Tomorrow']">
+                                <div style="background-color:{{entity.color}};">
+                                    <div>{{entity.schedule_title}}</div>
+                                    <div>{{entity.schedule_time}}</div>
+                                    <div>{{entity.entity_type}}</div>
                                 </div>
                             </li>
                             <p>Later</p>
-                            <li ng-repeat="entity in entitieslater">
+                            <li ng-repeat="entity in entitySet['Later']">
+                                <div style="background-color:{{entity.color}};">
+                                    <div>{{entity.schedule_title}}</div>
+                                    <div>{{entity.schedule_time}}</div>
+                                    <div>{{entity.entity_type}}</div>
+                                </div>
                                 <div class="foo col-md-1 col-md-offset-2" style="background-color:{{entity.color}};">
                                     <div class="fo col-md-2 col-md-offset-2" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)" >{{entity.schedule_title}}</div>
                                 </div>
