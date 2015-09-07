@@ -1,7 +1,7 @@
 <%-- 
     Document   : history
     Created on : Aug 25, 2015, 6:46:46 PM
-    Author     : Syed Akmal at IntBit Technologies.
+    Author     : Syed Akmal at IntBit Technologies
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -158,7 +158,7 @@
                 height: 35px;
             }
             
-            #dvPriorityDialog, #dvFastingDialog{
+            #dvPriorityDialog, #dvFastingDialog, #preview{
                 position:fixed;
                 height:100%;
                 background:cyan;
@@ -180,7 +180,17 @@
             }
             
         </style>
-        <script>
+        
+    </head>
+    <body ng-app class="claro">
+        <div ng-controller="controllerMarketingCampaign" class="container" id="container"> 
+            <div class="row">
+                <jsp:include page="leftmenu.html"/><!--/end left column-->
+            </div>
+
+            <jsp:include page="marketingsubmenu.html"/>
+
+<script>
 
             $(document).ready(function()
             {
@@ -296,7 +306,12 @@
             function controllerMarketingCampaign($scope, $http) {
 
                 $scope.getCampaigns = function (){
-                    
+//                    var picker = $("#datetimepicker12").data('datetimepicker');
+//                    
+//                    var localDate = picker.getLocalDate(); // localDate === 2000-01-17 07:00
+//                    var utcDate = picker.getDate(); // utcDate === 2000-01-17 10:00
+//                    //
+//                    alert(utcDate);
                     $http({
                         method: 'GET',
                         url: getHost() + 'GetScheduledEntities'
@@ -317,7 +332,7 @@
                     
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetScheduledEntities?offset=3'
+                        url: getHost() + 'GetScheduledEntities?offset=2'
                     }).success(function (data){
                         $scope.entitieslater = data;
                     }).error(function (data){
@@ -377,25 +392,24 @@
                     }
                 };
             }
+//                    var picker = $("#datetimepicker12").data('datetimepicker');
+//                    alert(picker.getDate());
+//
+//                    $('#datetimepicker12').datetimepicker().on('changeDate', function (ev) {
+//                        alert("test");
+//                        var picker = $("#datetimepicker12").data('datetimepicker');
+//                        alert(picker.getDate());
+//                    });
+//                    
+//                    var localDate = picker.getLocalDate(); // localDate === 2000-01-17 07:00
+//                    var utcDate = picker.getDate(); // utcDate === 2000-01-17 10:00
 
         </script>
-
-    </head>
-    <body ng-app class="claro">
-        <div ng-controller="controllerMarketingCampaign" class="container" id="container"> 
-            <div class="row">
-                <jsp:include page="leftmenu.html"/><!--/end left column-->
-            </div>
-
-            <jsp:include page="markettingsubmenu.html"/>
-
-            <div class="col-md-8 col-md-offset-2 " ng-init="getCampaigns()">
-                <div class="col-md-6 col-md-offset-0"><p id="hyshead">Your Plan</p><p id="hyshead">Marketing Campaign</p>
+            
+            <div class="col-md-8 col-md-offset-3 " ng-init="getCampaigns()">
+                <div class="col-md-6 col-md-offset-0"><p id="hyshead">Your Plan</p><button id="liPriority">ADD ACTION</button>&nbsp;&nbsp;<button id="liFasting">ADD Note</button> <p id="hyshead">Marketing Campaign</p>
                 <div class="col-md-5 ">
-                    <ul>
-                        <li id="liPriority">Priority</li>
-                        <li id="liFasting">Fasting</li>
-                    </ul>
+                    
                         <ul>
                             <p>Today</p>
                             <li ng-repeat="entity in entitiestoday" style="height:30px;">
@@ -408,7 +422,6 @@
                                 <div class="foo col-md-1 col-md-offset-2" style="background-color:{{entity.color}};">
                                     <div class="fo col-md-2 col-md-offset-2" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)" >{{entity.schedule_title}}</div>
                                 </div>
-                                
                             </li>
                             <p>Later</p>
                             <li ng-repeat="entity in entitieslater">
@@ -421,8 +434,51 @@
                 </div>
                 </div>
             </div>
-            <div class="col-md-8 col-md-offset-2">
-                <div class="col-md-5 ">
+        <div id="dvSliderDialog">
+            <div id="dvFastingDialog" class="pollSlider"><br>
+                    Title : <input type="text" name="title" id="title"/><br>
+                    <br/>
+                    Description : <textarea cols="28" rows="4"></textarea><br>
+                    Action Date : <input type="date" id="actiondate" name="actiondate"/><br>
+                    Status : <select id="status" name="status">
+                                <option value="0" >Select</option>
+                                <option value="No template">No template</option>
+                                <option value="Template saved">Template saved</option>
+                                <option value="N/A">N/A</option>
+                            </select>
+                <div id="dvButtonContainer">
+                        <input type="button" value="Save" />
+                        <input type="button" value="Cancel" />
+                </div>
+            </div>
+            <div id="dvPriorityDialog" class="pollSlider">
+                <div id="dvPriorityContent"><br>
+                    Title : <input type="text" name="title" id="title"/><br>
+                    Type :  <select id="actiontype" name="actiontype">
+                                <option value="0">Select</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="Twitter">Twitter</option>
+                                <option value="Email">Email</option>
+                                <option value="Note">Note</option>
+                            </select>
+                            <br/>
+                            Description : <textarea cols="28" rows="4"></textarea><br>
+                            Date : <input type="date" id="actiondate" name="actiondate"/><br>
+                    Status : <select id="status" name="status">
+                                <option value="0" >Select</option>
+                                <option value="No template">No template</option>
+                                <option value="Template saved">Template saved</option>
+                                <option value="N/A">N/A</option>
+                            </select>
+                </div>
+                <div id="dvButtonContainer">
+                    <input type="button" value="Save" />
+                    <input type="button" value="Cancel" />
+                </div>
+            </div>
+            <div id="preview" class="pollSlider">
+                <div >
+                <div class="">
 
                     <div style="border:1px solid #7ab5d3">
                         <div>
@@ -447,42 +503,7 @@
                         </ul>-->
                 </div>
             </div>
-        <div id="dvSliderDialog">
-            <div id="dvFastingDialog" class="pollSlider">
-                <div id="dvFastingContent">
-                    this is some content
-                </div>
-                <div id="dvButtonContainer">
-                        <input type="button" value="Save" />
-                        <input type="button" value="Cancel" />
-                    </div>
-            </div>
-            <div id="dvPriorityDialog" class="pollSlider">
-                <div id="dvPriorityContent">
-                        <table border="1px solid blue">
-                            <tr>
-                                <th>First</th>
-                                <th>Second</th>
-                                <th>Third</th>
-                            </tr>
-                            <tr>
-                                <td>One</td>
-                                <td>Two</td>
-                                <td>Three</td>
-                            </tr>
-                            <tr>
-                                <td>One One</td>
-                                <td>Two Two</td>
-                                <td>Three Three</td>
-                            </tr>
-                        </table>
-                        <br/>
-                        <textarea cols="28" rows="4"></textarea>
-                    </div>
-                    <div id="dvButtonContainer">
-                        <input type="button" value="Save" />
-                        <input type="button" value="Cancel" />
-                    </div>
+                
             </div>
             <div id="slider-button"></div>
         </div>    

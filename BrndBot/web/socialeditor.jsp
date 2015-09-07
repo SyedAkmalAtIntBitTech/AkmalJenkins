@@ -776,7 +776,7 @@ ul::-webkit-scrollbar-thumb {
                                                 </li>
                                                 
                                                 <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
-                                                <li><p class="editpal" id="">opacity</p><div id="slider"></div></li>
+                                                <li><p class="editpal" id="blockopacity">opacity</p><div id="slider"></div></li>
 
                                             </ul>
                                         </div>
@@ -826,7 +826,10 @@ ul::-webkit-scrollbar-thumb {
                                     </li>
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
+                                            
                                             <div>
+
+                                                 <p id="text3" class="SS2">SELECT A STYLE</p>
                                                 <div style="height:500px;">
                                                     <ul>
                                                         <!--{{datalists}}-->
@@ -1111,7 +1114,6 @@ ul::-webkit-scrollbar-thumb {
                                                     method: 'post',
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
-                                                     alert(responseText);
                                                          var image_Id= $('.imagename option:selected').val();
                                                         $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center");
 //                                                        $("#cropper_popup").hide();

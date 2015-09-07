@@ -10,5 +10,5 @@ package com.intbit;
  * @author Mohamed
  */
 public enum ScheduledEntityType {
-    email, facebook, twitter;
+    email, facebook, twitter, note;
 }

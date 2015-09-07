@@ -87,11 +87,9 @@ and open the template in the editor.
                     var id = 1;
                             var theme_id = 0;
                             function doSomething(theme_id){
-                            alert("clicked");
                                     if (theme_id == "theme1"){
                             var s = $("#color1").attr("style");
                                     var s1 = s.split(":");
-                                    alert(s1[1]);
                                     var s = $("#color2").attr("style");
                                     var s2 = s.split(":");
                                     var s = $("#color3").attr("style");

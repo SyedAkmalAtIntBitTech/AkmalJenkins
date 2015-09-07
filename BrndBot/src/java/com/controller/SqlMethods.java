@@ -828,9 +828,9 @@ public class SqlMethods {
                 colors = getColors(String.valueOf(result_set.getInt(1)), num1);
                 jarr.add(colors);
 
-                if (themeNum == 5) {
-                    themeNum = 1;
-                }
+//                if (themeNum == 5) {
+//                    themeNum = 1;
+//                }
 
                 num1 = num1 + 1;
                 colors = getColors(String.valueOf(result_set.getInt(2)), num1);
@@ -851,14 +851,15 @@ public class SqlMethods {
 
                 colors = getColors(String.valueOf(result_set.getInt(6)), num1);
                 jarr.add(colors);
-                if (num1 == 24) {
-                    num1 = 0;
-                }
+//                if (num1 == 24) {
+//                    num1 = 0;
+//                }
                 num1 = num1 + 1;
                 theme = "theme" + themeNum;
 
                 color_theme.setId(theme);
-                color_theme.setTheme_name(result_set.getString(7));
+                //color_theme.setTheme_name(result_set.getString(7));
+                color_theme.setTheme_name("Choose");
                 jarr.add(color_theme);
                 json1.put(result_set.getString(7), jarr);
                 jsonarray.add(jarr);

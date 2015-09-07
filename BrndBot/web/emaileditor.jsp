@@ -343,7 +343,6 @@ and open the template in the editor.
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-                    alert(JSON.stringify(data));
                             $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
                             $scope.user_preferences_font_names = data.user_font_names;
@@ -576,7 +575,7 @@ and open the template in the editor.
                     }
             //var countBlock = 1;
             function showText(id, layout){
-            alert(id+":"+layout+":"+mindbodydataId);
+//            alert(id+":"+layout+":"+mindbodydataId);
             var layoutfilename = layout;
                     $("#clickid").val(layout);
                     if (mindbodydataId != "0")
@@ -845,6 +844,7 @@ and open the template in the editor.
         <input type="hidden" id='userlogo'value=<%= logoImageName%>>
         <input type="hidden" id='userid' value=<%= user_id%>>
         <script src="js/emaileditor.js" type="text/javascript"></script>
+        
         <div id="myModal" class="reveal-modal">
             <br />
             <p><strong>Please enter the url:</strong> <input type="text" id="buttonURLText" value=""></p>
@@ -852,6 +852,27 @@ and open the template in the editor.
 
             <a class="close-reveal-modal">&#215;</a>
         </div>
+        
+        <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display: none;">Click Me For A Modal</a>
+    <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;">
+    <a class="close-reveal-modal">&#215;</a>
+    <div class="imagecropper_header" style="text-align: center;">
+
+        <h3 class="imagecropper_title">Cropping image</h3>
+
+    </div>
+    <div class="crop_image">
+<!--                                        <button class="cropButton">Crop</button>-->
+
+
+
+<!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
+    </div>   
+
+        <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
+        <button class="imagecropper_ok cropButton">Crop</button>
+
+</div>
 
 
         <div ng-controller="MyController" class="container" id="container"> 
@@ -994,8 +1015,9 @@ and open the template in the editor.
                                                     </ul>
                                                 </li>
 
-                                                <li><p class="editpal custom-color-box" style="margin-right:120px;">custom</p></li>
-                                                <li><p class="editpal">opacity</p><div id="slider" ></div></li>
+                                                <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
+                                                <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
+
 
 
                                             </ul>
@@ -1004,7 +1026,9 @@ and open the template in the editor.
                                         <div id="imagecontainer">
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
+
                                                 <li><select class="imagename LE1 editordropdown" id="editorhead" style="width:130px;"> </select></li>
+
                                                 <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
                                                 <li><p  class="btn"  onclick="imageEdit()">edit</p></li>
                                                 <li></li>
@@ -1036,12 +1060,12 @@ and open the template in the editor.
                                             <input type="button" id="done" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="saveImageEdit()" value="DONE"> 
 
                                         </div>
-
                                     </li>
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
 
                                             <div>
+                                                <p id="text3" class="SS2">SELECT A STYLE</p>
                                                 <div style="height:500px;">
                                                     <ul>
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
@@ -1232,8 +1256,8 @@ and open the template in the editor.
 
         <script>
 
-                                            $("#continue").click(function (){
-                                    alert($(".dataForEmail").html());
+                                      $("#continue").click(function (){
+//                                    alert($(".dataForEmail").html());
                                             $.ajax({
                                             url: getHost() + "SaveKeyValueSessionServlet",
                                                     method: "post",
@@ -1389,7 +1413,8 @@ and open the template in the editor.
                                                             success: function (responseText) {
                                                             var image_Id = $('.imagename option:selected').val();
                                                                     $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-repeat", "no-repeat").css("background-position", "center center");
-                                                                    $("#cropper_popup").hide();
+                                                                    //$("#cropper_popup").hide();
+                                                                    $(".close-reveal-modal").click();
                                                             }
                                                     });
                                             }
@@ -1414,7 +1439,8 @@ and open the template in the editor.
                                             $("#imagespopup").hide();
                                     });
                                             function imageEdit() {
-                                                         $("#textcontainer").hide();
+                                                
+                                             $("#textcontainer").hide();
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();
 //                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
@@ -1424,7 +1450,6 @@ and open the template in the editor.
 
                 
                                         var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
-//                                        alert(image_file);
                                         id = "image" + i;
                                        // $("#cropper_popup").show();
                                         $(".clickthis").click();

@@ -66,7 +66,7 @@
                 $scope.showData = function( ){
 
                  $scope.curPage = 0;
-                 $scope.pageSize = 4;
+                 $scope.pageSize = 10;
 
                     $http({
                             method : 'GET',
@@ -112,14 +112,29 @@
             function controllerCreateUserPreferences($scope, $http){
             $scope.createUserPreferences = function()
             {
+                var s1 =$("#elementToPutStyleInto1").css("background-color");                    
+                        var s2 =$("#elementToPutStyleInto2").css("background-color");
+                        var s3 = $("#elementToPutStyleInto3").css("background-color");                    
+                        var s4 = $("#elementToPutStyleInto4").css("background-color");                     
+                        var s5 = $("#elementToPutStyleInto5").css("background-color");                       
+                        var s6 = $("#elementToPutStyleInto1").css("background-color");
+                        document.getElementById("finalcolor1").value = s1;
+                        document.getElementById("finalcolor2").value = s2;
+                        document.getElementById("finalcolor3").value = s3;
+                        document.getElementById("finalcolor4").value = s4;
+                        document.getElementById("finalcolor5").value = s5;
+                        document.getElementById("finalcolor6").value = s6;
+                
+                
                     var color1 = $("#finalcolor1").val();
                     var color2 = $("#finalcolor2").val();
                     var color3 = $("#finalcolor3").val();
                     var color4 = $("#finalcolor4").val();
                     var color5 = $("#finalcolor5").val();
                     var color6 = $("#finalcolor6").val();
-                    if (color1 == "" || color2 == "" || color3 == "" || color4 == "" || color5 == "" || color6 == ""){
-                            alert("Please fill all six colors, click MOST USED to select colors");
+                    
+                    if (color1 == "rgba(0, 0, 0, 0)" || color2 == "rgba(0, 0, 0, 0)" || color3 == "rgba(0, 0, 0, 0)" || color4 == "rgba(0, 0, 0, 0)" || color5 == "" || color6 == "rgba(0, 0, 0, 0)"){
+                            alert("Please fill all six colors");
                         }
                    else{
                        
@@ -182,89 +197,17 @@
        
           var id = 1;
           var theme_id = 0;
-        function doSomething(theme_id){
-            if (theme_id == "theme1"){
-                    var s = $("#color1").attr("style");
-                    var s1 = s.split(":");
-                    var s = $("#color2").attr("style");
-                    var s2 = s.split(":");
-                    var s = $("#color3").attr("style");
-                    var s3 = s.split(":");
-                    var s = $("#color4").attr("style");
-                    var s4 = s.split(":");
-                    var s = $("#color5").attr("style");
-                    var s5 = s.split(":");
-                    var s = $("#color6").attr("style");
-                    var s6 = s.split(":");
-                    $("#themeid").val("theme1");
-                    $("#elementToPutStyleInto1").css("background-color", s1[1]);
-                    $("#elementToPutStyleInto2").css("background-color", s2[1]);
-                    $("#elementToPutStyleInto3").css("background-color", s3[1]);
-                    $("#elementToPutStyleInto4").css("background-color", s4[1]);
-                    $("#elementToPutStyleInto5").css("background-color", s5[1]);
-                    $("#elementToPutStyleInto6").css("background-color", s6[1]);
-            }else if(theme_id == "theme2"){
-                var s = $("#color7").attr("style");
-                        var s1 = s.split(":");
-                        var s = $("#color8").attr("style");
-                        var s2 = s.split(":");
-                        var s = $("#color9").attr("style");
-                        var s3 = s.split(":");
-                        var s = $("#color10").attr("style");
-                        var s4 = s.split(":");
-                        var s = $("#color11").attr("style");
-                        var s5 = s.split(":");
-                        var s = $("#color12").attr("style");
-                        var s6 = s.split(":");
-                        $("#themeid").val("theme2");
-                        $("#elementToPutStyleInto1").css("background-color", s1[1]);
-                        $("#elementToPutStyleInto2").css("background-color", s2[1]);
-                        $("#elementToPutStyleInto3").css("background-color", s3[1]);
-                        $("#elementToPutStyleInto4").css("background-color", s4[1]);
-                        $("#elementToPutStyleInto5").css("background-color", s5[1]);
-                        $("#elementToPutStyleInto6").css("background-color", s6[1]);
-            }else if(theme_id == "theme3"){
-                var s = $("#color13").attr("style");
-                        var s1 = s.split(":");
-                        var s = $("#color14").attr("style");
-                        var s2 = s.split(":");
-                        var s = $("#color15").attr("style");
-                        var s3 = s.split(":");
-                        var s = $("#color16").attr("style");
-                        var s4 = s.split(":");
-                        var s = $("#color17").attr("style");
-                        var s5 = s.split(":");
-                        var s = $("#color18").attr("style");
-                        var s6 = s.split(":");
-                        $("#themeid").val("theme2");
-                        $("#elementToPutStyleInto1").css("background-color", s1[1]);
-                        $("#elementToPutStyleInto2").css("background-color", s2[1]);
-                        $("#elementToPutStyleInto3").css("background-color", s3[1]);
-                        $("#elementToPutStyleInto4").css("background-color", s4[1]);
-                        $("#elementToPutStyleInto5").css("background-color", s5[1]);
-                        $("#elementToPutStyleInto6").css("background-color", s6[1]);
-            }else if(theme_id == "theme4"){
-                var s = $("#color19").attr("style");
-                        var s1 = s.split(":");
-                        var s = $("#color20").attr("style");
-                        var s2 = s.split(":");
-                        var s = $("#color21").attr("style");
-                        var s3 = s.split(":");
-                        var s = $("#color22").attr("style");
-                        var s4 = s.split(":");
-                        var s = $("#color23").attr("style");
-                        var s5 = s.split(":");
-                        var s = $("#color24").attr("style");
-                        var s6 = s.split(":");
-                        $("#themeid").val("theme2");
-                        $("#elementToPutStyleInto1").css("background-color", s1[1]);
-                        $("#elementToPutStyleInto2").css("background-color", s2[1]);
-                        $("#elementToPutStyleInto3").css("background-color", s3[1]);
-                        $("#elementToPutStyleInto4").css("background-color", s4[1]);
-                        $("#elementToPutStyleInto5").css("background-color", s5[1]);
-                        $("#elementToPutStyleInto6").css("background-color", s6[1]);
+        function doSomething(theme_id){     
+            var theamNum = parseInt(theme_id.replace("theme",""));
+            theamNum--;
+            var num=theamNum*6;
+            $("#themeid").val(theme_id);
+            for(var i=1; i<=6;i++){
+                var colorid="color"+(i+num);
+                $("#elementToPutStyleInto"+i).css("background-color",$("#"+colorid).css("background-color"));
+                  
+                
             }
-
         }
 
     </script>
@@ -286,12 +229,12 @@ Please arrange them with most used to least used in your designs.</p>
                 <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USED</span></p> </div>
 
                 <div id="sortable" class="step_wrapper">
-                    <div id="elementToPutStyleInto1" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto1')"></div>
-                    <div id="elementToPutStyleInto2" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto2')"></div>
-                    <div id="elementToPutStyleInto3" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto3')"></div>
-                    <div id="elementToPutStyleInto4" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto4')"></div>
-                    <div id="elementToPutStyleInto5" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto5')"></div>   
-                    <div id="elementToPutStyleInto6" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto6')"></div>
+                    <div id="elementToPutStyleInto1" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto1')"></div>
+                    <div id="elementToPutStyleInto2" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto2')"></div>
+                    <div id="elementToPutStyleInto3" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto3')"></div>
+                    <div id="elementToPutStyleInto4" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto4')"></div>
+                    <div id="elementToPutStyleInto5" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto5')"></div>   
+                    <div id="elementToPutStyleInto6" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto6')"></div>
                     <div class="resetpalette"> <p id="resetpalette">RESET ORIGINAL PALETTE</p></div>
                 </div>
 
@@ -312,7 +255,7 @@ Please arrange them with most used to least used in your designs.</p>
                         <br>
                         <%! Integer i=1; %>
                         <div ng-controller="controllerGetColourPalettes" class="tab-pane active" id="picktheme" ng-init="showData()">
-                            <div style="height:250px;  overflow-y: scroll">
+                            <div style="height:270px;  overflow-y: scroll">
                                 <div ng-repeat= "theme in datalists" id="rep"  >
 
                                     <script type="text/javascript">
@@ -322,7 +265,8 @@ Please arrange them with most used to least used in your designs.</p>
                                         <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
                                         </div>
                                             
-                                        <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>
+                                        <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')"><div ng-show="colors.id == null" style="padding-top: 10px;">{{colors.theme_name}}</div></div>
+<!--<div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>-->
                                         
                                     </div> 
                                     <div id='id'>
@@ -494,18 +438,18 @@ Please arrange them with most used to least used in your designs.</p>
 
                 $("#test").click(function(){
                    
-                        var s1 =$("#elementToPutStyleInto1").css("background-color");                    
-                        var s2 =$("#elementToPutStyleInto2").css("background-color");
-                        var s3 = $("#elementToPutStyleInto3").css("background-color");                    
-                        var s4 = $("#elementToPutStyleInto4").css("background-color");                     
-                        var s5 = $("#elementToPutStyleInto5").css("background-color");                       
-                        var s6 = $("#elementToPutStyleInto1").css("background-color");
-                        document.getElementById("finalcolor1").value = s1;
-                        document.getElementById("finalcolor2").value = s2;
-                        document.getElementById("finalcolor3").value = s3;
-                        document.getElementById("finalcolor4").value = s4;
-                        document.getElementById("finalcolor5").value = s5;
-                        document.getElementById("finalcolor6").value = s6;
+//                        var s1 =$("#elementToPutStyleInto1").css("background-color");                    
+//                        var s2 =$("#elementToPutStyleInto2").css("background-color");
+//                        var s3 = $("#elementToPutStyleInto3").css("background-color");                    
+//                        var s4 = $("#elementToPutStyleInto4").css("background-color");                     
+//                        var s5 = $("#elementToPutStyleInto5").css("background-color");                       
+//                        var s6 = $("#elementToPutStyleInto1").css("background-color");
+//                        document.getElementById("finalcolor1").value = s1;
+//                        document.getElementById("finalcolor2").value = s2;
+//                        document.getElementById("finalcolor3").value = s3;
+//                        document.getElementById("finalcolor4").value = s4;
+//                        document.getElementById("finalcolor5").value = s5;
+//                        document.getElementById("finalcolor6").value = s6;
                 });
                 });
 //  Reset pslette color   
@@ -514,12 +458,12 @@ Please arrange them with most used to least used in your designs.</p>
 
                 $("#resetpalette").click(function(){
 
-                $("#elementToPutStyleInto1").css("background-color", "#FFFFFF");
-                        $("#elementToPutStyleInto2").css("background-color", "#FFFFFF");
-                        $("#elementToPutStyleInto3").css("background-color", "#FFFFFF");
-                        $("#elementToPutStyleInto4").css("background-color", "#FFFFFF");
-                        $("#elementToPutStyleInto5").css("background-color", "#FFFFFF");
-                        $("#elementToPutStyleInto6").css("background-color", "#FFFFFF");
+                        $("#elementToPutStyleInto1").css("background-color", "transparent");
+                        $("#elementToPutStyleInto2").css("background-color", "transparent");
+                        $("#elementToPutStyleInto3").css("background-color", "transparent");
+                        $("#elementToPutStyleInto4").css("background-color", "transparent");
+                        $("#elementToPutStyleInto5").css("background-color", "transparent");
+                        $("#elementToPutStyleInto6").css("background-color", "transparent");
                 });
                 });
 

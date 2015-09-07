@@ -9,7 +9,7 @@ package com.intbit;
  *
  * @author Mohamed
  */
-public enum EmailAndSocialStatus {
+public enum ScheduledEntityStatus {
     processed, scheduled;
     
 }

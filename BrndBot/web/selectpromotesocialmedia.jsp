@@ -177,7 +177,7 @@
 //                });
                 var myVar1 = '<%= code %>';    /* retrieve json from request attribute */
                 var mytest = eval('(' + myVar1 + ')');
-//                alert(JSON.stringify(myVar1));      // display complete json
+                //alert(JSON.stringify(myVar1));      // display complete json
 
                 var removecote = myVar1.replace("[", '').replace(/"/g, '').replace(']', '');
                 var pages = removecote.split(",");
@@ -188,14 +188,20 @@
                     $(".close-reveal-modal").click();
                 }
                 else {
-//                    alert("contain value");
-                    //$("#popup").show();
                     $(".clickthis").click();
+                    if(pages.length==1)
+                    {
+                        $("#fbmanagepages").append("<tr><td><strong>Please create atleast one <a href='https://www.facebook.com/help/104002523024878' target='_blank'>facebook page</a></strong></td></tr>");
+                    }
+                    else
+                    {
                     for (var i = 0; i < pages.length; i = i + 3) {
                         $("#fbmanagepages").append("<tr  id=page#" + i + "><td>" + pages[i] + "</td><td><input type=hidden id=access" + i + " value=" + pages[i + 1] + "></td><td><img src=" + pages[i + 2] + "></td></tr>");
                     }
 
                     $("#content").append(" <br><center><input id=isdefault name=isdefault type=checkbox class=btn btn-primary value=default>Default</input></center>");
+                    }
+                    
                     $("#content").append(" <br><center><input id=facebookok name=facebookok type=button class=btn btn-primary value=ok>&nbsp;&nbsp;<input id=close name=close type=button class=btn btn-primary value=cancel></center>");
                 }
  
