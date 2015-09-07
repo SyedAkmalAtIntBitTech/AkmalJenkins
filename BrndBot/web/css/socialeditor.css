@@ -213,7 +213,9 @@ and open the template in the editor.
     
 }
 
-
+.editordropdown{
+    padding:2px;margin:2px;font-size:15px;width:130px;color:#3f4042;background-color: inherit;border-left:none;border-right:none;border-top:none;-webkit-appearance: none;-moz-appearance: none;box-shadow: none !important;appearance: none;background:url("../images/dropdown.png") no-repeat right center;
+}
 
 #editorheadere{
     font-family: "proxima-nova";
@@ -280,7 +282,7 @@ font-style:  normal;
 text-align: left;
 line-height: 14.4px;
 letter-spacing:0em;
-border-radius: 5px;
+border-radius: 0px;
 position:relative;
 left:-4px;
 }
@@ -692,7 +694,7 @@ left:-6px;
 }
 #colorpalette li div{
     position: relative;
-    left: -10px;
+    left: -14px;
     float: left;
     display: inline;
     height: 12px;

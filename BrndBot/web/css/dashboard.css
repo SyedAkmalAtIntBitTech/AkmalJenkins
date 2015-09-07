@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 .navicon {
     position:relative;
-    height:30px;
+    height:25px;
     top:-7px;
     left:0px;
 }
@@ -93,7 +93,7 @@ body{
     font-family:"proxima-nova-soft",sans-serif;
    font-weight: 500;
    position: relative;
-   padding-top: 11%;
+   padding-top: 15%;
    padding-bottom: 4%;
 }
 /*#leftnav{

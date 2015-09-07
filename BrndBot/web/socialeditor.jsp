@@ -64,7 +64,7 @@ and open the template in the editor.
                 width:150px;height: 5px;
                 position: relative;
                 left:60px;
-                top:-17px;
+                top:-9px;
             }
             .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
             {
@@ -715,11 +715,9 @@ ul::-webkit-scrollbar-thumb {
                                                     <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
                                                 </li>
 
-                                                <li style="width:100px;">
+                                                <li style="width:120px;">
                                                     <p id="editorheadere" class="SS1">font style</p>
-
-
-                                                    <select id="fontname" style="margin:2px;font-size:15px;width:80px;color: #3f4042;background-color: #ccc;border-radius:5px;">
+                                                    <select id="fontname" class="editordropdown">
                                                         <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{ names.font_family_name}}">{{ names.font_name}} </option>
 
                                                     </select>
@@ -741,7 +739,7 @@ ul::-webkit-scrollbar-thumb {
                                                             
                                                         </ul>
                                                 </li>
-                                                <li style="left:-6px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
+                                                <li style="left:-10px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-left alignButton" id="left"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-center alignButton" id="center"></div></li>
@@ -760,11 +758,11 @@ ul::-webkit-scrollbar-thumb {
                                             <ul id="shapemodificatoin">
 
                                                         <li>
-                                                            <select class="blockname LE1" id="editorhead">
+                                                            <select class="blockname LE1 editordropdown" id="editorhead">
                                                                 <option value="select">select</option>
                                                             </select>
                                                         </li>
-                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
                                                 <li><p class="editpal">your palette</p></li>
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
@@ -787,7 +785,7 @@ ul::-webkit-scrollbar-thumb {
                                             <p  id="text3" class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
                                                 <li>
-                                                    <select class="imagename LE1" id="editorhead">
+                                                    <select class="imagename LE1 editordropdown" id="editorhead">
                                                         <option value="select">select</option>
                                                     </select>
                                                 </li>
@@ -850,7 +848,7 @@ ul::-webkit-scrollbar-thumb {
 
                                     </li>
                                     <li id="tabs-3">
-                                          <ul id="imageGallery" style="height: 500px;width: 450px;position: relative;right: 80px;overflow-y:scroll">
+                                          <ul id="imageGallery" style="height: 500px;width: 300px;position: relative;right: 80px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
                                                
                                                 <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          

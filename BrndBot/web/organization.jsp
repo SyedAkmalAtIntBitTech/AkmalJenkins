@@ -105,9 +105,7 @@
                           <select  id="organizationdropdown" ng-model="organizations.org">
                               <option  class="optn" ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}}</option>
                             </select>
-                        
-                           
-                        </div>
+                         </div>
                         
                     
 
