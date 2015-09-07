@@ -6,7 +6,7 @@
 package com.intbit.dao;
 
 import com.intbit.ConnectionManager;
-import com.intbit.EmailAndSocialStatus;
+import com.intbit.ScheduledEntityStatus;
 import com.intbit.ScheduledEntityType;
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,9 +14,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -39,7 +41,9 @@ public class ScheduleDAO {
             String fromName,
             String[] toAddress,
             String scheduledTitle,
-            Timestamp scheduledTime
+            String scheduleDesc,
+            Timestamp scheduledTime,
+            String templateStatus
     ) throws SQLException{
 
         int emailScheduleId = -1;
@@ -71,10 +75,12 @@ public class ScheduleDAO {
                 addToScheduleEmailRecipient(emailScheduleId, toAddress, connection);
                 scheduleEntityId = addToScheduleEntityList(emailScheduleId, 
                         scheduledTitle, 
+                        scheduleDesc, 
                         scheduledTime, 
                         ScheduledEntityType.email.toString(), 
-                        EmailAndSocialStatus.scheduled.toString(),
+                        ScheduledEntityStatus.scheduled.toString(),
                         userId,
+                        templateStatus,
                         connection);
                 
                 connection.commit();
@@ -127,26 +133,35 @@ public class ScheduleDAO {
         }
     }
     
-    public static int addToScheduleEntityList(int entityId, 
+    public static int addToScheduleEntityList(Integer entityId, 
             String scheduleTitle,
+            String scheduleDesc,
             Timestamp scheduleTime,
             String entityType,
             String status, 
             int userId,
+            String templateStatus,
             Connection connection) throws SQLException{
         String sql = "INSERT INTO tbl_scheduled_entity_list"
-                + " (entity_id, schedule_title, schedule_time, entity_type, status, user_id) VALUES"
-                + " (?, ?, ?, ?, ?, ?) RETURNING id";
+                + " (entity_id, schedule_title, schedule_desc, schedule_time, entity_type, status, user_id, template_status) VALUES"
+                + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
         
         int scheduleId = -1;
         
         try(PreparedStatement ps = connection.prepareStatement(sql)){
-            ps.setInt(1, entityId);
+            if ( entityId == null){
+                ps.setNull(1, Types.INTEGER);
+            }else{
+                ps.setInt(1, entityId);
+            }
+            
             ps.setString(2, scheduleTitle);
-            ps.setTimestamp(3, scheduleTime);
-            ps.setString(4, entityType);
-            ps.setString(5, status);
-            ps.setInt(6, userId);
+            ps.setString(3, scheduleDesc);
+            ps.setTimestamp(4, scheduleTime);
+            ps.setString(5, entityType);
+            ps.setString(6, status);
+            ps.setInt(7, userId);
+            ps.setString(8, templateStatus);
             ps.execute();
             try(ResultSet rs = ps.getResultSet()){
                 if (rs.next()) {
@@ -158,34 +173,47 @@ public class ScheduleDAO {
         return scheduleId;
     }
     
-    public static List<Map<String, Object>> getScheduledEntities(int userId, 
-            LocalDate scheduleDate) throws SQLException{
+    public static Map<String, List<Map<String, Object>>> getScheduledEntities(int userId, 
+            LocalDate fromDate, LocalDate toDate) throws SQLException{
         
-        List<Map<String, Object>> result = new ArrayList<>();
+        Map<String, List<Map<String, Object>>> result = new LinkedHashMap<>();
         
-        String sql = "SELECT slist.*, tc.color "
+        String sql = "SELECT slist.*, tc.color, date(schedule_time) schedule_date "
                 + " FROM tbl_scheduled_entity_list slist, "
                 + " tbl_scheduled_entity_type_color tc "
                 + " WHERE user_id = ? "
-                + " AND date(schedule_time) = ? "
+                + " AND date(schedule_time) <= ? "
+                + " AND date(schedule_time) >= ? "
                 + " AND slist.entity_type = tc.entity_type"
-                + " AND slist.status = 'scheduled'";
+                + " AND slist.status = 'scheduled'"
+                + " ORDER BY schedule_time ";
         try(Connection connection = connectionManager.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(1, userId);
-            ps.setDate(2, Date.valueOf(scheduleDate));
+            ps.setDate(2, Date.valueOf(toDate));
+            ps.setDate(3, Date.valueOf(fromDate));
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
+                    Timestamp scheduleTimestamp = rs.getTimestamp("schedule_time");
+                    long scheduleTime = scheduleTimestamp.getTime();
                     Map<String, Object> scheduleDetailMap = new HashMap<>();
+                    long scheduleDate = rs.getDate("schedule_date").getTime();
+                    String scheduleDateStr = new Date(scheduleDate).toString();
                     scheduleDetailMap.put("schedule_id", rs.getInt("id"));
                     scheduleDetailMap.put("entity_id", rs.getInt("entity_id"));
                     scheduleDetailMap.put("schedule_title", rs.getString("schedule_title"));
-                    scheduleDetailMap.put("schedule_time", rs.getTimestamp("schedule_time").getTime());
+                    scheduleDetailMap.put("schedule_description", rs.getString("schedule_desc"));
+                    scheduleDetailMap.put("schedule_time", scheduleTime);
                     scheduleDetailMap.put("entity_type", rs.getString("entity_type"));
                     scheduleDetailMap.put("status", rs.getString("status"));
                     scheduleDetailMap.put("user_id", rs.getInt("user_id"));
                     scheduleDetailMap.put("color", rs.getString("color"));
-                    result.add(scheduleDetailMap);
+                    
+                    if ( !result.containsKey(scheduleDateStr)){
+                        result.put(scheduleDateStr, new ArrayList<>());
+                    }
+                    
+                    result.get(scheduleDateStr).add(scheduleDetailMap);
                 }
             }
         }

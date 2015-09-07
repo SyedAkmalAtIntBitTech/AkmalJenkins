@@ -7,7 +7,7 @@ package com.intbit.dao;
 
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
-import com.intbit.EmailAndSocialStatus;
+import com.intbit.ScheduledEntityStatus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,7 +36,9 @@ public class ScheduleSocialPostDAO {
             Map<String, Object> metadataMap,
             String type,
             String scheduleTitle,
-            Timestamp scheduleTime) throws SQLException {
+            String scheduleDesc,
+            Timestamp scheduleTime,
+            String templateStatus) throws SQLException {
         String sql = "INSERT INTO tbl_scheduled_socialpost_list "
                 + " (user_id, image_name, token_data, metadata, type) VALUES"
                 + " (?, ?, ?, ?, ?) RETURNING id";
@@ -72,10 +74,12 @@ public class ScheduleSocialPostDAO {
                 } 
                 int scheduleId = ScheduleDAO.addToScheduleEntityList(scheduleSocialPostId, 
                         scheduleTitle, 
+                        scheduleDesc,
                         scheduleTime, 
                         type, 
-                        EmailAndSocialStatus.scheduled.toString(), 
-                        userId, 
+                        ScheduledEntityStatus.scheduled.toString(), 
+                        userId,
+                        templateStatus,
                         conn);
                 methodResponse.put("schedule_entity_id", scheduleId);
                 conn.commit();

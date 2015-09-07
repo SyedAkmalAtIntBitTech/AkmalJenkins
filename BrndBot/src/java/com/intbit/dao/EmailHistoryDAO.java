@@ -6,7 +6,7 @@
 package com.intbit.dao;
 
 import com.intbit.ConnectionManager;
-import com.intbit.EmailAndSocialStatus;
+import com.intbit.ScheduledEntityStatus;
 import email.mandrill.MessageResponse;
 import email.mandrill.MessageResponses;
 import java.sql.Connection;

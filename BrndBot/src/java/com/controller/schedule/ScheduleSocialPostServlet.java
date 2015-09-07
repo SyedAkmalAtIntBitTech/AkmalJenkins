@@ -7,6 +7,7 @@ package com.controller.schedule;
 
 import com.intbit.AppConstants;
 import com.intbit.ScheduledEntityType;
+import com.intbit.TemplateStatus;
 import com.intbit.dao.ScheduleSocialPostDAO;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -108,6 +109,11 @@ public class ScheduleSocialPostServlet extends HttpServlet {
             
             Timestamp scheduleTimeStamp = new Timestamp(Long.parseLong(
                     requestBodyMap.get("schedule_time").toString()));
+            
+            //As of now schedule description is not yet mandatory.
+            String scheduleDesc = requestBodyMap.containsKey("schedule_desc") ? 
+                    String.valueOf(requestBodyMap.get("schedule_desc")):null;
+            
             Map<String, Integer> daoResponse = ScheduleSocialPostDAO.addToScheduleSocialPost(
                     userId,
                     requestBodyMap.get("image_name").toString(),
@@ -115,7 +121,9 @@ public class ScheduleSocialPostServlet extends HttpServlet {
                     AppConstants.GSON.fromJson(metadataString, Map.class),
                     requestBodyMap.get("type").toString(),
                     requestBodyMap.get("schedule_title").toString(),
-                    scheduleTimeStamp);
+                    scheduleDesc,
+                    scheduleTimeStamp,
+                    TemplateStatus.template_saved.toString());
             
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(AppConstants.GSON.toJson(daoResponse));
