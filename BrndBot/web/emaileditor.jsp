@@ -932,7 +932,7 @@ and open the template in the editor.
                         </div>
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:36px;overflow-y:scroll;width:370px;overflow-x:hidden;">
+                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:36px;overflow-y:scroll;width:355px;overflow-x:hidden;">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -1071,7 +1071,7 @@ and open the template in the editor.
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
                                                                 <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" />
-                                                                <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
+                                                                <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->                                                            
                                                             </div> 
                                                             <div><p id=''></p></div>
                                                             <div></div><p>&nbsp;</p>
@@ -1106,14 +1106,14 @@ and open the template in the editor.
 
                                     <li id="tabs-3">
                                         <div id="blockcontainer">
-                                            ADD A NEW BLOCK
+                                            <p id="text3" class="SS2">ADD A NEW BLOCK</p>
                                             <div>
                                                 <div style="height:500px;">
-                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:30%;left:30%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
+                                                    
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="blocks in datalists">
-                                                            <img id="{{blocks.block_id}}" class="img-responsive blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)" src=""  width=250 height=150 />
+                                                            <img id="{{blocks.block_id}}" class="img-responsive blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)" src=""  width="275" />
                                                             <!--                                                            <div style="background-color: grey;width:300px;height:100px;">
                                                                                                                             
                                                                                                                              <li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>
@@ -1126,6 +1126,7 @@ and open the template in the editor.
                                                             <div></div><p>&nbsp;</p>
                                                         </li>
                                                     </ul>
+                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:5%;left:15%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
 
                                                     <!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
                                                                                                             <ul class="pagination-controle pagination">
@@ -1189,11 +1190,11 @@ and open the template in the editor.
                                         </div> 
                                     </li>
                                     <li id="tabs-5">
-                                        <ul id="imageGallery" style="height:500px;width:300px;position:relative;right:80px;left:0px;">
+                                        <ul id="imageGallery" style="width:400px;position: relative;right:70px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
 
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
-                                                <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                                <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="275px"/>                                                            
                                             </li>
                                         </ul>
                                         <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->

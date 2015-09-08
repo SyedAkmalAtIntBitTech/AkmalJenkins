@@ -214,7 +214,7 @@ and open the template in the editor.
 }
 
 .editordropdown{
-    padding:2px;margin:2px;font-size:15px;width:130px;color:#3f4042;background-color: inherit;border-left:none;border-right:none;border-top:none;-webkit-appearance: none;-moz-appearance: none;box-shadow: none !important;appearance: none;background:url("../images/dropdown.png") no-repeat right center;
+    padding:2px;margin:2px;font-size:15px;width:125px;color:#3f4042;background-color: inherit;border-left:none;border-right:none;border-top:none;-webkit-appearance: none;-moz-appearance: none;box-shadow: none !important;appearance: none;background:url("../images/dropdown.png") no-repeat right center;
 }
 
 #editorheadere{

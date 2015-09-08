@@ -40,9 +40,12 @@ and open the template in the editor.
 
 
 /*////// signup page animation    //////*/
-#std >div,a {
+#std >div {
     position: relative;
     padding-top: 40px;
+}
+a {
+    position: relative;
 }
 #std > div label{
     position: relative;

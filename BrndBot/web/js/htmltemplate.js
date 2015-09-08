@@ -134,12 +134,15 @@ $(function(){
    {
        var selectedmodelname = $("#modelname").find('option:selected').text()
        $.ajax({
-       type: 'POST',
+       type: 'GET',
        url: "/BrndBot/ServletDisplayLayoutHTML",
-       dataType: 'text',
+       dataType: 'json',
        data : { modelname : selectedmodelname },
        success: function (data) {
-           $("#html_content").val(data);
+           
+           $("#html_div_content").val(data[0].div);
+           $("#html_content").val(data[0].table);
+           
        },
        error: function(xhr, ajaxOptions, thrownError){
            
@@ -147,6 +150,7 @@ $(function(){
        }
        
     });
+    
    });
 });
 
