@@ -56,8 +56,9 @@
 
                 <div  class="form-group">
                     <div class="col-md-5 col-md-offset-5">
-                        <button style="left:-10px;" type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Login</button><br><br>
-                        <br><br><p><a href="<%= application.getContextPath()%>/resetpassword.jsp">Forgot password</a></p>
+                        <button style="left:-10px;" type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Login</button></div>
+                    <div class="col-md-5 col-md-offset-5"><br><br>
+                        <p><a href="<%= application.getContextPath()%>/resetpassword.jsp">Forgot password</a></p>
                         <p class="sgnup"><a href="signup.jsp">Sign up</a></p>
                     </div>
                 </div>

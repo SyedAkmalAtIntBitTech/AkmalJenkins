@@ -76,7 +76,7 @@ and open the template in the editor.
                 width:150px;height: 5px;
                 position: relative;
                 left:60px;
-                top:-18px;
+                top:-7px;
             }
             .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
             {
@@ -932,7 +932,7 @@ and open the template in the editor.
                         </div>
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:36px;overflow-y:scroll;width:370px;overflow-x:hidden;">
+                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:36px;overflow-y:scroll;width:355px;overflow-x:hidden;">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -953,9 +953,9 @@ and open the template in the editor.
                                                     <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
                                                 </li>
 
-                                                <li style="width:100px;">
-                                                    <p id="editorheadere" class="SS1">font Name:</p>
-                                                    <select id="fontname" style="margin: 2px;font-size: 15px;width:80px;color: #3f4042;background-color: #ccc;border-radius:5px;">
+                                                <li style="width:120px;">
+                                                    <p id="editorheadere" class="SS1">font style:</p>
+                                                    <select id="fontname" class="editordropdown" >
                                                         <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
                                                     </select>
                                                 </li>
@@ -976,7 +976,7 @@ and open the template in the editor.
 
                                                     </ul>
                                                 </li>
-                                                <li style="left:-6px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
+                                                <li style="left:-10px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-left alignButton" id="left"></div></li>
                                                 <li><div class="glyphicon glyphicon-align-center alignButton" id="center"></div></li>
@@ -996,12 +996,12 @@ and open the template in the editor.
 
 
                                                 <li>
-                                                    <select class="blockname LE1" id="editorhead">
-                                                        <option>select</option>
+                                                    <select class="blockname LE1 editordropdown" id="editorhead">
+                                                        <option style="background:#FFF;">select</option>
                                                     </select>
                                                 </li>
 
-                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
                                                 <li><p class="editpal">your palette</p></li>                                                                                         
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
@@ -1019,13 +1019,16 @@ and open the template in the editor.
                                                 <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
 
 
+
                                             </ul>
                                         </div>
 
                                         <div id="imagecontainer">
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><select class="imagename LE1" id="editorhead"></select></li>
+
+                                                <li><select class="imagename LE1 editordropdown" id="editorhead" style="width:130px;"> </select></li>
+
                                                 <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
                                                 <li><p  class="btn"  onclick="imageEdit()">edit</p></li>
                                                 <li></li>
@@ -1068,7 +1071,7 @@ and open the template in the editor.
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
                                                                 <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" />
-                                                                <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
+                                                                <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->                                                            
                                                             </div> 
                                                             <div><p id=''></p></div>
                                                             <div></div><p>&nbsp;</p>
@@ -1103,14 +1106,14 @@ and open the template in the editor.
 
                                     <li id="tabs-3">
                                         <div id="blockcontainer">
-                                            ADD A NEW BLOCK
+                                            <p id="text3" class="SS2">ADD A NEW BLOCK</p>
                                             <div>
                                                 <div style="height:500px;">
-                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:30%;left:30%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
+                                                    
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="blocks in datalists">
-                                                            <img id="{{blocks.block_id}}" class="img-responsive blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)" src=""  width=250 height=150 />
+                                                            <img id="{{blocks.block_id}}" class="img-responsive blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)" src=""  width="275" />
                                                             <!--                                                            <div style="background-color: grey;width:300px;height:100px;">
                                                                                                                             
                                                                                                                              <li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>
@@ -1123,6 +1126,7 @@ and open the template in the editor.
                                                             <div></div><p>&nbsp;</p>
                                                         </li>
                                                     </ul>
+                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:5%;left:15%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
 
                                                     <!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
                                                                                                             <ul class="pagination-controle pagination">
@@ -1186,11 +1190,11 @@ and open the template in the editor.
                                         </div> 
                                     </li>
                                     <li id="tabs-5">
-                                        <ul id="imageGallery" style="height: 500px;width: 450px;position: relative;right: 80px;overflow-y:scroll">
+                                        <ul id="imageGallery" style="width:400px;position: relative;right:70px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
 
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
-                                                <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                                <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="275px"/>                                                            
                                             </li>
                                         </ul>
                                         <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->

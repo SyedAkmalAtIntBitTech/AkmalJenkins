@@ -30,7 +30,7 @@
                 <form class="form-horizontal" id="signform" ng-controller="ForgotPassController" ng-submit="checkEmail()" >
                         <div class="group">
                              <div class="col-md-3 col-md-offset-5">                            
-                                  <p class="text-left">enter  your email id</p>
+                                  <p class="text-left">Enter  your Email id</p>
                              </div>
                         </div>
                         

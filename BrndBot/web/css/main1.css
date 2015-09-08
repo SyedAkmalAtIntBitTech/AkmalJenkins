@@ -527,8 +527,8 @@ width:500px;
 }
 .blankcolor-box{
     float: left;
-    width: 26px;
-    height: 11px;
+    width: 70px;
+    height: 35px;
     margin: 5px;
     border-width: 1px;
     border-style: solid;
@@ -618,22 +618,24 @@ opacity: 1;
 
 #organizationdropdown{
     border: none ;
-    width: 250px;
-    height: 30px;
-     -webkit-appearance: none;
+    width: 304px;
+    height: 27px;
+   -webkit-appearance: none;
     -moz-appearance: none;
      box-shadow: none !important ;
     appearance: none;
-    padding: 2px 1px 2px 5px;
-    border: 1px solid #dadada;
+    padding: 2px 1px 2px 2px;
+    border: 2px solid #d0d0d0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 2px;
+    color:#2b2f35;
     background: url("../images/dropdown.png") no-repeat right center;
-    position:relative;
-    font-weight:600;
-    color: #3f4042;
-    background-color: #ccc;
-    border-radius:5px;
-				
+    background-color: #F2F2F4; 
 }
+
 select#organizationdropdown option{
                             border: 10px #888 solid ;
                             border-radius: 10px;
@@ -644,7 +646,7 @@ select#organizationdropdown option{
                             font-size: 13pt;
                             font-weight:normal;
                             color: #888;
-                            background: #fff;
+                            background-color: #fff;
                             
                         }
 /*#organizationdropdown option{

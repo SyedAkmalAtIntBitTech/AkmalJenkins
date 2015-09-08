@@ -35,7 +35,7 @@
                 position: relative;
                 left:58em;
                 bottom:0px;
-                top:-65px;
+                top:-70px;
             }
             .emlist {
                 position: relative;
@@ -489,18 +489,18 @@
 
                     <div id="scrl" class="col-md-6"  ng-init="showEmailListWithContacts()">
                         <ul class="emlOneRowDatalst L2 " ng-repeat="email in emailLists">                            
-                            <li style="width:100px;left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')">{{email.emailListName}}<br><p class="BC1" style="width:80px;">{{email.listDescription}}</p></li>
-                            <li style="width:300px;text-align:center;left:200px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
-                            <li style="width:300px;text-align:center;   left:650px;"><button type="button" ng-click="updateList(email.emailListName)">EDIT LIST</button> </li>
+                            <li style=" left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')"><p class="emlOneRowDatalst L2" style="width:300px;">{{email.emailListName}}</p><p class="BC1" style="width:200px;">{{email.listDescription}}</p></li>
+                            <li style="width:300px;text-align:center;left:100px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
+                            <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList(email.emailListName)">EDIT LIST</button> </li>
                         </ul>
                        
                     </div><br><br>
 
                 </div>
               <div id="tab2" class="col-md-8 col-md-offset-0 " style="display:none">
-                  <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Create a new list</p></div><br><br><br><br>
-                  <p class="SS2"style="left:20px;position:relative;" >Create a new email list. After you hit save, you will then be
-                able to add new contacts.</p>
+                  <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Create a new list</p></div>
+                <div class="col-md-6 col-md-offset-0">  <p class="SS2"style="width:400px;left:-245px;position:relative;top:80px;"> Create a new email list. After you hit save, you will then be
+                able to add new contacts.</p></div>
                 <div class="col-md-6 col-md-offset-0 bgcols">
                     <div id="view1" style="position:relative;left:-250px;" >
 
@@ -551,7 +551,7 @@
                     <div class="col-md-5 col-md-offset-0">
                     
                         <ul class="delsel L2 ">
-                            <li style="left:-50px;"><p  style="width:100px;" ng-click="deleteSelected()">delete selected</p></li>
+                            <li style="left:-50px;"><p  style="width:200px;" ng-click="deleteSelected()">delete selected</p></li>
                             <li> <input style="top:17px;position:relative;left:-160px;" id="selectAll" type="checkbox" ng-click="selectCheckBox()">email address</li>
                         </ul> </div>
                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;top:-70px;">

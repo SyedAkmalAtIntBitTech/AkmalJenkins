@@ -76,6 +76,7 @@
             #drop-zone.mouse-over {
                 border: 2px dashed rgba(0,0,0,.5);
                 color: rgba(0,0,0,.5);
+                
             }
 
 
@@ -89,7 +90,7 @@
                 margin-top: 20px;
                 line-height: 26px;
                 color: white;
-                font-size: 12px;
+                font-size: 15px;
                 width: 270px;
                 height: 150px;
                 border-radius: 4px;
@@ -165,16 +166,46 @@
                 font-size: 18px;
                 border-radius: 5px;
             }
+            
+            fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}   
+            
             #chooseEmailList{
-                
-                color: #3f4042;
-                background-color: #ccc;
-                border: 1px solid #DADADA;
-                height:40px;
-                width:300px;
-                font-size: 18px;
-                border-radius: 5px;
-            }
+               border: none ;
+    width: 304px;
+    height: 27px;
+   -webkit-appearance: none;
+    -moz-appearance: none;
+     box-shadow: none !important ;
+    appearance: none;
+    padding: 2px 1px 2px 2px;
+    border: 2px solid #d0d0d0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 2px;
+    color:#2b2f35;
+    background: url("images/dropdown.png") no-repeat right center;
+    background-color: #F2F2F4; 
+    font-size:18px;
+    color: #3f4042;
+    height:40px;
+}
             
             #chooseEmailId:focus{
                 outline: none;
@@ -494,7 +525,19 @@
    
         </script>
         <script>
-
+            function fileselected(){
+             
+               var a = document.getElementById('file');
+                if(a.value == "")
+                {
+                fileselect.innerHTML = "Choose file";
+                }
+                else
+                    {
+                        var theSplit = a.value.split('\\');
+                        fileselect.innerHTML = theSplit[theSplit.length-1];
+                    }
+            }
               function upload() {
                 var fileUpload = document.getElementById("file");
                 alert(fileUpload.value.toLowerCase());
@@ -607,23 +650,24 @@
                     <p class="header1 MH2"> Who do you want to send this email to?</p>
                     <br><br>   
                    
-                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist slt" hidden="true">
+                    <select id="chooseEmailList" name="chooseEmailList"  hidden="true">
                         <option value="1">Manual</option>
                         <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                     </select>
                     <div id="drop-zone">
                         Drop files here...
-                        <div id="clickHere">
-                            or click here..
-                            <input type="file" name="file" id="file" style="width:300px;"/><br><br>
+                        <div id="clickHere" >
+                            <p id="fileselect" style="font-size:20px;top:60px;position:relative;">click to select file</p> 
+                     
+                      <input type="file" name="file"  id="file" style="overflow:hidden;position: absolute;top: 0;right: 0;margin: 0;width:250px;border-radius:15px;border:none;padding: 0;font-size: 20px;cursor: pointer;opacity: 0;filter: alpha(opacity=0);" onchange="fileselected()"/><br><br>
                         </div>
                     </div>
 
                   
                     
-                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:32.7em;top:-90px;border-radius:15px;"/>
+                    <input type="button" id="upload" value="Upload" onclick="upload()" class=" button button--moema button--text-thick button--text-upper button--size-s" style="position:relative;left:55em;top:-90px;"/>
                     <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-csv BT1" value="Add CSV or Email Manually">
-                    <textarea style="width:300px; height:100px;position:relative;left:42em;top:-20px;" id="emailaddresses"></textarea><br><br>
+                    <textarea style="width:300px; height:100px;position:relative;left:33em;top:-20px;" id="emailaddresses"></textarea><br><br>
                
 
                     <div id="popup">
