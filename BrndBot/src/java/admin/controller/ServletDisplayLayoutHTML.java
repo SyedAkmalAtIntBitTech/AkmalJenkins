@@ -46,9 +46,16 @@ public class ServletDisplayLayoutHTML extends BrndBotBaseHttpServlet {
         try (PrintWriter out = response.getWriter()) {
             JSONArray json_arr = new JSONArray();
             JSONObject json_ob = new JSONObject();
-              String layoutHTMLDiv = FileUtils.readFileToString(new File(AppConstants.LAYOUT_HTML_HOME+File.separator+modelname+".html"), "UTF-8");
+              File divFile = new File(AppConstants.LAYOUT_HTML_HOME+File.separator+modelname+".html");
+              String layoutHTMLDiv = "";
+              
+              if(divFile.exists())
+                 layoutHTMLDiv = FileUtils.readFileToString(divFile, "UTF-8");
               json_ob.put("div",layoutHTMLDiv);
-              String layoutHTMLTable = FileUtils.readFileToString(new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH+File.separator+modelname+".html"), "UTF-8");
+              String layoutHTMLTable = "";
+              File tableFile = new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH+File.separator+modelname+".html");
+              if(tableFile.exists())
+                layoutHTMLTable = FileUtils.readFileToString(tableFile, "UTF-8");
               json_ob.put("table",layoutHTMLTable);
               
               json_arr.add(json_ob);
