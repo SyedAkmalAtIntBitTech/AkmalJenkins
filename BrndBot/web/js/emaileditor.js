@@ -737,8 +737,9 @@ function getButtonid(ID) {
 }
 
 function getTectId(id) {
+     selectedTextareaId = id.id;
     $("textarea").click(function () {
-        selectedTextareaId = id.id;
+       
         var textDefaultcolor = $("#" + selectedTextareaId).css("color");
 
         var textDefaultAline = $("#" + selectedTextareaId).css("text-align");
