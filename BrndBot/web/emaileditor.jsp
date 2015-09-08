@@ -564,7 +564,7 @@ and open the template in the editor.
 
 
                     function showSomething(block_id_temp, id, style, mind_body_query){
-                    temp_style_id = id;
+                             temp_style_id = id;
                             temp_style_layout = style;
                             temp_block_id = block_id_temp;
                             temp_mind_body_query = mind_body_query;
@@ -620,14 +620,14 @@ and open the template in the editor.
                                     block_clicked = "false";
                                     //  $(".preview").empty();
                                     $(xml).find('layout').each(function () {
-                            height = $(this).find('container').attr("Height");
+                                    height = $(this).find('container').attr("Height");
                                     width = $(this).find('container').attr("Width");
                                     $(".preview #" + blockId).css("width", width + "px");
                                     $(".preview #" + blockId).css("height", height + "px");
                                     $(".preview #" + blockId).css("position", "relative");
                             }
 
-                            );
+                            );                    
                                     var count = 1;
                                     var blockcount = 1;
                                     var textcount=1;
@@ -687,7 +687,7 @@ and open the template in the editor.
                             }
 //                                                fontcolor = $(this).attr("font-color");
                             textcount++;
-                                    $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
+                                    $(".preview #" + blockId).append("<textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
                                     $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
                                     .css("position", "absolute")
                                     .css("overflow", "hidden")
@@ -738,7 +738,7 @@ and open the template in the editor.
                                     var background_image = $(this).attr("background-image")
                                     $(".imagename").append("<option name=" + background_image + " value=" + type + "EEE" + blockId + ">Image " + count + "</option>");
                                     count++;
-                                    $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
+                                    $(".preview #" + blockId).append("<div class=images onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
                                     $("#" + type + "EEE" + blockId)
                                     .css("color", "" + fontcolor)
                                     .css("margin-left", "" + left + "px")
@@ -805,9 +805,9 @@ and open the template in the editor.
 //                                                              fontcolor=user_preferences_colors.color+""+i; 
                             }
                             }
-                            $(".blockname").append("<option value=" + type + "EEE" + blockId + ">Block " + blockcount + "</option>")
+                            $(".blockname").append("<option value=" + type + "EEE" + blockId + ">Block " + blockcount + "</option>");
                                     blockcount++;
-                                    $(".preview #" + blockId).append("<div onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
+                                    $(".preview #" + blockId).append("<div class=block onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
                                     $("#" + type + "EEE" + blockId).css("background-color", "" + backgroundcolor)
                                     .css("margin-left", "" + left + "px")
                                     .css("margin-top", "" + top + "px")

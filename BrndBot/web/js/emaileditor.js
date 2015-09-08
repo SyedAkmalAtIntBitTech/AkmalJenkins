@@ -284,7 +284,7 @@ $(document).ready(function () {
 
                                     }
 
-                                    $(".preview #defaultblock1").append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1>" + elementdata + "</textarea>");
+                                    $(".preview #defaultblock1").append("<textarea class=textAreas onclick=getTectId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1>" + elementdata + "</textarea>");
                                     $("#" + type + "EEEdefaultblock1").css("color", "" + fontcolor)
                                             .css("position", "absolute")
                                             .css("overflow", "hidden")
@@ -342,7 +342,7 @@ $(document).ready(function () {
                                     var background_image = $(this).attr("background-image");
                                     $(".imagename").append("<option name=" + background_image + " value="+ type + "EEEdefaultblock1>Image " + count + "</option>");
                                     count++;
-                                    $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
+                                    $(".preview #defaultblock1").append("<div class=images onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                                     $("#" + type + "EEEdefaultblock1")
                                             .css("color", "" + fontcolor)
                                             .css("position", "absolute")
@@ -410,7 +410,7 @@ $(document).ready(function () {
 
                                     $(".blockname").append("<option value=" + type + "EEEdefaultblock1>Block " + blockcount + "</option>");
                                     blockcount++;
-                                    $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
+                                    $(".preview #defaultblock1").append("<div class=block onclick=getDivId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                                     $("#" + type + "EEEdefaultblock1").css("background-color", "" + backgroundcolor)
                                             .css("left", "" + left + "px")
                                             .css("top", "" + top + "px")
@@ -448,6 +448,8 @@ $(document).ready(function () {
     $("#deleteBlock").click(function () {
         var tempSelectedBlockId = $(selectedBlockId).attr("id");
         $("#" + tempSelectedBlockId).remove();
+         $(".imagename").find('option').remove().end();
+         $(".blockname").find('option').remove().end();
     });
     $("#sortDownBlock").click(function () {
 
@@ -682,9 +684,45 @@ $(function(){
     });
 });
 function getBlockId(id) {
-
     selectedBlockId = id;
-
+    var blockCount=1;
+    var imageCount=1;
+    var textCount=1;
+    $(".imagename").find('option').remove().end();
+    $(".blockname").find('option').remove().end();
+    
+   $('#'+selectedBlockId.id).children().each(function () {
+        var Id=this.id;
+        var className=$("#"+Id).attr("class");
+        switch (className){
+            case 'textAreas': textCount++;
+                                break;
+            case 'block':   
+                            $(".blockname").append("<option value="+ Id +">Block " + blockCount + "</option>");
+                            blockCount++;
+                            break;              
+                            
+            case 'images': 
+                            var backgroundImage=$("#"+Id).css("background-image");
+                            $(".imagename").append("<option name="+backgroundImage+" value="+ Id +">Image " + imageCount + "</option>");
+                            imageCount++;
+                            break; 
+                        
+            
+        }
+        if(blockCount <=1)
+            $("#shapecontainer").hide();
+        else
+             $("#shapecontainer").show();
+         if(imageCount <=1)
+            $("#imagecontainer").hide();
+        else
+        $("#imagecontainer").show();
+        if(textCount <=1)
+        $("#textcontainer").hide();
+        else
+          $("#textcontainer").show();
+});
     mindbodydataId = $(selectedBlockId).attr("name").toString();
     $("#tabs-1").show();
     $("#tabs-2").hide();
@@ -701,6 +739,13 @@ function getButtonid(ID) {
 function getTectId(id) {
     $("textarea").click(function () {
         selectedTextareaId = id.id;
+        var textDefaultcolor = $("#" + selectedTextareaId).css("color");
+
+        var textDefaultAline = $("#" + selectedTextareaId).css("text-align");
+        var textDefaultFontSize = $("#" + selectedTextareaId).css("font-size");
+        var textDefaultFontFamily = $("#" + selectedTextareaId).css("font-style");
+        $("#picker").css("background-color", "" + textDefaultcolor);
+        reload_alignButtons1(textDefaultAline);
     });
 }
 
