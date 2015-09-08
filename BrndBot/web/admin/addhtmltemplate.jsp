@@ -28,6 +28,9 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <script src="../js/htmltemplate.js" type="text/javascript"></script>
+       <script src="../js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.reveal.js" type="text/javascript"></script>
+        <link href="../css/reveal.css" rel="stylesheet" type="text/css"/>
         <title>HTML templates</title>
 
     </head>
@@ -64,6 +67,15 @@
     %>
     <body ng-app class="container" >
         <%@include file="menus.jsp" %>
+        
+        <div id="myModal" class="reveal-modal">
+            <div id="content">
+                <center>
+                    HTML Content with divs: <textarea name="html_div_content" id="html_div_content" maxlength="100000" cols="50" rows="10"></textarea>
+                </center>
+            </div>   
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
         <div align="center" ng-controller="htmlController" >
             <div class="jumbotron" style="height: 480px; margin-top: 0px; padding-top: 20px; text-align: center;">
                 <form class="form-horizontal" name="formhtmltemplate">
@@ -95,11 +107,12 @@
                                     }
 
                                 %>
-                            </select><br>
+                            </select><br><br />
 
                             Attach Image:<input type="file" style="border: 1px solid;" name="filesToUpload" id="filesToUpload" class="upload"/><br>
                             <!--  <label>Organization Name:</label>-->
                             <button type="button" id="uploadhtml" onclick="upload()" name="uploadhtml">Upload HTML</button><br><br>
+                            <a href="#" data-reveal-id="myModal" class="clickthis">Click here for html divs</a><br /><br />
                             HTML Content: <textArea name="html_content" id="html_content" maxlength="100000" cols="50" rows="10"></textArea> 
                     </div><br>
                 </div>
