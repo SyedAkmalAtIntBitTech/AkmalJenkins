@@ -17,10 +17,10 @@ public interface MindBodyConstants {
     public final static String kPromote_staff_spotlight_query = "promote staff spotlight";
 
     public final static String kPromote_workshop_query = "promote new workshop";
-    public final static String kPromote_todays_workshop_query = "promote today's workshop";
+    public final static String kPromote_todays_workshop_query = "promote todays workshop";
     public final static String kPromote_upcoming_workshop_query = "promote upcoming workshops";
 
     public final static String kPromote_class_query = "promote new class";
-    public final static String kPromote_todays_class_query = "promote today's class";
+    public final static String kPromote_todays_class_query = "promote todays class";
     
 }
