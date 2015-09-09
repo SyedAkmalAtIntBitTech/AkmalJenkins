@@ -3,10 +3,11 @@
 <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="css/jquery.datepicker.css" />
     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="js/jquery.datepicker.js"></script>
     <script type="text/javascript">
         // Localization
-
+        var user_selected_date;
         jQueryDatepicker.day_names_short = {
             1: 'Mon',
             2: 'Tue',
@@ -59,10 +60,13 @@
                 month: 1,
                 day: 3
             });
+            $some_datepicker.on('date_selected.datepicker', function (event, user_selected_date) {
+                $selected.show().html('Selected date is: ' + user_selected_date.date.toString());
 
-            $some_datepicker.on('date_selected.datepicker', function (event, date) {
-                $selected.show().html('Selected date is: '+date.date.toString());
+//                alert(user_selected_date.date.toString());
+                setCurrentDate(user_selected_date);
             });
+
         });
     </script>
     <style type="text/css">
@@ -132,7 +136,7 @@ a {
             <div style="width: 250px; font-family: 'Arial'; margin: auto;">
             <div class="some_datepicker">
             </div>
-        </div>
+            </div>
 
         <div class="selected" style="margin: auto;margin-top: 15px;"></div>
            <!-- <ul class="subnav nav-stacked">

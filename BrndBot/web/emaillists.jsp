@@ -489,9 +489,9 @@
 
                     <div id="scrl" class="col-md-6"  ng-init="showEmailListWithContacts()">
                         <ul class="emlOneRowDatalst L2 " ng-repeat="email in emailLists">                            
-                            <li style="width:100px;left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')">{{email.emailListName}}<br><p class="BC1" style="width:80px;">{{email.listDescription}}</p></li>
-                            <li style="width:300px;text-align:center;left:200px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
-                            <li style="width:300px;text-align:center;   left:650px;"><button type="button" ng-click="updateList(email.emailListName)">EDIT LIST</button> </li>
+                            <li style="width:100px; left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')">{{email.emailListName}}<br><p class="BC1" style="width:80px;">{{email.listDescription}}</p></li>
+                            <li style="width:300px; text-align:center; left:200px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
+                            <li style="width:300px; text-align:center; left:650px;"><button type="button" ng-click="updateList(email.emailListName)">EDIT LIST</button> </li>
                         </ul>
                        
                     </div><br><br>
@@ -499,7 +499,7 @@
                 </div>
               <div id="tab2" class="col-md-8 col-md-offset-0 " style="display:none">
                   <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Create a new list</p></div><br><br><br><br>
-                  <p class="SS2"style="left:20px;position:relative;" >Create a new email list. After you hit save, you will then be
+                  <p class="SS2" style="left:20px;position:relative;" >Create a new email list. After you hit save, you will then be
                 able to add new contacts.</p>
                 <div class="col-md-6 col-md-offset-0 bgcols">
                     <div id="view1" style="position:relative;left:-250px;" >
