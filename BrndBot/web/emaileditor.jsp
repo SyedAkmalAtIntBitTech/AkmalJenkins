@@ -853,7 +853,7 @@ and open the template in the editor.
 
     </head>
     <body ng-app="myapp">
-        <input type="hidden" id='userlogo'value=<%= logoImageName%>>
+        <input type="hidden" id='userlogo' value=<%= logoImageName%>>
         <input type="hidden" id='userid' value=<%= user_id%>>
         <script src="js/emaileditor.js" type="text/javascript"></script>
         
@@ -864,6 +864,16 @@ and open the template in the editor.
 
             <a class="close-reveal-modal">&#215;</a>
         </div>
+        
+        <a href="#" data-reveal-id="previewpopup1" class="clickpreview" style="display:none;" >Click Me For A Modal</a>
+    <div id="previewpopup1" class="reveal-modal">
+        <div id="previewcontent">
+            
+        </div>
+    <a class="close-reveal-modal">&#215;</a>
+    
+
+    </div>
         
         <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display: none;">Click Me For A Modal</a>
     <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;">
