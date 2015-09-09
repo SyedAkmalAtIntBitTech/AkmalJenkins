@@ -51,7 +51,6 @@ and open the template in the editor.
         -->            
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
-        <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagecropper.css" rel="stylesheet" type="text/css"/>
 
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
@@ -382,23 +381,29 @@ and open the template in the editor.
                                     block_id = arr[0].replace("block", "");
                             };
                             $scope.showStyles = function(){
-                            var queryurl;
+                                    var queryurl;
                                     $scope.curPage = 0;
                                     $scope.pageSize = 2;
                                     if (block_clicked == "true" || blockIdSelected != "defaultblock1")
-                            {
-                            queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
-                            }
-                            else
-                            {
-                            queryurl = 'GetLayoutStyles?editorType=email';
-                            }
+                                    {
+                                    queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
+                                    }
+                                 else
+                                    {
+                                    queryurl = 'GetLayoutStyles?editorType=email';
+                                    }
 
                             $http({
                             method : 'GET',
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
-                            $scope.datalistsstyles = data;
+                                            $scope.datalistsstyles = data;
+                                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
+                                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
+                                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+                                            document.getElementById('edt').style.backgroundColor = 'transparent';
+                                            document.getElementById('stl').style.backgroundColor = '#fff';
+                                            document.getElementById('blk').style.backgroundColor = 'transparent';
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                                     };
@@ -414,26 +419,32 @@ and open the template in the editor.
                             };
                             $scope.showBlocks = function(){
 
-                            $scope.curPage = 0;
+                                    $scope.curPage = 0;
                                     $scope.pageSize = 2;
                                     $http({
-                                    method : 'GET',
+                                         method : 'GET',
                                             url : 'GetBlocks'
-                                    }).success(function(data, status, headers, config) {
-
-                            $scope.datalists = data;
-                                    $scope.numberOfPages = function() {
-                                    return Math.ceil($scope.datalists.length / $scope.pageSize);
-                                    };
+                                        }).success(function(data, status, headers, config) {
+                                            $scope.datalists = data;
+                                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
+                                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
+                                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+                                            document.getElementById('edt').style.backgroundColor = 'transparent';
+                                            document.getElementById('stl').style.backgroundColor = 'transparent';
+                                            document.getElementById('blk').style.backgroundColor = '#fff';
+                                            $scope.numberOfPages = function() {
+                                           return Math.ceil($scope.datalists.length / $scope.pageSize);
+                                           };
                                     if (data === error){
-                            alert(data);
-                            }
-                            }).error(function(data, status, headers, config) {
+                                        alert(data);
+                                        }
+                                    }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
                                     // or server returns response with an error status.
                             });
                             };
+                            
                             $scope.showImageOfBlock = function(id, mind_body_query){
                             $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
                             var jsondataDefault = data;
@@ -1212,8 +1223,8 @@ and open the template in the editor.
                 <div id="tabs">
                     <ul class="sidebar-nav" id="sidebar">
                         <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img  id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="40" height="40"><p id="text1">EDIT</p></a></li>
-                        <li id="stl" class="hov"  onclick="hls();"><a href="#tabs-2" id="style" ><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>
-                        <li id="blk" class="hov"  onclick="hlb();"><a href="#tabs-3" id="block" ><img id="blkimg" class="optbtn" src="images/sidebar/Icons_blockButton.svg" alt="" width="40" height="40"  ng-click="showBlocks()"><p id="text1">BLOCK</p></a></li>
+                        <li id="stl" class="hov"  ng-click="showStyles()"><a href="#tabs-2" id="style" ><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ><p id="text1">STYLE</p></a></li>
+                        <li id="blk" class="hov"  ng-click="showBlocks()" ><a href="#tabs-3" id="block" ><img id="blkimg" class="optbtn" src="images/sidebar/Icons_blockButton.svg" alt="" width="40" height="40"><p id="text1">BLOCK</p></a></li>
                         <!--<li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>--> 
                     </ul>
                 </div>
@@ -1232,20 +1243,10 @@ and open the template in the editor.
                                             }
                                     function hls(){
 
-                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
-                                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
-                                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-                                            document.getElementById('edt').style.backgroundColor = 'transparent';
-                                            document.getElementById('stl').style.backgroundColor = '#fff';
-                                            document.getElementById('blk').style.backgroundColor = 'transparent';
+
                                     }
                                     function hlb(){
-                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
-                                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
-                                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-                                            document.getElementById('edt').style.backgroundColor = 'transparent';
-                                            document.getElementById('stl').style.backgroundColor = 'transparent';
-                                            document.getElementById('blk').style.backgroundColor = '#fff';
+                                            
                                     }
 
 

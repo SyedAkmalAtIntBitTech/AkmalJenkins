@@ -145,31 +145,6 @@ $(document).ready(function () {
 
 
 
-    $.ajax({
-        type: "GET",
-        url: "xml/san1.xml",
-        dataType: "xml",
-        success: function (xml) {
-            var count = 0;
-            $(xml).find('datamapper').each(function () {
-
-                var element = $(this).attr("Element");
-                var default1 = $(this).attr("Default");
-                mapperrray[count] = element + ":" + default1;
-                count++;
-            }
-
-            );
-//            alert(mapperrray);
-        },
-        error: function (e)
-        {
-            alert("error in xml file read");
-        }
-    });
-
-
-
     var jsondata;
     mindbodydataId = $("#mindbodydata").val();
 
@@ -283,7 +258,7 @@ $(document).ready(function () {
                                         }
 
                                     }
-
+                                    textcount++;
                                     $(".preview #defaultblock1").append("<textarea class=textAreas onclick=getTectId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1>" + elementdata + "</textarea>");
                                     $("#" + type + "EEEdefaultblock1").css("color", "" + fontcolor)
                                             .css("position", "absolute")

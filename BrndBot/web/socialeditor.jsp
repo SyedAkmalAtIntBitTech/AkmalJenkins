@@ -331,7 +331,11 @@ ul::-webkit-scrollbar-thumb {
                                             url : 'GetLayoutStyles?editorType=social'
                                     }).success(function(data, status, headers, config) {
 //                                            alert(JSON.stringify(data));
-                                    $scope.datalists = data;
+                                                $scope.datalists = data;
+                                                document.getElementById('stlimg').src="images/sidebar/Icons_styleButton_blue_new.svg";
+                                                document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
+                                                document.getElementById('edt').style.backgroundColor = 'transparent';
+                                                document.getElementById('stl').style.backgroundColor = '#fff';
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
                                     };
@@ -871,7 +875,7 @@ ul::-webkit-scrollbar-thumb {
                 <div id="tabs">
                     <ul class="sidebar-nav">
                         <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1">EDIT</p></a></li>
-                        <li id="stl" class="hov" onclick="hls();"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>                  
+                        <li id="stl" class="hov" ng-click="showStyles()"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40"><p id="text1">STYLE</p></a></li>                  
                     </ul>
                 </div>
             </div>
@@ -887,12 +891,6 @@ ul::-webkit-scrollbar-thumb {
                                                  document.getElementById('stlimg').src="images/sidebar/Icons_styleButton.svg";
                                                    document.getElementById('edt').style.backgroundColor = '#fff';
                                                 document.getElementById('stl').style.backgroundColor = 'transparent';
-                                            }
-                                            function hls(){
-                                                document.getElementById('stlimg').src="images/sidebar/Icons_styleButton_blue_new.svg";
-                                                document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
-                                                document.getElementById('edt').style.backgroundColor = 'transparent';
-                                                document.getElementById('stl').style.backgroundColor = '#fff';
                                             }
                                             $('.category_list li').click(function(){
                                                 $('.highlight').removeClass('highlight');
