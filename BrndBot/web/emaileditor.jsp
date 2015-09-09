@@ -46,7 +46,8 @@ and open the template in the editor.
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
         <script src="js/jquery.blend.min.js" type="text/javascript"></script>-->
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"><!--
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> 
+       <!--
           <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         -->            
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -81,7 +82,7 @@ and open the template in the editor.
             {
                 width: 20px;
                 height:14px;
-                /*                border-radius: 20px;*/
+                  border-radius: 20px;
                 background-color: #FFF;
             }
             #popup
@@ -241,7 +242,7 @@ and open the template in the editor.
                 border-radius: 10px;
                 -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
             }
-        </style>
+                  </style>
 
         <%!
             SqlMethods sql_methods = new SqlMethods();
@@ -1013,6 +1014,7 @@ and open the template in the editor.
                                                 </li>
 
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><ul id="openCustomColor">
                                                 <li><p class="editpal">your palette</p></li>                                                                                         
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
@@ -1028,7 +1030,7 @@ and open the template in the editor.
 
                                                 <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
                                                 <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
-
+                                                    </ul></li> 
 
 
                                             </ul>
