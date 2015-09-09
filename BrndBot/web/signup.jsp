@@ -20,6 +20,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <link rel="stylesheet" href="css/main1.css">
         <title>Sign up</title>
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body class="container" >
         

@@ -27,7 +27,7 @@
                 top:-2.15em;
             }
         </style>
-        
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body class="container">
         <div id="signupdiv">

@@ -166,7 +166,7 @@
                 opacity: 1;
             }
         </style>
-        
+        <jsp:include page="basejsp.jsp" />
     </head>
 
     <body>

@@ -93,6 +93,7 @@
               }]);
 
         </script>
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body>
         <div class="container">
