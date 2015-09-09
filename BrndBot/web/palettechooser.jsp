@@ -213,7 +213,8 @@
 
     </script>
 
-
+        <jsp:include page="basejsp.jsp" />
+    
 </head>
 <body ng-app="myapp" >
 

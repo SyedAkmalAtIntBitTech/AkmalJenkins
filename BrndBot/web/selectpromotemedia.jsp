@@ -58,7 +58,7 @@
                 window.open(configuration, "_self");
             }
         </script>
-
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body>
 

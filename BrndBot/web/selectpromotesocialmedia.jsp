@@ -298,7 +298,7 @@
            }
            
         </script>
-<!--        <link href="css/foundation.css" rel="stylesheet" type="text/css"/>-->
+        <jsp:include page="basejsp.jsp" />
     </head>
 <body>
     <a href="#" data-reveal-id="myModal" class="clickthis" style="display: none;">Click Me For A Modal</a>

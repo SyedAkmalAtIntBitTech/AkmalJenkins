@@ -58,6 +58,7 @@
                 
         </script>
          <link rel="stylesheet" href="css/main1.css">
+        <jsp:include page="basejsp.jsp" />
         
     </head>
     <body ng-app="myapp">

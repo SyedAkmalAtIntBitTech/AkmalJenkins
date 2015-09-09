@@ -192,6 +192,7 @@ and open the template in the editor.
                 }
             
         </style>
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app="rootApp">
         <div> 

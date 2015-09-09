@@ -24,6 +24,7 @@
         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/main1.css">
         <title>change password</title>
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body class="container">
          <div id="signupdiv">
