@@ -373,8 +373,7 @@ public class ConvertDivToHTML {
         PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletRequest.getServletContext(), filePath);
         compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), null, width, height, "0", "0");
             //Should create the compressed image out of this and replace the background with it.
-
-        return servletRequest.getServerName() + ":" + servletRequest.getServerPort() + "/BrndBot/DownloadImage?image_type=HTML_IMAGES&image_name=" + compressedBackgroundImageFile.getName();
-//        return servletRequest.getServerName() + ":" + servletRequest.getServerPort() + compressedBackgroundImageFile.getPath();
+        String imageURL = "http://"+servletRequest.getServerName() + ":" + servletRequest.getServerPort() + "/BrndBot/DownloadImage?image_type=HTML_IMAGES&image_name=" + compressedBackgroundImageFile.getName();
+        return imageURL;
     }
 }
