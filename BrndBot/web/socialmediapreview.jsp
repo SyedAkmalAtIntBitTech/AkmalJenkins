@@ -233,8 +233,12 @@
                 <div class="col-sm-3 col-sm-offset-2" id="twitterpreviewdiv">
                     <p id="fbprev"> Twitter Preview</p><br>
                     <div style="height:320px;width:420px;padding:7px; border-color:red;border:2px #cccccc solid;border-radius:10px;">
-                    <img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>">
-                    <p><%=companyName%></p>
+                    <table class="fbtable">
+                             <tr>
+                                 <td><img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>"></td>
+                                 <td><p><%=companyName%></p></td>
+                             </tr>
+                         </table>
                     <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"  style="left:50px;"></textarea>
                     <img id="twitterpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                     </div>
@@ -246,6 +250,7 @@
             <input type="hidden" id="twitterTokenSecret" name="twitterTokenSecret" value='<%=twitteracesstoken[1]%>'>
             <input type="hidden" id="isFacebook" name="isFacebook" value='<%= isFacebook%>'/>
             <input type="hidden" id="isTwitter" name="isTwitter" value='<%= isTwitter%>'/>
+            <input type="hidden" id="sortLengthurl"/>
 
         </div>
             
@@ -281,9 +286,24 @@
                 
                 $("#url").focusout(function (){
                     var link=$("#url").val();
+                    var url=link;
+                    var username="sandeep264328"; // bit.ly username
+                    var key="R_63e2f83120b743bc9d9534b841d41be6";
+                    $.ajax({
+                    url:"http://api.bit.ly/v3/shorten",
+                    data:{longUrl:url,apiKey:key,login:username},
+                    dataType:"jsonp",
+                    success:function(v)
+                    {
+                    var bit_url=v.data.url;
+                    $("#sortLengthurl").val(bit_url);
+//                    $("#result").html('<a href="'+bit_url+'" target="_blank">'+bit_url+'</a>');
+                    $("#twittertext").val($("#twittertext").val()+" "+bit_url+"");
+                    }
+                    }); 
                     $("#Linkurl").val(link);
                     $("#fbHref").attr("href","https://"+link);
-                    $("#twittertext").val($("#twittertext").val()+" "+link+"");
+                    
                     
                 });
                 
@@ -378,7 +398,8 @@
                                 text: $("#twittertext").val(),
                                 isFacebook: isFacebook,
                                 isTwitter: isTwitter,
-                                imagePost: image_name
+                                imagePost: image_name,
+                                shorturl:$("#sortLengthurl").val()
                             },
                             success: function (responseText) {
 //                            $("#tokenHere").html(responseText);

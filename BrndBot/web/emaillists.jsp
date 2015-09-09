@@ -497,12 +497,12 @@
                     </div><br><br>
 
                 </div>
-              <div id="tab2" class="col-md-8 col-md-offset-0 " style="display:none">
+              <div id="tab2" class="col-md-8 col-md-offset-2 " style="display:none;padding-top:5%;">
                   <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Create a new list</p></div>
                 <div class="col-md-6 col-md-offset-0">  <p class="SS2"style="width:400px;left:-245px;position:relative;top:80px;"> Create a new email list. After you hit save, you will then be
                 able to add new contacts.</p></div>
                 <div class="col-md-6 col-md-offset-0 bgcols">
-                    <div id="view1" style="position:relative;left:-250px;" >
+                    <div id="view1" style="position:relative;left:-350px;padding-top:8%;" >
 
                         <form class="form-horizontal" id="signform" >
 
@@ -523,6 +523,7 @@
                                 <div class="col-md-3 col-md-offset-5">                            
                                     <input id="list_description" class="brdr form-control simplebox" type="text" name="list_description"/>
                                     <label>LIST DESCRIPTION</label><br>
+                                    <p class="BC1" style="width:300px;">Keep this short and sweet! Like “People Interested in Events”</p>
                                 </div>
                             </div>
 

@@ -488,12 +488,12 @@
                 <p>
                     <!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
                     Font Color: <select id="fontColor">
-                                    <option value="red">Font-Color-1</option>
-                                    <option value="blue">Font-Color-2</option>
-                                    <option value="green">Font-Color-3</option>
-                                    <option value="yellow">Font-Color-4</option>
-                                    <option value="Lime">Font-Color-5</option>
-                                    <option value="indigo">Font-Color-6</option>
+                                    <option value="#F27821">Font-Color-1</option>
+                                    <option value="#00A8BD">Font-Color-2</option>
+                                    <option value="#EE7766">Font-Color-3</option>
+                                    <option value="#EEEEEE">Font-Color-4</option>
+                                    <option value="#FFFFFF">Font-Color-5</option>
+                                    <option value="#353333">Font-Color-6</option>
                                 </select>
                 </p>
                 <hr>

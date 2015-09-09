@@ -50,7 +50,7 @@ label                {
 
 /* active state */
 #name:focus ~ label, #name:valid ~ label        {
-  left:-25px;
+  left:-70px;
   font-size:13px;
   color:#999;
 }
@@ -70,7 +70,7 @@ label                {
   color:#999;
 }
 #email:focus ~ label, #email:valid ~ label        {
-  left:-30px;
+  left:-100px;
   font-size:13px;
   color:#999;
 }

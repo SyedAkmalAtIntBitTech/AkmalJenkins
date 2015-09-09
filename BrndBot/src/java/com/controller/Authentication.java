@@ -38,7 +38,6 @@ public class Authentication extends BrndBotBaseHttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
-                    logger.log(Level.SEVERE, getSqlMethodsInstance().error + "Exception while login:");
 
         response.setContentType("text/html;charset=UTF-8");
         StringBuffer string_buffer = new StringBuffer();

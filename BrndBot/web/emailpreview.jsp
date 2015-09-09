@@ -232,7 +232,7 @@
                 success: function (responseText) {
                     formattedHTMLData = responseText;
                     //show popup showing
-                    alert(formattedHTMLData);
+                
                     $(".content").empty();
                     $(".content").append(responseText);
 

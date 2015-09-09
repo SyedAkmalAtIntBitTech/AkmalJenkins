@@ -80,6 +80,9 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
                 case LAYOUT_IMAGES:
                     imageBasePath = AppConstants.LAYOUT_IMAGES_HOME;
                     break;
+                case HTML_IMAGES:
+                    imageBasePath = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH;
+                    break;
                 case ADMIN_LAYOUT_BACKGROUNDIMAGES:
                     imageBasePath = AppConstants.ADMIN_LAYOUT_BACKGROUNDIMAGES_HOME;
                     break;
@@ -128,6 +131,9 @@ public class DownloadImageServlet extends BrndBotBaseHttpServlet {
             responseMap.put("error", "Invalid Image Type. Supported Image types are: "
                     + Arrays.asList(ImageType.values()).stream().map(type -> type.toString()).collect(Collectors.joining(", ")));
             response.getWriter().write(new Gson().toJson(responseMap));
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Major Exception", getSqlMethodsInstance().error));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
