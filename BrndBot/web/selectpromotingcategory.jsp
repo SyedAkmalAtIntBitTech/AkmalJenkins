@@ -15,6 +15,7 @@ and open the template in the editor.
     <head>
         <title>Select promoting category </title>
         <meta charset="UTF-8">
+         <%@ include file="fonttypekit.jsp"%>
         <script src="js/angular.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">

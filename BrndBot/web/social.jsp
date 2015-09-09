@@ -9,6 +9,7 @@ and open the template in the editor.
     <head>
         <title>social</title>
         <meta charset="UTF-8" >
+         <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -20,6 +21,7 @@ and open the template in the editor.
         <script src="js/tabcontent.js" type="text/javascript"></script>
         <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
         <script src="js/socialsettings.js" type="text/javascript"></script>
+         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <style>
             .glyphicon.glyphicon-home,.glyphicon.glyphicon-envelope,.glyphicon.glyphicon-comment, .glyphicon.glyphicon-picture, .glyphicon.glyphicon-cog{
@@ -375,7 +377,7 @@ and open the template in the editor.
 
                 <div class="col-md-10 col-md-offset-1">
                     <div class="col-md-10 ">
-                        <p id="text3"> Setting page</p>
+                        <p id="text3" class="MH1"> Setting page</p>
 
 
                         <div style="width:500px; margin:0px; padding:120px 0 40px;">

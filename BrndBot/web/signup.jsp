@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.11.3.min.js"></script>
@@ -29,7 +30,7 @@
                 <form class="form-horizontal" id="signform" ng-controller="UserController" ng-submit="createUser()" >
                         <div class="group">
                              <div class="col-md-3 col-md-offset-5">                            
-                                  <p class="text-left">Sign Up</p>
+                                  <p class="MH2">Sign Up</p>
                              </div>
                         </div>
                     

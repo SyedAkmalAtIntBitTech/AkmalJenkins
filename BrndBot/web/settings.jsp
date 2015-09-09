@@ -10,7 +10,7 @@ and open the template in the editor.
         <title>setting</title>
         <meta charset="UTF-8" >
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+         <%@ include file="fonttypekit.jsp"%>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <script src="js/configurations.js" type="text/javascript"></script>

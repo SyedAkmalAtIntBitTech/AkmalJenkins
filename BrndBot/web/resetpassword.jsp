@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html ng-app>
     <head>
+         <%@ include file="fonttypekit.jsp"%>
         <script src="js/configurations.js"></script>
         <script src="js/form.js"></script> 
         <script type="text/javascript" src="js/angular.min.js"></script>  
@@ -20,6 +21,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/main1.css">
         <title>change password</title>
     </head>
@@ -30,7 +32,7 @@
                 <form class="form-horizontal" id="signform" ng-controller="ForgotPassController" ng-submit="checkEmail()" >
                         <div class="group">
                              <div class="col-md-3 col-md-offset-5">                            
-                                  <p class="text-left">Enter  your Email id</p>
+                                  <p class=" MH2">Enter  your Email id</p>
                              </div>
                         </div>
                         
