@@ -1027,7 +1027,7 @@ and open the template in the editor.
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
 
-                                                <li><select class="imagename LE1 editordropdown" id="editorhead" style="width:130px;"> </select></li>
+                                                <li><select class="imagename LE1 editordropdown" id="editorhead" style="width:110px;"> </select></li>
 
                                                 <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
                                                 <li><p  class="btn"  onclick="imageEdit()">edit</p></li>
