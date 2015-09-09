@@ -20,6 +20,7 @@ and open the template in the editor.
         <script src="js/tabcontent.js" type="text/javascript"></script>
         <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
         <script src="js/socialsettings.js" type="text/javascript"></script>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <style>
             .glyphicon.glyphicon-home,.glyphicon.glyphicon-envelope,.glyphicon.glyphicon-comment, .glyphicon.glyphicon-picture, .glyphicon.glyphicon-cog{
                 font-size:20px;
@@ -386,8 +387,8 @@ and open the template in the editor.
                                     <div id="fbpagename" ng-init="getFacebookDetails()">
                                         Profile Name : {{facebookPage.user_profile_page}}<br>
                                         Default Managed Page Name : {{facebookPage.fb_default_page_name}}<br>
-                                        <button id="facebook" name="change">change</button>
-                                        <button id="fbclear" name="fbclear" ng-click="clearFacebookDetails()">clear</button><br>
+                                        <button id="facebook" class="button button--moema button--text-thick button--text-upper button--size-s" name="change">change</button>
+                                        <button id="fbclear" class="button button--moema button--text-thick button--text-upper button--size-s" name="fbclear" ng-click="clearFacebookDetails()">clear</button><br>
                                     </div>
                                     
                                     
@@ -396,8 +397,8 @@ and open the template in the editor.
                                     <b>Twitter</b>
                                     <div id="twpagename" >
                                         Profile Name : {{twitterPage.twitter_user_name}}<br>
-                                        <button id="twitter" name="change">change</button>
-                                        <button id="twitterclear" name="twitterclear" ng-click="clearTwitterDetails()">clear</button><br>
+                                        <button id="twitter" class="button button--moema button--text-thick button--text-upper button--size-s" name="change">change</button>
+                                        <button id="twitterclear" class="button button--moema button--text-thick button--text-upper button--size-s" name="twitterclear" ng-click="clearTwitterDetails()">clear</button><br>
                                     </div>
                                     
                                 </div>
