@@ -23,7 +23,6 @@
         <script src="js/angular.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/main1.css">
          <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
 
         <script>
             var elementid1;
@@ -72,6 +71,7 @@
                 });
             });        
          </script>
+         <jsp:include page="basejsp.jsp" />
     </head>
 
     <body ng-app="myapp" >

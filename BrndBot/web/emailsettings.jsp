@@ -17,7 +17,6 @@
         <script src="js/configurations.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/main1.css">
          <script src="js/form.js"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -230,7 +229,7 @@
             }
 
         </script>
-
+    <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app class="claro">
         <div ng-controller="controllerUserChanges" class="container" id="container"> 

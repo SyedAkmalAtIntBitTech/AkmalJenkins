@@ -10,7 +10,7 @@
     <head>
          <%@ include file="fonttypekit.jsp"%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="js/angular.min.js" type="text/javascript"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -616,6 +616,7 @@
        
             
         </script>
+        <jsp:include page="basejsp.jsp" />
     </head>
     <%! 
         String html_text = "";
