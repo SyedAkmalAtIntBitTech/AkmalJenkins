@@ -129,6 +129,18 @@ and open the template in the editor.
                 line-height: 25.9px;
                 letter-spacing: 0em;
             }
+            .mindbodyHeaderData{
+                position: relative;
+                width: 800px;
+                left:0px;
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 600;
+                color: #2d4355;
+                font-style: normal;
+                text-align: left;
+                line-height: 25.9px;
+                letter-spacing: 0em;
+            }
 
         </style>
         <%!
@@ -234,7 +246,7 @@ and open the template in the editor.
 
                 <div class="col-md-10 col-md-offset-0 datafib">
                     <ul class="dataheaderfromindbody">
-                        <div class="mindbodyOneRowData LE2" >
+                        <div class="mindbodyHeaderData LE2" >
                             <li style="width: 400px;left:20px;">{{datalists.column_header[0]}}</li>
                             <li style="width: 250px">{{datalists.column_header[1]}}</li>
                             <li style="width: 100px">{{datalists.column_header[2]}}</li>
