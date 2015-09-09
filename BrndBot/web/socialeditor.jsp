@@ -767,6 +767,7 @@ ul::-webkit-scrollbar-thumb {
                                                             </select>
                                                         </li>
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><ul id="openCustomColor">
                                                 <li><p class="editpal">your palette</p></li>
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
@@ -781,7 +782,7 @@ ul::-webkit-scrollbar-thumb {
                                                 
                                                 <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
                                                 <li><p class="editpal" id="blockopacity">opacity</p><div id="slider"></div></li>
-
+                                                    </ul>   
                                             </ul>
                                         </div>
 

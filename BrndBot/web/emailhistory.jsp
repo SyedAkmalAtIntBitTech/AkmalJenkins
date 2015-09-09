@@ -116,7 +116,7 @@
             <jsp:include page="emailsubmenu.html"/>
             <div class="col-md-8 col-md-offset-2 " >
                 
-                <div class="col-md-5 col-md-offset-0">
+                <div class="col-md-6 col-md-offset-0">
                     <p id="hyshead" class="MH2">Email History and Analytics</p>
                     <div id="email_headings" class="col-md-4 col-md-offset-0" >
                         <ul class="emlhisdata emlist FL2">
