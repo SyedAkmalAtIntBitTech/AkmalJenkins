@@ -40,10 +40,10 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+       
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        
         <script src="js/dashboard.js"></script>
 
         <style>
@@ -86,6 +86,8 @@ and open the template in the editor.
                 border-color: whitesmoke;
             }
         </style>
+<jsp:include page="basejsp.jsp" />
+
     </head>
 
     <body>
