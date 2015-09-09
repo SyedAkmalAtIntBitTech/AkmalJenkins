@@ -47,8 +47,8 @@ and open the template in the editor.
     color: #2D4444;
 }
 .edit{
-    font-family:"proxima-nova",sans-serif;
-    font-weight:400;
+/*    font-family:"proxima-nova",sans-serif;
+    font-weight:400;*/
     position: relative;
     padding-top:7%;
     left: 0px;
@@ -84,18 +84,18 @@ and open the template in the editor.
     position: relative;
     padding-top: 14%;
     width: 600px;
-    font-family: "proxima-nova";
+/*    font-family: "proxima-nova";
     font-style: normal;
-    font-weight: 600;
+    font-weight: 600;*/
     color:  #010101;
     line-height: 35px;
     letter-spacing: 0em;
 }
 #text3{
        
-    font-family: "proxima-nova";
+/*    font-family: "proxima-nova",sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 600;*/
     color:  #96999d;
     text-align:left;
     line-height: 18px;
@@ -145,8 +145,8 @@ and open the template in the editor.
 }
 #text2{
    color:#fff;
-   font-size:12px;
-   font-family:"proxima-nova";
+/*   font-size:12px;
+   font-family:"proxima-nova";*/
    width: 50px;
    position: relative;
    font-style:normal;
@@ -214,13 +214,13 @@ and open the template in the editor.
 }
 
 .editordropdown{
-    padding:2px;margin:2px;font-size:15px;width:125px;color:#3f4042;background-color: inherit;border-left:none;border-right:none;border-top:none;-webkit-appearance: none;-moz-appearance: none;box-shadow: none !important;appearance: none;background:url("../images/dropdown.png") no-repeat right center;
+    padding:2px;margin:2px;font-size:15px;width:115px;color:#3f4042;background-color: inherit;border-left:none;border-right:none;border-top:none;-webkit-appearance: none;-moz-appearance: none;box-shadow: none !important;appearance: none;background:url("../images/dropdown.png") no-repeat right center;
 }
 
 #editorheadere{
-    font-family: "proxima-nova";
+/*    font-family: "proxima-nova";
     font-style: normal;
-    font-weight: 400;
+    font-weight: 400;*/
     color: #66676b;
     text-align: left;
     line-height: 12px;
@@ -516,9 +516,9 @@ left:-4px;
     margin-top: 20px;
 }
 .smltxt{
-    font-family: "proxima-nova";
+/*    font-family: "proxima-nova";
     font-style: normal;
-    font-weight: 400;
+    font-weight: 400;*/
     color: #66676b;
     text-align: left;
     padding-top: 2%;
