@@ -24,7 +24,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        
 
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -850,7 +850,7 @@ and open the template in the editor.
 
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script src="js/crop.js" type="text/javascript"></script>
-
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app="myapp">
         <input type="hidden" id='userlogo' value=<%= logoImageName%>>

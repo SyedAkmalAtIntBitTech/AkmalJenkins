@@ -86,7 +86,7 @@ and open the template in the editor.
                 border-color: whitesmoke;
             }
         </style>
-<jsp:include page="basejsp.jsp" />
+        <jsp:include page="basejsp.jsp" />
 
     </head>
 
