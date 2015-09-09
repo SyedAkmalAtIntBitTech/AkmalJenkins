@@ -154,8 +154,8 @@ body{
 #text3 {
     position:relative;
     padding-top:14%;   
-    font-family: "proxima-nova";
-    font-weight: 600;
+/*    font-family: "proxima-nova",sans-serif;
+    font-weight: 600;*/
     color:#454141;
     font-style: normal;
     text-align:left;
@@ -203,9 +203,9 @@ body{
     position:relative;
     top:81px;
     left:120px;
-    font-family: "proxima-nova";
+/*    font-family: "proxima-nova";
     font-style: normal;
-    font-weight: 600;
+    font-weight: 600;*/
     font-size: 32px;
     color: #454141;
     text-align: left;

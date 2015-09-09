@@ -425,9 +425,9 @@ border-radius: 0px;
 
 /*................css for logo upload....*/
 .commentlin{
-font-family: "proxima-nova",sans-serif;
+/*font-family: "proxima-nova",sans-serif;
 font-style: normal;
-font-weight: 100;
+font-weight: 100;*/
 font-size: 15.5px;
 color: #3f4042;
 text-align: left;
@@ -442,9 +442,9 @@ top:1px;
 left: 50px;
 }
 #comment1{   
-font-family: "proxima-nova",sans-serif;
+/*font-family: "proxima-nova",sans-serif;
 font-style: normal;
-font-weight: 600;
+font-weight: 600;*/
 font-size: 21.5px;
 color: #3f4042;
 text-align: left;

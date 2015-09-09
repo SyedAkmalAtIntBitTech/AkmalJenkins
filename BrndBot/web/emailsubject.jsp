@@ -103,9 +103,9 @@
 
             }            
         .header1{
-            font-family: "proxima-nova",sans-serif;
+/*            font-family: "proxima-nova",sans-serif;
             font-style: normal;
-            font-weight: 600;
+            font-weight: 600;*/
             color: #3f4042;
             text-align: left;
             line-height: 25.8px;
@@ -260,9 +260,9 @@
 
         
 
-            .header1{
+/*            .header1{
                 font-size: 28px;
-            }
+            }*/
             .hideinputborder{
                 background-color:transparent;
                 border: 0px solid;

@@ -25,7 +25,7 @@
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/main1.css">
         <script src="js/configurations.js"></script>
-
+         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <title>upload logo</title>
         <style>
             .fileUpload {
@@ -106,8 +106,8 @@
             <div id="contentdiv">
                 <div class="row">
                     <div class="col-md-4 col-md-offset-5">
-                        <p id="comment1"> Upload your logo </p> 
-                        <p id="comment2">Please upload in a .PNG, .JPEG or .SVG</p> <br><br>
+                        <p id="comment1" class="MH2"> Upload your logo </p> 
+                        <p id="comment2" class="BC2">Please upload in a .PNG, .JPEG or .SVG</p> <br><br>
                     </div>
                 </div>
                 <div class="row">
