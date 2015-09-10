@@ -499,16 +499,17 @@ $(document).ready(function () {
 
         
         if ((selectedtype == "selected")){
-        
-        $(".container").append("<div class=\"draggableButton\"><img src=\"../admin/buttons/FilledButton_White.png\" id=\"" + $("#elementText").find('option:selected').text() + "\"></div>");
+        var host = getHost();
+        $(".container").append("<div class=\"draggableButton\"><img src=\""+host+"admin/buttons/FilledButton_White.png\" id=\"" + $("#elementText").find('option:selected').text() + "\"></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
         addButtonCount++;
         addElements($("#elementText").find('option:selected').text());
         reloadTabs(2);
         addDefault();
         $("#buttonSelect").change(function () {
+            
             //alert("buttons/button"+$("#buttonSelect").val());
-            $("#" + selectedTextID).attr('src', "buttons/" + $("#buttonSelect").val());
+            $("#" + selectedTextID).attr('src', host+"admin/buttons/" + $("#buttonSelect").val());
 
         });
 
