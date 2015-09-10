@@ -1129,7 +1129,7 @@ function addDefault() {
     var block_mindbody_query = $("#mindbodyquery").val();
 //   alert($("#mindbodyquery").val());
 
-//Make change in site.js, MindBodyDataServlet and MindBodyConstants
+//Make change in site.js, MindBodyDataServlet, MindbodyDetailServlet and MindBodyConstants
     var mindbody_xml_url = "";
     if (block_mindbody_query !== "null") {
         //Make change in MindBodyDataServlet too
@@ -1152,8 +1152,7 @@ function addDefault() {
         mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
     } else if (sub_category_type_text.toLowerCase().contains("staff")) {
         mindbody_xml_url = "admin/layoutmodelxml/mindbodystaffdatapoints.xml";
-    } 
-    if (categories.toLowerCase().contains("announcement")){
+    } else {
         mindbody_xml_url = "admin/layoutmodelxml/nodatapoints.xml";
     }
     if (addElementsArray.length === num1) {
