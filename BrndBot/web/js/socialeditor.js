@@ -522,7 +522,11 @@ function getTectId(id) {
         var textDefaultFontFamily = $("#" + selectedTextareaId).css("font-style");
         $("#picker").css("background-color", "" + textDefaultcolor);
         reload_alignButtons1(textDefaultAline);
-
+    });
+    $("#"+selectedTextareaId).focusout(function(){
+        var t= $("#"+selectedTextareaId).val();
+        $("#"+selectedTextareaId ).text(t);
+        
     });
 }
 

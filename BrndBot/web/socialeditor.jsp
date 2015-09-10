@@ -947,7 +947,6 @@ ul::-webkit-scrollbar-thumb {
                             var PreviewWidth=$(".preview").css("width");
                             var PreviewhHeight=$(".preview").css("height");
 //                            alert($(".preview").children());
-
                                 $.ajax({
                                    type: "POST",
                                    url: "ConvertHtmlToImageServlet",                                   

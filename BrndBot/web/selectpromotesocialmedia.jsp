@@ -250,6 +250,7 @@
 
                 $("#facebookok").click(function () {
 //                    managed_page = $("#isDefault").val();
+                    document.getElementById("fb").src="images/fbButton_darkblue_new.svg";
                     check_default_managed_page = document.getElementById("isdefault").checked;
                     
                     if ((check_default_managed_page == true) && (check_default == "true")){
