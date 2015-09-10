@@ -120,10 +120,10 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 twitterConfigBuilder.setOAuthAccessTokenSecret(request.getParameter("twitterTokenSecret"));
 
                 Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
-                String statusMessage = request.getParameter("text");
+                String statusMessage = request.getParameter("text").replace("  bit.ly/1XOkJo","");
                 String shortUrl= request.getParameter("shorturl");
                 if(shortUrl.length()>0){
-                    String StatusMessageWithoutUrl=statusMessage.substring(0,(statusMessage.length()-shortUrl.length())-1 );
+                    String StatusMessageWithoutUrl=statusMessage.substring(0,statusMessage.length());
                     if (StatusMessageWithoutUrl.length() + shortUrl.length() < 140) {
                         statusMessage = StatusMessageWithoutUrl + " " + shortUrl;
                     } else {
