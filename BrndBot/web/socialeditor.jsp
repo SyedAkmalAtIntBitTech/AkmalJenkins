@@ -386,9 +386,9 @@ ul::-webkit-scrollbar-thumb {
                     function showText(id, layout){
                          var layout_mapper_url = "";
                     if (mindbodydataId != ""){
-                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social';
+                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
                     }else{
-                        layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
+                        layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
                     } 
                             $.ajax({
                                     type: 'GET',

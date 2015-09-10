@@ -1150,6 +1150,8 @@ function addDefault() {
         mindbody_xml_url = "admin/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
     } else if (sub_category_type_text.toLowerCase().contains("class")) {
         mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
+    } else if (sub_category_type_text.toLowerCase().contains("staff")) {
+        mindbody_xml_url = "admin/layoutmodelxml/mindbodystaffdatapoints.xml";
     } 
     if (categories.toLowerCase().contains("announcement")){
         mindbody_xml_url = "admin/layoutmodelxml/nodatapoints.xml";
