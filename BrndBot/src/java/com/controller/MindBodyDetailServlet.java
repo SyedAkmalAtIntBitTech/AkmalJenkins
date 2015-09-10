@@ -8,9 +8,11 @@ package com.controller;
 import com.intbit.AppConstants;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
+import com.mindbodyonline.clients.api._0_5Staff.Staff;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
@@ -53,6 +55,11 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
             Integer model_mapper_id = 0;
             HashMap<String, Object> mindbody_hash_map = null;
 
+            Enumeration params = request.getParameterNames();
+            while (params.hasMoreElements()) {
+                String paramName = (String) params.nextElement();
+                logger.log(Level.INFO, "Attribute Name - " + paramName + ", Value - " + request.getParameter(paramName));
+            }
             organization_id = getSqlMethodsInstance().getOrganizationID(user_id);
             getSqlMethodsInstance().session = request.getSession(true);
             if (!(request.getParameter("mindbody_id").equals(""))) {
@@ -79,11 +86,15 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
             if (sub_category_name.contains("class")) {
                 Object selected_object = mindbody_hash_map.get(mindbody_data_id);
                 Class mindbody_class = (Class) selected_object;
-                mapped_json_object = MindBodyDataMapper.mapTodaysClassData(mindbody_class, editor_mapper_file_name);
+                mapped_json_object = MindBodyDataMapper.mapClassData(mindbody_class, editor_mapper_file_name);
             } else if (sub_category_name.contains("work shop") || sub_category_name.contains("workshop")) {
                 Object selected_object = mindbody_hash_map.get(mindbody_data_id);
                 ClassSchedule mindbody_enrollments = (ClassSchedule) selected_object;
                 mapped_json_object = MindBodyDataMapper.mapEnrollmentData(mindbody_enrollments, editor_mapper_file_name);
+            } else if (sub_category_name.contains("staff")) {
+                Object selected_object = mindbody_hash_map.get(mindbody_data_id);
+                Staff mindbody_staff = (Staff) selected_object;
+                mapped_json_object = MindBodyDataMapper.mapStaffData(mindbody_staff, editor_mapper_file_name);
             }
 
             if (mapped_json_object != null) {

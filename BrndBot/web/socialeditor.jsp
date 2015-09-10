@@ -22,10 +22,10 @@ and open the template in the editor.
     <head>
         <title>social editor</title>
         <meta charset="UTF-8">
+        <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -614,10 +614,10 @@ ul::-webkit-scrollbar-thumb {
         </script>
         
         <script src="js/crop.js" type="text/javascript"></script>
-
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app="myapp">
-        <input type="hidden" id='userlogo'value=<%= logoImageName%>>
+        <input type="hidden" id='userlogo' value=<%= logoImageName%>>
         <input type="hidden" id='userid' value=<%= user_id%>>
         <script src="js/socialeditor.js" type="text/javascript"></script>
         <div ng-controller="MyController" class="container" id="container"> 
@@ -767,6 +767,7 @@ ul::-webkit-scrollbar-thumb {
                                                             </select>
                                                         </li>
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><ul id="openCustomColor">
                                                 <li><p class="editpal">your palette</p></li>
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
@@ -781,7 +782,7 @@ ul::-webkit-scrollbar-thumb {
                                                 
                                                 <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
                                                 <li><p class="editpal" id="blockopacity">opacity</p><div id="slider"></div></li>
-
+                                                    </ul>   
                                             </ul>
                                         </div>
 

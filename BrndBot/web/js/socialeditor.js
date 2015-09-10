@@ -36,6 +36,7 @@ $(document).ready(function () {
     $("#tabs-1").show();
     $("#tabs-2").hide();
      $("#tabs-3").hide();
+     $("#openCustomColor").hide();
     $('.custom-color-box-text').colpick({
         colorScheme: 'light',
         layout: 'rgbhex',
@@ -64,6 +65,7 @@ $(document).ready(function () {
                 var blockId = $(".blockname").val();
                 $("#" + blockId).css('background-color', '#' + hex);
                 $(el).colpickHide();
+                $("#openCustomColor").hide();
               
             },
             onShow: function ()
@@ -85,8 +87,11 @@ $(document).ready(function () {
         $("#selectedshapecolorbox").css("background-color", "" + color);
 //        $("#" + selectedDivId).css("background-color", "" + color);
         $("#" + blockId).css('background-color', '#' + color);
-       
+        $("#openCustomColor").hide();
     });
+     $("#selectedshapecolorbox").click(function(){
+       $("#openCustomColor").toggle();  
+    } );  
 $(".blockname").change(function (){
     var blockId = $(".blockname").val();
     var divBackgroundColor=$("#"+blockId).css("background-color");
@@ -180,9 +185,9 @@ $(".blockname").change(function (){
 //           alert(mindbodydataId);
             var layout_mapper_url = "";
             if (mindbodydataId != "") {
-                layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&editor_type=social';
+                layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + allLayoutFilename[0] + '&editor_type=social';
             } else {
-                layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
+                layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id=' + allLayoutFilename[0];
             }
 
             $.ajax({

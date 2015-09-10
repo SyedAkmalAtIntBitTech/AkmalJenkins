@@ -8,8 +8,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+         <%@ include file="fonttypekit.jsp"%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="js/angular.min.js" type="text/javascript"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -102,9 +103,9 @@
 
             }            
         .header1{
-            font-family: "proxima-nova",sans-serif;
+/*            font-family: "proxima-nova",sans-serif;
             font-style: normal;
-            font-weight: 600;
+            font-weight: 600;*/
             color: #3f4042;
             text-align: left;
             line-height: 25.8px;
@@ -259,9 +260,9 @@
 
         
 
-            .header1{
+/*            .header1{
                 font-size: 28px;
-            }
+            }*/
             .hideinputborder{
                 background-color:transparent;
                 border: 0px solid;
@@ -615,6 +616,7 @@
        
             
         </script>
+        <jsp:include page="basejsp.jsp" />
     </head>
     <%! 
         String html_text = "";

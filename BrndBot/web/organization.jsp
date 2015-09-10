@@ -8,6 +8,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+         <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js"></script>
@@ -20,6 +21,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/main1.css" rel="stylesheet" type="text/css"/>
         <title>organization</title>
@@ -73,7 +75,7 @@
                 
             </style>
             
-           
+        <jsp:include page="basejsp.jsp" />            
     </head>
     <body>
         <div class="container" ng-app="myapp">
@@ -85,8 +87,8 @@
             </div>
             <div id="contentdiv" class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <p id="comment1">Howdy!</p>
-                    <p id="comment1">We're BrndBot, its nice to meet you.</p><br><br>
+                    <p id="comment1" class="MH2">Howdy!</p>
+                    <p id="comment1" class="MH2">We're BrndBot, its nice to meet you.</p><br><br>
                 </div>
                 <form class="form-horizontal" ng-model="organizations" ng-controller="MyController">
 
@@ -99,8 +101,8 @@
                     </div>
 
                     <div class="form-group" >
-                        <p id="comment1"  class="col-md-4 col-md-offset-4">Please select an organization:</p><br>
-                        <p id="text-left-1" class="col-md-4 col-md-offset-4">If you do not have an organization, choose "No Organization".</p><br>
+                        <p id="comment1"  class="col-md-4 col-md-offset-4 MH2">Please select an organization:</p><br>
+                        <p id="text-left-1" class="col-md-4 col-md-offset-4 FL2">If you do not have an organization, choose "No Organization".</p><br>
                         <div class="col-md-3 col-md-offset-4">
                           <select  id="organizationdropdown" ng-model="organizations.org">
                               <option  class="optn" ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}}</option>

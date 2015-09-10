@@ -20,6 +20,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+         <%@ include file="fonttypekit.jsp"%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -297,7 +298,7 @@
            }
            
         </script>
-<!--        <link href="css/foundation.css" rel="stylesheet" type="text/css"/>-->
+        <jsp:include page="basejsp.jsp" />
     </head>
 <body>
     <a href="#" data-reveal-id="myModal" class="clickthis" style="display: none;">Click Me For A Modal</a>

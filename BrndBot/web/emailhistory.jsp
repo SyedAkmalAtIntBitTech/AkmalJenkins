@@ -8,10 +8,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+         <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -106,6 +106,7 @@
             }
             #scrl{overflow-y: scroll;overflow-x: hidden;width:950px;height:450px;}
         </style>
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app style="overflow: hidden;">
         <div ng-controller="emailHistory" class="container" id="container"> 
@@ -116,7 +117,7 @@
             <jsp:include page="emailsubmenu.html"/>
             <div class="col-md-8 col-md-offset-2 " >
                 
-                <div class="col-md-5 col-md-offset-0">
+                <div class="col-md-6 col-md-offset-0">
                     <p id="hyshead" class="MH2">Email History and Analytics</p>
                     <div id="email_headings" class="col-md-4 col-md-offset-0" >
                         <ul class="emlhisdata emlist FL2">

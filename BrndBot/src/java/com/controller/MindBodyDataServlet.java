@@ -47,7 +47,8 @@ import org.json.simple.JSONArray;
 public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
 
     static final SimpleDateFormat newFormat = new SimpleDateFormat("MMMMM dd h:mm a");
-    static final SimpleDateFormat existingFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+    static final SimpleDateFormat newEnrollmentFormat = new SimpleDateFormat("MMMMM dd yyyy");
+    static final SimpleDateFormat existingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -178,7 +179,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
 
     private MindBodyProcessedData getMindBodyProcessedEnrollmentData(GetEnrollmentsResult result) throws JSONException, ParseException {
         HashMap<String, Object> hash_map = new HashMap<>();
-        MindBodyProcessedData mind_body_process_data = null;
+        MindBodyProcessedData mind_body_process_data = new MindBodyProcessedData();
         
         JSONArray json_column_header_array = new JSONArray();
         json_column_header_array.add(0, "Workshop");
@@ -209,7 +210,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                 XMLGregorianCalendar calendarEndDateTime = (XMLGregorianCalendar) calendarEnd.getValue();
 
                 Date newDate = existingFormat.parse(calendarStartDateTime.toString());
-                String newDateString = newFormat.format(newDate);
+                String newDateString = newEnrollmentFormat.format(newDate);
 
                 org.json.simple.JSONObject newJSONObject = new org.json.simple.JSONObject();
                 newJSONObject.put("column1", name);

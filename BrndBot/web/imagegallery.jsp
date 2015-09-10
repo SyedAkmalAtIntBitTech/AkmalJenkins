@@ -8,6 +8,7 @@ and open the template in the editor.
     <head>
         <title>image gallery</title>
         <meta charset="UTF-8">
+         <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -191,6 +192,7 @@ and open the template in the editor.
                 }
             
         </style>
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app="rootApp">
         <div> 
@@ -233,7 +235,7 @@ and open the template in the editor.
                             
                          </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-md-offset-1">
                         
                         <div ng-module="imagegallery">
                                 <div ng-controller="samplecontoller" ng-init="showData()">
@@ -244,7 +246,7 @@ and open the template in the editor.
                                                     <div>
                                                         <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}" onclick="showText({{images.id}})" width=100 height=120 />
                     <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
-                                                        <button name="delete" id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
+                    <button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
                                                     </div> 
                                                     <div><p></p></div>
                                                 <div></div><p>&nbsp;</p>

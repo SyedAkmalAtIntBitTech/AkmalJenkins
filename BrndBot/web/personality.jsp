@@ -10,6 +10,7 @@
     <head>
         <title>personality</title>
         <meta charset="UTF-8">
+         <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> 
@@ -17,6 +18,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <script src="js/configurations.js"></script>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <script>
                 function showText(brandid,image_name){
                              $("#hiddenform").val(brandid);
@@ -57,6 +59,7 @@
                 
         </script>
          <link rel="stylesheet" href="css/main1.css">
+        <jsp:include page="basejsp.jsp" />
         
     </head>
     <body ng-app="myapp">
@@ -64,8 +67,8 @@
 
             <div id="contemporarycontainer">
                  <div class="span5 col-md-offset-1 ">
-                <p id="comment1">Choose a brand personality</p>
-                <p class="commentlin">Color is no object! Please choose the brand personality you think<br>
+                     <p id="comment1" class="MH2">Choose a brand personality</p>
+                <p class="commentlin BC2">Color is no object! Please choose the brand personality you think<br>
 most represents your company and ignore the colors for now.</p>
                  </div>
                     <div class="row" id="buttonlength">
