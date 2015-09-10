@@ -283,7 +283,7 @@ and open the template in the editor.
 
                                                                     <div ng-repeat="colors in theme" id="rep1">
                                                                         <div ng-show="colors.theme_id == null">
-                                                                            <div id="{{colors.id}}" class="blankcolor-box step_box" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
+                                                                            <div id="{{colors.id}}" class="foo col-md-2 blankcolor-box step_box" onclick="getIDNo('{{colors.id}}')" style="background-color:{{colors.colorHex}};"></div>
                                                                         </div>
 
                                                                         <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>
@@ -308,7 +308,7 @@ and open the template in the editor.
                                                             <div class="tab-pane active" id="picktheme" ng-init="getLogoColors()">
 <!--                                                                <div><button type="button" class="btn btn-primary" value="click to display colors" ng-click="getLogoColors()">click to display colors</button></div>-->
                                                                 <div ng-repeat="col in color">
-                                                                    <div  id="{{col.id}}" class="foo" style="background-color:{{col.colorHex}};" onclick="getIDNo('{{col.id}}')"></div>
+                                                                    <div id="{{col.id}}" class="foo" style="background-color:{{col.colorHex}};" onclick="getIDNo('{{col.id}}')"></div>
                                                                 </div>
                                                             </div>
                                                         </div> 
@@ -452,7 +452,7 @@ and open the template in the editor.
                                     <div style="width:540px;">
                                         <form name="formpersonality" action="<%= application.getContextPath()%>/changeLogo" enctype="multipart/form-data" method="post">
                                             <input type="hidden" name="upload" value="update"/>
-                                            <input type="file" name="fileUpload" style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"/><br>
+                                            <input type="file" name="fileUpload" style="border: 1px solid;" class="upload"/><br>
 
                                             <div style="position: absolute; float:left;">
                                                 <div>
