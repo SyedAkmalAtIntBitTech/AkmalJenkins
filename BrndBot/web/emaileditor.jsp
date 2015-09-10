@@ -955,7 +955,7 @@ and open the template in the editor.
                         </div>
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:36px;overflow-y:scroll;width:355px;overflow-x:hidden;">                       
+                            <div class="well lead editor" id="editor" style="border:none;height:530px;top:100px;left:36px;overflow-y:scroll;width:355px;overflow-x:hidden;">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -1039,8 +1039,8 @@ and open the template in the editor.
                                                             </ul>
                                                         </li>
 
-                                                        <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
-                                                        <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
+                                                        <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
+                                                        <li style="top:20px;position:relative;"><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
                                                     </ul></li> 
 
 

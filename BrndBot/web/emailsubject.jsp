@@ -95,7 +95,7 @@
                 width: 270px;
                 height: 150px;
                 border-radius: 4px;
-                background-color: #3b85c3;
+                background-color: #f2f2f4;
             }
 
             #clickHere:hover {
@@ -224,17 +224,15 @@
                 background-color: #00A37A;
                 border-color: #00A37A;
             }
-            .btn-csv:focus{
-             outline: none;
-            }
+            
             .btn-csv{
-                border-radius:20px;
+                border-radius:5px;
                 position: fixed;
                 top: 62%;
                 right:50%;
                 width: 200px;
-                background-color:transparent;
-                border-color: #003399;
+                background-color:#D2D3DA;
+                color:white;
             }
             .btn-prim{
                 position: fixed;
@@ -668,7 +666,7 @@
                   
                     
                     <input type="button" id="upload" value="Upload" onclick="upload()" class=" button button--moema button--text-thick button--text-upper button--size-s" style="position:relative;left:55em;top:-90px;"/>
-                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-csv BT1" value="Add CSV or Email Manually">
+                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class=" btn-csv BT1" value="Add CSV or Email Manually">
                     <textarea style="width:300px; height:100px;position:relative;left:33em;top:-20px;" id="emailaddresses"></textarea><br><br>
                
 

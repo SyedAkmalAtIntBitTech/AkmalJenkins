@@ -109,6 +109,7 @@ opacity: 1;
 .sublingrp div input{
     position: relative;
     margin-top: 40px;
+    width:500px;
 }
 .sublingrp  div label{
  font-family: "proxima-nova",sans-serif;
@@ -445,7 +446,7 @@ left: 50px;
 /*font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 600;*/
-font-size: 21.5px;
+/*font-size: 21.5px;*/
 color: #3f4042;
 text-align: left;
 line-height: 25.8px;
