@@ -11,6 +11,8 @@ and open the template in the editor.
         <meta charset="UTF-8" >
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
          <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -84,92 +86,104 @@ and open the template in the editor.
                     }
 
 
-                    var id = 1;
-                            var theme_id = 0;
-                            function doSomething(theme_id){
-                                    if (theme_id == "theme1"){
-                            var s = $("#color1").attr("style");
-                                    var s1 = s.split(":");
-                                    var s = $("#color2").attr("style");
-                                    var s2 = s.split(":");
-                                    var s = $("#color3").attr("style");
-                                    var s3 = s.split(":");
-                                    var s = $("#color4").attr("style");
-                                    var s4 = s.split(":");
-                                    var s = $("#color5").attr("style");
-                                    var s5 = s.split(":");
-                                    var s = $("#color6").attr("style");
-                                    var s6 = s.split(":");
-                                    $("#themeid").val("theme1");
-                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
-                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
-                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
-                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
-                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
-                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
-                            } else if (theme_id == "theme2"){
-                            var s = $("#color7").attr("style");
-                                    var s1 = s.split(":");
-                                    var s = $("#color8").attr("style");
-                                    var s2 = s.split(":");
-                                    var s = $("#color9").attr("style");
-                                    var s3 = s.split(":");
-                                    var s = $("#color10").attr("style");
-                                    var s4 = s.split(":");
-                                    var s = $("#color11").attr("style");
-                                    var s5 = s.split(":");
-                                    var s = $("#color12").attr("style");
-                                    var s6 = s.split(":");
-                                    $("#themeid").val("theme2");
-                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
-                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
-                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
-                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
-                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
-                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
-                            } else if (theme_id == "theme3"){
-                            var s = $("#color13").attr("style");
-                                    var s1 = s.split(":");
-                                    var s = $("#color14").attr("style");
-                                    var s2 = s.split(":");
-                                    var s = $("#color15").attr("style");
-                                    var s3 = s.split(":");
-                                    var s = $("#color16").attr("style");
-                                    var s4 = s.split(":");
-                                    var s = $("#color17").attr("style");
-                                    var s5 = s.split(":");
-                                    var s = $("#color18").attr("style");
-                                    var s6 = s.split(":");
-                                    $("#themeid").val("theme2");
-                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
-                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
-                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
-                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
-                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
-                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
-                            } else if (theme_id == "theme4"){
-                            var s = $("#color19").attr("style");
-                                    var s1 = s.split(":");
-                                    var s = $("#color20").attr("style");
-                                    var s2 = s.split(":");
-                                    var s = $("#color21").attr("style");
-                                    var s3 = s.split(":");
-                                    var s = $("#color22").attr("style");
-                                    var s4 = s.split(":");
-                                    var s = $("#color23").attr("style");
-                                    var s5 = s.split(":");
-                                    var s = $("#color24").attr("style");
-                                    var s6 = s.split(":");
-                                    $("#themeid").val("theme2");
-                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
-                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
-                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
-                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
-                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
-                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
-                            }
-
-                            }
+        var id = 1;
+        var theme_id = 0;
+        function doSomething(theme_id){     
+            var theamNum = parseInt(theme_id.replace("theme",""));
+            theamNum--;
+            var num=theamNum*6;
+            $("#themeid").val(theme_id);
+            for(var i=1; i<=6;i++){
+                var colorid="color"+(i+num);
+                $("#elementToPutStyleInto"+i).css("background-color",$("#"+colorid).css("background-color"));
+                  
+                
+            }
+        }
+//                            function doSomething(theme_id){
+//                                    if (theme_id == "theme1"){
+//                            var s = $("#color1").attr("style");
+//                                    var s1 = s.split(":");
+//                                    var s = $("#color2").attr("style");
+//                                    var s2 = s.split(":");
+//                                    var s = $("#color3").attr("style");
+//                                    var s3 = s.split(":");
+//                                    var s = $("#color4").attr("style");
+//                                    var s4 = s.split(":");
+//                                    var s = $("#color5").attr("style");
+//                                    var s5 = s.split(":");
+//                                    var s = $("#color6").attr("style");
+//                                    var s6 = s.split(":");
+//                                    $("#themeid").val("theme1");
+//                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
+//                            } else if (theme_id == "theme2"){
+//                            var s = $("#color7").attr("style");
+//                                    var s1 = s.split(":");
+//                                    var s = $("#color8").attr("style");
+//                                    var s2 = s.split(":");
+//                                    var s = $("#color9").attr("style");
+//                                    var s3 = s.split(":");
+//                                    var s = $("#color10").attr("style");
+//                                    var s4 = s.split(":");
+//                                    var s = $("#color11").attr("style");
+//                                    var s5 = s.split(":");
+//                                    var s = $("#color12").attr("style");
+//                                    var s6 = s.split(":");
+//                                    $("#themeid").val("theme2");
+//                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
+//                            } else if (theme_id == "theme3"){
+//                            var s = $("#color13").attr("style");
+//                                    var s1 = s.split(":");
+//                                    var s = $("#color14").attr("style");
+//                                    var s2 = s.split(":");
+//                                    var s = $("#color15").attr("style");
+//                                    var s3 = s.split(":");
+//                                    var s = $("#color16").attr("style");
+//                                    var s4 = s.split(":");
+//                                    var s = $("#color17").attr("style");
+//                                    var s5 = s.split(":");
+//                                    var s = $("#color18").attr("style");
+//                                    var s6 = s.split(":");
+//                                    $("#themeid").val("theme2");
+//                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
+//                            } else if (theme_id == "theme4"){
+//                            var s = $("#color19").attr("style");
+//                                    var s1 = s.split(":");
+//                                    var s = $("#color20").attr("style");
+//                                    var s2 = s.split(":");
+//                                    var s = $("#color21").attr("style");
+//                                    var s3 = s.split(":");
+//                                    var s = $("#color22").attr("style");
+//                                    var s4 = s.split(":");
+//                                    var s = $("#color23").attr("style");
+//                                    var s5 = s.split(":");
+//                                    var s = $("#color24").attr("style");
+//                                    var s6 = s.split(":");
+//                                    $("#themeid").val("theme2");
+//                                    $("#elementToPutStyleInto1").css("background-color", s1[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto2").css("background-color", s2[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto3").css("background-color", s3[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto4").css("background-color", s4[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto5").css("background-color", s5[1].replace(";", " "));
+//                                    $("#elementToPutStyleInto6").css("background-color", s6[1].replace(";", " "));
+//                            }
+//
+//                            }
         </script>
         <jsp:include page="basejsp.jsp" />
     </head>
@@ -409,8 +423,6 @@ and open the template in the editor.
 
                                     <b>Change Logo</b>
                                     <%!
-                                        SqlMethods sqlmethods = new SqlMethods();
-                                        Integer user_id = 0;
                                         String file_name = null;
                                     %>
                                     <%

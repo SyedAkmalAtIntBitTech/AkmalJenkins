@@ -22,6 +22,8 @@ and open the template in the editor.
         <title>email editor</title>
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
+        <%@ include file="checksession.jsp" %>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -249,7 +251,6 @@ and open the template in the editor.
             SqlMethods sql_methods = new SqlMethods();
             StringBuffer string_buffer = new StringBuffer();
             String mindbody_data_id = "";
-            Integer user_id = 0;
             String logoImageName = null;
         %> 
         <%

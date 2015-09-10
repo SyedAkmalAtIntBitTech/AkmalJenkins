@@ -9,6 +9,8 @@ and open the template in the editor.
         <title>image gallery</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>

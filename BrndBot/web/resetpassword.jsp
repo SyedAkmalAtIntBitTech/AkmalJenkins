@@ -9,6 +9,8 @@
 <html ng-app>
     <head>
          <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <script src="js/configurations.js"></script>
         <script src="js/form.js"></script> 
         <script type="text/javascript" src="js/angular.min.js"></script>  
