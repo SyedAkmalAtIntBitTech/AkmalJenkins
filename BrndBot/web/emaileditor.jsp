@@ -21,11 +21,11 @@ and open the template in the editor.
     <head>
         <title>email editor</title>
         <meta charset="UTF-8">
-         <%@ include file="fonttypekit.jsp"%>
+        <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-        
+
 
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -48,8 +48,8 @@ and open the template in the editor.
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
         <script src="js/jquery.blend.min.js" type="text/javascript"></script>-->
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> 
-       <!--
-          <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <!--
+           <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         -->            
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
@@ -83,7 +83,7 @@ and open the template in the editor.
             {
                 width: 20px;
                 height:14px;
-                  border-radius: 20px;
+                border-radius: 20px;
                 background-color: #FFF;
             }
             #popup
@@ -243,7 +243,7 @@ and open the template in the editor.
                 border-radius: 10px;
                 -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
             }
-                  </style>
+        </style>
 
         <%!
             SqlMethods sql_methods = new SqlMethods();
@@ -589,25 +589,26 @@ and open the template in the editor.
             function showText(id, layout){
 //            alert(id+":"+layout+":"+mindbodydataId);
                 var layoutfilename = layout;
-                        $("#clickid").val(layout);
-                        if (mindbodydataId != "0")
-                        {
-                            $.ajax({
-                            type: 'GET',
-                                    url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email",
-                                    data: {get_param: 'value'},
-                                    dataType: 'json',
-                                    success: function (data) {
+                var layout_mapper_url = "";
+                
+                    $("#clickid").val(layout);
+                    if (mindbodydataId != "") {
+                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
+                    } else {
+                        layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
+                    }
+                    
+                    $.ajax({
+                    type: 'GET',
+                            url: layout_mapper_url,
+                            data: {get_param: 'value'},
+                            dataType: 'json',
+                            success: function (data) {
 
-                                    displayElement(id, layout, data);
-                                    }
-                            });
-                        }
-                        else
-                        {
-                            displayElement(id, layout, null);
-                        }
-                        }
+                                displayElement(id, layout, data);
+                            }
+                    });
+            }
 
             function displayElement(id, layout, data){
             var random_number = Math.floor(Math.random() * 200) + 1;
@@ -788,12 +789,13 @@ and open the template in the editor.
 
                             if (tag === "button")
                             {
-                            var src_image = $(this).attr("src");
+                            var src_image = $(this).attr("src").replace("../","");
+                            
                                     $(".preview #" + blockId).append("<div><a href=\"#\" data-reveal-id=\"myModal\"><img src='" + src_image + "' buttonLink='" + elementdata + "' id=" + type + "EEE" + blockId + " onclick=getButtonid('" + type + "EEE" + blockId + "') alt='button'/></a>");
                                     $("#" + type + "EEE" + blockId).css("left", "" + left + "px")
                                     .css("position", "absolute")
                                     .css("top", "" + top + "px")
-                                    .attr("src", "buttons/button1.png");
+                                    .attr("src", src_image);
                             }
 
                             if (tag === "block")
@@ -1024,21 +1026,21 @@ and open the template in the editor.
 
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
                                                 <li><ul id="openCustomColor">
-                                                <li><p class="editpal">your palette</p></li>                                                                                         
-                                                <li id="colcontainer">
-                                                    <ul id="colorpalette">
-                                                        <li><div class="blankcolor-box" id="shapecolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
-                                                        <li> <div class="blankcolor-box" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
-                                                        <li>
-                                                    </ul>
-                                                </li>
+                                                        <li><p class="editpal">your palette</p></li>                                                                                         
+                                                        <li id="colcontainer">
+                                                            <ul id="colorpalette">
+                                                                <li><div class="blankcolor-box" id="shapecolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                <li><div class="blankcolor-box" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                <li><div class="blankcolor-box" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                <li><div class="blankcolor-box" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                <li> <div class="blankcolor-box" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                                <li>
+                                                            </ul>
+                                                        </li>
 
-                                                <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
-                                                <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
+                                                        <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
+                                                        <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
                                                     </ul></li> 
 
 
