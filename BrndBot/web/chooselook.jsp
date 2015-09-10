@@ -13,6 +13,7 @@
         <title>look_chooser</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
@@ -89,12 +90,12 @@
                         {{first}}
                         <div class="col-md-12 step_wrapper">
 
-                            <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
+                            <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 2px; margin-left: 20px; margin-bottom: 10px;">
                                 <img id="{{first.id}}" class="img-responsive lookchooser1 " src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}" onclick="showText({{first.id}})" width=250 height=150 />
                             </div>
 
                             <div class="col-md-12"></div>
-                            <div class="col-md-2 step_box" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
+                            <div class="col-md-2 step_box" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 2px; margin-left: 20px; margin-bottom: 10px;">
                                 <img id="{{second.id}}" class="img-responsive lookchooser1" src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{second.file_name}}" onclick="showText({{second.id}})" width=250 height=150 />
 
                             </div>
@@ -105,7 +106,7 @@
                                 <div  class="form-group">
                                     <input type="hidden" name="lookid" id="lookid">
                                     <div class="span3 col-md-offset-0 ">
-                                        <button id="loochooserbutton" type="submit" onclick="sendLookID()" class="button button--moema button--text-thick button--text-upper button--size-s">CONTINUE</button><br><br><br>
+                                        <button id="loochooserbutton" type="submit" onclick="sendLookID()" class="button button--moema button--text-thick button--text-upper button--size-s" style="cursor:auto;">CONTINUE</button><br><br><br>
                                     </div>
                                 </div>
                             </div>

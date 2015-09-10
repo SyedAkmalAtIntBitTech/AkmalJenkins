@@ -499,7 +499,7 @@ $(document).ready(function () {
 
         
         if ((selectedtype == "selected")){
-        
+        var host = getHost();
         $(".container").append("<div class=\"draggableButton\"><img src=\"../admin/buttons/FilledButton_White.png\" id=\"" + $("#elementText").find('option:selected').text() + "\"></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
         addButtonCount++;
@@ -507,8 +507,9 @@ $(document).ready(function () {
         reloadTabs(2);
         addDefault();
         $("#buttonSelect").change(function () {
+            
             //alert("buttons/button"+$("#buttonSelect").val());
-            $("#" + selectedTextID).attr('src', "buttons/" + $("#buttonSelect").val());
+            $("#" + selectedTextID).attr('src', "../admin/buttons/" + $("#buttonSelect").val());
 
         });
 

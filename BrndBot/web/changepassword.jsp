@@ -9,6 +9,7 @@
 <html ng-app>
     <head>
          <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
         <script src="js/configurations.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

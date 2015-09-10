@@ -22,6 +22,8 @@ and open the template in the editor.
         <title>email editor</title>
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
+        <%@ include file="checksession.jsp" %>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -243,13 +245,14 @@ and open the template in the editor.
                 border-radius: 10px;
                 -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
             }
+            
+           
         </style>
 
         <%!
             SqlMethods sql_methods = new SqlMethods();
             StringBuffer string_buffer = new StringBuffer();
             String mindbody_data_id = "";
-            Integer user_id = 0;
             String logoImageName = null;
         %> 
         <%
@@ -955,7 +958,7 @@ and open the template in the editor.
                         </div>
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor" style="border:none;height:530px;top:100px;left:36px;overflow-y:scroll;width:355px;overflow-x:hidden;">                       
+                            <div class="well lead editor" id="editor" style="border:none;height:515px;top:100px;left:36px;overflow-y:scroll;width:355px;overflow-x:hidden;">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -1025,7 +1028,7 @@ and open the template in the editor.
                                                 </li>
 
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
-                                                <li><ul id="openCustomColor">
+                                                <li ><ul id="openCustomColor">
                                                         <li><p class="editpal">your palette</p></li>                                                                                         
                                                         <li id="colcontainer">
                                                             <ul id="colorpalette">
@@ -1040,14 +1043,14 @@ and open the template in the editor.
                                                         </li>
 
                                                         <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
-                                                        <li style="top:20px;position:relative;"><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
+                                                        <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
                                                     </ul></li> 
 
 
                                             </ul>
                                         </div>
 
-                                        <div id="imagecontainer">
+                                        <div id="imagecontainer" style="top:45px;">
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
 

@@ -9,6 +9,8 @@
 <html>
     <head>
          <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -49,9 +51,9 @@
             /*Sort of important*/
             height: 200px;
             position:absolute;
-            left:80%;
-            top:-100px;
-            margin-left:-50px;
+            left:0%;
+            top:80px;
+            
             border: 2px dashed rgba(0,0,0,.3);
             border-radius: 20px;
             font-family: Arial;
@@ -95,11 +97,12 @@
                 width: 270px;
                 height: 150px;
                 border-radius: 4px;
+                color:#000;
                 background-color: #f2f2f4;
             }
 
             #clickHere:hover {
-                background-color: #4499DD;
+             
 
             }            
         .header1{
@@ -224,15 +227,21 @@
                 background-color: #00A37A;
                 border-color: #00A37A;
             }
-            
-            .btn-csv{
-                border-radius:5px;
-                position: fixed;
-                top: 62%;
-                right:50%;
-                width: 200px;
-                background-color:#D2D3DA;
+            .btn-upload{
+                position: relative;
+                width: 100px;
+                background-color:#D1D2D9;
                 color:white;
+                font-size:16px;
+            }
+            .btn-csv{
+                font-size:22px;
+                border-radius:5px;
+                position:relative;
+                top: 20px;
+                width: 200px;
+                background-color:#D1D2D9;
+                color:#fff;
             }
             .btn-prim{
                 position: fixed;
@@ -413,7 +422,9 @@
                 var x = document.getElementById("chooseEmailList").selectedIndex;
                 var list_name = document.getElementsByTagName("option")[x].value;
                 if (list_name != 0){
-
+                    
+                    $("#entertext").show();
+                    $("#dragtext").show();
                     $("#emailaddresses").show();
                     $("#drop-zone").show();
                     $("#clickHere").show();
@@ -626,7 +637,7 @@
             
         }
      %>
-    <body ng-app>
+     <body style="overflow-x: hidden;" ng-app>
             <div class="row">
             <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div><!--/end left column-->
@@ -654,20 +665,23 @@
                         <option value="1">Manual</option>
                         <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                     </select>
-                    <div id="drop-zone">
+                    
+                    
+                     <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class=" btn-csv BT1" value="Add CSV or Email Manually">
+                     <p style="position:relative;top:70px;" id="dragtext" hidden="true">Drag and drop a csv file here and click to upload:</p>
+                     <div id="drop-zone">
                         Drop files here...
                         <div id="clickHere" >
-                            <p id="fileselect" style="font-size:20px;top:60px;position:relative;">click to select file</p> 
+                            <p id="fileselect" style="font-size:20px;top:60px;position:relative;">Click to Select file</p> 
                      
                       <input type="file" name="file"  id="file" style="overflow:hidden;position: absolute;top: 0;right: 0;margin: 0;width:250px;border-radius:15px;border:none;padding: 0;font-size: 20px;cursor: pointer;opacity: 0;filter: alpha(opacity=0);" onchange="fileselected()"/><br><br>
                         </div>
                     </div>
-
-                  
-                    
-                    <input type="button" id="upload" value="Upload" onclick="upload()" class=" button button--moema button--text-thick button--text-upper button--size-s" style="position:relative;left:55em;top:-90px;"/>
-                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class=" btn-csv BT1" value="Add CSV or Email Manually">
-                    <textarea style="width:300px; height:100px;position:relative;left:33em;top:-20px;" id="emailaddresses"></textarea><br><br>
+                     <p style="position:relative;top:-160px;left:25em;" id="entertext" hidden="true">Enter Email Addresses manually here:</p>
+                     <textarea style="width:300px; height:200px;position:relative;left:25em;top:-11em;" id="emailaddresses"></textarea>
+                     <input type="button" id="upload" value="Upload" onclick="upload()" class="btn-upload" style="position:relative;left:1em;top:-100px;"/>
+                   <input style="position:relative;top:50px;left:0px;" id="emailIdContinueButton" type="button" class=" button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
+                   
                
 
                     <div id="popup">
@@ -684,7 +698,7 @@
                         </div>   
                     </div>                          
 <!--                    <input type="text" class="hideinputEmailId" id="emailId" name="emailsubject" placeholder="Add CSV or Email Manually"> <br><br><br><br><br>-->
-                    <input  id="emailIdContinueButton" type="button" class=" button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
+
                    </div>                   
             </div>      
 <!--        </div>-->

@@ -18,6 +18,7 @@ use this formate to call
 
 /* Common button styles */
 .button {
+        font-weight: 600;
         white-space: nowrap;
 	float: left;
         line-height: 0px;
@@ -74,7 +75,7 @@ use this formate to call
 	font-weight: 300;
 }
 .button--text-medium {
-	font-weight: 500;
+	font-weight: 600;
 }
 .button--text-thick {
 	font-weight: 600;

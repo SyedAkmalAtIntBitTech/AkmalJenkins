@@ -82,7 +82,7 @@ and open the template in the editor.
     }
 #textgrt{
     position: relative;
-    padding-top: 14%;
+    padding-top: 60px;
     width: 600px;
 /*    font-family: "proxima-nova";
     font-style: normal;
@@ -179,9 +179,9 @@ and open the template in the editor.
     position: relative;
     padding-top: 5%;
 }
-#imagecontainer{
+#imagecontainer {
      position: relative;
-    padding-top: 45px;
+    padding-top: 5%;
     left:-2px;
 }
 #shapemodificatoin li{
@@ -260,7 +260,7 @@ margin-bottom: 10px;
 
 
 .editpal{
-font-family: "proxima-nova";
+font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
@@ -305,11 +305,11 @@ left:-4px;
     position: relative;
     padding-top: 9%;
     margin: 0px;
-    margin-right: 35px;
+    margin-right: 10px;
 }
 #promotebuttonlist li> p{
     position: relative;
-    padding-top: 2%;
+    padding-top: 5px;
     left:-5px;
 }
 #promotebuttonlist {
@@ -318,7 +318,7 @@ left:-4px;
 #promotebuttonlist li{
         display: inline-block;
         position: relative;
-        padding-top: 9%;
+        padding-top: 4%;
 }
 #promotebuttonlist  li input{
         position: relative;
@@ -521,7 +521,7 @@ left:-4px;
     font-weight: 400;*/
     color: #66676b;
     text-align: left;
-    padding-top: 2%;
+    padding-top: 0%;
     padding-left:0%;
     line-height: 12px;
     letter-spacing:0em;

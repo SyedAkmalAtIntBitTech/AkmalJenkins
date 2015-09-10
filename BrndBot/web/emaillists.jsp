@@ -9,6 +9,8 @@
 <html>
     <head>
          <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/angular.min.js" type="text/javascript"></script>
           <link rel="stylesheet" href="css/main1.css">
