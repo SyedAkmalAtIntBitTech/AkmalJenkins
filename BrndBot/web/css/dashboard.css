@@ -90,7 +90,7 @@ body{
    margin-top: 50px;
 }
 #hyshead{
-
+    width:200px;
     font-family:"proxima-nova-soft",sans-serif;
    font-weight: 500;
    position: relative;
@@ -159,7 +159,7 @@ body{
     color:#454141;
     font-style: normal;
     text-align:left;
-    line-height: 41px;
+    line-height: 1.3em;
     letter-spacing: 0em;
     width:600px;
 }
@@ -259,13 +259,14 @@ body{
     letter-spacing: 0em;
 }
 #text4{
+    padding-top: 30px;
     position: relative;
-    left: 1em;
-    font-family: "proxima-nova";
+    left: 0em;
+/*    font-family: "proxima-nova";
     font-style: normal;
-    font-weight: 400;
+    font-weight: 400;*/
     color: #6b6564;
-    text-align:left;
+    text-align:center;
     line-height:18.6px;
     letter-spacing: 0em;
 }
@@ -283,11 +284,12 @@ body{
 #promotelist li{
     display: inline-block;
     position:relative;
-    font-family: "proxima-nova";
+/*    font-family: "proxima-nova";
     font-weight: 400;
-    font-size:13px;
+    font-size:13px;*/
     color:#6b6564;
-    font-style:normal;
+    margin:15px;
+/*    font-style:normal;*/
     text-align:center;
     line-height:15.6px;
     letter-spacing:0em;

@@ -124,8 +124,8 @@
             }
             #submitbutton{
                 position:relative;
-                top:120px;
-                left:0px;
+                top:70px;
+                left:80px;
             }
            
         </style>
@@ -316,7 +316,7 @@
 
                 <li><img id="fb" class="socialimage fb" src="images/fbButton.svg" onclick="changeImagef();"/> <input type="checkbox" id="facebook" name="social"  value="facebook" hidden="true"><p class="il2">Facebook</p></li>
                 <li><img id="twt" class="socialimage twt" src="images/twtButton.svg" onclick="changeImaget();"/> <input type="checkbox" id="twitter" name="social" value="twitter" hidden="true"><p class="il2">Twitter</p></li>
-                <li><div style="left:-380px;" class="col-md-5 col-md-offset-0">
+                <li><div style="left:-330px;" class="col-md-5 col-md-offset-0">
 
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
                             <input type="hidden" id="imageName" name="imageName" value='<%=ImageName%>' >

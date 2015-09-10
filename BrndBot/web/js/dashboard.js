@@ -83,10 +83,10 @@ angular.module("myapp", [])
                     $("#subpromotelist").css("position","relative").css("left", "30px").css("top", "-10px");
                 }
                 else if (CatID === 3) {
-                    $("#subpromotelist").css("position","relative").css("left", "140px").css("top", "-10px");
+                    $("#subpromotelist").css("position","relative").css("left", "220px").css("top", "-10px");
                 }
                 else if (CatID === 4) {
-                    $("#subpromotelist").css("position","relative").css("left", "250px").css("top", "-10px");
+                    $("#subpromotelist").css("position","relative").css("left", "350px").css("top", "-10px");
                 }
                 else if (CatID === 5) {
                     $("#subpromotelist").css("position","relative").css("left", "370px").css("top", "-10px");

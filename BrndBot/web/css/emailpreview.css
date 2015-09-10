@@ -43,9 +43,9 @@ label                {
   pointer-events:none;
   left:15px;
   top:10px;
-  transition:1s ease all; 
-  -moz-transition:1s ease all; 
-  -webkit-transition:1s ease all;
+  transition:0.7s ease all; 
+  -moz-transition:0.7s ease all; 
+  -webkit-transition:0.7s ease all;
 }
 
 /* active state */
@@ -53,6 +53,7 @@ label                {
   left:-70px;
   font-size:13px;
   color:#999;
+  
 }
 #subject:focus ~ label, #subject:valid ~ label        {
   left:-45px;
