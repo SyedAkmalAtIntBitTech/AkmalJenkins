@@ -362,7 +362,8 @@ $(document).ready(function () {
 
                                 if (tag === "button")
                                 {
-                                    var src_image = $(this).attr("src");
+
+                                    var src_image = $(this).attr("src").replace("../","");
                                     $(".preview #defaultblock1").append("<div><a href=\"#\" data-reveal-id=\"myModal\"><img src='" + src_image + "' buttonLink = '"+elementdata+"' id=" + type + "EEEdefaultblock1 onclick=getButtonid('" + type + "EEEdefaultblock1') alt='button'/></a>");
                                     $("#" + type + "EEEdefaultblock1").css("left", "" + left + "px")
                                             .css("top", "" + top + "px")
