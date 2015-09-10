@@ -6,10 +6,11 @@
 
 <%@page import="com.controller.SqlMethods"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ include file="checksession.jsp" %>
+
 <%! 
     SqlMethods sql_methods = new SqlMethods();
     String imageName = "";
-    Integer user_id = 0;
     String logoImageName=null;
     String companyName="";
     String isFacebook = "";
@@ -49,6 +50,7 @@
     <head>
         <title>social media preview</title>
         <meta charset="UTF-8">
+         <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -166,7 +168,7 @@
                 opacity: 1;
             }
         </style>
-        
+        <jsp:include page="basejsp.jsp" />
     </head>
 
     <body>

@@ -50,10 +50,10 @@ function htmlController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("Organization already exist");
+                    alert("HTML already exist");
                     $("#organizationname").focus();
                 } else if (data === "true") {
-                    alert("Organization saved successfully");
+                    alert("HTML saved successfully");
                     window.open(getHost() + 'admin/addhtmltemplate.jsp', "_self");
                 } else if (data === error) {
                     alert(data);

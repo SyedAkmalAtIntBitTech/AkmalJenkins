@@ -22,10 +22,12 @@ and open the template in the editor.
     <head>
         <title>social editor</title>
         <meta charset="UTF-8">
+        <%@ include file="fonttypekit.jsp"%>
+        <%@ include file="checksession.jsp" %>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -214,7 +216,6 @@ ul::-webkit-scrollbar-thumb {
             SqlMethods sql_methods = new SqlMethods();
             StringBuffer string_buffer = new StringBuffer();
             String mindbody_data_id = "";
-            Integer user_id = 0;
             String logoImageName=null;
         %> 
         <%
@@ -386,10 +387,10 @@ ul::-webkit-scrollbar-thumb {
                     function showText(id, layout){
                          var layout_mapper_url = "";
                     if (mindbodydataId != ""){
-                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social';
+                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
                     }else{
-                        layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
-                    } 
+                        layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
+                    }
                             $.ajax({
                                     type: 'GET',
                                     url: layout_mapper_url,
@@ -614,10 +615,10 @@ ul::-webkit-scrollbar-thumb {
         </script>
         
         <script src="js/crop.js" type="text/javascript"></script>
-
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app="myapp">
-        <input type="hidden" id='userlogo'value=<%= logoImageName%>>
+        <input type="hidden" id='userlogo' value=<%= logoImageName%>>
         <input type="hidden" id='userid' value=<%= user_id%>>
         <script src="js/socialeditor.js" type="text/javascript"></script>
         <div ng-controller="MyController" class="container" id="container"> 

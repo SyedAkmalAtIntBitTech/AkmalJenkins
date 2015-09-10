@@ -7,13 +7,26 @@ and open the template in the editor.
     Created on : 18 Aug, 2015, 6:17:22 PM
     Author     : sandeep-kumar
 */
+.MH1,.MH2,.SP1,.SP2,.SH1,.SH2,.SS1,.SS2,.BT1,.BT2,.BC1,.BC2,.FL1,.FL2,.il1,.il2,.LE1,.LE2{
+    font-family: "proxima-nova",sans-serif;
+}
+.MH1,.MH2{
+   
+font-style: normal;
+font-weight: 600;
+}
 
 .MH1{
+    
     font-size: 1.56em;    
 }
 
 .MH2{
     font-size: 1.88em;
+}
+
+.SP1,.SP2{
+    font-style:REGULAR SMALL CAPS;
 }
 .SP1{
     font-size: 1.25em;
@@ -21,11 +34,18 @@ and open the template in the editor.
 .SP2{
     font-size: 1.44em;
 }
+.SH1,.SH2{
+    font-style:SEMIBOLD SMALL CAPS; 
+}
 .SH1{
     font-size: 1em;
 }
 .SH2{
     font-size: 1.38em;
+}
+.SS1,.SS2{
+ font-style: normal;
+font-weight: 400;
 }
 .SS1{
    font-size: 0.75em; 
@@ -34,11 +54,20 @@ and open the template in the editor.
   font-size: 0.88em;  
 
 }
+.BT1,.BT2{
+    
+font-style: normal;
+font-weight: 400;
+}
 .BT1{
      font-size: 0.81em;
 }
 .BT2{
      font-size: 1.13em;
+}
+.BC1,.BC2{
+   font-style: normal;
+font-weight: 400; 
 }
 .BC1{
     font-size: 0.75em;
@@ -46,17 +75,29 @@ and open the template in the editor.
 .BC2{
     font-size: 1em;
 }
+.FL1,.FL2{
+    font-style: normal;
+font-weight: 400; 
+}
 .FL1{
      font-size: 0.75em;
 }
 .FL2{
      font-size: 0.94em;
 }
+.il1,.il2{
+    font-style: normal;
+font-weight: 400; 
+}
 .il1{
      font-size: 0.63em;
 }
 .il2{
      font-size: 0.75em;
+}
+.LE1,.LE2{
+  font-style: normal;
+font-weight: 600;
 }
 .LE1{
      font-size:0.81em;

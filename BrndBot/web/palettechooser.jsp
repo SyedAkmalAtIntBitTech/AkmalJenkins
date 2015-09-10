@@ -12,6 +12,9 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
+         <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -29,6 +32,7 @@
         <script type="text/javascript" src="jscolor/jscolor.js"></script>
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
+         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
 
         <style>
             #sortable { list-style-type: none; margin: 0; padding: 0;}
@@ -212,7 +216,8 @@
 
     </script>
 
-
+        <jsp:include page="basejsp.jsp" />
+    
 </head>
 <body ng-app="myapp" >
 
@@ -223,8 +228,8 @@
         <div id="contentdiv" class="row">   
 
             <div class="col-md-8 col-md-offset-3">
-                <p id="comment1">Choose a color palette</p> 
-                <p id="comment2">Click on a color to change it or choose from a theme.<br>
+                <p id="comment1" class="MH2">Choose a color palette</p> 
+                <p id="comment2" class="BC2">Click on a color to change it or choose from a theme.<br>
 Please arrange them with most used to least used in your designs.</p>
                 <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USED</span></p> </div>
 

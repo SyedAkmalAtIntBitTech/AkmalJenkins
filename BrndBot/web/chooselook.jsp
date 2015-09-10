@@ -12,6 +12,8 @@
     <head>
         <title>look_chooser</title>
         <meta charset="UTF-8">
+         <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
@@ -22,7 +24,7 @@
         <script src="js/angular.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/main1.css">
          <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
 
         <script>
             var elementid1;
@@ -71,6 +73,7 @@
                 });
             });        
          </script>
+         <jsp:include page="basejsp.jsp" />
     </head>
 
     <body ng-app="myapp" >
@@ -78,8 +81,8 @@
 
             <div id="contentdiv" class="row">
                 <div  class="span3 col-md-offset-1 ">
-                    <p id="comment1" class="lookcomment1">Please choose a “look” for your company</p></<br>
-                    <p class="commentlin cmlinpos span3 col-md-offset-1">These are the looks we found for Yoga Studios. Please choose one-- don't worry if it is not exact!<br>
+                    <p id="comment1" class="lookcomment1 MH2">Please choose a “look” for your company</p></<br>
+                    <p class="BC2 commentlin cmlinpos span3 col-md-offset-1">These are the looks we found for Yoga Studios. Please choose one-- don't worry if it is not exact!<br>
                         We know every company’s look is different and we just use this as a starting point.</p>
                 </div>
                 <div class="row col-md-offset-2" >

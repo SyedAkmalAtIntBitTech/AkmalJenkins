@@ -185,9 +185,9 @@ $(".blockname").change(function (){
 //           alert(mindbodydataId);
             var layout_mapper_url = "";
             if (mindbodydataId != "") {
-                layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&editor_type=social';
+                layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + allLayoutFilename[0] + '&editor_type=social';
             } else {
-                layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
+                layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id=' + allLayoutFilename[0];
             }
 
             $.ajax({
@@ -223,7 +223,7 @@ $(".blockname").change(function (){
                                 $(jsondata).each(function (i, val) {
 
                                     $.each(val, function (k, v) {
-//                                alert(k + " : " + v+ ":"+ type);
+//                                    alert(k + " : " + v+ ":"+ type);
                                         if (type.trim() == k.trim()) {
                                             elementdata = v;
                                         }

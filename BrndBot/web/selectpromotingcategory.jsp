@@ -15,6 +15,9 @@ and open the template in the editor.
     <head>
         <title>Select promoting category </title>
         <meta charset="UTF-8">
+         <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <script src="js/angular.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -27,7 +30,7 @@ and open the template in the editor.
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
         <script src="js/mindbodyutility.js" type="text/javascript"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <style>
             .glyphicon.glyphicon-home,.glyphicon.glyphicon-envelope,.glyphicon.glyphicon-comment, .glyphicon.glyphicon-picture, .glyphicon.glyphicon-cog{
@@ -226,7 +229,7 @@ and open the template in the editor.
             }
 
         </script>
-
+        <jsp:include page="basejsp.jsp" />
 
     </head>
     <body ng-app = "myapp">
