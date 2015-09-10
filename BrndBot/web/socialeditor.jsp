@@ -385,11 +385,13 @@ ul::-webkit-scrollbar-thumb {
                           
                     function showText(id, layout){
                          var layout_mapper_url = "";
+
                    if (mindbodydataId != ""){
                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
                    }else{
                        layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
                    }                         
+
                             $.ajax({
                                     type: 'GET',
                                     url: layout_mapper_url,
@@ -617,7 +619,7 @@ ul::-webkit-scrollbar-thumb {
         <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app="myapp">
-        <input type="hidden" id='userlogo'value=<%= logoImageName%>>
+        <input type="hidden" id='userlogo' value=<%= logoImageName%>>
         <input type="hidden" id='userid' value=<%= user_id%>>
         <script src="js/socialeditor.js" type="text/javascript"></script>
         <div ng-controller="MyController" class="container" id="container"> 

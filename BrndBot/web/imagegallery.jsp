@@ -199,8 +199,8 @@ and open the template in the editor.
                <div class="row">
                    <jsp:include page="mainmenu.html"/>
     
-                    <div class="col-md-10 col-md-offset-2" >
-                        <div class="col-md-10 " id="uploadModule">
+                    <div class="col-md-12" >
+                        <div class="col-md-5 col-md-offset-1 " id="uploadModule">
                             <p id="text3"> Image Gallery </p>
                             <div>
 
@@ -234,8 +234,7 @@ and open the template in the editor.
                             </div>
                             
                          </div>
-                    </div>
-                    <div class="col-md-6 col-md-offset-1">
+                    <div class="col-md-6 col-md-offset-0" style=" height:500px; width:600px; overflow-y: scroll; overflow-x: hidden;">
                         
                         <div ng-module="imagegallery">
                                 <div ng-controller="samplecontoller" ng-init="showData()">
@@ -246,35 +245,21 @@ and open the template in the editor.
                                                     <div>
                                                         <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}" onclick="showText({{images.id}})" width=100 height=120 />
                     <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
-                    <button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
+                                                            <button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
                                                     </div> 
                                                     <div><p></p></div>
                                                 <div></div><p>&nbsp;</p>
                                          </li>
                                     </ul> 
 
-                                <div class="pagination pagination-centered" ng-show="datalists.length">
-                                <ul class="pagination-controle pagination">
-                                 <li>
-                                  <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
-                                 ng-click="curPage=curPage-1"> &lt; PREV</button>
-                                 </li>
-                                 <li>
-                                 <span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
-                                 </li>
-                                 <li>
-                                 <button type="button" class="btn btn-primary"
-                                 ng-disabled="curPage >= datalists.length/pageSize - 1"
-                                 ng-click="curPage = curPage+1">NEXT &gt;</button>
-                                 </li>
-                                </ul>
-                                </div>
 
+                                </div>
+                        
                         </div>
+                    
+                    </div>      
                         
                     </div>
-                    
-               </div>      
             </div>  
         
           </div>    

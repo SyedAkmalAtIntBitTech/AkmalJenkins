@@ -1129,31 +1129,30 @@ function addDefault() {
     var block_mindbody_query = $("#mindbodyquery").val();
 //   alert($("#mindbodyquery").val());
 
-//Make change in site.js, MindBodyDataServlet and MindBodyConstants
+//Make change in site.js, MindBodyDataServlet, MindbodyDetailServlet and MindBodyConstants
     var mindbody_xml_url = "";
+    var query = "";
     if (block_mindbody_query !== "null") {
-        //Make change in MindBodyDataServlet too
-        if (block_mindbody_query.toLowerCase().contains("class") || block_mindbody_query.toLowerCase().contains("classes")) {
-            mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
-        } else if (block_mindbody_query.toLowerCase().contains("work shop") || block_mindbody_query.contains("workshop")) {
-            mindbody_xml_url = "admin/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
-        } else if (block_mindbody_query.toLowerCase().contains("staff")) {
-            mindbody_xml_url = "admin/layoutmodelxml/mindbodystaffdatapoints.xml";
-        }
-    } else {
-        mindbody_xml_url = "admin/layoutmodelxml/nodatapoints.xml";
-        $(".form-control").prop("disabled", true);
-    }
-
-
-    if (sub_category_type_text.toLowerCase().contains("work")) {
-        mindbody_xml_url = "admin/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
-    } else if (sub_category_type_text.toLowerCase().contains("class")) {
-        mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
+        query = block_mindbody_query.toLowerCase();
     } 
-    if (categories.toLowerCase().contains("announcement")){
-        mindbody_xml_url = "admin/layoutmodelxml/nodatapoints.xml";
+    if (sub_category_type_text !== "null"){
+        query = sub_category_type_text.toLowerCase();
+        
     }
+    
+    //Make change in MindBodyDataServlet too
+        if (query.contains("class") || query.toLowerCase().contains("classes")) {
+            mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
+        } else if (query.toLowerCase().contains("work shop") || query.contains("workshop")) {
+            mindbody_xml_url = "admin/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
+        } else if (query.toLowerCase().contains("staff")) {
+            mindbody_xml_url = "admin/layoutmodelxml/mindbodystaffdatapoints.xml";
+        } else {
+            mindbody_xml_url = "admin/layoutmodelxml/nodatapoints.xml";
+            $(".form-control").prop("disabled", true);
+        }
+    
+
     if (addElementsArray.length === num1) {
         $.ajax({
             type: "GET",
