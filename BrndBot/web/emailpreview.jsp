@@ -10,6 +10,8 @@
 <html>
     <head>
          <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -157,7 +159,6 @@
         String emailSubject = "";
         String emailList = "";
         String htmlData = "";
-        SqlMethods sqlmethods = new SqlMethods();
     %>
     <%
         sqlmethods.session = request.getSession(true);

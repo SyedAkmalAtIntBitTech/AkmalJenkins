@@ -1,29 +1,4 @@
 <%@page import="com.controller.SqlMethods"%>
-<%!
-    HttpServletRequest request;
-    HttpServletResponse response;
-    SqlMethods sqlmethods = new SqlMethods();
-    String checked = "false";
-    Integer user_id = 0;
-    String company = "";
-%>
-
-<%
-    try {
-        sqlmethods.session = request.getSession(true);
-        checked = (String) sqlmethods.session.getAttribute("Checked");
-        if (checked == null || checked == "false") {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
-        } else {
-            user_id = (Integer) sqlmethods.session.getAttribute("UID");
-            company = (String) sqlmethods.session.getAttribute("company");
-        }
-    } catch (Exception e) {
-        out.println(sqlmethods.error);
-    }finally {
-        sqlmethods.closeConnection();
-    }
-%>
 
 <!DOCTYPE html>
 <!--
@@ -36,6 +11,7 @@ and open the template in the editor.
         <title>Dashboard</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
