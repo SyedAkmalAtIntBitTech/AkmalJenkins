@@ -223,7 +223,7 @@ $(".blockname").change(function (){
                                 $(jsondata).each(function (i, val) {
 
                                     $.each(val, function (k, v) {
-//                                alert(k + " : " + v+ ":"+ type);
+//                                    alert(k + " : " + v+ ":"+ type);
                                         if (type.trim() == k.trim()) {
                                             elementdata = v;
                                         }
