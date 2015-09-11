@@ -74,7 +74,7 @@ and open the template in the editor.
 
                     <div class="col-md-10 col-md-offset-1" ng-controller="controllerCategories">
 
-                        <p id="text3" class="company MH1">  Hi <%= company%>!<br>What would you like to do today?</p>
+                        <p id="text3" class="company MH2">  Hi <%= company%>!<br>What would you like to do today?</p>
                         <p id="text3-1" class="mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}" target="_blank">Click here</a></p>
                        <ul id="promotelist">
                             

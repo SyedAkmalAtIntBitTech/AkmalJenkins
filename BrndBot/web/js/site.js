@@ -1442,6 +1442,8 @@ function passvaluetoinputfield() {
                     "%%text-shadow!"+ "#" + color2.substr(0,6) +
                     dropshadowdata +
                     "%%line-height!"+ $("#" + addElementsArray[i]).css("line-height") +
+                    
+                    "%%defaulttext!"+ $("#inputfield" + (i + 1)).val() +
                     "%%letter-spacing!"+ $("#" + addElementsArray[i]).css("letter-spacing") +
                     "%%opacity!"+ $("#" + addElementsArray[i]).css("opacity") +
                     "%%webkit-transform!"+ angle;

@@ -181,7 +181,7 @@ public class Model extends BrndBotBaseHttpServlet {
 
             try {
                 layout.getFontList(Integer.parseInt(brand_id));
-                String image_name=  layout.createImage(layoutfilename,getServletContext(),modelname);
+                String image_name=  layout.createImage(request,layoutfilename,getServletContext(),modelname);
                 layout.addLayouts(Integer.parseInt(organization_id), Integer.parseInt(user_id), category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, Integer.parseInt(brand_id), block_id,image_name,modelname);
             } catch (SAXException ex) {
                 Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);

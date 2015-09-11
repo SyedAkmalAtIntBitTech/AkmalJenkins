@@ -11,7 +11,7 @@
 
 
 function htmlController($scope, $http) {
-
+g
     $scope.createhtmltemplate = {};
     var model_id, model_name, html_content;
     
