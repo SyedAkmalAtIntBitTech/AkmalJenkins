@@ -10,8 +10,9 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script type="text/javascript" src="js/angular.min.js"></script>
-        <script src="js/configurations.js" type="text/javascript"></script>
+<!--        <script type="text/javascript" src="js/angular.min.js"></script>-->
+ <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
+ <script src="js/configurations.js" type="text/javascript"></script>
         <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -179,6 +180,7 @@
 
             li {
                 cursor: default;
+                list-style: none;
             }
 
         </style>
@@ -368,7 +370,8 @@
                                         }
                                     });
                                     $scope.entitySet = entitySet;
-                                    alert(JSON.stringify(entitySet));
+                                    alert(JSON.stringify($scope.entitySet));
+                                     //console.log($scope.entitySet);
                                 }).error(function (data) {
                                     alert("request not successful");
                                 });
@@ -388,7 +391,7 @@
                                     method: 'GET',
                                     url: getHost() + 'GetScheduledEntities?from=' + curr_date + '&to=' + new_date
                                 }).success(function (data) {
-                                    console.log(data);
+//                                    console.log(data);
                                     entitySet = {};
                                     $.each(data, function (key, value) {
                                         /*
@@ -403,6 +406,7 @@
                                             entitySet['Today'] = value;
                                         } else if (key == tomorrowDate) {
                                             entitySet['Tomorrow'] = value;
+                                            
                                         } else {
                                             if (!('Later' in entitySet)) {
                                                 entitySet['Later'] = [];
@@ -418,7 +422,9 @@
                                     alert("request not successful");
                                 });
                             };
-
+                            var millisToUTCDate = function(millis){
+                                return toUTCDate(new Date(millis));
+                              };
                             $scope.getScheduleDetails = function (schedule_id, schedule_time) {
 
                                 sliderDialog = "#preview";
@@ -492,38 +498,73 @@
                 <div class="col-md-6 col-md-offset-0">
 
                     <p id="hyshead">Your Plan &nbsp;&nbsp;<button id="liPriority">ADD ACTION</button>&nbsp;&nbsp;<button id="liFasting">ADD Note</button></p> <p id="hyshead">Marketing Campaign</p>
-                    <div class="col-md-5 ">
+                    <div class="col-md-12 ">
 
+                            <div class="row" style="width:950px;">
+                                <div class='col-md-3'>Today</div>
+                                <div class='col-md-3'>Action Type</div>
+                                <div class='col-md-3'>Template Saved</div>
+                                <div class='col-md-3'></div>
+                            </div>
                         <ul>
-                            <p>Today</p>
+                            {{entitySet['Today']}}
+<!--                            <p>Today</p>-->
                             <li ng-repeat="entity in entitySet['Today']">
-                                <div style="background-color:{{entity.color}};" id="entitydetails" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)">
-                                    <div>{{entity.schedule_title}}</div>
-                                    <div>{{entity.schedule_time}}</div>
-                                    <div>{{entity.entity_type}}</div>
-                                </div>
-                                <div class="foo col-md-1 col-md-offset-2" style="background-color:{{entity.color}};">
-                                    <div class="fo col-md-2 col-md-offset-2">{{entity.schedule_title}}</div>
+                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
+                                <div class="row" style="width:950px;" id="entitydetails" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)">
+                                    <div class="col-md-3">
+                                        <p>{{entity.schedule_title}}</p>
+                                        <p>Scheduled for {{entity.schedule_time | date:"h:mma"}}</p>
+                                    </div>
+                                    <div class="col-md-3">{{entity.entity_type}}</div>
+                                    <div class="col-md-3">{{entity.template_status}}</div>
+                                    <div class="col-md-3">{{entity.template_status}}</div>
                                 </div>
                             </li>
-                            <p>Tomorrow</p>
+                        </ul>
+                            <div class="row" style="width:950px;">
+                                <div class='col-md-3'>Tomorrow</div>
+                                <div class='col-md-3'></div>
+                                <div class='col-md-3'></div>
+                                <div class='col-md-3'></div>
+                            </div>
+                        
+                        <ul>   
                             <li ng-repeat="entity in entitySet['Tomorrow']">
-                                <div style="background-color:{{entity.color}};" id="entitydetails" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)">
-                                    <div>{{entity.schedule_title}}</div>
-                                    <div>{{entity.schedule_time}}</div>
-                                    <div>{{entity.entity_type}}</div>
+                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
+                                <div class="row" style="width:950px;" id="entitydetails" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)">
+                                    <div class="col-md-3">
+                                        <p>{{entity.schedule_title}}</p>
+                                        <p>Scheduled for{{entity.schedule_time}} {{ millisToUTCDate(entity.schedule_time) | date:"h:mma"}}</p>
+                                    </div>
+                                    <div class="col-md-3">{{entity.entity_type}}</div>
+                                    <div class="col-md-3">{{entity.entity_type}}</div>
+                                    <div class="col-md-3">{{entity.entity_type}}</div>
                                 </div>
                             </li>
-                            <p>Later</p>
+                        </ul>
+                            <div class="row" style="width:950px;">
+                                <div class='col-md-3'>Later</div>
+                                <div class='col-md-3'></div>
+                                <div class='col-md-3'></div>
+                                <div class='col-md-3'></div>
+                            </div>
+                        <ul>
                             <li ng-repeat="entity in entitySet['Later']">
-                                <div style="background-color:{{entity.color}};" id="entitydetails">
-                                    <div>{{entity.schedule_title}}</div>
-                                    <div>{{entity.schedule_time}}</div>
-                                    <div>{{entity.entity_type}}</div>
+                                <div>{{entity.schedule_time | date:"MM/dd/yyyy"}}</div>
+                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
+                                <div class="row" style="width:950px;" id="entitydetails">
+                                    <div class="col-md-3">
+                                        <p>{{entity.schedule_title}}</p>
+                                        <p>Scheduled for {{entity.schedule_time}},{{ millisToUTCDate(entity.schedule_time) | date:"medium"}}</p>
+                                    </div>
+                                    <div class="col-md-3">{{entity.entity_type}}</div>
+                                    <div class="col-md-3">{{entity.entity_type}}</div>
+                                    <div class="col-md-3">{{entity.entity_type}}</div>
                                 </div>
-                                <div class="foo col-md-1 col-md-offset-2" style="background-color:{{entity.color}};">
+<!--                                <div class="foo col-md-1 col-md-offset-2" style="background-color:{{entity.color}};">
                                     <div class="fo col-md-2 col-md-offset-2">{{entity.schedule_title}}</div>
-                                </div>
+                                </div>-->
 
                             </li>
                         </ul>

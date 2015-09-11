@@ -21,6 +21,6 @@ public interface MindBodyConstants {
     public final static String kPromote_upcoming_workshop_query = "promote upcoming workshops";
 
     public final static String kPromote_class_query = "promote new class";
-    public final static String kPromote_todays_class_query = "promote today's class";
+    public final static String kPromote_todays_class_query = "promote todays class";
     
 }

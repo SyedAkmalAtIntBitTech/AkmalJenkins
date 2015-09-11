@@ -232,7 +232,7 @@
                 success: function (responseText) {
                     formattedHTMLData = responseText;
                     //show popup showing
-                    alert(formattedHTMLData);
+//                    alert(formattedHTMLData);
                     $(".content").empty();
                     $(".content").append(responseText);
 
@@ -396,7 +396,7 @@
                             <br><br><button type="button" onclick="displaySchedule()" class="button button--moema button--text-thick button--text-upper button--size-s">SCHEDULE</button><br><br><br>
                         </div>
                     </div>
-                            <input type="hidden" id="htmldata" value='<%= htmlData %>' name="htmldata"> 
+                            <input type="hidden" id="htmldata" name="htmldata" value='<%= htmlData %>'> 
                             <input type="hidden" id="email_list" value='<%=emailList%>'>
                 </form>
             </div>
@@ -431,7 +431,7 @@
 
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
                     <div class="content">  
-                        '<%=htmlData %>'
+                        <%= htmlData %>
                     </div>
                 </div>
 

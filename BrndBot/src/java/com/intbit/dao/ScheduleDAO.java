@@ -8,6 +8,7 @@ package com.intbit.dao;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityStatus;
 import com.intbit.ScheduledEntityType;
+import com.intbit.TemplateStatus;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -208,6 +209,7 @@ public class ScheduleDAO {
                     scheduleDetailMap.put("status", rs.getString("status"));
                     scheduleDetailMap.put("user_id", rs.getInt("user_id"));
                     scheduleDetailMap.put("color", rs.getString("color"));
+                    scheduleDetailMap.put("template_status", TemplateStatus.valueOf(rs.getString("template_status")).getDisplayName());
                     
                     if ( !result.containsKey(scheduleDateStr)){
                         result.put(scheduleDateStr, new ArrayList<>());
