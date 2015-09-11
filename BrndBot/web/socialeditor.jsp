@@ -1092,7 +1092,7 @@ function showfilter(){
 
                                     // grab width and height of .crop-img for canvas
                                     var width = $('.crop-container').width() - 80, // new image width
-                                     var   height = $('.crop-container').height() - 80; // new image height
+                                      height = $('.crop-container').height() - 80; // new image height
 
                                     $('canvas').remove();
                                     $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');
@@ -1177,9 +1177,7 @@ function showfilter(){
                                         // load image into crop
                                         one.loadImg(image_file);
                                         $("#imagespopup").hide();
-                                       
                                         if(imageWidth >350 && imageWidth <=700){
-                                            alert("grater");
                                             $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.7");
                                             $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");
                                          }
@@ -1188,7 +1186,7 @@ function showfilter(){
                                            $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px"); 
                                             }
                                         else if(imageWidth >1050 && imageWidth <=1400){
-                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.3");
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.34");
                                           $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
                                         }
                                         else if(imageWidth >1400 && imageWidth <=1800){

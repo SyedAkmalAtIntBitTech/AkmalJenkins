@@ -1500,26 +1500,25 @@ and open the template in the editor.
                                         // load image into crop
                                         one.loadImg(image_file);
                                         $("#imagespopup").hide();
-                                       
+                                      
                                         if(imageWidth >350 && imageWidth <=700){
-                                            alert("grater");
-                                            $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.7");
+                                            $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.7").css("aline","center");
                                             $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");
                                          }
                                          else if(imageWidth >700 &&  imageWidth <=1050){
-                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.5");
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.5").css("aline","center");
                                            $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px"); 
                                             }
                                         else if(imageWidth >1050 && imageWidth <=1400){
-                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.3");
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","1").css("aline","center");
                                           $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
                                         }
                                         else if(imageWidth >1400 && imageWidth <=1800){
-                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.25");
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.25").css("aline","center");
                                           $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
                                         }    
                                         else if(imageWidth >1800){
-                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.2");
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.2").css("aline","center");
                                           $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
                                         }                      
                                     }
