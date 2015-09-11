@@ -11,13 +11,13 @@
 
 
 function htmlController($scope, $http) {
-g
+
     $scope.createhtmltemplate = {};
     var model_id, model_name, html_content;
     
     function validate() {
         model_id = $("#modelname").val();
-        model_name = $("#modelname").find('option:selected').text()
+        model_name = $("#modelname").find('option:selected').text();
         html_content = $("#html_content").val();
         
         if (model_name === 0) {

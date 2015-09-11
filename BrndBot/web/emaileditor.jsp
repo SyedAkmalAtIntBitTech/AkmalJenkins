@@ -59,6 +59,11 @@ and open the template in the editor.
 
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
+        
+        <script src="js/flavr.js" type="text/javascript"></script>
+        <link href="css/animate.css" rel="stylesheet" type="text/css"/>
+        <link href="css/flavr.css" rel="stylesheet" type="text/css"/>
+        
         <script>
                     try{
                     Typekit.load({ async: true });
@@ -702,7 +707,7 @@ and open the template in the editor.
                             }
 //                                                fontcolor = $(this).attr("font-color");
                             textcount++;
-                                    $(".preview #" + blockId).append("<textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
+                                    $(".preview #" + blockId).append("<textarea orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "EEE" + blockId + "') class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
                                     $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
                                     .css("position", "absolute")
                                     .css("overflow", "hidden")
@@ -743,7 +748,8 @@ and open the template in the editor.
                             }
                             //resize end
 
-
+                            var addThis = $("#" + type + "EEE" + blockId).get(0).scrollHeight - $("#" + type + "EEE" + blockId).height();
+                            $("#" + type + "EEE" + blockId).attr("add-this",addThis);
 
                             }
 

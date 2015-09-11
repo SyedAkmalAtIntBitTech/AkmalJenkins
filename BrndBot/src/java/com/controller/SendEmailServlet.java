@@ -108,12 +108,12 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             }
             
             MessageResponses mandrillResponse = send_email.sendMail(message);
-//            int lastUpdateId = EmailHistoryDAO.addToEmailHistory(user_id, 
-//                    html_text, from_email_address, emaillist_name, email_subject, 
-//                    SendMail.getTag(email_subject));
-//            if ( mandrillResponse != null && lastUpdateId != -1){
-//                EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
-//            }
+            int lastUpdateId = EmailHistoryDAO.addToEmailHistory(user_id, 
+                    html_text, from_email_address, emaillist_name, email_subject, 
+                    SendMail.getTag(email_subject));
+            if ( mandrillResponse != null && lastUpdateId != -1){
+                EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
+            }
             out.write("true");
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error), e);
