@@ -518,7 +518,8 @@
                                     </div>
                                     <div class="col-md-3">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
-                                    <div class="col-md-3">{{entity.template_status}}</div>
+
+                                    <div class="col-md-3"></div>
                                 </div>
                             </li>
                         </ul>
@@ -538,8 +539,8 @@
                                         <p>Scheduled for{{entity.schedule_time}} {{ millisToUTCDate(entity.schedule_time) | date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-3">{{entity.entity_type}}</div>
-                                    <div class="col-md-3">{{entity.entity_type}}</div>
-                                    <div class="col-md-3">{{entity.entity_type}}</div>
+                                    <div class="col-md-3">{{entity.template_status}}</div>
+                                    <div class="col-md-3"></div>
                                 </div>
                             </li>
                         </ul>
@@ -559,8 +560,8 @@
                                         <p>Scheduled for {{entity.schedule_time}},{{ millisToUTCDate(entity.schedule_time) | date:"medium"}}</p>
                                     </div>
                                     <div class="col-md-3">{{entity.entity_type}}</div>
-                                    <div class="col-md-3">{{entity.entity_type}}</div>
-                                    <div class="col-md-3">{{entity.entity_type}}</div>
+                                    <div class="col-md-3">{{entity.template_status}}</div>
+                                    <div class="col-md-3"></div>
                                 </div>
 <!--                                <div class="foo col-md-1 col-md-offset-2" style="background-color:{{entity.color}};">
                                     <div class="fo col-md-2 col-md-offset-2">{{entity.schedule_title}}</div>
