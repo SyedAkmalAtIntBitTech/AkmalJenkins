@@ -333,7 +333,7 @@
                     from_email_address: $("#formaddress").val(),
                     reply_to_email_address: $("#email").val(),
                     htmldata: formattedHTMLData,
-                    email_list: $("email_list").val()
+                    email_list: $("#email_list").val()
                 },
                 success: function (responseText) {
 
@@ -399,7 +399,7 @@
                         </div>
                     </div>
                             <input type="hidden" id="htmldata" value='<%= htmlData %>' name="htmldata"> 
-                            <input type="hidden" id="email_list" value='<%=emailList%>'>
+                            <input type="hidden" id="email_list" value='<%=emailList%>' name="email_list">
                 </form>
             </div>
             <div class="col-md-4">

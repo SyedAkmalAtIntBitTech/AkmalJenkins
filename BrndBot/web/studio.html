@@ -53,39 +53,37 @@ and open the template in the editor.
                     
                    
                     var siteid = $("#inputstudio").val();
-                   
-                    var studio = {"studioid": siteid, "query": "activationlink"};
-                    $http({
-                        method: 'POST',
-                        url: getHost() + 'MindBodyDataServlet?studioid='+siteid+'&query=activationlink',
-                    }).success(function (data)
-                    {
-                        
-                        var mindbody_data = JSON.stringify(data);
-                        if (mindbody_data.activation_link !== "") {
-                            $scope.mindbodyactivation = mindbody_data.activation_link;
-                            $("#studiobuttoncontinue").attr("disabled", false);
-                            $("#para").show();
-                            } 
-                            else if (mindbody_data.activation_link === "") {
-                            $scope.mindbodyactivation = "Invalid Studio id.";
-                        } else if (data === error) {
-                            alert(data);
-                        }
-                        $scope.status = data;
-                        
-//                        if (data != ""){
-////                            window.open(getHost()+'chooselook.jsp',"_self");
-//                        }else{
-//                            alert(data);
-//                        }
-                    })
-                            .error(function (data, status) {
-                                // called asynchronously if an error occurs
-                                // or server returns response with an error status.
+                    
+                    if (siteid != ""){
+                        var studio = {"studioid": siteid, "query": "activationlink"};
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'MindBodyDataServlet?studioid='+siteid+'&query=activationlink',
+                        }).success(function (data)
+                        {
+                            var mindbody_data = JSON.stringify(data);
+                            if (mindbody_data.activation_link !== "") {
+                                $scope.mindbodyactivation = mindbody_data.activation_link;
+                                $("#studiobuttoncontinue").attr("disabled", false);
+                            } else if (mindbody_data.activation_link === "") {
+                                $scope.mindbodyactivation = "Invalid Studio id.";
+                            } else if (data === error) {
+                                alert(data);
+                            }
+                            $scope.status = data;
 
-                                alert("request not succesful");
-                            });
+                        }).error(function (data, status) {
+                                    // called asynchronously if an error occurs
+                                    // or server returns response with an error status.
+
+                            alert("request not succesful");
+                        });
+                        
+                    }else {
+                        alert("site id not entered, please enter the site id");
+                        $("#inputstudio").focus();
+                    }
+
                 };
             };
 
