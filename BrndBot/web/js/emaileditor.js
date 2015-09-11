@@ -422,12 +422,25 @@ $(document).ready(function () {
         var current = $("#" + $(selectedBlockId).attr("id"));
         current.prev().before(current);
     });
-    $("#deleteBlock").easyconfirm();
+    //$("#deleteBlock").easyconfirm();
     $("#deleteBlock").click(function () {
+        new $.flavr({
+    content     : 'Press a button',
+    dialog      : 'confirm',
+    
+    onConfirm   : function( $container ){
         var tempSelectedBlockId = $(selectedBlockId).attr("id");
         $("#" + tempSelectedBlockId).remove();
          $(".imagename").find('option').remove().end();
          $(".blockname").find('option').remove().end();
+    },
+    onCancel    : function( $container ){
+        
+    }
+});
+        
+        
+        
     });
     $("#sortDownBlock").click(function () {
 

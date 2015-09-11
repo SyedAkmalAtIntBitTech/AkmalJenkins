@@ -59,6 +59,11 @@ and open the template in the editor.
 
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
+        
+        <script src="js/flavr.js" type="text/javascript"></script>
+        <link href="css/animate.css" rel="stylesheet" type="text/css"/>
+        <link href="css/flavr.css" rel="stylesheet" type="text/css"/>
+        
         <script>
                     try{
                     Typekit.load({ async: true });
