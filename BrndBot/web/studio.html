@@ -49,19 +49,25 @@ and open the template in the editor.
                 };
 
                 $scope.getActivation = function () {
+                    
+                    
+                   
                     var siteid = $("#inputstudio").val();
-
+                   
                     var studio = {"studioid": siteid, "query": "activationlink"};
                     $http({
                         method: 'POST',
                         url: getHost() + 'MindBodyDataServlet?studioid='+siteid+'&query=activationlink',
                     }).success(function (data)
                     {
+                        
                         var mindbody_data = JSON.stringify(data);
                         if (mindbody_data.activation_link !== "") {
                             $scope.mindbodyactivation = mindbody_data.activation_link;
                             $("#studiobuttoncontinue").attr("disabled", false);
-                        } else if (mindbody_data.activation_link === "") {
+                            $("#para").show();
+                            } 
+                            else if (mindbody_data.activation_link === "") {
                             $scope.mindbodyactivation = "Invalid Studio id.";
                         } else if (data === error) {
                             alert(data);
@@ -109,7 +115,7 @@ and open the template in the editor.
                     <div id="std"><div class="col-md-3 col-md-offset-4 group1">
                              <input id="inputstudio" name="inputstudio" class="form-control simplebox" type="text" required><br>
                              <label>STUDIO ID</label>
-                            <div><a href="{{status.activation_link}}">{{status.activation_link}}</a></div><br>
+                             <div><p id="para" style="display:none;">click here to activate mindbody</p> <a target="_blank" href="{{status.activation_link}}">{{status.activation_link}}</a></div><br>
                         </div></div>
              
                     <!--                    {{status}}-->
