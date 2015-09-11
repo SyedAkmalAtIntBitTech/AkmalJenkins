@@ -798,7 +798,7 @@ ul::-webkit-scrollbar-thumb {
                                                     </select>
                                                 </li>
                                                 <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
-                                                <li><p  class="btn" onclick="imageEdit()">edit</p></li>
+                                                <li><p  class="btn" onclick="showfilter()">edit</p></li>
                                                 <li></li>
                                             </ul>
                                         </div>
@@ -817,18 +817,16 @@ ul::-webkit-scrollbar-thumb {
                                                 <li><img class="imageFilter" id="convert9" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Shade</p> </li>
                                                 <li><img class="imageFilter" id="convert10" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Fade</p> </li>-->
                                             </ul>
+                                           <p  class="btn" onclick="imageEdit()">CROP</p>
+                                            <p  class="btn" onclick="saveImageEdit()">DONE</p>
                                         </div>
                                         <div id="cropImageContainer" style="display: none">
-<!--                                                <p>CROP</p>-->
-
-
                                                     <!--
                                                             NOTE: To change the aspect ratio, look in crop.css
                                                             The class 'default' links the div to the innit(); function
                                                     -->
 
                                                 <br><br>
-                                            <input type="button" id="done" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="saveImageEdit()" value="DONE"> 
                                         </div>
 
                                     </li>
@@ -1057,7 +1055,12 @@ ul::-webkit-scrollbar-thumb {
         $("#"+image_Id).toggleClass("ig-brannan");
     };
 };
-
+function showfilter(){
+     $("#textcontainer").hide();
+     $("#shapecontainer").hide();
+     $("#imagecontainer").hide();
+     $("#filtercontainer").show();
+}
 
                             $(".cross").hide();
                             $(".menu").hide();
@@ -1087,7 +1090,7 @@ ul::-webkit-scrollbar-thumb {
 
                                     // grab width and height of .crop-img for canvas
                                     var width = $('.crop-container').width() - 80, // new image width
-                                        height = $('.crop-container').height() - 80; // new image height
+                                     var   height = $('.crop-container').height() - 80; // new image height
 
                                     $('canvas').remove();
                                     $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');
@@ -1148,11 +1151,12 @@ ul::-webkit-scrollbar-thumb {
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();
 //                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
+                                           var imageId=$(".imagename option:selected").val();
+                                           var imageWidth=$("#"+imageId).css("width").replace("px","");
+                                           var imageHeight=$("#"+imageId).css("height").replace("px","");
+                                           $("#crompIageContainer").show();
                                            
-                                            $("#filtercontainer").show();
-                                            $("#cropImageContainer").show();
-
-                
+                                                                                  
                                         var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
 //                                        alert(image_file);
                                         id = "image" + i;
@@ -1171,9 +1175,29 @@ ul::-webkit-scrollbar-thumb {
                                         // load image into crop
                                         one.loadImg(image_file);
                                         $("#imagespopup").hide();
-
+                                       
+                                        if(imageWidth >350 && imageWidth <=700){
+                                            alert("grater");
+                                            $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.7");
+                                            $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");
+                                         }
+                                         else if(imageWidth >700 &&  imageWidth <=1050){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.5");
+                                           $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px"); 
                                             }
-
+                                        else if(imageWidth >1050 && imageWidth <=1400){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.3");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }
+                                        else if(imageWidth >1400 && imageWidth <=1800){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.25");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }    
+                                        else if(imageWidth >1800){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.2");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }                                            
+                          }
 
 
                                     $('.uploadfile').change(function() {
