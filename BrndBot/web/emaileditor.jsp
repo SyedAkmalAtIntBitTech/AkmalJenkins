@@ -700,7 +700,7 @@ and open the template in the editor.
                             }
 //                                                fontcolor = $(this).attr("font-color");
                             textcount++;
-                                    $(".preview #" + blockId).append("<textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
+                                    $(".preview #" + blockId).append("<textarea orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "EEE" + blockId + "') class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
                                     $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
                                     .css("position", "absolute")
                                     .css("overflow", "hidden")
@@ -741,7 +741,8 @@ and open the template in the editor.
                             }
                             //resize end
 
-
+                            var addThis = $("#" + type + "EEE" + blockId).get(0).scrollHeight - $("#" + type + "EEE" + blockId).height();
+                            $("#" + type + "EEE" + blockId).attr("add-this",addThis);
 
                             }
 

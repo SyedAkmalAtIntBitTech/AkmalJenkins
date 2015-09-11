@@ -467,7 +467,8 @@ ul::-webkit-scrollbar-thumb {
                                                             var textalign = $(this).attr("text-align");
                                                             var webkittransform = $(this).attr("webkit-transform");
                                                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-                                                        $(".preview").append("<div><textarea class=textAreas onclick=getTectId("+ type +") id=" + type + ">" + elementdata + "</textarea>");
+                                                       
+                                                        $(".preview").append("<div><textarea class=textAreas orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "')  onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
                                                         $("#" + type).css("color", "" + fontcolor)
                                                                 .css("position", "absolute")
                                                                 .css("overflow", "hidden")
@@ -504,7 +505,8 @@ ul::-webkit-scrollbar-thumb {
                                                          $("#" + type).css("line-height",""+xxyy+"px");
                                                         }
                                                         //resize end
-                                                        
+                                                        var addThis = $("#" + type).get(0).scrollHeight - $("#" + type).height();
+                                                        $("#" + type).attr("add-this",addThis);
                                                     }
 
                                                if (tag === "image")
@@ -652,7 +654,7 @@ ul::-webkit-scrollbar-thumb {
                                 <script>
                                     function showImageName(user_id, image_name){
                                         var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
-                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("background-size","cover");
                                                     $("#imagespopup").hide(); 
                                                     $(".imagename option:selected").attr("name","url(" + global_host_address +""+image_path+ ")");
                                                     $("#tabs-1").show();
@@ -1115,7 +1117,7 @@ ul::-webkit-scrollbar-thumb {
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
                                                          var image_Id= $('.imagename option:selected').val();
-                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center");
+                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center").css("background-size","cover");
 //                                                        $("#cropper_popup").hide();
                                                          //$("#cropper_popup").hide();
                                                          $(".close-reveal-modal").click();

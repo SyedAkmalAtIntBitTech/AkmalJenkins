@@ -264,16 +264,14 @@ $(document).ready(function () {
 
                                     }
                                     textcount++;
-                                    $(".preview #defaultblock1").append("<textarea class=textAreas onclick=getTectId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1>" + elementdata + "</textarea>");
+                                    $(".preview #defaultblock1").append("<textarea orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "EEEdefaultblock1')  class=textAreas onclick=getTectId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1>" + elementdata + "</textarea>");
                                     $("#" + type + "EEEdefaultblock1").css("color", "" + fontcolor)
                                             .css("position", "absolute")
                                             .css("overflow", "hidden")
                                             .css("left", "" + left + "px")
                                             .css("top", "" + top + "px")
                                             .css("width", "" + width)
-
                                             .css("height", "" + height)
-
                                             .css("font-style", "" + fontstyle)
                                             .css("font-family", "" + font_family_name)
                                             .css("font-weight", "" + fontweight)
@@ -307,13 +305,14 @@ $(document).ready(function () {
                                             //     alert(tempfontsize);
                                             $("#" + type + "EEEdefaultblock1").css("font-size", "" + tempfontsize + "px");
                                         }
+                                        
                                         var xxyy = parseInt(tempfontsize);
                                         xxyy = Math.round(xxyy * 1.2);
                                         $("#" + type + "EEEdefaultblock1").css("line-height", "" + xxyy + "px");
                                     }
                                     //resize end
-
-
+                                    var addThis = $("#" + type + "EEEdefaultblock1").get(0).scrollHeight - $("#" + type + "EEEdefaultblock1").height();
+                                    $("#" + type + "EEEdefaultblock1").attr("add-this",addThis);
                                 }
 
                                 if (tag === "image")
@@ -505,12 +504,28 @@ $(document).ready(function () {
     }
 
     $("#plus").click(function () {
+        if($("#" + selectedTextareaId).css("line-height") == "normal")
+        {
+            
+        var xxyy = parseInt($("#" + selectedTextareaId).css("font-size"));
+        xxyy = Math.round(xxyy * 1.2);
+        $("#" + selectedTextareaId).css("line-height", "" + xxyy + "px");
+        $("#" + selectedTextareaId).css("line-height");
+        
+        }
         var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
 
 
         $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) + 5) + "px");
     });
     $("#minus").click(function () {
+        if($("#" + selectedTextareaId).css("line-height") == "normal")
+        {
+        var xxyy = parseInt($("#" + selectedTextareaId).css("font-size"));
+        xxyy = Math.round(xxyy * 1.2);
+        $("#" + selectedTextareaId).css("line-height", "" + xxyy + "px");
+        }
+        
         var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
 
         $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 5) + "px");
@@ -629,32 +644,44 @@ $(document).ready(function () {
 //    };
 
 });
-//function textAreaKeyUp(id) {
-//    alert(id);
-//    var fontsize = parseInt($(id).css('font-size').replace("px", ""));
-//    alert("keyed1"+$(id).attr("id"));
-//    alert($(id).get(0).scrollHeight + "<=" + $(id).height()+"Fontsize:"+fontsize);
-//    if($(id).get(0).scrollHeight <= ($(id).height()+4))
-//    {
-//        
-//        while ($(id).get(0).scrollHeight <= ($(id).width()+4) && fontsize <= parseInt($(id).css('font-size').replace("px", ""))) 		  {
-//alert($(id).get(0).scrollHeight + "<=" + $(id).height()+"Fontsize:"+fontsize);
-//            fontsize = fontsize + 1;
-//            $(id).css('font-size', "" + fontsize + "px");
-//
-//        }
-//
-//        fontsize = fontsize - 1;
-//        $(id).css('font-size', "" + fontsize + "px");
-//
-//    } else {
-//        alert($(id).get(0).scrollHeight +":"+ $(id).height());
-//        while ($(id).get(0).scrollHeight > ($(id).height()+4)) {
-//            fontsize = fontsize - 1;
-//            $(id).css('font-size', "" + fontsize + "px");
-//        }
-//    }
-//}
+function textAreaKeyUp(event,id) {
+   var orginialSize = Math.round(parseInt($("#"+id).attr("orginial-size").replace("px","")));
+    var tempfontsize = parseInt($("#"+id).css('font-size').replace("px", ""));
+    var addThis = parseInt($("#" + id).attr("add-this"));
+    
+     if (event.keyCode == 8 || event.keyCode == 46) {
+        while ( $("#" + id).get(0).scrollHeight <= ($("#"+id).height()+addThis) && tempfontsize <= orginialSize) {
+           $("#" + id).css("line-height", "initial");
+            tempfontsize = tempfontsize +1;
+            $("#" + id).css('font-size', ""+tempfontsize+"px");
+ 
+        }
+             tempfontsize = tempfontsize - 1;
+          $("#" + id).css('font-size', ""+tempfontsize+"px");
+ 
+//   var xxyy = parseInt(tempfontsize);
+//        xxyy = Math.round(xxyy * 1.2);
+        //$("#" + id).css("line-height", "" + xxyy + "px");
+    }
+    else if ($("#" + id).get(0).scrollHeight > ($("#"+id).height()+4))
+    {
+        if(tempfontsize == orginialSize)
+        $("#" + id).css("line-height", "initial");
+        while ($("#" + id).get(0).scrollHeight > ($("#"+id).height()+addThis) && tempfontsize > 5) {
+        //    alert(tempfontsize);
+                //alert($("#" + id).get(0).scrollHeight + ":" + ($("#"+id).height()+4));
+            tempfontsize = tempfontsize - 1;
+            //     alert(tempfontsize);
+            $("#" + id).css("font-size", "" + tempfontsize + "px");
+        }
+        var xxyy = parseInt(tempfontsize);
+        xxyy = Math.round(xxyy * 1.2);
+        $("#" + id).css("line-height", "" + xxyy + "px");
+        //alert($("#" + id).get(0).scrollHeight + ">" + ($("#"+id).height()+4));
+    }
+        //alert("last"+$("#" + id).get(0).scrollHeight + ">" + ($("#"+id).height()+4));
+        //$("#" + id).css("line-height", "" + xxyy + "px");
+}
 $(function(){
     $("#buttonOKURL").click(function(){
        
