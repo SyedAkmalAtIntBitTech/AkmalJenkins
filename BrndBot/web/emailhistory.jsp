@@ -38,6 +38,7 @@
                         method : 'GET',
                         url : 'GetEmailTagsServlet'
                 }).success(function(data, status, headers, config) {
+                    console.log(JSON.stringify(data));
                     if (data == ""){
                         $scope.email_history = "No email history present";
                         $("#scrl").hide();
