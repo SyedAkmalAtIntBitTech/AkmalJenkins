@@ -49,6 +49,9 @@ and open the template in the editor.
                 opacity: 0;
                 filter: alpha(opacity=0);
             }
+            li{
+                list-style: none;
+            }
 
         </style>
         <script>

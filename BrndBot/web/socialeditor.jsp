@@ -386,11 +386,13 @@ ul::-webkit-scrollbar-thumb {
                           
                     function showText(id, layout){
                          var layout_mapper_url = "";
-                    if (mindbodydataId != ""){
-                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
-                    }else{
-                        layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
-                    }
+
+                   if (mindbodydataId != ""){
+                       layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
+                   }else{
+                       layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
+                   }                         
+
                             $.ajax({
                                     type: 'GET',
                                     url: layout_mapper_url,
@@ -950,7 +952,6 @@ ul::-webkit-scrollbar-thumb {
                             var PreviewWidth=$(".preview").css("width");
                             var PreviewhHeight=$(".preview").css("height");
 //                            alert($(".preview").children());
-
                                 $.ajax({
                                    type: "POST",
                                    url: "ConvertHtmlToImageServlet",                                   

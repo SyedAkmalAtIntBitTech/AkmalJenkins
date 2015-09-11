@@ -94,26 +94,21 @@
                 </div>
                 <form class="form-horizontal" ng-model="organizations" ng-controller="MyController">
 
-                    <div class="group2">
+                    <div class="group2" style="top:-25px;position:relative;">
                         <div class="col-md-3 col-md-offset-4">
-                             
-                            <input id="inputcompanyname" class="form-control simplebox1" type="text" required ng-model="organizations.company">
+                           <input id="inputcompanyname" class="form-control simplebox1" type="text" required ng-model="organizations.company"/>
                              <label>YOUR COMPANY NAME</label><br>
                         </div>
                     </div>
 
-                    <div class="form-group" >
-                        <p id="comment1"  class="col-md-4 col-md-offset-4 MH2">Please select an organization:</p><br>
+                    <div class="group2" >
+                        <p id="comment1"  class="col-md-4 col-md-offset-4 MH2">Please select an organization:</p>
                         <p id="text-left-1" class="col-md-4 col-md-offset-4 FL2">If you do not have an organization, choose "No Organization".</p><br>
-                        <div class="col-md-3 col-md-offset-4">
+                        <div class="col-md-3 col-md-offset-4"><br>
                           <select  id="organizationdropdown" ng-model="organizations.org">
                               <option  class="optn" ng-repeat ="org in organizations.org_name" value="{{org.id}}">{{org.organization_name}}</option>
                             </select>
                          </div>
-                        
-                    
-
-                            
                     </div>
 
                     <div  class="form-group">

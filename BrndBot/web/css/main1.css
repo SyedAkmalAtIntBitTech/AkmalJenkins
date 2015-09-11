@@ -49,7 +49,7 @@ a {
 }
 #std > div label{
     position: relative;
-    top:-50px;
+    top:-45px;
     left:-4px;
 }
 .group1 label {
@@ -82,7 +82,7 @@ opacity: 1;
 }
 .group2 label{
     position: relative;
-    top:-60px;
+    top:-56px;
     left:-2px;
     font-family: "proxima-nova",sans-serif;
 font-style: normal;
@@ -104,11 +104,14 @@ text-align: left;
 line-height: 14.4px;
 letter-spacing:0em;
 opacity: 1;
+position:relative;
+margin-top: 6px;
 
 }
 .sublingrp div input{
     position: relative;
     margin-top: 40px;
+    width:500px;
 }
 .sublingrp  div label{
  font-family: "proxima-nova",sans-serif;
@@ -121,7 +124,7 @@ line-height: 14.4px;
 letter-spacing:0em;
 opacity: 1;
 position: relative;
-top:-25px;
+top:-33px;
 left:0px;
 }
 /* form starting stylings ------------------------------- */
@@ -168,9 +171,9 @@ label                {
   pointer-events:none;
   left:15px;
   top:10px;
-  transition:1s ease all; 
-  -moz-transition:1s ease all; 
-  -webkit-transition:1s ease all;
+  transition:0.7s ease all; 
+  -moz-transition:0.7s ease all; 
+  -webkit-transition:0.7s ease all;
 }
 .inputsubline{
                 font-size:18px;
@@ -182,6 +185,7 @@ label                {
     left:-130px;
   font-size:13px;
   color:#999;
+  
  
 }
 #default_from_name:focus ~ label, .inputsubline:valid ~ label     {
@@ -435,6 +439,9 @@ line-height: 15.8px;
 letter-spacing: 0em;
 opacity: 1;
 width: 720px;
+margin-bottom: 20px;
+
+
 }
 .cmlinpos{
 position: relative;
@@ -445,13 +452,14 @@ left: 50px;
 /*font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 600;*/
-font-size: 21.5px;
+/*font-size: 21.5px;*/
 color: #3f4042;
 text-align: left;
 line-height: 25.8px;
 letter-spacing: 0em;
 opacity: 1;
 width:500px;
+margin-bottom:  30px;
 }
 #comment2{
     font-size: 12px;
@@ -473,7 +481,7 @@ width:500px;
 }
 #contentdiv {
     position: relative;
-    top:114px;
+    top:45px;
 }
 
 #continuelookchooser{
@@ -542,6 +550,8 @@ width:500px;
     width: 150px;
     height: 35px;
     margin: 5px;
+    position: relative;
+    padding-top: 13px;
    
     
 }
@@ -563,7 +573,7 @@ ul,li
 
 
 #resetpalette{
-        font-family: "proxima-nova",sans-serif;
+font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 400;
 font-size: 10px;
@@ -706,13 +716,14 @@ select#organizationdropdown option{
     height:150px;
     background-color:#E0E0E0;
     margin-left: 0.5em;
-    margin: 0.5em;
+    
     
    
 }
 
 #loochooserbutton{
     position: relative;
+    top:25px;
    left: 35px;
 }
 

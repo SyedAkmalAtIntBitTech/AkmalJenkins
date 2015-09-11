@@ -109,7 +109,7 @@
                                 %>
                             </select><br><br />
 
-                            Attach Image:<input type="file" style="border: 1px solid;" name="filesToUpload" id="filesToUpload" class="upload"/><br>
+                            Attach HTML file:<input type="file" style="border: 1px solid;" name="filesToUpload" id="filesToUpload" class="upload"/><br>
                             <!--  <label>Organization Name:</label>-->
                             <button type="button" id="uploadhtml" onclick="upload()" name="uploadhtml">Upload HTML</button><br><br>
                             <a href="#" data-reveal-id="myModal" class="clickthis">Click here for html divs</a><br /><br />

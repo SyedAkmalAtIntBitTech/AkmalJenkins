@@ -245,6 +245,8 @@ and open the template in the editor.
                 border-radius: 10px;
                 -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
             }
+            
+           
         </style>
 
         <%!
@@ -957,7 +959,7 @@ and open the template in the editor.
                         </div>
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:36px;overflow-y:scroll;width:355px;overflow-x:hidden;">                       
+                            <div class="well lead editor" id="editor" style="border:none;height:515px;top:100px;left:36px;overflow-y:scroll;width:355px;overflow-x:hidden;">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -1027,7 +1029,7 @@ and open the template in the editor.
                                                 </li>
 
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
-                                                <li><ul id="openCustomColor">
+                                                <li ><ul id="openCustomColor">
                                                         <li><p class="editpal">your palette</p></li>                                                                                         
                                                         <li id="colcontainer">
                                                             <ul id="colorpalette">
@@ -1041,7 +1043,7 @@ and open the template in the editor.
                                                             </ul>
                                                         </li>
 
-                                                        <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
+                                                        <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
                                                         <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
                                                     </ul></li> 
 
@@ -1049,7 +1051,7 @@ and open the template in the editor.
                                             </ul>
                                         </div>
 
-                                        <div id="imagecontainer">
+                                        <div id="imagecontainer" style="top:45px;">
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
 

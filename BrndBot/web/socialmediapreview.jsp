@@ -211,7 +211,7 @@
                                  <td><p><%=companyName%></p></td>
                              </tr>
                          </table>
-                       <input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here"><br><br> 
+                             <textarea type="text" class="hideinputborder" id="posttext" placeholder="post text goes here" style="resize:none;width:325px;"></textarea><br><br> 
                        <div id="fblinkpostDiv">
                        <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                        <table class="fbuserDestable"> 
@@ -286,25 +286,26 @@
                     $(".link_description").val($("#description").val()); 
                 });
                 
-                $("#url").focusout(function (){
+                $("#url").keyup(function (){
                     var link=$("#url").val();
-                    var url=link;
-                    var username="sandeep264328"; // bit.ly username
-                    var key="R_63e2f83120b743bc9d9534b841d41be6";
-                    $.ajax({
-                    url:"http://api.bit.ly/v3/shorten",
-                    data:{longUrl:url,apiKey:key,login:username},
-                    dataType:"jsonp",
-                    success:function(v)
+                    var twittertext=$("#twittertext").val();
+                    var f=link.startsWith("http");
+                    if(!f)
                     {
-                    var bit_url=v.data.url;
-                    $("#sortLengthurl").val(bit_url);
-//                    $("#result").html('<a href="'+bit_url+'" target="_blank">'+bit_url+'</a>');
-                    $("#twittertext").val($("#twittertext").val()+" "+bit_url+"");
+                       link="http://"+ $("#url").val();
                     }
-                    }); 
+                    if(twittertext.endsWith("bit.ly/1XOkJo"))
+                    {
+                    $("#twittertext").val($("#twittertext").val());
+                    }
+                    else{
+                        $("#twittertext").val($("#twittertext").val()+ "  bit.ly/1XOkJo");
+                    }
+                    
+//                    $("#twittertext").val($("#twittertext").val()+" "+bit_url+"");
                     $("#Linkurl").val(link);
-                    $("#fbHref").attr("href","https://"+link);
+                    $("#fbHref").attr("href",""+link);
+                    $("#url").val(link);
                     
                     
                 });
@@ -379,43 +380,61 @@
                 });
 
                 $("#posttofb").click(function () {
-
-                    var isFacebook = $("#isFacebook").val();
-                    var isTwitter = $("#isTwitter").val();
-                    var image_name= $("#imageToPost").val();
-
-                    if (isFacebook == "true" || isTwitter == "true") {
-                        $.ajax({
-                            url: 'PostToSocial',
-                            method: 'post',
-                            data: {
-                                imageToPost: image_name,
-                                accesstoken: $("#accesstoken").val(),
-                                postText: $("#posttext").val(),
-                                title: $("#title").val(),
-                                description: $("#description").val(),
-                                url: $("#url").val(),
-                                twittweraccestoken: $("#twittweraccestoken").val(),
-                                twitterTokenSecret: $("#twitterTokenSecret").val(),
-                                text: $("#twittertext").val(),
-                                isFacebook: isFacebook,
-                                isTwitter: isTwitter,
-                                imagePost: image_name,
-                                shorturl:$("#sortLengthurl").val()
-                            },
-                            success: function (responseText) {
-//                            $("#tokenHere").html(responseText);
-//                                alert(image_name);
-                                alert("Your post has been published successfully");
-                                 document.location.href = "dashboard.jsp";
-                            }
-                        });
+                        var isFacebook = $("#isFacebook").val();
+                        var isTwitter = $("#isTwitter").val();
+                        var image_name= $("#imageToPost").val();
+                    var link=$("#url").val();
+                    var f=link.startsWith("http");
+                    if(!f)
+                    {
+                       link="http://"+ $("#url").val();
                     }
+                    var url=link;
+                    var username="sandeep264328"; // bit.ly username
+                    var key="R_63e2f83120b743bc9d9534b841d41be6";
+                    $.ajax({
+                    url:"http://api.bit.ly/v3/shorten",
+                    data:{longUrl:url,apiKey:key,login:username},
+                    dataType:"jsonp",
+                    success:function(v)
+                    {
+                        var bit_url=v.data.url;
+                        $("#sortLengthurl").val(bit_url);
+                        if (isFacebook == "true" || isTwitter == "true") {
+                            $.ajax({
+                                url: 'PostToSocial',
+                                method: 'post',
+                                data: {
+                                    imageToPost: image_name,
+                                    accesstoken: $("#accesstoken").val(),
+                                    postText: $("#posttext").val(),
+                                    title: $("#title").val(),
+                                    description: $("#description").val(),
+                                    url: $("#url").val(),
+                                    twittweraccestoken: $("#twittweraccestoken").val(),
+                                    twitterTokenSecret: $("#twitterTokenSecret").val(),
+                                    text: $("#twittertext").val(),
+                                    isFacebook: isFacebook,
+                                    isTwitter: isTwitter,
+                                    imagePost: image_name,
+                                    shorturl:$("#sortLengthurl").val()
+                                },
+                                success: function (responseText) {
+    //                            $("#tokenHere").html(responseText);
+    //                                alert(image_name);
+                                    alert("Your post has been published successfully");
+                                     document.location.href = "dashboard.jsp";
+                                }
+                            });
+                        }
 
-                    else {
-                        alert("select atleast one");
+                        else {
+                            alert("select atleast one");
+                        }
+
                     }
-
+                    });
+                    
                 });
                 
                 
