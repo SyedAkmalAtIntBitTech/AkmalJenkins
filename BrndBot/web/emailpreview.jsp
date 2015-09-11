@@ -426,7 +426,7 @@
                         <input type="button" ng-click="setScheduling()" value="Done"/>   
                         <input type="button" id="hidepopup" value="Close" onclick="hidepopup()"/>   
                     </div>
-                 </div>
+                </div>
 
 
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">

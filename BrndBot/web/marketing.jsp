@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html >
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -164,10 +164,11 @@
             #dvPriorityDialog, #dvFastingDialog, #preview{
                 position:fixed;
                 height:100%;
-                background:cyan;
+                background:#ffffff;
                 width:800px;
                 right:0px;
                 margin-right: -800px;
+                border: 1px solid #ccc;
             }
             #slider-button{
                 position:fixed;
@@ -181,6 +182,26 @@
             li {
                 cursor: default;
                 list-style: none;
+            }
+            .content{
+                position: relative;
+                width:350px;
+                height: 250px;
+                margin-top: 0px;
+            }
+            .actiondetails{
+                position: relative;
+                width:250px;
+                margin-top: 50px;
+            }
+            .postdetails{
+                position: relative;
+                width:250px;
+                margin-top: 100px;
+            }
+            .editbutton{
+                position: relative;
+                margin-top: 20px;
             }
 
         </style>
@@ -196,7 +217,7 @@
 
             <script>
 
-                        var sliderDialog = "#dvPriorityDialog";
+                        var sliderDialog = "";
                         var prevSliderDialog = "";
                         $(document).ready(function ()
                         {
@@ -321,32 +342,36 @@
                         function addDays(theDate, days) {
                             return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
                         }
-
+                        var user_selected_date = '';
                         function setCurrentDate(selected_date) {
 //                            alert(selected_date.date.toString());
-                            angular.element('#controllerMarketingCampaign').scope().getSelectedCampaigns(selected_date);
+                            user_selected_date = selected_date;
+//                            angular.element('#controllerMarketingCampaign').scope().getSelectedCampaigns(selected_date);
                         }
 
                         function controllerMarketingCampaign($scope, $http) {
 
-                            $scope.getSelectedCampaigns = function (user_selected_date) {
+//                            $scope.getSelectedCampaigns = function (user_selected_date) {
+                            $scope.getSelectedCampaigns = function () {
                                 //                    var picker = $("#some_datepicker").data('datetimepicker');
                                 //                    
                                 //                    var localDate = picker.getLocalDate(); // localDate === 2000-01-17 07:00
                                 //                    var utcDate = picker.getDate(); // utcDate === 2000-01-17 10:00
                                 //                    //
                                 //                    alert(utcDate);
-                                alert(user_selected_date.date.toString());
+//                                alert(user_selected_date.date.toString());
                                 var curr_date = moment(user_selected_date.date).format('YYYY-MM-DD');
                                 var tomorrowDate = moment(addDays(user_selected_date.date, 1)).format('YYYY-MM-DD');
-                                alert(tomorrowDate);
+//                                alert(tomorrowDate);
                                 var new_date = moment(addDays(user_selected_date.date, 15)).format('YYYY-MM-DD');
                                 $http({
                                     method: 'GET',
                                     url: getHost() + 'GetScheduledEntities?from=' + curr_date + '&to=' + new_date
                                 }).success(function (data) {
-                                    alert(JSON.stringify(data));
-                                    entitySet = {};
+//                                    alert(JSON.stringify(data));
+                                    var entitySetSelected = {};
+                                    $("#default").hide();
+                                    $("#selected").show();
                                     $.each(data, function (key, value) {
                                         /*
                                          * the below code is trying to create a model in the below form:
@@ -357,20 +382,20 @@
                                          * }
                                          */
                                         if (key == curr_date) {
-                                            entitySet['Today'] = value;
+                                            entitySetSelected['Today'] = value;
                                         } else if (key == tomorrowDate) {
-                                            entitySet['Tomorrow'] = value;
+                                            entitySetSelected['Tomorrow'] = value;
                                         } else {
-                                            if (!('Later' in entitySet)) {
-                                                entitySet['Later'] = [];
+                                            if (!('Later' in entitySetSelected)) {
+                                                entitySetSelected['Later'] = [];
                                             }
                                             $.each(value, function (key2, value2) {
-                                                entitySet['Later'].push(value2);
+                                                entitySetSelected['Later'].push(value2);
                                             });
                                         }
                                     });
-                                    $scope.entitySet = entitySet;
-                                    alert(JSON.stringify($scope.entitySet));
+                                    $scope.entitySetSelected = entitySetSelected;
+                                    $scope.nodata = "No data";
                                      //console.log($scope.entitySet);
                                 }).error(function (data) {
                                     alert("request not successful");
@@ -494,11 +519,11 @@
 
             </script>
 
-            <div class="col-md-8 col-md-offset-3 " ng-init="getCampaigns()">
+            <div class="col-md-8 col-md-offset-3 " >
                 <div class="col-md-6 col-md-offset-0">
 
-                    <p id="hyshead">Your Plan &nbsp;&nbsp;<button id="liPriority">ADD ACTION</button>&nbsp;&nbsp;<button id="liFasting">ADD Note</button></p> <p id="hyshead">Marketing Campaign</p>
-                    <div class="col-md-12 ">
+                    <p id="hyshead">Your Plan &nbsp;&nbsp;<button id="liPriority">ADD ACTION</button>&nbsp;&nbsp;<button id="liFasting">ADD Note</button>&nbsp;&nbsp;<br><button id="liFasting" ng-click="getSelectedCampaigns()">Get Details</button></p> <p id="hyshead">Marketing Campaign</p>
+                    <div class="col-md-12" id="default" ng-init="getCampaigns()">
 
                             <div class="row" style="width:950px;">
                                 <div class='col-md-3'>Today</div>
@@ -507,8 +532,6 @@
                                 <div class='col-md-3'></div>
                             </div>
                         <ul>
-                            {{entitySet['Today']}}
-<!--                            <p>Today</p>-->
                             <li ng-repeat="entity in entitySet['Today']">
                                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
                                 <div class="row" style="width:950px;" id="entitydetails" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)">
@@ -519,7 +542,7 @@
                                     <div class="col-md-3">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
 
-                                    <div class="col-md-3"></div>
+                                    <div class="col-md-3"><button type="button" ng-click="updateList(email.emailListName)">EDIT LIST</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -536,11 +559,11 @@
                                 <div class="row" style="width:950px;" id="entitydetails" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)">
                                     <div class="col-md-3">
                                         <p>{{entity.schedule_title}}</p>
-                                        <p>Scheduled for{{entity.schedule_time}} {{ millisToUTCDate(entity.schedule_time) | date:"h:mma"}}</p>
+                                        <p>Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-3">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
-                                    <div class="col-md-3"></div>
+                                    <div class="col-md-3"><button type="button" >EDIT LIST</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -554,14 +577,14 @@
                             <li ng-repeat="entity in entitySet['Later']">
                                 <div>{{entity.schedule_time | date:"MM/dd/yyyy"}}</div>
                                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
-                                <div class="row" style="width:950px;" id="entitydetails">
+                                <div class="row" style="width:950px;" id="entitydetails" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)">
                                     <div class="col-md-3">
                                         <p>{{entity.schedule_title}}</p>
-                                        <p>Scheduled for {{entity.schedule_time}},{{ millisToUTCDate(entity.schedule_time) | date:"medium"}}</p>
+                                        <p>Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-3">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
-                                    <div class="col-md-3"></div>
+                                    <div class="col-md-3"><button type="button" >EDIT LIST</button> </div>
                                 </div>
 <!--                                <div class="foo col-md-1 col-md-offset-2" style="background-color:{{entity.color}};">
                                     <div class="fo col-md-2 col-md-offset-2">{{entity.schedule_title}}</div>
@@ -570,39 +593,111 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="col-md-12" id="selected" style="display:none;" ng-controller="controllerMarketingCampaign">
+
+                            <div class="row" style="width:950px;">
+                                <div class='col-md-3'>Today</div>
+                                <div class='col-md-3'>Action Type</div>
+                                <div class='col-md-3'>Template Saved</div>
+                                <div class='col-md-3'></div>
+                            </div>
+                       
+                        <ul>
+                            <li ng-repeat="entity in entitySetSelected['Today']">
+                                <p>{{entity.schedule_time | date:"MM/dd/yyyy"}}</p>
+                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
+                                <div class="row" style="width:950px;" id="entitydetails" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)">
+                                    <div class="col-md-3">
+                                        <p>{{entity.schedule_title}}</p>
+                                        <p>Scheduled for {{entity.schedule_time | date:"h:mma"}}</p>
+                                    </div>
+                                    <div class="col-md-3">{{entity.entity_type}}</div>
+                                    <div class="col-md-3">{{entity.template_status}}</div>
+
+                                    <div class="col-md-3"><button type="button" >EDIT LIST</button> </div>
+                                </div>
+                            </li>
+                        </ul>
+                            <div class="row" style="width:950px;">
+                                <div class='col-md-3'>Tomorrow</div>
+                                <div class='col-md-3'></div>
+                                <div class='col-md-3'></div>
+                                <div class='col-md-3'></div>
+                            </div>
+                        
+                        <ul>   
+                            <li ng-repeat="entity in entitySetSelected['Tomorrow']">
+                                <p>{{entity.schedule_time | date:"MM/dd/yyyy"}}</p>
+                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
+                                <div class="row" style="width:950px;" id="entitydetails" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)">
+                                    <div class="col-md-3">
+                                        <p>{{entity.schedule_title}}</p>
+                                        <p>Scheduled for {{entity.schedule_time | date:"h:mma"}}</p>
+                                    </div>
+                                    <div class="col-md-3">{{entity.entity_type}}</div>
+                                    <div class="col-md-3">{{entity.template_status}}</div>
+                                    <div class="col-md-3"><button type="button" >EDIT LIST</button> </div>
+                                </div>
+                            </li>
+                        </ul>
+                            <div class="row" style="width:950px;">
+                                <div class='col-md-3'>Later</div>
+                                <div class='col-md-3'></div>
+                                <div class='col-md-3'></div>
+                                <div class='col-md-3'></div>
+                            </div>
+                        <ul>
+                            <li ng-repeat="entity in entitySetSelected['Later']">
+                                <div>{{entity.schedule_time | date:"MM/dd/yyyy"}}</div>
+                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
+                                <div class="row" style="width:950px;" id="entitydetails" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time)">
+                                    <div class="col-md-3">
+                                        <p>{{entity.schedule_title}}</p>
+                                        <p>Scheduled for {{entity.schedule_time | date:"h:mma"}}</p>
+                                    </div>
+                                    <div class="col-md-3">{{entity.entity_type}}</div>
+                                    <div class="col-md-3">{{entity.template_status}}</div>
+                                    <div class="col-md-3"><button type="button" >EDIT LIST</button> </div>
+                                </div>
+<!--                                <div class="foo col-md-1 col-md-offset-2" style="background-color:{{entity.color}};">
+                                    <div class="fo col-md-2 col-md-offset-2">{{entity.schedule_title}}</div>
+                                </div>-->
+
+                            </li>
+                        </ul>
+                    </div>                    
                 </div>
             </div>
             <div id="dvSliderDialog">
                 <div id="dvFastingDialog" class="pollSlider"><br>
                     <form class="form-horizontal" id="signform">
                         
-                        <div class="group">
-                             <div class="col-md-3 col-md-offset-5">                            
-                                  <p class="text-left">Add Note</p>
+                        <div class="row">
+                             <div class="col-md-12" >                            
+                                 <p class="text-left">Add Note</p><br>
                              </div>
                         </div>
-                        <div class="group">
-                             <div class="col-md-3 col-md-offset-5">
-                                 <input id="title" class="form-control simplebox" type="text" required ng-model="user.emailid" ng-blur="checkAvailability()" >
-                                 <label>Title</label><br>
-
+                        <div class="row">
+                             <div class="col-md-12" >
+<!--                                 <label>Title</label>-->
+                                 Title : <input id="title" class="" type="text" required ng-model="user.emailid"><br>
                              </div>
                         </div>
-                        <div class="group">
-                             <div class="col-md-3 col-md-offset-5">
-                                 <textarea id="Description" class="form-control textAreas" type="text" required ng-model="user.emailid" ng-blur="checkAvailability()" ></textarea>
-                                 <label>Description</label><br>
-
+                        <div class="row">
+                             <div class="col-md-12">
+<!--                                 <label>Description</label>-->
+Description : <textarea id="Description" class="" type="text" required ng-model="user.emailid"></textarea><br><br>
                              </div>
                         </div>
                         
-                        <div class="group">
-                             <div class="col-md-3 col-md-offset-5">
-                                 <input id="actiondate" class="form-control datepicker_1_calendar_1" type="date" required ng-model="user.actiondate" />                                 <label>Action Date</label><br>
+                        <div class="row">
+                             <div class="col-md-12">
+<!--                                 <label>Action Date</label><br>-->
+Action Date : <input id="actiondate" class="datepicker_1_calendar_1" type="date" required ng-model="user.actiondate" /><br>
                              </div>
                         </div>
-                        <div class="group">
-                            <div class="col-md-3 col-md-offset-5">
+                        <div class="row">
+                            <div class="col-md-12">
                                 Status : <select id="status" name="status">
                                     <option value="0" >Select</option>
                                     <option value="No template">No template</option>
@@ -611,11 +706,13 @@
                                 </select><br>
                             </div>
                         </div><br>
-                        <div class="group">
-                            <div class="col-md-3 col-md-offset-5">
-                                <div id="dvButtonContainer">
-                                    <input type="button" value="Save" />
-                                    <input type="button" value="Cancel" />
+                        <div class="row">
+                            <div class="col-md-12" style="width:250px;">
+                                <div class="col-md-6" id="dvButtonContainer">
+                                    <input type="button" value="Save" class="btn-info" style="width:100px;" />
+                                </div>
+                                <div class="col-md-6" id="dvButtonContainer">
+                                    <input type="button" value="Cancel" class="btn-info" style="width:100px;" />
                                 </div>
                             </div>
                         </div>
@@ -643,9 +740,15 @@
                             <option value="N/A">N/A</option>
                         </select>
                     </div>
-                    <div id="dvButtonContainer">
-                        <input type="button" value="Save" />
-                        <input type="button" value="Cancel" />
+                    <div class="row">
+                            <div class="col-md-12" style="width:250px;">
+                                <div class="col-md-6" id="dvButtonContainer">
+                                    <input type="button" value="Save" class="btn-info" style="width:100px;" />
+                                </div>
+                                <div class="col-md-6" id="dvButtonContainer">
+                                    <input type="button" value="Cancel" class="btn-info" style="width:100px;" />
+                                </div>
+                            </div>
                     </div>
                 </div>
                 <div id="preview" class="pollSlider">
@@ -653,16 +756,19 @@
                         <div class="">
 
                             <div style="border:1px solid #7ab5d3">
-                                <div>
+                                
+                                <div class="actiondetails">
+                                    <p>ACTION DETAILS</p>
                                     <p>{{entitiesdetails.subject}}</p>
                                 </div>
-                                <p>Saved Post</p>
-                                <p>Preview</p><br>
+                                <p>Saved Post &nbsp;&nbsp; Preview</p>
+                                <p></p><br>
                                 <div class="content"></div>
-                                <p>Post details</p>
+                                <p class="postdetails">Post details</p>
                                 <div>
                                     {{entities_time}}
                                 </div>
+                                <div class="editbutton"><button type="button">EDIT LIST</button> </div>
                             </div>
 
                             <!--                        <ul>
