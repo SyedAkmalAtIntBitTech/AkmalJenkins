@@ -78,6 +78,9 @@ and open the template in the editor.
             }
             body{
                 overflow-x: hidden;
+                overflow-y: hidden;
+                overflow: hidden;
+                
             }
             .cursorpointer:hover{
                 cursor: pointer;
@@ -200,7 +203,7 @@ and open the template in the editor.
                 text-align: center;
                 overflow:auto;
             }
-
+            
             #content
             {
                 /*                height:auto;*/
@@ -259,10 +262,10 @@ and open the template in the editor.
             }
             
            #emailframeimg {
-                 position:fixed;
-                 left:13em;
+                 position:absolute;
+                 left:1.8em;
                  top:2em;
-                 max-width:600px;
+                 zoom:1.07;
             }      
         </style>
         <style>#iphone{
@@ -467,7 +470,7 @@ and open the template in the editor.
                             });
                             };
                             $scope.showBlocks = function(){
-
+                                  $('body').scrollTop(0);  
                             $scope.curPage = 0;
                                     $scope.pageSize = 2;
                                     $http({
@@ -903,7 +906,7 @@ and open the template in the editor.
         <script src="js/crop.js" type="text/javascript"></script>
         <jsp:include page="basejsp.jsp" />
     </head>
-    <body ng-app="myapp">
+    <body ng-app="myapp" >
         <input type="hidden" id='userlogo' value=<%= logoImageName%>>
         <input type="hidden" id='userid' value=<%= user_id%>>
         <script src="js/emaileditor.js" type="text/javascript"></script>
@@ -1001,8 +1004,8 @@ and open the template in the editor.
                                                     }
                                 </script>
                             </div>
-                            <img id="emailframeimg" src="images/EmailFrame.svg" width="800px" height="650px" >
-                            <div class="dataForEmail" style="position:fixed;left:3.2em;top:-41.5em;-ms-transform: scaleX(0.3) scaleY(0.5);-webkit-transform: scaleX(1) scaleY(1);transform: scaleX(0.51) scaleY(0.3);"> 
+                            <img id="emailframeimg" src="images/EmailFrame.svg" width="800px" height="650px" style="margin-top: 15px;" >
+                            <div class="dataForEmail" style="zoom:0.57;position:absolute;left:280px;top:165px;">
                                 <div ng-click="showStylesAfterData()" class="preview" >
                                    
                                 </div></div>
