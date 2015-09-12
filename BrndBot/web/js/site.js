@@ -285,7 +285,7 @@ $(document).ready(function () {
         $("#lineHeight").spinner({
             min: 5,
             max: 100,
-            step: 5,
+            step: 2,
             change: leading,
             stop: leading
         });

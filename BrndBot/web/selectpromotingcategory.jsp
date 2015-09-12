@@ -179,14 +179,15 @@ and open the template in the editor.
 
                     angular.module("myapp", [])
                     .controller("controllerGetMindBody", function($scope, $http) {
-                    $("#continuebutton").hide();
+                         $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
+                          $("#continuebutton").hide();
                             $scope.showData = function(){
 
                             $scope.curPage = 0;
                                     $scope.pageSize = 4;
                                     $http({
                                     method : 'GET',
-                                            url : 'MindBodyDataServlet'
+                                    url : 'MindBodyDataServlet'
                                     }).success(function(data, status, headers, config) {
                             $scope.datalists = data;
 //                                    alert(JSON.stringify(data));
@@ -195,11 +196,13 @@ and open the template in the editor.
                             $("#continuebutton").hide();
                             } else {
                             $("#continuebutton").show();
+                            
                             }
 
                             if (data === error){
                             alert(data);
                             }
+                             $('#loadingGif').remove();
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs

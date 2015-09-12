@@ -235,7 +235,7 @@
                     //show popup showing
                 
                     $(".content").empty();
-                    $(".content").append(responseText);
+                    $(".content").append("<div id=dynamictable>"+responseText+"</div>");
 
                 }
             });
@@ -249,6 +249,7 @@
                         .css("border-color", "transparent").css("background-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px");
                 $(".content").css("margin-left", "-54px").css("margin-top", "-150px").css("zoom", "29.8%")
                         .css("width", "400px");
+                $('#dynamictable').css("width","670px").css("height","880px").css("overflow","scroll");
             }
             else if (id === "imac")
             {
@@ -257,7 +258,7 @@
                         .css("display", 'block').css("height", "413px").css("width", "295px").css("margin-left", "-55px").css("margin-top", "-80px")
                         .css("overflow-x", "hidden").css("border-color", "transparent").css("background-color", "transparent");
                 $(".content").css("margin-left", "-33px").css("margin-top", "-132px").css("width", "440px").css("height", "920px").css("overflow", "none").css("zoom", "37%");
-
+                 $('#dynamictable').css("width","670px").css("height","530px").css("overflow","scroll");
             }
             else {
                 $(".preview").css("width", "550px").css("height", "950px").css("overflow", "hidden").css("align", "center");
@@ -265,7 +266,7 @@
                         .css("display", 'block').css("height", "370px").css("width", "195px").css("margin-left", "-55px").css("margin-top", "-80px")
                         .css("overflow-x", "hidden").css("border-color", "transparent").css("background-color", "transparent");
                 $(".content").css("margin-left", "-97px").css("margin-top", "-122px").css("width", "400px").css("height", "920px").css("overflow", "none").css("zoom", "22%");
-
+                 $('#dynamictable').css("width","670px").css("height","1410px").css("overflow","scroll");
             }
         }
         function displaySchedule(){
@@ -323,6 +324,7 @@
         }
         
         function sendEmail() {
+            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
                 $.ajax({
                 url: getHost() + "SendEmailServlet",
                 type: "post",
@@ -336,7 +338,7 @@
                     email_list: $("#email_list").val()
                 },
                 success: function (responseText) {
-
+                    $('#loadingGif').remove();
                     document.location.href = "emailsent.jsp";
                 },
                 error: function (){
@@ -398,7 +400,8 @@
                             <br><br><button type="button" onclick="displaySchedule()" class="button button--moema button--text-thick button--text-upper button--size-s">SCHEDULE</button><br><br><br>
                         </div>
                     </div>
-                            <input type="hidden" id="htmldata" value='<%= htmlData %>' name="htmldata"> 
+                            
+
                             <input type="hidden" id="email_list" value='<%=emailList%>' name="email_list">
                 </form>
             </div>

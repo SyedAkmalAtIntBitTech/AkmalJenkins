@@ -127,7 +127,10 @@
                 top:70px;
                 left:80px;
             }
-           
+            .red-cell {
+                background:#D8D8D8; /* Or some other color */
+             }
+
         </style>
         <%! 
             Object code = "";
@@ -213,10 +216,13 @@
                 var check_default_managed_page;
                 $("tr").click(function () {
                     var id = this.id.split("#");
-
-//                    alert(this.id);
+                   var selected = $(this).hasClass("red-cell");
+                    $("tr").removeClass("red-cell");
+                    if(!selected){
+                            $(this).addClass("red-cell");}
                     var page = $("#" + this.id).text();
-                    var accessToken = $("#access" + id[1]).val();
+                    var accessToken = $("#page" + id[1]).val();
+                    $("#access" + id[1]).css("background-color","red");
                     $("#pagenameSend").val(page);
                     $("#fbaccessTokenSend").val(accessToken);
                     $("#fbdefaultAccessToken").val("true");
@@ -359,6 +365,7 @@
 </body>
 <script>
     function changeImagef() {
+        $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("top","300px").css("left","500px");
        var x = document.getElementById("facebook").checked;
        if(x == false){
        document.getElementById("facebook").checked=true;
@@ -367,20 +374,24 @@
    else
    {
        document.getElementById("fb").src="images/fbButton.svg"; 
-   document.getElementById("facebook").checked=false;    
+       document.getElementById("facebook").checked=false;    
    }
        
    }
       function changeImaget() {
+       $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
        var x = document.getElementById("twitter").checked;
        if(x == false){
        document.getElementById("twitter").checked=true;
-       document.getElementById("twt").src="images/twtButton_lightblue_new.svg"; 
+       document.getElementById("twt").src="images/twtButton_lightblue_new.svg";
+       $('#loadingGif').remove();
    }
    else
    {
-   document.getElementById("twitter").checked=false;    
+       document.getElementById("twt").src="images/twtButton.svg";
+       document.getElementById("twitter").checked=false;    
    }
+   $('#loadingGif').remove();
 }
 
 </script>

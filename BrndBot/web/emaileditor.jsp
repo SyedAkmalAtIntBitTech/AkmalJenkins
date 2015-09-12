@@ -63,11 +63,24 @@ and open the template in the editor.
         <script src="js/flavr.js" type="text/javascript"></script>
         <link href="css/animate.css" rel="stylesheet" type="text/css"/>
         <link href="css/flavr.css" rel="stylesheet" type="text/css"/>
+
+        <script src="js/ajaxfileupload.js" type="text/javascript"></script>
         
-     
+
         <style>
+            @font-face {
+                font-family: Glyphter;
+                src: url(fonts/Glyphter.ttf);
+            }
+            @font-face {
+                font-family: Glyphter2;
+                src: url(fonts/Glyphter2.ttf);
+            }
             body{
                 overflow-x: hidden;
+            }
+            .cursorpointer:hover{
+                cursor: pointer;
             }
             .socialimage{
                 width: 100px;
@@ -671,6 +684,7 @@ and open the template in the editor.
                                     $(".preview #" + blockId).css("width", width + "px");
                                     $(".preview #" + blockId).css("height", height + "px");
                                     $(".preview #" + blockId).css("position", "relative");
+                                    $(".preview #" + blockId).attr("blockdetails",id);
                             }
 
                             );
@@ -948,6 +962,16 @@ and open the template in the editor.
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0">
+
+                            <a href="#" data-reveal-id="fileupload_popup" class="fileclick" style="display:none;">Click Me For A Modal</a>
+                            <div id="fileupload_popup" class="reveal-modal" style="left:110%;">
+                                <a class="close-reveal-modal">abc&#215;</a>
+                                <center>
+                                <input id="myFile" type="file" name="myFile">
+                                <input type="button" id="upload" style="margin-left: 35%;" class="button button--moema button--text-thick button--text-upper button--size-s" value="upload">
+                                <input type="button" id="image1" ng-click="showImages()" value="image1" style="display: none;"><br />
+                                </center>
+                            </div>
                             <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview" class="SP1">preview</p>
                 <ul class="images ">
                     <li><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
@@ -955,6 +979,7 @@ and open the template in the editor.
                     <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                 </ul>
                             <div class="sortDelete" style="position:absolute;top:380px; left:150px;margin: 0px;">
+
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
@@ -1015,7 +1040,7 @@ and open the template in the editor.
                                                     <!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px;">
                                                                                                             <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                                                                         </select>-->
-                                                    <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
+                                                    <img id="minusFont" src="images/fontsize.png" class="cursorpointer" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" class="cursorpointer" id="plusFont" alt=""/>
                                                 </li>
 
                                                 <li style="width:120px;">
@@ -1042,12 +1067,12 @@ and open the template in the editor.
                                                     </ul>
                                                 </li>
                                                 <li style="left:-10px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-left alignButton" id="left"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-center alignButton" id="center"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-right alignButton" id="right"></div></li>
-                                                <li><div class="glyphicon glyphicon-plus" id="plus"></div></li>
-                                                <li><div class="glyphicon glyphicon-minus" id="minus"></div></li>
+                                                <li><div class="alignButton cursorpointer" id="justify" style="font-family: Glyphter2;">j</div></li>
+                                                <li><div class="alignButton cursorpointer" id="left" style="font-family: Glyphter2;">B</div></li>
+                                                <li><div class="alignButton cursorpointer" id="center" style="font-family: Glyphter2;">C</div></li>
+                                                <li><div class="alignButton cursorpointer" id="right" style="font-family: Glyphter2;">D</div></li>
+                                                <li><div class="cursorpointer" id="plus" style="font-family: Glyphter2;">A</div></li>
+                                                <li><div class="cursorpointer" id="minus" style="font-family: Glyphter;">E</div></li>
                                             </ul>
 
                                         </div>
@@ -1260,7 +1285,7 @@ and open the template in the editor.
                                     <li id="tabs-5">
                                         <ul id="imageGallery" style="width:400px;position: relative;right:70px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
-
+                                            <p class="BT2" id="galleryupload">upload image</p>
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
                                                 <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="275px"/>                                                            
                                             </li>
