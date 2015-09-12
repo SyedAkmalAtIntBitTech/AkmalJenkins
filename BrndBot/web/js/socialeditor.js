@@ -26,6 +26,16 @@ function setSocialParameters(title, teacher, date) {
 }
 
 $(document).ready(function () {
+    $("#galleryupload").click(function(){
+        $(".fileclick").click();
+    });
+    
+    $("#upload").click(function(){
+       $("#myFile").upload("UploadImages",function(success){
+           $("#image1").click();
+            $(".close-reveal-modal").click();
+       });
+   });
 
     $("#left").hide();
     $("#right").hide();
@@ -497,7 +507,7 @@ $(".blockname").change(function (){
         var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
 
 
-        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) + 5) + "px");
+        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) + 2) + "px");
     });
     $("#minus").click(function () {
         
@@ -510,7 +520,7 @@ $(".blockname").change(function (){
         
         var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
 
-        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 5) + "px");
+        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 2) + "px");
     });
 
     $("#hidealignbutton").click(function () {

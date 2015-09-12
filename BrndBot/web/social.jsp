@@ -22,7 +22,7 @@ and open the template in the editor.
         <script src="js/tabcontent.js" type="text/javascript"></script>
         <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
         <script src="js/socialsettings.js" type="text/javascript"></script>
-         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+        
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <style>
             .glyphicon.glyphicon-home,.glyphicon.glyphicon-envelope,.glyphicon.glyphicon-comment, .glyphicon.glyphicon-picture, .glyphicon.glyphicon-cog{

@@ -24,16 +24,16 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
         <%@ include file="checksession.jsp" %>
-
+        
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+       
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
@@ -53,9 +53,21 @@ and open the template in the editor.
         <script src="js/jquery.reveal.js" type="text/javascript"></script>
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
+        <script src="js/ajaxfileupload.js" type="text/javascript"></script>
         <style>
+            @font-face {
+                font-family: Glyphter;
+                src: url(fonts/Glyphter.ttf);
+            }
+            @font-face {
+                font-family: Glyphter2;
+                src: url(fonts/Glyphter2.ttf);
+            }
             body{
                 font-family: proxima nova;
+            }
+            .cursorpointer:hover{
+                cursor: pointer;
             }
             .socialimage{
                 width: 100px;
@@ -242,8 +254,7 @@ ul::-webkit-scrollbar-thumb {
         
         
         
-        <script src="//use.typekit.net/wnn8jyx.js"></script>
-            <script>try{Typekit.load({ async: true });}catch(e){}</script>
+        
         <script>
             
             $(document).ready(function () {
@@ -641,6 +652,15 @@ ul::-webkit-scrollbar-thumb {
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0 prev">
+                            <a href="#" data-reveal-id="fileupload_popup" class="fileclick" style="display:none;">Click Me For A Modal</a>
+                            <div id="fileupload_popup" class="reveal-modal" style="left:90%;">
+                                <a class="close-reveal-modal">abc&#215;</a>
+                                <center>
+                                <input id="myFile" type="file" name="myFile">
+                                <input type="button" id="upload" style="margin-left: 35%;" class="button button--moema button--text-thick button--text-upper button--size-s" value="upload">
+                                <input type="button" id="image1" ng-click="showImages()" value="image1" style="display: none;"><br />
+                                </center>
+                            </div>
 
                             <p class="edit SP1">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb" class="BT2"><a href="selectpromotemedia.jsp">go back</a></p>
                             <div class="preview" style="zoom: 0.5;">
@@ -651,11 +671,10 @@ ul::-webkit-scrollbar-thumb {
                                         NOTE: To change the aspect ratio, look in crop.css
                                         The class 'default' links the div to the init(); function
                                 --> 
-
+                                
                             </div>
                             <div class="span3 col-md-offset-0" >
-
-                                <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
+                                <input id="continue" class="button button--moema button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
                                 <script>
                                     function showImageName(user_id, image_name){
                                         var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
@@ -667,6 +686,7 @@ ul::-webkit-scrollbar-thumb {
                                                     $("#tabs-3").hide();                                                 
                                     }
                                 </script>
+                                
                             </div>
                             <div id="popup" name="popup">
                                 <div id="content">
@@ -724,6 +744,10 @@ ul::-webkit-scrollbar-thumb {
 <!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px; ">
                                                         <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                     </select> -->
+<!--                                                <div style="width:40px;height:30px;text-align:center">
+                                                    <div class="cursorpointer" id="minusFont" style="margin-top:5px;width:20px;height:30px;float:left;font-size: 16px; color: #5E5E5E">A</div>
+                                                    <div class="cursorpointer" id="plusFont" style="width:20px;height:30px;float:left;font-size: 25px; color: #5E5E5E">A</div>
+                                                </div>-->
                                                     <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
                                                 </li>
 
@@ -751,13 +775,13 @@ ul::-webkit-scrollbar-thumb {
                                                             
                                                         </ul>
                                                 </li>
-                                                <li style="left:-10px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-left alignButton" id="left"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-center alignButton" id="center"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-right alignButton" id="right"></div></li>
-                                                <li><div class="glyphicon glyphicon-plus" id="plus"></div></li>
-                                                <li><div class="glyphicon glyphicon-minus" id="minus"></div></li>
+                                                <li style="left:-10px;"><div class="glyphicon glyphicon-indent-right alignButton cursorpointer" id="hidealignbutton"></div></li>
+                                                <li><div class="alignButton cursorpointer" id="justify" style="font-family: Glyphter2;">j</div></li>
+                                                <li><div class="alignButton cursorpointer" id="left" style="font-family: Glyphter2;">B</div></li>
+                                                <li><div class="alignButton cursorpointer" id="center" style="font-family: Glyphter2;">C</div></li>
+                                                <li><div class="alignButton cursorpointer" id="right" style="font-family: Glyphter2;">D</div></li>
+                                                <li><div class="cursorpointer" id="plus" style="font-family: Glyphter2;">A</div></li>
+                                                <li><div class="cursorpointer" id="minus" style="font-family: Glyphter;">E</div></li>
                                             </ul>
 
                                         </div>
@@ -864,7 +888,7 @@ ul::-webkit-scrollbar-thumb {
                                     <li id="tabs-3">
                                           <ul id="imageGallery" style="height: 500px;width: 300px;position: relative;right: 80px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
-                                               
+                                               <p class="BT2" id="galleryupload">upload image</p>
                                                 <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
                                                           <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
                                                 </li>

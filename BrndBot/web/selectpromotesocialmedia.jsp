@@ -30,7 +30,7 @@
         <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+
         <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
         <!--<script src="js/foundation.min.js" type="text/javascript"></script>-->
         <script src="js/jquery.reveal.js" type="text/javascript"></script>

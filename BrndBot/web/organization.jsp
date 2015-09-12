@@ -23,7 +23,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+       
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/main1.css" rel="stylesheet" type="text/css"/>
         <title>organization</title>
