@@ -90,8 +90,8 @@
                         {{first}}
                         <div class="col-md-12 step_wrapper">
 
-                            <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 2px; margin-left: 20px; margin-bottom: 10px;">
-                                <img id="{{first.id}}" class="img-responsive lookchooser1 " src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}" onclick="showText({{first.id}})" width=250 height=150 />
+                            <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 2px; margin-left: 20px; margin-bottom: 10px;padding:0px;">
+                                <img id="{{first.id}}" class="img-responsive lookchooser1 " src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}" onclick="showText({{first.id}})" width=250 height=150 style="margin-left: 0px;" />
                             </div>
 
                             <div class="col-md-12"></div>

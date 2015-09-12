@@ -35,8 +35,8 @@ and open the template in the editor.
             .fileUpload {
                 position: relative;
                 overflow: hidden;
-                margin-top:50px;
-                margin-left: -200px;
+                margin-top:80px;
+                margin-left: -295px;
             }
             .fileUpload input.upload {
                 position: absolute;
@@ -55,7 +55,7 @@ and open the template in the editor.
 
         </style>
         <script>
-            
+             $("#Servicecontinue").hide();
         var rootApp = angular.module('rootApp', ['uploadModule','imagegallery']);
     
         var uploadModule = angular.module('uploadModule', []);
@@ -120,7 +120,7 @@ and open the template in the editor.
                 $scope.showData = function(){
 //                     alert("showData");
                  $scope.curPage = 0;
-                 $scope.pageSize = 4;
+                 $scope.pageSize = 1000;
 
                     $http({
                             method : 'GET',
@@ -175,13 +175,16 @@ and open the template in the editor.
             
         </script>
         <style>
-            .paginationclass{
-    
-                margin: 19px 28px;    
+            .paginationclass li{
+                display: table-cell;
+                padding: 30px 0px 0px 45px;
+                position:relative;
+                left:-5em;
+                display:inline-block;
                 }
                 .paginationclass span{
                     margin-left:15px;
-                    display:inline-block;
+                    
                 }
                 .pagination-controle li{
                     display: inline-block;
@@ -195,7 +198,11 @@ and open the template in the editor.
                 .pagination{
                     margin:5px 12px !important;
                 }
-            
+                .uploadpos > div{
+                    position: relative;
+                    text-align: center;
+                    vertical-align: central;
+                }
         </style>
         <jsp:include page="basejsp.jsp" />
     </head>
@@ -205,29 +212,34 @@ and open the template in the editor.
                    <jsp:include page="mainmenu.html"/>
     
                     <div class="col-md-12" >
-                        <div class="col-md-5 col-md-offset-1 " id="uploadModule">
-                            <p id="text3"> Image Gallery </p>
-                            <div>
+                        <div class="col-md-4 col-md-offset-2 " id="uploadModule">
+                            <p style="width:300px;" id="text3" class="MH2"> Your Gallery </p>
+                           
+                    <div class="col-md-4 col-md-offset-0" style="position:relative;left:-33px;height:390px; width:650px; overflow-y: scroll; overflow-x: hidden;">
+                       <div ng-module="imagegallery" >
+                            <div   ng-controller="samplecontoller" ng-init="showData()" >
 
-                                <div class="row">
-                                    <div class="span1"></div>
+                                    <ul class="paginationclass" style="width:700px;">
+                                        <li  ng-repeat="images in datalists | pagination: curPage * pageSize | limitTo: pageSize" >
+                                            <div>
+                                                        <img id="{{images.id}}" class="lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}" onclick="showText({{images.id}})" width="110" height="100" />
+                    <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
+                                                            <!--<button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>-->
+                                                    </div> 
+                                         </li>
+                                    </ul> 
                                 </div>
-                                <div id="contentdiv">
-                                    <div class="row">
-                                        <div class="col-md-4 col-md-offset-5">
-                                            <p id="comment1"> Upload Images </p>
-                                            <p id="comment2">Please upload a .PNG, .JPEG, .SVG</p> <br><br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 col-md-offset-5">
-                                            <img id="logoimage" src="images/question-mark-black-background.png" alt="logo" class="img-responsive" width="80" height="100"><br><br><br>
-                                        </div>
-                                    </div>
+                        </div>
+                    </div>  
+                        
+<!--                                <div id="contentdiv">
+                                  
+                                   
+                                  
 
                                     <div class="group" ng-controller="myCtrl">
                                         <div class="span5 col-md-offset-5 ">
-                                            <button id="Servicecontinue" class="button button--moema button--text-thick button--text-upper button--size-s" disabled ng-click="uploadFile()">CONTINUE</button><br><br>
+                                            <button id="Servicecontinue" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="uploadFile()">CONTINUE</button><br><br>
                                             <div class="fileUpload btn ">
                                                 <span>Click to upload a image</span>
                                                 <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload" file-model="myFile" />
@@ -235,36 +247,25 @@ and open the template in the editor.
                                         </div>
                                     </div>
 
-                                </div>
-                            </div>
+                                </div>-->
+                          
                             
                          </div>
-                    <div class="col-md-6 col-md-offset-0" style=" height:500px; width:600px; overflow-y: scroll; overflow-x: hidden;">
                         
-                        <div ng-module="imagegallery">
-                                <div ng-controller="samplecontoller" ng-init="showData()">
-
-                                    <ul style="position: relative;left:100px;width:800px;">
-                                         <li class="paginationclass" style="font-weight:bold;">Image Gallery</li>            
-                                         <li class="paginationclass" ng-repeat="images in datalists | pagination: curPage * pageSize | limitTo: pageSize">
-                                                    <div>
-                                                        <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}" onclick="showText({{images.id}})" width=100 height=120 />
-                    <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
-                                                            <button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
-                                                    </div> 
-                                                    <div><p></p></div>
-                                                <div></div><p>&nbsp;</p>
-                                         </li>
-                                    </ul> 
-
-
-                                </div>
-                        
+                        <div  style="position:fixed;text-align:center;width:310px;background-color: #e5e5e5;left:66em;height:100%;">
+                            <p class="MH2" style="position: relative;top:250px;"> UPLOAD A PHOTO</p>
+                         
+                            <div class="group " ng-controller="myCtrl" style="position: relative;top:40%;left:80px;">
+                                    <div class="fileUpload btn "  >
+                                        <span class="SP2">Click to upload a image</span>
+                                                <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload" file-model="myFile" />
+                                            </div>    
+                                <button  id="Servicecontinue" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="uploadFile()">UPLOAD</button>
+                                       
+                                    </div>
                         </div>
-                    
-                    </div>      
-                        
                     </div>
+                  
             </div>  
         
           </div>    
@@ -312,7 +313,8 @@ and open the template in the editor.
                             var div = document.createElement('div');
                             div.innerHTML = '<img style="width: 90px;" src="' + evt.target.result + '" />';
                             document.getElementById('logoimage').src = evt.target.result;
-                            document.getElementById("Servicecontinue").disabled = false;
+//                            document.getElementById("Servicecontinue").disabled = false;
+                            $("#Servicecontinue").show();
                         };
                     }(file));
                     reader.readAsDataURL(file);

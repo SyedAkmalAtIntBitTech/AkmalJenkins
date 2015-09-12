@@ -34,7 +34,7 @@ and open the template in the editor.
             #subpromotelist li
             {
                 position:relative;
-                top:-15px;
+                top:10px;
                 width: 200px;
                 list-style-type: none;
                 font-weight: bold;
@@ -44,7 +44,7 @@ and open the template in the editor.
                 color: #2d4355;
                 text-align: center;
                 font-style: normal;
-                line-height: 1.21em;
+                line-height: 1em;
                 letter-spacing: 0em;
             }
 
@@ -76,8 +76,8 @@ and open the template in the editor.
 
                     <div class="col-md-10 col-md-offset-1" ng-controller="controllerCategories">
 
-                        <p id="text3" class="company MH2">  Hi <%= company%>!<br>What would you like to do today?</p>
-                        <p id="text3-1" class="mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}" target="_blank">Click here</a></p>
+                        <p id="text3" class="company MH2" style="padding-bottom:30px;line-height:1.3em;">  Hi <%= company%>!<br>What would you like to do today?</p>
+                        <p id="text3-1" class="MH2 mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}" target="_blank">Click here</a></p>
                        <ul id="promotelist">
                             
                             <li id="one" ng-repeat="category in categories">
@@ -87,7 +87,7 @@ and open the template in the editor.
                         </ul>
                         <div>
                             <ul id="subpromotelist">
-                                <li ng-repeat="Sub in SubCategories" id="{{Sub.category_id}}"><br><p  id="{{Sub.category_id}}" onclick="setSubCategoryID('{{Sub.category_id}}', '{{Sub.id}}', '{{Sub.sub_category_name}}', '{{Sub.external_source}}')">{{Sub.sub_category_name}}</p></li>
+                                <li ng-repeat="Sub in SubCategories" id="{{Sub.category_id}}"><p  id="{{Sub.category_id}}" onclick="setSubCategoryID('{{Sub.category_id}}', '{{Sub.id}}', '{{Sub.sub_category_name}}', '{{Sub.external_source}}')">{{Sub.sub_category_name}}</p></li>
                             </ul>
                         </div>
                     </div>

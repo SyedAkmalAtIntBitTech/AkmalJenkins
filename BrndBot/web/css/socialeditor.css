@@ -125,14 +125,13 @@ and open the template in the editor.
     width: 560px;
     
 }
-.preview{
+.preview {
+    
     position: relative;
-    width: 500px;
-    height: 300px;
+    margin-top: 0em;
+    left: 200px;
     background-color: #ffffff;
-    border: 1px solid #E3E4E8;
-    outline: #E3E4E8 solid 16px;
-    border-color: #E3E4E8;
+
 }
 .editor{
     position:absolute;

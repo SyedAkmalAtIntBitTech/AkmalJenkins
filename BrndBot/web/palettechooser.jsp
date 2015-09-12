@@ -229,8 +229,8 @@
 
             <div class="col-md-8 col-md-offset-3">
                 <p id="comment1" class="MH2">Choose a color palette</p> 
-                <p id="comment2" class="BC2">Click on a color to change it or choose from a theme.<br>
-Please arrange them with most used to least used in your designs.</p>
+                <p id="comment2" class="BC2" style="left:0px;">Click on a color to change it or choose from a theme.<br>
+                        Please arrange them with most used to least used in your designs.</p>
                 <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USED</span></p> </div>
 
                 <div id="sortable" class="step_wrapper">

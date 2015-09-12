@@ -245,8 +245,40 @@ and open the template in the editor.
                 -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
             }
             
-           
+           #emailframeimg {
+                 position:fixed;
+                 left:13em;
+                 top:2em;
+                 max-width:600px;
+            }      
         </style>
+        <style>#iphone{
+                width: 25px;
+                height: 50px;
+            }
+            #imac{
+                width: 50px;
+                height: 50px;
+            }
+            #ipad{
+                width: 90px;
+                height: 50px;
+            }
+            .images li{
+                display: inline-table;
+                margin-left:5px;
+                margin-top: 10px;
+            }
+            .images {
+                position: relative;
+                left:-50px;
+                 
+            }
+        
+            
+        </style>
+        
+            
 
         <%!
             SqlMethods sql_methods = new SqlMethods();
@@ -851,6 +883,7 @@ and open the template in the editor.
             }
 
         </script>
+       
 
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script src="js/crop.js" type="text/javascript"></script>
@@ -915,18 +948,18 @@ and open the template in the editor.
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0">
-                            <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview">preview</p>
-
-                            <div class="sortDelete" style="position:absolute;top:380px; left:-16px;margin: 0px;">
+                            <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview" class="SP1">preview</p>
+                <ul class="images ">
+                    <li><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
+                    <li><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
+                    <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
+                </ul>
+                            <div class="sortDelete" style="position:absolute;top:380px; left:150px;margin: 0px;">
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
                             </div>
-                            <div class="dataForEmail" style="zoom: 0.5;"> 
-                                <div ng-click="showStylesAfterData()" class="preview">
-
-                                </div></div>
-                            <div class="span3 col-md-offset-0" >
+                           <div class="span2 col-md-offset-0" style="position:relative;top:17em;" >
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE">
                                 <br><br>
                                 <script>
@@ -943,7 +976,13 @@ and open the template in the editor.
                                                     }
                                 </script>
                             </div>
-
+                            <img id="emailframeimg" src="images/EmailFrame.svg" width="800px" height="650px" >
+                            <div class="dataForEmail" style="position:fixed;left:3.2em;top:-41.5em;-ms-transform: scaleX(0.3) scaleY(0.5);-webkit-transform: scaleX(1) scaleY(1);transform: scaleX(0.51) scaleY(0.3);"> 
+                                <div ng-click="showStylesAfterData()" class="preview" >
+                                   
+                                </div></div>
+                            
+                            
                             <!--                            <div id="imagespopup">
                                                             <div id="content">
                                                                 <div style="height:350px; overflow-y:scroll">

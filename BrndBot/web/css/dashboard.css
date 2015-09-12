@@ -153,6 +153,7 @@ body{
 
 #text3 {
     position:relative;
+    padding-bottom: 9%; 
     padding-top:14%;   
 /*    font-family: "proxima-nova",sans-serif;
     font-weight: 600;*/
@@ -277,7 +278,7 @@ body{
     padding-bottom: 2%;
     padding-right: 3%;*/
         padding: 0px;
-        padding-top: 7%;
+        
 }
 
 
@@ -289,7 +290,7 @@ body{
     font-size:13px;*/
     color:#6b6564;
     margin-right:15px;
-    margin-left: 15px;
+
 /*    font-style:normal;*/
     text-align:center;
     line-height:15.6px;
@@ -321,7 +322,7 @@ body{
 
 
 #promoteimage{
-    margin: 10px;
+    margin: 15px;
 }
 
 #promotelist a:hover img{
