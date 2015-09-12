@@ -538,7 +538,7 @@ $(document).ready(function () {
         var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
 
 
-        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) + 5) + "px");
+        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) + 2) + "px");
     });
     $("#minus").click(function () {
         if($("#" + selectedTextareaId).css("line-height") == "normal")
@@ -550,7 +550,7 @@ $(document).ready(function () {
         
         var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
 
-        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 5) + "px");
+        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 2) + "px");
     });
 
     $("#hidealignbutton").click(function () {
