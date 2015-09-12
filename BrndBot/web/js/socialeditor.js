@@ -26,6 +26,16 @@ function setSocialParameters(title, teacher, date) {
 }
 
 $(document).ready(function () {
+    $("#galleryupload").click(function(){
+        $(".fileclick").click();
+    });
+    
+    $("#upload").click(function(){
+       $("#myFile").upload("UploadImages",function(success){
+           $("#image1").click();
+            $(".close-reveal-modal").click();
+       });
+   });
 
     $("#left").hide();
     $("#right").hide();
