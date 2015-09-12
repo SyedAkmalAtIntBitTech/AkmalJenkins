@@ -79,6 +79,9 @@ and open the template in the editor.
             body{
                 overflow-x: hidden;
             }
+            .cursorpointer:hover{
+                cursor: pointer;
+            }
             .socialimage{
                 width: 100px;
                 height: 100px;
@@ -995,7 +998,7 @@ and open the template in the editor.
                                                     <!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px;">
                                                                                                             <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                                                                         </select>-->
-                                                    <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
+                                                    <img id="minusFont" src="images/fontsize.png" class="cursorpointer" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" class="cursorpointer" id="plusFont" alt=""/>
                                                 </li>
 
                                                 <li style="width:120px;">
