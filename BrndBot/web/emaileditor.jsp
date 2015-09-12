@@ -645,6 +645,7 @@ and open the template in the editor.
                                     $(".preview #" + blockId).css("width", width + "px");
                                     $(".preview #" + blockId).css("height", height + "px");
                                     $(".preview #" + blockId).css("position", "relative");
+                                    $(".preview #" + blockId).attr("blockdetails",id);
                             }
 
                             );

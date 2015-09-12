@@ -380,6 +380,7 @@
                 });
 
                 $("#posttofb").click(function () {
+                        $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
                         var isFacebook = $("#isFacebook").val();
                         var isTwitter = $("#isTwitter").val();
                         var image_name= $("#imageToPost").val();
@@ -422,7 +423,9 @@
                                 success: function (responseText) {
     //                            $("#tokenHere").html(responseText);
     //                                alert(image_name);
+                                     $('#loadingGif').remove();
                                     alert("Your post has been published successfully");
+                                    
                                      document.location.href = "dashboard.jsp";
                                 }
                             });

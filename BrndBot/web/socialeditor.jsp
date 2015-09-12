@@ -75,6 +75,9 @@ and open the template in the editor.
 /*                border-radius: 20px;*/
                background-color: #FFF;
             }
+            .noUi-origin .noUi-origin-lower{
+     background-color:red;
+}
             #popup
             {
                 display:none;
@@ -947,6 +950,7 @@ ul::-webkit-scrollbar-thumb {
         <script>
 
                         $("#continue").click(function (){
+                            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
                             var PreviewWidth=$(".preview").css("width");
                             var PreviewhHeight=$(".preview").css("height");
 //                            alert($(".preview").children());
@@ -959,6 +963,7 @@ ul::-webkit-scrollbar-thumb {
                                        containerHeight: PreviewhHeight
                                    },
                                    success: function (responseText) {
+                                           $('#loadingGif').remove();
                                            var image=responseText;
 //                                          alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
