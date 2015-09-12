@@ -468,7 +468,8 @@ ul::-webkit-scrollbar-thumb {
                                                             var textalign = $(this).attr("text-align");
                                                             var webkittransform = $(this).attr("webkit-transform");
                                                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-                                                        $(".preview").append("<div><textarea class=textAreas onclick=getTectId("+ type +") id=" + type + ">" + elementdata + "</textarea>");
+                                                       
+                                                        $(".preview").append("<div><textarea class=textAreas orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "')  onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
                                                         $("#" + type).css("color", "" + fontcolor)
                                                                 .css("position", "absolute")
                                                                 .css("overflow", "hidden")
@@ -505,7 +506,8 @@ ul::-webkit-scrollbar-thumb {
                                                          $("#" + type).css("line-height",""+xxyy+"px");
                                                         }
                                                         //resize end
-                                                        
+                                                        var addThis = $("#" + type).get(0).scrollHeight - $("#" + type).height();
+                                                        $("#" + type).attr("add-this",addThis);
                                                     }
 
                                                if (tag === "image")
@@ -652,7 +654,7 @@ ul::-webkit-scrollbar-thumb {
                                 <script>
                                     function showImageName(user_id, image_name){
                                         var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
-                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("background-size","cover");
                                                     $("#imagespopup").hide(); 
                                                     $(".imagename option:selected").attr("name","url(" + global_host_address +""+image_path+ ")");
                                                     $("#tabs-1").show();
@@ -797,7 +799,7 @@ ul::-webkit-scrollbar-thumb {
                                                     </select>
                                                 </li>
                                                 <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
-                                                <li><p  class="btn" onclick="imageEdit()">edit</p></li>
+                                                <li><p  class="btn" onclick="showfilter()">edit</p></li>
                                                 <li></li>
                                             </ul>
                                         </div>
@@ -816,18 +818,16 @@ ul::-webkit-scrollbar-thumb {
                                                 <li><img class="imageFilter" id="convert9" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Shade</p> </li>
                                                 <li><img class="imageFilter" id="convert10" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Fade</p> </li>-->
                                             </ul>
+                                           <p  class="btn" onclick="imageEdit()">CROP</p>
+                                            <p  class="btn" onclick="saveImageEdit()">DONE</p>
                                         </div>
                                         <div id="cropImageContainer" style="display: none">
-<!--                                                <p>CROP</p>-->
-
-
                                                     <!--
                                                             NOTE: To change the aspect ratio, look in crop.css
                                                             The class 'default' links the div to the innit(); function
                                                     -->
 
                                                 <br><br>
-                                            <input type="button" id="done" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="saveImageEdit()" value="DONE"> 
                                         </div>
 
                                     </li>
@@ -1056,7 +1056,12 @@ ul::-webkit-scrollbar-thumb {
         $("#"+image_Id).toggleClass("ig-brannan");
     };
 };
-
+function showfilter(){
+     $("#textcontainer").hide();
+     $("#shapecontainer").hide();
+     $("#imagecontainer").hide();
+     $("#filtercontainer").show();
+}
 
                             $(".cross").hide();
                             $(".menu").hide();
@@ -1086,7 +1091,7 @@ ul::-webkit-scrollbar-thumb {
 
                                     // grab width and height of .crop-img for canvas
                                     var width = $('.crop-container').width() - 80, // new image width
-                                        height = $('.crop-container').height() - 80; // new image height
+                                      height = $('.crop-container').height() - 80; // new image height
 
                                     $('canvas').remove();
                                     $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');
@@ -1115,7 +1120,7 @@ ul::-webkit-scrollbar-thumb {
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
                                                          var image_Id= $('.imagename option:selected').val();
-                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center");
+                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center").css("background-size","cover");
 //                                                        $("#cropper_popup").hide();
                                                          //$("#cropper_popup").hide();
                                                          $(".close-reveal-modal").click();
@@ -1147,11 +1152,12 @@ ul::-webkit-scrollbar-thumb {
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();
 //                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
+                                           var imageId=$(".imagename option:selected").val();
+                                           var imageWidth=$("#"+imageId).css("width").replace("px","");
+                                           var imageHeight=$("#"+imageId).css("height").replace("px","");
+                                           $("#crompIageContainer").show();
                                            
-                                            $("#filtercontainer").show();
-                                            $("#cropImageContainer").show();
-
-                
+                                                                                  
                                         var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
 //                                        alert(image_file);
                                         id = "image" + i;
@@ -1170,9 +1176,27 @@ ul::-webkit-scrollbar-thumb {
                                         // load image into crop
                                         one.loadImg(image_file);
                                         $("#imagespopup").hide();
-
+                                        if(imageWidth >350 && imageWidth <=700){
+                                            $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.7");
+                                            $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");
+                                         }
+                                         else if(imageWidth >700 &&  imageWidth <=1050){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.5");
+                                           $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px"); 
                                             }
-
+                                        else if(imageWidth >1050 && imageWidth <=1400){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.34");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }
+                                        else if(imageWidth >1400 && imageWidth <=1800){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.25");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }    
+                                        else if(imageWidth >1800){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.2");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }                                            
+                          }
 
 
                                     $('.uploadfile').change(function() {
