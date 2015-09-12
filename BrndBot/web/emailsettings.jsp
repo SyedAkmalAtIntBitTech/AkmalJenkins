@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+        
         <script src="js/configurations.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/main1.css">
          <script src="js/form.js"></script>

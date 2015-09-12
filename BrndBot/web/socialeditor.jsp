@@ -24,16 +24,16 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
         <%@ include file="checksession.jsp" %>
-
+        
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+       
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
@@ -239,8 +239,7 @@ ul::-webkit-scrollbar-thumb {
         
         
         
-        <script src="//use.typekit.net/wnn8jyx.js"></script>
-            <script>try{Typekit.load({ async: true });}catch(e){}</script>
+        
         <script>
             
             $(document).ready(function () {
@@ -646,11 +645,10 @@ ul::-webkit-scrollbar-thumb {
                                         NOTE: To change the aspect ratio, look in crop.css
                                         The class 'default' links the div to the init(); function
                                 --> 
-
+                                
                             </div>
                             <div class="span3 col-md-offset-0" >
-
-                                <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
+                                <input id="continue" class="button button--moema button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
                                 <script>
                                     function showImageName(user_id, image_name){
                                         var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
@@ -662,6 +660,7 @@ ul::-webkit-scrollbar-thumb {
                                                     $("#tabs-3").hide();                                                 
                                     }
                                 </script>
+                                
                             </div>
                             <div id="popup" name="popup">
                                 <div id="content">

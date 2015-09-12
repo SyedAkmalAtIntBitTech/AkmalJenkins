@@ -21,7 +21,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <link href="css/popup.css" rel="stylesheet" type="text/css"/>
            <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+        
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
                 <link rel="stylesheet" href="css/main1.css">
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
@@ -231,17 +231,20 @@
                 position: relative;
                 width: 100px;
                 background-color:#D1D2D9;
-                color:white;
-                font-size:16px;
+                color:#fff;
+                font-size:15px;
+                border-radius:3px;
+                border-style: none;
             }
             .btn-csv{
-                font-size:22px;
+                font-size:20px;
                 border-radius:5px;
                 position:relative;
                 top: 20px;
                 width: 200px;
                 background-color:#D1D2D9;
                 color:#fff;
+                border-style: none;
             }
             .btn-prim{
                 position: fixed;
@@ -331,7 +334,7 @@
                 });
 
                 $("#emailSubjectContinueButton").click(function () {
-                    
+                   
                     $("#chooseEmailList").show();
                     $("#emailsubjectdiv").hide();
                     $("#emailaddresses").hide();
@@ -339,6 +342,7 @@
                     $("#clickHere").hide();
                     $("#upload").hide();
                     $("#emaillist").show();
+              
 
                 });
           
@@ -351,6 +355,10 @@
                         $("#drop-zone").hide();
                         $("#clickHere").hide();
                         $("#upload").hide();
+                        $("#dragtext").hide();
+                        $("#entertext").hide();
+                         $("#emailIdContinueButton").css("top","50px");
+                       
                     }else {
 
                         $("#email_list_name").val(List_name);
@@ -422,13 +430,14 @@
                 var x = document.getElementById("chooseEmailList").selectedIndex;
                 var list_name = document.getElementsByTagName("option")[x].value;
                 if (list_name != 0){
-                    
+                    $("#emailIdContinueButton").show();
                     $("#entertext").show();
                     $("#dragtext").show();
                     $("#emailaddresses").show();
                     $("#drop-zone").show();
                     $("#clickHere").show();
                     $("#upload").show();
+                    $("#emailIdContinueButton").css("top","-70px");
                     $(function () {
 
                     var dropZoneId = "drop-zone";
@@ -667,7 +676,7 @@
                     </select>
                     
                     
-                     <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class=" btn-csv BT1" value="Add CSV or Email Manually">
+                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class=" btn-csv BT1" value="Add CSV or Email Manually">
                      <p style="position:relative;top:70px;" id="dragtext" hidden="true">Drag and drop a csv file here and click to upload:</p>
                      <div id="drop-zone">
                         Drop files here...
@@ -680,7 +689,7 @@
                      <p style="position:relative;top:-160px;left:25em;" id="entertext" hidden="true">Enter Email Addresses manually here:</p>
                      <textarea style="width:300px; height:200px;position:relative;left:25em;top:-11em;" id="emailaddresses"></textarea>
                      <input type="button" id="upload" value="Upload" onclick="upload()" class="btn-upload" style="position:relative;left:1em;top:-100px;"/>
-                   <input style="position:relative;top:50px;left:0px;" id="emailIdContinueButton" type="button" class=" button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
+                     <input style="position:relative;top:50px;left:-5px;" id="emailIdContinueButton" type="button" class=" button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
                    
                
 
@@ -696,7 +705,8 @@
                                 <input type="button" id="popupCancel" class="btn btn-default" value="Cancel">
                             </center>
                         </div>   
-                    </div>                          
+                    </div>      
+                      
 <!--                    <input type="text" class="hideinputEmailId" id="emailId" name="emailsubject" placeholder="Add CSV or Email Manually"> <br><br><br><br><br>-->
 
                    </div>                   

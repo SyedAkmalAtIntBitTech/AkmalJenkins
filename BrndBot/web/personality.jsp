@@ -20,7 +20,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <script src="js/configurations.js"></script>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+      
         <script>
                 function showText(brandid,image_name){
                              $("#hiddenform").val(brandid);
@@ -77,15 +77,14 @@ most represents your company and ignore the colors for now.</p>
                         <div class="span7">
                             <div class="col-md-7 pull-right pull-up">
 
-                                    <div class="item col-md-offset-2"><p >preview</p>
-                                        <img id="image1" class="img-responsive" src="" width="700" height="400"><br>
-
+                                <div class="item col-md-offset-2" ><p>preview</p>
+                                        <img id="image1" class="img-responsive" src="" width="700" height="400">
                                     </div>
                             </div>
-                     </ div>
+                     </div>
                         <form class="form-horizontal"  ng-controller="MyController" ng-model="brands">
                             <input id="hiddenform" name="hiddenform" type="hidden" ng-model="brands.brandName"><br>
-                            <div ng-repeat="first in First" class="span5 col-md-offset-1 ">
+                            <div ng-repeat="first in First" class="span4 col-md-offset-1 ">
                                 <button type="button"  id="contemporary1" class="btn btn-default btn-lg col-md-3" onclick="showText('{{first.id}}','{{first.image_name}}')">{{first.brand_name}}</button><br><br><br>
                             </div>  
                             

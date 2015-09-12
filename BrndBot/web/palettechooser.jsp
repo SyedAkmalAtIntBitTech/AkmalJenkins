@@ -32,7 +32,7 @@
         <script type="text/javascript" src="jscolor/jscolor.js"></script>
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
-         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+         
 
         <style>
             #sortable { list-style-type: none; margin: 0; padding: 0;}
@@ -225,7 +225,7 @@
         <div class="row">
         </div>
 
-        <div id="contentdiv" class="row">   
+        <div id="contentdiv" class="row" style="top:45px;">   
 
             <div class="col-md-8 col-md-offset-3">
                 <p id="comment1" class="MH2">Choose a color palette</p> 
