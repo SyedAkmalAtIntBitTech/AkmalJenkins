@@ -36,7 +36,7 @@ and open the template in the editor.
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+   
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
@@ -59,17 +59,13 @@ and open the template in the editor.
 
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
-        
+
         <script src="js/flavr.js" type="text/javascript"></script>
         <link href="css/animate.css" rel="stylesheet" type="text/css"/>
         <link href="css/flavr.css" rel="stylesheet" type="text/css"/>
+
         <script src="js/ajaxfileupload.js" type="text/javascript"></script>
-        <script>
-                    try{
-                    Typekit.load({ async: true });
-                    }
-            catch (e){}
-        </script>
+        
 
         <style>
             @font-face {
@@ -1080,7 +1076,7 @@ and open the template in the editor.
                                                 <li><select class="imagename LE1 editordropdown" id="editorhead" style="width:110px;"> </select></li>
 
                                                 <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
-                                                <li><p  class="btn"  onclick="imageEdit()">edit</p></li>
+                                                <li><p  class="btn"  onclick="showfilter()">edit</p></li>
                                                 <li></li>
                                             </ul>
                                         </div>
@@ -1095,6 +1091,8 @@ and open the template in the editor.
                                                 <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vivid</p> </li>
                                                 <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Intense</p> </li>
                                             </ul>
+                                            <p  class="btn" onclick="imageEdit()">CROP</p>
+                                            <p  class="btn" onclick="saveImageEdit()">DONE</p>
                                         </div>
                                         <div id="cropImageContainer" style="display: none">
 
@@ -1396,6 +1394,13 @@ and open the template in the editor.
                                             $("#" + image_Id).toggleClass("ig-brannan");
                                     };
                             };
+                            
+                            function showfilter(){
+                                        $("#textcontainer").hide();
+                                        $("#shapecontainer").hide();
+                                        $("#imagecontainer").hide();
+                                        $("#filtercontainer").show();
+                                   }
                                     $(".cross").hide();
                                     $(".menu").hide();
                                     $(".hamburger").click(function () {
@@ -1480,29 +1485,55 @@ and open the template in the editor.
                                     $("#imagespopup").hide();
                             });
                                     function imageEdit() {
-
-                                    $("#textcontainer").hide();
+                                            $("#textcontainer").hide();
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();
 //                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
-
-                                            $("#filtercontainer").show();
-                                            $("#cropImageContainer").show();
-                                            var image_file = $(".imagename option:selected").attr("name").replace("url(", "").replace(")", "");
-                                            id = "image" + i;
-                                            // $("#cropper_popup").show();
-                                            $(".clickthis").click();
+                                           var imageId=$(".imagename option:selected").val();
+                                           var imageWidth=$("#"+imageId).css("width").replace("px","");
+                                           var imageHeight=$("#"+imageId).css("height").replace("px","");
+                                           $("#crompIageContainer").show();
+                                           
+                                                                                  
+                                        var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
+//                                        alert(image_file);
+                                        id = "image" + i;
+                                       // $("#cropper_popup").show();
+                                        $(".clickthis").click();
 //                                        $('#cropper_popup').draggable();
 //                                        $("#cropper_popup").resizable();
 
 //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
 
-                                            $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
+                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
+
                                             i = i + 1;
-                                            one.init('.crop_image');
-                                            // load image into crop
-                                            one.loadImg(image_file);
-                                            $("#imagespopup").hide();
+
+                                        one.init('.crop_image');
+                                        // load image into crop
+                                        one.loadImg(image_file);
+                                        $("#imagespopup").hide();
+                                      
+                                        if(imageWidth >350 && imageWidth <=700){
+                                            $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.7").css("aline","center");
+                                            $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");
+                                         }
+                                         else if(imageWidth >700 &&  imageWidth <=1050){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.5").css("aline","center");
+                                           $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px"); 
+                                            }
+                                        else if(imageWidth >1050 && imageWidth <=1400){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","1").css("aline","center");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }
+                                        else if(imageWidth >1400 && imageWidth <=1800){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.25").css("aline","center");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }    
+                                        else if(imageWidth >1800){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.2").css("aline","center");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }                      
                                     }
 
 

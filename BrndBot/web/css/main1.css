@@ -398,7 +398,7 @@ opacity: 1;
     color:white;
 }
 #contemporary1{
-    background-color: #E0E0E0;
+    background-color: #f4f4f4;
     text-align: left;
     font-family: "proxima-nova",sans-serif;
 font-style: normal;
@@ -409,7 +409,10 @@ text-align: left;
 line-height: 20.4px;
 letter-spacing: 0em;
 opacity:1;
-border-radius: 0px;
+border-radius: 3px;
+position:relative;
+left:15px;
+
     
 }
 #contemporary1:hover{
@@ -418,13 +421,14 @@ border-radius: 0px;
 }
 
 #image1{
-    
+    border:5px #fff solid ;
     width: 500px;
     height: 350px;
-    background-color:#E0E0E0;
+    background-color:white;
 }
 #contemporary1:focus{
-    background-color: #717177;
+    color: #ffffff;
+    background-color:  #5cc2a5;
 }
 
 /*................css for logo upload....*/
@@ -439,7 +443,7 @@ line-height: 15.8px;
 letter-spacing: 0em;
 opacity: 1;
 width: 720px;
-margin-bottom: 20px;
+margin-bottom: 30px;
 
 
 }
@@ -460,8 +464,12 @@ letter-spacing: 0em;
 opacity: 1;
 width:500px;
 margin-bottom:  30px;
+position:relative;
+left:0%;
 }
 #comment2{
+    position:relative;
+    left:13%;
     font-size: 12px;
 }
 #comment3{
@@ -481,7 +489,7 @@ margin-bottom:  30px;
 }
 #contentdiv {
     position: relative;
-    top:45px;
+    top:104px;
 }
 
 #continuelookchooser{

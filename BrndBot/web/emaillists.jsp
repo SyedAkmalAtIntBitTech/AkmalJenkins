@@ -24,7 +24,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
          <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
          <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+
         <title>Email Lists</title>
         <style>
            .brdr{ 
