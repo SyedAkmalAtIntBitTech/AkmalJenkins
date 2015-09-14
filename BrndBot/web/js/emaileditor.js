@@ -343,7 +343,7 @@ $(document).ready(function () {
                                             .css("height", "" + height)
                                             .css("background", "" + background_image)
                                             .css("background-repeat", "no-repeat")
-                                            .css("background-position", "center center")
+                                            .css("background-size", "100% 100%")
                                             .css("position", "absolute");
 
                                 }

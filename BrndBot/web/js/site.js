@@ -49,7 +49,7 @@ $(document).ready(function () {
     $("#adminBackgroundImage").change(function(){
         
          $("#" + selectedTextID).css('background', "url('/BrndBot/DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&image_name=" + $("#adminBackgroundImage").val() + "')");
-            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-size", "100% 100%");
     });
     
     $(".basic").spectrum({
@@ -563,7 +563,7 @@ $(document).ready(function () {
 
         addImageCount++;
         addElements($("#elementText").find('option:selected').text());
-        $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("background-position", "center center");                                    
+        $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("background-size", "100% 100%");                                    
         $("#" + selectedTextID).css("width", "100px");
         $("#" + selectedTextID).css("height", "100px").css("border","1px solid black").css("object-fit","fill");
         addDefault();
@@ -615,7 +615,7 @@ $(document).ready(function () {
         });
         $("#fileButton").click(function () {
             $("#" + selectedTextID).css('background', "url('" + $("#filePath").val() + "')");
-            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-size", "100% 100%");
         });
         $(function () {
             function blendColor() {
@@ -1016,7 +1016,7 @@ $(document).ready(function () {
         $("#fileButton").click(function () {
             $("#" + selectedTextID).css('background', "url('" + $("#filePath").val() + "')");
            
-            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-size", "100% 100%");
         });
         $(function () {
             function blendColor() {

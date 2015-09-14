@@ -810,7 +810,8 @@ and open the template in the editor.
                                     .css("height", "" + height)
                                     .css("background", "" + background_image)
                                     .css("background-repeat", "no-repeat")
-                                    .css("background-position", "center center")
+                                    .css("background-size", "100% 100%")
+                                    .css("-webkit-background-size", "100% 100%")
                                     .css("position", "absolute");
                             }
 
@@ -989,7 +990,7 @@ and open the template in the editor.
                                 <script>
                                                     function showImageName(user_id, image_name){
                                                     var image_path = "DownloadImage?image_type=GALLERY&image_name=" + image_name + "&user_id=" + user_id + "";
-                                                            $("#" + $(".imagename").val()).css("background", "url(" + global_host_address + "" + image_path + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                                            $("#" + $(".imagename").val()).css("background", "url(" + global_host_address + "" + image_path + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "100% 100%");
                                                             $("#imagespopup").hide();
                                                             $(".imagename option:selected").attr("name", "url(" + global_host_address + "" + image_path + ")");
                                                             $("#tabs-1").show();
@@ -1507,7 +1508,7 @@ and open the template in the editor.
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
                                                     var image_Id = $('.imagename option:selected').val();
-                                                            $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-repeat", "no-repeat").css("background-position", "center center");
+                                                            $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-size", "100% 100%");
                                                             //$("#cropper_popup").hide();
                                                             $(".close-reveal-modal").click();
                                                     }
@@ -1530,7 +1531,7 @@ and open the template in the editor.
                                     one = new CROP();
                                     $("#selectimage").click(function(){
                             var image_file = global_host_address + $("#image_name").val();
-                                    $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                    $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("background-size", "100% 100%");
                                     $("#imagespopup").hide();
                             });
                                     function imageEdit() {
