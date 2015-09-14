@@ -224,6 +224,16 @@ ul::-webkit-scrollbar-thumb {
      border-radius: 10px;
      -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
     }
+    .preview{
+    position: relative;
+    width: 500px;
+    height: 300px;
+    margin-left: -185px;
+    background-color: #ffffff;
+    border: 1px solid #E3E4E8;
+    outline: #E3E4E8 solid 16px;
+    border-color: #E3E4E8;
+}
 
         </style>
 

@@ -36,7 +36,7 @@ and open the template in the editor.
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-   
+
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
@@ -65,7 +65,7 @@ and open the template in the editor.
         <link href="css/flavr.css" rel="stylesheet" type="text/css"/>
 
         <script src="js/ajaxfileupload.js" type="text/javascript"></script>
-        
+
 
         <style>
             @font-face {
@@ -80,7 +80,7 @@ and open the template in the editor.
                 overflow-x: hidden;
                 overflow-y: hidden;
                 overflow: hidden;
-                
+
             }
             .cursorpointer:hover{
                 cursor: pointer;
@@ -203,7 +203,7 @@ and open the template in the editor.
                 text-align: center;
                 overflow:auto;
             }
-            
+
             #content
             {
                 /*                height:auto;*/
@@ -260,12 +260,12 @@ and open the template in the editor.
                 border-radius: 10px;
                 -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
             }
-            
-           #emailframeimg {
-                 position:absolute;
-                 left:1.8em;
-                 top:2em;
-                 zoom:1.07;
+
+            #emailframeimg {
+                position:absolute;
+                left:1.8em;
+                top:2em;
+                zoom:1.07;
             }      
         </style>
         <style>#iphone{
@@ -288,22 +288,20 @@ and open the template in the editor.
             .images {
                 position: relative;
                 left:-50px;
-                 
-            }
-        
-            
-        </style>
-        
-            
 
-        <%!
-            SqlMethods sql_methods = new SqlMethods();
+            }
+
+
+        </style>
+
+
+
+        <%!            SqlMethods sql_methods = new SqlMethods();
             StringBuffer string_buffer = new StringBuffer();
             String mindbody_data_id = "";
             String logoImageName = null;
         %> 
-        <%
-            try {
+        <%            try {
                 sql_methods.session = request.getSession();
                 user_id = (Integer) sql_methods.session.getAttribute("UID");
                 logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
@@ -321,7 +319,7 @@ and open the template in the editor.
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script>
-            $(document).ready(function () {
+                    $(document).ready(function () {
             document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
                     document.getElementById('edt').style.backgroundColor = '#fff';
                     document.getElementById('stl').style.backgroundColor = 'transparent';
@@ -470,8 +468,8 @@ and open the template in the editor.
                             });
                             };
                             $scope.showBlocks = function(){
-                                  $('body').scrollTop(0);  
-                            $scope.curPage = 0;
+                            $('body').scrollTop(0);
+                                    $scope.curPage = 0;
                                     $scope.pageSize = 2;
                                     $http({
                                     method : 'GET',
@@ -638,26 +636,25 @@ and open the template in the editor.
             //var countBlock = 1;
             function showText(id, layout){
 //            alert(id+":"+layout+":"+mindbodydataId);
-                var layoutfilename = layout;
-                var layout_mapper_url = "";
-                
+            var layoutfilename = layout;
+                    var layout_mapper_url = "";
                     $("#clickid").val(layout);
                     if (mindbodydataId != "") {
-                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
-                    } else {
-                        layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
-                    }
-                    
-                    $.ajax({
-                    type: 'GET',
-                            url: layout_mapper_url,
-                            data: {get_param: 'value'},
-                            dataType: 'json',
-                            success: function (data) {
+            layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
+            } else {
+            layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
+            }
 
-                                displayElement(id, layout, data);
-                            }
-                    });
+            $.ajax({
+            type: 'GET',
+                    url: layout_mapper_url,
+                    data: {get_param: 'value'},
+                    dataType: 'json',
+                    success: function (data) {
+
+                    displayElement(id, layout, data);
+                    }
+            });
             }
 
             function displayElement(id, layout, data){
@@ -687,7 +684,7 @@ and open the template in the editor.
                                     $(".preview #" + blockId).css("width", width + "px");
                                     $(".preview #" + blockId).css("height", height + "px");
                                     $(".preview #" + blockId).css("position", "relative");
-                                    $(".preview #" + blockId).attr("blockdetails",id);
+                                    $(".preview #" + blockId).attr("blockdetails", id);
                             }
 
                             );
@@ -792,8 +789,7 @@ and open the template in the editor.
                             //resize end
 
                             var addThis = $("#" + type + "EEE" + blockId).get(0).scrollHeight - $("#" + type + "EEE" + blockId).height();
-                            $("#" + type + "EEE" + blockId).attr("add-this",addThis);
-
+                                    $("#" + type + "EEE" + blockId).attr("add-this", addThis);
                             }
 
                             if (tag === "image")
@@ -841,8 +837,7 @@ and open the template in the editor.
 
                             if (tag === "button")
                             {
-                            var src_image = $(this).attr("src").replace("../","");
-                            
+                            var src_image = $(this).attr("src").replace("../", "");
                                     $(".preview #" + blockId).append("<div><a href=\"#\" data-reveal-id=\"myModal\"><img src='" + src_image + "' buttonLink='" + elementdata + "' id=" + type + "EEE" + blockId + " onclick=getButtonid('" + type + "EEE" + blockId + "') alt='button'/></a>");
                                     $("#" + type + "EEE" + blockId).css("left", "" + left + "px")
                                     .css("position", "absolute")
@@ -900,7 +895,7 @@ and open the template in the editor.
             }
 
         </script>
-       
+
 
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script src="js/crop.js" type="text/javascript"></script>
@@ -970,24 +965,25 @@ and open the template in the editor.
                             <div id="fileupload_popup" class="reveal-modal" style="left:110%;">
                                 <a class="close-reveal-modal">abc&#215;</a>
                                 <center>
-                                <input id="myFile" type="file" name="myFile">
-                                <input type="button" id="upload" style="margin-left: 35%;" class="button button--moema button--text-thick button--text-upper button--size-s" value="upload">
-                                <input type="button" id="image1" ng-click="showImages()" value="image1" style="display: none;"><br />
+                                    <input id="myFile" type="file" name="myFile">
+                                    <input type="button" id="upload" style="margin-left: 35%;" class="button button--moema button--text-thick button--text-upper button--size-s" value="upload">
+                                    <input type="button" id="image1" ng-click="showImages()" value="image1" style="display: none;"><br />
                                 </center>
                             </div>
+
                             <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview" class="SP1">preview</p>
-                <ul class="images ">
-                    <li><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
-                    <li><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
-                    <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
-                </ul>
+                            <table style="position: absolute; left: -100px;">
+                                <tr><td><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
+                                    <td><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
+                                    <td><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td></tr>
+                            </table>
                             <div class="sortDelete" style="position:absolute;top:380px; left:150px;margin: 0px;">
 
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
                             </div>
-                           <div class="span2 col-md-offset-0" style="position:relative;top:17em;" >
+                            <div class="span2 col-md-offset-0" style="position:relative;top:17em;" >
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE">
                                 <br><br>
                                 <script>
@@ -1007,10 +1003,10 @@ and open the template in the editor.
                             <img id="emailframeimg" src="images/EmailFrame.svg" width="800px" height="650px" style="margin-top: 15px;" >
                             <div class="dataForEmail" style="zoom:0.57;position:absolute;left:280px;top:165px;">
                                 <div ng-click="showStylesAfterData()" class="preview" >
-                                   
+
                                 </div></div>
-                            
-                            
+
+
                             <!--                            <div id="imagespopup">
                                                             <div id="content">
                                                                 <div style="height:350px; overflow-y:scroll">
@@ -1326,24 +1322,30 @@ and open the template in the editor.
                                             document.getElementById('stl').style.backgroundColor = 'transparent';
                                             document.getElementById('blk').style.backgroundColor = 'transparent';
                                     }
-                            function hls(){
+                                $("#menu-toggle").click(function (e) {
+                                         e.preventDefault();
+                                        $("#wrapper").toggleClass("active");
+                                    });
+                           function show(id) {
+                                      alert(id);
+                                      var imageUrl = $("#" + id).css("background-image");
+                                      
+                                      if (id === "ipad") {
 
+                                            }
+                                     else if (id === "imac")
+                                        {
 
-                            }
-                            function hlb(){
+                                        }
+                                    else {
 
-                            }
-
-
-
-                            $("#menu-toggle").click(function (e) {
-                            e.preventDefault();
-                                    $("#wrapper").toggleClass("active");
-                            });</script>
+                                        }
+                                 }
+        </script>
 
         <script>
 
-                                    $("#continue").click(function (){
+                            $("#continue").click(function (){
 //                                    alert($(".dataForEmail").html());
                             $.ajax({
                             url: getHost() + "SaveKeyValueSessionServlet",
@@ -1442,14 +1444,13 @@ and open the template in the editor.
                                             $("#" + image_Id).toggleClass("ig-brannan");
                                     };
                             };
-                            
-                            function showfilter(){
-                                        $("#textcontainer").hide();
-                                        $("#shapecontainer").hide();
-                                        $("#imagecontainer").hide();
-                                        $("#filtercontainer").show();
-                                   }
-                                    $(".cross").hide();
+                                    function showfilter(){
+                                    $("#textcontainer").hide();
+                                            $("#shapecontainer").hide();
+                                            $("#imagecontainer").hide();
+                                            $("#filtercontainer").show();
+                                    }
+                            $(".cross").hide();
                                     $(".menu").hide();
                                     $(".hamburger").click(function () {
                             $(".menu").slideToggle("slow", function () {
@@ -1533,55 +1534,51 @@ and open the template in the editor.
                                     $("#imagespopup").hide();
                             });
                                     function imageEdit() {
-                                            $("#textcontainer").hide();
+                                    $("#textcontainer").hide();
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();
 //                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
-                                           var imageId=$(".imagename option:selected").val();
-                                           var imageWidth=$("#"+imageId).css("width").replace("px","");
-                                           var imageHeight=$("#"+imageId).css("height").replace("px","");
-                                           $("#crompIageContainer").show();
-                                           
-                                                                                  
-                                        var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
+                                            var imageId = $(".imagename option:selected").val();
+                                            var imageWidth = $("#" + imageId).css("width").replace("px", "");
+                                            var imageHeight = $("#" + imageId).css("height").replace("px", "");
+                                            $("#crompIageContainer").show();
+                                            var image_file = $(".imagename option:selected").attr("name").replace("url(", "").replace(")", "");
 //                                        alert(image_file);
-                                        id = "image" + i;
-                                       // $("#cropper_popup").show();
-                                        $(".clickthis").click();
+                                            id = "image" + i;
+                                            // $("#cropper_popup").show();
+                                            $(".clickthis").click();
 //                                        $('#cropper_popup').draggable();
 //                                        $("#cropper_popup").resizable();
 
 //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
 
-                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
-
+                                            $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
                                             i = i + 1;
-
-                                        one.init('.crop_image');
-                                        // load image into crop
-                                        one.loadImg(image_file);
-                                        $("#imagespopup").hide();
-                                      
-                                        if(imageWidth >350 && imageWidth <=700){
-                                            $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.7").css("aline","center");
-                                            $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");
-                                         }
-                                         else if(imageWidth >700 &&  imageWidth <=1050){
-                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.5").css("aline","center");
-                                           $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px"); 
-                                            }
-                                        else if(imageWidth >1050 && imageWidth <=1400){
-                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","1").css("aline","center");
-                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
-                                        }
-                                        else if(imageWidth >1400 && imageWidth <=1800){
-                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.25").css("aline","center");
-                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
-                                        }    
-                                        else if(imageWidth >1800){
-                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.2").css("aline","center");
-                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
-                                        }                      
+                                            one.init('.crop_image');
+                                            // load image into crop
+                                            one.loadImg(image_file);
+                                            $("#imagespopup").hide();
+                                            alert(imageWidth);
+                                            if (imageWidth > 350 && imageWidth <= 700){
+                                    $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.7").css("aline", "center");
+                                            $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
+                                    }
+                                    else if (imageWidth > 700 && imageWidth <= 1050){
+                                    $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.5").css("aline", "center");
+                                            $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
+                                    }
+                                    else if (imageWidth > 1050 && imageWidth <= 1400){
+                                    $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.34").css("aline", "center");
+                                            $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
+                                    }
+                                    else if (imageWidth > 1400 && imageWidth <= 1800){
+                                    $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.25").css("aline", "center");
+                                            $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
+                                    }
+                                    else if (imageWidth > 1800){
+                                    $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.2").css("aline", "center");
+                                            $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
+                                    }
                                     }
 
 
