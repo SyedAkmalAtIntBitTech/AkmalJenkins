@@ -211,7 +211,7 @@ ul::-webkit-scrollbar-thumb {
 }
 
             
-   #editor::-webkit-scrollbar {
+/*   #editor::-webkit-scrollbar {
      width: 10px;
      height: 200px;
     }
@@ -223,7 +223,7 @@ ul::-webkit-scrollbar-thumb {
     #editor::-webkit-scrollbar-thumb {
      border-radius: 10px;
      -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
-    }
+    }*/
     .preview{
     position: relative;
     width: 500px;
@@ -735,7 +735,7 @@ ul::-webkit-scrollbar-thumb {
 
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-1" >
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:360px;overflow-x:hidden;">                       
+                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:366px;overflow-x:hidden;">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">

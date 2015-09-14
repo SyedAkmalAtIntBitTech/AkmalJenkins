@@ -323,6 +323,7 @@ body{
 
 #promoteimage{
     margin: 15px;
+    margin-bottom: 5px;
 }
 
 #promotelist a:hover img{

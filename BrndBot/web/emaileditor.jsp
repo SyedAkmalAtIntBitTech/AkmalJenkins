@@ -247,7 +247,7 @@ and open the template in the editor.
                 top: 0px;
             }
 
-            #editor::-webkit-scrollbar {
+/*            #editor::-webkit-scrollbar {
                 width: 10px;
                 height: 200px;
             }
@@ -259,7 +259,7 @@ and open the template in the editor.
             #editor::-webkit-scrollbar-thumb {
                 border-radius: 10px;
                 -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
-            }
+            }*/
 
 /*            #emailframeimg {
                 position:absolute;
@@ -1003,7 +1003,7 @@ and open the template in the editor.
                             </div>
                             <img id="emailframeimg" src="images/EmailFrame.svg" width="350px" height="700px" style="margin-top:-16em;margin-left:100px;position:absolute;zoom:1;" >
                             <div class="dataForEmail" style="zoom:0.447;position:absolute;left:520px;top:1.5em;height:300px;">
-                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:675px;min-height:1200px;overflow-y: scroll;overflow-x: hidden;" >
+                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:675px;min-height:1200px;overflow-y: scroll;overflow-x:scroll;" >
 
                                 </div></div>
 
@@ -1022,7 +1022,7 @@ and open the template in the editor.
                         </div>
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor" style="border:none;height:515px;top:100px;left:36px;overflow-y:scroll;width:355px;overflow-x:hidden;">                       
+                            <div class="well lead editor" id="editor" style="border:none;height:615px;top:100px;left:36px;overflow-y:scroll;width:365px;overflow-x:hidden;">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -1043,8 +1043,8 @@ and open the template in the editor.
                                                     <img id="minusFont" src="images/fontsize.png" class="cursorpointer" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" class="cursorpointer" id="plusFont" alt=""/>
                                                 </li>
 
-                                                <li style="width:120px;">
-                                                    <p id="editorheadere" class="SS1">font style:</p>
+                                                <li style="width:115px;">
+                                                    <p id="editorheadere" class="SS1">font style</p>
                                                     <select id="fontname" class="editordropdown" >
                                                         <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
                                                     </select>
@@ -1283,7 +1283,7 @@ and open the template in the editor.
                                         </div> 
                                     </li>
                                     <li id="tabs-5">
-                                        <ul id="imageGallery" style="width:400px;position: relative;right:70px;">
+                                        <ul id="imageGallery" style="width:400px;position:relative;right:70px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
                                             <p class="BT2" id="galleryupload">upload image</p>
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
