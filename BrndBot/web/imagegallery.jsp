@@ -36,7 +36,7 @@ and open the template in the editor.
                 position: relative;
                 overflow: hidden;
                 margin-top:80px;
-                margin-left: -295px;
+                margin-left: -345px;
             }
             .fileUpload input.upload {
                 position: absolute;
@@ -252,10 +252,10 @@ and open the template in the editor.
                             
                          </div>
                         
-                        <div  style="position:fixed;text-align:center;width:310px;background-color: #e5e5e5;left:66em;height:100%;">
+                        <div  style="position:fixed;text-align:center;width:350px;background-color: #e5e5e5;left:66em;right:0em;height:100%;">
                             <p class="MH2" style="position: relative;top:250px;"> UPLOAD A PHOTO</p>
                          
-                            <div class="group " ng-controller="myCtrl" style="position: relative;top:40%;left:80px;">
+                            <div class="group " ng-controller="myCtrl" style="position: relative;top:40%;left:100px;">
                                     <div class="fileUpload btn "  >
                                         <span class="SP2">Click to upload a image</span>
                                                 <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload" file-model="myFile" />

@@ -261,12 +261,12 @@ and open the template in the editor.
                 -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
             }
 
-            #emailframeimg {
+/*            #emailframeimg {
                 position:absolute;
                 left:1.8em;
                 top:2em;
                 zoom:1.07;
-            }      
+            }      */
         </style>
         <style>#iphone{
                 width: 25px;
@@ -972,18 +972,18 @@ and open the template in the editor.
                             </div>
 
                             <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview" class="SP1">preview</p>
-                            <table style="position: absolute; left: -100px;">
+                            <table style="position: absolute; left:10px;">
                                 <tr><td><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
                                     <td><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
                                     <td><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td></tr>
                             </table>
-                            <div class="sortDelete" style="position:absolute;top:380px; left:150px;margin: 0px;">
+                            <div class="sortDelete" style="position:absolute;top:380px; left:170px;margin: 0px;">
 
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
                             </div>
-                            <div class="span2 col-md-offset-0" style="position:relative;top:17em;" >
+                            <div class="span2 col-md-offset-0" style="position:relative;top:20em;" >
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE">
                                 <br><br>
                                 <script>
@@ -1000,9 +1000,9 @@ and open the template in the editor.
                                                     }
                                 </script>
                             </div>
-                            <img id="emailframeimg" src="images/EmailFrame.svg" width="800px" height="650px" style="margin-top: 15px;" >
-                            <div class="dataForEmail" style="zoom:0.57;position:absolute;left:280px;top:165px;">
-                                <div ng-click="showStylesAfterData()" class="preview" >
+                            <img id="emailframeimg" src="images/EmailFrame.svg" width="350px" height="700px" style="margin-top:-16em;margin-left:100px;position:absolute;zoom:1;" >
+                            <div class="dataForEmail" style="zoom:0.447;position:absolute;left:520px;top:1.5em;height:300px;">
+                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:675px;min-height:1200px;overflow-y: scroll;overflow-x: hidden;" >
 
                                 </div></div>
 
