@@ -64,7 +64,7 @@ and open the template in the editor.
                 src: url(fonts/Glyphter2.ttf);
             }
             body{
-                font-family: proxima nova;
+                font-family: "proxima nova",sans-serif;
             }
             .cursorpointer:hover{
                 cursor: pointer;
@@ -915,7 +915,7 @@ ul::-webkit-scrollbar-thumb {
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav">
-                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1">EDIT</p></a></li>
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1" >EDIT</p></a></li>
                         <li id="stl" class="hov" ng-click="showStyles()"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40"><p id="text1">STYLE</p></a></li>                  
                     </ul>
                 </div>

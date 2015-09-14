@@ -270,7 +270,7 @@
                                         <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
                                         </div>
                                             
-                                        <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')"><div ng-show="colors.id == null" style="padding-top: 10px;">{{colors.theme_name}}</div></div>
+                                        <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')"><div ng-show="colors.id == null" style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{colors.theme_name}}</div></div>
 <!--<div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>-->
                                         
                                     </div> 
