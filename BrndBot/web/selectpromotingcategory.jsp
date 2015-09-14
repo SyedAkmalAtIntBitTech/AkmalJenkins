@@ -85,7 +85,7 @@ and open the template in the editor.
             */
             .datafib{
                 position: relative;
-                top:20px;
+                top:-20px;
                 left:50px;
             }
             .datafromindbody li{
@@ -130,6 +130,7 @@ and open the template in the editor.
                 font-style: normal;
                 text-align: left;
                 line-height: 25.9px;
+                color:#95969A;
                 letter-spacing: 0em;
             }
             .mindbodyHeaderData{
@@ -216,7 +217,7 @@ and open the template in the editor.
                     //  background-color: #00CC99;
                     // color: whitesmoke;
                     $(".mindbodyOneRowData").css("background-color", "#ffffff");
-                            $(".mindbodyOneRowData").css("color", "#2d4355");
+                            $(".mindbodyOneRowData").css("color", "#95969A");
                             $("#" + id).css("background-color", "#00CC99");
                             $("#" + id).css("color", "whitesmoke");
                             selected_id = id;
@@ -245,11 +246,10 @@ and open the template in the editor.
 
                 <div class="col-md-6 col-md-offset-1">
                     <p id="text3" class="MH2">{{datalists.title}}  </p>
-                    <input style="position:relative;bottom:5em;left:55em;" type="button" id="continuebutton" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="selected_category()" value="CONTINUE" disabled="true"></div>  
+                    <input style="position:relative;bottom:8.5em;left:55em;" type="button" id="continuebutton" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="selected_category()" value="CONTINUE" disabled="true"></div>  
 
 
-                <br /> <br />
-
+               
                 <div class="col-md-10 col-md-offset-0 datafib">
                     <ul class="dataheaderfromindbody">
                         <div class="mindbodyHeaderData LE2" >
@@ -257,9 +257,9 @@ and open the template in the editor.
                             <li style="width: 250px">{{datalists.column_header[1]}}</li>
                             <li style="width: 100px">{{datalists.column_header[2]}}</li>
                     </ul>
-                    <hr id="dividerline" style="width:950px;position:relative;">
+                    <hr id="dividerline" style="width:950px;position:relative;left:-30px;top:-30px;">
 
-                    <div style="position:fixed;height:45%;" class=" tab-pane active" id="picktheme" ng-init="showData()">
+                    <div style="position:fixed;height:45%;top:19em;" class=" tab-pane active" id="picktheme" ng-init="showData()">
 
                         <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
                             <div id="{{jsonclass.id}}" class="mindbodyOneRowData LE2" onclick="select_category_details('{{jsonclass.id}}')" >

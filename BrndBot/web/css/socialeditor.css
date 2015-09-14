@@ -126,10 +126,10 @@ and open the template in the editor.
     
 }
 .preview {
-    
+         
     position: relative;
-    margin-top: 0em;
-    left: 200px;
+    margin-top: 14em;
+    left: 90px;
     background-color: #ffffff;
 
 }
