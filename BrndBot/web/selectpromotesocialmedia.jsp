@@ -362,8 +362,7 @@
                                         <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
                                 
                             </script>
-</body>
-<script>
+                            <script>
     function changeImagef() {
         $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("top","300px").css("left","500px");
        var x = document.getElementById("facebook").checked;
@@ -395,4 +394,6 @@
 }
 
 </script>
+</body>
+
 </html>

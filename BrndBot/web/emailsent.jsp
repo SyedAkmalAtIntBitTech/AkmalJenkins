@@ -29,5 +29,6 @@
               <img style="position:relative;left:0%;margin-top:9%;" src="images/Mailsent.png" width="150"/>
               <div id="text5" class="MH2"> Email Sent!</div> 
             </div>
+        </div>
     </body>
 </html>

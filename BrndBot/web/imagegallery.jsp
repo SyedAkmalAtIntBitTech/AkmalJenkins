@@ -269,9 +269,7 @@ and open the template in the editor.
             </div>  
         
           </div>    
-        
-    </body>
-<script>
+        <script>
         var fl = document.getElementById('filesToUpload');
 
         fl.onchange = function (e) {
@@ -325,5 +323,7 @@ and open the template in the editor.
         }
 
         document.getElementById('filesToUpload').addEventListener('change', fileSelect, false);
-    </script>    
+    </script>  
+    </body>
+  
 </html>
