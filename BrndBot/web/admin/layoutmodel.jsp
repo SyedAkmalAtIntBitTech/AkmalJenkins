@@ -386,11 +386,11 @@
                 
                 Organization : <select name="organization" onchange="showUsers(this.value)">
                     <% 
-                        Connection connection = null;
+                        Connection connection1 = null;
                         try {
-                            connection = ConnectionManager.getInstance().getConnection();
+                            connection1 = ConnectionManager.getInstance().getConnection();
                             Query = "Select * from tbl_organization";
-                            ps = connection.prepareStatement(Query);
+                            ps = connection1.prepareStatement(Query);
 
                             rs = ps.executeQuery();
                             while(rs.next()){
@@ -406,7 +406,7 @@
                         }finally{
                             ps.close();
                             rs.close();
-                            ConnectionManager.getInstance().closeConnection(connection);
+                            ConnectionManager.getInstance().closeConnection(connection1);
                         }
 
                             

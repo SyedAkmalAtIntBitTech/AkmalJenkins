@@ -585,6 +585,7 @@
                 </div>
             </div>
         </div>
+    </div>
                 <!--    <div id="emaillist">
                             <p class="header1"> Choose an email list to send to,<br>
                                 or enter email addresses.</p>

@@ -99,6 +99,7 @@
                                     }finally {
                                         result_set.close();
                                         prepared_statement.close();
+                                        ConnectionManager.getInstance().closeConnection(connection);
                                     }
 
                                     %>

@@ -112,6 +112,7 @@
                                 } finally {
                                     result_set.close();
                                     prepared_statement.close();
+                                    SqlMethods.closeConnection(connection);
                                 }
 
                             %>
