@@ -98,6 +98,7 @@ function controllerUserChanges($scope, $http) {
             $scope.status= data;
             if (data === "true"){
                 alert("Details updated successfully");
+                $scope.getLooks();
             }else
             if (data === error) {
                 alert(data);
@@ -158,6 +159,7 @@ function controllerUserChanges($scope, $http) {
             $scope.status = data;
             if (data === "true"){
                 alert("Details updated successfully");
+                $scope.getBrands();
             }else
             if (data === error) {
                 alert(data);
