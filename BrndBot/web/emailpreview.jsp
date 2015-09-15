@@ -235,7 +235,7 @@
                     //show popup showing
                 
                     $(".content").empty();
-                    $(".content").append("<div id=dynamictable>"+responseText+"</div>");
+                    $(".content").append("<iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='"+getHost()+"responsivehtml.html'></iframe>");
 
                 }
             });
@@ -249,7 +249,7 @@
                         .css("border-color", "transparent").css("background-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px");
                 $(".content").css("margin-left", "-54px").css("margin-top", "-150px").css("zoom", "29.8%")
                         .css("width", "400px");
-                $('#dynamictable').css("width","670px").css("height","880px").css("overflow","scroll");
+                $('#dynamictable').css("width","768px").css("height","980px").css("top","-230px").css("left","-175px").css("-webkit-transform"," scale(0.48)");
             }
             else if (id === "imac")
             {

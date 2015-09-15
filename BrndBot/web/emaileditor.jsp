@@ -68,6 +68,44 @@ and open the template in the editor.
 
 
         <style>
+            #mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9000;
+  background-color: #000;
+  display: none;
+}
+
+#boxes .window {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 340px;
+  height: 400px;
+  display: none;
+  z-index: 9999;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+#boxes #dialog {
+  width: 450px;
+  height: 300px;
+  padding: 10px;
+/*  background-color: #ffffff;*/
+  font-family: 'Segoe UI Light', sans-serif;
+  font-size: 15pt;
+}
+
+#popupfoot {
+  font-size: 16pt;
+  position: absolute;
+  bottom: 0px;
+  width: 250px;
+  left: 250px;
+}
             @font-face {
                 font-family: Glyphter;
                 src: url(fonts/Glyphter.ttf);
@@ -1310,7 +1348,13 @@ and open the template in the editor.
                     </ul>
                 </div>
             </div>
-
+      <div id="boxes">
+  <div id="dialog" class="window">
+<!--    Your Content Goes Here
+    <div id="popupfoot"> <a href="#" class="close agree">I agree</a> | <a class="agree" style="color:red;" href="#">I do not agree</a> </div>-->
+  </div>
+  <div id="mask"></div>
+</div>
         </div> 
 
         <script>
@@ -1328,19 +1372,101 @@ and open the template in the editor.
                                     });
                            function show(id) {
                                       alert(id);
-                                      var imageUrl = $("#" + id).css("background-image");
-                                      
-                                      if (id === "ipad") {
+                                      var getId=id;
+                                      var dynamicStyle,dynamicWidth,dynamicHeight;
+                                      var imageUrl = $("#" + id).css("background-image").replace("url(","").replace(")","");
+                                                                        var id = '#dialog';
+	
+                                        //Get the screen height and width
+                                        var maskHeight = $(document).height();
+                                        var maskWidth = $(window).width();
+
+                                        //Set heigth and width to mask to fill up the whole screen
+                                        $('#mask').css({'width':maskWidth,'height':maskHeight});
+                                       
+                                        //transition effect
+                                        $('#mask').fadeIn(500);	
+                                        $('#mask').fadeTo("slow",0.9);	
+
+                                        //Get the window height and width
+                                        var winH = $(window).height();
+                                        var winW = $(window).width();
+
+                                        //Set the popup window to center
+                                        $(id).css('top',  winH/2-$(id).height()/2);
+                                        $(id).css('left', winW/2-$(id).width()/2);
+
+                                        //transition effect
+                                        $(id).fadeIn(2000); 	
+
+                                        //if close button is clicked
+                                        $('.window .close').click(function (e) {
+                                        //Cancel the link behavior
+                                        e.preventDefault();
+
+                                        $('#mask').hide();
+                                        $('.window').hide();
+                                        });
+
+                                        //if mask is clicked
+                                        $('#mask').click(function () {
+                                        $(this).hide();
+                                        $('.window').hide();
+                                        });  
+                                        
+                                           $.ajax({
+                                    url: getHost() + "PreviewServlet",
+                                    method: "post",
+                                    data: {htmlString: $(".dataForEmail").html()},
+                                    success: function (responseText) {
+                                        alert(responseText);
+
+  
+                                      if (getId === "ipad") {
+                                           $('.window').css("top","110px");
+                                           dynamicWidth="420";
+                                           dynamicHeight="520";
+                                           $(".window").empty();
+                                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
+                                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
+                                        $("#imageDivPopup").append("<iframe style='width:768px;height:980px;position:relative;top:-230px;left:-175px;-webkit-transform: scale(0.48);background-color:#FFF;' src='"+getHost()+"responsivehtml.html'></iframe>");
+
+                                            
 
                                             }
-                                     else if (id === "imac")
+                                     else if (getId === "imac")
                                         {
-
+                                            $('.window').css("top","90px");
+                                           dynamicWidth="440";
+                                           dynamicHeight="440";
+                                           $(".window").empty();
+                                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
+                                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
+//                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-50)+"px;height:"+(dynamicHeight-135)+"px;margin-left:25px;position:relative;top:25px ;overflow:scroll;'>"+responseText+"</div>");
+                                        $("#imageDivPopup").append("<iframe style='width:768px;height:620px;position:relative;top:-132px;left:-165px;-webkit-transform: scale(0.5);background-color:#FFF;' src='"+getHost()+"responsivehtml.html'></iframe>");
+                                            
                                         }
-                                    else {
+                                    else if(getId === "iphone"){
+                                         $('.window').css("top","110px");
+                                         dynamicWidth="275";
+                                         dynamicHeight="439";
 
+                                        $(".window").empty();
+                                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
+                                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
+//                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-20)+"px;height:"+(dynamicHeight-60)+"px;margin-left:10px;position:relative;top:28px;overflow:scroll;'>"+responseText+"</div>");
+                                         $("#imageDivPopup").append("<iframe style='width:320px;height:480px;position:relative;top:-23px;left:-22px;-webkit-transform: scale(0.78);background-color:#FFF;' src='"+getHost()+"responsivehtml.html'></iframe>");
+
+                                        
                                         }
-                                 }
+                                   }
+            }); 
+            
+    
+    }
+                                  
+                                 
+                                 
         </script>
 
         <script>
