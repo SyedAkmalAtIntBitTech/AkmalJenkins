@@ -235,7 +235,7 @@
                     //show popup showing
                 
                     $(".content").empty();
-                    $(".content").append("<iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='"+getHost()+"responsivehtml.html'></iframe>");
+                    $(".content").append("<iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
 
                 }
             });
@@ -244,29 +244,22 @@
             var imageUrl = $("#" + id).css("background-image");
 
             if (id === "ipad") {
-                $(".preview").css("width", "850px").css("height", "850px").css("overflow", "none").css("overflow", "hidden");
-                $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px").css("overflow", "hidden")
-                        .css("border-color", "transparent").css("background-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px");
-                $(".content").css("margin-left", "-54px").css("margin-top", "-150px").css("zoom", "29.8%")
-                        .css("width", "400px");
-                $('#dynamictable').css("width","768px").css("height","980px").css("top","-230px").css("left","-175px").css("-webkit-transform"," scale(0.48)");
+                $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px")
+                        .css("border-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px").css("background-color","#FFF");
+                $('#dynamictable').css("width","768px").css("height","987px").css("top","-474px").css("left","-300px").css("-webkit-transform"," scale(0.265)");
             }
             else if (id === "imac")
             {
-                $(".preview").css("width", "550px").css("height", "950px").css("overflow", "hidden").css("align", "center");
                 $(".iphoneshow").css("background-image", imageUrl)
                         .css("display", 'block').css("height", "413px").css("width", "295px").css("margin-left", "-55px").css("margin-top", "-80px")
-                        .css("overflow-x", "hidden").css("border-color", "transparent").css("background-color", "transparent");
-                $(".content").css("margin-left", "-33px").css("margin-top", "-132px").css("width", "440px").css("height", "920px").css("overflow", "none").css("zoom", "37%");
-                 $('#dynamictable').css("width","670px").css("height","530px").css("overflow","scroll");
+                        .css("border-color", "transparent").css("background-color","#FFF");
+                 $('#dynamictable').css("width","768px").css("height","620px").css("top","-320px").css("left","-272px").css("-webkit-transform","scale(0.33)");
             }
-            else {
-                $(".preview").css("width", "550px").css("height", "950px").css("overflow", "hidden").css("align", "center");
+            else if (id === "iphone"){
                 $(".iphoneshow").css("background-image", imageUrl)
-                        .css("display", 'block').css("height", "370px").css("width", "195px").css("margin-left", "-55px").css("margin-top", "-80px")
-                        .css("overflow-x", "hidden").css("border-color", "transparent").css("background-color", "transparent");
-                $(".content").css("margin-left", "-97px").css("margin-top", "-122px").css("width", "400px").css("height", "920px").css("overflow", "none").css("zoom", "22%");
-                 $('#dynamictable').css("width","670px").css("height","1410px").css("overflow","scroll");
+                        .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "-55px").css("margin-top", "-80px")
+                        .css("border-color", "transparent").css("background-color","#FFF");
+                 $('#dynamictable').css("width","320px").css("height","655px").css("top","-276px").css("left","-107px").css("-webkit-transform","scale(0.47)");
             }
         }
         function displaySchedule(){

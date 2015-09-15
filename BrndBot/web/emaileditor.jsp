@@ -1372,11 +1372,10 @@ and open the template in the editor.
                                         $("#wrapper").toggleClass("active");
                                     });
                            function show(id) {
-                                      alert(id);
                                       var getId=id;
                                       var dynamicStyle,dynamicWidth,dynamicHeight;
                                       var imageUrl = $("#" + id).css("background-image").replace("url(","").replace(")","");
-                                                                        var id = '#dialog';
+                                       var id = '#dialog';
 	
                                         //Get the screen height and width
                                         var maskHeight = $(document).height();
@@ -1415,14 +1414,12 @@ and open the template in the editor.
                                         $('.window').hide();
                                         });  
                                         
-                                           $.ajax({
-                                    url: getHost() + "PreviewServlet",
-                                    method: "post",
-                                    data: {htmlString: $(".dataForEmail").html()},
-                                    success: function (responseText) {
-                                        alert(responseText);
-
-  
+                               $.ajax({
+                                        url: getHost() + "PreviewServlet",
+                                        method: "post",
+                                        data: {htmlString: $(".dataForEmail").html()},
+                                        success: function (responseText) {
+//                                        alert(responseText);
                                       if (getId === "ipad") {
                                            $('.window').css("top","110px");
                                            dynamicWidth="420";
@@ -1430,7 +1427,7 @@ and open the template in the editor.
                                            $(".window").empty();
                                         $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
                                         $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
-                                        $("#imageDivPopup").append("<iframe style='width:768px;height:980px;position:relative;top:-230px;left:-175px;-webkit-transform: scale(0.48);background-color:#FFF;' src='"+getHost()+"responsivehtml.html'></iframe>");
+                                        $("#imageDivPopup").append("<iframe style='width:768px;height:980px;position:relative;top:-230px;left:-175px;-webkit-transform: scale(0.48);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
 
                                             
 
@@ -1444,7 +1441,7 @@ and open the template in the editor.
                                         $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
                                         $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
 //                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-50)+"px;height:"+(dynamicHeight-135)+"px;margin-left:25px;position:relative;top:25px ;overflow:scroll;'>"+responseText+"</div>");
-                                        $("#imageDivPopup").append("<iframe style='width:768px;height:620px;position:relative;top:-132px;left:-165px;-webkit-transform: scale(0.5);background-color:#FFF;' src='"+getHost()+"responsivehtml.html'></iframe>");
+                                        $("#imageDivPopup").append("<iframe style='width:768px;height:620px;position:relative;top:-132px;left:-165px;-webkit-transform: scale(0.5);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
                                             
                                         }
                                     else if(getId === "iphone"){
@@ -1456,7 +1453,7 @@ and open the template in the editor.
                                         $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
                                         $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
 //                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-20)+"px;height:"+(dynamicHeight-60)+"px;margin-left:10px;position:relative;top:28px;overflow:scroll;'>"+responseText+"</div>");
-                                         $("#imageDivPopup").append("<iframe style='width:320px;height:480px;position:relative;top:-23px;left:-22px;-webkit-transform: scale(0.78);background-color:#FFF;' src='"+getHost()+"responsivehtml.html'></iframe>");
+                                         $("#imageDivPopup").append("<iframe style='width:320px;height:480px;position:relative;top:-23px;left:-22px;-webkit-transform: scale(0.78);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
 
                                         
                                         }
