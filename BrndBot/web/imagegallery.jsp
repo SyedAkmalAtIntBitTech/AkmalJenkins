@@ -252,8 +252,8 @@ and open the template in the editor.
                             
                          </div>
                         
-                        <div  style="position:fixed;text-align:center;width:350px;background-color: #e5e5e5;left:66em;right:0em;height:100%;">
-                            <p class="MH2" style="position: relative;top:250px;"> UPLOAD A PHOTO</p>
+                        <div  style="position:relative;text-align:center;width:350px;background-color: #e5e5e5;left:66em;right:0em;height:100%;">
+                            <p class="MH2" style="position: relative;top:-260px;"> UPLOAD A PHOTO</p>
                          
                             <div class="group " ng-controller="myCtrl" style="position: relative;top:40%;left:100px;">
                                     <div class="fileUpload btn "  >

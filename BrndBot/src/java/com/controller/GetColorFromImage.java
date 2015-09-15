@@ -53,6 +53,8 @@ public class GetColorFromImage extends Component {
     private ArrayList<String> marchThroughImage(BufferedImage image, int topNColors) {
         int w = image.getWidth();
         int h = image.getHeight();
+        ArrayList<String> topNColorsList = new ArrayList<String>(topNColors);
+
         try {
             colorMap = new HashMap<>();
             for (int i = 0; i < h; i++) {
@@ -71,7 +73,6 @@ public class GetColorFromImage extends Component {
             Map<String, Integer> sortedMapAsc = sortByComparator(colorMap, ASC);
             // printMap(sortedMapAsc);
 
-            ArrayList<String> topNColorsList = new ArrayList<String>(topNColors);
             int i = 0;
             for (Entry<String, Integer> entry : sortedMapAsc.entrySet()) {
                 if (++i > topNColors) {
@@ -83,7 +84,7 @@ public class GetColorFromImage extends Component {
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
-        return null;
+        return topNColorsList;
     }
 
     private static Map<String, Integer> sortByComparator(Map<String, Integer> map, final boolean order) {
