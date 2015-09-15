@@ -201,7 +201,6 @@ $(document).ready(function () {
                             $(xml).find('layout').each(function () {
                                 height = $(this).find('container').attr("Height");
                                 width = $(this).find('container').attr("Width");
-                                alert(height+":"+width);
                                 var tempWidth = parseInt(width);
 
                                 $(".preview").css("width", tempWidth + "px");
@@ -210,7 +209,7 @@ $(document).ready(function () {
                                 $(".preview #defaultblock1").css("width", width + "px");
                                 $(".preview #defaultblock1").css("height", height + "px");
                                 $(".preview #defaultblock1").css("position", "relative");
-                                alert($(".preview").css("width"));
+//                                alert($(".preview").css("width"));
                             }
 
                             );
