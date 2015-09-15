@@ -615,7 +615,7 @@ and open the template in the editor.
                             $("#tabs-5").show().css("width", "430px").show("slide", { direction: "right" }, 1000);
                             $("#imagespopup").show();
                             $scope.curPage = 0;
-                            $scope.pageSize = 4;
+                            $scope.pageSize = 100;
                             $http({
                             method : 'GET',
                                     url : 'GetUserImages'
@@ -1016,7 +1016,7 @@ and open the template in the editor.
                                     <td><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
                                     <td><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td></tr>
                             </table>
-                            <div class="sortDelete" style="position:absolute;top:380px; left:170px;margin: 0px;">
+                            <div class="sortDelete" style="position:absolute;top:380px; left:120px;margin: 0px;">
 
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
@@ -1039,9 +1039,9 @@ and open the template in the editor.
                                                     }
                                 </script>
                             </div>
-                            <img id="emailframeimg" src="images/EmailFrame_550x700.svg" width="450px" height="750px" style="margin-top:-17em;margin-left:100px;position:absolute;" >
-                            <div class="dataForEmail" style="zoom:0.46;position:absolute;left:470px;top:0.8em;height:300px;">
-                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:920px;min-height:1180px;overflow-y: scroll;overflow-x:scroll;" >
+                            <img id="emailframeimg" src="images/emailframe520x650.png" width="520px" height="650px" style="margin-top:-150px;margin-left:20px;position:absolute;" >
+                            <div class="dataForEmail" style="zoom:0.460;position:absolute;left:296px;top:-8px;height:300px;">
+                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:1070px;min-height:1180px;" >
 
                                 </div></div>
 
