@@ -1001,9 +1001,9 @@ and open the template in the editor.
                                                     }
                                 </script>
                             </div>
-                            <img id="emailframeimg" src="images/EmailFrame.svg" width="350px" height="700px" style="margin-top:-16em;margin-left:100px;position:absolute;zoom:1;" >
-                            <div class="dataForEmail" style="zoom:0.447;position:absolute;left:520px;top:1.5em;height:300px;">
-                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:675px;min-height:1200px;overflow-y: scroll;overflow-x:scroll;" >
+                            <img id="emailframeimg" src="images/EmailFrame_550x700.svg" width="450px" height="750px" style="margin-top:-17em;margin-left:100px;position:absolute;" >
+                            <div class="dataForEmail" style="zoom:0.46;position:absolute;left:470px;top:0.8em;height:300px;">
+                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:920px;min-height:1180px;overflow-y: scroll;overflow-x:scroll;" >
 
                                 </div></div>
 
