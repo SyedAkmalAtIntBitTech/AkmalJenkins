@@ -285,7 +285,7 @@ and open the template in the editor.
                 top: 0px;
             }
 
-            #editor::-webkit-scrollbar {
+/*            #editor::-webkit-scrollbar {
                 width: 10px;
                 height: 200px;
             }
@@ -297,14 +297,14 @@ and open the template in the editor.
             #editor::-webkit-scrollbar-thumb {
                 border-radius: 10px;
                 -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
-            }
+            }*/
 
-            #emailframeimg {
+/*            #emailframeimg {
                 position:absolute;
                 left:1.8em;
                 top:2em;
                 zoom:1.07;
-            }      
+            }      */
         </style>
         <style>#iphone{
                 width: 25px;
@@ -848,7 +848,8 @@ and open the template in the editor.
                                     .css("height", "" + height)
                                     .css("background", "" + background_image)
                                     .css("background-repeat", "no-repeat")
-                                    .css("background-position", "center center")
+                                    .css("background-size", "100% 100%")
+                                    .css("-webkit-background-size", "100% 100%")
                                     .css("position", "absolute");
                             }
 
@@ -1010,24 +1011,24 @@ and open the template in the editor.
                             </div>
 
                             <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview" class="SP1">preview</p>
-                            <table style="position: absolute; left: -100px;">
+                            <table style="position: absolute; left:10px;">
                                 <tr><td><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
                                     <td><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
                                     <td><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td></tr>
                             </table>
-                            <div class="sortDelete" style="position:absolute;top:380px; left:150px;margin: 0px;">
+                            <div class="sortDelete" style="position:absolute;top:380px; left:170px;margin: 0px;">
 
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
                             </div>
-                            <div class="span2 col-md-offset-0" style="position:relative;top:17em;" >
+                            <div class="span2 col-md-offset-0" style="position:relative;top:20em;" >
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE">
                                 <br><br>
                                 <script>
                                                     function showImageName(user_id, image_name){
                                                     var image_path = "DownloadImage?image_type=GALLERY&image_name=" + image_name + "&user_id=" + user_id + "";
-                                                            $("#" + $(".imagename").val()).css("background", "url(" + global_host_address + "" + image_path + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                                            $("#" + $(".imagename").val()).css("background", "url(" + global_host_address + "" + image_path + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "100% 100%");
                                                             $("#imagespopup").hide();
                                                             $(".imagename option:selected").attr("name", "url(" + global_host_address + "" + image_path + ")");
                                                             $("#tabs-1").show();
@@ -1038,9 +1039,9 @@ and open the template in the editor.
                                                     }
                                 </script>
                             </div>
-                            <img id="emailframeimg" src="images/EmailFrame.svg" width="800px" height="650px" style="margin-top: 15px;" >
-                            <div class="dataForEmail" style="zoom:0.57;position:absolute;left:280px;top:165px;">
-                                <div ng-click="showStylesAfterData()" class="preview" >
+                            <img id="emailframeimg" src="images/EmailFrame.svg" width="350px" height="700px" style="margin-top:-16em;margin-left:100px;position:absolute;zoom:1;" >
+                            <div class="dataForEmail" style="zoom:0.447;position:absolute;left:520px;top:1.5em;height:300px;">
+                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:675px;min-height:1200px;overflow-y: scroll;overflow-x:scroll;" >
 
                                 </div></div>
 
@@ -1059,7 +1060,7 @@ and open the template in the editor.
                         </div>
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor" style="border:none;height:515px;top:100px;left:36px;overflow-y:scroll;width:355px;overflow-x:hidden;">                       
+                            <div class="well lead editor" id="editor" style="border:none;height:615px;top:100px;left:36px;overflow-y:scroll;width:365px;overflow-x:hidden;">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -1080,8 +1081,8 @@ and open the template in the editor.
                                                     <img id="minusFont" src="images/fontsize.png" class="cursorpointer" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" class="cursorpointer" id="plusFont" alt=""/>
                                                 </li>
 
-                                                <li style="width:120px;">
-                                                    <p id="editorheadere" class="SS1">font style:</p>
+                                                <li style="width:115px;">
+                                                    <p id="editorheadere" class="SS1">font style</p>
                                                     <select id="fontname" class="editordropdown" >
                                                         <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
                                                     </select>
@@ -1320,7 +1321,7 @@ and open the template in the editor.
                                         </div> 
                                     </li>
                                     <li id="tabs-5">
-                                        <ul id="imageGallery" style="width:400px;position: relative;right:70px;">
+                                        <ul id="imageGallery" style="width:400px;position:relative;right:70px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
                                             <p class="BT2" id="galleryupload">upload image</p>
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
@@ -1633,7 +1634,7 @@ and open the template in the editor.
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
                                                     var image_Id = $('.imagename option:selected').val();
-                                                            $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-repeat", "no-repeat").css("background-position", "center center");
+                                                            $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-size", "100% 100%");
                                                             //$("#cropper_popup").hide();
                                                             $(".close-reveal-modal").click();
                                                     }
@@ -1656,7 +1657,7 @@ and open the template in the editor.
                                     one = new CROP();
                                     $("#selectimage").click(function(){
                             var image_file = global_host_address + $("#image_name").val();
-                                    $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                    $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("background-size", "100% 100%");
                                     $("#imagespopup").hide();
                             });
                                     function imageEdit() {

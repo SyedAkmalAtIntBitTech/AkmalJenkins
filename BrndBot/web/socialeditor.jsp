@@ -64,7 +64,7 @@ and open the template in the editor.
                 src: url(fonts/Glyphter2.ttf);
             }
             body{
-                font-family: proxima nova;
+                font-family: "proxima nova",sans-serif;
             }
             .cursorpointer:hover{
                 cursor: pointer;
@@ -211,7 +211,7 @@ ul::-webkit-scrollbar-thumb {
 }
 
             
-   #editor::-webkit-scrollbar {
+/*   #editor::-webkit-scrollbar {
      width: 10px;
      height: 200px;
     }
@@ -223,7 +223,7 @@ ul::-webkit-scrollbar-thumb {
     #editor::-webkit-scrollbar-thumb {
      border-radius: 10px;
      -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
-    }
+    }*/
     .preview{
     position: relative;
     width: 500px;
@@ -553,7 +553,7 @@ ul::-webkit-scrollbar-thumb {
                                                             .css("height", "" + height)
                                                             .css("background", ""+background_image)
                                                             .css("background-repeat", "no-repeat")
-                                                            .css("background-position", "center center")
+                                                            .css("-webkit-background-size", "100% 100%")
                                                             .css("position", "absolute"); 
                                                     }
 
@@ -688,7 +688,7 @@ ul::-webkit-scrollbar-thumb {
                                 <script>
                                     function showImageName(user_id, image_name){
                                         var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
-                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("background-size","cover");
+                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("background-size","100% 100%");
                                                     $("#imagespopup").hide(); 
                                                     $(".imagename option:selected").attr("name","url(" + global_host_address +""+image_path+ ")");
                                                     $("#tabs-1").show();
@@ -735,7 +735,7 @@ ul::-webkit-scrollbar-thumb {
 
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-1" >
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:360px;overflow-x:hidden;">                       
+                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:366px;overflow-x:hidden;">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -915,7 +915,7 @@ ul::-webkit-scrollbar-thumb {
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav">
-                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1">EDIT</p></a></li>
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1" >EDIT</p></a></li>
                         <li id="stl" class="hov" ng-click="showStyles()"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40"><p id="text1">STYLE</p></a></li>                  
                     </ul>
                 </div>
@@ -1160,7 +1160,7 @@ function showfilter(){
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
                                                          var image_Id= $('.imagename option:selected').val();
-                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center").css("background-size","cover");
+                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center").css("background-size","100% 100%");
 //                                                        $("#cropper_popup").hide();
                                                          //$("#cropper_popup").hide();
                                                          $(".close-reveal-modal").click();
@@ -1183,7 +1183,7 @@ function showfilter(){
                                         var image_file = global_host_address + $("#image_name").val();
                        
 //                                        alert(selectedImageId);
-                                        $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
+                                        $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("-webkit-background-size","100% 100%");
                                         $("#imagespopup").hide();
                                     });
 
