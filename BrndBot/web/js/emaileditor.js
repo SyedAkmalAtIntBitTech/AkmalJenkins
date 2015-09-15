@@ -434,7 +434,7 @@ $(document).ready(function () {
     //$("#deleteBlock").easyconfirm();
     $("#deleteBlock").click(function () {
         new $.flavr({
-    content     : 'Press a button',
+    content     : 'Are you sure you want to delete this style?',
     dialog      : 'confirm',
     
     onConfirm   : function( $container ){
