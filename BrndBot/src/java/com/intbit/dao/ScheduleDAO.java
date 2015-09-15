@@ -5,6 +5,7 @@
  */
 package com.intbit.dao;
 
+import com.controller.IConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityStatus;
 import com.intbit.ScheduledEntityType;
@@ -24,6 +25,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.postgresql.util.PGobject;
 
 /**
  *
@@ -50,13 +54,16 @@ public class ScheduleDAO {
         int emailScheduleId = -1;
         int scheduleEntityId = -1;
         Map<String, Integer> returnMap = new HashMap<>();
-        
+        PGobject pg_object = new PGobject();
+        JSONObject json_email_addresses = new JSONObject();
+        JSONArray json_array_email_address = new JSONArray();
+
         try (Connection connection = connectionManager.getConnection()) {
             connection.setAutoCommit(false);
             try {
                 String sql = "INSERT INTO tbl_scheduled_email_list "
-                        + " (user_id, subject, body, from_address, email_list_name, from_name) VALUES "
-                        + " (?, ?, ?, ?, ?, ?) RETURNING id";
+                        + " (user_id, subject, body, from_address, email_list_name, from_name, to_email_addresses) VALUES "
+                        + " (?, ?, ?, ?, ?, ?, ?) RETURNING id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, userId);
                     ps.setString(2, subject);
@@ -64,6 +71,14 @@ public class ScheduleDAO {
                     ps.setString(4, fromAddress);
                     ps.setString(5, emailListName);
                     ps.setString(6, fromName);
+                    for (int i = 0; i< toAddress.length; i++){
+                        json_array_email_address.add(toAddress[i].trim());
+                    }
+                    json_email_addresses.put(IConstants.kEmailAddressesKey, json_array_email_address);
+                    pg_object.setType("json");
+                    pg_object.setValue(json_email_addresses.toJSONString());
+                    ps.setObject(7, pg_object);
+                    
                     ps.execute();
                     try (ResultSet resultSet = ps.getResultSet()) {
 
@@ -73,7 +88,6 @@ public class ScheduleDAO {
                         }
                     }
                 }
-                addToScheduleEmailRecipient(emailScheduleId, toAddress, connection);
                 scheduleEntityId = addToScheduleEntityList(emailScheduleId, 
                         scheduledTitle, 
                         scheduleDesc, 

@@ -157,6 +157,7 @@
         String emailSubject = "";
         String emailList = "";
         String htmlData = "";
+        String emailAddresses = "";
         SqlMethods sqlmethods = new SqlMethods();
     %>
     <%
@@ -164,6 +165,7 @@
 
         emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
         emailList = (String) sqlmethods.session.getAttribute("email_list");
+        emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
         htmlData = (String) sqlmethods.session.getAttribute("htmldata");
     %>
     <script>
@@ -204,11 +206,17 @@
                 var schedule = $("#schedule_time").val();
                 console.log("Value selected from Component: " + schedule);
                 var schedule_time = Date.parse(schedule);
+                console.log("Epoch: " + schedule_time);
+
                 var dateObj = new Date(schedule_time);
                 console.log(dateObj.getTimezoneOffset());
-                //run this!!!
-                alert(schedule.getTimezoneOffset());
-                var email_scheduling = {"from_name": from_name, "email_subject":email_subject, "to_email_addresses":to_email_addresses, "from_email_address":from_email_address, "reply_to_email_address":reply_to_email_address, "email_list":email_list, "schedule_title":schedule_title, "schedule_time":schedule_time, "email_body":email_body}
+
+                var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+
+                var newEpoch = schedule_time + tzOffsetInMillis;
+                console.log("New Epoch: " + newEpoch);
+
+                var email_scheduling = {"from_name": from_name, "email_subject":email_subject, "to_email_addresses":to_email_addresses, "from_email_address":from_email_address, "reply_to_email_address":reply_to_email_address, "email_list":email_list, "schedule_title":schedule_title, "schedule_time":newEpoch, "email_body":email_body};
                 $http({
                         method : 'POST',
                         url : 'ScheduleEmail',
@@ -289,7 +297,7 @@
             var from_email_address = $("#formaddress").val();
             var reply_to_email_address = $("#email").val();
             var htmldata = formattedHTMLData;
-            var email_list = $("email_list").val();
+            var email_list = $("#email_list").val();
             var schedule_title = $("#schedule_title").val("");
             var schedule_time = $("#schedule_time").val("");
 
@@ -337,10 +345,9 @@
                     from_email_address: $("#formaddress").val(),
                     reply_to_email_address: $("#email").val(),
                     htmldata: formattedHTMLData,
-                    email_list: $("email_list").val()
+                    email_list: $("#email_list").val()
                 },
                 success: function (responseText) {
-
                     document.location.href = "emailsent.jsp";
                 },
                 error: function (){
@@ -382,7 +389,7 @@
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value='<%=emailList %>'>
+                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value='<%= emailAddresses %>'>
                             <label>TO ADDRESS</label><br>
                         </div>
                     </div>
@@ -401,8 +408,7 @@
                             <br><br><button type="button" onclick="displaySchedule()" class="button button--moema button--text-thick button--text-upper button--size-s">SCHEDULE</button><br><br><br>
                         </div>
                     </div>
-                            <input type="hidden" id="htmldata" name="htmldata" value='<%= htmlData %>'> 
-                            <input type="hidden" id="email_list" value='<%=emailList%>'>
+                            <input type="hidden" id="email_list" name="email_list" value='<%=emailList%>'>
                 </form>
             </div>
             <div class="col-md-4">

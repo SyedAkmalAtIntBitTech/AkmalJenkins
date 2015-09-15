@@ -57,6 +57,7 @@
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+        <script src="js/configurations.js" type="text/javascript"></script>
         <!--        <script src="js/socialmedia.js" type="text/javascript"></script>-->
         <style>
             .socialimage{
@@ -87,8 +88,45 @@
             #chnagetolinkpost,#removelink,#posttofb{
                 border-radius: 15px;
             }
+            #socialschedule{
+                border-radius: 15px;
+                margin-top: 20px;
+            }
             .facebookpreview{
                 /*             top: -100px;*/
+            }
+            #popupschedule
+            {
+                display:none;
+                position: fixed;
+                width:350px;
+                height:300px;
+                top: 40%;
+                left: 50%;
+                margin-left:-155px;
+                margin-top:-110px;
+                border:5px solid #686868 ;
+                background-color:#CDCDFF;
+                padding:30px;
+                z-index:102;
+                font-family:Verdana;
+                font-size:10pt;
+                border-radius:10px;
+                -webkit-border-radius:20px;
+                -moz-border-radius:20px;
+                font-weight:bold;
+            }
+            #content
+            {
+                height:auto;
+                width:300px;
+                margin:5px auto;
+            }
+            #popupclose
+            {
+                margin:35px 0 0 80px;
+                width:50px;
+
             }
 
             #linkpostdiv{
@@ -117,7 +155,18 @@
                 height: 50px;
             }
         </style>
-        
+        <script>
+            function displaySchedule(){
+                $("#popupschedule").show();
+            }
+            function hidepopup(){
+                $("#popupschedule").hide();
+                $("#schedule_title").val("");
+                $("#schedule_time").val("");
+            }
+
+            
+        </script>
     </head>
 
     <body>
@@ -146,6 +195,9 @@
                         <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
                     </div></div>
                     <input type="button" class="btn btn-primary" id="posttofb" value="POST TO SOCIAL MEDIA">
+                    <br>
+                    <input type="button" class="btn btn-primary" id="socialschedule" value="SCHEDULE" onclick="displaySchedule()">
+                    
                 </div>
 
                 <div class="col-sm-3 col-sm-offset-0 " id="fabookpreviewdiv">
@@ -170,13 +222,24 @@
                     </div>
                 </div>
             </div>
-             <input type="hidden" id="imageToPost" name="imageToPost" value='<%=imageName%>'/>  
+            <input type="hidden" id="imageToPost" name="imageToPost" value='<%=imageName%>'/>  
             <input type="hidden" id="accesstoken" name="accesstoken" value='<%=accesstoken%>'/>
             <input type="hidden" id="twittweraccestoken" name="twittweraccestoken" value='<%=twitteracesstoken[0]%>'>
             <input type="hidden" id="twitterTokenSecret" name="twitterTokenSecret" value='<%=twitteracesstoken[1]%>'>
             <input type="hidden" id="isFacebook" name="isFacebook" value='<%= isFacebook%>'/>
             <input type="hidden" id="isTwitter" name="isTwitter" value='<%= isTwitter%>'/>
+            <div id="popupschedule" style="display:none;">
+                    <div id="content">
+<!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
+                            Layout file name<input type="text" id="layoutxml" required><br>-->
+                        Title: <input type="text" class="form-control simplebox" id="schedule_title" name="schedule_title"><br>
+                        Date : <input type="datetime-local" class="form-control simplebox" id="schedule_time" name="schedule_time"><br>
 
+                        <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
+                        <input type="button" id ="schedulethepost" value="Done"/>   
+                        <input type="button" id="hidepopup" value="Close" onclick="hidepopup()"/>   
+                    </div>
+            </div>
         </div>
             
         <script>
@@ -194,10 +257,10 @@
                             $(".hamburger").show();
                     });
                 });
-                            
+
+    
             $(document).ready(function () {
                 var isFacebook = $("#isFacebook").val();
-
                 
                 var isTwitter = $("#isTwitter").val();
 
@@ -224,9 +287,10 @@
                     $("#fbtextcontainer").show();
                 }
 
-                    $("#chnagetolinkpost").click(function () {
-                        $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 127 characters long");
-                        $("#twittertext").attr("maxlength", "127");
+                $("#chnagetolinkpost").click(function () {
+                    console.log("display");
+                    $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 127 characters long");
+                    $("#twittertext").attr("maxlength", "127");
                     $("#linkpostdiv").show();
                 });
 
@@ -294,8 +358,68 @@
 
                 });
                 
-                
+                $("#schedulethepost").click(function () {
 
+                    var isFacebook = $("#isFacebook").val();
+                    var isTwitter = $("#isTwitter").val();
+                    var image_name= $("#imageToPost").val();
+                    var schedule_title = $("#schedule_title").val();
+                    var schedule = $("#schedule_time").val();
+                    console.log("Value selected from Component: " + schedule);
+                    var schedule_time = Date.parse(schedule);
+                    console.log("Epoch: " + schedule_time);
+
+                    var dateObj = new Date(schedule_time);
+                    console.log(dateObj.getTimezoneOffset());
+
+                    var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+
+                    var newEpoch = schedule_time + tzOffsetInMillis;
+                    console.log("New Epoch: " + newEpoch);
+
+                    var social_schedule = "";
+                    if (isFacebook == "true" || isTwitter == "true"){
+                        
+                        social_schedule = {
+                                        "token_data": {
+                                          "access_token": $("#accesstoken").val(),
+                                          "twittweraccestoken": $("#twittweraccestoken").val(),
+                                          "twitterTokenSecret": $("#twitterTokenSecret").val()
+                                        },
+                                        "image_name": image_name,
+                                        "metadata": {
+                                            "text": $("#twittertext").val(),
+                                            "postText": $("#posttext").val(),
+                                            "title": $("#title").val(),
+                                            "description": $("#description").val(),
+                                            "url": $("#url").val()
+                                          
+                                        },
+                                        "isFacebook": isFacebook,
+                                        "isTwitter": isTwitter,
+                                        "schedule_time": newEpoch,
+                                        "schedule_title": schedule_title
+                                      }
+                        $.ajax({
+                            url:  getHost() + 'ScheduleSocialPost',
+                            method: 'post',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            mimeType: 'application/json',
+                            data: JSON.stringify(social_schedule),
+                            success: function (responseText) {
+//                            $("#tokenHere").html(responseText);
+//                                alert(image_name);
+                                alert("Your post has been published successfully");
+                                document.location.href = "dashboard.jsp";
+                            }
+                        });                                      
+                    }                  
+                            
+                    
+
+                });                
+                
             });
 
         </script> 

@@ -56,7 +56,7 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String email_subject = request.getParameter("email_subject");
-            String email_addresses = request.getParameter("email_addresses");
+            String to_email_addresses = request.getParameter("email_addresses");
             String html_text = request.getParameter("htmldata");
             String emaillist_name = request.getParameter("email_list");
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
@@ -83,7 +83,7 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
 
             ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
 
-            String emailids[] = email_addresses.split(",");
+            String emailids[] = to_email_addresses.split(",");
 
             for (int i = 0; i < emailids.length; i++) {
 
@@ -108,15 +108,15 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             }
             
             MessageResponses mandrillResponse = send_email.sendMail(message);
-//            int lastUpdateId = EmailHistoryDAO.addToEmailHistory(user_id, 
-//                    html_text, from_email_address, emaillist_name, email_subject, 
-//                    SendMail.getTag(email_subject));
-//            if ( mandrillResponse != null && lastUpdateId != -1){
-//                EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
-//            }
+            int lastUpdateId = EmailHistoryDAO.addToEmailHistory(user_id, 
+                    html_text, from_email_address, emaillist_name, 
+                    to_email_addresses, email_subject, SendMail.getTag(email_subject));
+            if ( mandrillResponse != null && lastUpdateId != -1){
+                EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
+            }
             out.write("true");
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error), e);
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while Sending Email:", getSqlMethodsInstance().error), e);
 
             out.write(getSqlMethodsInstance().error);
         } finally {
