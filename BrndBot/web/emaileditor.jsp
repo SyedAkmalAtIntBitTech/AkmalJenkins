@@ -615,7 +615,7 @@ and open the template in the editor.
                             $("#tabs-5").show().css("width", "430px").show("slide", { direction: "right" }, 1000);
                             $("#imagespopup").show();
                             $scope.curPage = 0;
-                            $scope.pageSize = 4;
+                            $scope.pageSize = 100;
                             $http({
                             method : 'GET',
                                     url : 'GetUserImages'

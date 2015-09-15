@@ -209,7 +209,16 @@ ul::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
 }
-
+    .preview{
+    position: relative;
+    width: 500px;
+    height: 300px;
+    margin-left: -165px;
+    background-color: #ffffff;
+    border: 1px solid #E3E4E8;
+    outline: #E3E4E8 solid 16px;
+    border-color: #E3E4E8;
+}
             
 /*   #editor::-webkit-scrollbar {
      width: 10px;
@@ -224,16 +233,7 @@ ul::-webkit-scrollbar-thumb {
      border-radius: 10px;
      -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
     }*/
-    .preview{
-    position: relative;
-    width: 500px;
-    height: 300px;
-    margin-left: -185px;
-    background-color: #ffffff;
-    border: 1px solid #E3E4E8;
-    outline: #E3E4E8 solid 16px;
-    border-color: #E3E4E8;
-}
+
 
         </style>
 
@@ -379,7 +379,7 @@ ul::-webkit-scrollbar-thumb {
                                     $("#tabs-2").hide();         
                                     $("#tabs-3").show().css("width", "430px").show("slide", { direction: "right" }, 1000);                                                                                                                                                                                                                                             
                                     $scope.curPage = 0;
-                                    $scope.pageSize = 4;
+                                    $scope.pageSize = 100;
                                     $http({
                                     method : 'GET',
                                             url : 'GetUserImages'
@@ -672,8 +672,8 @@ ul::-webkit-scrollbar-thumb {
                                 </center>
                             </div>
 
-                            <p class="edit SP1">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb" class="BT2"><a href="selectpromotemedia.jsp">go back</a></p>
-                            <div class="preview" style="zoom: 0.5;">
+                            <p class="edit SP1">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb" class="BT2" style="position:relative;top: -12px;"><a href="selectpromotemedia.jsp">go back</a></p>
+                            <div class="preview" style="zoom: 0.5;position:relative;left:180px;top:-200px;">
 
 
                                 <!--  {{mindbody_data}}-->
