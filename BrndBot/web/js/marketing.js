@@ -20,31 +20,32 @@ $(document).ready(function ()
         prevSliderDialog = "#dvFastingDialog";
     });
 
-    $("#entitydetails").click(function () {
-        sliderDialog = "#preview";
-        $('#slider-button').click();
-        prevSliderDialog = "#preview";
-    });
+//    $("#entitydetails").click(function () {
+//        
+//        sliderDialog = "#previewfb";
+//        $('#slider-button').click();
+//        prevSliderDialog = "#previewfb";
+//    });
 
     $('#slider-button').click(function () {
         //To hide the dialog if user click on another node
         if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
-            if ($('#slider-button').css("margin-right") == "400px")
+            if ($('#slider-button').css("margin-right") == "800px")
             {
-                $(prevSliderDialog).animate({"margin-right": '-=400'});
-                $('#slider-button').animate({"margin-right": '-=400'});
+                $(prevSliderDialog).animate({"margin-right": '-=800'});
+                $('#slider-button').animate({"margin-right": '-=800'});
             }
         }
 
-        if ($('#slider-button').css("margin-right") == "400px")
+        if ($('#slider-button').css("margin-right") == "800px")
         {
-            $(sliderDialog).animate({"margin-right": '-=400'});
-            $('#slider-button').animate({"margin-right": '-=400'});
+            $(sliderDialog).animate({"margin-right": '-=800'});
+            $('#slider-button').animate({"margin-right": '-=800'});
         }
         else
         {
-            $(sliderDialog).animate({"margin-right": '+=400'});
-            $('#slider-button').animate({"margin-right": '+=400'});
+            $(sliderDialog).animate({"margin-right": '+=800'});
+            $('#slider-button').animate({"margin-right": '+=800'});
         }
     });
 
@@ -214,11 +215,21 @@ function controllerMarketingCampaign($scope, $http) {
     var millisToUTCDate = function (millis) {
         return toUTCDate(new Date(millis));
     };
-    $scope.getScheduleDetails = function (schedule_id, schedule_time) {
+    $scope.getScheduleDetails = function (schedule_id, schedule_time, entity_type) {
 
-        sliderDialog = "#preview";
-        $('#slider-button').click();
-        prevSliderDialog = "#preview";
+        if(entity_type == "email"){
+            sliderDialog = "#preview";
+            $('#slider-button').click();
+            prevSliderDialog = "#preview";
+        }else if (entity_type == "facebook"){
+            sliderDialog = "#previewfb";
+            $('#slider-button').click();
+            prevSliderDialog = "#previewfb";
+        }else if (entity_type == "twitter"){
+            sliderDialog = "#previewtwitter";
+            $('#slider-button').click();
+            prevSliderDialog = "#previewtwitter";
+        }
 
         $http({
             method: 'GET',
