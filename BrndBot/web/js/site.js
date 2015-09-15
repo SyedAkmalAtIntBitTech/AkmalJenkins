@@ -1133,10 +1133,10 @@ function addDefault() {
 //Make change in site.js, MindBodyDataServlet, MindbodyDetailServlet and MindBodyConstants
     var mindbody_xml_url = "";
     var query = "";
-    if (block_mindbody_query !== "null") {
+    if (block_mindbody_query !== "null" && block_mindbody_query !== "") {
         query = block_mindbody_query.toLowerCase();
     } 
-    if (sub_category_type_text !== "null"){
+    if (sub_category_type_text !== "null" && sub_category_type_text !== "Select"){
         query = sub_category_type_text.toLowerCase();
         
     }
