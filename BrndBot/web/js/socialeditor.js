@@ -364,7 +364,8 @@ $(".blockname").change(function (){
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
                                             .css("position", "absolute")
-                                    .css("background-size","100% 100%");
+                                            .css("background-position", "50% 50%")
+                                            .css("-webkit-background-size", "cover");
                                 }
 
                                 if (tag === "button")
