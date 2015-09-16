@@ -332,7 +332,7 @@ public class Layout {
                     height = modelElement.getAttribute("height");
                     background_repeat = "no-repeat";
                     background_size = "contain";
-                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; background-size:" + "100% 100%" + ";-webkit-filter:" + filter + "; '></div>");
+                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; background-position:" + "50% 50%" + "; -webkit-background-size:" + "cover" + ";-webkit-filter:" + filter + "; '></div>");
                     logger.log(Level.INFO, htmldata.toString());
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("text")) {
                     textData = modelElement.getAttribute("type");

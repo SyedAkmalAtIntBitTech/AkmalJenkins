@@ -342,7 +342,8 @@ $(document).ready(function () {
                                             .css("height", "" + height)
                                             .css("background", "" + background_image)
                                             .css("background-repeat", "no-repeat")
-                                            .css("background-size", "100% 100%")
+                                            .css("background-position", "50% 50%")
+                                            .css("-webkit-background-size", "cover")
                                             .css("position", "absolute");
 
                                 }

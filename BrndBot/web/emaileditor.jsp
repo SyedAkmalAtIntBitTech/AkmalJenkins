@@ -455,10 +455,10 @@ and open the template in the editor.
                             $('<style type="text/css">' + styles + '</style>').appendTo(document.head);
                     }
                     if (data === error){
-                    alert(data);
+                         alert(data);
                     }
                     }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
+                             alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                     });
@@ -496,8 +496,8 @@ and open the template in the editor.
                                     return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                                     };
                                     if (data === error){
-                            alert(data);
-                            }
+                                            alert(data);
+                                            }
 
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
@@ -524,8 +524,8 @@ and open the template in the editor.
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
                                     };
                                     if (data === error){
-                            alert(data);
-                            }
+                                    alert(data);
+                                    }
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -848,8 +848,8 @@ and open the template in the editor.
                                     .css("height", "" + height)
                                     .css("background", "" + background_image)
                                     .css("background-repeat", "no-repeat")
-                                    .css("background-size", "100% 100%")
-                                    .css("-webkit-background-size", "100% 100%")
+                                    .css("background-position", "50% 50%")
+                                    .css("-webkit-background-size", "cover")
                                     .css("position", "absolute");
                             }
 
@@ -1028,7 +1028,7 @@ and open the template in the editor.
                                 <script>
                                                     function showImageName(user_id, image_name){
                                                     var image_path = "DownloadImage?image_type=GALLERY&image_name=" + image_name + "&user_id=" + user_id + "";
-                                                            $("#" + $(".imagename").val()).css("background", "url(" + global_host_address + "" + image_path + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "100% 100%");
+                                                            $("#" + $(".imagename").val()).css("background", "url(" + global_host_address + "" + image_path + ")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
                                                             $("#imagespopup").hide();
                                                             $(".imagename option:selected").attr("name", "url(" + global_host_address + "" + image_path + ")");
                                                             $("#tabs-1").show();
@@ -1040,8 +1040,8 @@ and open the template in the editor.
                                 </script>
                             </div>
                             <img id="emailframeimg" src="images/emailframe520x650.png" width="520px" height="650px" style="margin-top:-150px;margin-left:20px;position:absolute;" >
-                            <div class="dataForEmail" style="zoom:0.460;position:absolute;left:296px;top:-8px;height:300px;">
-                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:1070px;min-height:1180px;" >
+                            <div class="dataForEmail" style="position:absolute;left:110px;top:-60px;">
+                                <div ng-click="showStylesAfterData()" class="preview" style="zoom:0.78;max-width:627px;max-height:690px;overflow:scroll;overflow-y:auto;overflow-x:hidden;" >
 
                                 </div></div>
 
@@ -1240,7 +1240,7 @@ and open the template in the editor.
                                             <p id="text3" class="SS2">ADD A NEW BLOCK</p>
                                             <div>
                                                 <div style="height:500px;">
-
+                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:2%;left:0%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="blocks in datalists">
@@ -1253,11 +1253,11 @@ and open the template in the editor.
                                                                                                                                                                     <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 /> 
                                                                                                                         </div> -->
                                                             <div><p id=''></p></div>
-                                                            <label>{{blocks.block_name}}</label>
+                                                            <label style="font-weight: normal;font-size:16px;">{{blocks.block_name}}</label>
                                                             <div></div><p>&nbsp;</p>
                                                         </li>
                                                     </ul>
-                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:5%;left:15%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
+                                                    
 
                                                     <!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
                                                                                                             <ul class="pagination-controle pagination">
@@ -1631,7 +1631,7 @@ and open the template in the editor.
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
                                                     var image_Id = $('.imagename option:selected').val();
-                                                            $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-size", "100% 100%");
+                                                            $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
                                                             //$("#cropper_popup").hide();
                                                             $(".close-reveal-modal").click();
                                                     }
@@ -1654,7 +1654,7 @@ and open the template in the editor.
                                     one = new CROP();
                                     $("#selectimage").click(function(){
                             var image_file = global_host_address + $("#image_name").val();
-                                    $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("background-size", "100% 100%");
+                                    $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
                                     $("#imagespopup").hide();
                             });
                                     function imageEdit() {
@@ -1682,7 +1682,6 @@ and open the template in the editor.
                                             // load image into crop
                                             one.loadImg(image_file);
                                             $("#imagespopup").hide();
-                                            alert(imageWidth);
                                             if (imageWidth > 350 && imageWidth <= 700){
                                     $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.7").css("aline", "center");
                                             $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
