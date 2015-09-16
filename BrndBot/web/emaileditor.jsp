@@ -1040,8 +1040,8 @@ and open the template in the editor.
                                 </script>
                             </div>
                             <img id="emailframeimg" src="images/emailframe520x650.png" width="520px" height="650px" style="margin-top:-150px;margin-left:20px;position:absolute;" >
-                            <div class="dataForEmail" style="zoom:0.5;position:absolute;left:296px;top:-8px;height:300px;">
-                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:640px;min-height:1180px;" >
+                            <div class="dataForEmail" style="position:absolute;left:110px;top:-60px;">
+                                <div ng-click="showStylesAfterData()" class="preview" style="zoom:0.78;max-width:627px;max-height:690px;overflow:scroll;overflow-y:auto;overflow-x:hidden;" >
 
                                 </div></div>
 
@@ -1240,7 +1240,7 @@ and open the template in the editor.
                                             <p id="text3" class="SS2">ADD A NEW BLOCK</p>
                                             <div>
                                                 <div style="height:500px;">
-
+                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:2%;left:0%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="blocks in datalists">
@@ -1253,11 +1253,11 @@ and open the template in the editor.
                                                                                                                                                                     <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 /> 
                                                                                                                         </div> -->
                                                             <div><p id=''></p></div>
-                                                            <label>{{blocks.block_name}}</label>
+                                                            <label style="font-weight: normal;font-size:16px;">{{blocks.block_name}}</label>
                                                             <div></div><p>&nbsp;</p>
                                                         </li>
                                                     </ul>
-                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:5%;left:15%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
+                                                    
 
                                                     <!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
                                                                                                             <ul class="pagination-controle pagination">
