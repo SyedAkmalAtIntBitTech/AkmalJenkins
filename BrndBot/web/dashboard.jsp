@@ -46,6 +46,7 @@ and open the template in the editor.
                 font-style: normal;
                 line-height: 1em;
                 letter-spacing: 0em;
+                cursor: pointer;
             }
 
             #sidebar-wrapper {
