@@ -455,10 +455,10 @@ and open the template in the editor.
                             $('<style type="text/css">' + styles + '</style>').appendTo(document.head);
                     }
                     if (data === error){
-                    alert(data);
+                         alert(data);
                     }
                     }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
+                             alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                     });
@@ -496,8 +496,8 @@ and open the template in the editor.
                                     return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                                     };
                                     if (data === error){
-                            alert(data);
-                            }
+                                            alert(data);
+                                            }
 
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
@@ -524,8 +524,8 @@ and open the template in the editor.
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
                                     };
                                     if (data === error){
-                            alert(data);
-                            }
+                                    alert(data);
+                                    }
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -1682,7 +1682,6 @@ and open the template in the editor.
                                             // load image into crop
                                             one.loadImg(image_file);
                                             $("#imagespopup").hide();
-                                            alert(imageWidth);
                                             if (imageWidth > 350 && imageWidth <= 700){
                                     $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.7").css("aline", "center");
                                             $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
