@@ -358,7 +358,8 @@ and open the template in the editor.
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script>
                     $(document).ready(function () {
-            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
+                   $("#loadingGif").hide();
+                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
                     document.getElementById('edt').style.backgroundColor = '#fff';
                     document.getElementById('stl').style.backgroundColor = 'transparent';
                     document.getElementById('blk').style.backgroundColor = 'transparent';
@@ -548,6 +549,7 @@ and open the template in the editor.
                             }).error();
                             };
                             $scope.showDataTemp = function(){
+                                
                             $scope.showData(temp_block_id, temp_mind_body_query);
                             }
                     $scope.showData = function(id, mind_body_query){
@@ -568,6 +570,7 @@ and open the template in the editor.
                     }
                     else
                     {
+                         $("#loadingGif").show();
                     $scope.curPage = 0;
                             $scope.pageSize = 4;
                             $http({
@@ -585,6 +588,7 @@ and open the template in the editor.
                     $("#tabs-1").hide();
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
+                            $("#loadingGif").hide();
                             $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
                             $("#tabs-5").hide();
                     }).error(function(data, status, headers, config) {
@@ -1287,6 +1291,7 @@ and open the template in the editor.
                                     </li>
 
                                     <li id="tabs-4">
+                                       
                                         <div ng-controller="MyController" id="MyController" > 
                                             <p id="text3" style="width: 700px;position: relative;right: 250px;">{{datalists.title}}  </p>
                                             <div  class="tab-pane active" id="picktheme">
@@ -1336,7 +1341,7 @@ and open the template in the editor.
 
 
                                 </ul>
-
+                                        <div id="loadingGif" style="position: absolute; top:250px;left: 100px;" > <img src="images/YogaLoadingGif.gif" /></div>
                             </div>
                         </div> 
                     </div>
