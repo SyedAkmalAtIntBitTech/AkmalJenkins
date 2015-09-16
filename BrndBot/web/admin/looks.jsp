@@ -138,6 +138,7 @@
                     </tr>
                     <%
                     try{
+                        connection = ConnectionManager.getInstance().getConnection();
                         query_string = "select * from tbl_look Order By id ASC";
                         prepared_statement = connection.prepareStatement(query_string);
                         result_set = prepared_statement.executeQuery();
