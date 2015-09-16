@@ -205,7 +205,7 @@ $(document).ready(function () {
 
                                 $(".preview").css("width", tempWidth + "px");
                                 $(".preview").css("height", height + "px");
-                                $(".preview").css("overflow", "scroll");
+//                                $(".preview").css("overflow", "scroll");
                                 $(".preview #defaultblock1").css("width", width + "px");
                                 $(".preview #defaultblock1").css("height", height + "px");
                                 $(".preview #defaultblock1").css("position", "relative");
@@ -342,7 +342,8 @@ $(document).ready(function () {
                                             .css("height", "" + height)
                                             .css("background", "" + background_image)
                                             .css("background-repeat", "no-repeat")
-                                            .css("background-size", "100% 100%")
+                                            .css("background-position", "50% 50%")
+                                            .css("-webkit-background-size", "cover")
                                             .css("position", "absolute");
 
                                 }

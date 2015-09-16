@@ -3,21 +3,37 @@
     Created on : May 21, 2015, 9:11:28 PM
     Author     : intbit
 --%>
+<%@page import="com.controller.SqlMethods"%>
+<%!
+    HttpServletRequest request;
+    HttpServletResponse response;
+    SqlMethods sqlmethods = new SqlMethods();
+    String checked = "false";
+    Integer user_id = 0;
+    String company = "";
+%>
 
+<%
+    try {
+        sqlmethods.session = request.getSession(true);
+        checked = (String) sqlmethods.session.getAttribute("EmailID");
+        if (checked == null || checked == "false") {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+        }
+    } catch (Exception e) {
+        out.println(sqlmethods.error);
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js"></script>
         <script type="text/javascript" src="js/form.js"></script>
-<!--                <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
-                <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-		<link rel="stylesheet" type="text/css" href="css/cs-select.css" />
-		<link rel="stylesheet" type="text/css" href="css/cs-skin-border.css" />-->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

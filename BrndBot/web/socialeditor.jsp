@@ -553,7 +553,8 @@ ul::-webkit-scrollbar-thumb {
                                                             .css("height", "" + height)
                                                             .css("background", ""+background_image)
                                                             .css("background-repeat", "no-repeat")
-                                                            .css("-webkit-background-size", "100% 100%")
+                                                            .css("background-position", "50% 50%")
+                                                            .css("-webkit-background-size", "cover")
                                                             .css("position", "absolute"); 
                                                     }
 
@@ -688,7 +689,7 @@ ul::-webkit-scrollbar-thumb {
                                 <script>
                                     function showImageName(user_id, image_name){
                                         var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
-                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("background-size","100% 100%");
+                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
                                                     $("#imagespopup").hide(); 
                                                     $(".imagename option:selected").attr("name","url(" + global_host_address +""+image_path+ ")");
                                                     $("#tabs-1").show();
@@ -735,7 +736,7 @@ ul::-webkit-scrollbar-thumb {
 
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-1" >
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:366px;overflow-x:hidden;">                       
+                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:366px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -1160,7 +1161,7 @@ function showfilter(){
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
                                                          var image_Id= $('.imagename option:selected').val();
-                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center").css("background-size","100% 100%");
+                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
 //                                                        $("#cropper_popup").hide();
                                                          //$("#cropper_popup").hide();
                                                          $(".close-reveal-modal").click();
@@ -1183,7 +1184,7 @@ function showfilter(){
                                         var image_file = global_host_address + $("#image_name").val();
                        
 //                                        alert(selectedImageId);
-                                        $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("-webkit-background-size","100% 100%");
+                                        $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
                                         $("#imagespopup").hide();
                                     });
 
