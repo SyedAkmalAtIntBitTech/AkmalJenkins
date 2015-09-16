@@ -287,6 +287,7 @@ $(".blockname").change(function (){
                                     $("#" + type).css("color", "" + fontcolor)
                                             .css("position", "absolute")
                                             .css("overflow", "hidden")
+                                            .css("resize", "none")
                                             .css("margin-left", "" + left + "px")
                                             .css("margin-top", "" + top + "px")
                                             .css("width", "" + width)
