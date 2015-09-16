@@ -75,7 +75,7 @@ public class GetTwitterToken extends BrndBotBaseHttpServlet {
         try
          {
             twitter = new TwitterFactory().getInstance();
-            twitter.setOAuthConsumer("wpbVT8lVnvQ0KQzHLds540JPZ", "eILgUX4xFEyOHYpDWEcvhOuskjZDeUSJrKAetgiGRJTD7XxMsd");
+            twitter.setOAuthConsumer("K7TJ3va8cyAeh6oN3Hia91S2o", "IWUt2aDVTHgUc8N0qI0cF1Z1dTAEQ7CSgnBymZNr3BPSmtkNHL");
             //twitter.setOAuthConsumer("G6fPQU023izaVT8RtAurlHmUW", "d6jMSiwI9XqVbNDMQ4XJmIzD9XrKwZC5mKjrbujepTOqgrnMEW");
             requestToken = twitter.getOAuthRequestToken();
             

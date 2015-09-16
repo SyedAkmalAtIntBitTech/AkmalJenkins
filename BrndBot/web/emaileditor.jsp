@@ -328,7 +328,20 @@ and open the template in the editor.
                 left:-50px;
 
             }
-
+            .mindbodyHeaderData li{
+                display: inline;
+                position: relative;
+                width: 800px;
+                left:15px;
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 600;
+                color: #95969A;
+                font-style: normal;
+                text-align: left;
+                line-height: 29.9px;
+                letter-spacing: 0em;
+                background-color: #fff;
+            }
 
         </style>
 
@@ -358,7 +371,8 @@ and open the template in the editor.
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script>
                     $(document).ready(function () {
-            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
+                   $("#loadingGif").hide();
+                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
                     document.getElementById('edt').style.backgroundColor = '#fff';
                     document.getElementById('stl').style.backgroundColor = 'transparent';
                     document.getElementById('blk').style.backgroundColor = 'transparent';
@@ -548,6 +562,7 @@ and open the template in the editor.
                             }).error();
                             };
                             $scope.showDataTemp = function(){
+                                
                             $scope.showData(temp_block_id, temp_mind_body_query);
                             }
                     $scope.showData = function(id, mind_body_query){
@@ -568,6 +583,7 @@ and open the template in the editor.
                     }
                     else
                     {
+                         $("#loadingGif").show();
                     $scope.curPage = 0;
                             $scope.pageSize = 4;
                             $http({
@@ -585,7 +601,11 @@ and open the template in the editor.
                     $("#tabs-1").hide();
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
-                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
+                            $("#loadingGif").hide();
+//                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
+
+                            $("#tabs-4").css("width", "730px").css("position","fixed").css("margin-left","-240px").show("slide", { direction: "right" }, 1000);
+
                             $("#tabs-5").hide();
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
@@ -607,7 +627,8 @@ and open the template in the editor.
                             }
 
                     $scope.showImages = function(){
-                    $("#popup").hide();
+                            $("#imageGallery").show();
+                             $("#popup").hide();
                             $("#tabs-1").hide();
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
@@ -677,11 +698,11 @@ and open the template in the editor.
             var layoutfilename = layout;
                     var layout_mapper_url = "";
                     $("#clickid").val(layout);
-                    if (mindbodydataId != "") {
-            layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
-            } else {
-            layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
-            }
+                    if ((mindbodydataId != "") && (mindbodydataId != "0")) {
+                    layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
+                    } else {
+                    layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
+                    }
 
             $.ajax({
             type: 'GET',
@@ -1156,7 +1177,9 @@ and open the template in the editor.
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
 
-                                                <li><select class="imagename LE1 editordropdown" id="editorhead" style="width:110px;"> </select></li>
+                                                <li><select class="imagename LE1 editordropdown" id="editorhead" style="width:110px;">
+                                                        <option>select</option>
+                                                    </select></li>
 
                                                 <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
                                                 <li><p  class="btn"  onclick="showfilter()">edit</p></li>
@@ -1284,20 +1307,31 @@ and open the template in the editor.
                                     </li>
 
                                     <li id="tabs-4">
+                                       
                                         <div ng-controller="MyController" id="MyController" > 
-                                            <p id="text3" style="width: 700px;position: relative;right: 250px;">{{datalists.title}}  </p>
+                                            <p id="text3" style="width: 500px;position: relative;right:145px;">{{datalists.title}}</p><br>
+                                            <ul class="dataheaderfromindbody">
+                        <div class="mindbodyHeaderData LE2" >
+                            <li style="width: 400px;left:-120px;">{{datalists.column_header[0]}}</li>
+                            <li style="width: 250px;left:120px;">{{datalists.column_header[1]}}</li>
+                            <li style="width: 100px;left:300px;">{{datalists.column_header[2]}}</li></div>
+                    </ul>
+                  
+
                                             <div  class="tab-pane active" id="picktheme">
                                                 <div>
 
-                                                    <span style="width: 700px;">
-                                                        <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;right: 250px;">
+                                                    <div style="background-color: #FFF; width: 700px;height: 500px;overflow-x:hidden; overflow-y: scroll; float: right; margin-right: 150px;" >
+
+                                                        <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;">
                                                             <!--                                    {{jsonclass}}-->
-                                                            <div class='mindbodyOneRowData' ng-click="select_category_details(jsonclass.id)">
+                                                            <div class='mindbodyOneRowData' ng-click="select_category_details(jsonclass.id)" >
                                                                 <li style="width: 300px">{{jsonclass.column1}}</li>
                                                                 <li style="width: 200px">{{jsonclass.column2}}</li>
                                                                 <li style="width: 100px">{{jsonclass.column3}}</li>
-                                                        </ul><br><br><br><br>
-                                                    </span>
+                                                            </div>
+                                                        </ul> <br><br><br><br>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -1333,7 +1367,7 @@ and open the template in the editor.
 
 
                                 </ul>
-
+                                        <div id="loadingGif" style="position: absolute; top:250px;left: 100px;" > <img src="images/YogaLoadingGif.gif" /></div>
                             </div>
                         </div> 
                     </div>
@@ -1494,7 +1528,7 @@ and open the template in the editor.
                                     }
 
                             window.onload = function () {
-                            //get elements
+                            //get elements              
                             var f = 1,
                                     cvrt1 = document.getElementById('convert1'),
                                     cvrt2 = document.getElementById('convert2'),

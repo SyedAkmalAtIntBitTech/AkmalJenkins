@@ -78,7 +78,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String url1 = request.getParameter("url");
             
             facebook = new FacebookFactory().getInstance();
-            facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
+            facebook.setOAuthAppId("592852577521569", "a87cc0c30d792fa5dd0aaef6b43994ef");
             facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
 //            File file = new File(file_image_path);
             facebook.setOAuthAccessToken(new AccessToken(accessToken));
@@ -114,8 +114,8 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
 
                 ConfigurationBuilder twitterConfigBuilder = new ConfigurationBuilder();
                 twitterConfigBuilder.setDebugEnabled(true);
-                twitterConfigBuilder.setOAuthConsumerKey("wpbVT8lVnvQ0KQzHLds540JPZ");
-                twitterConfigBuilder.setOAuthConsumerSecret("eILgUX4xFEyOHYpDWEcvhOuskjZDeUSJrKAetgiGRJTD7XxMsd");
+                twitterConfigBuilder.setOAuthConsumerKey("K7TJ3va8cyAeh6oN3Hia91S2o");
+                twitterConfigBuilder.setOAuthConsumerSecret("IWUt2aDVTHgUc8N0qI0cF1Z1dTAEQ7CSgnBymZNr3BPSmtkNHL");
                 twitterConfigBuilder.setOAuthAccessToken(request.getParameter("twittweraccestoken"));
                 twitterConfigBuilder.setOAuthAccessTokenSecret(request.getParameter("twitterTokenSecret"));
 

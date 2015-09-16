@@ -745,8 +745,11 @@ function getBlockId(id) {
              $("#shapecontainer").show();
          if(imageCount <=1)
             $("#imagecontainer").hide();
-        else
+        else{
         $("#imagecontainer").show();
+        $("#filtercontainer").hide();
+        $("#imageGallery").hide();
+        }
         if(textCount <=1)
         $("#textcontainer").hide();
         else

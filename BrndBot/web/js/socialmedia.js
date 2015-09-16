@@ -8,7 +8,7 @@ var twittercheck;
 $(document).ready(function () {
 
     $("#fb").click(function () {
-        $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
+        $('#loadingGif').show();
         facebookcheck = document.getElementById("facebook").checked;
 
         if (facebookcheck) {
@@ -29,7 +29,6 @@ $(document).ready(function () {
                         document.location.href = "GetFacebookManagePage";
 
                         $("#isFacebook").val(facebookcheck);
-                        $('#loadingGif').remove();
 
                     } else {
                         
@@ -41,7 +40,7 @@ $(document).ready(function () {
                         $("#isFacebook").val("true");
 
                         $("#submitbutton").prop("disabled", false);
-                        $('#loadingGif').remove();
+                        $('#loadingGif').hide();
                     }
                 }
             });
@@ -51,6 +50,7 @@ $(document).ready(function () {
             $("#submitbutton").prop("disabled", true);
             $("#fbaccessTokenSend").val("");
             $("#fbdefaultAccessToken").val("");
+            $('#loadingGif').hide();
         }
 
 
@@ -62,7 +62,6 @@ $(document).ready(function () {
     });
 
     $("#twt").click(function () {
-        $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
         twittercheck = document.getElementById("twitter").checked;
            
         $("#submitbutton").prop("disabled", true);
@@ -112,7 +111,6 @@ $(document).ready(function () {
                                                 twitter_access_tokens: twitter_access_tokens
                                             },
                                             success: function (responseText) {
-                                                $('#loadingGif').remove();
                                             }
                                         });
 
@@ -127,13 +125,11 @@ $(document).ready(function () {
                                 alert("Please enter the pin code");
                                 $("#pinTextBox").focus();
                             }
-                                $('#loadingGif').remove();
                         });
 
                     } else {
                         $("#twaccessTokenSend").val(responseText);
                         $("#submitbutton").prop("disabled", false);
-                         $('#loadingGif').remove();
                     }
 
                 }
@@ -146,7 +142,7 @@ $(document).ready(function () {
             //$("#twitterpopup").hide();
             $(".close-reveal-modal").click();
             $("#submitbutton").prop("disabled", true);
-             $('#loadingGif').remove();
+             $('#loadingGif').hide();
         }
        
     });

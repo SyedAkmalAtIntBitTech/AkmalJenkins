@@ -55,6 +55,44 @@ and open the template in the editor.
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
         <script src="js/ajaxfileupload.js" type="text/javascript"></script>
         <style>
+            #mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9000;
+  background-color: #000;
+  display: none;
+}
+
+#boxes .window {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 440px;
+  height: 200px;
+  display: none;
+  z-index: 9999;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+#boxes #dialog {
+  width: 750px;
+  height: 300px;
+  padding: 10px;
+  background-color: #000;
+  font-family: 'Segoe UI Light', sans-serif;
+  font-size: 15pt;
+}
+
+#popupfoot {
+  font-size: 16pt;
+  position: absolute;
+  bottom: 0px;
+  width: 250px;
+  left: 250px;
+}
             @font-face {
                 font-family: Glyphter;
                 src: url(fonts/Glyphter.ttf);
@@ -498,6 +536,7 @@ ul::-webkit-scrollbar-thumb {
                                                         $("#" + type).css("color", "" + fontcolor)
                                                                 .css("position", "absolute")
                                                                 .css("overflow", "hidden")
+                                                                .css("resize", "none") 
                                                                 .css("margin-left", "" + left + "px")
                                                                 .css("margin-top", "" + top + "px")
                                                                 .css("width", "" + width)
@@ -921,8 +960,56 @@ ul::-webkit-scrollbar-thumb {
                     </ul>
                 </div>
             </div>
+                                        <div id="boxes">
+                                            <div id="dialog" class="window"><br><br>
+                                              <img id="loadingGif" src="images/YogaLoadingGif.gif" />
+                                            </div>
+                                            <div id="mask"></div>
+                                        </div>
+        </div>
+    <script>
+          function fadepopup() {	
+                var id = '#dialog';
 
-        </div> 
+                //Get the screen height and width
+                var maskHeight = $(document).height();
+                var maskWidth = $(window).width();
+
+                //Set heigth and width to mask to fill up the whole screen
+                $('#mask').css({'width':maskWidth,'height':maskHeight});
+
+                //transition effect
+                $('#mask').fadeIn(500);	
+                $('#mask').fadeTo("slow",10);	
+
+                //Get the window height and width
+                var winH = $(window).height();
+                var winW = $(window).width();
+
+                //Set the popup window to center
+                $(id).css('top',  winH/2-$(id).height()/2);
+                $(id).css('left', winW/2-$(id).width()/2);
+
+                //transition effect
+                $(id).fadeIn(2000); 	
+
+                //if close button is clicked
+                $('.window .close').click(function (e) {
+                //Cancel the link behavior
+                e.preventDefault();
+
+                $('#mask').hide();
+                $('.window').hide();
+                });
+
+                //if mask is clicked
+                $('#mask').click(function () {
+                $(this).hide();
+                $('.window').hide();
+                });
+
+                }
+        </script>
                                         <script>
                                             function act(){
                                                 document.getElementById('edt').style.backgroundColor = '#555';
@@ -985,7 +1072,8 @@ ul::-webkit-scrollbar-thumb {
         <script>
 
                         $("#continue").click(function (){
-                            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
+                            fadepopup();
+//                            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
                             var PreviewWidth=$(".preview").css("width");
                             var PreviewhHeight=$(".preview").css("height");
 //                            alert($(".preview").children());
@@ -1002,7 +1090,8 @@ ul::-webkit-scrollbar-thumb {
                                            var image=responseText;
 //                                          alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
-
+                                                            $('#mask').hide();
+                                                        $('.window').hide();
                                    }
 
                                    });
