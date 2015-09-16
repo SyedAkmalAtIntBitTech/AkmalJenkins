@@ -217,7 +217,7 @@
                        <table class="fbuserDestable"> 
                            <tr><td><input id="link_title" type="text" class="link_title hideinputborder" placeholder="Link Title"><td></tr>
                            <tr><td><input id="link_description" type="text" class="link_description hideinputborder" placeholder="Link Description"></td></tr>
-                           <tr><td><a id="fbHref" href="" ><input class="hideinputborder" type="text" id="Linkurl" placeholder="Link URL"></a></td></tr> 
+                           <tr><td><input class="hideinputborder" type="text" id="Linkurl" placeholder="Link URL"></td></tr> 
                       
                        </table>
                        </div>
@@ -241,7 +241,7 @@
                                  <td><p><%=companyName%></p></td>
                              </tr>
                          </table>
-                    <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"  style="left:50px;"></textarea>
+                    <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"  style="left:50px;resize: none"></textarea>
                     <img id="twitterpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                     </div>
                 </div>
@@ -304,7 +304,6 @@
                     
 //                    $("#twittertext").val($("#twittertext").val()+" "+bit_url+"");
                     $("#Linkurl").val(link);
-                    $("#fbHref").attr("href",""+link);
                     $("#url").val(link);
                     
                     
