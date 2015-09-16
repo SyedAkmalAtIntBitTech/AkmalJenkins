@@ -7,7 +7,6 @@ package com.intbit.dao;
 
 import com.controller.IConstants;
 import com.intbit.ConnectionManager;
-import com.intbit.ScheduledEntityStatus;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
 import java.sql.Connection;
@@ -93,9 +92,8 @@ public class ScheduleDAO {
                         scheduleDesc, 
                         scheduledTime, 
                         ScheduledEntityType.email.toString(), 
-                        ScheduledEntityStatus.scheduled.toString(),
-                        userId,
                         templateStatus,
+                        userId,
                         connection);
                 
                 connection.commit();
@@ -155,11 +153,10 @@ public class ScheduleDAO {
             String entityType,
             String status, 
             int userId,
-            String templateStatus,
             Connection connection) throws SQLException{
         String sql = "INSERT INTO tbl_scheduled_entity_list"
-                + " (entity_id, schedule_title, schedule_desc, schedule_time, entity_type, status, user_id, template_status) VALUES"
-                + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+                + " (entity_id, schedule_title, schedule_desc, schedule_time, entity_type, status, user_id) VALUES"
+                + " (?, ?, ?, ?, ?, ?, ?) RETURNING id";
         
         int scheduleId = -1;
         
@@ -176,7 +173,6 @@ public class ScheduleDAO {
             ps.setString(5, entityType);
             ps.setString(6, status);
             ps.setInt(7, userId);
-            ps.setString(8, templateStatus);
             ps.execute();
             try(ResultSet rs = ps.getResultSet()){
                 if (rs.next()) {
@@ -200,7 +196,6 @@ public class ScheduleDAO {
                 + " AND date(schedule_time) <= ? "
                 + " AND date(schedule_time) >= ? "
                 + " AND slist.entity_type = tc.entity_type"
-                + " AND slist.status = 'scheduled'"
                 + " ORDER BY schedule_time ";
         try(Connection connection = connectionManager.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql)){
@@ -223,7 +218,7 @@ public class ScheduleDAO {
                     scheduleDetailMap.put("status", rs.getString("status"));
                     scheduleDetailMap.put("user_id", rs.getInt("user_id"));
                     scheduleDetailMap.put("color", rs.getString("color"));
-                    scheduleDetailMap.put("template_status", TemplateStatus.valueOf(rs.getString("template_status")).getDisplayName());
+                    scheduleDetailMap.put("template_status", TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
                     
                     if ( !result.containsKey(scheduleDateStr)){
                         result.put(scheduleDateStr, new ArrayList<>());

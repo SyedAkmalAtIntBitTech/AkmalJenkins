@@ -10,7 +10,8 @@ package com.intbit;
  * @author Mohamed
  */
 public enum TemplateStatus {
-    na("N/A"), no_template("No Template"), template_saved("Template Saved");
+    no_template("No Template"), template_saved("Template Saved"), 
+    incomplete("Incomplete"), complete("Complete");
     
     private TemplateStatus(String displayName) {
         this.displayName = displayName;

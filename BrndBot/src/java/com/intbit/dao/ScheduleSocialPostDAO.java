@@ -7,7 +7,6 @@ package com.intbit.dao;
 
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
-import com.intbit.ScheduledEntityStatus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -76,9 +75,8 @@ public class ScheduleSocialPostDAO {
                     scheduleDesc,
                     scheduleTime,
                     type,
-                    ScheduledEntityStatus.scheduled.toString(),
-                    userId,
                     templateStatus,
+                    userId,
                     conn);
             methodResponse.put("schedule_entity_id", scheduleId);
         } catch (SQLException ex) {
