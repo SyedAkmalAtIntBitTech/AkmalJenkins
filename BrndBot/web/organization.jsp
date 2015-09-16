@@ -3,12 +3,33 @@
     Created on : May 21, 2015, 9:11:28 PM
     Author     : intbit
 --%>
+<%@page import="com.controller.SqlMethods"%>
+<%!
+    HttpServletRequest request;
+    HttpServletResponse response;
+    SqlMethods sqlmethods = new SqlMethods();
+    String checked = "false";
+    Integer user_id = 0;
+    String company = "";
+%>
+
+<%
+    try {
+        sqlmethods.session = request.getSession(true);
+        checked = (String) sqlmethods.session.getAttribute("EmailID");
+        if (checked == null || checked == "false") {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+        }
+    } catch (Exception e) {
+        out.println(sqlmethods.error);
+    }
+%>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js"></script>
         <script type="text/javascript" src="js/form.js"></script>
@@ -134,7 +155,7 @@
 			})();
 		</script>
                 
-                <style>
+    <style>
                        
                       
 /*                            #opt:hover

@@ -5,6 +5,27 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.controller.SqlMethods"%>
+<%!
+    HttpServletRequest request;
+    HttpServletResponse response;
+    SqlMethods sqlmethods = new SqlMethods();
+    String checked = "false";
+    Integer user_id = 0;
+    String company = "";
+%>
+
+<%
+    try {
+        sqlmethods.session = request.getSession(true);
+        checked = (String) sqlmethods.session.getAttribute("EmailID");
+        if (checked == null || checked == "false") {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+        }
+    } catch (Exception e) {
+        out.println(sqlmethods.error);
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -93,7 +114,7 @@ most represents your company and ignore the colors for now.</p>
 
                     </div>
             </div>  
-
+        </div>
     </body>
 
 </html>
