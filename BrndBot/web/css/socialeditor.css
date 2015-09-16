@@ -16,7 +16,7 @@ and open the template in the editor.
     padding: 7px;
 }
 .navicons {
-         top:1.5em;
+         top:0em;
          left: -0.3em;
          position: relative;
 }
@@ -61,7 +61,7 @@ and open the template in the editor.
 #txtlog{
     font-size: 10px;
     width: 50px; 
-    margin-top: 2.5em;
+    margin-top: 2em;
     position: relative;
     right: 9px; 
     font-style: normal;
@@ -551,6 +551,10 @@ left:-4px;
 }
 .menu li a,p{
     margin-left: 0px;
+}
+.menu li a{
+      padding: 10px 15px;
+
 }
 .menu li a:hover{
     background-color : transparent;
