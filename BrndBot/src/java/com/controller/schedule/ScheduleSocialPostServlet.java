@@ -6,12 +6,14 @@
 package com.controller.schedule;
 
 import com.intbit.AppConstants;
+import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
 import com.intbit.dao.ScheduleSocialPostDAO;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -51,89 +53,109 @@ public class ScheduleSocialPostServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+
+        response.setContentType("application/json");
+        HttpSession session = request.getSession();
+        if (session.getAttribute("UID") == null) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", "User is not logged in");
+            response.getWriter().write(AppConstants.GSON.toJson(error));
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().flush();
             response.setContentType("application/json");
-            HttpSession session = request.getSession();
-            if (session.getAttribute("UID") == null) {
-                Map<String, Object> error = new HashMap<>();
-                error.put("error", "User is not logged in");
-                response.getWriter().write(AppConstants.GSON.toJson(error));
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                response.getWriter().flush();
-                response.setContentType("application/json");
-                return;
-            }
-            Integer userId = Integer.parseInt(session.getAttribute("UID").toString());
-            Map<String, Object> requestBodyMap =
-                    AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            if (requestBodyMap == null) {
-                Map<String, Object> error = new HashMap<>();
-                error.put("error", "Request body is missing");
-                response.getWriter().write(AppConstants.GSON.toJson(error));
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().flush();
-                response.setContentType("application/json");
-                return;
-            }
-            
-            List<String> errorMessages = validateRequestBody(requestBodyMap);
-            if ( !errorMessages.isEmpty()){
-                Map<String, Object> error = new HashMap<>();
-                error.put("error", errorMessages);
-                response.getWriter().write(AppConstants.GSON.toJson(error));
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().flush();
-                response.setContentType("application/json");
-                return;
-            }
-            
-            /*
-            If no error messages in the above validation, then next is to validate
-            the JSON structure associated with the keys token_data and metadata
-            */
+            return;
+        }
+        Integer userId = Integer.parseInt(session.getAttribute("UID").toString());
+        List<Map<String, Object>> requestBodyList
+                = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), List.class);
+        if (requestBodyList == null || requestBodyList.isEmpty()) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", "Request body is missing");
+            response.getWriter().write(AppConstants.GSON.toJson(error));
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().flush();
+            return;
+        }
+
+        List<String> errorMessages = validateRequestBodyList(requestBodyList);
+        if (!errorMessages.isEmpty()) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", errorMessages);
+            response.getWriter().write(AppConstants.GSON.toJson(error));
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().flush();
+            return;
+        }
+
+        /*
+         If no error messages in the above validation, then next is to validate
+         the JSON structure associated with the keys token_data and metadata
+         */
+        for (Map<String, Object> requestBodyMap : requestBodyList) {
             String tokenDataString = requestBodyMap.get("token_data").toString();
             String type = requestBodyMap.get("type").toString();
             errorMessages.addAll(validateTokenData(tokenDataString, type));
             String metadataString = requestBodyMap.get("metadata").toString();
             errorMessages.addAll(validateMetadata(metadataString, type));
-            
-            if ( !errorMessages.isEmpty()){
-                Map<String, Object> error = new HashMap<>();
-                error.put("error", errorMessages);
-                response.getWriter().write(AppConstants.GSON.toJson(error));
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().flush();
-                response.setContentType("application/json");
-                return;
-            }
-            
-            Timestamp scheduleTimeStamp = new Timestamp(Long.parseLong(
-                    requestBodyMap.get("schedule_time").toString()));
-            
-            //As of now schedule description is not yet mandatory.
-            String scheduleDesc = requestBodyMap.containsKey("schedule_desc") ? 
-                    String.valueOf(requestBodyMap.get("schedule_desc")):null;
-            
-            Map<String, Integer> daoResponse = ScheduleSocialPostDAO.addToScheduleSocialPost(
-                    userId,
-                    requestBodyMap.get("image_name").toString(),
-                    AppConstants.GSON.fromJson(tokenDataString, Map.class),
-                    AppConstants.GSON.fromJson(metadataString, Map.class),
-                    requestBodyMap.get("type").toString(),
-                    requestBodyMap.get("schedule_title").toString(),
-                    scheduleDesc,
-                    scheduleTimeStamp,
-                    TemplateStatus.template_saved.toString());
-            
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write(AppConstants.GSON.toJson(daoResponse));
+        }
+
+        if (!errorMessages.isEmpty()) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", errorMessages);
+            response.getWriter().write(AppConstants.GSON.toJson(error));
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().flush();
-            
+            return;
+        }
+        List<Map<String, Integer>> daoResponseList = new ArrayList<>();
+        try (Connection conn = ConnectionManager.getInstance().getConnection()) {
+            conn.setAutoCommit(false);
+            try {
+                for (Map<String, Object> requestBodyMap : requestBodyList) {
+                    Timestamp scheduleTimeStamp = new Timestamp(Long.parseLong(
+                            requestBodyMap.get("schedule_time").toString()));
+                    String tokenDataString = requestBodyMap.get("token_data").toString();
+                    String metadataString = requestBodyMap.get("metadata").toString();
+
+                    //As of now schedule description is not yet mandatory.
+                    String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
+                            ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
+
+                    Map<String, Integer> daoResponse = ScheduleSocialPostDAO.addToScheduleSocialPost(
+                            userId,
+                            requestBodyMap.get("image_name").toString(),
+                            AppConstants.GSON.fromJson(tokenDataString, Map.class),
+                            AppConstants.GSON.fromJson(metadataString, Map.class),
+                            requestBodyMap.get("type").toString(),
+                            requestBodyMap.get("schedule_title").toString(),
+                            scheduleDesc,
+                            scheduleTimeStamp,
+                            TemplateStatus.template_saved.toString(),
+                            conn);
+                    daoResponseList.add(daoResponse);
+                }
+                conn.commit();
+            } catch (SQLException ex) {
+                conn.rollback();
+                throw ex;
+            }
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write(AppConstants.GSON.toJson(daoResponseList));
+            response.getWriter().flush();
+
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleSocialPostServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+    }
+    private List<String> validateRequestBodyList(List<Map<String,Object>> requestBodyList){
+        List<String> errorMessages = new ArrayList<>();
         
+        for ( Map<String, Object> requestBody : requestBodyList){
+            errorMessages.addAll(validateRequestBody(requestBody));
+        }
         
+        return errorMessages;
     }
     
     private List<String> validateRequestBody(Map<String, Object> requestBody){
