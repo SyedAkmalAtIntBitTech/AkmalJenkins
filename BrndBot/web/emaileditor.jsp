@@ -1040,8 +1040,8 @@ and open the template in the editor.
                                 </script>
                             </div>
                             <img id="emailframeimg" src="images/emailframe520x650.png" width="520px" height="650px" style="margin-top:-150px;margin-left:20px;position:absolute;" >
-                            <div class="dataForEmail" style="zoom:0.460;position:absolute;left:296px;top:-8px;height:300px;">
-                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:1070px;min-height:1180px;" >
+                            <div class="dataForEmail" style="zoom:0.5;position:absolute;left:296px;top:-8px;height:300px;">
+                                <div ng-click="showStylesAfterData()" class="preview" style="max-width:640px;min-height:1180px;" >
 
                                 </div></div>
 
