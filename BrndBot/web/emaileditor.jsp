@@ -1060,7 +1060,7 @@ and open the template in the editor.
                         </div>
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor" style="border:none;height:500px;top:100px;left:36px;overflow-y:scroll;width:365px;overflow-x:hidden;">                       
+                            <div class="well lead editor" id="editor" style="border:none;height:500px;top:100px;left:36px;overflow-y:scroll;width:365px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
