@@ -328,7 +328,20 @@ and open the template in the editor.
                 left:-50px;
 
             }
-
+            .mindbodyHeaderData li{
+                display: inline;
+                position: relative;
+                width: 800px;
+                left:15px;
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 600;
+                color: #95969A;
+                font-style: normal;
+                text-align: left;
+                line-height: 29.9px;
+                letter-spacing: 0em;
+                background-color: #fff;
+            }
 
         </style>
 
@@ -589,7 +602,10 @@ and open the template in the editor.
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
                             $("#loadingGif").hide();
-                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
+//                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
+
+                            $("#tabs-4").css("width", "730px").css("position","fixed").css("margin-left","-240px").show("slide", { direction: "right" }, 1000);
+
                             $("#tabs-5").hide();
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
@@ -1293,19 +1309,29 @@ and open the template in the editor.
                                     <li id="tabs-4">
                                        
                                         <div ng-controller="MyController" id="MyController" > 
-                                            <p id="text3" style="width: 700px;position: relative;right: 250px;">{{datalists.title}}  </p>
+                                            <p id="text3" style="width: 500px;position: relative;right:145px;">{{datalists.title}}</p><br>
+                                            <ul class="dataheaderfromindbody">
+                        <div class="mindbodyHeaderData LE2" >
+                            <li style="width: 400px;left:-120px;">{{datalists.column_header[0]}}</li>
+                            <li style="width: 250px;left:120px;">{{datalists.column_header[1]}}</li>
+                            <li style="width: 100px;left:300px;">{{datalists.column_header[2]}}</li></div>
+                    </ul>
+                  
+
                                             <div  class="tab-pane active" id="picktheme">
                                                 <div>
 
-                                                    <span style="width: 700px;">
-                                                        <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;right: 250px;">
+                                                    <div style="background-color: #FFF; width: 700px;height: 500px;overflow-x:hidden; overflow-y: scroll; float: right; margin-right: 150px;" >
+
+                                                        <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;">
                                                             <!--                                    {{jsonclass}}-->
-                                                            <div class='mindbodyOneRowData' ng-click="select_category_details(jsonclass.id)">
+                                                            <div class='mindbodyOneRowData' ng-click="select_category_details(jsonclass.id)" >
                                                                 <li style="width: 300px">{{jsonclass.column1}}</li>
                                                                 <li style="width: 200px">{{jsonclass.column2}}</li>
                                                                 <li style="width: 100px">{{jsonclass.column3}}</li>
-                                                        </ul><br><br><br><br>
-                                                    </span>
+                                                            </div>
+                                                        </ul> <br><br><br><br>
+                                                    </div>
                                                 </div>
 
                                             </div>
