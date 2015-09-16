@@ -180,7 +180,7 @@ and open the template in the editor.
 
                     angular.module("myapp", [])
                     .controller("controllerGetMindBody", function($scope, $http) {
-                         $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
+                         $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","560px");
                           $("#continuebutton").hide();
                             $scope.showData = function(){
 

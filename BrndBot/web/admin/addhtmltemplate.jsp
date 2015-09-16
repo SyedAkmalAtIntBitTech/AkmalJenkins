@@ -114,6 +114,7 @@
                             <!--  <label>Organization Name:</label>-->
                             <button type="button" id="uploadhtml" onclick="upload()" name="uploadhtml">Upload HTML</button><br><br>
                             <a href="#" data-reveal-id="myModal" class="clickthis">Click here for html divs</a><br /><br />
+                            <a href="templatecreation/htmlbuttons.html" target="_blank">Click here for Buttons</a><br /><br />
                             <a href="templatecreation/mastertemplate.html" target="_blank">Click here for master template</a><br /><br />
                             HTML Content: <textArea name="html_content" id="html_content" maxlength="100000" cols="50" rows="10"></textArea> 
                     </div><br>
