@@ -42,6 +42,11 @@
         <title>social media</title>
 
         <style>
+            #loadingGif{
+               position: absolute;
+               top:250px;
+               left: 550px;
+            }
             .socialimage{
                 width: 120px;
                 height: 120px;
@@ -172,7 +177,7 @@
         <script>
             
             $(document).ready(function () {
-                
+                $("#loadingGif").hide();
                 // $('#myModal').trigger('reveal:open');
                 
 //                $("#abc").click(function () {
@@ -221,7 +226,7 @@
                     if(!selected){
                             $(this).addClass("red-cell");}
                     var page = $("#" + this.id).text();
-                    var accessToken = $("#page" + id[1]).val();
+                    var accessToken = $("#access" + id[1]).val();
                     $("#access" + id[1]).css("background-color","red");
                     $("#pagenameSend").val(page);
                     $("#fbaccessTokenSend").val(accessToken);
@@ -260,9 +265,7 @@
 //                    managed_page = $("#isDefault").val();
                     document.getElementById("fb").src="images/fbButton_darkblue_new.svg";
                     check_default_managed_page = document.getElementById("isdefault").checked;
-                    
                     if ((check_default_managed_page == true) && (check_default == "true")){
-//                       alert(default_access_token);
                         $.ajax({
                                 url: 'ServletUserPreferencesFacebook',
                                 method: 'post',
@@ -285,7 +288,7 @@
                         $("#submitbutton").prop("disabled",false);
                     }else {
                         alert("No default page selected");
-                    }   
+                    } 
             });
             
             $("#close").click(function(){
@@ -308,7 +311,8 @@
         </script>
         <jsp:include page="basejsp.jsp" />
     </head>
-<body>
+    <body>
+    <img id="loadingGif" src="images/YogaLoadingGif.gif" />
     <a href="#" data-reveal-id="myModal" class="clickthis" style="display: none;">Click Me For A Modal</a>
     <a href="#" data-reveal-id="myModal1" class="clicktwitter" style="display: none;">Click Me For A Modal</a>
     <div class="row">
@@ -364,7 +368,7 @@
                             </script>
                             <script>
     function changeImagef() {
-        $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("top","300px").css("left","500px");
+        $("#loadingGif").show();
        var x = document.getElementById("facebook").checked;
        if(x == false){
        document.getElementById("facebook").checked=true;
@@ -378,19 +382,16 @@
        
    }
       function changeImaget() {
-       $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
        var x = document.getElementById("twitter").checked;
        if(x == false){
        document.getElementById("twitter").checked=true;
        document.getElementById("twt").src="images/twtButton_lightblue_new.svg";
-       $('#loadingGif').remove();
    }
    else
    {
        document.getElementById("twt").src="images/twtButton.svg";
        document.getElementById("twitter").checked=false;    
    }
-   $('#loadingGif').remove();
 }
 
 </script>

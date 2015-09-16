@@ -607,7 +607,8 @@ and open the template in the editor.
                             }
 
                     $scope.showImages = function(){
-                    $("#popup").hide();
+                            $("#imageGallery").show();
+                             $("#popup").hide();
                             $("#tabs-1").hide();
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
@@ -1156,7 +1157,9 @@ and open the template in the editor.
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
 
-                                                <li><select class="imagename LE1 editordropdown" id="editorhead" style="width:110px;"> </select></li>
+                                                <li><select class="imagename LE1 editordropdown" id="editorhead" style="width:110px;">
+                                                        <option>select</option>
+                                                    </select></li>
 
                                                 <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
                                                 <li><p  class="btn"  onclick="showfilter()">edit</p></li>
@@ -1494,7 +1497,7 @@ and open the template in the editor.
                                     }
 
                             window.onload = function () {
-                            //get elements
+                            //get elements              
                             var f = 1,
                                     cvrt1 = document.getElementById('convert1'),
                                     cvrt2 = document.getElementById('convert2'),
