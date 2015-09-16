@@ -692,11 +692,11 @@ and open the template in the editor.
             var layoutfilename = layout;
                     var layout_mapper_url = "";
                     $("#clickid").val(layout);
-                    if (mindbodydataId != "") {
-            layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
-            } else {
-            layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
-            }
+                    if ((mindbodydataId != "") && (mindbodydataId != "0")) {
+                    layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
+                    } else {
+                    layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
+                    }
 
             $.ajax({
             type: 'GET',

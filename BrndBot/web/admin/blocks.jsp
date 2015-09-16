@@ -60,10 +60,15 @@
                         <br>
                     Select mindbody query: <select id="mindbodyquery" name="mindbodyquery" >
                         <option value="null">--select--</option>
-                        <option value="promote work shop">promote work shop</option>
-                        <option value="promote class">promote class</option>
+                        <option value="promote new workshop">promote new workshop</option>
+                        <option value="promote todays workshop">promote todays workshop</option>
+                        <option value="promote upcoming workshops">promote upcoming workshops</option>
+                        
+                        <option value="promote new class">promote new class</option>
+                        <option value="promote todays class">promote todays class</option>
+                        
                         <option value="promote event">promote event</option>
-                        <option value="promote staff">promote staff</option>
+                        <option value="promote new staff">promote new staff</option>
                     </select><br>
                     Select brand personality: <select name="brand" id="brand" style="width:180px;">
                         <option value="0">--select--</option>
