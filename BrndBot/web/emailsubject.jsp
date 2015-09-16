@@ -688,8 +688,8 @@
                     </div>
                      <p style="position:relative;top:-160px;left:25em;" id="entertext" hidden="true">Enter Email Addresses manually here:</p>
                      <textarea style="width:300px; height:200px;position:relative;left:25em;top:-11em;" id="emailaddresses"></textarea>
-                     <input type="button" id="upload" value="Upload" onclick="upload()" class="btn-upload" style="position:relative;left:1em;top:-100px;"/>
-                     <input style="position:relative;top:50px;left:-5px;" id="emailIdContinueButton" type="button" class=" button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
+                     <input type="button" id="upload" value="Upload" onclick="upload()" class="btn-upload" style="position:relative;left:2px;top:-100px;"/>
+                     <input style="position:relative;top:50px;left:-10px;" id="emailIdContinueButton" type="button" class=" button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
                    
                
 

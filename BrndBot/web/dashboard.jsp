@@ -32,7 +32,8 @@ and open the template in the editor.
             }
            
             #subpromotelist li
-            {
+            {   
+                cursor: pointer;
                 position:relative;
                 top:10px;
                 width: 200px;
