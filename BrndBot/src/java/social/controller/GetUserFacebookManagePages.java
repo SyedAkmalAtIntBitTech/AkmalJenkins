@@ -48,7 +48,7 @@ public class GetUserFacebookManagePages extends BrndBotBaseHttpServlet {
         PrintWriter out = response.getWriter();
         try {
             facebook = new FacebookFactory().getInstance();
-            facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
+            facebook.setOAuthAppId("592852577521569", "a87cc0c30d792fa5dd0aaef6b43994ef");
             facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
             String url = request.getRequestURL().toString();
             response.sendRedirect(facebook.getOAuthAuthorizationURL(url));

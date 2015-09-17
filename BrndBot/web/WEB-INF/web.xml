@@ -352,6 +352,14 @@
         <servlet-name>AddNoteServlet</servlet-name>
         <servlet-class>com.controller.schedule.AddNoteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletDuplicateLayout</servlet-name>
+        <servlet-class>admin.controller.ServletDuplicateLayout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DownloadHtmlServlet</servlet-name>
+        <servlet-class>com.controller.DownloadHtmlServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -715,6 +723,14 @@
     <servlet-mapping>
         <servlet-name>AddNoteServlet</servlet-name>
         <url-pattern>/AddNote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletDuplicateLayout</servlet-name>
+        <url-pattern>/ServletDuplicateLayout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadHtmlServlet</servlet-name>
+        <url-pattern>/DownloadHtmlServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

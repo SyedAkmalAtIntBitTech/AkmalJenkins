@@ -40,13 +40,16 @@ and open the template in the editor.
 
 
 /*////// signup page animation    //////*/
-#std >div,a {
+#std >div {
     position: relative;
     padding-top: 40px;
 }
+a {
+    position: relative;
+}
 #std > div label{
     position: relative;
-    top:-50px;
+    top:-45px;
     left:-4px;
 }
 .group1 label {
@@ -79,7 +82,7 @@ opacity: 1;
 }
 .group2 label{
     position: relative;
-    top:-60px;
+    top:-56px;
     left:-2px;
     font-family: "proxima-nova",sans-serif;
 font-style: normal;
@@ -101,11 +104,14 @@ text-align: left;
 line-height: 14.4px;
 letter-spacing:0em;
 opacity: 1;
+position:relative;
+margin-top: 6px;
 
 }
 .sublingrp div input{
     position: relative;
     margin-top: 40px;
+    width:500px;
 }
 .sublingrp  div label{
  font-family: "proxima-nova",sans-serif;
@@ -118,7 +124,7 @@ line-height: 14.4px;
 letter-spacing:0em;
 opacity: 1;
 position: relative;
-top:-25px;
+top:-33px;
 left:0px;
 }
 /* form starting stylings ------------------------------- */
@@ -165,9 +171,9 @@ label                {
   pointer-events:none;
   left:15px;
   top:10px;
-  transition:1s ease all; 
-  -moz-transition:1s ease all; 
-  -webkit-transition:1s ease all;
+  transition:0.7s ease all; 
+  -moz-transition:0.7s ease all; 
+  -webkit-transition:0.7s ease all;
 }
 .inputsubline{
                 font-size:18px;
@@ -185,6 +191,7 @@ label                {
     left:-130px;
   font-size:13px;
   color:#999;
+  
  
 }
 #default_from_name:focus ~ label, .inputsubline:valid ~ label     {
@@ -397,7 +404,7 @@ opacity: 1;
     color:white;
 }
 #contemporary1{
-    background-color: #E0E0E0;
+    background-color: #f4f4f4;
     text-align: left;
     font-family: "proxima-nova",sans-serif;
 font-style: normal;
@@ -408,7 +415,10 @@ text-align: left;
 line-height: 20.4px;
 letter-spacing: 0em;
 opacity:1;
-border-radius: 0px;
+border-radius: 3px;
+position:relative;
+left:15px;
+
     
 }
 #contemporary1:hover{
@@ -417,20 +427,21 @@ border-radius: 0px;
 }
 
 #image1{
-    
+    border:5px #fff solid ;
     width: 500px;
     height: 350px;
-    background-color:#E0E0E0;
+    background-color:white;
 }
 #contemporary1:focus{
-    background-color: #717177;
+    color: #ffffff;
+    background-color:  #5cc2a5;
 }
 
 /*................css for logo upload....*/
 .commentlin{
-font-family: "proxima-nova",sans-serif;
+/*font-family: "proxima-nova",sans-serif;
 font-style: normal;
-font-weight: 100;
+font-weight: 100;*/
 font-size: 15.5px;
 color: #3f4042;
 text-align: left;
@@ -438,6 +449,9 @@ line-height: 15.8px;
 letter-spacing: 0em;
 opacity: 1;
 width: 720px;
+margin-bottom: 30px;
+
+
 }
 .cmlinpos{
 position: relative;
@@ -445,18 +459,23 @@ top:1px;
 left: 50px;
 }
 #comment1{   
-font-family: "proxima-nova",sans-serif;
+/*font-family: "proxima-nova",sans-serif;
 font-style: normal;
-font-weight: 600;
-font-size: 21.5px;
+font-weight: 600;*/
+/*font-size: 21.5px;*/
 color: #3f4042;
 text-align: left;
 line-height: 25.8px;
 letter-spacing: 0em;
 opacity: 1;
 width:500px;
+margin-bottom:  30px;
+position:relative;
+left:0%;
 }
 #comment2{
+    position:relative;
+    left:13%;
     font-size: 12px;
 }
 #comment3{
@@ -476,7 +495,7 @@ width:500px;
 }
 #contentdiv {
     position: relative;
-    top:114px;
+    top:104px;
 }
 
 #continuelookchooser{
@@ -530,8 +549,8 @@ width:500px;
 }
 .blankcolor-box{
     float: left;
-    width: 26px;
-    height: 11px;
+    width: 70px;
+    height: 35px;
     margin: 5px;
     border-width: 1px;
     border-style: solid;
@@ -545,6 +564,8 @@ width:500px;
     width: 150px;
     height: 35px;
     margin: 5px;
+    position: relative;
+    padding-top: 13px;
    
     
 }
@@ -566,7 +587,7 @@ ul,li
 
 
 #resetpalette{
-        font-family: "proxima-nova",sans-serif;
+font-family: "proxima-nova",sans-serif;
 font-style: normal;
 font-weight: 400;
 font-size: 10px;
@@ -621,21 +642,22 @@ opacity: 1;
 
 #organizationdropdown{
     border: none ;
-    width: 250px;
-    height: 30px;
-     -webkit-appearance: none;
+    width: 304px;
+    height: 27px;
+   -webkit-appearance: none;
     -moz-appearance: none;
      box-shadow: none !important ;
     appearance: none;
-    padding: 2px 1px 2px 5px;
-    border: 1px solid #dadada;
+    padding: 2px 1px 2px 2px;
+    border: 2px solid #d0d0d0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 2px;
+    color:#2b2f35;
     background: url("../images/dropdown.png") no-repeat right center;
-    position:relative;
-    font-weight:600;
-    color: #3f4042;
-    background-color: #ccc;
-    border-radius:5px;
-				
+    background-color: #F2F2F4; 
 }
 select#organizationdropdown option{
                             border: 10px #888 solid ;
@@ -647,7 +669,7 @@ select#organizationdropdown option{
                             font-size: 13pt;
                             font-weight:normal;
                             color: #888;
-                            background: #fff;
+                            background-color: #fff;
                             
                         }
 /*#organizationdropdown option{
@@ -708,13 +730,14 @@ select#organizationdropdown option{
     height:150px;
     background-color:#E0E0E0;
     margin-left: 0.5em;
-    margin: 0.5em;
+    
     
    
 }
 
 #loochooserbutton{
     position: relative;
+    top:30px;
    left: 35px;
 }
 

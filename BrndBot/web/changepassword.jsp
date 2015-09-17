@@ -8,6 +8,8 @@
 <!DOCTYPE html>
 <html ng-app>
     <head>
+         <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
         <script src="js/configurations.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,7 +18,7 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.11.3.min.js"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        
 
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
@@ -88,6 +90,7 @@
         </script>
         <link rel="stylesheet" href="css/main1.css">
         <title>Password Change</title>
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body class="container" >
         <%

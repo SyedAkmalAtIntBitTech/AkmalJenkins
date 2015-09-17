@@ -21,10 +21,13 @@ and open the template in the editor.
     <head>
         <title>email editor</title>
         <meta charset="UTF-8">
+        <%@ include file="fonttypekit.jsp"%>
+        <%@ include file="checksession.jsp" %>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+
 
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -33,7 +36,7 @@ and open the template in the editor.
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
@@ -46,26 +49,79 @@ and open the template in the editor.
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
         <script src="js/jquery.blend.min.js" type="text/javascript"></script>-->
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"><!--
-          <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> 
+        <!--
+           <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         -->            
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
-        <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagecropper.css" rel="stylesheet" type="text/css"/>
 
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
-        <script>
-                    try{
-                    Typekit.load({ async: true });
-                    }
-            catch (e){}
-        </script>
+
+        <script src="js/flavr.js" type="text/javascript"></script>
+        <link href="css/animate.css" rel="stylesheet" type="text/css"/>
+        <link href="css/flavr.css" rel="stylesheet" type="text/css"/>
+
+        <script src="js/ajaxfileupload.js" type="text/javascript"></script>
+
 
         <style>
+            #mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9000;
+  background-color: #000;
+  display: none;
+}
+
+#boxes .window {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 340px;
+  height: 400px;
+  display: none;
+  z-index: 9999;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+#boxes #dialog {
+  width: 450px;
+  height: 300px;
+  padding: 10px;
+/*  background-color: #ffffff;*/
+  font-family: 'Segoe UI Light', sans-serif;
+  font-size: 15pt;
+}
+
+#popupfoot {
+  font-size: 16pt;
+  position: absolute;
+  bottom: 0px;
+  width: 250px;
+  left: 250px;
+}
+            @font-face {
+                font-family: Glyphter;
+                src: url(fonts/Glyphter.ttf);
+            }
+            @font-face {
+                font-family: Glyphter2;
+                src: url(fonts/Glyphter2.ttf);
+            }
             body{
                 overflow-x: hidden;
+                overflow-y: hidden;
+                overflow: hidden;
+
+            }
+            .cursorpointer:hover{
+                cursor: pointer;
             }
             .socialimage{
                 width: 100px;
@@ -76,13 +132,13 @@ and open the template in the editor.
                 width:150px;height: 5px;
                 position: relative;
                 left:60px;
-                top:-18px;
+                top:-7px;
             }
             .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
             {
                 width: 20px;
                 height:14px;
-                /*                border-radius: 20px;*/
+                border-radius: 20px;
                 background-color: #FFF;
             }
             #popup
@@ -229,7 +285,7 @@ and open the template in the editor.
                 top: 0px;
             }
 
-            #editor::-webkit-scrollbar {
+/*            #editor::-webkit-scrollbar {
                 width: 10px;
                 height: 200px;
             }
@@ -241,18 +297,62 @@ and open the template in the editor.
             #editor::-webkit-scrollbar-thumb {
                 border-radius: 10px;
                 -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
+            }*/
+
+/*            #emailframeimg {
+                position:absolute;
+                left:1.8em;
+                top:2em;
+                zoom:1.07;
+            }      */
+        </style>
+        <style>#iphone{
+                width: 25px;
+                height: 50px;
             }
+            #imac{
+                width: 50px;
+                height: 50px;
+            }
+            #ipad{
+                width: 90px;
+                height: 50px;
+            }
+            .images li{
+                display: inline-table;
+                margin-left:5px;
+                margin-top: 10px;
+            }
+            .images {
+                position: relative;
+                left:-50px;
+
+            }
+            .mindbodyHeaderData li{
+                display: inline;
+                position: relative;
+                width: 800px;
+                left:15px;
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 600;
+                color: #95969A;
+                font-style: normal;
+                text-align: left;
+                line-height: 29.9px;
+                letter-spacing: 0em;
+                background-color: #fff;
+            }
+
         </style>
 
-        <%!
-            SqlMethods sql_methods = new SqlMethods();
+
+
+        <%!            SqlMethods sql_methods = new SqlMethods();
             StringBuffer string_buffer = new StringBuffer();
             String mindbody_data_id = "";
-            Integer user_id = 0;
             String logoImageName = null;
         %> 
-        <%
-            try {
+        <%            try {
                 sql_methods.session = request.getSession();
                 user_id = (Integer) sql_methods.session.getAttribute("UID");
                 logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
@@ -270,8 +370,9 @@ and open the template in the editor.
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script>
-            $(document).ready(function () {
-            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
+                    $(document).ready(function () {
+                   $("#loadingGif").hide();
+                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
                     document.getElementById('edt').style.backgroundColor = '#fff';
                     document.getElementById('stl').style.backgroundColor = 'transparent';
                     document.getElementById('blk').style.backgroundColor = 'transparent';
@@ -296,7 +397,7 @@ and open the template in the editor.
 
                     $("#" + selectedTextareaId).css("font-family", font[0]);
             });
-            });        </script>
+            });</script>
 
         <script>
                     var jsondata;
@@ -327,7 +428,7 @@ and open the template in the editor.
                             $("#previewcontent").append(responseText);
                             //$("#previewpopup").show();
                             $(".clickpreview").click();
-                   }
+                    }
             });
             });
 //                            $("#closepreview").click(function(){
@@ -343,7 +444,7 @@ and open the template in the editor.
                     method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-                            $scope.user_preferences_colors = data.user_colors;
+                    $scope.user_preferences_colors = data.user_colors;
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
                             $scope.user_preferences_font_names = data.user_font_names;
                             var i = 0;
@@ -368,10 +469,10 @@ and open the template in the editor.
                             $('<style type="text/css">' + styles + '</style>').appendTo(document.head);
                     }
                     if (data === error){
-                    alert(data);
+                         alert(data);
                     }
                     }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
+                             alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                     });
@@ -399,12 +500,18 @@ and open the template in the editor.
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
                             $scope.datalistsstyles = data;
+                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
+                                    document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
+                                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+                                    document.getElementById('edt').style.backgroundColor = 'transparent';
+                                    document.getElementById('stl').style.backgroundColor = '#fff';
+                                    document.getElementById('blk').style.backgroundColor = 'transparent';
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                                     };
                                     if (data === error){
-                            alert(data);
-                            }
+                                            alert(data);
+                                            }
 
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
@@ -413,21 +520,26 @@ and open the template in the editor.
                             });
                             };
                             $scope.showBlocks = function(){
-
-                            $scope.curPage = 0;
+                            $('body').scrollTop(0);
+                                    $scope.curPage = 0;
                                     $scope.pageSize = 2;
                                     $http({
                                     method : 'GET',
                                             url : 'GetBlocks'
                                     }).success(function(data, status, headers, config) {
-
                             $scope.datalists = data;
+                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
+                                    document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
+                                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+                                    document.getElementById('edt').style.backgroundColor = 'transparent';
+                                    document.getElementById('stl').style.backgroundColor = 'transparent';
+                                    document.getElementById('blk').style.backgroundColor = '#fff';
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
                                     };
                                     if (data === error){
-                            alert(data);
-                            }
+                                    alert(data);
+                                    }
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -450,6 +562,7 @@ and open the template in the editor.
                             }).error();
                             };
                             $scope.showDataTemp = function(){
+                                
                             $scope.showData(temp_block_id, temp_mind_body_query);
                             }
                     $scope.showData = function(id, mind_body_query){
@@ -470,6 +583,7 @@ and open the template in the editor.
                     }
                     else
                     {
+                         $("#loadingGif").show();
                     $scope.curPage = 0;
                             $scope.pageSize = 4;
                             $http({
@@ -487,7 +601,11 @@ and open the template in the editor.
                     $("#tabs-1").hide();
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
-                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
+                            $("#loadingGif").hide();
+//                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
+
+                            $("#tabs-4").css("width", "730px").css("position","fixed").css("margin-left","-240px").show("slide", { direction: "right" }, 1000);
+
                             $("#tabs-5").hide();
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
@@ -509,7 +627,8 @@ and open the template in the editor.
                             }
 
                     $scope.showImages = function(){
-                    $("#popup").hide();
+                            $("#imageGallery").show();
+                             $("#popup").hide();
                             $("#tabs-1").hide();
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
@@ -517,7 +636,7 @@ and open the template in the editor.
                             $("#tabs-5").show().css("width", "430px").show("slide", { direction: "right" }, 1000);
                             $("#imagespopup").show();
                             $scope.curPage = 0;
-                            $scope.pageSize = 4;
+                            $scope.pageSize = 100;
                             $http({
                             method : 'GET',
                                     url : 'GetUserImages'
@@ -577,12 +696,17 @@ and open the template in the editor.
             function showText(id, layout){
 //            alert(id+":"+layout+":"+mindbodydataId);
             var layoutfilename = layout;
+                    var layout_mapper_url = "";
                     $("#clickid").val(layout);
-                    if (mindbodydataId != "0")
-            {
+                    if ((mindbodydataId != "") && (mindbodydataId != "0")) {
+                    layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
+                    } else {
+                    layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
+                    }
+
             $.ajax({
             type: 'GET',
-                    url: 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email",
+                    url: layout_mapper_url,
                     data: {get_param: 'value'},
                     dataType: 'json',
                     success: function (data) {
@@ -590,12 +714,6 @@ and open the template in the editor.
                     displayElement(id, layout, data);
                     }
             });
-            }
-            else
-            {
-
-            displayElement(id,layout,null);
-            }
             }
 
             function displayElement(id, layout, data){
@@ -625,12 +743,13 @@ and open the template in the editor.
                                     $(".preview #" + blockId).css("width", width + "px");
                                     $(".preview #" + blockId).css("height", height + "px");
                                     $(".preview #" + blockId).css("position", "relative");
+                                    $(".preview #" + blockId).attr("blockdetails", id);
                             }
 
                             );
                                     var count = 1;
                                     var blockcount = 1;
-                                    var textcount=1;
+                                    var textcount = 1;
                                     $(".imagename").find('option').remove().end();
                                     $(".blockname").find('option').remove().end();
                                     $(xml).find('element').each(function () {
@@ -687,7 +806,7 @@ and open the template in the editor.
                             }
 //                                                fontcolor = $(this).attr("font-color");
                             textcount++;
-                                    $(".preview #" + blockId).append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
+                                    $(".preview #" + blockId).append("<textarea orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "EEE" + blockId + "') class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
                                     $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
                                     .css("position", "absolute")
                                     .css("overflow", "hidden")
@@ -728,8 +847,8 @@ and open the template in the editor.
                             }
                             //resize end
 
-
-
+                            var addThis = $("#" + type + "EEE" + blockId).get(0).scrollHeight - $("#" + type + "EEE" + blockId).height();
+                                    $("#" + type + "EEE" + blockId).attr("add-this", addThis);
                             }
 
                             if (tag === "image")
@@ -738,7 +857,7 @@ and open the template in the editor.
                                     var background_image = $(this).attr("background-image")
                                     $(".imagename").append("<option name=" + background_image + " value=" + type + "EEE" + blockId + ">Image " + count + "</option>");
                                     count++;
-                                    $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
+                                    $(".preview #" + blockId).append("<div class=images onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
                                     $("#" + type + "EEE" + blockId)
                                     .css("color", "" + fontcolor)
                                     .css("margin-left", "" + left + "px")
@@ -750,7 +869,8 @@ and open the template in the editor.
                                     .css("height", "" + height)
                                     .css("background", "" + background_image)
                                     .css("background-repeat", "no-repeat")
-                                    .css("background-position", "center center")
+                                    .css("background-position", "50% 50%")
+                                    .css("-webkit-background-size", "cover")
                                     .css("position", "absolute");
                             }
 
@@ -777,12 +897,12 @@ and open the template in the editor.
 
                             if (tag === "button")
                             {
-                            var src_image = $(this).attr("src");
+                            var src_image = $(this).attr("src").replace("../", "");
                                     $(".preview #" + blockId).append("<div><a href=\"#\" data-reveal-id=\"myModal\"><img src='" + src_image + "' buttonLink='" + elementdata + "' id=" + type + "EEE" + blockId + " onclick=getButtonid('" + type + "EEE" + blockId + "') alt='button'/></a>");
                                     $("#" + type + "EEE" + blockId).css("left", "" + left + "px")
                                     .css("position", "absolute")
                                     .css("top", "" + top + "px")
-                                    .attr("src", "buttons/button1.png");
+                                    .attr("src", src_image);
                             }
 
                             if (tag === "block")
@@ -805,9 +925,9 @@ and open the template in the editor.
 //                                                              fontcolor=user_preferences_colors.color+""+i; 
                             }
                             }
-                            $(".blockname").append("<option value=" + type + "EEE" + blockId + ">Block " + blockcount + "</option>")
+                            $(".blockname").append("<option value=" + type + "EEE" + blockId + ">Block " + blockcount + "</option>");
                                     blockcount++;
-                                    $(".preview #" + blockId).append("<div onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
+                                    $(".preview #" + blockId).append("<div class=block onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
                                     $("#" + type + "EEE" + blockId).css("background-color", "" + backgroundcolor)
                                     .css("margin-left", "" + left + "px")
                                     .css("margin-top", "" + top + "px")
@@ -820,31 +940,32 @@ and open the template in the editor.
                             }
 
                             });
-                            if (count == 1){$("#imagecontainer").hide(); }
+                                    if (count == 1){$("#imagecontainer").hide(); }
                             if (blockcount == 1){$("#shapecontainer").hide(); }
                             if (textcount == 1){$("#textcontainer").hide(); }
                             if (count != 1){$("#imagecontainer").show(); }
                             if (blockcount != 1){$("#shapecontainer").show(); }
-                            if (textcount != 1){$("#textcontainer").show();}
+                            if (textcount != 1){$("#textcontainer").show(); }
                             },
-                                    error: function (e)
-                                    {
-                                    alert("error in xml file read");
-                                    }
-                            });
-                    }
+                            error: function (e)
+                            {
+                            alert("error in xml file read");
+                            }
+                    });
+            }
 
         </script>
 
+
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script src="js/crop.js" type="text/javascript"></script>
-
+        <jsp:include page="basejsp.jsp" />
     </head>
-    <body ng-app="myapp">
-        <input type="hidden" id='userlogo'value=<%= logoImageName%>>
+    <body ng-app="myapp" >
+        <input type="hidden" id='userlogo' value=<%= logoImageName%>>
         <input type="hidden" id='userid' value=<%= user_id%>>
         <script src="js/emaileditor.js" type="text/javascript"></script>
-        
+
         <div id="myModal" class="reveal-modal">
             <br />
             <p><strong>Please enter the url:</strong> <input type="text" id="buttonURLText" value=""></p>
@@ -852,27 +973,37 @@ and open the template in the editor.
 
             <a class="close-reveal-modal">&#215;</a>
         </div>
-        
+
+        <a href="#" data-reveal-id="previewpopup1" class="clickpreview" style="display:none;" >Click Me For A Modal</a>
+        <div id="previewpopup1" class="reveal-modal">
+            <div id="previewcontent">
+
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+
+
+        </div>
+
         <a href="#" data-reveal-id="cropper_popup1" class="clickthis" style="display: none;">Click Me For A Modal</a>
-    <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;">
-    <a class="close-reveal-modal">&#215;</a>
-    <div class="imagecropper_header" style="text-align: center;">
+        <div id="cropper_popup1" class="reveal-modal" name="cropper_popup" style="top:10px;">
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="imagecropper_header" style="text-align: center;">
 
-        <h3 class="imagecropper_title">Cropping image</h3>
+                <h3 class="imagecropper_title">Cropping image</h3>
 
-    </div>
-    <div class="crop_image">
-<!--                                        <button class="cropButton">Crop</button>-->
+            </div>
+            <div class="crop_image">
+                <!--                                        <button class="cropButton">Crop</button>-->
 
 
 
-<!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
-    </div>   
+                <!--                                <input id=closepopup onclick=closeCropper() type="Button" value="close"/>-->
+            </div>   
 
-        <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
-        <button class="imagecropper_ok cropButton">Crop</button>
+            <input type="button" class="imagecropper_no" onclick="closeCropper()" value="Skip"/>
+            <button class="imagecropper_ok cropButton">Crop</button>
 
-</div>
+        </div>
 
 
         <div ng-controller="MyController" class="container" id="container"> 
@@ -889,34 +1020,52 @@ and open the template in the editor.
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0">
-                            <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview">preview</p>
 
-                            <div class="sortDelete" style="position:absolute;top:380px; left:-16px;margin: 0px;">
+                            <a href="#" data-reveal-id="fileupload_popup" class="fileclick" style="display:none;">Click Me For A Modal</a>
+                            <div id="fileupload_popup" class="reveal-modal" style="left:110%;">
+                                <a class="close-reveal-modal">abc&#215;</a>
+                                <center>
+                                    <input id="myFile" type="file" name="myFile">
+                                    <input type="button" id="upload" style="margin-left: 35%;" class="button button--moema button--text-thick button--text-upper button--size-s" value="upload">
+                                    <input type="button" id="image1" ng-click="showImages()" value="image1" style="display: none;"><br />
+                                </center>
+                            </div>
+
+                            <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview" class="SP1">preview</p>
+                            <table style="position: absolute; left:10px;">
+                                <tr><td><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
+                                    <td><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
+                                    <td><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td></tr>
+                            </table>
+                            <div class="sortDelete" style="position:absolute;top:380px; left:120px;margin: 0px;">
+
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
                             </div>
-                            <div class="dataForEmail" style="zoom: 0.5;"> 
-                                <div ng-click="showStylesAfterData()" class="preview">
-
-                                </div></div>
-                            <div class="span3 col-md-offset-0" >
+                            <div class="span2 col-md-offset-0" style="position:relative;top:20em;" >
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE">
                                 <br><br>
                                 <script>
-                                                            function showImageName(user_id, image_name){
-                                                            var image_path = "DownloadImage?image_type=GALLERY&image_name=" + image_name + "&user_id=" + user_id + "";
-                                                                    $("#" + $(".imagename").val()).css("background", "url(" + global_host_address + "" + image_path + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
-                                                                    $("#imagespopup").hide();
-                                                                    $(".imagename option:selected").attr("name", "url(" + global_host_address + "" + image_path + ")");
-                                                                    $("#tabs-1").show();
-                                                                    $("#tabs-2").hide();
-                                                                    $("#tabs-3").hide();
-                                                                    $("#tabs-4").hide();
-                                                                    $("#tabs-5").hide();
-                                                            }
+                                                    function showImageName(user_id, image_name){
+                                                    var image_path = "DownloadImage?image_type=GALLERY&image_name=" + image_name + "&user_id=" + user_id + "";
+                                                            $("#" + $(".imagename").val()).css("background", "url(" + global_host_address + "" + image_path + ")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
+                                                            $("#imagespopup").hide();
+                                                            $(".imagename option:selected").attr("name", "url(" + global_host_address + "" + image_path + ")");
+                                                            $("#tabs-1").show();
+                                                            $("#tabs-2").hide();
+                                                            $("#tabs-3").hide();
+                                                            $("#tabs-4").hide();
+                                                            $("#tabs-5").hide();
+                                                    }
                                 </script>
                             </div>
+                            <img id="emailframeimg" src="images/emailframe520x650.png" width="520px" height="650px" style="margin-top:-150px;margin-left:20px;position:absolute;max-height:570px;" >
+                            <div class="dataForEmail" style="position:absolute;left:112px;top:-62px;">
+                                <div ng-click="showStylesAfterData()" class="preview" style="zoom:0.78;max-width:625px;max-height:690px;overflow:auto;overflow-y:auto;overflow-x:hidden;" >
+
+                                </div></div>
+
 
                             <!--                            <div id="imagespopup">
                                                             <div id="content">
@@ -932,7 +1081,7 @@ and open the template in the editor.
                         </div>
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:36px;overflow-y:scroll;width:370px;overflow-x:hidden;">
+                            <div class="well lead editor" id="editor" style="border:none;height:500px;top:100px;left:36px;overflow-y:scroll;width:365px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -950,12 +1099,12 @@ and open the template in the editor.
                                                     <!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px;">
                                                                                                             <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                                                                         </select>-->
-                                                    <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
+                                                    <img id="minusFont" src="images/fontsize.png" class="cursorpointer" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" class="cursorpointer" id="plusFont" alt=""/>
                                                 </li>
 
-                                                <li style="width:100px;">
-                                                    <p id="editorheadere" class="SS1">font Name:</p>
-                                                    <select id="fontname" style="margin: 2px;font-size: 15px;width:80px;color: #3f4042;background-color: #ccc;border-radius:5px;">
+                                                <li style="width:115px;">
+                                                    <p id="editorheadere" class="SS1">font style</p>
+                                                    <select id="fontname" class="editordropdown" >
                                                         <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
                                                     </select>
                                                 </li>
@@ -976,13 +1125,13 @@ and open the template in the editor.
 
                                                     </ul>
                                                 </li>
-                                                <li style="left:-6px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-left alignButton" id="left"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-center alignButton" id="center"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-right alignButton" id="right"></div></li>
-                                                <li><div class="glyphicon glyphicon-plus" id="plus"></div></li>
-                                                <li><div class="glyphicon glyphicon-minus" id="minus"></div></li>
+                                                <li style="left:-10px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
+                                                <li><div class="alignButton cursorpointer" id="justify" style="font-family: Glyphter2;">j</div></li>
+                                                <li><div class="alignButton cursorpointer" id="left" style="font-family: Glyphter2;">B</div></li>
+                                                <li><div class="alignButton cursorpointer" id="center" style="font-family: Glyphter2;">C</div></li>
+                                                <li><div class="alignButton cursorpointer" id="right" style="font-family: Glyphter2;">D</div></li>
+                                                <li><div class="cursorpointer" id="plus" style="font-family: Glyphter2;">A</div></li>
+                                                <li><div class="cursorpointer" id="minus" style="font-family: Glyphter;">E</div></li>
                                             </ul>
 
                                         </div>
@@ -996,38 +1145,44 @@ and open the template in the editor.
 
 
                                                 <li>
-                                                    <select class="blockname LE1" id="editorhead">
-                                                        <option>select</option>
+                                                    <select class="blockname LE1 editordropdown" id="editorhead">
+                                                        <option style="background:#FFF;">select</option>
                                                     </select>
                                                 </li>
 
-                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
-                                                <li><p class="editpal">your palette</p></li>                                                                                         
-                                                <li id="colcontainer">
-                                                    <ul id="colorpalette">
-                                                        <li><div class="blankcolor-box" id="shapecolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
-                                                        <li> <div class="blankcolor-box" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
-                                                        <li>
-                                                    </ul>
-                                                </li>
+                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li ><ul id="openCustomColor">
+                                                        <li><p class="editpal">your palette</p></li>                                                                                         
+                                                        <li id="colcontainer">
+                                                            <ul id="colorpalette">
+                                                                <li><div class="blankcolor-box" id="shapecolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                <li><div class="blankcolor-box" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                <li><div class="blankcolor-box" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                <li><div class="blankcolor-box" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                <li> <div class="blankcolor-box" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                                <li>
+                                                            </ul>
+                                                        </li>
 
-                                                <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p><br></li>
-                                                <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
+                                                        <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
+                                                        <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
+                                                    </ul></li> 
 
 
                                             </ul>
                                         </div>
 
-                                        <div id="imagecontainer">
+                                        <div id="imagecontainer" style="top:45px;">
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
-                                                <li><select class="imagename LE1" id="editorhead"></select></li>
+
+                                                <li><select class="imagename LE1 editordropdown" id="editorhead" style="width:110px;">
+                                                        <option>select</option>
+                                                    </select></li>
+
                                                 <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
-                                                <li><p  class="btn"  onclick="imageEdit()">edit</p></li>
+                                                <li><p  class="btn"  onclick="showfilter()">edit</p></li>
                                                 <li></li>
                                             </ul>
                                         </div>
@@ -1042,6 +1197,8 @@ and open the template in the editor.
                                                 <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vivid</p> </li>
                                                 <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Intense</p> </li>
                                             </ul>
+                                            <p  class="btn" onclick="imageEdit()">CROP</p>
+                                            <p  class="btn" onclick="saveImageEdit()">DONE</p>
                                         </div>
                                         <div id="cropImageContainer" style="display: none">
 
@@ -1068,7 +1225,7 @@ and open the template in the editor.
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
                                                                 <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" />
-                                                                <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
+                                                                <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->                                                            
                                                             </div> 
                                                             <div><p id=''></p></div>
                                                             <div></div><p>&nbsp;</p>
@@ -1103,14 +1260,14 @@ and open the template in the editor.
 
                                     <li id="tabs-3">
                                         <div id="blockcontainer">
-                                            ADD A NEW BLOCK
+                                            <p id="text3" class="SS2">ADD A NEW BLOCK</p>
                                             <div>
                                                 <div style="height:500px;">
-                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:30%;left:30%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
+                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:2%;left:0%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="blocks in datalists">
-                                                            <img id="{{blocks.block_id}}" class="img-responsive blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)" src=""  width=250 height=150 />
+                                                            <img id="{{blocks.block_id}}" class="img-responsive blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)" src=""  width="275" />
                                                             <!--                                                            <div style="background-color: grey;width:300px;height:100px;">
                                                                                                                             
                                                                                                                              <li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>
@@ -1119,10 +1276,11 @@ and open the template in the editor.
                                                                                                                                                                     <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 /> 
                                                                                                                         </div> -->
                                                             <div><p id=''></p></div>
-                                                            <label>{{blocks.block_name}}</label>
+                                                            <label style="font-weight: normal;font-size:16px;">{{blocks.block_name}}</label>
                                                             <div></div><p>&nbsp;</p>
                                                         </li>
                                                     </ul>
+                                                    
 
                                                     <!--                                                    <div class="pagination pagination-centered" ng-show="datalists.length">
                                                                                                             <ul class="pagination-controle pagination">
@@ -1149,20 +1307,31 @@ and open the template in the editor.
                                     </li>
 
                                     <li id="tabs-4">
+                                       
                                         <div ng-controller="MyController" id="MyController" > 
-                                            <p id="text3" style="width: 700px;position: relative;right: 250px;">{{datalists.title}}  </p>
+                                            <p id="text3" style="width: 500px;position: relative;right:145px;">{{datalists.title}}</p><br>
+                                            <ul class="dataheaderfromindbody">
+                        <div class="mindbodyHeaderData LE2" >
+                            <li style="width: 400px;left:-120px;">{{datalists.column_header[0]}}</li>
+                            <li style="width: 250px;left:120px;">{{datalists.column_header[1]}}</li>
+                            <li style="width: 100px;left:300px;">{{datalists.column_header[2]}}</li></div>
+                    </ul>
+                  
+
                                             <div  class="tab-pane active" id="picktheme">
                                                 <div>
 
-                                                    <span style="width: 700px;">
-                                                        <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;right: 250px;">
+                                                    <div style="background-color: #FFF; width: 700px;height: 500px;overflow-x:hidden; overflow-y: scroll; float: right; margin-right: 150px;" >
+
+                                                        <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;">
                                                             <!--                                    {{jsonclass}}-->
-                                                            <div class='mindbodyOneRowData' ng-click="select_category_details(jsonclass.id)">
+                                                            <div class='mindbodyOneRowData' ng-click="select_category_details(jsonclass.id)" >
                                                                 <li style="width: 300px">{{jsonclass.column1}}</li>
                                                                 <li style="width: 200px">{{jsonclass.column2}}</li>
                                                                 <li style="width: 100px">{{jsonclass.column3}}</li>
-                                                        </ul><br><br><br><br>
-                                                    </span>
+                                                            </div>
+                                                        </ul> <br><br><br><br>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -1186,11 +1355,11 @@ and open the template in the editor.
                                         </div> 
                                     </li>
                                     <li id="tabs-5">
-                                        <ul id="imageGallery" style="height: 500px;width: 450px;position: relative;right: 80px;overflow-y:scroll">
+                                        <ul id="imageGallery" style="width:400px;position:relative;right:70px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
-
+                                            <p class="BT2" id="galleryupload">upload image</p>
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
-                                                <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                                <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="275px"/>                                                            
                                             </li>
                                         </ul>
                                         <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
@@ -1198,7 +1367,7 @@ and open the template in the editor.
 
 
                                 </ul>
-
+                                        <div id="loadingGif" style="position: absolute; top:250px;left: 100px;" > <img src="images/YogaLoadingGif.gif" /></div>
                             </div>
                         </div> 
                     </div>
@@ -1208,323 +1377,427 @@ and open the template in the editor.
                 <div id="tabs">
                     <ul class="sidebar-nav" id="sidebar">
                         <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img  id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="40" height="40"><p id="text1">EDIT</p></a></li>
-                        <li id="stl" class="hov"  onclick="hls();"><a href="#tabs-2" id="style" ><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>
-                        <li id="blk" class="hov"  onclick="hlb();"><a href="#tabs-3" id="block" ><img id="blkimg" class="optbtn" src="images/sidebar/Icons_blockButton.svg" alt="" width="40" height="40"  ng-click="showBlocks()"><p id="text1">BLOCK</p></a></li>
+                        <li id="stl" class="hov"  ng-click="showStyles()"><a href="#tabs-2" id="style" ><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ><p id="text1">STYLE</p></a></li>
+                        <li id="blk" class="hov"  ng-click="showBlocks()" ><a href="#tabs-3" id="block" ><img id="blkimg" class="optbtn" src="images/sidebar/Icons_blockButton.svg" alt="" width="40" height="40"><p id="text1">BLOCK</p></a></li>
                         <!--<li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>--> 
                     </ul>
                 </div>
             </div>
-
+      <div id="boxes">
+  <div id="dialog" class="window">
+<!--    Your Content Goes Here
+    <div id="popupfoot"> <a href="#" class="close agree">I agree</a> | <a class="agree" style="color:red;" href="#">I do not agree</a> </div>-->
+  </div>
+  <div id="mask"></div>
+</div>
         </div> 
 
         <script>
-                                            function hle(){
-                                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
-                                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
-                                                    document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
-                                                    document.getElementById('edt').style.backgroundColor = '#fff';
-                                                    document.getElementById('stl').style.backgroundColor = 'transparent';
-                                                    document.getElementById('blk').style.backgroundColor = 'transparent';
-                                            }
-                                    function hls(){
-
-                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
+                                    function hle(){
+                                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
+                                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
                                             document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
-                                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-                                            document.getElementById('edt').style.backgroundColor = 'transparent';
-                                            document.getElementById('stl').style.backgroundColor = '#fff';
+                                            document.getElementById('edt').style.backgroundColor = '#fff';
+                                            document.getElementById('stl').style.backgroundColor = 'transparent';
                                             document.getElementById('blk').style.backgroundColor = 'transparent';
                                     }
-                                    function hlb(){
-                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
-                                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
-                                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-                                            document.getElementById('edt').style.backgroundColor = 'transparent';
-                                            document.getElementById('stl').style.backgroundColor = 'transparent';
-                                            document.getElementById('blk').style.backgroundColor = '#fff';
+                                $("#menu-toggle").click(function (e) {
+                                         e.preventDefault();
+                                        $("#wrapper").toggleClass("active");
+                                    });
+                           function show(id) {
+                                      var getId=id;
+                                      var dynamicStyle,dynamicWidth,dynamicHeight;
+                                      var imageUrl = $("#" + id).css("background-image").replace("url(","").replace(")","");
+                                       var id = '#dialog';
+	
+                                        //Get the screen height and width
+                                        var maskHeight = $(document).height();
+                                        var maskWidth = $(window).width();
+
+                                        //Set heigth and width to mask to fill up the whole screen
+                                        $('#mask').css({'width':maskWidth,'height':maskHeight});
+                                       
+                                        //transition effect
+                                        $('#mask').fadeIn(500);	
+                                        $('#mask').fadeTo("slow",0.9);	
+
+                                        //Get the window height and width
+                                        var winH = $(window).height();
+                                        var winW = $(window).width();
+
+                                        //Set the popup window to center
+                                        $(id).css('top',  winH/2-$(id).height()/2);
+                                        $(id).css('left', winW/2-$(id).width()/2);
+
+                                        //transition effect
+                                        $(id).fadeIn(2000); 	
+
+                                        //if close button is clicked
+                                        $('.window .close').click(function (e) {
+                                        //Cancel the link behavior
+                                        e.preventDefault();
+
+                                        $('#mask').hide();
+                                        $('.window').hide();
+                                        });
+
+                                        //if mask is clicked
+                                        $('#mask').click(function () {
+                                        $(this).hide();
+                                        $('.window').hide();
+                                        });  
+                                        
+                               $.ajax({
+                                        url: getHost() + "PreviewServlet",
+                                        method: "post",
+                                        data: {htmlString: $(".dataForEmail").html()},
+                                        success: function (responseText) {
+//                                        alert(responseText);
+                                      if (getId === "ipad") {
+                                           $('.window').css("top","110px");
+                                           dynamicWidth="420";
+                                           dynamicHeight="520";
+                                           $(".window").empty();
+                                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
+                                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
+                                        $("#imageDivPopup").append("<iframe style='width:768px;height:980px;position:relative;top:-230px;left:-175px;-webkit-transform: scale(0.48);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
+
+                                            
+
+                                            }
+                                     else if (getId === "imac")
+                                        {
+                                            $('.window').css("top","90px");
+                                           dynamicWidth="440";
+                                           dynamicHeight="440";
+                                           $(".window").empty();
+                                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
+                                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
+//                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-50)+"px;height:"+(dynamicHeight-135)+"px;margin-left:25px;position:relative;top:25px ;overflow:scroll;'>"+responseText+"</div>");
+                                        $("#imageDivPopup").append("<iframe style='width:768px;height:620px;position:relative;top:-132px;left:-165px;-webkit-transform: scale(0.5);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
+                                            
+                                        }
+                                    else if(getId === "iphone"){
+                                         $('.window').css("top","110px");
+                                         dynamicWidth="275";
+                                         dynamicHeight="439";
+
+                                        $(".window").empty();
+                                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
+                                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
+//                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-20)+"px;height:"+(dynamicHeight-60)+"px;margin-left:10px;position:relative;top:28px;overflow:scroll;'>"+responseText+"</div>");
+                                         $("#imageDivPopup").append("<iframe style='width:320px;height:480px;position:relative;top:-23px;left:-22px;-webkit-transform: scale(0.78);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
+
+                                        
+                                        }
+                                   }
+            }); 
+            
+    
+    }
+                                  
+                                 
+                                 
+        </script>
+
+        <script>
+
+                            $("#continue").click(function (){
+//                                    alert($(".dataForEmail").html());
+                            $.ajax({
+                            url: getHost() + "SaveKeyValueSessionServlet",
+                                    method: "post",
+                                    data:{
+                                    sessionKey:"htmldata",
+                                            sessionValue: $(".dataForEmail").html()
+                                    },
+                                    success: function (responseText) {
+
+                                    document.location.href = "emailpreview.jsp";
                                     }
 
-
-
-                                    $("#menu-toggle").click(function (e) {
-                                    e.preventDefault();
-                                            $("#wrapper").toggleClass("active");
-                                    });</script>
-
+                            });
+                            });</script>        
         <script>
+                                    //    var selectedDivId;     
+                                    var selectedImageId;
+                                    function getImageid(Id){
+                                    selectedImageId = Id.id;
+                                            $('.imagename').val("" + selectedImageId).trigger('change');
+                                    }
 
-                                      $("#continue").click(function (){
-//                                    alert($(".dataForEmail").html());
-                                            $.ajax({
-                                            url: getHost() + "SaveKeyValueSessionServlet",
-                                                    method: "post",
-                                                    data:{
-                                                    sessionKey:"htmldata",
-                                                            sessionValue: $(".dataForEmail").html()
-                                                    },
-                                                    success: function (responseText) {
-
-                                                    document.location.href = "emailpreview.jsp";
-                                                    }
-
-                                            });
-                                    });        </script>        
-        <script>
-                                            //    var selectedDivId;     
-                                            var selectedImageId;
-                                            function getImageid(Id){
-                                            selectedImageId = Id.id;
-                                                    $('.imagename').val("" + selectedImageId).trigger('change');
-                                            }
-
-                                    window.onload = function () {
-                                    //get elements
-                                    var f = 1,
-                                            cvrt1 = document.getElementById('convert1'),
-                                            cvrt2 = document.getElementById('convert2'),
-                                            cvrt3 = document.getElementById('convert3'),
-                                            cvrt4 = document.getElementById('convert4'),
-                                            cvrt5 = document.getElementById('convert5'),
-                                            cvrt6 = document.getElementById('convert6');
-                                            //button click event
-                                            cvrt1.onclick = function () {
-                                            var image_Id = $('.imagename option:selected').val();
-                                                    $("#" + image_Id).removeClass("ig-valencia")
-                                                    .removeClass("ig-toaster")
-                                                    .removeClass("ig-sutro")
-                                                    .removeClass("ig-kelvin")
-                                                    .removeClass("ig-brannan");
-                                                    $("#" + image_Id).toggleClass("ig-willow");
-                                                    //        if (f) {
-                                                    //            $("#"+image_Id).css("-webkit-filter", "grayscale(100%)");
-                                                    //            f = 0;
-                                                    //        }
-                                                    //        else {
-                                                    //            $("#"+image_Id).css("-webkit-filter", "");
-                                                    //
-                                                    //            f = 1;
-                                                    //
-                                                    //        }
-                                            };
-                                            cvrt2.onclick = function () {
-                                            var image_Id = $('.imagename option:selected').val();
-                                                    $("#" + image_Id).removeClass("ig-toaster")
-                                                    .removeClass("ig-sutro")
-                                                    .removeClass("ig-kelvin")
-                                                    .removeClass("ig-brannan")
-                                                    .removeClass("ig-willow");
-                                                    $("#" + image_Id).toggleClass("ig-valencia");
-                                            };
-                                            cvrt3.onclick = function () {
-                                            var image_Id = $('.imagename option:selected').val();
-                                                    $("#" + image_Id).removeClass("ig-valencia")
-                                                    .removeClass("ig-sutro")
-                                                    .removeClass("ig-kelvin")
-                                                    .removeClass("ig-brannan")
-                                                    .removeClass("ig-willow");
-                                                    $("#" + image_Id).toggleClass("ig-toaster");
-                                            };
-                                            cvrt4.onclick = function () {
-                                            var image_Id = $('.imagename option:selected').val();
-                                                    $("#" + image_Id).removeClass("ig-valencia")
-                                                    .removeClass("ig-toaster")
-                                                    .removeClass("ig-kelvin")
-                                                    .removeClass("ig-brannan")
-                                                    .removeClass("ig-willow");
-                                                    $("#" + image_Id).toggleClass("ig-sutro");
-                                            };
-                                            cvrt5.onclick = function () {
-                                            var image_Id = $('.imagename option:selected').val();
-                                                    $("#" + image_Id).removeClass("ig-valencia")
-                                                    .removeClass("ig-toaster")
-                                                    .removeClass("ig-sutro")
-                                                    .removeClass("ig-brannan")
-                                                    .removeClass("ig-willow");
-                                                    $("#" + image_Id).toggleClass("ig-kelvin");
-                                            };
-                                            cvrt6.onclick = function () {
-                                            var image_Id = $('.imagename option:selected').val();
-                                                    $("#" + image_Id).removeClass("ig-valencia")
-                                                    .removeClass("ig-toaster")
-                                                    .removeClass("ig-sutro")
-                                                    .removeClass("ig-kelvin")
-                                                    .removeClass("ig-willow");
-                                                    $("#" + image_Id).toggleClass("ig-brannan");
-                                            };
+                            window.onload = function () {
+                            //get elements              
+                            var f = 1,
+                                    cvrt1 = document.getElementById('convert1'),
+                                    cvrt2 = document.getElementById('convert2'),
+                                    cvrt3 = document.getElementById('convert3'),
+                                    cvrt4 = document.getElementById('convert4'),
+                                    cvrt5 = document.getElementById('convert5'),
+                                    cvrt6 = document.getElementById('convert6');
+                                    //button click event
+                                    cvrt1.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
+                                            $("#" + image_Id).removeClass("ig-valencia")
+                                            .removeClass("ig-toaster")
+                                            .removeClass("ig-sutro")
+                                            .removeClass("ig-kelvin")
+                                            .removeClass("ig-brannan");
+                                            $("#" + image_Id).toggleClass("ig-willow");
+                                            //        if (f) {
+                                            //            $("#"+image_Id).css("-webkit-filter", "grayscale(100%)");
+                                            //            f = 0;
+                                            //        }
+                                            //        else {
+                                            //            $("#"+image_Id).css("-webkit-filter", "");
+                                            //
+                                            //            f = 1;
+                                            //
+                                            //        }
                                     };
-                                            $(".cross").hide();
-                                            $(".menu").hide();
-                                            $(".hamburger").click(function () {
-                                    $(".menu").slideToggle("slow", function () {
-                                    $(".hamburger").hide();
-                                            $(".cross").show();
-                                    });
-                                    });
-                                            $(".cross").click(function () {
-                                    $(".menu").slideToggle("slow", function () {
-                                    $(".cross").hide();
-                                            $(".hamburger").show();
-                                    });
-                                    });
-                                            //  cropper settings
-                                            // --------------------------------------------------------------------------
+                                    cvrt2.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
+                                            $("#" + image_Id).removeClass("ig-toaster")
+                                            .removeClass("ig-sutro")
+                                            .removeClass("ig-kelvin")
+                                            .removeClass("ig-brannan")
+                                            .removeClass("ig-willow");
+                                            $("#" + image_Id).toggleClass("ig-valencia");
+                                    };
+                                    cvrt3.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
+                                            $("#" + image_Id).removeClass("ig-valencia")
+                                            .removeClass("ig-sutro")
+                                            .removeClass("ig-kelvin")
+                                            .removeClass("ig-brannan")
+                                            .removeClass("ig-willow");
+                                            $("#" + image_Id).toggleClass("ig-toaster");
+                                    };
+                                    cvrt4.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
+                                            $("#" + image_Id).removeClass("ig-valencia")
+                                            .removeClass("ig-toaster")
+                                            .removeClass("ig-kelvin")
+                                            .removeClass("ig-brannan")
+                                            .removeClass("ig-willow");
+                                            $("#" + image_Id).toggleClass("ig-sutro");
+                                    };
+                                    cvrt5.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
+                                            $("#" + image_Id).removeClass("ig-valencia")
+                                            .removeClass("ig-toaster")
+                                            .removeClass("ig-sutro")
+                                            .removeClass("ig-brannan")
+                                            .removeClass("ig-willow");
+                                            $("#" + image_Id).toggleClass("ig-kelvin");
+                                    };
+                                    cvrt6.onclick = function () {
+                                    var image_Id = $('.imagename option:selected').val();
+                                            $("#" + image_Id).removeClass("ig-valencia")
+                                            .removeClass("ig-toaster")
+                                            .removeClass("ig-sutro")
+                                            .removeClass("ig-kelvin")
+                                            .removeClass("ig-willow");
+                                            $("#" + image_Id).toggleClass("ig-brannan");
+                                    };
+                            };
+                                    function showfilter(){
+                                    $("#textcontainer").hide();
+                                            $("#shapecontainer").hide();
+                                            $("#imagecontainer").hide();
+                                            $("#filtercontainer").show();
+                                    }
+                            $(".cross").hide();
+                                    $(".menu").hide();
+                                    $(".hamburger").click(function () {
+                            $(".menu").slideToggle("slow", function () {
+                            $(".hamburger").hide();
+                                    $(".cross").show();
+                            });
+                            });
+                                    $(".cross").click(function () {
+                            $(".menu").slideToggle("slow", function () {
+                            $(".cross").hide();
+                                    $(".hamburger").show();
+                            });
+                            });
+                                    //  cropper settings
+                                    // --------------------------------------------------------------------------
 
-                                            // create new object crop
-                                            // you may change the "one" variable to anything
+                                    // create new object crop
+                                    // you may change the "one" variable to anything
 
 
-                                            //  on click of button, crop the image
-                                            // --------------------------------------------------------------------------
+                                    //  on click of button, crop the image
+                                    // --------------------------------------------------------------------------
 
-                                            $('body').on("click", "button", function() {
+                                    $('body').on("click", "button", function() {
 
-                                    // grab width and height of .crop-img for canvas
-                                    var width = $('.crop-container').width() - 80, // new image width
-                                            height = $('.crop-container').height() - 80; // new image height
+                            // grab width and height of .crop-img for canvas
+                            var width = $('.crop-container').width() - 80, // new image width
+                                    height = $('.crop-container').height() - 80; // new image height
 
-                                            $('canvas').remove();
-                                            $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');
-                                            var ctx = document.getElementById('canvas').getContext('2d'),
-                                            img = new Image,
-                                            w = coordinates(one).w,
-                                            h = coordinates(one).h,
-                                            x = coordinates(one).x,
-                                            y = coordinates(one).y;
-                                            img.src = coordinates(one).image;
-                                            img.onload = function() {
+                                    $('canvas').remove();
+                                    $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');
+                                    var ctx = document.getElementById('canvas').getContext('2d'),
+                                    img = new Image,
+                                    w = coordinates(one).w,
+                                    h = coordinates(one).h,
+                                    x = coordinates(one).x,
+                                    y = coordinates(one).y;
+                                    img.src = coordinates(one).image;
+                                    img.onload = function() {
 
-                                            // draw image
-                                            ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
-                                                    //                                    alert( img.src);
-                                                    // display canvas image
-                                                    $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
-                                                    // save the image to server
-                                                    var canvass = document.getElementById("canvas");
-                                                    var dataURL = canvass.toDataURL();
-                                                    //                                            alert(dataURL);
-                                                    var cropped_image = {"image": "image"};
-                                                    $.ajax({
-                                                    url: global_host_address + 'CropImage',
-                                                            method: 'post',
-                                                            data: { image: dataURL},
-                                                            success: function (responseText) {
-                                                            var image_Id = $('.imagename option:selected').val();
-                                                                    $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-repeat", "no-repeat").css("background-position", "center center");
-                                                                    //$("#cropper_popup").hide();
-                                                                    $(".close-reveal-modal").click();
-                                                            }
-                                                    });
-                                            }
-                                    //                                    alert(data+""+data.url);
+                                    // draw image
+                                    ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
+                                            //                                    alert( img.src);
+                                            // display canvas image
+                                            $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
+                                            // save the image to server
+                                            var canvass = document.getElementById("canvas");
+                                            var dataURL = canvass.toDataURL();
+                                            //                                            alert(dataURL);
+                                            var cropped_image = {"image": "image"};
+                                            $.ajax({
+                                            url: global_host_address + 'CropImage',
+                                                    method: 'post',
+                                                    data: { image: dataURL},
+                                                    success: function (responseText) {
+                                                    var image_Id = $('.imagename option:selected').val();
+                                                            $("#" + image_Id).css("background", "url(images/temp_image/" + responseText + ")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
+                                                            //$("#cropper_popup").hide();
+                                                            $(".close-reveal-modal").click();
+                                                    }
+                                            });
+                                    }
+                            //                                    alert(data+""+data.url);
 
-                                    });
-                                            //  on click of .upload class, open .uploadfile (input file)
-                                            // --------------------------------------------------------------------------
+                            });
+                                    //  on click of .upload class, open .uploadfile (input file)
+                                    // --------------------------------------------------------------------------
 
-                                            //		$('body').on("click", ".newupload", function() {
-                                            //		    $('.uploadfile').click();
-                                            //		});
+                                    //		$('body').on("click", ".newupload", function() {
+                                    //		    $('.uploadfile').click();
+                                    //		});
 
-                                            // on input[type="file"] change
-                                            oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
-                                            var i = 1;
-                                            var id;
-                                            one = new CROP();
-                                            $("#selectimage").click(function(){
-                                    var image_file = global_host_address + $("#image_name").val();
-                                            $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
-                                            $("#imagespopup").hide();
-                                    });
-                                            function imageEdit() {
-                                                
-                                             $("#textcontainer").hide();
+                                    // on input[type="file"] change
+                                    oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+                                    var i = 1;
+                                    var id;
+                                    one = new CROP();
+                                    $("#selectimage").click(function(){
+                            var image_file = global_host_address + $("#image_name").val();
+                                    $("#" + selectedImageId).css("background", "url(" + image_file + ")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
+                                    $("#imagespopup").hide();
+                            });
+                                    function imageEdit() {
+                                    $("#textcontainer").hide();
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();
 //                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
-                                           
-                                            $("#filtercontainer").show();
-                                            $("#cropImageContainer").show();
-
-                
-                                        var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
-                                        id = "image" + i;
-                                       // $("#cropper_popup").show();
-                                        $(".clickthis").click();
+                                            var imageId = $(".imagename option:selected").val();
+                                            var imageWidth = $("#" + imageId).css("width").replace("px", "");
+                                            var imageHeight = $("#" + imageId).css("height").replace("px", "");
+                                            $("#crompIageContainer").show();
+                                            var image_file = $(".imagename option:selected").attr("name").replace("url(", "").replace(")", "");
+//                                        alert(image_file);
+                                            id = "image" + i;
+                                            // $("#cropper_popup").show();
+                                            $(".clickthis").click();
 //                                        $('#cropper_popup').draggable();
 //                                        $("#cropper_popup").resizable();
 
 //                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
 
-                                        $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
-
+                                            $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div></div>');
                                             i = i + 1;
+                                            one.init('.crop_image');
+                                            // load image into crop
+                                            one.loadImg(image_file);
+                                            $("#imagespopup").hide();
+                                            if (imageWidth > 350 && imageWidth <= 700){
+                                    $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.7").css("aline", "center");
+                                            $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
+                                    }
+                                    else if (imageWidth > 700 && imageWidth <= 1050){
+                                    $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.5").css("aline", "center");
+                                            $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
+                                    }
+                                    else if (imageWidth > 1050 && imageWidth <= 1400){
+                                    $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.34").css("aline", "center");
+                                            $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
+                                    }
+                                    else if (imageWidth > 1400 && imageWidth <= 1800){
+                                    $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.25").css("aline", "center");
+                                            $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
+                                    }
+                                    else if (imageWidth > 1800){
+                                    $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.2").css("aline", "center");
+                                            $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
+                                    }
+                                    }
 
-                                        one.init('.crop_image');
-                                        // load image into crop
-                                        one.loadImg(image_file);
-                                        $("#imagespopup").hide();
-                                            }
 
 
+                            $('.uploadfile').change(function() {
+                            $("#cropper_popup").show();
+                                    $('#cropper_popup').draggable();
+                                    $("#cropper_popup").resizable();
+                                    loadImageFile($('.uploadfile').val());
+                                    // resets input file
+                                    $('.uploadfile').wrap('<form>').closest('form').get(0).reset();
+                                    $('.uploadfile').unwrap();
+                                    $("#popup").hide();
+                            });
+                                    //  get input type=file IMG through base64 and send it to the cropper
+                                            // --------------------------------------------------------------------------
 
-                                    $('.uploadfile').change(function() {
-                                    $("#cropper_popup").show();
-                                            $('#cropper_popup').draggable();
-                                            $("#cropper_popup").resizable();
-                                            loadImageFile($('.uploadfile').val());
-                                            // resets input file
-                                            $('.uploadfile').wrap('<form>').closest('form').get(0).reset();
-                                            $('.uploadfile').unwrap();
-                                            $("#popup").hide();
-                                    });
-                                            //  get input type=file IMG through base64 and send it to the cropper
-                                                    // --------------------------------------------------------------------------
+                                                    //                                    oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
 
-                                                            //                                    oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+                                                            //                                    function loadImageFileFromUser(image_file) {
+                                                                    //
+                                                                            //                                    if (document.getElementById("uploadfile").files.length === 0) return;
+                                                                                    //                                            var oFile = document.getElementById("uploadfile").files[0];
+                                                                                            //                                            if (!rFilter.test(oFile.type)) {
+                                                                                                    //                                            return;
+                                                                                                            //                                            }
+                                                                                                                    //
+                                                                                                                            //                                    oFReader.readAsDataURL(oFile);
+                                                                                                                                    //                                    }
 
-                                                                    //                                    function loadImageFileFromUser(image_file) {
-                                                                            //
-                                                                                    //                                    if (document.getElementById("uploadfile").files.length === 0) return;
-                                                                                            //                                            var oFile = document.getElementById("uploadfile").files[0];
-                                                                                                    //                                            if (!rFilter.test(oFile.type)) {
-                                                                                                            //                                            return;
-                                                                                                                    //                                            }
-                                                                                                                            //
-                                                                                                                                    //                                    oFReader.readAsDataURL(oFile);
-                                                                                                                                            //                                    }
+                                                                                                                                            function loadImageFile() {
 
-                                                                                                                                                    function loadImageFile() {
+                                                                                                                                            if (document.getElementById("uploadfile").files.length === 0) return;
+                                                                                                                                                    var oFile = document.getElementById("uploadfile").files[0];
+                                                                                                                                                    if (!rFilter.test(oFile.type)) {
+                                                                                                                                            return;
+                                                                                                                                            }
+                                                                                                                                            oFReader.readAsDataURL(oFile);
+                                                                                                                                                    //                            alert(oFile.valueOf());
+                                                                                                                                                    $("#" + selectedImageId).css("backgroung-image", "url(" + oFile + ")");
+                                                                                                                                            }
 
-                                                                                                                                                    if (document.getElementById("uploadfile").files.length === 0) return;
-                                                                                                                                                            var oFile = document.getElementById("uploadfile").files[0];
-                                                                                                                                                            if (!rFilter.test(oFile.type)) {
-                                                                                                                                                    return;
-                                                                                                                                                    }
-                                                                                                                                                    oFReader.readAsDataURL(oFile);
-                                                                                                                                                            //                            alert(oFile.valueOf());
-                                                                                                                                                            $("#" + selectedImageId).css("backgroung-image", "url(" + oFile + ")");
-                                                                                                                                                    }
-
-                                                                                                                                            oFReader.onload = function (oFREvent) {
-                                                                                                                                            $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div><button class="cropButton">Crop</button><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
-                                                                                                                                                    $('.crop_image').draggable();
-                                                                                                                                                    $(".crop_image").resizable();
-                                                                                                                                                    one = new CROP();
-                                                                                                                                                    // link the .default class to the crop function
-                                                                                                                                                    one.init('.crop_image');
-                                                                                                                                                    // load image into crop
-                                                                                                                                                    one.loadImg(oFREvent.target.result);
-                                                                                                                                            };</script>  
+                                                                                                                                    oFReader.onload = function (oFREvent) {
+                                                                                                                                    $('.crop_image').html('<div class="default"><div class="cropMain"></div><div class="cropSlider"></div><button class="cropButton">Crop</button><input id=closepopup onclick=closeCropper() type="Button" value="close"/>  </div>');
+                                                                                                                                            $('.crop_image').draggable();
+                                                                                                                                            $(".crop_image").resizable();
+                                                                                                                                            one = new CROP();
+                                                                                                                                            // link the .default class to the crop function
+                                                                                                                                            one.init('.crop_image');
+                                                                                                                                            // load image into crop
+                                                                                                                                            one.loadImg(oFREvent.target.result);
+                                                                                                                                    };</script>  
 
         <script>
 
-                                                                                                                                                    //  get input type=file IMG through base64 and send it to the cropper
-                                                                                                                                                            // --------------------------------------------------------------------------
-                                                                                                                                                                    function closeCropper(){
-                                                                                                                                                                    $("#popup").hide();
-                                                                                                                                                                            //$("#cropper_popup").hide();
-                                                                                                                                                                            $(".close-reveal-modal").click();
-                                                                                                                                                                    }
+                                                                                                                                            //  get input type=file IMG through base64 and send it to the cropper
+                                                                                                                                                    // --------------------------------------------------------------------------
+                                                                                                                                                            function closeCropper(){
+                                                                                                                                                            $("#popup").hide();
+                                                                                                                                                                    //$("#cropper_popup").hide();
+                                                                                                                                                                    $(".close-reveal-modal").click();
+                                                                                                                                                            }
 
 //                                                                                                                                                            $("#openImageDialog").click(function(){
 //                                                                                                                                                                
@@ -1536,15 +1809,15 @@ and open the template in the editor.
 //                                                                                                                                                                    $("#tabs-5").show().css("width", "430px").show("slide", { direction: "right" }, 1000);
 //                                                                                                                                                                
 //                                                                                                                                                            });
-                                                                                                                                                            $("#closepopup").click(function(){
-                                                                                                                                                            $("#popup").hide();
-                                                                                                                                                                    //$("#cropper_popup").hide();
-                                                                                                                                                                    $(".close-reveal-modal").click();
-                                                                                                                                                            });
-                                                                                                                                                                    $("#UserUploadedImages").click(function(){
-                                                                                                                                                            $("#popup").hide();
-                                                                                                                                                                    $("#imagespopup").show();
-                                                                                                                                                            });
+                                                                                                                                                    $("#closepopup").click(function(){
+                                                                                                                                                    $("#popup").hide();
+                                                                                                                                                            //$("#cropper_popup").hide();
+                                                                                                                                                            $(".close-reveal-modal").click();
+                                                                                                                                                    });
+                                                                                                                                                            $("#UserUploadedImages").click(function(){
+                                                                                                                                                    $("#popup").hide();
+                                                                                                                                                            $("#imagespopup").show();
+                                                                                                                                                    });
 //                                                                                                                                                             $("#closeimagespopup").click(function(){
 ////                                                                                                                                                                     $("#imagespopup").hide();
 //                                                                                                                                                                    $("#tabs-1").show();
@@ -1553,10 +1826,10 @@ and open the template in the editor.
 //                                                                                                                                                                    $("#tabs-4").hide();
 //                                                                                                                                                                    $("#tabs-5").hide();
 //                                                                                                                                                                });
-                                                                                                                                                                    $("#close_cropper_popup").click(function(){
-                                                                                                                                                            //$("#cropper_popup").hide();
-                                                                                                                                                            $(".close-reveal-modal").click();
-                                                                                                                                                            });
+                                                                                                                                                            $("#close_cropper_popup").click(function(){
+                                                                                                                                                    //$("#cropper_popup").hide();
+                                                                                                                                                    $(".close-reveal-modal").click();
+                                                                                                                                                    });
 
 
         </script>  

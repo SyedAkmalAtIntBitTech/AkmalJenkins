@@ -31,7 +31,7 @@
        <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
         <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
          <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        <jsp:include page="basejsp.jsp" />
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>

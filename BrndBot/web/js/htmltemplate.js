@@ -50,10 +50,10 @@ function htmlController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("Organization already exist");
+                    alert("HTML already exist");
                     $("#organizationname").focus();
                 } else if (data === "true") {
-                    alert("Organization saved successfully");
+                    alert("HTML saved successfully");
                     window.open(getHost() + 'admin/addhtmltemplate.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -134,12 +134,15 @@ $(function(){
    {
        var selectedmodelname = $("#modelname").find('option:selected').text()
        $.ajax({
-       type: 'POST',
+       type: 'GET',
        url: "/BrndBot/ServletDisplayLayoutHTML",
-       dataType: 'text',
+       dataType: 'json',
        data : { modelname : selectedmodelname },
        success: function (data) {
-           $("#html_content").val(data);
+           
+           $("#html_div_content").val(data[0].div);
+           $("#html_content").val(data[0].table);
+           
        },
        error: function(xhr, ajaxOptions, thrownError){
            
@@ -147,6 +150,7 @@ $(function(){
        }
        
     });
+    
    });
 });
 

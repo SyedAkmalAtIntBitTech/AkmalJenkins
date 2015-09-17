@@ -295,7 +295,8 @@
                         }finally{
                             result_set.close();
                             prepared_statement.close();
-                        }}
+                        }
+                     }
                      finally{
                          ConnectionManager.getInstance().closeConnection(connection);
                      }

@@ -15,6 +15,7 @@ and open the template in the editor.
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/main1.css">
         <script type="text/javascript" src="js/angular.min.js"></script>
+        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
 
         <script>
@@ -47,37 +48,42 @@ and open the template in the editor.
                 };
 
                 $scope.getActivation = function () {
+                    
+                    
+                   
                     var siteid = $("#inputstudio").val();
+                    
+                    if (siteid != ""){
+                        var studio = {"studioid": siteid, "query": "activationlink"};
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'MindBodyDataServlet?studioid='+siteid+'&query=activationlink',
+                        }).success(function (data)
+                        {
+                            var mindbody_data = JSON.stringify(data);
+                            if (mindbody_data.activation_link !== "") {
+                                $scope.mindbodyactivation = mindbody_data.activation_link;
+                                $("#studiobuttoncontinue").attr("disabled", false);
+                                $("#para").show();
+                            } else if (mindbody_data.activation_link === "") {
+                                $scope.mindbodyactivation = "Invalid Studio id.";
+                            } else if (data === error) {
+                                alert(data);
+                            }
+                            $scope.status = data;
 
-                    var studio = {"studioid": siteid, "query": "activationlink"};
-                    $http({
-                        method: 'POST',
-                        url: getHost() + 'MindBodyDataServlet?studioid='+siteid+'&query=activationlink',
-                    }).success(function (data)
-                    {
-                        var mindbody_data = JSON.stringify(data);
-                        if (mindbody_data.activation_link !== "") {
-                            $scope.mindbodyactivation = mindbody_data.activation_link;
-                            $("#studiobuttoncontinue").attr("disabled", false);
-                        } else if (mindbody_data.activation_link === "") {
-                            $scope.mindbodyactivation = "Invalid Studio id.";
-                        } else if (data === error) {
-                            alert(data);
-                        }
-                        $scope.status = data;
+                        }).error(function (data, status) {
+                                    // called asynchronously if an error occurs
+                                    // or server returns response with an error status.
+
+                            alert("request not succesful");
+                        });
                         
-//                        if (data != ""){
-////                            window.open(getHost()+'chooselook.jsp',"_self");
-//                        }else{
-//                            alert(data);
-//                        }
-                    })
-                            .error(function (data, status) {
-                                // called asynchronously if an error occurs
-                                // or server returns response with an error status.
+                    }else {
+                        alert("site id not entered, please enter the site id");
+                        $("#inputstudio").focus();
+                    }
 
-                                alert("request not succesful");
-                            });
                 };
             };
 
@@ -100,14 +106,14 @@ and open the template in the editor.
         <div class="container">
             <div id="contentdiv" class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <p id="comment1">Please enter your MINDBODY studio ID:</p>
-                    <p class="commentlin">Please enter your 4 digit MINDBODY studio ID.</p>
+                    <p id="comment1" class="MH2">Please enter your MINDBODY studio ID:</p>
+                    <p class="commentlin BC1" >Please enter your 4 digit MINDBODY studio ID.</p>
                 </div>
                 <form ng-controller="studioController" class="form-horizontal">
                     <div id="std"><div class="col-md-3 col-md-offset-4 group1">
                              <input id="inputstudio" name="inputstudio" class="form-control simplebox" type="text" required><br>
                              <label>STUDIO ID</label>
-                            <div><a href="{{status.activation_link}}">{{status.activation_link}}</a></div><br>
+                             <div><p id="para" style="display:none;">click here to activate mindbody</p> <a target="_blank" href="{{status.activation_link}}">{{status.activation_link}}</a></div><br>
                         </div></div>
              
                     <!--                    {{status}}-->

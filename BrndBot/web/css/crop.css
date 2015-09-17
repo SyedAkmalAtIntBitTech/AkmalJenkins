@@ -105,6 +105,9 @@
 .cropSlider .noUi-origin-lower {
 	background-color:#eee;
 }
+.noUi-origin .noUi-origin-lower{
+     background-color:red;
+}
 .cropSlider .noUi-origin .noUi-origin-lower {
     background-color:red;
 }

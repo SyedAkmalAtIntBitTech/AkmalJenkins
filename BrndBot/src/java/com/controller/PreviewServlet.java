@@ -6,6 +6,9 @@
 package com.controller;
 
 import com.divtohtml.ConvertDivToHTML;
+import com.intbit.AppConstants;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
@@ -37,6 +40,13 @@ public class PreviewServlet extends BrndBotBaseHttpServlet {
 
             String htmlString = request.getParameter("htmlString");
             htmlString = convertDivToHTML.getResponsiveHTMLFromDiv(htmlString);
+
+            File emailTemplateFile = new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator + "emailhtmltemplate.html");
+
+            FileWriter emailTemplateWriter = new FileWriter(emailTemplateFile, false); // true to append
+            // false to overwrite.
+            emailTemplateWriter.write(htmlString);
+            emailTemplateWriter.close();
 
 //            htmlString = "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">\n"
 //                    + "                <tr onclick=\"getBlockId(defaultblock1)\" id=\"defaultblock1\" name=\"72194\" style=\"width: 671px; height: 338px;\">\n"
@@ -75,7 +85,6 @@ public class PreviewServlet extends BrndBotBaseHttpServlet {
 //                    + "                    </td>\n"
 //                    + "                </tr>\n"
 //                    + "            </table>";
-            response.getWriter().write("<html><head><title>this is test</title><body>" + htmlString + "</body></head></html>");
             response.getWriter().write(htmlString);
         } catch (Exception ex) {
             logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while creating the responsive html:", getSqlMethodsInstance().error));

@@ -91,9 +91,13 @@ and open the template in the editor.
     margin-left: 5px;
 }
 
-
+.menu li{
+    height:20px;
+    margin-top: 0px;
+}
 .menu li p{
     margin-left: 5px;
+   
 }
 .menu a{
     position: relative;

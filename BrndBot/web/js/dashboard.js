@@ -77,35 +77,35 @@ angular.module("myapp", [])
                 });
                         
                 if (CatID === 1) { 
-                    $("#subpromotelist").css("position","relative").css("left", "-80px").css("top", "-10px").css("width","100px");
+                    $("#subpromotelist").css("position","relative").css("left", "-77px").css("top", "-10px").css("width","100px");
                 }
                 else if (CatID === 2) {
-                    $("#subpromotelist").css("position","relative").css("left", "30px").css("top", "-10px");
+                    $("#subpromotelist").css("position","relative").css("left", "60px").css("top", "-10px");
                 }
                 else if (CatID === 3) {
-                    $("#subpromotelist").css("position","relative").css("left", "140px").css("top", "-10px");
+                    $("#subpromotelist").css("position","relative").css("left", "195px").css("top", "-10px");
                 }
                 else if (CatID === 4) {
-                    $("#subpromotelist").css("position","relative").css("left", "250px").css("top", "-10px");
+                    $("#subpromotelist").css("position","relative").css("left", "330px").css("top", "-10px");
                 }
                 else if (CatID === 5) {
-                    $("#subpromotelist").css("position","relative").css("left", "370px").css("top", "-10px");
+                    $("#subpromotelist").css("position","relative").css("left", "465px").css("top", "-10px");
                 }
                 else if (CatID === 6) {
-                    $("#subpromotelist").css("position","relative").css("left", "470px").css("top", "-10px");
+                    $("#subpromotelist").css("position","relative").css("left", "600px").css("top", "-10px");
                 }
                 else if (CatID === 7) {
-                    $("#subpromotelist").css("position","relative").css("left", "30px").css("top", "-10px");
+                    $("#subpromotelist").css("position","relative").css("left", "200px").css("top", "-10px");
                 }
 
                 else if (CatID === 8) {
-                    $("#subpromotelist").css("position","relative").css("left", "150px").css("top", "10px");
+                    $("#subpromotelist").css("position","relative").css("left", "330px").css("top", "-10px");
                 }
                 else if (CatID === 9) {
-                    $("#subpromotelist").css("position","relative").css("left", "270px").css("top", "10px");
+                    $("#subpromotelist").css("position","relative").css("left", "460px").css("top", "-10px");
                 }
                 else if (CatID === 10) {
-                    $("#subpromotelist").css("position","relative").css("left", "385px").css("top", "10px");
+                    $("#subpromotelist").css("position","relative").css("left", "600px").css("top", "-10px");
                 }
                 else if (CatID === 11) {
                     $("#subpromotelist").css("position","relative").css("left", "510px").css("top", "10px");

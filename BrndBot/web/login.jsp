@@ -6,10 +6,12 @@
 <!DOCTYPE html>
 <html ng-app>
     <head>
+         <%@ include file="fonttypekit.jsp"%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="js/configurations.js"></script>
         <script src="js/form.js"></script>
+
         <script type="text/javascript" src="js/angular.min.js"></script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> 
@@ -27,7 +29,7 @@
                 top:-2.15em;
             }
         </style>
-        
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body class="container">
         <div id="signupdiv">
@@ -36,7 +38,7 @@
             <form class="form-horizontal" id="signform" ng-controller="loginController" ng-submit="checkUser()" >
                 <div class="group">
                     <div class="col-md-3 col-md-offset-5">                            
-                        <p class="text-left">Login</p>
+                        <p class="MH2">Login</p>
                     </div>
                 </div>
 
@@ -56,8 +58,9 @@
 
                 <div  class="form-group">
                     <div class="col-md-5 col-md-offset-5">
-                        <button style="left:-10px;" type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Login</button><br><br>
-                        <br><br><p><a href="<%= application.getContextPath()%>/resetpassword.jsp">Forgot password</a></p>
+                        <button style="left:-10px;" type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Login</button></div>
+                    <div class="col-md-5 col-md-offset-5"><br><br>
+                        <p><a href="<%= application.getContextPath()%>/resetpassword.jsp">Forgot password</a></p>
                         <p class="sgnup"><a href="signup.jsp">Sign up</a></p>
                     </div>
                 </div>

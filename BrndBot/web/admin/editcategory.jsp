@@ -42,7 +42,7 @@
 
     <%
             String category_id = request.getParameter("category_id");
-            String category_name = request.getParameter("category_name");
+            String category_name = request.getParameter("category_name").trim();
             String organization_id = request.getParameter("organization_id");
     %>
     <body ng-app>

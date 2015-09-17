@@ -33,6 +33,7 @@
     <head>
         <title>look_chooser</title>
         <meta charset="UTF-8">
+         <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
@@ -43,7 +44,7 @@
         <script src="js/angular.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/main1.css">
          <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+       
 
         <script>
             var elementid1;
@@ -92,6 +93,7 @@
                 });
             });        
          </script>
+         <jsp:include page="basejsp.jsp" />
     </head>
 
     <body ng-app="myapp" >
@@ -99,8 +101,8 @@
 
             <div id="contentdiv" class="row">
                 <div  class="span3 col-md-offset-1 ">
-                    <p id="comment1" class="lookcomment1">Please choose a “look” for your company</p></<br>
-                    <p class="commentlin cmlinpos span3 col-md-offset-1">These are the looks we found for Yoga Studios. Please choose one-- don't worry if it is not exact!<br>
+                    <p style="left:13%;" id="comment1" class="lookcomment1 MH2">Please choose a “look” for your company</p></<br>
+                    <p class="BC2 commentlin cmlinpos span3 col-md-offset-1">These are the looks we found for Yoga Studios. Please choose one-- don't worry if it is not exact!<br>
                         We know every company’s look is different and we just use this as a starting point.</p>
                 </div>
                 <div class="row col-md-offset-2" >
@@ -108,13 +110,13 @@
                         {{first}}
                         <div class="col-md-12 step_wrapper">
 
-                            <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
-                                <img id="{{first.id}}" class="img-responsive lookchooser1 " src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}" onclick="showText({{first.id}})" width=250 height=150 />
+                            <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 2px; margin-left: 20px; margin-bottom: 10px;padding:5px;">
+                                <img id="{{first.id}}" class="img-responsive lookchooser1 " src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}" onclick="showText({{first.id}})" width=250 height=150 style="margin-left: 0px;" />
                             </div>
 
                             <div class="col-md-12"></div>
-                            <div class="col-md-2 step_box" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
-                                <img id="{{second.id}}" class="img-responsive lookchooser1" src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{second.file_name}}" onclick="showText({{second.id}})" width=250 height=150 />
+                            <div class="col-md-2 step_box" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 2px; margin-left: 20px; margin-bottom: 10px;padding:5px;">
+                                <img id="{{second.id}}" class="img-responsive lookchooser1" src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{second.file_name}}" onclick="showText({{second.id}})" width=250 height=150 style="margin-left: 0px;"/>
 
                             </div>
 
@@ -124,7 +126,7 @@
                                 <div  class="form-group">
                                     <input type="hidden" name="lookid" id="lookid">
                                     <div class="span3 col-md-offset-0 ">
-                                        <button id="loochooserbutton" type="submit" onclick="sendLookID()" class="button button--moema button--text-thick button--text-upper button--size-s">CONTINUE</button><br><br><br>
+                                        <button id="loochooserbutton" type="submit" onclick="sendLookID()" class="button button--moema button--text-thick button--text-upper button--size-s" style="cursor:auto;">CONTINUE</button><br><br><br>
                                     </div>
                                 </div>
                             </div>
