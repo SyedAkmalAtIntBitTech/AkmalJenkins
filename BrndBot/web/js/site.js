@@ -49,7 +49,7 @@ $(document).ready(function () {
     $("#adminBackgroundImage").change(function(){
         
          $("#" + selectedTextID).css('background', "url('/BrndBot/DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&image_name=" + $("#adminBackgroundImage").val() + "')");
-            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
     });
     
     $(".basic").spectrum({
@@ -285,7 +285,7 @@ $(document).ready(function () {
         $("#lineHeight").spinner({
             min: 5,
             max: 100,
-            step: 5,
+            step: 2,
             change: leading,
             stop: leading
         });
@@ -499,7 +499,7 @@ $(document).ready(function () {
 
         
         if ((selectedtype == "selected")){
-        
+        var host = getHost();
         $(".container").append("<div class=\"draggableButton\"><img src=\"../admin/buttons/FilledButton_White.png\" id=\"" + $("#elementText").find('option:selected').text() + "\"></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
         addButtonCount++;
@@ -507,8 +507,9 @@ $(document).ready(function () {
         reloadTabs(2);
         addDefault();
         $("#buttonSelect").change(function () {
+            
             //alert("buttons/button"+$("#buttonSelect").val());
-            $("#" + selectedTextID).attr('src', "buttons/" + $("#buttonSelect").val());
+            $("#" + selectedTextID).attr('src', "../admin/buttons/" + $("#buttonSelect").val());
 
         });
 
@@ -562,9 +563,9 @@ $(document).ready(function () {
 
         addImageCount++;
         addElements($("#elementText").find('option:selected').text());
-        $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("background-position", "center center");                                    
+        $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");                                    
         $("#" + selectedTextID).css("width", "100px");
-        $("#" + selectedTextID).css("height", "100px").css("border","1px solid black").css("object-fit","fill");
+        $("#" + selectedTextID).css("height", "100px").css("border","1px solid black");
         addDefault();
         reloadTabs(1);
 
@@ -614,7 +615,7 @@ $(document).ready(function () {
         });
         $("#fileButton").click(function () {
             $("#" + selectedTextID).css('background', "url('" + $("#filePath").val() + "')");
-            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
         });
         $(function () {
             function blendColor() {
@@ -1015,7 +1016,7 @@ $(document).ready(function () {
         $("#fileButton").click(function () {
             $("#" + selectedTextID).css('background', "url('" + $("#filePath").val() + "')");
            
-            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "center center");
+            $("#" + selectedTextID).css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
         });
         $(function () {
             function blendColor() {
@@ -1129,31 +1130,30 @@ function addDefault() {
     var block_mindbody_query = $("#mindbodyquery").val();
 //   alert($("#mindbodyquery").val());
 
-//Make change in site.js, MindBodyDataServlet and MindBodyConstants
+//Make change in site.js, MindBodyDataServlet, MindbodyDetailServlet and MindBodyConstants
     var mindbody_xml_url = "";
-    if (block_mindbody_query !== "null") {
-        //Make change in MindBodyDataServlet too
-        if (block_mindbody_query.toLowerCase().contains("class") || block_mindbody_query.toLowerCase().contains("classes")) {
-            mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
-        } else if (block_mindbody_query.toLowerCase().contains("work shop") || block_mindbody_query.contains("workshop")) {
-            mindbody_xml_url = "admin/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
-        } else if (block_mindbody_query.toLowerCase().contains("staff")) {
-            mindbody_xml_url = "admin/layoutmodelxml/mindbodystaffdatapoints.xml";
-        }
-    } else {
-        mindbody_xml_url = "admin/layoutmodelxml/nodatapoints.xml";
-        $(".form-control").prop("disabled", true);
-    }
-
-
-    if (sub_category_type_text.toLowerCase().contains("work")) {
-        mindbody_xml_url = "admin/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
-    } else if (sub_category_type_text.toLowerCase().contains("class")) {
-        mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
+    var query = "";
+    if (block_mindbody_query !== "null" && block_mindbody_query !== "") {
+        query = block_mindbody_query.toLowerCase();
     } 
-    if (categories.toLowerCase().contains("announcement")){
-        mindbody_xml_url = "admin/layoutmodelxml/nodatapoints.xml";
+    if (sub_category_type_text !== "null" && sub_category_type_text !== "Select"){
+        query = sub_category_type_text.toLowerCase();
+        
     }
+    
+    //Make change in MindBodyDataServlet too
+        if (query.contains("class") || query.toLowerCase().contains("classes")) {
+            mindbody_xml_url = "admin/layoutmodelxml/mindbodyclassdatapoints.xml";
+        } else if (query.toLowerCase().contains("work shop") || query.contains("workshop")) {
+            mindbody_xml_url = "admin/layoutmodelxml/mindbodyenrollmentsdatapoints.xml";
+        } else if (query.toLowerCase().contains("staff")) {
+            mindbody_xml_url = "admin/layoutmodelxml/mindbodystaffdatapoints.xml";
+        } else {
+            mindbody_xml_url = "admin/layoutmodelxml/nodatapoints.xml";
+            $(".form-control").prop("disabled", true);
+        }
+    
+
     if (addElementsArray.length === num1) {
         $.ajax({
             type: "GET",
@@ -1442,6 +1442,8 @@ function passvaluetoinputfield() {
                     "%%text-shadow!"+ "#" + color2.substr(0,6) +
                     dropshadowdata +
                     "%%line-height!"+ $("#" + addElementsArray[i]).css("line-height") +
+                    
+                    "%%defaulttext!"+ $("#inputfield" + (i + 1)).val() +
                     "%%letter-spacing!"+ $("#" + addElementsArray[i]).css("letter-spacing") +
                     "%%opacity!"+ $("#" + addElementsArray[i]).css("opacity") +
                     "%%webkit-transform!"+ angle;

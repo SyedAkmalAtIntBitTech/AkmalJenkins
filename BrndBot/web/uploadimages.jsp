@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
     <head>
+         <%@ include file="fonttypekit.jsp"%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/configurations.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>

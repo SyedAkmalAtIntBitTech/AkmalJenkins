@@ -22,16 +22,18 @@ and open the template in the editor.
     <head>
         <title>social editor</title>
         <meta charset="UTF-8">
+        <%@ include file="fonttypekit.jsp"%>
+        <%@ include file="checksession.jsp" %>
+        
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+       
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
@@ -51,9 +53,59 @@ and open the template in the editor.
         <script src="js/jquery.reveal.js" type="text/javascript"></script>
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
+        <script src="js/ajaxfileupload.js" type="text/javascript"></script>
         <style>
+            #mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9000;
+  background-color: #000;
+  display: none;
+}
+
+#boxes .window {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 440px;
+  height: 200px;
+  display: none;
+  z-index: 9999;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+#boxes #dialog {
+  width: 750px;
+  height: 300px;
+  padding: 10px;
+  background-color: #000;
+  font-family: 'Segoe UI Light', sans-serif;
+  font-size: 15pt;
+}
+
+#popupfoot {
+  font-size: 16pt;
+  position: absolute;
+  bottom: 0px;
+  width: 250px;
+  left: 250px;
+}
+            @font-face {
+                font-family: Glyphter;
+                src: url(fonts/Glyphter.ttf);
+            }
+            @font-face {
+                font-family: Glyphter2;
+                src: url(fonts/Glyphter2.ttf);
+            }
             body{
-                font-family: proxima nova;
+                font-family: "proxima nova",sans-serif;
+            }
+            .cursorpointer:hover{
+                cursor: pointer;
             }
             .socialimage{
                 width: 100px;
@@ -64,7 +116,7 @@ and open the template in the editor.
                 width:150px;height: 5px;
                 position: relative;
                 left:60px;
-                top:-17px;
+                top:-9px;
             }
             .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
             {
@@ -73,6 +125,9 @@ and open the template in the editor.
 /*                border-radius: 20px;*/
                background-color: #FFF;
             }
+            .noUi-origin .noUi-origin-lower{
+     background-color:red;
+}
             #popup
             {
                 display:none;
@@ -192,9 +247,18 @@ ul::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
 }
-
+    .preview{
+    position: relative;
+    width: 500px;
+    height: 300px;
+    margin-left: -165px;
+    background-color: #ffffff;
+    border: 1px solid #E3E4E8;
+    outline: #E3E4E8 solid 16px;
+    border-color: #E3E4E8;
+}
             
-   #editor::-webkit-scrollbar {
+/*   #editor::-webkit-scrollbar {
      width: 10px;
      height: 200px;
     }
@@ -206,7 +270,8 @@ ul::-webkit-scrollbar-thumb {
     #editor::-webkit-scrollbar-thumb {
      border-radius: 10px;
      -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
-    }
+    }*/
+
 
         </style>
 
@@ -214,7 +279,6 @@ ul::-webkit-scrollbar-thumb {
             SqlMethods sql_methods = new SqlMethods();
             StringBuffer string_buffer = new StringBuffer();
             String mindbody_data_id = "";
-            Integer user_id = 0;
             String logoImageName=null;
         %> 
         <%
@@ -238,8 +302,7 @@ ul::-webkit-scrollbar-thumb {
         
         
         
-        <script src="//use.typekit.net/wnn8jyx.js"></script>
-            <script>try{Typekit.load({ async: true });}catch(e){}</script>
+        
         <script>
             
             $(document).ready(function () {
@@ -331,7 +394,11 @@ ul::-webkit-scrollbar-thumb {
                                             url : 'GetLayoutStyles?editorType=social'
                                     }).success(function(data, status, headers, config) {
 //                                            alert(JSON.stringify(data));
-                                    $scope.datalists = data;
+                                                $scope.datalists = data;
+                                                document.getElementById('stlimg').src="images/sidebar/Icons_styleButton_blue_new.svg";
+                                                document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
+                                                document.getElementById('edt').style.backgroundColor = 'transparent';
+                                                document.getElementById('stl').style.backgroundColor = '#fff';
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
                                     };
@@ -350,7 +417,7 @@ ul::-webkit-scrollbar-thumb {
                                     $("#tabs-2").hide();         
                                     $("#tabs-3").show().css("width", "430px").show("slide", { direction: "right" }, 1000);                                                                                                                                                                                                                                             
                                     $scope.curPage = 0;
-                                    $scope.pageSize = 4;
+                                    $scope.pageSize = 100;
                                     $http({
                                     method : 'GET',
                                             url : 'GetUserImages'
@@ -381,11 +448,13 @@ ul::-webkit-scrollbar-thumb {
                           
                     function showText(id, layout){
                          var layout_mapper_url = "";
-                    if (mindbodydataId != ""){
-                        layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social';
-                    }else{
-                        layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
-                    } 
+
+                   if (mindbodydataId != ""){
+                       layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
+                   }else{
+                       layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
+                   }                         
+
                             $.ajax({
                                     type: 'GET',
                                     url: layout_mapper_url,
@@ -462,10 +531,12 @@ ul::-webkit-scrollbar-thumb {
                                                             var textalign = $(this).attr("text-align");
                                                             var webkittransform = $(this).attr("webkit-transform");
                                                             var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-                                                        $(".preview").append("<div><textarea class=textAreas onclick=getTectId("+ type +") id=" + type + ">" + elementdata + "</textarea>");
+                                                       
+                                                        $(".preview").append("<div><textarea class=textAreas orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "')  onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
                                                         $("#" + type).css("color", "" + fontcolor)
                                                                 .css("position", "absolute")
                                                                 .css("overflow", "hidden")
+                                                                .css("resize", "none") 
                                                                 .css("margin-left", "" + left + "px")
                                                                 .css("margin-top", "" + top + "px")
                                                                 .css("width", "" + width)
@@ -499,7 +570,8 @@ ul::-webkit-scrollbar-thumb {
                                                          $("#" + type).css("line-height",""+xxyy+"px");
                                                         }
                                                         //resize end
-                                                        
+                                                        var addThis = $("#" + type).get(0).scrollHeight - $("#" + type).height();
+                                                        $("#" + type).attr("add-this",addThis);
                                                     }
 
                                                if (tag === "image")
@@ -520,7 +592,8 @@ ul::-webkit-scrollbar-thumb {
                                                             .css("height", "" + height)
                                                             .css("background", ""+background_image)
                                                             .css("background-repeat", "no-repeat")
-                                                            .css("background-position", "center center")
+                                                            .css("background-position", "50% 50%")
+                                                            .css("-webkit-background-size", "cover")
                                                             .css("position", "absolute"); 
                                                     }
 
@@ -610,10 +683,10 @@ ul::-webkit-scrollbar-thumb {
         </script>
         
         <script src="js/crop.js" type="text/javascript"></script>
-
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app="myapp">
-        <input type="hidden" id='userlogo'value=<%= logoImageName%>>
+        <input type="hidden" id='userlogo' value=<%= logoImageName%>>
         <input type="hidden" id='userid' value=<%= user_id%>>
         <script src="js/socialeditor.js" type="text/javascript"></script>
         <div ng-controller="MyController" class="container" id="container"> 
@@ -629,9 +702,18 @@ ul::-webkit-scrollbar-thumb {
 
                         <!--              preview container-->
                         <div class="col-md-5 col-md-offset-0 prev">
+                            <a href="#" data-reveal-id="fileupload_popup" class="fileclick" style="display:none;">Click Me For A Modal</a>
+                            <div id="fileupload_popup" class="reveal-modal" style="left:90%;">
+                                <a class="close-reveal-modal">abc&#215;</a>
+                                <center>
+                                <input id="myFile" type="file" name="myFile">
+                                <input type="button" id="upload" style="margin-left: 35%;" class="button button--moema button--text-thick button--text-upper button--size-s" value="upload">
+                                <input type="button" id="image1" ng-click="showImages()" value="image1" style="display: none;"><br />
+                                </center>
+                            </div>
 
-                            <p class="edit SP1">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb" class="BT2"><a href="selectpromotemedia.jsp">go back</a></p>
-                            <div class="preview" style="zoom: 0.5;">
+                            <p class="edit SP1">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb" class="BT2" style="position:relative;top: -12px;"><a href="selectpromotemedia.jsp">go back</a></p>
+                            <div class="preview" style="zoom: 0.5;position:relative;left:180px;top:-200px;">
 
 
                                 <!--  {{mindbody_data}}-->
@@ -639,15 +721,14 @@ ul::-webkit-scrollbar-thumb {
                                         NOTE: To change the aspect ratio, look in crop.css
                                         The class 'default' links the div to the init(); function
                                 --> 
-
+                                
                             </div>
                             <div class="span3 col-md-offset-0" >
-
-                                <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
+                                <input id="continue" class="button button--moema button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
                                 <script>
                                     function showImageName(user_id, image_name){
                                         var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
-                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("-webkit-background-size", "contain");
+                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
                                                     $("#imagespopup").hide(); 
                                                     $(".imagename option:selected").attr("name","url(" + global_host_address +""+image_path+ ")");
                                                     $("#tabs-1").show();
@@ -655,6 +736,7 @@ ul::-webkit-scrollbar-thumb {
                                                     $("#tabs-3").hide();                                                 
                                     }
                                 </script>
+                                
                             </div>
                             <div id="popup" name="popup">
                                 <div id="content">
@@ -693,7 +775,7 @@ ul::-webkit-scrollbar-thumb {
 
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-1" >
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:370px;overflow-x:hidden;">                       
+                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:366px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -712,14 +794,16 @@ ul::-webkit-scrollbar-thumb {
 <!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px; ">
                                                         <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                     </select> -->
+<!--                                                <div style="width:40px;height:30px;text-align:center">
+                                                    <div class="cursorpointer" id="minusFont" style="margin-top:5px;width:20px;height:30px;float:left;font-size: 16px; color: #5E5E5E">A</div>
+                                                    <div class="cursorpointer" id="plusFont" style="width:20px;height:30px;float:left;font-size: 25px; color: #5E5E5E">A</div>
+                                                </div>-->
                                                     <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
                                                 </li>
 
-                                                <li style="width:100px;">
+                                                <li style="width:120px;">
                                                     <p id="editorheadere" class="SS1">font style</p>
-
-
-                                                    <select id="fontname" style="margin:2px;font-size:15px;width:80px;color: #3f4042;background-color: #ccc;border-radius:5px;">
+                                                    <select id="fontname" class="editordropdown">
                                                         <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{ names.font_family_name}}">{{ names.font_name}} </option>
 
                                                     </select>
@@ -729,7 +813,7 @@ ul::-webkit-scrollbar-thumb {
                                                         <li><p class="editpal">your palette</p></li>
                                                         <li><p class="editcus custom-color-box-text" style="margin-left:120px;position:relative;">custom</p></li>
                                                         <li id="fcolcontainer">
-                                                            <ul id="colorpalette" style="position:relative;left:-4px;">
+                                                            <ul id="colorpalette" style="position:relative;left:0px;">
                                                                    <li><div class="blankcolor-box-text" id="textcolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
                                                                     <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
@@ -741,13 +825,13 @@ ul::-webkit-scrollbar-thumb {
                                                             
                                                         </ul>
                                                 </li>
-                                                <li style="left:-6px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-justify alignButton" id="justify"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-left alignButton" id="left"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-center alignButton" id="center"></div></li>
-                                                <li><div class="glyphicon glyphicon-align-right alignButton" id="right"></div></li>
-                                                <li><div class="glyphicon glyphicon-plus" id="plus"></div></li>
-                                                <li><div class="glyphicon glyphicon-minus" id="minus"></div></li>
+                                                <li style="left:-10px;"><div class="glyphicon glyphicon-indent-right alignButton cursorpointer" id="hidealignbutton"></div></li>
+                                                <li><div class="alignButton cursorpointer" id="justify" style="font-family: Glyphter2;">j</div></li>
+                                                <li><div class="alignButton cursorpointer" id="left" style="font-family: Glyphter2;">B</div></li>
+                                                <li><div class="alignButton cursorpointer" id="center" style="font-family: Glyphter2;">C</div></li>
+                                                <li><div class="alignButton cursorpointer" id="right" style="font-family: Glyphter2;">D</div></li>
+                                                <li><div class="cursorpointer" id="plus" style="font-family: Glyphter2;">A</div></li>
+                                                <li><div class="cursorpointer" id="minus" style="font-family: Glyphter;">E</div></li>
                                             </ul>
 
                                         </div>
@@ -760,11 +844,12 @@ ul::-webkit-scrollbar-thumb {
                                             <ul id="shapemodificatoin">
 
                                                         <li>
-                                                            <select class="blockname LE1" id="editorhead">
+                                                            <select class="blockname LE1 editordropdown" id="editorhead">
                                                                 <option value="select">select</option>
                                                             </select>
                                                         </li>
-                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><ul id="openCustomColor">
                                                 <li><p class="editpal">your palette</p></li>
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
@@ -779,7 +864,7 @@ ul::-webkit-scrollbar-thumb {
                                                 
                                                 <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
                                                 <li><p class="editpal" id="blockopacity">opacity</p><div id="slider"></div></li>
-
+                                                    </ul>   
                                             </ul>
                                         </div>
 
@@ -787,12 +872,12 @@ ul::-webkit-scrollbar-thumb {
                                             <p  id="text3" class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
                                                 <li>
-                                                    <select class="imagename LE1" id="editorhead">
+                                                    <select class="imagename LE1 editordropdown" id="editorhead">
                                                         <option value="select">select</option>
                                                     </select>
                                                 </li>
                                                 <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
-                                                <li><p  class="btn" onclick="imageEdit()">edit</p></li>
+                                                <li><p  class="btn" onclick="showfilter()">edit</p></li>
                                                 <li></li>
                                             </ul>
                                         </div>
@@ -811,18 +896,16 @@ ul::-webkit-scrollbar-thumb {
                                                 <li><img class="imageFilter" id="convert9" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Shade</p> </li>
                                                 <li><img class="imageFilter" id="convert10" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Fade</p> </li>-->
                                             </ul>
+                                           <p  class="btn" onclick="imageEdit()">CROP</p>
+                                            <p  class="btn" onclick="saveImageEdit()">DONE</p>
                                         </div>
                                         <div id="cropImageContainer" style="display: none">
-<!--                                                <p>CROP</p>-->
-
-
                                                     <!--
                                                             NOTE: To change the aspect ratio, look in crop.css
                                                             The class 'default' links the div to the innit(); function
                                                     -->
 
                                                 <br><br>
-                                            <input type="button" id="done" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="saveImageEdit()" value="DONE"> 
                                         </div>
 
                                     </li>
@@ -837,7 +920,7 @@ ul::-webkit-scrollbar-thumb {
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="styles in datalists">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275"  />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
@@ -853,9 +936,9 @@ ul::-webkit-scrollbar-thumb {
 
                                     </li>
                                     <li id="tabs-3">
-                                          <ul id="imageGallery" style="height: 500px;width: 450px;position: relative;right: 80px;overflow-y:scroll">
+                                          <ul id="imageGallery" style="height: 500px;width: 300px;position: relative;right: 80px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
-                                               
+                                               <p class="BT2" id="galleryupload">upload image</p>
                                                 <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
                                                           <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
                                                 </li>
@@ -872,13 +955,61 @@ ul::-webkit-scrollbar-thumb {
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav">
-                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1">EDIT</p></a></li>
-                        <li id="stl" class="hov" onclick="hls();"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40" ng-click="showStyles()"><p id="text1">STYLE</p></a></li>                  
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1" >EDIT</p></a></li>
+                        <li id="stl" class="hov" ng-click="showStyles()"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40"><p id="text1">STYLE</p></a></li>                  
                     </ul>
                 </div>
             </div>
+                                        <div id="boxes">
+                                            <div id="dialog" class="window"><br><br>
+                                              <img id="loadingGif" src="images/YogaLoadingGif.gif" />
+                                            </div>
+                                            <div id="mask"></div>
+                                        </div>
+        </div>
+    <script>
+          function fadepopup() {	
+                var id = '#dialog';
 
-        </div> 
+                //Get the screen height and width
+                var maskHeight = $(document).height();
+                var maskWidth = $(window).width();
+
+                //Set heigth and width to mask to fill up the whole screen
+                $('#mask').css({'width':maskWidth,'height':maskHeight});
+
+                //transition effect
+                $('#mask').fadeIn(500);	
+                $('#mask').fadeTo("slow",10);	
+
+                //Get the window height and width
+                var winH = $(window).height();
+                var winW = $(window).width();
+
+                //Set the popup window to center
+                $(id).css('top',  winH/2-$(id).height()/2);
+                $(id).css('left', winW/2-$(id).width()/2);
+
+                //transition effect
+                $(id).fadeIn(2000); 	
+
+                //if close button is clicked
+                $('.window .close').click(function (e) {
+                //Cancel the link behavior
+                e.preventDefault();
+
+                $('#mask').hide();
+                $('.window').hide();
+                });
+
+                //if mask is clicked
+                $('#mask').click(function () {
+                $(this).hide();
+                $('.window').hide();
+                });
+
+                }
+        </script>
                                         <script>
                                             function act(){
                                                 document.getElementById('edt').style.backgroundColor = '#555';
@@ -889,12 +1020,6 @@ ul::-webkit-scrollbar-thumb {
                                                  document.getElementById('stlimg').src="images/sidebar/Icons_styleButton.svg";
                                                    document.getElementById('edt').style.backgroundColor = '#fff';
                                                 document.getElementById('stl').style.backgroundColor = 'transparent';
-                                            }
-                                            function hls(){
-                                                document.getElementById('stlimg').src="images/sidebar/Icons_styleButton_blue_new.svg";
-                                                document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
-                                                document.getElementById('edt').style.backgroundColor = 'transparent';
-                                                document.getElementById('stl').style.backgroundColor = '#fff';
                                             }
                                             $('.category_list li').click(function(){
                                                 $('.highlight').removeClass('highlight');
@@ -947,10 +1072,11 @@ ul::-webkit-scrollbar-thumb {
         <script>
 
                         $("#continue").click(function (){
+                            fadepopup();
+//                            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
                             var PreviewWidth=$(".preview").css("width");
                             var PreviewhHeight=$(".preview").css("height");
 //                            alert($(".preview").children());
-
                                 $.ajax({
                                    type: "POST",
                                    url: "ConvertHtmlToImageServlet",                                   
@@ -960,10 +1086,12 @@ ul::-webkit-scrollbar-thumb {
                                        containerHeight: PreviewhHeight
                                    },
                                    success: function (responseText) {
+                                           $('#loadingGif').remove();
                                            var image=responseText;
 //                                          alert(image);
                                            document.location.href = "selectpromotesocialmedia.jsp?image="+image;
-
+                                                            $('#mask').hide();
+                                                        $('.window').hide();
                                    }
 
                                    });
@@ -1058,7 +1186,12 @@ ul::-webkit-scrollbar-thumb {
         $("#"+image_Id).toggleClass("ig-brannan");
     };
 };
-
+function showfilter(){
+     $("#textcontainer").hide();
+     $("#shapecontainer").hide();
+     $("#imagecontainer").hide();
+     $("#filtercontainer").show();
+}
 
                             $(".cross").hide();
                             $(".menu").hide();
@@ -1088,7 +1221,7 @@ ul::-webkit-scrollbar-thumb {
 
                                     // grab width and height of .crop-img for canvas
                                     var width = $('.crop-container').width() - 80, // new image width
-                                        height = $('.crop-container').height() - 80; // new image height
+                                      height = $('.crop-container').height() - 80; // new image height
 
                                     $('canvas').remove();
                                     $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');
@@ -1117,7 +1250,7 @@ ul::-webkit-scrollbar-thumb {
                                                     data: { image: dataURL},
                                                     success: function (responseText) {
                                                          var image_Id= $('.imagename option:selected').val();
-                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "center center");
+                                                        $("#"+image_Id).css("background","url(images/temp_image/"+responseText+")").css("background-repeat","no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
 //                                                        $("#cropper_popup").hide();
                                                          //$("#cropper_popup").hide();
                                                          $(".close-reveal-modal").click();
@@ -1140,7 +1273,7 @@ ul::-webkit-scrollbar-thumb {
                                         var image_file = global_host_address + $("#image_name").val();
                        
 //                                        alert(selectedImageId);
-                                        $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("-webkit-background-size","contain");
+                                        $("#"+selectedImageId).css("background","url("+image_file+")").css("background-repeat","no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
                                         $("#imagespopup").hide();
                                     });
 
@@ -1149,11 +1282,12 @@ ul::-webkit-scrollbar-thumb {
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();
 //                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
+                                           var imageId=$(".imagename option:selected").val();
+                                           var imageWidth=$("#"+imageId).css("width").replace("px","");
+                                           var imageHeight=$("#"+imageId).css("height").replace("px","");
+                                           $("#crompIageContainer").show();
                                            
-                                            $("#filtercontainer").show();
-                                            $("#cropImageContainer").show();
-
-                
+                                                                                  
                                         var image_file=$(".imagename option:selected").attr("name").replace("url(","").replace(")","");
 //                                        alert(image_file);
                                         id = "image" + i;
@@ -1172,9 +1306,27 @@ ul::-webkit-scrollbar-thumb {
                                         // load image into crop
                                         one.loadImg(image_file);
                                         $("#imagespopup").hide();
-
+                                        if(imageWidth >350 && imageWidth <=700){
+                                            $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.7");
+                                            $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");
+                                         }
+                                         else if(imageWidth >700 &&  imageWidth <=1050){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.5");
+                                           $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px"); 
                                             }
-
+                                        else if(imageWidth >1050 && imageWidth <=1400){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.34");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }
+                                        else if(imageWidth >1400 && imageWidth <=1800){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.25");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }    
+                                        else if(imageWidth >1800){
+                                         $(".default .cropMain").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px").css("zoom","0.2");
+                                          $(".crop-container").css("width",""+imageWidth+"px").css("height",""+imageHeight+"px");  
+                                        }                                            
+                          }
 
 
                                     $('.uploadfile').change(function() {

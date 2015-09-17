@@ -29,6 +29,8 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
     <head>
+         <%@ include file="fonttypekit.jsp"%>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -45,14 +47,14 @@
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/main1.css">
         <script src="js/configurations.js"></script>
-
+         
         <title>upload logo</title>
         <style>
             .fileUpload {
                 position: relative;
                 overflow: hidden;
-                margin: 10px;
-                left:-27%;
+                top:  30px;
+                left:13%;
             }
             .fileUpload input.upload {
                 position: absolute;
@@ -114,6 +116,7 @@
               }]);
 
         </script>
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body>
         <div class="container">
@@ -122,27 +125,27 @@
                 <div class="span1">
             </div>
             </div>
-            <div id="contentdiv">
+            <div id="contentdiv" class="col-md-9  col-md-offset-0">
                 <div class="row">
-                    <div class="col-md-4 col-md-offset-5">
-                        <p id="comment1"> Upload your logo </p> 
-                        <p id="comment2">Please upload in a .PNG, .JPEG or .SVG</p> <br><br>
+                    <div class="col-md-5 col-md-offset-5">
+                        <p id="comment1" class="MH2" style="left:13%;"> Upload your logo </p> 
+                        <p id="comment2" class="BC2">Please upload in a .PNG, .JPEG or .SVG</p> <br><br>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-md-offset-5">
-                        <img id="logoimage" src="images/question-mark-black-background.png" alt="logo" class="img-responsive" width="80" height="100"><br><br><br>
+                        <img id="logoimage" src="images/LogoImage.jpg" alt="logo" class="img-responsive" width="300px" height="200px">
                     </div>
                 </div>
 
                 <div class="group" ng-controller="myCtrl">
-                    <div class="span5 col-md-offset-5 ">
-                        <button id="Servicecontinue" type="submit"  class="button button--moema button--text-thick  button--size-s" disabled ng-click="uploadFile()">UPLOAD LOGO</button><br><br>
-                        <div class="fileUpload btn ">
+                    <div class="span5 col-md-offset-3 ">
+                          <div class="fileUpload btn ">
                             <span>Click to upload a logo</span>
                             <input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="myFile" />
                         </div>
-                    </div>
+                        <button style="left:18.5em;" id="Servicecontinue" type="submit"  class="button button--moema button--text-thick  button--size-s" disabled ng-click="uploadFile()">UPLOAD LOGO</button>
+                      </div>
                 </div>
 
             </div>

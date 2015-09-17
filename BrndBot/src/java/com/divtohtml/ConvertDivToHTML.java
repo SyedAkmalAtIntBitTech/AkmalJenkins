@@ -75,6 +75,7 @@ public class ConvertDivToHTML {
 
     private String populateTable(HashMap<String, ArrayList<?>> divHashMap, String tableContent, String divContent) throws Exception {
         Document doc = Jsoup.parse(tableContent);
+            logger.log(Level.SEVERE, "populating table");
 
         Elements divElements = doc.select(idSearchPattern);
         for (Element item : divElements) {
@@ -97,7 +98,7 @@ public class ConvertDivToHTML {
                             String picLocation = getColorBlocksForThisBackgroundImage(item, orderOfLayeringId, id, divHashMap, divContent, backgroundImageProperty.getWidth(), backgroundImageProperty.getHeight());
                             styleMap.put(BackgroundImageProperties.backgroundURLKey, "url(" + picLocation + ")");
                             doc.getElementById(id).attr(BackgroundImageProperties.backgroundURLKey, picLocation);
-                            
+                            logger.log(Level.SEVERE, "Location of the pic:"+picLocation);
 //                            doc.getElementById(id).attr(styleKey, createKeyValuePair(styleMap));
                             if (!StringUtil.isEmpty(id) && orderOfLayeringId.length > 1) {
                                 ArrayList<BlockProperties> blockProperties = (ArrayList<BlockProperties>) divHashMap
@@ -373,7 +374,8 @@ public class ConvertDivToHTML {
         PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletRequest.getServletContext(), filePath);
         compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), null, width, height, "0", "0");
             //Should create the compressed image out of this and replace the background with it.
-
-        return servletRequest.getServerName() + ":" + servletRequest.getServerPort() + compressedBackgroundImageFile.getPath();
+        String imageURL = "http://"+servletRequest.getServerName() + ":" + servletRequest.getServerPort() + "/BrndBot/DownloadImage?image_type=HTML_IMAGES&image_name=" + compressedBackgroundImageFile.getName();
+        logger.log(Level.INFO, "\nURL of the image:"+imageURL);
+        return imageURL;
     }
 }

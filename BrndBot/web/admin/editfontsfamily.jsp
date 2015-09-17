@@ -26,7 +26,7 @@
         <script src="../js/fontsfamily.js" type="text/javascript"></script>
         <title>fonts family</title>
     </head>
-<jsp:include page="checksession.jsp" />
+    <jsp:include page="checksession.jsp" />
     <jsp:declaration>
         Integer num = 1;
         String exist = "";
@@ -37,38 +37,38 @@
         Integer number = 1;
     </jsp:declaration>
 
-    
+
     <%
         String font_id = request.getParameter("font_id");
         String font_name = request.getParameter("font_name");
-     %>
+    %>
     <body class="container" ng-app>
-       <%@include file="menus.jsp" %>
+        <%@include file="menus.jsp" %>
         <div align="center" ng-controller="fontController">
             <div class="jumbotron" style="height: 280px; margin-top: 0px; padding-top: 20px; text-align: center;">
-                <form name="formfontfamily" action="<%= application.getContextPath() %>/ServletUpdateFonts" enctype="multipart/form-data" method="post" onsubmit="return validate()">
+                <form name="formfontfamily" action="<%= application.getContextPath()%>/ServletUpdateFonts" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
-                <div>
-                    <div class="col-md-3 col-md-offset-5">
-                        <p class="text-center">Add New Fonts</p>
+                    <div>
+                        <div class="col-md-3 col-md-offset-5">
+                            <p class="text-center">Add New Fonts</p>
+                        </div>
                     </div>
-                </div>
-                    
-                <div>
-                    <div class="col-md-3 col-md-offset-5">
-                        <input type="hidden" id="fontid" name="fontid" value="<%= font_id %>"/>  
-                        <input type="text"  class="form-control simplebox" id="fontname" name="fontname" value="<%= font_name %>"/><br>
-                        Attach Font: <input type="file"  style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="fontfileName" /><br>
-                        <!--  <label>Organization Name:</label>-->
-                    </div><br>
-                </div>
 
-                <div>
-                    <div class="col-md-3 col-md-offset-5">
-                        <button id="Servicecontinue" type="submit" class="btn btn-info">Update</button>
-                        <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
+                    <div>
+                        <div class="col-md-3 col-md-offset-5">
+                            <input type="hidden" id="fontid" name="fontid" value="<%= font_id%>"/>  
+                            <input type="text"  class="form-control simplebox" id="fontname" name="fontname" value="<%= font_name%>"/><br>
+                            Attach Font: <input type="file"  style="border: 1px solid;" name="filesToUpload"  id="filesToUpload" class="upload"  file-model="fontfileName" /><br>
+                            <!--  <label>Organization Name:</label>-->
+                        </div><br>
                     </div>
-                </div>
+
+                    <div>
+                        <div class="col-md-3 col-md-offset-5">
+                            <button id="Servicecontinue" type="submit" class="btn btn-info">Update</button>
+                            <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
+                        </div>
+                    </div>
 
             </form>
             </div>

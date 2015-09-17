@@ -7,6 +7,7 @@ package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
 import static com.controller.BrndBotBaseHttpServlet.logger;
+import com.google.gson.Gson;
 import com.intbit.AppConstants;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -37,12 +40,26 @@ public class ServletDisplayLayoutHTML extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
         
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         String modelname = request.getParameter("modelname");
         
         try (PrintWriter out = response.getWriter()) {
-            String layoutHTML = FileUtils.readFileToString(new File(AppConstants.LAYOUT_HTML_HOME+File.separator+modelname+".html"), "UTF-8");
-            out.write(layoutHTML);
+            JSONArray json_arr = new JSONArray();
+            JSONObject json_ob = new JSONObject();
+              File divFile = new File(AppConstants.LAYOUT_HTML_HOME+File.separator+modelname+".html");
+              String layoutHTMLDiv = "";
+              
+              if(divFile.exists())
+                 layoutHTMLDiv = FileUtils.readFileToString(divFile, "UTF-8");
+              json_ob.put("div",layoutHTMLDiv);
+              String layoutHTMLTable = "";
+              File tableFile = new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH+File.separator+modelname+".html");
+              if(tableFile.exists())
+                layoutHTMLTable = FileUtils.readFileToString(tableFile, "UTF-8");
+              json_ob.put("table",layoutHTMLTable);
+              
+              json_arr.add(json_ob);
+            out.write(new Gson().toJson(json_arr));
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception:", e.getMessage()));
 

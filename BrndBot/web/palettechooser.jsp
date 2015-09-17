@@ -33,6 +33,9 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
+         <%@ include file="fonttypekit.jsp"%>
+         
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -50,6 +53,7 @@
         <script type="text/javascript" src="jscolor/jscolor.js"></script>
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
+         
 
         <style>
             #sortable { list-style-type: none; margin: 0; padding: 0;}
@@ -133,14 +137,29 @@
             function controllerCreateUserPreferences($scope, $http){
             $scope.createUserPreferences = function()
             {
+                var s1 =$("#elementToPutStyleInto1").css("background-color");                    
+                        var s2 =$("#elementToPutStyleInto2").css("background-color");
+                        var s3 = $("#elementToPutStyleInto3").css("background-color");                    
+                        var s4 = $("#elementToPutStyleInto4").css("background-color");                     
+                        var s5 = $("#elementToPutStyleInto5").css("background-color");                       
+                        var s6 = $("#elementToPutStyleInto1").css("background-color");
+                        document.getElementById("finalcolor1").value = s1;
+                        document.getElementById("finalcolor2").value = s2;
+                        document.getElementById("finalcolor3").value = s3;
+                        document.getElementById("finalcolor4").value = s4;
+                        document.getElementById("finalcolor5").value = s5;
+                        document.getElementById("finalcolor6").value = s6;
+                
+                
                     var color1 = $("#finalcolor1").val();
                     var color2 = $("#finalcolor2").val();
                     var color3 = $("#finalcolor3").val();
                     var color4 = $("#finalcolor4").val();
                     var color5 = $("#finalcolor5").val();
                     var color6 = $("#finalcolor6").val();
-                    if (color1 == "" || color2 == "" || color3 == "" || color4 == "" || color5 == "" || color6 == ""){
-                            alert("Please fill all six colors, click MOST USED to select colors");
+                    
+                    if (color1 == "rgba(0, 0, 0, 0)" || color2 == "rgba(0, 0, 0, 0)" || color3 == "rgba(0, 0, 0, 0)" || color4 == "rgba(0, 0, 0, 0)" || color5 == "" || color6 == "rgba(0, 0, 0, 0)"){
+                            alert("Please fill all six colors");
                         }
                    else{
                        
@@ -218,7 +237,8 @@
 
     </script>
 
-
+        <jsp:include page="basejsp.jsp" />
+    
 </head>
 <body ng-app="myapp" >
 
@@ -226,21 +246,21 @@
         <div class="row">
         </div>
 
-        <div id="contentdiv" class="row">   
+        <div id="contentdiv" class="row" style="top:45px;">   
 
             <div class="col-md-8 col-md-offset-3">
-                <p id="comment1">Choose a color palette</p> 
-                <p id="comment2">Click on a color to change it or choose from a theme.<br>
-Please arrange them with most used to least used in your designs.</p>
+                <p id="comment1" class="MH2">Choose a color palette</p> 
+                <p id="comment2" class="BC2" style="left:0px;">Click on a color to change it or choose from a theme.<br>
+                        Please arrange them with most used to least used in your designs.</p>
                 <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USED</span></p> </div>
 
                 <div id="sortable" class="step_wrapper">
-                    <div id="elementToPutStyleInto1" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto1')"></div>
-                    <div id="elementToPutStyleInto2" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto2')"></div>
-                    <div id="elementToPutStyleInto3" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto3')"></div>
-                    <div id="elementToPutStyleInto4" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto4')"></div>
-                    <div id="elementToPutStyleInto5" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto5')"></div>   
-                    <div id="elementToPutStyleInto6" class="blankcolor-box step_box" style=""  onclick="getElementID('elementToPutStyleInto6')"></div>
+                    <div id="elementToPutStyleInto1" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto1')"></div>
+                    <div id="elementToPutStyleInto2" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto2')"></div>
+                    <div id="elementToPutStyleInto3" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto3')"></div>
+                    <div id="elementToPutStyleInto4" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto4')"></div>
+                    <div id="elementToPutStyleInto5" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto5')"></div>   
+                    <div id="elementToPutStyleInto6" class="blankcolor-box step_box" style="background-color:transparent;"  onclick="getElementID('elementToPutStyleInto6')"></div>
                     <div class="resetpalette"> <p id="resetpalette">RESET ORIGINAL PALETTE</p></div>
                 </div>
 
@@ -271,7 +291,7 @@ Please arrange them with most used to least used in your designs.</p>
                                         <div id="{{colors.id}}" onclick="getIDNo('{{colors.id}}')" class="foo col-md-2" style="background-color:{{colors.colorHex}};"></div>
                                         </div>
                                             
-                                        <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')"><div ng-show="colors.id == null" style="padding-top: 10px;">{{colors.theme_name}}</div></div>
+                                        <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')"><div ng-show="colors.id == null" style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{colors.theme_name}}</div></div>
 <!--<div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>-->
                                         
                                     </div> 
@@ -444,18 +464,18 @@ Please arrange them with most used to least used in your designs.</p>
 
                 $("#test").click(function(){
                    
-                        var s1 =$("#elementToPutStyleInto1").css("background-color");                    
-                        var s2 =$("#elementToPutStyleInto2").css("background-color");
-                        var s3 = $("#elementToPutStyleInto3").css("background-color");                    
-                        var s4 = $("#elementToPutStyleInto4").css("background-color");                     
-                        var s5 = $("#elementToPutStyleInto5").css("background-color");                       
-                        var s6 = $("#elementToPutStyleInto1").css("background-color");
-                        document.getElementById("finalcolor1").value = s1;
-                        document.getElementById("finalcolor2").value = s2;
-                        document.getElementById("finalcolor3").value = s3;
-                        document.getElementById("finalcolor4").value = s4;
-                        document.getElementById("finalcolor5").value = s5;
-                        document.getElementById("finalcolor6").value = s6;
+//                        var s1 =$("#elementToPutStyleInto1").css("background-color");                    
+//                        var s2 =$("#elementToPutStyleInto2").css("background-color");
+//                        var s3 = $("#elementToPutStyleInto3").css("background-color");                    
+//                        var s4 = $("#elementToPutStyleInto4").css("background-color");                     
+//                        var s5 = $("#elementToPutStyleInto5").css("background-color");                       
+//                        var s6 = $("#elementToPutStyleInto1").css("background-color");
+//                        document.getElementById("finalcolor1").value = s1;
+//                        document.getElementById("finalcolor2").value = s2;
+//                        document.getElementById("finalcolor3").value = s3;
+//                        document.getElementById("finalcolor4").value = s4;
+//                        document.getElementById("finalcolor5").value = s5;
+//                        document.getElementById("finalcolor6").value = s6;
                 });
                 });
 //  Reset pslette color   
@@ -464,12 +484,12 @@ Please arrange them with most used to least used in your designs.</p>
 
                 $("#resetpalette").click(function(){
 
-                $("#elementToPutStyleInto1").css("background-color", "#FFFFFF");
-                        $("#elementToPutStyleInto2").css("background-color", "#FFFFFF");
-                        $("#elementToPutStyleInto3").css("background-color", "#FFFFFF");
-                        $("#elementToPutStyleInto4").css("background-color", "#FFFFFF");
-                        $("#elementToPutStyleInto5").css("background-color", "#FFFFFF");
-                        $("#elementToPutStyleInto6").css("background-color", "#FFFFFF");
+                        $("#elementToPutStyleInto1").css("background-color", "transparent");
+                        $("#elementToPutStyleInto2").css("background-color", "transparent");
+                        $("#elementToPutStyleInto3").css("background-color", "transparent");
+                        $("#elementToPutStyleInto4").css("background-color", "transparent");
+                        $("#elementToPutStyleInto5").css("background-color", "transparent");
+                        $("#elementToPutStyleInto6").css("background-color", "transparent");
                 });
                 });
 

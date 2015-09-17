@@ -13,7 +13,9 @@
         <!--        <script type="text/javascript" src="js/angular.min.js"></script>-->
         <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        <jsp:include page="basejsp.jsp" />
+        <%@ include file="checksession.jsp" %>
+
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -195,15 +197,24 @@
             }
             .content{
                 position: relative;
-                width:50px;
+                max-width:200px;
                 height: 250px;
                 margin-top: 0px;
             }
+            
             .actiondetails{
                 position: relative;
                 width:250px;
                 margin-top: 50px;
-            }
+           }
+           .actiondet p{
+               position:relative;
+               left:15px;
+               
+             }
+         .content table td img{
+             width:50%;
+         }
             .postdetails{
                 position: relative;
                 width:250px;
@@ -229,6 +240,7 @@
             <div class="col-md-8 col-md-offset-3 " >
                 <div class="col-md-6 col-md-offset-0">
 
+
                     <p id="hyshead">Your Plan &nbsp;&nbsp;<button id="liPriority">ADD ACTION</button>&nbsp;&nbsp;<br><br><button ng-click="getSelectedCampaigns()">GET DETAILS</button>&nbsp;<button ng-click="getSelectedCampaigns()">DELETE SELECTED</button></p> <p id="hyshead">Marketing Campaign</p>
                     <div class="col-md-12" id="default" ng-init="getCampaigns()">
 
@@ -236,6 +248,7 @@
                             <div class='col-md-1'>Today</div>
                             <div class='col-md-3' style="width:260px;"></div>
                             <div class='col-md-2'>Action Type</div>
+
                             <div class='col-md-3'>Template Saved</div>
                             <div class='col-md-3'></div>
                         </div>
@@ -401,10 +414,10 @@
                         <div class="row">
                             <div class="col-md-12" style="width:250px;">
                                 <div class="col-md-6" id="dvButtonContainer">
-                                    <input type="button" value="Save" class="btn-info" style="width:100px;" />
+                                    <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
                                 </div>
                                 <div class="col-md-6" id="dvButtonContainer">
-                                    <input type="button" value="Cancel" class="btn-info" style="width:100px;" />
+                                    <input type="button" value="Cancel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
                                 </div>
                             </div>
                         </div>
@@ -418,7 +431,7 @@
 
 
                             <div class="group">
-                                <div class="col-md-3 col-md-offset-1 ">                            
+                                <div class="col-md-4 col-md-offset-1 ">                            
                                     <input id="title" class="brdr form-control simplebox" type="text" name="title" />
                                     <label>TITLE</label>
                                 </div><br>
@@ -442,17 +455,20 @@
                     <div class="row">
                         <div class="col-md-12" style="width:250px;top:50px;">
                             <div class="col-md-6" id="dvButtonContainer">
-                                <input type="button" value="Save" class="btn-info" ng-click="AddAction()" style="width:100px;" />
+                                <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="AddAction()" style="width:100px;" />
                             </div>
                             <div class="col-md-6" id="dvButtonContainer">
-                                <input type="button" value="Cancel" class="btn-info" style="width:100px;" />
+                                <input type="button" value="Cancel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="preview" class="pollSlider">
                     <div>
-                        <div>
+
+                        <div >
+
+                        <div class="actiondet">
 
                             <div style="border:1px solid #7ab5d3">
 
@@ -462,7 +478,7 @@
                                 </div>
                                 <p>Saved Post &nbsp;&nbsp; Preview</p>
                                 <p></p><br>
-                                <div class="content"></div>
+                                <div class="content" ></div> 
                                 <p class="postdetails">Post details</p>
                                 <div>
                                     Scheduled on {{entities_selected_time| date:'h:mma'}}
@@ -472,7 +488,7 @@
                         </div>
                     </div>
 
-                </div>
+                    </div></div>
                 <div id="emailedit" class="pollSlider">
                     <div>
                         <div>
@@ -505,9 +521,10 @@
                     <div>
                         <div>
 
-                            <div style="border:1px solid #7ab5d3">
 
-                                <div class="actiondetails">
+                            <div style="border:1px solid #7ab5d3;">
+
+                                <div class="actiondetails" >
                                     <p>ACTION DETAILS</p>
                                     <p>{{entitiesdetails.subject}}</p>
                                 </div>
@@ -516,7 +533,7 @@
                                 <div class="content"></div>
                                 <p class="postdetails">Post details</p>
                                 <div>
-                                    Scheduled on {{entities_selected_time| date:'h:mma'}}
+                                    <p>Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
                                 <div class="editbutton"><button type="button">EDIT</button> </div>
                             </div>

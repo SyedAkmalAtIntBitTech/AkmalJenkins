@@ -15,6 +15,9 @@ and open the template in the editor.
     <head>
         <title>Select promoting category </title>
         <meta charset="UTF-8">
+         <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <script src="js/angular.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -23,11 +26,11 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+       
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
         <script src="js/mindbodyutility.js" type="text/javascript"></script>
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <style>
             .glyphicon.glyphicon-home,.glyphicon.glyphicon-envelope,.glyphicon.glyphicon-comment, .glyphicon.glyphicon-picture, .glyphicon.glyphicon-cog{
@@ -80,18 +83,26 @@ and open the template in the editor.
                             padding-left: 5px;
                             font-size: 18px;
             */
+            .datahead{
+                position: relative;
+                top: 14%;
+                left:0px;
+                height: 50px;
+                bottom: 9%;
+            }
+            
             .datafib{
                 position: relative;
-                top:20px;
-                left:50px;
+                margin-top:9%;
+                left:43px;
             }
             .datafromindbody li{
                 vertical-align:middle; 
-                height: 6%;
+                height: 2%;
                 display: table-cell;
                 position: relative;
-                padding-top: 3%;
-                padding-bottom: 3%;
+                padding-top: 1%;
+                padding-bottom: 1%;
                 width: 739px;
 
             }
@@ -115,7 +126,7 @@ and open the template in the editor.
             .mindbodyOneRowData:hover {
                 background-color: #00CC99;
                 color: whitesmoke;
-
+                cursor: pointer;
             }
             .mindbodyOneRowData{
                 position: relative;
@@ -123,7 +134,20 @@ and open the template in the editor.
                 left:0px;
                 font-family: "proxima-nova",sans-serif;
                 font-weight: 600;
+/*                color: #95969A;*/
                 color: #2d4355;
+                font-style: normal;
+                text-align: left;
+                line-height: 25.9px;
+                letter-spacing: 0em;
+            }
+            .mindbodyHeaderData{
+                position: relative;
+                width: 800px;
+                left:0px;
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 600;
+                color: #95969A;
                 font-style: normal;
                 text-align: left;
                 line-height: 25.9px;
@@ -164,14 +188,15 @@ and open the template in the editor.
 
                     angular.module("myapp", [])
                     .controller("controllerGetMindBody", function($scope, $http) {
-                    $("#continuebutton").hide();
+                         $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","560px");
+                          $("#continuebutton").hide();
                             $scope.showData = function(){
 
                             $scope.curPage = 0;
                                     $scope.pageSize = 4;
                                     $http({
                                     method : 'GET',
-                                            url : 'MindBodyDataServlet'
+                                    url : 'MindBodyDataServlet'
                                     }).success(function(data, status, headers, config) {
                             $scope.datalists = data;
 //                                    alert(JSON.stringify(data));
@@ -180,11 +205,13 @@ and open the template in the editor.
                             $("#continuebutton").hide();
                             } else {
                             $("#continuebutton").show();
+                            
                             }
 
                             if (data === error){
                             alert(data);
                             }
+                             $('#loadingGif').remove();
                             }).error(function(data, status, headers, config) {
                             alert("No data available, problem fetching the data");
                                     // called asynchronously if an error occurs
@@ -214,7 +241,7 @@ and open the template in the editor.
             }
 
         </script>
-
+        <jsp:include page="basejsp.jsp" />
 
     </head>
     <body ng-app = "myapp">
@@ -225,30 +252,28 @@ and open the template in the editor.
 
             <div class="col-md-11 col-md-offset-1">
 
-                <div class="col-md-6 col-md-offset-1">
+                <div class="col-md-6 col-md-offset-1 datahead">
                     <p id="text3" class="MH2">{{datalists.title}}  </p>
-                    <input style="position:relative;bottom:5em;left:55em;" type="button" id="continuebutton" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="selected_category()" value="CONTINUE" disabled="true"></div>  
-
-
-                <br /> <br />
-
+                    <input style="position:relative;bottom:9.0em;left:55em;" type="button" id="continuebutton" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="selected_category()" value="CONTINUE" disabled="true">
+                </div>  
+               
                 <div class="col-md-10 col-md-offset-0 datafib">
                     <ul class="dataheaderfromindbody">
-                        <div class="mindbodyOneRowData LE2" >
+                        <div class="mindbodyHeaderData LE2" >
                             <li style="width: 400px;left:20px;">{{datalists.column_header[0]}}</li>
                             <li style="width: 250px">{{datalists.column_header[1]}}</li>
-                            <li style="width: 100px">{{datalists.column_header[2]}}</li>
+                            <li style="width: 100px">{{datalists.column_header[2]}}</li></div>
                     </ul>
-                    <hr id="dividerline" style="width:950px;position:relative;">
+                    <hr id="dividerline" style="width:850px;position:relative;left:-52px;top:-30px;">
 
-                    <div style="position:fixed;height:45%;" class=" tab-pane active" id="picktheme" ng-init="showData()">
+                    <div style="position:fixed;height:45%;top:16em;" class="tab-pane active" id="picktheme" ng-init="showData()">
 
                         <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
                             <div id="{{jsonclass.id}}" class="mindbodyOneRowData LE2" onclick="select_category_details('{{jsonclass.id}}')" >
 
                                 <li style="width: 400px;left:20px;">{{jsonclass.column1}}</li>
                                 <li style="width: 250px">{{jsonclass.column2}}</li>
-                                <li style="width: 100px">{{jsonclass.column3}}</li>
+                                <li style="width: 100px">{{jsonclass.column3}}</li></div>
                         </ul>
 
                     </div>

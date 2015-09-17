@@ -18,6 +18,7 @@ var head1 = "Head1";
 var i = 1;
 
 
+
 function setSocialParameters(title, teacher, date) {
     title = $("#title").val();
     teacher = $("#teacher").val();
@@ -25,6 +26,16 @@ function setSocialParameters(title, teacher, date) {
 }
 
 $(document).ready(function () {
+    $("#galleryupload").click(function(){
+        $(".fileclick").click();
+    });
+    
+    $("#upload").click(function(){
+       $("#myFile").upload("UploadImages",function(success){
+           $("#image1").click();
+            $(".close-reveal-modal").click();
+       });
+   });
 
     $("#left").hide();
     $("#right").hide();
@@ -36,6 +47,7 @@ $(document).ready(function () {
     $("#tabs-1").show();
     $("#tabs-2").hide();
      $("#tabs-3").hide();
+     $("#openCustomColor").hide();
     $('.custom-color-box-text').colpick({
         colorScheme: 'light',
         layout: 'rgbhex',
@@ -64,6 +76,7 @@ $(document).ready(function () {
                 var blockId = $(".blockname").val();
                 $("#" + blockId).css('background-color', '#' + hex);
                 $(el).colpickHide();
+                $("#openCustomColor").hide();
               
             },
             onShow: function ()
@@ -85,8 +98,12 @@ $(document).ready(function () {
         $("#selectedshapecolorbox").css("background-color", "" + color);
 //        $("#" + selectedDivId).css("background-color", "" + color);
         $("#" + blockId).css('background-color', '#' + color);
-       
+        $("#openCustomColor").hide();
     });
+     $("#selectedshapecolorbox").click(function(){
+       $("#openCustomColor").toggle();  
+    } );  
+  
 $(".blockname").change(function (){
     var blockId = $(".blockname").val();
     var divBackgroundColor=$("#"+blockId).css("background-color");
@@ -122,10 +139,12 @@ $(".blockname").change(function (){
     $("#minusFont").click(function () {
         var minusFont =  parseInt($("#" + selectedTextareaId).css("font-size").replace("px","")) - 5;
          $("#" + selectedTextareaId).css("font-size", ""+minusFont+"px");
+         $("#" + selectedTextareaId).attr("orginial-size",minusFont);
     });
     $("#plusFont").click(function () {
         var plusFont =  parseInt($("#" + selectedTextareaId).css("font-size").replace("px","")) + 5;
          $("#" + selectedTextareaId).css("font-size",""+plusFont+"px");
+         $("#" + selectedTextareaId).attr("orginial-size",plusFont);
     });
 
 //    $("#fontname").change(function () {
@@ -180,9 +199,9 @@ $(".blockname").change(function (){
 //           alert(mindbodydataId);
             var layout_mapper_url = "";
             if (mindbodydataId != "") {
-                layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&editor_type=social';
+                layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + allLayoutFilename[0] + '&editor_type=social';
             } else {
-                layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social';
+                layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id=' + allLayoutFilename[0];
             }
 
             $.ajax({
@@ -218,7 +237,7 @@ $(".blockname").change(function (){
                                 $(jsondata).each(function (i, val) {
 
                                     $.each(val, function (k, v) {
-//                                alert(k + " : " + v+ ":"+ type);
+//                                    alert(k + " : " + v+ ":"+ type);
                                         if (type.trim() == k.trim()) {
                                             elementdata = v;
                                         }
@@ -235,6 +254,8 @@ $(".blockname").change(function (){
                                 var top = $(this).attr("y-co-ordinates");
                                 var width = $(this).attr("width");
                                 var height = $(this).attr("height");
+                                $(".crop-container").css("width",width);
+                                $(".crop-container").css("width",height);
                                 var opacity = $(this).attr("opacity");
                                 if (tag === "text")
                                 {
@@ -262,10 +283,11 @@ $(".blockname").change(function (){
 
                                     var webkittransform = $(this).attr("webkit-transform");
                                     var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-                                    $(".preview").append("<div><textarea class=textAreas onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
+                                    $(".preview").append("<div><textarea class=textAreas orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "')  onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
                                     $("#" + type).css("color", "" + fontcolor)
                                             .css("position", "absolute")
                                             .css("overflow", "hidden")
+                                            .css("resize", "none")
                                             .css("margin-left", "" + left + "px")
                                             .css("margin-top", "" + top + "px")
                                             .css("width", "" + width)
@@ -299,6 +321,8 @@ $(".blockname").change(function (){
                                         $("#" + type).css("line-height", "" + xxyy + "px");
                                     }
                                     //resize end
+                                    var addThis = $("#" + type).get(0).scrollHeight - $("#" + type).height();
+                                    $("#" + type).attr("add-this",addThis);
                                 }
 
                                 if (tag === "logo")
@@ -340,7 +364,9 @@ $(".blockname").change(function (){
                                             .css("background", "" + background_image)
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
-                                            .css("position", "absolute");
+                                            .css("position", "absolute")
+                                            .css("background-position", "50% 50%")
+                                            .css("-webkit-background-size", "cover");
                                 }
 
                                 if (tag === "button")
@@ -404,7 +430,8 @@ $(".blockname").change(function (){
             });
         }
     });
-
+    
+    
     
     $('#slider').slider({
         min: 0,
@@ -469,15 +496,33 @@ $(".blockname").change(function (){
     }
 
     $("#plus").click(function () {
+        
+        if($("#" + selectedTextareaId).css("line-height") == "normal")
+        {
+            
+        var xxyy = parseInt($("#" + selectedTextareaId).css("font-size"));
+        xxyy = Math.round(xxyy * 1.2);
+        $("#" + selectedTextareaId).css("line-height", "" + xxyy + "px");
+        $("#" + selectedTextareaId).css("line-height");
+        
+        }
         var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
 
 
-        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) + 5) + "px");
+        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) + 2) + "px");
     });
     $("#minus").click(function () {
+        
+        if($("#" + selectedTextareaId).css("line-height") == "normal")
+        {
+        var xxyy = parseInt($("#" + selectedTextareaId).css("font-size"));
+        xxyy = Math.round(xxyy * 1.2);
+        $("#" + selectedTextareaId).css("line-height", "" + xxyy + "px");
+        }
+        
         var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
 
-        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 5) + "px");
+        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 2) + "px");
     });
 
     $("#hidealignbutton").click(function () {
@@ -505,11 +550,52 @@ $(".blockname").change(function (){
 
 
 });
-
+function textAreaKeyUp(event,id) {
+       
+   var orginialSize = parseInt($("#"+id).attr("orginial-size"));
+    var tempfontsize = parseInt($("#"+id).css('font-size').replace("px", ""));
+    var addThis = parseInt($("#" + id).attr("add-this"));
+     if (event.keyCode == 8 || event.keyCode == 46) {
+  
+        while ( $("#" + id).get(0).scrollHeight <= ($("#"+id).height()+addThis) && tempfontsize <= orginialSize) {
+           //alert(tempfontsize);
+           $("#" + id).css("line-height", "initial");
+            tempfontsize = tempfontsize +1;
+            $("#" + id).css('font-size', ""+tempfontsize+"px");
+           
+ 
+        }
+         
+             tempfontsize = tempfontsize - 1;
+          $("#" + id).css('font-size', ""+tempfontsize+"px");
+ 
+//   var xxyy = parseInt(tempfontsize);
+//        xxyy = Math.round(xxyy * 1.2);
+        //$("#" + id).css("line-height", "" + xxyy + "px");
+    }
+    else if ($("#" + id).get(0).scrollHeight > ($("#"+id).height()+addThis))
+    {
+        if(tempfontsize == orginialSize)
+        $("#" + id).css("line-height", "initial");
+        while ($("#" + id).get(0).scrollHeight > ($("#"+id).height()+addThis) && tempfontsize > 5) {
+        //    alert(tempfontsize);
+                //alert($("#" + id).get(0).scrollHeight + ":" + ($("#"+id).height()+4));
+            tempfontsize = tempfontsize - 1;
+            //     alert(tempfontsize);
+            $("#" + id).css("font-size", "" + tempfontsize + "px");
+        }
+        var xxyy = parseInt(tempfontsize);
+        xxyy = Math.round(xxyy * 1.2);
+        $("#" + id).css("line-height", "" + xxyy + "px");
+        //alert($("#" + id).get(0).scrollHeight + ">" + ($("#"+id).height()+4));
+    }
+        //alert("last"+$("#" + id).get(0).scrollHeight + ">" + ($("#"+id).height()+4));
+        //$("#" + id).css("line-height", "" + xxyy + "px");
+}
 function getTectId(id) {
-
+    selectedTextareaId = id.id;
     $("textarea").click(function () {
-        selectedTextareaId = id.id;
+        
         var textDefaultcolor = $("#" + selectedTextareaId).css("color");
 
         var textDefaultAline = $("#" + selectedTextareaId).css("text-align");
@@ -517,7 +603,11 @@ function getTectId(id) {
         var textDefaultFontFamily = $("#" + selectedTextareaId).css("font-style");
         $("#picker").css("background-color", "" + textDefaultcolor);
         reload_alignButtons1(textDefaultAline);
-
+    });
+    $("#"+selectedTextareaId).focusout(function(){
+        var t= $("#"+selectedTextareaId).val();
+        $("#"+selectedTextareaId ).text(t);
+        
     });
 }
 

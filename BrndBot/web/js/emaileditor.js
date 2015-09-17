@@ -26,7 +26,16 @@ function setSocialParameters(title, teacher, date) {
 }
 
 $(document).ready(function () {
-   
+   $("#galleryupload").click(function(){
+        $(".fileclick").click();
+    });
+    
+    $("#upload").click(function(){
+       $("#myFile").upload("UploadImages",function(success){
+           $("#image1").click();
+            $(".close-reveal-modal").click();
+       });
+   });
     $("#left").hide();
     $("#right").hide();
     $("#center").hide();
@@ -39,6 +48,7 @@ $(document).ready(function () {
     $("#tabs-3").hide();
     $("#tabs-4").hide();
     $("#tabs-5").hide();
+     $("#openCustomColor").hide();
     $('.custom-color-box-text').colpick({
         colorScheme: 'light',
         layout: 'rgbhex',
@@ -63,7 +73,7 @@ $(document).ready(function () {
                 var blockId = $(".blockname").val();
                 $("#" + blockId).css('background-color', '#' + hex);
                 $(el).colpickHide();
-              
+                 $("#openCustomColor").hide();
             },
             onShow: function ()
             {
@@ -94,11 +104,15 @@ $(document).ready(function () {
 //        $("#" + selectedDivId).css("background-color", "" + color);
       
         $("#" + blockId).css('background-color', '#' + color);
-         
+        $("#openCustomColor").hide();
         
     });
+    $("#selectedshapecolorbox").click(function(){
+       $("#openCustomColor").toggle();  
+    } );
     $(".blankcolor-box1").click(function () {
         var display = $("#pickColorForText").css("display");
+        
         if (display === "none") {
             $("#pickColorForText").css("display", "block");
             $(".blankcolor-box-text").click(function () {
@@ -145,31 +159,6 @@ $(document).ready(function () {
 
 
 
-    $.ajax({
-        type: "GET",
-        url: "xml/san1.xml",
-        dataType: "xml",
-        success: function (xml) {
-            var count = 0;
-            $(xml).find('datamapper').each(function () {
-
-                var element = $(this).attr("Element");
-                var default1 = $(this).attr("Default");
-                mapperrray[count] = element + ":" + default1;
-                count++;
-            }
-
-            );
-//            alert(mapperrray);
-        },
-        error: function (e)
-        {
-            alert("error in xml file read");
-        }
-    });
-
-
-
     var jsondata;
     mindbodydataId = $("#mindbodydata").val();
 
@@ -212,15 +201,15 @@ $(document).ready(function () {
                             $(xml).find('layout').each(function () {
                                 height = $(this).find('container').attr("Height");
                                 width = $(this).find('container').attr("Width");
-
-                                var tempWidth = parseInt(width) + 30;
+                                var tempWidth = parseInt(width);
 
                                 $(".preview").css("width", tempWidth + "px");
-                                $(".preview").css("height", height * 2 + "px");
-                                $(".preview").css("overflow", "scroll");
+                                $(".preview").css("height", height + "px");
+//                                $(".preview").css("overflow", "scroll");
                                 $(".preview #defaultblock1").css("width", width + "px");
                                 $(".preview #defaultblock1").css("height", height + "px");
                                 $(".preview #defaultblock1").css("position", "relative");
+//                                alert($(".preview").css("width"));
                             }
 
                             );
@@ -283,17 +272,15 @@ $(document).ready(function () {
                                         }
 
                                     }
-
-                                    $(".preview #defaultblock1").append("<div><textarea class=textAreas onclick=getTectId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1>" + elementdata + "</textarea>");
+                                    textcount++;
+                                    $(".preview #defaultblock1").append("<textarea orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "EEEdefaultblock1')  class=textAreas onclick=getTectId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1>" + elementdata + "</textarea>");
                                     $("#" + type + "EEEdefaultblock1").css("color", "" + fontcolor)
                                             .css("position", "absolute")
                                             .css("overflow", "hidden")
                                             .css("left", "" + left + "px")
                                             .css("top", "" + top + "px")
                                             .css("width", "" + width)
-
                                             .css("height", "" + height)
-
                                             .css("font-style", "" + fontstyle)
                                             .css("font-family", "" + font_family_name)
                                             .css("font-weight", "" + fontweight)
@@ -327,13 +314,14 @@ $(document).ready(function () {
                                             //     alert(tempfontsize);
                                             $("#" + type + "EEEdefaultblock1").css("font-size", "" + tempfontsize + "px");
                                         }
+                                        
                                         var xxyy = parseInt(tempfontsize);
                                         xxyy = Math.round(xxyy * 1.2);
                                         $("#" + type + "EEEdefaultblock1").css("line-height", "" + xxyy + "px");
                                     }
                                     //resize end
-
-
+                                    var addThis = $("#" + type + "EEEdefaultblock1").get(0).scrollHeight - $("#" + type + "EEEdefaultblock1").height();
+                                    $("#" + type + "EEEdefaultblock1").attr("add-this",addThis);
                                 }
 
                                 if (tag === "image")
@@ -342,7 +330,7 @@ $(document).ready(function () {
                                     var background_image = $(this).attr("background-image");
                                     $(".imagename").append("<option name=" + background_image + " value="+ type + "EEEdefaultblock1>Image " + count + "</option>");
                                     count++;
-                                    $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
+                                    $(".preview #defaultblock1").append("<div class=images onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                                     $("#" + type + "EEEdefaultblock1")
                                             .css("color", "" + fontcolor)
                                             .css("position", "absolute")
@@ -354,7 +342,8 @@ $(document).ready(function () {
                                             .css("height", "" + height)
                                             .css("background", "" + background_image)
                                             .css("background-repeat", "no-repeat")
-                                            .css("background-position", "center center")
+                                            .css("background-position", "50% 50%")
+                                            .css("-webkit-background-size", "cover")
                                             .css("position", "absolute");
 
                                 }
@@ -382,12 +371,11 @@ $(document).ready(function () {
 
                                 if (tag === "button")
                                 {
-                                    var src_image = $(this).attr("src");
-                                    
+
+                                    var src_image = $(this).attr("src").replace("../","");
                                     $(".preview #defaultblock1").append("<div><a href=\"#\" data-reveal-id=\"myModal\"><img src='" + src_image + "' buttonLink = '"+elementdata+"' id=" + type + "EEEdefaultblock1 onclick=getButtonid('" + type + "EEEdefaultblock1') alt='button'/></a>");
                                     $("#" + type + "EEEdefaultblock1").css("left", "" + left + "px")
                                             .css("top", "" + top + "px")
-                                            .attr("src", "buttons/button1.png")
                                             .css("position", "absolute");
                                 }
 
@@ -410,7 +398,7 @@ $(document).ready(function () {
 
                                     $(".blockname").append("<option value=" + type + "EEEdefaultblock1>Block " + blockcount + "</option>");
                                     blockcount++;
-                                    $(".preview #defaultblock1").append("<div onclick=getDivId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
+                                    $(".preview #defaultblock1").append("<div class=block onclick=getDivId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                                     $("#" + type + "EEEdefaultblock1").css("background-color", "" + backgroundcolor)
                                             .css("left", "" + left + "px")
                                             .css("top", "" + top + "px")
@@ -444,10 +432,25 @@ $(document).ready(function () {
         var current = $("#" + $(selectedBlockId).attr("id"));
         current.prev().before(current);
     });
-    $("#deleteBlock").easyconfirm();
+    //$("#deleteBlock").easyconfirm();
     $("#deleteBlock").click(function () {
+        new $.flavr({
+    content     : 'Are you sure you want to delete this style?',
+    dialog      : 'confirm',
+    
+    onConfirm   : function( $container ){
         var tempSelectedBlockId = $(selectedBlockId).attr("id");
         $("#" + tempSelectedBlockId).remove();
+         $(".imagename").find('option').remove().end();
+         $(".blockname").find('option').remove().end();
+    },
+    onCancel    : function( $container ){
+        
+    }
+});
+        
+        
+        
     });
     $("#sortDownBlock").click(function () {
 
@@ -524,15 +527,31 @@ $(document).ready(function () {
     }
 
     $("#plus").click(function () {
+        if($("#" + selectedTextareaId).css("line-height") == "normal")
+        {
+            
+        var xxyy = parseInt($("#" + selectedTextareaId).css("font-size"));
+        xxyy = Math.round(xxyy * 1.2);
+        $("#" + selectedTextareaId).css("line-height", "" + xxyy + "px");
+        $("#" + selectedTextareaId).css("line-height");
+        
+        }
         var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
 
 
-        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) + 5) + "px");
+        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) + 2) + "px");
     });
     $("#minus").click(function () {
+        if($("#" + selectedTextareaId).css("line-height") == "normal")
+        {
+        var xxyy = parseInt($("#" + selectedTextareaId).css("font-size"));
+        xxyy = Math.round(xxyy * 1.2);
+        $("#" + selectedTextareaId).css("line-height", "" + xxyy + "px");
+        }
+        
         var lineheight = $("#" + selectedTextareaId).css("line-height").replace("px", '');
 
-        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 5) + "px");
+        $("#" + selectedTextareaId).css("line-height", "" + (parseInt(lineheight) - 2) + "px");
     });
 
     $("#hidealignbutton").click(function () {
@@ -648,32 +667,44 @@ $(document).ready(function () {
 //    };
 
 });
-//function textAreaKeyUp(id) {
-//    alert(id);
-//    var fontsize = parseInt($(id).css('font-size').replace("px", ""));
-//    alert("keyed1"+$(id).attr("id"));
-//    alert($(id).get(0).scrollHeight + "<=" + $(id).height()+"Fontsize:"+fontsize);
-//    if($(id).get(0).scrollHeight <= ($(id).height()+4))
-//    {
-//        
-//        while ($(id).get(0).scrollHeight <= ($(id).width()+4) && fontsize <= parseInt($(id).css('font-size').replace("px", ""))) 		  {
-//alert($(id).get(0).scrollHeight + "<=" + $(id).height()+"Fontsize:"+fontsize);
-//            fontsize = fontsize + 1;
-//            $(id).css('font-size', "" + fontsize + "px");
-//
-//        }
-//
-//        fontsize = fontsize - 1;
-//        $(id).css('font-size', "" + fontsize + "px");
-//
-//    } else {
-//        alert($(id).get(0).scrollHeight +":"+ $(id).height());
-//        while ($(id).get(0).scrollHeight > ($(id).height()+4)) {
-//            fontsize = fontsize - 1;
-//            $(id).css('font-size', "" + fontsize + "px");
-//        }
-//    }
-//}
+function textAreaKeyUp(event,id) {
+   var orginialSize = Math.round(parseInt($("#"+id).attr("orginial-size").replace("px","")));
+    var tempfontsize = parseInt($("#"+id).css('font-size').replace("px", ""));
+    var addThis = parseInt($("#" + id).attr("add-this"));
+    
+     if (event.keyCode == 8 || event.keyCode == 46) {
+        while ( $("#" + id).get(0).scrollHeight <= ($("#"+id).height()+addThis) && tempfontsize <= orginialSize) {
+           $("#" + id).css("line-height", "initial");
+            tempfontsize = tempfontsize +1;
+            $("#" + id).css('font-size', ""+tempfontsize+"px");
+ 
+        }
+             tempfontsize = tempfontsize - 1;
+          $("#" + id).css('font-size', ""+tempfontsize+"px");
+ 
+//   var xxyy = parseInt(tempfontsize);
+//        xxyy = Math.round(xxyy * 1.2);
+        //$("#" + id).css("line-height", "" + xxyy + "px");
+    }
+    else if ($("#" + id).get(0).scrollHeight > ($("#"+id).height()+4))
+    {
+        if(tempfontsize == orginialSize)
+        $("#" + id).css("line-height", "initial");
+        while ($("#" + id).get(0).scrollHeight > ($("#"+id).height()+addThis) && tempfontsize > 5) {
+        //    alert(tempfontsize);
+                //alert($("#" + id).get(0).scrollHeight + ":" + ($("#"+id).height()+4));
+            tempfontsize = tempfontsize - 1;
+            //     alert(tempfontsize);
+            $("#" + id).css("font-size", "" + tempfontsize + "px");
+        }
+        var xxyy = parseInt(tempfontsize);
+        xxyy = Math.round(xxyy * 1.2);
+        $("#" + id).css("line-height", "" + xxyy + "px");
+        //alert($("#" + id).get(0).scrollHeight + ">" + ($("#"+id).height()+4));
+    }
+        //alert("last"+$("#" + id).get(0).scrollHeight + ">" + ($("#"+id).height()+4));
+        //$("#" + id).css("line-height", "" + xxyy + "px");
+}
 $(function(){
     $("#buttonOKURL").click(function(){
        
@@ -682,9 +713,48 @@ $(function(){
     });
 });
 function getBlockId(id) {
-
     selectedBlockId = id;
-
+    var blockCount=1;
+    var imageCount=1;
+    var textCount=1;
+    $(".imagename").find('option').remove().end();
+    $(".blockname").find('option').remove().end();
+    
+   $('#'+selectedBlockId.id).children().each(function () {
+        var Id=this.id;
+        var className=$("#"+Id).attr("class");
+        switch (className){
+            case 'textAreas': textCount++;
+                                break;
+            case 'block':   
+                            $(".blockname").append("<option value="+ Id +">Block " + blockCount + "</option>");
+                            blockCount++;
+                            break;              
+                            
+            case 'images': 
+                            var backgroundImage=$("#"+Id).css("background-image");
+                            $(".imagename").append("<option name="+backgroundImage+" value="+ Id +">Image " + imageCount + "</option>");
+                            imageCount++;
+                            break; 
+                        
+            
+        }
+        if(blockCount <=1)
+            $("#shapecontainer").hide();
+        else
+             $("#shapecontainer").show();
+         if(imageCount <=1)
+            $("#imagecontainer").hide();
+        else{
+        $("#imagecontainer").show();
+        $("#filtercontainer").hide();
+        $("#imageGallery").hide();
+        }
+        if(textCount <=1)
+        $("#textcontainer").hide();
+        else
+          $("#textcontainer").show();
+});
     mindbodydataId = $(selectedBlockId).attr("name").toString();
     $("#tabs-1").show();
     $("#tabs-2").hide();
@@ -699,9 +769,23 @@ function getButtonid(ID) {
 }
 
 function getTectId(id) {
+     selectedTextareaId = id.id;
     $("textarea").click(function () {
-        selectedTextareaId = id.id;
+       
+        var textDefaultcolor = $("#" + selectedTextareaId).css("color");
+
+        var textDefaultAline = $("#" + selectedTextareaId).css("text-align");
+        var textDefaultFontSize = $("#" + selectedTextareaId).css("font-size");
+        var textDefaultFontFamily = $("#" + selectedTextareaId).css("font-style");
+        $("#picker").css("background-color", "" + textDefaultcolor);
+        reload_alignButtons1(textDefaultAline);
     });
+     $("#"+selectedTextareaId).focusout(function(){
+        var t= $("#"+selectedTextareaId).val();
+        $("#"+selectedTextareaId ).text(t);
+        
+    });
+    
 }
 
 

@@ -20,6 +20,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+         <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -27,7 +30,7 @@
         <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+
         <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
         <!--<script src="js/foundation.min.js" type="text/javascript"></script>-->
         <script src="js/jquery.reveal.js" type="text/javascript"></script>
@@ -39,6 +42,11 @@
         <title>social media</title>
 
         <style>
+            #loadingGif{
+               position: absolute;
+               top:250px;
+               left: 550px;
+            }
             .socialimage{
                 width: 120px;
                 height: 120px;
@@ -121,13 +129,15 @@
             }
             #submitbutton{
                 position:relative;
-                top:120px;
-                left:0px;
+                top:70px;
+                left:80px;
             }
-           
+            .red-cell {
+                background:#D8D8D8; /* Or some other color */
+             }
+
         </style>
         <%! 
-            HttpServletRequest request;
             Object code = "";
             String ImageName="";
         %>
@@ -167,7 +177,7 @@
         <script>
             
             $(document).ready(function () {
-                
+                $("#loadingGif").hide();
                 // $('#myModal').trigger('reveal:open');
                 
 //                $("#abc").click(function () {
@@ -211,10 +221,13 @@
                 var check_default_managed_page;
                 $("tr").click(function () {
                     var id = this.id.split("#");
-
-//                    alert(this.id);
+                   var selected = $(this).hasClass("red-cell");
+                    $("tr").removeClass("red-cell");
+                    if(!selected){
+                            $(this).addClass("red-cell");}
                     var page = $("#" + this.id).text();
                     var accessToken = $("#access" + id[1]).val();
+                    $("#access" + id[1]).css("background-color","red");
                     $("#pagenameSend").val(page);
                     $("#fbaccessTokenSend").val(accessToken);
                     $("#fbdefaultAccessToken").val("true");
@@ -250,10 +263,9 @@
 
                 $("#facebookok").click(function () {
 //                    managed_page = $("#isDefault").val();
+                    document.getElementById("fb").src="images/fbButton_darkblue_new.svg";
                     check_default_managed_page = document.getElementById("isdefault").checked;
-                    
                     if ((check_default_managed_page == true) && (check_default == "true")){
-//                       alert(default_access_token);
                         $.ajax({
                                 url: 'ServletUserPreferencesFacebook',
                                 method: 'post',
@@ -276,7 +288,7 @@
                         $("#submitbutton").prop("disabled",false);
                     }else {
                         alert("No default page selected");
-                    }   
+                    } 
             });
             
             $("#close").click(function(){
@@ -297,9 +309,10 @@
            }
            
         </script>
-<!--        <link href="css/foundation.css" rel="stylesheet" type="text/css"/>-->
+        <jsp:include page="basejsp.jsp" />
     </head>
-<body>
+    <body>
+    <img id="loadingGif" src="images/YogaLoadingGif.gif" />
     <a href="#" data-reveal-id="myModal" class="clickthis" style="display: none;">Click Me For A Modal</a>
     <a href="#" data-reveal-id="myModal1" class="clicktwitter" style="display: none;">Click Me For A Modal</a>
     <div class="row">
@@ -313,7 +326,7 @@
 
                 <li><img id="fb" class="socialimage fb" src="images/fbButton.svg" onclick="changeImagef();"/> <input type="checkbox" id="facebook" name="social"  value="facebook" hidden="true"><p class="il2">Facebook</p></li>
                 <li><img id="twt" class="socialimage twt" src="images/twtButton.svg" onclick="changeImaget();"/> <input type="checkbox" id="twitter" name="social" value="twitter" hidden="true"><p class="il2">Twitter</p></li>
-                <li><div style="left:-380px;" class="col-md-5 col-md-offset-0">
+                <li><div style="left:-330px;" class="col-md-5 col-md-offset-0">
 
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
                             <input type="hidden" id="imageName" name="imageName" value='<%=ImageName%>' >
@@ -353,9 +366,9 @@
                                         <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
                                 
                             </script>
-</body>
-<script>
+                            <script>
     function changeImagef() {
+        $("#loadingGif").show();
        var x = document.getElementById("facebook").checked;
        if(x == false){
        document.getElementById("facebook").checked=true;
@@ -364,7 +377,7 @@
    else
    {
        document.getElementById("fb").src="images/fbButton.svg"; 
-   document.getElementById("facebook").checked=false;    
+       document.getElementById("facebook").checked=false;    
    }
        
    }
@@ -372,13 +385,16 @@
        var x = document.getElementById("twitter").checked;
        if(x == false){
        document.getElementById("twitter").checked=true;
-       document.getElementById("twt").src="images/twtButton_lightblue_new.svg"; 
+       document.getElementById("twt").src="images/twtButton_lightblue_new.svg";
    }
    else
    {
-   document.getElementById("twitter").checked=false;    
+       document.getElementById("twt").src="images/twtButton.svg";
+       document.getElementById("twitter").checked=false;    
    }
 }
 
 </script>
+</body>
+
 </html>

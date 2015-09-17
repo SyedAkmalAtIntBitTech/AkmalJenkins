@@ -9,8 +9,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+         <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
         <script type="text/javascript" src="js/angular.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -18,7 +20,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/leftmenuhamburger.js" type="text/javascript"></script>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+       
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
@@ -77,6 +79,9 @@
                 height:auto;
                 width:300px;
                 margin:5px auto;
+            }
+            #content input{
+                width:200px;
             }
             #popupclose
             {
@@ -157,8 +162,10 @@
         String emailSubject = "";
         String emailList = "";
         String htmlData = "";
+
         String emailAddresses = "";
-        SqlMethods sqlmethods = new SqlMethods();
+ 
+
     %>
     <%
         sqlmethods.session = request.getSession(true);
@@ -247,7 +254,7 @@
                     //show popup showing
 //                    alert(formattedHTMLData);
                     $(".content").empty();
-                    $(".content").append(responseText);
+                    $(".content").append("<iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
 
                 }
             });
@@ -256,28 +263,22 @@
             var imageUrl = $("#" + id).css("background-image");
 
             if (id === "ipad") {
-                $(".preview").css("width", "850px").css("height", "850px").css("overflow", "none").css("overflow", "hidden");
-                $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px").css("overflow", "hidden")
-                        .css("border-color", "transparent").css("background-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px");
-                $(".content").css("margin-left", "-54px").css("margin-top", "-150px").css("zoom", "29.8%")
-                        .css("width", "400px");
+                $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px")
+                        .css("border-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px").css("background-color","#FFF");
+                $('#dynamictable').css("width","768px").css("height","987px").css("top","-474px").css("left","-300px").css("-webkit-transform"," scale(0.265)");
             }
             else if (id === "imac")
             {
-                $(".preview").css("width", "550px").css("height", "950px").css("overflow", "hidden").css("align", "center");
                 $(".iphoneshow").css("background-image", imageUrl)
                         .css("display", 'block').css("height", "413px").css("width", "295px").css("margin-left", "-55px").css("margin-top", "-80px")
-                        .css("overflow-x", "hidden").css("border-color", "transparent").css("background-color", "transparent");
-                $(".content").css("margin-left", "-33px").css("margin-top", "-132px").css("width", "440px").css("height", "920px").css("overflow", "none").css("zoom", "37%");
-
+                        .css("border-color", "transparent").css("background-color","#FFF");
+                 $('#dynamictable').css("width","768px").css("height","620px").css("top","-320px").css("left","-272px").css("-webkit-transform","scale(0.33)");
             }
-            else {
-                $(".preview").css("width", "550px").css("height", "950px").css("overflow", "hidden").css("align", "center");
+            else if (id === "iphone"){
                 $(".iphoneshow").css("background-image", imageUrl)
-                        .css("display", 'block').css("height", "370px").css("width", "195px").css("margin-left", "-55px").css("margin-top", "-80px")
-                        .css("overflow-x", "hidden").css("border-color", "transparent").css("background-color", "transparent");
-                $(".content").css("margin-left", "-97px").css("margin-top", "-122px").css("width", "400px").css("height", "920px").css("overflow", "none").css("zoom", "22%");
-
+                        .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "-55px").css("margin-top", "-80px")
+                        .css("border-color", "transparent").css("background-color","#FFF");
+                 $('#dynamictable').css("width","320px").css("height","655px").css("top","-276px").css("left","-107px").css("-webkit-transform","scale(0.47)");
             }
         }
         function displaySchedule(){
@@ -335,6 +336,7 @@
         }
         
         function sendEmail() {
+            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
                 $.ajax({
                 url: getHost() + "SendEmailServlet",
                 type: "post",
@@ -348,6 +350,8 @@
                     email_list: $("#email_list").val()
                 },
                 success: function (responseText) {
+                    $('#loadingGif').remove();
+
                     document.location.href = "emailsent.jsp";
                 },
                 error: function (){
@@ -359,6 +363,7 @@
         }
 
     </script>
+        <jsp:include page="basejsp.jsp" />
     </head>
 
     <body ng-app>
@@ -408,7 +413,9 @@
                             <br><br><button type="button" onclick="displaySchedule()" class="button button--moema button--text-thick button--text-upper button--size-s">SCHEDULE</button><br><br><br>
                         </div>
                     </div>
+
                             <input type="hidden" id="email_list" name="email_list" value='<%=emailList%>'>
+
                 </form>
             </div>
             <div class="col-md-4">
@@ -434,8 +441,8 @@
                         Date : <input type="datetime-local" class="form-control simplebox" id="schedule_time" name="schedule_time"><br>
 
                         <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
-                        <input type="button" ng-click="setScheduling()" value="Done"/>   
-                        <input type="button" id="hidepopup" value="Close" onclick="hidepopup()"/>   
+                        <input type="button" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="setScheduling()" value="Done"/>   
+                        <input type="button" class="button button--moema button--text-thick button--text-upper button--size-s" id="hidepopup" value="Close" onclick="hidepopup()"/>   
                     </div>
                 </div>
 

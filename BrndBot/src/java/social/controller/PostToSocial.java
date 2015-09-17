@@ -75,10 +75,10 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String posttext = request.getParameter("postText");
             String title = request.getParameter("title");
             String description = request.getParameter("description");
-            
+            String url1 = request.getParameter("url");
             
             facebook = new FacebookFactory().getInstance();
-            facebook.setOAuthAppId("213240565487592", "823a21d2cc734a2de158daf9d57650e8");
+            facebook.setOAuthAppId("592852577521569", "a87cc0c30d792fa5dd0aaef6b43994ef");
             facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
 //            File file = new File(file_image_path);
             facebook.setOAuthAccessToken(new AccessToken(accessToken));
@@ -90,10 +90,11 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 update.message(posttext);
                 facebook.postPhoto(update);  
             } else {
+                logger.info(title);
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL + "/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
+                        .picture(new URL(imagePostURL + "DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
                         .name(title)
-                        .link(new URL(url))
+                        .link(new URL(url1))
                         .description(description);
                 facebook.postFeed(post);
             }
@@ -113,21 +114,30 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
 
                 ConfigurationBuilder twitterConfigBuilder = new ConfigurationBuilder();
                 twitterConfigBuilder.setDebugEnabled(true);
-                twitterConfigBuilder.setOAuthConsumerKey("wpbVT8lVnvQ0KQzHLds540JPZ");
-                twitterConfigBuilder.setOAuthConsumerSecret("eILgUX4xFEyOHYpDWEcvhOuskjZDeUSJrKAetgiGRJTD7XxMsd");
+                twitterConfigBuilder.setOAuthConsumerKey("K7TJ3va8cyAeh6oN3Hia91S2o");
+                twitterConfigBuilder.setOAuthConsumerSecret("IWUt2aDVTHgUc8N0qI0cF1Z1dTAEQ7CSgnBymZNr3BPSmtkNHL");
                 twitterConfigBuilder.setOAuthAccessToken(request.getParameter("twittweraccestoken"));
                 twitterConfigBuilder.setOAuthAccessTokenSecret(request.getParameter("twitterTokenSecret"));
 
                 Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
-                String statusMessage = request.getParameter("text");
-                int urlLength = url.length()+1;
-                int statusLength = 140 - urlLength;
-                statusMessage = statusMessage.substring(0,statusLength);
-                statusMessage = statusMessage + " " + url;
+                String statusMessage = request.getParameter("text").replace("  bit.ly/1XOkJo","");
+                String shortUrl= request.getParameter("shorturl");
+                if(shortUrl.length()>0){
+                    String StatusMessageWithoutUrl=statusMessage.substring(0,statusMessage.length());
+                    if (StatusMessageWithoutUrl.length() + shortUrl.length() < 140) {
+                        statusMessage = StatusMessageWithoutUrl + " " + shortUrl;
+                    } else {
+                        int urlLength = shortUrl.length() + 1;
+                        int statusLength = 115 - urlLength;
+                        statusMessage = StatusMessageWithoutUrl.substring(0, statusLength);
+                        statusMessage = statusMessage + " " + shortUrl;
+                    }
+                }
                 File file = new File(file_image_path);
-
+                int count=statusMessage.length();
                 StatusUpdate status = new StatusUpdate(statusMessage);
             // set the image to be uploaded here.
+               
                 status.setMedia(file);
                 twitter.updateStatus(status);
                 try {
@@ -138,7 +148,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                     }
 
             } catch (TwitterException te) {
-
+                
                 PrintWriter out1 = response.getWriter();
                 out1.println("Twitter Exception: " + te.getMessage());
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, te.getCause());

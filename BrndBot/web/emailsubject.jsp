@@ -8,8 +8,11 @@
 <!DOCTYPE html>
 <html>
     <head>
+         <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="SHORTCUT ICON" href="images/Layout-styles/logo_small.png"/>
+        
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="js/angular.min.js" type="text/javascript"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -18,7 +21,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <link href="css/popup.css" rel="stylesheet" type="text/css"/>
            <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+        
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
                 <link rel="stylesheet" href="css/main1.css">
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
@@ -48,9 +51,9 @@
             /*Sort of important*/
             height: 200px;
             position:absolute;
-            left:80%;
-            top:-100px;
-            margin-left:-50px;
+            left:0%;
+            top:80px;
+            
             border: 2px dashed rgba(0,0,0,.3);
             border-radius: 20px;
             font-family: Arial;
@@ -76,6 +79,7 @@
             #drop-zone.mouse-over {
                 border: 2px dashed rgba(0,0,0,.5);
                 color: rgba(0,0,0,.5);
+                
             }
 
 
@@ -89,21 +93,22 @@
                 margin-top: 20px;
                 line-height: 26px;
                 color: white;
-                font-size: 12px;
+                font-size: 15px;
                 width: 270px;
                 height: 150px;
                 border-radius: 4px;
-                background-color: #3b85c3;
+                color:#000;
+                background-color: #f2f2f4;
             }
 
             #clickHere:hover {
-                background-color: #4499DD;
+             
 
             }            
         .header1{
-            font-family: "proxima-nova",sans-serif;
+/*            font-family: "proxima-nova",sans-serif;
             font-style: normal;
-            font-weight: 600;
+            font-weight: 600;*/
             color: #3f4042;
             text-align: left;
             line-height: 25.8px;
@@ -165,16 +170,46 @@
                 font-size: 18px;
                 border-radius: 5px;
             }
+            
+            fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}   
+            
             #chooseEmailList{
-                
-                color: #3f4042;
-                background-color: #ccc;
-                border: 1px solid #DADADA;
-                height:40px;
-                width:300px;
-                font-size: 18px;
-                border-radius: 5px;
-            }
+               border: none ;
+    width: 304px;
+    height: 27px;
+   -webkit-appearance: none;
+    -moz-appearance: none;
+     box-shadow: none !important ;
+    appearance: none;
+    padding: 2px 1px 2px 2px;
+    border: 2px solid #d0d0d0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 2px;
+    color:#2b2f35;
+    background: url("images/dropdown.png") no-repeat right center;
+    background-color: #F2F2F4; 
+    font-size:18px;
+    color: #3f4042;
+    height:40px;
+}
             
             #chooseEmailId:focus{
                 outline: none;
@@ -192,17 +227,24 @@
                 background-color: #00A37A;
                 border-color: #00A37A;
             }
-            .btn-csv:focus{
-             outline: none;
+            .btn-upload{
+                position: relative;
+                width: 100px;
+                background-color:#D1D2D9;
+                color:#fff;
+                font-size:15px;
+                border-radius:3px;
+                border-style: none;
             }
             .btn-csv{
-                border-radius:20px;
-                position: fixed;
-                top: 62%;
-                right:50%;
+                font-size:20px;
+                border-radius:5px;
+                position:relative;
+                top: 20px;
                 width: 200px;
-                background-color:transparent;
-                border-color: #003399;
+                background-color:#D1D2D9;
+                color:#fff;
+                border-style: none;
             }
             .btn-prim{
                 position: fixed;
@@ -228,9 +270,9 @@
 
         
 
-            .header1{
+/*            .header1{
                 font-size: 28px;
-            }
+            }*/
             .hideinputborder{
                 background-color:transparent;
                 border: 0px solid;
@@ -292,7 +334,7 @@
                 });
 
                 $("#emailSubjectContinueButton").click(function () {
-                    
+                   
                     $("#chooseEmailList").show();
                     $("#emailsubjectdiv").hide();
                     $("#emailaddresses").hide();
@@ -300,6 +342,7 @@
                     $("#clickHere").hide();
                     $("#upload").hide();
                     $("#emaillist").show();
+              
 
                 });
           
@@ -312,6 +355,10 @@
                         $("#drop-zone").hide();
                         $("#clickHere").hide();
                         $("#upload").hide();
+                        $("#dragtext").hide();
+                        $("#entertext").hide();
+                         $("#emailIdContinueButton").css("top","50px");
+                       
                     }else {
 
                         $("#email_list_name").val(List_name);
@@ -383,11 +430,14 @@
                 var x = document.getElementById("chooseEmailList").selectedIndex;
                 var list_name = document.getElementsByTagName("option")[x].value;
                 if (list_name != 0){
-
+                    $("#emailIdContinueButton").show();
+                    $("#entertext").show();
+                    $("#dragtext").show();
                     $("#emailaddresses").show();
                     $("#drop-zone").show();
                     $("#clickHere").show();
                     $("#upload").show();
+                    $("#emailIdContinueButton").css("top","-70px");
                     $(function () {
 
                     var dropZoneId = "drop-zone";
@@ -494,7 +544,19 @@
    
         </script>
         <script>
-
+            function fileselected(){
+             
+               var a = document.getElementById('file');
+                if(a.value == "")
+                {
+                fileselect.innerHTML = "Choose file";
+                }
+                else
+                    {
+                        var theSplit = a.value.split('\\');
+                        fileselect.innerHTML = theSplit[theSplit.length-1];
+                    }
+            }
               function upload() {
                 var fileUpload = document.getElementById("file");
                 alert(fileUpload.value.toLowerCase());
@@ -572,6 +634,7 @@
        
             
         </script>
+        <jsp:include page="basejsp.jsp" />
     </head>
     <%! 
         String html_text = "";
@@ -583,7 +646,7 @@
             
         }
      %>
-    <body ng-app>
+     <body style="overflow-x: hidden;" ng-app>
             <div class="row">
             <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div><!--/end left column-->
@@ -607,23 +670,27 @@
                     <p class="header1 MH2"> Who do you want to send this email to?</p>
                     <br><br>   
                    
-                    <select id="chooseEmailList" name="chooseEmailList" class="emaillist slt" hidden="true">
+                    <select id="chooseEmailList" name="chooseEmailList"  hidden="true">
                         <option value="1">Manual</option>
                         <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                     </select>
-                    <div id="drop-zone">
+                    
+                    
+                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class=" btn-csv BT1" value="Add CSV or Email Manually">
+                     <p style="position:relative;top:70px;" id="dragtext" hidden="true">Drag and drop a csv file here and click to upload:</p>
+                     <div id="drop-zone">
                         Drop files here...
-                        <div id="clickHere">
-                            or click here..
-                            <input type="file" name="file" id="file" style="width:300px;"/><br><br>
+                        <div id="clickHere" >
+                            <p id="fileselect" style="font-size:20px;top:60px;position:relative;">Click to Select file</p> 
+                     
+                      <input type="file" name="file"  id="file" style="overflow:hidden;position: absolute;top: 0;right: 0;margin: 0;width:250px;border-radius:15px;border:none;padding: 0;font-size: 20px;cursor: pointer;opacity: 0;filter: alpha(opacity=0);" onchange="fileselected()"/><br><br>
                         </div>
                     </div>
-
-                  
-                    
-                    <input type="button" id="upload" value="Upload" onclick="upload()"  style="position:relative;left:32.7em;top:-90px;border-radius:15px;"/>
-                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="btn btn-csv BT1" value="Add CSV or Email Manually">
-                    <textarea style="width:300px; height:100px;position:relative;left:42em;top:-20px;" id="emailaddresses"></textarea><br><br>
+                     <p style="position:relative;top:-160px;left:25em;" id="entertext" hidden="true">Enter Email Addresses manually here:</p>
+                     <textarea style="width:300px; height:200px;position:relative;left:25em;top:-11em;" id="emailaddresses"></textarea>
+                     <input type="button" id="upload" value="Upload" onclick="upload()" class="btn-upload" style="position:relative;left:2px;top:-100px;"/>
+                     <input style="position:relative;top:50px;left:-10px;" id="emailIdContinueButton" type="button" class=" button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
+                   
                
 
                     <div id="popup">
@@ -638,9 +705,10 @@
                                 <input type="button" id="popupCancel" class="btn btn-default" value="Cancel">
                             </center>
                         </div>   
-                    </div>                          
+                    </div>      
+                      
 <!--                    <input type="text" class="hideinputEmailId" id="emailId" name="emailsubject" placeholder="Add CSV or Email Manually"> <br><br><br><br><br>-->
-                    <input  id="emailIdContinueButton" type="button" class=" button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
+
                    </div>                   
             </div>      
 <!--        </div>-->
