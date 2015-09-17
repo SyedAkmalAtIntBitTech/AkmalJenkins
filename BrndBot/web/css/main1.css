@@ -176,7 +176,7 @@ label                {
 }
 /* active state */
 #title:focus ~ label, .inputsubline:valid ~ label     {
-    left:-50px;
+    left:-40px;
   font-size:13px;
   color:#999;
  

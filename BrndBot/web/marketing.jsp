@@ -195,10 +195,11 @@
             }
             .content{
                 position: relative;
-                width:50px;
+                max-width:200px;
                 height: 250px;
                 margin-top: 0px;
             }
+            
             .actiondetails{
                 position: relative;
                 width:250px;
@@ -208,8 +209,10 @@
                position:relative;
                left:15px;
                
-           }
-            
+             }
+         .content table td img{
+             width:50%;
+         }
             .postdetails{
                 position: relative;
                 width:250px;
@@ -426,7 +429,7 @@
 
                            
                             <div class="group">
-                                <div class="col-md-3 col-md-offset-1 ">                            
+                                <div class="col-md-4 col-md-offset-1 ">                            
                                     <input id="title" class="brdr form-control simplebox" type="text" name="title" />
                                     <label>TITLE</label>
                                 </div><br>
@@ -438,7 +441,7 @@
                                                              <option value="Email">Email</option>
                                                              <option value="Note">Note</option>
                                 </select></div>
-                                <div style="position:relative;top:40px;left:80px;">
+                                <div style="position:relative;top:40px;left:60px;">
                                     Description : <br><textarea cols="28" rows="2" name="description" id="description"></textarea>
                                 </div>
                                 <div style="position:relative;top:77px;left:30px;">
@@ -461,9 +464,9 @@
                 <div id="preview" class="pollSlider">
                     <div>
 
-                        <div class="actiondet">
+                        <div >
 
-                        <div>
+                        <div class="actiondet">
 
                             <div style="border:1px solid #7ab5d3">
                                 
@@ -473,7 +476,7 @@
                                 </div>
                                 <p>Saved Post &nbsp;&nbsp; Preview</p>
                                 <p></p><br>
-                                <div class="content"></div>
+                                <div class="content" ></div> 
                                 <p class="postdetails">Post details</p>
                                 <div>
                                     Scheduled on {{entities_selected_time| date:'h:mma'}}
