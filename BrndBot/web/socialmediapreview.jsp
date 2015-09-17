@@ -380,26 +380,57 @@
                     var social_schedule = "";
                     if (isFacebook == "true" || isTwitter == "true"){
                         
-                        social_schedule = {
-                                        "token_data": {
-                                          "access_token": $("#accesstoken").val(),
-                                          "twittweraccestoken": $("#twittweraccestoken").val(),
-                                          "twitterTokenSecret": $("#twitterTokenSecret").val()
-                                        },
-                                        "image_name": image_name,
-                                        "metadata": {
-                                            "text": $("#twittertext").val(),
-                                            "postText": $("#posttext").val(),
-                                            "title": $("#title").val(),
-                                            "description": $("#description").val(),
-                                            "url": $("#url").val()
-                                          
-                                        },
-                                        "isFacebook": isFacebook,
-                                        "isTwitter": isTwitter,
-                                        "schedule_time": newEpoch,
-                                        "schedule_title": schedule_title
-                                      }
+                     social_schedule =  [
+                                          {
+                                            type: "facebook",
+                                            image_name: image_name,
+                                            schedule_time: newEpoch,
+                                            schedule_title: schedule_title,
+                                            token_data: {
+                                              "access_token": $("#accesstoken").val()
+                                            },
+                                            metadata: {
+                                              description: $("#description").val(),
+                                              post_text: $("#posttext").val(),
+                                              url: $("#url").val()
+                                            }
+                                          },
+                                          {
+                                            type: "twitter",
+                                            image_name: image_name,
+                                            schedule_time: newEpoch,
+                                            schedule_title: schedule_title,
+                                            schedule_desc: $("#twittertext").val(),
+                                            token_data: {
+                                              "access_token": $("#twittweraccestoken").val(),
+                                              "token_secret": $("#twitterTokenSecret").val()
+                                            },
+                                            metadata: {
+                                              text: $("#twittertext").val()
+                                            }
+                                          }
+                                        ]
+//                        social_schedule = {
+//                                        "token_data": {
+//                                          "access_token": $("#accesstoken").val(),
+//                                          "twittweraccestoken": $("#twittweraccestoken").val(),
+//                                          "twitterTokenSecret": $("#twitterTokenSecret").val()
+//                                        },
+//                                        "image_name": image_name,
+//                                        "metadata": {
+//                                            "text": $("#twittertext").val(),
+//                                            "postText": $("#posttext").val(),
+//                                            "title": $("#title").val(),
+//                                            "description": $("#description").val(),
+//                                            "url": $("#url").val()
+//                                          
+//                                        },
+//                                        "isFacebook": isFacebook,
+//                                        "isTwitter": isTwitter,
+//                                        "schedule_time": newEpoch,
+//                                        "schedule_title": schedule_title
+//                                      }
+                        console.log(JSON.stringify(social_schedule));
                         $.ajax({
                             url:  getHost() + 'ScheduleSocialPost',
                             method: 'post',
