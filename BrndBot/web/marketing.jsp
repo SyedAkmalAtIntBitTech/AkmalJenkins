@@ -215,7 +215,7 @@
             }
 
         </style>
-
+        
     </head>
     <body ng-app class="claro">
         <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign" class="container"> 
@@ -413,22 +413,34 @@
                 </div>
                 <div id="dvPriorityDialog" class="pollSlider">
                     <div id="dvPriorityContent"><br>
-                        <h1>Add Action</h1>
-                        Title : <input type="text" name="title" id="title" /><br>
-                        Type :  <select id="actiontype" name="actiontype">
-                            <option value="0">Select</option>
-                            <option value="Facebook">Facebook</option>
-                            <option value="Twitter">Twitter</option>
-                            <option value="Email">Email</option>
-                            <option value="Note">Note</option>
-                        </select>
-                        <br><br>
-                        Description : <textarea cols="28" rows="4" name="description" id="description"></textarea><br><br>
-                        Date : <input type="date" id="actiondate" name="actiondate"/><br>
+                        <h1>&nbsp;Add Action</h1>
+                         <form class="form-horizontal" id="signform" >
 
+                           
+                            <div class="group">
+                                <div class="col-md-3 col-md-offset-1 ">                            
+                                    <input id="title" class="brdr form-control simplebox" type="text" name="title" />
+                                    <label>TITLE</label>
+                                </div><br>
+                                <div style="position: relative;left:-170px;top:30px;">
+                                Type :  <select id="actiontype"  name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                                        <option value="0">Select</option>
+                                                          <option value="Facebook">Facebook</option>
+                                                            <option value="Twitter">Twitter</option>
+                                                             <option value="Email">Email</option>
+                                                             <option value="Note">Note</option>
+                                </select></div>
+                                <div style="position:relative;top:40px;left:80px;">
+                                    Description : <br><textarea cols="28" rows="2" name="description" id="description"></textarea>
+                                </div>
+                                <div style="position:relative;top:77px;left:30px;">
+                                    Date : <input type="date" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
+                                </div>
+                            </div>
+                                 </form> 
                     </div>
                     <div class="row">
-                        <div class="col-md-12" style="width:250px;">
+                        <div class="col-md-12" style="width:250px;top:50px;">
                             <div class="col-md-6" id="dvButtonContainer">
                                 <input type="button" value="Save" class="btn-info" ng-click="AddAction()" style="width:100px;" />
                             </div>
@@ -540,6 +552,24 @@
             </div>    
 
 
-        </div>     
+        </div>    
+            
+            <script>
+               $(".cross").hide();
+                                            $(".menu").hide();
+                                            $(".hamburger").click(function () {
+                                    $(".menu").slideToggle("slow", function () {
+                                    $(".hamburger").hide();
+                                            $(".cross").show();
+                                    });
+                                    });
+                                            $(".cross").click(function () {
+                                    $(".menu").slideToggle("slow", function () {
+                                    $(".cross").hide();
+                                            $(".hamburger").show();
+                                    });
+                                    });
+
+        </script>
     </body>
 </html>
