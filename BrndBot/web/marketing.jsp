@@ -215,7 +215,7 @@
             }
 
         </style>
-        
+
     </head>
     <body ng-app class="claro">
         <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign" class="container"> 
@@ -243,7 +243,7 @@
                             <li ng-repeat="entity in entitySet['Today']">
                                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
                                 <div class="row" style="width:950px;" id="entitydetails" >
-                                    
+
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
@@ -269,7 +269,7 @@
                             <li ng-repeat="entity in entitySet['Tomorrow']">
                                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
                                 <div class="row" style="width:950px;" id="entitydetails">
-                                    
+
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
@@ -295,7 +295,7 @@
                                 <div>{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
                                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
                                 <div class="row" style="width:950px;" id="entitydetails">
-                                    
+
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
@@ -324,7 +324,7 @@
                                 <p>{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
                                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
                                 <div class="row" style="width:950px;" id="entitydetails">
-                                    
+
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
@@ -351,7 +351,7 @@
                                 <p>{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
                                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
                                 <div class="row" style="width:950px;" id="entitydetails">
-                                    
+
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
@@ -376,7 +376,7 @@
                                 <div>{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
                                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
                                 <div class="row" style="width:950px;" id="entitydetails">
-                                    
+
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
@@ -414,30 +414,30 @@
                 <div id="dvPriorityDialog" class="pollSlider">
                     <div id="dvPriorityContent"><br>
                         <h1>&nbsp;Add Action</h1>
-                         <form class="form-horizontal" id="signform" >
+                        <form class="form-horizontal" id="signform" >
 
-                           
+
                             <div class="group">
                                 <div class="col-md-3 col-md-offset-1 ">                            
                                     <input id="title" class="brdr form-control simplebox" type="text" name="title" />
                                     <label>TITLE</label>
                                 </div><br>
                                 <div style="position: relative;left:-170px;top:30px;">
-                                Type :  <select id="actiontype"  name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
-                                                        <option value="0">Select</option>
-                                                          <option value="Facebook">Facebook</option>
-                                                            <option value="Twitter">Twitter</option>
-                                                             <option value="Email">Email</option>
-                                                             <option value="Note">Note</option>
-                                </select></div>
+                                    Type :  <select id="actiontype"  name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                        <option value="0">Select</option>
+                                        <option value="Facebook">Facebook</option>
+                                        <option value="Twitter">Twitter</option>
+                                        <option value="Email">Email</option>
+                                        <option value="Note">Note</option>
+                                    </select></div>
                                 <div style="position:relative;top:40px;left:80px;">
                                     Description : <br><textarea cols="28" rows="2" name="description" id="description"></textarea>
                                 </div>
                                 <div style="position:relative;top:77px;left:30px;">
-                                    Date : <input type="date" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
+                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
                                 </div>
                             </div>
-                                 </form> 
+                        </form> 
                     </div>
                     <div class="row">
                         <div class="col-md-12" style="width:250px;top:50px;">
@@ -455,7 +455,7 @@
                         <div>
 
                             <div style="border:1px solid #7ab5d3">
-                                
+
                                 <div class="actiondetails">
                                     <p>ACTION DETAILS</p>
                                     <p>{{entitiesdetails.subject}}</p>
@@ -478,7 +478,7 @@
                         <div>
 
                             <div style="border:1px solid #7ab5d3">
-                                
+
                                 <div class="actiondetails">
                                     <p>ACTION DETAILS</p>
                                     <p><input type="text" id="email_entitytitle" name="email_entitytitle" value="{{entitiesdetails.title}}"/></p>
@@ -553,22 +553,22 @@
 
 
         </div>    
-            
-            <script>
-               $(".cross").hide();
-                                            $(".menu").hide();
-                                            $(".hamburger").click(function () {
-                                    $(".menu").slideToggle("slow", function () {
-                                    $(".hamburger").hide();
-                                            $(".cross").show();
-                                    });
-                                    });
-                                            $(".cross").click(function () {
-                                    $(".menu").slideToggle("slow", function () {
-                                    $(".cross").hide();
-                                            $(".hamburger").show();
-                                    });
-                                    });
+
+        <script>
+            $(".cross").hide();
+            $(".menu").hide();
+            $(".hamburger").click(function () {
+                $(".menu").slideToggle("slow", function () {
+                    $(".hamburger").hide();
+                    $(".cross").show();
+                });
+            });
+            $(".cross").click(function () {
+                $(".menu").slideToggle("slow", function () {
+                    $(".cross").hide();
+                    $(".hamburger").show();
+                });
+            });
 
         </script>
     </body>
