@@ -78,6 +78,9 @@
                 width:300px;
                 margin:5px auto;
             }
+            #content input{
+                width:200px;
+            }
             #popupclose
             {
                 margin:35px 0 0 80px;
@@ -434,8 +437,8 @@
                         Date : <input type="datetime-local" class="form-control simplebox" id="schedule_time" name="schedule_time"><br>
 
                         <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
-                        <input type="button" ng-click="setScheduling()" value="Done"/>   
-                        <input type="button" id="hidepopup" value="Close" onclick="hidepopup()"/>   
+                        <input type="button" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="setScheduling()" value="Done"/>   
+                        <input type="button" class="button button--moema button--text-thick button--text-upper button--size-s" id="hidepopup" value="Close" onclick="hidepopup()"/>   
                     </div>
                 </div>
 

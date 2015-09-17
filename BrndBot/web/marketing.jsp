@@ -193,7 +193,13 @@
                 position: relative;
                 width:250px;
                 margin-top: 50px;
-            }
+           }
+           .actiondet p{
+               position:relative;
+               left:15px;
+               
+           }
+            
             .postdetails{
                 position: relative;
                 width:250px;
@@ -219,10 +225,10 @@
             <div class="col-md-8 col-md-offset-3 " >
                 <div class="col-md-6 col-md-offset-0">
 
-                    <p id="hyshead">Your Plan &nbsp;&nbsp;<button id="liPriority">ADD ACTION</button>&nbsp;&nbsp;<br><br><button id="liFasting" ng-click="getSelectedCampaigns()">Get Details</button></p> <p id="hyshead">Marketing Campaign</p>
+                    <p id="hyshead">Your Plan &nbsp;&nbsp;<button id="liPriority">ADD ACTION</button>&nbsp;&nbsp;<br><br><button ng-click="getSelectedCampaigns()">Get Details</button></p> <p id="hyshead">Marketing Campaign</p>
                     <div class="col-md-12" id="default" ng-init="getCampaigns()">
 
-                        <div class="row" style="width:950px;">
+                        <div class="row" style="width:950px;position:relative;left:40px;">
                             <div class='col-md-3'>Today</div>
                             <div class='col-md-3'>Action Type</div>
                             <div class='col-md-3'>Template Saved</div>
@@ -365,10 +371,10 @@
                         <div class="row">
                             <div class="col-md-12" style="width:250px;">
                                 <div class="col-md-6" id="dvButtonContainer">
-                                    <input type="button" value="Save" class="btn-info" style="width:100px;" />
+                                    <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
                                 </div>
                                 <div class="col-md-6" id="dvButtonContainer">
-                                    <input type="button" value="Cancel" class="btn-info" style="width:100px;" />
+                                    <input type="button" value="Cancel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
                                 </div>
                             </div>
                         </div>
@@ -406,21 +412,21 @@
                     <div class="row">
                         <div class="col-md-12" style="width:250px;top:50px;">
                             <div class="col-md-6" id="dvButtonContainer">
-                                <input type="button" value="Save" class="btn-info" ng-click="AddAction()" style="width:100px;" />
+                                <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="AddAction()" style="width:100px;" />
                             </div>
                             <div class="col-md-6" id="dvButtonContainer">
-                                <input type="button" value="Cancel" class="btn-info" style="width:100px;" />
+                                <input type="button" value="Cancel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="preview" class="pollSlider">
                     <div>
-                        <div class="">
+                        <div class="actiondet">
 
-                            <div style="border:1px solid #7ab5d3">
+                            <div style="border:1px solid #7ab5d3;">
 
-                                <div class="actiondetails">
+                                <div class="actiondetails" >
                                     <p>ACTION DETAILS</p>
                                     <p>{{entitiesdetails.subject}}</p>
                                 </div>
@@ -429,7 +435,7 @@
                                 <div class="content"></div>
                                 <p class="postdetails">Post details</p>
                                 <div>
-                                    Scheduled on {{entities_selected_time| date:'h:mma'}}
+                                    <p>Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
                                 <div class="editbutton"><button type="button">EDIT LIST</button> </div>
                             </div>
