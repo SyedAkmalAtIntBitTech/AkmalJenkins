@@ -385,31 +385,31 @@
                                             type: "facebook",
                                             image_name: image_name,
                                             schedule_time: newEpoch,
-                                            schedule_title: schedule_title,
+                                            schedule_title: '"'+schedule_title+'"',
                                             token_data: {
-                                              "access_token": $("#accesstoken").val()
+                                              "access_token": '"'+$("#accesstoken").val()+'"'
                                             },
                                             metadata: {
-                                              description: $("#description").val(),
-                                              post_text: $("#posttext").val(),
-                                              url: $("#url").val()
+                                              description: '"'+$("#description").val()+'"',
+                                              post_text: '"'+$("#posttext").val()+'"',
+                                              url: '"'+$("#url").val()+'"'
                                             }
                                           },
                                           {
                                             type: "twitter",
                                             image_name: image_name,
                                             schedule_time: newEpoch,
-                                            schedule_title: schedule_title,
-                                            schedule_desc: $("#twittertext").val(),
+                                            schedule_title: '"'+schedule_title+'"',
+                                            schedule_desc: '"'+$("#twittertext").val()+'"',
                                             token_data: {
-                                              "access_token": $("#twittweraccestoken").val(),
-                                              "token_secret": $("#twitterTokenSecret").val()
+                                              "access_token": '"'+$("#twittweraccestoken").val()+'"',
+                                              "token_secret": '"'+$("#twitterTokenSecret").val()+'"'
                                             },
                                             metadata: {
-                                              text: $("#twittertext").val()
+                                              text: '"'+$("#twittertext").val()+'"'
                                             }
                                           }
-                                        ]
+                                        ];
 //                        social_schedule = {
 //                                        "token_data": {
 //                                          "access_token": $("#accesstoken").val(),

@@ -112,8 +112,9 @@ public class ScheduleSocialPostServlet extends HttpServlet {
             conn.setAutoCommit(false);
             try {
                 for (Map<String, Object> requestBodyMap : requestBodyList) {
-                    Timestamp scheduleTimeStamp = new Timestamp(Long.parseLong(
-                            requestBodyMap.get("schedule_time").toString()));
+                    Double schedule = (Double)requestBodyMap.get("schedule_time");
+
+                    Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
                     String tokenDataString = requestBodyMap.get("token_data").toString();
                     String metadataString = requestBodyMap.get("metadata").toString();
 
