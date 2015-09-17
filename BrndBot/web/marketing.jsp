@@ -160,15 +160,24 @@
                 width: 220px;
                 height: 35px;
             }
+            #dvPriorityDialog, #dvFastingDialog {
+                position:fixed;
+                height:100%;
+                background:#ffffff;
+                width:600px;
+                right:0px;
+                margin-right: -600px;
+                border: 1px solid #ccc;
+            }
 
-            #dvPriorityDialog, #dvFastingDialog, #preview, #previewemail, 
+            #preview, #previewemail, #emailedit, 
             #previewfb, #previewtwitter{
                 position:fixed;
                 height:100%;
                 background:#ffffff;
-                width:1200px;
+                width:600px;
                 right:0px;
-                margin-right: -1200px;
+                margin-right: -600px;
                 border: 1px solid #ccc;
             }
             #slider-button{
@@ -186,7 +195,7 @@
             }
             .content{
                 position: relative;
-                width:350px;
+                width:50px;
                 height: 250px;
                 margin-top: 0px;
             }
@@ -245,7 +254,7 @@
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
 
-                                    <div class="col-md-3"><button type="button">EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type)">EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -271,7 +280,7 @@
                                     </div>
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
-                                    <div class="col-md-3"><button type="button" >EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type)" >EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -296,7 +305,7 @@
                                     </div>
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
-                                    <div class="col-md-3"><button type="button" >EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type)" >EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -326,7 +335,7 @@
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
 
-                                    <div class="col-md-3"><button type="button" >EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type)" >EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -352,7 +361,7 @@
                                     </div>
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
-                                    <div class="col-md-3"><button type="button" >EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type)" >EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -377,7 +386,7 @@
                                     </div>
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
-                                    <div class="col-md-3"><button type="button" >EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type)" >EDIT</button> </div>
                                 </div>
 
                             </li>
@@ -452,6 +461,34 @@
                     </div>
 
                 </div>
+                <div id="emailedit" class="pollSlider">
+                    <div>
+                        <div>
+
+                            <div style="border:1px solid #7ab5d3">
+                                
+                                <div class="actiondetails">
+                                    <p>ACTION DETAILS</p>
+                                    <p><input type="text" id="email_entitytitle" name="email_entitytitle" value="{{entitiesdetails.title}}"/></p>
+                                </div>
+                                <p>Saved Post &nbsp;&nbsp; Preview</p>
+                                <p></p><br>
+                                <div class="content"></div>
+                                <div><input type="text" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
+                                <div><input type="text" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
+                                <div><input type="text" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
+                                <p class="postdetails">Post details</p>
+                                <div>
+                                    <input type="datetime-local" name="email_schedule_datetime" id="email_schedule_datetime"/>
+                                    Scheduled on {{entities_selected_time| date:'h:mma'}}
+                                </div>
+                                <div class="editbutton"><button type="button">save</button> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
                 <div id="previewfb" class="pollSlider">
                     <div>
                         <div>

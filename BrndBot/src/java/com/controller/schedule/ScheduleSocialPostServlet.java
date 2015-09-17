@@ -76,7 +76,7 @@ public class ScheduleSocialPostServlet extends HttpServlet {
             response.getWriter().flush();
             return;
         }
-
+        System.out.println(requestBodyList);
         List<String> errorMessages = validateRequestBodyList(requestBodyList);
         if (!errorMessages.isEmpty()) {
             Map<String, Object> error = new HashMap<>();
