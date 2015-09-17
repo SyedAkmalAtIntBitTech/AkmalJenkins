@@ -41,6 +41,7 @@ public class GetScheduledEmailDetailServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
         HttpSession session = request.getSession();
         if (session.getAttribute("UID") == null) {
             Map<String, Object> error = new HashMap<>();
@@ -48,7 +49,6 @@ public class GetScheduledEmailDetailServlet extends HttpServlet {
             response.getWriter().write(AppConstants.GSON.toJson(error));
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.getWriter().flush();
-            response.setContentType("application/json");
             return;
         }
         Integer userId = Integer.parseInt(session.getAttribute("UID").toString());
@@ -58,7 +58,6 @@ public class GetScheduledEmailDetailServlet extends HttpServlet {
             response.getWriter().write(AppConstants.GSON.toJson(error));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().flush();
-            response.setContentType("application/json");
             return;
         }
         
@@ -68,7 +67,6 @@ public class GetScheduledEmailDetailServlet extends HttpServlet {
                     ScheduleDAO.getScheduleEmailDetails(userId, scheduleEmailId);
             response.getWriter().write(AppConstants.GSON.toJson(scheduleEmailDetails));
             response.getWriter().flush();
-            response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
         }catch(NumberFormatException ex){
             logger.log(Level.SEVERE, null, ex);
@@ -77,7 +75,6 @@ public class GetScheduledEmailDetailServlet extends HttpServlet {
             response.getWriter().write(AppConstants.GSON.toJson(error));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().flush();
-            response.setContentType("application/json");
         } catch (SQLException ex) {
             Logger.getLogger(GetScheduledEmailDetailServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

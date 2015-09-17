@@ -6,14 +6,12 @@
 package com.controller.schedule;
 
 import com.intbit.ConnectionManager;
-import com.intbit.ScheduledEntityStatus;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
 import com.intbit.dao.ScheduleDAO;
 import com.intbit.util.AuthenticationUtil;
 import com.intbit.util.ServletUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -66,15 +64,18 @@ public class AddActionServlet extends HttpServlet {
         
         try(Connection conn = ConnectionManager.getInstance().getConnection()){
             conn.setAutoCommit(false);
+            String templateStatus = TemplateStatus.no_template.toString();
+            if ( ScheduledEntityType.note.toString().equals(requestBodyMap.get("type").toString())){
+                templateStatus = TemplateStatus.incomplete.toString();
+            }
             try{
                 int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
                     requestBodyMap.get("title").toString(),
                     requestBodyMap.get("description").toString(),
                     new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
                     requestBodyMap.get("type").toString(), 
-                    ScheduledEntityStatus.scheduled.toString(), 
-                    userId, 
-                    TemplateStatus.no_template.toString(),
+                    templateStatus,
+                    userId,
                     conn
                 );
                 conn.commit();

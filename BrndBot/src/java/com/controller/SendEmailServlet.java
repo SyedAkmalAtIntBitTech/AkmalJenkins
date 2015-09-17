@@ -5,7 +5,6 @@
  */
 package com.controller;
 
-import com.intbit.ScheduledEntityStatus;
 import com.intbit.dao.EmailHistoryDAO;
 import email.mandrill.Message;
 import email.mandrill.MessageResponses;
@@ -14,9 +13,7 @@ import email.mandrill.RecipientMetadata;
 import email.mandrill.SendMail;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import javax.servlet.ServletException;

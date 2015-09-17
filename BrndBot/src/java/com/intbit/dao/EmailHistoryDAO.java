@@ -7,14 +7,12 @@ package com.intbit.dao;
 
 import com.controller.IConstants;
 import com.intbit.ConnectionManager;
-import com.intbit.ScheduledEntityStatus;
 import email.mandrill.MessageResponse;
 import email.mandrill.MessageResponses;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
