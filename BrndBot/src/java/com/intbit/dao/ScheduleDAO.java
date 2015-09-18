@@ -26,6 +26,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.postgresql.util.PGobject;
 
 /**
@@ -232,7 +234,12 @@ public class ScheduleDAO {
         return result;
     }
     
-    public static Map<String, Object> getScheduleEmailDetails(int userId, int scheduleId) throws SQLException{
+    public static Map<String, Object> getScheduleEmailDetails(int userId, int scheduleId) throws SQLException, ParseException {
+        PGobject pgobject = new PGobject();
+        JSONParser parser = new JSONParser();
+        org.json.simple.JSONObject emailJSONObject = new org.json.simple.JSONObject();
+        JSONArray emailids_json_array = new JSONArray();
+        String email_ids = "";
         String sql = "SELECT elist.* FROM "
                 + " tbl_scheduled_email_list elist, "
                 + " tbl_scheduled_entity_list enlist "
@@ -251,7 +258,16 @@ public class ScheduleDAO {
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
                         scheduleEmailId = rs.getInt("id");
+                        pgobject = (PGobject) rs.getObject("to_email_addresses");
+                        pgobject.setType("json");
+                        String obj = pgobject.getValue();
+                        emailJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
+                        emailids_json_array = (JSONArray)emailJSONObject.get(IConstants.kEmailAddressesKey);
 
+                        for (int i = 0; i < emailids_json_array.size(); i++){
+                            email_ids = emailids_json_array.get(i) + "," + email_ids;
+                        }
+                        
                         scheduleEmailDetails.put("schedule_email_id", rs.getInt("id"));
                         scheduleEmailDetails.put("user_id", rs.getInt("user_id"));
                         scheduleEmailDetails.put("subject", rs.getString("subject"));
@@ -259,24 +275,26 @@ public class ScheduleDAO {
                         scheduleEmailDetails.put("from_address", rs.getString("from_address"));
                         scheduleEmailDetails.put("email_list_name", rs.getString("email_list_name"));
                         scheduleEmailDetails.put("from_name", rs.getString("from_name"));
+                        scheduleEmailDetails.put("to_email_addresses", email_ids);
+                        
                     }
                 }
             }
-            if ( scheduleEmailId != -1){
-                List<String> toEmailAddress = new ArrayList<>();
-                String sql2 = "SELECT to_email_address FROM tbl_scheduled_email_recipients "
-                        + " WHERE scheduled_email_id = ?";
-                try(PreparedStatement ps = connection.prepareStatement(sql2)){
-                    ps.setInt(1, scheduleEmailId);
-                    try(ResultSet rs = ps.executeQuery()){
-                        while(rs.next()){
-                            toEmailAddress.add(rs.getString("to_email_address"));
-                        }
-                    }
-                }
-                scheduleEmailDetails.put("to_email_addresses", toEmailAddress);
-                
-            }
+//            if ( scheduleEmailId != -1){
+//                List<String> toEmailAddress = new ArrayList<>();
+//                String sql2 = "SELECT to_email_address FROM tbl_scheduled_email_recipients "
+//                        + " WHERE scheduled_email_id = ?";
+//                try(PreparedStatement ps = connection.prepareStatement(sql2)){
+//                    ps.setInt(1, scheduleEmailId);
+//                    try(ResultSet rs = ps.executeQuery()){
+//                        while(rs.next()){
+//                            toEmailAddress.add(rs.getString("to_email_address"));
+//                        }
+//                    }
+//                }
+//                scheduleEmailDetails.put("to_email_addresses", toEmailAddress);
+//                
+//            }
         }
         
         //now get the to email addresses
