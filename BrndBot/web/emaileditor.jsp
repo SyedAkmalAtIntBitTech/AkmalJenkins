@@ -740,8 +740,8 @@ and open the template in the editor.
                                     $(xml).find('layout').each(function () {
                             height = $(this).find('container').attr("Height");
                                     width = $(this).find('container').attr("Width");
-                                    $(".preview #" + blockId).css("width", width + "px");
-                                    $(".preview #" + blockId).css("height", height + "px");
+                                    //$(".preview #" + blockId).css("width", width + "px");
+                                    //$(".preview #" + blockId).css("height", height + "px");
                                     $(".preview #" + blockId).css("position", "relative");
                                     $(".preview #" + blockId).attr("blockdetails", id);
                             }
@@ -1037,7 +1037,7 @@ and open the template in the editor.
                                     <td><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
                                     <td><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td></tr>
                             </table>
-                            <div class="sortDelete" style="position:absolute;top:380px; left:120px;margin: 0px;">
+                            <div class="sortDelete" style="position:absolute;top:380px; left:90px;margin: 0px;">
 
                                 <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
