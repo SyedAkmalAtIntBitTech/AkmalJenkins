@@ -55,6 +55,25 @@ and open the template in the editor.
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
         <script src="js/ajaxfileupload.js" type="text/javascript"></script>
         <style>
+a.boxclose{
+    float:right;
+    margin-top:8px;
+    margin-right:30px;
+    cursor:pointer;
+    color: #fff;
+    border: 1px solid #AEAEAE;
+    border-radius: 30px;
+    background: #605F61;
+    font-size: 31px;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 0px;
+    padding: 11px 3px;       
+}
+.boxclose:before {
+    content: "×";
+
+}
             #mask {
   position: absolute;
   left: 0;
@@ -416,6 +435,7 @@ ul::-webkit-scrollbar-thumb {
                                     $("#tabs-1").hide();
                                     $("#tabs-2").hide();         
                                     $("#tabs-3").show().css("width", "430px").show("slide", { direction: "right" }, 1000);                                                                                                                                                                                                                                             
+                                    $("#imageGallery").show();
                                     $scope.curPage = 0;
                                     $scope.pageSize = 100;
                                     $http({
@@ -938,6 +958,7 @@ ul::-webkit-scrollbar-thumb {
                                     <li id="tabs-3">
                                           <ul id="imageGallery" style="height: 500px;width: 300px;position: relative;right: 80px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
+                                             <a class="boxclose" id="boxclose"></a>
                                                <p class="BT2" id="galleryupload">upload image</p>
                                                 <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
                                                           <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
@@ -1185,6 +1206,14 @@ ul::-webkit-scrollbar-thumb {
                        .removeClass("ig-willow");
         $("#"+image_Id).toggleClass("ig-brannan");
     };
+    $(".boxclose").click(function (){
+        $("#imageGallery").hide();
+        $("#tabs-1").css("display","block");
+         $("#imagecontainerZ\n\
+ ").css("display","block");
+        
+    });
+    
 };
 function showfilter(){
      $("#textcontainer").hide();

@@ -39,7 +39,7 @@ public class SendEmail extends BrndBotBaseHttpServlet {
     ResultSet result_set = null;
     StringBuffer string_buffer;
 
-    private final static String MANDRILL_KEY = "4jd3wIMvBAmJt9H0FcEb1w";
+    public final static String MANDRILL_KEY = "RP6AOa3QZA8qMJYC1lBXRg";
     SendMail send_email = new SendMail();
 
     /**
