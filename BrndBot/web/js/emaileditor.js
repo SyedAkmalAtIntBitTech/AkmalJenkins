@@ -203,8 +203,8 @@ $(document).ready(function () {
                                 width = $(this).find('container').attr("Width");
                                 var tempWidth = parseInt(width);
 
-                                $(".preview").css("width", tempWidth + "px");
-                                $(".preview").css("height", height + "px");
+                                //$(".preview").css("width", tempWidth + "px");
+                                //$(".preview").css("height", height + "px");
 //                                $(".preview").css("overflow", "scroll");
                                 $(".preview #defaultblock1").css("width", width + "px");
                                 $(".preview #defaultblock1").css("height", height + "px");

@@ -740,8 +740,8 @@ and open the template in the editor.
                                     $(xml).find('layout').each(function () {
                             height = $(this).find('container').attr("Height");
                                     width = $(this).find('container').attr("Width");
-                                    $(".preview #" + blockId).css("width", width + "px");
-                                    $(".preview #" + blockId).css("height", height + "px");
+                                    //$(".preview #" + blockId).css("width", width + "px");
+                                    //$(".preview #" + blockId).css("height", height + "px");
                                     $(".preview #" + blockId).css("position", "relative");
                                     $(".preview #" + blockId).attr("blockdetails", id);
                             }
