@@ -225,22 +225,27 @@
     
     <script>
         var formattedHTMLData = "";
-        $(document).ready(function () {
-            $.ajax({
-                url: getHost() + "PreviewServlet",
-                method: "post",
-                data: {htmlString: $(".content").html()},
-                success: function (responseText) {
-                    formattedHTMLData = responseText;
-                    //show popup showing
-                
-                    $(".content").empty();
-                    $(".content").append("<iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
-
-                }
-            });
+       $(document).ready(function () {
+           formattedHTMLData=$("#dynamictable").contents().find("html").html();
+           show("iphone");
+//            $.ajax({
+//                url: getHost() + "PreviewServlet",
+//                method: "post",
+////                data: {htmlString: $(".content").html()},
+//                success: function (responseText) {
+//                    formattedHTMLData = responseText;
+//                    //show popup showing
+//                
+//                    $(".content").empty();
+//                    $(".content").append(");
+//
+//                }
+//            });
         });
         function show(id) {
+            formattedHTMLData=$("#dynamictable").contents().find("html").html();
+//            alert($("#dynamictable").contents().find("html").html());
+            
             var imageUrl = $("#" + id).css("background-image");
 
             if (id === "ipad") {
@@ -429,7 +434,7 @@
 
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
                     <div class="content">  
-                        '<%=htmlData %>'
+                      <iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>
                     </div>
                 </div>
 

@@ -1505,6 +1505,17 @@ and open the template in the editor.
 
                             $("#continue").click(function (){
 //                                    alert($(".dataForEmail").html());
+      $.ajax({
+            url: getHost() + "PreviewServlet",
+                    method: "post",
+                    data:{htmlString: $(".dataForEmail").html()},
+                    success: function (responseText) {
+
+                    //show popup showing
+                    $("#previewcontent").empty();
+                    $("#previewcontent").append(responseText);
+                            //$("#previewpopup").show();
+//                            $(".clickpreview").click();
                             $.ajax({
                             url: getHost() + "SaveKeyValueSessionServlet",
                                     method: "post",
@@ -1518,6 +1529,10 @@ and open the template in the editor.
                                     }
 
                             });
+                    }
+            });
+            
+
                             });</script>        
         <script>
                                     //    var selectedDivId;     

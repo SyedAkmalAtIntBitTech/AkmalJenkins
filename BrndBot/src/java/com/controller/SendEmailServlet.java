@@ -5,6 +5,7 @@
  */
 package com.controller;
 
+import com.intbit.AppConstants;
 import com.intbit.ScheduledEntityStatus;
 import com.intbit.dao.EmailHistoryDAO;
 import email.mandrill.Message;
@@ -12,6 +13,7 @@ import email.mandrill.MessageResponses;
 import email.mandrill.Recipient;
 import email.mandrill.RecipientMetadata;
 import email.mandrill.SendMail;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.annotation.WebServlet;
+import org.apache.commons.io.FileUtils;
 
 
 /**
@@ -55,7 +58,13 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
         try {
             String email_subject = request.getParameter("email_subject");
             String email_addresses = request.getParameter("email_addresses");
+//            need to change with dymanic name
+            String fileName = request.getParameter("html_file_name_with_path");
             String html_text = request.getParameter("htmldata");
+
+            File file = new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator + "emailhtmltemplate.html");
+            html_text = FileUtils.readFileToString(file, "UTF-8");
+            //
             String emaillist_name = request.getParameter("email_list");
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
             
