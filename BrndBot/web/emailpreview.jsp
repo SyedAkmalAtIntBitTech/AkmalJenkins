@@ -228,8 +228,6 @@
        $(document).ready(function () {
            formattedHTMLData=$("#dynamictable").contents().find("html").html();
            show("iphone");
-
-          
 //            $.ajax({
 //                url: getHost() + "PreviewServlet",
 //                method: "post",
