@@ -33,8 +33,6 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet(name = "SendEmailServlet", urlPatterns = {"/SendEmailServlet"})
 public class SendEmailServlet extends BrndBotBaseHttpServlet {
 
-    private final static String MANDRILL_KEY = "4jd3wIMvBAmJt9H0FcEb1w";
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -66,7 +64,7 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             String from_name = request.getParameter("from_name");
             Message message = new Message();
 
-            message.setKey(MANDRILL_KEY);
+            message.setKey(SendEmail.MANDRILL_KEY);
 
             message.setHtml(html_text);
             message.setSubject(email_subject);
