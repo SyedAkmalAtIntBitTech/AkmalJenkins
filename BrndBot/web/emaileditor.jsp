@@ -68,6 +68,49 @@ and open the template in the editor.
 
 
         <style>
+            a.boxclose{
+            float:left;
+            margin-top:0px;
+            margin-left:-25px;
+            cursor:pointer;
+            color: #fff;
+            border: 1px solid #AEAEAE;
+            border-radius: 30px;
+            background: #605F61;
+            font-size: 31px;
+            font-weight: bold;
+            display: inline-block;
+            line-height: 0px;
+            padding: 11px 3px; 
+            }
+            .boxclose:before {
+    content: "×";
+
+}
+ a.boxclosegallery{
+   float:right;
+    margin-top:7px;
+    margin-right:90px;
+    cursor:pointer;
+    color: #fff;
+    border: 1px solid #AEAEAE;
+    border-radius: 30px;
+    background: #605F61;
+    font-size: 31px;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 0px;
+    padding: 11px 3px; 
+}
+.boxclosegallery:before {
+    content: "×";
+
+}
+            #tabs-4{
+                background-color: #F4F0F8;
+                margin-top:-42px;
+                opacity: 0.95;
+            }
             #mask {
   position: absolute;
   left: 0;
@@ -335,12 +378,10 @@ and open the template in the editor.
                 left:15px;
                 font-family: "proxima-nova",sans-serif;
                 font-weight: 600;
-                color: #95969A;
                 font-style: normal;
                 text-align: left;
                 line-height: 29.9px;
                 letter-spacing: 0em;
-                background-color: #fff;
             }
 
         </style>
@@ -372,6 +413,16 @@ and open the template in the editor.
         <script>
                     $(document).ready(function () {
                    $("#loadingGif").hide();
+                   $(".boxclose").click(function (){
+                        $("#tabs-4").hide();
+//                       $("#tabs-4").css("width", "830px").css("position","fixed").css("margin-left","-460px").hide("slide", { direction: "right" }, 1000);;
+                       $("#tabs-1").show();
+
+                   });
+                   $(".boxclosegallery").click(function (){
+                       $("#imageGallery").hide();
+                       $("#tabs-1").show();
+                   });
                     document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
                     document.getElementById('edt').style.backgroundColor = '#fff';
                     document.getElementById('stl').style.backgroundColor = 'transparent';
@@ -604,8 +655,8 @@ and open the template in the editor.
                             $("#loadingGif").hide();
 //                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
 
-                            $("#tabs-4").css("width", "730px").css("position","fixed").css("margin-left","-240px").show("slide", { direction: "right" }, 1000);
-
+                           $("#tabs-4").css("width", "830px").css("position","fixed").css("margin-left","-460px").show("slide", { direction: "right" }, 1000);
+                            
                             $("#tabs-5").hide();
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
@@ -784,7 +835,7 @@ and open the template in the editor.
                                     var opacity = $(this).attr("opacity");
                                     var width = $(this).attr("width");
                                     var height = $(this).attr("height");
-                                    if (tag === "text")
+                        if (tag === "text")
                             {
                             var colorName = $(this).attr("font-color-name");
                                     fontsize = $(this).attr("font-size");
@@ -793,6 +844,8 @@ and open the template in the editor.
                                     var letterspacing = $(this).attr("letter-spacing");
                                     var lineheight = $(this).attr("line-height");
                                     var textalign = $(this).attr("text-align");
+                                    var font = $(this).attr("font-family");
+                                    var font_family_name = font.split("+").join(" ");
                                     var webkittransform = $(this).attr("webkit-transform");
                                     var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
                                     for (var i = 1; i <= 6; i++)
@@ -818,6 +871,7 @@ and open the template in the editor.
 
                                     .css("font-style", "" + fontstyle)
                                     .css("font-weight", "" + fontweight)
+                                    .css("font-family", "" + font_family_name)
                                     .css("letter-spacing", "" + letterspacing)
                                     .css("opacity", "" + opacity)
                                     .css("text-align", "" + textalign)
@@ -1049,7 +1103,8 @@ and open the template in the editor.
                                 <script>
                                                     function showImageName(user_id, image_name){
                                                     var image_path = "DownloadImage?image_type=GALLERY&image_name=" + image_name + "&user_id=" + user_id + "";
-                                                            $("#" + $(".imagename").val()).css("background", "url(" + global_host_address + "" + image_path + ")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
+                                                    var img = encodeURI(global_host_address + image_path);
+                                                            $("#" + $(".imagename").val()).css("background", "url("+img+")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
                                                             $("#imagespopup").hide();
                                                             $(".imagename option:selected").attr("name", "url(" + global_host_address + "" + image_path + ")");
                                                             $("#tabs-1").show();
@@ -1307,21 +1362,22 @@ and open the template in the editor.
                                     </li>
 
                                     <li id="tabs-4">
-                                       
+                                       <a class="boxclose" id="boxclose"></a>
                                         <div ng-controller="MyController" id="MyController" > 
-                                            <p id="text3" style="width: 500px;position: relative;right:145px;">{{datalists.title}}</p><br>
+                                            <p id="text3" style="width: 500px;position: relative;right:-5px;color:#000;">{{datalists.title}}</p><br>
                                             <ul class="dataheaderfromindbody">
-                        <div class="mindbodyHeaderData LE2" >
-                            <li style="width: 400px;left:-120px;">{{datalists.column_header[0]}}</li>
-                            <li style="width: 250px;left:120px;">{{datalists.column_header[1]}}</li>
-                            <li style="width: 100px;left:300px;">{{datalists.column_header[2]}}</li></div>
-                    </ul>
+                                                <div class="mindbodyHeaderData LE2" >
+                                                    <li style="width: 400px;left:80px;">{{datalists.column_header[0]}}</li>
+                                                    <li style="width: 250px;left:330px;">{{datalists.column_header[1]}}</li>
+                                                    <li style="width: 100px;left:450px;">{{datalists.column_header[2]}}</li>
+                                                </div>
+                                            </ul>
                   
 
                                             <div  class="tab-pane active" id="picktheme">
                                                 <div>
 
-                                                    <div style="background-color: #FFF; width: 700px;height: 500px;overflow-x:hidden; overflow-y: scroll; float: right; margin-right: 150px;" >
+                                                    <div style="width: 700px;height: 500px;overflow-x:hidden; overflow-y: scroll; float: right; margin-right: 50px;" >
 
                                                         <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;">
                                                             <!--                                    {{jsonclass}}-->
@@ -1357,6 +1413,7 @@ and open the template in the editor.
                                     <li id="tabs-5">
                                         <ul id="imageGallery" style="width:400px;position:relative;right:70px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
+                                       <a class="boxclosegallery" id="boxclosegallery"></a>
                                             <p class="BT2" id="galleryupload">upload image</p>
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
                                                 <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="275px"/>                                                            

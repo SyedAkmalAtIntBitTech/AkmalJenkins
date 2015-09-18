@@ -227,6 +227,9 @@
         var formattedHTMLData = "";
        $(document).ready(function () {
            formattedHTMLData=$("#dynamictable").contents().find("html").html();
+           show("iphone");
+
+          
 //            $.ajax({
 //                url: getHost() + "PreviewServlet",
 //                method: "post",
@@ -243,7 +246,6 @@
         });
         function show(id) {
             formattedHTMLData=$("#dynamictable").contents().find("html").html();
-            alert($("#dynamictable").contents().find("html").html());
             
             var imageUrl = $("#" + id).css("background-image");
 
@@ -433,7 +435,7 @@
 
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
                     <div class="content">  
-                      <iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>
+                      <iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>                   
                     </div>
                 </div>
 

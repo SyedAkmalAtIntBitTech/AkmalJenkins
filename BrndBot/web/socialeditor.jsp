@@ -747,8 +747,9 @@ ul::-webkit-scrollbar-thumb {
                                 <input id="continue" class="button button--moema button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
                                 <script>
                                     function showImageName(user_id, image_name){
-                                        var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
-                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
+                                        var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";   
+                                        var img = encodeURI(global_host_address + image_path);
+                                                    $("#" + $(".imagename").val()).css("background", "url("+img+")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
                                                     $("#imagespopup").hide(); 
                                                     $(".imagename option:selected").attr("name","url(" + global_host_address +""+image_path+ ")");
                                                     $("#tabs-1").show();
