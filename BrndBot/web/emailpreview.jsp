@@ -227,6 +227,7 @@
         var formattedHTMLData = "";
        $(document).ready(function () {
            formattedHTMLData=$("#dynamictable").contents().find("html").html();
+           show("iphone");
 //            $.ajax({
 //                url: getHost() + "PreviewServlet",
 //                method: "post",
@@ -243,7 +244,7 @@
         });
         function show(id) {
             formattedHTMLData=$("#dynamictable").contents().find("html").html();
-            alert($("#dynamictable").contents().find("html").html());
+//            alert($("#dynamictable").contents().find("html").html());
             
             var imageUrl = $("#" + id).css("background-image");
 
