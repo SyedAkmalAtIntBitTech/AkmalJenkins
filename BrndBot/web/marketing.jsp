@@ -262,7 +262,8 @@
                 <div class="col-md-6 col-md-offset-0">
 
 
-                    <p id="hyshead">Your Plan &nbsp;&nbsp;<button id="liPriority">ADD ACTION</button>&nbsp;&nbsp;<br><br><button ng-click="getSelectedCampaigns()">GET DETAILS</button>&nbsp;<button ng-click="getSelectedCampaigns()">DELETE SELECTED</button></p> <p id="hyshead">Marketing Campaign</p>
+                    <p id="hyshead">Your Plan &nbsp;&nbsp;<button id="liPriority">ADD ACTION</button>&nbsp;&nbsp;</p>
+                    <p><button ng-click="getSelectedCampaigns()">GET DETAILS</button>&nbsp;<button ng-click="getSelectedCampaigns()">DELETE SELECTED</button></p> <p id="hyshead">Marketing Campaign</p>
                     <div class="col-md-12" id="default" ng-init="getCampaigns()">
 
                         <div class="row" style="width:950px;">
@@ -538,10 +539,8 @@
                                 <div>
                                     
                                 <select id="chooseEmailList" name="chooseEmailList">
-                                    <option value="1">Manual</option>
+                                    <option value="0">Select</option>
                                     <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                                    <option value=""></option>
-                                
                                 </select>
                                     <p>{{entitiesdetails.email_list_name}}</p>
                                     <input type="datetime-local" class="inputdate" name="email_schedule_datetime" id="email_schedule_datetime"/>
