@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -68,6 +69,8 @@ public class GetScheduledEmailDetailServlet extends HttpServlet {
             response.getWriter().write(AppConstants.GSON.toJson(scheduleEmailDetails));
             response.getWriter().flush();
             response.setStatus(HttpServletResponse.SC_OK);
+        }catch (ParseException parse){
+            logger.log(Level.SEVERE, null, parse);
         }catch(NumberFormatException ex){
             logger.log(Level.SEVERE, null, ex);
             Map<String, Object> error = new HashMap<>();

@@ -81,7 +81,7 @@
                 margin:5px auto;
             }
             #content input{
-                width:200px;
+/*                width:200px;*/
             }
             #popupclose
             {

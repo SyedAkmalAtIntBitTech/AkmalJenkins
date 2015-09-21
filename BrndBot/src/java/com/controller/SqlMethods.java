@@ -389,8 +389,6 @@ public class SqlMethods {
 
             pg_object.setType("json");
             pg_object.setValue(json_object.toJSONString());
-//            Object obj = new Object();
-//            obj = json_object.toJSONString();
             prepared_statement.setObject(6, pg_object);
 
             prepared_statement.executeUpdate();

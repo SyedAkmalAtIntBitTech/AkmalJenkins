@@ -217,7 +217,7 @@ function controllerMarketingCampaign($scope, $http) {
     };
 
 
-    $scope.showScheduleDetails = function (schedule_id, schedule_time, entity_type) {
+    $scope.showScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title) {
 
         if(entity_type == "email"){
             sliderDialog = "#emailedit";
@@ -239,15 +239,17 @@ function controllerMarketingCampaign($scope, $http) {
         }).success(function (data) {
             $scope.entitiesdetails = data;
             var date = new Date(schedule_time);
-            $(".content").empty();
-            $(".content").append(data.body);
+            $(".editcontent").empty();
+            $(".editcontent").append(data.body);
             $scope.entities_selected_time = schedule_time;
+            $scope.schedule_title = schedule_title;
+            $scope.showEmailList();
         }).error(function (data) {
             alert("request not successful");
         });
     };
     
-    $scope.getScheduleDetails = function (schedule_id, schedule_time, entity_type) {
+    $scope.getScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title) {
 
         if(entity_type == "email"){
             sliderDialog = "#preview";
@@ -271,7 +273,10 @@ function controllerMarketingCampaign($scope, $http) {
             var date = new Date(schedule_time);
             $(".content").empty();
             $(".content").append(data.body);
+            $(".content").css("-webkit-transform"," scale(0.90)").css("left", "0px").css("top", "-20px");
+            $(".editcontent").css("-webkit-transform","scale(0.60)").css("margin-left", "-30px").css("margin-top", "-80px").css("margin-bottom", "-220px");
             $scope.entities_selected_time = schedule_time;
+            $scope.schedule_title = schedule_title;
         }).error(function (data) {
             alert("request not successful");
         });
@@ -295,33 +300,23 @@ function controllerMarketingCampaign($scope, $http) {
 
         var newEpoch = schedule_time + tzOffsetInMillis;
         console.log("New Epoch: " + newEpoch);
-        var status = "";
-
-        if (actiontype == "Note"){
-            status = "INCOMPLETE";
-        }else {
-            status = "No Template Saved"
-        }
 
         if (validateaction()) {
-            var action = {"title": title, "actiontype": actiontype, 
-                          "description": description, "actiondate": actiondate, 
-                          "status": status};
-
+            var action = {"title": title, "type": actiontype, 
+                          "description": description, "action_date": newEpoch 
+                         };
             $http({
                 method: 'POST',
                 url: getHost() + 'AddAction',
                 headers: {'Content-Type': 'application/json'},
-                data: action
+                data: JSON.stringify(action)
             }).success(function (data)
             {
                 $scope.status = data;
-                if (data === "false") {
-                    alert("");
-                } else if (data === "true") {
-                    alert("settings saved successfully");
-                } else if (data === error) {
-                    alert(data);
+                if (data != ""){
+                    alert("action saved successfully");
+                    window.open(getHost() + 'marketing.jsp', "_self");
+
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
@@ -332,5 +327,19 @@ function controllerMarketingCampaign($scope, $http) {
 
         }
     };
-    
+    $scope.showEmailList = function () {
+
+        var emailids = {"update": "allEmailListNames"};
+        $http({
+            method: 'GET',
+            url: getHost() + 'GetEmailLists?update=allEmailListNames'
+        }).success(function (data, status, headers, config) {
+            $scope.emailLists = data.allEmailListNames;
+            if (data === "true") {
+            } else if (data === error) {
+                alert(data);
+            }
+        });
+    };
+
 };

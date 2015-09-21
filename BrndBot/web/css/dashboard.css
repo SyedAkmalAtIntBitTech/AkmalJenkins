@@ -94,7 +94,8 @@ body{
     font-family:"proxima-nova-soft",sans-serif;
    font-weight: 500;
    position: relative;
-   padding-top: 15%;
+   
+    padding-top: 1%;
    padding-bottom: 4%;
 }
 /*#leftnav{
@@ -308,6 +309,7 @@ body{
 #promotebuttonlist img{
     width:110px;
     height:110px;
+    cursor: pointer;
 }
 #promotebuttonlist li{
         display: inline-block;

@@ -30,8 +30,10 @@ use this formate to call
 	background: none;
 	color: inherit;
 	vertical-align: middle;
-	position: relative;
-	z-index: 1;
+	
+        position: relative;
+	
+        z-index: 1;
 	-webkit-backface-visibility: hidden;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -121,7 +123,7 @@ use this formate to call
 }
 .button--moema::before {
 	content: '';
-	position: absolute;
+	position: inherit;
 	top: -20px;
 	left: -20px;
 	bottom: -20px;
