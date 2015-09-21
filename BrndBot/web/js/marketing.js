@@ -255,32 +255,62 @@ function controllerMarketingCampaign($scope, $http) {
             sliderDialog = "#preview";
             $('#slider-button').click();
             prevSliderDialog = "#preview";
+            $http({
+                method: 'GET',
+                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
+            }).success(function (data) {
+                $scope.entitiesdetails = data;
+                var date = new Date(schedule_time);
+                $(".content").empty();
+                $(".content").append(data.body);
+                $(".content").css("-webkit-transform"," scale(0.60)").css("left", "-30px").css("top", "-50px");
+                $scope.entities_selected_time = schedule_time;
+                $scope.schedule_title = schedule_title;
+                console.log(schedule_desc);
+                $scope.schedule_desc = schedule_desc;
+            }).error(function (data) {
+                alert("request not successful");
+            });
         }else if (entity_type == "facebook"){
             sliderDialog = "#previewfb";
             $('#slider-button').click();
             prevSliderDialog = "#previewfb";
+            $http({
+                method: 'GET',
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+            }).success(function (data) {
+                $scope.entitiesdetails = data;
+                var date = new Date(schedule_time);
+                $scope.entities_selected_time = schedule_time;
+                $scope.schedule_title = schedule_title;
+                console.log(schedule_desc);
+                $scope.schedule_desc = schedule_desc;
+            }).error(function (data) {
+                alert("request not successful");
+            });
+
         }else if (entity_type == "twitter"){
             sliderDialog = "#previewtwitter";
             $('#slider-button').click();
             prevSliderDialog = "#previewtwitter";
+            $http({
+                method: 'GET',
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+            }).success(function (data) {
+                $scope.entitiesdetails = data;
+                var date = new Date(schedule_time);
+                $(".content").empty();
+                $(".content").append(data.body);
+                $(".content").css("-webkit-transform"," scale(0.60)").css("left", "-30px").css("top", "-50px");
+                $scope.entities_selected_time = schedule_time;
+                $scope.schedule_title = schedule_title;
+                console.log(schedule_desc);
+                $scope.schedule_desc = schedule_desc;
+            }).error(function (data) {
+                alert("request not successful");
+            });
         }
 
-        $http({
-            method: 'GET',
-            url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
-        }).success(function (data) {
-            $scope.entitiesdetails = data;
-            var date = new Date(schedule_time);
-            $(".content").empty();
-            $(".content").append(data.body);
-            $(".content").css("-webkit-transform"," scale(0.60)").css("left", "-30px").css("top", "-50px");
-            $scope.entities_selected_time = schedule_time;
-            $scope.schedule_title = schedule_title;
-            console.log(schedule_desc);
-            $scope.schedule_desc = schedule_desc;
-        }).error(function (data) {
-            alert("request not successful");
-        });
     };
 
 

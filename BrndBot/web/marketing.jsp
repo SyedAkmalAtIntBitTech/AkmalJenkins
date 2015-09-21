@@ -562,12 +562,13 @@
 
                                 <div class="actiondetails" >
                                     <p>ACTION DETAILS</p>
-                                    <p>{{entitiesdetails.subject}}</p>
-                                    <p>{{entitiesdetails.schedule_description}}</p>
+                                    <p>Title: {{schedule_title}}</p>
+                                    <p>Description: {{schedule_desc}}</p>
                                 </div>
                                 <p>Saved Post &nbsp;&nbsp; Preview</p>
                                 <p></p><br>
-                                <div class="content"></div>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                
                                 <p class="postdetails">Post details</p>
                                 <div>
                                     <p>Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
@@ -586,11 +587,12 @@
 
                                 <div class="actiondetails">
                                     <p>ACTION DETAILS</p>
-                                    <p>{{entitiesdetails.subject}}</p>
+                                    <p>Title: {{schedule_title}}</p>
+                                    <p>Description: {{schedule_desc}}</p>
                                 </div>
                                 <p>Saved Post &nbsp;&nbsp; Preview</p>
                                 <p></p><br>
-                                <div class="content"></div>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                 <p class="postdetails">Post details</p>
                                 <div>
                                     Scheduled on {{entities_selected_time| date:'h:mma'}}
