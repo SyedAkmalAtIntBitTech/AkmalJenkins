@@ -159,19 +159,16 @@
             }
             .edtbtn{
                  font-family: "proxima-nova",sans-serif;
-                    color: #2d4355;
-                    width:100px;    
+                    color: #888;
+                    width:70px;    
                      background-color: transparent;
-                     border:1px #000 solid;
+                     border:1px #888 solid;
                      border-radius: 5px;   
                      position:relative;
             }
-            .titlerow div{
-                position: relative;
-                left:50px;
-            }
+           
             .titrow{ position: relative;
-                margin-left:60px;                
+                margin-left:60px;
             }
             
             .fo{
@@ -205,7 +202,7 @@
                 width:70px;
                 height:50px;
                 right:-0px;
-                background-image:url('images/close_button1.png');
+                background:#7ab5d3;
                 top: 0px;
             }
 
@@ -282,7 +279,19 @@
                 border-radius: 5px;
                 margin-left: 15px;
             }
-
+            .fonthead{
+                color:#888;
+                font-variant:normal;
+                font-size:1.8em;
+                font-weight: 600;
+            }
+            .fntschld{
+                color:#888;
+                font-variant:normal;
+                font-size:1em;
+                font-weight: 400;
+            }
+           
         </style>
 
     </head>
@@ -298,40 +307,39 @@
             <div class="col-md-8 col-md-offset-3 " >
                 <div class="col-md-6 col-md-offset-0">
 
-
+                    <div style="position:relative;">
                     <p id="planhead" class="MH2">Your Plan</p><button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;">ADD ACTION</button>
-                    <p><button ng-click="getSelectedCampaigns()" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:120px;z-index:0;" >GET DETAILS</button>
-                      <button ng-click="getSelectedCampaigns()" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;">DELETE SELECTED</button></p> 
+                    <button ng-click="getSelectedCampaigns()" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;">DELETE SELECTED</button> 
+                    </div>
                    
                     <div class="col-md-12" id="default" ng-init="getCampaigns()">
-                         <p id="hyshead" class="SP2">Marketing Campaign</p>                        
-                        <div class="row titlerow" style="width:950px;">
-                            <div class='col-md-1 SH2'>Today</div>
+                         
+                        <div class="row" style="width:950px;margin-top:30px;margin-left:-15px;">
+                            <div class='col-md-1 SP2 fonthead'>Today</div>
                             <div class='col-md-3' style="width:230px;"></div>
-                            <div class='col-md-2 SH1'>Action Type</div>
-                            <div class='col-md-3 SH1' >Template Saved</div>
+                            <div class='col-md-2 SS2'>Action Type</div>
+                            <div class='col-md-3 SS2'>Template Saved</div>
                             <div class='col-md-3' ></div>
                         </div>
                         <ul>
                             <li ng-repeat="entity in entitySet['Today']">
-                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
-                                <div class="row" style="width:950px;" id="entitydetails" >
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
+                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails" >
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" style="width:260px;margin-left:-40px;">
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
-                                        <p class="SH1">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
+                                        <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
-                                    <div class="col-md-2 MH1">{{entity.entity_type}}</div>
-                                    <div class="col-md-3 MH1"  style="width:200px;">{{entity.template_status}}</div>
-
+                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
+                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
-                        <div class="row titlerow" style="width:950px;">
-                            <div class='col-md-3 SH2'>Tomorrow</div>
+                        <div class="row" style="width:950px;margin-top:30px;margin-left:-15px;">
+                            <div class='col-md-3 SP2 fonthead'>Tomorrow</div>
                             <div class='col-md-3'></div>
                             <div class='col-md-3'></div>
                             <div class='col-md-3'></div>
@@ -339,25 +347,24 @@
 
                         <ul>   
                             <li ng-repeat="entity in entitySet['Tomorrow']">
-                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
-                                <div class="row" style="width:950px;" id="entitydetails">
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
+                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-3"  style="width:260px;margin-left:-40px;">
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
-                                        <p class="SH1">Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
+                                        <p class="SP1 fntschld">Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
                                     </div>
-                                    <div class="col-md-2 MH1">{{entity.entity_type}}</div>
-
-                                    <div class="col-md-3 MH1">{{entity.template_status}}</div>
+                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
+                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
-                        <div class="row titlerow" style="width:950px;">
-                            <div class='col-md-3 SH2'>Later</div>
+                        <div class="row" style="width:950px;margin-top:30px;margin-left:-15px;">
+                            <div class='col-md-3 SP2 fonthead'>Later</div>
                             <div class='col-md-3'></div>
                             <div class='col-md-3'></div>
                             <div class='col-md-3'></div>
@@ -365,19 +372,19 @@
                         <ul>
                             <li ng-repeat="entity in entitySet['Later']">
                                 <div>{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
-                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
-                                <div class="row" style="width:950px;" id="entitydetails">
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
+                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3"  style="width:260px;margin-left:-40px;">
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
-                                        <p class="SH1">Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
+                                        <p class="SP1 fntschld">Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
                                     </div>
-                                    <div class="col-md-2 MH1">{{entity.entity_type}}</div>
+                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
 
-                                    <div class="col-md-3 MH1" style="width:200px;">{{entity.template_status}}</div>
+                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
 
                                 </div>
@@ -385,31 +392,31 @@
                         </ul>
                     </div>
                     <div class="col-md-12" id="selected" style="display:none;">
-
-                        <div class="row titlerow" style="width:950px;">
-                            <div class='col-md-3'></div>
-                            <div class='col-md-2 SH1 titrow'>Action Type</div>
-                            <div class='col-md-3 SH1 titrow'>Template Saved</div>
+                        
+                        <div class="row" style="width:950px;margin-top:30px;margin-left:70px;">
+                            <div class='col-md-3' style="width:230px;"></div>
+                            <div class='col-md-2 SS2'>Action Type</div>
+                            <div class='col-md-3 SS2'>Template Saved</div>
                             <div class='col-md-3'></div>
                         </div>
 
                         <ul>
                             <li ng-repeat="entity in entitySetSelected['Today']">
                                 <p>{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
-                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
-                                <div class="row" style="width:950px;" id="entitydetails">
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
+                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3"  style="width:260px;margin-left:-40px;">
 
                                         <p  class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
-                                        <p  class="SH1">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
+                                        <p  class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
 
                                     </div>
-                                    <div class="col-md-2 MH1">{{entity.entity_type}}</div>
-                                    <div class="col-md-3 MH1" style="width:200px;">{{entity.template_status}}</div>
+                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
+                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
 
 
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
@@ -417,7 +424,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="row titlerow" style="width:950px;">
+                        <div class="row" style="width:950px;margin-top:30px;margin-left:-15px;">
                             <div class='col-md-3'></div>
                             <div class='col-md-3'></div>
                             <div class='col-md-3'></div>
@@ -427,26 +434,26 @@
                         <ul>   
                             <li ng-repeat="entity in entitySetSelected['Tomorrow']">
                                 <p>{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
-                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
-                                <div class="row" style="width:950px;" id="entitydetails">
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
+                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3"  style="width:260px;margin-left:-40px;">
 
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
-                                        <p class="SH1">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
+                                        <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
-                                    <div class="col-md-2 MH1">{{entity.entity_type}}</div>
-                                    <div class="col-md-3 MH1" style="width:200px;">{{entity.template_status}}</div>
+                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
+                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
 
                                 </div>
                             </li>
                         </ul>
-                        <div class="row titlerow" style="width:950px;">
-                            <div class='col-md-3 SH2'>Later</div>
+                        <div class="row" style="width:950px;margin-top:30px;margin-left:-15px;">
+                            <div class='col-md-3 SP2 fonthead'>Later</div>
                             <div class='col-md-3'></div>
                             <div class='col-md-3'></div>
                             <div class='col-md-3'></div>
@@ -454,19 +461,19 @@
                         <ul>
                             <li ng-repeat="entity in entitySetSelected['Later']">
                                 <div>{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
-                                <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
-                                <div class="row" style="width:950px;" id="entitydetails">
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
+                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-3"  style="width:260px;margin-left:-40px;">
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
-                                        <p class="SH1">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
+                                        <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
-                                    <div class="col-md-2 MH1">{{entity.entity_type}}</div>
-                                    <div class="col-md-3 MH1" style="width:200px;">{{entity.template_status}}</div>
+                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
+                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
 
                                 </div>
@@ -607,7 +614,7 @@
 
                 </div>
 
-                <div id="previewfb" class="pollSlider">
+                <div id="previewfb" class="pollSlider" style="overflow-y: scroll;">
                     <div>
                         <div>
 
@@ -620,8 +627,9 @@
                                     <p class="SP1">Description: {{schedule_desc}}</p>
                                     <p class="SP2 ">Saved Post &nbsp;&nbsp; Preview</p>
                                 </div>
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-100px;"/>
-                                <p>{{entitiesdetails.metadata.post_text}}</p>
+                               
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="margin-top:-100px;"/>
+                                <p class="postdet SP1">{{entitiesdetails.metadata.post_text}}</p>
                                 <p>{{entitiesdetails.metadata.url}}</p>
                                 <p>{{entitiesdetails.metadata.description}}</p>
 
@@ -649,8 +657,7 @@
                                     <p><input type="text" name="facebook_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}'/> </p>
                                 </div>
                                 <p>Saved Post &nbsp;&nbsp; Preview</p>
-                                <p></p><br>
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' />
                                 
                                 <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}'/></p>
                                 <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' /></p>
