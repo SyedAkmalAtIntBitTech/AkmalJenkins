@@ -278,18 +278,17 @@
                             <li ng-repeat="entity in entitySet['Today']">
                                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
                                 <div class="row" style="width:950px;" id="entitydetails" >
-
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)">{{entity.schedule_title}}</p>
+                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p>Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
 
-                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)">EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -304,18 +303,17 @@
                             <li ng-repeat="entity in entitySet['Tomorrow']">
                                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;">
                                 <div class="row" style="width:950px;" id="entitydetails">
-
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
 
                                     <div class="col-md-3">
-                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)">{{entity.schedule_title}}</p>
+                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p>Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
-                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)" >EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -335,12 +333,12 @@
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)">{{entity.schedule_title}}</p>
+                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p>Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
-                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)" >EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -364,13 +362,13 @@
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)">{{entity.schedule_title}}</p>
+                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p>Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
 
-                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)" >EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -391,12 +389,12 @@
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)">{{entity.schedule_title}}</p>
+                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p>Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
-                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)" >EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
                                 </div>
                             </li>
                         </ul>
@@ -416,12 +414,12 @@
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)">{{entity.schedule_title}}</p>
+                                        <p ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p>Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2">{{entity.entity_type}}</div>
                                     <div class="col-md-3">{{entity.template_status}}</div>
-                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title)" >EDIT</button> </div>
+                                    <div class="col-md-3"><button type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
                                 </div>
 
                             </li>
@@ -496,7 +494,8 @@
 
                                 <div class="actiondetails">
                                     <p>ACTION DETAILS</p>
-                                    <p>{{schedule_title}}</p>
+                                    <p>Title: {{schedule_title}}</p>
+                                    <p>Description: {{schedule_desc}}</p>
                                 </div>
                                 <p>Saved Post &nbsp;&nbsp; Preview</p>
                                 <p></p><br>
@@ -564,6 +563,7 @@
                                 <div class="actiondetails" >
                                     <p>ACTION DETAILS</p>
                                     <p>{{entitiesdetails.subject}}</p>
+                                    <p>{{entitiesdetails.schedule_description}}</p>
                                 </div>
                                 <p>Saved Post &nbsp;&nbsp; Preview</p>
                                 <p></p><br>

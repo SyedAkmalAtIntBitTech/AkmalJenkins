@@ -249,7 +249,7 @@ function controllerMarketingCampaign($scope, $http) {
         });
     };
     
-    $scope.getScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title) {
+    $scope.getScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
 
         if(entity_type == "email"){
             sliderDialog = "#preview";
@@ -276,6 +276,8 @@ function controllerMarketingCampaign($scope, $http) {
             $(".content").css("-webkit-transform"," scale(0.60)").css("left", "-30px").css("top", "-50px");
             $scope.entities_selected_time = schedule_time;
             $scope.schedule_title = schedule_title;
+            console.log(schedule_desc);
+            $scope.schedule_desc = schedule_desc;
         }).error(function (data) {
             alert("request not successful");
         });
