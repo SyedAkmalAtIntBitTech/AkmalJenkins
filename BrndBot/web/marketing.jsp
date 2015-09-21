@@ -172,7 +172,7 @@
                 border: 1px solid #ccc;
             }
 
-            #preview, #previewemail, #emailedit, 
+            #preview, #previewemail, #emailedit, #editfacebook, #edittwitter,
             #previewfb, #previewtwitter{
                 position:fixed;
                 height:100%;
@@ -569,6 +569,10 @@
                                 <p></p><br>
                                 <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                 
+                                <p>{{entitiesdetails.metadata.post_text}}</p>
+                                <p>{{entitiesdetails.metadata.url}}</p>
+                                <p>{{entitiesdetails.metadata.description}}</p>
+                                
                                 <p class="postdetails">Post details</p>
                                 <div>
                                     <p>Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
@@ -579,6 +583,38 @@
                     </div>
 
                 </div>
+                <div id="editfacebook" class="pollSlider">
+                    <div>
+                        <div>
+
+
+                            <div style="border:1px solid #7ab5d3;">
+
+                                <div class="actiondetails" >
+                                    <p>ACTION DETAILS</p>
+                                    <p><input type="text" name="facebook_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}'/></p>
+                                    <p><input type="text" name="facebook_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}'/> </p>
+                                </div>
+                                <p>Saved Post &nbsp;&nbsp; Preview</p>
+                                <p></p><br>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                
+                                <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}'/></p>
+                                <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' /></p>
+                                <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' /></p>
+                                
+                                <p class="postdetails">Post details</p>
+                                <div>
+                                    <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" />
+                                    <p>Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                </div>
+                                <div class="editbutton"><button type="button">EDIT</button> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
                 <div id="previewtwitter" class="pollSlider">
                     <div>
                         <div>
@@ -593,6 +629,8 @@
                                 <p>Saved Post &nbsp;&nbsp; Preview</p>
                                 <p></p><br>
                                 <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                
+                                <p>{{entitiesdetails.metadata.post_text}}</p>
                                 <p class="postdetails">Post details</p>
                                 <div>
                                     Scheduled on {{entities_selected_time| date:'h:mma'}}
@@ -604,6 +642,34 @@
 
                 </div>
 
+                <div id="edittwitter" class="pollSlider">
+                    <div>
+                        <div>
+
+                            <div style="border:1px solid #7ab5d3">
+
+                                <div class="actiondetails">
+                                    <p>ACTION DETAILS</p>
+                                    <p><input type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}'/></p>
+                                    <p><input type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}'/> </p>
+                                </div>
+                                <p>Saved Post &nbsp;&nbsp; Preview</p>
+                                <p></p><br>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                
+                                <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.post_text}}'/></p>
+                                <p class="postdetails">Post details</p>
+                                <div>
+                                    <input type='datetime-local' name="twitter_schedule_datetime" id="twitter_schedule_datetime"/>
+                                    Scheduled on {{entities_selected_time| date:'h:mma'}}
+                                </div>
+                                <div class="editbutton"><button type="button">EDIT</button> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
                 <div id="slider-button"></div>
             </div>    
 
