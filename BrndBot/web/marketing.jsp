@@ -212,8 +212,8 @@
                left:15px;
                
              }
-         .content table td img{
-             width:50%;
+         .content {
+             max-width:50%;
          }
             .postdetails{
                 position: relative;
@@ -241,7 +241,7 @@
                 <div class="col-md-6 col-md-offset-0">
 
 
-                    <p id="hyshead">Your Plan &nbsp;&nbsp;<button id="liPriority">ADD ACTION</button>&nbsp;&nbsp;<br><br><button ng-click="getSelectedCampaigns()">GET DETAILS</button>&nbsp;<button ng-click="getSelectedCampaigns()">DELETE SELECTED</button></p> <p id="hyshead">Marketing Campaign</p>
+                    <p id="hyshead" >Your Plan &nbsp;&nbsp;<button id="liPriority">ADD ACTION</button>&nbsp;&nbsp;<br><br><button ng-click="getSelectedCampaigns()">GET DETAILS</button>&nbsp;<button ng-click="getSelectedCampaigns()">DELETE SELECTED</button></p> <p id="hyshead">Marketing Campaign</p>
                     <div class="col-md-12" id="default" ng-init="getCampaigns()">
 
                         <div class="row" style="width:950px;">
@@ -501,7 +501,7 @@
                                 </div>
                                 <p>Saved Post &nbsp;&nbsp; Preview</p>
                                 <p></p><br>
-                                <div class="content"></div>
+                                <div class="content" style="width:50%;" ></div>
                                 <div><input type="text" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
                                 <div><input type="text" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
                                 <div><input type="text" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>

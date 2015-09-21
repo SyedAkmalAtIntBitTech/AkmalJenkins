@@ -239,8 +239,8 @@ function controllerMarketingCampaign($scope, $http) {
         }).success(function (data) {
             $scope.entitiesdetails = data;
             var date = new Date(schedule_time);
-//            $(".content").empty();
-//            $(".content").append(data.body);
+            $(".content").empty();
+            $(".content").append(data.body);
             $scope.entities_selected_time = schedule_time;
         }).error(function (data) {
             alert("request not successful");
