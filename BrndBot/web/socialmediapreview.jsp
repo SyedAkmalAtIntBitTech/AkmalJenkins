@@ -141,7 +141,7 @@
                 display:none;
                 position: fixed;
                 width:350px;
-                height:300px;
+                height:400px;
                 top: 40%;
                 left: 50%;
                 margin-left:-155px;
@@ -350,6 +350,7 @@
 <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                             Layout file name<input type="text" id="layoutxml" required><br>-->
                         Title: <input type="text" class="form-control simplebox" id="schedule_title" name="schedule_title"><br>
+                        Description: <textarea class="form-control simplebox1" name="schedule_desc" id="schedule_desc"></textarea><br>
                         Date : <input type="datetime-local" class="form-control simplebox" id="schedule_time" name="schedule_time"><br>
 
                         <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
@@ -556,6 +557,7 @@
                     var image_name= $("#imageToPost").val();
                     var schedule_title = $("#schedule_title").val();
                     var schedule = $("#schedule_time").val();
+                    var schedule_desc = $("#schedule_desc").val();
                     console.log("Value selected from Component: " + schedule);
                     var schedule_time = Date.parse(schedule);
                     console.log("Epoch: " + schedule_time);
@@ -577,6 +579,7 @@
                                             image_name: image_name,
                                             schedule_time: newEpoch,
                                             schedule_title: '"'+schedule_title+'"',
+                                            schedule_desc: schedule_desc,
                                             token_data: {
                                               "access_token": '"'+$("#accesstoken").val()+'"'
                                             },
@@ -591,7 +594,7 @@
                                             image_name: image_name,
                                             schedule_time: newEpoch,
                                             schedule_title: '"'+schedule_title+'"',
-                                            schedule_desc: '"'+$("#twittertext").val()+'"',
+                                            schedule_desc: schedule_desc,
                                             token_data: {
                                               "access_token": '"'+$("#twittweraccestoken").val()+'"',
                                               "token_secret": '"'+$("#twitterTokenSecret").val()+'"'

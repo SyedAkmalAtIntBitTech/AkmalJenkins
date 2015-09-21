@@ -249,37 +249,70 @@ function controllerMarketingCampaign($scope, $http) {
         });
     };
     
-    $scope.getScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title) {
+    $scope.getScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
 
         if(entity_type == "email"){
             sliderDialog = "#preview";
             $('#slider-button').click();
             prevSliderDialog = "#preview";
+            $http({
+                method: 'GET',
+                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
+            }).success(function (data) {
+                $scope.entitiesdetails = data;
+                var date = new Date(schedule_time);
+                $(".content").empty();
+            $(".content").append(data.body);
+            $(".content").css("-webkit-transform"," scale(0.90)").css("left", "0px").css("top", "-20px");
+            $(".editcontent").css("-webkit-transform","scale(0.60)").css("margin-left", "-30px").css("margin-top", "-80px").css("margin-bottom", "-220px");
+                $scope.entities_selected_time = schedule_time;
+                $scope.schedule_title = schedule_title;
+                console.log(schedule_desc);
+                $scope.schedule_desc = schedule_desc;
+            }).error(function (data) {
+                alert("request not successful");
+            });
         }else if (entity_type == "facebook"){
             sliderDialog = "#previewfb";
             $('#slider-button').click();
             prevSliderDialog = "#previewfb";
+            $http({
+                method: 'GET',
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+            }).success(function (data) {
+                $scope.entitiesdetails = data;
+                var date = new Date(schedule_time);
+                $scope.entities_selected_time = schedule_time;
+                $scope.schedule_title = schedule_title;
+                console.log(schedule_desc);
+                $scope.schedule_desc = schedule_desc;
+            }).error(function (data) {
+                alert("request not successful");
+            });
+
         }else if (entity_type == "twitter"){
             sliderDialog = "#previewtwitter";
             $('#slider-button').click();
             prevSliderDialog = "#previewtwitter";
+            $http({
+                method: 'GET',
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+            }).success(function (data) {
+                $scope.entitiesdetails = data;
+                var date = new Date(schedule_time);
+                $(".content").empty();
+                $(".content").append(data.body);
+                $(".content").css("-webkit-transform"," scale(0.60)").css("left", "-30px").css("top", "-50px");
+                $scope.entities_selected_time = schedule_time;
+                $scope.schedule_title = schedule_title;
+                console.log(schedule_desc);
+                $scope.schedule_desc = schedule_desc;
+            }).error(function (data) {
+                alert("request not successful");
+            });
         }
 
-        $http({
-            method: 'GET',
-            url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
-        }).success(function (data) {
-            $scope.entitiesdetails = data;
-            var date = new Date(schedule_time);
-            $(".content").empty();
-            $(".content").append(data.body);
-            $(".content").css("-webkit-transform"," scale(0.90)").css("left", "0px").css("top", "-20px");
-            $(".editcontent").css("-webkit-transform","scale(0.60)").css("margin-left", "-30px").css("margin-top", "-80px").css("margin-bottom", "-220px");
-            $scope.entities_selected_time = schedule_time;
-            $scope.schedule_title = schedule_title;
-        }).error(function (data) {
-            alert("request not successful");
-        });
+
     };
 
 

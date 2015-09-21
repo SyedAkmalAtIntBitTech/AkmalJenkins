@@ -58,7 +58,7 @@
                 display:none;
                 position: fixed;
                 width:350px;
-                height:300px;
+                height:500px;
                 top: 40%;
                 left: 50%;
                 margin-left:-155px;
@@ -211,6 +211,7 @@
                 var email_list = $("#email_list").val();
                 var schedule_title = $("#schedule_title").val();
                 var schedule = $("#schedule_time").val();
+                var schedule_desc = $("#schedule_desc").val();
                 console.log("Value selected from Component: " + schedule);
                 var schedule_time = Date.parse(schedule);
                 console.log("Epoch: " + schedule_time);
@@ -223,7 +224,7 @@
                 var newEpoch = schedule_time + tzOffsetInMillis;
                 console.log("New Epoch: " + newEpoch);
 
-                var email_scheduling = {"from_name": from_name, "email_subject":email_subject, "to_email_addresses":to_email_addresses, "from_email_address":from_email_address, "reply_to_email_address":reply_to_email_address, "email_list":email_list, "schedule_title":schedule_title, "schedule_time":newEpoch, "email_body":email_body};
+                var email_scheduling = {"from_name": from_name, "email_subject":email_subject, "to_email_addresses":to_email_addresses, "from_email_address":from_email_address, "reply_to_email_address":reply_to_email_address, "email_list":email_list, "schedule_title":schedule_title, "schedule_time":newEpoch, "email_body":email_body, "schedule_desc":schedule_desc};
                 $http({
                         method : 'POST',
                         url : 'ScheduleEmail',
@@ -438,9 +439,9 @@
 <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                             Layout file name<input type="text" id="layoutxml" required><br>-->
                         Title: <input type="text" class="form-control simplebox" id="schedule_title" name="schedule_title"><br>
+                        Description: <textarea id="schedule_desc" class="form-control simplebox1" name="schedule_desc"></textarea><br>
                         Date : <input type="datetime-local" class="form-control simplebox" id="schedule_time" name="schedule_time"><br>
 
-                        <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
                         <input type="button" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="setScheduling()" value="Done"/>   
                         <input type="button" class="button button--moema button--text-thick button--text-upper button--size-s" id="hidepopup" value="Close" onclick="hidepopup()"/>   
                     </div>
