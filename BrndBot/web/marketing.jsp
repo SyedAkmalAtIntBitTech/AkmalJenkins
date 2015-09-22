@@ -307,10 +307,10 @@
             <div class="col-md-8 col-md-offset-3 " >
                 <div class="col-md-6 col-md-offset-0">
 
-                    <div style="position:relative;">
-                    <p id="planhead" class="MH2">Your Plan</p><button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;">ADD ACTION</button>
-                    <button ng-click="getSelectedCampaigns()" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;">DELETE SELECTED</button> 
-                    </div>
+                    
+                    <p id="planhead" class="MH2">Your Plan</p><button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;">ADD ACTION</button>
+                    <button ng-click="getSelectedCampaigns()" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;position:relative;margin-top:-47px;margin-left:25em;">DELETE SELECTED</button> 
+                    
                    
                     <div class="col-md-12" id="default" ng-init="getCampaigns()">
                          
@@ -328,12 +328,12 @@
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
                                     </div>
-                                    <div class="col-md-3" style="width:260px;margin-left:-40px;">
+                                    <div class="col-md-3" style="width:300px;margin-left:-40px;">
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
-                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
-                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
+                                    <div class="col-md-2 SP2" style="font-weight:400;width:110px;text-align:center;left:70px;">{{entity.entity_type}}</div>
+                                    <div class="col-md-3 SS2" style="margin-left:100px;font-weight:400;">{{entity.template_status}}</div>
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">EDIT</button> </div>
                                 </div>
                             </li>
@@ -357,8 +357,8 @@
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p class="SP1 fntschld">Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
                                     </div>
-                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
-                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
+                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;left:70px">{{entity.entity_type}}</div>
+                                    <div class="col-md-3 SP1" style="margin-left:100px;font-weight:400;">{{entity.template_status}}</div>
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
                                 </div>
                             </li>
@@ -382,9 +382,9 @@
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p class="SP1 fntschld">Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
                                     </div>
-                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
+                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;left:70px">{{entity.entity_type}}</div>
 
-                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
+                                    <div class="col-md-3 SP1" style="margin-left:100px;font-weight:400;">{{entity.template_status}}</div>
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
 
                                 </div>
@@ -393,7 +393,7 @@
                     </div>
                     <div class="col-md-12" id="selected" style="display:none;">
                         
-                        <div class="row" style="width:950px;margin-top:30px;margin-left:70px;">
+                        <div class="row" style="width:950px;margin-top:30px;margin-left:130px;">
                             <div class='col-md-3' style="width:230px;"></div>
                             <div class='col-md-2 SS2'>Action Type</div>
                             <div class='col-md-3 SS2'>Template Saved</div>
@@ -415,8 +415,8 @@
                                         <p  class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
 
                                     </div>
-                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
-                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
+                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;left:70px">{{entity.entity_type}}</div>
+                                    <div class="col-md-3 SP1" style="margin-left:100px;font-weight:400;">{{entity.template_status}}</div>
 
 
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
@@ -445,8 +445,8 @@
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
-                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
-                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
+                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;left:70px">{{entity.entity_type}}</div>
+                                    <div class="col-md-3 SP1"  style="margin-left:100px;font-weight:400;">{{entity.template_status}}</div>
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
 
                                 </div>
@@ -472,8 +472,8 @@
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
-                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;">{{entity.entity_type}}</div>
-                                    <div class="col-md-3 SP1"  style="margin-left:50px;font-weight:400;">{{entity.template_status}}</div>
+                                    <div class="col-md-2 SP1" style="font-weight:400;width:110px;text-align:center;left:70px">{{entity.entity_type}}</div>
+                                    <div class="col-md-3 SP1"  style="margin-left:100px;font-weight:400;">{{entity.template_status}}</div>
                                     <div class="col-md-3"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
 
                                 </div>
