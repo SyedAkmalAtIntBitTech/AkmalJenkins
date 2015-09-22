@@ -98,6 +98,23 @@ function validateaction() {
 
     return true;
 }
+var selected_schedules_to_delete = "";
+
+function setSelectedIds(selectedid){
+    
+    var checked  = document.getElementById(selectedid).checked;
+
+    if (checked){
+        var selected_schedule_id = $("#"+selectedid).val();
+        selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+        console.log(selected_schedules_to_delete);
+    }else{
+        var selected_schedule_id = $("#"+selectedid).val();
+        selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id+",","");
+        console.log(selected_schedules_to_delete);
+    }
+    
+}
 
 
 Date.prototype.customFormat = function (formatString) {
@@ -128,6 +145,7 @@ function addDays(theDate, days) {
 var user_selected_date = '';
 function setCurrentDate(selected_date) {
     user_selected_date = selected_date;
+
 }
 
 function controllerMarketingCampaign($scope, $http) {
@@ -231,6 +249,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $(".editcontent").empty();
                 $(".editcontent").append(data.body);
+                $(".editcontent").css("-webkit-transform","scale(0.60)").css("margin-left", "-30px").css("margin-top", "-80px").css("margin-bottom", "-220px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.showEmailList();
@@ -294,7 +313,6 @@ function controllerMarketingCampaign($scope, $http) {
                 $(".content").empty();
             $(".content").append(data.body);
             $(".content").css("-webkit-transform"," scale(0.90)").css("left", "0px").css("top", "-20px");
-            $(".editcontent").css("-webkit-transform","scale(0.60)").css("margin-left", "-30px").css("margin-top", "-80px").css("margin-bottom", "-220px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 console.log(schedule_desc);
@@ -340,6 +358,15 @@ function controllerMarketingCampaign($scope, $http) {
             }).error(function (data) {
                 alert("request not successful");
             });
+        }else if (entity_type == "note"){
+            sliderDialog = "#previewNote";
+            $('#slider-button').click();
+            prevSliderDialog = "#previewNote";
+            $scope.entities_selected_time = schedule_time;
+            $scope.schedule_title = schedule_title;
+            console.log(schedule_desc);
+            $scope.schedule_desc = schedule_desc;
+            
         }
 
 
@@ -351,17 +378,17 @@ function controllerMarketingCampaign($scope, $http) {
         var actiontype = $("#actiontype").val();
         
         var description = $("#description").val();
-        var actiondate = $("#actiondate").val();
-        var actionmonth = $("#actionmonth").val();
-        var actiontime = $("#actiontime").val();
-        var currdate = new Date();
-        currdate.setDate(actiondate);
-        currdate.setMonth(actionmonth);
-        currdate.setTime(actiontime);
+        var actiondate = $("#actiondatetime").val();
+//        var actionmonth = $("#actionmonth").val();
+//        var actiontime = $("#actiontime").val();
+//        var currdate = new Date();
+//        currdate.setDate(actiondate);
+//        currdate.setMonth(actionmonth);
+//        currdate.setTime(actiontime);
         
         
         console.log("Value selected from Component: " + actiondate);
-        var schedule_time = Date.parse(currdate);
+        var schedule_time = Date.parse(actiondate);
         console.log("Epoch: " + schedule_time);
 
         var dateObj = new Date(schedule_time);
@@ -412,5 +439,12 @@ function controllerMarketingCampaign($scope, $http) {
             }
         });
     };
-
+    
+    $scope.deleteSchedule = function(Scheduleids){
+        
+    };
+    
+    $scope.updateSchedule = function(Scheduleid){
+        
+    };
 };

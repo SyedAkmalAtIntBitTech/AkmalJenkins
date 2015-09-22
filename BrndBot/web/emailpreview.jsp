@@ -162,10 +162,7 @@
         String emailSubject = "";
         String emailList = "";
         String htmlData = "";
-
         String emailAddresses = "";
- 
-
     %>
     <%
         sqlmethods.session = request.getSession(true);

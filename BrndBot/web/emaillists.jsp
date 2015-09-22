@@ -502,7 +502,7 @@
                 </div>
               <div id="tab2" class="col-md-8 col-md-offset-2 " style="display:none;padding-top:5%;">
                   <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Create a new list</p></div>
-                <div class="col-md-6 col-md-offset-0">  <p class="SS2"style="width:400px;left:-245px;position:relative;top:80px;"> Create a new email list. After you hit save, you will then be
+                <div class="col-md-6 col-md-offset-0">  <p class="SS2" style="width:400px;left:-245px;position:relative;top:80px;"> Create a new email list. After you hit save, you will then be
                 able to add new contacts.</p></div>
                 <div class="col-md-6 col-md-offset-0 bgcols">
                     <div id="view1" style="position:relative;left:-350px;padding-top:8%;" >

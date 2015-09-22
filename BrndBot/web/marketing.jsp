@@ -187,7 +187,7 @@
             }
 
             #preview, #previewemail, #emailedit, #editfacebook, #edittwitter,
-            #previewfb, #previewtwitter{
+            #previewfb, #previewNote, #previewtwitter{
                 position:fixed;
                 height:100%;
                 background:#ffffff;
@@ -326,7 +326,7 @@
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails" >
                                     <div class="col-md-1">
-                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
+                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
                                     <div class="col-md-3" style="width:260px;margin-left:-40px;">
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
@@ -350,9 +350,8 @@
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
                                     <div class="col-md-1">
-                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
+                                        <input type="checkbox" name="removetomorrow" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
-
                                     <div class="col-md-3"  style="width:260px;margin-left:-40px;">
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
                                         <p class="SP1 fntschld">Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
@@ -376,7 +375,7 @@
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
-                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
+                                        <input type="checkbox" name="removeLater" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
                                     <div class="col-md-3"  style="width:260px;margin-left:-40px;">
                                         <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
@@ -407,7 +406,7 @@
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
-                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
+                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
                                     <div class="col-md-3"  style="width:260px;margin-left:-40px;">
 
@@ -438,7 +437,7 @@
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
-                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
+                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
                                     <div class="col-md-3"  style="width:260px;margin-left:-40px;">
 
@@ -465,7 +464,7 @@
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
-                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;"/>
+                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
 
                                     <div class="col-md-3"  style="width:260px;margin-left:-40px;">
@@ -521,6 +520,9 @@
                                     </select></div>
                                 <div style="position:relative;top:40px;left:80px;">
                                     Description : <br><textarea cols="28" rows="2" name="description" id="description"></textarea>
+                                </div>
+                                <div class="" style="position:relative; margin-top: 50px; margin-left: 50px;">
+                                    Date : <input type="datetime-local" name="actiondatetime" id="actiondatetime" />
                                 </div>
                                 <div class="row" style="position: relative; width: 600px; height: 20px; margin-left: 20px; margin-top: 80px;">
                                     <div class="col-md-4" style="width:120px;">
@@ -644,6 +646,7 @@
                                         <div><p class="SP2">subject</p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
                                         <div><p class="SP2">to address</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
                                         <div><p class="SP2">from address</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
+                                        <div><p class="SP2">reply to address</p><input type="text" class="inputbox" name="email_entityreplytoaddress" id="email_entityreplytoaddress" value="{{entitiesdetails.reply_to_email_address}}"></div>
                                         
                                     </div>
                                     
@@ -724,6 +727,31 @@
                                 <div>
                                     <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" />
                                     <p>Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                </div>
+                                <div class="editbutton"><button type="button">EDIT</button> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="previewNote" class="pollSlider">
+                    <div>
+                        <div>
+
+                            <div style="border:1px solid #7ab5d3">
+
+                                <div class="actiondetails">
+                                    <p>ACTION DETAILS</p>
+                                    <p>Title: {{schedule_title}}</p>
+                                    <p>Description: {{schedule_desc}}</p>
+                                </div>
+                                <p>Saved Post &nbsp;&nbsp; Preview</p>
+                                <p></p><br>
+
+                                <p class="postdetails">Post details</p>
+                                <div>
+                                    Scheduled on {{entities_selected_time| date:'h:mma'}}
                                 </div>
                                 <div class="editbutton"><button type="button">EDIT</button> </div>
                             </div>

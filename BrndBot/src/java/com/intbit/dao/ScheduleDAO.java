@@ -45,6 +45,7 @@ public class ScheduleDAO {
             String fromAddress,
             String emailListName,
             String fromName,
+            String replytoEmailAddress,
             String[] toAddress,
             String scheduledTitle,
             String scheduleDesc,
@@ -63,8 +64,8 @@ public class ScheduleDAO {
             connection.setAutoCommit(false);
             try {
                 String sql = "INSERT INTO tbl_scheduled_email_list "
-                        + " (user_id, subject, body, from_address, email_list_name, from_name, to_email_addresses) VALUES "
-                        + " (?, ?, ?, ?, ?, ?, ?) RETURNING id";
+                        + " (user_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address) VALUES "
+                        + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, userId);
                     ps.setString(2, subject);
@@ -79,7 +80,7 @@ public class ScheduleDAO {
                     pg_object.setType("json");
                     pg_object.setValue(json_email_addresses.toJSONString());
                     ps.setObject(7, pg_object);
-                    
+                    ps.setString(8, replytoEmailAddress);
                     ps.execute();
                     try (ResultSet resultSet = ps.getResultSet()) {
 
@@ -273,6 +274,7 @@ public class ScheduleDAO {
                         scheduleEmailDetails.put("subject", rs.getString("subject"));
                         scheduleEmailDetails.put("body", rs.getString("body"));
                         scheduleEmailDetails.put("from_address", rs.getString("from_address"));
+                        scheduleEmailDetails.put("reply_to_email_address", rs.getString("reply_to_email_address"));
                         scheduleEmailDetails.put("email_list_name", rs.getString("email_list_name"));
                         scheduleEmailDetails.put("from_name", rs.getString("from_name"));
                         scheduleEmailDetails.put("to_email_addresses", email_ids);
@@ -299,5 +301,5 @@ public class ScheduleDAO {
         
         //now get the to email addresses
         return scheduleEmailDetails;
-    }
+    }   
 }

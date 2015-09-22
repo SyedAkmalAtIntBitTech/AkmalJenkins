@@ -87,6 +87,7 @@ public class ScheduleEmailServlet extends HttpServlet {
                     requestBodyMap.get("from_email_address").toString(),
                     requestBodyMap.get("email_list").toString(),
                     requestBodyMap.get("from_name").toString(),
+                    requestBodyMap.get("reply_to_email_address").toString(),
                     requestBodyMap.get("to_email_addresses").toString().split(","),
                     requestBodyMap.get("schedule_title").toString(),
                     scheduleDesc, 
