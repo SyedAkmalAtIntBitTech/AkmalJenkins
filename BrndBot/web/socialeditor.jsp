@@ -332,23 +332,9 @@ ul::-webkit-scrollbar-thumb {
 //            alert($(this).val());
                 var text = $("#fontname").find('option:selected').text();
                 var font_family_name = $("#fontname").val();
-                var font = font_family_name.split(",");
-//                var google_key_word = font[0].split(' ').join('+')
-//
-//                var ss = document.createElement("link");
-//                ss.type = "text/css";
-//                ss.rel = "stylesheet";
-//                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
-//                document.getElementsByTagName("head")[0].appendChild(ss);
-//
-//                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
-//                var styles = "@font-face {"+
-//                             "font-family:"+ text + ";"+
-//                             "src: url("+font_path+");"
-//                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
-                var font_name = font[0].split('+').join(' ');
-                $("#" + selectedTextareaId).css("font-family", font[0]);
+                var font_name = font_family_name.split('+').join(' ');
+                $("#" + selectedTextareaId).css("font-family", font_name);
 
             });
             });
@@ -364,7 +350,7 @@ ul::-webkit-scrollbar-thumb {
                             method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-//                        alert(JSON.stringify(data.user_colors));
+//                        alert(JSON.stringify(data.user_font_names));
                             $scope.user_preferences_colors = data.user_colors;
 
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -373,14 +359,14 @@ ul::-webkit-scrollbar-thumb {
                             var font_object;
                             var font_family_name;
                             var font_name;
+                             $("#fontname").empty();
                             for (i; i<= data.user_font_names.length; i++){
                                 font_object = data.user_font_names[i];
                                 font_name = font_object.font_name;
                                 font_family_name = font_object.font_family_name;
-                                
-                                var font = font_family_name.split(",");
-                                var google_key_word = font[0].split(' ').join('+')
-
+                                var font = font_family_name.split(",");                     
+                                var google_key_word = font[0].split(' ').join('+');
+                                $("#fontname").append("<option value="+google_key_word+">"+font_name+"</option>");
                                 var ss = document.createElement("link");
                                 ss.type = "text/css";
                                 ss.rel = "stylesheet";
@@ -561,9 +547,9 @@ ul::-webkit-scrollbar-thumb {
                                                                 .css("margin-top", "" + top + "px")
                                                                 .css("width", "" + width)
                                                                 .css("height", "" + height)
-                                                                .css("font-size", "" + fontsize)
-                                                                .css("font-style", "" + fontstyle)
+                                                                .css("font-size", "" + fontsize)                                                             
                                                                 .css("font-family", "" + font_family_name)
+                                                                .css("font-style", "" + fontstyle)
                                                                 .css("font-weight", "" + fontweight)
                                                                 .css("letter-spacing", "" + letterspacing)
                                                                 .css("line-height", "" + lineheight)
@@ -825,7 +811,7 @@ ul::-webkit-scrollbar-thumb {
                                                 <li style="width:120px;">
                                                     <p id="editorheadere" class="SS1">font style</p>
                                                     <select id="fontname" class="editordropdown">
-                                                        <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{ names.font_family_name}}">{{ names.font_name}} </option>
+<!--                                                        <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{ names.font_family_name}}">{{ names.font_name}} </option>-->
 
                                                     </select>
                                                 </li>

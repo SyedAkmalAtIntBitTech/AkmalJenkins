@@ -600,8 +600,13 @@ function getTectId(id) {
 
         var textDefaultAline = $("#" + selectedTextareaId).css("text-align");
         var textDefaultFontSize = $("#" + selectedTextareaId).css("font-size");
-        var textDefaultFontFamily = $("#" + selectedTextareaId).css("font-style");
+        var textDefaultFontFamily = $("#" + selectedTextareaId).css("font-family");
         $("#picker").css("background-color", "" + textDefaultcolor);
+        var font_name = textDefaultFontFamily.split(' ').join('+');
+        if(font_name.contains("+")){
+            font_name=font_name.replace(/'/g,"");
+        }
+        $("#fontname").val(""+font_name).trigger('change');
         reload_alignButtons1(textDefaultAline);
     });
     $("#"+selectedTextareaId).focusout(function(){

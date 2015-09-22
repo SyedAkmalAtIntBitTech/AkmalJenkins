@@ -159,6 +159,8 @@
         String emailSubject = "";
         String emailList = "";
         String htmlData = "";
+        String iframeName = "";
+        String iframeUrl="";
     %>
     <%
         sqlmethods.session = request.getSession(true);
@@ -166,6 +168,8 @@
         emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
         emailList = (String) sqlmethods.session.getAttribute("email_list");
         htmlData = (String) sqlmethods.session.getAttribute("htmldata");
+        iframeName = (String) sqlmethods.session.getAttribute("iframeName");
+        iframeUrl="/BrndBot/DownloadHtmlServlet?file_name="+iframeName+".html";
     %>
     <script>
         function emailSettings($scope, $http){
@@ -332,7 +336,8 @@
                     from_email_address: $("#formaddress").val(),
                     reply_to_email_address: $("#email").val(),
                     htmldata: formattedHTMLData,
-                    email_list: $("#email_list").val()
+                    email_list: $("#email_list").val(),
+                    iframeName: $("#iframe_name").val()
                 },
                 success: function (responseText) {
                     $('#loadingGif').remove();
@@ -400,6 +405,8 @@
                             
 
                             <input type="hidden" id="email_list" value='<%=emailList%>' name="email_list">
+                            <input type="hidden" id="iframe_name" value='<%=iframeName%>'>
+                                
                 </form>
             </div>
             <div class="col-md-4">
@@ -433,7 +440,7 @@
 
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
                     <div class="content">  
-                      <iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>                   
+                        <iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='<%=iframeUrl%>'></iframe>                   
                     </div>
                 </div>
 

@@ -353,7 +353,7 @@
         </div>
         <div id="myModal1" class="reveal-modal">
             <div id="content">
-                <p>Please click the url and get the pin</p>
+                <p>"You now need to connect BrndBot to your Twitter account. Click 'get your pin' you will be given a 7 digit pin by Twitter. Copy and paste that pin here and you are all set!"</p>
                 <div id="twitterlink">wait...</div>
                 Enter the pin<input type="text" id="pinTextBox" name="pinTextBox"><br><br><br>
                 <input id="setPin" type="button" class="btn btn-primary" value="ok">

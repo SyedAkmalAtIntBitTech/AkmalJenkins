@@ -960,12 +960,12 @@ $(document).ready(function () {
 
         addLogocount++;
         addElements($("#elementText").find('option:selected').text());
-        $("#" + selectedTextID).css("background", "url(../images/logo.svg)");
+        $("#" + selectedTextID).css("background", "url(../images/Logo_Standard.png)");
         $("#" + selectedTextID).css("background-size", "contain");
         $("#" + selectedTextID).css("-webkit-background-size", "contain");
         $("#" + selectedTextID).css("background-repeat", "no-repeat");
-        $("#" + selectedTextID).css("width", "100px");
-        $("#" + selectedTextID).css("height", "100px");
+        $("#" + selectedTextID).css("width", "250px");
+        $("#" + selectedTextID).css("height", "80px");
         addDefault();
         reloadTabs(1);
 

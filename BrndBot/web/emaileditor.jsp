@@ -411,7 +411,10 @@ and open the template in the editor.
         %>
         <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <script>
+            var rendomIframeFilename="";
                     $(document).ready(function () {
+                        rendomIframeFilename=event.timeStamp;
+//                        alert(rendomIframeFilename);
                    $("#loadingGif").hide();
                    $(".boxclose").click(function (){
                         $("#tabs-4").hide();
@@ -429,24 +432,12 @@ and open the template in the editor.
                     document.getElementById('blk').style.backgroundColor = 'transparent';
                     var numitems = $("#imageGallery li").length;
                     $("ul#imageGallery").css("column-count", numitems / 2);
-                    $("#fontname").change(function () {
-            var text = $("#fontname").find('option:selected').text();
+                   
+        $("#fontname").change(function () {
+                     var text = $("#fontname").find('option:selected').text();
                     var font_family_name = $("#fontname").val();
-                    var font = font_family_name.split(",");
-                    //                var google_key_word = font[0].split(' ').join('+')
-                    //                var ss = document.createElement("link");
-                    //                ss.type = "text/css";
-                    //                ss.rel = "stylesheet";
-                    //                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
-                    //                document.getElementsByTagName("head")[0].appendChild(ss);
-                    //
-                    //                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
-                    //                var styles = "@font-face {"+
-                    //                             "font-family:"+ text + ";"+
-                    //                             "src: url("+font_path+");"
-                    //                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
-
-                    $("#" + selectedTextareaId).css("font-family", font[0]);
+                    var font_name = font_family_name.split('+').join(' ');
+                $("#" + selectedTextareaId).css("font-family", font_name);
             });
             });</script>
 
@@ -471,7 +462,10 @@ and open the template in the editor.
             $.ajax({
             url: getHost() + "PreviewServlet",
                     method: "post",
-                    data:{htmlString: $(".dataForEmail").html()},
+                    data:{
+                        htmlString: $(".dataForEmail").html(),
+                        iframeName: rendomIframeFilename
+                    },
                     success: function (responseText) {
 
                     //show popup showing
@@ -502,12 +496,14 @@ and open the template in the editor.
                             var font_object;
                             var font_family_name;
                             var font_name;
+                             $("#fontname").empty();
                             for (i; i <= data.user_font_names.length; i++){
-                    font_object = data.user_font_names[i];
+                            font_object = data.user_font_names[i];
                             font_name = font_object.font_name;
                             font_family_name = font_object.font_family_name;
                             var font = font_family_name.split(",");
                             var google_key_word = font[0].split(' ').join('+');
+                            $("#fontname").append("<option value="+google_key_word+">"+font_name+"</option>");
                             var ss = document.createElement("link");
                             ss.type = "text/css";
                             ss.rel = "stylesheet";
@@ -1160,7 +1156,6 @@ and open the template in the editor.
                                                 <li style="width:115px;">
                                                     <p id="editorheadere" class="SS1">font style</p>
                                                     <select id="fontname" class="editordropdown" >
-                                                        <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{names.font_family_name}}">{{names.font_name}} </option>
                                                     </select>
                                                 </li>
                                                 <li> 
@@ -1466,7 +1461,7 @@ and open the template in the editor.
                                       var getId=id;
                                       var dynamicStyle,dynamicWidth,dynamicHeight;
                                       var imageUrl = $("#" + id).css("background-image").replace("url(","").replace(")","");
-                                       var id = '#dialog';
+                                      var id = '#dialog';
 	
                                         //Get the screen height and width
                                         var maskHeight = $(document).height();
@@ -1508,7 +1503,10 @@ and open the template in the editor.
                                $.ajax({
                                         url: getHost() + "PreviewServlet",
                                         method: "post",
-                                        data: {htmlString: $(".dataForEmail").html()},
+                                        data: {
+                                            htmlString: $(".dataForEmail").html(),
+                                            iframeName: rendomIframeFilename
+                                          },
                                         success: function (responseText) {
 //                                        alert(responseText);
                                       if (getId === "ipad") {
@@ -1518,7 +1516,7 @@ and open the template in the editor.
                                            $(".window").empty();
                                         $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
                                         $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
-                                        $("#imageDivPopup").append("<iframe style='width:768px;height:980px;position:relative;top:-230px;left:-175px;-webkit-transform: scale(0.48);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
+                                        $("#imageDivPopup").append("<iframe style='width:768px;height:980px;position:relative;top:-230px;left:-175px;-webkit-transform: scale(0.48);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
 
                                             
 
@@ -1532,7 +1530,7 @@ and open the template in the editor.
                                         $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
                                         $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
 //                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-50)+"px;height:"+(dynamicHeight-135)+"px;margin-left:25px;position:relative;top:25px ;overflow:scroll;'>"+responseText+"</div>");
-                                        $("#imageDivPopup").append("<iframe style='width:768px;height:620px;position:relative;top:-132px;left:-165px;-webkit-transform: scale(0.5);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
+                                        $("#imageDivPopup").append("<iframe style='width:768px;height:620px;position:relative;top:-132px;left:-165px;-webkit-transform: scale(0.5);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
                                             
                                         }
                                     else if(getId === "iphone"){
@@ -1544,7 +1542,7 @@ and open the template in the editor.
                                         $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
                                         $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
 //                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-20)+"px;height:"+(dynamicHeight-60)+"px;margin-left:10px;position:relative;top:28px;overflow:scroll;'>"+responseText+"</div>");
-                                         $("#imageDivPopup").append("<iframe style='width:320px;height:480px;position:relative;top:-23px;left:-22px;-webkit-transform: scale(0.78);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
+                                         $("#imageDivPopup").append("<iframe style='width:320px;height:480px;position:relative;top:-23px;left:-22px;-webkit-transform: scale(0.78);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
 
                                         
                                         }
@@ -1562,10 +1560,13 @@ and open the template in the editor.
 
                             $("#continue").click(function (){
 //                                    alert($(".dataForEmail").html());
-      $.ajax({
-            url: getHost() + "PreviewServlet",
+                 $.ajax({
+                       url: getHost() + "PreviewServlet",
                     method: "post",
-                    data:{htmlString: $(".dataForEmail").html()},
+                      data:{
+                            htmlString: $(".dataForEmail").html(),
+                            iframeName: rendomIframeFilename
+                            },
                     success: function (responseText) {
 
                     //show popup showing
@@ -1574,11 +1575,13 @@ and open the template in the editor.
                             //$("#previewpopup").show();
 //                            $(".clickpreview").click();
                             $.ajax({
-                            url: getHost() + "SaveKeyValueSessionServlet",
+                                    url: getHost() + "SaveKeyValueSessionServlet",
                                     method: "post",
                                     data:{
                                     sessionKey:"htmldata",
-                                            sessionValue: $(".dataForEmail").html()
+                                    sessionValue: $(".dataForEmail").html(),
+                                    sessionIframeKey:"iframeName",
+                                    sessionIframevalue:""+rendomIframeFilename
                                     },
                                     success: function (responseText) {
 
@@ -1859,7 +1862,9 @@ and open the template in the editor.
                                                                                                                                             one.init('.crop_image');
                                                                                                                                             // load image into crop
                                                                                                                                             one.loadImg(oFREvent.target.result);
-                                                                                                                                    };</script>  
+                                                                                                                                    };
+                                                                                                                                                                                                                                                                    
+        </script>  
 
         <script>
 
