@@ -352,8 +352,16 @@ function controllerMarketingCampaign($scope, $http) {
         
         var description = $("#description").val();
         var actiondate = $("#actiondate").val();
+        var actionmonth = $("#actionmonth").val();
+        var actiontime = $("#actiontime").val();
+        var currdate = new Date();
+        currdate.setDate(actiondate);
+        currdate.setMonth(actionmonth);
+        currdate.setTime(actiontime);
+        
+        
         console.log("Value selected from Component: " + actiondate);
-        var schedule_time = Date.parse(actiondate);
+        var schedule_time = Date.parse(currdate);
         console.log("Epoch: " + schedule_time);
 
         var dateObj = new Date(schedule_time);

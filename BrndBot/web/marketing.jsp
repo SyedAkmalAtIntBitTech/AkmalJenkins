@@ -307,10 +307,11 @@
             <div class="col-md-8 col-md-offset-3 " >
                 <div class="col-md-6 col-md-offset-0">
 
-                    
+   
                     <p id="planhead" class="MH2">Your Plan</p><button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;">ADD ACTION</button>
                     <button ng-click="getSelectedCampaigns()" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;position:relative;margin-top:-47px;margin-left:25em;">DELETE SELECTED</button> 
                     
+
                    
                     <div class="col-md-12" id="default" ng-init="getCampaigns()">
                          
@@ -522,9 +523,65 @@
                                 <div style="position:relative;top:40px;left:80px;">
                                     Description : <br><textarea cols="28" rows="2" name="description" id="description"></textarea>
                                 </div>
-                                <div style="position:relative;top:77px;left:30px;">
-                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
+                                <div class="row" style="position: relative; width: 600px; height: 20px; margin-left: 20px; margin-top: 80px;">
+                                    <div class="col-md-4" style="width:120px;">
+                                    Day: <select name="actionday" id="actionday">
+                                            <option value="1">01</option>
+                                            <option value="2">02</option>
+                                            <option value="3">03</option>
+                                            <option value="4">04</option>
+                                            <option value="5">05</option>
+                                            <option value="6">06</option>
+                                            <option value="7">07</option>
+                                            <option value="8">08</option>
+                                            <option value="9">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+                                        </select>
+                                        
+                                    </div>
+                                    <div class="col-md-4" style="width:180px;">
+                                    Month : <select name="actionmonth" id="actionmonth">
+                                                <option value="January">January</option>
+                                                <option value="February">February</option>
+                                                <option value="March">March</option>
+                                                <option value="April">April</option>
+                                                <option value="May">May</option>
+                                                <option value="June">June</option>
+                                                <option value="July">July</option>
+                                                <option value="August">August</option>
+                                                <option value="September">September</option>
+                                                <option value="October">October</option>
+                                                <option value="November">November</option>
+                                                <option value="December">December</option>
+                                            </select>
+                                    </div>
+                                    <div class="col-md-4" style="width:300px; margin-top:0px;">
+                                    <input type="time" id="actiontime" name="actiontime" style="width:120px;"/>
+                                    </div>
                                 </div>
+<!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
+                                
                             </div>
                     <div class="row">
                         <div class="col-md-12" style="width:250px;top:50px;">
@@ -542,7 +599,7 @@
                 <div id="preview" class="pollSlider">
                     <div>
 
-                        <div >
+                        <div>
 
                         <div class="actiondet">
 
