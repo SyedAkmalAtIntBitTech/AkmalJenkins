@@ -231,6 +231,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $(".editcontent").empty();
                 $(".editcontent").append(data.body);
+                $(".editcontent").css("-webkit-transform","scale(0.60)").css("margin-left", "-30px").css("margin-top", "-80px").css("margin-bottom", "-220px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.showEmailList();
@@ -294,7 +295,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $(".content").empty();
             $(".content").append(data.body);
             $(".content").css("-webkit-transform"," scale(0.90)").css("left", "0px").css("top", "-20px");
-            $(".editcontent").css("-webkit-transform","scale(0.60)").css("margin-left", "-30px").css("margin-top", "-80px").css("margin-bottom", "-220px");
+            
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 console.log(schedule_desc);
