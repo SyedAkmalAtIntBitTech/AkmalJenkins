@@ -320,20 +320,20 @@
                 text-align:center;
                 left:0px;
             }
-            #mask{ /* create are mask */
+/*            #mask{  create are mask 
     position:fixed;
     top:0;
     left:0px;
     background:rgba(0,0,0,0.3);
     z-index:500;
-    width:100%;
+    width:51.5%;
     height:100%;
     display:none;
 }
 #overlay:target, #overlay:target + #mask{
     display:block;
     opacity:1;
-}
+}*/
            
         </style>
 
@@ -348,12 +348,13 @@
             <jsp:include page="marketingsubmenu.html"/>
  
             <script src="js/marketing.js" type="text/javascript"></script>
-            <div id="overlay"><div class="col-md-8 col-md-offset-3 " >
+            <!--<div id="overlay">-->
+                <div class="col-md-8 col-md-offset-3 " >
                 <div class="col-md-6 col-md-offset-1">
                      
                     
-                        <p id="planhead" class="MH2">Your Plan</p><button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;"><a href="#overlay" id="open-overlay">ADD ACTION</a></button>
-                    <button id="delsel" ng-click="getSelectedCampaigns()" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;position:relative;margin-top:-47px;margin-left:25em;display:none;">DELETE SELECTED</button> 
+                    <p id="planhead" class="MH2">Your Plan</p><a href="#overlay" id="open-overlay"><button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;">ADD ACTION</button></a>
+                    <button id="delsel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;position:relative;margin-top:-47px;margin-left:25em;display:none;" ng-click="deleteSchedule()">DELETE SELECTED</button> 
                     
 
                    
@@ -530,7 +531,7 @@
                      
                 </div>
             </div>
-           </div><div id="mask" onclick="document.location='#';">CLICK</div>    
+<!--           </div><div id="mask" onclick="document.location='#';">CLICK</div>    -->
             <div id="dvSliderDialog">
                 <div id="dvFastingDialog" class="pollSlider"><br>
                     <form class="form-horizontal" id="signform">
@@ -551,8 +552,7 @@
                 <div id="dvPriorityDialog" class="pollSlider" >
                     <div id="dvPriorityContent" style="position:relative;top:50px;left:20px;"><br>
                         <h1>&nbsp;Add Action</h1>
-                        <form class="form-horizontal" id="signform" >
-
+                        <form class="form-horizontal" id="signform">
 
                             <div class="group">
                                 <div class="col-md-4 col-md-offset-1 ">                            
@@ -577,23 +577,28 @@
 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
                                 
                             </div>
-                    <div class="row">
-                        <div class="col-md-12" style="width:250px;top:50px;">
-                            <div class="col-md-6" id="dvButtonContainer">
-                                <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="AddAction()" style="width:100px;" />
+                            <div class="row">
+                                <div class="col-md-12" style="width:250px;top:50px;">
+
+                                    <div class="row">
+                                        <div class="col-md-12" style="width:250px;top:50px;">
+                                            <div class="col-md-6" id="dvButtonContainer">
+                                                <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="AddAction()" style="width:100px;" />
+                                            </div>
+                                            <div class="col-md-6" id="dvButtonContainer">
+                                                <input type="reset" value="Cancel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
+                                            </div>
+                                        </div>
+                                    </div>
+
                             </div>
-                            <div class="col-md-6" id="dvButtonContainer">
-                                <input type="reset" value="Cancel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
                             </div>
-                        </div>
-                    </div>
                         </form> 
-                    </div>
-                </div>
+                            
+                    </div></div>
                 <div id="preview" class="pollSlider">
                     <div>
-
-                        <div>
+                    <div>
 
                         <div class="actiondet">
 

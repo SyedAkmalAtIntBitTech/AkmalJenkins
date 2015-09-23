@@ -364,6 +364,10 @@
         <servlet-name>GetScheduledSocialPostDetailServlet</servlet-name>
         <servlet-class>com.controller.schedule.GetScheduledSocialPostDetailServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangeScheduleEmailServlet</servlet-name>
+        <servlet-class>com.controller.schedule.ChangeScheduleEmailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -739,6 +743,10 @@
     <servlet-mapping>
         <servlet-name>GetScheduledSocialPostDetailServlet</servlet-name>
         <url-pattern>/GetScheduledSocialPostDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeScheduleEmailServlet</servlet-name>
+        <url-pattern>/ChangeScheduleEmailServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -9,8 +9,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <%@ include file="fonttypekit.jsp"%>
-         <%@ include file="checksession.jsp" %>
+        <%@ include file="fonttypekit.jsp"%>
+        <%@ include file="checksession.jsp" %>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
@@ -20,7 +20,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/leftmenuhamburger.js" type="text/javascript"></script>
-       
+
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
@@ -81,7 +81,7 @@
                 margin:5px auto;
             }
             #content input{
-/*                width:200px;*/
+                /*                width:200px;*/
             }
             #popupclose
             {
@@ -125,13 +125,13 @@
             .content{
                 position: relative;
                 top: 95px;
-/*                margin-left: 60px;
-                zoom: 0.5;*/
+                /*                margin-left: 60px;
+                                zoom: 0.5;*/
             }
             #popup {
-/*               
-                width: 500px;
-                height: 50em;*/
+                /*               
+                                width: 500px;
+                                height: 50em;*/
             }
             .preview{
 
@@ -158,209 +158,220 @@
             }
         </script>
 
-    <%!
-        String emailSubject = "";
-        String emailList = "";
-        String htmlData = "";
-        String emailAddresses = "";
-    %>
-    <%
-        sqlmethods.session = request.getSession(true);
+        <%!        String emailSubject = "";
+            String emailList = "";
+            String htmlData = "";
+            String emailAddresses = "";
+        %>
+        <%        sqlmethods.session = request.getSession(true);
 
-        emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
-        emailList = (String) sqlmethods.session.getAttribute("email_list");
-        emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
-        htmlData = (String) sqlmethods.session.getAttribute("htmldata");
-    %>
-    <script>
-        function emailSettings($scope, $http){
-            
-            $scope.getEmailSettings = function(){
-                
-                var email_settings = {"type": "get"};
-                
-                $http({
-                        method : 'POST',
-                        url : 'EmailSettingsServlet',
+            emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
+            emailList = (String) sqlmethods.session.getAttribute("email_list");
+            emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
+            htmlData = (String) sqlmethods.session.getAttribute("htmldata");
+        %>
+        <script>
+            function emailSettings($scope, $http) {
+
+                $scope.getEmailSettings = function () {
+
+                    var email_settings = {"type": "get"};
+
+                    $http({
+                        method: 'POST',
+                        url: 'EmailSettingsServlet',
                         headers: {'Content-Type': 'application/json'},
                         data: email_settings
-                }).success(function(data, status, headers, config) {
-                    $scope.email_settings = data;
-                    if (data === error){
-                        alert(data);
-                    }
-                }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
+                    }).success(function (data, status, headers, config) {
+                        $scope.email_settings = data;
+                        if (data === error) {
+                            alert(data);
+                        }
+                    }).error(function (data, status, headers, config) {
+                        alert("No data available, problem fetching the data");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                });        
-                
-            };
-            
-            $scope.setScheduling = function(){
-                    
+                    });
+
+                };
+
+                $scope.setScheduling = function () {
+
+                    var from_name = $("#name").val();
+                    var email_subject = $("#subject").val();
+                    var to_email_addresses = $("#toaddress").val();
+                    var from_email_address = $("#formaddress").val();
+                    var reply_to_email_address = $("#email").val();
+                    var email_body = formattedHTMLData;
+                    var email_list = $("#email_list").val();
+                    var schedule_title = $("#schedule_title").val();
+                    var schedule = $("#schedule_time").val();
+                    var schedule_desc = $("#schedule_desc").val();
+                    console.log("Value selected from Component: " + schedule);
+                    var schedule_time = Date.parse(schedule);
+                    console.log("Epoch: " + schedule_time);
+
+                    var dateObj = new Date(schedule_time);
+                    console.log(dateObj.getTimezoneOffset());
+
+                    var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+
+                    var newEpoch = schedule_time + tzOffsetInMillis;
+                    console.log("New Epoch: " + newEpoch);
+
+                    var email_scheduling = {"from_name": from_name, "email_subject": email_subject, "to_email_addresses": to_email_addresses, "from_email_address": from_email_address, "reply_to_email_address": reply_to_email_address, "email_list": email_list, "schedule_title": schedule_title, "schedule_time": newEpoch, "email_body": email_body, "schedule_desc": schedule_desc};
+                    $http({
+                        method: 'POST',
+                        url: 'ScheduleEmail',
+                        headers: {'Content-Type': 'application/json'},
+                        data: email_scheduling
+                    }).success(function (data) {
+                        if (data != "") {
+                            alert("details saved successfully");
+                            document.location.href = "dashboard.jsp";
+                        }
+                    }).error(function (data) {
+                        alert("No data available, problem fetching the data");
+                    });
+                };
+                $scope.getActions = function(){
+                    $http({
+                        method: 'GET',
+                        url: 'ScheduleEmail',
+                    }).success(function (data) {
+                        if (data != "") {
+                            alert("details saved successfully");
+                            document.location.href = "dashboard.jsp";
+                        }
+                    }).error(function (data) {
+                        alert("No data available, problem fetching the data");
+                    });
+                };
+            }
+
+        </script>
+
+        <script>
+            var formattedHTMLData = "";
+            $(document).ready(function () {
+                $.ajax({
+                    url: getHost() + "PreviewServlet",
+                    method: "post",
+                    data: {htmlString: $(".content").html()},
+                    success: function (responseText) {
+                        formattedHTMLData = responseText;
+                        //show popup showing
+    //                    alert(formattedHTMLData);
+                        $(".content").empty();
+                        $(".content").append("<iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
+
+                    }
+                });
+            });
+            function show(id) {
+                var imageUrl = $("#" + id).css("background-image");
+
+                if (id === "ipad") {
+                    $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px")
+                            .css("border-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px").css("background-color", "#FFF");
+                    $('#dynamictable').css("width", "768px").css("height", "987px").css("top", "-474px").css("left", "-300px").css("-webkit-transform", " scale(0.265)");
+                }
+                else if (id === "imac")
+                {
+                    $(".iphoneshow").css("background-image", imageUrl)
+                            .css("display", 'block').css("height", "413px").css("width", "295px").css("margin-left", "-55px").css("margin-top", "-80px")
+                            .css("border-color", "transparent").css("background-color", "#FFF");
+                    $('#dynamictable').css("width", "768px").css("height", "620px").css("top", "-320px").css("left", "-272px").css("-webkit-transform", "scale(0.33)");
+                }
+                else if (id === "iphone") {
+                    $(".iphoneshow").css("background-image", imageUrl)
+                            .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "-55px").css("margin-top", "-80px")
+                            .css("border-color", "transparent").css("background-color", "#FFF");
+                    $('#dynamictable').css("width", "320px").css("height", "655px").css("top", "-276px").css("left", "-107px").css("-webkit-transform", "scale(0.47)");
+                }
+            }
+            function displaySchedule() {
+                if (validate()) {
+                    $("#popupschedule").show();
+                }
+            }
+            function hidepopup() {
+                $("#popupschedule").hide();
+                $("#schedule_title").val("");
+                $("#schedule_time").val("");
+            }
+            function validate() {
                 var from_name = $("#name").val();
                 var email_subject = $("#subject").val();
                 var to_email_addresses = $("#toaddress").val();
                 var from_email_address = $("#formaddress").val();
                 var reply_to_email_address = $("#email").val();
-                var email_body = formattedHTMLData;
+                var htmldata = formattedHTMLData;
                 var email_list = $("#email_list").val();
-                var schedule_title = $("#schedule_title").val();
-                var schedule = $("#schedule_time").val();
-                var schedule_desc = $("#schedule_desc").val();
-                console.log("Value selected from Component: " + schedule);
-                var schedule_time = Date.parse(schedule);
-                console.log("Epoch: " + schedule_time);
+                var schedule_title = $("#schedule_title").val("");
+                var schedule_time = $("#schedule_time").val("");
 
-                var dateObj = new Date(schedule_time);
-                console.log(dateObj.getTimezoneOffset());
-
-                var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-                var newEpoch = schedule_time + tzOffsetInMillis;
-                console.log("New Epoch: " + newEpoch);
-
-                var email_scheduling = {"from_name": from_name, "email_subject":email_subject, "to_email_addresses":to_email_addresses, "from_email_address":from_email_address, "reply_to_email_address":reply_to_email_address, "email_list":email_list, "schedule_title":schedule_title, "schedule_time":newEpoch, "email_body":email_body, "schedule_desc":schedule_desc};
-                $http({
-                        method : 'POST',
-                        url : 'ScheduleEmail',
-                        headers : {'Content-Type':'application/json'},
-                        data: email_scheduling
-                }).success(function(data){
-                    if (data != ""){
-                        alert("details saved successfully");
-                        document.location.href = "dashboard.jsp";
-                    }
-                }).error(function(data){
-                    alert("No data available, problem fetching the data");
-                });
-            };
-        }
-        
-    </script>
-    
-    <script>
-        var formattedHTMLData = "";
-        $(document).ready(function () {
-            $.ajax({
-                url: getHost() + "PreviewServlet",
-                method: "post",
-                data: {htmlString: $(".content").html()},
-                success: function (responseText) {
-                    formattedHTMLData = responseText;
-                    //show popup showing
-//                    alert(formattedHTMLData);
-                    $(".content").empty();
-                    $(".content").append("<iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
-
+                if (from_name == "") {
+                    alert("from name not entered, please enter the from name");
+                    $("#name").focus();
+                    return false;
                 }
-            });
-        });
-        function show(id) {
-            var imageUrl = $("#" + id).css("background-image");
+                if (email_subject == "") {
+                    alert("email subject name not entered, please enter the email subject");
+                    $("#subject").focus();
+                    return false;
+                }
+                if (to_email_addresses == "") {
+                    alert("email addresses not entered, please enter the email addresses");
+                    $("#toaddress").focus();
+                    return false;
+                }
+                if (from_email_address == "") {
+                    alert("from email addresses not entered, please enter the from email addresses");
+                    $("#formaddress").focus();
+                    return false;
+                }
+                if (reply_to_email_address == "") {
+                    alert("reply to email addresses not entered, please enter the reply to email addresses");
+                    $("#email").focus();
+                    return false;
+                }
+                if (email_list == "") {
+                    alert("email list not entered, please enter the email list");
+                    $("#email_list").focus();
+                    return false;
+                }
+                return true;
+            }
 
-            if (id === "ipad") {
-                $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px")
-                        .css("border-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px").css("background-color","#FFF");
-                $('#dynamictable').css("width","768px").css("height","987px").css("top","-474px").css("left","-300px").css("-webkit-transform"," scale(0.265)");
-            }
-            else if (id === "imac")
-            {
-                $(".iphoneshow").css("background-image", imageUrl)
-                        .css("display", 'block').css("height", "413px").css("width", "295px").css("margin-left", "-55px").css("margin-top", "-80px")
-                        .css("border-color", "transparent").css("background-color","#FFF");
-                 $('#dynamictable').css("width","768px").css("height","620px").css("top","-320px").css("left","-272px").css("-webkit-transform","scale(0.33)");
-            }
-            else if (id === "iphone"){
-                $(".iphoneshow").css("background-image", imageUrl)
-                        .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "-55px").css("margin-top", "-80px")
-                        .css("border-color", "transparent").css("background-color","#FFF");
-                 $('#dynamictable').css("width","320px").css("height","655px").css("top","-276px").css("left","-107px").css("-webkit-transform","scale(0.47)");
-            }
-        }
-        function displaySchedule(){
-            if (validate()){
-                $("#popupschedule").show();
-            }
-        }
-        function hidepopup(){
-            $("#popupschedule").hide();
-            $("#schedule_title").val("");
-            $("#schedule_time").val("");
-        }
-        function validate(){
-            var from_name = $("#name").val();
-            var email_subject = $("#subject").val();
-            var to_email_addresses = $("#toaddress").val();
-            var from_email_address = $("#formaddress").val();
-            var reply_to_email_address = $("#email").val();
-            var htmldata = formattedHTMLData;
-            var email_list = $("#email_list").val();
-            var schedule_title = $("#schedule_title").val("");
-            var schedule_time = $("#schedule_time").val("");
-
-            if (from_name == ""){
-                alert("from name not entered, please enter the from name");
-                $("#name").focus();
-                return false;
-            }
-            if (email_subject == ""){
-                alert("email subject name not entered, please enter the email subject");
-                $("#subject").focus();
-                return false;
-            }
-            if (to_email_addresses == ""){
-                alert("email addresses not entered, please enter the email addresses");
-                $("#toaddress").focus();
-                return false;
-            }
-            if (from_email_address == ""){
-                alert("from email addresses not entered, please enter the from email addresses");
-                $("#formaddress").focus();
-                return false;
-            }
-            if (reply_to_email_address == ""){
-                alert("reply to email addresses not entered, please enter the reply to email addresses");
-                $("#email").focus();
-                return false;
-            }
-            if (email_list == ""){
-                alert("email list not entered, please enter the email list");
-                $("#email_list").focus();
-                return false;
-            }
-            return true;
-        }
-        
-        function sendEmail() {
-            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
+            function sendEmail() {
+                $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position", "absolute").css("top", "300px").css("left", "500px");
                 $.ajax({
-                url: getHost() + "SendEmailServlet",
-                type: "post",
-                data: {
-                    from_name: $("#name").val(),
-                    email_subject: $("#subject").val(),
-                    email_addresses: $("#toaddress").val(),
-                    from_email_address: $("#formaddress").val(),
-                    reply_to_email_address: $("#email").val(),
-                    htmldata: formattedHTMLData,
-                    email_list: $("#email_list").val()
-                },
-                success: function (responseText) {
-                    $('#loadingGif').remove();
+                    url: getHost() + "SendEmailServlet",
+                    type: "post",
+                    data: {
+                        from_name: $("#name").val(),
+                        email_subject: $("#subject").val(),
+                        email_addresses: $("#toaddress").val(),
+                        from_email_address: $("#formaddress").val(),
+                        reply_to_email_address: $("#email").val(),
+                        htmldata: formattedHTMLData,
+                        email_list: $("#email_list").val()
+                    },
+                    success: function (responseText) {
+                        $('#loadingGif').remove();
 
-                    document.location.href = "emailsent.jsp";
-                },
-                error: function (){
-                    alert("error");
-                }
+                        document.location.href = "emailsent.jsp";
+                    },
+                    error: function () {
+                        alert("error");
+                    }
 
-            });
+                });
 
-        }
+            }
 
-    </script>
+        </script>
         <jsp:include page="basejsp.jsp" />
     </head>
 
@@ -379,7 +390,7 @@
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">                            
-                            <input id="subject" class="form-control simplebox" name="email_subject" type="text" value='<%= emailSubject %>'>
+                            <input id="subject" class="form-control simplebox" name="email_subject" type="text" value='<%= emailSubject%>'>
                             <label>SUBJECT</label><br>
                         </div>
                     </div>
@@ -392,7 +403,7 @@
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value='<%= emailAddresses %>'>
+                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value='<%= emailAddresses%>'>
                             <label>TO ADDRESS</label><br>
                         </div>
                     </div>
@@ -412,7 +423,7 @@
                         </div>
                     </div>
 
-                            <input type="hidden" id="email_list" name="email_list" value='<%=emailList%>'>
+                    <input type="hidden" id="email_list" name="email_list" value='<%=emailList%>'>
 
                 </form>
             </div>
@@ -430,11 +441,16 @@
                     <li><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                     <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                 </ul>
-                
+
                 <div id="popupschedule">
                     <div id="content">
 <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                             Layout file name<input type="text" id="layoutxml" required><br>-->
+                        PLEASE SELECT A TIME FROM YOUR PLAN:
+                        <select>
+                            <option value=""></option>
+                        </select>
+                        
                         Title: <input type="text" class="form-control simplebox" id="schedule_title" name="schedule_title"><br>
                         Description: <textarea id="schedule_desc" class="form-control simplebox1" name="schedule_desc"></textarea><br>
                         Date : <input type="datetime-local" class="form-control simplebox" id="schedule_time" name="schedule_time"><br>
@@ -447,7 +463,7 @@
 
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
                     <div class="content">  
-                        <%= htmlData %>
+                        <%= htmlData%>
                     </div>
                 </div>
 
