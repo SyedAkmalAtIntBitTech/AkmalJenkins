@@ -45,6 +45,8 @@ public class AppConstants {
     
     public static final String ADMIN_LAYOUT_BACKGROUNDIMAGES_HOME = ADMIN_IMAGE_HOME + File.separator + "AdminLayoutBackgroundImages";
     
+    public static final String ADMIN_LAYOUT_SVG_HOME = ADMIN_IMAGE_HOME + File.separator + "AdminLayoutSVG";
+    
     public static final String TMP_FOLDER = "/tmp";
     
     public static final String USER_LOGO = BASE_IMAGE_UPLOAD_PATH + File.separator + "Customers";
