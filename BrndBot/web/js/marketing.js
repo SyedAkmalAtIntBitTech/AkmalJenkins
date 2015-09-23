@@ -30,22 +30,22 @@ $(document).ready(function ()
     $('#slider-button').click(function () {
         //To hide the dialog if user click on another node
         if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
-            if ($('#slider-button').css("margin-right") == "500px")
+            if ($('#slider-button').css("margin-right") == "530px")
             {
                 $(prevSliderDialog).animate({"margin-right": '-=600'});
-                $('#slider-button').animate({"margin-right": '-=500'});
+                $('#slider-button').animate({"margin-right": '-=530'});
             }
         }
 
-        if ($('#slider-button').css("margin-right") == "500px")
+        if ($('#slider-button').css("margin-right") == "530px")
         {
             $(sliderDialog).animate({"margin-right": '-=600'});
-            $('#slider-button').animate({"margin-right": '-=500'});
+            $('#slider-button').animate({"margin-right": '-=530'});
         }
         else
         {
             $(sliderDialog).animate({"margin-right": '+=600'});
-            $('#slider-button').animate({"margin-right": '+=500'});
+            $('#slider-button').animate({"margin-right": '+=530'});
         }
     });
 
@@ -255,7 +255,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $(".editcontent").empty();
                 $(".editcontent").append(data.body);
-                $(".editcontent").css("-webkit-transform","scale(0.60)").css("margin-left", "-30px").css("margin-top", "-80px").css("margin-bottom", "-220px");
+                $(".editcontent").css("-webkit-transform","scale(0.5,0.6)").css("margin-left", "-10px").css("margin-top", "-60px").css("margin-bottom", "-220px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.showEmailList();
@@ -318,7 +318,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $(".content").empty();
             $(".content").append(data.body);
-            $(".content").css("-webkit-transform"," scale(0.90)").css("left", "0px").css("top", "-20px");
+            $(".content").css("-webkit-transform"," scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 console.log(schedule_desc);
