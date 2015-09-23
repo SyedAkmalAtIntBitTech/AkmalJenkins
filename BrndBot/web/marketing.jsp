@@ -502,8 +502,7 @@
                 <div id="dvPriorityDialog" class="pollSlider">
                     <div id="dvPriorityContent"><br>
                         <h1>&nbsp;Add Action</h1>
-                        <form class="form-horizontal" id="signform" >
-
+                        <form class="form-horizontal" id="signform">
 
                             <div class="group">
                                 <div class="col-md-4 col-md-offset-1 ">                            
@@ -524,83 +523,26 @@
                                 <div class="" style="position:relative; margin-top: 50px; margin-left: 50px;">
                                     Date : <input type="datetime-local" name="actiondatetime" id="actiondatetime" />
                                 </div>
-                                <div class="row" style="position: relative; width: 600px; height: 20px; margin-left: 20px; margin-top: 80px;">
-                                    <div class="col-md-4" style="width:120px;">
-                                    Day: <select name="actionday" id="actionday">
-                                            <option value="1">01</option>
-                                            <option value="2">02</option>
-                                            <option value="3">03</option>
-                                            <option value="4">04</option>
-                                            <option value="5">05</option>
-                                            <option value="6">06</option>
-                                            <option value="7">07</option>
-                                            <option value="8">08</option>
-                                            <option value="9">09</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                            <option value="13">13</option>
-                                            <option value="14">14</option>
-                                            <option value="15">15</option>
-                                            <option value="16">16</option>
-                                            <option value="17">17</option>
-                                            <option value="18">18</option>
-                                            <option value="19">19</option>
-                                            <option value="20">20</option>
-                                            <option value="21">21</option>
-                                            <option value="22">22</option>
-                                            <option value="23">23</option>
-                                            <option value="24">24</option>
-                                            <option value="25">25</option>
-                                            <option value="26">26</option>
-                                            <option value="27">27</option>
-                                            <option value="28">28</option>
-                                            <option value="29">29</option>
-                                            <option value="30">30</option>
-                                            <option value="31">31</option>
-                                        </select>
-                                        
+                            </div>
+<!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
+                            <div class="row">
+                                <div class="col-md-12" style="width:250px;top:50px;">
+                                    <div class="col-md-6" id="dvButtonContainer">
+                                        <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="AddAction()" style="width:100px;" />
                                     </div>
-                                    <div class="col-md-4" style="width:180px;">
-                                    Month : <select name="actionmonth" id="actionmonth">
-                                                <option value="January">January</option>
-                                                <option value="February">February</option>
-                                                <option value="March">March</option>
-                                                <option value="April">April</option>
-                                                <option value="May">May</option>
-                                                <option value="June">June</option>
-                                                <option value="July">July</option>
-                                                <option value="August">August</option>
-                                                <option value="September">September</option>
-                                                <option value="October">October</option>
-                                                <option value="November">November</option>
-                                                <option value="December">December</option>
-                                            </select>
-                                    </div>
-                                    <div class="col-md-4" style="width:300px; margin-top:0px;">
-                                    <input type="time" id="actiontime" name="actiontime" style="width:120px;"/>
+                                    <div class="col-md-6" id="dvButtonContainer">
+                                        <input type="reset" value="Cancel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
                                     </div>
                                 </div>
-<!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
-                                
                             </div>
-                    <div class="row">
-                        <div class="col-md-12" style="width:250px;top:50px;">
-                            <div class="col-md-6" id="dvButtonContainer">
-                                <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="AddAction()" style="width:100px;" />
-                            </div>
-                            <div class="col-md-6" id="dvButtonContainer">
-                                <input type="reset" value="Cancel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
-                            </div>
-                        </div>
-                    </div>
+
                         </form> 
+                    </div>
                     </div>
                 </div>
                 <div id="preview" class="pollSlider">
                     <div>
-
-                        <div>
+                    <div>
 
                         <div class="actiondet">
 
