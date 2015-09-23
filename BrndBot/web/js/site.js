@@ -46,6 +46,46 @@ $(document).ready(function () {
        }
        
     });
+    $("#uploadSVG").click(function(){
+        $('#adminSVG').empty().append('<option selected="selected" value="none">---select---</option>');
+        $.ajax({
+       type: 'GET',
+       url: "/BrndBot/ServletListAdminSVG",
+       dataType: 'json',
+       success: function (data) {
+           var jsondataDefault = data;
+           var allLayoutFilename = [];
+           for(var i = 0; i<jsondataDefault.length; i++){
+               $("#adminSVG").append(new Option(jsondataDefault[i].filename, jsondataDefault[i].filename));
+             }
+
+       },
+       error: function(xhr, ajaxOptions, thrownError){
+           
+        alert(thrownError);
+       }
+       
+    });
+    });
+    
+    $("#adminSVG").change(function(){
+        alert("adminSVG"+":"+selectedTextID);
+        $("#"+selectedTextID).attr("filename",$("#adminSVG").val());
+        var svgElement = SVG.get(selectedTextID);
+        svgElement.clear();
+        $.get('/BrndBot/DownloadSVGServlet?file_name='+$("#adminSVG").val(), function(data) {
+             alert(data);
+              var svg1 = svgElement.svg(data);
+         alert(svg1.attr("id"));
+         var realsvg = svg1.last();  
+         
+         svg1.attr("viewBox",realsvg.attr("viewBox"));
+         svg1.attr("enable-background",realsvg.attr("enable-background"));
+         svg1.attr("x",realsvg.attr("x"));
+         svg1.attr("y",realsvg.attr("y"));
+         svg1.attr("xml:space",realsvg.attr("xml:space"));
+        },"html");
+    });
     $("#adminBackgroundImage").change(function(){
         
          $("#" + selectedTextID).css('background', "url('/BrndBot/DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&image_name=" + $("#adminBackgroundImage").val() + "')");
@@ -394,6 +434,106 @@ $(document).ready(function () {
         $("#tabs").tabs("option", "active", parseInt(tab));
 
     }
+    $("#deleteSVGoButton").easyconfirm();
+    $("#deleteSVGButton").click(function () {
+        var deleteTextID = $("#" + selectedTextID).parent().attr("id");
+        alert(deleteTextID+":"+$("#" + selectedTextID).parent().parent().attr("class"));
+        $("#" + selectedTextID).parent().parent().remove();
+        deleteElements(deleteTextID);
+    });
+    $("#addSVGButton").click(function () {
+        alert("in svg");
+        $("#slider").hide();
+        $(".container").append("<div class=\"draggableSVG\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
+        selectedTextID = $("#elementText").find('option:selected').text();
+        $("#"+selectedTextID).css("position","absolute");
+        $("#"+selectedTextID).css("width","200px");
+         $("#"+selectedTextID).css("height","200px");
+//        change to SVG and uncomment
+//        addLogocount++;
+        addElements($("#elementText").find('option:selected').text());
+        var draw = SVG(selectedTextID);
+        
+        $.get('../images/fbButton.svg', function(data) {
+                   var stringXML = (new XMLSerializer()).serializeToString(data);
+                    alert(stringXML);
+    svg1 = draw.svg(stringXML);
+    alert(svg1.attr("id"));
+         var realsvg = svg1.last();      
+         svg1.attr("viewBox",realsvg.attr("viewBox"));
+         svg1.attr("enable-background",realsvg.attr("enable-background"));
+         svg1.attr("x",realsvg.attr("x"));
+         svg1.attr("y",realsvg.attr("y"));
+         svg1.attr("xml:space",realsvg.attr("xml:space"));
+         var selectedSVG = $("#"+selectedTextID).children("svg");
+         alert(selectedSVG.attr("id"));
+         selectedSVG.attr("width","200px");
+         selectedSVG.attr("height","200px");
+         selectedTextID = selectedSVG.attr("id");
+        
+         });
+        addDefault();
+        reloadTabs(3);
+        //selectedTextID = selectedSVG.attr("id");
+        $(".draggableSVG").draggable({
+            scroll: false,
+            cursor: "move"
+        });
+        $(".draggableSVG").click(function (e) {
+            
+            var id = $(this).children("div").children("svg").attr("id");
+
+            selectedTextID = id;
+            alert(selectedTextID);
+            hideMapper();
+            var childPos = $("#" + id).offset();
+            var parentPos = $(this).parent().offset();
+            alert($(this).parent().attr("class")+"="+parentPos.top+":"+parentPos.left);
+            var childOffset = {
+                top: childPos.top - parentPos.top,
+                left: childPos.left - parentPos.left
+            }
+            //alert($("#"+id).css("height"));
+            x = Math.round(childOffset.left);
+            y = Math.round(childOffset.top);
+            $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
+            $(".position").text("Co ordinates: X=" + x + ", Y=" + y);
+            $("#blockX").val(x);
+            $("#blockY").val(y);
+            //$("#size").text("Height="+$("#"+id).css("height")+", Width="+$("#"+id).css("width"));
+            reloadTabs(3);
+        });
+        
+    });  
+    $("#blockButton").click(function () {
+            if(selectedTextID.indexOf("Svgjs") >= 0)
+            {
+                $("#" + selectedTextID).attr("width", $("#blockWidth").val());
+                $("#" + selectedTextID).attr("height", $("#blockHeight").val());
+                 $("#" + selectedTextID).parent().css("width", $("#blockWidth").val());
+                $("#" + selectedTextID).parent().css("height", $("#blockHeight").val());
+                var svgElement = SVG.get(selectedTextID);
+                svgElement.opacity($("#opacityBlock").val());
+                svgElement.style("fill",$("#blockColor").val());
+                svgElement.each(function(i, children) {
+                  //this.fill({ color: $("#colorSVG").val() })
+                  this.style("fill",$("#blockColor").val());
+                  this.opacity($("#opacityBlock").val());
+                }, true);
+                
+
+                $("#" + selectedTextID).attr("name", $("#blockColorFromDropDown").find('option:selected').text());
+            } 
+            else
+            {
+                $("#" + selectedTextID).css("width", $("#blockWidth").val());
+                $("#" + selectedTextID).css("height", $("#blockHeight").val());
+                $("#" + selectedTextID).css("opacity", $("#opacityBlock").val());
+                $("#" + selectedTextID).css("background-color", $("#blockColor").val());
+
+                $("#" + selectedTextID).attr("name", $("#blockColorFromDropDown").find('option:selected').text());
+            }
+        });
     $("#addBlockButton").click(function () {
         $("#slider").hide();
         //alert("<div class=\"draggableBlock\"><div width=\"50px\" height=\"100px\" title=" + $("#elementText").val() +" id=\"block" + addBlockCount + "></div></div>");
@@ -412,15 +552,7 @@ $(document).ready(function () {
         //$("#"+selectedTextID).css("mix-blend-mode","screen");
         reloadTabs(3);
         addDefault();
-        $("#blockButton").click(function () {
-             
-            $("#" + selectedTextID).css("width", $("#blockWidth").val());
-            $("#" + selectedTextID).css("height", $("#blockHeight").val());
-            $("#" + selectedTextID).css("opacity", $("#opacityBlock").val());
-            $("#" + selectedTextID).css("background-color", $("#blockColor").val());
-            
-            $("#" + selectedTextID).attr("name", $("#blockColorFromDropDown").find('option:selected').text());
-        });
+        
 
 
         $(function () {
@@ -949,9 +1081,20 @@ $(document).ready(function () {
         var finy = parentPos.top + parseInt(tempY);
         x = finx;
         y = finy;
-        $("#" + selectedTextID).parent().css("left", ""+finx+"px");
-        $("#" + selectedTextID).parent().css("top", ""+finy+"px");
+        if(selectedTextID.indexOf("Svgjs") >= 0)
+        {
+            alert(parentPos.left+":"+parentPos.top+"/"+finx+":"+finy);
+            $("#" + selectedTextID).parent().parent().css("left", ""+finx+"px");
+            $("#" + selectedTextID).parent().parent().css("top", ""+finy+"px");
+        }
+        else
+        {
+            $("#" + selectedTextID).parent().css("left", ""+finx+"px");
+            $("#" + selectedTextID).parent().css("top", ""+finy+"px");
+        }
     });
+    
+      
     $("#addLogoButton").click(function () {
         $("#slider").hide();
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
