@@ -440,11 +440,30 @@ function controllerMarketingCampaign($scope, $http) {
         });
     };
     
-    $scope.deleteSchedule = function(Scheduleids){
-        
+    $scope.deleteSchedule = function(){
+        var schedule_details = {"type": "delete", "schedule_ids": selected_schedules_to_delete};
+
+        $http({
+                method: 'POST',
+                url: getHost() + 'ChangeScheduleEmailServlet',
+                headers: {'Content-Type': 'application/json'},
+                data: schedule_details
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data !== ""){
+                    alert("schedule deleted successfully");
+                    window.open(getHost() + 'marketing.jsp', "_self");
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+
+                alert("request not succesful");
+            });
     };
     
-    $scope.updateSchedule = function(Scheduleid){
+    $scope.updateSchedule = function(){
         
     };
 };

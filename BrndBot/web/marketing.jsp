@@ -308,8 +308,8 @@
                 <div class="col-md-6 col-md-offset-0">
 
                     <div style="position:relative;">
-                    <p id="planhead" class="MH2">Your Plan</p><button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;">ADD ACTION</button>
-                    <button class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;">DELETE SELECTED</button> 
+                        <p id="planhead" class="MH2">Your Plan</p><button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;">ADD ACTION</button>
+                        <button class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;" ng-click="deleteSchedule()">DELETE SELECTED</button> 
                     </div>
                    
                     <div class="col-md-12" id="default" ng-init="getCampaigns()">

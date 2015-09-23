@@ -289,31 +289,41 @@ public class ScheduleDAO {
         return scheduleEmailDetails;
     }
     
-    public void deleteSchedule(int user_id, int schedule_id)throws SQLException, ParseException{
+    public static void deleteEmailSchedules(int user_id, String schedule_id)throws SQLException, ParseException{
         
-        String query_String = "Select from tbl_scheduled_entity_list"
-                + "Where id=?"
-                + "and user_id=?"
-                + "and entity_type=?";
+        String schedule_ids[] = schedule_id.split(",");
         
-        try(Connection connection = connectionManager.getConnection()){
-            try(PreparedStatement prepared_statement = connection.prepareStatement(query_String)){
-             prepared_statement.setInt(1, schedule_id);
-             prepared_statement.setInt(2, user_id);
-             prepared_statement.setString(3, ScheduledEntityType.email.toString());
-             try(ResultSet result_set = prepared_statement.executeQuery()){
-                 if (result_set.next()){
-                     Integer entity_id = result_set.getInt("entity_id");
-                     String query_string1 = "Delete from tbl_schedule_email_list"
-                             + "where id=?";
-                     try(PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)){
-                         prepared_statement1.setInt(1, entity_id);
-                         prepared_statement1.executeQuery();
+        for (int i = 0; i< schedule_ids.length; i++){
+            String query_String = "Select * from tbl_scheduled_entity_list"
+                    + " Where id=?"
+                    + " and user_id=?"
+                    + " and entity_type=?";
+
+            try(Connection connection = connectionManager.getConnection()){
+                try(PreparedStatement prepared_statement = connection.prepareStatement(query_String)){
+                 prepared_statement.setInt(1, Integer.parseInt(schedule_ids[i]));
+                 prepared_statement.setInt(2, user_id);
+                 prepared_statement.setString(3, ScheduledEntityType.email.toString());
+                 try(ResultSet result_set = prepared_statement.executeQuery()){
+                     if (result_set.next()){
+                         Integer entity_id = result_set.getInt("entity_id");
+                         String query_string1 = "Delete from tbl_scheduled_email_list"
+                                 + " where id = ?";
+                         try(PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)){
+                             prepared_statement1.setInt(1, entity_id);
+                             prepared_statement1.execute();
+                         }
                      }
                  }
-             }
+                }
+            String query_string2 = "Delete from tbl_scheduled_entity_list"
+                    + " where id = ?";
+            try(PreparedStatement prepared_statement2 = connection.prepareStatement(query_string2)){
+                prepared_statement2.setInt(1, Integer.parseInt(schedule_ids[i]));
+                prepared_statement2.execute();
             }
+            }
+
         }
-        String query_string = "Delete From tbl_scheduled_entity_list";
     }
 }
