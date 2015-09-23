@@ -201,7 +201,7 @@
                 position:fixed;
                 width:70px;
                 height:50px;
-                right:-0px;
+                right:0px;
                 background:#7ab5d3;
                 top: 0px;
             }
@@ -243,12 +243,16 @@
              font-size: 12px;
          }
          .inputdate {
+             background-color: #e4e4e4;
+             border: 1px solid #DADADA;
+             border-radius: 5px;
              width:200px;
-             height: 20px;
-             border: 1px solid #888;
-             border-radius: 3px;
+             height: 30px;
              font-family: sans-serif;
              font-size: 12px;
+             position: relative;
+             top:5px;
+             bottom:5px;
          }
          #popupright_panel{
              left: 275px;
@@ -270,8 +274,17 @@
             }
             #planhead{
                 position:relative;
-                left:15px;
+                left:0px;
                 padding-top:19%;
+            }
+            .dateinputbox{
+                background-color: #e4e4e4;
+                border: 1px solid #DADADA;
+                height:20px;
+                width:100px;
+                font-size: 16px;
+                border-radius: 5px;
+                margin-left: 15px;
             }
              #chooseEmailList {
                 background-color: #e4e4e4;
@@ -306,27 +319,41 @@
                 width:150px;
                 text-align:center;
                 left:0px;
-                
             }
+            #mask{ /* create are mask */
+    position:fixed;
+    top:0;
+    left:0px;
+    background:rgba(0,0,0,0.3);
+    z-index:500;
+    width:100%;
+    height:100%;
+    display:none;
+}
+#overlay:target, #overlay:target + #mask{
+    display:block;
+    opacity:1;
+}
            
         </style>
 
     </head>
     <body ng-app class="claro">
+         <div class="row" >
+             <jsp:include page="mainmenu.html"/></div>
         <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign" class="container"> 
-            <div class="row">
-                <jsp:include page="leftmenu.html"/><!--/end left column-->
-            </div>
-
+           <!--/end left column-->
+          
+            
             <jsp:include page="marketingsubmenu.html"/>
-
+ 
             <script src="js/marketing.js" type="text/javascript"></script>
-            <div class="col-md-8 col-md-offset-3 " >
-                <div class="col-md-6 col-md-offset-0">
-
-   
-                    <p id="planhead" class="MH2">Your Plan</p><button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;">ADD ACTION</button>
-                    <button ng-click="getSelectedCampaigns()" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;position:relative;margin-top:-47px;margin-left:25em;">DELETE SELECTED</button> 
+            <div id="overlay"><div class="col-md-8 col-md-offset-3 " >
+                <div class="col-md-6 col-md-offset-1">
+                     
+                    
+                        <p id="planhead" class="MH2">Your Plan</p><button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;"><a href="#overlay" id="open-overlay">ADD ACTION</a></button>
+                    <button id="delsel" ng-click="getSelectedCampaigns()" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;position:relative;margin-top:-47px;margin-left:25em;display:none;">DELETE SELECTED</button> 
                     
 
                    
@@ -341,8 +368,8 @@
                         </div>
                         <ul>
                             <li ng-repeat="entity in entitySet['Today']">
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
-                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails" >
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
+                                <div class="row" style="width:950px;position:relative;left:-30px;top:-20px;" id="entitydetails" >
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
@@ -365,7 +392,7 @@
 
                         <ul>   
                             <li ng-repeat="entity in entitySet['Tomorrow']">
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetomorrow" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
@@ -390,8 +417,8 @@
                         </div>
                         <ul>
                             <li ng-repeat="entity in entitySet['Later']">
-                                <div>{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
+                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
@@ -412,7 +439,7 @@
                     </div>
                     <div class="col-md-12" id="selected" style="display:none;">
                         
-                        <div class="row" style="width:950px;margin-top:30px;margin-left:130px;">
+                        <div class="row" style="width:950px;margin-top:30px;margin-left:115px;">
                             <div class='col-md-3' style="width:230px;"></div>
                             <div class='col-md-2 SS2'>Action Type</div>
                             <div class='col-md-3 SS2'>Template Saved</div>
@@ -421,8 +448,8 @@
 
                         <ul>
                             <li ng-repeat="entity in entitySetSelected['Today']">
-                                <p>{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
+                                <p class='col-md-2 SS2' style="position:relative;top:-15px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
@@ -452,8 +479,8 @@
 
                         <ul>   
                             <li ng-repeat="entity in entitySetSelected['Tomorrow']">
-                                <p>{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
+                                <p class='col-md-2 SS2' style="position:relative;top:-15px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
@@ -479,8 +506,8 @@
                         </div>
                         <ul>
                             <li ng-repeat="entity in entitySetSelected['Later']">
-                                <div>{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-40px;top:-20px;">
+                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-18px;">
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
@@ -499,9 +526,11 @@
 
                             </li>
                         </ul>
-                    </div>                    
+                    </div>     
+                     
                 </div>
             </div>
+           </div><div id="mask" onclick="document.location='#';">CLICK</div>    
             <div id="dvSliderDialog">
                 <div id="dvFastingDialog" class="pollSlider"><br>
                     <form class="form-horizontal" id="signform">
@@ -519,8 +548,8 @@
                     </form>
 
                 </div>
-                <div id="dvPriorityDialog" class="pollSlider">
-                    <div id="dvPriorityContent"><br>
+                <div id="dvPriorityDialog" class="pollSlider" >
+                    <div id="dvPriorityContent" style="position:relative;top:50px;left:20px;"><br>
                         <h1>&nbsp;Add Action</h1>
                         <form class="form-horizontal" id="signform" >
 
@@ -538,69 +567,13 @@
                                         <option value="email">email</option>
                                         <option value="note">note</option>
                                     </select></div>
-                                <div style="position:relative;top:40px;left:80px;">
+                                <div style="position:relative;top:40px;left:60px;">
                                     Description : <br><textarea cols="28" rows="2" name="description" id="description"></textarea>
                                 </div>
-                                <div class="" style="position:relative; margin-top: 50px; margin-left: 50px;">
-                                    Date : <input type="datetime-local" name="actiondatetime" id="actiondatetime" />
+                                <div class="" style="position:relative; margin-top: 50px; margin-left: 60px;">
+                                    Date : <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate"/>
                                 </div>
-                                <div class="row" style="position: relative; width: 600px; height: 20px; margin-left: 20px; margin-top: 80px;">
-                                    <div class="col-md-4" style="width:120px;">
-                                    Day: <select name="actionday" id="actionday">
-                                            <option value="1">01</option>
-                                            <option value="2">02</option>
-                                            <option value="3">03</option>
-                                            <option value="4">04</option>
-                                            <option value="5">05</option>
-                                            <option value="6">06</option>
-                                            <option value="7">07</option>
-                                            <option value="8">08</option>
-                                            <option value="9">09</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                            <option value="13">13</option>
-                                            <option value="14">14</option>
-                                            <option value="15">15</option>
-                                            <option value="16">16</option>
-                                            <option value="17">17</option>
-                                            <option value="18">18</option>
-                                            <option value="19">19</option>
-                                            <option value="20">20</option>
-                                            <option value="21">21</option>
-                                            <option value="22">22</option>
-                                            <option value="23">23</option>
-                                            <option value="24">24</option>
-                                            <option value="25">25</option>
-                                            <option value="26">26</option>
-                                            <option value="27">27</option>
-                                            <option value="28">28</option>
-                                            <option value="29">29</option>
-                                            <option value="30">30</option>
-                                            <option value="31">31</option>
-                                        </select>
-                                        
-                                    </div>
-                                    <div class="col-md-4" style="width:180px;">
-                                    Month : <select name="actionmonth" id="actionmonth">
-                                                <option value="January">January</option>
-                                                <option value="February">February</option>
-                                                <option value="March">March</option>
-                                                <option value="April">April</option>
-                                                <option value="May">May</option>
-                                                <option value="June">June</option>
-                                                <option value="July">July</option>
-                                                <option value="August">August</option>
-                                                <option value="September">September</option>
-                                                <option value="October">October</option>
-                                                <option value="November">November</option>
-                                                <option value="December">December</option>
-                                            </select>
-                                    </div>
-                                    <div class="col-md-4" style="width:300px; margin-top:0px;">
-                                    <input type="time" id="actiontime" name="actiontime" style="width:120px;"/>
-                                    </div>
-                                </div>
+                                
 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
                                 
                             </div>
@@ -624,7 +597,7 @@
 
                         <div class="actiondet">
 
-                            <div style="background-color:#fff; border:1px solid #7ab5d3;height:670px;overflow-y: scroll;overflow-x:hidden;">
+                            <div style="background-color:#fff; border:1px solid #7ab5d3;height:670px;overflow-y: scroll;overflow-x:hidden;position:relative;top:25px;">
 
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
@@ -644,11 +617,11 @@
                     </div>
 
                     </div></div>
-                <div id="emailedit" class="pollSlider">
+                <div id="emailedit" class="pollSlider" style="height:630px;overflow-y:scroll;overflow-x:hidden;">
                     <div>
                         <div>
 
-                            <div style="border:1px solid #7ab5d3;height:620px;overflow-y:scroll;overflow-x:hidden;">
+                            <div style="">
 
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
@@ -683,7 +656,7 @@
                                     <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                                 </select>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.email_list_name}}</p>
-                                    <input type="datetime-local" class="inputdate postdet" name="email_schedule_datetime" id="email_schedule_datetime"/>
+                                    <input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                      <div class="editbutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:200px;" type="button">remove the schedule</button> </div>
                                 <div class="editbutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
@@ -706,21 +679,22 @@
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
                                     <p class="MH2">Title: {{schedule_title}}</p>
-                                    <p class="SP1">Description: {{schedule_desc}}</p>
+                                    <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
                                     <br><p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                                 </div>
                                
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-150px;left:-170px;transform: scale(0.5, 0.9);-ms-transform: scale(0.5, 0.9);-webkit-transform: scale(0.5, 0.7);"/>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-100px;left:-170px;transform: scale(0.5, 0.7);-ms-transform: scale(0.5, 0.7);-webkit-transform: scale(0.5, 0.7);"/>
                                 <div style="position:relative;top:-470px;left:330px;">
-                                <p class="postdet SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
+                                <p class="SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
                                 </div>
-                                  <div style="position: relative;margin-left:20px;margin-top:-100px;">
+                                  <div style="position: relative;margin-left:20px;margin-top:-450px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
+                                <div style="position:relative;bottom:10px;top:15px;"  class="removesavetemplate"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                 <div style="position:relative;bottom:10px;top:15px;"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
                                 
                                   </div>
@@ -734,27 +708,28 @@
                         <div>
 
 
-                            <div style="border:1px solid #7ab5d3;">
+                            <div style="">
 
                                 <div class="actiondetails actiondet" >
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
-                                    <p><input type="text" name="facebook_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}'/></p>
-                                    <p><input type="text" name="facebook_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}'/> </p>
+                                    <p><input class="inputbox MH2" type="text" name="facebook_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}'style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
+                                    <p><input class="inputbox SP1" type="text" name="facebook_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 </div>
                                 <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="margin-top:-100px;" />
-                                
-                                <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}'/></p>
-                                <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' /></p>
-                                <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' /></p>
-                                
-
-                                <p class="postdetails">Post details</p>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-100px;left:-170px;transform: scale(0.5, 0.7);-ms-transform: scale(0.5, 0.7);-webkit-transform: scale(0.5, 0.7);"/>
+                                 <div style="position:relative;top:-470px;left:320px;">
+                                <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;"/></p>
+                                <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;" /></p>
+                                <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;"/></p>
+                                 </div>
+                                <div style="position:relative;margin-left:20px;margin-top:-450px;">
+                                <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
-                                    <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" />
-                                    <p>Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                    <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div class="editbutton"><button type="button">EDIT</button> </div>
+                                <div style="position:relative;bottom:10px;top:15px;"  class="editbutton"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -786,56 +761,61 @@
 
                 </div>
 
-                <div id="previewtwitter" class="pollSlider">
+                <div id="previewtwitter" class="pollSlider" style="overflow-y: scroll;overflow-x:hidden;">
                     <div>
                         <div>
 
-                            <div style="border:1px solid #7ab5d3">
+                            <div style="">
 
-                                <div class="actiondetails">
-                                    <p>ACTION DETAILS</p>
-                                    <p>Title: {{schedule_title}}</p>
-                                    <p>Description: {{schedule_desc}}</p>
+                                <div class="actiondetails actiondet">
+                                    <p class="SP2 actfnt">ACTION DETAILS</p>
+                                    <p class="MH2">Title: {{schedule_title}}</p>
+                                    <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
                                 </div>
-                                <p>Saved Post &nbsp;&nbsp; Preview</p>
-                                <p></p><br>
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
-
-                                
-                                <p>{{entitiesdetails.metadata.post_text}}</p>
-                                <p class="postdetails">Post details</p>
+                                <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                     
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-100px;left:-170px;transform: scale(0.5, 0.7);-ms-transform: scale(0.5, 0.7);-webkit-transform: scale(0.5, 0.7);"/>
+                                <div style="position:relative;top:-470px;left:300px;">
+                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.post_text}}</p>
+                                </div>
+                                <div style="position:relative;margin-left:20px;margin-top:-330px;">
+                                <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
-                                    Scheduled on {{entities_selected_time| date:'h:mma'}}
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div class="editbutton"><button type="button">EDIT</button> </div>
+                                <div style="position:relative;bottom:10px;top:15px;"  class="editbutton"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                <div style="position:relative;bottom:10px;top:15px;"  class="removesavetemplate"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-                <div id="edittwitter" class="pollSlider">
+                <div id="edittwitter" class="pollSlider" style="overflow-y: scroll;overflow-x:hidden;">
                     <div>
                         <div>
 
-                            <div style="border:1px solid #7ab5d3">
+                            <div style="">
 
-                                <div class="actiondetails">
-                                    <p>ACTION DETAILS</p>
-                                    <p><input type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}'/></p>
-                                    <p><input type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}'/> </p>
+                               <div class="actiondetails actiondet" >
+                                    <p class="SP2 actfnt">ACTION DETAILS</p>
+                                    <p><input class="inputbox MH2" type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}'style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
+                                    <p><input class="inputbox SP1" type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 </div>
-                                <p>Saved Post &nbsp;&nbsp; Preview</p>
-                                <p></p><br>
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
-                                
+                                <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-100px;left:-170px;transform: scale(0.5, 0.7);-ms-transform: scale(0.5, 0.7);-webkit-transform: scale(0.5, 0.7);"/>
+                               <div style="position:relative;top:-470px;left:320px;">
                                 <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.post_text}}'/></p>
-                                <p class="postdetails">Post details</p>
+                               </div>
+                                <div style="position:relative;margin-left:20px;margin-top:-350px;">
+                                <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
-                                    <input type='datetime-local' name="twitter_schedule_datetime" id="twitter_schedule_datetime"/>
-                                    Scheduled on {{entities_selected_time| date:'h:mma'}}
+                                    <input type='datetime-local' name="twitter_schedule_datetime" id="twitter_schedule_datetime" class="inputdate"/><br>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div class="editbutton"><button type="button">EDIT</button> </div>
+                                <div style="position:relative;bottom:10px;top:15px;"  class="editbutton"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                </div>
                             </div>
                         </div>
                     </div>

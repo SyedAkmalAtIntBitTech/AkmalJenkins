@@ -30,22 +30,22 @@ $(document).ready(function ()
     $('#slider-button').click(function () {
         //To hide the dialog if user click on another node
         if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
-            if ($('#slider-button').css("margin-right") == "600px")
+            if ($('#slider-button').css("margin-right") == "500px")
             {
                 $(prevSliderDialog).animate({"margin-right": '-=600'});
-                $('#slider-button').animate({"margin-right": '-=600'});
+                $('#slider-button').animate({"margin-right": '-=500'});
             }
         }
 
-        if ($('#slider-button').css("margin-right") == "600px")
+        if ($('#slider-button').css("margin-right") == "500px")
         {
             $(sliderDialog).animate({"margin-right": '-=600'});
-            $('#slider-button').animate({"margin-right": '-=600'});
+            $('#slider-button').animate({"margin-right": '-=500'});
         }
         else
         {
             $(sliderDialog).animate({"margin-right": '+=600'});
-            $('#slider-button').animate({"margin-right": '+=600'});
+            $('#slider-button').animate({"margin-right": '+=500'});
         }
     });
 
@@ -105,14 +105,20 @@ function setSelectedIds(selectedid){
     var checked  = document.getElementById(selectedid).checked;
 
     if (checked){
+        $("#delsel").show();
         var selected_schedule_id = $("#"+selectedid).val();
         selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
         console.log(selected_schedules_to_delete);
-    }else{
+    }
+    else{
         var selected_schedule_id = $("#"+selectedid).val();
         selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id+",","");
         console.log(selected_schedules_to_delete);
+        if(selected_schedules_to_delete === ""){
+           $("#delsel").hide();
+        };
     }
+    
     
 }
 
