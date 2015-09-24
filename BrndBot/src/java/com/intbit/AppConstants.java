@@ -25,6 +25,8 @@ public class AppConstants {
     public static final String BASE_XML_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "xml";
 
     public static final String BASE_HTML_TEMPLATE_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "HTMLTemplates";
+    
+    public static final String BASE_TEMP_PATH = BASE_UPLOAD_PATH + File.separator + "TEMP";
 
     public static final String BASE_MODEL_PATH = BASE_UPLOAD_PATH + File.separator + "model";
             

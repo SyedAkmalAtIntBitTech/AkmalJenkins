@@ -74,7 +74,22 @@ $(document).ready(function () {
                 $("#blockopacity").show();
                 $("#selectedshapecolorbox").css('background-color', '#' + hex);
                 var blockId = $(".blockname").val();
-                $("#" + blockId).css('background-color', '#' + hex);
+                
+                if($("#"+blockId).children().length > 0)
+                {
+                    var svgElement = SVG.get($("#"+blockId).children("svg").attr("id"));
+                    if(svgElement.attr("id").indexOf("Svgjs") >= 0)
+                    {
+
+                        svgElement.style("fill", '#' + hex);
+                        svgElement.each(function(i, children) {
+                            this.style("fill", '#' + hex);
+
+                        }, true); 
+                    }
+                }
+                else
+                    $("#" + blockId).css('background-color', '#' + hex);
                 $(el).colpickHide();
                 $("#openCustomColor").hide();
               
@@ -97,7 +112,21 @@ $(document).ready(function () {
         var blockId = $(".blockname").val();
         $("#selectedshapecolorbox").css("background-color", "" + color);
 //        $("#" + selectedDivId).css("background-color", "" + color);
-        $("#" + blockId).css('background-color', '#' + color);
+        if($("#"+blockId).children().length > 0)
+        {
+            var svgElement = SVG.get($("#"+blockId).children("svg").attr("id"));
+            if(svgElement.attr("id").indexOf("Svgjs") >= 0)
+            {
+
+                svgElement.style("fill", color);
+                svgElement.each(function(i, children) {
+                    this.style("fill", color);
+
+                }, true); 
+            }
+        }
+        else
+            $("#" + blockId).css('background-color', '#' + color);
         $("#openCustomColor").hide();
     });
      $("#selectedshapecolorbox").click(function(){
@@ -106,15 +135,25 @@ $(document).ready(function () {
   
 $(".blockname").change(function (){
     var blockId = $(".blockname").val();
-    var divBackgroundColor=$("#"+blockId).css("background-color");
-    var opcity=$("#"+blockId).css("opacity");
-     $('#selectedshapecolorbox').css("background-color",""+divBackgroundColor);
-       $('#slider').slider({
-        min: 0,
-        max: 1,
-        step: 0.01,
-        value: ""+opcity,
-        orientation: "horizontal" 
+    var divBackgroundColor, opacity;
+    if($("#"+blockId).children().length > 0)
+    {
+        var svgElement = SVG.get($("#"+blockId).children("svg").attr("id"));
+        divBackgroundColor = svgElement.style("fill");
+        opacity = svgElement.opacity();
+    }
+    else
+    {
+        divBackgroundColor=$("#"+blockId).css("background-color");
+        opacity=$("#"+blockId).css("opacity");
+    }
+    $('#selectedshapecolorbox').css("background-color",""+divBackgroundColor);
+    $('#slider').slider({
+     min: 0,
+     max: 1,
+     step: 0.01,
+     value: ""+opacity,
+     orientation: "horizontal" 
     });
 });
 
@@ -412,6 +451,71 @@ $(".blockname").change(function (){
                                             .css("opacity", "" + opacity);
 
                                 }
+                                
+                                if (tag === "svg")
+                                {
+
+                                    var colorName = $(this).attr("color-name");
+                                    var borderRadius = $(this).attr("border-radius");
+                                    var backgroundcolor;
+
+                                    $(".blockname").append("<option value=" + type + ">Block " + blockcount + "</option>");
+                                    blockcount++;
+
+                                    for (var i = 1; i <= 6; i++)
+                                    {
+                                        if (colorName === "Color-" + i)
+                                        {
+                                            backgroundcolor = $("#shapecolorbox" + i).css("background-color");
+                                        }
+
+                                    }
+                                    var width = $(this).attr("width");
+                                    var height = $(this).attr("height");
+                                    var drop_shadow = $(this).attr("Drop-shadow-color");
+                                    var h_shadow = $(this).attr("H-shadow");
+                                    var v_shadow = $(this).attr("V-shadow");
+                                    var Blur = $(this).attr("blur");
+                                    var filename = $(this).attr("filename");
+                                    $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
+                                    var draw = SVG(type);
+                                    $("#" + type)
+                                            //.css("background-color", "" + backgroundcolor)
+                                            .css("margin-left", "" + left + "px")
+                                            .css("margin-top", "" + top + "px")
+                                            .css("width", "" + width)
+                                            //.css("border-radius", "" + borderRadius)
+                                            .css("position", "absolute")
+                                            .css("height", "" + height)
+                                            //.css("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")")
+                                            //.css("opacity", "" + opacity)
+                                            ;
+                                    $.get('/BrndBot/DownloadSVGServlet?file_name='+filename, function(data) {
+                                    var svg1 = draw.svg(data);
+                                    var realsvg = svg1.last();  
+
+                                    svg1.attr("viewBox",realsvg.attr("viewBox"));
+                                    svg1.attr("enable-background",realsvg.attr("enable-background"));
+                                    svg1.attr("x",realsvg.attr("x"));
+                                    svg1.attr("y",realsvg.attr("y"));
+                                    svg1.attr("xml:space",realsvg.attr("xml:space"));
+                                    svg1.attr("width",width);
+                                    svg1.attr("height",height);
+                                    svg1.opacity(opacity);
+                                    
+                                    svg1.style("fill",backgroundcolor);
+                                    svg1.style("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")");
+                                    
+                                    svg1.each(function(i, children) {
+                                        this.style("fill",backgroundcolor);
+                                        this.opacity(opacity);
+                                    }, true); 
+                                   },"html");
+                                   
+                                   
+    
+
+                                }
 
                             } );
                             if(count===1 ){$("#imagecontainer").hide();}                                                   
@@ -440,7 +544,17 @@ $(".blockname").change(function (){
         value: 0,
         orientation: "horizontal",
         slide: function (e, ui) {
-            $('#' + $(".blockname").val()).css('opacity', ui.value);
+            var blockId = $(".blockname").val();
+            if($("#"+blockId).children().length > 0)
+            {
+                var svg1 = SVG.get($("#"+blockId).children("svg").attr("id"));
+                svg1.opacity(ui.value);
+                svg1.each(function(i, children) {
+                    this.opacity(ui.value);
+                }, true); 
+            }
+            else
+            $('#' + blockId).css('opacity', ui.value);
         }
     });
     $("#text").click(function () {

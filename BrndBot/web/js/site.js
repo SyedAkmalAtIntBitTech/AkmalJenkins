@@ -69,14 +69,11 @@ $(document).ready(function () {
     });
     
     $("#adminSVG").change(function(){
-        alert("adminSVG"+":"+selectedTextID);
         $("#"+selectedTextID).attr("filename",$("#adminSVG").val());
         var svgElement = SVG.get(selectedTextID);
         svgElement.clear();
         $.get('/BrndBot/DownloadSVGServlet?file_name='+$("#adminSVG").val(), function(data) {
-             alert(data);
               var svg1 = svgElement.svg(data);
-         alert(svg1.attr("id"));
          var realsvg = svg1.last();  
          
          svg1.attr("viewBox",realsvg.attr("viewBox"));
@@ -442,7 +439,6 @@ $(document).ready(function () {
         deleteElements(deleteTextID);
     });
     $("#addSVGButton").click(function () {
-        alert("in svg");
         $("#slider").hide();
         $(".container").append("<div class=\"draggableSVG\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
@@ -456,9 +452,7 @@ $(document).ready(function () {
         
         $.get('../images/fbButton.svg', function(data) {
                    var stringXML = (new XMLSerializer()).serializeToString(data);
-                    alert(stringXML);
-    svg1 = draw.svg(stringXML);
-    alert(svg1.attr("id"));
+        svg1 = draw.svg(stringXML);
          var realsvg = svg1.last();      
          svg1.attr("viewBox",realsvg.attr("viewBox"));
          svg1.attr("enable-background",realsvg.attr("enable-background"));
@@ -466,7 +460,6 @@ $(document).ready(function () {
          svg1.attr("y",realsvg.attr("y"));
          svg1.attr("xml:space",realsvg.attr("xml:space"));
          var selectedSVG = $("#"+selectedTextID).children("svg");
-         alert(selectedSVG.attr("id"));
          selectedSVG.attr("width","200px");
          selectedSVG.attr("height","200px");
          selectedTextID = selectedSVG.attr("id");
@@ -484,11 +477,9 @@ $(document).ready(function () {
             var id = $(this).children("div").children("svg").attr("id");
 
             selectedTextID = id;
-            alert(selectedTextID);
             hideMapper();
             var childPos = $("#" + id).offset();
             var parentPos = $(this).parent().offset();
-            alert($(this).parent().attr("class")+"="+parentPos.top+":"+parentPos.left);
             var childOffset = {
                 top: childPos.top - parentPos.top,
                 left: childPos.left - parentPos.left
@@ -534,27 +525,6 @@ $(document).ready(function () {
                 $("#" + selectedTextID).attr("name", $("#blockColorFromDropDown").find('option:selected').text());
             }
         });
-    $("#addBlockButton").click(function () {
-        $("#slider").hide();
-        //alert("<div class=\"draggableBlock\"><div width=\"50px\" height=\"100px\" title=" + $("#elementText").val() +" id=\"block" + addBlockCount + "></div></div>");
-        $(".container").append("<div class=\"draggableBlock\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
-        selectedTextID = $("#elementText").find('option:selected').text();
-        addBlockCount++;
-
-        addElements($("#elementText").find('option:selected').text());
-        //$("#"+selectedTextID).css("background","url('http://www.hdwallpapersimages.com/wp-content/uploads/images/Child-Girl-with-Sunflowers-Images.jpg')");
-        $("#" + selectedTextID).css("background-color", "#000000");
-        $("#" + selectedTextID).css("width", "80px");
-        $("#" + selectedTextID).css("height", "40px");
-        //$("#"+selectedTextID).css("background-size","contain");
-//$("#"+selectedTextID).css("-webkit-background-size","contain");
-//$("#"+selectedTextID).css("background-repeat","no-repeat");
-        //$("#"+selectedTextID).css("mix-blend-mode","screen");
-        reloadTabs(3);
-        addDefault();
-        
-
-
         $(function () {
             $(".dropShadowBlock").spinner({
                 min: 1,
@@ -587,6 +557,28 @@ $(document).ready(function () {
             });
 
         });
+    $("#addBlockButton").click(function () {
+        $("#slider").hide();
+        //alert("<div class=\"draggableBlock\"><div width=\"50px\" height=\"100px\" title=" + $("#elementText").val() +" id=\"block" + addBlockCount + "></div></div>");
+        $(".container").append("<div class=\"draggableBlock\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
+        selectedTextID = $("#elementText").find('option:selected').text();
+        addBlockCount++;
+
+        addElements($("#elementText").find('option:selected').text());
+        //$("#"+selectedTextID).css("background","url('http://www.hdwallpapersimages.com/wp-content/uploads/images/Child-Girl-with-Sunflowers-Images.jpg')");
+        $("#" + selectedTextID).css("background-color", "#000000");
+        $("#" + selectedTextID).css("width", "80px");
+        $("#" + selectedTextID).css("height", "40px");
+        //$("#"+selectedTextID).css("background-size","contain");
+//$("#"+selectedTextID).css("-webkit-background-size","contain");
+//$("#"+selectedTextID).css("background-repeat","no-repeat");
+        //$("#"+selectedTextID).css("mix-blend-mode","screen");
+        reloadTabs(3);
+        addDefault();
+        
+
+
+        
 
 
         $(".draggableBlock").draggable({
@@ -1486,13 +1478,27 @@ function passvaluetoinputfield() {
         var dropshadowarr = dropshadow.split(" ");
         var dropshadowdata = "%%H-shadow!" + dropshadowarr[3] + "%%V-shadow!" + dropshadowarr[4] + "%%blur!" + dropshadowarr[5];
 
-        var dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
+        var dropshadow1;
+        if($("#" + addElementsArray[i]).children().length > 0)
+        {
+            if($("#" + addElementsArray[i]).children("svg").attr("id").indexOf("Svgjs") >= 0)
+                dropshadow1 = $("#" + addElementsArray[i]).children("svg").css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
+        }
+        else
+            dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
 
         var data = $("#" + addElementsArray[i]).css("color").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
         var data1 = $("#" + addElementsArray[i]).css("text-shadow").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
         var data2 = $("#" + addElementsArray[i]).css("background-color").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
-        var data3 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
-
+        
+        var data3;
+        if($("#" + addElementsArray[i]).children().length > 0)
+        {
+            if($("#" + addElementsArray[i]).children("svg").attr("id").indexOf("Svgjs") >= 0)
+               data3 = $("#" + addElementsArray[i]).children("svg").css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
+        }
+        else
+            data3 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
         var arr = data.split(',');
         var arr1 = data1.split(',');
         var arr2 = data2.split(',');
@@ -1513,7 +1519,8 @@ function passvaluetoinputfield() {
         };
         var x1 = Math.round(childOffset.left);
         var y1 = Math.round(childOffset.top);
-
+        
+            
         if (isNaN(dropshadow1[0])) {
             
             filterEnable="true";
@@ -1599,7 +1606,28 @@ function passvaluetoinputfield() {
                     "%%y-co-ordinates!" + y1;
 
         }
-
+        if (contenttype.startsWith('draggableSVG')) {
+            $.ajax({
+                   url: getHost() + "SaveSVGServlet",
+                   method: "post",
+                   data:{
+                       svgString: $("#" + addElementsArray[i]).html(),
+                       svgFileName: $("#" + addElementsArray[i]).children("svg").attr("filename")
+                   },
+                   success: function (responseText) {
+                 }
+               });
+            style1 = "tag!" + "svg" +
+                    "%%x-co-ordinates!" + x1 +
+                    "%%y-co-ordinates!" + y1 +
+                    "%%color-name!" + $("#" + addElementsArray[i]).children("svg").attr("name") +
+                    "%%width!" + $("#" + addElementsArray[i]).children("svg").attr("width") +
+                    "%%height!" + $("#" + addElementsArray[i]).children("svg").attr("height") +
+                    "%%opacity!" + $("#" + addElementsArray[i]).children("svg").attr("opacity") +
+                    "%%filename!" + $("#" + addElementsArray[i]).children("svg").attr("filename") +
+                    "%%border-radius!" + $("#" + addElementsArray[i]).children("svg").css("border-radius") +
+                    "%%background-color!" + "#" + color3 + dropshadowdata1;
+        }
         if (contenttype.startsWith('draggableBlock')) {
 
             style1 = "tag!" + "block" +
@@ -1619,7 +1647,8 @@ function passvaluetoinputfield() {
 
         $("#textstyle").val(textareadetails);
 //       alert(textareadetails);
-
+                   
+        
     }
 //   alert(mapperdata);
     $("#element").val(mapperdata);
