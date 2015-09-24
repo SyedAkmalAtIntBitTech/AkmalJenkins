@@ -170,7 +170,8 @@ public class ScheduleDAO {
                     }
                 }
                 scheduleEntityId = updateScheduleEntityList(emailScheduleId, 
-                        scheduleid, 
+                        scheduleid,
+                        templateStatus,
                         connection);
                 
                 connection.commit();
@@ -223,16 +224,17 @@ public class ScheduleDAO {
         }
     }
     public static int updateScheduleEntityList(int entityID, int schedule_id, 
-            Connection connection )throws SQLException{
+            String templateStatus, Connection connection )throws SQLException{
         String query = "Update tbl_scheduled_entity_list"
-                + " SET entity_id = ?"
+                + " SET entity_id = ?, status = ?"
                 + " Where id = ?";
         
         try(PreparedStatement ps = connection.prepareStatement(query)){
             ps.setInt(1, entityID);
-            ps.setInt(1, schedule_id);
+            ps.setString(2, templateStatus);
+            ps.setInt(3, schedule_id);
             
-            ps.execute();
+            ps.executeUpdate();
         }
         return entityID;
     }

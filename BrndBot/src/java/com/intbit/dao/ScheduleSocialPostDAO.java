@@ -133,7 +133,8 @@ public class ScheduleSocialPostDAO {
 
             }
             int scheduleId = ScheduleDAO.updateScheduleEntityList(scheduleSocialPostId, 
-                        scheduleid, 
+                        scheduleid,
+                        templateStatus,
                         conn);
             methodResponse.put("schedule_entity_id", scheduleId);
         } catch (SQLException ex) {

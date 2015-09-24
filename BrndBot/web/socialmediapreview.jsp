@@ -413,18 +413,18 @@
 <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                             Layout file name<input type="text" id="layoutxml" required><br>-->
                        
-                        Facebook Schedules: <select name="facebookactions" id="facebookactions">
-                            <option value="0">--SELECT--</option>
+                        <select name="facebookactions" id="facebookactions">
+                            <option value="0">--SELECT FACEBOOK--</option>
                             <option ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
                         </select><br><br>
-                        Twitter Schedules: <select name="twitteractions" id="twitteractions">
-                            <option value="0">--SELECT--</option>
+                        <select name="twitteractions" id="twitteractions">
+                            <option value="0">--SELECT Twitter--</option>
                             <option ng-repeat="twitteractions in twitter_actions" value="{{twitteractions.id}}">{{twitteractions.schedule_title}}</option>
                         </select>
-                        <select name="socialactions" id="socialactions">
+<!--                        <select name="socialactions" id="socialactions">
                             <option value="0">--SELECT--</option>
                             <option ng-repeat="socialactions in social_actions" value="{{socialactions.id}}">{{socialactions.schedule_title}}</option>
-                        </select>
+                        </select>-->
                         
                         <br>
                         Title: <input type="text" class="form-control simplebox" id="schedule_title" name="schedule_title"><br>

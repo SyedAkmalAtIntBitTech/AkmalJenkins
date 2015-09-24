@@ -74,7 +74,6 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
                 response.getWriter().flush();
                 return;
             }
-            System.out.println(requestBodyList);
             List<String> errorMessages = validateRequestBodyList(requestBodyList);
             if (!errorMessages.isEmpty()) {
                 Map<String, Object> error = new HashMap<>();
@@ -108,10 +107,10 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
                 for (Map<String, Object> requestBodyMap : requestBodyList) {
                     String tokenDataString = requestBodyMap.get("token_data").toString();
                     String metadataString = requestBodyMap.get("metadata").toString();
-                    Integer schedule_id = (Integer)requestBodyMap.get("schedule_id");
+                    String schedule_id = (String)requestBodyMap.get("schedule_id");
                     Map<String, Integer> daoResponse = ScheduleSocialPostDAO.updateActionsToScheduleSocialPost(
-                            schedule_id,
                             userId,
+                            Integer.parseInt(schedule_id),
                             requestBodyMap.get("image_name").toString(),
                             AppConstants.GSON.fromJson(tokenDataString, Map.class),
                             AppConstants.GSON.fromJson(metadataString, Map.class),
@@ -134,7 +133,8 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
         }        
         
         }catch (Exception e){
-            
+            Logger.getLogger(ScheduleSocialPostServlet.class.getName()).log(Level.SEVERE, null, e);
+            out.println(e);
         }
     }
     
