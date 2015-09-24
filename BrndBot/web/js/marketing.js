@@ -451,7 +451,7 @@ function controllerMarketingCampaign($scope, $http) {
 
         $http({
                 method: 'POST',
-                url: getHost() + 'ChangeScheduleEmailServlet',
+                url: getHost() + 'ChangeScheduleServlet',
                 headers: {'Content-Type': 'application/json'},
                 data: schedule_details
             }).success(function (data)

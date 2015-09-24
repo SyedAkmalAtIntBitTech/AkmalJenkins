@@ -729,11 +729,12 @@
                                
                                 <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-120px;left:-180px;transform: scale(0.45, 0.5);-ms-transform: scale(0.45, 0.5);-webkit-transform: scale(0.45, 0.5);"/>
                                 <div style="position:relative;top:-450px;left:280px;">
+
                                 <p class="SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
                                 </div>
-                                  <div style="position:relative;margin-left:0px;margin-top:-330px;">
+                                  <div style="position: relative;margin-left:20px;margin-top:-350px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
@@ -871,7 +872,7 @@
                 <div id="light" class="white_content">
                   <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('marktng').style.display = 'block';document.getElementById('fade').style.display='none';document.body.style.overflow = 'scroll';" style="text-decoration:none;">
                     <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
-                        <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="30" width="30"/></p>
+                        <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="25" width="25"/></p>
                     </div>
                   </a>
                 </div>
