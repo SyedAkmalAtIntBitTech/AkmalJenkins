@@ -56,7 +56,7 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
@@ -141,15 +141,15 @@
             {
                 display:none;
                 position: fixed;
-                width:350px;
-                height:400px;
-                top: 40%;
-                left: 50%;
+                width:900px;
+                height:500px;
+                top: 30%;
+                left: 30%;
                 margin-left:-155px;
                 margin-top:-110px;
                 border:5px solid #686868 ;
-                background-color:#CDCDFF;
-                padding:30px;
+                background-color:#fcfcfc;
+                padding:1px;
                 z-index:102;
                 font-family:Verdana;
                 font-size:10pt;
@@ -158,12 +158,7 @@
                 -moz-border-radius:20px;
                 font-weight:bold;
             }
-            #content
-            {
-                height:auto;
-                width:300px;
-                margin:5px auto;
-            }
+            
             #popupclose
             {
                 margin:35px 0 0 80px;
@@ -245,6 +240,42 @@
                 letter-spacing: 0em;
                 opacity: 1;
             }
+            .selectsocialact{
+                background-color: #E3E4E8;
+                border: 1px solid #DADADA;
+                height:30px;
+                width:250px;
+                border-radius: 5px;
+                margin-left: 0px;
+                color: #686868;
+                font-size:18px;
+            }
+            #content
+            {
+                height:auto;
+                width:850px;
+                margin:5px auto;
+                position:relative;
+                left:-200px;
+                top:-10px;
+            }
+            .simplebox{
+                display:block;
+                width:100%;
+                padding:6px 12px;
+                line-height:1.42857143;
+                color:#555;
+                border:1px solid #ccc;
+                border-radius:4px;
+                -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                -o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                background-color: #E3E4E8;
+                color:#686868;
+                
+               }
         </style>
 
         <script>
@@ -413,54 +444,57 @@
 <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                             Layout file name<input type="text" id="layoutxml" required><br>-->
                        
-                        <select name="facebookactions" id="facebookactions">
-                            <option value="0">--SELECT FACEBOOK--</option>
-                            <option ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
-                        </select><br><br>
-                        <select name="twitteractions" id="twitteractions">
-                            <option value="0">--SELECT Twitter--</option>
-                            <option ng-repeat="twitteractions in twitter_actions" value="{{twitteractions.id}}">{{twitteractions.schedule_title}}</option>
-                        </select>
-<!--                        <select name="socialactions" id="socialactions">
-                            <option value="0">--SELECT--</option>
-                            <option ng-repeat="socialactions in social_actions" value="{{socialactions.id}}">{{socialactions.schedule_title}}</option>
-                        </select>-->
-                        
-                        <br>
-                        Title: <input type="text" class="form-control simplebox" id="schedule_title" name="schedule_title"><br>
-                        Description: <textarea class="form-control simplebox1" name="schedule_desc" id="schedule_desc"></textarea><br>
 
-                        Date : <input type="date" class="form-control simplebox" id="schedule_time" name="schedule_time"><br>
-                        <select name="hour">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            
-                        </select>
-                        <select name="minute">
-                            <option value="0">0</option>
-                            <option value="0">0</option>
-                            <option value="0">0</option>
-                            <option value="0">0</option>
-                            <option value="0">0</option>
-                        </select>
-                        <select name="AMPM">
-                            <option value="AM">AM</option>
-                            <option value="PM">PM</option>
-                        </select>
-                        <input type="hidden" name="socialscheduleid" id="socialscheduleid" value="socialmedia"/>
-                        <input type="button" id ="schedulethepost" value="Done"/>   
-                        <input type="button" id="hidepopup" value="Close" onclick="hidepopup()"/>   
-                    </div>
+                    <p class="SH2" style="width:600px;">PLEASE SELECT A TIME FROM YOUR PLAN</p> 
+                    <p style="margin-left:740px;margin-top:-35px;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p>
+                         <select name="facebookactions" id="facebookactions" class="SH1 selectsocialact">
+                             <option value="0" style="background:#fff;">SELECT FACEBOOK</option>
+                                <option style="background:#fff;" ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
+                         </select><br><br>
+                    <select name="twitteractions" id="twitteractions" class="SH1 selectsocialact">
+                                <option style="background:#fff;" value="0">SELECT TWITTER</option>
+                                <option style="background:#fff;" ng-repeat="twitteractions in twitter_actions" value="{{twitteractions.id}}">{{twitteractions.schedule_title}}</option>
+                    </select><br>
+                             <select name="socialactions" id="socialactions" class="SH1 selectsocialact">
+                                <option style="background:#fff;" value="0">--SELECT--</option>
+                                <option style="background:#fff;" ng-repeat="socialactions in social_actions" value="{{socialactions.id}}">{{socialactions.schedule_title}}</option>
+                            </select>
+                            <p class="SH2" style="position:relative;top:10px;">OR</p>
+                            <p class="SH2" style="position:relative;top:10px;width:700px;">PLEASE CREATE A NEW TITLE AND TIME TO ADD AN ACTION TO YOUR PLAN</p>                       
+                            <br>
+                            <input type="text" class="simplebox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE"><br>
+                            <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description"></textarea><br>
+                            <input type="date" class="simplebox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
+                            <select name="hour" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:205px;">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+
+                            </select>
+                            <select name="minute" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:210px;">
+                                <option value="0">0</option>
+                                <option value="0">0</option>
+                                <option value="0">0</option>
+                                <option value="0">0</option>
+                                <option value="0">0</option>
+                            </select>
+                            <select name="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>
+                            <input type="hidden" name="socialscheduleid" id="socialscheduleid" value="socialmedia"/>
+                            <input type="button" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;" />   
+
+                        </div>
             </div>
             <input type="hidden" id="sortLengthurl"/>
             <div id="boxes">

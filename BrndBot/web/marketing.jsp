@@ -272,6 +272,10 @@
                 margin-top: 10px;
                 margin-bottom:10px;
             }
+            .savebutton{
+                position:relative;
+                top:0px;
+            }
             #planhead{
                 position:relative;
                 left:0px;
@@ -386,11 +390,11 @@
                    
                     <div class="col-md-12" id="default" ng-init="getCampaigns()">
                          
-                        <div class="row" style="width:950px;margin-top:30px;margin-left:-15px;">
+                        <div class="row" style="width:750px;margin-top:30px;margin-left:-15px;">
                             <div class='col-md-1 SP2 fonthead'>Today</div>
                             <div class='col-md-3' style="width:230px;"></div>
-                            <div class='col-md-2 SS2'>Action Type</div>
-                            <div class='col-md-3 SS2'>Template Saved</div>
+                            <div class='col-md-3 SS2' style="margin-left:90px;">Action Type</div>
+                            <div class='col-md-2 SS2'style="margin-left:-20px;">Template Saved</div>
                             <div class='col-md-3' ></div>
                         </div>
                         <ul>
@@ -433,7 +437,11 @@
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:20px;"><a href = "javascript:void(0)" onclick = "overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
+                                    <div class="col-md-2" style="margin-left:20px;">
+                                        <a href = "javascript:void(0)" onclick="overlay();">
+                                            <button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button>
+                                        </a>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -460,7 +468,11 @@
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
 
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:20px;"><a href = "javascript:void(0)" onclick = "overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
+                                    <div class="col-md-2" style="margin-left:20px;">
+                                        <a href = "javascript:void(0)" onclick="overlay();">
+                                            <button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button>
+                                        </a>
+                                    </div>
 
                                 </div>
                             </li>
@@ -485,8 +497,8 @@
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
                                     <div class="col-md-3"  style="width:300px;margin-left:-40px;">
-                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
-                                            <p  class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
+                                        <a href = "javascript:void(0)" onclick="overlay();" style="color:#333;text-decoration: none;">
+                                            <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
                                         <p  class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
 
                                     </div>
@@ -494,8 +506,11 @@
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
 
 
-                                    <div class="col-md-2" style="margin-left:20px;"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('slider-button').style.display='block';document.body.style.overflow = 'hidden';">
-                                            <button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
+                                    <div class="col-md-2" style="margin-left:20px;">
+                                        <a href = "javascript:void(0)" onclick="overlay();">
+                                            <button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button>
+                                        </a>
+                                    </div>
 
                                 </div>
                             </li>
@@ -524,7 +539,7 @@
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
                                     <div class="col-md-2" style="margin-left:20px;">
-                                        <a href = "javascript:void(0)" onclick = "overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
+                                        <a href = "javascript:void(0)" onclick="overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
 
                                 </div>
                             </li>
@@ -553,7 +568,7 @@
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
                                     <div class="col-md-2" style="margin-left:20px;">
-                                        <a href = "javascript:void(0)" onclick = "overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
+                                        <a href = "javascript:void(0)" onclick="overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
 
                                 </div>
 
@@ -628,7 +643,7 @@
                         </form> 
                             
                     </div></div>
-                <div id="preview" class="pollSlider" style="height:660px;overflow-y:scroll;overflow-x:hidden;z-index:1005;">
+                <div id="preview" class="pollSlider" style="height:720px;z-index:1005;">
                     <div>
                     <div>
 
@@ -639,7 +654,7 @@
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
                                     <p class="MH2" style="width:300px;">Title: {{schedule_title}}</p>
-                                    <p class="MH2" style="width:400px;">Description: {{schedule_desc}}</p>
+                                    <p class="MH2" style="width:500px;">Description: {{schedule_desc}}</p>
                                 </div>
                                 <p class="SP1 actfnt">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></p>
                                 
@@ -698,7 +713,7 @@
 
                 </div>
 
-                <div id="previewfb" class="pollSlider" style="overflow-y: scroll;overflow-x: hidden;z-index:1005;height:720px;">
+                <div id="previewfb" class="pollSlider" style="z-index:1005;height:720px;">
                     <div>
                         <div>
 
@@ -712,8 +727,9 @@
                                     <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                                 </div>
                                
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-30px;left:-120px;transform: scale(0.5, 0.7);-ms-transform: scale(0.5, 0.7);-webkit-transform: scale(0.5, 0.7);"/>
-                                <div style="position:relative;top:-470px;left:330px;">
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-120px;left:-180px;transform: scale(0.45, 0.5);-ms-transform: scale(0.45, 0.5);-webkit-transform: scale(0.45, 0.5);"/>
+                                <div style="position:relative;top:-450px;left:280px;">
+
                                 <p class="SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
@@ -732,12 +748,12 @@
                     </div>
 
                 </div>
-                <div id="editfacebook" class="pollSlider" style="overflow-y: scroll;overflow-x:hidden;z-index:1005;height:720px;">
+                <div id="editfacebook" class="pollSlider" style="z-index:1005;height:725px;">
                     <div>
                         <div>
 
 
-                            <div style="position:relative;left:50px;">
+                            <div style="position:relative;left:50px;top:-10px;">
 
                                 <div class="actiondetails actiondet" >
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
@@ -745,7 +761,7 @@
                                     <p><input class="inputbox SP1" type="text" name="facebook_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 </div>
                                 <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-150px;left:-180px;transform: scale(0.5, 0.6);-ms-transform: scale(0.5, 0.6);-webkit-transform: scale(0.5, 0.6);"/>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-130px;left:-180px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.45, 0.45);"/>
                                  <div style="position:relative;top:-470px;left:285px;">
                                 <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
@@ -758,7 +774,7 @@
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
                                 <div class="removesavetemplate"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
-                                <div class="editbutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                <div class="savebutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                 </div>
                             </div>
                         </div>
@@ -791,7 +807,7 @@
 
                 </div>
 
-                <div id="previewtwitter" class="pollSlider" style="overflow-y: scroll;overflow-x:hidden;z-index:1005;height:720px;">
+                <div id="previewtwitter" class="pollSlider" style="z-index:1005;height:720px;">
                     <div>
                         <div>
 
@@ -804,7 +820,7 @@
                                 </div>
                                 <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                      
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-140px;left:-100px;transform: scale(0.8, 0.7);-ms-transform: scale(0.8, 0.7);-webkit-transform: scale(0.9,0.7);"/>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-110px;left:-130px;transform: scale(0.5);-ms-transform: scale(0.5);-webkit-transform: scale(0.5);"/>
                                 <div style="position:relative;top:-470px;left:300px;">
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.post_text}}</p>
                                 </div>
@@ -822,11 +838,11 @@
 
                 </div>
 
-                <div id="edittwitter" class="pollSlider" style="overflow-y: scroll;overflow-x:hidden;z-index:1005;height:730px;">
+                <div id="edittwitter" class="pollSlider" style="z-index:1005;height:740px;">
                     <div>
                         <div>
 
-                            <div style="position:relative;left:50px;">
+                            <div style="position:relative;left:50px;top:-10px;">
 
                                <div class="actiondetails actiondet" >
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
@@ -834,7 +850,7 @@
                                     <p><input class="inputbox SP1" type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 </div>
                                 <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-150px;left:-180px;transform: scale(0.5, 0.6);-ms-transform: scale(0.5, 0.6);-webkit-transform: scale(0.5, 0.6);"/>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-130px;left:-180px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.45, 0.45);"/>
                                <div style="position:relative;top:-470px;left:300px;">
                                    <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.post_text}}'  class="actfnt" style="font-weight:300;width:230px;"/></p>
                                </div>
@@ -845,7 +861,7 @@
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
                                 <div  class="removesavetemplate"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
-                                <div class="editbutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                <div class="savebutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                 </div>
                             </div>
                         </div>
@@ -856,7 +872,7 @@
                 <div id="light" class="white_content">
                   <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('marktng').style.display = 'block';document.getElementById('fade').style.display='none';document.body.style.overflow = 'scroll';" style="text-decoration:none;">
                     <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
-                        <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="30" width="30"/></p>
+                        <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="25" width="25"/></p>
                     </div>
                   </a>
                 </div>
