@@ -341,7 +341,7 @@
                 <li><a href="#tabs-1">Text</a></li>
                 <li><a href="#tabs-2">Image</a></li>
                 <li><a href="#tabs-3">Button</a></li>
-                <li><a href="#tabs-4">Color Block</a></li>
+                <li><a href="#tabs-4">Color/SVG Block</a></li>
             </ul>
             <div id="tabs-1">
                 <p>

@@ -1069,13 +1069,12 @@ $(document).ready(function () {
             
         var parentPos = $(".container").offset();
        
-        var finx = parentPos.left + parseInt(tempX);
-        var finy = parentPos.top + parseInt(tempY);
+        var finx = parseInt(tempX);
+        var finy = parseInt(tempY);
         x = finx;
         y = finy;
         if(selectedTextID.indexOf("Svgjs") >= 0)
         {
-            alert(parentPos.left+":"+parentPos.top+"/"+finx+":"+finy);
             $("#" + selectedTextID).parent().parent().css("left", ""+finx+"px");
             $("#" + selectedTextID).parent().parent().css("top", ""+finy+"px");
         }
