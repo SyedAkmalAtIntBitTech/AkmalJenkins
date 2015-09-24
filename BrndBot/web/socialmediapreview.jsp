@@ -147,10 +147,10 @@
                 left: 30%;
                 margin-left:-155px;
                 margin-top:-110px;
-                border:5px solid #686868 ;
+                border:3px solid #888;
                 background-color:#fcfcfc;
                 padding:1px;
-                z-index:102;
+                z-index:1005;
                 font-family:Verdana;
                 font-size:10pt;
                 border-radius:10px;
@@ -276,33 +276,49 @@
                 color:#686868;
                 
                }
+               .black_overlay{
+			display: none;
+			position: absolute;
+			top: 0%;
+			left: 0%;
+                        width: 100%;
+			height: 1000em;
+			background-color: #E3E4E8;
+			z-index:1000;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+		}
         </style>
 
         <script>
+            function overlay(){
+                document.getElementById('light').style.display='block';
+                document.getElementById('fade').style.display='block';
+                document.body.style.overflow = 'hidden';
+            }
+            
             function displaySchedule(){
                 $("#popupschedule").show();
-                var isFB = <%= isFacebook %>;
-                console.log(isFB);
-                var isTwitter = <%= isTwitter %>;
-                console.log(isTwitter);
-                if ((isFB == true) && (isTwitter == false)){
+                var isFB = $("#isFacebook").val();
+                console.log("isFB" + isFB);
+                var isTwitter = $("#isTwitter").val();
+                console.log("istwitter" + isTwitter);
+                if ((isFB == "true") && (isTwitter == "false")){
                     angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions();
                     $("#facebookactions").show();
                     $("#twitteractions").hide();
-                    $("#socialactions").hide();
                     console.log("true");
-                }else if((isFB == false) && (isTwitter == true)){
+                }else if((isFB == "false") && (isTwitter == "true")){
                     angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions();
                     $("#facebookactions").hide();
                     $("#twitteractions").show();
-                    $("#socialactions").hide();
-                }else if ((isFB == true) && (isTwitter == true)){
+                }else if ((isFB == "true") && (isTwitter == "true")){
                     angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions();
                     angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions();
 //                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialActions();
                     $("#facebookactions").show();
                     $("#twitteractions").show();
-                    $("#socialactions").hide();
                 }
             }
             function hidepopup(){
@@ -356,6 +372,7 @@
     </head>
 
     <body ng-app>
+         <div id="fade" class="black_overlay"></div>
         <div class="container-fluid" ng-controller="socialmediapreview" id="socialmediapreview">
             <jsp:include page="leftmenu.html"/>
             <div class="col-md-10 col-md-offset-0 row">
@@ -383,7 +400,7 @@
                     </div>
                     <input type="button" class="btn btn-primary" id="posttofb" value="POST TO SOCIAL MEDIA">
                     <br>
-                    <input type="button" class="btn btn-primary" id="socialschedule" value="SCHEDULE" onclick="displaySchedule()">
+                    <a href = "javascript:void(0)" onclick = "overlay();"><input type="button" class="btn btn-primary" id="socialschedule" value="SCHEDULE" onclick="displaySchedule()"></a>
                     
                 </div>
 
@@ -445,53 +462,113 @@
                             Layout file name<input type="text" id="layoutxml" required><br>-->
                         
                 <p class="SH2" style="width:600px;">PLEASE SELECT A TIME FROM YOUR PLAN</p> 
-                <p style="margin-left:740px;margin-top:-35px;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p>
-                     <select name="facebookactions" id="facebookactions" class="SH1 selectsocialact">
+                <div id="light"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none';document.body.style.overflow = 'scroll';" style="text-decoration:none;">
+                        <p style="margin-left:740px;margin-top:-35px;cursor: pointer;" id="hidepopup" onclick="hidepopup()" >
+                            <img src="images/CloseIcon.svg" height="25" width="25"/>
+                        </p>
+                    </a>
+                </div>
+                     <select name="facebookactions" id="facebookactions" class="SH1 selectsocialact" style="font-variant: normal;">
                          <option value="0" style="background:#fff;">SELECT FACEBOOK</option>
                             <option style="background:#fff;" ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
                      </select><br><br>
-                <select name="twitteractions" id="twitteractions" class="SH1 selectsocialact">
+                <select name="twitteractions" id="twitteractions" class="SH1 selectsocialact" style="font-variant: normal;">
                             <option style="background:#fff;" value="0">SELECT TWITTER</option>
                             <option style="background:#fff;" ng-repeat="twitteractions in twitter_actions" value="{{twitteractions.id}}">{{twitteractions.schedule_title}}</option>
                 </select><br>
-                         <select name="socialactions" id="socialactions" class="SH1 selectsocialact">
+<!--                         <select name="socialactions" id="socialactions" class="SH1 selectsocialact" style="font-variant: normal;">
                             <option style="background:#fff;" value="0">--SELECT--</option>
                             <option style="background:#fff;" ng-repeat="socialactions in social_actions" value="{{socialactions.id}}">{{socialactions.schedule_title}}</option>
-                        </select>
+                        </select>-->
                         <p class="SH2" style="position:relative;top:10px;">OR</p>
                         <p class="SH2" style="position:relative;top:10px;width:700px;">PLEASE CREATE A NEW TITLE AND TIME TO ADD AN ACTION TO YOUR PLAN</p>                       
                         <br>
-                        <input type="text" class="simplebox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE"><br>
-                        <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description"></textarea><br>
+                        <input type="text" class="simplebox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
+                        <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description" style="font-variant: normal;"></textarea><br>
                         <input type="date" class="simplebox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
                         <select name="hour" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:205px;">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
+                            <option value="00">00</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
                             <option value="10">10</option>
                             <option value="11">11</option>
                             
                         </select>
                         <select name="minute" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:210px;">
-                            <option value="0">0</option>
-                            <option value="0">0</option>
-                            <option value="0">0</option>
-                            <option value="0">0</option>
-                            <option value="0">0</option>
+                            <option value="00">00</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="46">46</option>
+                            <option value="47">47</option>
+                            <option value="48">48</option>
+                            <option value="49">49</option>                            
+                            <option value="50">50</option>
+                            <option value="51">51</option>
+                            <option value="52">52</option>
+                            <option value="53">53</option>
+                            <option value="54">54</option>
+                            <option value="55">55</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="58">58</option>
+                            <option value="59">59</option>
                         </select>
                         <select name="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
                         </select>
                         <input type="hidden" name="socialscheduleid" id="socialscheduleid" value="socialmedia"/>
-                        <input type="button" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;" />   
+                        <input type="button" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;font-family:'proxima-nova',sans-serif;font-size:14px;" />   
                         
                     </div>
             </div>
