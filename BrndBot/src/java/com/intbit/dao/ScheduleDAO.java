@@ -91,6 +91,7 @@ public class ScheduleDAO {
                         }
                     }
                 }
+                
                 scheduleEntityId = addToScheduleEntityList(emailScheduleId, 
                         scheduledTitle, 
                         scheduleDesc, 
@@ -115,7 +116,79 @@ public class ScheduleDAO {
 
         return returnMap;
     }
-    
+
+    public static Map<String, Integer> updatetoScheduledEmailList(int userId,
+            int scheduleid,
+            String subject,
+            String body,
+            String fromAddress,
+            String emailListName,
+            String fromName,
+            String replytoEmailAddress,
+            String[] toAddress,
+            String scheduledTitle,
+            String scheduleDesc,
+            Timestamp scheduledTime,
+            String templateStatus
+    ) throws SQLException{
+
+        int emailScheduleId = -1;
+        int scheduleEntityId = -1;
+        Map<String, Integer> returnMap = new HashMap<>();
+        PGobject pg_object = new PGobject();
+        JSONObject json_email_addresses = new JSONObject();
+        JSONArray json_array_email_address = new JSONArray();
+
+        try (Connection connection = connectionManager.getConnection()) {
+            connection.setAutoCommit(false);
+            try {
+                String sql = "INSERT INTO tbl_scheduled_email_list "
+                        + " (user_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address) VALUES "
+                        + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+                try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                    ps.setInt(1, userId);
+                    ps.setString(2, subject);
+                    ps.setString(3, body);
+                    ps.setString(4, fromAddress);
+                    ps.setString(5, emailListName);
+                    ps.setString(6, fromName);
+                    for (int i = 0; i< toAddress.length; i++){
+                        json_array_email_address.add(toAddress[i].trim());
+                    }
+                    json_email_addresses.put(IConstants.kEmailAddressesKey, json_array_email_address);
+                    pg_object.setType("json");
+                    pg_object.setValue(json_email_addresses.toJSONString());
+                    ps.setObject(7, pg_object);
+                    ps.setString(8, replytoEmailAddress);
+                    ps.execute();
+                    try (ResultSet resultSet = ps.getResultSet()) {
+
+                        if (resultSet.next()) {
+                            emailScheduleId = resultSet.getInt(1);
+                            logger.log(Level.INFO, "Id of scheduled email: " + emailScheduleId);
+                        }
+                    }
+                }
+                scheduleEntityId = updateScheduleEntityList(emailScheduleId, 
+                        scheduleid, 
+                        connection);
+                
+                connection.commit();
+            } catch (SQLException ex) {
+                connection.rollback();
+                throw ex;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+        
+        returnMap.put("schedule_email_id", emailScheduleId);
+        returnMap.put("schedule_entity_id", scheduleEntityId);
+
+        return returnMap;
+    }
+
     /**
      * Add the array of to email addresses against the schedule email id.
      * 
@@ -149,6 +222,20 @@ public class ScheduleDAO {
             throw ex;
         }
     }
+    public static int updateScheduleEntityList(int entityID, int schedule_id, 
+            Connection connection )throws SQLException{
+        String query = "Update tbl_scheduled_entity_list"
+                + " SET entity_id = ?"
+                + " Where id = ?";
+        
+        try(PreparedStatement ps = connection.prepareStatement(query)){
+            ps.setInt(1, entityID);
+            ps.setInt(1, schedule_id);
+            
+            ps.execute();
+        }
+        return entityID;
+    }
     
     public static int addToScheduleEntityList(Integer entityId, 
             String scheduleTitle,
@@ -166,7 +253,7 @@ public class ScheduleDAO {
         
         try(PreparedStatement ps = connection.prepareStatement(sql)){
             if ( entityId == null){
-                ps.setNull(1, java.sql.Types.INTEGER);
+                ps.setInt(1, 0);
             }else{
                 ps.setInt(1, entityId);
             }
@@ -186,6 +273,41 @@ public class ScheduleDAO {
             }
         }
         return scheduleId;
+    }
+    
+    public static JSONArray getScheduledActions(int userid)throws SQLException{
+        JSONObject json_action_facebook = new JSONObject();
+        JSONArray json_array_email = new JSONArray();
+        String query = "Select * from tbl_scheduled_entity_list"
+                + " where entity_id=?"
+                + " and entity_type =?"
+                + " and user_id = ?";
+        
+        try(Connection conn = connectionManager.getConnection();
+            PreparedStatement ps = conn.prepareStatement(query)){
+            ps.setInt(1, 0);
+            ps.setString(2, "email");
+            ps.setInt(3, userid);
+            try(ResultSet result_set = ps.executeQuery()){
+                while (result_set.next()){
+                    
+                    JSONObject json_object = new JSONObject();
+                    Integer id = result_set.getInt("id");
+                    String schedule_title = result_set.getString("schedule_title");
+                    String schedule_desc = result_set.getString("schedule_desc");
+                    Timestamp scheduleTimestamp = result_set.getTimestamp("schedule_time");
+                    long scheduleTime = scheduleTimestamp.getTime();
+                    
+                    json_object.put("id", id);
+                    json_object.put("schedule_title", schedule_title);
+                    json_object.put("schedule_desc", schedule_desc);
+                    json_object.put("schedule_time", scheduleTime);
+                    
+                    json_array_email.add(json_object);
+                }
+            }
+        }
+        return json_array_email;
     }
     
     public static Map<String, List<Map<String, Object>>> getScheduledEntities(int userId, 

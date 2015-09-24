@@ -28,7 +28,7 @@
      companyName =(String)sql_methods.session.getAttribute("company");
         
     isFacebook = request.getParameter("isFacebook");
-     isTwitter = request.getParameter("isTwitter");
+    isTwitter = request.getParameter("isTwitter");
 
 
     if (isFacebook.equalsIgnoreCase("true")) {
@@ -52,6 +52,7 @@
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -249,20 +250,82 @@
         <script>
             function displaySchedule(){
                 $("#popupschedule").show();
+                var isFB = <%= isFacebook %>;
+                console.log(isFB);
+                var isTwitter = <%= isTwitter %>;
+                console.log(isTwitter);
+                if ((isFB == true) && (isTwitter == false)){
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions();
+                    $("#facebookactions").show();
+                    $("#twitteractions").hide();
+                    $("#socialactions").hide();
+                    console.log("true");
+                }else if((isFB == false) && (isTwitter == true)){
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions();
+                    $("#facebookactions").hide();
+                    $("#twitteractions").show();
+                    $("#socialactions").hide();
+                }else if ((isFB == true) && (isTwitter == true)){
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions();
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions();
+//                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialActions();
+                    $("#facebookactions").show();
+                    $("#twitteractions").show();
+                    $("#socialactions").hide();
+                }
             }
             function hidepopup(){
                 $("#popupschedule").hide();
                 $("#schedule_title").val("");
                 $("#schedule_time").val("");
             }
+            function socialmediapreview($scope, $http){
+                
+                $scope.getSocialFacebookActions = function(){
+                  
+                  $http({
+                        method: 'GET',
+                        url: getHost() + 'GetScheduledActions?type=facebook'
+                    }).success(function (data) {
+                        $scope.facebook_actions = data;
+                        console.log($scope.facebook_actions);
+                    }).error(function (data) {
+                        alert("request not successful");
+                    });
+                };
+                
+                $scope.getSocialTwitterActions = function(){
+                  
+                  $http({
+                        method: 'GET',
+                        url: getHost() + 'GetScheduledActions?type=twitter'
+                    }).success(function (data) {
+                        $scope.twitter_actions = data;
+                    }).error(function (data) {
+                        alert("request not successful");
+                    });
+                };
 
+                $scope.getSocialActions = function(){
+                  
+                  $http({
+                        method: 'GET',
+                        url: getHost() + 'GetScheduledActions?type=social'
+                    }).success(function (data) {
+                        $scope.social_actions = data;
+                    }).error(function (data) {
+                        alert("request not successful");
+                    });
+                };
+        
+            }
             
         </script>
        <jsp:include page="basejsp.jsp" />
     </head>
 
-    <body>
-        <div class="container-fluid">
+    <body ng-app>
+        <div class="container-fluid" ng-controller="socialmediapreview" id="socialmediapreview">
             <jsp:include page="leftmenu.html"/>
             <div class="col-md-10 col-md-offset-0 row">
                 <p id="txtpost" class="MH1">POST TO SOCIAL MEDIA</p><div style="position:relative;left:8em;" class="col-md-0 col-md-offset-10"><a href="selectpromotesocialmedia.jsp"><p id="edit" class="BT2">go back</p></a></div>
@@ -349,22 +412,63 @@
                     <div id="content">
 <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                             Layout file name<input type="text" id="layoutxml" required><br>-->
+                       
+                        Facebook Schedules: <select name="facebookactions" id="facebookactions">
+                            <option value="0">--SELECT--</option>
+                            <option ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
+                        </select><br><br>
+                        Twitter Schedules: <select name="twitteractions" id="twitteractions">
+                            <option value="0">--SELECT--</option>
+                            <option ng-repeat="twitteractions in twitter_actions" value="{{twitteractions.id}}">{{twitteractions.schedule_title}}</option>
+                        </select>
+                        <select name="socialactions" id="socialactions">
+                            <option value="0">--SELECT--</option>
+                            <option ng-repeat="socialactions in social_actions" value="{{socialactions.id}}">{{socialactions.schedule_title}}</option>
+                        </select>
+                        
+                        <br>
                         Title: <input type="text" class="form-control simplebox" id="schedule_title" name="schedule_title"><br>
                         Description: <textarea class="form-control simplebox1" name="schedule_desc" id="schedule_desc"></textarea><br>
-                        Date : <input type="datetime-local" class="form-control simplebox" id="schedule_time" name="schedule_time"><br>
 
-                        <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
+                        Date : <input type="date" class="form-control simplebox" id="schedule_time" name="schedule_time"><br>
+                        <select name="hour">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            
+                        </select>
+                        <select name="minute">
+                            <option value="0">0</option>
+                            <option value="0">0</option>
+                            <option value="0">0</option>
+                            <option value="0">0</option>
+                            <option value="0">0</option>
+                        </select>
+                        <select name="AMPM">
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                        </select>
+                        <input type="hidden" name="socialscheduleid" id="socialscheduleid" value="socialmedia"/>
                         <input type="button" id ="schedulethepost" value="Done"/>   
                         <input type="button" id="hidepopup" value="Close" onclick="hidepopup()"/>   
                     </div>
             </div>
             <input type="hidden" id="sortLengthurl"/>
-                                        <div id="boxes">
-                                            <div id="dialog" class="window"><br><br>
-                                              <img id="loadingGif" src="images/YogaLoadingGif.gif" />
-                                            </div>
-                                            <div id="mask"></div>
-                                        </div>
+            <div id="boxes">
+                <div id="dialog" class="window"><br><br>
+                  <img id="loadingGif" src="images/YogaLoadingGif.gif" />
+                </div>
+                <div id="mask"></div>
+            </div>
         </div>
             
         <script>
@@ -421,7 +525,7 @@
                     
                 });
                 
-
+                
                 if (isFacebook === "false") {
                     $("#facebookimage").hide();
                     $("#fabookpreviewdiv").hide();
@@ -481,7 +585,7 @@
                     $("#isTwitter").val("false");
 
                 });
-
+                
                 $("#facebookcancel").click(function () {
                     $("#facebookcancel").hide();
                     $("#facebookimage").hide();
@@ -555,6 +659,20 @@
                     var isFacebook = $("#isFacebook").val();
                     var isTwitter = $("#isTwitter").val();
                     var image_name= $("#imageToPost").val();
+                    var schedule_id_facebook = "";
+                    var schedule_id_twitter = "";
+                    
+                    if ((isFacebook == "true") && (isTwitter == "false")){
+                        schedule_id_facebook = $("#facebookactions").val();
+                    }else if ((isFacebook == "false") && (isTwitter == "true")){
+                        schedule_id_twitter = $("#twitteractions").val();
+                    }else if ((isFacebook == "true") && (isTwitter == "true")){
+                        schedule_id_facebook = $("#facebookactions").val();
+                        schedule_id_twitter = $("#twitteractions").val();
+                    }
+                    
+                    if ((schedule_id_facebook == "0") && (schedule_id_twitter == "0")){
+                        
                     var schedule_title = $("#schedule_title").val();
                     var schedule = $("#schedule_time").val();
                     var schedule_desc = $("#schedule_desc").val();
@@ -571,8 +689,7 @@
                     console.log("New Epoch: " + newEpoch);
 
                     var social_schedule = "";
-                    if (isFacebook == "true" || isTwitter == "true"){
-                        
+                    if (isFacebook == "true" && isTwitter == "false"){
                      social_schedule =  [
                                           {
                                             type: "facebook",
@@ -588,7 +705,11 @@
                                               post_text: '"'+$("#posttext").val()+'"',
                                               url: '"'+$("#url").val()+'"'
                                             }
-                                          },
+                                          }
+                                        ];
+                        
+                    }else if (isFacebook == "false" && isTwitter == "true"){
+                     social_schedule =  [
                                           {
                                             type: "twitter",
                                             image_name: image_name,
@@ -604,26 +725,42 @@
                                             }
                                           }
                                         ];
-//                        social_schedule = {
-//                                        "token_data": {
-//                                          "access_token": $("#accesstoken").val(),
-//                                          "twittweraccestoken": $("#twittweraccestoken").val(),
-//                                          "twitterTokenSecret": $("#twitterTokenSecret").val()
-//                                        },
-//                                        "image_name": image_name,
-//                                        "metadata": {
-//                                            "text": $("#twittertext").val(),
-//                                            "postText": $("#posttext").val(),
-//                                            "title": $("#title").val(),
-//                                            "description": $("#description").val(),
-//                                            "url": $("#url").val()
-//                                          
-//                                        },
-//                                        "isFacebook": isFacebook,
-//                                        "isTwitter": isTwitter,
-//                                        "schedule_time": newEpoch,
-//                                        "schedule_title": schedule_title
-//                                      }
+                        
+                    }else if(isFacebook == "true" && isTwitter == "true"){
+                        
+                     social_schedule =  
+                             [
+                             {
+                                type: "facebook",
+                                image_name: image_name,
+                                schedule_time: newEpoch,
+                                schedule_title: '"'+schedule_title+'"',
+                                schedule_desc: schedule_desc,
+                                token_data: {
+                                  "access_token": '"'+$("#accesstoken").val()+'"'
+                                },
+                                metadata: {
+                                  description: '"'+$("#description").val()+'"',
+                                  post_text: '"'+$("#posttext").val()+'"',
+                                  url: '"'+$("#url").val()+'"'
+                                }
+                              },
+                              {
+                                type: "twitter",
+                                image_name: image_name,
+                                schedule_time: newEpoch,
+                                schedule_title: '"'+schedule_title+'"',
+                                schedule_desc: schedule_desc,
+                                token_data: {
+                                  "access_token": '"'+$("#twittweraccestoken").val()+'"',
+                                  "token_secret": '"'+$("#twitterTokenSecret").val()+'"'
+                                },
+                                metadata: {
+                                  text: '"'+$("#twittertext").val()+'"'
+                                }
+                              }
+                            ];
+                    }                  
                         console.log(JSON.stringify(social_schedule));
                         $.ajax({
                             url:  getHost() + 'ScheduleSocialPost',
@@ -639,7 +776,88 @@
                                 document.location.href = "dashboard.jsp";
                             }
                         });                                      
+                    }else {
+                    if (isFacebook == "true" && isTwitter == "false"){
+                     social_schedule =  [
+                                          {
+                                            type: "facebook",
+                                            image_name: image_name,
+                                            schedule_id:schedule_id_facebook,
+                                            token_data: {
+                                              "access_token": '"'+$("#accesstoken").val()+'"'
+                                            },
+                                            metadata: {
+                                              description: '"'+$("#description").val()+'"',
+                                              post_text: '"'+$("#posttext").val()+'"',
+                                              url: '"'+$("#url").val()+'"'
+                                            }
+                                          }
+                                        ];
+                        
+                    }else if (isFacebook == "false" && isTwitter == "true"){
+                     social_schedule =  [
+                                          {
+                                            type: "twitter",
+                                            image_name: image_name,
+                                            schedule_id:schedule_id_twitter,
+                                            token_data: {
+                                              "access_token": '"'+$("#twittweraccestoken").val()+'"',
+                                              "token_secret": '"'+$("#twitterTokenSecret").val()+'"'
+                                            },
+                                            metadata: {
+                                              text: '"'+$("#twittertext").val()+'"'
+                                            }
+                                          }
+                                        ];
+                        
+                    }else if(isFacebook == "true" && isTwitter == "true"){
+                        
+                     social_schedule =  
+                             [
+                             {
+                                type: "facebook",
+                                image_name: image_name,
+                                schedule_id:schedule_id_facebook,
+                                token_data: {
+                                  "access_token": '"'+$("#accesstoken").val()+'"'
+                                },
+                                metadata: {
+                                  description: '"'+$("#description").val()+'"',
+                                  post_text: '"'+$("#posttext").val()+'"',
+                                  url: '"'+$("#url").val()+'"'
+                                }
+                              },
+                              {
+                                type: "twitter",
+                                image_name: image_name,
+                                schedule_id:schedule_id_twitter,
+                                token_data: {
+                                  "access_token": '"'+$("#twittweraccestoken").val()+'"',
+                                  "token_secret": '"'+$("#twitterTokenSecret").val()+'"'
+                                },
+                                metadata: {
+                                  text: '"'+$("#twittertext").val()+'"'
+                                }
+                              }
+                            ];
                     }                  
+                        console.log(JSON.stringify(social_schedule));
+                        $.ajax({
+                            url:  getHost() + 'ScheduleSocialPostActions',
+                            method: 'post',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            mimeType: 'application/json',
+                            data: JSON.stringify(social_schedule),
+                            success: function (responseText) {
+//                            $("#tokenHere").html(responseText);
+//                                alert(image_name);
+                                alert("Your post has been published successfully");
+                                document.location.href = "dashboard.jsp";
+                            }
+                        });                                                 
+                    }
+                    
                             
                     
 

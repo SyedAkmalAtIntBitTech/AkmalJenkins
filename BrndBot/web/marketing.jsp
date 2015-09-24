@@ -688,13 +688,13 @@
                                     <br><p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                                 </div>
                                
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-100px;left:-170px;transform: scale(0.5, 0.7);-ms-transform: scale(0.5, 0.7);-webkit-transform: scale(0.5, 0.7);"/>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-30px;left:-120px;transform: scale(0.5, 0.7);-ms-transform: scale(0.5, 0.7);-webkit-transform: scale(0.5, 0.7);"/>
                                 <div style="position:relative;top:-470px;left:330px;">
                                 <p class="SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
                                 </div>
-                                  <div style="position: relative;margin-left:20px;margin-top:-450px;">
+                                  <div style="position: relative;margin-left:20px;margin-top:-350px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>

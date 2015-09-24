@@ -365,8 +365,16 @@
         <servlet-class>com.controller.schedule.GetScheduledSocialPostDetailServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ChangeScheduleEmailServlet</servlet-name>
-        <servlet-class>com.controller.schedule.ChangeScheduleEmailServlet</servlet-class>
+        <servlet-name>ChangeScheduleServlet</servlet-name>
+        <servlet-class>com.controller.schedule.ChangeScheduleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetScheduledActions</servlet-name>
+        <servlet-class>com.controller.schedule.GetScheduledActions</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>
+        <servlet-class>com.controller.schedule.ScheduleSocialPostActionsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
@@ -745,8 +753,16 @@
         <url-pattern>/GetScheduledSocialPostDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ChangeScheduleEmailServlet</servlet-name>
-        <url-pattern>/ChangeScheduleEmailServlet</url-pattern>
+        <servlet-name>ChangeScheduleServlet</servlet-name>
+        <url-pattern>/ChangeScheduleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetScheduledActions</servlet-name>
+        <url-pattern>/GetScheduledActions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>
+        <url-pattern>/ScheduleSocialPostActions</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

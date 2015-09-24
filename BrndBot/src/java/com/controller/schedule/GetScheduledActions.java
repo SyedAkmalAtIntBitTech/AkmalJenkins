@@ -6,26 +6,24 @@
 package com.controller.schedule;
 
 import com.intbit.AppConstants;
-import com.intbit.TemplateStatus;
+import com.intbit.ScheduledEntityType;
 import com.intbit.dao.ScheduleDAO;
+import com.intbit.dao.ScheduleSocialPostDAO;
 import com.intbit.util.AuthenticationUtil;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
 
 /**
  *
  * @author development
  */
-public class ChangeScheduleEmailServlet extends HttpServlet {
+public class GetScheduledActions extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,45 +34,52 @@ public class ChangeScheduleEmailServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    public void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        JSONArray json_array = new JSONArray();
         try {
             if ( !AuthenticationUtil.isUserLoggedIn(request)){
                 AuthenticationUtil.printAuthErrorToResponse(response);
                 return;
             }
-            Integer userId = AuthenticationUtil.getUUID(request);
-            Map<String, Object> requestBodyMap =
-                    AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            Integer userId = AuthenticationUtil.getUUID(request);            
+            String type = request.getParameter("type");
             
-            String type = (String)requestBodyMap.get("type");
-            String schedule_ids = (String)requestBodyMap.get("schedule_ids");
-            if (type.equalsIgnoreCase("update")){
-//                 Map<String, Integer> idMap = ScheduleDAO.updateToScheduledEmailList(
-//                    schedule_id,
-//                    userId,
-//                    requestBodyMap.get("email_subject").toString(),
-//                    requestBodyMap.get("email_body").toString(),
-//                    requestBodyMap.get("from_email_address").toString(),
-//                    requestBodyMap.get("email_list").toString(),
-//                    requestBodyMap.get("from_name").toString(),
-//                    requestBodyMap.get("reply_to_email_address").toString(),
-//                    requestBodyMap.get("to_email_addresses").toString().split(","),
-//                    requestBodyMap.get("schedule_title").toString(),
-//                    scheduleDesc, 
-//                    new Timestamp(schedule.longValue()),
-//                    TemplateStatus.template_saved.toString()
-//            );
-            }else if (type.equalsIgnoreCase("delete")){
-                ScheduleDAO.deleteEmailSchedules(userId, schedule_ids);
+            if (type.equalsIgnoreCase(ScheduledEntityType.facebook.toString())){
+                json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(userId);
                 response.setStatus(HttpServletResponse.SC_OK);
-                response.getWriter().write("true");
+                response.getWriter().write(AppConstants.GSON.toJson(json_array));
+                response.getWriter().flush();
+            }else if(type.equalsIgnoreCase(ScheduledEntityType.twitter.toString())){
+                json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(userId);
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write(AppConstants.GSON.toJson(json_array));
+                response.getWriter().flush();
+            }else if(type.equalsIgnoreCase(ScheduledEntityType.email.toString())){
+                json_array = ScheduleDAO.getScheduledActions(userId);
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write(AppConstants.GSON.toJson(json_array));
+                response.getWriter().flush();
+            }else if(type.equalsIgnoreCase("social")){
+                JSONArray json_social = new JSONArray();
+                json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(userId);
+                for (int i = 0; i< json_array.size(); i++){
+                    json_social.add(json_array.get(i));
+                }
+                json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(userId);
+                for (int i = 0; i< json_array.size(); i++){
+                    json_social.add(json_array.get(i));
+                }
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write(AppConstants.GSON.toJson(json_social));
                 response.getWriter().flush();
             }
-        }catch (Exception ex){
-            Logger.getLogger(ScheduleEmailServlet.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }catch (Exception sq){
+            System.console().writer().write(sq.getLocalizedMessage());
+            System.console().writer().write(sq.getMessage());
         }
     }
 
