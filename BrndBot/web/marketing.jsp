@@ -202,7 +202,7 @@
                 width:70px;
                 height:50px;
                 right:0px;
-                background:#7ab5d3;
+                background:transparent;
                 top: 0px;
             }
 
@@ -251,11 +251,11 @@
              font-family: sans-serif;
              font-size: 12px;
              position: relative;
-             top:5px;
-             bottom:5px;
+             top:2px;
+             bottom:2px;
          }
          #popupright_panel{
-             left: 275px;
+             left: 205px;
              position: relative;
          }
          .postdet{
@@ -265,7 +265,7 @@
             .postdetails{
                 position: relative;
                 width:250px;
-                margin-top: 8em;
+                margin-top: 0em;
             }
             .editbutton{
                 position: relative;
@@ -320,6 +320,20 @@
                 text-align:center;
                 left:0px;
             }
+            .black_overlay{
+			display: none;
+			position: absolute;
+			top: 0%;
+			left: 0%;
+                        width: 100%;
+			height: 1000em;
+			background-color: #E3E4E8;
+			z-index:1000;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+		}
+		
 /*            #mask{  create are mask 
     position:fixed;
     top:0;
@@ -336,16 +350,26 @@
 }*/
            
         </style>
-
+        <script>
+            function overlay(){
+                document.getElementById('light').style.display='block';
+                document.getElementById('fade').style.display='block';
+                document.getElementById('slider-button').style.display='block';
+                document.body.style.overflow = 'hidden';
+                document.getElementById('marktng').style.display='none';
+            }
+        </script>
     </head>
     <body ng-app class="claro">
-         <div class="row" >
+        <div id="fade" class="black_overlay"></div>
+        <div class="row">
              <jsp:include page="mainmenu.html"/></div>
         <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign" class="container"> 
            <!--/end left column-->
           
             
-            <jsp:include page="marketingsubmenu.html"/>
+             
+           <div id="marktng"><jsp:include page="marketingsubmenu.html" /></div>
  
             <script src="js/marketing.js" type="text/javascript"></script>
             <!--<div id="overlay">-->
@@ -353,7 +377,9 @@
                 <div class="col-md-6 col-md-offset-1">
                      
                     
-                    <p id="planhead" class="MH2">Your Plan</p><a href="#overlay" id="open-overlay"><button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;">ADD ACTION</button></a>
+                    <p id="planhead" class="MH2">Your Plan</p>
+                    <a href = "javascript:void(0)" onclick = "overlay();">
+                    <button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;">ADD ACTION</button></a>
                     <button id="delsel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;position:relative;margin-top:-47px;margin-left:25em;display:none;" ng-click="deleteSchedule()">DELETE SELECTED</button> 
                     
 
@@ -375,12 +401,13 @@
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
                                     <div class="col-md-3" style="width:300px;margin-left:-40px;">
-                                        <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
+                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
+                                        <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
                                         <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:40px;"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">EDIT</button> </div>
+                                    <div class="col-md-2" style="margin-left:20px;"><a href = "javascript:void(0)" onclick = "overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">EDIT</button></a></div>
                                 </div>
                             </li>
                         </ul>
@@ -400,13 +427,13 @@
                                     </div>
 
                                     <div class="col-md-3"  style="width:300px;margin-left:-40px;">
-
-                                        <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
+                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
+                                            <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
                                         <p class="SP1 fntschld">Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:40px;"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
+                                    <div class="col-md-2" style="margin-left:20px;"><a href = "javascript:void(0)" onclick = "overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
                                 </div>
                             </li>
                         </ul>
@@ -426,13 +453,14 @@
                                         <input type="checkbox" name="removeLater" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
                                     <div class="col-md-3"  style="width:300px;margin-left:-40px;">
-                                        <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
+                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
+                                            <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
                                         <p class="SP1 fntschld">Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
 
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:40px;"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
+                                    <div class="col-md-2" style="margin-left:20px;"><a href = "javascript:void(0)" onclick = "overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
 
                                 </div>
                             </li>
@@ -457,8 +485,8 @@
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
                                     <div class="col-md-3"  style="width:300px;margin-left:-40px;">
-
-                                        <p  class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
+                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
+                                            <p  class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
                                         <p  class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
 
                                     </div>
@@ -466,7 +494,8 @@
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
 
 
-                                    <div class="col-md-2" style="margin-left:40px;"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
+                                    <div class="col-md-2" style="margin-left:20px;"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('slider-button').style.display='block';document.body.style.overflow = 'hidden';">
+                                            <button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
 
                                 </div>
                             </li>
@@ -488,13 +517,14 @@
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
                                     <div class="col-md-3"  style="width:300px;margin-left:-40px;">
-
-                                        <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
+                                        <a href = "javascript:void(0)"onclick = "overlay();" style="color:#333;text-decoration: none;">
+                                            <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
                                         <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:40px;"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
+                                    <div class="col-md-2" style="margin-left:20px;">
+                                        <a href = "javascript:void(0)" onclick = "overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
 
                                 </div>
                             </li>
@@ -516,12 +546,14 @@
                                     </div>
 
                                     <div class="col-md-3"  style="width:300px;margin-left:-40px;">
-                                        <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p>
+                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
+                                            <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
                                         <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:40px;"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button> </div>
+                                    <div class="col-md-2" style="margin-left:20px;">
+                                        <a href = "javascript:void(0)" onclick = "overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
 
                                 </div>
 
@@ -532,7 +564,7 @@
                 </div>
             </div>
 <!--           </div><div id="mask" onclick="document.location='#';">CLICK</div>    -->
-            <div id="dvSliderDialog">
+        <div id="dvSliderDialog">
                 <div id="dvFastingDialog" class="pollSlider"><br>
                     <form class="form-horizontal" id="signform">
 
@@ -549,8 +581,8 @@
                     </form>
 
                 </div>
-                <div id="dvPriorityDialog" class="pollSlider" >
-                    <div id="dvPriorityContent" style="position:relative;top:50px;left:20px;"><br>
+                <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
+                    <div id="dvPriorityContent" style="position:relative;top:50px;left:100px;"><br>
                         <h1>&nbsp;Add Action</h1>
                         <form class="form-horizontal" id="signform">
 
@@ -596,66 +628,58 @@
                         </form> 
                             
                     </div></div>
-                <div id="preview" class="pollSlider">
+                <div id="preview" class="pollSlider" style="height:660px;overflow-y:scroll;overflow-x:hidden;z-index:1005;">
                     <div>
                     <div>
 
                         <div class="actiondet">
 
-                            <div style="background-color:#fff; border:1px solid #7ab5d3;height:670px;overflow-y: scroll;overflow-x:hidden;position:relative;top:25px;">
+                            <div style="background-color:#fff;position:relative;top:25px;left:50px;">
 
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
                                     <p class="MH2" style="width:300px;">Title: {{schedule_title}}</p>
-                                    <p class="MH2" >Description: {{schedule_desc}}</p>
+                                    <p class="MH2" style="width:400px;">Description: {{schedule_desc}}</p>
                                 </div>
                                 <p class="SP1 actfnt">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></p>
-                                <p></p><br>
-                                <div class="content"></div> 
+                                
+                            <div class="content"></div> <br>
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div class="actiondet">
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div style="position:relative;left:10px;bottom:10px;top:15px;"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                <div style="position:relative;left:10px;bottom:0px;top:0px;"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
                             </div>
                         </div>
                     </div>
 
                     </div></div>
-                <div id="emailedit" class="pollSlider" style="height:630px;overflow-y:scroll;overflow-x:hidden;">
+                <div id="emailedit" class="pollSlider" style="height:630px;overflow-y:scroll;overflow-x:hidden;z-index:1005;">
                     <div>
                         <div>
 
-                            <div style="">
+                            <div style="position:relative;left:50px;">
 
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
-                                    <p><input type="text" class="inputbox MH2" id="email_entitytitle" name="email_entitytitle" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
+                                    <p><input type="text" class="inputbox MH2" id="email_entitytitle" name="email_entitytitle" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:20px;"/></p>
                                     <br><p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                                   
                                 </div>
-                                
-
                                 <div class="row" style="width:400px;">
                                     <div class="col-md-4">
                                         <div class="editcontent"></div>
                                     </div>
                                     <div class="col-md-6" id="popupright_panel" >
 <!--                                        <div><label>subject</label></div>-->
-
                                         <div><p class="SP2 actfnt" style="font-weight:400;">Subject</p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
                                         <div><p class="SP2 actfnt" style="font-weight:400;">To address</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
                                         <div><p class="SP2 actfnt" style="font-weight:400;">From address</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
                                         <div><p class="SP2 actfnt" style="font-weight:400;">Reply to address</p><input type="text" class="inputbox" name="email_entityreplytoaddress" id="email_entityreplytoaddress" value="{{entitiesdetails.reply_to_email_address}}"></div>
-
-                                        
                                     </div>
-                                    
                                 </div>
-                                <div style="position: relative;margin-left:20px;margin-top:-50px;">
+                                <div style="position: relative;margin-left:0px;margin-top:0px;">
                                 <p class="postdetails postdet SP1 actfnt">Post details</p>
                                 <div class="actiondet">
-                                    
                                 <select id="chooseEmailList" name="chooseEmailList">
                                     <option value="0">Select</option>
                                     <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
@@ -674,18 +698,18 @@
 
                 </div>
 
-                <div id="previewfb" class="pollSlider" style="overflow-y: scroll;overflow-x: hidden;">
+                <div id="previewfb" class="pollSlider" style="overflow-y: scroll;overflow-x: hidden;z-index:1005;height:720px;">
                     <div>
                         <div>
 
 
-                            <div style="">
+                            <div style="position:relative;left:50px;">
 
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
-                                    <p class="MH2">Title: {{schedule_title}}</p>
+                                    <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
                                     <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
-                                    <br><p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                                    <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                                 </div>
                                
                                 <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-30px;left:-120px;transform: scale(0.5, 0.7);-ms-transform: scale(0.5, 0.7);-webkit-transform: scale(0.5, 0.7);"/>
@@ -699,8 +723,8 @@
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div style="position:relative;bottom:10px;top:15px;"  class="removesavetemplate"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
-                                <div style="position:relative;bottom:10px;top:15px;"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                
+                                <div style="position:relative;bottom:0px;top:0px;"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
                                 
                                   </div>
                             </div>
@@ -708,12 +732,12 @@
                     </div>
 
                 </div>
-                <div id="editfacebook" class="pollSlider" style="overflow-y: scroll;overflow-x:hidden;">
+                <div id="editfacebook" class="pollSlider" style="overflow-y: scroll;overflow-x:hidden;z-index:1005;height:720px;">
                     <div>
                         <div>
 
 
-                            <div style="">
+                            <div style="position:relative;left:50px;">
 
                                 <div class="actiondetails actiondet" >
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
@@ -721,19 +745,20 @@
                                     <p><input class="inputbox SP1" type="text" name="facebook_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 </div>
                                 <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-100px;left:-170px;transform: scale(0.5, 0.7);-ms-transform: scale(0.5, 0.7);-webkit-transform: scale(0.5, 0.7);"/>
-                                 <div style="position:relative;top:-470px;left:320px;">
-                                <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;"/></p>
-                                <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;" /></p>
-                                <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;"/></p>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-150px;left:-180px;transform: scale(0.5, 0.6);-ms-transform: scale(0.5, 0.6);-webkit-transform: scale(0.5, 0.6);"/>
+                                 <div style="position:relative;top:-470px;left:285px;">
+                                <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
+                                <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
+                                <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                  </div>
-                                <div style="position:relative;margin-left:20px;margin-top:-450px;">
+                                <div style="position:relative;margin-left:20px;margin-top:-440px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div style="position:relative;bottom:10px;top:15px;"  class="editbutton"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                <div class="removesavetemplate"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                <div class="editbutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                 </div>
                             </div>
                         </div>
@@ -741,7 +766,7 @@
 
                 </div>
 
-                <div id="previewNote" class="pollSlider">
+            <div id="previewNote" class="pollSlider" style="z-index:1005;">
                     <div>
                         <div>
 
@@ -766,30 +791,30 @@
 
                 </div>
 
-                <div id="previewtwitter" class="pollSlider" style="overflow-y: scroll;overflow-x:hidden;">
+                <div id="previewtwitter" class="pollSlider" style="overflow-y: scroll;overflow-x:hidden;z-index:1005;height:720px;">
                     <div>
                         <div>
 
-                            <div style="">
+                            <div style="position:relative;left:50px;">
 
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
-                                    <p class="MH2">Title: {{schedule_title}}</p>
+                                    <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
                                     <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
                                 </div>
                                 <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                      
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-100px;left:-170px;transform: scale(0.5, 0.7);-ms-transform: scale(0.5, 0.7);-webkit-transform: scale(0.5, 0.7);"/>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-140px;left:-100px;transform: scale(0.8, 0.7);-ms-transform: scale(0.8, 0.7);-webkit-transform: scale(0.9,0.7);"/>
                                 <div style="position:relative;top:-470px;left:300px;">
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.post_text}}</p>
                                 </div>
-                                <div style="position:relative;margin-left:20px;margin-top:-330px;">
+                                <div style="position:relative;margin-left:20px;margin-top:-240px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div style="position:relative;bottom:10px;top:15px;"  class="editbutton"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
-                                <div style="position:relative;bottom:10px;top:15px;"  class="removesavetemplate"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                <div style="position:relative;bottom:0px;top:0px;"  class="editbutton"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                
                                 </div>
                             </div>
                         </div>
@@ -797,11 +822,11 @@
 
                 </div>
 
-                <div id="edittwitter" class="pollSlider" style="overflow-y: scroll;overflow-x:hidden;">
+                <div id="edittwitter" class="pollSlider" style="overflow-y: scroll;overflow-x:hidden;z-index:1005;height:730px;">
                     <div>
                         <div>
 
-                            <div style="">
+                            <div style="position:relative;left:50px;">
 
                                <div class="actiondetails actiondet" >
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
@@ -809,17 +834,18 @@
                                     <p><input class="inputbox SP1" type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 </div>
                                 <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-100px;left:-170px;transform: scale(0.5, 0.7);-ms-transform: scale(0.5, 0.7);-webkit-transform: scale(0.5, 0.7);"/>
-                               <div style="position:relative;top:-470px;left:320px;">
-                                <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.post_text}}'/></p>
+                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-150px;left:-180px;transform: scale(0.5, 0.6);-ms-transform: scale(0.5, 0.6);-webkit-transform: scale(0.5, 0.6);"/>
+                               <div style="position:relative;top:-470px;left:300px;">
+                                   <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.post_text}}'  class="actfnt" style="font-weight:300;width:230px;"/></p>
                                </div>
-                                <div style="position:relative;margin-left:20px;margin-top:-350px;">
+                                <div style="position:relative;margin-left:0px;margin-top:-315px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <input type='datetime-local' name="twitter_schedule_datetime" id="twitter_schedule_datetime" class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div style="position:relative;bottom:10px;top:15px;"  class="editbutton"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                <div  class="removesavetemplate"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                <div class="editbutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                 </div>
                             </div>
                         </div>
@@ -827,7 +853,13 @@
 
                 </div>
                 
-                <div id="slider-button" style="font-size:45px;text-align:center;"><p style="margin-top:-7px;">&#x2715;</p></div>
+                <div id="light" class="white_content">
+                  <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('marktng').style.display = 'block';document.getElementById('fade').style.display='none';document.body.style.overflow = 'scroll';" style="text-decoration:none;">
+                    <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
+                        <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="30" width="30"/></p>
+                    </div>
+                  </a>
+                </div>
             </div>    
 
 
