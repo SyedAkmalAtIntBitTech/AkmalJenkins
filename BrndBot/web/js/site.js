@@ -46,43 +46,6 @@ $(document).ready(function () {
        }
        
     });
-    $("#uploadSVG").click(function(){
-        $('#adminSVG').empty().append('<option selected="selected" value="none">---select---</option>');
-        $.ajax({
-       type: 'GET',
-       url: "/BrndBot/ServletListAdminSVG",
-       dataType: 'json',
-       success: function (data) {
-           var jsondataDefault = data;
-           var allLayoutFilename = [];
-           for(var i = 0; i<jsondataDefault.length; i++){
-               $("#adminSVG").append(new Option(jsondataDefault[i].filename, jsondataDefault[i].filename));
-             }
-
-       },
-       error: function(xhr, ajaxOptions, thrownError){
-           
-        alert(thrownError);
-       }
-       
-    });
-    });
-    
-    $("#adminSVG").change(function(){
-        $("#"+selectedTextID).attr("filename",$("#adminSVG").val());
-        var svgElement = SVG.get(selectedTextID);
-        svgElement.clear();
-        $.get('/BrndBot/DownloadSVGServlet?file_name='+$("#adminSVG").val(), function(data) {
-              var svg1 = svgElement.svg(data);
-         var realsvg = svg1.last();  
-         
-         svg1.attr("viewBox",realsvg.attr("viewBox"));
-         svg1.attr("enable-background",realsvg.attr("enable-background"));
-         svg1.attr("x",realsvg.attr("x"));
-         svg1.attr("y",realsvg.attr("y"));
-         svg1.attr("xml:space",realsvg.attr("xml:space"));
-        },"html");
-    });
     $("#adminBackgroundImage").change(function(){
         
          $("#" + selectedTextID).css('background', "url('/BrndBot/DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&image_name=" + $("#adminBackgroundImage").val() + "')");
@@ -431,100 +394,35 @@ $(document).ready(function () {
         $("#tabs").tabs("option", "active", parseInt(tab));
 
     }
-    $("#deleteSVGoButton").easyconfirm();
-    $("#deleteSVGButton").click(function () {
-        var deleteTextID = $("#" + selectedTextID).parent().attr("id");
-        alert(deleteTextID+":"+$("#" + selectedTextID).parent().parent().attr("class"));
-        $("#" + selectedTextID).parent().parent().remove();
-        deleteElements(deleteTextID);
-    });
-    $("#addSVGButton").click(function () {
+    $("#addBlockButton").click(function () {
         $("#slider").hide();
-        $(".container").append("<div class=\"draggableSVG\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
+        //alert("<div class=\"draggableBlock\"><div width=\"50px\" height=\"100px\" title=" + $("#elementText").val() +" id=\"block" + addBlockCount + "></div></div>");
+        $(".container").append("<div class=\"draggableBlock\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
-        $("#"+selectedTextID).css("position","absolute");
-        $("#"+selectedTextID).css("width","200px");
-         $("#"+selectedTextID).css("height","200px");
-//        change to SVG and uncomment
-//        addLogocount++;
+        addBlockCount++;
+
         addElements($("#elementText").find('option:selected').text());
-        var draw = SVG(selectedTextID);
-        
-        $.get('../images/fbButton.svg', function(data) {
-                   var stringXML = (new XMLSerializer()).serializeToString(data);
-        svg1 = draw.svg(stringXML);
-         var realsvg = svg1.last();      
-         svg1.attr("viewBox",realsvg.attr("viewBox"));
-         svg1.attr("enable-background",realsvg.attr("enable-background"));
-         svg1.attr("x",realsvg.attr("x"));
-         svg1.attr("y",realsvg.attr("y"));
-         svg1.attr("xml:space",realsvg.attr("xml:space"));
-         var selectedSVG = $("#"+selectedTextID).children("svg");
-         selectedSVG.attr("width","200px");
-         selectedSVG.attr("height","200px");
-         selectedTextID = selectedSVG.attr("id");
-        
-         });
-        addDefault();
+        //$("#"+selectedTextID).css("background","url('http://www.hdwallpapersimages.com/wp-content/uploads/images/Child-Girl-with-Sunflowers-Images.jpg')");
+        $("#" + selectedTextID).css("background-color", "#000000");
+        $("#" + selectedTextID).css("width", "80px");
+        $("#" + selectedTextID).css("height", "40px");
+        //$("#"+selectedTextID).css("background-size","contain");
+//$("#"+selectedTextID).css("-webkit-background-size","contain");
+//$("#"+selectedTextID).css("background-repeat","no-repeat");
+        //$("#"+selectedTextID).css("mix-blend-mode","screen");
         reloadTabs(3);
-        //selectedTextID = selectedSVG.attr("id");
-        $(".draggableSVG").draggable({
-            scroll: false,
-            cursor: "move"
-        });
-        $(".draggableSVG").click(function (e) {
+        addDefault();
+        $("#blockButton").click(function () {
+             
+            $("#" + selectedTextID).css("width", $("#blockWidth").val());
+            $("#" + selectedTextID).css("height", $("#blockHeight").val());
+            $("#" + selectedTextID).css("opacity", $("#opacityBlock").val());
+            $("#" + selectedTextID).css("background-color", $("#blockColor").val());
             
-            var id = $(this).children("div").children("svg").attr("id");
-
-            selectedTextID = id;
-            hideMapper();
-            var childPos = $("#" + id).offset();
-            var parentPos = $(this).parent().offset();
-            var childOffset = {
-                top: childPos.top - parentPos.top,
-                left: childPos.left - parentPos.left
-            }
-            //alert($("#"+id).css("height"));
-            x = Math.round(childOffset.left);
-            y = Math.round(childOffset.top);
-            $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
-            $(".position").text("Co ordinates: X=" + x + ", Y=" + y);
-            $("#blockX").val(x);
-            $("#blockY").val(y);
-            //$("#size").text("Height="+$("#"+id).css("height")+", Width="+$("#"+id).css("width"));
-            reloadTabs(3);
+            $("#" + selectedTextID).attr("name", $("#blockColorFromDropDown").find('option:selected').text());
         });
-        
-    });  
-    $("#blockButton").click(function () {
-            if(selectedTextID.indexOf("Svgjs") >= 0)
-            {
-                $("#" + selectedTextID).attr("width", $("#blockWidth").val());
-                $("#" + selectedTextID).attr("height", $("#blockHeight").val());
-                 $("#" + selectedTextID).parent().css("width", $("#blockWidth").val());
-                $("#" + selectedTextID).parent().css("height", $("#blockHeight").val());
-                var svgElement = SVG.get(selectedTextID);
-                svgElement.opacity($("#opacityBlock").val());
-                svgElement.style("fill",$("#blockColor").val());
-                svgElement.each(function(i, children) {
-                  //this.fill({ color: $("#colorSVG").val() })
-                  this.style("fill",$("#blockColor").val());
-                  this.opacity($("#opacityBlock").val());
-                }, true);
-                
 
-                $("#" + selectedTextID).attr("name", $("#blockColorFromDropDown").find('option:selected').text());
-            } 
-            else
-            {
-                $("#" + selectedTextID).css("width", $("#blockWidth").val());
-                $("#" + selectedTextID).css("height", $("#blockHeight").val());
-                $("#" + selectedTextID).css("opacity", $("#opacityBlock").val());
-                $("#" + selectedTextID).css("background-color", $("#blockColor").val());
 
-                $("#" + selectedTextID).attr("name", $("#blockColorFromDropDown").find('option:selected').text());
-            }
-        });
         $(function () {
             $(".dropShadowBlock").spinner({
                 min: 1,
@@ -557,28 +455,6 @@ $(document).ready(function () {
             });
 
         });
-    $("#addBlockButton").click(function () {
-        $("#slider").hide();
-        //alert("<div class=\"draggableBlock\"><div width=\"50px\" height=\"100px\" title=" + $("#elementText").val() +" id=\"block" + addBlockCount + "></div></div>");
-        $(".container").append("<div class=\"draggableBlock\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
-        selectedTextID = $("#elementText").find('option:selected').text();
-        addBlockCount++;
-
-        addElements($("#elementText").find('option:selected').text());
-        //$("#"+selectedTextID).css("background","url('http://www.hdwallpapersimages.com/wp-content/uploads/images/Child-Girl-with-Sunflowers-Images.jpg')");
-        $("#" + selectedTextID).css("background-color", "#000000");
-        $("#" + selectedTextID).css("width", "80px");
-        $("#" + selectedTextID).css("height", "40px");
-        //$("#"+selectedTextID).css("background-size","contain");
-//$("#"+selectedTextID).css("-webkit-background-size","contain");
-//$("#"+selectedTextID).css("background-repeat","no-repeat");
-        //$("#"+selectedTextID).css("mix-blend-mode","screen");
-        reloadTabs(3);
-        addDefault();
-        
-
-
-        
 
 
         $(".draggableBlock").draggable({
@@ -1069,23 +945,13 @@ $(document).ready(function () {
             
         var parentPos = $(".container").offset();
        
-        var finx = parseInt(tempX);
-        var finy = parseInt(tempY);
+        var finx = parentPos.left + parseInt(tempX);
+        var finy = parentPos.top + parseInt(tempY);
         x = finx;
         y = finy;
-        if(selectedTextID.indexOf("Svgjs") >= 0)
-        {
-            $("#" + selectedTextID).parent().parent().css("left", ""+finx+"px");
-            $("#" + selectedTextID).parent().parent().css("top", ""+finy+"px");
-        }
-        else
-        {
-            $("#" + selectedTextID).parent().css("left", ""+finx+"px");
-            $("#" + selectedTextID).parent().css("top", ""+finy+"px");
-        }
+        $("#" + selectedTextID).parent().css("left", ""+finx+"px");
+        $("#" + selectedTextID).parent().css("top", ""+finy+"px");
     });
-    
-      
     $("#addLogoButton").click(function () {
         $("#slider").hide();
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
@@ -1477,27 +1343,13 @@ function passvaluetoinputfield() {
         var dropshadowarr = dropshadow.split(" ");
         var dropshadowdata = "%%H-shadow!" + dropshadowarr[3] + "%%V-shadow!" + dropshadowarr[4] + "%%blur!" + dropshadowarr[5];
 
-        var dropshadow1;
-        if($("#" + addElementsArray[i]).children().length > 0)
-        {
-            if($("#" + addElementsArray[i]).children("svg").attr("id").indexOf("Svgjs") >= 0)
-                dropshadow1 = $("#" + addElementsArray[i]).children("svg").css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
-        }
-        else
-            dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
+        var dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
 
         var data = $("#" + addElementsArray[i]).css("color").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
         var data1 = $("#" + addElementsArray[i]).css("text-shadow").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
         var data2 = $("#" + addElementsArray[i]).css("background-color").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
-        
-        var data3;
-        if($("#" + addElementsArray[i]).children().length > 0)
-        {
-            if($("#" + addElementsArray[i]).children("svg").attr("id").indexOf("Svgjs") >= 0)
-               data3 = $("#" + addElementsArray[i]).children("svg").css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
-        }
-        else
-            data3 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
+        var data3 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
+
         var arr = data.split(',');
         var arr1 = data1.split(',');
         var arr2 = data2.split(',');
@@ -1518,8 +1370,7 @@ function passvaluetoinputfield() {
         };
         var x1 = Math.round(childOffset.left);
         var y1 = Math.round(childOffset.top);
-        
-            
+
         if (isNaN(dropshadow1[0])) {
             
             filterEnable="true";
@@ -1605,28 +1456,7 @@ function passvaluetoinputfield() {
                     "%%y-co-ordinates!" + y1;
 
         }
-        if (contenttype.startsWith('draggableSVG')) {
-            $.ajax({
-                   url: getHost() + "SaveSVGServlet",
-                   method: "post",
-                   data:{
-                       svgString: $("#" + addElementsArray[i]).html(),
-                       svgFileName: $("#" + addElementsArray[i]).children("svg").attr("filename")
-                   },
-                   success: function (responseText) {
-                 }
-               });
-            style1 = "tag!" + "svg" +
-                    "%%x-co-ordinates!" + x1 +
-                    "%%y-co-ordinates!" + y1 +
-                    "%%color-name!" + $("#" + addElementsArray[i]).children("svg").attr("name") +
-                    "%%width!" + $("#" + addElementsArray[i]).children("svg").attr("width") +
-                    "%%height!" + $("#" + addElementsArray[i]).children("svg").attr("height") +
-                    "%%opacity!" + $("#" + addElementsArray[i]).children("svg").attr("opacity") +
-                    "%%filename!" + $("#" + addElementsArray[i]).children("svg").attr("filename") +
-                    "%%border-radius!" + $("#" + addElementsArray[i]).children("svg").css("border-radius") +
-                    "%%background-color!" + "#" + color3 + dropshadowdata1;
-        }
+
         if (contenttype.startsWith('draggableBlock')) {
 
             style1 = "tag!" + "block" +
@@ -1646,8 +1476,7 @@ function passvaluetoinputfield() {
 
         $("#textstyle").val(textareadetails);
 //       alert(textareadetails);
-                   
-        
+
     }
 //   alert(mapperdata);
     $("#element").val(mapperdata);

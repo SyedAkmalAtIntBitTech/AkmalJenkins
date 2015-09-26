@@ -624,7 +624,7 @@
             }
               function upload() {
                 var fileUpload = document.getElementById("file");
-//                alert(fileUpload.value.toLowerCase());
+                alert(fileUpload.value.toLowerCase());
                 var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
                 if (regex.test(fileUpload.value.toLowerCase())) {
                     if (typeof (FileReader) != "undefined") {

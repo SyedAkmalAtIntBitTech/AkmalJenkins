@@ -54,10 +54,6 @@ and open the template in the editor.
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
         <script src="js/ajaxfileupload.js" type="text/javascript"></script>
-        
-        <!-- For svg --> 
-        <script src="js/svg.js" type="text/javascript"></script>
-        
         <style>
 a.boxclose{
     float:right;
@@ -670,66 +666,6 @@ ul::-webkit-scrollbar-thumb {
                                                                     .css("height", "" + height)
                                                                     .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
                                                                     .css("opacity", "" + opacity);
-                                                    }
-                                                    if (tag === "svg")
-                                                    {
-
-                                                        var colorName = $(this).attr("color-name");
-                                                        var borderRadius = $(this).attr("border-radius");
-                                                        var backgroundcolor;
-
-                                                        $(".blockname").append("<option value=" + type + ">Block " + blockcount + "</option>");
-                                                        blockcount++;
-
-                                                        for (var i = 1; i <= 6; i++)
-                                                        {
-                                                            if (colorName === "Color-" + i)
-                                                            {
-                                                                backgroundcolor = $("#shapecolorbox" + i).css("background-color");
-                                                            }
-
-                                                        }
-                                                        var width = $(this).attr("width");
-                                                        var height = $(this).attr("height");
-                                                        var drop_shadow = $(this).attr("Drop-shadow-color");
-                                                        var h_shadow = $(this).attr("H-shadow");
-                                                        var v_shadow = $(this).attr("V-shadow");
-                                                        var Blur = $(this).attr("blur");
-                                                        var filename = $(this).attr("filename");
-                                                        $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                                                        var draw = SVG(type);
-                                                        $("#" + type)
-                                                                //.css("background-color", "" + backgroundcolor)
-                                                                .css("margin-left", "" + left + "px")
-                                                                .css("margin-top", "" + top + "px")
-                                                                .css("width", "" + width)
-                                                                //.css("border-radius", "" + borderRadius)
-                                                                .css("position", "absolute")
-                                                                .css("height", "" + height)
-                                                                //.css("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")")
-                                                                //.css("opacity", "" + opacity)
-                                                                ;
-                                                        $.get('/BrndBot/DownloadSVGServlet?file_name='+filename, function(data) {
-                                                        var svg1 = draw.svg(data);
-                                                        var realsvg = svg1.last();  
-
-                                                        svg1.attr("viewBox",realsvg.attr("viewBox"));
-                                                        svg1.attr("enable-background",realsvg.attr("enable-background"));
-                                                        svg1.attr("x",realsvg.attr("x"));
-                                                        svg1.attr("y",realsvg.attr("y"));
-                                                        svg1.attr("xml:space",realsvg.attr("xml:space"));
-                                                        svg1.attr("width",width);
-                                                        svg1.attr("height",height);
-                                                        svg1.opacity(opacity);
-                                                        svg1.style("fill",backgroundcolor);
-                                                        svg1.style("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")");
-                                                        svg1.each(function(i, children) {
-                                                            this.style("fill",backgroundcolor);
-                                                            this.opacity(opacity);
-                                                        }, true); 
-                                                       },"html");
-
-
                                                     }
 
                                                     } );

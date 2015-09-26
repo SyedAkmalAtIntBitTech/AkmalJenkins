@@ -29,10 +29,6 @@
         <script src="../js/jquery-1.10.2.js" type="text/javascript"></script>
         <script src="../js/jquery-ui.js" type="text/javascript"></script>
         <script src="../js/site.js" type="text/javascript"></script>
-        
-        <!-- For svg --> 
-        <script src="../js/svg.js" type="text/javascript"></script>
-        
         <!-- For color picker --> 
         <link href="../css/colorpicker.css" rel="stylesheet" type="text/css"/>
         <script src="../js/colorpicker.js" type="text/javascript"></script>
@@ -341,7 +337,7 @@
                 <li><a href="#tabs-1">Text</a></li>
                 <li><a href="#tabs-2">Image</a></li>
                 <li><a href="#tabs-3">Button</a></li>
-                <li><a href="#tabs-4">Color/SVG Block</a></li>
+                <li><a href="#tabs-4">Color Block</a></li>
             </ul>
             <div id="tabs-1">
                 <p>
@@ -530,12 +526,6 @@
                     <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
                     <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="blockX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="blockY" value="0" /></span>
                     <input type="button" class="coordButton" value="done">
-                </p>
-                <p>
-                    <input type="button" id="uploadSVG" value="Refresh SVGs"><br /><br />
-                    <label id="selectSVG" title="Please upload all your SVGs using FTP client in the following folder: admin/AdminLayoutSVG">Please Select an SVG:</label><br /><br />
-                    <select id="adminSVG"  title="Please upload all your SVGs using FTP client in the following folder: admin/AdminLayoutSVG"><option value="none">---select---</option></select>
-                    
                 </p>
                  <p>
                     <input type="checkbox" id="circleCheckBox"> Circle
@@ -749,10 +739,6 @@
                 <p>
                     <input type="button" class="rightButton" id="addLogoButton" value="Add Logo" />
                     <input type="button" class="rightButton" id="deleteLogoButton" value="Delete Logo" />
-                </p>
-                <p>
-                    <input type="button" class="rightButton" id="addSVGButton" value="Add SVG" />
-                    <input type="button" class="rightButton" id="deleteSVGButton" value="Delete SVG" />
                 </p>
                 <div class='col-md-10' style="position: absolute; left: 1050px; top:70px; width: 600px; ">
                     <ul id='list2' class='col-md-10' >
