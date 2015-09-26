@@ -6,6 +6,7 @@
 package com.controller;
 
 import com.intbit.AppConstants;
+import static com.intbit.AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH;
 import com.intbit.ScheduledEntityStatus;
 import com.intbit.dao.EmailHistoryDAO;
 import email.mandrill.Message;
@@ -16,6 +17,7 @@ import email.mandrill.SendMail;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,6 +73,8 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             String reply_to_address = request.getParameter("reply_to_email_address");
             String from_email_address = request.getParameter("from_email_address");
             String from_name = request.getParameter("from_name");
+            String iframeName=request.getParameter("iframeName");
+            String path=AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH+File.separator+iframeName+".html";
             Message message = new Message();
 
             message.setKey(SendEmail.MANDRILL_KEY);
@@ -115,12 +119,14 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             }
             
             MessageResponses mandrillResponse = send_email.sendMail(message);
+            File IframeDelete=new File(path);
+            IframeDelete.delete();
             int lastUpdateId = EmailHistoryDAO.addToEmailHistory(user_id, 
                     html_text, from_email_address, emaillist_name, email_subject, 
                     SendMail.getTag(email_subject));
             if ( mandrillResponse != null && lastUpdateId != -1){
                 EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
-            }
+            }        
             out.write("true");
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error), e);

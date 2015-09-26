@@ -39,8 +39,12 @@ public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
            getSqlMethodsInstance().session = request.getSession(true);
            String sessionValue = request.getParameter("sessionValue");
            String sessionKey = request.getParameter("sessionKey");
+           String sessionIframeKey = request.getParameter("sessionIframeKey");
+           String sessionIframevalue = request.getParameter("sessionIframevalue");
            getSqlMethodsInstance().session.setAttribute(sessionKey, sessionValue);
-      
+           if(!StringUtil.isEmpty(sessionIframeKey) && !StringUtil.isEmpty(sessionIframevalue)) {
+                getSqlMethodsInstance().session.setAttribute(sessionIframeKey, sessionIframevalue);
+           }
         }catch (Exception e){
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 

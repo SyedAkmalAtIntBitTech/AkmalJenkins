@@ -117,14 +117,24 @@
                 background-color:transparent;
                 border: 0px solid;
                 height:30px;
-                width:260px;
+                width:220px;
                 position:relative;
                 
             }
             .hideinputborder:focus{
                 outline: none;
             }
-
+            .hideinputborderInsideImage{
+                background-color:transparent;
+                border: 0px solid;
+                height:30px;
+                width:310px;
+                position:relative;
+                
+            }
+            .hideinputborderInsideImage:focus{
+                 outline: none;
+            }
             #chnagetolinkpost,#removelink,#posttofb{
                 border-radius: 15px;
             }
@@ -172,7 +182,7 @@
             .linkPostStyle{
                 outline: 2px #cccccc solid;
                 width: 325px;
-                height: 255px;
+                height: 245px;
                 
             }
             .fbtable td{
@@ -194,6 +204,8 @@
                 text-align: left;
                 line-height: 16.6px;
                 letter-spacing: 0em;
+                position: relative;
+                left: 7px;
                 opacity: 1;
             }
             .link_description{
@@ -204,6 +216,22 @@
                 text-align: left;
                 line-height: 10.8px;
                 letter-spacing: 0em;
+                position:relative;
+                top:-10px;
+                left: 7px;
+                opacity: 1;
+            }
+            .link_url{
+                font-family:AGaramondPro-Regular;
+                font-size:  11px;
+                color: #676767;
+                font-style: normal;
+                text-align: left;
+                line-height: 15px;
+                letter-spacing: 0em;
+                position: relative;
+                top: -15px;
+                left: 7px;
                 opacity: 1;
             }
         </style>
@@ -228,10 +256,10 @@
                     <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
                     <div id="linkpostdiv">
                         <div class="forfb">
-                        <p class="psttxt"> Link Title</p><input class="hideinputborder"  id="title" type="text" placeholder="post text goes here"><br>
-                        <p class="psttxt"> Link Description</p><input class="hideinputborder" id="description" type="text" placeholder="post text goes here"><br>
+                            <p class="psttxt"> Link Title</p><textarea class="hideinputborder"  id="title" type="text" placeholder="post text goes here" style="height:40px; resize: none;"></textarea><br>
+                        <p class="psttxt"> Link Description</p><textarea class="hideinputborder" id="description" type="text" placeholder="post text goes here" style="height:40px; resize: none;"></textarea><br>
                         </div>
-                        <p class="psttxt"> Link URL</p><input class="hideinputborder" type="text" id="url" placeholder="post text goes here" ><br>
+                        <p class="psttxt"> Link URL</p><textarea class="hideinputborder" type="text" id="url" placeholder="post text goes here" style="height:40px; resize: none;"></textarea><br>
 
                         <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
                     </div>
@@ -250,13 +278,13 @@
                                  <td><p><%=companyName%></p></td>
                              </tr>
                          </table>
-                             <textarea type="text" class="hideinputborder" id="posttext" placeholder="post text goes here" style="resize:none;width:325px;"></textarea><br><br> 
+                             <textarea type="text" class="hideinputborder" id="posttext" placeholder="post text goes here" style="resize:none;width:325px;height:50px;"></textarea><br>
                        <div id="fblinkpostDiv">
                        <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                        <table class="fbuserDestable"> 
-                           <tr><td><input id="link_title" type="text" class="link_title hideinputborder" placeholder="Link Title"><td></tr>
-                           <tr><td><input id="link_description" type="text" class="link_description hideinputborder" placeholder="Link Description"></td></tr>
-                           <tr><td><input class="hideinputborder" type="text" id="Linkurl" placeholder="Link URL"></td></tr> 
+                           <tr><td><input id="link_title" type="text" class="link_title hideinputborderInsideImage" placeholder="Link Title" disabled></td></tr>
+                           <tr><td><textarea id="link_description" type="text" class="link_description hideinputborderInsideImage" placeholder="Link Description" disabled style="resize: none;"></textarea></td></tr>
+                           <tr><td><input class="hideinputborderInsideImage link_url" type="text" id="Linkurl" placeholder="LINK URL GOES HERE" disabled></td></tr> 
                       
                        </table>
                        </div>
@@ -378,6 +406,7 @@
                 }
 
                     $("#chnagetolinkpost").click(function () {
+                        $("#chnagetolinkpost").hide();
                         $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 127 characters long");
                         $("#twittertext").attr("maxlength", "127");
                         $("#linkpostdiv").show();
@@ -389,6 +418,7 @@
                 });
 
                 $("#removelink").click(function () {
+                    $("#chnagetolinkpost").show();
                     $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 140 characters long");
                     $("#twittertext").attr("maxlength", "140");
                     $("#title").val("");
