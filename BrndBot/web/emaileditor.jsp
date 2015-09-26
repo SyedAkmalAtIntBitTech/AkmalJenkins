@@ -70,8 +70,8 @@ and open the template in the editor.
         <style>
             a.boxclose{
             float:left;
-            margin-top:0px;
-            margin-left:-25px;
+            margin-top:3px;
+            margin-left:5px;
             cursor:pointer;
             color: #fff;
             border: 1px solid #AEAEAE;
@@ -303,7 +303,11 @@ and open the template in the editor.
                 padding-right: 5px;
             }
             .border-highlight {
-                border:2px solid #0088cc;   
+                border:2px solid #AEAEAE; 
+                width: 150px;
+                height: 30px;
+                border-radius: 5px;
+                background-color: #AEAEAE; 
             }
             /*            ul.imageGallery {
                             display:inline-block;  
@@ -368,7 +372,7 @@ and open the template in the editor.
             }
             .images {
                 position: relative;
-                left:-50px;
+/*                left:-50px;*/
 
             }
             .mindbodyHeaderData li{
@@ -530,7 +534,7 @@ and open the template in the editor.
                                     block_id = arr[0].replace("block", "");
                             };
                             $scope.showStyles = function(){
-                            var queryurl;
+                                    var queryurl;
                                     $scope.curPage = 0;
                                     $scope.pageSize = 2;
                                     if (block_clicked == "true" || blockIdSelected != "defaultblock1")
@@ -614,46 +618,50 @@ and open the template in the editor.
                             }
                     $scope.showData = function(id, mind_body_query){
 
-                    block_clicked = "true";
+                            block_clicked = "true";
                             blockIdSelected = "";
                             block_id = id;
                             if (mind_body_query == "null")
-                    {
-                    mindbodydataId = "0";
-                            //$scope.showStyles();
-                            showText(temp_style_id, temp_style_layout);
-                            $("#tabs-1").show();
-                            $("#tabs-2").hide();
-                            $("#tabs-3").hide();
-                            $("#tabs-4").hide();
-                            $("#tabs-5").hide();
-                    }
+                            {
+                                  mindbodydataId = "0";
+                                    //$scope.showStyles();
+                                    showText(temp_style_id, temp_style_layout);
+                                    $("#tabs-1").show();
+                                    $("#filtercontainer").hide();
+                                    $("#tabs-2").hide();
+                                    $("#tabs-3").hide();
+                                    $("#tabs-4").hide();
+                                    $("#tabs-5").hide();
+                            }
                     else
                     {
-                         $("#loadingGif").show();
-                    $scope.curPage = 0;
-                            $scope.pageSize = 4;
+                            $("#tabs-1").hide();
+                            $("#tabs-2").hide();
+                            $("#tabs-3").hide();
+                            $("#tabs-5").hide();
+                         $("#tabs-4").show().css("width", "830px").css("height", "665px").css("position","fixed").css("margin-left","-460px").css("top","45px");
+                         $("#loadingGifformindbody").show();
+                          $scope.curPage = 0;
+                          $scope.pageSize = 4;
                             $http({
                             method : 'GET',
                                     url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
                             }).success(function(data, status, headers, config) {
 
-                    $scope.datalists = data;
+                            $scope.datalists = data;
                             $scope.numberOfPages = function() {
                             return Math.ceil($scope.datalists.length / $scope.pageSize);
                             };
                             if (data === error){
                     alert(data);
                     }
-                    $("#tabs-1").hide();
-                            $("#tabs-2").hide();
-                            $("#tabs-3").hide();
-                            $("#loadingGif").hide();
+
+//                            $("#loadingGif").hide();
 //                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
 
-                           $("#tabs-4").css("width", "830px").css("position","fixed").css("margin-left","-460px").show("slide", { direction: "right" }, 1000);
+                            $("#loadingGifformindbody").hide();
+                            $("#tabs-4").css("width", "830px").css("position","fixed").css("margin-left","-460px").css("top","45px").show("slide", { direction: "right" }, 1000);
                             
-                            $("#tabs-5").hide();
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                             // called asynchronously if an error occurs
@@ -667,6 +675,7 @@ and open the template in the editor.
                                     //$scope.showStyles();
                                     showText(temp_style_id, temp_style_layout);
                                     $("#tabs-1").show();
+                                    $("#filtercontainer").hide();
                                     $("#tabs-2").hide();
                                     $("#tabs-3").hide();
                                     $("#tabs-4").hide();
@@ -785,10 +794,12 @@ and open the template in the editor.
                                     block_clicked = "false";
                                     //  $(".preview").empty();
                                     $(xml).find('layout').each(function () {
-                            height = $(this).find('container').attr("Height");
+                                     height = $(this).find('container').attr("Height");
                                     width = $(this).find('container').attr("Width");
                                     $(".preview #" + blockId).css("width", width + "px");
                                     $(".preview #" + blockId).css("height", height + "px");
+                                    $(".dataForEmail").css("width", width + "px").css("max-width","549px");
+//                                  $(".dataForEmail").css("height", height + "px");                                    
                                     $(".preview #" + blockId).css("position", "relative");
                                     $(".preview #" + blockId).attr("blockdetails", id);
                             }
@@ -941,7 +952,7 @@ and open the template in the editor.
                                     .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=" + userId + "&image_name=" + userLogonmae + "')")
                                     .css("background-repeat", "no-repeat")
                                     .css("background-position", "center center")
-
+                                    .css("background-size","contain")
                                     .css("position", "absolute");
                             }
 
@@ -1111,9 +1122,9 @@ and open the template in the editor.
                                                     }
                                 </script>
                             </div>
-                            <img id="emailframeimg" src="images/emailframe520x650.png" width="520px" height="650px" style="margin-top:-150px;margin-left:20px;position:absolute;max-height:570px;" >
-                            <div class="dataForEmail" style="position:absolute;left:112px;top:-62px;">
-                                <div ng-click="showStylesAfterData()" class="preview" style="zoom:0.78;max-width:625px;max-height:690px;overflow:auto;overflow-y:auto;overflow-x:hidden;" >
+                            <img id="emailframeimg" src="images/emailframe520x650.png" width="520px" height="650px" style="margin-top:-150px;margin-left:20px;position:absolute;max-height:620px;" >
+                            <div class="dataForEmail" style="position:absolute;left:119px;top:-62px;overflow:hidden">
+                                <div ng-click="showStylesAfterData()" class="preview" style="zoom:0.7605;max-width:1000px;max-height:617px;overflow:auto;overflow-x: hidden;left:83px;margin-top:200px;" >
 
                                 </div></div>
 
@@ -1139,14 +1150,14 @@ and open the template in the editor.
                                             <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
                                                 <li style="position:relative;left:-9px;">
-                                                    <p id="editorheadere" class="SS1">font color</p>
+                                                    <p id="editorheadere" class="editorheadere SS1">font color</p>
                                                     <div class="blankcolor-box1" id="picker" ></div>
 
                                                 </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
-                                                    <p id="editorheadere" class="SS1">font size</p>
+                                                    <p id="editorheadere" class="editorheadere SS1">font size</p>
                                                     <!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px;">
                                                                                                             <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                                                                         </select>-->
@@ -1154,8 +1165,8 @@ and open the template in the editor.
                                                 </li>
 
                                                 <li style="width:115px;">
-                                                    <p id="editorheadere" class="SS1">font style</p>
-                                                    <select id="fontname" class="editordropdown" >
+                                                    <p id="editorheadere" class="editorheadere SS1">font style</p>
+                                                    <select id="fontname" class="LE1 editordropdown" >
                                                     </select>
                                                 </li>
                                                 <li> 
@@ -1196,7 +1207,7 @@ and open the template in the editor.
 
                                                 <li>
                                                     <select class="blockname LE1 editordropdown" id="editorhead">
-                                                        <option style="background:#FFF;">select</option>
+                                                        <option style="background:#FFF;">Select</option>
                                                     </select>
                                                 </li>
 
@@ -1223,16 +1234,16 @@ and open the template in the editor.
                                             </ul>
                                         </div>
 
-                                        <div id="imagecontainer" style="top:45px;">
+                                        <div id="imagecontainer">
                                             <p  id="text3"  class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
 
                                                 <li><select class="imagename LE1 editordropdown" id="editorhead" style="width:110px;">
-                                                        <option>select</option>
+                                                        <option>Select</option>
                                                     </select></li>
 
-                                                <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
-                                                <li><p  class="btn"  onclick="showfilter()">edit</p></li>
+                                                <li><label id="openImageDialog" class="btn editorheadere SS1 newupload"  ng-click="showImages()" >change</label></li>
+                                                <li><p  class="btn editorheadere SS1"  onclick="showfilter()">edit</p></li>
                                                 <li></li>
                                             </ul>
                                         </div>
@@ -1313,21 +1324,19 @@ and open the template in the editor.
                                             <p id="text3" class="SS2">ADD A NEW BLOCK</p>
                                             <div>
                                                 <div style="height:500px;">
-                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:2%;left:0%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button>
+                                                    <button id="continueblock" ng-click="showDataTemp()" style="position: relative;top:2%;left:0%" class="button button--moema button--text-thick button--text-upper button--size-s">Continue</button><br><br>
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="blocks in datalists">
-                                                            <img id="{{blocks.block_id}}" class="img-responsive blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)" src=""  width="275" />
-                                                            <!--                                                            <div style="background-color: grey;width:300px;height:100px;">
-                                                                                                                            
-                                                                                                                             <li><a href="#tabs-4" id="data" ><span class="glyphicon glyphicon-plus" ng-click="showData()"><p id="text1" >Data</p></span></a></li>
-                                                            
-                                                                                                                             <img id="{{blocks.id}}" class="img-responsive lookchooser5" src="images/Layout-styles/{{styles.layout_file_name}}.jpeg"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width=250 height=150 />
-                                                                                                                                                                    <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 /> 
-                                                                                                                        </div> -->
+<!--  show one image from each block and allow click on image to select-->
+<!--                                                            <img id="{{blocks.block_id}}" class="img-responsive blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)" src=""  width="275" />
                                                             <div><p id=''></p></div>
-                                                            <label style="font-weight: normal;font-size:16px;">{{blocks.block_name}}</label>
+                                                            <label id="{{blocks.block_id}}"  style="font-weight: normal;font-size:16px;">{{blocks.block_name}}</label>
                                                             <div></div><p>&nbsp;</p>
+-->
+                                                            <label id="{{blocks.block_id}}" class="blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)"  style="font-weight: normal;font-size:16px;margin-left: 10px">{{blocks.block_name}}</label>
+<!--                                                            <div></div><p>&nbsp;</p>-->
+
                                                         </li>
                                                     </ul>
                                                     
@@ -1358,13 +1367,14 @@ and open the template in the editor.
 
                                     <li id="tabs-4">
                                        <a class="boxclose" id="boxclose"></a>
+                                        <div id="loadingGifformindbody" style="position: absolute; top:240px;left: 335px;" > <img src="images/YogaLoadingGif.gif" /></div>
                                         <div ng-controller="MyController" id="MyController" > 
-                                            <p id="text3" style="width: 500px;position: relative;right:-5px;color:#000;">{{datalists.title}}</p><br>
+                                            <p id="text3" style="width: 500px;position: relative;right:-35px;color:#000;margin-top:7px;">{{datalists.title}}</p><br>
                                             <ul class="dataheaderfromindbody">
                                                 <div class="mindbodyHeaderData LE2" >
                                                     <li style="width: 400px;left:80px;">{{datalists.column_header[0]}}</li>
-                                                    <li style="width: 250px;left:330px;">{{datalists.column_header[1]}}</li>
-                                                    <li style="width: 100px;left:450px;">{{datalists.column_header[2]}}</li>
+                                                    <li style="width: 250px;left:278px;">{{datalists.column_header[1]}}</li>
+                                                    <li style="width: 100px;left:413px;">{{datalists.column_header[2]}}</li>
                                                 </div>
                                             </ul>
                   
@@ -1372,37 +1382,20 @@ and open the template in the editor.
                                             <div  class="tab-pane active" id="picktheme">
                                                 <div>
 
-                                                    <div style="width: 700px;height: 500px;overflow-x:hidden; overflow-y: scroll; float: right; margin-right: 50px;" >
+                                                    <div style="width: 700px;height: 530px;overflow-x:hidden; overflow-y: scroll; float: right; margin-right: 50px;" >
 
                                                         <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;">
                                                             <!--                                    {{jsonclass}}-->
                                                             <div class='mindbodyOneRowData' ng-click="select_category_details(jsonclass.id)" >
-                                                                <li style="width: 300px">{{jsonclass.column1}}</li>
+                                                                <li style="width: 250px">{{jsonclass.column1}}</li>
                                                                 <li style="width: 200px">{{jsonclass.column2}}</li>
-                                                                <li style="width: 100px">{{jsonclass.column3}}</li>
+                                                                <li style="width: 150px;margin-left: 10px;">{{jsonclass.column3}}</li>
                                                             </div>
-                                                        </ul> <br><br><br><br>
+                                                        </ul>
                                                     </div>
                                                 </div>
 
                                             </div>
-                                            <div class="pagination pagination-centered" ng-show="datalists.length">
-                                                <ul class="pagination-controle pagination">
-                                                    <li>
-                                                        <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
-                                                                ng-click="curPage = curPage - 1"> &lt; PREV</button>
-                                                    </li>
-                                                    <li>
-                                                        <span>Page {{curPage + 1}} of {{ numberOfPages()}}</span>
-                                                    </li>
-                                                    <li>
-                                                        <button type="button" class="btn btn-primary"
-                                                                ng-disabled="curPage >= datalists.length / pageSize - 1"
-                                                                ng-click="curPage = curPage + 1">NEXT &gt;</button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
                                         </div> 
                                     </li>
                                     <li id="tabs-5">

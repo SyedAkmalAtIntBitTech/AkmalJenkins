@@ -620,7 +620,7 @@ ul::-webkit-scrollbar-thumb {
                                                             .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')")
                                                             .css("background-repeat", "no-repeat")
                                                             .css("background-position", "center center")
-
+                                                            .css("background-size","contain")
                                                             .css("position", "absolute"); 
                                                     }
 
@@ -788,7 +788,7 @@ ul::-webkit-scrollbar-thumb {
                                         <div id="textcontainer">
                                             <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li  style="position:relative;left:-9px;"><p id="editorheadere" class="SS1">font color</p>
+                                                <li  style="position:relative;left:-9px;"><p id="editorheadere" class="editorheadere SS1">font color</p>
                                                     <div class="blankcolor-box1" id="picker" ></div>
                                                     
                                                   
@@ -797,7 +797,7 @@ ul::-webkit-scrollbar-thumb {
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
-                                                    <p id="editorheadere" class="SS1">font size</p>
+                                                    <p id="editorheadere" class="editorheadere SS1">font size</p>
 <!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px; ">
                                                         <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                     </select> -->
@@ -809,8 +809,8 @@ ul::-webkit-scrollbar-thumb {
                                                 </li>
 
                                                 <li style="width:120px;">
-                                                    <p id="editorheadere" class="SS1">font style</p>
-                                                    <select id="fontname" class="editordropdown">
+                                                    <p id="editorheadere" class="editorheadere SS1">font style</p>
+                                                    <select id="fontname" class="LE1 editordropdown">
 <!--                                                        <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{ names.font_family_name}}">{{ names.font_name}} </option>-->
 
                                                     </select>
@@ -852,7 +852,7 @@ ul::-webkit-scrollbar-thumb {
 
                                                         <li>
                                                             <select class="blockname LE1 editordropdown" id="editorhead">
-                                                                <option value="select">select</option>
+                                                                <option value="select">Select</option>
                                                             </select>
                                                         </li>
                                                 <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
@@ -880,11 +880,11 @@ ul::-webkit-scrollbar-thumb {
                                             <ul id="imagemodification">
                                                 <li>
                                                     <select class="imagename LE1 editordropdown" id="editorhead">
-                                                        <option value="select">select</option>
+                                                        <option value="select">Select</option>
                                                     </select>
                                                 </li>
-                                                <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
-                                                <li><p  class="btn" onclick="showfilter()">edit</p></li>
+                                                <li><label id="openImageDialog" class="btn editorheadere newupload"  ng-click="showImages()" >change</label></li>
+                                                <li><p  class="btn editorheadere" onclick="showfilter()">edit</p></li>
                                                 <li></li>
                                             </ul>
                                         </div>

@@ -365,7 +365,7 @@ $(document).ready(function () {
                                             .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')")
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
-
+                                            .css("background-size","contain")
                                             .css("position", "absolute");
                                 }
 
@@ -782,7 +782,6 @@ function getTectId(id) {
         if(font_name.contains("+")){
             font_name=font_name.replace(/'/g,"");
         }
-        alert(font_name);
         $("#fontname").val(""+font_name).trigger('change');
         reload_alignButtons1(textDefaultAline);
     });

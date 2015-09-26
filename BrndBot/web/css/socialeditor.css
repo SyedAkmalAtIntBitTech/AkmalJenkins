@@ -217,7 +217,7 @@ and open the template in the editor.
     padding:2px;margin:2px;font-size:15px;width:115px;color:#3f4042;background-color: inherit;border-left:none;border-right:none;border-top:none;-webkit-appearance: none;-moz-appearance: none;box-shadow: none !important;appearance: none;background:url("../images/dropdown.png") no-repeat right center;
 }
 
-#editorheadere{
+.editorheadere{
 /*    font-family: "proxima-nova";
     font-style: normal;
     font-weight: 400;*/
@@ -269,11 +269,11 @@ text-align:  left;
 line-height: 14.4px;
 letter-spacing:0em;
 position: relative;
-margin-top: 30px;
+margin-top: 3px;
 margin-bottom: 0%;
 left:-4px;
 }
-#editorhead{
+/*#editorhead{
 font-family: "proxima-nova";
 font-style: normal;
 font-weight: 600;
@@ -285,7 +285,7 @@ letter-spacing:0em;
 border-radius: 0px;
 position:relative;
 left:-4px;
-}
+}*/
 
 .row{
     margin-left:0px;
