@@ -554,7 +554,7 @@
 
                     document.getElementById(dropZoneId).addEventListener("drop", function (e) {
                         $("#" + dropZoneId).removeClass(mouseOverClass);
-                        alert("file have been added, click on the upload button to load the csv file");
+                        alert("The CSV file has been added, click on the upload button to load the CSV file in the form.");
     //                    upload();
                     }, true);
                     });
