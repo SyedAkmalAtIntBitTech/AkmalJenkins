@@ -1124,7 +1124,7 @@ and open the template in the editor.
                             </div>
                             <img id="emailframeimg" src="images/emailframe520x650.png" width="520px" height="650px" style="margin-top:-150px;margin-left:20px;position:absolute;max-height:620px;" >
                             <div class="dataForEmail" style="position:absolute;left:119px;top:-62px;overflow:hidden">
-                                <div ng-click="showStylesAfterData()" class="preview" style="zoom:0.7605;max-width:1000px;max-height:617px;overflow:auto;overflow-x: hidden;left:83px;margin-top:200px;" >
+                                <div ng-click="showStylesAfterData()" class="preview" style="zoom:0.7605;max-width:1000px;max-height:780px;overflow:auto;overflow-x: hidden;left:83px;margin-top:200px;" >
 
                                 </div></div>
 

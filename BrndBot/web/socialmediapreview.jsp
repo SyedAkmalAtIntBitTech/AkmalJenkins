@@ -256,10 +256,10 @@
                     <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
                     <div id="linkpostdiv">
                         <div class="forfb">
-                            <p class="psttxt"> Link Title</p><textarea class="hideinputborder"  id="title" type="text" placeholder="post text goes here" style="height:40px; resize: none;"></textarea><br>
-                        <p class="psttxt"> Link Description</p><textarea class="hideinputborder" id="description" type="text" placeholder="post text goes here" style="height:40px; resize: none;"></textarea><br>
+                            <p class="psttxt"> Link Title</p><textarea class="hideinputborder"  id="title" type="text" placeholder="Title goes here" style="height:40px; resize: none;"></textarea><br>
+                        <p class="psttxt"> Link Description</p><textarea class="hideinputborder" id="description" type="text" placeholder="Description goes here" style="height:40px; resize: none;"></textarea><br>
                         </div>
-                        <p class="psttxt"> Link URL</p><textarea class="hideinputborder" type="text" id="url" placeholder="post text goes here" style="height:40px; resize: none;"></textarea><br>
+                        <p class="psttxt"> Link URL</p><textarea class="hideinputborder" type="text" id="url" placeholder="URL goes here" style="height:40px; resize: none;"></textarea><br>
 
                         <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
                     </div>
