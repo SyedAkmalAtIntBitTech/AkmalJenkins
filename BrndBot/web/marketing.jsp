@@ -249,7 +249,7 @@
              width:200px;
              height: 30px;
              font-family: sans-serif;
-             font-size: 12px;
+             font-size: 14px;
              position: relative;
              top:2px;
              bottom:2px;
@@ -597,7 +597,7 @@
 
                 </div>
                 <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
-                    <div id="dvPriorityContent" style="position:relative;top:50px;left:100px;"><br>
+                    <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
                         <h1>&nbsp;Add Action</h1>
                         <form class="form-horizontal" id="signform">
 
@@ -606,29 +606,29 @@
                                     <input id="title" class="brdr form-control simplebox" type="text" name="title" />
                                     <label>TITLE</label>
                                 </div><br>
-                                <div style="position: relative;left:-170px;top:30px;">
-                                    Type :  <select id="actiontype"  name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                <div style="position:relative;left:-170px;top:30px;" class="SH2">
+                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
                                         <option value="email">email</option>
                                         <option value="note">note</option>
                                     </select></div>
-                                <div style="position:relative;top:40px;left:60px;">
-                                    Description : <br><textarea cols="28" rows="2" name="description" id="description"></textarea>
+                                <div style="position:relative;top:40px;left:60px;" class="SH2">
+                                    Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal"></textarea>
                                 </div>
-                                <div class="" style="position:relative; margin-top: 50px; margin-left: 60px;">
-                                    Date : <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate"/>
+                                <div class="SH2" style="position:relative; margin-top: 50px; margin-left: 60px;" >
+                                    Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
                                 </div>
                                 
 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
                                 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;top:50px;">
+                                <div class="col-md-12" style="width:250px;top:20px;left:20px;">
 
                                     <div class="row">
-                                        <div class="col-md-12" style="width:250px;top:50px;">
+                                        <div class="col-md-12" style="width:250px;top:0px;">
                                             <div class="col-md-6" id="dvButtonContainer">
                                                 <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="AddAction()" style="width:100px;" />
                                             </div>
