@@ -5,6 +5,7 @@
  */
 package com.intbit.dao;
 
+import com.controller.IConstants;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
@@ -14,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +24,8 @@ import java.util.logging.Logger;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.postgresql.util.PGobject;
 
 /**
@@ -133,7 +137,8 @@ public class ScheduleSocialPostDAO {
 
             }
             int scheduleId = ScheduleDAO.updateScheduleEntityList(scheduleSocialPostId, 
-                        scheduleid, 
+                        scheduleid,
+                        templateStatus,
                         conn);
             methodResponse.put("schedule_entity_id", scheduleId);
         } catch (SQLException ex) {
@@ -252,9 +257,67 @@ public class ScheduleSocialPostDAO {
         return json_array_twitter;
     }
     
-    public void updateScheduleSocialPostDetails(Integer userid, 
-            String Scheduleid
-            ){
+    public static void updateScheduleSocialPostDetails(Integer userid, 
+            Integer Scheduleid,
+            Integer entity_id,
+            String schedule_title,
+            Timestamp schedule_time,
+            String schedule_desc,
+            Map<String, Object> metadataMap
+            )throws SQLException, ParseException{
+        JSONObject json_metadata = new JSONObject();
+        PGobject pg_object = new PGobject();
+        String query_string = "Update tbl_scheduled_entity_list"
+                + " SET schedule_title = ?, schedule_time = ?,"
+                + " schedule_desc = ?" 
+                + " Where id = ?";
         
+        try(Connection conn = connectionManager.getConnection()){
+            try(PreparedStatement prepared_statement = conn.prepareStatement(query_string)){
+                prepared_statement.setString(1, schedule_title);
+                prepared_statement.setTimestamp(2, schedule_time);
+                prepared_statement.setString(3, schedule_desc);
+                prepared_statement.setInt(4, Scheduleid);
+
+                prepared_statement.executeUpdate();
+            }
+            json_metadata = getjsonmetadata(entity_id, conn);
+            
+        query_string = "Update tbl_scheduled_socialpost_list"
+                + " SET metadata = ?"
+                + " Where id = ?";
+            
+            pg_object.setType("json");
+            pg_object.setValue(AppConstants.GSON.toJson(metadataMap));
+            try(PreparedStatement prepared_statement = conn.prepareStatement(query_string)){
+                prepared_statement.setObject(1, pg_object, Types.OTHER);
+                prepared_statement.setInt(2, entity_id);
+                prepared_statement.executeUpdate();
+            }
+        }
     }
+    public static JSONObject getjsonmetadata(Integer entityid, 
+            Connection connection)throws SQLException, ParseException{
+        JSONObject json_metadata = new JSONObject();
+        PGobject pgobject = new PGobject();
+        JSONParser parser = new JSONParser();        
+        String query_string = "Select metadata from tbl_scheduled_socialpost_list"
+                + "where id=?";
+        
+        try(PreparedStatement prepared_statement = connection.prepareStatement(query_string)){
+            try(ResultSet result_set = prepared_statement.executeQuery()){
+                if (result_set.next()){
+                    
+                    pgobject = (PGobject) result_set.getObject("metadata");
+
+                    pgobject.setType("json");
+                    String obj = pgobject.getValue();
+                    json_metadata = (org.json.simple.JSONObject) parser.parse(obj);
+                }
+            }
+        }catch (Exception ex){
+            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while reading the json metadata:", null), ex);
+        }
+        return json_metadata;
+    } 
 }

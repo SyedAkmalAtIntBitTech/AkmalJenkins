@@ -7,7 +7,7 @@
 <%@page import="com.controller.SqlMethods"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html ng-app>
     <head>
         <%@ include file="fonttypekit.jsp"%>
         <%@ include file="checksession.jsp" %>
@@ -89,9 +89,9 @@
                 transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
                 background-color: #E3E4E8;
                 color:#686868;
-                
-               }
-               .selectsocialact{
+
+            }
+            .selectsocialact{
                 background-color: #E3E4E8;
                 border: 1px solid #DADADA;
                 height:30px;
@@ -112,18 +112,18 @@
                 top:-10px;
             }
             .black_overlay{
-			display: none;
-			position: absolute;
-			top: 0%;
-			left: 0%;
-                        width: 100%;
-			height: 1000em;
-			background-color: #E3E4E8;
-			z-index:1000;
-			-moz-opacity: 0.8;
-			opacity:.80;
-			filter: alpha(opacity=80);
-		}
+                display: none;
+                position: absolute;
+                top: 0%;
+                left: 0%;
+                width: 100%;
+                height: 1000em;
+                background-color: #E3E4E8;
+                z-index:1000;
+                -moz-opacity: 0.8;
+                opacity:.80;
+                filter: alpha(opacity=80);
+            }
             #content input{
                 /*                width:200px;*/
             }
@@ -133,7 +133,7 @@
                 width:50px;
 
             }
-            
+
             .vlightbox {
                 display:-moz-inline-stack;
                 display:none;
@@ -169,10 +169,10 @@
             .content{
                 position: relative;
                 top: 95px;
-/*                                margin-left: 60px;
-                                zoom: 0.5;*/
+                /*                                margin-left: 60px;
+                                                zoom: 0.5;*/
             }
-            
+
             #popup {
                 /*               
                                 width: 500px;
@@ -201,22 +201,22 @@
                     started = 0;
                 }
             }
-            function overlay(){
+            function overlay() {
                 if (validate()) {
-                document.getElementById('light').style.display='block';
-                document.getElementById('fade').style.display='block';
-                document.body.style.overflow = 'hidden';
-            }
+                    document.getElementById('light').style.display = 'block';
+                    document.getElementById('fade').style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                }
             }
         </script>
 
-        <%!        String emailSubject = "";
+        <%!            String emailSubject = "";
             String emailList = "";
             String htmlData = "";
             String emailAddresses = "";
         %>
-        <%        sqlmethods.session = request.getSession(true);
-
+        <%  
+            sqlmethods.session = request.getSession(true);
             emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
             emailList = (String) sqlmethods.session.getAttribute("email_list");
             emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
@@ -249,6 +249,7 @@
 
                 $scope.setScheduling = function () {
 
+                    var schedule_id = "0";
                     var from_name = $("#name").val();
                     var email_subject = $("#subject").val();
                     var to_email_addresses = $("#toaddress").val();
@@ -256,47 +257,105 @@
                     var reply_to_email_address = $("#email").val();
                     var email_body = formattedHTMLData;
                     var email_list = $("#email_list").val();
-                    var schedule_title = $("#schedule_title").val();
-                    var schedule = $("#schedule_time").val();
-                    var schedule_desc = $("#schedule_desc").val();
-                    console.log("Value selected from Component: " + schedule);
-                    var schedule_time = Date.parse(schedule);
-                    console.log("Epoch: " + schedule_time);
+                    var schedule_desc = "none";
+                    
+                    schedule_id = $("#email_actions").val();
+                    console.log(schedule_id);
+                    if (schedule_id == "0"){
+                        var schedule_title = $("#schedule_title").val();
+                        
+                        var schedule = $("#schedule_time").val();
+                        var dateepoch = Date.parse(schedule);
 
-                    var dateObj = new Date(schedule_time);
-                    console.log(dateObj.getTimezoneOffset());
+                        var newdate = new Date(dateepoch);
 
-                    var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+                        console.log("new date:" + newdate);
+                        var schedule_hour = $("#hour").val();
+                        var schedule_minute = $("#minute").val();
+                        var schedule_AM = $("#AMPM").val();
 
-                    var newEpoch = schedule_time + tzOffsetInMillis;
-                    console.log("New Epoch: " + newEpoch);
-
-                    var email_scheduling = {"from_name": from_name, "email_subject": email_subject, "to_email_addresses": to_email_addresses, "from_email_address": from_email_address, "reply_to_email_address": reply_to_email_address, "email_list": email_list, "schedule_title": schedule_title, "schedule_time": newEpoch, "email_body": email_body, "schedule_desc": schedule_desc};
-                    $http({
-                        method: 'POST',
-                        url: 'ScheduleEmail',
-                        headers: {'Content-Type': 'application/json'},
-                        data: email_scheduling
-                    }).success(function (data) {
-                        if (data != "") {
-                            alert("details saved successfully");
-                            document.location.href = "dashboard.jsp";
+                        if (schedule_AM == "PM"){
+                            schedule_hour = parseInt(schedule_hour) + 12;
                         }
-                    }).error(function (data) {
-                        alert("No data available, problem fetching the data");
-                    });
+                        newdate.setHours(parseInt(schedule_hour));
+                        newdate.setMinutes(parseInt(schedule_minute));
+
+                        console.log("Value selected from Component: " + newdate);
+                        var schedule_time = Date.parse(newdate);
+
+                        console.log("Epoch: " + schedule_time);
+
+                        var dateObj = new Date(schedule_time);
+                        console.log(dateObj.getTimezoneOffset());
+
+                        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+
+                        var newEpoch = schedule_time;
+                        console.log("New Epoch: " + newEpoch);
+
+                        var email_scheduling = {
+                            "from_name": from_name, 
+                            "email_subject": email_subject, 
+                            "to_email_addresses": to_email_addresses, 
+                            "from_email_address": from_email_address, 
+                            "reply_to_email_address": reply_to_email_address, 
+                            "email_list": email_list, 
+                            "schedule_title": schedule_title, 
+                            "schedule_time": newEpoch, 
+                            "email_body": email_body, 
+                            "schedule_desc": schedule_desc
+                        };
+                        $http({
+                            method: 'POST',
+                            url: 'ScheduleEmail',
+                            headers: {'Content-Type': 'application/json'},
+                            data: email_scheduling
+                        }).success(function (data) {
+                            if (data != "") {
+                                alert("details saved successfully");
+                                document.location.href = "dashboard.jsp";
+                            }
+                        }).error(function (data) {
+                            alert("No data available, problem fetching the data");
+                        });
+
+                    }else {
+                        var email_scheduling = {
+                            "from_name": from_name, 
+                            "email_subject": email_subject, 
+                            "to_email_addresses": to_email_addresses, 
+                            "from_email_address": from_email_address, 
+                            "reply_to_email_address": reply_to_email_address, 
+                            "email_list": email_list,
+                            "schedule_id":schedule_id,
+                            "email_body": email_body,
+                            "schedule_desc": schedule_desc
+                        };
+                        $http({
+                            method: 'POST',
+                            url: 'ScheduleEmailActions',
+                            headers: {'Content-Type': 'application/json'},
+                            data: email_scheduling
+                        }).success(function (data) {
+                            if (data != "") {
+                                alert("details saved successfully");
+                                document.location.href = "dashboard.jsp";
+                            }
+                        }).error(function (data) {
+                            alert("No data available, problem fetching the data");
+                        });
+                        
+                    }
+                    
                 };
-                $scope.getActions = function(){
+                $scope.getActions = function () {
                     $http({
                         method: 'GET',
-                        url: 'ScheduleEmail',
+                        url: getHost() + 'GetScheduledActions?type=email'
                     }).success(function (data) {
-                        if (data != "") {
-                            alert("details saved successfully");
-                            document.location.href = "dashboard.jsp";
-                        }
+                        $scope.email_actions = data;
                     }).error(function (data) {
-                        alert("No data available, problem fetching the data");
+                        alert("request not successful");
                     });
                 };
             }
@@ -313,7 +372,7 @@
                     success: function (responseText) {
                         formattedHTMLData = responseText;
                         //show popup showing
-    //                    alert(formattedHTMLData);
+                        //                    alert(formattedHTMLData);
                         $(".content").empty();
                         $(".content").append("<iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
 
@@ -344,22 +403,23 @@
             }
             function displaySchedule() {
                 if (validate()) {
+                    angular.element(document.getElementById('emailSettings')).scope().getActions();
                     $("#popupschedule").show();
-                    document.getElementById('light').style.display='block';
-                document.getElementById('fade').style.display='block';
-                document.body.style.overflow = 'hidden';
+                    document.getElementById('light').style.display = 'block';
+                    document.getElementById('fade').style.display = 'block';
+                    document.body.style.overflow = 'hidden';
                 }
-                else{
-                     document.getElementById('light').style.display='none';
-                     document.getElementById('fade').style.display='none';
-                     document.body.style.overflow = 'scroll';
+                else {
+                    document.getElementById('light').style.display = 'none';
+                    document.getElementById('fade').style.display = 'none';
+                    document.body.style.overflow = 'scroll';
                 }
             }
             function hidepopup() {
                 $("#popupschedule").hide();
                 $("#schedule_title").val("");
                 $("#schedule_time").val("");
-                
+
             }
             function validate() {
                 var from_name = $("#name").val();
@@ -436,9 +496,9 @@
         <jsp:include page="basejsp.jsp" />
     </head>
 
-    <body ng-app>
+    <body>
         <div id="fade" class="black_overlay"></div>
-        <div class="row" ng-controller="emailSettings">
+        <div class="row" ng-controller="emailSettings" id="emailSettings">
             <jsp:include page="leftmenu.html"/>
             <div class="col-md-4 col-md-offset-1" ng-init="getEmailSettings()">
                 <p id="textgrt" class="MH1">SEND EMAIL PREVIEW</p>
@@ -503,27 +563,30 @@
                     <li><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                     <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                 </ul>
-                
-                
-                
-                
+
+
+
+
                 <div id="popupschedule" style="display:none;">
                     <div id="content">
-<!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
-                            Layout file name<input type="text" id="layoutxml" required><br>-->
-                        
-                <p class="SH2" style="width:600px;">PLEASE SELECT A TIME FROM YOUR PLAN</p> 
-               <div id="light" class="white_content"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none';document.body.style.overflow = 'scroll';" style="text-decoration:none;">
-                       <p style="margin-left:740px;margin-top:-35px;cursor: pointer;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p></a></div>
-                     <select class="SH1 selectsocialact" style="font-variant: normal;">
-                         <option value="" style="background:#fff;"></option>
-                     </select>
-              <p class="SH2" style="position:relative;top:10px;">OR</p>
-              <p class="SH2" style="position:relative;top:10px;width:700px;">PLEASE CREATE A NEW TITLE AND TIME TO ADD AN ACTION TO YOUR PLAN</p>                       
-              <br>
-              <input type="text" class="simpleinpbox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
-                       <input type="date" class="simpleinpbox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
-                        <select name="hour" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:205px;">
+                        <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
+                                                    Layout file name<input type="text" id="layoutxml" required><br>-->
+
+                        <p class="SH2" style="width:600px;">PLEASE SELECT A TIME FROM YOUR PLAN</p> 
+                        <div id="light" class="white_content"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display = 'none';
+                                        document.getElementById('fade').style.display = 'none';
+                                        document.body.style.overflow = 'scroll';" style="text-decoration:none;">
+                                <p style="margin-left:740px;margin-top:-35px;cursor: pointer;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p></a></div>
+                        <select class="SH1 selectsocialact" style="font-variant: normal;" name="email_actions" id="email_actions">
+                            <option value="0" style="background:#fff;">--SELECT--</option>
+                            <option ng-repeat="actions in email_actions" value="{{actions.id}}">{{actions.schedule_title}}</option>
+                        </select>
+                        <p class="SH2" style="position:relative;top:10px;">OR</p>
+                        <p class="SH2" style="position:relative;top:10px;width:700px;">PLEASE CREATE A NEW TITLE AND TIME TO ADD AN ACTION TO YOUR PLAN</p>                       
+                        <br>
+                        <input type="text" class="simpleinpbox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
+                        <input type="date" class="simpleinpbox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
+                        <select name="hour" id="hour" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:205px;">
                             <option value="00">00</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -537,7 +600,7 @@
                             <option value="10">10</option>
                             <option value="11">11</option>
                         </select>
-                        <select name="minute" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:210px;">
+                        <select name="minute" id="minute" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:210px;">
                             <option value="00">00</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -603,26 +666,14 @@
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
                         </select>
-                       <input type="button" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
+                        <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
                     </div>
-            </div>
-                
-                
-                
-                
-
-
+                </div>
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
                     <div class="content">  
                         <%= htmlData%>
                     </div>
                 </div>
-
-
-
-
-
-
             </div>
         </div>
 

@@ -486,7 +486,7 @@
                         <input type="text" class="simplebox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
                         <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description" style="font-variant: normal;"></textarea><br>
                         <input type="date" class="simplebox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
-                        <select name="hour" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:205px;">
+                        <select name="hour" class="selectsocialact" id="hour" style="position:relative;width:50px;top:-30px;left:205px;">
                             <option value="00">00</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -501,7 +501,7 @@
                             <option value="11">11</option>
                             
                         </select>
-                        <select name="minute" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:210px;">
+                        <select name="minute" class="selectsocialact" id="minute" style="position:relative;width:50px;top:-30px;left:210px;">
                             <option value="00">00</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -769,8 +769,9 @@
                     var isFacebook = $("#isFacebook").val();
                     var isTwitter = $("#isTwitter").val();
                     var image_name= $("#imageToPost").val();
-                    var schedule_id_facebook = "";
-                    var schedule_id_twitter = "";
+                    var schedule_id_facebook = "0";
+                    var schedule_id_twitter = "0";
+                    
                     
                     if ((isFacebook == "true") && (isTwitter == "false")){
                         schedule_id_facebook = $("#facebookactions").val();
@@ -781,13 +782,30 @@
                         schedule_id_twitter = $("#twitteractions").val();
                     }
                     
+                    console.log(schedule_id_facebook);
+                    console.log(schedule_id_twitter);
                     if ((schedule_id_facebook == "0") && (schedule_id_twitter == "0")){
                         
                     var schedule_title = $("#schedule_title").val();
                     var schedule = $("#schedule_time").val();
-                    var schedule_desc = $("#schedule_desc").val();
-                    console.log("Value selected from Component: " + schedule);
-                    var schedule_time = Date.parse(schedule);
+                    var dateepoch = Date.parse(schedule);
+                    
+                    var newdate = new Date(dateepoch);
+
+                    console.log("new date:" + newdate);
+                    var schedule_hour = $("#hour").val();
+                    var schedule_minute = $("#minute").val();
+                    var schedule_AM = $("#AMPM").val();
+                    
+                    if (schedule_AM == "PM"){
+                        schedule_hour = parseInt(schedule_hour) + 12;
+                    }
+                    newdate.setHours(parseInt(schedule_hour));
+                    newdate.setMinutes(parseInt(schedule_minute));
+                    
+                    console.log("Value selected from Component: " + newdate);
+                    var schedule_time = Date.parse(newdate);
+                    
                     console.log("Epoch: " + schedule_time);
 
                     var dateObj = new Date(schedule_time);
@@ -795,8 +813,9 @@
 
                     var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
 
-                    var newEpoch = schedule_time + tzOffsetInMillis;
+                    var newEpoch = schedule_time;
                     console.log("New Epoch: " + newEpoch);
+                    var schedule_desc = $("#schedule_desc").val();
 
                     var social_schedule = "";
                     if (isFacebook == "true" && isTwitter == "false"){
@@ -805,7 +824,7 @@
                                             type: "facebook",
                                             image_name: image_name,
                                             schedule_time: newEpoch,
-                                            schedule_title: '"'+schedule_title+'"',
+                                            schedule_title: schedule_title,
                                             schedule_desc: schedule_desc,
                                             token_data: {
                                               "access_token": '"'+$("#accesstoken").val()+'"'
@@ -824,7 +843,7 @@
                                             type: "twitter",
                                             image_name: image_name,
                                             schedule_time: newEpoch,
-                                            schedule_title: '"'+schedule_title+'"',
+                                            schedule_title: schedule_title,
                                             schedule_desc: schedule_desc,
                                             token_data: {
                                               "access_token": '"'+$("#twittweraccestoken").val()+'"',
@@ -844,7 +863,7 @@
                                 type: "facebook",
                                 image_name: image_name,
                                 schedule_time: newEpoch,
-                                schedule_title: '"'+schedule_title+'"',
+                                schedule_title: schedule_title,
                                 schedule_desc: schedule_desc,
                                 token_data: {
                                   "access_token": '"'+$("#accesstoken").val()+'"'
@@ -859,7 +878,7 @@
                                 type: "twitter",
                                 image_name: image_name,
                                 schedule_time: newEpoch,
-                                schedule_title: '"'+schedule_title+'"',
+                                schedule_title: schedule_title,
                                 schedule_desc: schedule_desc,
                                 token_data: {
                                   "access_token": '"'+$("#twittweraccestoken").val()+'"',
@@ -870,7 +889,7 @@
                                 }
                               }
                             ];
-                    }                  
+                    }
                         console.log(JSON.stringify(social_schedule));
                         $.ajax({
                             url:  getHost() + 'ScheduleSocialPost',
@@ -950,7 +969,7 @@
                                 }
                               }
                             ];
-                    }                  
+                    }
                         console.log(JSON.stringify(social_schedule));
                         $.ajax({
                             url:  getHost() + 'ScheduleSocialPostActions',

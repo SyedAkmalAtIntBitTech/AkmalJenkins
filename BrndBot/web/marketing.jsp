@@ -362,13 +362,22 @@
                 document.body.style.overflow = 'hidden';
                 document.getElementById('marktng').style.display='none';
             }
+            function closeoverlay(){
+                document.getElementById('light').style.display='none';
+                document.getElementById('marktng').style.display = 'block';
+                document.getElementById('fade').style.display='none';
+                document.body.style.overflow = 'scroll';
+                document.getElementById('edtfbimg').style.display='none';
+                document.getElementById('prevtwtimg').style.display='none';
+                document.getElementById('edttwtimg').style.display='none';
+                document.getElementById('prevfbimg').style.display='none';
+            }
         </script>
     </head>
     <body ng-app class="claro">
-        <div id="fade" class="black_overlay"></div>
-        <div class="row">
-             <jsp:include page="mainmenu.html"/></div>
+        <div class="row"><jsp:include page="mainmenu.html"/></div>
         <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign" class="container"> 
+        <div id="fade" class="black_overlay"></div>
            <!--/end left column-->
           
             
@@ -394,7 +403,7 @@
                             <div class='col-md-1 SP2 fonthead'>Today</div>
                             <div class='col-md-3' style="width:230px;"></div>
                             <div class='col-md-3 SS2' style="margin-left:90px;">Action Type</div>
-                            <div class='col-md-2 SS2'style="margin-left:-20px;">Template Saved</div>
+                            <div class='col-md-2 SS2' style="margin-left:-20px;">Template Saved</div>
                             <div class='col-md-3' ></div>
                         </div>
                         <ul>
@@ -532,7 +541,7 @@
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
                                     <div class="col-md-3"  style="width:300px;margin-left:-40px;">
-                                        <a href = "javascript:void(0)"onclick = "overlay();" style="color:#333;text-decoration: none;">
+                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
                                             <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
                                         <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
@@ -579,7 +588,7 @@
                 </div>
             </div>
 <!--           </div><div id="mask" onclick="document.location='#';">CLICK</div>    -->
-        <div id="dvSliderDialog">
+                <div id="dvSliderDialog">
                 <div id="dvFastingDialog" class="pollSlider"><br>
                     <form class="form-horizontal" id="signform">
 
@@ -595,6 +604,7 @@
                         </div>
                     </form>
 
+                </div>
                 </div>
                 <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
                     <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
@@ -654,16 +664,16 @@
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
                                     <p class="MH2" style="width:300px;">Title: {{schedule_title}}</p>
-                                    <p class="MH2" style="width:500px;">Description: {{schedule_desc}}</p>
+<!--                                    <p class="MH2" style="width:500px;">Description: {{schedule_desc}}</p>-->
                                 </div>
-                                <p class="SP1 actfnt">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></p>
+                                <div class="SP1 actfnt">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></div>
                                 
                             <div class="content"></div> <br>
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div class="actiondet">
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div style="position:relative;left:10px;bottom:0px;top:0px;"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                <div style="position:relative;left:10px;bottom:0px;top:0px;"><button id="button_edit" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
                             </div>
                         </div>
                     </div>
@@ -674,10 +684,12 @@
                         <div>
 
                             <div style="position:relative;left:50px;">
-
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
                                     <p><input type="text" class="inputbox MH2" id="email_entitytitle" name="email_entitytitle" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:20px;"/></p>
+                                    <p><input class="inputbox SP1" type="hidden" name="email_schedule_id" id="email_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                    <p><input class="inputbox SP1" type="hidden" name="email_entity_id" id="email_entity_id" value='{{entitiesdetails.schedule_email_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+
                                     <br><p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                                 </div>
                                 <div class="row" style="width:400px;">
@@ -702,8 +714,8 @@
                                     <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.email_list_name}}</p>
                                     <input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
-                                     <div class="editbutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:200px;" type="button">remove the schedule</button> </div>
-                                <div class="editbutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                     <div class="editbutton"><button ng-click="removeTemplate(schedule_id)" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:200px;" type="button">remove the schedule</button> </div>
+                                <div class="editbutton"><button ng-click="updateEmailSchedule()" class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                 </div>
                                
                             </div>
@@ -719,7 +731,6 @@
 
 
                             <div style="position:relative;left:50px;">
-
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
                                     <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
@@ -727,20 +738,26 @@
                                     <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                                 </div>
                                
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-120px;left:-180px;transform: scale(0.45, 0.5);-ms-transform: scale(0.45, 0.5);-webkit-transform: scale(0.45, 0.5);"/>
-                                <div style="position:relative;top:-450px;left:280px;">
+                                <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
+                                     style="position:relative;top:-30px;left:-100px;
+                                     transform: scale(0.45, 0.5);
+                                     -ms-transform: scale(0.45, 0.5);
+                                     -webkit-transform: scale(0.58, 0.7);
+                                     display:none;"/>
+                                <div style="position:relative;top:-250px;left:300px;">
 
                                 <p class="SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
                                 </div>
-                                  <div style="position: relative;margin-left:20px;margin-top:-350px;">
+                                  <div style="position: relative;margin-left:20px;margin-top:-150px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
+                                    <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
                                 
-                                <div style="position:relative;bottom:0px;top:0px;"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                <div style="position:relative;bottom:0px;top:0px;"><button id="button_edit" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
                                 
                                   </div>
                             </div>
@@ -756,25 +773,28 @@
                             <div style="position:relative;left:50px;top:-10px;">
 
                                 <div class="actiondetails actiondet" >
-                                    <p class="SP2 actfnt">ACTION DETAILS</p>
-                                    <p><input class="inputbox MH2" type="text" name="facebook_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}'style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
-                                    <p><input class="inputbox SP1" type="text" name="facebook_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                    <p class="SP2 actfnt">ACTION DETAILS</p><p ng-click="deleteAction(schedule_id)">DELETE ACTION</p>
+                                    <p><input class="inputbox MH2" type="text" name="facebook_schedule_title" id="facebook_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:270px;font-size:22px;"/></p>
+                                    <p><input class="inputbox SP1" type="text" name="facebook_schedule_Description" id="facebook_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:270px;"/></p>
+                                    <p><input class="inputbox SP1" type="hidden" name="facebook_schedule_id" id="facebook_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                    <p><input class="inputbox SP1" type="hidden" name="facebook_entity_id" id="facebook_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 </div>
                                 <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-130px;left:-180px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.45, 0.45);"/>
-                                 <div style="position:relative;top:-470px;left:285px;">
+                                <img id="edtfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-60px;left:-120px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.5, 0.6);display:none;"/>
+                                 <div style="position:relative;top:-300px;left:285px;">
                                 <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                  </div>
-                                <div style="position:relative;margin-left:20px;margin-top:-440px;">
+                                <div style="position:relative;margin-left:10px;margin-top:-270px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                    <input type="text" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
-                                <div class="removesavetemplate"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
-                                <div class="savebutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                <div class="removesavetemplate"><button ng-click="removeTemplate(schedule_id)" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                 </div>
                             </div>
                         </div>
@@ -820,13 +840,14 @@
                                 </div>
                                 <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                      
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-110px;left:-130px;transform: scale(0.5);-ms-transform: scale(0.5);-webkit-transform: scale(0.5);"/>
+                                <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-50px;left:-100px;transform: scale(0.5);-ms-transform: scale(0.5);-webkit-transform: scale(0.6);display:none;"/>
                                 <div style="position:relative;top:-470px;left:300px;">
-                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.post_text}}</p>
+                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.text}}</p>
                                 </div>
-                                <div style="position:relative;margin-left:20px;margin-top:-240px;">
-                                <p class="postdetails SP1 actfnt">Post details</p>
+                                <div style="position:relative;margin-left:20px;margin-top:-100px;">  
+                                    <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
+                                    <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
                                 <div style="position:relative;bottom:0px;top:0px;"  class="editbutton"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
@@ -841,27 +862,30 @@
                 <div id="edittwitter" class="pollSlider" style="z-index:1005;height:740px;">
                     <div>
                         <div>
-
                             <div style="position:relative;left:50px;top:-10px;">
 
                                <div class="actiondetails actiondet" >
-                                    <p class="SP2 actfnt">ACTION DETAILS</p>
-                                    <p><input class="inputbox MH2" type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}'style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
+                                    <p class="SP2 actfnt">ACTION DETAILS</p><p ng-click="deleteAction(schedule_id)">DELETE ACTION</p>
+                                    <p><input class="inputbox MH2" type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
                                     <p><input class="inputbox SP1" type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                </div>
-                                <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                                <img src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-130px;left:-180px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.45, 0.45);"/>
-                               <div style="position:relative;top:-470px;left:300px;">
-                                   <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.post_text}}'  class="actfnt" style="font-weight:300;width:230px;"/></p>
+                                    <p><input class="inputbox SP1" type="hidden" name="twitter_schedule_id" id="twitter_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                    <p><input class="inputbox SP1" type="hidden" name="twitter_entity_id" id="twitter_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                    
                                </div>
-                                <div style="position:relative;margin-left:0px;margin-top:-315px;">
+                                <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                                <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-60px;left:-100px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.6, 0.5);display:none;"/>
+                               <div style="position:relative;top:-270px;left:310px;">
+                                   <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.text}}'  class="actfnt" style="font-weight:300;width:230px;"/></p>
+                               </div>
+                                <div style="position:relative;margin-left:10px;margin-top:-180px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <input type='datetime-local' name="twitter_schedule_datetime" id="twitter_schedule_datetime" class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                    <input type="text" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
-                                <div  class="removesavetemplate"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
-                                <div class="savebutton"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                <div style="margin-left:-10px;" class="removesavetemplate"><button ng-click="removeTemplate(schedule_id)" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                 </div>
                             </div>
                         </div>
@@ -870,16 +894,13 @@
                 </div>
                 
                 <div id="light" class="white_content">
-                  <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('marktng').style.display = 'block';document.getElementById('fade').style.display='none';document.body.style.overflow = 'scroll';" style="text-decoration:none;">
+                  <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
                     <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
                         <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="25" width="25"/></p>
                     </div>
                   </a>
                 </div>
             </div>    
-
-
-        </div>    
 
         <script>
             $(".cross").hide();
