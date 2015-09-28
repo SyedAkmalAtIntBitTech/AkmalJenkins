@@ -8,6 +8,7 @@ package com.controller.schedule;
 import com.intbit.AppConstants;
 import com.intbit.TemplateStatus;
 import com.intbit.dao.ScheduleDAO;
+import com.intbit.dao.ScheduleSocialPostDAO;
 import com.intbit.util.AuthenticationUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,32 +51,72 @@ public class ChangeScheduleServlet extends HttpServlet {
                     AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             
             String type = (String)requestBodyMap.get("type");
-            String schedule_ids = (String)requestBodyMap.get("schedule_ids");
-            if (type.equalsIgnoreCase("update")){
-//                 Map<String, Integer> idMap = ScheduleDAO.updateToScheduledEmailList(
-//                    schedule_id,
-//                    userId,
-//                    requestBodyMap.get("email_subject").toString(),
-//                    requestBodyMap.get("email_body").toString(),
-//                    requestBodyMap.get("from_email_address").toString(),
-//                    requestBodyMap.get("email_list").toString(),
-//                    requestBodyMap.get("from_name").toString(),
-//                    requestBodyMap.get("reply_to_email_address").toString(),
-//                    requestBodyMap.get("to_email_addresses").toString().split(","),
-//                    requestBodyMap.get("schedule_title").toString(),
-//                    scheduleDesc, 
-//                    new Timestamp(schedule.longValue()),
-//                    TemplateStatus.template_saved.toString()
-//            );
+            if (type.equalsIgnoreCase("updatesocial")){
+                String schedule_id = (String)requestBodyMap.get("schedule_id");
+                String entity_id = (String)requestBodyMap.get("entity_id");
+                String schedule_title = (String)requestBodyMap.get("schedule_title");
+                Double schedule = (Double)requestBodyMap.get("schedule_time");
+
+                Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
+                String metadataString = requestBodyMap.get("metadata").toString();                
+
+                String schedule_desc = (String)requestBodyMap.get("schedule_desc");
+                
+                ScheduleSocialPostDAO.updateScheduleSocialPostDetails(userId,
+                        Integer.parseInt(schedule_id),
+                        Integer.parseInt(entity_id),
+                        schedule_title,
+                        scheduleTimeStamp,
+                        schedule_desc,
+                        AppConstants.GSON.fromJson(metadataString, Map.class)
+                        );
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write("true");
+                response.getWriter().flush();
+            }else if (type.equalsIgnoreCase("updateemail")){
+                String schedule_id = (String)requestBodyMap.get("schedule_id");
+                String entity_id = (String)requestBodyMap.get("entity_id");
+                String schedule_title = (String)requestBodyMap.get("schedule_title");
+                Double schedule = (Double)requestBodyMap.get("schedule_time");
+
+                Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
+
+                ScheduleDAO.updateScheduleEmailDetails(userId, 
+                            Integer.parseInt(schedule_id),
+                            Integer.parseInt(entity_id),
+                            requestBodyMap.get("email_subject").toString(),
+                            requestBodyMap.get("from_email_address").toString(),
+                            requestBodyMap.get("email_list").toString(),
+                            requestBodyMap.get("reply_to_email_address").toString(),
+                            requestBodyMap.get("to_email_addresses").toString().split(","),
+                            schedule_title,
+                            scheduleTimeStamp
+                            );                
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write("true");
+                response.getWriter().flush();
+                
+            }
+            else if (type.equalsIgnoreCase("deleteSelected")){
+                String schedule_ids = (String)requestBodyMap.get("schedule_ids");
+                ScheduleDAO.deleteSchedules(userId, schedule_ids);
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write("true");
+                response.getWriter().flush();
             }else if (type.equalsIgnoreCase("delete")){
-                ScheduleDAO.deleteEmailSchedules(userId, schedule_ids);
+                Double schedule_ids = (Double)requestBodyMap.get("schedule_ids");
+                ScheduleDAO.deleteSchedule(userId, schedule_ids.intValue());
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write("true");
+                response.getWriter().flush();
+            }else if(type.equalsIgnoreCase("removetemplate")){
+                Double schedule_ids = (Double)requestBodyMap.get("schedule_ids");
+                ScheduleDAO.removeSavedTemplate(userId, schedule_ids.intValue()); 
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
             }
         }catch (Exception ex){
-            System.console().writer().write(ex.getMessage());
-            System.console().writer().write(ex.getLocalizedMessage());
             Logger.getLogger(ScheduleEmailServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -486,7 +486,7 @@
                         <input type="text" class="simplebox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
                         <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description" style="font-variant: normal;"></textarea><br>
                         <input type="date" class="simplebox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
-                        <select name="hour" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:205px;">
+                        <select name="hour" class="selectsocialact" id="hour" style="position:relative;width:50px;top:-30px;left:205px;">
                             <option value="00">00</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -501,7 +501,7 @@
                             <option value="11">11</option>
                             
                         </select>
-                        <select name="minute" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:210px;">
+                        <select name="minute" class="selectsocialact" id="minute" style="position:relative;width:50px;top:-30px;left:210px;">
                             <option value="00">00</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -824,7 +824,7 @@
                                             type: "facebook",
                                             image_name: image_name,
                                             schedule_time: newEpoch,
-                                            schedule_title: '"'+schedule_title+'"',
+                                            schedule_title: schedule_title,
                                             schedule_desc: schedule_desc,
                                             token_data: {
                                               "access_token": '"'+$("#accesstoken").val()+'"'
@@ -843,7 +843,7 @@
                                             type: "twitter",
                                             image_name: image_name,
                                             schedule_time: newEpoch,
-                                            schedule_title: '"'+schedule_title+'"',
+                                            schedule_title: schedule_title,
                                             schedule_desc: schedule_desc,
                                             token_data: {
                                               "access_token": '"'+$("#twittweraccestoken").val()+'"',
@@ -863,7 +863,7 @@
                                 type: "facebook",
                                 image_name: image_name,
                                 schedule_time: newEpoch,
-                                schedule_title: '"'+schedule_title+'"',
+                                schedule_title: schedule_title,
                                 schedule_desc: schedule_desc,
                                 token_data: {
                                   "access_token": '"'+$("#accesstoken").val()+'"'
@@ -878,7 +878,7 @@
                                 type: "twitter",
                                 image_name: image_name,
                                 schedule_time: newEpoch,
-                                schedule_title: '"'+schedule_title+'"',
+                                schedule_title: schedule_title,
                                 schedule_desc: schedule_desc,
                                 token_data: {
                                   "access_token": '"'+$("#twittweraccestoken").val()+'"',

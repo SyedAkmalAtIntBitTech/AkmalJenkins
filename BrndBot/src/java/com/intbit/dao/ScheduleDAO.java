@@ -6,9 +6,11 @@
 package com.intbit.dao;
 
 import com.controller.IConstants;
+import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
+import static com.intbit.dao.ScheduleSocialPostDAO.getjsonmetadata;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -117,7 +119,8 @@ public class ScheduleDAO {
         return returnMap;
     }
 
-    public static Map<String, Integer> updatetoScheduledEmailList(int userId,
+    public static Map<String, Integer> updatetoScheduledEmailList(
+            int userId,
             int scheduleid,
             String subject,
             String body,
@@ -126,9 +129,7 @@ public class ScheduleDAO {
             String fromName,
             String replytoEmailAddress,
             String[] toAddress,
-            String scheduledTitle,
             String scheduleDesc,
-            Timestamp scheduledTime,
             String templateStatus
     ) throws SQLException{
 
@@ -413,21 +414,133 @@ public class ScheduleDAO {
         return scheduleEmailDetails;
     }
     
-    public static void deleteEmailSchedules(int user_id, String schedule_id)throws SQLException, ParseException{
+    public static void deleteSchedules(int user_id, String schedule_id)throws SQLException, ParseException{
         
         String schedule_ids[] = schedule_id.split(",");
         
         for (int i = 0; i< schedule_ids.length; i++){
             String query_String = "Select * from tbl_scheduled_entity_list"
                     + " Where id=?"
-                    + " and user_id=?"
-                    + " and entity_type=?";
+                    + " and user_id=?";
 
             try(Connection connection = connectionManager.getConnection()){
                 try(PreparedStatement prepared_statement = connection.prepareStatement(query_String)){
                  prepared_statement.setInt(1, Integer.parseInt(schedule_ids[i]));
                  prepared_statement.setInt(2, user_id);
-                 prepared_statement.setString(3, ScheduledEntityType.email.toString());
+                 try(ResultSet result_set = prepared_statement.executeQuery()){
+                     if (result_set.next()){
+                         Integer entity_id = result_set.getInt("entity_id");
+                         String entity_type = result_set.getString("entity_type");
+                         if (entity_type.equalsIgnoreCase(ScheduledEntityType.email.toString())){
+                            String query_string1 = "Delete from tbl_scheduled_email_list"
+                                 + " where id = ?";
+                            try(PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)){
+                                prepared_statement1.setInt(1, entity_id);
+                                prepared_statement1.execute();
+                            }catch(Exception e){
+                                logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                                        "Exception while deleting the schedule:", null), e);
+                            }
+                         }else if((entity_type.equalsIgnoreCase(ScheduledEntityType.facebook.toString()))
+                                 ||(entity_type.equalsIgnoreCase(ScheduledEntityType.twitter.toString()))){
+                            String query_string1 = "Delete from tbl_scheduled_socialpost_list"
+                                 + " where id = ?";
+                            try(PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)){
+                                prepared_statement1.setInt(1, entity_id);
+                                prepared_statement1.execute();
+                            }catch (Exception e){
+                                logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                                        "Exception while deleting the schedule:", null), e);
+                            }
+                         }
+                         
+                         
+                     }
+                 }
+                 
+                }catch (Exception e){
+                    logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
+                }
+            String query_string2 = "Delete from tbl_scheduled_entity_list"
+                    + " where id = ?";
+            try(PreparedStatement prepared_statement2 = connection.prepareStatement(query_string2)){
+                prepared_statement2.setInt(1, Integer.parseInt(schedule_ids[i]));
+                prepared_statement2.execute();
+            }catch (Exception e){
+                    logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
+                }
+            }
+
+        }
+    }
+    
+    public static void removeSavedTemplate(int user_id, Integer schedule_id)throws SQLException, ParseException{
+        
+            String query_String = "Select * from tbl_scheduled_entity_list"
+                    + " Where id=?"
+                    + " and user_id=?";
+
+            try(Connection connection = connectionManager.getConnection()){
+                try(PreparedStatement prepared_statement = connection.prepareStatement(query_String)){
+                 prepared_statement.setInt(1, schedule_id);
+                 prepared_statement.setInt(2, user_id);
+                 try(ResultSet result_set = prepared_statement.executeQuery()){
+                     if (result_set.next()){
+                         Integer entity_id = result_set.getInt("entity_id");
+                         String entity_type = result_set.getString("entity_type");
+                         if (entity_type.equalsIgnoreCase(ScheduledEntityType.email.toString())){
+                            String query_string1 = "Delete from tbl_scheduled_email_list"
+                                 + " where id = ?";
+                            try(PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)){
+                                prepared_statement1.setInt(1, entity_id);
+                                prepared_statement1.execute();
+                            }catch(Exception e){
+                                logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                                        "Exception while deleting the schedule:", null), e);
+                            }
+                         }else if((entity_type.equalsIgnoreCase(ScheduledEntityType.facebook.toString()))
+                                 ||(entity_type.equalsIgnoreCase(ScheduledEntityType.twitter.toString()))){
+                            String query_string1 = "Delete from tbl_scheduled_socialpost_list"
+                                 + " where id = ?";
+                            try(PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)){
+                                prepared_statement1.setInt(1, entity_id);
+                                prepared_statement1.execute();
+                            }catch (Exception e){
+                                logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                                        "Exception while deleting the schedule:", null), e);
+                            }
+                         }
+                     }
+                 }
+                 
+                }catch (Exception e){
+                    logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
+                }
+            String query_string2 = "UPDATE tbl_scheduled_entity_list"
+                    + " SET entity_id = ?, status = ? where id = ?";
+            try(PreparedStatement prepared_statement = connection.prepareStatement(query_string2)){
+                prepared_statement.setInt(1, 0);
+                prepared_statement.setString(2, TemplateStatus.no_template.toString());
+                prepared_statement.setInt(3, schedule_id);
+                prepared_statement.executeUpdate();
+            }catch (Exception e){
+                    logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating the schedule:", null), e);
+                }
+            }
+    }
+    
+    public static void deleteSchedule(int user_id, Integer schedule_id)throws SQLException, ParseException{
+        
+        
+            String query_String = "Select * from tbl_scheduled_entity_list"
+                    + " Where id=?"
+                    + " and user_id=?";
+
+            try(Connection connection = connectionManager.getConnection()){
+                try(PreparedStatement prepared_statement = connection.prepareStatement(query_String)){
+                 prepared_statement.setInt(1, schedule_id);
+                 prepared_statement.setInt(2, user_id);
+//                 prepared_statement.setString(3, ScheduledEntityType.email.toString());
                  try(ResultSet result_set = prepared_statement.executeQuery()){
                      if (result_set.next()){
                          Integer entity_id = result_set.getInt("entity_id");
@@ -435,19 +548,103 @@ public class ScheduleDAO {
                                  + " where id = ?";
                          try(PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)){
                              prepared_statement1.setInt(1, entity_id);
-                             prepared_statement1.execute();
+                             prepared_statement1.executeUpdate();
                          }
                      }
                  }
+                }catch (Exception e){
+                    logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
                 }
             String query_string2 = "Delete from tbl_scheduled_entity_list"
                     + " where id = ?";
-            try(PreparedStatement prepared_statement2 = connection.prepareStatement(query_string2)){
-                prepared_statement2.setInt(1, Integer.parseInt(schedule_ids[i]));
-                prepared_statement2.execute();
-            }
+            try(PreparedStatement prepared_statement = connection.prepareStatement(query_string2)){
+                prepared_statement.setInt(1, schedule_id);
+                prepared_statement.executeUpdate();
+            }catch (Exception e){
+                    logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
+                }
             }
 
+    }
+    
+    public static void updateScheduleEmailDetails(Integer userid, 
+            Integer ScheduleID,
+            Integer entityID,
+            String subject,
+            String fromAddress,
+            String emailListName,
+            String replytoEmailAddress,
+            String[] toAddress,
+            String scheduledTitle,
+            Timestamp scheduledTime
+            )throws SQLException, ParseException{
+        JSONObject json_email_addresses = new JSONObject();
+        JSONArray json_array_email_address = new JSONArray();
+        PGobject pg_object = new PGobject();
+        String query_string = "Update tbl_scheduled_entity_list"
+                + " SET schedule_title = ?, schedule_time = ?"
+                + " Where id = ?";
+        
+        try(Connection conn = connectionManager.getConnection()){
+            try(PreparedStatement prepared_statement = conn.prepareStatement(query_string)){
+                prepared_statement.setString(1, scheduledTitle);
+                prepared_statement.setTimestamp(2, scheduledTime);
+                prepared_statement.setInt(3, ScheduleID);
+
+                prepared_statement.executeUpdate();
+            }
+            
+            json_email_addresses = getjsontoemailaddresses(entityID, conn);
+
+        query_string = "Update tbl_scheduled_email_list"
+                + " SET subject = ?, from_address = ?, email_list_name = ?,"
+                + " to_email_addresses = ?, reply_to_email_address = ?"
+                + " Where id = ?";
+            
+            for (int i = 0; i< toAddress.length; i++){
+                json_array_email_address.add(toAddress[i].trim());
+            }
+            json_email_addresses.replace(IConstants.kEmailAddressesKey, json_array_email_address);
+            pg_object.setType("json");
+            pg_object.setValue(json_email_addresses.toJSONString());
+        
+            try(PreparedStatement prepared_statement = conn.prepareStatement(query_string)){
+                prepared_statement.setString(1, subject);
+                prepared_statement.setString(2, fromAddress);
+                prepared_statement.setString(3, emailListName);
+                prepared_statement.setObject(4, pg_object, Types.OTHER);
+                prepared_statement.setString(5, replytoEmailAddress);
+                prepared_statement.setInt(6, entityID);
+                prepared_statement.executeUpdate();
+            }
+        }catch (Exception e){
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating the email schedule:", null), e);
         }
     }
+    public static JSONObject getjsontoemailaddresses(Integer entityid, 
+            Connection connection)throws SQLException, ParseException{
+        JSONObject json_email_addresses = new JSONObject();
+        PGobject pgobject = new PGobject();
+        JSONParser parser = new JSONParser();        
+        String query_string = "Select to_email_addresses from tbl_scheduled_email_list"
+                + " where id=?";
+        
+        try(PreparedStatement prepared_statement = connection.prepareStatement(query_string)){
+            prepared_statement.setInt(1, entityid);
+            try(ResultSet result_set = prepared_statement.executeQuery()){
+                if (result_set.next()){
+                    
+                    pgobject = (PGobject) result_set.getObject("to_email_addresses");
+
+                    pgobject.setType("json");
+                    String obj = pgobject.getValue();
+                    json_email_addresses = (org.json.simple.JSONObject) parser.parse(obj);
+                }
+            }
+        }catch (Exception ex){
+            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while reading the json email addresses:", null), ex);
+        }
+        return json_email_addresses;
+    }     
+
 }

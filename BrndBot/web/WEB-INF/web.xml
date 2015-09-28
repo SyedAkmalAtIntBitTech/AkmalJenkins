@@ -376,6 +376,10 @@
         <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>
         <servlet-class>com.controller.schedule.ScheduleSocialPostActionsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ScheduleEmailActionsServlet</servlet-name>
+        <servlet-class>com.controller.schedule.ScheduleEmailActionsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -763,6 +767,10 @@
     <servlet-mapping>
         <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>
         <url-pattern>/ScheduleSocialPostActions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleEmailActionsServlet</servlet-name>
+        <url-pattern>/ScheduleEmailActions</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

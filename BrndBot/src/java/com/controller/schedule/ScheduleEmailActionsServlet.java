@@ -5,36 +5,32 @@
  */
 package com.controller.schedule;
 
-import com.google.gson.Gson;
 import com.intbit.AppConstants;
 import com.intbit.TemplateStatus;
 import com.intbit.dao.ScheduleDAO;
 import com.intbit.util.AuthenticationUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  *
- * @author Mohamed
+ * @author development
  */
-@WebServlet(name = "ScheduleEmailServlet", urlPatterns = {"/ScheduleEmail"})
-public class ScheduleEmailServlet extends HttpServlet {
+public class ScheduleEmailActionsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -75,13 +71,14 @@ public class ScheduleEmailServlet extends HttpServlet {
                 response.getWriter().flush();
                 return;
             }
-            Double schedule = (Double)requestBodyMap.get("schedule_time");
             //As of now schedule description is not yet mandatory.
+            String schedule_id = (String)requestBodyMap.get("schedule_id");
             String scheduleDesc = requestBodyMap.containsKey("schedule_desc") ? 
                     String.valueOf(requestBodyMap.get("schedule_desc")):null;
             
-            Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
+            Map<String, Integer> idMap = ScheduleDAO.updatetoScheduledEmailList(
                     userId,
+                    Integer.parseInt(schedule_id),
                     requestBodyMap.get("email_subject").toString(),
                     requestBodyMap.get("email_body").toString(),
                     requestBodyMap.get("from_email_address").toString(),
@@ -89,9 +86,7 @@ public class ScheduleEmailServlet extends HttpServlet {
                     requestBodyMap.get("from_name").toString(),
                     requestBodyMap.get("reply_to_email_address").toString(),
                     requestBodyMap.get("to_email_addresses").toString().split(","),
-                    requestBodyMap.get("schedule_title").toString(),
                     scheduleDesc, 
-                    new Timestamp(schedule.longValue()),
                     TemplateStatus.template_saved.toString()
             );
             response.setStatus(HttpServletResponse.SC_OK);
@@ -134,12 +129,6 @@ public class ScheduleEmailServlet extends HttpServlet {
         }
         if ( !mapContainsKey(requestBodyMap, "from_name")){
             errorMsgs.add("From name is missing");
-        }
-        if ( !mapContainsKey(requestBodyMap, "schedule_title")){
-            errorMsgs.add("Schedule title is missing");
-        }
-        if ( !mapContainsKey(requestBodyMap, "schedule_time")){
-            errorMsgs.add("Schedule time is missing");
         }
         return errorMsgs;
     }
