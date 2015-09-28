@@ -217,7 +217,7 @@
                 max-width:650px;
                 position: absolute;
                 margin-top:80px;
-                margin-left: -60px;
+                margin-left: -30px;
             }
             .editcontent{
                 overflow-y:scroll;
@@ -225,7 +225,7 @@
                 height:400px;
                 width:650px;
                 position: absolute;
-                margin-left: -160px;
+                margin-left: -130px;
             }
             .actiondetails{
                 position: relative;

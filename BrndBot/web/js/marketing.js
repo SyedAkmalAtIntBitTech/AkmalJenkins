@@ -494,9 +494,6 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 var date = new Date(schedule_time);
-                $(".content").empty();
-                $(".content").append(data.body);
-                $(".content").css("-webkit-transform"," scale(0.60)").css("left", "-30px").css("top", "-50px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
@@ -727,7 +724,7 @@ function controllerMarketingCampaign($scope, $http) {
 
         if (social_type == "facebook"){
             
-            if ($scope.validate()){
+            if ($scope.validatefacebook()){
             
             var schedule_id = $("#facebook_schedule_id").val();
             var entity_id = $("#facebook_entity_id").val();
@@ -785,7 +782,7 @@ function controllerMarketingCampaign($scope, $http) {
             }
         }else if (social_type == "twitter"){
 
-            if ($scope.validate()){
+            if ($scope.validatetwitter()){
             var schedule_id = $("#twitter_schedule_id").val();
             var entity_id = $("#twitter_entity_id").val();
             var schedule_title = $("#twitter_schedule_title").val();
@@ -838,7 +835,7 @@ function controllerMarketingCampaign($scope, $http) {
             }
         }
     };
-        $scope.validate = function(){
+        $scope.validatefacebook = function(){
         
         var facebook_schedule_title = $("#facebook_schedule_title").val();
         var facebook_schedule_Description = $("#facebook_schedule_Description").val();
@@ -879,5 +876,38 @@ function controllerMarketingCampaign($scope, $http) {
         }
         return true;
         
-    };
+        };
+        $scope.validatetwitter = function(){
+        
+            var schedule_id = $("#twitter_schedule_id").val();
+            var entity_id = $("#twitter_entity_id").val();
+            var schedule_title = $("#twitter_schedule_title").val();
+            var schedule_Description = $("#twitter_schedule_Description").val();
+            var schedule_posttext = $("#twitter_schedule_post_text").val();
+            var schedule_datetime = $("#twitter_schedule_datetime").val();
+        
+        if (twitter_schedule_title == ""){
+            alert("schedule title not entered, please enter the value");
+            $("#twitter_schedule_title").focus();
+            return false;
+        }
+        if (twitter_schedule_Description == ""){
+            alert("schedule description not entered, please enter the value");
+            $("#twitter_schedule_Description").focus();
+            return false;
+        }
+        if (twitter_schedule_post_text == ""){
+            alert("schedule post text not entered, please enter the value");
+            $("#twitter_schedule_post_text").focus();
+            return false;
+        }
+        if (twitter_schedule_datetime == ""){
+            alert("schedule date time not entered, please enter the value");
+            $("#twitter_schedule_datetime").focus();
+            return false;
+        }
+        return true;
+        
+        };
+
 };

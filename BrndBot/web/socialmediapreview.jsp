@@ -372,7 +372,7 @@
                 document.getElementById('schedule_title').disabled=false;
                 document.getElementById('hour').disabled=false;
                 document.getElementById('minute').disabled=false;
-                document.getElementById('ampm').disabled=false;
+                document.getElementById('AMPM').disabled=false;
                 document.getElementById('schedule_time').disabled=false; 
                 document.getElementById('schedule_desc').disabled=false; 
                 
@@ -382,7 +382,7 @@
                 document.getElementById('schedule_title').disabled=true;
                 document.getElementById('hour').disabled=true;
                 document.getElementById('minute').disabled=true;
-                document.getElementById('ampm').disabled=true;
+                document.getElementById('AMPM').disabled=true;
                 document.getElementById('schedule_time').disabled=true; 
                  }
         }
