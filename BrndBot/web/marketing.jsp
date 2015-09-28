@@ -187,7 +187,7 @@
             }
 
             #preview, #previewemail, #emailedit, #editfacebook, #edittwitter,
-            #previewfb, #previewNote, #previewtwitter{
+            #previewfb, #previewNote, #previewtwitter, #editNote{
                 position:fixed;
                 height:100%;
                 background:#ffffff;
@@ -663,12 +663,13 @@
                                 <div class="actiondet">
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div style="position:relative;left:10px;bottom:0px;top:0px;"><button id="button_edit" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                <div style="position:relative;left:10px;bottom:0px;top:0px;"><button id="button_edit" ng-click="editScheduleDetails(schedule_id, schedule_time, schedule_type, schedule_title, schedule_description)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
                             </div>
                         </div>
                     </div>
 
-                    </div></div>
+                    </div>
+                </div>
                 <div id="emailedit" class="pollSlider" style="height:630px;overflow-y:scroll;overflow-x:hidden;z-index:1005;">
                     <div>
                         <div>
@@ -814,7 +815,32 @@
                         </div>
                     </div>
 
-                </div>
+            </div>
+            <div id="editNote" class="pollSlider" style="z-index:1005;">
+                    <div>
+                        <div>
+
+                            <div style="border:1px solid #7ab5d3">
+
+                                <div class="actiondetails">
+                                    <p>ACTION DETAILS</p>
+                                    <p>Title: <input type="text" id="note_title" name="note_title" value="{{schedule_title}}"/></p>
+                                    <p>Description: <input type="text" id="note_desc" name="note_desc" value="{{schedule_desc}}"/></p>
+                                </div>
+                                <p>Saved Post &nbsp;&nbsp; Preview</p>
+                                <p></p><br>
+
+                                <p class="postdetails">Post details</p>
+                                <div>
+                                    <input type="datetime-local" id="notedate" name="notedate"/>
+                                    Scheduled on {{entities_selected_time| date:'h:mma'}}
+                                </div>
+                                <div class="editbutton"><button type="button">EDIT</button> </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
 
                 <div id="previewtwitter" class="pollSlider" style="z-index:1005;height:720px;">
                     <div>
