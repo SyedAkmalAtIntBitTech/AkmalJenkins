@@ -246,7 +246,7 @@
              background-color: #e4e4e4;
              border: 1px solid #DADADA;
              border-radius: 5px;
-             width:200px;
+             width:220px;
              height: 30px;
              font-family: sans-serif;
              font-size: 14px;
@@ -577,7 +577,10 @@
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
                                     <div class="col-md-2" style="margin-left:20px;">
-                                        <a href = "javascript:void(0)" onclick="overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
+                                        <a href = "javascript:void(0)" onclick="overlay();">
+                                            <button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button>
+                                        </a>
+                                    </div>
 
                                 </div>
 
@@ -613,10 +616,10 @@
 
                             <div class="group">
                                 <div class="col-md-4 col-md-offset-1 ">                            
-                                    <input id="title" class="brdr form-control simplebox" type="text" name="title" />
-                                    <label>TITLE</label>
+                                    <input id="title" class="brdr form-control simplebox" type="text" name="title" placeholder="TITLE"/>
+<!--                                    <label>TITLE</label>-->
                                 </div><br>
-                                <div style="position:relative;left:-170px;top:30px;" class="SH2">
+                                <div style="position:absolute;left:60px;top:40px;" class="SH2">
                                     Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
@@ -624,10 +627,10 @@
                                         <option value="email">email</option>
                                         <option value="note">note</option>
                                     </select></div>
-                                <div style="position:relative;top:40px;left:60px;" class="SH2">
+                                <div style="position:absolute;top:80px;left:60px;" class="SH2">
                                     Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal"></textarea>
                                 </div>
-                                <div class="SH2" style="position:relative; margin-top: 50px; margin-left: 60px;" >
+                                <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
                                     Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
                                 </div>
                                 
@@ -635,10 +638,10 @@
                                 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;top:20px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:240px;left:20px;">
 
                                     <div class="row">
-                                        <div class="col-md-12" style="width:250px;top:0px;">
+                                        <div>
                                             <div class="col-md-6" id="dvButtonContainer">
                                                 <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="AddAction()" style="width:100px;" />
                                             </div>
@@ -666,7 +669,7 @@
                                     <p class="MH2" style="width:300px;">Title: {{schedule_title}}</p>
 <!--                                    <p class="MH2" style="width:500px;">Description: {{schedule_desc}}</p>-->
                                 </div>
-                                <div class="SP1 actfnt">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></div>
+                                <div class="SP1 actfnt" style="position:absolute;left:20px;">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></div>
                                 
                             <div class="content"></div> <br>
                                 <p class="postdetails SP1 actfnt">Post details</p>
@@ -744,20 +747,22 @@
                                      -ms-transform: scale(0.45, 0.5);
                                      -webkit-transform: scale(0.58, 0.7);
                                      display:none;"/>
-                                <div style="position:relative;top:-250px;left:300px;">
+                                <div style="position:absolute;top:170px;left:300px;">
 
                                 <p class="SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
                                 </div>
-                                  <div style="position: relative;margin-left:20px;margin-top:-150px;">
+                                  <div style="position:absolute;margin-left:20px;margin-top:50px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
                                 
-                                <div style="position:relative;bottom:0px;top:0px;"><button id="button_edit" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                <div style="position:relative;bottom:0px;top:0px;">
+                                    <button id="button_edit" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">EDIT</button> 
+                                </div>
                                 
                                   </div>
                             </div>
@@ -781,12 +786,12 @@
                                 </div>
                                 <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                                 <img id="edtfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-60px;left:-120px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.5, 0.6);display:none;"/>
-                                 <div style="position:relative;top:-300px;left:285px;">
+                                 <div style="position:absolute;top:130px;left:300px;">
                                 <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                  </div>
-                                <div style="position:relative;margin-left:10px;margin-top:-270px;">
+                                <div style="position:absolute;margin-left:10px;margin-top:50px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>
@@ -802,25 +807,32 @@
 
                 </div>
 
-            <div id="previewNote" class="pollSlider" style="z-index:1005;">
+            <div id="previewNote" class="pollSlider" style="z-index:1005;height:720px;">
                     <div>
                         <div>
 
-                            <div style="border:1px solid #7ab5d3">
+                            <div style="position:relative;left:50px;">
 
-                                <div class="actiondetails">
-                                    <p>ACTION DETAILS</p>
-                                    <p>Title: {{schedule_title}}</p>
-                                    <p>Description: {{schedule_desc}}</p>
+                                    <div class="actiondetails actiondet">
+                                    <p class="SP2 actfnt">ACTION DETAILS</p>
+                                    <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
+                                    <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
+                                    <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                                 </div>
-                                <p>Saved Post &nbsp;&nbsp; Preview</p>
-                                <p></p><br>
-
-                                <p class="postdetails">Post details</p>
+                                
+                                 <div style="position:absolute;margin-left:20px;margin-top:50px;">
+                                <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
-                                    Scheduled on {{entities_selected_time| date:'h:mma'}}
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div class="editbutton"><button type="button">EDIT</button> </div>
+                                
+                                <div style="position:relative;bottom:0px;top:0px;">
+                                    <button id="button_edit" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button" >EDIT</button> 
+                                </div>
+                                
+                                  </div>
+
+                                
                             </div>
                         </div>
                     </div>

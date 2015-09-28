@@ -356,7 +356,7 @@ function controllerMarketingCampaign($scope, $http) {
             sliderDialog = "#previewfb";
             $('#slider-button').click();
             prevSliderDialog = "#previewfb";
-            $('#prevfbimg').show();
+            $('#prevfbimg').show(); 
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
