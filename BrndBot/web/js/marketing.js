@@ -276,7 +276,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $(".editcontent").empty();
                 $(".editcontent").append(data.body);
-                $(".editcontent").css("-webkit-transform","scale(0.5,0.6)").css("margin-left", "-10px").css("margin-top", "-60px").css("margin-bottom", "-220px");
+                $(".editcontent").css("-webkit-transform","scale(0.5,0.6)").css("margin-left", "-140px").css("margin-top", "-60px").css("margin-bottom", "-220px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.showEmailList();

@@ -211,13 +211,22 @@
                 list-style: none;
             }
             .content{
-                position: relative;
-                max-width:200px;
-                height: 250px;
-                margin-top: 0px;
-               
+                overflow-y:scroll;
+                overflow-x:hidden;
+                height:400px;
+                max-width:650px;
+                position: absolute;
+                margin-top:80px;
+                margin-left: -60px;
             }
-            
+            .editcontent{
+                overflow-y:scroll;
+                overflow-x:hidden;
+                height:400px;
+                width:650px;
+                position: absolute;
+                margin-left: -160px;
+            }
             .actiondetails{
                 position: relative;
                 width:250px;
@@ -255,7 +264,7 @@
              bottom:2px;
          }
          #popupright_panel{
-             left: 205px;
+             left: 255px;
              position: relative;
          }
          .postdet{
@@ -671,18 +680,20 @@
                                 </div>
                                 <div class="SP1 actfnt" style="position:absolute;left:20px;">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></div>
                                 
-                            <div class="content"></div> <br>
+                                <div class="content"></div> <br>
+                                
+                                <div style="position:absolute;margin-top:280px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div class="actiondet">
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
                                 <div style="position:relative;left:10px;bottom:0px;top:0px;"><button id="button_edit" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
-                            </div>
+                                </div></div>
                         </div>
                     </div>
 
                     </div></div>
-                <div id="emailedit" class="pollSlider" style="height:630px;overflow-y:scroll;overflow-x:hidden;z-index:1005;">
+                <div id="emailedit" class="pollSlider" style="height:640px;overflow-y:scroll;overflow-x:hidden;z-index:1005;">
                     <div>
                         <div>
 
@@ -696,9 +707,10 @@
                                     <br><p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                                 </div>
                                 <div class="row" style="width:400px;">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="editcontent"></div>
                                     </div>
+                                  
                                     <div class="col-md-6" id="popupright_panel" >
 <!--                                        <div><label>subject</label></div>-->
                                         <div><p class="SP2 actfnt" style="font-weight:400;">Subject</p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
