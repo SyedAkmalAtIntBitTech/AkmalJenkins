@@ -366,7 +366,26 @@
                 };
         
             }
-            
+            function validateact(){
+               if((document.getElementById('facebookactions').value === "0") || (document.getElementById('twitteractions').value === "0"))
+                {
+                document.getElementById('schedule_title').disabled=false;
+                document.getElementById('hour').disabled=false;
+                document.getElementById('minute').disabled=false;
+                document.getElementById('ampm').disabled=false;
+                document.getElementById('schedule_time').disabled=false; 
+                document.getElementById('schedule_desc').disabled=false; 
+                
+                 }
+            else{
+                document.getElementById('schedule_desc').disabled=true; 
+                document.getElementById('schedule_title').disabled=true;
+                document.getElementById('hour').disabled=true;
+                document.getElementById('minute').disabled=true;
+                document.getElementById('ampm').disabled=true;
+                document.getElementById('schedule_time').disabled=true; 
+                 }
+        }
         </script>
        <jsp:include page="basejsp.jsp" />
     </head>
@@ -468,11 +487,11 @@
                         </p>
                     </a>
                 </div>
-                     <select name="facebookactions" id="facebookactions" class="SH1 selectsocialact" style="font-variant: normal;">
-                         <option value="0" style="background:#fff;">SELECT FACEBOOK</option>
+                <select name="facebookactions" id="facebookactions" class="SH1 selectsocialact" style="font-variant: normal;" onchange="validateact();">
+                         <option value="0" style="background:#fff;" >SELECT FACEBOOK</option>
                             <option style="background:#fff;" ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
                      </select><br><br>
-                <select name="twitteractions" id="twitteractions" class="SH1 selectsocialact" style="font-variant: normal;">
+                     <select name="twitteractions" id="twitteractions" class="SH1 selectsocialact" style="font-variant: normal;" onchange="validateact();">
                             <option style="background:#fff;" value="0">SELECT TWITTER</option>
                             <option style="background:#fff;" ng-repeat="twitteractions in twitter_actions" value="{{twitteractions.id}}">{{twitteractions.schedule_title}}</option>
                 </select><br>

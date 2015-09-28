@@ -491,6 +491,23 @@
                 });
 
             }
+            function validateact(){
+               if(document.getElementById('email_actions').value === "0")
+                {
+                document.getElementById('schedule_title').disabled=false;
+                document.getElementById('hour').disabled=false;
+                document.getElementById('minute').disabled=false;
+                document.getElementById('ampm').disabled=false;
+                document.getElementById('schedule_time').disabled=false; 
+                 }
+            else{
+                document.getElementById('schedule_title').disabled=true;
+                document.getElementById('hour').disabled=true;
+                document.getElementById('minute').disabled=true;
+                document.getElementById('ampm').disabled=true;
+                document.getElementById('schedule_time').disabled=true; 
+                 }
+        }
 
         </script>
         <jsp:include page="basejsp.jsp" />
@@ -577,7 +594,7 @@
                                         document.getElementById('fade').style.display = 'none';
                                         document.body.style.overflow = 'scroll';" style="text-decoration:none;">
                                 <p style="margin-left:740px;margin-top:-35px;cursor: pointer;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p></a></div>
-                        <select class="SH1 selectsocialact" style="font-variant: normal;" name="email_actions" id="email_actions">
+                        <select class="SH1 selectsocialact" style="font-variant: normal;" name="email_actions" id="email_actions" onchange="validateact()">
                             <option value="0" style="background:#fff;">--SELECT--</option>
                             <option ng-repeat="actions in email_actions" value="{{actions.id}}">{{actions.schedule_title}}</option>
                         </select>
