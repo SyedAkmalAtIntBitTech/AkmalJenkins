@@ -373,7 +373,7 @@ function controllerMarketingCampaign($scope, $http) {
             sliderDialog = "#editfacebook";
             $('#slider-button').click();
             prevSliderDialog = "#editfacebook";
-            
+            $('#edtfbimg').show();
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
@@ -394,6 +394,7 @@ function controllerMarketingCampaign($scope, $http) {
             sliderDialog = "#edittwitter";
             $('#slider-button').click();
             prevSliderDialog = "#edittwitter";
+            $('#edttwtimg').show();
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
@@ -462,6 +463,7 @@ function controllerMarketingCampaign($scope, $http) {
             sliderDialog = "#previewfb";
             $('#slider-button').click();
             prevSliderDialog = "#previewfb";
+            $('#prevfbimg').show(); 
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
@@ -482,6 +484,7 @@ function controllerMarketingCampaign($scope, $http) {
             sliderDialog = "#previewtwitter";
             $('#slider-button').click();
             prevSliderDialog = "#previewtwitter";
+            $('#prevtwtimg').show();
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id

@@ -218,8 +218,8 @@
                 font-weight: bold;
             }
             .fbuserDestable  tr:nth-child(1) td {
-    padding-top: 0;
-}
+                padding-top: 0;
+            }
           .link_title{
                 font-family:AGaramondPro-Regular;
                 font-size:  13.8px;
