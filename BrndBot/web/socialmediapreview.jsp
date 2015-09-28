@@ -563,7 +563,7 @@
                             <option value="58">58</option>
                             <option value="59">59</option>
                         </select>
-                        <select name="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
+                        <select name="AMPM" id="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
                         </select>

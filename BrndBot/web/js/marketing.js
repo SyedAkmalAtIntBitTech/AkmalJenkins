@@ -19,7 +19,7 @@ $(document).ready(function ()
         $('#slider-button').click();
         prevSliderDialog = "#dvFastingDialog";
     });
-
+    
 //    $("#entitydetails").click(function () {
 //        
 //        sliderDialog = "#previewfb";
@@ -71,7 +71,10 @@ $(document).ready(function ()
 //    });
 });
 
-
+function showEditNote(){
+        $("#noteprev").hide();
+        $("#noteedit").show();
+    }
 function validateEmail(sEmail) {
     var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     if (filter.test(sEmail)) {
@@ -361,7 +364,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $(".editcontent").empty();
                 $(".editcontent").append(data.body);
-                $(".editcontent").css("-webkit-transform","scale(0.5,0.6)").css("margin-left", "-10px").css("margin-top", "-60px").css("margin-bottom", "-220px");
+                $(".editcontent").css("-webkit-transform","scale(0.5,0.6)").css("margin-left", "-140px").css("margin-top", "-60px").css("margin-bottom", "-220px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.showEmailList();
@@ -507,6 +510,9 @@ function controllerMarketingCampaign($scope, $http) {
             sliderDialog = "#previewNote";
             $('#slider-button').click();
             prevSliderDialog = "#previewNote";
+            
+            $("#noteprev").show();
+            $("#noteedit").hide();
             $scope.entities_selected_time = schedule_time;
             $scope.schedule_title = schedule_title;
             $scope.schedule_id = schedule_id;
@@ -582,50 +588,52 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.deleteSchedule = function(){
         var schedule_details = {"type": "deleteSelected", 
             "schedule_ids": selected_schedules_to_delete};
+        if (confirm("do you want to realy want to delete")){
+            $http({
+                    method: 'POST',
+                    url: getHost() + 'ChangeScheduleServlet',
+                    headers: {'Content-Type': 'application/json'},
+                    data: schedule_details
+                }).success(function (data)
+                {
+                    $scope.status = data;
+                    if (data !== ""){
+                        alert("schedule deleted successfully");
+                        window.open(getHost() + 'marketing.jsp', "_self");
+                    }
+                }).error(function (data, status) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
 
-        $http({
-                method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
-                headers: {'Content-Type': 'application/json'},
-                data: schedule_details
-            }).success(function (data)
-            {
-                $scope.status = data;
-                if (data !== ""){
-                    alert("schedule deleted successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-                }
-            }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
-            });
+                    alert("request not succesful");
+                });
+        }
     };
 
     $scope.deleteAction = function(schedule_id){
         
         var schedule_details = {"type": "delete", 
             "schedule_ids": schedule_id};
+        if (confirm("do you want to realy want to delete")){
+            $http({
+                    method: 'POST',
+                    url: getHost() + 'ChangeScheduleServlet',
+                    headers: {'Content-Type': 'application/json'},
+                    data: schedule_details
+                }).success(function (data)
+                {
+                    $scope.status = data;
+                    if (data !== ""){
+                        alert("schedule deleted successfully");
+                        window.open(getHost() + 'marketing.jsp', "_self");
+                    }
+                }).error(function (data, status) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
 
-        $http({
-                method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
-                headers: {'Content-Type': 'application/json'},
-                data: schedule_details
-            }).success(function (data)
-            {
-                $scope.status = data;
-                if (data !== ""){
-                    alert("schedule deleted successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-                }
-            }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
-            });
+                    alert("request not succesful");
+                });
+        }
     };    
 
     $scope.removeTemplate = function(schedule_id){
@@ -633,24 +641,27 @@ function controllerMarketingCampaign($scope, $http) {
         var schedule_details = {"type": "removetemplate", 
             "schedule_ids": schedule_id };
 
-        $http({
-                method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
-                headers: {'Content-Type': 'application/json'},
-                data: schedule_details
-            }).success(function (data)
-            {
-                $scope.status = data;
-                if (data !== ""){
-                    alert("schedule deleted successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-                }
-            }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
+        if (confirm("do you want to realy want to remove the details")){
+         $http({
+                 method: 'POST',
+                 url: getHost() + 'ChangeScheduleServlet',
+                 headers: {'Content-Type': 'application/json'},
+                 data: schedule_details
+             }).success(function (data)
+             {
+                 $scope.status = data;
+                 if (data !== ""){
+                     alert("schedule deleted successfully");
+                     window.open(getHost() + 'marketing.jsp', "_self");
+                 }
+             }).error(function (data, status) {
+                 // called asynchronously if an error occurs
+                 // or server returns response with an error status.
 
-                alert("request not succesful");
-            });
+                 alert("request not succesful");
+             });
+
+        }
     };    
     
     $scope.updateEmailSchedule = function(){

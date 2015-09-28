@@ -211,13 +211,22 @@
                 list-style: none;
             }
             .content{
-                position: relative;
-                max-width:200px;
-                height: 250px;
-                margin-top: 0px;
-               
+                overflow-y:scroll;
+                overflow-x:hidden;
+                height:400px;
+                max-width:650px;
+                position: absolute;
+                margin-top:80px;
+                margin-left: -60px;
             }
-            
+            .editcontent{
+                overflow-y:scroll;
+                overflow-x:hidden;
+                height:400px;
+                width:650px;
+                position: absolute;
+                margin-left: -160px;
+            }
             .actiondetails{
                 position: relative;
                 width:250px;
@@ -255,7 +264,7 @@
              bottom:2px;
          }
          #popupright_panel{
-             left: 205px;
+             left: 255px;
              position: relative;
          }
          .postdet{
@@ -671,19 +680,22 @@
                                 </div>
                                 <div class="SP1 actfnt" style="position:absolute;left:20px;">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></div>
                                 
-                            <div class="content"></div> <br>
+                                <div class="content"></div> <br>
+                                
+                                <div style="position:absolute;margin-top:280px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div class="actiondet">
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
                                 </div>
-                                <div style="position:relative;left:10px;bottom:0px;top:0px;"><button id="button_edit" ng-click="editScheduleDetails(schedule_id, schedule_time, schedule_type, schedule_title, schedule_description)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+
+                                <div style="position:relative;left:10px;bottom:0px;top:0px;"><button id="button_edit" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    </div>
-                </div>
-                <div id="emailedit" class="pollSlider" style="height:630px;overflow-y:scroll;overflow-x:hidden;z-index:1005;">
+                    </div></div>
+                <div id="emailedit" class="pollSlider" style="height:640px;overflow-y:scroll;overflow-x:hidden;z-index:1005;">
                     <div>
                         <div>
 
@@ -697,9 +709,10 @@
                                     <br><p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                                 </div>
                                 <div class="row" style="width:400px;">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="editcontent"></div>
                                     </div>
+                                  
                                     <div class="col-md-6" id="popupright_panel" >
 <!--                                        <div><label>subject</label></div>-->
                                         <div><p class="SP2 actfnt" style="font-weight:400;">Subject</p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
@@ -754,11 +767,11 @@
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
                                 </div>
-                                  <div style="position:absolute;margin-left:20px;margin-top:50px;">
+                                  <div style="position:absolute;margin-left:20px;margin-top:-60px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
                                 
                                 <div style="position:relative;bottom:0px;top:0px;">
@@ -771,7 +784,7 @@
                     </div>
 
                 </div>
-                <div id="editfacebook" class="pollSlider" style="z-index:1005;height:725px;">
+                <div id="editfacebook" class="pollSlider" style="z-index:1005;height:725px;height:640px;overflow-y:scroll;overflow-x:hidden;">
                     <div>
                         <div>
 
@@ -792,11 +805,11 @@
                                 <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                  </div>
-                                <div style="position:absolute;margin-left:10px;margin-top:50px;">
+                                <div style="position:absolute;margin-left:10px;margin-top:-100px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
                                 <div class="removesavetemplate"><button ng-click="removeTemplate(schedule_id)" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
@@ -810,11 +823,11 @@
 
             <div id="previewNote" class="pollSlider" style="z-index:1005;height:720px;">
                     <div>
-                        <div>
+                        <div id="noteprev">
 
                             <div style="position:relative;left:50px;">
 
-                                    <div class="actiondetails actiondet">
+                                <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
                                     <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
                                     <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
@@ -824,18 +837,39 @@
                                  <div style="position:absolute;margin-left:20px;margin-top:50px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
                                 
                                 <div style="position:relative;bottom:0px;top:0px;">
-                                    <button id="button_edit" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button" >EDIT</button> 
+                                    <button id="button_edit" onclick="showEditNote()" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button" >EDIT</button> 
                                 </div>
                                 
-                                  </div>
+                                </div>
 
                                 
                             </div>
                         </div>
+                        <div id="noteedit" style="display:none;">
+
+                            <div style="position:relative;left:50px;">
+
+                                    <div class="actiondetails actiondet">
+                                    <p class="SP2 actfnt">ACTION DETAILS</p>
+                                    <p class="MH2" style="width:400px;">Title: <input type="text" id="note_title" name="note_title" value="{{schedule_title}}"/></p>
+                                    <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description:<input type="text" id="note_desc" name="note_desc" value="{{schedule_desc}}"/></p>
+                                    </div>       
+                                <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                              <div style="position:absolute;margin-left:10px;margin-top:50px;">
+                                <p class="postdetails SP1 actfnt">Post details</p>
+                                <div>
+                                    <input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                </div>
+                                <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                               </div>
+                               </div>
+                        </div>
+                        
                     </div>
 
             </div>
@@ -855,16 +889,15 @@
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
-                            <div class="removesavetemplate"><button ng-click="removeTemplate(schedule_id)" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                 <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                </div>
                                </div>
                         </div>
                     </div>
 
-            </div>
+                </div>
 
                 <div id="previewtwitter" class="pollSlider" style="z-index:1005;height:720px;">
                     <div>
@@ -887,7 +920,7 @@
                                     <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
                                 <div style="position:relative;bottom:0px;top:0px;"  class="editbutton"><button  class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
                                 
@@ -920,7 +953,7 @@
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <input type='datetime-local' name="twitter_schedule_datetime" id="twitter_schedule_datetime" class="inputdate"/><br>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
                                 <div style="margin-left:-10px;" class="removesavetemplate"><button ng-click="removeTemplate(schedule_id)" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
