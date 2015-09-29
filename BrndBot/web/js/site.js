@@ -1473,31 +1473,43 @@ function passvaluetoinputfield() {
         var contenttype = $("#" + addElementsArray[i]).parent().attr("class");
 //        alert(contenttype);
 
+//        var dropshadow = $("#" + addElementsArray[i]).css("text-shadow");
+//        var dropshadowarr = dropshadow.split(" ");
+//        var dropshadowdata = "%%H-shadow!" + dropshadowarr[3] + "%%V-shadow!" + dropshadowarr[4] + "%%blur!" + dropshadowarr[5];
+//
+//        var dropshadow1;
+//        if($("#" + addElementsArray[i]).children().length > 0)
+//        {
+//            if($("#" + addElementsArray[i]).children("svg").attr("id").indexOf("Svgjs") >= 0)
+//                dropshadow1 = $("#" + addElementsArray[i]).children("svg").css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
+//        }
+//        else
+//            dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
+//
+//        var data = $("#" + addElementsArray[i]).css("color").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
+//        var data1 = $("#" + addElementsArray[i]).css("text-shadow").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
+//        var data2 = $("#" + addElementsArray[i]).css("background-color").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
+//        
+//        var data3;
+//        if($("#" + addElementsArray[i]).children().length > 0)
+//        {
+//            if($("#" + addElementsArray[i]).children("svg").attr("id").indexOf("Svgjs") >= 0)
+//               data3 = $("#" + addElementsArray[i]).children("svg").css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
+//        }
+//        else
+//            data3 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
         var dropshadow = $("#" + addElementsArray[i]).css("text-shadow");
         var dropshadowarr = dropshadow.split(" ");
         var dropshadowdata = "%%H-shadow!" + dropshadowarr[3] + "%%V-shadow!" + dropshadowarr[4] + "%%blur!" + dropshadowarr[5];
 
-        var dropshadow1;
-        if($("#" + addElementsArray[i]).children().length > 0)
-        {
-            if($("#" + addElementsArray[i]).children("svg").attr("id").indexOf("Svgjs") >= 0)
-                dropshadow1 = $("#" + addElementsArray[i]).children("svg").css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
-        }
-        else
-            dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
+        var dropshadow1 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
 
         var data = $("#" + addElementsArray[i]).css("color").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
         var data1 = $("#" + addElementsArray[i]).css("text-shadow").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
         var data2 = $("#" + addElementsArray[i]).css("background-color").replace('rgb(', '').replace(')', '').replace(/\ /g, '').trim();
+        var data3 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
+
         
-        var data3;
-        if($("#" + addElementsArray[i]).children().length > 0)
-        {
-            if($("#" + addElementsArray[i]).children("svg").attr("id").indexOf("Svgjs") >= 0)
-               data3 = $("#" + addElementsArray[i]).children("svg").css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
-        }
-        else
-            data3 = $("#" + addElementsArray[i]).css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
         var arr = data.split(',');
         var arr1 = data1.split(',');
         var arr2 = data2.split(',');
@@ -1606,6 +1618,10 @@ function passvaluetoinputfield() {
 
         }
         if (contenttype.startsWith('draggableSVG')) {
+            dropshadow1 = $("#" + addElementsArray[i]).children("svg").css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', '').replace(')', '').replace('(', '');
+            data3 = $("#" + addElementsArray[i]).children("svg").css("-webkit-filter").replace('drop-shadow(', '').replace('rgb(', '').replace(')', ',').replace(/\ /g, '').replace(")", '').trim();
+            arr3 = data3.split(',');
+            color4 = rgbToHex(parseInt(arr3[0]), parseInt(arr3[1]), parseInt(arr3[2]));
             $.ajax({
                    url: getHost() + "SaveSVGServlet",
                    method: "post",
@@ -1625,7 +1641,7 @@ function passvaluetoinputfield() {
                     "%%opacity!" + $("#" + addElementsArray[i]).children("svg").attr("opacity") +
                     "%%filename!" + $("#" + addElementsArray[i]).children("svg").attr("filename") +
                     "%%border-radius!" + $("#" + addElementsArray[i]).children("svg").css("border-radius") +
-                    "%%background-color!" + "#" + color3 + dropshadowdata1;
+                    "%%background-color!" + "#" + color4 + dropshadowdata1;
         }
         if (contenttype.startsWith('draggableBlock')) {
 
