@@ -56,11 +56,11 @@ public class AddActionServlet extends HttpServlet {
             ServletUtil.printIllegalArgumentError(response, "Request body is missing");
             return;
         }
-        List<String> errorMsgs = validateRequestBody(requestBodyMap);
-        if ( !errorMsgs.isEmpty()){
-            ServletUtil.printIllegalArgumentError(response, errorMsgs);
-            return;
-        }
+//        List<String> errorMsgs = validateRequestBody(requestBodyMap);
+//        if ( !errorMsgs.isEmpty()){
+//            ServletUtil.printIllegalArgumentError(response, errorMsgs);
+//            return;
+//        }
         
         try(Connection conn = ConnectionManager.getInstance().getConnection()){
             conn.setAutoCommit(false);

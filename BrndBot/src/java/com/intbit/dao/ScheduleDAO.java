@@ -299,12 +299,10 @@ public class ScheduleDAO {
             ps.setString(4, scheduleDesc);
             ps.setInt(5, scheduleId);
             ps.execute();
-            try(ResultSet rs = ps.getResultSet()){
-                if (rs.next()) {
-                    scheduleId = rs.getInt(1);
-                    logger.log(Level.INFO, "Id of scheduled entity: " + scheduleId);
-                }
-            }
+            
+        }catch (Exception e){
+        logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                "Exception while updating the schedule:", null), e);
         }
         return scheduleId;
     }

@@ -346,6 +346,9 @@
 			opacity:.80;
 			filter: alpha(opacity=80);
 		}
+                #actiontype > option{
+                    background-color: #fff;
+                }
 		
 /*            #mask{  create are mask 
     position:fixed;
@@ -398,12 +401,13 @@
                 <div class="col-md-8 col-md-offset-3 " >
                 <div class="col-md-6 col-md-offset-1">
                      
-                    
+                    <div>
                     <p id="planhead" class="MH2">Your Plan</p>
                     <a href = "javascript:void(0)" onclick = "overlay();">
-                    <button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;">ADD ACTION</button></a>
+                    <button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;">ADD ACTION</button>
+                    </a>
                     <button id="delsel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;position:relative;margin-top:-47px;margin-left:25em;display:none;" ng-click="deleteSchedule()">DELETE SELECTED</button> 
-                    
+                    </div>
 
                    
                     <div class="col-md-12" style="display: none;" id="default" ng-init="getCampaigns()">
@@ -418,7 +422,7 @@
                         <ul>
                             <li ng-repeat="entity in entitySet['Today']">
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                                <div class="row" style="width:950px;position:relative;left:-30px;top:-20px;" id="entitydetails" >
+                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails" >
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
@@ -441,9 +445,11 @@
                         </div>
 
                         <ul>   
-                            <li ng-repeat="entity in entitySet['Tomorrow']">
+                            <li>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
+                            </li>
+                            <li ng-repeat="entity in entitySet['Tomorrow']">
+                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetomorrow" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
@@ -475,9 +481,9 @@
                         </div>
                         <ul>
                             <li ng-repeat="entity in entitySet['Later']">
-                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
+                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
+                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removeLater" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
@@ -511,7 +517,7 @@
 
                         <ul>
                             <li ng-repeat="entity in entitySetSelected['Today']">
-                                <p class='col-md-2 SS2' style="position:relative;top:-15px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
+                                <p class='col-md-2 SS2' style="position:relative;top:-15px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
@@ -546,9 +552,9 @@
 
                         <ul>   
                             <li ng-repeat="entity in entitySetSelected['Tomorrow']">
-                                <p class='col-md-2 SS2' style="position:relative;top:-15px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
+                                <p class='col-md-2 SS2' style="position:relative;top:-15px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
+                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
@@ -574,9 +580,9 @@
                         </div>
                         <ul>
                             <li ng-repeat="entity in entitySetSelected['Later']">
-                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
+                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-18px;">
-                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
+                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
@@ -633,7 +639,7 @@
 <!--                                    <label>TITLE</label>-->
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:40px;" class="SH2">
-                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#333;background-color: #E4E4E4;border-radius:5px;border:none;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
@@ -708,37 +714,41 @@
                             </div>
                         </div>
                         </div>
-                        <div id="edit_email_action">
-                        <h1>&nbsp;update action</h1>
+                        <div id="edit_email_action" style="position:relative;left:50px;top:50px;">
+                        <h1>&nbsp;Update action</h1>
                         <form class="form-horizontal" id="signform">
 
                             <div class="group">
                                 <div class="col-md-4 col-md-offset-1 ">                            
-                                    <input id="title" class="brdr form-control simplebox" type="text" name="title" value="{{schedule_title}}"/>
+                                    <input id="email_edit_title" class="brdr form-control simplebox" type="text" name="email_edit_title" value="{{schedule_title}}"/>
+                                    <p><input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                    
 <!--                                    <label>TITLE</label>-->
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:40px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                    <p><input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+<!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
                                         <option value="email">email</option>
                                         <option value="note">note</option>
-                                    </select></div>
-                                <div style="position:absolute;top:80px;left:60px;" class="SH2">
-                                    Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
+                                    </select>-->
                                 </div>
-                                <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
+                                <div style="position:absolute;top:140px;left:60px;" class="SH2">
+                                    Description <br><textarea cols="28" rows="2" name="email_description" id="email_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
+                                </div>
+                                <div class="SH2" style="position:absolute; margin-top: 220px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;">Selected Date: {{entities_selected_time| date:'h:mma'}}</p>
-                                    Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
+                                    Date <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
                                 </div>
                                 
 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
                                 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:240px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:350px;left:20px;">
 
                                     <div class="row">
                                         <div>
@@ -748,7 +758,7 @@
                                                           button--text-thick 
                                                           button--text-upper 
                                                           button--size-s" 
-                                                          ng-click="updateAction()" 
+                                                          ng-click="updateActionEmail()" 
                                                           style="width:100px;" />
                                         </div>
                                         <div class="col-md-6" id="dvButtonContainer">
@@ -783,7 +793,7 @@
                                     </div>
                                   
                                     <div class="col-md-6" id="popupright_panel" >
-                                        <div><label>subject</label></div>
+<!--                                        <div><label>subject</label></div>-->
                                         <div><p class="SP2 actfnt" style="font-weight:400;">Subject</p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
                                         <div><p class="SP2 actfnt" style="font-weight:400;">To address</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
                                         <div><p class="SP2 actfnt" style="font-weight:400;">From address</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
@@ -834,7 +844,7 @@
                             <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
                             <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
                             </div>
-                            <div style="position:absolute;margin-left:20px;margin-top:-60px;">
+                            <div id="fb_preview_postdet" style="position:absolute;margin-left:20px;margin-top:-60px;">
                             <p class="postdetails SP1 actfnt">Post details</p>
                             <div>
                                 <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
@@ -848,16 +858,16 @@
                             </div>
                         </div>
                         </div>
-                        <div id="edit_facebook_action">
-                        <h1>&nbsp;update action</h1>
+                        <div id="edit_facebook_action" style="position:relative;left:50px;top:50px;">
+                        <h1>&nbsp;Update action</h1>
                         <form class="form-horizontal" id="signform">
 
                             <div class="group">
                                 <div class="col-md-4 col-md-offset-1 ">                            
-                                    <input id="title" class="brdr form-control simplebox" type="text" name="title" value="{{schedule_title}}"/>
+                                    <input id="fb_action_title" class="brdr form-control simplebox" type="text" name="fb_action_title" value="{{schedule_title}}"/>
                                     <p><input class="inputbox SP1" type="hidden"
-                                              name="facebook_schedule_id" 
-                                              id="facebook_schedule_id" 
+                                              name="fb_scheduleid" 
+                                              id="fb_scheduleid"
                                               value='{{schedule_id}}' 
                                               style="position:relative;
                                               top:10px;font-size:15px;
@@ -868,26 +878,36 @@
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:40px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                    <p><input class="inputbox SP1" type="hidden"
+                                              name="fb_scheduletype" 
+                                              id="fb_scheduletype"
+                                              value='{{schedule_type}}' 
+                                              style="position:relative;
+                                              top:10px;font-size:15px;
+                                              font-weight:400;line-height:10px;
+                                              width:300px;"/>
+                                    </p>
+                                    <!--                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
                                         <option value="email">email</option>
-                                        <option value="note">note</option>
-                                    </select></div>
-                                <div style="position:absolute;top:80px;left:60px;" class="SH2">
-                                    Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
+                                        <option value="note">note</option>-->
+                                    <!--</select>-->
                                 </div>
-                                <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
+                                <div style="position:absolute;top:110px;left:60px;" class="SH2">
+                                    Description <br><textarea cols="28" rows="2" name="fb_description" id="fb_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
+                                </div>
+                                <div class="SH2" style="position:absolute; margin-top: 180px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;">Selected Date: {{entities_selected_time| date:'h:mma'}}</p>
-                                    Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
+                                    Date <input type="datetime-local" name="fbdatetime" id="fbdatetime" class="inputdate MH1"/>
                                 </div>
                                 
 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
                                 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:240px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:20px;">
 
                                     <div class="row">
                                         <div>
@@ -897,7 +917,7 @@
                                                           button--text-thick 
                                                           button--text-upper 
                                                           button--size-s" 
-                                                          ng-click="updateAction()" 
+                                                          ng-click="updateActionFacebook()" 
                                                           style="width:100px;" />
                                         </div>
                                         <div class="col-md-6" id="dvButtonContainer">
@@ -921,7 +941,7 @@
                             <div style="position:relative;left:50px;top:-10px;">
 
                                 <div class="actiondetails actiondet" >
-                                    <p class="SP2 actfnt">ACTION DETAILS</p><p ng-click="deleteAction(schedule_id)">DELETE ACTION</p>
+                                    <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1" ng-click="deleteAction(schedule_id)" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
                                     <p><input class="inputbox MH2" type="text" name="facebook_schedule_title" id="facebook_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:270px;font-size:22px;"/></p>
                                     <p><input class="inputbox SP1" type="text" name="facebook_schedule_Description" id="facebook_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:270px;"/></p>
                                     <p><input class="inputbox SP1" type="hidden" name="facebook_schedule_id" id="facebook_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
@@ -1018,10 +1038,10 @@
                                 <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                      
                                 <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-50px;left:-100px;transform: scale(0.5);-ms-transform: scale(0.5);-webkit-transform: scale(0.6);display:none;"/>
-                                <div style="position:relative;top:-470px;left:300px;">
+                                <div style="position:relative;top:-230px;left:310px;">
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.text}}</p>
                                 </div>
-                                <div style="position:relative;margin-left:20px;margin-top:-100px;">  
+                                <div id="twitter_preview_postdet" style="position:relative;margin-left:20px;margin-top:-100px;">  
                                     <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
@@ -1032,37 +1052,40 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="edit_twitter_action">
+                        <div id="edit_twitter_action" style="position:relative;top:50px;left:50px;">
                         <h1>&nbsp;update action</h1>
                         <form class="form-horizontal" id="signform">
 
                             <div class="group">
-                                <div class="col-md-4 col-md-offset-1 ">                            
-                                    <input id="title" class="brdr form-control simplebox" type="text" name="title" value="{{schedule_title}}"/>
+                                <div class="col-md-4 col-md-offset-1 ">
+                                    <input id="edit_twitter_title" class="brdr form-control simplebox" type="text" name="edit_twitter_title" value="{{schedule_title}}"/>
+                                    <p><input class="inputbox SP1" type="hidden" name="twitter_scheduleid" id="twitter_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
 <!--                                    <label>TITLE</label>-->
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:40px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                    <p><input class="inputbox SP1" type="hidden" name="twitter_action_type" id="twitter_action_type" value='{{schedule_type}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+<!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
                                         <option value="email">email</option>
                                         <option value="note">note</option>
-                                    </select></div>
-                                <div style="position:absolute;top:80px;left:60px;" class="SH2">
-                                    Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
+                                    </select>-->
                                 </div>
-                                <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
+                                <div style="position:absolute;top:110px;left:60px;" class="SH2">
+                                    Description <br><textarea cols="28" rows="2" name="twitter_description" id="twitter_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
+                                </div>
+                                <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;">Selected Date: {{entities_selected_time| date:'h:mma'}}</p>
-                                    Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
+                                    Date <input type="datetime-local" name="twitterdatetime" id="twitterdatetime" class="inputdate MH1"/>
                                 </div>
                                 
 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
                                 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:240px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:340px;left:20px;">
 
                                     <div class="row">
                                         <div>
@@ -1072,7 +1095,7 @@
                                                           button--text-thick 
                                                           button--text-upper 
                                                           button--size-s" 
-                                                          ng-click="updateAction()" 
+                                                          ng-click="updateActionTwitter()" 
                                                           style="width:100px;" />
                                         </div>
                                         <div class="col-md-6" id="dvButtonContainer">
@@ -1094,7 +1117,7 @@
                         <div id="edit_twitter">
                             <div style="position:relative;left:50px;top:-10px;">
                                <div class="actiondetails actiondet" >
-                                    <p class="SP2 actfnt">ACTION DETAILS</p><p ng-click="deleteAction(schedule_id)">DELETE ACTION</p>
+                                   <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1" ng-click="deleteAction(schedule_id)" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
                                     <p><input class="inputbox MH2" type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
                                     <p><input class="inputbox SP1" type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                     <p><input class="inputbox SP1" type="hidden" name="twitter_schedule_id" id="twitter_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
