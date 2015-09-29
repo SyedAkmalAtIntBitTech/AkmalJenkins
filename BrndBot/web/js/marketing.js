@@ -610,7 +610,7 @@ function controllerMarketingCampaign($scope, $http) {
         console.log("New Epoch: " + newEpoch);
 
         if (validateaction()) {
-            var action = {"title": title, "type": actiontype, 
+            var action = {"title": title, "actiontype": actiontype,"type":"update",
                           "description": description, "action_date": newEpoch 
                          };
             $http({
@@ -635,6 +635,56 @@ function controllerMarketingCampaign($scope, $http) {
 
         }
     };
+    $scope.updateAction = function () {
+        
+        var schedule_id = $("#schedule_id").val();
+        var actiontype = $("#actiontype").val();
+        var title = $("#title").val();
+        
+        var description = $("#description").val();
+        var actiondate = $("#actiondatetime").val();
+        
+        console.log("Value selected from Component: " + actiondate);
+        var schedule_time = Date.parse(actiondate);
+        console.log("Epoch: " + schedule_time);
+
+        var dateObj = new Date(schedule_time);
+        console.log(dateObj.getTimezoneOffset());
+
+        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+
+        var newEpoch = schedule_time + tzOffsetInMillis;
+        console.log("New Epoch: " + newEpoch);
+
+        if (validateaction()) {
+            var action = {
+                    "schedule_id":schedule_id,"type":"update",
+                    "title": title, "actiontype": actiontype,
+                    "description": description, "action_date": newEpoch
+                         };
+            $http({
+                method: 'POST',
+                url: getHost() + 'AddAction',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(action)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != ""){
+                    alert("action saved successfully");
+                    window.open(getHost() + 'marketing.jsp', "_self");
+
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+
+                alert("request not succesful");
+            });
+
+        }
+    };
+
     $scope.showEmailList = function () {
 
         var emailids = {"update": "allEmailListNames"};

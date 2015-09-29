@@ -277,6 +277,37 @@ public class ScheduleDAO {
         }
         return scheduleId;
     }
+
+    public static int updateScheduledEntity(Integer scheduleId, 
+            String scheduleTitle,
+            String scheduleDesc,
+            Timestamp scheduleTime,
+            String entityType,
+            int userId,
+            Connection connection) throws SQLException{
+        String query_string = "Update tbl_scheduled_entity_list"
+                + " SET schedule_title = ?, schedule_time = ?,"
+                + " entity_type = ?, schedule_desc = ?"
+                + " Where id = ?";
+        
+        
+        try(PreparedStatement ps = connection.prepareStatement(query_string)){
+            
+            ps.setString(1, scheduleTitle);
+            ps.setTimestamp(2, scheduleTime);
+            ps.setString(3, entityType);
+            ps.setString(4, scheduleDesc);
+            ps.setInt(5, scheduleId);
+            ps.execute();
+            try(ResultSet rs = ps.getResultSet()){
+                if (rs.next()) {
+                    scheduleId = rs.getInt(1);
+                    logger.log(Level.INFO, "Id of scheduled entity: " + scheduleId);
+                }
+            }
+        }
+        return scheduleId;
+    }
     
     public static JSONArray getScheduledActions(int userid)throws SQLException{
         JSONObject json_action_facebook = new JSONObject();

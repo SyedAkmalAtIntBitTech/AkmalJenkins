@@ -748,7 +748,7 @@
                                                           button--text-thick 
                                                           button--text-upper 
                                                           button--size-s" 
-                                                          ng-click="AddAction()" 
+                                                          ng-click="updateAction()" 
                                                           style="width:100px;" />
                                         </div>
                                         <div class="col-md-6" id="dvButtonContainer">
@@ -897,7 +897,7 @@
                                                           button--text-thick 
                                                           button--text-upper 
                                                           button--size-s" 
-                                                          ng-click="AddAction()" 
+                                                          ng-click="updateAction()" 
                                                           style="width:100px;" />
                                         </div>
                                         <div class="col-md-6" id="dvButtonContainer">
@@ -1072,7 +1072,7 @@
                                                           button--text-thick 
                                                           button--text-upper 
                                                           button--size-s" 
-                                                          ng-click="AddAction()" 
+                                                          ng-click="updateAction()" 
                                                           style="width:100px;" />
                                         </div>
                                         <div class="col-md-6" id="dvButtonContainer">

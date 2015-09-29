@@ -64,29 +64,54 @@ public class AddActionServlet extends HttpServlet {
         
         try(Connection conn = ConnectionManager.getInstance().getConnection()){
             conn.setAutoCommit(false);
-            String templateStatus = TemplateStatus.no_template.toString();
-            if ( ScheduledEntityType.note.toString().equals(requestBodyMap.get("type").toString())){
-                templateStatus = TemplateStatus.incomplete.toString();
+            String type = (String)requestBodyMap.get("type");
+            if (type.equalsIgnoreCase("save")){
+                String templateStatus = TemplateStatus.no_template.toString();
+                if ( ScheduledEntityType.note.toString().equals(requestBodyMap.get("type").toString())){
+                    templateStatus = TemplateStatus.incomplete.toString();
+                }
+                try{
+                    int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
+                        requestBodyMap.get("title").toString(),
+                        requestBodyMap.get("description").toString(),
+                        new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
+                        requestBodyMap.get("actiontype").toString(), 
+                        templateStatus,
+                        userId,
+                        conn
+                    );
+                    conn.commit();
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("schedule_entity_id", scheduleId);
+                    ServletUtil.printSuccessData(response, data);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    conn.rollback();
+                    ServletUtil.printInternalException(response, ex.getMessage());
+                }                
+            }else if (type.equalsIgnoreCase("update")){
+                String scheduleID = (String)requestBodyMap.get("schedule_id");
+                try{
+                    int scheduleId = ScheduleDAO.updateScheduledEntity(Integer.parseInt(scheduleID),
+                        requestBodyMap.get("title").toString(),
+                        requestBodyMap.get("description").toString(),
+                        new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
+                        requestBodyMap.get("actiontype").toString(), 
+                        userId,
+                        conn
+                    );
+                    conn.commit();
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("schedule_entity_id", scheduleId);
+                    ServletUtil.printSuccessData(response, data);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    conn.rollback();
+                    ServletUtil.printInternalException(response, ex.getMessage());
+                }                
+                
             }
-            try{
-                int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
-                    requestBodyMap.get("title").toString(),
-                    requestBodyMap.get("description").toString(),
-                    new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
-                    requestBodyMap.get("type").toString(), 
-                    templateStatus,
-                    userId,
-                    conn
-                );
-                conn.commit();
-                Map<String, Object> data = new HashMap<>();
-                data.put("schedule_entity_id", scheduleId);
-                ServletUtil.printSuccessData(response, data);
-            } catch (SQLException ex) {
-                Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
-                conn.rollback();
-                ServletUtil.printInternalException(response, ex.getMessage());
-            }
+
         } catch (SQLException ex) {
             Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
             ServletUtil.printInternalException(response, ex.getMessage());
