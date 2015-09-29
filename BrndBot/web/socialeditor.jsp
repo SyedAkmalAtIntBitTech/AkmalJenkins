@@ -58,25 +58,15 @@ and open the template in the editor.
         <!-- For svg --> 
         <script src="js/svg.js" type="text/javascript"></script>
         
-        <style>
+        <style>           
 a.boxclose{
     float:right;
     margin-top:8px;
     margin-right:30px;
     cursor:pointer;
-    color: #fff;
-    border: 1px solid #AEAEAE;
-    border-radius: 30px;
-    background: #605F61;
-    font-size: 31px;
-    font-weight: bold;
-    display: inline-block;
-    line-height: 0px;
-    padding: 11px 3px;       
-}
-.boxclose:before {
-    content: "×";
-
+    background-image: url(images/CloseIcon.svg);
+    width: 25px;
+    height: 25px;
 }
             #mask {
   position: absolute;
@@ -652,7 +642,7 @@ ul::-webkit-scrollbar-thumb {
                                                             }
 
                                                         }
-                                                        $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                                                        $(".blockname").append("<option value="+type+">Shape "+blockcount+"</option>")
                                                         blockcount++;
                                                             var width = $(this).attr("width");
                                                             var height = $(this).attr("height");
@@ -678,7 +668,7 @@ ul::-webkit-scrollbar-thumb {
                                                         var borderRadius = $(this).attr("border-radius");
                                                         var backgroundcolor;
 
-                                                        $(".blockname").append("<option value=" + type + ">Block " + blockcount + "</option>");
+                                                        $(".blockname").append("<option value=" + type + ">Shape " + blockcount + "</option>");
                                                         blockcount++;
 
                                                         for (var i = 1; i <= 6; i++)
@@ -794,7 +784,7 @@ ul::-webkit-scrollbar-thumb {
                                 
                             </div>
                             <div class="span3 col-md-offset-0" >
-                                <input id="continue" class="button button--moema button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
+                                <input id="continue" class="button button--moema button--text-upper button--size-s" type="button" value="CONTINUE" style="margin-top: -7%;"><br><br>
                                 <script>
                                     function showImageName(user_id, image_name){
                                         var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";   
@@ -846,7 +836,7 @@ ul::-webkit-scrollbar-thumb {
 
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-1" >
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:366px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
+                            <div class="well lead editor" id="editor" style="height:550px;top:35px;left:45px;overflow-y:scroll;width:366px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">

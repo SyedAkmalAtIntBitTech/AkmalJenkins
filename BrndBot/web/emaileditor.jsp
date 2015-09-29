@@ -68,87 +68,75 @@ and open the template in the editor.
 
 
         <style>
-            a.boxclose{
-            float:left;
-            margin-top:3px;
-            margin-left:5px;
-            cursor:pointer;
-            color: #fff;
-            border: 1px solid #AEAEAE;
-            border-radius: 30px;
-            background: #605F61;
-            font-size: 31px;
-            font-weight: bold;
-            display: inline-block;
-            line-height: 0px;
-            padding: 11px 3px; 
+         .mindbodyOneRowData{      
+                font-family: "proxima-nova",sans-serif;
+                font-style: normal;
+                font-size: 20px;
+                cursor: pointer;
             }
-            .boxclose:before {
-    content: "×";
+            
+            a.boxclose{
+                float:left;
+                margin-top:5px;
+                margin-left:10px;
+                cursor:pointer;
+                background-image: url(images/CloseIcon.svg);
+                width: 25px;
+                height: 25px;
 
-}
- a.boxclosegallery{
-   float:right;
-    margin-top:7px;
-    margin-right:90px;
-    cursor:pointer;
-    color: #fff;
-    border: 1px solid #AEAEAE;
-    border-radius: 30px;
-    background: #605F61;
-    font-size: 31px;
-    font-weight: bold;
-    display: inline-block;
-    line-height: 0px;
-    padding: 11px 3px; 
-}
-.boxclosegallery:before {
-    content: "×";
-
-}
+            }
+            a.boxclosegallery{
+                float:right;
+                margin-top:7px;
+                margin-right:90px;
+                cursor:pointer;
+                background-image: url(images/CloseIcon.svg);
+                width: 25px;
+                height: 25px;
+            }
             #tabs-4{
-                background-color: #F4F0F8;
+                background-color: #FFF;
                 margin-top:-42px;
-                opacity: 0.95;
+                opacity:1;
             }
             #mask {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 9000;
-  background-color: #000;
-  display: none;
-}
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 9000;
+                background-color: #000;
+                display: none;
+            }
 
-#boxes .window {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 340px;
-  height: 400px;
-  display: none;
-  z-index: 9999;
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-}
+            #boxes .window {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 340px;
+                height: 400px;
+                display: none;
+                z-index: 9999;
+                padding: 20px;
+                border-radius: 15px;
+                text-align: center;
+            }
 
-#boxes #dialog {
-  width: 450px;
-  height: 300px;
-  padding: 10px;
-/*  background-color: #ffffff;*/
-  font-family: 'Segoe UI Light', sans-serif;
-  font-size: 15pt;
-}
+            #boxes #dialog {
+                width: 450px;
+                height: 300px;
+                padding: 10px;
+                /*  background-color: #ffffff;*/
+                font-family: 'Segoe UI Light', sans-serif;
+                font-size: 15pt;
+            }
 
-#popupfoot {
-  font-size: 16pt;
-  position: absolute;
-  bottom: 0px;
-  width: 250px;
-  left: 250px;
-}
+            #popupfoot {
+                font-size: 16pt;
+                position: absolute;
+                bottom: 0px;
+                width: 250px;
+                left: 250px;
+            }
             @font-face {
                 font-family: Glyphter;
                 src: url(fonts/Glyphter.ttf);
@@ -303,11 +291,12 @@ and open the template in the editor.
                 padding-right: 5px;
             }
             .border-highlight {
-                border:2px solid #AEAEAE; 
-                width: 150px;
-                height: 30px;
+                border:2px solid #5CC1A3; 
+                width: inherit;
+                height: inherit;
                 border-radius: 5px;
-                background-color: #AEAEAE; 
+                color: white;
+                background-color: #5CC1A3; 
             }
             /*            ul.imageGallery {
                             display:inline-block;  
@@ -332,26 +321,26 @@ and open the template in the editor.
                 top: 0px;
             }
 
-/*            #editor::-webkit-scrollbar {
-                width: 10px;
-                height: 200px;
-            }
-            #editor::-webkit-scrollbar-track {
-                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-                border-radius: 10px;
-            }
+            /*            #editor::-webkit-scrollbar {
+                            width: 10px;
+                            height: 200px;
+                        }
+                        #editor::-webkit-scrollbar-track {
+                            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+                            border-radius: 10px;
+                        }
+            
+                        #editor::-webkit-scrollbar-thumb {
+                            border-radius: 10px;
+                            -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
+                        }*/
 
-            #editor::-webkit-scrollbar-thumb {
-                border-radius: 10px;
-                -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.7);
-            }*/
-
-/*            #emailframeimg {
-                position:absolute;
-                left:1.8em;
-                top:2em;
-                zoom:1.07;
-            }      */
+            /*            #emailframeimg {
+                            position:absolute;
+                            left:1.8em;
+                            top:2em;
+                            zoom:1.07;
+                        }      */
         </style>
         <style>#iphone{
                 width: 25px;
@@ -372,7 +361,7 @@ and open the template in the editor.
             }
             .images {
                 position: relative;
-/*                left:-50px;*/
+                /*                left:-50px;*/
 
             }
             .mindbodyHeaderData li{
@@ -639,7 +628,7 @@ and open the template in the editor.
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
                             $("#tabs-5").hide();
-                         $("#tabs-4").show().css("width", "830px").css("height", "665px").css("position","fixed").css("margin-left","-460px").css("top","45px");
+                         $("#tabs-4").show().css("width", "830px").css("height", "680px").css("position","fixed").css("margin-left","-460px").css("top","45px");
                          $("#loadingGifformindbody").show();
                           $scope.curPage = 0;
                           $scope.pageSize = 4;
@@ -986,7 +975,7 @@ and open the template in the editor.
 //                                                              fontcolor=user_preferences_colors.color+""+i; 
                             }
                             }
-                            $(".blockname").append("<option value=" + type + "EEE" + blockId + ">Block " + blockcount + "</option>");
+                            $(".blockname").append("<option value=" + type + "EEE" + blockId + ">Shape " + blockcount + "</option>");
                                     blockcount++;
                                     $(".preview #" + blockId).append("<div class=block onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
                                     $("#" + type + "EEE" + blockId).css("background-color", "" + backgroundcolor)
@@ -1143,7 +1132,7 @@ and open the template in the editor.
                         </div>
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-2">
-                            <div class="well lead editor" id="editor" style="border:none;height:500px;top:100px;left:36px;overflow-y:scroll;width:365px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
+                            <div class="well lead editor" id="editor" style="border:none;height:550px;top:35px;left:36px;overflow-y:scroll;width:365px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -1334,7 +1323,7 @@ and open the template in the editor.
                                                             <label id="{{blocks.block_id}}"  style="font-weight: normal;font-size:16px;">{{blocks.block_name}}</label>
                                                             <div></div><p>&nbsp;</p>
 -->
-                                                            <label id="{{blocks.block_id}}" class="blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)"  style="font-weight: normal;font-size:16px;margin-left: 10px">{{blocks.block_name}}</label>
+                                                            <label id="{{blocks.block_id}}" class="blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)"  style="font-weight: normal;font-size:16px;margin-left: 10px;">{{blocks.block_name}}</label>
 <!--                                                            <div></div><p>&nbsp;</p>-->
 
                                                         </li>
@@ -1369,7 +1358,7 @@ and open the template in the editor.
                                        <a class="boxclose" id="boxclose"></a>
                                         <div id="loadingGifformindbody" style="position: absolute; top:240px;left: 335px;" > <img src="images/YogaLoadingGif.gif" /></div>
                                         <div ng-controller="MyController" id="MyController" > 
-                                            <p id="text3" style="width: 500px;position: relative;right:-35px;color:#000;margin-top:7px;">{{datalists.title}}</p><br>
+                                            <p id="text3" style="width: 500px;font-family: 'proxima-nova',sans-serif;font-weight: 600; position: relative;right:-65px;color:#000;margin-top:50px;">{{datalists.title}}</p><br>
                                             <ul class="dataheaderfromindbody">
                                                 <div class="mindbodyHeaderData LE2" >
                                                     <li style="width: 400px;left:80px;">{{datalists.column_header[0]}}</li>
@@ -1386,10 +1375,10 @@ and open the template in the editor.
 
                                                         <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;">
                                                             <!--                                    {{jsonclass}}-->
-                                                            <div class='mindbodyOneRowData' ng-click="select_category_details(jsonclass.id)" >
+                                                            <div class='mindbodyOneRowData MH1' ng-click="select_category_details(jsonclass.id)" style="font-weight: 400;font-size: 16px;">
                                                                 <li style="width: 250px">{{jsonclass.column1}}</li>
                                                                 <li style="width: 200px">{{jsonclass.column2}}</li>
-                                                                <li style="width: 150px;margin-left: 10px;">{{jsonclass.column3}}</li>
+                                                                <li style="width: 180px;margin-left: 10px;">{{jsonclass.column3}}</li>
                                                             </div>
                                                         </ul>
                                                     </div>

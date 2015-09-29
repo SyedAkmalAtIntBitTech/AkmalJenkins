@@ -422,7 +422,7 @@ $(".blockname").change(function (){
                                     var borderRadius = $(this).attr("border-radius");
                                     var backgroundcolor;
 
-                                    $(".blockname").append("<option value=" + type + ">Block " + blockcount + "</option>");
+                                    $(".blockname").append("<option value=" + type + ">Shape " + blockcount + "</option>");
                                     blockcount++;
 
                                     for (var i = 1; i <= 6; i++)
@@ -459,7 +459,7 @@ $(".blockname").change(function (){
                                     var borderRadius = $(this).attr("border-radius");
                                     var backgroundcolor;
 
-                                    $(".blockname").append("<option value=" + type + ">Block " + blockcount + "</option>");
+                                    $(".blockname").append("<option value=" + type + ">Shape " + blockcount + "</option>");
                                     blockcount++;
 
                                     for (var i = 1; i <= 6; i++)

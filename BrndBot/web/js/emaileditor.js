@@ -396,7 +396,7 @@ $(document).ready(function () {
 
                                     }
 
-                                    $(".blockname").append("<option value=" + type + "EEEdefaultblock1>Block " + blockcount + "</option>");
+                                    $(".blockname").append("<option value=" + type + "EEEdefaultblock1>Shape " + blockcount + "</option>");
                                     blockcount++;
                                     $(".preview #defaultblock1").append("<div class=block onclick=getDivId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                                     $("#" + type + "EEEdefaultblock1").css("background-color", "" + backgroundcolor)
@@ -727,7 +727,7 @@ function getBlockId(id) {
             case 'textAreas': textCount++;
                                 break;
             case 'block':   
-                            $(".blockname").append("<option value="+ Id +">Block " + blockCount + "</option>");
+                            $(".blockname").append("<option value="+ Id +">Shape " + blockCount + "</option>");
                             blockCount++;
                             break;              
                             
