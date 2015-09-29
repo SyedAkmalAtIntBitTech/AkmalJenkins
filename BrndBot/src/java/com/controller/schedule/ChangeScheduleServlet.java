@@ -111,10 +111,23 @@ public class ChangeScheduleServlet extends HttpServlet {
                 response.getWriter().flush();
             }else if(type.equalsIgnoreCase("removetemplate")){
                 Double schedule_ids = (Double)requestBodyMap.get("schedule_ids");
-                ScheduleDAO.removeSavedTemplate(userId, schedule_ids.intValue()); 
+                ScheduleDAO.removeSavedTemplate(userId, schedule_ids.intValue());
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
+            }else if(type.equalsIgnoreCase("note")){
+                String schedule_id = (String)requestBodyMap.get("schedule_id");
+                String schedule_title = (String)requestBodyMap.get("schedule_title");
+                String schedule_desc = (String)requestBodyMap.get("schedule_desc");
+                Double schedule = (Double)requestBodyMap.get("schedule_time");
+
+                Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
+                ScheduleDAO.updateNoteDetails(userId, Integer.parseInt(schedule_id),
+                        schedule_title, schedule_desc, scheduleTimeStamp);
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write("true");
+                response.getWriter().flush();
+
             }
         }catch (Exception ex){
             Logger.getLogger(ScheduleEmailServlet.class.getName()).log(Level.SEVERE, null, ex);

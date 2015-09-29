@@ -367,17 +367,12 @@
         
             }
             function validateact(){
-               if((document.getElementById('facebookactions').value === "0") || (document.getElementById('twitteractions').value === "0"))
-                {
-                document.getElementById('schedule_title').disabled=false;
-                document.getElementById('hour').disabled=false;
-                document.getElementById('minute').disabled=false;
-                document.getElementById('AMPM').disabled=false;
-                document.getElementById('schedule_time').disabled=false; 
-                document.getElementById('schedule_desc').disabled=false; 
+                var facebookactions = $("#facebookactions").val();
+                var twitteractions = $("#twitteractions").val();
+                console.log("FB" +facebookactions + 'TW'+ twitteractions);
                 
-                 }
-            else{
+               if((parseInt(facebookactions) != 0) && (parseInt(twitteractions) != 0))
+                {
                 document.getElementById('schedule_desc').disabled=true; 
                 document.getElementById('schedule_title').disabled=true;
                 document.getElementById('hour').disabled=true;
@@ -385,6 +380,29 @@
                 document.getElementById('AMPM').disabled=true;
                 document.getElementById('schedule_time').disabled=true; 
                  }
+            else if((parseInt(facebookactions) == 0) && (parseInt(twitteractions) != 0)){
+                document.getElementById('schedule_desc').disabled=true; 
+                document.getElementById('schedule_title').disabled=true;
+                document.getElementById('hour').disabled=true;
+                document.getElementById('minute').disabled=true;
+                document.getElementById('AMPM').disabled=true;
+                document.getElementById('schedule_time').disabled=true; 
+                 }
+            else if(((parseInt(facebookactions) != 0) && (parseInt(twitteractions) == 0))){
+                document.getElementById('schedule_desc').disabled=true; 
+                document.getElementById('schedule_title').disabled=true;
+                document.getElementById('hour').disabled=true;
+                document.getElementById('minute').disabled=true;
+                document.getElementById('AMPM').disabled=true;
+                document.getElementById('schedule_time').disabled=true; 
+            }else if(((parseInt(facebookactions) == 0) && (parseInt(twitteractions) == 0))){
+                document.getElementById('schedule_title').disabled=false;
+                document.getElementById('hour').disabled=false;
+                document.getElementById('minute').disabled=false;
+                document.getElementById('AMPM').disabled=false;
+                document.getElementById('schedule_time').disabled=false; 
+                document.getElementById('schedule_desc').disabled=false; 
+            }
         }
         </script>
        <jsp:include page="basejsp.jsp" />

@@ -566,7 +566,30 @@ public class ScheduleDAO {
             }
 
     }
-    
+    public static void updateNoteDetails(Integer userid,
+                        Integer scheduleID,
+                        String scheduleTitle,
+                        String scheduleDesc,
+                        Timestamp scheduleTime)throws SQLException{
+
+        String query_string = "Update tbl_scheduled_entity_list"
+                + " SET schedule_title = ?, schedule_time = ?,"
+                + " schedule_desc = ?"
+                + " Where id = ?";
+        try(Connection connection = connectionManager.getConnection()){
+            try(PreparedStatement prepared_statement = connection.prepareStatement(query_string)){
+                prepared_statement.setString(1, scheduleTitle);
+                prepared_statement.setTimestamp(2, scheduleTime);
+                prepared_statement.setString(3, scheduleDesc);
+                prepared_statement.setInt(4, scheduleID);
+                
+                prepared_statement.executeUpdate();
+            }catch (Exception e){
+                logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while "
+                        + "updating the note schedule:", null), e);
+            }
+        }
+    }
     public static void updateScheduleEmailDetails(Integer userid, 
             Integer ScheduleID,
             Integer entityID,
