@@ -304,7 +304,7 @@
                 border: 1px solid #DADADA;
                 height:20px;
                 width:100px;
-                font-size: 16px;
+                font-size: 14px;
                 border-radius: 5px;
                 margin-left: 15px;
             }
@@ -346,7 +346,7 @@
 			opacity:.80;
 			filter: alpha(opacity=80);
 		}
-                #actiontype > option{
+                select#actiontype > option{
                     background-color: #fff;
                 }
 		
@@ -803,8 +803,8 @@
                                 <div style="position: relative;margin-left:0px;margin-top:0px;">
                                 <p class="postdetails postdet SP1 actfnt">Post details</p>
                                 <div class="actiondet">
-                                <select id="chooseEmailList" name="chooseEmailList">
-                                    <option value="0">Select</option>
+                                    <select class="SP1" id="chooseEmailList" name="chooseEmailList">
+                                    <option style="background:#fff;" value="0">Select</option>
                                     <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                                 </select>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.email_list_name}}</p>
