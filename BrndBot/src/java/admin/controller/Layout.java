@@ -433,6 +433,29 @@ public class Layout {
                     String background_color = modelElement.getAttribute("background-color");
                     htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + ";opacity:" + opacity + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-color:" + background_color + "; -webkit-filter:" + filter + ";border-radius:"+border_radius+"; '></div>");
                 }
+                else if (modelElement.getAttribute("tag").equalsIgnoreCase("svg")) {
+                    String filter = "";
+                    
+                    h_shadow = modelElement.getAttribute("H-shadow");
+                    v_shadow = modelElement.getAttribute("V-shadow");
+                    Blur = modelElement.getAttribute("blur");
+                    Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
+                    filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
+                    logger.log(Level.INFO, filter);
+                    
+                    margin_left = modelElement.getAttribute("x-co-ordinates");
+                    margin_top = modelElement.getAttribute("y-co-ordinates");
+                    border_radius=modelElement.getAttribute("border-radius");
+                    width = modelElement.getAttribute("width");
+                    height = modelElement.getAttribute("height");
+                    opacity = modelElement.getAttribute("opacity");
+                    String background_color = modelElement.getAttribute("background-color");
+                    String filename = modelElement.getAttribute("filename");
+                    File svgFolder = new File(AppConstants.BASE_TEMP_PATH);
+                    String svgContent = FileUtils.readFileToString(new File(svgFolder+File.separator+filename), "UTF-8");
+                    
+                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; '>"+svgContent+"</div>");
+                }
                 
                 logger.log(Level.INFO, htmldata.toString());
                 logger.info(htmldata.toString());
