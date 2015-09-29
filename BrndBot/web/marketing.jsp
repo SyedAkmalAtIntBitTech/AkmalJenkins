@@ -706,7 +706,7 @@
                                 <div style="position:absolute;margin-top:280px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div class="actiondet">
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
 
                                 <div style="position:relative;left:10px;bottom:0px;top:0px;"><button id="button_edit" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
@@ -740,7 +740,7 @@
                                     Description <br><textarea cols="28" rows="2" name="email_description" id="email_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 220px; margin-left: 60px;" >
-                                    <p class="SP1 actfnt" style="font-weight:400;">Selected Date: {{entities_selected_time| date:'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
                                 </div>
                                 
@@ -809,7 +809,7 @@
                                 </select>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.email_list_name}}</p>
                                     <input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                      <div class="editbutton"><button ng-click="removeTemplate(schedule_id)" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:200px;" type="button">remove the schedule</button> </div>
                                 <div class="editbutton"><button ng-click="updateEmailSchedule()" class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                 </div>
@@ -899,7 +899,7 @@
                                     Description <br><textarea cols="28" rows="2" name="fb_description" id="fb_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 180px; margin-left: 60px;" >
-                                    <p class="SP1 actfnt" style="font-weight:400;">Selected Date: {{entities_selected_time| date:'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="fbdatetime" id="fbdatetime" class="inputdate MH1"/>
                                 </div>
                                 
@@ -1077,7 +1077,7 @@
                                     Description <br><textarea cols="28" rows="2" name="twitter_description" id="twitter_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
-                                    <p class="SP1 actfnt" style="font-weight:400;">Selected Date: {{entities_selected_time| date:'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="twitterdatetime" id="twitterdatetime" class="inputdate MH1"/>
                                 </div>
                                 
