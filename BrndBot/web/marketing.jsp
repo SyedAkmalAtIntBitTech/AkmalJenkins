@@ -418,7 +418,7 @@
                         <ul>
                             <li ng-repeat="entity in entitySet['Today']">
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                                <div class="row" style="width:950px;position:relative;left:-30px;top:-20px;" id="entitydetails" >
+                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails" >
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
@@ -443,7 +443,7 @@
                         <ul>   
                             <li ng-repeat="entity in entitySet['Tomorrow']">
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
+                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetomorrow" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
@@ -475,9 +475,9 @@
                         </div>
                         <ul>
                             <li ng-repeat="entity in entitySet['Later']">
-                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
+                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
+                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removeLater" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
@@ -511,7 +511,7 @@
 
                         <ul>
                             <li ng-repeat="entity in entitySetSelected['Today']">
-                                <p class='col-md-2 SS2' style="position:relative;top:-15px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
+                                <p class='col-md-2 SS2' style="position:relative;top:-15px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
@@ -546,9 +546,9 @@
 
                         <ul>   
                             <li ng-repeat="entity in entitySetSelected['Tomorrow']">
-                                <p class='col-md-2 SS2' style="position:relative;top:-15px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
+                                <p class='col-md-2 SS2' style="position:relative;top:-15px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
+                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
@@ -574,9 +574,9 @@
                         </div>
                         <ul>
                             <li ng-repeat="entity in entitySetSelected['Later']">
-                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
+                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-18px;">
-                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
+                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
@@ -633,7 +633,7 @@
 <!--                                    <label>TITLE</label>-->
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:40px;" class="SH2">
-                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#333;background-color: #E4E4E4;border-radius:5px;border:none;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
@@ -708,8 +708,8 @@
                             </div>
                         </div>
                         </div>
-                        <div id="edit_email_action">
-                        <h1>&nbsp;update action</h1>
+                        <div id="edit_email_action" style="position:relative;left:50px;top:50px;">
+                        <h1>&nbsp;Update action</h1>
                         <form class="form-horizontal" id="signform">
 
                             <div class="group">
@@ -719,17 +719,18 @@
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:40px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+<!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
                                         <option value="email">email</option>
                                         <option value="note">note</option>
-                                    </select></div>
-                                <div style="position:absolute;top:80px;left:60px;" class="SH2">
+                                    </select>-->
+                                </div>
+                                <div style="position:absolute;top:140px;left:60px;" class="SH2">
                                     Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
                                 </div>
-                                <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
+                                <div class="SH2" style="position:absolute; margin-top: 220px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;">Selected Date: {{entities_selected_time| date:'h:mma'}}</p>
                                     Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
                                 </div>
@@ -738,7 +739,7 @@
                                 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:240px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:350px;left:20px;">
 
                                     <div class="row">
                                         <div>
@@ -848,8 +849,8 @@
                             </div>
                         </div>
                         </div>
-                        <div id="edit_facebook_action">
-                        <h1>&nbsp;update action</h1>
+                        <div id="edit_facebook_action" style="position:relative;left:50px;top:50px;">
+                        <h1>&nbsp;Update action</h1>
                         <form class="form-horizontal" id="signform">
 
                             <div class="group">
@@ -868,17 +869,18 @@
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:40px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+<!--                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
                                         <option value="email">email</option>
-                                        <option value="note">note</option>
-                                    </select></div>
-                                <div style="position:absolute;top:80px;left:60px;" class="SH2">
+                                        <option value="note">note</option>-->
+                                    </select>
+                                </div>
+                                <div style="position:absolute;top:110px;left:60px;" class="SH2">
                                     Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
                                 </div>
-                                <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
+                                <div class="SH2" style="position:absolute; margin-top: 180px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;">Selected Date: {{entities_selected_time| date:'h:mma'}}</p>
                                     Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
                                 </div>
@@ -887,7 +889,7 @@
                                 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:240px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:20px;">
 
                                     <div class="row">
                                         <div>
@@ -1032,7 +1034,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="edit_twitter_action">
+                        <div id="edit_twitter_action" style="position:relative;top:50px;left:50px;">
                         <h1>&nbsp;update action</h1>
                         <form class="form-horizontal" id="signform">
 
@@ -1043,17 +1045,18 @@
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:40px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+<!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
                                         <option value="email">email</option>
                                         <option value="note">note</option>
-                                    </select></div>
-                                <div style="position:absolute;top:80px;left:60px;" class="SH2">
+                                    </select>-->
+                                </div>
+                                <div style="position:absolute;top:110px;left:60px;" class="SH2">
                                     Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
                                 </div>
-                                <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
+                                <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;">Selected Date: {{entities_selected_time| date:'h:mma'}}</p>
                                     Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
                                 </div>
@@ -1062,7 +1065,7 @@
                                 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:240px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:340px;left:20px;">
 
                                     <div class="row">
                                         <div>
