@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 //var global_host_address = "http://clients.brndbot.com:8080/BrndBot/";
-//var global_host_address = "http://development.brndbot.com:8080/BrndBot/";
-var global_host_address = "http://localhost:8080/BrndBot/";
+var global_host_address = "http://development.brndbot.com:8080/BrndBot/";
+//var global_host_address = "http://localhost:8080/BrndBot/";
 
 var error = "system failure error";    
 
 function getHost(){
 //    return "http://clients.brndbot.com:8080/BrndBot/";
-//    return "http://development.brndbot.com:8080/BrndBot/";
-    return "http://localhost:8080/BrndBot/";
+    return "http://development.brndbot.com:8080/BrndBot/";
+//    return "http://localhost:8080/BrndBot/";
 }
 
 function kUserPreference_HasLoggedInFacebook (){
