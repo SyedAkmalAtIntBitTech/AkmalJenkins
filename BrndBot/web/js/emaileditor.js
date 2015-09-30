@@ -42,6 +42,7 @@ $(document).ready(function () {
     $("#justify").hide();
     $("#plus").hide();
     $("#minus").hide();
+    $("#lineHeightImage").hide();
     var status = "true";
     $("#tabs-1").show();
     $("#tabs-2").hide();
@@ -563,6 +564,7 @@ $(document).ready(function () {
             $("#justify").show();
             $("#plus").show();
             $("#minus").show();
+             $("#lineHeightImage").show();
             status = "false";
         }
         else {
@@ -572,6 +574,7 @@ $(document).ready(function () {
             $("#justify").hide();
             $("#plus").hide();
             $("#minus").hide();
+            $("#lineHeightImage").hide();
             status = "true";
         }
 
