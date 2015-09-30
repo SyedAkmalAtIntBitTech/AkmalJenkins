@@ -246,8 +246,8 @@
                 <div class="col-sm-3 col-sm-offset-1">
                     <p class="psttxt ptpos">What social media would you like to post on?</p>
         
-                    <img class="socialimage" id="facebookimage" src="images/fb_icon.png"><span id="facebookcancel" class="glyphicon glyphicon-remove-sign"> </span>
-                    <img class="socialimage" id="twitterimage" src="images/twitter.jpeg"><span id="twittercancel" class="glyphicon glyphicon-remove-sign"></span><br><br><br>
+                    <img class="socialimage" id="facebookimage" src="images/fb_icon.png"><span id="facebookcancel" class="glyphicon glyphicon-remove-sign ptr"> </span>
+                    <img class="socialimage" id="twitterimage" src="images/twitter.jpeg"><span id="twittercancel" class="glyphicon glyphicon-remove-sign ptr"></span><br><br><br>
                     <div id="fbtextcontainer">
 <!--                        <div class="forfb">
                     Post text<input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here">
@@ -256,10 +256,10 @@
                     <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
                     <div id="linkpostdiv">
                         <div class="forfb">
-                            <p class="psttxt"> Link Title</p><textarea class="hideinputborder"  id="title" type="text" placeholder="Title goes here" style="height:40px; resize: none;"></textarea><br>
-                        <p class="psttxt"> Link Description</p><textarea class="hideinputborder" id="description" type="text" placeholder="Description goes here" style="height:40px; resize: none;"></textarea><br>
+                            <p class="psttxt"> Link Title</p><textarea class="hideinputborder ptr"  id="title" type="text" placeholder="Title goes here" style="height:40px; resize: none;"></textarea><br>
+                        <p class="psttxt"> Link Description</p><textarea class="hideinputborder ptr" id="description" type="text" placeholder="Description goes here" style="height:40px; resize: none;"></textarea><br>
                         </div>
-                        <p class="psttxt"> Link URL</p><textarea class="hideinputborder" type="text" id="url" placeholder="URL goes here" style="height:40px; resize: none;"></textarea><br>
+                        <p class="psttxt"> Link URL</p><textarea class="hideinputborder ptr" type="text" id="url" placeholder="URL goes here" style="height:40px; resize: none;"></textarea><br>
 
                         <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
                     </div>
@@ -278,7 +278,7 @@
                                  <td><p><%=companyName%></p></td>
                              </tr>
                          </table>
-                             <textarea type="text" class="hideinputborder" id="posttext" placeholder="post text goes here" style="resize:none;width:325px;height:50px;"></textarea><br>
+                             <textarea type="text" class="hideinputborder ptr" id="posttext" placeholder="post text goes here" style="resize:none;width:325px;height:50px;"></textarea><br>
                        <div id="fblinkpostDiv">
                        <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                        <table class="fbuserDestable"> 
@@ -308,7 +308,7 @@
                                  <td><p><%=companyName%></p></td>
                              </tr>
                          </table>
-                    <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"  style="left:50px;resize: none"></textarea>
+                    <textarea class="hideinputborder ptr" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"  style="left:50px;resize: none"></textarea>
                     <img id="twitterpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                     </div>
                 </div>

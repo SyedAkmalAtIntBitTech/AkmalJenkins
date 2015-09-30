@@ -843,7 +843,7 @@ ul::-webkit-scrollbar-thumb {
                                             <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
                                                 <li  style="position:relative;left:-9px;"><p id="editorheadere" class="editorheadere SS1">font color</p>
-                                                    <div class="blankcolor-box1" id="picker" ></div>
+                                                    <div class="blankcolor-box1 ptr" id="picker" ></div>
                                                     
                                                   
                                                     
@@ -872,15 +872,15 @@ ul::-webkit-scrollbar-thumb {
                                                 <li> 
                                                     <ul id="pickColorForText" style="display:none;left:-13px;position:relative;margin-top:-80px;">
                                                         <li><p class="editpal">your palette</p></li>
-                                                        <li><p class="editcus custom-color-box-text" style="margin-left:120px;position:relative;">custom</p></li>
+                                                        <li><p class="editcus custom-color-box-text ptr" style="margin-left:120px;position:relative;">custom</p></li>
                                                         <li id="fcolcontainer">
                                                             <ul id="colorpalette" style="position:relative;left:0px;">
-                                                                   <li><div class="blankcolor-box-text" id="textcolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
-                                                                    <li> <div class="blankcolor-box-text" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                                   <li><div class="blankcolor-box-text ptr" id="textcolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text ptr" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text ptr" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text ptr" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                    <li> <div class="blankcolor-box-text ptr" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text ptr" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                                 </ul>
                                                             </li>
                                                             
@@ -909,22 +909,22 @@ ul::-webkit-scrollbar-thumb {
                                                                 <option value="select">Select</option>
                                                             </select>
                                                         </li>
-                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><div class="headblankcolor-box ptr" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
                                                 <li><ul id="openCustomColor">
                                                 <li><p class="editpal">your palette</p></li>
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
-                                                       <li><div class="blankcolor-box" id="shapecolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
-                                                        <li> <div class="blankcolor-box" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                       <li><div class="blankcolor-box ptr" id="shapecolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                        <li><div class="blankcolor-box ptr" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                        <li><div class="blankcolor-box ptr" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                        <li><div class="blankcolor-box ptr" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                        <li> <div class="blankcolor-box ptr" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                        <li><div class="blankcolor-box ptr" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                     </ul>
                                                 </li>
                                                 
-                                                <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
-                                                <li><p class="editpal" id="blockopacity">opacity</p><div id="slider"></div></li>
+                                                <li><p class="editpal custom-color-box ptr" style="margin-right: 120px;">custom</p></li>
+                                                <li><p class="editpal" id="blockopacity">opacity</p><div class="ptr" id="slider"></div></li>
                                                     </ul>   
                                             </ul>
                                         </div>
@@ -946,12 +946,12 @@ ul::-webkit-scrollbar-thumb {
                                         <div id="filtercontainer" style="display: none">
                                             <p>IMAGE FILTER</p>
                                             <ul id="filterImageList">
-                                                <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p class="filtername">Still</p> </li>
-                                                <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Peace</p></li>
-                                                <li><img class="imageFilter" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Sunrise</p></li>
-                                                <li><img class="imageFilter" id="convert4" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Strength</p> </li>
-                                                <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vivid</p> </li>
-                                                <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Intense</p> </li>
+                                                <li><img class="imageFilter ptr " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p class="filtername">Still</p> </li>
+                                                <li><img class="imageFilter ptr" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Peace</p></li>
+                                                <li><img class="imageFilter ptr" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Sunrise</p></li>
+                                                <li><img class="imageFilter ptr" id="convert4" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Strength</p> </li>
+                                                <li><img class="imageFilter ptr" id="convert5" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vivid</p> </li>
+                                                <li><img class="imageFilter ptr" id="convert6" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Intense</p> </li>
 <!--                                                <li><img class="imageFilter" id="convert7" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vibrant</p> </li>
                                                 <li><img class="imageFilter" id="convert8" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vintage</p> </li>
                                                 <li><img class="imageFilter" id="convert9" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Shade</p> </li>
@@ -1000,9 +1000,9 @@ ul::-webkit-scrollbar-thumb {
                                           <ul id="imageGallery" style="height: 500px;width: 300px;position: relative;right: 80px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
                                              <a class="boxclose" id="boxclose"></a>
-                                               <p class="BT2" id="galleryupload">upload image</p>
+                                               <p class="BT2 ptr" id="galleryupload">upload image</p>
                                                 <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
-                                                          <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                                          <img id="{{images.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
                                                 </li>
                                             </ul>
 <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
