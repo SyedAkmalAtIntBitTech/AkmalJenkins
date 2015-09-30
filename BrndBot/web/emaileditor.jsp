@@ -292,7 +292,7 @@ and open the template in the editor.
             }
             .border-highlight {
                 border:2px solid #5CC1A3; 
-                width: inherit;
+                width: 250px;
                 height: inherit;
                 border-radius: 5px;
                 color: white;
@@ -1150,7 +1150,7 @@ and open the template in the editor.
                                                     <!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px;">
                                                                                                             <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                                                                         </select>-->
-                                                    <img id="minusFont" src="images/fontsize.png" class="cursorpointer" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" class="cursorpointer" id="plusFont" alt=""/>
+                                                    <img id="minusFont" src="images/LittleA.svg" class="cursorpointer" width="20px"  height="20px" alt=""/> <img src="images/BigA.svg" width="25px"  height="25px" class="cursorpointer" id="plusFont" alt=""/>
                                                 </li>
 
                                                 <li style="width:115px;">
@@ -1175,13 +1175,13 @@ and open the template in the editor.
 
                                                     </ul>
                                                 </li>
-                                                <li style="left:-10px;"><div class="glyphicon glyphicon-indent-right alignButton" id="hidealignbutton"></div></li>
-                                                <li><div class="alignButton cursorpointer" id="justify" style="font-family: Glyphter2;">j</div></li>
-                                                <li><div class="alignButton cursorpointer" id="left" style="font-family: Glyphter2;">B</div></li>
-                                                <li><div class="alignButton cursorpointer" id="center" style="font-family: Glyphter2;">C</div></li>
-                                                <li><div class="alignButton cursorpointer" id="right" style="font-family: Glyphter2;">D</div></li>
-                                                <li><div class="cursorpointer" id="plus" style="font-family: Glyphter2;">A</div></li>
-                                                <li><div class="cursorpointer" id="minus" style="font-family: Glyphter;">E</div></li>
+                                               <li style="left:-20px;top:-2px;"><div class="cursorpointer" id="hidealignbutton"><img src="images/LineOptionButton.svg" height="40px" width="24px;"></div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="justify" style="font-family: Glyphter2;">j</div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="left" style="font-family: Glyphter2;">B</div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="center" style="font-family: Glyphter2;">C</div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="right" style="font-family: Glyphter2;">D</div></li>
+                                               <li style="left:-20px;"><img class="cursorpointer" id="plus" src="images/Plus.svg"  width="15px;" style="position:relative;top:-5px;" ><img class="cursorpointer" id="minus" src="images/Minus.svg"  width="15px;" style="position:relative;top:8px;left:-15px;"></li>
+                                               <li style="left:-50px;"><img class="cursorpointer" id="lineHeightImage" src='images/LineHeightButton.svg' width="25px"></li>
                                             </ul>
 
                                         </div>
@@ -1250,20 +1250,19 @@ and open the template in the editor.
                                             <p  class="btn" onclick="imageEdit()">CROP</p>
                                             <p  class="btn" onclick="saveImageEdit()">DONE</p>
                                         </div>
-                                        <div id="cropImageContainer" style="display: none">
+<!--                                        <div id="cropImageContainer" style="display: none">
 
-                                            <!--                                                <p>CROP</p>-->
+                                                                                            <p>CROP</p>
 
 
-                                            <!--
+                                            
                                                     NOTE: To change the aspect ratio, look in crop.css
                                                     The class 'default' links the div to the innit(); function
-                                            -->
-
+                                            
                                             <br><br>
                                             <input type="button" id="done" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="saveImageEdit()" value="DONE"> 
 
-                                        </div>
+                                        </div>-->
                                     </li>
                                     <li id="tabs-2">
                                         <div id="stylecontainer">
@@ -1278,7 +1277,7 @@ and open the template in the editor.
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->                                                            
                                                             </div> 
                                                             <div><p id=''></p></div>
-                                                            <div></div><p>&nbsp;</p>
+                                                            <div></div><p style="height:5px">&nbsp;</p>
 
                                                         </li>
                                                     </ul>
@@ -1580,7 +1579,7 @@ and open the template in the editor.
                                     //    var selectedDivId;     
                                     var selectedImageId;
                                     function getImageid(Id){
-                                    selectedImageId = Id.id;
+                                            selectedImageId = Id.id;
                                             $('.imagename').val("" + selectedImageId).trigger('change');
                                     }
 
@@ -1690,7 +1689,7 @@ and open the template in the editor.
                                     // --------------------------------------------------------------------------
 
                                     $('body').on("click", "button", function() {
-
+                                        $('.default').hide();
                             // grab width and height of .crop-img for canvas
                             var width = $('.crop-container').width() - 80, // new image width
                                     height = $('.crop-container').height() - 80; // new image height
@@ -1710,7 +1709,7 @@ and open the template in the editor.
                                     ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
                                             //                                    alert( img.src);
                                             // display canvas image
-                                            $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
+                                            $('canvas').addClass('output').hide().delay('4000').fadeOut('slow');
                                             // save the image to server
                                             var canvass = document.getElementById("canvas");
                                             var dataURL = canvass.toDataURL();

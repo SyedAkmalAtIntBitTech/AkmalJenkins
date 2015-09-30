@@ -859,7 +859,7 @@ ul::-webkit-scrollbar-thumb {
                                                     <div class="cursorpointer" id="minusFont" style="margin-top:5px;width:20px;height:30px;float:left;font-size: 16px; color: #5E5E5E">A</div>
                                                     <div class="cursorpointer" id="plusFont" style="width:20px;height:30px;float:left;font-size: 25px; color: #5E5E5E">A</div>
                                                 </div>-->
-                                                    <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
+                                                    <img id="minusFont" src="images/LittleA.svg" class="cursorpointer" width="20px"  height="20px" alt=""/> <img src="images/BigA.svg" width="25px"  height="25px" class="cursorpointer" id="plusFont" alt=""/>
                                                 </li>
 
                                                 <li style="width:120px;">
@@ -886,13 +886,13 @@ ul::-webkit-scrollbar-thumb {
                                                             
                                                         </ul>
                                                 </li>
-                                                <li style="left:-10px;"><div class="glyphicon glyphicon-indent-right alignButton cursorpointer" id="hidealignbutton"></div></li>
-                                                <li><div class="alignButton cursorpointer" id="justify" style="font-family: Glyphter2;">j</div></li>
-                                                <li><div class="alignButton cursorpointer" id="left" style="font-family: Glyphter2;">B</div></li>
-                                                <li><div class="alignButton cursorpointer" id="center" style="font-family: Glyphter2;">C</div></li>
-                                                <li><div class="alignButton cursorpointer" id="right" style="font-family: Glyphter2;">D</div></li>
-                                                <li><div class="cursorpointer" id="plus" style="font-family: Glyphter2;">A</div></li>
-                                                <li><div class="cursorpointer" id="minus" style="font-family: Glyphter;">E</div></li>
+                                               <li style="left:-20px;top:-2px;"><div class="cursorpointer" id="hidealignbutton"><img src="images/LineOptionButton.svg" height="40px" width="24px;"></div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="justify" style="font-family: Glyphter2;">j</div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="left" style="font-family: Glyphter2;">B</div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="center" style="font-family: Glyphter2;">C</div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="right" style="font-family: Glyphter2;">D</div></li>
+                                               <li style="left:-20px;"><img class="cursorpointer" id="plus" src="images/Plus.svg"  width="15px;" style="position:relative;top:-5px;" ><img class="cursorpointer" id="minus" src="images/Minus.svg"  width="15px;" style="position:relative;top:8px;left:-15px;"></li>
+                                               <li style="left:-50px;"><img class="cursorpointer" id="lineHeightImage" src='images/LineHeightButton.svg' width="25px"></li>
                                             </ul>
 
                                         </div>
@@ -985,7 +985,7 @@ ul::-webkit-scrollbar-thumb {
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
-                                                            <div></div><p>&nbsp;</p>
+                                                            <div></div><p style="height:5px;">&nbsp;</p>
                                                         </li>
                                                     </ul>
 
@@ -1288,7 +1288,7 @@ function showfilter(){
                                     // --------------------------------------------------------------------------
 
                             $('body').on("click", "button", function() {
-
+                                    $('.default').hide();
                                     // grab width and height of .crop-img for canvas
                                     var width = $('.crop-container').width() - 80, // new image width
                                       height = $('.crop-container').height() - 80; // new image height
@@ -1308,7 +1308,7 @@ function showfilter(){
                                     ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
 //                                  alert( img.src);
                                             // display canvas image
-//                                            $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
+                                            $('canvas').addClass('output').hide().delay('4000').fadeOut('slow');
                                             // save the image to server
                                             var canvas = document.getElementById("canvas");                 
                                             var dataURL =canvas.toDataURL("image/jpeg");   
