@@ -6,6 +6,7 @@
 
 var sliderDialog = "";
 var prevSliderDialog = "";
+var create_button_title = "Create";
 $(document).ready(function ()
 {
     $("#liPriority").click(function () {
@@ -617,6 +618,7 @@ function controllerMarketingCampaign($scope, $http) {
     
     $scope.getScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
 
+
         if(entity_type == "email"){
             sliderDialog = "#preview";
             $('#slider-button').click();
@@ -629,6 +631,11 @@ function controllerMarketingCampaign($scope, $http) {
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
+                if (data.body == undefined){
+                    $("#email_button_send").val(create_button_title);
+                }else{
+                    $("#email_button_send").val("Send");
+                }
                 var date = new Date(schedule_time);
                 $(".content").empty();
                 $(".content").append(data.body);
@@ -656,10 +663,15 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name == undefined){
-                    $('#prevfbimg').hide(); 
+                    $('#prevfbimg').hide();
                     $('#fb_preview_postdet').css("margin-top",10);
+                    $("#fb_button_post").val(create_button_title);
                 }else {
-                    $('#prevfbimg').show(); 
+                    $('#fb_preview_postdet').css("margin-top",-60);
+                    $("#fb_button_post").val("Post");
+                    $('#prevfbimg').show();
+                    $('#isFacebook').val("true");
+                    $('#isTwitter').val("false");
                 }
                 
                 var date = new Date(schedule_time);
@@ -689,8 +701,13 @@ function controllerMarketingCampaign($scope, $http) {
                 if (data.image_name == undefined){
                     $('#prevtwtimg').hide(); 
                     $('#twitter_preview_postdet').css("margin-top",10);
+                    $("#twitter_button_post").val(create_button_title);
                 }else {
                     $('#prevtwtimg').show(); 
+                    $("#twitter_button_post").val("Post");
+                    $('#twitter_preview_postdet').css("margin-top",-100);
+                    $('#isFacebook').val("false");
+                    $('#isTwitter').val("true");
                 }
                 
                 var date = new Date(schedule_time);
@@ -937,20 +954,39 @@ function controllerMarketingCampaign($scope, $http) {
         });
     };
     
-    $scope.deleteSchedule = function(){
-        var schedule_details = {"type": "deleteSelected", 
+    $scope.deleteSchedule = function(schedules_to_delete, type){
+        var message;
+        var requestBody;
+        var responseMessage;
+        if(type == "deleteMultiple") {
+            message = "Are you sure you want to delete these Action(s)?";
+            requestBody = {"type": "deleteSelected", 
             "schedule_ids": selected_schedules_to_delete};
-        if (confirm("do you want to realy want to delete")){
+            responseMessage = "Selected actions were deleted successfully";
+        }else if(type == "delete"){
+            message = "Are you sure you want to delete this Action?";
+            requestBody = {"type": "delete", 
+            "schedule_ids": schedules_to_delete};
+            responseMessage = "Selected actions were deleted successfully";
+        }else if(type == "remove"){
+            message = "Are you sure you want to remove the template?";
+            requestBody = {"type": "removetemplate", 
+            "schedule_ids": schedules_to_delete};
+            responseMessage = "Selected actions were deleted successfully";
+        }
+        
+        
+        if (confirm(message)){
             $http({
                     method: 'POST',
                     url: getHost() + 'ChangeScheduleServlet',
                     headers: {'Content-Type': 'application/json'},
-                    data: schedule_details
+                    data: requestBody
                 }).success(function (data)
                 {
                     $scope.status = data;
                     if (data !== ""){
-                        alert("schedule deleted successfully");
+                        alert(responseMessage);
                         window.open(getHost() + 'marketing.jsp', "_self");
                     }
                 }).error(function (data, status) {
@@ -961,60 +997,7 @@ function controllerMarketingCampaign($scope, $http) {
                 });
         }
     };
-
-    $scope.deleteAction = function(schedule_id){
-        
-        var schedule_details = {"type": "delete", 
-            "schedule_ids": schedule_id};
-        if (confirm("do you want to realy want to delete")){
-            $http({
-                    method: 'POST',
-                    url: getHost() + 'ChangeScheduleServlet',
-                    headers: {'Content-Type': 'application/json'},
-                    data: schedule_details
-                }).success(function (data)
-                {
-                    $scope.status = data;
-                    if (data !== ""){
-                        alert("schedule deleted successfully");
-                        window.open(getHost() + 'marketing.jsp', "_self");
-                    }
-                }).error(function (data, status) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-
-                    alert("request not succesful");
-                });
-        }
-    };    
-
-    $scope.removeTemplate = function(schedule_id){
-        
-        var schedule_details = {"type": "removetemplate", 
-            "schedule_ids": schedule_id };
-
-        if (confirm("do you want to realy want to remove the details")){
-         $http({
-                 method: 'POST',
-                 url: getHost() + 'ChangeScheduleServlet',
-                 headers: {'Content-Type': 'application/json'},
-                 data: schedule_details
-             }).success(function (data)
-             {
-                 $scope.status = data;
-                 if (data !== ""){
-                     alert("schedule deleted successfully");
-                     window.open(getHost() + 'marketing.jsp', "_self");
-                 }
-             }).error(function (data, status) {
-                 // called asynchronously if an error occurs
-                 // or server returns response with an error status.
-
-                 alert("request not succesful");
-             });
-
-        }
-    };    
+    
     $scope.updateNote = function(){
             var schedule_id = $("#note_schedule_id").val();
             var entity_id = $("#note_entity_id").val();
@@ -1185,6 +1168,7 @@ function controllerMarketingCampaign($scope, $http) {
         }else if (social_type == "twitter"){
 
             if ($scope.validatetwitter()){
+                
             var schedule_id = $("#twitter_schedule_id").val();
             var entity_id = $("#twitter_entity_id").val();
             var schedule_title = $("#twitter_schedule_title").val();
@@ -1208,7 +1192,8 @@ function controllerMarketingCampaign($scope, $http) {
                 "schedule_id": schedule_id,
                 "entity_id": entity_id,
                 "metadata": {
-                        text: '"'+schedule_posttext+'"'
+                        text: '"'+schedule_posttext+'"',
+                        shorturl:'"' + $("#twitter_schedule_post_url").val()+'"'
                             },
                 "schedule_time": newEpoch,
                 "schedule_title": schedule_title,
@@ -1313,3 +1298,119 @@ function controllerMarketingCampaign($scope, $http) {
         };
 
 };
+function sendEmail(){
+    var email_from_name = $("#email_entity_from_name").val();
+    var email_entitysubject = $("#email_entitysubject").val();
+    var email_entitytoaddress = $("#email_entitytoaddress").val();
+    var email_entityfromaddress = $("#email_entityfromaddress").val();
+    var email_entityreplytoaddress = $("#email_entityreplytoaddress").val();
+    var chooseEmailList = $("#chooseEmailList").val();
+    var email_body = $("#email_entity_body").val();
+            
+    if($("#email_button_send").val() == "Send"){
+        $.ajax({
+                url: getHost() + "SendEmailServlet",
+                type: "post",
+                data: {
+                    from_name: email_from_name,
+                    email_subject: email_entitysubject,
+                    email_addresses: email_entitytoaddress,
+                    from_email_address: email_entityfromaddress,
+                    reply_to_email_address: email_entityreplytoaddress,
+                    htmldata: email_body,
+                    email_list: chooseEmailList
+                },
+                success: function (responseText) {
+                    $('#loadingGif').remove();
+
+                    document.location.href = "marketing.jsp";
+                },
+                error: function () {
+                    alert("error");
+                }
+
+            });            
+        
+    }else if(checkifcreatebutton($("#email_button_send").val())){
+        document.location.href = "dashboard.jsp";
+    }
+
+}
+
+function postSocial(){
+    var image_name = "";
+    var isFacebook = $("#isFacebook").val();
+    var isTwitter = $("#isTwitter").val();
+    
+    if (($("#fb_button_post").val() == "Post") && ($("#twitter_button_post").val() == "Post")){
+        if (($("#facebook_image_name").val()) != ""){
+            image_name = $("#facebook_image_name").val();
+        }
+        console.log($("#twitter_image_name").val());
+        console.log($("#twitter_schedule_post_text").val());
+        console.log($("#twitter_entity_accesstoken").val());
+        console.log($("#twitter_entity_tokensecret").val());
+        if (($("#twitter_image_name").val()) != ""){
+            image_name = $("#twitter_image_name").val();
+        }
+
+        var link = $("#twitter_schedule_post_url").val();
+        var f = link.startsWith("http");
+        if (!f)
+        {
+            link = "http://" + $("#twitter_schedule_post_url").val();
+        }
+        var url = link;
+        var username = "sandeep264328"; // bit.ly username
+        var key = "R_63e2f83120b743bc9d9534b841d41be6";
+        $.ajax({
+        url: "http://api.bit.ly/v3/shorten",
+        data: {longUrl: url, apiKey: key, login: username},
+        dataType: "jsonp",
+        success: function (v)
+        {
+            var bit_url = v.data.url;
+                $.ajax({
+                    url: 'PostToSocial',
+                    method: 'post',
+                    data: {
+                        imageToPost: image_name,
+                        accesstoken: $("#facebook_accesstoken").val(),
+                        postText: $("#facebook_schedule_posttext").val(),
+                        title: $("#facebook_schedule_posttext").val(),
+                        description: $("#facebook_schedule_description").val(),
+                        url: $("#facebook_schedule_url").val(),
+                        twittweraccestoken: $("#twitter_entity_accesstoken").val(),
+                        twitterTokenSecret: $("#twitter_entity_tokensecret").val(),
+                        text: $("#twitter_schedule_post_text").val(),
+                        isFacebook: isFacebook,
+                        isTwitter: isTwitter,
+                        imagePost: image_name,
+                        shorturl: bit_url
+                    },
+                    success: function (responseText) {
+//                        $('#mask').hide();
+//                        $('.window').hide();
+                        alert("Your post has been published successfully");
+
+                        document.location.href = "marketing.jsp";
+                    }
+                });
+            }
+
+        });
+        
+    }else if(checkifcreatebutton($("#fb_button_post").val()) || (checkifcreatebutton($("#twitter_button_post").val()))){
+        document.location.href = "dashboard.jsp";
+    }
+    
+    function checkifcreatebutton(value){
+        if (value == create_button_title){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+}
+

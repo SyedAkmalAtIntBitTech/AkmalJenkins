@@ -158,19 +158,19 @@
 
             }
             .edtbtn{
-                 font-family: "proxima-nova",sans-serif;
-                    color: #888;
-                    width:70px;    
-                     background-color: transparent;
-                     border:1px #888 solid;
-                     border-radius: 5px;   
-                     position:relative;
+                font-family: "proxima-nova",sans-serif;
+                color: #888;
+                width:70px;    
+                background-color: transparent;
+                border:1px #888 solid;
+                border-radius: 5px;   
+                position:relative;
             }
-           
+
             .titrow{ position: relative;
-                margin-left:60px;
+                     margin-left:60px;
             }
-            
+
             .fo{
                 background-color: #C6C6C6;
                 width: 220px;
@@ -231,46 +231,46 @@
                 position: relative;
                 width:250px;
                 margin-top: 50px;
-           }
-           .actiondet p{
-               position:relative;
-               left:15px;
-               top:10px;
-          
-               
-             }
-         
-         .inputbox {
-             position:relative;
-             top:-10px;
-             width:150px;
-             height: 30px;
-             border: none;
-             border-bottom: 1px #444 solid; 
-             border-radius: 2px;
-             font-family: sans-serif;
-             font-size: 12px;
-         }
-         .inputdate {
-             background-color: #e4e4e4;
-             border: 1px solid #DADADA;
-             border-radius: 5px;
-             width:220px;
-             height: 30px;
-             font-family: sans-serif;
-             font-size: 14px;
-             position: relative;
-             top:2px;
-             bottom:2px;
-         }
-         #popupright_panel{
-             left: 255px;
-             position: relative;
-         }
-         .postdet{
-             position: relative;
-             margin-left:15px;
-         }
+            }
+            .actiondet p{
+                position:relative;
+                left:15px;
+                top:10px;
+
+
+            }
+
+            .inputbox {
+                position:relative;
+                top:-10px;
+                width:150px;
+                height: 30px;
+                border: none;
+                border-bottom: 1px #444 solid; 
+                border-radius: 2px;
+                font-family: sans-serif;
+                font-size: 12px;
+            }
+            .inputdate {
+                background-color: #e4e4e4;
+                border: 1px solid #DADADA;
+                border-radius: 5px;
+                width:220px;
+                height: 30px;
+                font-family: sans-serif;
+                font-size: 14px;
+                position: relative;
+                top:2px;
+                bottom:2px;
+            }
+            #popupright_panel{
+                left: 255px;
+                position: relative;
+            }
+            .postdet{
+                position: relative;
+                margin-left:15px;
+            }
             .postdetails{
                 position: relative;
                 width:250px;
@@ -299,7 +299,7 @@
                 border-radius: 5px;
                 margin-left: 15px;
             }
-             #chooseEmailList {
+            #chooseEmailList {
                 background-color: #e4e4e4;
                 border: 1px solid #DADADA;
                 height:20px;
@@ -315,7 +315,7 @@
                 font-weight: 600;
             }
             .actfnt{
-                 color:#888;
+                color:#888;
                 font-variant:normal;
                 font-size:1.5em;
                 font-weight: 600;
@@ -334,84 +334,82 @@
                 left:0px;
             }
             .black_overlay{
-			display: none;
-			position: absolute;
-			top: 0%;
-			left: 0%;
-                        width: 100%;
-			height: 1000em;
-			background-color: #E3E4E8;
-			z-index:1000;
-			-moz-opacity: 0.8;
-			opacity:.80;
-			filter: alpha(opacity=80);
-		}
-                select#actiontype > option{
-                    background-color: #fff;
-                }
-		
-/*            #mask{  create are mask 
-    position:fixed;
-    top:0;
-    left:0px;
-    background:rgba(0,0,0,0.3);
-    z-index:500;
-    width:51.5%;
-    height:100%;
-    display:none;
-}
-#overlay:target, #overlay:target + #mask{
-    display:block;
-    opacity:1;
-}*/
-           
+                display: none;
+                position: absolute;
+                top: 0%;
+                left: 0%;
+                width: 100%;
+                height: 1000em;
+                background-color: #E3E4E8;
+                z-index:1000;
+                -moz-opacity: 0.8;
+                opacity:.80;
+                filter: alpha(opacity=80);
+            }
+            select#actiontype > option{
+                background-color: #fff;
+            }
+
+            /*            #mask{  create are mask 
+                position:fixed;
+                top:0;
+                left:0px;
+                background:rgba(0,0,0,0.3);
+                z-index:500;
+                width:51.5%;
+                height:100%;
+                display:none;
+            }
+            #overlay:target, #overlay:target + #mask{
+                display:block;
+                opacity:1;
+            }*/
+
         </style>
         <script>
-            function overlay(){
-                document.getElementById('light').style.display='block';
-                document.getElementById('fade').style.display='block';
-                document.getElementById('slider-button').style.display='block';
-                document.body.style.overflow = 'hidden';
-                document.getElementById('marktng').style.display='none';
-            }
+                    function overlay(){
+                    document.getElementById('light').style.display = 'block';
+                            document.getElementById('fade').style.display = 'block';
+                            document.getElementById('slider-button').style.display = 'block';
+                            document.body.style.overflow = 'hidden';
+                            document.getElementById('marktng').style.display = 'none';
+                    }
             function closeoverlay(){
-                document.getElementById('light').style.display='none';
-                document.getElementById('marktng').style.display = 'block';
-                document.getElementById('fade').style.display='none';
-                document.body.style.overflow = 'scroll';
-                document.getElementById('edtfbimg').style.display='none';
-                document.getElementById('prevtwtimg').style.display='none';
-                document.getElementById('edttwtimg').style.display='none';
-                document.getElementById('prevfbimg').style.display='none';
+            document.getElementById('light').style.display = 'none';
+                    document.getElementById('marktng').style.display = 'block';
+                    document.getElementById('fade').style.display = 'none';
+                    document.body.style.overflow = 'scroll';
+                    document.getElementById('edtfbimg').style.display = 'none';
+                    document.getElementById('prevtwtimg').style.display = 'none';
+                    document.getElementById('edttwtimg').style.display = 'none';
+                    document.getElementById('prevfbimg').style.display = 'none';
             }
         </script>
     </head>
     <body ng-app class="claro">
         <div class="row"><jsp:include page="mainmenu.html"/></div>
         <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign" class="container"> 
-        <div id="fade" class="black_overlay"></div>
-           <!--/end left column-->
-          
-            
-             
-           <div id="marktng"><jsp:include page="marketingsubmenu.html" /></div>
- 
+            <div id="fade" class="black_overlay"></div>
+            <!--/end left column-->
+
+            <div id="marktng"><jsp:include page="marketingsubmenu.html" /></div>
+
             <script src="js/marketing.js" type="text/javascript"></script>
             <!--<div id="overlay">-->
-                <div class="col-md-8 col-md-offset-3 " >
+            <div class="col-md-8 col-md-offset-3 " >
                 <div class="col-md-6 col-md-offset-1">
-                     
+
                     <div>
-                    <p id="planhead" class="MH2">Your Plan</p>
-                    <a href = "javascript:void(0)" onclick = "overlay();">
-                    <button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;">ADD ACTION</button>
-                    </a>
-                    <button id="delsel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;position:relative;margin-top:-47px;margin-left:25em;display:none;" ng-click="deleteSchedule()">DELETE SELECTED</button> 
+                        <p id="planhead" class="MH2">Your Plan</p>
+                        <a href = "javascript:void(0)" onclick = "overlay();">
+                            <button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;">ADD ACTION</button>
+                        </a>
+                        <button id="delsel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;position:relative;margin-top:-47px;margin-left:25em;display:none;" ng-click="deleteSchedule('0','deleteMultiple')">DELETE SELECTED</button> 
                     </div>
 
-                   
+
                     <div class="col-md-12" style="display: none;" id="default" ng-init="getCampaigns()">
-                         
+
                         <div class="row" style="width:750px;margin-top:30px;margin-left:-15px;">
                             <div class='col-md-1 SP2 fonthead'>Today</div>
                             <div class='col-md-3' style="width:230px;"></div>
@@ -428,7 +426,7 @@
                                     </div>
                                     <div class="col-md-3" style="width:300px;margin-left:-40px;">
                                         <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
-                                        <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
+                                            <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
                                         <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
@@ -481,7 +479,7 @@
                         </div>
                         <ul>
                             <li ng-repeat="entity in entitySet['Later']">
-                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
+                                <div class='col-md-9 SS2 fonthead' style="position:relative;top:-20px;left:-55px;">{{entity.schedule_time| date:"MMM dd yyyy"}}</div>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
 
@@ -507,7 +505,7 @@
                         </ul>
                     </div>
                     <div class="col-md-12" id="selected" style="display:none;">
-                        
+
                         <div class="row" style="width:950px;margin-top:30px;margin-left:115px;">
                             <div class='col-md-3' style="width:230px;"></div>
                             <div class='col-md-2 SS2'>Action Type</div>
@@ -580,7 +578,7 @@
                         </div>
                         <ul>
                             <li ng-repeat="entity in entitySetSelected['Later']">
-                                <div class='col-md-2 SS2' style="position:relative;top:-20px;left:20px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</div>
+                                <div class='col-md-9 SS2 fonthead' style="position:relative;top:-20px;left:-60px;width:500px;">{{entity.schedule_time| date:"MMM dd yyyy"}}</div>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-18px;">
                                 <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
 
@@ -606,11 +604,11 @@
                             </li>
                         </ul>
                     </div>     
-                     
+
                 </div>
             </div>
-<!--           </div><div id="mask" onclick="document.location='#';">CLICK</div>    -->
-                <div id="dvSliderDialog">
+            <!--           </div><div id="mask" onclick="document.location='#';">CLICK</div>    -->
+            <div id="dvSliderDialog">
                 <div id="dvFastingDialog" class="pollSlider"><br>
                     <form class="form-horizontal" id="signform">
 
@@ -627,48 +625,48 @@
                     </form>
 
                 </div>
-                </div>
-                <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
-                    <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
-                        <h1>&nbsp;Add Action</h1>
-                        <form class="form-horizontal" id="signform">
+            </div>
+            <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
+                <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
+                    <h1>&nbsp;Add Action</h1>
+                    <form class="form-horizontal" id="signform">
 
-                            <div class="group">
-                                <div class="col-md-4 col-md-offset-1 ">                            
-                                    <input id="title" class="brdr form-control simplebox" type="text" name="title" placeholder="TITLE"/>
-<!--                                    <label>TITLE</label>-->
-                                </div><br>
-                                <div style="position:absolute;left:60px;top:40px;" class="SH2">
-                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#333;background-color: #E4E4E4;border-radius:5px;border:none;">
-                                        <option value="0">Select</option>
-                                        <option value="facebook">facebook</option>
-                                        <option value="twitter">twitter</option>
-                                        <option value="email">email</option>
-                                        <option value="note">note</option>
-                                    </select></div>
-                                <div style="position:absolute;top:80px;left:60px;" class="SH2">
-                                    Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal"></textarea>
-                                </div>
-                                <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
-                                    Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
-                                </div>
-                                
-<!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
-                                
+                        <div class="group">
+                            <div class="col-md-4 col-md-offset-1 ">                            
+                                <input id="title" class="brdr form-control simplebox" type="text" name="title" placeholder="TITLE"/>
+                                <!--                                    <label>TITLE</label>-->
+                            </div><br>
+                            <div style="position:absolute;left:60px;top:40px;" class="SH2">
+                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#333;background-color: #E4E4E4;border-radius:5px;border:none;">
+                                    <option value="0">Select</option>
+                                    <option value="facebook">facebook</option>
+                                    <option value="twitter">twitter</option>
+                                    <option value="email">email</option>
+                                    <option value="note">note</option>
+                                </select></div>
+                            <div style="position:absolute;top:80px;left:60px;" class="SH2">
+                                Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal"></textarea>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:240px;left:20px;">
+                            <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
+                                Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
+                            </div>
 
-                                    <div class="row">
-                                        <div>
+                            <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="width:250px;position:absolute;top:240px;left:20px;">
+
+                                <div class="row">
+                                    <div>
                                         <div class="col-md-6" id="dvButtonContainer">
                                             <input type="button" value="Save" 
                                                    class="button button--moema 
-                                                          button--text-thick 
-                                                          button--text-upper 
-                                                          button--size-s" 
-                                                          ng-click="AddAction()" 
-                                                          style="width:100px;" />
+                                                   button--text-thick 
+                                                   button--text-upper 
+                                                   button--size-s" 
+                                                   ng-click="AddAction()" 
+                                                   style="width:100px;" />
                                         </div>
                                         <div class="col-md-6" id="dvButtonContainer">
                                             <input type="reset" value="Cancel" 
@@ -678,17 +676,17 @@
                                                    button--size-s" 
                                                    style="width:100px;" />
                                         </div>
-                                        </div>
                                     </div>
+                                </div>
 
                             </div>
-                            </div>
-                        </form> 
-                            
-                    </div></div>
-                <div id="preview" class="pollSlider" style="height:720px;z-index:1005;">
-                    <div>
-                        <div id="preview_email" style="display:block;">
+                        </div>
+                    </form> 
+
+                </div></div>
+            <div id="preview" class="pollSlider" style="height:720px;z-index:1005;">
+                <div>
+                    <div id="preview_email" style="display:block;">
 
                         <div class="actiondet">
 
@@ -697,24 +695,59 @@
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
                                     <p class="MH2" style="width:300px;">Title: {{schedule_title}}</p>
-<!--                                    <p class="MH2" style="width:500px;">Description: {{schedule_desc}}</p>-->
+                                    <!--                                    <p class="MH2" style="width:500px;">Description: {{schedule_desc}}</p>-->
                                 </div>
                                 <div class="SP1 actfnt" style="position:absolute;left:20px;">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></div>
-                                
-                                <div class="content"></div> <br>
-                                
-                                <div style="position:absolute;margin-top:280px;">
-                                <p class="postdetails SP1 actfnt">Post details</p>
-                                <div class="actiondet">
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                </div>
 
-                                <div style="position:relative;left:10px;bottom:0px;top:0px;"><button id="button_edit" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                <div class="content"></div> <br>
+
+                                <div style="position:absolute;margin-top:280px;">
+                                    <p class="postdetails SP1 actfnt">Post details</p>
+                                    <div class="actiondet">
+                                        <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    </div>
+
+                                    <div style="position:relative;
+                                         left:10px;bottom:0px;top:0px;">
+                                        <button id="button_edit" 
+                                                ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" 
+                                                class="button button--moema 
+                                                button--text-thick 
+                                                button--text-upper 
+                                                button--size-s" 
+                                                style="background-color:#E65C00;
+                                                width:120px;" type="button">
+                                            EDIT</button> 
+                                    </div>
+                                    <div style="position:relative;
+                                         left:10px;bottom:0px;
+                                         top:0px;">
+                                        <input type="button" id="email_button_send"
+                                               name="email_button_send"
+                                               class="button button--moema 
+                                                        button--text-thick 
+                                                        button--text-upper 
+                                                        button--size-s" 
+                                                        style="background-color:#E65C00;
+                                                        width:120px;"
+                                                        onclick="sendEmail()"
+                                                value="Send"/>
+<!--                                        <button id="button_edit" 
+                                                ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" 
+                                                class="button button--moema 
+                                                        button--text-thick 
+                                                        button--text-upper 
+                                                        button--size-s" 
+                                                        style="background-color:#E65C00;
+                                                        width:120px;" 
+                                                        type="button">
+                                            SEND</button> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        </div>
-                        <div id="edit_email_action" style="position:relative;left:50px;top:50px;">
+                    </div>
+                    <div id="edit_email_action" style="position:relative;left:50px;top:50px;">
                         <h1>&nbsp;Update action</h1>
                         <form class="form-horizontal" id="signform">
 
@@ -722,19 +755,19 @@
                                 <div class="col-md-4 col-md-offset-1 ">                            
                                     <input id="email_edit_title" class="brdr form-control simplebox" type="text" name="email_edit_title" value="{{schedule_title}}"/>
                                     <p><input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                    
-<!--                                    <label>TITLE</label>-->
+
+                                    <!--                                    <label>TITLE</label>-->
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:40px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p><input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-<!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
-                                        <option value="0">Select</option>
-                                        <option value="facebook">facebook</option>
-                                        <option value="twitter">twitter</option>
-                                        <option value="email">email</option>
-                                        <option value="note">note</option>
-                                    </select>-->
+                                    <!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                                                            <option value="0">Select</option>
+                                                                            <option value="facebook">facebook</option>
+                                                                            <option value="twitter">twitter</option>
+                                                                            <option value="email">email</option>
+                                                                            <option value="note">note</option>
+                                                                        </select>-->
                                 </div>
                                 <div style="position:absolute;top:140px;left:60px;" class="SH2">
                                     Description <br><textarea cols="28" rows="2" name="email_description" id="email_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
@@ -743,85 +776,87 @@
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
                                 </div>
-                                
-<!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
-                                
+
+                                <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
+
                             </div>
                             <div class="row">
                                 <div class="col-md-12" style="width:250px;position:absolute;top:350px;left:20px;">
 
                                     <div class="row">
                                         <div>
-                                        <div class="col-md-6" id="dvButtonContainer">
-                                            <input type="button" value="Save" 
-                                                   class="button button--moema 
-                                                          button--text-thick 
-                                                          button--text-upper 
-                                                          button--size-s" 
-                                                          ng-click="updateActionEmail()" 
-                                                          style="width:100px;" />
-                                        </div>
-                                        <div class="col-md-6" id="dvButtonContainer">
-                                            <input type="reset" value="Cancel" 
-                                                   class="button button--moema 
-                                                   button--text-thick 
-                                                   button--text-upper 
-                                                   button--size-s" 
-                                                   style="width:100px;" />
-                                        </div>
+                                            <div class="col-md-6" id="dvButtonContainer">
+                                                <input type="button" value="Save" 
+                                                       class="button button--moema 
+                                                       button--text-thick 
+                                                       button--text-upper 
+                                                       button--size-s" 
+                                                       ng-click="updateActionEmail()" 
+                                                       style="width:100px;" />
+                                            </div>
+                                            <div class="col-md-6" id="dvButtonContainer">
+                                                <input type="reset" value="Cancel" 
+                                                       class="button button--moema 
+                                                       button--text-thick 
+                                                       button--text-upper 
+                                                       button--size-s" 
+                                                       style="width:100px;" />
+                                            </div>
                                         </div>
                                     </div>
 
-                            </div>
+                                </div>
                             </div>
                         </form>                            
-                        </div>
-                        <div id="edit_email" style="display:none;">
+                    </div>
+                    <div id="edit_email" style="display:none;">
 
-                            <div style="position:relative;left:50px;">
-                                <div class="actiondetails actiondet">
-                                    <p class="SP2 actfnt">ACTION DETAILS</p>
-                                    <p><input type="text" class="inputbox MH2" id="email_entitytitle" name="email_entitytitle" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:20px;"/></p>
-                                    <p><input class="inputbox SP1" type="hidden" name="email_schedule_id" id="email_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                    <p><input class="inputbox SP1" type="hidden" name="email_entity_id" id="email_entity_id" value='{{entitiesdetails.schedule_email_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                        <div style="position:relative;left:50px;">
+                            <div class="actiondetails actiondet">
+                                <p class="SP2 actfnt">ACTION DETAILS</p>
+                                <p><input type="text" class="inputbox MH2" id="email_entitytitle" name="email_entitytitle" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:20px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="email_schedule_id" id="email_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="email_entity_id" id="email_entity_id" value='{{entitiesdetails.schedule_email_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="email_entity_body" id="email_entity_body" value='{{entitiesdetails.body}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="email_entity_from_name" id="email_entity_from_name" value='{{entitiesdetails.from_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
 
-                                    <br><p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                                <br><p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                            </div>
+                            <div class="row" style="width:400px;">
+                                <div class="col-md-3">
+                                    <div class="editcontent"></div>
                                 </div>
-                                <div class="row" style="width:400px;">
-                                    <div class="col-md-3">
-                                        <div class="editcontent"></div>
-                                    </div>
-                                  
-                                    <div class="col-md-6" id="popupright_panel" >
-<!--                                        <div><label>subject</label></div>-->
-                                        <div><p class="SP2 actfnt" style="font-weight:400;">Subject</p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
-                                        <div><p class="SP2 actfnt" style="font-weight:400;">To address</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
-                                        <div><p class="SP2 actfnt" style="font-weight:400;">From address</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
-                                        <div><p class="SP2 actfnt" style="font-weight:400;">Reply to address</p><input type="text" class="inputbox" name="email_entityreplytoaddress" id="email_entityreplytoaddress" value="{{entitiesdetails.reply_to_email_address}}"></div>
-                                    </div>
+
+                                <div class="col-md-6" id="popupright_panel" >
+                                    <!--                                        <div><label>subject</label></div>-->
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">Subject</p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">To address</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">From address</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">Reply to address</p><input type="text" class="inputbox" name="email_entityreplytoaddress" id="email_entityreplytoaddress" value="{{entitiesdetails.reply_to_email_address}}"></div>
                                 </div>
-                                <div style="position: relative;margin-left:0px;margin-top:0px;">
+                            </div>
+                            <div style="position: relative;margin-left:0px;margin-top:0px;">
                                 <p class="postdetails postdet SP1 actfnt">Post details</p>
                                 <div class="actiondet">
                                     <select class="SP1" id="chooseEmailList" name="chooseEmailList">
-                                    <option style="background:#fff;" value="0">Select</option>
-                                    <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                                </select>
+                                        <option style="background:#fff;" value="0">Select</option>
+                                        <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                                    </select>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.email_list_name}}</p>
                                     <input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                     <div class="editbutton"><button ng-click="removeTemplate(schedule_id)" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:200px;" type="button">remove the schedule</button> </div>
-                                <div class="editbutton"><button ng-click="updateEmailSchedule()" class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                    <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:200px;" type="button">remove the schedule</button> </div>
+                                    <div class="editbutton"><button ng-click="updateEmailSchedule()" class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                 </div>
-                               
-                            </div>
+
                             </div>
                         </div>
-                    </div></div>
+                    </div>
+                </div></div>
 
-                <div id="previewfb" class="pollSlider" style="z-index:1005;height:720px;">
-                    <div>
-                        <div id="preview_facebook">
+            <div id="previewfb" class="pollSlider" style="z-index:1005;height:720px;">
+                <div>
+                    <div id="preview_facebook">
 
 
                         <div style="position:relative;left:50px;">
@@ -840,25 +875,43 @@
                                  display:none;"/>
                             <div style="position:absolute;top:170px;left:300px;">
 
-                            <p class="SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
-                            <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
-                            <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
+                                <p class="SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
+                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
+                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
                             </div>
                             <div id="fb_preview_postdet" style="position:absolute;margin-left:20px;margin-top:-60px;">
-                            <p class="postdetails SP1 actfnt">Post details</p>
-                            <div>
-                                <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                            </div>
+                                <p class="postdetails SP1 actfnt">Post details</p>
+                                <div>
+                                    <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.metadata.ManagedPage}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                </div>
 
-                            <div style="position:relative;bottom:0px;top:0px;">
-                                <button id="button_edit" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" >EDIT</button> 
-                            </div>
+                                <div style="position:relative;bottom:0px;top:0px;">
+                                <button id="button_edit" 
+                                            class="button button--moema 
+                                            button--text-thick 
+                                            button--text-upper 
+                                            button--size-s" 
+                                            style="background-color:#E65C00;
+                                            width:120px;" type="button" 
+                                            ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)">EDIT
+                                </button>
+                                <input type="button" id="fb_button_post"
+                                       class="button button--moema 
+                                                button--text-thick 
+                                                button--text-upper 
+                                                button--size-s" 
+                                                style="background-color:#E65C00;
+                                                width:120px;"
+                                                onclick="postSocial()"
+                                        value="Post"/>
+                                </div>
 
                             </div>
                         </div>
-                        </div>
-                        <div id="edit_facebook_action" style="position:relative;left:50px;top:50px;">
+                    </div>
+                    <div id="edit_facebook_action" style="position:relative;left:50px;top:50px;">
                         <h1>&nbsp;Update action</h1>
                         <form class="form-horizontal" id="signform">
 
@@ -887,7 +940,7 @@
                                               font-weight:400;line-height:10px;
                                               width:300px;"/>
                                     </p>
-                                    <!--                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+<!--                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
@@ -902,157 +955,170 @@
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="fbdatetime" id="fbdatetime" class="inputdate MH1"/>
                                 </div>
-                                
-<!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
-                                
+
+                                <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
+
                             </div>
                             <div class="row">
                                 <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:20px;">
 
                                     <div class="row">
                                         <div>
-                                        <div class="col-md-6" id="dvButtonContainer">
-                                            <input type="button" value="Save" 
-                                                   class="button button--moema 
-                                                          button--text-thick 
-                                                          button--text-upper 
-                                                          button--size-s" 
-                                                          ng-click="updateActionFacebook()" 
-                                                          style="width:100px;" />
-                                        </div>
-                                        <div class="col-md-6" id="dvButtonContainer">
-                                            <input type="reset" value="Cancel" 
-                                                   class="button button--moema 
-                                                   button--text-thick 
-                                                   button--text-upper 
-                                                   button--size-s" 
-                                                   style="width:100px;" />
-                                        </div>
+                                            <div class="col-md-6" id="dvButtonContainer">
+                                                <input type="button" value="Save" 
+                                                       class="button button--moema 
+                                                       button--text-thick 
+                                                       button--text-upper 
+                                                       button--size-s" 
+                                                       ng-click="updateActionFacebook()" 
+                                                       style="width:100px;" />
+                                            </div>
+                                            <div class="col-md-6" id="dvButtonContainer">
+                                                <input type="reset" value="Cancel" 
+                                                       class="button button--moema 
+                                                       button--text-thick 
+                                                       button--text-upper 
+                                                       button--size-s" 
+                                                       style="width:100px;" />
+                                            </div>
                                         </div>
                                     </div>
 
-                            </div>
+                                </div>
                             </div>
                         </form>                            
-                        </div>
-                        
-                        <div id="edit_facebook">
+                    </div>
 
-                            <div style="position:relative;left:50px;top:-10px;">
+                    <div id="edit_facebook">
 
-                                <div class="actiondetails actiondet" >
-                                    <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1" ng-click="deleteAction(schedule_id)" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
-                                    <p><input class="inputbox MH2" type="text" name="facebook_schedule_title" id="facebook_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:270px;font-size:22px;"/></p>
-                                    <p><input class="inputbox SP1" type="text" name="facebook_schedule_Description" id="facebook_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:270px;"/></p>
-                                    <p><input class="inputbox SP1" type="hidden" name="facebook_schedule_id" id="facebook_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                    <p><input class="inputbox SP1" type="hidden" name="facebook_entity_id" id="facebook_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                </div>
-                                <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                                <img id="edtfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-60px;left:-120px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.5, 0.6);display:none;"/>
-                                 <div style="position:absolute;top:130px;left:300px;">
+                        <div style="position:relative;left:50px;top:-10px;">
+
+                            <div class="actiondetails actiondet" >
+                                <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1" ng-click="deleteSchedule(schedule_id,'delete')" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
+                                <p><input class="inputbox MH2" type="text" name="facebook_schedule_title" id="facebook_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:270px;font-size:22px;"/></p>
+                                <p><input class="inputbox SP1" type="text" name="facebook_schedule_Description" id="facebook_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:270px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="facebook_schedule_id" id="facebook_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="facebook_entity_id" id="facebook_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="facebook_accesstoken" id="facebook_accesstoken" value='{{entitiesdetails.token_data.access_token}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="isFacebook" id="isFacebook" value='false' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                            </div>
+                            <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                            <img id="edtfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-60px;left:-120px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.5, 0.6);display:none;"/>
+                            <p><input class="inputbox SP1" type="hidden" name="facebook_image_name" id="facebook_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                            <div style="position:absolute;top:130px;left:300px;">
                                 <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
-                                 </div>
-                                <div style="position:absolute;margin-left:10px;margin-top:-100px;">
+                            </div>
+                            <div style="position:absolute;margin-left:10px;margin-top:-100px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
-                                <div class="removesavetemplate"><button ng-click="removeTemplate(schedule_id)" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                <div class="removesavetemplate"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                 <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
-                                </div>
                             </div>
-                        </div>                        
-                    </div>
-
+                        </div>
+                    </div>                        
                 </div>
 
+            </div>
+
             <div id="previewNote" class="pollSlider" style="z-index:1005;height:720px;">
-                    <div>
-                        <div id="noteprev">
+                <div>
+                    <div id="noteprev">
 
-                            <div style="position:relative;left:50px;">
+                        <div style="position:relative;left:50px;">
 
-                                <div class="actiondetails actiondet">
-                                    <p class="SP2 actfnt">ACTION DETAILS</p>
-                                    <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
-                                    <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
-                                    <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                                </div>
-                                
-                                 <div style="position:absolute;margin-left:20px;margin-top:50px;">
+                            <div class="actiondetails actiondet">
+                                <p class="SP2 actfnt">ACTION DETAILS</p>
+                                <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
+                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
+                                <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                            </div>
+
+                            <div style="position:absolute;margin-left:20px;margin-top:50px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
-                                
+
                                 <div style="position:relative;bottom:0px;top:0px;">
                                     <button id="button_edit" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button" >EDIT</button> 
                                 </div>
-                                
-                                </div>
-                                
+
                             </div>
+
                         </div>
-                        <div id="noteedit" style="display:none;">
+                    </div>
+                    <div id="noteedit" style="display:none;">
 
-                            <div style="position:relative;left:50px;">
+                        <div style="position:relative;left:50px;">
 
-                                    <div class="actiondetails actiondet">
-                                    <p class="SP2 actfnt">ACTION DETAILS</p>
-                                    <p class="MH2" style="width:400px;">Title: <input type="text" id="note_title" name="note_title" value="{{schedule_title}}"/></p>
-                                    <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description:<input type="text" id="note_desc" name="note_desc" value="{{schedule_desc}}"/></p>
-                                    <p><input class="inputbox SP1" type="hidden" name="note_schedule_id" id="note_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                    <p><input class="inputbox SP1" type="hidden" name="note_entity_id" id="note_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                    </div>       
-                                <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                              <div style="position:absolute;margin-left:10px;margin-top:50px;">
+                            <div class="actiondetails actiondet">
+                                <p class="SP2 actfnt">ACTION DETAILS</p>
+                                <p class="MH2" style="width:400px;">Title: <input type="text" id="note_title" name="note_title" value="{{schedule_title}}"/></p>
+                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description:<input type="text" id="note_desc" name="note_desc" value="{{schedule_desc}}"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="note_schedule_id" id="note_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="note_entity_id" id="note_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                            </div>       
+                            <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                            <div style="position:absolute;margin-left:10px;margin-top:50px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
                                 <div class="savebutton" ng-click="updateNote()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
-                               </div>
-                               </div>
+                            </div>
                         </div>
-                        
                     </div>
 
                 </div>
 
-                <div id="previewtwitter" class="pollSlider" style="z-index:1005;height:720px;">
-                    <div>
-                        <div id="preview_twitter">
+            </div>
 
-                            <div style="position:relative;left:50px;">
+            <div id="previewtwitter" class="pollSlider" style="z-index:1005;height:720px;">
+                <div>
+                    <div id="preview_twitter">
 
-                                <div class="actiondetails actiondet">
-                                    <p class="SP2 actfnt">ACTION DETAILS</p>
-                                    <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
-                                    <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
-                                </div>
-                                <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                     
-                                <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-50px;left:-100px;transform: scale(0.5);-ms-transform: scale(0.5);-webkit-transform: scale(0.6);display:none;"/>
-                                <div style="position:relative;top:-230px;left:310px;">
+                        <div style="position:relative;left:50px;">
+
+                            <div class="actiondetails actiondet">
+                                <p class="SP2 actfnt">ACTION DETAILS</p>
+                                <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
+                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
+                            </div>
+                            <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+
+                            <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-50px;left:-100px;transform: scale(0.5);-ms-transform: scale(0.5);-webkit-transform: scale(0.6);display:none;"/>
+                            <div style="position:relative;top:-230px;left:310px;">
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.text}}</p>
-                                </div>
-                                <div id="twitter_preview_postdet" style="position:relative;margin-left:20px;margin-top:-100px;">  
-                                    <p class="postdetails SP1 actfnt">Post details</p>
+                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.shorturl}}</p>
+                            </div>
+                            <div id="twitter_preview_postdet" style="position:relative;margin-left:20px;margin-top:-100px;">  
+                                <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
                                 <div style="position:relative;bottom:0px;top:0px;"  class="editbutton"><button ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
-                                
-                                </div>
+                                <input type="button" id="twitter_button_post"
+                                       class="button button--moema 
+                                                button--text-thick 
+                                                button--text-upper 
+                                                button--size-s" 
+                                                style="background-color:#E65C00;
+                                                width:120px;"
+                                                onclick="postSocial()"
+                                        value="Post"/>
+
                             </div>
                         </div>
-                        <div id="edit_twitter_action" style="position:relative;top:50px;left:50px;">
+                    </div>
+                    <div id="edit_twitter_action" style="position:relative;top:50px;left:50px;">
                         <h1>&nbsp;update action</h1>
                         <form class="form-horizontal" id="signform">
 
@@ -1060,18 +1126,18 @@
                                 <div class="col-md-4 col-md-offset-1 ">
                                     <input id="edit_twitter_title" class="brdr form-control simplebox" type="text" name="edit_twitter_title" value="{{schedule_title}}"/>
                                     <p><input class="inputbox SP1" type="hidden" name="twitter_scheduleid" id="twitter_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-<!--                                    <label>TITLE</label>-->
+                                    <!--                                    <label>TITLE</label>-->
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:40px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p><input class="inputbox SP1" type="hidden" name="twitter_action_type" id="twitter_action_type" value='{{schedule_type}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-<!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
-                                        <option value="0">Select</option>
-                                        <option value="facebook">facebook</option>
-                                        <option value="twitter">twitter</option>
-                                        <option value="email">email</option>
-                                        <option value="note">note</option>
-                                    </select>-->
+                                    <!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                                                            <option value="0">Select</option>
+                                                                            <option value="facebook">facebook</option>
+                                                                            <option value="twitter">twitter</option>
+                                                                            <option value="email">email</option>
+                                                                            <option value="note">note</option>
+                                                                        </select>-->
                                 </div>
                                 <div style="position:absolute;top:110px;left:60px;" class="SH2">
                                     Description <br><textarea cols="28" rows="2" name="twitter_description" id="twitter_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
@@ -1080,96 +1146,101 @@
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="twitterdatetime" id="twitterdatetime" class="inputdate MH1"/>
                                 </div>
-                                
-<!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
-                                
+
+                                <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
+
                             </div>
                             <div class="row">
                                 <div class="col-md-12" style="width:250px;position:absolute;top:340px;left:20px;">
 
                                     <div class="row">
                                         <div>
-                                        <div class="col-md-6" id="dvButtonContainer">
-                                            <input type="button" value="Save" 
-                                                   class="button button--moema 
-                                                          button--text-thick 
-                                                          button--text-upper 
-                                                          button--size-s" 
-                                                          ng-click="updateActionTwitter()" 
-                                                          style="width:100px;" />
-                                        </div>
-                                        <div class="col-md-6" id="dvButtonContainer">
-                                            <input type="reset" value="Cancel" 
-                                                   class="button button--moema 
-                                                   button--text-thick 
-                                                   button--text-upper 
-                                                   button--size-s" 
-                                                   style="width:100px;" />
-                                        </div>
+                                            <div class="col-md-6" id="dvButtonContainer">
+                                                <input type="button" value="Save" 
+                                                       class="button button--moema 
+                                                       button--text-thick 
+                                                       button--text-upper 
+                                                       button--size-s" 
+                                                       ng-click="updateActionTwitter()" 
+                                                       style="width:100px;" />
+                                            </div>
+                                            <div class="col-md-6" id="dvButtonContainer">
+                                                <input type="reset" value="Cancel" 
+                                                       class="button button--moema 
+                                                       button--text-thick 
+                                                       button--text-upper 
+                                                       button--size-s" 
+                                                       style="width:100px;" />
+                                            </div>
                                         </div>
                                     </div>
 
-                            </div>
+                                </div>
                             </div>
                         </form>                            
-                        </div>
-                        
-                        <div id="edit_twitter">
-                            <div style="position:relative;left:50px;top:-10px;">
-                               <div class="actiondetails actiondet" >
-                                   <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1" ng-click="deleteAction(schedule_id)" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
-                                    <p><input class="inputbox MH2" type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
-                                    <p><input class="inputbox SP1" type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                    <p><input class="inputbox SP1" type="hidden" name="twitter_schedule_id" id="twitter_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                    <p><input class="inputbox SP1" type="hidden" name="twitter_entity_id" id="twitter_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                    
-                               </div>
-                                <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                                <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-60px;left:-100px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.6, 0.5);display:none;"/>
-                               <div style="position:relative;top:-270px;left:310px;">
-                                   <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.text}}'  class="actfnt" style="font-weight:300;width:230px;"/></p>
-                               </div>
-                                <div style="position:relative;margin-left:10px;margin-top:-180px;">
+                    </div>
+
+                    <div id="edit_twitter">
+                        <div style="position:relative;left:50px;top:-10px;">
+                            <div class="actiondetails actiondet" >
+                                <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1" ng-click="deleteSchedule(schedule_id,'delete')" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
+                                <p><input class="inputbox MH2" type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
+                                <p><input class="inputbox SP1" type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="twitter_schedule_id" id="twitter_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="twitter_entity_id" id="twitter_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="twitter_entity_accesstoken" id="twitter_entity_accesstoken" value='{{entitiesdetails.token_data.access_token}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="twitter_entity_tokensecret" id="twitter_entity_tokensecret" value='{{entitiesdetails.token_data.token_secret}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="isTwitter" id="isTwitter" value='false' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+
+                            </div>
+                            <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                            <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-60px;left:-100px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.6, 0.5);display:none;"/>
+                            <p><input class="inputbox SP1" type="hidden" name="twitter_image_name" id="twitter_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                            <div style="position:relative;top:-270px;left:310px;">
+                                <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.text}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
+                                <p><input type="text" name="twitter_schedule_post_url" id="twitter_schedule_post_url" value='{{entitiesdetails.metadata.shorturl}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
+                            </div>
+                            <div style="position:relative;margin-left:10px;margin-top:-180px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <input type='datetime-local' name="twitter_schedule_datetime" id="twitter_schedule_datetime" class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
-                                <div style="margin-left:-10px;" class="removesavetemplate"><button ng-click="removeTemplate(schedule_id)" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                <div style="margin-left:-10px;" class="removesavetemplate"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                 <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
-                                </div>
                             </div>
                         </div>
-                        
                     </div>
 
                 </div>
 
-                <div id="light" class="white_content">
-                  <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
+            </div>
+
+            <div id="light" class="white_content">
+                <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
                     <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
                         <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="25" width="25"/></p>
                     </div>
-                  </a>
-                </div>
-            </div>    
+                </a>
+            </div>
+        </div>    
 
         <script>
-            $(".cross").hide();
-            $(".menu").hide();
-            $(".hamburger").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".hamburger").hide();
-                    $(".cross").show();
-                });
-            });
-            $(".cross").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".cross").hide();
-                    $(".hamburger").show();
-                });
-            });
+                                                            $(".cross").hide();
+                                                            $(".menu").hide();
+                                                            $(".hamburger").click(function () {
+                                                    $(".menu").slideToggle("slow", function () {
+                                                    $(".hamburger").hide();
+                                                            $(".cross").show();
+                                                    });
+                                                    });
+                                                            $(".cross").click(function () {
+                                                    $(".menu").slideToggle("slow", function () {
+                                                    $(".cross").hide();
+                                                            $(".hamburger").show();
+                                                    });
+                                                    });
 
         </script>
     </body>
