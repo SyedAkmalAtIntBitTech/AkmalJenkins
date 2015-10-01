@@ -361,7 +361,7 @@ public class Layout {
                     margin_left = modelElement.getAttribute("x-co-ordinates");
                     margin_top = modelElement.getAttribute("y-co-ordinates");
                     backgroundimage = modelElement.getAttribute("src").replace("url(", "").replace(")", "");
-                    String host = "http://"+servletRequest.getServerName() + ":" + servletRequest.getServerPort() + "/BrndBot/";
+                    String host = "http://"+servletRequest.getRemoteAddr()  + "/BrndBot/";
                     backgroundimage = backgroundimage.replace("../", host);
                     htmldata.append("<img id='" + id + "' style='position: absolute; margin-left: " + margin_left + "; margin-top:" + margin_top + ";' src='"+backgroundimage+"'/>");
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("logo")) {

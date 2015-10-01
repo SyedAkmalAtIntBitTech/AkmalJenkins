@@ -163,7 +163,7 @@ public class ConvertDivToHTML {
                 for (LogoProperties logo : logoProperties) {
                     String parsedId = logo.getId().split(divDelimiter)[0];
                     if (id.equalsIgnoreCase(parsedId)) {
-                        doc.getElementById(id).attr(LogoProperties.srcKey, logo.getBackgroundURL());
+                        doc.getElementById(id).attr(LogoProperties.backgroundURLKey, logo.getBackgroundURL());
                         break;
                     }
                 }
@@ -374,7 +374,7 @@ public class ConvertDivToHTML {
         PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletRequest.getServletContext(), filePath);
         compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), null, width, height, "0", "0");
             //Should create the compressed image out of this and replace the background with it.
-        String imageURL = "http://"+servletRequest.getServerName() + ":" + servletRequest.getServerPort() + "/BrndBot/DownloadImage?image_type=HTML_IMAGES&image_name=" + compressedBackgroundImageFile.getName();
+        String imageURL = "http://"+servletRequest.getRemoteAddr()+ "/BrndBot/DownloadImage?image_type=HTML_IMAGES&image_name=" + compressedBackgroundImageFile.getName();
         logger.log(Level.INFO, "\nURL of the image:"+imageURL);
         return imageURL;
     }
