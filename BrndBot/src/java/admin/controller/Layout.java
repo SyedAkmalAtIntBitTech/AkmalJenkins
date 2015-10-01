@@ -298,8 +298,8 @@ public class Layout {
                 if (modelElement.getAttribute("tag").equalsIgnoreCase("image")) {
                     String filter = "";
                     if (modelElement.getAttribute("filterEnable").equalsIgnoreCase("false")) {
-                        h_shadow = modelElement.getAttribute("h-shadow");
-                        v_shadow = modelElement.getAttribute("v-shadow");
+                        h_shadow = modelElement.getAttribute("H-shadow");
+                        v_shadow = modelElement.getAttribute("V-shadow");
                         Blur = modelElement.getAttribute("blur");
                         Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
                         filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
@@ -332,7 +332,7 @@ public class Layout {
                     height = modelElement.getAttribute("height");
                     background_repeat = "no-repeat";
                     background_size = "contain";
-                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; background-position:" + "50% 50%" + "; -webkit-background-size:" + "cover" + ";-webkit-filter:" + filter + ";  opacity:" + opacity + ";'></div>");
+                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode +"; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; background-position:" + "50% 50%" + "; -webkit-background-size:" + "cover" + ";-webkit-filter:" + filter + ";  opacity:" + opacity + ";'></div>");
                     logger.log(Level.INFO, htmldata.toString());
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("text")) {
                     textData = modelElement.getAttribute("type");
@@ -368,8 +368,8 @@ public class Layout {
                   
                     String filter = "";
                     if (modelElement.getAttribute("filterEnable").equalsIgnoreCase("false")) {
-                        h_shadow = modelElement.getAttribute("h-shadow");
-                        v_shadow = modelElement.getAttribute("v-shadow");
+                        h_shadow = modelElement.getAttribute("H-shadow");
+                        v_shadow = modelElement.getAttribute("V-shadow");
                         Blur = modelElement.getAttribute("blur");
                         Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
                         filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
