@@ -254,7 +254,7 @@
             if (id === "ipad") {
                 $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px")
                         .css("border-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px").css("background-color","#FFF");
-                $('#dynamictable').css("width","768px").css("height","987px").css("top","-474px").css("left","-300px").css("-webkit-transform"," scale(0.265)");
+                $('#dynamictable').css("width","770px").css("height","958px").css("top","-465px").css("left","-300px").css("-webkit-transform"," scale(0.265)");
             }
             else if (id === "imac")
             {
@@ -267,7 +267,7 @@
                 $(".iphoneshow").css("background-image", imageUrl)
                         .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "-55px").css("margin-top", "-80px")
                         .css("border-color", "transparent").css("background-color","#FFF");
-                 $('#dynamictable').css("width","320px").css("height","655px").css("top","-276px").css("left","-107px").css("-webkit-transform","scale(0.47)");
+                 $('#dynamictable').css("width","358px").css("height","573px").css("top","-241px").css("left","-108px").css("-webkit-transform","scale(0.488)");
             }
         }
         function displaySchedule(){
@@ -419,9 +419,9 @@
                                 </ul>-->
 
                 <ul class="images ">
-                    <li><div id="iphone" class="img-responsive ptr" onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
+                    <li><div id="iphone" class="img-responsive ptr" onclick="show('iphone');" style="background-image: url('images/Phone.svg');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                     <li><div id="imac" class="img-responsive ptr" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
-                    <li><div id="ipad" class="img-responsive ptr" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
+                    <li><div id="ipad" class="img-responsive ptr" onclick="show('ipad');"  style="background-image: url('images/Tablet.svg');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                 </ul>
                 
                 <div id="popupschedule">
