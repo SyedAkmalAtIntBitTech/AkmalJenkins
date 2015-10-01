@@ -912,8 +912,9 @@ and open the template in the editor.
                                 {
                                      filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
                                 }
-                                    var blendmode = $(this).attr("background-blend-mode");
-                                    var background_image = $(this).attr("background-image")
+                                    var blendmode = $(this).attr("Blend");
+                                    var background_image = $(this).attr("background-image");
+                                    var background_color=$(this).attr("blend-background-color");
                                     $(".imagename").append("<option name=" + background_image + " value=" + type + "EEE" + blockId + ">Image " + count + "</option>");
                                     count++;
                                     $(".preview #" + blockId).append("<div class=images onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
@@ -930,6 +931,7 @@ and open the template in the editor.
                                     .css("background-repeat", "no-repeat")
                                     .css("background-position", "50% 50%")
                                     .css("-webkit-background-size", "cover")
+                                    .css("background-color", ""+background_color)
                                     .css("position", "absolute")
                                     .css("webkit-filter",""+ filter);
                             }
@@ -945,7 +947,8 @@ and open the template in the editor.
                                 }
                                     var userId = $("#userid").val();
                                     var userLogonmae = $("#userlogo").val();
-                                    var blendmode = $(this).attr("background-blend-mode");
+                                    var blendmode = $(this).attr("Blend");
+                                    var background_color=$(this).attr("blend-background-color");
                                     $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
                                     $("#" + type + "EEE" + blockId)
                                     .css("color", "" + fontcolor)
@@ -958,6 +961,7 @@ and open the template in the editor.
                                     .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=" + userId + "&image_name=" + userLogonmae + "')")
                                     .css("background-repeat", "no-repeat")
                                     .css("background-position", "center center")
+                                    .css("background-color", ""+background_color)
                                     .css("background-size","contain")
                                     .css("position", "absolute")
                                     .css("webkit-filter",""+ filter);
@@ -1709,8 +1713,8 @@ and open the template in the editor.
                                     $('body').on("click", "button", function() {
                                         $('.default').hide();
                             // grab width and height of .crop-img for canvas
-                            var width = $('.crop-container').width() - 80, // new image width
-                                    height = $('.crop-container').height() - 80; // new image height
+                            var width = $('.crop-container').width(), // new image width
+                                    height = $('.crop-container').height(); // new image height
 
                                     $('canvas').remove();
                                     $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');

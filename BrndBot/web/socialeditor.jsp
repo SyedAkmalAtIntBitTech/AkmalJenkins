@@ -585,8 +585,9 @@ ul::-webkit-scrollbar-thumb {
                                                          filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
                                                     }
                                                    
+                                                    var blendmode = $(this).attr("Blend");
                                                     var background_image = $(this).attr("background-image");
-                                                    var blendmode = $(this).attr("background-blend-mode");
+                                                    var background_color=$(this).attr("blend-background-color");
 //                                                   
                                                     $(".imagename").append("<option name="+background_image+" value="+ type +">Image "+count+"</option>");
                                                         count++;
@@ -603,6 +604,7 @@ ul::-webkit-scrollbar-thumb {
                                                             .css("background-repeat", "no-repeat")
                                                             .css("background-position", "50% 50%")
                                                             .css("-webkit-background-size", "cover")
+                                                            .css("background-color", ""+background_color)
                                                             .css("position", "absolute")
                                                             .css("webkit-filter",""+ filter);
                                                     }
@@ -618,7 +620,8 @@ ul::-webkit-scrollbar-thumb {
                                                     }
                                                      var userId=$("#userid").val();
                                                     var userLogonmae = $("#userlogo").val();
-                                                    var blendmode = $(this).attr("background-blend-mode");
+                                                    var blendmode = $(this).attr("Blend");
+                                                    var background_color=$(this).attr("blend-background-color");
                                                     $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
                                                             .css("color", "" + fontcolor)
@@ -631,6 +634,7 @@ ul::-webkit-scrollbar-thumb {
                                                             .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')")
                                                             .css("background-repeat", "no-repeat")
                                                             .css("background-position", "center center")
+                                                            .css("background-color", ""+ background_color)
                                                             .css("background-size","contain")
                                                             .css("position", "absolute")
                                                             .css("webkit-filter",""+ filter); 
@@ -1308,8 +1312,8 @@ function showfilter(){
                             $('body').on("click", "button", function() {
                                     $('.default').hide();
                                     // grab width and height of .crop-img for canvas
-                                    var width = $('.crop-container').width() - 80, // new image width
-                                      height = $('.crop-container').height() - 80; // new image height
+                                    var width = $('.crop-container').width(), // new image width
+                                      height = $('.crop-container').height(); // new image height
 
                                     $('canvas').remove();
                                     $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');

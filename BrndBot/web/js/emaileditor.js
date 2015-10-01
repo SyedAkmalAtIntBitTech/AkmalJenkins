@@ -335,8 +335,9 @@ $(document).ready(function () {
                                     {
                                          filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
                                     }
-                                    var blendmode = $(this).attr("background-blend-mode");
+                                    var blendmode = $(this).attr("Blend");
                                     var background_image = $(this).attr("background-image");
+                                    var background_color=$(this).attr("blend-background-color");
                                     $(".imagename").append("<option name=" + background_image + " value="+ type + "EEEdefaultblock1>Image " + count + "</option>");
                                     count++;
                                     $(".preview #defaultblock1").append("<div class=images onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
@@ -352,6 +353,7 @@ $(document).ready(function () {
                                             .css("background", "" + background_image)
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "50% 50%")
+                                            .css("background-color", ""+ background_color)
                                             .css("-webkit-background-size", "cover")
                                             .css("position", "absolute")
                                             .css("webkit-filter",""+ filter);
@@ -369,7 +371,8 @@ $(document).ready(function () {
                                     }
                                     var userId=$("#userid").val();
                                     var userLogonmae = $("#userlogo").val();
-                                    var blendmode = $(this).attr("background-blend-mode");
+                                    var blendmode = $(this).attr("Blend");
+                                    var background_color=$(this).attr("blend-background-color");
                                     $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                                     $("#" + type + "EEEdefaultblock1")
                                             .css("color", "" + fontcolor)
@@ -382,6 +385,7 @@ $(document).ready(function () {
                                             .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')")
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
+                                            .css("background-color", ""+ background_color)
                                             .css("background-size","contain")
                                             .css("position", "absolute")
                                             .css("webkit-filter",""+ filter);

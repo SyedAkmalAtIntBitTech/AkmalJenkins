@@ -377,7 +377,8 @@ $(".blockname").change(function (){
                                     }
                                     var userId=$("#userid").val();
                                     var userLogonmae = $("#userlogo").val();
-                                    var blendmode = $(this).attr("background-blend-mode");
+                                                    var blendmode = $(this).attr("Blend");
+                                                    var background_color=$(this).attr("blend-background-color");
                                     $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                     $("#" + type)
                                             .css("color", "" + fontcolor)
@@ -390,6 +391,7 @@ $(".blockname").change(function (){
                                             .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')" )
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
+                                            .css("background-color", ""+ background_color)
                                             .css("background-size","contain")
                                             .css("position", "absolute")
                                             .css("webkit-filter",""+ filter);                                          
@@ -404,8 +406,9 @@ $(".blockname").change(function (){
                                     {
                                          filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
                                     }
-                                    var background_image = $(this).attr("background-image");
-                                    var blendmode = $(this).attr("background-blend-mode");
+                                                    var blendmode = $(this).attr("Blend");
+                                                    var background_image = $(this).attr("background-image");
+                                                    var background_color=$(this).attr("blend-background-color");
                                     $(".imagename").append("<option name=" + background_image + " value="+ type +">Image " + count + "</option>");
                                     count++;
                                     $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
@@ -423,6 +426,7 @@ $(".blockname").change(function (){
                                             .css("position", "absolute")
                                             .css("background-position", "50% 50%")
                                             .css("-webkit-background-size", "cover")
+                                            .css("background-color", ""+background_color)
                                             .css("webkit-filter",""+ filter);
                                 }
 
