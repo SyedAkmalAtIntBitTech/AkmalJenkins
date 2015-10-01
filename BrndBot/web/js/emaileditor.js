@@ -316,9 +316,9 @@ $(document).ready(function () {
                                             $("#" + type + "EEEdefaultblock1").css("font-size", "" + tempfontsize + "px");
                                         }
                                         
-                                        var xxyy = parseInt(tempfontsize);
-                                        xxyy = Math.round(xxyy * 1.2);
-                                        $("#" + type + "EEEdefaultblock1").css("line-height", "" + xxyy + "px");
+//                                        var xxyy = parseInt(tempfontsize);
+//                                        xxyy = Math.round(xxyy * 1.2);
+//                                        $("#" + type + "EEEdefaultblock1").css("line-height", "" + xxyy + "px");
                                     }
                                     //resize end
                                     var addThis = $("#" + type + "EEEdefaultblock1").get(0).scrollHeight - $("#" + type + "EEEdefaultblock1").height();
@@ -327,6 +327,14 @@ $(document).ready(function () {
 
                                 if (tag === "image")
                                 {
+                                   var filter;
+                                    if($(this).attr("filterEnable")== "true"){
+                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                       }
+                                    else
+                                    {
+                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                    }
                                     var blendmode = $(this).attr("background-blend-mode");
                                     var background_image = $(this).attr("background-image");
                                     $(".imagename").append("<option name=" + background_image + " value="+ type + "EEEdefaultblock1>Image " + count + "</option>");
@@ -345,7 +353,8 @@ $(document).ready(function () {
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "50% 50%")
                                             .css("-webkit-background-size", "cover")
-                                            .css("position", "absolute");
+                                            .css("position", "absolute")
+                                            .css("webkit-filter",""+ filter);
 
                                 }
 
@@ -700,9 +709,9 @@ function textAreaKeyUp(event,id) {
             //     alert(tempfontsize);
             $("#" + id).css("font-size", "" + tempfontsize + "px");
         }
-        var xxyy = parseInt(tempfontsize);
-        xxyy = Math.round(xxyy * 1.2);
-        $("#" + id).css("line-height", "" + xxyy + "px");
+//        var xxyy = parseInt(tempfontsize);
+//        xxyy = Math.round(xxyy * 1.2);
+//        $("#" + id).css("line-height", "" + xxyy + "px");
         //alert($("#" + id).get(0).scrollHeight + ">" + ($("#"+id).height()+4));
     }
         //alert("last"+$("#" + id).get(0).scrollHeight + ">" + ($("#"+id).height()+4));
@@ -724,6 +733,7 @@ function getBlockId(id) {
     $(".blockname").find('option').remove().end();
     
    $('#'+selectedBlockId.id).children().each(function () {
+       $("#edt").trigger('click');
         var Id=this.id;
         var className=$("#"+Id).attr("class");
         switch (className){
@@ -758,7 +768,10 @@ function getBlockId(id) {
         else
           $("#textcontainer").show();
 });
+var mindbodydatacheck=$(selectedBlockId).attr("name");
+if(typeof mindbodydatacheck != 'undefined' ){
     mindbodydataId = $(selectedBlockId).attr("name").toString();
+}
     $("#tabs-1").show();
     $("#tabs-2").hide();
     $("#tabs-3").hide();

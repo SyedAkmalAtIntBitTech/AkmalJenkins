@@ -32,6 +32,9 @@ and open the template in the editor.
             }
         </style>
      <style>
+         .ImagesForDelete{
+             opacity: 0.7;
+         }
             .fileUpload {
                 position: relative;
                 overflow: hidden;
@@ -222,9 +225,9 @@ and open the template in the editor.
                                     <ul class="paginationclass" style="width:700px;">
                                         <li  ng-repeat="images in datalists | pagination: curPage * pageSize | limitTo: pageSize" >
                                             <div>
-                                                        <img id="{{images.id}}" class="lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}" onclick="showText({{images.id}})" width="110" height="100" />
+                                                        <img id="{{images.id}}" class="lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}" onclick="showText('{{images.id}}','{{images.image_name}}')" width="110" height="100" />
                     <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
-                                                            <!--<button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>-->
+                                                            <button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
                                                     </div> 
                                          </li>
                                     </ul> 
@@ -324,6 +327,32 @@ and open the template in the editor.
 
         document.getElementById('filesToUpload').addEventListener('change', fileSelect, false);
     </script>  
+    
+<!--     for  multiple images delete. use this code to pass value DeleteGalleryImages servlet -->
+<!--    <script>
+        var imageId=[];
+        var imageName=[];
+        var count=0;
+        function showText(id,name){
+            $("#" +id).toggleClass('ImagesForDelete');
+            if($("#" +id).hasClass('ImagesForDelete'))
+            {
+              imageId[count]=id;
+              imageName[count]=name;
+              count++;
+            }
+            else{
+                imageId = jQuery.grep(imageId, function(value) {
+                    return value != id;
+                  });
+               imageName = jQuery.grep(imageName, function(value) {
+                    return value != name;
+                  });  
+                  count--;
+            }
+            alert(imageId);
+        }
+    </script>-->
     </body>
   
 </html>

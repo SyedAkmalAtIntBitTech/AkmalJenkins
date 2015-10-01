@@ -576,6 +576,15 @@ ul::-webkit-scrollbar-thumb {
 
                                                if (tag === "image")
                                                {
+                                                  var filter;
+                                                    if($(this).attr("filterEnable")== "true"){
+                                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                                       }
+                                                    else
+                                                    {
+                                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                                    }
+                                                   
                                                     var background_image = $(this).attr("background-image");
                                                     var blendmode = $(this).attr("background-blend-mode");
 //                                                   
@@ -594,7 +603,8 @@ ul::-webkit-scrollbar-thumb {
                                                             .css("background-repeat", "no-repeat")
                                                             .css("background-position", "50% 50%")
                                                             .css("-webkit-background-size", "cover")
-                                                            .css("position", "absolute"); 
+                                                            .css("position", "absolute")
+                                                            .css("webkit-filter",""+ filter);
                                                     }
 
                                                     if (tag === "logo")

@@ -891,9 +891,9 @@ and open the template in the editor.
                             tempfontsize = tempfontsize - 1;
                                     $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize + "px");
                             }
-                            var xxyy = parseInt(tempfontsize);
-                                    xxyy = Math.round(xxyy * 1.2);
-                                    $("#" + type + "EEE" + blockId).css("line-height", "" + xxyy + "px");
+//                            var xxyy = parseInt(tempfontsize);
+//                                    xxyy = Math.round(xxyy * 1.2);
+//                                    $("#" + type + "EEE" + blockId).css("line-height", "" + xxyy + "px");
                             }
                             //resize end
 
@@ -903,7 +903,15 @@ and open the template in the editor.
 
                             if (tag === "image")
                             {
-                            var blendmode = $(this).attr("background-blend-mode");
+                                var filter;
+                                if($(this).attr("filterEnable")== "true"){
+                                      filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                   }
+                                else
+                                {
+                                     filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                }
+                                    var blendmode = $(this).attr("background-blend-mode");
                                     var background_image = $(this).attr("background-image")
                                     $(".imagename").append("<option name=" + background_image + " value=" + type + "EEE" + blockId + ">Image " + count + "</option>");
                                     count++;
@@ -921,7 +929,8 @@ and open the template in the editor.
                                     .css("background-repeat", "no-repeat")
                                     .css("background-position", "50% 50%")
                                     .css("-webkit-background-size", "cover")
-                                    .css("position", "absolute");
+                                    .css("position", "absolute")
+                                    .css("webkit-filter",""+ filter);
                             }
 
                             if (tag === "logo")
@@ -1093,7 +1102,7 @@ and open the template in the editor.
                                 <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
                                 <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
                             </div>
-                            <div class="span2 col-md-offset-0" style="position:relative;top:20em;" >
+                            <div class="span2 col-md-offset-0" style="position:relative;top:22em;" >
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE">
                                 <br><br>
                                 <script>
@@ -1322,7 +1331,7 @@ and open the template in the editor.
                                                             <label id="{{blocks.block_id}}"  style="font-weight: normal;font-size:16px;">{{blocks.block_name}}</label>
                                                             <div></div><p>&nbsp;</p>
 -->
-                                                            <label id="{{blocks.block_id}}" class="blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)"  style="font-weight: normal;font-size:16px;margin-left: 10px;">{{blocks.block_name}}</label>
+                                                            <label id="{{blocks.block_id}}" class="blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)"  style="font-weight: normal;font-size:16px;margin-left: 10px;padding: 5px;">{{blocks.block_name}}</label>
 <!--                                                            <div></div><p>&nbsp;</p>-->
 
                                                         </li>
