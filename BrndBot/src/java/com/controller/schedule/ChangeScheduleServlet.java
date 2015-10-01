@@ -6,6 +6,7 @@
 package com.controller.schedule;
 
 import com.intbit.AppConstants;
+import com.intbit.ConnectionManager;
 import com.intbit.TemplateStatus;
 import com.intbit.dao.ScheduleDAO;
 import com.intbit.dao.ScheduleSocialPostDAO;
@@ -13,6 +14,7 @@ import com.intbit.util.AuthenticationUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.Map;
 import java.util.logging.Level;
@@ -28,6 +30,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChangeScheduleServlet extends HttpServlet {
 
+    private static final ConnectionManager connectionManager = ConnectionManager.getInstance();
+    private static final Logger logger = Logger.getLogger(ScheduleDAO.class.getName());
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,6 +45,7 @@ public class ChangeScheduleServlet extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         PrintWriter out = response.getWriter();
         try {
             if ( !AuthenticationUtil.isUserLoggedIn(request)){
@@ -96,8 +102,7 @@ public class ChangeScheduleServlet extends HttpServlet {
                 response.getWriter().write("true");
                 response.getWriter().flush();
                 
-            }
-            else if (type.equalsIgnoreCase("deleteSelected")){
+            }else if (type.equalsIgnoreCase("deleteSelected")){
                 String schedule_ids = (String)requestBodyMap.get("schedule_ids");
                 ScheduleDAO.deleteSchedules(userId, schedule_ids);
                 response.setStatus(HttpServletResponse.SC_OK);
@@ -119,15 +124,27 @@ public class ChangeScheduleServlet extends HttpServlet {
                 String schedule_id = (String)requestBodyMap.get("schedule_id");
                 String schedule_title = (String)requestBodyMap.get("schedule_title");
                 String schedule_desc = (String)requestBodyMap.get("schedule_desc");
+                String status = (String)requestBodyMap.get("status");
                 Double schedule = (Double)requestBodyMap.get("schedule_time");
 
                 Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
                 ScheduleDAO.updateNoteDetails(userId, Integer.parseInt(schedule_id),
-                        schedule_title, schedule_desc, scheduleTimeStamp);
+                        schedule_title, schedule_desc, status, scheduleTimeStamp);
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
+            }else if (type.equalsIgnoreCase("updateSchedule")){
+                String schedule_id = (String)requestBodyMap.get("schedule_id");
+                String entity_id = (String)requestBodyMap.get("entity_id");
 
+                try(Connection conn = connectionManager.getConnection()){
+                    ScheduleDAO.updateScheduleEntityList(Integer.parseInt(entity_id), 
+                            Integer.parseInt(schedule_id), 
+                            TemplateStatus.complete.toString(), conn);
+                }catch (Exception e){
+                    logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                "Exception while updating the schedule:", null), e);
+                }
             }
         }catch (Exception ex){
             Logger.getLogger(ScheduleEmailServlet.class.getName()).log(Level.SEVERE, null, ex);

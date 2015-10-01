@@ -67,7 +67,7 @@ public class AddActionServlet extends HttpServlet {
             String type = (String)requestBodyMap.get("type");
             if (type.equalsIgnoreCase("save")){
                 String templateStatus = TemplateStatus.no_template.toString();
-                if ( ScheduledEntityType.note.toString().equals(requestBodyMap.get("type").toString())){
+                if ( ScheduledEntityType.note.toString().equals(requestBodyMap.get("actiontype").toString())){
                     templateStatus = TemplateStatus.incomplete.toString();
                 }
                 try{

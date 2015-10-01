@@ -376,7 +376,8 @@ public class ScheduleDAO {
                     scheduleDetailMap.put("status", rs.getString("status"));
                     scheduleDetailMap.put("user_id", rs.getInt("user_id"));
                     scheduleDetailMap.put("color", rs.getString("color"));
-                    scheduleDetailMap.put("template_status", TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
+                    scheduleDetailMap.put("template_status", 
+                            TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
                     
                     if ( !result.containsKey(scheduleDateStr)){
                         result.put(scheduleDateStr, new ArrayList<>());
@@ -599,18 +600,20 @@ public class ScheduleDAO {
                         Integer scheduleID,
                         String scheduleTitle,
                         String scheduleDesc,
+                        String status,
                         Timestamp scheduleTime)throws SQLException{
 
         String query_string = "Update tbl_scheduled_entity_list"
                 + " SET schedule_title = ?, schedule_time = ?,"
-                + " schedule_desc = ?"
+                + " status = ?, schedule_desc = ?"
                 + " Where id = ?";
         try(Connection connection = connectionManager.getConnection()){
             try(PreparedStatement prepared_statement = connection.prepareStatement(query_string)){
                 prepared_statement.setString(1, scheduleTitle);
                 prepared_statement.setTimestamp(2, scheduleTime);
-                prepared_statement.setString(3, scheduleDesc);
-                prepared_statement.setInt(4, scheduleID);
+                prepared_statement.setString(3, status);
+                prepared_statement.setString(4, scheduleDesc);
+                prepared_statement.setInt(5, scheduleID);
                 
                 prepared_statement.executeUpdate();
             }catch (Exception e){
