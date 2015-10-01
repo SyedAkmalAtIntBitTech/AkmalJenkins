@@ -308,7 +308,7 @@ public class Layout {
                     else if(modelElement.getAttribute("blur").equalsIgnoreCase("undefined")) {
                         filter = "blur(0px) grayscale(0%) sepia(0%) saturate(100%) hue-rotate(0deg) invert(0%) brightness(100%) contrast(100%)";  
                     }
-                    else{
+                    else if(modelElement.getAttribute("filterEnable").equalsIgnoreCase("true")){
                         Blur = modelElement.getAttribute("blur");
                         grayscale = (Double.parseDouble(modelElement.getAttribute("grayscale"))) * 100;
                         sepia = (Double.parseDouble(modelElement.getAttribute("sepia"))) * 100;
@@ -381,7 +381,7 @@ public class Layout {
                        
      
                     }
-                    else{
+                    else if(modelElement.getAttribute("filterEnable").equalsIgnoreCase("true")){
                         Blur = modelElement.getAttribute("blur");
                         grayscale = (Double.parseDouble(modelElement.getAttribute("grayscale"))) * 100;
                         sepia = (Double.parseDouble(modelElement.getAttribute("sepia"))) * 100;

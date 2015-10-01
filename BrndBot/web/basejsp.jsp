@@ -7,3 +7,11 @@
             <script src="//use.typekit.net/wnn8jyx.js"></script>
             <script>try{Typekit.load({ async: true });}catch(e){}</script>
              <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+             
+             <style>
+                 /*cursor pointer on every select box in Brndbot*/
+                 select,.ptr{
+                     cursor: pointer;
+                 }
+                 
+             </style>

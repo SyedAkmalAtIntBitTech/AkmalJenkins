@@ -290,6 +290,7 @@ $(".blockname").change(function (){
                                 var fontcolor;
                                 var fontsize;
                                 var fontstyle;
+                                var filter;
                                 var left = $(this).attr("x-co-ordinates");
                                 var top = $(this).attr("y-co-ordinates");
                                 var width = $(this).attr("width");
@@ -367,7 +368,6 @@ $(".blockname").change(function (){
 
                                 if (tag === "logo")
                                 {
-                                 var filter;
                                     if($(this).attr("filterEnable")== "true"){
                                           filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
                                        }
@@ -392,11 +392,18 @@ $(".blockname").change(function (){
                                             .css("background-position", "center center")
                                             .css("background-size","contain")
                                             .css("position", "absolute")
-                                            .css("webkit-filter",""+ filter);
+                                            .css("webkit-filter",""+ filter);                                          
                                 }
 
                                 if (tag === "image")
-                                {
+                                {                                  
+                                    if($(this).attr("filterEnable")== "true"){
+                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                       }
+                                    else
+                                    {
+                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                    }
                                     var background_image = $(this).attr("background-image");
                                     var blendmode = $(this).attr("background-blend-mode");
                                     $(".imagename").append("<option name=" + background_image + " value="+ type +">Image " + count + "</option>");
@@ -415,7 +422,8 @@ $(".blockname").change(function (){
                                             .css("background-position", "center center")
                                             .css("position", "absolute")
                                             .css("background-position", "50% 50%")
-                                            .css("-webkit-background-size", "cover");
+                                            .css("-webkit-background-size", "cover")
+                                            .css("webkit-filter",""+ filter);
                                 }
 
                                 if (tag === "button")

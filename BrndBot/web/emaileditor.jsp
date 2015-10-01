@@ -160,7 +160,8 @@ and open the template in the editor.
                 margin-left:  5px;
             }
             #slider{
-                width:150px;height: 5px;
+                width:150px;
+                height: 5px;
                 position: relative;
                 left:60px;
                 top:-7px;
@@ -823,9 +824,10 @@ and open the template in the editor.
                             });
                             });
                             }
-                            var fontcolor;
+                                    var fontcolor;
                                     var fontsize;
                                     var fontstyle;
+                                    var filter;
                                     var left = $(this).attr("x-co-ordinates");
                                     var top = $(this).attr("y-co-ordinates");
                                     var opacity = $(this).attr("opacity");
@@ -903,7 +905,6 @@ and open the template in the editor.
 
                             if (tag === "image")
                             {
-                                var filter;
                                 if($(this).attr("filterEnable")== "true"){
                                       filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
                                    }
@@ -935,7 +936,14 @@ and open the template in the editor.
 
                             if (tag === "logo")
                             {
-                            var userId = $("#userid").val();
+                                if($(this).attr("filterEnable")== "true"){
+                                      filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                   }
+                                else
+                                {
+                                     filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                }
+                                    var userId = $("#userid").val();
                                     var userLogonmae = $("#userlogo").val();
                                     var blendmode = $(this).attr("background-blend-mode");
                                     $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
@@ -951,7 +959,8 @@ and open the template in the editor.
                                     .css("background-repeat", "no-repeat")
                                     .css("background-position", "center center")
                                     .css("background-size","contain")
-                                    .css("position", "absolute");
+                                    .css("position", "absolute")
+                                    .css("webkit-filter",""+ filter);
                             }
 
                             if (tag === "button")
@@ -1092,17 +1101,17 @@ and open the template in the editor.
 
                             <p class="edit SP1">EDIT THIS POST </p><br><p id="edtgb" class="BT2"><a href="emailsubject.jsp">go back</a></p> &nbsp;&nbsp;&nbsp;&nbsp;<p id="preview" class="SP1">preview</p>
                             <table style="position: absolute; left:10px;">
-                                <tr><td><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
-                                    <td><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
-                                    <td><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td></tr>
+                                <tr><td><div id="imac" class="img-responsive ptr" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
+                                    <td><div id="iphone" class="img-responsive ptr" onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td>
+                                    <td><div id="ipad" class="img-responsive ptr" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></td></tr>
                             </table>
                             <div class="sortDelete" style="position:absolute;top:380px; left:90px;margin: 0px;">
 
-                                <div class="glyphicon glyphicon-arrow-up" id="sortUpBlock"></div><br /><br />
-                                <div class="glyphicon glyphicon-trash" id="deleteBlock"></div><br /><br />
-                                <div class="glyphicon glyphicon-arrow-down" id="sortDownBlock"></div>
+                                <div class="glyphicon glyphicon-arrow-up ptr" id="sortUpBlock"></div><br /><br />
+                                <div class="glyphicon glyphicon-trash ptr" id="deleteBlock"></div><br /><br />
+                                <div class="glyphicon glyphicon-arrow-down ptr" id="sortDownBlock"></div>
                             </div>
-                            <div class="span2 col-md-offset-0" style="position:relative;top:22em;" >
+                            <div class="span2 col-md-offset-0" style="position:relative;top:23em;" >
                                 <input id="continue" class="button button--moema button--text-thick button--text-upper button--size-s" type="button" value="CONTINUE">
                                 <br><br>
                                 <script>
@@ -1149,7 +1158,7 @@ and open the template in the editor.
                                             <ul id="textmodification">
                                                 <li style="position:relative;left:-9px;">
                                                     <p id="editorheadere" class="editorheadere SS1">font color</p>
-                                                    <div class="blankcolor-box1" id="picker" ></div>
+                                                    <div class="ptr blankcolor-box1" id="picker" ></div>
 
                                                 </li>
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
@@ -1170,21 +1179,21 @@ and open the template in the editor.
                                                 <li> 
                                                     <ul id="pickColorForText" style="display:none;left:-14px;position:relative;margin-top:-80px;">
                                                         <li><p class="editpal">your palette</p></li>
-                                                        <li><p class="editcus custom-color-box-text" style="margin-left:130px;position:relative;">custom</p></li>
+                                                        <li><p class="editcus custom-color-box-text ptr" style="margin-left:130px;position:relative;">custom</p></li>
                                                         <li id="fcolcontainer">
-                                                            <ul id="colorpalette " style="position:relative;left:-12px;">
-                                                                <li><div class="blankcolor-box-text" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                                <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
-                                                                <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
-                                                                <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
-                                                                <li> <div class="blankcolor-box-text" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
-                                                                <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                            <ul id="colorpalette "  style="position:relative;left:-12px;">
+                                                                <li><div class="blankcolor-box-text ptr" id="textcolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                <li><div class="blankcolor-box-text ptr" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                <li><div class="blankcolor-box-text ptr" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                <li><div class="blankcolor-box-text ptr" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                <li> <div class="blankcolor-box-text ptr" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                <li><div class="blankcolor-box-text ptr" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                             </ul>
                                                         </li>
 
                                                     </ul>
                                                 </li>
-                                               <li style="left:-20px;top:-2px;"><div class="cursorpointer" id="hidealignbutton"><img src="images/LineOptionButton.svg" height="40px" width="24px;"></div></li>
+                                               <li style="left:-15px;top:-2px;"><div class="cursorpointer" id="hidealignbutton"><img src="images/LineOptionButton.svg" height="40px" width="24px;"></div></li>
                                                <li style="left:-20px;"><div class="alignButton cursorpointer" id="justify" style="font-family: Glyphter2;">j</div></li>
                                                <li style="left:-20px;"><div class="alignButton cursorpointer" id="left" style="font-family: Glyphter2;">B</div></li>
                                                <li style="left:-20px;"><div class="alignButton cursorpointer" id="center" style="font-family: Glyphter2;">C</div></li>
@@ -1209,23 +1218,23 @@ and open the template in the editor.
                                                     </select>
                                                 </li>
 
-                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><div class="headblankcolor-box ptr" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
                                                 <li ><ul id="openCustomColor">
                                                         <li><p class="editpal">your palette</p></li>                                                                                         
                                                         <li id="colcontainer">
                                                             <ul id="colorpalette">
-                                                                <li><div class="blankcolor-box" id="shapecolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                                <li><div class="blankcolor-box" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
-                                                                <li><div class="blankcolor-box" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
-                                                                <li><div class="blankcolor-box" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
-                                                                <li> <div class="blankcolor-box" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
-                                                                <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                                <li><div class="blankcolor-box ptr" id="shapecolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                <li><div class="blankcolor-box ptr" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                <li><div class="blankcolor-box ptr" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                <li><div class="blankcolor-box ptr" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                <li> <div class="blankcolor-box ptr" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                <li><div class="blankcolor-box ptr" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                                 <li>
                                                             </ul>
                                                         </li>
 
-                                                        <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
-                                                        <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" ></div></li>
+                                                        <li><p class="editpal custom-color-box ptr" style="margin-right: 120px;">custom</p></li>
+                                                        <li><p id="blockopacity" class="editpal">opacity</p><div id="slider" class="ptr"></div></li>
                                                     </ul></li> 
 
 
@@ -1249,12 +1258,12 @@ and open the template in the editor.
                                         <div id="filtercontainer" style="display: none">
                                             <p  id="text3" class="SS2">IMAGE FILTER</p>
                                             <ul id="filterImageList">
-                                                <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p class="filtername">Still</p> </li>
-                                                <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Peace</p></li>
-                                                <li><img class="imageFilter" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Sunrise</p></li>
-                                                <li><img class="imageFilter" id="convert4" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Strength</p> </li>
-                                                <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vivid</p> </li>
-                                                <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Intense</p> </li>
+                                                <li><img class="imageFilter ptr" id="convert1" src="images/Blackandwhite.jpg" alt="" ><p class="filtername">Still</p> </li>
+                                                <li><img class="imageFilter ptr" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Peace</p></li>
+                                                <li><img class="imageFilter ptr" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Sunrise</p></li>
+                                                <li><img class="imageFilter ptr" id="convert4" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Strength</p> </li>
+                                                <li><img class="imageFilter ptr" id="convert5" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vivid</p> </li>
+                                                <li><img class="imageFilter ptr" id="convert6" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Intense</p> </li>
                                             </ul>
                                             <p  class="btn" onclick="imageEdit()">CROP</p>
                                             <p  class="btn" onclick="saveImageEdit()">DONE</p>
@@ -1282,7 +1291,7 @@ and open the template in the editor.
                                                     <ul>
                                                         <li class="paginationclass" ng-repeat="styles in datalistsstyles">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->                                                            
                                                             </div> 
                                                             <div><p id=''></p></div>
@@ -1331,7 +1340,7 @@ and open the template in the editor.
                                                             <label id="{{blocks.block_id}}"  style="font-weight: normal;font-size:16px;">{{blocks.block_name}}</label>
                                                             <div></div><p>&nbsp;</p>
 -->
-                                                            <label id="{{blocks.block_id}}" class="blockchooser" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)"  style="font-weight: normal;font-size:16px;margin-left: 10px;padding: 5px;">{{blocks.block_name}}</label>
+                                                            <label id="{{blocks.block_id}}" class="blockchooser ptr" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)"  style="font-weight: normal;font-size:16px;margin-left: 10px;padding: 5px;">{{blocks.block_name}}</label>
 <!--                                                            <div></div><p>&nbsp;</p>-->
 
                                                         </li>
@@ -1399,9 +1408,9 @@ and open the template in the editor.
                                         <ul id="imageGallery" style="width:400px;position:relative;right:70px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
                                        <a class="boxclosegallery" id="boxclosegallery"></a>
-                                            <p class="BT2" id="galleryupload">upload image</p>
+                                            <p class="BT2 ptr" id="galleryupload">upload image</p>
                                             <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
-                                                <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="275px"/>                                                            
+                                                <img id="{{images.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="275px"/>                                                            
                                             </li>
                                         </ul>
                                         <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->

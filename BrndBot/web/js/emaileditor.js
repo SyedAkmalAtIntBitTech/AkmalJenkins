@@ -240,6 +240,7 @@ $(document).ready(function () {
                                 var fontcolor;
                                 var fontsize;
                                 var fontstyle;
+                                var filter;
                                 var left = $(this).attr("x-co-ordinates");
                                 var top = $(this).attr("y-co-ordinates");
                                 var opacity = $(this).attr("opacity");
@@ -326,8 +327,7 @@ $(document).ready(function () {
                                 }
 
                                 if (tag === "image")
-                                {
-                                   var filter;
+                                {                                   
                                     if($(this).attr("filterEnable")== "true"){
                                           filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
                                        }
@@ -360,6 +360,13 @@ $(document).ready(function () {
 
                                 if (tag === "logo")
                                 {
+                                  if($(this).attr("filterEnable")== "true"){
+                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                       }
+                                    else
+                                    {
+                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                    }
                                     var userId=$("#userid").val();
                                     var userLogonmae = $("#userlogo").val();
                                     var blendmode = $(this).attr("background-blend-mode");
@@ -376,7 +383,8 @@ $(document).ready(function () {
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
                                             .css("background-size","contain")
-                                            .css("position", "absolute");
+                                            .css("position", "absolute")
+                                            .css("webkit-filter",""+ filter);
                                 }
 
                                 if (tag === "button")
