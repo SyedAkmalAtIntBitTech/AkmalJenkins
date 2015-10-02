@@ -52,13 +52,19 @@
                 next_button: '&gt;',
                 prev_button: '&lt;'
             });
+            var d = new Date();
+            var todays_date = moment(new Date()).format('YYYY-MM-DD');
+            var c_day = d.getDate();
+            var c_month = d.getMonth() + 1;
 
+            var c_year = d.getFullYear();
+            console.log(c_year+"/"+c_month+"/"+c_day);
             $some_datepicker.setStartDate({
-                year: 2015,
+                year: c_year,
                 // jquery.datepicker accepts first month as 1
                 // (built-in Date() class accepts first month as 0)
-                month: 1,
-                day: 3
+                month: c_month,
+                day: c_day
             });
             $some_datepicker.on('date_selected.datepicker', function (event, user_selected_date) {
 //                $selected.show().html('Selected date is: ' + user_selected_date.date.toString());
@@ -66,7 +72,14 @@
 //                alert(user_selected_date.date.toString());
                 setCurrentDate(user_selected_date);
             });
-
+            $("#set_todays_date").click(function(){
+                $some_datepicker.setStartDate({
+                    year: c_year,
+                    month: c_month,
+                    day: c_day
+                });
+                setTodaysDate();
+            });
         });
     </script>
     <style type="text/css">
@@ -148,7 +161,7 @@ a {
             </ul>-->
         </div> 
 
-        <div class="MH1" style="position:relative;top:30px;text-align:center;" onclick="setTodaysDate()">GO TO TODAY</div>
+        <div class="MH1" id="set_todays_date" style="position:relative;top:30px;text-align:center;">GO TO TODAY</div>
   </nav>
 
 </div>       
