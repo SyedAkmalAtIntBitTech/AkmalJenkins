@@ -413,7 +413,7 @@
 
 
                     <div class="col-md-12" style="display: none;" id="default" ng-init="getCampaigns()">
-
+                        <div id="todaysdetails">
                         <div class="row" style="width:750px;margin-top:30px;margin-left:-15px;">
                             <div class='col-md-1 SP2 fonthead'>Today</div>
                             <div class='col-md-3' style="width:230px;"></div>
@@ -421,6 +421,7 @@
                             <div class='col-md-2 SS2' style="margin-left:-20px;">Template Saved</div>
                             <div class='col-md-3' ></div>
                         </div>
+                        <p class="MH1" id="messagetoday" style="display:block;" >{{entitySelected}}</p>
                         <ul>
                             <li ng-repeat="entity in entitySet['Today']">
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
@@ -439,6 +440,9 @@
                                 </div>
                             </li>
                         </ul>
+                            
+                        </div>
+                        <div id="tomorrowsdetails">
                         <div class="row" style="width:950px;margin-top:30px;margin-left:-15px;">
                             <div class='col-md-3 SP2 fonthead'>Tomorrow</div>
                             <div class='col-md-3'></div>
@@ -449,6 +453,7 @@
                         <ul>   
                             <li>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
+                                <p class="MH1" id="messagetomorrow" style="display:block;" >{{entitySelected}}</p>
                             </li>
                             <li ng-repeat="entity in entitySet['Tomorrow']">
                                 <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
@@ -457,6 +462,7 @@
                                     </div>
 
                                     <div class="col-md-3"  style="width:300px;margin-left:-40px;">
+                                            <!--<p class="MH1" id="messagetomorrow" >{{entity}}</p>-->
                                         <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
                                             <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
                                         <p class="SP1 fntschld">Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
@@ -470,33 +476,38 @@
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                            </li>
 
                         </ul>
+                            
+                            
+                        </div>
                         <div class="row" style="width:950px;margin-top:30px;margin-left:-15px;">
                             <div class='col-md-3 SP2 fonthead'></div>
                             <div class='col-md-3'></div>
                             <div class='col-md-3'></div>
                             <div class='col-md-3'></div>
                         </div>
+                      
                         <ul>
-                            <li ng-repeat="entity in entitySet['Later']">
-                                <div class='col-md-9 SS2 fonthead' style="position:relative;top:-20px;left:-55px;">{{entity.schedule_time| date:"MMM dd yyyy"}}</div>
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
+                            
+                            <div ng-repeat="entitykey in entitySet['Later']">
+                               
+                                <div class='col-md-9 SS2 fonthead' style="position:relative;top:-20px;left:-60px;width:500px;">{{entitykey.key| date:"MMM dd yyyy"}}</div>
+                            <li ng-repeat="entity in entitykey.value">
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-18px;">
                                 <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
 
                                     <div class="col-md-1">
-                                        <input type="checkbox" name="removeLater" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
+                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
                                     </div>
+
                                     <div class="col-md-3"  style="width:300px;margin-left:-40px;">
+                                            <!--<p class="MH1" id="messagelater" >{{entity}}</p>-->
                                         <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
                                             <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
-                                        <p class="SP1 fntschld">Scheduled for {{ entity.schedule_time | date:"h:mma"}}</p>
+                                        <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
-
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
                                     <div class="col-md-2" style="margin-left:20px;">
                                         <a href = "javascript:void(0)" onclick="overlay();">
@@ -505,10 +516,13 @@
                                     </div>
 
                                 </div>
+                                
                             </li>
+
+                            </div>
                         </ul>
                     </div>
-                    <div class="col-md-12" id="selected" style="display:none;">
+<!--                    <div class="col-md-12" id="selected" style="display:none;">
 
                         <div class="row" style="width:950px;margin-top:30px;margin-left:115px;">
                             <div class='col-md-3' style="width:230px;"></div>
@@ -516,7 +530,6 @@
                             <div class='col-md-3 SS2'>Template Saved</div>
                             <div class='col-md-3'></div>
                         </div>
-
                         <ul>
                             <li ng-repeat="entity in entitySetSelected['Today']">
                                 <p class="col-md-2 SS2 fonthead " style="position:relative;top:-20px;left:-60px;width:500px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
@@ -580,8 +593,11 @@
                             <div class='col-md-3'></div>
                             <div class='col-md-3'></div>
                         </div>
+                         
                         <ul>
+                            <li>{{entitySetSelected['Later']}}</li>
                             <li ng-repeat="entity in entitySetSelected['Later']">
+                               
                                 <div class='col-md-9 SS2 fonthead' style="position:relative;top:-20px;left:-60px;width:500px;">{{entity.schedule_time| date:"MMM dd yyyy"}}</div>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-18px;">
                                 <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
@@ -606,8 +622,37 @@
                                 </div>
 
                             </li>
+                            <div ng-repeat="entitykey in entitySetSelected['Later']">
+                               
+                                <div class='col-md-9 SS2 fonthead' style="position:relative;top:-20px;left:-60px;width:500px;">{{entitykey.key| date:"MMM dd yyyy"}}</div>
+                            <li ng-repeat="entity in entitykey.value">
+                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-18px;">
+                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
+
+                                    <div class="col-md-1">
+                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
+                                    </div>
+
+                                    <div class="col-md-3"  style="width:300px;margin-left:-40px;">
+                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
+                                            <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
+                                        <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
+                                    </div>
+                                    <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
+                                    <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
+                                    <div class="col-md-2" style="margin-left:20px;">
+                                        <a href = "javascript:void(0)" onclick="overlay();">
+                                            <button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button>
+                                        </a>
+                                    </div>
+
+                                </div>
+                                
+                            </li>
+
+                            </div>
                         </ul>
-                    </div>     
+                    </div>     -->
 
                 </div>
             </div>
@@ -1068,7 +1113,12 @@
                                 <p><input class="inputbox SP1" type="hidden" name="note_schedule_id" id="note_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="note_entity_id" id="note_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             </div>       
-                            <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                            <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p>
+                            <div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div><br>
+                            Status: <select id="status" name="status">
+                                        <option value="incomplete">incomplete</option>
+                                        <option value="complete">complete</option>
+                                    </select>
                             <div style="position:absolute;margin-left:10px;margin-top:50px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>

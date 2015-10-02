@@ -280,67 +280,44 @@ function addDays(theDate, days) {
 var user_selected_date = '';
 function setCurrentDate(selected_date) {
     user_selected_date = selected_date;
-    angular.element(document.getElementById('controllerMarketingCampaign')).scope().getSelectedCampaigns();
+    angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
 }
 
 function setTodaysDate() {
+    user_selected_date = '';
     angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
-    
 }
 
 function controllerMarketingCampaign($scope, $http) {
     $scope.entities_selected_time = "";
-    $scope.getSelectedCampaigns = function () {
-
-        var curr_date = moment(user_selected_date.date).format('YYYY-MM-DD');
-        var tomorrowDate = moment(addDays(user_selected_date.date, 1)).format('YYYY-MM-DD');
-        var new_date = moment(addDays(user_selected_date.date, 15)).format('YYYY-MM-DD');
-        $http({
-            method: 'GET',
-            url: getHost() + 'GetScheduledEntities?from=' + curr_date + '&to=' + new_date
-        }).success(function (data) {
-            var entitySetSelected = {};
-            $("#default").hide();
-            $("#selected").show();
-            $.each(data, function (key, value) {
-                /*
-                 * the below code is trying to create a model in the below form:
-                 * {
-                 *   'Today' : [{}, {}],
-                 *   'Tomorrow': [{}, {}],
-                 *   'Later': [{}, {}]
-                 * }
-                 */
-                if (key == curr_date) {
-                    entitySetSelected['Today'] = value;
-                } else if (key == tomorrowDate) {
-                    entitySetSelected['Tomorrow'] = value;
-                } else {
-                    if (!('Later' in entitySetSelected)) {
-                        entitySetSelected['Later'] = [];
-                    }
-                    $.each(value, function (key2, value2) {
-                        entitySetSelected['Later'].push(value2);
-                    });
-                }
-            });
-            $scope.entitySetSelected = entitySetSelected;
-            $scope.nodata = "No data";
-            //console.log($scope.entitySet);
-        }).error(function (data) {
-            alert("request not successful");
-        });
-    };
-
     $scope.getCampaigns = function () {
-        var curr_date = moment(new Date()).format('YYYY-MM-DD');
-        var tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
-        var new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
+        var curr_date = '';
+        var tomorrowDate = '';
+        var new_date = '';
+        var message = "no actions available";
+        $("#messagetoday").show();
+        $("#messagetomorrow").show();
+        
+        if (user_selected_date != ""){
+            curr_date = moment(user_selected_date.date).format('YYYY-MM-DD');
+            tomorrowDate = moment(addDays(user_selected_date.date, 1)).format('YYYY-MM-DD');
+            new_date = moment(addDays(user_selected_date.date, 15)).format('YYYY-MM-DD');
+        }else {
+            curr_date = moment(new Date()).format('YYYY-MM-DD');
+            tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
+            new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
+        }
         $http({
             method: 'GET',
             url: getHost() + 'GetScheduledEntities?from=' + curr_date + '&to=' + new_date
         }).success(function (data) {
-            entitySet = {};
+            var entitySet = {};
+            console.log(JSON.stringify(data));
+            $scope.entityS = JSON.stringify(data);
+//            $("#default").hide();
+//            $("#selected").show();
+              $scope.entitySelected = message;
+              $scope.entityTomorrow = message;
             $.each(data, function (key, value) {
                 /*
                  * the below code is trying to create a model in the below form:
@@ -352,26 +329,84 @@ function controllerMarketingCampaign($scope, $http) {
                  */
                 if (key == curr_date) {
                     entitySet['Today'] = value;
-                } else if (key == tomorrowDate) {
+//                    $scope.entitySelected = JSON.stringify({"key":key, "value":value});
+                    $("#messagetoday").hide();
+                    $("#todaysdetails").show();
+                }else if (key == tomorrowDate) {
+//                        $scope.entityTomorrow = JSON.stringify({"key":key, "value":value});
                     entitySet['Tomorrow'] = value;
-
+                    $("#messagetomorrow").hide();
+                    $("#tomorrowsdetails").show();
                 } else {
+                    $("#todaysdetails").hide();
+                    $("#tomorrowsdetails").hide();
+                
                     if (!('Later' in entitySet)) {
                         entitySet['Later'] = [];
                     }
-                    $.each(value, function (key2, value2) {
-                        entitySet['Later'].push(value2);
-                    });
+                    if (value != ""){
+                        var entityLater = {"key":key, "value":value};
+                          entitySet['Later'].push(entityLater);
+//                          $("#message").hide();
+                    $("#messagelater").hide();
+                    }
+//                    $.each(value, function (key2, value2) {
+////                      entitySetSelected['Later'].push(value2);
+//                        var entityLater = {"key":key, "value":value2};    
+//                      entitySetSelected['Later'].push(entityLater);
+//                    });
                 }
             });
-            $scope.entitySet = entitySet;
-            console.log("data received"+ entitySet);
+            $scope.entitySet= entitySet;
+            $scope.nodata = "No data";
             $("#default").css("display","block");
-            $("#selected").css("display","none");
+//            $("#selected").css("display","none");            
+            //console.log($scope.entitySet);
         }).error(function (data) {
             alert("request not successful");
         });
     };
+
+//    $scope.getCampaigns = function () {
+//        var curr_date = moment(new Date()).format('YYYY-MM-DD');
+//        var tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
+//        var new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
+//        $http({
+//            method: 'GET',
+//            url: getHost() + 'GetScheduledEntities?from=' + curr_date + '&to=' + new_date
+//        }).success(function (data) {
+//            entitySet = {};
+//            $.each(data, function (key, value) {
+//                /*
+//                 * the below code is trying to create a model in the below form:
+//                 * {
+//                 *   'Today' : [{}, {}],
+//                 *   'Tomorrow': [{}, {}],
+//                 *   'Later': [{}, {}]
+//                 * }
+//                 */
+//                if (key == curr_date) {
+//                    entitySet['Today'] = value;
+//                } else if (key == tomorrowDate) {
+//                    entitySet['Tomorrow'] = value;
+//
+//                } else {
+//                    if (!('Later' in entitySet)) {
+//                        entitySet['Later'] = [];
+//                    }
+//                    $.each(value, function (key2, value2) {
+//                        entitySet['Later'].push(value2);
+//                    });
+//                }
+//            });
+//            $scope.entitySet = entitySet;
+//            console.log("data received"+ entitySet);
+//            $("#default").css("display","block");
+//            $("#selected").css("display","none");
+//        }).error(function (data) {
+//            alert("request not successful");
+//        });
+//    };
     var millisToUTCDate = function (millis) {
         return toUTCDate(new Date(millis));
     };
@@ -1002,6 +1037,7 @@ function controllerMarketingCampaign($scope, $http) {
             var schedule_id = $("#note_schedule_id").val();
             var entity_id = $("#note_entity_id").val();
             var note_title = $("#note_title").val();
+            var status = $("#status").val();
             var note_desc = $("#note_desc").val();
             var schedule_datetime = $("#notedate").val();
             
@@ -1022,6 +1058,7 @@ function controllerMarketingCampaign($scope, $http) {
                 "schedule_id":schedule_id,
                 "schedule_title":note_title,
                 "schedule_desc":note_desc,
+                "status":status,
                 "schedule_time":newEpoch
             }
             $http({
@@ -1298,6 +1335,8 @@ function controllerMarketingCampaign($scope, $http) {
         };
 
 };
+var error_message = "unable to post the scheduling";
+
 function sendEmail(){
     var email_from_name = $("#email_entity_from_name").val();
     var email_entitysubject = $("#email_entitysubject").val();
@@ -1326,7 +1365,7 @@ function sendEmail(){
                     document.location.href = "marketing.jsp";
                 },
                 error: function () {
-                    alert("error");
+                    alert(error_message);
                 }
 
             });            
@@ -1341,17 +1380,17 @@ function postSocial(){
     var image_name = "";
     var isFacebook = $("#isFacebook").val();
     var isTwitter = $("#isTwitter").val();
-    
+    var scheduleid = '', entityid = '';
     if (($("#fb_button_post").val() == "Post") && ($("#twitter_button_post").val() == "Post")){
         if (($("#facebook_image_name").val()) != ""){
             image_name = $("#facebook_image_name").val();
+            scheduleid = $("#facebook_schedule_id").val();
+            entityid = $("#facebook_entity_id").val();
         }
-        console.log($("#twitter_image_name").val());
-        console.log($("#twitter_schedule_post_text").val());
-        console.log($("#twitter_entity_accesstoken").val());
-        console.log($("#twitter_entity_tokensecret").val());
         if (($("#twitter_image_name").val()) != ""){
             image_name = $("#twitter_image_name").val();
+            scheduleid = $("#twitter_schedule_id").val();
+            entityid = $("#twitter_schedule_id").val();
         }
 
         var link = $("#twitter_schedule_post_url").val();
@@ -1389,11 +1428,23 @@ function postSocial(){
                         shorturl: bit_url
                     },
                     success: function (responseText) {
-//                        $('#mask').hide();
-//                        $('.window').hide();
                         alert("Your post has been published successfully");
-
+                        $.ajax({
+                           url:'ChangeScheduleServlet',
+                           method:'Post',
+                           dataType: 'json',
+                           contentType: 'application/json',
+                           mimeType: 'application/json',
+                           data:{
+                               type: 'updateSchedule',
+                               scheduleid: scheduleid,
+                               entityid: entityid
+                           }
+                        });
                         document.location.href = "marketing.jsp";
+                    },
+                    error: function (){
+                        alert(error_message);
                     }
                 });
             }
