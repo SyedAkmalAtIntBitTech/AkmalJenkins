@@ -9,6 +9,7 @@ import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.PhantomImageConverter;
+import com.intbit.util.ServletUtil;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -298,8 +299,8 @@ public class Layout {
                 if (modelElement.getAttribute("tag").equalsIgnoreCase("image")) {
                     String filter = "";
                     if (modelElement.getAttribute("filterEnable").equalsIgnoreCase("false")) {
-                        h_shadow = modelElement.getAttribute("h-shadow");
-                        v_shadow = modelElement.getAttribute("v-shadow");
+                        h_shadow = modelElement.getAttribute("H-shadow");
+                        v_shadow = modelElement.getAttribute("V-shadow");
                         Blur = modelElement.getAttribute("blur");
                         Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
                         filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
@@ -308,7 +309,7 @@ public class Layout {
                     else if(modelElement.getAttribute("blur").equalsIgnoreCase("undefined")) {
                         filter = "blur(0px) grayscale(0%) sepia(0%) saturate(100%) hue-rotate(0deg) invert(0%) brightness(100%) contrast(100%)";  
                     }
-                    else{
+                    else if(modelElement.getAttribute("filterEnable").equalsIgnoreCase("true")){
                         Blur = modelElement.getAttribute("blur");
                         grayscale = (Double.parseDouble(modelElement.getAttribute("grayscale"))) * 100;
                         sepia = (Double.parseDouble(modelElement.getAttribute("sepia"))) * 100;
@@ -332,7 +333,7 @@ public class Layout {
                     height = modelElement.getAttribute("height");
                     background_repeat = "no-repeat";
                     background_size = "contain";
-                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; background-position:" + "50% 50%" + "; -webkit-background-size:" + "cover" + ";-webkit-filter:" + filter + "; '></div>");
+                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode +"; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; background-position:" + "50% 50%" + "; -webkit-background-size:" + "cover" + ";-webkit-filter:" + filter + ";  opacity:" + opacity + ";'></div>");
                     logger.log(Level.INFO, htmldata.toString());
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("text")) {
                     textData = modelElement.getAttribute("type");
@@ -361,15 +362,15 @@ public class Layout {
                     margin_left = modelElement.getAttribute("x-co-ordinates");
                     margin_top = modelElement.getAttribute("y-co-ordinates");
                     backgroundimage = modelElement.getAttribute("src").replace("url(", "").replace(")", "");
-                    String host = "http://"+servletRequest.getServerName() + ":" + servletRequest.getServerPort() + "/BrndBot/";
+                    String host = ServletUtil.getServerName(servletRequest.getServletContext());
                     backgroundimage = backgroundimage.replace("../", host);
                     htmldata.append("<img id='" + id + "' style='position: absolute; margin-left: " + margin_left + "; margin-top:" + margin_top + ";' src='"+backgroundimage+"'/>");
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("logo")) {
                   
                     String filter = "";
                     if (modelElement.getAttribute("filterEnable").equalsIgnoreCase("false")) {
-                        h_shadow = modelElement.getAttribute("h-shadow");
-                        v_shadow = modelElement.getAttribute("v-shadow");
+                        h_shadow = modelElement.getAttribute("H-shadow");
+                        v_shadow = modelElement.getAttribute("V-shadow");
                         Blur = modelElement.getAttribute("blur");
                         Drop_shadow_color = modelElement.getAttribute("Drop-shadow-color");
                         filter = "drop-shadow("+ Drop_shadow_color+ " " +h_shadow + " " + v_shadow + " " + Blur + ")" ;
@@ -381,7 +382,7 @@ public class Layout {
                        
      
                     }
-                    else{
+                    else if(modelElement.getAttribute("filterEnable").equalsIgnoreCase("true")){
                         Blur = modelElement.getAttribute("blur");
                         grayscale = (Double.parseDouble(modelElement.getAttribute("grayscale"))) * 100;
                         sepia = (Double.parseDouble(modelElement.getAttribute("sepia"))) * 100;
@@ -405,7 +406,7 @@ public class Layout {
                     height = modelElement.getAttribute("height");
                     background_repeat = "no-repeat";
                     background_size = "contain";
-                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + "; '></div>");
+                    htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + ";  opacity:" + opacity + "; '></div>");
                     logger.log(Level.INFO, htmldata.toString());
                     
                     

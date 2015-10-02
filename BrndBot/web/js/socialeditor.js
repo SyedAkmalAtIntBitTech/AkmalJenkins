@@ -43,6 +43,7 @@ $(document).ready(function () {
     $("#justify").hide();
     $("#plus").hide();
     $("#minus").hide();
+    $("#lineHeightImage").hide();
     var status = "true";
     $("#tabs-1").show();
     $("#tabs-2").hide();
@@ -289,6 +290,7 @@ $(".blockname").change(function (){
                                 var fontcolor;
                                 var fontsize;
                                 var fontstyle;
+                                var filter;
                                 var left = $(this).attr("x-co-ordinates");
                                 var top = $(this).attr("y-co-ordinates");
                                 var width = $(this).attr("width");
@@ -366,9 +368,17 @@ $(".blockname").change(function (){
 
                                 if (tag === "logo")
                                 {
+                                    if($(this).attr("filterEnable")== "true"){
+                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                       }
+                                    else
+                                    {
+                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                    }
                                     var userId=$("#userid").val();
                                     var userLogonmae = $("#userlogo").val();
-                                    var blendmode = $(this).attr("background-blend-mode");
+                                                    var blendmode = $(this).attr("Blend");
+                                                    var background_color=$(this).attr("blend-background-color");
                                     $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                     $("#" + type)
                                             .css("color", "" + fontcolor)
@@ -381,14 +391,24 @@ $(".blockname").change(function (){
                                             .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')" )
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
+                                            .css("background-color", ""+ background_color)
                                             .css("background-size","contain")
-                                            .css("position", "absolute");
+                                            .css("position", "absolute")
+                                            .css("webkit-filter",""+ filter);                                          
                                 }
 
                                 if (tag === "image")
-                                {
-                                    var background_image = $(this).attr("background-image");
-                                    var blendmode = $(this).attr("background-blend-mode");
+                                {                                  
+                                    if($(this).attr("filterEnable")== "true"){
+                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                       }
+                                    else
+                                    {
+                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                    }
+                                                    var blendmode = $(this).attr("Blend");
+                                                    var background_image = $(this).attr("background-image");
+                                                    var background_color=$(this).attr("blend-background-color");
                                     $(".imagename").append("<option name=" + background_image + " value="+ type +">Image " + count + "</option>");
                                     count++;
                                     $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
@@ -405,7 +425,9 @@ $(".blockname").change(function (){
                                             .css("background-position", "center center")
                                             .css("position", "absolute")
                                             .css("background-position", "50% 50%")
-                                            .css("-webkit-background-size", "cover");
+                                            .css("-webkit-background-size", "cover")
+                                            .css("background-color", ""+background_color)
+                                            .css("webkit-filter",""+ filter);
                                 }
 
                                 if (tag === "button")
@@ -422,7 +444,7 @@ $(".blockname").change(function (){
                                     var borderRadius = $(this).attr("border-radius");
                                     var backgroundcolor;
 
-                                    $(".blockname").append("<option value=" + type + ">Block " + blockcount + "</option>");
+                                    $(".blockname").append("<option value=" + type + ">Shape " + blockcount + "</option>");
                                     blockcount++;
 
                                     for (var i = 1; i <= 6; i++)
@@ -459,7 +481,7 @@ $(".blockname").change(function (){
                                     var borderRadius = $(this).attr("border-radius");
                                     var backgroundcolor;
 
-                                    $(".blockname").append("<option value=" + type + ">Block " + blockcount + "</option>");
+                                    $(".blockname").append("<option value=" + type + ">Shape " + blockcount + "</option>");
                                     blockcount++;
 
                                     for (var i = 1; i <= 6; i++)
@@ -648,6 +670,7 @@ $(".blockname").change(function (){
             $("#justify").show();
             $("#plus").show();
             $("#minus").show();
+            $("#lineHeightImage").show();
             status = "false";
         }
         else {
@@ -657,6 +680,7 @@ $(".blockname").change(function (){
             $("#justify").hide();
             $("#plus").hide();
             $("#minus").hide();
+            $("#lineHeightImage").hide();
             status = "true";
         }
 

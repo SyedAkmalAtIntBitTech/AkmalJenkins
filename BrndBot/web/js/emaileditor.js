@@ -42,6 +42,7 @@ $(document).ready(function () {
     $("#justify").hide();
     $("#plus").hide();
     $("#minus").hide();
+    $("#lineHeightImage").hide();
     var status = "true";
     $("#tabs-1").show();
     $("#tabs-2").hide();
@@ -203,9 +204,10 @@ $(document).ready(function () {
                                 width = $(this).find('container').attr("Width");
                                 var tempWidth = parseInt(width);
 
-                                //$(".preview").css("width", tempWidth + "px");
-                                //$(".preview").css("height", height + "px");
+//                                $(".preview").css("width", tempWidth + "px");
+//                                $(".preview").css("height", height + "px");
 //                                $(".preview").css("overflow", "scroll");
+                                $(".dataForEmail").css("width", width + "px").css("max-width","549px");
                                 $(".preview #defaultblock1").css("width", width + "px");
                                 $(".preview #defaultblock1").css("height", height + "px");
                                 $(".preview #defaultblock1").css("position", "relative");
@@ -239,6 +241,7 @@ $(document).ready(function () {
                                 var fontcolor;
                                 var fontsize;
                                 var fontstyle;
+                                var filter;
                                 var left = $(this).attr("x-co-ordinates");
                                 var top = $(this).attr("y-co-ordinates");
                                 var opacity = $(this).attr("opacity");
@@ -315,9 +318,9 @@ $(document).ready(function () {
                                             $("#" + type + "EEEdefaultblock1").css("font-size", "" + tempfontsize + "px");
                                         }
                                         
-                                        var xxyy = parseInt(tempfontsize);
-                                        xxyy = Math.round(xxyy * 1.2);
-                                        $("#" + type + "EEEdefaultblock1").css("line-height", "" + xxyy + "px");
+//                                        var xxyy = parseInt(tempfontsize);
+//                                        xxyy = Math.round(xxyy * 1.2);
+//                                        $("#" + type + "EEEdefaultblock1").css("line-height", "" + xxyy + "px");
                                     }
                                     //resize end
                                     var addThis = $("#" + type + "EEEdefaultblock1").get(0).scrollHeight - $("#" + type + "EEEdefaultblock1").height();
@@ -325,9 +328,17 @@ $(document).ready(function () {
                                 }
 
                                 if (tag === "image")
-                                {
-                                    var blendmode = $(this).attr("background-blend-mode");
+                                {                                   
+                                    if($(this).attr("filterEnable")== "true"){
+                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                       }
+                                    else
+                                    {
+                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                    }
+                                    var blendmode = $(this).attr("Blend");
                                     var background_image = $(this).attr("background-image");
+                                    var background_color=$(this).attr("blend-background-color");
                                     $(".imagename").append("<option name=" + background_image + " value="+ type + "EEEdefaultblock1>Image " + count + "</option>");
                                     count++;
                                     $(".preview #defaultblock1").append("<div class=images onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
@@ -343,16 +354,26 @@ $(document).ready(function () {
                                             .css("background", "" + background_image)
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "50% 50%")
+                                            .css("background-color", ""+ background_color)
                                             .css("-webkit-background-size", "cover")
-                                            .css("position", "absolute");
+                                            .css("position", "absolute")
+                                            .css("webkit-filter",""+ filter);
 
                                 }
 
                                 if (tag === "logo")
                                 {
+                                  if($(this).attr("filterEnable")== "true"){
+                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                       }
+                                    else
+                                    {
+                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                    }
                                     var userId=$("#userid").val();
                                     var userLogonmae = $("#userlogo").val();
-                                    var blendmode = $(this).attr("background-blend-mode");
+                                    var blendmode = $(this).attr("Blend");
+                                    var background_color=$(this).attr("blend-background-color");
                                     $(".preview #defaultblock1").append("<div onclick=getImageid(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                                     $("#" + type + "EEEdefaultblock1")
                                             .css("color", "" + fontcolor)
@@ -365,8 +386,10 @@ $(document).ready(function () {
                                             .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')")
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
+                                            .css("background-color", ""+ background_color)
                                             .css("background-size","contain")
-                                            .css("position", "absolute");
+                                            .css("position", "absolute")
+                                            .css("webkit-filter",""+ filter);
                                 }
 
                                 if (tag === "button")
@@ -396,7 +419,7 @@ $(document).ready(function () {
 
                                     }
 
-                                    $(".blockname").append("<option value=" + type + "EEEdefaultblock1>Block " + blockcount + "</option>");
+                                    $(".blockname").append("<option value=" + type + "EEEdefaultblock1>Shape " + blockcount + "</option>");
                                     blockcount++;
                                     $(".preview #defaultblock1").append("<div class=block onclick=getDivId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1></div>");
                                     $("#" + type + "EEEdefaultblock1").css("background-color", "" + backgroundcolor)
@@ -563,6 +586,7 @@ $(document).ready(function () {
             $("#justify").show();
             $("#plus").show();
             $("#minus").show();
+             $("#lineHeightImage").show();
             status = "false";
         }
         else {
@@ -572,6 +596,7 @@ $(document).ready(function () {
             $("#justify").hide();
             $("#plus").hide();
             $("#minus").hide();
+            $("#lineHeightImage").hide();
             status = "true";
         }
 
@@ -697,9 +722,9 @@ function textAreaKeyUp(event,id) {
             //     alert(tempfontsize);
             $("#" + id).css("font-size", "" + tempfontsize + "px");
         }
-        var xxyy = parseInt(tempfontsize);
-        xxyy = Math.round(xxyy * 1.2);
-        $("#" + id).css("line-height", "" + xxyy + "px");
+//        var xxyy = parseInt(tempfontsize);
+//        xxyy = Math.round(xxyy * 1.2);
+//        $("#" + id).css("line-height", "" + xxyy + "px");
         //alert($("#" + id).get(0).scrollHeight + ">" + ($("#"+id).height()+4));
     }
         //alert("last"+$("#" + id).get(0).scrollHeight + ">" + ($("#"+id).height()+4));
@@ -721,13 +746,14 @@ function getBlockId(id) {
     $(".blockname").find('option').remove().end();
     
    $('#'+selectedBlockId.id).children().each(function () {
+       $("#edt").trigger('click');
         var Id=this.id;
         var className=$("#"+Id).attr("class");
         switch (className){
             case 'textAreas': textCount++;
                                 break;
             case 'block':   
-                            $(".blockname").append("<option value="+ Id +">Block " + blockCount + "</option>");
+                            $(".blockname").append("<option value="+ Id +">Shape " + blockCount + "</option>");
                             blockCount++;
                             break;              
                             
@@ -755,7 +781,10 @@ function getBlockId(id) {
         else
           $("#textcontainer").show();
 });
+var mindbodydatacheck=$(selectedBlockId).attr("name");
+if(typeof mindbodydatacheck != 'undefined' ){
     mindbodydataId = $(selectedBlockId).attr("name").toString();
+}
     $("#tabs-1").show();
     $("#tabs-2").hide();
     $("#tabs-3").hide();

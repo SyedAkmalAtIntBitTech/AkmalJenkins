@@ -64,8 +64,7 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             String fileName = request.getParameter("html_file_name_with_path");
             String html_text = request.getParameter("htmldata");
 
-            File file = new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator + "emailhtmltemplate.html");
-            html_text = FileUtils.readFileToString(file, "UTF-8");
+            
             //
             String emaillist_name = request.getParameter("email_list");
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
@@ -75,6 +74,8 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             String from_name = request.getParameter("from_name");
             String iframeName=request.getParameter("iframeName");
             String path=AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH+File.separator+iframeName+".html";
+            File file = new File(path);
+            html_text = FileUtils.readFileToString(file, "UTF-8");
             Message message = new Message();
 
             message.setKey(SendEmail.MANDRILL_KEY);

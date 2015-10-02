@@ -243,7 +243,7 @@ var CROP = (function () {
 			var t = imgInfo.at - imgInfo.t,
 				l = imgInfo.al - imgInfo.l;
 
-			if (t > 40) {
+			if (t > 20) {
 				t = 40;
 				imgInfo.t = (imgInfo.at == 40) ? 0 : -40;
 			} else if (t < -((imgInfo.h * imgInfo.s) - (c.height() - 40))) {
@@ -251,7 +251,7 @@ var CROP = (function () {
 				imgInfo.t = ((imgInfo.at == 40) ? (imgInfo.h * imgInfo.s) - (c.height() - 80) : (imgInfo.h * imgInfo.s) - (c.height() - 40));
 			}
 
-			if (l > 40) {
+			if (l > 20) {
 				l = 40;
 				imgInfo.l = (imgInfo.al == 40) ? 0 : -40;
 			} else if (l < -((imgInfo.w * imgInfo.s) - (c.width() - 40))) {
@@ -274,7 +274,7 @@ var CROP = (function () {
 
 			var that = this;
 			$(this.settings.slider).noUiSlider({
-			     range: [1, 4]
+			     range: [-0.1, 4]
 			   , start: 1
 			   , step: 0.002
 			   , handles: 1

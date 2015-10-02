@@ -3,6 +3,7 @@ package com.divtohtml;
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.PhantomImageConverter;
+import com.intbit.util.ServletUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +14,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.script.ScriptEngine;
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FileUtils;
 
 import org.jsoup.Jsoup;
@@ -32,9 +35,9 @@ public class ConvertDivToHTML {
     private final static String idSearchPattern = "*[id]";
     private final static String blockDetailsSearchPattern = "*[blockdetails]";
     private final static String tableDelimiter = "::";
-    private final ServletRequest servletRequest;
+    private final HttpServletRequest servletRequest;
 
-    public ConvertDivToHTML(ServletRequest servletRequest) {
+    public ConvertDivToHTML(HttpServletRequest servletRequest) {
         this.servletRequest = servletRequest;
     }
 
@@ -75,7 +78,7 @@ public class ConvertDivToHTML {
 
     private String populateTable(HashMap<String, ArrayList<?>> divHashMap, String tableContent, String divContent) throws Exception {
         Document doc = Jsoup.parse(tableContent);
-            logger.log(Level.SEVERE, "populating table");
+        logger.log(Level.SEVERE, "populating table");
 
         Elements divElements = doc.select(idSearchPattern);
         for (Element item : divElements) {
@@ -98,7 +101,7 @@ public class ConvertDivToHTML {
                             String picLocation = getColorBlocksForThisBackgroundImage(item, orderOfLayeringId, id, divHashMap, divContent, backgroundImageProperty.getWidth(), backgroundImageProperty.getHeight());
                             styleMap.put(BackgroundImageProperties.backgroundURLKey, "url(" + picLocation + ")");
                             doc.getElementById(id).attr(BackgroundImageProperties.backgroundURLKey, picLocation);
-                            logger.log(Level.SEVERE, "Location of the pic:"+picLocation);
+                            logger.log(Level.SEVERE, "Location of the pic:" + picLocation);
 //                            doc.getElementById(id).attr(styleKey, createKeyValuePair(styleMap));
                             if (!StringUtil.isEmpty(id) && orderOfLayeringId.length > 1) {
                                 ArrayList<BlockProperties> blockProperties = (ArrayList<BlockProperties>) divHashMap
@@ -163,7 +166,7 @@ public class ConvertDivToHTML {
                 for (LogoProperties logo : logoProperties) {
                     String parsedId = logo.getId().split(divDelimiter)[0];
                     if (id.equalsIgnoreCase(parsedId)) {
-                        doc.getElementById(id).attr(LogoProperties.srcKey, logo.getBackgroundURL());
+                        doc.getElementById(id).attr(LogoProperties.backgroundURLKey, logo.getBackgroundURL());
                         break;
                     }
                 }
@@ -374,8 +377,9 @@ public class ConvertDivToHTML {
         PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletRequest.getServletContext(), filePath);
         compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), null, width, height, "0", "0");
             //Should create the compressed image out of this and replace the background with it.
-        String imageURL = "http://"+servletRequest.getServerName() + ":" + servletRequest.getServerPort() + "/BrndBot/DownloadImage?image_type=HTML_IMAGES&image_name=" + compressedBackgroundImageFile.getName();
-        logger.log(Level.INFO, "\nURL of the image:"+imageURL);
+
+        String imageURL = ServletUtil.getServerName(servletRequest.getServletContext()) + "DownloadImage?image_type=HTML_IMAGES&image_name=" + compressedBackgroundImageFile.getName();
+        logger.log(Level.INFO, "\nURL of the image:" + imageURL);
         return imageURL;
     }
 }
