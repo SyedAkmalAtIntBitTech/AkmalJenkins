@@ -7,6 +7,7 @@
 var sliderDialog = "";
 var prevSliderDialog = "";
 var create_button_title = "Create";
+
 $(document).ready(function ()
 {
     $("#liPriority").click(function () {
@@ -614,7 +615,7 @@ function controllerMarketingCampaign($scope, $http) {
 
     };
 
-    $scope.getScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
+    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc) {
 
 
         if (entity_type == "email") {
@@ -643,6 +644,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
+                $scope.email_template_status = template_status;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
                 alert("request not successful");
@@ -677,6 +679,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 $scope.schedule_desc = schedule_desc;
+                $scope.facebook_template_status = template_status;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
                 alert("request not successful");
@@ -714,6 +717,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
+                $scope.twitter_template_status = template_status;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
                 alert("request not successful");
@@ -730,6 +734,7 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.schedule_id = schedule_id;
             $scope.schedule_desc = schedule_desc;
             $scope.schedule_type = entity_type;
+            $scope.note_template_status = template_status;
 
         }
 
@@ -1392,17 +1397,21 @@ function postSocial() {
                         shorturl: bit_url
                     },
                     success: function (responseText) {
-                        alert("Your post has been published successfully");
+                        var schedule_data = {
+                                            type: 'updateSchedule',
+                                            scheduleid: scheduleid,
+                                            entityid: entityid
+                                            }
+                        alert(JSON.stringify(schedule_data));
                         $.ajax({
-                            url: 'ChangeScheduleServlet',
-                            method: 'Post',
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            mimeType: 'application/json',
-                            data: {
-                                type: 'updateSchedule',
-                                scheduleid: scheduleid,
-                                entityid: entityid
+                           url:'ChangeScheduleServlet',
+                           method:'Post',
+                           dataType: 'json',
+                           contentType: 'application/json',
+                           mimeType: 'application/json',
+                           data:JSON.stringify(schedule_data),
+                           success: function (responseText) {
+                                alert("Your post has been published successfully");
                             }
                         });
                         document.location.href = "marketing.jsp";

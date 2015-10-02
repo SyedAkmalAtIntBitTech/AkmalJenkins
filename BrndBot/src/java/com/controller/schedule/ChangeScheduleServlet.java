@@ -134,8 +134,8 @@ public class ChangeScheduleServlet extends HttpServlet {
                 response.getWriter().write("true");
                 response.getWriter().flush();
             }else if (type.equalsIgnoreCase("updateSchedule")){
-                String schedule_id = (String)requestBodyMap.get("schedule_id");
-                String entity_id = (String)requestBodyMap.get("entity_id");
+                String schedule_id = (String)requestBodyMap.get("scheduleid");
+                String entity_id = (String)requestBodyMap.get("entityid");
 
                 try(Connection conn = connectionManager.getConnection()){
                     ScheduleDAO.updateScheduleEntityList(Integer.parseInt(entity_id), 

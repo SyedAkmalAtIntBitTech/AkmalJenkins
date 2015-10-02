@@ -447,22 +447,15 @@
 
 
                     <div class="col-md-12" style="display: none;" id="default" ng-init="getCampaigns()">
-                        <script>
-//                                var today_date = moment(new Date()).format('YYYY-MM-DD');
-//                                var str_today_date = "'"+today_date+"'";
-//                                alert(str_today_date);
-//                                var tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-dd');
-                            
-                        </script>
                         <div class="row" style="width:750px;position:relative;top:25px;margin-left:-15px;">
+
                             <!--<div class='col-md-1 SP2 fonthead'>Today</div>-->
                             <div class='col-md-3' style="width:280px;"></div>
                             <div class='col-md-3 SS2' style="margin-left:90px;">Action Type</div>
                             <div class='col-md-2 SS2' style="margin-left:-20px;">Template Saved</div>
                             <div class='col-md-3' ></div></div> 
-<!--                        {{entitySet}}-->
 
-                        <div id="daydetails"  ng-repeat="entity in entitySet">
+                        <div id="daydetails" ng-repeat="entity in entitySet">
                         <div ng-show="entity.date == today_date">
                             <p class="SS2 actfnt">Today</p>
                         </div>
@@ -483,12 +476,26 @@
                                     </div>
                                     <div class="col-md-3" style="width:300px;margin-left:-40px;">
                                         <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
-                                            <p class="MH1" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description)">{{entitydetails.schedule_title}}</p></a>
+                                            <p class="MH1" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description)">{{entitydetails.schedule_title}}</p></a>
                                         <p class="SP1 fntschld">Scheduled for {{entitydetails.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entitydetails.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entitydetails.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:20px;"><a href = "javascript:void(0)" onclick = "overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entitydetails.schedule_id, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description)">EDIT</button></a></div>
+                                    <div class="col-md-2" 
+                                         style="margin-left:20px;" 
+                                         ng-hide="(entitydetails.template_status=='Complete') && (entitydetails.entity_type!='note')">
+                                        <a href = "javascript:void(0)" onclick = "overlay();">
+                                        <button type="button" 
+                                                class="edtbtn" 
+                                                ng-click="showScheduleDetails(
+                                                            entitydetails.schedule_id, 
+                                                            entitydetails.schedule_time, 
+                                                            entitydetails.entity_type, 
+                                                            entitydetails.schedule_title, 
+                                                            entitydetails.schedule_description
+                                                            )">EDIT</button>
+                                        </a>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -497,160 +504,10 @@
                         
                     </div>
 
-<!--                    <div class="col-md-12" id="selected" style="display:none;">
-
-                        <div class="row" style="width:950px;margin-top:30px;margin-left:115px;">
-                            <div class='col-md-3' style="width:230px;"></div>
-                            <div class='col-md-2 SS2'>Action Type</div>
-                            <div class='col-md-3 SS2'>Template Saved</div>
-                            <div class='col-md-3'></div>
-                        </div>
-                        <ul>
-                            <li ng-repeat="entity in entitySetSelected['Today']">
-                                <p class="col-md-2 SS2 fonthead " style="position:relative;top:-20px;left:-60px;width:500px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                                <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
-
-                                    <div class="col-md-1">
-                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
-                                    </div>
-                                    <div class="col-md-3"  style="width:300px;margin-left:-40px;">
-                                        <a href = "javascript:void(0)" onclick="overlay();" style="color:#333;text-decoration: none;">
-                                            <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
-                                        <p  class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
-
-                                    </div>
-                                    <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
-                                    <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
-
-
-                                    <div class="col-md-2" style="margin-left:20px;">
-                                        <a href = "javascript:void(0)" onclick="overlay();">
-                                            <button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button>
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="row" style="width:950px;margin-top:30px;margin-left:-15px;">
-                            <div class='col-md-3'></div>
-                            <div class='col-md-3'></div>
-                            <div class='col-md-3'></div>
-                            <div class='col-md-3'></div>
-                        </div>
-
-                        <ul>   
-                            <li ng-repeat="entity in entitySetSelected['Tomorrow']">
-                                <p class="col-md-2 SS2 fonthead" style="position:relative;top:-20px;left:-60px;width:500px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
-
-                                    <div class="col-md-1">
-                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
-                                    </div>
-                                    <div class="col-md-3"  style="width:300px;margin-left:-40px;">
-                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
-                                            <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
-                                        <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
-                                    </div>
-                                    <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
-                                    <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:20px;">
-                                        <a href = "javascript:void(0)" onclick="overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button></a></div>
-
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="row" style="width:950px;margin-top:30px;margin-left:-15px;">
-                            <div class='col-md-3 SP2 fonthead'></div>
-                            <div class='col-md-3'></div>
-                            <div class='col-md-3'></div>
-                            <div class='col-md-3'></div>
-                        </div>
-                         
-                        <ul>
-                            <li>{{entitySetSelected['Later']}}</li>
-                            <li ng-repeat="entity in entitySetSelected['Later']">
-                               
-                                <div class='col-md-9 SS2 fonthead' style="position:relative;top:-20px;left:-60px;width:500px;">{{entity.schedule_time| date:"MMM dd yyyy"}}</div>
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-18px;">
-                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
-
-                                    <div class="col-md-1">
-                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
-                                    </div>
-
-                                    <div class="col-md-3"  style="width:300px;margin-left:-40px;">
-                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
-                                            <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
-                                        <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
-                                    </div>
-                                    <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
-                                    <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:20px;">
-                                        <a href = "javascript:void(0)" onclick="overlay();">
-                                            <button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button>
-                                        </a>
-                                    </div>
-
-                                </div>
-
-                            </li>
-                            <div ng-repeat="entitykey in entitySetSelected['Later']">
-                               
-                                <div class='col-md-9 SS2 fonthead' style="position:relative;top:-20px;left:-60px;width:500px;">{{entitykey.key| date:"MMM dd yyyy"}}</div>
-                            <li ng-repeat="entity in entitykey.value">
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-18px;">
-                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
-
-                                    <div class="col-md-1">
-                                        <input type="checkbox" name="removetodays" id='{{entity.schedule_id}}' style="width:15px;" value="{{entity.schedule_id}}" onclick="setSelectedIds('{{entity.schedule_id}}')"/>
-                                    </div>
-
-                                    <div class="col-md-3"  style="width:300px;margin-left:-40px;">
-                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
-                                            <p class="MH1" ng-click="getScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)">{{entity.schedule_title}}</p></a>
-                                        <p class="SP1 fntschld">Scheduled for {{entity.schedule_time| date:"h:mma"}}</p>
-                                    </div>
-                                    <div class="col-md-2 MH1 socfnts">{{entity.entity_type}}</div>
-                                    <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entity.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:20px;">
-                                        <a href = "javascript:void(0)" onclick="overlay();">
-                                            <button type="button" class="edtbtn" ng-click="showScheduleDetails(entity.schedule_id, entity.schedule_time, entity.entity_type, entity.schedule_title, entity.schedule_description)" >EDIT</button>
-                                        </a>
-                                    </div>
-
-                                </div>
-                                
-                            </li>
-
-                            </div>
-                        </ul>
-                    </div>     -->
-
-
                 </div>
             </div>
             <!--           </div><div id="mask" onclick="document.location='#';">CLICK</div>    -->
-            <div id="dvSliderDialog">
-                <div id="dvFastingDialog" class="pollSlider"><br>
-                    <form class="form-horizontal" id="signform">
-
-                        <div class="row">
-                            <div class="col-md-12" style="width:250px;">
-                                <div class="col-md-6" id="dvButtonContainer">
-                                    <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
-                                </div>
-                                <div class="col-md-6" id="dvButtonContainer">
-                                    <input type="button" value="Cancel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
+            
             <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
                 <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
                     <h1>&nbsp;Add Action</h1>
@@ -675,7 +532,7 @@
                             <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
                                 Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
                                 <br>
-                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker">
+                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -770,16 +627,6 @@
                                                         width:120px;"
                                                         onclick="sendEmail()"
                                                 value="Send"/>
-<!--                                        <button id="button_edit" 
-                                                ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" 
-                                                class="button button--moema 
-                                                        button--text-thick 
-                                                        button--text-upper 
-                                                        button--size-s" 
-                                                        style="background-color:#E65C00;
-                                                        width:120px;" 
-                                                        type="button">
-                                            SEND</button> -->
                                     </div>
                                 </div>
                             </div>
@@ -814,7 +661,7 @@
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
                                     <br>
-                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker1">
+                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker1">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -938,7 +785,7 @@
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
 
-                                <div style="position:relative;bottom:0px;top:0px;">
+                                <div ng-hide="facebook_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;">
                                 <button id="button_edit" 
                                             class="button button--moema 
                                             button--text-thick 
@@ -1006,7 +853,7 @@
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="fbdatetime" id="fbdatetime" class="inputdate MH1"/>
                                     <br>
-                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker2">
+                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker2">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1186,7 +1033,21 @@
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
-                                <div style="position:relative;bottom:0px;top:0px;"  class="editbutton"><button ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                <div ng-hide="twitter_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;" class="editbutton">
+                                <button ng-click="editScheduleDetails(
+                                            schedule_id, 
+                                            entities_selected_time, 
+                                            schedule_type, 
+                                            schedule_title, 
+                                            schedule_desc)" 
+                                            class="button 
+                                            button--moema 
+                                            button--text-thick 
+                                            button--text-upper 
+                                            button--size-s" 
+                                            style="background-color:#E65C00;
+                                            width:120px;" 
+                                            type="button">EDIT</button>
                                 <input type="button" id="twitter_button_post"
                                        class="button button--moema 
                                                 button--text-thick 
@@ -1195,8 +1056,8 @@
                                                 style="background-color:#E65C00;
                                                 width:120px;"
                                                 onclick="postSocial()"
-                                        value="Post"/>
-
+                                        value="Post"/>                                
+                                </div>
                             </div>
                         </div>
                     </div>
