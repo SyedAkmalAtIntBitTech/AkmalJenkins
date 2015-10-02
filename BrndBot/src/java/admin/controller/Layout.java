@@ -9,6 +9,7 @@ import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.PhantomImageConverter;
+import com.intbit.util.ServletUtil;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -361,7 +362,7 @@ public class Layout {
                     margin_left = modelElement.getAttribute("x-co-ordinates");
                     margin_top = modelElement.getAttribute("y-co-ordinates");
                     backgroundimage = modelElement.getAttribute("src").replace("url(", "").replace(")", "");
-                    String host = "http://"+servletRequest.getRemoteAddr()  + "/BrndBot/";
+                    String host = ServletUtil.getServerName(servletRequest.getServletContext());
                     backgroundimage = backgroundimage.replace("../", host);
                     htmldata.append("<img id='" + id + "' style='position: absolute; margin-left: " + margin_left + "; margin-top:" + margin_top + ";' src='"+backgroundimage+"'/>");
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("logo")) {
