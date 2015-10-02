@@ -409,14 +409,6 @@
 
 
                     <div class="col-md-12" style="display: none;" id="default" ng-init="getCampaigns()">
-                        <script>
-//                                var today_date = moment(new Date()).format('YYYY-MM-DD');
-//                                var str_today_date = "'"+today_date+"'";
-//                                alert(str_today_date);
-//                                var tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-dd');
-                            
-                        </script>
-                        
 <!--                        {{entitySet}}-->
                         <div id="daydetails" ng-repeat="entity in entitySet">
                         <div ng-show="entity.date == today_date">
@@ -443,7 +435,21 @@
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entitydetails.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entitydetails.template_status}}</div>
-                                    <div class="col-md-2" style="margin-left:20px;"><a href = "javascript:void(0)" onclick = "overlay();"><button type="button" class="edtbtn" ng-click="showScheduleDetails(entitydetails.schedule_id, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description)">EDIT</button></a></div>
+                                    <div class="col-md-2" 
+                                         style="margin-left:20px;" 
+                                         ng-hide="(entitydetails.template_status=='Complete') && (entitydetails.entity_type!='note')">
+                                        <a href = "javascript:void(0)" onclick = "overlay();">
+                                        <button type="button" 
+                                                class="edtbtn" 
+                                                ng-click="showScheduleDetails(
+                                                            entitydetails.schedule_id, 
+                                                            entitydetails.schedule_time, 
+                                                            entitydetails.entity_type, 
+                                                            entitydetails.schedule_title, 
+                                                            entitydetails.schedule_description
+                                                            )">EDIT</button>
+                                        </a>
+                                    </div>
                                 </div>
                             </li>
                         </ul>

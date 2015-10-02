@@ -242,6 +242,10 @@ public class ScheduleDAO {
             ps.setInt(3, schedule_id);
 
             ps.executeUpdate();
+        }catch (Exception e){
+            logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                    "Exception while updating the schedule:", null), e);
+            
         }
         return entityID;
     }
@@ -383,7 +387,7 @@ public class ScheduleDAO {
                     scheduleDetailJSONObject.put("template_status",
                             TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
 
-                    if (!result.containsKey(scheduleDate)) {
+                    if (!result.containsKey(String.valueOf(scheduleDate))) {
                         result.put(String.valueOf(scheduleDate), new JSONArray());
                     }
 

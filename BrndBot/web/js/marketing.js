@@ -7,6 +7,7 @@
 var sliderDialog = "";
 var prevSliderDialog = "";
 var create_button_title = "Create";
+
 $(document).ready(function ()
 {
     $("#liPriority").click(function () {
@@ -1388,18 +1389,24 @@ function postSocial(){
                         shorturl: bit_url
                     },
                     success: function (responseText) {
-                        alert("Your post has been published successfully");
+                        var schedule_data = {
+                                            type: 'updateSchedule',
+                                            scheduleid: scheduleid,
+                                            entityid: entityid
+                                            }
+                        alert(JSON.stringify(schedule_data));
                         $.ajax({
                            url:'ChangeScheduleServlet',
                            method:'Post',
                            dataType: 'json',
                            contentType: 'application/json',
                            mimeType: 'application/json',
-                           data:{
-                               type: 'updateSchedule',
-                               scheduleid: scheduleid,
-                               entityid: entityid
-                           }
+                           data:JSON.stringify(schedule_data),
+                           success: function (responseText) {
+//                            $("#tokenHere").html(responseText);
+//                                alert(image_name);
+                                alert("Your post has been published successfully");
+                            }
                         });
                         document.location.href = "marketing.jsp";
                     },
