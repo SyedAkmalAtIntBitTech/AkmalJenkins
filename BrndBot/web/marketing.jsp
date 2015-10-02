@@ -296,6 +296,7 @@
             .savebutton{
                 position:relative;
                 top:0px;
+                left:-5px;
             }
             #planhead{
                 position:relative;
@@ -306,6 +307,15 @@
                 background-color: #e4e4e4;
                 border: 1px solid #DADADA;
                 height:20px;
+                width:100px;
+                font-size: 16px;
+                border-radius: 5px;
+                margin-left: 15px;
+            }
+            .chooseEmailList {
+                background-color: #e4e4e4;
+                border: 1px solid #DADADA;
+                height:30px;
                 width:100px;
                 font-size: 16px;
                 border-radius: 5px;
@@ -383,6 +393,7 @@
                  function overlay(){
                         document.getElementById('light').style.display = 'block';
                             document.getElementById('fade').style.display = 'block';
+                             document.getElementById('blk').style.display = 'block';
                             document.getElementById('slider-button').style.display = 'block';
                             document.body.style.overflow = 'hidden';
                             $("#calendar").css("pointer-events","none");
@@ -392,11 +403,25 @@
                     $("#calendar").css("pointer-events","auto");
                     document.getElementById('fade').style.display = 'none';
                     document.body.style.overflow = 'scroll';
+                     document.getElementById('blk').style.display = 'none';
                     document.getElementById('edtfbimg').style.display = 'none';
                     document.getElementById('prevtwtimg').style.display = 'none';
                     document.getElementById('edttwtimg').style.display = 'none';
                     document.getElementById('prevfbimg').style.display = 'none';
             }
+            
+            window.onbeforeunload = function(e) {
+                     return 'Dialog text here.';
+                };
+                
+                function enableBeforeUnload() {
+                    window.onbeforeunload = function (e) {
+                        return "Discard changes?";
+                    };
+                }
+                function disableBeforeUnload() {
+                    window.onbeforeunload = null;
+                }
         </script>
     </head>
     <body ng-app class="claro">
@@ -429,7 +454,7 @@
 //                                var tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-dd');
                             
                         </script>
-                        <div class="row" style="width:750px;margin-top:30px;margin-left:-15px;">
+                        <div class="row" style="width:750px;position:relative;top:25px;margin-left:-15px;">
                             <!--<div class='col-md-1 SP2 fonthead'>Today</div>-->
                             <div class='col-md-3' style="width:280px;"></div>
                             <div class='col-md-3 SS2' style="margin-left:90px;">Action Type</div>
@@ -629,11 +654,11 @@
             <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
                 <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
                     <h1>&nbsp;Add Action</h1>
-                    <form class="form-horizontal" id="signform">
-
+                    <form class="form-horizontal" id="signform" onsubmit="disableBeforeUnload();">
+                        
                         <div class="group">
                             <div class="col-md-4 col-md-offset-1 ">                            
-                                <input id="title" class="brdr form-control simplebox" type="text" name="title" placeholder="TITLE"/>
+                                <input id="title" class="brdr form-control simplebox" type="text" name="title" placeholder="TITLE" onchange="enableBeforeUnload();"/>
                                 <!--                                    <label>TITLE</label>-->
                             </div><br>
                             <div style="position:absolute;left:60px;top:40px;" class="SH2">
@@ -645,7 +670,7 @@
                                     <option value="note">note</option>
                                 </select></div>
                             <div style="position:absolute;top:80px;left:60px;" class="SH2">
-                                Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal"></textarea>
+                                Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;"></textarea>
                             </div>
                             <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
                                 Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
@@ -668,7 +693,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-12" style="width:250px;position:absolute;top:350px;left:20px;">
+                            <div class="col-md-12" style="width:250px;position:absolute;top:350px;left:35px;">
 
                                 <div class="row">
                                     <div>
@@ -766,7 +791,7 @@
 
                             <div class="group">
                                 <div class="col-md-4 col-md-offset-1 ">                            
-                                    <input id="email_edit_title" class="brdr form-control simplebox" type="text" name="email_edit_title" value="{{schedule_title}}"/>
+                                    <input id="email_edit_title" class=" inputbox MH2" type="text" name="email_edit_title" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/>
                                     <p><input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
 
                                     <!--                                    <label>TITLE</label>-->
@@ -783,7 +808,7 @@
                                                                         </select>-->
                                 </div>
                                 <div style="position:absolute;top:140px;left:60px;" class="SH2">
-                                    Description <br><textarea cols="28" rows="2" name="email_description" id="email_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
+                                    Description <br><textarea cols="28" rows="2" name="email_description" id="email_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 220px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
@@ -807,7 +832,7 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:35px;">
 
                                     <div class="row">
                                         <div>
@@ -943,7 +968,7 @@
 
                             <div class="group">
                                 <div class="col-md-4 col-md-offset-1 ">                            
-                                    <input id="fb_action_title" class="brdr form-control simplebox" type="text" name="fb_action_title" value="{{schedule_title}}"/>
+                                    <input id="fb_action_title" class=" inputbox MH2" type="text" name="fb_action_title" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/>
                                     <p><input class="inputbox SP1" type="hidden"
                                               name="fb_scheduleid" 
                                               id="fb_scheduleid"
@@ -975,7 +1000,7 @@
                                     <!--</select>-->
                                 </div>
                                 <div style="position:absolute;top:110px;left:60px;" class="SH2">
-                                    Description <br><textarea cols="28" rows="2" name="fb_description" id="fb_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
+                                    Description <br><textarea cols="28" rows="2" name="fb_description" id="fb_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 180px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
@@ -999,7 +1024,7 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:35px;">
 
                                     <div class="row">
                                         <div>
@@ -1098,20 +1123,33 @@
 
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
-                                <p class="MH2" style="width:400px;">Title: <input type="text" id="note_title" name="note_title" value="{{schedule_title}}"/></p>
+                                <p class="MH2" style="width:500px;">Title: <input type="text" id="note_title" name="note_title" value="{{schedule_title}}"/></p>
                                 <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description:<input type="text" id="note_desc" name="note_desc" value="{{schedule_desc}}"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="note_schedule_id" id="note_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="note_entity_id" id="note_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             </div>       
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p>
                             <div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div><br>
-                            Status: <select id="status" name="status">
-                                        <option value="incomplete">incomplete</option>
-                                        <option value="complete">complete</option>
-                                    </select>
-                            <div style="position:absolute;margin-left:10px;margin-top:50px;">
+                            <p class="SP1 actfnt" style="margin-left:15px;">Status:</p> <div style="position:relative;top:-40px;left:70px;">
+                            <select id="status" class="SP1 chooseEmailList" name="status">
+                                        <option style="background:#fff;" value="incomplete">incomplete</option>
+                                        <option style="background:#fff;" value="complete">complete</option>
+                            </select></div>
+                            <div style="position:absolute;margin-left:16px;margin-top:0px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
+                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker4">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepicker4'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                        </script><br>
                                     <input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
@@ -1163,12 +1201,12 @@
                         </div>
                     </div>
                     <div id="edit_twitter_action" style="position:relative;top:50px;left:50px;">
-                        <h1>&nbsp;update action</h1>
+                        <h1>&nbsp;Update action</h1>
                         <form class="form-horizontal" id="signform">
 
                             <div class="group">
                                 <div class="col-md-4 col-md-offset-1 ">
-                                    <input id="edit_twitter_title" class="brdr form-control simplebox" type="text" name="edit_twitter_title" value="{{schedule_title}}"/>
+                                    <input id="edit_twitter_title" class=" inputbox MH2" type="text" name="edit_twitter_title" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/>
                                     <p><input class="inputbox SP1" type="hidden" name="twitter_scheduleid" id="twitter_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                     <!--                                    <label>TITLE</label>-->
                                 </div><br>
@@ -1184,7 +1222,7 @@
                                                                         </select>-->
                                 </div>
                                 <div style="position:absolute;top:110px;left:60px;" class="SH2">
-                                    Description <br><textarea cols="28" rows="2" name="twitter_description" id="twitter_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
+                                    Description <br><textarea cols="28" rows="2" name="twitter_description" id="twitter_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
@@ -1208,7 +1246,7 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:35px;">
 
                                     <div class="row">
                                         <div>
