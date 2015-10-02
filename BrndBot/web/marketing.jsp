@@ -8,6 +8,9 @@
 <!DOCTYPE html>
 <html >
     <head>
+        <link rel="stylesheet" href="css/pikaday.css">
+        <link rel="stylesheet" href="css/datepickerpikaday.css">
+        <script src="js/pikaday.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!--        <script type="text/javascript" src="js/angular.min.js"></script>-->
@@ -15,7 +18,13 @@
         <script src="js/configurations.js" type="text/javascript"></script>
         <jsp:include page="basejsp.jsp" />
         <%@ include file="checksession.jsp" %>
-
+<!--        <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-responsive.css"/>
+        <link rel="stylesheet" href="css/bootstrap.css"/>
+        <link rel="stylesheet" href="css/bootstrap-timepicker.min.css">
+        <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>-->
+<!--        <script type="text/javascript" src="js/jquery.min.js"></script>-->
+<!--        <script type="text/javascript" src="js/bootstrap.min.js"></script>-->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -420,22 +429,29 @@
 //                                var tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-dd');
                             
                         </script>
-                        
+                        <div class="row" style="width:750px;margin-top:30px;margin-left:-15px;">
+                            <!--<div class='col-md-1 SP2 fonthead'>Today</div>-->
+                            <div class='col-md-3' style="width:280px;"></div>
+                            <div class='col-md-3 SS2' style="margin-left:90px;">Action Type</div>
+                            <div class='col-md-2 SS2' style="margin-left:-20px;">Template Saved</div>
+                            <div class='col-md-3' ></div></div> 
 <!--                        {{entitySet}}-->
-                        <div id="daydetails" ng-repeat="entity in entitySet">
+
+                        <div id="daydetails"  ng-repeat="entity in entitySet">
                         <div ng-show="entity.date == today_date">
-                            <p>Today</p>
+                            <p class="SS2 actfnt">Today</p>
                         </div>
+                             
                         <div ng-show='entity.date==tomorrow_date'>
-                            <p>Tomorrow</p>
+                            <p class="SS2 actfnt">Tomorrow</p>
                         </div>
                         <div ng-show="(entity.date != today_date) && (entity.date!=tomorrow_date)">
-                            <p>{{entity.date}}</p>
+                            <p class="SS2 actfnt">{{entity.date}}</p>
                         </div>
-                        <p class="MH1" id="messagetoday" style="display:block;" >{{entitySelected}}</p>
+                        <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-15px;top:-20px;">
+                        <p ng-show="entity.dataArray == ''" class="MH1" id="messagetoday" style="display:block;position:relative;top:-25px;" >{{nodata}}</p>
                         <ul>
                             <li ng-repeat="entitydetails in entity.dataArray">
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails" >
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entitydetails.schedule_id}}' style="width:15px;" value="{{entitydetails.schedule_id}}" onclick="setSelectedIds('{{entitydetails.schedule_id}}')"/>
@@ -633,13 +649,26 @@
                             </div>
                             <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
                                 Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
-                            </div>
+                                <br>
+                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepicker'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
 
+                                    </script>
+                            </div>
+                            
                             <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
 
                         </div>
                         <div class="row">
-                            <div class="col-md-12" style="width:250px;position:absolute;top:240px;left:20px;">
+                            <div class="col-md-12" style="width:250px;position:absolute;top:350px;left:20px;">
 
                                 <div class="row">
                                     <div>
@@ -759,13 +788,26 @@
                                 <div class="SH2" style="position:absolute; margin-top: 220px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
+                                    <br>
+                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker1">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepicker1'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                    </script>
                                 </div>
 
                                 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:350px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:20px;">
 
                                     <div class="row">
                                         <div>
@@ -938,6 +980,19 @@
                                 <div class="SH2" style="position:absolute; margin-top: 180px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="fbdatetime" id="fbdatetime" class="inputdate MH1"/>
+                                    <br>
+                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker2">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepicker2'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                    </script>
                                 </div>
 
                                 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
@@ -1134,13 +1189,26 @@
                                 <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="twitterdatetime" id="twitterdatetime" class="inputdate MH1"/>
+                                    <br>
+                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker3">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepicker3'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                    </script>
                                 </div>
 
                                 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:340px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:20px;">
 
                                     <div class="row">
                                         <div>
@@ -1232,5 +1300,6 @@
                                                     });
 
         </script>
+        
     </body>
 </html>
