@@ -8,6 +8,9 @@
 <!DOCTYPE html>
 <html >
     <head>
+        <link rel="stylesheet" href="css/pikaday.css">
+        <link rel="stylesheet" href="css/datepickerpikaday.css">
+        <script src="js/pikaday.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!--        <script type="text/javascript" src="js/angular.min.js"></script>-->
@@ -15,7 +18,13 @@
         <script src="js/configurations.js" type="text/javascript"></script>
         <jsp:include page="basejsp.jsp" />
         <%@ include file="checksession.jsp" %>
-
+<!--        <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-responsive.css"/>
+        <link rel="stylesheet" href="css/bootstrap.css"/>
+        <link rel="stylesheet" href="css/bootstrap-timepicker.min.css">
+        <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>-->
+<!--        <script type="text/javascript" src="js/jquery.min.js"></script>-->
+<!--        <script type="text/javascript" src="js/bootstrap.min.js"></script>-->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -30,6 +39,9 @@
         <title>marketing campaign</title>
 
         <style type='text/css'>
+            input[type=checkbox],input[type=datetime]{
+                cursor:pointer;
+            }
             div.selectBox
             {
                 position:relative;
@@ -333,6 +345,7 @@
                 text-align:center;
                 left:0px;
             }
+            
             .black_overlay{
                 display: none;
                 position: absolute;
@@ -367,16 +380,16 @@
 
         </style>
         <script>
-                    function overlay(){
-                    document.getElementById('light').style.display = 'block';
+                 function overlay(){
+                        document.getElementById('light').style.display = 'block';
                             document.getElementById('fade').style.display = 'block';
                             document.getElementById('slider-button').style.display = 'block';
                             document.body.style.overflow = 'hidden';
-                            document.getElementById('marktng').style.display = 'none';
+                            $("#calendar").css("pointer-events","none");
                     }
             function closeoverlay(){
-            document.getElementById('light').style.display = 'none';
-                    document.getElementById('marktng').style.display = 'block';
+                    document.getElementById('light').style.display = 'none';
+                    $("#calendar").css("pointer-events","auto");
                     document.getElementById('fade').style.display = 'none';
                     document.body.style.overflow = 'scroll';
                     document.getElementById('edtfbimg').style.display = 'none';
@@ -392,7 +405,7 @@
             <div id="fade" class="black_overlay"></div>
             <!--/end left column-->
 
-            <div id="marktng"><jsp:include page="marketingsubmenu.html" /></div>
+            <div  id="marktng"><jsp:include page="marketingsubmenu.html" /></div>
 
             <script src="js/marketing.js" type="text/javascript"></script>
             <!--<div id="overlay">-->
@@ -409,19 +422,26 @@
 
 
                     <div class="col-md-12" style="display: none;" id="default" ng-init="getCampaigns()">
-<!--                        {{entitySet}}-->
+                        <div class="row" style="width:750px;margin-top:30px;margin-left:-15px;">
+                            <!--<div class='col-md-1 SP2 fonthead'>Today</div>-->
+                            <div class='col-md-3' style="width:280px;"></div>
+                            <div class='col-md-3 SS2' style="margin-left:90px;">Action Type</div>
+                            <div class='col-md-2 SS2' style="margin-left:-20px;">Template Saved</div>
+                            <div class='col-md-3' ></div></div> 
+
                         <div id="daydetails" ng-repeat="entity in entitySet">
                         <div ng-show="entity.date == today_date">
-                            <p>Today</p>
+                            <p class="SS2 actfnt">Today</p>
                         </div>
+                             
                         <div ng-show='entity.date==tomorrow_date'>
-                            <p>Tomorrow</p>
+                            <p class="SS2 actfnt">Tomorrow</p>
                         </div>
                         <div ng-show="(entity.date != today_date) && (entity.date!=tomorrow_date)">
-                            <p>{{entity.date}}</p>
+                            <p class="SS2 actfnt">{{entity.date}}</p>
                         </div>
-                        <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
-                        <p ng-show="entity.dataArray == ''" class="MH1" id="messagetoday" style="display:block;" >{{nodata}}</p>
+                        <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-15px;top:-20px;">
+                        <p ng-show="entity.dataArray == ''" class="MH1" id="messagetoday" style="display:block;position:relative;top:-25px;" >{{nodata}}</p>
                         <ul>
                             <li ng-repeat="entitydetails in entity.dataArray">
                                 <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails" >
@@ -430,7 +450,7 @@
                                     </div>
                                     <div class="col-md-3" style="width:300px;margin-left:-40px;">
                                         <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
-                                            <p class="MH1" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description)">{{entitydetails.schedule_title}}</p></a>
+                                            <p class="MH1" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description)">{{entitydetails.schedule_title}}</p></a>
                                         <p class="SP1 fntschld">Scheduled for {{entitydetails.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entitydetails.entity_type}}</div>
@@ -461,24 +481,7 @@
                 </div>
             </div>
             <!--           </div><div id="mask" onclick="document.location='#';">CLICK</div>    -->
-            <div id="dvSliderDialog">
-                <div id="dvFastingDialog" class="pollSlider"><br>
-                    <form class="form-horizontal" id="signform">
-
-                        <div class="row">
-                            <div class="col-md-12" style="width:250px;">
-                                <div class="col-md-6" id="dvButtonContainer">
-                                    <input type="button" value="Save" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
-                                </div>
-                                <div class="col-md-6" id="dvButtonContainer">
-                                    <input type="button" value="Cancel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:100px;" />
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
+            
             <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
                 <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
                     <h1>&nbsp;Add Action</h1>
@@ -502,13 +505,26 @@
                             </div>
                             <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
                                 Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
-                            </div>
+                                <br>
+                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepicker'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
 
+                                    </script>
+                            </div>
+                            
                             <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
 
                         </div>
                         <div class="row">
-                            <div class="col-md-12" style="width:250px;position:absolute;top:240px;left:20px;">
+                            <div class="col-md-12" style="width:250px;position:absolute;top:350px;left:20px;">
 
                                 <div class="row">
                                     <div>
@@ -585,16 +601,6 @@
                                                         width:120px;"
                                                         onclick="sendEmail()"
                                                 value="Send"/>
-<!--                                        <button id="button_edit" 
-                                                ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" 
-                                                class="button button--moema 
-                                                        button--text-thick 
-                                                        button--text-upper 
-                                                        button--size-s" 
-                                                        style="background-color:#E65C00;
-                                                        width:120px;" 
-                                                        type="button">
-                                            SEND</button> -->
                                     </div>
                                 </div>
                             </div>
@@ -628,13 +634,26 @@
                                 <div class="SH2" style="position:absolute; margin-top: 220px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
+                                    <br>
+                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker1">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepicker1'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                    </script>
                                 </div>
 
                                 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:350px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:20px;">
 
                                     <div class="row">
                                         <div>
@@ -740,7 +759,7 @@
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
 
-                                <div style="position:relative;bottom:0px;top:0px;">
+                                <div ng-hide="facebook_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;">
                                 <button id="button_edit" 
                                             class="button button--moema 
                                             button--text-thick 
@@ -807,6 +826,19 @@
                                 <div class="SH2" style="position:absolute; margin-top: 180px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="fbdatetime" id="fbdatetime" class="inputdate MH1"/>
+                                    <br>
+                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker2">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepicker2'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                    </script>
                                 </div>
 
                                 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
@@ -847,7 +879,7 @@
                         <div style="position:relative;left:50px;top:-10px;">
 
                             <div class="actiondetails actiondet" >
-                                <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1" ng-click="deleteSchedule(schedule_id,'delete')" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
+                                <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1 ptr" ng-click="deleteSchedule(schedule_id,'delete')" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
                                 <p><input class="inputbox MH2" type="text" name="facebook_schedule_title" id="facebook_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:270px;font-size:22px;"/></p>
                                 <p><input class="inputbox SP1" type="text" name="facebook_schedule_Description" id="facebook_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:270px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="facebook_schedule_id" id="facebook_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
@@ -962,7 +994,21 @@
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
-                                <div style="position:relative;bottom:0px;top:0px;"  class="editbutton"><button ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button">EDIT</button> </div>
+                                <div ng-hide="twitter_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;" class="editbutton">
+                                <button ng-click="editScheduleDetails(
+                                            schedule_id, 
+                                            entities_selected_time, 
+                                            schedule_type, 
+                                            schedule_title, 
+                                            schedule_desc)" 
+                                            class="button 
+                                            button--moema 
+                                            button--text-thick 
+                                            button--text-upper 
+                                            button--size-s" 
+                                            style="background-color:#E65C00;
+                                            width:120px;" 
+                                            type="button">EDIT</button>
                                 <input type="button" id="twitter_button_post"
                                        class="button button--moema 
                                                 button--text-thick 
@@ -971,8 +1017,8 @@
                                                 style="background-color:#E65C00;
                                                 width:120px;"
                                                 onclick="postSocial()"
-                                        value="Post"/>
-
+                                        value="Post"/>                                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1003,13 +1049,26 @@
                                 <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="twitterdatetime" id="twitterdatetime" class="inputdate MH1"/>
+                                    <br>
+                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker3">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepicker3'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                    </script>
                                 </div>
 
                                 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:340px;left:20px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:20px;">
 
                                     <div class="row">
                                         <div>
@@ -1041,7 +1100,7 @@
                     <div id="edit_twitter">
                         <div style="position:relative;left:50px;top:-10px;">
                             <div class="actiondetails actiondet" >
-                                <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1" ng-click="deleteSchedule(schedule_id,'delete')" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
+                                <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1 ptr" ng-click="deleteSchedule(schedule_id,'delete')" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
                                 <p><input class="inputbox MH2" type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
                                 <p><input class="inputbox SP1" type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="twitter_schedule_id" id="twitter_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
@@ -1101,5 +1160,6 @@
                                                     });
 
         </script>
+        
     </body>
 </html>

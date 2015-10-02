@@ -831,7 +831,6 @@
                     }
 
                     console.log(schedule_id_facebook);
-                    alert($("#url").val());
                     if ((schedule_id_facebook == "0") && (schedule_id_twitter == "0")) {
 
                         var schedule_title = $("#schedule_title").val();

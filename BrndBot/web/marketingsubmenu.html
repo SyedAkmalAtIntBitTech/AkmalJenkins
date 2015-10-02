@@ -6,7 +6,14 @@
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="js/jquery.datepicker.js"></script>
     <script type="text/javascript">
-        // Localization
+        // Localization.
+        var d = new Date();
+
+        var c_date = d.getDate();
+
+        var c_month = d.getMonth() + 1;
+
+        var c_year = d.getFullYear();
         var user_selected_date;
         jQueryDatepicker.day_names_short = {
             1: 'Mon',
@@ -64,14 +71,18 @@
                 // jquery.datepicker accepts first month as 1
                 // (built-in Date() class accepts first month as 0)
                 month: c_month,
+
                 day: c_day
+
             });
             $some_datepicker.on('date_selected.datepicker', function (event, user_selected_date) {
 //                $selected.show().html('Selected date is: ' + user_selected_date.date.toString());
 
 //                alert(user_selected_date.date.toString());
                 setCurrentDate(user_selected_date);
+                
             });
+
             $("#set_todays_date").click(function(){
                 $some_datepicker.setStartDate({
                     year: c_year,
@@ -80,8 +91,10 @@
                 });
                 setTodaysDate();
             });
+
         });
-    </script>
+            
+            </script>
     <style type="text/css">
         .a,
         .a:visited {
@@ -147,10 +160,10 @@ a {
 <body>
     
 <div id="submenumarketing" class="col-md-1">
-    <nav>
-       <div class="collapse navbar-collapse">
-            <div style="width: 250px; font-family: 'Arial'; margin: auto;">
-            <div class="some_datepicker">
+    <nav id="calendar">
+       <div  class="collapse navbar-collapse">
+            <div  style="width: 250px; font-family: 'Arial'; margin: auto;">
+            <div id="some_datepicker" class="some_datepicker">
             </div>
             </div>
 
@@ -161,7 +174,23 @@ a {
             </ul>-->
         </div> 
 
-        <div class="MH1" id="set_todays_date" style="position:relative;top:30px;text-align:center;">GO TO TODAY</div>
+
+        <div class="MH1" id="todays_date" style="position:relative;top:30px;text-align:center;cursor:pointer;" onclick="setTodaysDate()">GO TO TODAY</div>
+<!--        <p class="SH2"  id="demo" style="position:relative;top:60px;text-align:center;"></p>
+
+<script>
+    var d = new Date();
+
+var curr_date = d.getDate();
+
+var curr_month = d.getMonth() +1;
+
+var curr_year = d.getFullYear();
+
+var formattedDate = curr_date + "/" + curr_month + "/" + curr_year;
+document.getElementById("demo").innerHTML = formattedDate;
+</script>-->
+
   </nav>
 
 </div>       

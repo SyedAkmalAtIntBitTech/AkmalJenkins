@@ -21,7 +21,9 @@ $(document).ready(function ()
         $('#slider-button').click();
         prevSliderDialog = "#dvFastingDialog";
     });
-    
+//    $('#datetimepicker3').datetimepicker({
+//        pickDate: false
+//    });
 //    $("#entitydetails").click(function () {
 //        
 //        sliderDialog = "#previewfb";
@@ -50,7 +52,7 @@ $(document).ready(function ()
             $('#slider-button').animate({"margin-right": '+=530'});
         }
     });
-    
+
 //    $('#button_edit').click(function(){
 //        if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
 //            if ($('#slider-button').css("margin-right") == "530px")
@@ -73,16 +75,16 @@ $(document).ready(function ()
 //    });
 });
 
-function showEditNote(){
-        $("#noteprev").hide();
-        $("#noteedit").show();
+function showEditNote() {
+    $("#noteprev").hide();
+    $("#noteedit").show();
 }
 
-function showEditEmail(){
-        $("#previewema").hide();
-        $("#editema").show();
+function showEditEmail() {
+    $("#previewema").hide();
+    $("#editema").show();
 }
-    
+
 function validateEmail(sEmail) {
     var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     if (filter.test(sEmail)) {
@@ -130,12 +132,12 @@ function validateaction() {
     return true;
 }
 function validateemailaction() {
-        var actiontype = $("#email_schedule_type").val();
-        var schedule_id = $("#email_scheduleid").val();
-        var title = $("#email_edit_title").val();
-        
-        var description = $("#email_description").val();
-        var actiondate = $("#emaildatetime").val();
+    var actiontype = $("#email_schedule_type").val();
+    var schedule_id = $("#email_scheduleid").val();
+    var title = $("#email_edit_title").val();
+
+    var description = $("#email_description").val();
+    var actiondate = $("#emaildatetime").val();
 
     if (title === "") {
         alert("title not entered, please enter the title");
@@ -163,12 +165,12 @@ function validateemailaction() {
 }
 
 function validatefacebookaction() {
-        var actiontype = $("#fb_scheduletype").val();
-        var schedule_id = $("#fb_scheduleid").val();
-        var title = $("#fb_action_title").val();
-        
-        var description = $("#fb_description").val();
-        var actiondate = $("#fbdatetime").val();
+    var actiontype = $("#fb_scheduletype").val();
+    var schedule_id = $("#fb_scheduleid").val();
+    var title = $("#fb_action_title").val();
+
+    var description = $("#fb_description").val();
+    var actiondate = $("#fbdatetime").val();
 
     if (title === "") {
         alert("title not entered, please enter the title");
@@ -196,12 +198,12 @@ function validatefacebookaction() {
 }
 
 function validatetwitteraction() {
-        var actiontype = $("#twitter_action_type").val();
-        var schedule_id = $("#twitter_scheduleid").val();
-        var title = $("#edit_twitter_title").val();
-        
-        var description = $("#twitter_description").val();
-        var actiondate = $("#twitterdatetime").val();
+    var actiontype = $("#twitter_action_type").val();
+    var schedule_id = $("#twitter_scheduleid").val();
+    var title = $("#edit_twitter_title").val();
+
+    var description = $("#twitter_description").val();
+    var actiondate = $("#twitterdatetime").val();
 
     if (title === "") {
         alert("title not entered, please enter the title");
@@ -230,26 +232,27 @@ function validatetwitteraction() {
 
 var selected_schedules_to_delete = "";
 
-function setSelectedIds(selectedid){
-    
-    var checked  = document.getElementById(selectedid).checked;
+function setSelectedIds(selectedid) {
 
-    if (checked){
+    var checked = document.getElementById(selectedid).checked;
+
+    if (checked) {
         $("#delsel").show();
-        var selected_schedule_id = $("#"+selectedid).val();
+        var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
         console.log(selected_schedules_to_delete);
     }
-    else{
-        var selected_schedule_id = $("#"+selectedid).val();
-        selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id+",","");
+    else {
+        var selected_schedule_id = $("#" + selectedid).val();
+        selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
         console.log(selected_schedules_to_delete);
-        if(selected_schedules_to_delete === ""){
-           $("#delsel").hide();
-        };
+        if (selected_schedules_to_delete === "") {
+            $("#delsel").hide();
+        }
+        ;
     }
-    
-    
+
+
 }
 
 
@@ -297,12 +300,12 @@ function controllerMarketingCampaign($scope, $http) {
         var new_date = '';
         $("#messagetoday").show();
         $("#messagetomorrow").show();
-        
-        if (user_selected_date != ""){
+
+        if (user_selected_date != "") {
             curr_date = moment(user_selected_date.date).format('YYYY-MM-DD');
             tomorrowDate = moment(addDays(user_selected_date.date, 1)).format('YYYY-MM-DD');
             new_date = moment(addDays(user_selected_date.date, 15)).format('YYYY-MM-DD');
-        }else {
+        } else {
             curr_date = moment(new Date()).format('YYYY-MM-DD');
             tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
             new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
@@ -316,11 +319,11 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.entityS = JSON.stringify(data);
 //            $("#default").hide();
 //            $("#selected").show();
-              $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
-              $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
-            $scope.entitySet= data.entitydata;
+            $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
+            $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
+            $scope.entitySet = data.entitydata;
             $scope.nodata = data.noactionsmessage;
-            $("#default").css("display","block");
+            $("#default").css("display", "block");
 //            $("#selected").css("display","none");            
             //console.log($scope.entitySet);
         }).error(function (data) {
@@ -373,18 +376,18 @@ function controllerMarketingCampaign($scope, $http) {
     };
 
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
-        
-        if(entity_type == "email"){
+
+        if (entity_type == "email") {
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                if (data.body == undefined){
+                if (data.body == undefined) {
                     $("#preview_email").hide();
                     $("#edit_email").hide();
                     $("#edit_email_action").show();
-                }else{
+                } else {
                     $("#preview_email").hide();
                     $("#edit_email").show();
                     $("#edit_email_action").hide();
@@ -393,29 +396,29 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $(".editcontent").empty();
                 $(".editcontent").append(data.body);
-                $(".editcontent").css("-webkit-transform","scale(0.5,0.6)").css("margin-left", "-140px").css("margin-top", "-60px").css("margin-bottom", "-220px");
+                $(".editcontent").css("-webkit-transform", "scale(0.5,0.6)").css("margin-left", "-140px").css("margin-top", "-60px").css("margin-bottom", "-220px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.showEmailList();
             }).error(function (data) {
                 alert("request not successful");
             });
-            
-        }else if (entity_type == "facebook"){
+
+        } else if (entity_type == "facebook") {
             $("#preview_facebook").hide();
             $("#edit_facebook").show();
 
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                if (data.image_name == undefined){
+                if (data.image_name == undefined) {
                     $("#preview_facebook").hide();
                     $("#edit_facebook").hide();
                     $("#edit_facebook_action").show();
                     $('#edtfbimg').hide();
-                }else{
+                } else {
                     $('#edtfbimg').show();
                     $("#preview_facebook").hide();
                     $("#edit_facebook").show();
@@ -431,20 +434,20 @@ function controllerMarketingCampaign($scope, $http) {
             }).error(function (data) {
                 alert("request not successful");
             });
-            
-        }else if (entity_type == "twitter"){
+
+        } else if (entity_type == "twitter") {
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                if (data.image_name == undefined){
+                if (data.image_name == undefined) {
                     $("#preview_twitter").hide();
                     $("#edit_twitter").hide();
                     $("#edit_twitter_action").show();
                     $('#edttwtimg').hide();
 
-                }else{
+                } else {
                     $('#edttwtimg').show();
                     $("#preview_twitter").hide();
                     $("#edit_twitter").show();
@@ -455,21 +458,21 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log("twitter description"+schedule_desc);
-                console.log("twitter time"+schedule_time);
+                console.log("twitter description" + schedule_desc);
+                console.log("twitter time" + schedule_time);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
 
             }).error(function (data) {
                 alert("request not successful");
             });
-            
-        }else if (entity_type == "note"){
+
+        } else if (entity_type == "note") {
             $("#noteprev").hide();
             $("#noteedit").show();
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 $scope.schedule_id = schedule_id;
@@ -482,15 +485,15 @@ function controllerMarketingCampaign($scope, $http) {
             }).error(function (data) {
                 alert("request not successful");
             });
-            
+
         }
-        
+
 
     };
 
     $scope.showScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
 
-        if(entity_type == "email"){
+        if (entity_type == "email") {
             sliderDialog = "#preview";
             $('#slider-button').click();
             prevSliderDialog = "#preview";
@@ -500,11 +503,11 @@ function controllerMarketingCampaign($scope, $http) {
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                if (data.body == undefined){
+                if (data.body == undefined) {
                     $("#preview_email").hide();
                     $("#edit_email").hide();
                     $("#edit_email_action").show();
-                }else{
+                } else {
                     $("#preview_email").hide();
                     $("#edit_email").show();
                     $("#edit_email_action").hide();
@@ -514,32 +517,32 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $(".editcontent").empty();
                 $(".editcontent").append(data.body);
-                $(".editcontent").css("-webkit-transform","scale(0.5,0.6)").css("margin-left", "-140px").css("margin-top", "-60px").css("margin-bottom", "-220px");
+                $(".editcontent").css("-webkit-transform", "scale(0.5,0.6)").css("margin-left", "-140px").css("margin-top", "-60px").css("margin-bottom", "-220px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
-                
+
                 $scope.showEmailList();
             }).error(function (data) {
                 alert("request not successful");
             });
-            
-        }else if (entity_type == "facebook"){
+
+        } else if (entity_type == "facebook") {
             sliderDialog = "#previewfb";
             $('#slider-button').click();
             prevSliderDialog = "#previewfb";
             $('#edtfbimg').show();
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                if (data.image_name == undefined){
+                if (data.image_name == undefined) {
                     $("#preview_facebook").hide();
                     $("#edit_facebook").hide();
                     $("#edit_facebook_action").show();
-                }else{
+                } else {
                     $("#preview_facebook").hide();
                     $("#edit_facebook").show();
                     $("#edit_facebook_action").hide();
@@ -554,8 +557,8 @@ function controllerMarketingCampaign($scope, $http) {
             }).error(function (data) {
                 alert("request not successful");
             });
-            
-        }else if (entity_type == "twitter"){
+
+        } else if (entity_type == "twitter") {
             sliderDialog = "#previewtwitter";
             $('#slider-button').click();
             prevSliderDialog = "#previewtwitter";
@@ -563,14 +566,14 @@ function controllerMarketingCampaign($scope, $http) {
             $('#edttwtimg').show();
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                if (data.image_name == undefined){
+                if (data.image_name == undefined) {
                     $("#preview_twitter").hide();
                     $("#edit_twitter").hide();
                     $("#edit_twitter_action").show();
-                }else{
+                } else {
                     $("#preview_twitter").hide();
                     $("#edit_twitter").show();
                     $("#edit_twitter_action").hide();
@@ -585,8 +588,8 @@ function controllerMarketingCampaign($scope, $http) {
             }).error(function (data) {
                 alert("request not successful");
             });
-            
-        }else if (entity_type == "note"){
+
+        } else if (entity_type == "note") {
             sliderDialog = "#previewNote";
             $('#slider-button').click();
             prevSliderDialog = "#previewNote";
@@ -594,7 +597,7 @@ function controllerMarketingCampaign($scope, $http) {
             $("#noteedit").show();
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 $scope.schedule_id = schedule_id;
@@ -607,15 +610,15 @@ function controllerMarketingCampaign($scope, $http) {
             }).error(function (data) {
                 alert("request not successful");
             });
-            
+
         }
 
     };
-    
-    $scope.getScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
+
+    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc) {
 
 
-        if(entity_type == "email"){
+        if (entity_type == "email") {
             sliderDialog = "#preview";
             $('#slider-button').click();
             prevSliderDialog = "#preview";
@@ -627,25 +630,26 @@ function controllerMarketingCampaign($scope, $http) {
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                if (data.body == undefined){
+                if (data.body == undefined) {
                     $("#email_button_send").val(create_button_title);
-                }else{
+                } else {
                     $("#email_button_send").val("Send");
                 }
                 var date = new Date(schedule_time);
                 $(".content").empty();
                 $(".content").append(data.body);
-                $(".content").css("-webkit-transform"," scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
+                $scope.email_template_status = template_status;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
                 alert("request not successful");
             });
-        }else if (entity_type == "facebook"){
+        } else if (entity_type == "facebook") {
             sliderDialog = "#previewfb";
             $('#slider-button').click();
             prevSliderDialog = "#previewfb";
@@ -655,32 +659,33 @@ function controllerMarketingCampaign($scope, $http) {
 
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                if (data.image_name == undefined){
+                if (data.image_name == undefined) {
                     $('#prevfbimg').hide();
-                    $('#fb_preview_postdet').css("margin-top",10);
+                    $('#fb_preview_postdet').css("margin-top", 10);
                     $("#fb_button_post").val(create_button_title);
-                }else {
-                    $('#fb_preview_postdet').css("margin-top",-60);
+                } else {
+                    $('#fb_preview_postdet').css("margin-top", -60);
                     $("#fb_button_post").val("Post");
                     $('#prevfbimg').show();
                     $('#isFacebook').val("true");
                     $('#isTwitter').val("false");
                 }
-                
+
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 $scope.schedule_desc = schedule_desc;
+                $scope.facebook_template_status = template_status;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
                 alert("request not successful");
             });
 
-        }else if (entity_type == "twitter"){
+        } else if (entity_type == "twitter") {
             sliderDialog = "#previewtwitter";
             $('#slider-button').click();
             prevSliderDialog = "#previewtwitter";
@@ -691,36 +696,37 @@ function controllerMarketingCampaign($scope, $http) {
 
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id='+ schedule_id
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                if (data.image_name == undefined){
-                    $('#prevtwtimg').hide(); 
-                    $('#twitter_preview_postdet').css("margin-top",10);
+                if (data.image_name == undefined) {
+                    $('#prevtwtimg').hide();
+                    $('#twitter_preview_postdet').css("margin-top", 10);
                     $("#twitter_button_post").val(create_button_title);
-                }else {
-                    $('#prevtwtimg').show(); 
+                } else {
+                    $('#prevtwtimg').show();
                     $("#twitter_button_post").val("Post");
-                    $('#twitter_preview_postdet').css("margin-top",-100);
+                    $('#twitter_preview_postdet').css("margin-top", -100);
                     $('#isFacebook').val("false");
                     $('#isTwitter').val("true");
                 }
-                
+
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
+                $scope.twitter_template_status = template_status;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
                 alert("request not successful");
             });
-        }else if (entity_type == "note"){
+        } else if (entity_type == "note") {
             sliderDialog = "#previewNote";
             $('#slider-button').click();
             prevSliderDialog = "#previewNote";
-            
+
             $("#noteprev").show();
             $("#noteedit").hide();
             $scope.entities_selected_time = schedule_time;
@@ -728,7 +734,8 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.schedule_id = schedule_id;
             $scope.schedule_desc = schedule_desc;
             $scope.schedule_type = entity_type;
-            
+            $scope.note_template_status = template_status;
+
         }
 
 
@@ -738,10 +745,10 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.AddAction = function () {
         var title = $("#title").val();
         var actiontype = $("#actiontype").val();
-        
+
         var description = $("#description").val();
         var actiondate = $("#actiondatetime").val();
-        
+
         console.log("Value selected from Component: " + actiondate);
         var schedule_time = Date.parse(actiondate);
         console.log("Epoch: " + schedule_time);
@@ -755,9 +762,9 @@ function controllerMarketingCampaign($scope, $http) {
         console.log("New Epoch: " + newEpoch);
 
         if (validateaction()) {
-            var action = {"title": title, "actiontype": actiontype,"type":"save",
-                          "description": description, "action_date": newEpoch 
-                         };
+            var action = {"title": title, "actiontype": actiontype, "type": "save",
+                "description": description, "action_date": newEpoch
+            };
             $http({
                 method: 'POST',
                 url: getHost() + 'AddAction',
@@ -766,7 +773,7 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data)
             {
                 $scope.status = data;
-                if (data != ""){
+                if (data != "") {
                     alert("action saved successfully");
                     window.open(getHost() + 'marketing.jsp', "_self");
 
@@ -781,16 +788,16 @@ function controllerMarketingCampaign($scope, $http) {
         }
     };
     $scope.updateActionEmail = function () {
-        
+
         var actiontype = $("#email_schedule_type").val();
-        console.log("action type"+actiontype);
+        console.log("action type" + actiontype);
         var schedule_id = $("#email_scheduleid").val();
         var title = $("#email_edit_title").val();
-        
+
         var description = $("#email_description").val();
-        console.log(actiontype+","+schedule_id +","+title+","+description);
+        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
         var actiondate = $("#emaildatetime").val();
-        
+
         console.log("Value selected from Component: " + actiondate);
         var schedule_time = Date.parse(actiondate);
         console.log("Epoch: " + schedule_time);
@@ -805,10 +812,10 @@ function controllerMarketingCampaign($scope, $http) {
 
         if (validateemailaction()) {
             var action = {
-                    "schedule_id":schedule_id,"type":"update",
-                    "title": title, "actiontype": actiontype,
-                    "description": description, "action_date": newEpoch
-                         };
+                "schedule_id": schedule_id, "type": "update",
+                "title": title, "actiontype": actiontype,
+                "description": description, "action_date": newEpoch
+            };
             $http({
                 method: 'POST',
                 url: getHost() + 'AddAction',
@@ -817,7 +824,7 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data)
             {
                 $scope.status = data;
-                if (data != ""){
+                if (data != "") {
                     alert("action saved successfully");
                     window.open(getHost() + 'marketing.jsp', "_self");
 
@@ -832,16 +839,16 @@ function controllerMarketingCampaign($scope, $http) {
         }
     };
     $scope.updateActionFacebook = function () {
-        
+
         var actiontype = $("#fb_scheduletype").val();
-        console.log("action type"+actiontype);
+        console.log("action type" + actiontype);
         var schedule_id = $("#fb_scheduleid").val();
         var title = $("#fb_action_title").val();
-        
+
         var description = $("#fb_description").val();
-        console.log(actiontype+","+schedule_id +","+title+","+description);
+        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
         var actiondate = $("#fbdatetime").val();
-        
+
         console.log("Value selected from Component: " + actiondate);
         var schedule_time = Date.parse(actiondate);
         console.log("Epoch: " + schedule_time);
@@ -856,10 +863,10 @@ function controllerMarketingCampaign($scope, $http) {
 
         if (validatefacebookaction()) {
             var action = {
-                    "schedule_id":schedule_id,"type":"update",
-                    "title": title, "actiontype": actiontype,
-                    "description": description, "action_date": newEpoch
-                         };
+                "schedule_id": schedule_id, "type": "update",
+                "title": title, "actiontype": actiontype,
+                "description": description, "action_date": newEpoch
+            };
             $http({
                 method: 'POST',
                 url: getHost() + 'AddAction',
@@ -868,7 +875,7 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data)
             {
                 $scope.status = data;
-                if (data != ""){
+                if (data != "") {
                     alert("action saved successfully");
                     window.open(getHost() + 'marketing.jsp', "_self");
 
@@ -883,16 +890,16 @@ function controllerMarketingCampaign($scope, $http) {
         }
     };
     $scope.updateActionTwitter = function () {
-        
+
         var actiontype = $("#twitter_action_type").val();
-        console.log("action type"+actiontype);
+        console.log("action type" + actiontype);
         var schedule_id = $("#twitter_scheduleid").val();
         var title = $("#edit_twitter_title").val();
-        
+
         var description = $("#twitter_description").val();
-        console.log(actiontype+","+schedule_id +","+title+","+description);
+        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
         var actiondate = $("#twitterdatetime").val();
-        
+
         console.log("Value selected from Component: " + actiondate);
         var schedule_time = Date.parse(actiondate);
         console.log("Epoch: " + schedule_time);
@@ -907,10 +914,10 @@ function controllerMarketingCampaign($scope, $http) {
 
         if (validatetwitteraction()) {
             var action = {
-                    "schedule_id":schedule_id,"type":"update",
-                    "title": title, "actiontype": actiontype,
-                    "description": description, "action_date": newEpoch
-                         };
+                "schedule_id": schedule_id, "type": "update",
+                "title": title, "actiontype": actiontype,
+                "description": description, "action_date": newEpoch
+            };
             $http({
                 method: 'POST',
                 url: getHost() + 'AddAction',
@@ -919,7 +926,7 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data)
             {
                 $scope.status = data;
-                if (data != ""){
+                if (data != "") {
                     alert("action saved successfully");
                     window.open(getHost() + 'marketing.jsp', "_self");
 
@@ -949,266 +956,41 @@ function controllerMarketingCampaign($scope, $http) {
             }
         });
     };
-    
-    $scope.deleteSchedule = function(schedules_to_delete, type){
+
+    $scope.deleteSchedule = function (schedules_to_delete, type) {
         var message;
         var requestBody;
         var responseMessage;
-        if(type == "deleteMultiple") {
+        if (type == "deleteMultiple") {
             message = "Are you sure you want to delete these Action(s)?";
-            requestBody = {"type": "deleteSelected", 
-            "schedule_ids": selected_schedules_to_delete};
+            requestBody = {"type": "deleteSelected",
+                "schedule_ids": selected_schedules_to_delete};
             responseMessage = "Selected actions were deleted successfully";
-        }else if(type == "delete"){
+        } else if (type == "delete") {
             message = "Are you sure you want to delete this Action?";
-            requestBody = {"type": "delete", 
-            "schedule_ids": schedules_to_delete};
+            requestBody = {"type": "delete",
+                "schedule_ids": schedules_to_delete};
             responseMessage = "Selected actions were deleted successfully";
-        }else if(type == "remove"){
+        } else if (type == "remove") {
             message = "Are you sure you want to remove the template?";
-            requestBody = {"type": "removetemplate", 
-            "schedule_ids": schedules_to_delete};
+            requestBody = {"type": "removetemplate",
+                "schedule_ids": schedules_to_delete};
             responseMessage = "Selected actions were deleted successfully";
         }
-        
-        
-        if (confirm(message)){
-            $http({
-                    method: 'POST',
-                    url: getHost() + 'ChangeScheduleServlet',
-                    headers: {'Content-Type': 'application/json'},
-                    data: requestBody
-                }).success(function (data)
-                {
-                    $scope.status = data;
-                    if (data !== ""){
-                        alert(responseMessage);
-                        window.open(getHost() + 'marketing.jsp', "_self");
-                    }
-                }).error(function (data, status) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
 
-                    alert("request not succesful");
-                });
-        }
-    };
-    
-    $scope.updateNote = function(){
-            var schedule_id = $("#note_schedule_id").val();
-            var entity_id = $("#note_entity_id").val();
-            var note_title = $("#note_title").val();
-            var status = $("#status").val();
-            var note_desc = $("#note_desc").val();
-            var schedule_datetime = $("#notedate").val();
-            
-            console.log("Value selected from Component: " + schedule_datetime);
-            var schedule_time = Date.parse(schedule_datetime);
-            console.log("Epoch: " + schedule_time);
 
-            var dateObj = new Date(schedule_time);
-            console.log(dateObj.getTimezoneOffset());
-
-            var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-            var newEpoch = schedule_time + tzOffsetInMillis;
-            console.log("New Epoch: " + newEpoch);
-            
-            var schedule_details = {
-                "type":"note",
-                "schedule_id":schedule_id,
-                "schedule_title":note_title,
-                "schedule_desc":note_desc,
-                "status":status,
-                "schedule_time":newEpoch
-            }
+        if (confirm(message)) {
             $http({
                 method: 'POST',
                 url: getHost() + 'ChangeScheduleServlet',
                 headers: {'Content-Type': 'application/json'},
-                data: JSON.stringify(schedule_details)
+                data: requestBody
             }).success(function (data)
             {
                 $scope.status = data;
-                if (data != ""){
-                    alert("details saved successfully");
+                if (data !== "") {
+                    alert(responseMessage);
                     window.open(getHost() + 'marketing.jsp', "_self");
-
-                }
-            }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
-            });            
-            
-    };
-    
-    $scope.updateEmailSchedule = function(){
-            var schedule_id = $("#email_schedule_id").val();
-            var entity_id = $("#email_entity_id").val();
-            var schedule_title = $("#email_entitytitle").val();
-            var email_entitysubject = $("#email_entitysubject").val();
-            var email_entitytoaddress = $("#email_entitytoaddress").val();
-            var email_entityfromaddress = $("#email_entityfromaddress").val();
-            var email_entityreplytoaddress = $("#email_entityreplytoaddress").val();
-            var chooseEmailList = $("#chooseEmailList").val();
-            var schedule_datetime = $("#email_schedule_datetime").val();
-            
-            console.log("Value selected from Component: " + schedule_datetime);
-            var schedule_time = Date.parse(schedule_datetime);
-            console.log("Epoch: " + schedule_time);
-
-            var dateObj = new Date(schedule_time);
-            console.log(dateObj.getTimezoneOffset());
-
-            var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-            var newEpoch = schedule_time + tzOffsetInMillis;
-            console.log("New Epoch: " + newEpoch);
-            
-            var schedule_details = {
-                "type": "updateemail", 
-                "schedule_id": schedule_id,
-                "entity_id": entity_id,
-                "schedule_title": schedule_title,
-                "schedule_time": newEpoch,
-                "email_subject": email_entitysubject, 
-                "to_email_addresses": email_entitytoaddress, 
-                "from_email_address": email_entityfromaddress, 
-                "reply_to_email_address": email_entityreplytoaddress, 
-                "email_list": chooseEmailList
-            };
-            $http({
-                method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
-                headers: {'Content-Type': 'application/json'},
-                data: JSON.stringify(schedule_details)
-            }).success(function (data)
-            {
-                $scope.status = data;
-                if (data != ""){
-                    alert("details saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-
-                }
-            }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
-            });            
-            
-    };
-
-    $scope.updateSocialSchedule = function(){
-        
-        var social_type = $("#social_type").val();
-
-        if (social_type == "facebook"){
-            
-            if ($scope.validatefacebook()){
-            
-            var schedule_id = $("#facebook_schedule_id").val();
-            var entity_id = $("#facebook_entity_id").val();
-            var schedule_title = $("#facebook_schedule_title").val();
-            var schedule_Description = $("#facebook_schedule_Description").val();
-            var facebook_schedule_posttext = $("#facebook_schedule_posttext").val();
-            var facebook_schedule_url = $("#facebook_schedule_url").val();
-            var facebook_schedule_description = $("#facebook_schedule_description").val();
-            var schedule_datetime = $("#facebook_schedule_datetime").val();
-
-            console.log("Value selected from Component: " + schedule_datetime);
-            var schedule_time = Date.parse(schedule_datetime);
-            console.log("Epoch: " + schedule_time);
-
-            var dateObj = new Date(schedule_time);
-            console.log(dateObj.getTimezoneOffset());
-
-            var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-            var newEpoch = schedule_time + tzOffsetInMillis;
-            console.log("New Epoch: " + newEpoch);
-
-            var schedule_details = {"type": "updatesocial", 
-                "schedule_id": schedule_id,
-                "entity_id": entity_id,
-                "metadata": {
-                            description: '"'+facebook_schedule_description+'"',
-                            post_text: '"'+facebook_schedule_posttext+'"',
-                            url: '"'+facebook_schedule_url+'"'
-                          },
-                "schedule_time": newEpoch,
-                "schedule_title": schedule_title,
-                "schedule_desc": schedule_Description        
-            };
-            $http({
-                method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
-                headers: {'Content-Type': 'application/json'},
-                data: JSON.stringify(schedule_details)
-            }).success(function (data)
-            {
-                $scope.status = data;
-                if (data != ""){
-                    alert("details saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-
-                }
-            }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
-            });            
-
-            }
-        }else if (social_type == "twitter"){
-
-            if ($scope.validatetwitter()){
-                
-            var schedule_id = $("#twitter_schedule_id").val();
-            var entity_id = $("#twitter_entity_id").val();
-            var schedule_title = $("#twitter_schedule_title").val();
-            var schedule_Description = $("#twitter_schedule_Description").val();
-            var schedule_posttext = $("#twitter_schedule_post_text").val();
-            var schedule_datetime = $("#twitter_schedule_datetime").val();
-
-            console.log("Value selected from Component: " + schedule_datetime);
-            var schedule_time = Date.parse(schedule_datetime);
-            console.log("Epoch: " + schedule_time);
-
-            var dateObj = new Date(schedule_time);
-            console.log(dateObj.getTimezoneOffset());
-
-            var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-            var newEpoch = schedule_time + tzOffsetInMillis;
-            console.log("New Epoch: " + newEpoch);
-
-            var schedule_details = {"type": "updatesocial", 
-                "schedule_id": schedule_id,
-                "entity_id": entity_id,
-                "metadata": {
-                        text: '"'+schedule_posttext+'"',
-                        shorturl:'"' + $("#twitter_schedule_post_url").val()+'"'
-                            },
-                "schedule_time": newEpoch,
-                "schedule_title": schedule_title,
-                "schedule_desc": schedule_Description        
-            };
-            $http({
-                method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
-                headers: {'Content-Type': 'application/json'},
-                data: JSON.stringify(schedule_details)
-            }).success(function (data)
-            {
-                $scope.status = data;
-                if (data != ""){
-                    alert("details saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
@@ -1216,89 +998,315 @@ function controllerMarketingCampaign($scope, $http) {
 
                 alert("request not succesful");
             });
-                
+        }
+    };
+
+    $scope.updateNote = function () {
+        var schedule_id = $("#note_schedule_id").val();
+        var entity_id = $("#note_entity_id").val();
+        var note_title = $("#note_title").val();
+        var status = $("#status").val();
+        var note_desc = $("#note_desc").val();
+        var schedule_datetime = $("#notedate").val();
+
+        console.log("Value selected from Component: " + schedule_datetime);
+        var schedule_time = Date.parse(schedule_datetime);
+        console.log("Epoch: " + schedule_time);
+
+        var dateObj = new Date(schedule_time);
+        console.log(dateObj.getTimezoneOffset());
+
+        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+
+        var newEpoch = schedule_time + tzOffsetInMillis;
+        console.log("New Epoch: " + newEpoch);
+
+        var schedule_details = {
+            "type": "note",
+            "schedule_id": schedule_id,
+            "schedule_title": note_title,
+            "schedule_desc": note_desc,
+            "status": status,
+            "schedule_time": newEpoch
+        }
+        $http({
+            method: 'POST',
+            url: getHost() + 'ChangeScheduleServlet',
+            headers: {'Content-Type': 'application/json'},
+            data: JSON.stringify(schedule_details)
+        }).success(function (data)
+        {
+            $scope.status = data;
+            if (data != "") {
+                alert("details saved successfully");
+                window.open(getHost() + 'marketing.jsp', "_self");
+
+            }
+        }).error(function (data, status) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+
+            alert("request not succesful");
+        });
+
+    };
+
+    $scope.updateEmailSchedule = function () {
+        var schedule_id = $("#email_schedule_id").val();
+        var entity_id = $("#email_entity_id").val();
+        var schedule_title = $("#email_entitytitle").val();
+        var email_entitysubject = $("#email_entitysubject").val();
+        var email_entitytoaddress = $("#email_entitytoaddress").val();
+        var email_entityfromaddress = $("#email_entityfromaddress").val();
+        var email_entityreplytoaddress = $("#email_entityreplytoaddress").val();
+        var chooseEmailList = $("#chooseEmailList").val();
+        var schedule_datetime = $("#email_schedule_datetime").val();
+
+        console.log("Value selected from Component: " + schedule_datetime);
+        var schedule_time = Date.parse(schedule_datetime);
+        console.log("Epoch: " + schedule_time);
+
+        var dateObj = new Date(schedule_time);
+        console.log(dateObj.getTimezoneOffset());
+
+        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+
+        var newEpoch = schedule_time + tzOffsetInMillis;
+        console.log("New Epoch: " + newEpoch);
+
+        var schedule_details = {
+            "type": "updateemail",
+            "schedule_id": schedule_id,
+            "entity_id": entity_id,
+            "schedule_title": schedule_title,
+            "schedule_time": newEpoch,
+            "email_subject": email_entitysubject,
+            "to_email_addresses": email_entitytoaddress,
+            "from_email_address": email_entityfromaddress,
+            "reply_to_email_address": email_entityreplytoaddress,
+            "email_list": chooseEmailList
+        };
+        $http({
+            method: 'POST',
+            url: getHost() + 'ChangeScheduleServlet',
+            headers: {'Content-Type': 'application/json'},
+            data: JSON.stringify(schedule_details)
+        }).success(function (data)
+        {
+            $scope.status = data;
+            if (data != "") {
+                alert("details saved successfully");
+                window.open(getHost() + 'marketing.jsp', "_self");
+
+            }
+        }).error(function (data, status) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+
+            alert("request not succesful");
+        });
+
+    };
+
+    $scope.updateSocialSchedule = function () {
+
+        var social_type = $("#social_type").val();
+
+        if (social_type == "facebook") {
+
+            if ($scope.validatefacebook()) {
+
+                var schedule_id = $("#facebook_schedule_id").val();
+                var entity_id = $("#facebook_entity_id").val();
+                var schedule_title = $("#facebook_schedule_title").val();
+                var schedule_Description = $("#facebook_schedule_Description").val();
+                var facebook_schedule_posttext = $("#facebook_schedule_posttext").val();
+                var facebook_schedule_url = $("#facebook_schedule_url").val();
+                var facebook_schedule_description = $("#facebook_schedule_description").val();
+                var schedule_datetime = $("#facebook_schedule_datetime").val();
+
+                console.log("Value selected from Component: " + schedule_datetime);
+                var schedule_time = Date.parse(schedule_datetime);
+                console.log("Epoch: " + schedule_time);
+
+                var dateObj = new Date(schedule_time);
+                console.log(dateObj.getTimezoneOffset());
+
+                var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+
+                var newEpoch = schedule_time + tzOffsetInMillis;
+                console.log("New Epoch: " + newEpoch);
+
+                var schedule_details = {"type": "updatesocial",
+                    "schedule_id": schedule_id,
+                    "entity_id": entity_id,
+                    "metadata": {
+                        description: '"' + facebook_schedule_description + '"',
+                        post_text: '"' + facebook_schedule_posttext + '"',
+                        url: '"' + facebook_schedule_url + '"'
+                    },
+                    "schedule_time": newEpoch,
+                    "schedule_title": schedule_title,
+                    "schedule_desc": schedule_Description
+                };
+                $http({
+                    method: 'POST',
+                    url: getHost() + 'ChangeScheduleServlet',
+                    headers: {'Content-Type': 'application/json'},
+                    data: JSON.stringify(schedule_details)
+                }).success(function (data)
+                {
+                    $scope.status = data;
+                    if (data != "") {
+                        alert("details saved successfully");
+                        window.open(getHost() + 'marketing.jsp', "_self");
+
+                    }
+                }).error(function (data, status) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+
+                    alert("request not succesful");
+                });
+
+            }
+        } else if (social_type == "twitter") {
+
+            if ($scope.validatetwitter()) {
+
+                var schedule_id = $("#twitter_schedule_id").val();
+                var entity_id = $("#twitter_entity_id").val();
+                var schedule_title = $("#twitter_schedule_title").val();
+                var schedule_Description = $("#twitter_schedule_Description").val();
+                var schedule_posttext = $("#twitter_schedule_post_text").val();
+                var schedule_datetime = $("#twitter_schedule_datetime").val();
+
+                console.log("Value selected from Component: " + schedule_datetime);
+                var schedule_time = Date.parse(schedule_datetime);
+                console.log("Epoch: " + schedule_time);
+
+                var dateObj = new Date(schedule_time);
+                console.log(dateObj.getTimezoneOffset());
+
+                var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+
+                var newEpoch = schedule_time + tzOffsetInMillis;
+                console.log("New Epoch: " + newEpoch);
+
+                var schedule_details = {"type": "updatesocial",
+                    "schedule_id": schedule_id,
+                    "entity_id": entity_id,
+                    "metadata": {
+                        text: '"' + schedule_posttext + '"',
+                        shorturl: '"' + $("#twitter_schedule_post_url").val() + '"'
+                    },
+                    "schedule_time": newEpoch,
+                    "schedule_title": schedule_title,
+                    "schedule_desc": schedule_Description
+                };
+                $http({
+                    method: 'POST',
+                    url: getHost() + 'ChangeScheduleServlet',
+                    headers: {'Content-Type': 'application/json'},
+                    data: JSON.stringify(schedule_details)
+                }).success(function (data)
+                {
+                    $scope.status = data;
+                    if (data != "") {
+                        alert("details saved successfully");
+                        window.open(getHost() + 'marketing.jsp', "_self");
+
+                    }
+                }).error(function (data, status) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+
+                    alert("request not succesful");
+                });
+
             }
         }
     };
-        $scope.validatefacebook = function(){
-        
+    $scope.validatefacebook = function () {
+
         var facebook_schedule_title = $("#facebook_schedule_title").val();
         var facebook_schedule_Description = $("#facebook_schedule_Description").val();
         var facebook_schedule_posttext = $("#facebook_schedule_posttext").val();
         var facebook_schedule_url = $("#facebook_schedule_url").val();
         var facebook_schedule_description = $("#facebook_schedule_description").val();
         var facebook_schedule_datetime = $("#facebook_schedule_datetime").val();
-        
-        if (facebook_schedule_title == ""){
+
+        if (facebook_schedule_title == "") {
             alert("schedule title not entered, please enter the value");
             $("#facebook_schedule_title").focus();
             return false;
         }
-        if (facebook_schedule_Description == ""){
+        if (facebook_schedule_Description == "") {
             alert("schedule description not entered, please enter the value");
             $("#facebook_schedule_Description").focus();
             return false;
         }
-        if (facebook_schedule_posttext == ""){
+        if (facebook_schedule_posttext == "") {
             alert("schedule post text not entered, please enter the value");
             $("#facebook_schedule_posttext").focus();
             return false;
         }
-        if (facebook_schedule_url == ""){
+        if (facebook_schedule_url == "") {
             alert("schedule url not entered, please enter the value");
             $("#facebook_schedule_url").focus();
             return false;
         }
-        if (facebook_schedule_description == ""){
+        if (facebook_schedule_description == "") {
             alert("schedule description not entered, please enter the value");
             $("#facebook_schedule_description").focus();
             return false;
         }
-        if (facebook_schedule_datetime == ""){
+        if (facebook_schedule_datetime == "") {
             alert("schedule date time not entered, please enter the value");
             $("#facebook_schedule_datetime").focus();
             return false;
         }
         return true;
-        
-        };
-        $scope.validatetwitter = function(){
-        
-            var schedule_id = $("#twitter_schedule_id").val();
-            var entity_id = $("#twitter_entity_id").val();
-            var schedule_title = $("#twitter_schedule_title").val();
-            var schedule_Description = $("#twitter_schedule_Description").val();
-            var schedule_posttext = $("#twitter_schedule_post_text").val();
-            var schedule_datetime = $("#twitter_schedule_datetime").val();
-        
-        if (schedule_title == ""){
+
+    };
+    $scope.validatetwitter = function () {
+
+        var schedule_id = $("#twitter_schedule_id").val();
+        var entity_id = $("#twitter_entity_id").val();
+        var schedule_title = $("#twitter_schedule_title").val();
+        var schedule_Description = $("#twitter_schedule_Description").val();
+        var schedule_posttext = $("#twitter_schedule_post_text").val();
+        var schedule_datetime = $("#twitter_schedule_datetime").val();
+
+        if (schedule_title == "") {
             alert("schedule title not entered, please enter the value");
             $("#twitter_schedule_title").focus();
             return false;
         }
-        if (schedule_Description == ""){
+        if (schedule_Description == "") {
             alert("schedule description not entered, please enter the value");
             $("#twitter_schedule_Description").focus();
             return false;
         }
-        if (schedule_posttext == ""){
+        if (schedule_posttext == "") {
             alert("schedule post text not entered, please enter the value");
             $("#twitter_schedule_post_text").focus();
             return false;
         }
-        if (schedule_datetime == ""){
+        if (schedule_datetime == "") {
             alert("schedule date time not entered, please enter the value");
             $("#twitter_schedule_datetime").focus();
             return false;
         }
         return true;
-        
-        };
 
-};
+    };
+
+}
+;
 var error_message = "unable to post the scheduling";
 
-function sendEmail(){
+function sendEmail() {
     var email_from_name = $("#email_entity_from_name").val();
     var email_entitysubject = $("#email_entitysubject").val();
     var email_entitytoaddress = $("#email_entitytoaddress").val();
@@ -1306,49 +1314,49 @@ function sendEmail(){
     var email_entityreplytoaddress = $("#email_entityreplytoaddress").val();
     var chooseEmailList = $("#chooseEmailList").val();
     var email_body = $("#email_entity_body").val();
-            
-    if($("#email_button_send").val() == "Send"){
+
+    if ($("#email_button_send").val() == "Send") {
         $.ajax({
-                url: getHost() + "SendEmailServlet",
-                type: "post",
-                data: {
-                    from_name: email_from_name,
-                    email_subject: email_entitysubject,
-                    email_addresses: email_entitytoaddress,
-                    from_email_address: email_entityfromaddress,
-                    reply_to_email_address: email_entityreplytoaddress,
-                    htmldata: email_body,
-                    email_list: chooseEmailList
-                },
-                success: function (responseText) {
-                    $('#loadingGif').remove();
+            url: getHost() + "SendEmailServlet",
+            type: "post",
+            data: {
+                from_name: email_from_name,
+                email_subject: email_entitysubject,
+                email_addresses: email_entitytoaddress,
+                from_email_address: email_entityfromaddress,
+                reply_to_email_address: email_entityreplytoaddress,
+                htmldata: email_body,
+                email_list: chooseEmailList
+            },
+            success: function (responseText) {
+                $('#loadingGif').remove();
 
-                    document.location.href = "marketing.jsp";
-                },
-                error: function () {
-                    alert(error_message);
-                }
+                document.location.href = "marketing.jsp";
+            },
+            error: function () {
+                alert(error_message);
+            }
 
-            });            
-        
-    }else if(checkifcreatebutton($("#email_button_send").val())){
+        });
+
+    } else if (checkifcreatebutton($("#email_button_send").val())) {
         document.location.href = "dashboard.jsp";
     }
 
 }
 
-function postSocial(){
+function postSocial() {
     var image_name = "";
     var isFacebook = $("#isFacebook").val();
     var isTwitter = $("#isTwitter").val();
     var scheduleid = '', entityid = '';
-    if (($("#fb_button_post").val() == "Post") && ($("#twitter_button_post").val() == "Post")){
-        if (($("#facebook_image_name").val()) != ""){
+    if (($("#fb_button_post").val() == "Post") && ($("#twitter_button_post").val() == "Post")) {
+        if (($("#facebook_image_name").val()) != "") {
             image_name = $("#facebook_image_name").val();
             scheduleid = $("#facebook_schedule_id").val();
             entityid = $("#facebook_entity_id").val();
         }
-        if (($("#twitter_image_name").val()) != ""){
+        if (($("#twitter_image_name").val()) != "") {
             image_name = $("#twitter_image_name").val();
             scheduleid = $("#twitter_schedule_id").val();
             entityid = $("#twitter_schedule_id").val();
@@ -1364,12 +1372,12 @@ function postSocial(){
         var username = "sandeep264328"; // bit.ly username
         var key = "R_63e2f83120b743bc9d9534b841d41be6";
         $.ajax({
-        url: "http://api.bit.ly/v3/shorten",
-        data: {longUrl: url, apiKey: key, login: username},
-        dataType: "jsonp",
-        success: function (v)
-        {
-            var bit_url = v.data.url;
+            url: "http://api.bit.ly/v3/shorten",
+            data: {longUrl: url, apiKey: key, login: username},
+            dataType: "jsonp",
+            success: function (v)
+            {
+                var bit_url = v.data.url;
                 $.ajax({
                     url: 'PostToSocial',
                     method: 'post',
@@ -1403,29 +1411,27 @@ function postSocial(){
                            mimeType: 'application/json',
                            data:JSON.stringify(schedule_data),
                            success: function (responseText) {
-//                            $("#tokenHere").html(responseText);
-//                                alert(image_name);
                                 alert("Your post has been published successfully");
                             }
                         });
                         document.location.href = "marketing.jsp";
                     },
-                    error: function (){
+                    error: function () {
                         alert(error_message);
                     }
                 });
             }
 
         });
-        
-    }else if(checkifcreatebutton($("#fb_button_post").val()) || (checkifcreatebutton($("#twitter_button_post").val()))){
+
+    } else if (checkifcreatebutton($("#fb_button_post").val()) || (checkifcreatebutton($("#twitter_button_post").val()))) {
         document.location.href = "dashboard.jsp";
     }
-    
-    function checkifcreatebutton(value){
-        if (value == create_button_title){
+
+    function checkifcreatebutton(value) {
+        if (value == create_button_title) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
