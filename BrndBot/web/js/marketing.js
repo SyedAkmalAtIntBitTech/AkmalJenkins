@@ -294,7 +294,6 @@ function controllerMarketingCampaign($scope, $http) {
         var curr_date = '';
         var tomorrowDate = '';
         var new_date = '';
-        var message = "no actions available";
         $("#messagetoday").show();
         $("#messagetomorrow").show();
         
@@ -316,49 +315,10 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.entityS = JSON.stringify(data);
 //            $("#default").hide();
 //            $("#selected").show();
-              $scope.entitySelected = message;
-              $scope.entityTomorrow = message;
-            $.each(data, function (key, value) {
-                /*
-                 * the below code is trying to create a model in the below form:
-                 * {
-                 *   'Today' : [{}, {}],
-                 *   'Tomorrow': [{}, {}],
-                 *   'Later': [{}, {}]
-                 * }
-                 */
-                if (key == curr_date) {
-                    entitySet['Today'] = value;
-//                    $scope.entitySelected = JSON.stringify({"key":key, "value":value});
-                    $("#messagetoday").hide();
-                    $("#todaysdetails").show();
-                }else if (key == tomorrowDate) {
-//                        $scope.entityTomorrow = JSON.stringify({"key":key, "value":value});
-                    entitySet['Tomorrow'] = value;
-                    $("#messagetomorrow").hide();
-                    $("#tomorrowsdetails").show();
-                } else {
-                    $("#todaysdetails").hide();
-                    $("#tomorrowsdetails").hide();
-                
-                    if (!('Later' in entitySet)) {
-                        entitySet['Later'] = [];
-                    }
-                    if (value != ""){
-                        var entityLater = {"key":key, "value":value};
-                          entitySet['Later'].push(entityLater);
-//                          $("#message").hide();
-                    $("#messagelater").hide();
-                    }
-//                    $.each(value, function (key2, value2) {
-////                      entitySetSelected['Later'].push(value2);
-//                        var entityLater = {"key":key, "value":value2};    
-//                      entitySetSelected['Later'].push(entityLater);
-//                    });
-                }
-            });
-            $scope.entitySet= entitySet;
-            $scope.nodata = "No data";
+              $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
+              $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
+            $scope.entitySet= data.entitydata;
+            $scope.nodata = data.noactionsmessage;
             $("#default").css("display","block");
 //            $("#selected").css("display","none");            
             //console.log($scope.entitySet);

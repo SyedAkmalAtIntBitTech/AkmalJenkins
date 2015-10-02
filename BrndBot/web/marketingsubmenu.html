@@ -59,13 +59,21 @@
                 next_button: '&gt;',
                 prev_button: '&lt;'
             });
+            var d = new Date();
+            var todays_date = moment(new Date()).format('YYYY-MM-DD');
+            var c_day = d.getDate();
+            var c_month = d.getMonth() + 1;
 
+            var c_year = d.getFullYear();
+            console.log(c_year+"/"+c_month+"/"+c_day);
             $some_datepicker.setStartDate({
                 year: c_year,
                 // jquery.datepicker accepts first month as 1
                 // (built-in Date() class accepts first month as 0)
                 month: c_month,
-                day: c_date
+
+                day: c_day
+
             });
             $some_datepicker.on('date_selected.datepicker', function (event, user_selected_date) {
 //                $selected.show().html('Selected date is: ' + user_selected_date.date.toString());
@@ -74,27 +82,16 @@
                 setCurrentDate(user_selected_date);
                 
             });
-            
-            
 
-        });
-        $("#todays_date").click(function(){
-                   var c_date = d.getDate();
+            $("#set_todays_date").click(function(){
+                $some_datepicker.setStartDate({
+                    year: c_year,
+                    month: c_month,
+                    day: c_day
+                });
+                setTodaysDate();
+            });
 
-        var c_month = d.getMonth() + 1;
-
-        var c_year = d.getFullYear();
-        var startDate = new Date(c_year,c_month,firstDayOfMonth());
-//        $("#some_datepicker").datepicker("update", "02-10-2015");
-        $("#some_datepicker").datepicker('setDate',startDate);
-//            $some_datepicker.setStartDate({
-//                year: c_year,
-//                // jquery.datepicker accepts first month as 1
-//                // (built-in Date() class accepts first month as 0)
-//                month: c_month,
-//                day: c_date
-//            });
-               setCurrentDate(user_selected_date);
         });
             
             </script>
@@ -177,6 +174,7 @@ a {
             </ul>-->
         </div> 
 
+
         <div class="MH1" id="todays_date" style="position:relative;top:30px;text-align:center;cursor:pointer;" onclick="setTodaysDate()">GO TO TODAY</div>
 <!--        <p class="SH2"  id="demo" style="position:relative;top:60px;text-align:center;"></p>
 
@@ -192,6 +190,7 @@ var curr_year = d.getFullYear();
 var formattedDate = curr_date + "/" + curr_month + "/" + curr_year;
 document.getElementById("demo").innerHTML = formattedDate;
 </script>-->
+
   </nav>
 
 </div>       
