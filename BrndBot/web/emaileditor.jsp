@@ -394,7 +394,8 @@ and open the template in the editor.
                 if (!request.getParameter("id").equals("null")) {
                     mindbody_data_id = (String) request.getParameter("id");
                 }
-
+                else
+                    mindbody_data_id = "";
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
             } catch (Exception e) {
@@ -436,6 +437,8 @@ and open the template in the editor.
             });</script>
 
         <script>
+                    
+                    $(document).ready(function() {
                     var jsondata;
                     var selectedDivId;
                     var block_clicked = "false";
@@ -447,8 +450,6 @@ and open the template in the editor.
                     var temp_block_id;
                     var temp_mind_body_query;
                     //$("#previewpopup").hide();
-                    $(document).ready(function() {
-
 
 
             $('#continueblock').prop('disabled', true);

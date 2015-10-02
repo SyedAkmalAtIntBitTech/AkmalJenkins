@@ -302,6 +302,8 @@ ul::-webkit-scrollbar-thumb {
                 if (!request.getParameter("id").equals("null")){
                     mindbody_data_id = (String) request.getParameter("id");
                 }
+                else
+                    mindbody_data_id = "";
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
 
@@ -334,9 +336,11 @@ ul::-webkit-scrollbar-thumb {
             });
         </script>
         <script>
+                $(document).ready(function () {
                     var jsondata;
                     var selectedDivId;
                     var mindbodydataId = $("#mindbodydata").val();
+                });
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {

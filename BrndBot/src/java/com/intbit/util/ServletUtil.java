@@ -92,7 +92,7 @@ public class ServletUtil {
 // call function from script file
             return inv.invokeFunction("getHost", "").toString();
         } catch (Exception ex) {
-            return "http://clients.brndbot.com:8080/BrndBot/";
+            return "http://clients.brndbot.com/BrndBot/";
         }
     }
 

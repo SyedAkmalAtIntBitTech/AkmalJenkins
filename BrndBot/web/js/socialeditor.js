@@ -213,7 +213,7 @@ $(".blockname").change(function (){
 
 //    alert("loding");
 
-    jsondata;
+    var jsondata;
     mindbodydataId = $("#mindbodydata").val();
 
     var layoutfilename = $("#clickid").val();
