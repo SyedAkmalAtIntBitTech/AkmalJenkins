@@ -428,10 +428,10 @@
                         <div ng-show="(entity.date != today_date) && (entity.date!=tomorrow_date)">
                             <p>{{entity.date}}</p>
                         </div>
-                        <p class="MH1" id="messagetoday" style="display:block;" >{{entitySelected}}</p>
+                        <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
+                        <p ng-show="entity.dataArray == ''" class="MH1" id="messagetoday" style="display:block;" >{{nodata}}</p>
                         <ul>
                             <li ng-repeat="entitydetails in entity.dataArray">
-                                <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails" >
                                     <div class="col-md-1">
                                         <input type="checkbox" name="removetodays" id='{{entitydetails.schedule_id}}' style="width:15px;" value="{{entitydetails.schedule_id}}" onclick="setSelectedIds('{{entitydetails.schedule_id}}')"/>
