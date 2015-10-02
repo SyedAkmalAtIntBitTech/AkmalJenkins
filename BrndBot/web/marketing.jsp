@@ -30,6 +30,9 @@
         <title>marketing campaign</title>
 
         <style type='text/css'>
+            input[type=checkbox],input[type=datetime]{
+                cursor:pointer;
+            }
             div.selectBox
             {
                 position:relative;
@@ -333,6 +336,7 @@
                 text-align:center;
                 left:0px;
             }
+            
             .black_overlay{
                 display: none;
                 position: absolute;
@@ -367,16 +371,16 @@
 
         </style>
         <script>
-                    function overlay(){
-                    document.getElementById('light').style.display = 'block';
+                 function overlay(){
+                        document.getElementById('light').style.display = 'block';
                             document.getElementById('fade').style.display = 'block';
                             document.getElementById('slider-button').style.display = 'block';
                             document.body.style.overflow = 'hidden';
-                            document.getElementById('marktng').style.display = 'none';
+                            $("#calendar").css("pointer-events","none");
                     }
             function closeoverlay(){
-            document.getElementById('light').style.display = 'none';
-                    document.getElementById('marktng').style.display = 'block';
+                    document.getElementById('light').style.display = 'none';
+                    $("#calendar").css("pointer-events","auto");
                     document.getElementById('fade').style.display = 'none';
                     document.body.style.overflow = 'scroll';
                     document.getElementById('edtfbimg').style.display = 'none';
@@ -392,7 +396,7 @@
             <div id="fade" class="black_overlay"></div>
             <!--/end left column-->
 
-            <div id="marktng"><jsp:include page="marketingsubmenu.html" /></div>
+            <div  id="marktng"><jsp:include page="marketingsubmenu.html" /></div>
 
             <script src="js/marketing.js" type="text/javascript"></script>
             <!--<div id="overlay">-->
@@ -515,7 +519,7 @@
 
                         <ul>
                             <li ng-repeat="entity in entitySetSelected['Today']">
-                                <p class='col-md-2 SS2' style="position:relative;top:-15px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
+                                <p class="col-md-2 SS2 fonthead " style="position:relative;top:-20px;left:-60px;width:500px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-50px;top:-20px;" id="entitydetails">
 
@@ -550,7 +554,7 @@
 
                         <ul>   
                             <li ng-repeat="entity in entitySetSelected['Tomorrow']">
-                                <p class='col-md-2 SS2' style="position:relative;top:-15px;font-size:18px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
+                                <p class="col-md-2 SS2 fonthead" style="position:relative;top:-20px;left:-60px;width:500px;">{{entity.schedule_time| date:"MM/dd/yyyy"}}</p>
                                 <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-50px;top:-20px;">
                                 <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails">
 
@@ -994,7 +998,7 @@
                         <div style="position:relative;left:50px;top:-10px;">
 
                             <div class="actiondetails actiondet" >
-                                <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1" ng-click="deleteSchedule(schedule_id,'delete')" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
+                                <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1 ptr" ng-click="deleteSchedule(schedule_id,'delete')" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
                                 <p><input class="inputbox MH2" type="text" name="facebook_schedule_title" id="facebook_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:270px;font-size:22px;"/></p>
                                 <p><input class="inputbox SP1" type="text" name="facebook_schedule_Description" id="facebook_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:270px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="facebook_schedule_id" id="facebook_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
@@ -1183,7 +1187,7 @@
                     <div id="edit_twitter">
                         <div style="position:relative;left:50px;top:-10px;">
                             <div class="actiondetails actiondet" >
-                                <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1" ng-click="deleteSchedule(schedule_id,'delete')" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
+                                <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1 ptr" ng-click="deleteSchedule(schedule_id,'delete')" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
                                 <p><input class="inputbox MH2" type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
                                 <p><input class="inputbox SP1" type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="twitter_schedule_id" id="twitter_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>

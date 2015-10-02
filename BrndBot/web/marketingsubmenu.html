@@ -134,10 +134,10 @@ a {
 <body>
     
 <div id="submenumarketing" class="col-md-1">
-    <nav>
-       <div class="collapse navbar-collapse">
-            <div style="width: 250px; font-family: 'Arial'; margin: auto;">
-            <div class="some_datepicker">
+    <nav id="calendar">
+       <div  class="collapse navbar-collapse">
+            <div  style="width: 250px; font-family: 'Arial'; margin: auto;">
+            <div  class="some_datepicker">
             </div>
             </div>
 
@@ -148,7 +148,21 @@ a {
             </ul>-->
         </div> 
 
-        <div class="MH1" style="position:relative;top:30px;text-align:center;" onclick="setTodaysDate()">GO TO TODAY</div>
+        <div class="MH1" style="position:relative;top:30px;text-align:center;cursor:pointer;" onclick="setTodaysDate()">GO TO TODAY</div>
+        <p class="SH2"  id="demo" style="position:relative;top:60px;text-align:center;"></p>
+
+<script>
+    var d = new Date();
+
+var curr_date = d.getDate();
+
+var curr_month = d.getMonth();
+
+var curr_year = d.getFullYear();
+
+var formattedDate = curr_date + "-" + curr_month + "-" + curr_year;
+document.getElementById("demo").innerHTML = formattedDate;
+</script>
   </nav>
 
 </div>       
