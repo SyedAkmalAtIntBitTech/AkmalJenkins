@@ -74,7 +74,7 @@ public class MindbodyEmailListProcessor implements Runnable {
                 long startTime = System.currentTimeMillis();
                 logger.log(Level.INFO, "Started working on getting email lists for :" + siteids[0]);
                 HashMap<String, List<Client>> clientIndexesHashmap = mind_body_class.getAllClientIndexes();
-                logger.log(Level.INFO, "Ended working on getting email lists for :" + siteids[0] + " Processing time:" + (System.currentTimeMillis() - startTime / 1000.0));
+                logger.log(Level.INFO, "Ended working on getting email lists for :" + siteids[0] + " Processing time:" + ((System.currentTimeMillis() - startTime) / 1000.0) + " Hashmap:"+clientIndexesHashmap.toString());
                 //convert clientIndexesHashmap to JSONObject and update table
                 HashMap<Integer, JSONObject> userIdWithJSONObject = new HashMap<>();
                 updateUserPreferencesTable(userIdWithJSONObject);
