@@ -5,7 +5,6 @@
  */
 package mindbody.controller;
 
-import com.controller.SqlMethods;
 import com.mindbody.source.MindBody;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,8 +20,11 @@ import com.mindbodyonline.clients.api._0_5Class.GetClassesRequest;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsRequest;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
+import com.mindbodyonline.clients.api._0_5Client.Client;
 import com.mindbodyonline.clients.api._0_5Staff.GetStaffRequest;
 import com.mindbodyonline.clients.api._0_5Staff.GetStaffResult;
+import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -130,4 +132,12 @@ public class MindBodyClass {
         return calendarDateNextTenDays;
     }
 
+    public HashMap<String, List<Client>> getAllClientIndexes() {
+        return mindBody.getEmailLists();
+    }
+
+    public boolean isActivated() {
+        boolean value = mindBody.isActivated();
+        return value;
+    }
 }

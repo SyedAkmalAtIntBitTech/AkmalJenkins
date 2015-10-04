@@ -36,9 +36,9 @@ public class MindbodyEmailListScheduler {
 
         Duration duration = Duration.between(zonedNow, zonedNext5);
         long initalDelay = duration.getSeconds();
-        initalDelay = 0;
         long periodicTime = 24*60*60;
-        periodicTime = 5;
+        initalDelay = 0;
+        periodicTime =  24*60*60;
         Runnable mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
         scheduler.scheduleAtFixedRate(mindbodyEmailListProcessor, initalDelay, periodicTime, TimeUnit.SECONDS);
         //initial delay is to make sure the program runs at 4 in the morning always.

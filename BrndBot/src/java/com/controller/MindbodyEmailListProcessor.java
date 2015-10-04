@@ -6,13 +6,12 @@
 package com.controller;
 
 import com.intbit.ConnectionManager;
-import com.mindbody.source.MindBody;
 import com.mindbodyonline.clients.api._0_5Client.Client;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.Types;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import mindbody.controller.MindBodyClass;
 import org.json.simple.JSONObject;
+import org.postgresql.util.PGobject;
 
 /**
  *
@@ -37,6 +37,7 @@ public class MindbodyEmailListProcessor implements Runnable {
     public void run() {
         logger.log(Level.INFO, "Scheduler at " + new Date());
         logger.log(Level.INFO, "Started the automation");
+        startProcessing();
     }
 
     private void startProcessing() {
@@ -59,34 +60,46 @@ public class MindbodyEmailListProcessor implements Runnable {
             logger.log(Level.SEVERE, "Mindbody email list processor", ex);
         }
 
-        processForEachRow(rowIdLocationHashMap);
+        processEachRow(rowIdLocationHashMap);
     }
 
-    private void processForEachRow(HashMap<Integer, String> rowIdLocationHashMap) {
+    private void processEachRow(HashMap<Integer, String> rowIdLocationHashMap) {
 
         Iterator it = rowIdLocationHashMap.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<Integer, String> pair = (Entry<Integer, String>) it.next();
             int[] siteids = new int[]{Integer.parseInt(pair.getValue())};
             MindBodyClass mind_body_class = new MindBodyClass(siteids);
-            HashMap<String, List<Client>> clientIndexesHashmap = mind_body_class.getAllClientIndexes();
-            //convert clientIndexesHashmap to JSONObject and update table
-            HashMap<Integer, JSONObject> userIdWithJSONObject = new HashMap<>();
-            updateUserPreferencesTable(userIdWithJSONObject);
+            try {
+                long startTime = System.currentTimeMillis();
+                logger.log(Level.INFO, "Started working on getting email lists for :" + siteids[0]);
+                HashMap<String, List<Client>> clientIndexesHashmap = mind_body_class.getAllClientIndexes();
+                logger.log(Level.INFO, "Ended working on getting email lists for :" + siteids[0] + " Processing time:" + (System.currentTimeMillis() - startTime / 1000.0));
+                //convert clientIndexesHashmap to JSONObject and update table
+                HashMap<Integer, JSONObject> userIdWithJSONObject = new HashMap<>();
+                updateUserPreferencesTable(userIdWithJSONObject);
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, e.getMessage());
+            }
+
         }
     }
 
     private void updateUserPreferencesTable(HashMap<Integer, JSONObject> userIdWithJSONObject) {
 
         Iterator it = userIdWithJSONObject.entrySet().iterator();
-        
+        String query_string = "";
+
         while (it.hasNext()) {
             Map.Entry<Integer, JSONObject> pair = (Entry<Integer, JSONObject>) it.next();
-
-            String query_string = "UPDATE tbl_user_preferences"
-                    + " SET mindbody_email_list='" + pair.getValue().toJSONString() + "'  WHERE id=" + pair.getKey() + "";
+            PGobject pg_object = new PGobject();
+            query_string = "Update tbl_user_preferences SET mindbody_email_list=? where id=?";
             try (Connection connection = connectionManager.getConnection();
-                PreparedStatement ps = connection.prepareStatement(query_string)) {
+                    PreparedStatement ps = connection.prepareStatement(query_string)) {
+                pg_object.setType("json");
+                pg_object.setValue(pair.getValue().toJSONString());
+                ps.setObject(1, pg_object, Types.OTHER);
+                ps.setInt(2, pair.getKey());
                 ps.executeUpdate();
             } catch (SQLException ex) {
                 logger.log(Level.SEVERE, "Mindbody email list processor", ex);
