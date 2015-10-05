@@ -14,13 +14,23 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
+        <link rel="stylesheet" href="css/pikaday.css">
+    	<link rel="stylesheet" href="css/site_1.css">
+	<link rel="stylesheet" href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css"/>
+        <link rel="stylesheet" href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap-responsive.css"/>
+        <link rel="stylesheet" href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap.css"/>
+        <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+        <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+<!--        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>-->
+        <script src="js/pikaday.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/leftmenuhamburger.js" type="text/javascript"></script>
-
+    
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
@@ -182,6 +192,37 @@
 
             }
 
+        .navbar h3 {
+                color: #f5f5f5;
+                margin-top: 14px;
+        }
+        .hljs-pre {
+                background: #f8f8f8;
+                padding: 3px;
+        }
+        .footer {
+                border-top: 1px solid #eee;
+                margin-top: 40px;
+                padding: 40px 0;
+        }
+        .input-group {
+                width: 110px;
+                margin-bottom: 10px;
+        }
+        .pull-center {
+                margin-left: auto;
+                margin-right: auto;
+        }
+        @media (min-width: 768px) {
+          .container {
+            max-width: 730px;
+          }
+        }
+        @media (max-width: 767px) {
+          .pull-center {
+            float: right;
+          }
+        }
 
         </style>
         <script type="text/javascript">
@@ -683,6 +724,39 @@
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
                         </select>
+                        
+        <label for="datepicker">Date:</label>
+        <br>
+        <input type="text" id="datepicker">
+        <script>
+
+	    var picker = new Pikaday(
+	    {
+		field: document.getElementById('datepicker'),
+		firstDay: 1,
+		minDate: new Date(2000, 0, 1),
+		maxDate: new Date(2020, 12, 31),
+		yearRange: [2000,2020]
+	    });
+
+	</script>
+        <div id="datetimepicker3" class="input-append" style="position:relative;margin-top:0px;left:10px;z-index:5000;">
+            <input data-format="hh:mm:ss" type="text"/>
+            <span class="add-on" >
+              <i data-time-icon="icon-time" data-date-icon="icon-calendar" >
+              </i>
+            </span>
+          </div>
+
+        <script type="text/javascript">
+          $(function() {
+            $('#datetimepicker3').datetimepicker({
+              pickDate: false
+            });
+          });
+        </script>
+
+
                         <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
                     </div>
                 </div>
@@ -693,6 +767,7 @@
                 </div>
             </div>
         </div>
+<script type="text/javascript" src="https://tarruda.github.io/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>                             
 
     </body>
 </html>

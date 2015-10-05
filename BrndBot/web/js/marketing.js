@@ -1008,7 +1008,7 @@ function controllerMarketingCampaign($scope, $http) {
         var status = $("#status").val();
         var note_desc = $("#note_desc").val();
         var schedule_datetime = $("#notedate").val();
-
+        var message = "Do you wan't to update the record?";
         console.log("Value selected from Component: " + schedule_datetime);
         var schedule_time = Date.parse(schedule_datetime);
         console.log("Epoch: " + schedule_time);
@@ -1029,25 +1029,28 @@ function controllerMarketingCampaign($scope, $http) {
             "status": status,
             "schedule_time": newEpoch
         }
-        $http({
-            method: 'POST',
-            url: getHost() + 'ChangeScheduleServlet',
-            headers: {'Content-Type': 'application/json'},
-            data: JSON.stringify(schedule_details)
-        }).success(function (data)
-        {
-            $scope.status = data;
-            if (data != "") {
-                alert("details saved successfully");
-                window.open(getHost() + 'marketing.jsp', "_self");
+        if(confirm(message)){
+            $http({
+                method: 'POST',
+                url: getHost() + 'ChangeScheduleServlet',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(schedule_details)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != "") {
+                    alert("details saved successfully");
+                    window.open(getHost() + 'marketing.jsp', "_self");
 
-            }
-        }).error(function (data, status) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
 
-            alert("request not succesful");
-        });
+                alert("request not succesful");
+            });
+            
+        }
 
     };
 

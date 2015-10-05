@@ -35,6 +35,14 @@
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="css/main1.css">
+        <link rel="stylesheet" href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css"/>
+        <link rel="stylesheet" href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap-responsive.css"/>
+        <link rel="stylesheet" href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap.css"/>
+        <link rel="stylesheet" href="js/bootstrap-datetimepicker.min.css">
+         
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
 
         <title>marketing campaign</title>
 
@@ -438,7 +446,7 @@
                             <p class="SS2 actfnt">Tomorrow</p>
                         </div>
                         <div ng-show="(entity.date != today_date) && (entity.date!=tomorrow_date)">
-                            <p class="SS2 actfnt">{{entity.date}}</p>
+                            <p class="SS2 actfnt">{{entity.date| date:'MMM dd yyyy'}}</p>
                         </div>
                         <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-15px;top:-20px;">
                         <p ng-show="entity.dataArray == ''" class="MH1" id="messagetoday" style="display:block;position:relative;top:-25px;" >{{nodata}}</p>
@@ -457,7 +465,7 @@
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entitydetails.template_status}}</div>
                                     <div class="col-md-2" 
                                          style="margin-left:20px;" 
-                                         ng-hide="(entitydetails.template_status=='Complete') && (entitydetails.entity_type!='note')">
+                                         ng-hide="(entitydetails.template_status=='Complete')">
                                         <a href = "javascript:void(0)" onclick = "overlay();">
                                         <button type="button" 
                                                 class="edtbtn" 
@@ -506,8 +514,8 @@
                             <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
                                 Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
                                 <br>
-                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker">
-                                        <script>
+                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker"><br><br>
+                                    <script>
                                     var picker = new Pikaday(
                                     {
                                         field: document.getElementById('datepicker'),
@@ -518,6 +526,22 @@
                                     });
 
                                     </script>
+                                    <div id="datetimepicker3" class="input-append" style="position:relative;height:50px;margin-top:20px;left:0px;">
+                                        <input data-format="hh:mm:ss" type="text"/>
+                                        <span class="add-on">
+                                          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                          </i>
+                                        </span>
+                                    </div>
+
+                                    <script type="text/javascript">
+                                      $(function() {
+                                        $('#datetimepicker3').datetimepicker({
+                                          pickDate: false
+                                        });
+                                      });
+                                    </script>
+                                    
                             </div>
                             
                             <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
@@ -620,13 +644,6 @@
                                 <div style="position:absolute;left:60px;top:40px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p><input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                    <!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
-                                                                            <option value="0">Select</option>
-                                                                            <option value="facebook">facebook</option>
-                                                                            <option value="twitter">twitter</option>
-                                                                            <option value="email">email</option>
-                                                                            <option value="note">note</option>
-                                                                        </select>-->
                                 </div>
                                 <div style="position:absolute;top:140px;left:60px;" class="SH2">
                                     Description <br><textarea cols="28" rows="2" name="email_description" id="email_description" class="SS2" style="font-variant:normal">{{schedule_desc}}</textarea>
@@ -648,9 +665,6 @@
 
                                     </script>
                                 </div>
-
-                                <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
-
                             </div>
                             <div class="row">
                                 <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:20px;">
@@ -1050,7 +1064,7 @@
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     Date <input type="datetime-local" name="twitterdatetime" id="twitterdatetime" class="inputdate MH1"/>
                                     <br>
-                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker3">
+                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker3">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1144,22 +1158,23 @@
         </div>    
 
         <script>
-                                                            $(".cross").hide();
-                                                            $(".menu").hide();
-                                                            $(".hamburger").click(function () {
-                                                    $(".menu").slideToggle("slow", function () {
-                                                    $(".hamburger").hide();
-                                                            $(".cross").show();
-                                                    });
-                                                    });
-                                                            $(".cross").click(function () {
-                                                    $(".menu").slideToggle("slow", function () {
-                                                    $(".cross").hide();
-                                                            $(".hamburger").show();
-                                                    });
-                                                    });
+        $(".cross").hide();
+        $(".menu").hide();
+        $(".hamburger").click(function () {
+            $(".menu").slideToggle("slow", function () {
+            $(".hamburger").hide();
+                    $(".cross").show();
+            });
+        });
+        $(".cross").click(function () {
+            $(".menu").slideToggle("slow", function () {
+            $(".cross").hide();
+                    $(".hamburger").show();
+            });
+        });
 
         </script>
+<script type="text/javascript" src="https://tarruda.github.io/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>     
         
     </body>
 </html>
