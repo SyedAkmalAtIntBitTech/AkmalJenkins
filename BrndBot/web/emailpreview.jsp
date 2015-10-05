@@ -11,7 +11,9 @@
     <head>
         <%@ include file="fonttypekit.jsp"%>
         <%@ include file="checksession.jsp" %>
-
+        <link rel="stylesheet" href="css/pikaday.css">
+        <link rel="stylesheet" href="css/datepickerpikaday.css">
+        <script src="js/pikaday.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -39,6 +41,9 @@
         </style>
         <title>email preview</title>
         <style>
+            .timepicker_wrap {
+                margin-top:22px;
+            }
             .icon-chevron-up,.bootstrap-datetimepicker-widget,.timepicker,.timepicker-hours,.table-condensed,.btn,.dropdown-menu{
                 z-index: 2000;
             }
@@ -99,6 +104,10 @@
                 background-color: #E3E4E8;
                 color:#686868;
 
+            }
+            .selectsocialact>option{
+                background-color: #fff;
+                font-size: 16px;
             }
             .selectsocialact{
                 background-color: #E3E4E8;
@@ -611,7 +620,28 @@
                         <p class="SH2" style="position:relative;top:10px;width:700px;">PLEASE CREATE A NEW TITLE AND TIME TO ADD AN ACTION TO YOUR PLAN</p>                       
                         <br>
                         <input type="text" class="simpleinpbox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
-                        <input type="date" class="simpleinpbox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
+                        
+                        <input type="text" readonly="true" id="schedule_date" name="schedule_date" class="simpleinpbox SH2 ptr" style="width:190px;font-variant: normal;" placeholder="DATE">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('schedule_date'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                        </script><br>
+                                        <input id="schedule_time" type="text" name="schedule_time" class="simpleinpbox SH2 ptr " style="width:150px;" placeholder="TIME"/><br>
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#schedule_time').timepicki();
+                                    </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                        
+                        
+<!--                        <input type="date" class="simpleinpbox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
                         <select name="hour" id="hour" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:205px;">
                             <option value="00">00</option>
                             <option value="01">01</option>
@@ -691,8 +721,9 @@
                         <select name="AMPM" id="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
-                        </select>
-                        <input id="timepicker1" type="text" name="timepicker1" />
+                        </select>-->
+                        
+                        <!--<input id="timepicker1" type="text" name="timepicker1" />-->
                         <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
                     </div>
                 </div>
@@ -704,11 +735,5 @@
             </div>
         </div>
 <!--<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>--> 
-<script src="js/jquery.min.js" type="text/javascript"></script>
-       <script src="js/timepicki.js" type="text/javascript"></script>
-    <script>
-	$('#timepicker1').timepicki();
-    </script>
-    <script src="js/bootstrap.min.js" type="text/javascript"></script>
     </body>
 </html>

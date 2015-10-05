@@ -50,6 +50,11 @@
         <title>social media preview</title>
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
+        <link rel="stylesheet" href="css/pikaday.css">
+        <link rel="stylesheet" href="css/datepickerpikaday.css">
+        <script src="js/pikaday.js"></script>
+         <link href="css/style.css" rel="stylesheet" type="text/css"/>
+       <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -62,6 +67,15 @@
         <script src="js/configurations.js" type="text/javascript"></script>
         <!--        <script src="js/socialmedia.js" type="text/javascript"></script>-->
         <style>
+            .timepicker_wrap{
+                left: 0px;
+                margin-top: -186px;
+            }
+            .arrow_top {
+                    top: 165px;
+                  left: 20px;
+                  transform: rotate(180deg);
+            }
             #mask {
                 position: absolute;
                 left: 0;
@@ -141,8 +155,8 @@
                 display:none;
                 position: fixed;
                 width:900px;
-                height:500px;
-                top: 30%;
+                height:550px;
+                top: 25%;
                 left: 30%;
                 margin-left:-155px;
                 margin-top:-110px;
@@ -530,8 +544,31 @@
                     <p class="SH2" style="position:relative;top:10px;width:700px;">PLEASE CREATE A NEW TITLE AND TIME TO ADD AN ACTION TO YOUR PLAN</p>                       
                     <br>
                     <input type="text" class="simplebox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
-                    <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description" style="font-variant: normal;"></textarea><br>
-                    <input type="date" class="simplebox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
+                    <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description" style="font-variant: normal;resize:none;"></textarea><br>
+                   
+                    
+                    <input type="text" readonly="true" id="schedule_social_date" name="schedule_social_date" class="SH1 simplebox ptr" style="width:190px;font-variant: normal;" placeholder="DATE">
+                    <script>
+                var picker = new Pikaday(
+                {
+                    field: document.getElementById('schedule_social_date'),
+                    firstDay: 1,
+                    minDate: new Date(2000, 0, 1),
+                    maxDate: new Date(2050, 12, 31),
+                    yearRange: [2000,2050]
+                });
+
+                    </script><br>
+                    <input id="schedule_social_time" type="text" name="schedule_social_time" class="SH1 simplebox ptr " style="width:150px;" placeholder="TIME"/><br>
+                 <script src="js/timepicki.js" type="text/javascript"></script>
+                <script>
+                    $('#schedule_social_time').timepicki();
+                </script>
+                <script src="js/bootstrap.min.js" type="text/javascript"></script>
+
+                    
+                    
+<!--                    <input type="date" class="simplebox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
                     <select name="hour" class="selectsocialact" id="hour" style="position:relative;width:50px;top:-30px;left:205px;">
                         <option value="00">00</option>
                         <option value="01">01</option>
@@ -612,7 +649,7 @@
                     <select name="AMPM" id="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
                         <option value="AM">AM</option>
                         <option value="PM">PM</option>
-                    </select>
+                    </select>-->
                     <input type="hidden" name="socialscheduleid" id="socialscheduleid" value="socialmedia"/>
                     <input type="button" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;font-family:'proxima-nova',sans-serif;font-size:14px;" />   
 
