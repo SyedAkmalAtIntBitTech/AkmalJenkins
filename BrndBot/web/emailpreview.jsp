@@ -20,7 +20,10 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/leftmenuhamburger.js" type="text/javascript"></script>
-
+        
+       <link href="css/style.css" rel="stylesheet" type="text/css"/>
+       <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
+        
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
@@ -36,6 +39,12 @@
         </style>
         <title>email preview</title>
         <style>
+            .icon-chevron-up,.bootstrap-datetimepicker-widget,.timepicker,.timepicker-hours,.table-condensed,.btn,.dropdown-menu{
+                z-index: 2000;
+            }
+            .icon-chevron-up{
+                z-index: 2000;
+            }
             #iphone{
                 width: 25px;
                 height: 50px;
@@ -58,8 +67,8 @@
                 display:none;
                 position: fixed;
                 width:900px;
-                height:400px;
-                top: 40%;
+                height:450px;
+                top: 30%;
                 left: 30%;
                 margin-left:-155px;
                 margin-top:-110px;
@@ -683,6 +692,7 @@
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
                         </select>
+                        <input id="timepicker1" type="text" name="timepicker1" />
                         <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
                     </div>
                 </div>
@@ -693,6 +703,12 @@
                 </div>
             </div>
         </div>
-
+<!--<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>--> 
+<script src="js/jquery.min.js" type="text/javascript"></script>
+       <script src="js/timepicki.js" type="text/javascript"></script>
+    <script>
+	$('#timepicker1').timepicki();
+    </script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
     </body>
 </html>

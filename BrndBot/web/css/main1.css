@@ -211,12 +211,16 @@ label                {
   font-size:13px;
   color:#999;
 }
-#reply_email_address:focus ~ label, #inputemail:valid ~ label        {
+#reply_email_address:focus ~ label, #inputemail:valid ~ label   {
   left:-185px;
   font-size:13px;
   color:#999;
 }
-
+#title:valid ~ label,#title:focus ~ label{
+    left:-55px;
+  font-size:13px;
+  color:#999;
+} 
 #from_address:focus ~ label, #inputemail:valid ~ label        {
   left:-160px;
   font-size:13px;

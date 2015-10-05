@@ -35,12 +35,22 @@
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="css/main1.css">
-
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+       <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
         <title>marketing campaign</title>
 
         <style type='text/css'>
             input[type=checkbox],input[type=datetime]{
                 cursor:pointer;
+            }
+            .arrow_top{
+                top: 163px;
+                left: 20px;
+                transform: rotate(180deg);
+            }
+            .timepicker_wrap{
+                  margin-top: -215px;
+                    width: 263px;
             }
             div.selectBox
             {
@@ -201,7 +211,7 @@
             #preview, #previewemail, #emailedit, #editfacebook, #edittwitter,
             #previewfb, #previewNote, #previewtwitter, #editNote{
                 position:fixed;
-                height:100%;
+                max-height:100%;
                 background:#ffffff;
                 width:600px;
                 right:0px;
@@ -256,9 +266,9 @@
                 position:relative;
                 top:-10px;
                 width:150px;
-                height: 30px;
+                height: 40px;
                 border: none;
-                border-bottom: 1px #444 solid; 
+                border-bottom: 1px #888 solid; 
                 border-radius: 2px;
                 font-family: sans-serif;
                 font-size: 12px;
@@ -268,6 +278,18 @@
                 border: 1px solid #DADADA;
                 border-radius: 5px;
                 width:220px;
+                height: 30px;
+                font-family: sans-serif;
+                font-size: 14px;
+                position: relative;
+                top:2px;
+                bottom:2px;
+            }
+            .inputtime{
+                background-color: #e4e4e4;
+                border: 1px solid #DADADA;
+                border-radius: 5px;
+                width:320px;
                 height: 30px;
                 font-family: sans-serif;
                 font-size: 14px;
@@ -312,7 +334,22 @@
                 border-radius: 5px;
                 margin-left: 15px;
             }
-            .chooseEmailList {
+            .selstatus{
+                background-color: #ffffff;
+                border: 1px solid #DADADA;
+                height:30px;
+                width:200px;
+                font-size: 18px;
+                border-radius: 12px;
+                margin-left: 15px;
+                padding-left:12px; 
+                appearance: none;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                background: url(images/dropdown.png) no-repeat right center,270px center;
+            }
+            
+/*            .chooseEmailList {
                 background-color: #e4e4e4;
                 border: 1px solid #DADADA;
                 height:30px;
@@ -320,15 +357,28 @@
                 font-size: 16px;
                 border-radius: 5px;
                 margin-left: 15px;
-            }
+            }*/
+
             #chooseEmailList {
-                background-color: #e4e4e4;
-                border: 1px solid #DADADA;
-                height:20px;
-                width:100px;
-                font-size: 14px;
-                border-radius: 5px;
-                margin-left: 15px;
+                border: none;
+                width: 100px;
+                height: 30px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                box-shadow: none !important;
+                appearance: none;
+                padding: 2px 1px 2px 2px;
+                border: 2px solid #d0d0d0;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+                border-bottom: none;
+                border-radius: 2px;
+                color: #2b2f35;
+                background: url("images/dropdown.png") no-repeat right center;
+                background-color: #F2F2F4;
+                font-size: 18px;
+                color: #3f4042; 
             }
             .fonthead{
                 color:#888;
@@ -369,6 +419,49 @@
                 opacity:.80;
                 filter: alpha(opacity=80);
             }
+            #actiontype{
+                border: none;
+                width: 304px;
+                height: 30px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                box-shadow: none !important;
+                appearance: none;
+                padding: 2px 1px 2px 2px;
+                border: 2px solid #d0d0d0;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+                border-bottom: none;
+                border-radius: 2px;
+                color: #2b2f35;
+                background: url("images/dropdown.png") no-repeat right center;
+                background-color: #F2F2F4;
+                font-size: 18px;
+                color: #3f4042; 
+             }
+             .actiondropdown{
+                border: none;
+                width: 304px;
+                height: 30px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                box-shadow: none !important;
+                appearance: none;
+                padding: 2px 1px 2px 2px;
+                border: 2px solid #d0d0d0;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+                border-bottom: none;
+                border-radius: 2px;
+                color: #2b2f35;
+                background: url("images/dropdown.png") no-repeat right center;
+                background-color: #F2F2F4;
+                font-size: 18px;
+                color: #3f4042; 
+             }
+                         
             select#actiontype > option{
                 background-color: #fff;
             }
@@ -409,19 +502,21 @@
                     document.getElementById('edttwtimg').style.display = 'none';
                     document.getElementById('prevfbimg').style.display = 'none';
             }
+            function cancelform()
+            {   
+//                var chng=false;
+//                if(chng)
+                $("#signform").change(function() {
+//                    alert("changed");
+                })
+        //    $("#"+cancelbtn).click(function(){
+                if(confirm("Do you want to cancel the process?")){
+                    $('#slider-button').click();
+
+                }
+        //    })
+            }
             
-            window.onbeforeunload = function(e) {
-                     return 'Dialog text here.';
-                };
-                
-                function enableBeforeUnload() {
-                    window.onbeforeunload = function (e) {
-                        return "Discard changes?";
-                    };
-                }
-                function disableBeforeUnload() {
-                    window.onbeforeunload = null;
-                }
         </script>
     </head>
     <body ng-app class="claro">
@@ -510,29 +605,30 @@
             
             <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
                 <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
-                    <h1>&nbsp;Add Action</h1>
-                    <form class="form-horizontal" id="signform" onsubmit="disableBeforeUnload();">
+                    <h1 class="SP2 actfnt">ADD ACTION</h1>
+                    <form class="form-horizontal" id="signform" >
+                        <div class="group" style="position:relative;margin-left:-50px;">
+                             <div class="col-md-3 col-md-offset-1">                            
+                                 <input id="title" class="brdr form-control simplebox inputbox MH1" name="title" type="text" required="" style="position:relative;top:0px;line-height:30px;width:300px;font-size:22px;">
+                                 <label class="MH2" style="font-size:22px;">TITLE</label><br>
+
+                             </div>
+                        </div>
                         
-                        <div class="group">
-                            <div class="col-md-4 col-md-offset-1 ">                            
-                                <input id="title" class="brdr form-control simplebox" type="text" name="title" placeholder="TITLE" onchange="enableBeforeUnload();"/>
-                                <!--                                    <label>TITLE</label>-->
-                            </div><br>
-                            <div style="position:absolute;left:60px;top:40px;" class="SH2">
-                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#333;background-color: #E4E4E4;border-radius:5px;border:none;">
+                            <div style="position:absolute;left:15px;top:50px;" class="SH2">
+                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 18px;width:100px;border-radius:5px;border:none;">
                                     <option value="0">Select</option>
                                     <option value="facebook">facebook</option>
                                     <option value="twitter">twitter</option>
                                     <option value="email">email</option>
                                     <option value="note">note</option>
                                 </select></div>
-                            <div style="position:absolute;top:80px;left:60px;" class="SH2">
+                            <div style="position:absolute;top:100px;left:15px;" class="SH2">
                                 Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;"></textarea>
                             </div>
-                            <div class="SH2" style="position:absolute; margin-top: 150px; margin-left: 60px;" >
-                                Date <input type="datetime-local" name="actiondatetime" id="actiondatetime" class="inputdate MH1"/>
-                                <br>
-                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker">
+                            <div class="SH2" style="position:absolute;top:190px;left:15px;" >
+                                Date 
+                                <input type="text" readonly name="actiondatetime"  class="inputdate MH1 ptr" id="datepicker" >
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -543,14 +639,21 @@
                                         yearRange: [2000,2050]
                                     });
 
+                                        </script><br>
+                                        TIME
+                                     <input id="timepicker1" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;"/>
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#timepicker1').timepicki();
                                     </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
                             </div>
                             
                             <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
-
-                        </div>
+                           
+                   
                         <div class="row">
-                            <div class="col-md-12" style="width:250px;position:absolute;top:350px;left:35px;">
+                            <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:-15px;">
 
                                 <div class="row">
                                     <div>
@@ -564,7 +667,7 @@
                                                    style="width:100px;" />
                                         </div>
                                         <div class="col-md-6" id="dvButtonContainer">
-                                            <input type="reset" value="Cancel" 
+                                            <input id="addactioncancel" type="reset" value="Cancel" onclick="cancelform();" 
                                                    class="button button--moema 
                                                    button--text-thick 
                                                    button--text-upper 
@@ -579,7 +682,7 @@
                     </form> 
 
                 </div></div>
-            <div id="preview" class="pollSlider" style="height:720px;z-index:1005;">
+            <div id="preview" class="pollSlider" style="z-index:1005;overflow-y:scroll;overflow-x:hidden;height:100%;">
                 <div>
                     <div id="preview_email" style="display:block;">
 
@@ -589,10 +692,10 @@
 
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
-                                    <p class="MH2" style="width:300px;">Title: {{schedule_title}}</p>
+                                    <p class="MH2" style="width:300px;"> {{schedule_title}}</p>
                                     <!--                                    <p class="MH2" style="width:500px;">Description: {{schedule_desc}}</p>-->
                                 </div>
-                                <div class="SP1 actfnt" style="position:absolute;left:20px;">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></div>
+                                <div class="SP1 actfnt" style="position:relative;left:15px;">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></div>
 
                                 <div class="content"></div> <br>
 
@@ -632,18 +735,18 @@
                             </div>
                         </div>
                     </div>
-                    <div id="edit_email_action" style="position:relative;left:50px;top:50px;">
-                        <h1>&nbsp;Update action</h1>
+                    <div id="edit_email_action" style="position:relative;left:50px;top:70px;height: 100%;">
+                        <h1 class="SP1 actfnt" style="font-size:2em;margin-left:45px;">UPDATE ACTION</h1>
                         <form class="form-horizontal" id="signform">
 
                             <div class="group">
                                 <div class="col-md-4 col-md-offset-1 ">                            
-                                    <input id="email_edit_title" class=" inputbox MH2" type="text" name="email_edit_title" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/>
+                                    <input id="email_edit_title" class=" inputbox MH2" type="text" name="email_edit_title" value="{{schedule_title}}" style="position:relative;top:7px;line-height:40px;width:400px;font-size:26px;"/>
                                     <p><input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
 
                                     <!--                                    <label>TITLE</label>-->
                                 </div><br>
-                                <div style="position:absolute;left:60px;top:40px;" class="SH2">
+                                <div style="position:absolute;left:60px;top:60px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p><input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                     <!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
@@ -654,32 +757,40 @@
                                                                             <option value="note">note</option>
                                                                         </select>-->
                                 </div>
-                                <div style="position:absolute;top:140px;left:60px;" class="SH2">
+                                <div style="position:absolute;top:110px;left:60px;" class="SP1 actfnt">
                                     Description <br><textarea cols="28" rows="2" name="email_description" id="email_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
-                                <div class="SH2" style="position:absolute; margin-top: 220px; margin-left: 60px;" >
+                                <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    Date <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
-                                    <br>
-                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker1">
+                                    <p class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</p>
+                                    <!--<input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>-->
+
+                                <input type="text" readonly class="inputdate MH1 ptr" name="emaildatetime" id="emaildatetime">
                                         <script>
                                     var picker = new Pikaday(
                                     {
-                                        field: document.getElementById('datepicker1'),
+                                        field: document.getElementById('emaildatetime'),
                                         firstDay: 1,
                                         minDate: new Date(2000, 0, 1),
                                         maxDate: new Date(2050, 12, 31),
                                         yearRange: [2000,2050]
                                     });
 
+                                        </script><br><p class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">TIME</p>
+                                    <input id="timepickeremail" type="text" name="timepicker_email" class="inputtime MH1 ptr" style="width:150px;"/>
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#timepickeremail').timepicki();
                                     </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                                    
                                 </div>
 
                                 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:35px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:430px;left:35px;">
 
                                     <div class="row">
                                         <div>
@@ -698,7 +809,7 @@
                                                        button--text-thick 
                                                        button--text-upper 
                                                        button--size-s" 
-                                                       style="width:100px;" />
+                                                       style="width:100px;" onclick="cancelform();"/>
                                             </div>
                                         </div>
                                     </div>
@@ -709,7 +820,7 @@
                     </div>
                     <div id="edit_email" style="display:none;">
 
-                        <div style="position:relative;left:50px;">
+                        <div style="position:relative;left:50px;;">
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
                                 <p><input type="text" class="inputbox MH2" id="email_entitytitle" name="email_entitytitle" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:20px;"/></p>
@@ -735,16 +846,41 @@
                             </div>
                             <div style="position: relative;margin-left:0px;margin-top:0px;">
                                 <p class="postdetails postdet SP1 actfnt">Post details</p>
-                                <div class="actiondet">
-                                    <select class="SP1" id="chooseEmailList" name="chooseEmailList">
+                                <div class="actiondet" >
+                                    <select class="SP1" id="chooseEmailList" class="actiondropdown" name="chooseEmailList" style="position: relative;margin-left:15px">
                                         <option style="background:#fff;" value="0">Select</option>
                                         <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                                     </select>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.email_list_name}}</p>
-                                    <input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>
+                                    <div class="SH2" style="position:absolute;margin-top:10px;left:15px;" >
+                                  
+                                        <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
+                                <input type="text" readonly  name="email_schedule_datetime" id="email_schedule_datetime"  class="inputdate MH1 ptr"  >
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('email_schedule_datetime'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                        </script><br>
+                                       <div class="SP1 actfnt"  style="font-size:1.2em;"> TIME</div>
+                                     <input id="timepickeremailaction" type="text" name="timepickeremail" class="inputtime MH1 ptr" style="width:150px;"/>
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#timepickeremailaction').timepicki();
+                                    </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                                    </div>
+                                    <div style="position:relative;margin-top:170px;"> 
+                                    <!--<input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>-->
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:200px;" type="button">remove the schedule</button> </div>
+                                    <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                     <div class="editbutton"><button ng-click="updateEmailSchedule()" class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -752,7 +888,7 @@
                     </div>
                 </div></div>
 
-            <div id="previewfb" class="pollSlider" style="z-index:1005;height:720px;">
+            <div id="previewfb" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
                 <div>
                     <div id="preview_facebook">
 
@@ -760,8 +896,8 @@
                         <div style="position:relative;left:50px;">
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
-                                <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
-                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
+                                <p class="MH2" style="width:400px;">{{schedule_title}}</p>
+                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">{{schedule_desc}}</p>
                                 <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                             </div>
 
@@ -777,7 +913,7 @@
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
                             </div>
-                            <div id="fb_preview_postdet" style="position:absolute;margin-left:20px;margin-top:-60px;">
+                            <div id="fb_preview_postdet" style="position:absolute;margin-left:15px;margin-top:-60px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
@@ -785,7 +921,7 @@
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
 
-                                <div ng-hide="facebook_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;">
+                                <div ng-hide="facebook_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;left:-10px;">
                                 <button id="button_edit" 
                                             class="button button--moema 
                                             button--text-thick 
@@ -810,12 +946,12 @@
                         </div>
                     </div>
                     <div id="edit_facebook_action" style="position:relative;left:50px;top:50px;">
-                        <h1>&nbsp;Update action</h1>
+                         <h1 class="SP1 actfnt" style="font-size:2em;margin-left:45px;">UPDATE ACTION</h1>
                         <form class="form-horizontal" id="signform">
 
                             <div class="group">
                                 <div class="col-md-4 col-md-offset-1 ">                            
-                                    <input id="fb_action_title" class=" inputbox MH2" type="text" name="fb_action_title" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/>
+                                    <input id="fb_action_title" class=" inputbox MH2" type="text" name="fb_action_title" value="{{schedule_title}}" style="position:relative;top:0px;line-height:40px;width:400px;font-size:26px;"/>
                                     <p><input class="inputbox SP1" type="hidden"
                                               name="fb_scheduleid" 
                                               id="fb_scheduleid"
@@ -827,7 +963,7 @@
                                     </p>
 <!--                                    <label>TITLE</label>-->
                                 </div><br>
-                                <div style="position:absolute;left:60px;top:40px;" class="SH2">
+                                <div style="position:absolute;left:60px;top:60px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p><input class="inputbox SP1" type="hidden"
                                               name="fb_scheduletype" 
@@ -846,14 +982,13 @@
                                         <option value="note">note</option>-->
                                     <!--</select>-->
                                 </div>
-                                <div style="position:absolute;top:110px;left:60px;" class="SH2">
+                                <div style="position:absolute;top:110px;left:60px;" class="SP1 actfnt">
                                     Description <br><textarea cols="28" rows="2" name="fb_description" id="fb_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 180px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    Date <input type="datetime-local" name="fbdatetime" id="fbdatetime" class="inputdate MH1"/>
-                                    <br>
-                                <input type="text" readonly class="inputdate MH1 ptr" id="datepicker2">
+                                    <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
+                                <input type="text" readonly class="inputdate MH1 ptr" name="fbdatetime" id="datepicker2">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -864,14 +999,20 @@
                                         yearRange: [2000,2050]
                                     });
 
+                                    </script><br><div class="SP1 actfnt"  style="font-size:1.2em;"> TIME</div>
+                                    <input id="timepicker2" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;"/>
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#timepicker2').timepicki();
                                     </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                 </div>
 
                                 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:35px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:35px;">
 
                                     <div class="row">
                                         <div>
@@ -890,7 +1031,7 @@
                                                        button--text-thick 
                                                        button--text-upper 
                                                        button--size-s" 
-                                                       style="width:100px;" />
+                                                       style="width:100px;" onclick="cancelform();"/>
                                             </div>
                                         </div>
                                     </div>
@@ -924,6 +1065,10 @@
                             <div style="position:absolute;margin-left:10px;margin-top:-100px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
+                                    
+                                    
+                                    
+                                    
                                     <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" name="social_type" id="social_type" value="{{schedule_type}}">
@@ -937,7 +1082,7 @@
 
             </div>
 
-            <div id="previewNote" class="pollSlider" style="z-index:1005;height:720px;">
+            <div id="previewNote" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
                 <div>
                     <div id="noteprev">
 
@@ -945,18 +1090,18 @@
 
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
-                                <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
-                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
+                                <p class="MH2" style="width:400px;"> {{schedule_title}}</p>
+                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">{{schedule_desc}}</p>
                                 <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                             </div>
 
-                            <div style="position:absolute;margin-left:20px;margin-top:50px;">
+                            <div style="position:absolute;margin-left:15px;margin-top:50px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
 
-                                <div style="position:relative;bottom:0px;top:0px;">
+                                <div style="position:relative;left:-10px;">
                                     <button id="button_edit" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button button--moema button--text-thick button--text-upper button--size-s" style="background-color:#E65C00;width:120px;" type="button" >EDIT</button> 
                                 </div>
 
@@ -970,22 +1115,25 @@
 
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
-                                <p class="MH2" style="width:500px;">Title: <input type="text" id="note_title" name="note_title" value="{{schedule_title}}"/></p>
+                                <p class="MH2" style="width:500px;"><input type="text" id="note_title" name="note_title" value="{{schedule_title}}"/></p>
                                 <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description:<input type="text" id="note_desc" name="note_desc" value="{{schedule_desc}}"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="note_schedule_id" id="note_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="note_entity_id" id="note_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             </div>       
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p>
                             <div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div><br>
-                            <p class="SP1 actfnt" style="margin-left:15px;">Status:</p> <div style="position:relative;top:-40px;left:70px;">
-                            <select id="status" class="SP1 chooseEmailList" name="status">
+                            <p class="SP1 actfnt" style="margin-left:15px;">SET STATUS</p> <div >
+                            <select id="status" class="SP2 selstatus" name="status">
                                         <option style="background:#fff;" value="incomplete">incomplete</option>
                                         <option style="background:#fff;" value="complete">complete</option>
                             </select></div>
-                            <div style="position:absolute;margin-left:16px;margin-top:0px;">
+                            <div style="position:absolute;margin-left:16px;margin-top:10px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
-                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker4">
+                                    
+                                    
+                                     <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
+                                     <input type="text" readonly="true" name="notedate" class="inputdate MH1 ptr" id="datepicker4" style="width:150px;">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -996,8 +1144,19 @@
                                         yearRange: [2000,2050]
                                     });
 
-                                        </script><br>
-                                    <input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>
+                                        </script><br><div class="SP1 actfnt"  style="font-size:1.2em;"> TIME</div>
+                                        <input id="timepicker3" type="text" name="timepicker2" class="inputtime MH1 ptr" style="width:150px;"/><br>
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#timepicker3').timepicki();
+                                    </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                              
+                                    
+                                    
+                                    
+                               
+                                    <!--<input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>-->
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
                                 <div class="savebutton" ng-click="updateNote()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
@@ -1009,7 +1168,7 @@
 
             </div>
 
-            <div id="previewtwitter" class="pollSlider" style="z-index:1005;height:720px;">
+            <div id="previewtwitter" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
                 <div>
                     <div id="preview_twitter">
 
@@ -1017,8 +1176,8 @@
 
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
-                                <p class="MH2" style="width:400px;">Title: {{schedule_title}}</p>
-                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description: {{schedule_desc}}</p>
+                                <p class="MH2" style="width:400px;">{{schedule_title}}</p>
+                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;"> {{schedule_desc}}</p>
                             </div>
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
 
@@ -1027,7 +1186,7 @@
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.text}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.shorturl}}</p>
                             </div>
-                            <div id="twitter_preview_postdet" style="position:relative;margin-left:20px;margin-top:-100px;">  
+                            <div id="twitter_preview_postdet" style="position:relative;margin-left:15px;margin-top:-100px;">  
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
@@ -1062,16 +1221,16 @@
                         </div>
                     </div>
                     <div id="edit_twitter_action" style="position:relative;top:50px;left:50px;">
-                        <h1>&nbsp;Update action</h1>
+                        <h1 class="SP1 actfnt" style="font-size:2em;margin-left:45px;">UPDATE ACTION</h1>
                         <form class="form-horizontal" id="signform">
 
                             <div class="group">
                                 <div class="col-md-4 col-md-offset-1 ">
-                                    <input id="edit_twitter_title" class=" inputbox MH2" type="text" name="edit_twitter_title" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/>
+                                    <input id="edit_twitter_title" class=" inputbox MH2" type="text" name="edit_twitter_title" value="{{schedule_title}}" style="position:relative;top:0px;line-height:40px;width:400px;font-size:26px;"/>
                                     <p><input class="inputbox SP1" type="hidden" name="twitter_scheduleid" id="twitter_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                     <!--                                    <label>TITLE</label>-->
                                 </div><br>
-                                <div style="position:absolute;left:60px;top:40px;" class="SH2">
+                                <div style="position:absolute;left:60px;top:50px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p><input class="inputbox SP1" type="hidden" name="twitter_action_type" id="twitter_action_type" value='{{schedule_type}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                     <!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
@@ -1082,14 +1241,13 @@
                                                                             <option value="note">note</option>
                                                                         </select>-->
                                 </div>
-                                <div style="position:absolute;top:110px;left:60px;" class="SH2">
+                                <div style="position:absolute;top:110px;left:60px;" class="SP1 actfnt">
                                     Description <br><textarea cols="28" rows="2" name="twitter_description" id="twitter_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    Date <input type="datetime-local" name="twitterdatetime" id="twitterdatetime" class="inputdate MH1"/>
-                                    <br>
-                                <input type="text" readonly="true" class="inputdate MH1 ptr" id="datepicker3">
+                                    <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
+                                <input type="text" readonly="true" class="inputdate MH1 ptr" name="twitterdatetime" id="datepicker3">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1100,14 +1258,20 @@
                                         yearRange: [2000,2050]
                                     });
 
+                                        </script><br><div class="SP1 actfnt"  style="font-size:1.2em;"> TIME</div>
+                                    <input id="timepickertwitter" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;"/>
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#timepickertwitter').timepicki();
                                     </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                 </div>
 
                                 <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:35px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:35px;">
 
                                     <div class="row">
                                         <div>
@@ -1126,7 +1290,7 @@
                                                        button--text-thick 
                                                        button--text-upper 
                                                        button--size-s" 
-                                                       style="width:100px;" />
+                                                       style="width:100px;" onclick="cancelform();"/>
                                             </div>
                                         </div>
                                     </div>
@@ -1159,7 +1323,31 @@
                             <div style="position:relative;margin-left:10px;margin-top:-180px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
-                                    <input type='datetime-local' name="twitter_schedule_datetime" id="twitter_schedule_datetime" class="inputdate"/><br>
+                                    
+                                    
+                                    <p class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</p>
+                                    <!--<input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>-->
+
+                                <input type="text" readonly class="inputdate MH1 ptr" name="twitter_schedule_date" id="twitter_schedule_date">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('twitter_schedule_date'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                        </script><br><p class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">TIME</p>
+                                    <input name="timepicker_twittertime" id="timepicker_twittertime" type="text"  class="inputtime MH1 ptr" style="width:150px;"/>
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#timepicker_twittertime').timepicki();
+                                    </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script><br>
+                                    
+                                    <!--<input type='datetime-local'  class="inputdate"/><br>-->
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
@@ -1176,7 +1364,7 @@
             <div id="light" class="white_content">
                 <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
                     <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
-                        <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="25" width="25"/></p>
+                        <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="25" width="25" /></p>
                     </div>
                 </a>
             </div>

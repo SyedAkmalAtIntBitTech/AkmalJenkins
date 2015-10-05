@@ -30,7 +30,17 @@ $(document).ready(function ()
 //        $('#slider-button').click();
 //        prevSliderDialog = "#previewfb";
 //    });
-
+//    
+//    function cancelform()
+//    {
+//        
+////    $("#"+cancelbtn).click(function(){
+//        if(confirm("Do you want to cancel the process?")){
+//            $('#slider-button').click();
+//            
+//        }
+////    })
+//    }
     $('#slider-button').click(function () {
         //To hide the dialog if user click on another node
         if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
@@ -753,12 +763,15 @@ function controllerMarketingCampaign($scope, $http) {
         var schedule_time = Date.parse(actiondate);
         console.log("Epoch: " + schedule_time);
 
-        var dateObj = new Date(schedule_time);
-        console.log(dateObj.getTimezoneOffset());
-
-        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-        var newEpoch = schedule_time + tzOffsetInMillis;
+//        var dateObj = new Date(schedule_time);
+//        console.log(dateObj.getTimezoneOffset());
+//
+//        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+//
+//        var newEpoch = schedule_time + tzOffsetInMillis;
+var Selecteddate=$("#datepicker").val();
+var Selectedtime= $("#timepicker1").val();   
+ console.log("New Epoch1: " + Selecteddate);
         console.log("New Epoch: " + newEpoch);
 
         if (validateaction()) {
@@ -1002,6 +1015,8 @@ function controllerMarketingCampaign($scope, $http) {
     };
 
     $scope.updateNote = function () {
+        var message;
+        
         var schedule_id = $("#note_schedule_id").val();
         var entity_id = $("#note_entity_id").val();
         var note_title = $("#note_title").val();
@@ -1029,6 +1044,10 @@ function controllerMarketingCampaign($scope, $http) {
             "status": status,
             "schedule_time": newEpoch
         }
+        
+        message = "Discard your changes?";
+         
+        if (confirm(message)) {
         $http({
             method: 'POST',
             url: getHost() + 'ChangeScheduleServlet',
@@ -1048,6 +1067,7 @@ function controllerMarketingCampaign($scope, $http) {
 
             alert("request not succesful");
         });
+    }
 
     };
 
