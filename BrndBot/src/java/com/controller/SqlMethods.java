@@ -736,7 +736,7 @@ public class SqlMethods {
         return userPreferencesJSONObject;
     }
 
-    public org.json.simple.JSONArray getEmailListsPreferences(Integer user_id) {
+    public org.json.simple.JSONArray getEmailListsPreferences(Integer user_id, String type) {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
@@ -747,7 +747,12 @@ public class SqlMethods {
         org.json.simple.JSONArray emailListJSONArray = new org.json.simple.JSONArray();
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+            if (type.equalsIgnoreCase(IConstants.kEmailListUserKey)){
+                query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+            }else if(type.equalsIgnoreCase(IConstants.kEmailListMindbodyKey)){
+                query_string = "Select * from mindbody_email_list where user_id=" + user_id + "";
+            }
+                
             logger.log(Level.INFO, query_string);
             prepared_statement = connection.prepareStatement(query_string);
 
@@ -777,7 +782,7 @@ public class SqlMethods {
         }
         return emailListJSONArray;
     }
-    
+
     public Integer getStudioID(Integer user_id)throws SQLException{
         Integer studio_id = 0;
         String query_string = "";

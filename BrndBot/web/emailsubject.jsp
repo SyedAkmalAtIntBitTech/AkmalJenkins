@@ -680,7 +680,8 @@
                             method: 'GET',
                             url: getHost() + 'GetEmailLists?update=allEmailListNames'
                     }).success(function(data, status, headers, config) {
-                            $scope.emailLists = data.allEmailListNames;
+                            $scope.emailLists = data.user;
+                            $scope.emailLists_mindbody = data.mindbody;
                             if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
                             } else if (data === error) {
@@ -738,7 +739,12 @@
                     <select id="chooseEmailList" name="chooseEmailList"  hidden="true">
                         <option value="1">Manual</option>
                         <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                        <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
                     </select>
+<!--                    <select id="chooseEmailList" name="chooseEmailList"  hidden="true">
+                        <option value="1">Manual</option>
+                        <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                    </select>-->
                     
                     
                     <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class=" btn-csv BT1" value="Add CSV or Email Manually">
