@@ -757,26 +757,35 @@ function controllerMarketingCampaign($scope, $http) {
         var actiontype = $("#actiontype").val();
 
         var description = $("#description").val();
-        var actiondate = $("#actiondatetime").val();
-
-        console.log("Value selected from Component: " + actiondate);
-        var schedule_time = Date.parse(actiondate);
-        console.log("Epoch: " + schedule_time);
-
+        var actiondate = $("#datepicker").val();
+        var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
+        alert(actionDateTime.toLocaleString());
+        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+        var myDate = new Date(l); // Your timezone!
+        var myEpoch = myDate.getTime()/1000.0;
+//       document.write(myEpoch);
+      
+        
+//        alert(actionDateTime);
+//        console.log("Value selected from Component: " + actionDateTime);
+//        var schedule_time = Date.parse(actionDateTime);
+//        console.log("Epoch: " + schedule_time);
+//
 //        var dateObj = new Date(schedule_time);
 //        console.log(dateObj.getTimezoneOffset());
 //
 //        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
 //
 //        var newEpoch = schedule_time + tzOffsetInMillis;
-var Selecteddate=$("#datepicker").val();
-var Selectedtime= $("#timepicker1").val();   
- console.log("New Epoch1: " + Selecteddate);
-        console.log("New Epoch: " + newEpoch);
+//        alert(newEpoch);
+////var Selecteddate=$("#datepicker").val();
+////var Selectedtime= $("#timepicker1").val();   
+// console.log("New Epoch1: " + Selecteddate);
+        console.log("New Epoch: " + myEpoch);
 
         if (validateaction()) {
             var action = {"title": title, "actiontype": actiontype, "type": "save",
-                "description": description, "action_date": newEpoch
+                "description": description, "action_date": myEpoch
             };
             $http({
                 method: 'POST',
