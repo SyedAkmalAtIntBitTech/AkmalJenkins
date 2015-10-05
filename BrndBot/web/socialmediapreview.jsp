@@ -388,32 +388,35 @@
                 {
                     document.getElementById('schedule_desc').disabled = true;
                     document.getElementById('schedule_title').disabled = true;
-                    document.getElementById('hour').disabled = true;
-                    document.getElementById('minute').disabled = true;
-                    document.getElementById('AMPM').disabled = true;
-                    document.getElementById('schedule_time').disabled = true;
+                    document.getElementById('schedule_social_date').disabled = true;
+                    document.getElementById('schedule_social_time').disabled = true;
+                    document.getElementById('schedule_social_time').value="";
+                      document.getElementById('schedule_social_date').value="";
+                 
                 }
                 else if ((parseInt(facebookactions) == 0) && (parseInt(twitteractions) != 0)) {
                     document.getElementById('schedule_desc').disabled = true;
                     document.getElementById('schedule_title').disabled = true;
-                    document.getElementById('hour').disabled = true;
-                    document.getElementById('minute').disabled = true;
-                    document.getElementById('AMPM').disabled = true;
-                    document.getElementById('schedule_time').disabled = true;
+                    document.getElementById('schedule_social_date').disabled = true;
+                    document.getElementById('schedule_social_time').disabled = true;
+                       document.getElementById('schedule_social_time').value="";
+                      document.getElementById('schedule_social_date').value="";
                 }
                 else if (((parseInt(facebookactions) != 0) && (parseInt(twitteractions) == 0))) {
                     document.getElementById('schedule_desc').disabled = true;
                     document.getElementById('schedule_title').disabled = true;
-                    document.getElementById('hour').disabled = true;
-                    document.getElementById('minute').disabled = true;
-                    document.getElementById('AMPM').disabled = true;
-                    document.getElementById('schedule_time').disabled = true;
+                    document.getElementById('schedule_social_date').disabled = true;
+                    document.getElementById('schedule_social_time').disabled = true;
+                       document.getElementById('schedule_social_time').value="";
+                      document.getElementById('schedule_social_date').value="";
+//                    document.getElementById('hour').disabled = true;
+//                    document.getElementById('minute').disabled = true;
+//                    document.getElementById('AMPM').disabled = true;
+//                    document.getElementById('schedule_time').disabled = true;
                 } else if (((parseInt(facebookactions) == 0) && (parseInt(twitteractions) == 0))) {
                     document.getElementById('schedule_title').disabled = false;
-                    document.getElementById('hour').disabled = false;
-                    document.getElementById('minute').disabled = false;
-                    document.getElementById('AMPM').disabled = false;
-                    document.getElementById('schedule_time').disabled = false;
+                    document.getElementById('schedule_social_date').disabled = false;
+                    document.getElementById('schedule_social_time').disabled = false;
                     document.getElementById('schedule_desc').disabled = false;
                 }
             }
@@ -651,7 +654,7 @@
                         <option value="PM">PM</option>
                     </select>-->
                     <input type="hidden" name="socialscheduleid" id="socialscheduleid" value="socialmedia"/>
-                    <input type="button" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;font-family:'proxima-nova',sans-serif;font-size:14px;" />   
+                    <input type="button" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;margin-left:0px;font-family:'proxima-nova',sans-serif;font-size:14px;" />   
 
                 </div>
             </div>

@@ -18,13 +18,7 @@
         <script src="js/configurations.js" type="text/javascript"></script>
         <jsp:include page="basejsp.jsp" />
         <%@ include file="checksession.jsp" %>
-<!--        <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css"/>
-        <link rel="stylesheet" href="css/bootstrap-responsive.css"/>
-        <link rel="stylesheet" href="css/bootstrap.css"/>
-        <link rel="stylesheet" href="css/bootstrap-timepicker.min.css">
-        <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>-->
-<!--        <script type="text/javascript" src="js/jquery.min.js"></script>-->
-<!--        <script type="text/javascript" src="js/bootstrap.min.js"></script>-->
+
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -308,7 +302,7 @@
             .postdetails{
                 position: relative;
                 width:250px;
-                margin-top: 0em;
+                margin-top: 10em;
             }
             .editbutton{
                 position: relative;
@@ -559,7 +553,7 @@
                             <p class="SS2 actfnt">Tomorrow</p>
                         </div>
                         <div ng-show="(entity.date != today_date) && (entity.date!=tomorrow_date)">
-                            <p class="SS2 actfnt">{{entity.date}}</p>
+                            <p class="SS2 actfnt">{{entity.date| date: "MMM dd yyyy"}}</p>
                         </div>
                         <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-15px;top:-20px;">
                         <p ng-show="entity.dataArray == ''" class="MH1" id="messagetoday" style="display:block;position:relative;top:-25px;" >{{nodata}}</p>
@@ -700,7 +694,7 @@
                                 <div class="content"></div> <br>
 
                                 <div style="position:absolute;margin-top:280px;">
-                                    <p class="postdetails SP1 actfnt">SENDING DETAILS</p>
+                                    <p class=" SP1 actfnt">SENDING DETAILS</p>
                                     <div class="actiondet">
                                         <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     </div>
@@ -844,7 +838,7 @@
                                 </div>
                             </div>
                             <div style="position: relative;margin-left:0px;margin-top:0px;">
-                                <p class="postdetails postdet SP1 actfnt">SENDING DETAIL</p>
+                                <p class=" postdet SP1 actfnt">SENDING DETAIL</p>
                                 <div class="actiondet" >
                                     <select class="SP1" id="chooseEmailList" class="actiondropdown" name="chooseEmailList" style="position: relative;margin-left:15px">
                                         <option style="background:#fff;" value="0">Select</option>
@@ -1055,7 +1049,7 @@
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                             <img id="edtfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-60px;left:-120px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.5, 0.6);display:none;"/>
                             <p><input class="inputbox SP1" type="hidden" name="facebook_image_name" id="facebook_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                            <div style="position:absolute;top:130px;left:300px;">
+                            <div style="position:absolute;top:160px;left:300px;">
                                 <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
@@ -1063,11 +1057,29 @@
                             <div style="position:absolute;margin-left:10px;margin-top:-100px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
+                                    <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
+                                     <input type="text" readonly="true" name="facebook_schedule_date" class="inputdate MH1 ptr" id="facebook_schedule_date" style="width:150px;">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('facebook_schedule_date'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                        </script><br><div class="SP1 actfnt"  style="font-size:1.2em;"> Time</div>
+                                        <input id="facebook_schedule_time" type="text" name="facebook_schedule_time" class="inputtime MH1 ptr" style="width:150px;"/><br>
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#facebook_schedule_time').timepicki();
+                                    </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                     
                                     
                                     
-                                    
-                                    <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>
+                                    <!--<input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>-->
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
@@ -1180,7 +1192,7 @@
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
 
                             <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-50px;left:-100px;transform: scale(0.5);-ms-transform: scale(0.5);-webkit-transform: scale(0.6);display:none;"/>
-                            <div style="position:relative;top:-230px;left:310px;">
+                            <div style="position:relative;top:-50px;left:310px;">
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.text}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.shorturl}}</p>
                             </div>
@@ -1190,7 +1202,7 @@
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
-                                <div ng-hide="twitter_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;left:15px;" class="editbutton">
+                                <div ng-hide="twitter_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;left:-5px;" class="editbutton">
                                 <button ng-click="editScheduleDetails(
                                             schedule_id, 
                                             entities_selected_time, 
@@ -1301,8 +1313,8 @@
                         <div style="position:relative;left:50px;top:-10px;">
                             <div class="actiondetails actiondet" >
                                 <p class="SP2 actfnt">ACTION DETAILS</p><p class="SP1 ptr" ng-click="deleteSchedule(schedule_id,'delete')" style="position:absolute;left:400px;width:130px;font-size:1.1em;">DELETE ACTION</p>
-                                <p><input class="inputbox MH2" type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:300px;font-size:22px;"/></p>
-                                <p><input class="inputbox SP1" type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox MH2" type="text" name="twitter_schedule_title" id="twitter_schedule_title" value='{{schedule_title}}' style="position:relative;top:7px;line-height:30px;width:270px;font-size:22px;"/></p>
+                                <p><input class="inputbox SP1" type="text" name="twitter_schedule_Description" id="twitter_schedule_Description" value='{{schedule_desc}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:270px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="twitter_schedule_id" id="twitter_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="twitter_entity_id" id="twitter_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="twitter_entity_accesstoken" id="twitter_entity_accesstoken" value='{{entitiesdetails.token_data.access_token}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
@@ -1313,7 +1325,7 @@
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                             <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-60px;left:-100px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.6, 0.5);display:none;"/>
                             <p><input class="inputbox SP1" type="hidden" name="twitter_image_name" id="twitter_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                            <div style="position:relative;top:-270px;left:310px;">
+                            <div style="position:relative;top:-50px;left:310px;">
                                 <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.text}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
                                 <p><input type="text" name="twitter_schedule_post_url" id="twitter_schedule_post_url" value='{{entitiesdetails.metadata.shorturl}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
                             </div>

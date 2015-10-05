@@ -513,17 +513,19 @@
                if(document.getElementById('email_actions').value === "0")
                 {
                 document.getElementById('schedule_title').disabled=false;
-                document.getElementById('hour').disabled=false;
-                document.getElementById('minute').disabled=false;
-                document.getElementById('AMPM').disabled=false;
-                document.getElementById('schedule_time').disabled=false; 
+                document.getElementById('schedule_date').disabled=false;
+                document.getElementById('schedule_time').disabled=false;
                  }
             else{
                 document.getElementById('schedule_title').disabled=true;
-                document.getElementById('hour').disabled=true;
-                document.getElementById('minute').disabled=true;
-                document.getElementById('AMPM').disabled=true;
-                document.getElementById('schedule_time').disabled=true; 
+                document.getElementById('schedule_date').disabled=true;
+                document.getElementById('schedule_time').disabled=true;
+                document.getElementById('schedule_time').value="";
+                document.getElementById('schedule_date').value="";
+//                document.getElementById('hour').disabled=true;
+//                document.getElementById('minute').disabled=true;
+//                document.getElementById('AMPM').disabled=true;
+//                document.getElementById('schedule_time').disabled=true; 
                  }
         }
 
@@ -724,7 +726,7 @@
                         </select>-->
                         
                         <!--<input id="timepicker1" type="text" name="timepicker1" />-->
-                        <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
+                        <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;margin-left:0px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
                     </div>
                 </div>
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
