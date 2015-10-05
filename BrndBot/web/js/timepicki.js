@@ -1,8 +1,3 @@
-/* 
- * Author: @senthil2rajan
- * plugin: timepicker
- * website: senthilraj.github.io/Timepicki
- */
 (function($) {
 
 	$.fn.timepicki = function(options) {

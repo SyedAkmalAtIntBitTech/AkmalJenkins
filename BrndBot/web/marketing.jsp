@@ -1396,6 +1396,9 @@
                                                     });
 
         </script>
-        
+<!--        <script type='text/javascript'>
+	$('#timepicker1').timepicki({show_meridian:false});
+</script>-->
+
     </body>
 </html>
