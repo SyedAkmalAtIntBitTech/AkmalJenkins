@@ -239,7 +239,7 @@
                 max-width:650px;
                 position: absolute;
                 margin-top:80px;
-                margin-left: -30px;
+                margin-left: -70px;
             }
             .editcontent{
                 overflow-y:scroll;
@@ -695,12 +695,12 @@
                                     <p class="MH2" style="width:300px;"> {{schedule_title}}</p>
                                     <!--                                    <p class="MH2" style="width:500px;">Description: {{schedule_desc}}</p>-->
                                 </div>
-                                <div class="SP1 actfnt" style="position:relative;left:15px;">Saved Post <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></div>
+                                <div class="SP1 actfnt" style="position:relative;left:15px;">Saved Email <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></div>
 
                                 <div class="content"></div> <br>
 
                                 <div style="position:absolute;margin-top:280px;">
-                                    <p class="postdetails SP1 actfnt">Post details</p>
+                                    <p class="postdetails SP1 actfnt">SENDING DETAILS</p>
                                     <div class="actiondet">
                                         <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     </div>
@@ -726,8 +726,7 @@
                                                         button--text-thick 
                                                         button--text-upper 
                                                         button--size-s" 
-                                                        style="background-color:#E65C00;
-                                                        width:120px;"
+                                                        style="width:120px;"
                                                         onclick="sendEmail()"
                                                 value="Send"/>
                                     </div>
@@ -829,7 +828,7 @@
                                 <p><input class="inputbox SP1" type="hidden" name="email_entity_body" id="email_entity_body" value='{{entitiesdetails.body}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="email_entity_from_name" id="email_entity_from_name" value='{{entitiesdetails.from_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
 
-                                <br><p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                                <br><p class="SP1 actfnt">Saved Email </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                             </div>
                             <div class="row" style="width:400px;">
                                 <div class="col-md-3">
@@ -838,14 +837,14 @@
 
                                 <div class="col-md-6" id="popupright_panel" >
                                     <!--                                        <div><label>subject</label></div>-->
-                                    <div><p class="SP2 actfnt" style="font-weight:400;">Subject</p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
-                                    <div><p class="SP2 actfnt" style="font-weight:400;">To address</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
-                                    <div><p class="SP2 actfnt" style="font-weight:400;">From address</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
-                                    <div><p class="SP2 actfnt" style="font-weight:400;">Reply to address</p><input type="text" class="inputbox" name="email_entityreplytoaddress" id="email_entityreplytoaddress" value="{{entitiesdetails.reply_to_email_address}}"></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">Subject Line </p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">To</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">From</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">Reply To</p><input type="text" class="inputbox" name="email_entityreplytoaddress" id="email_entityreplytoaddress" value="{{entitiesdetails.reply_to_email_address}}"></div>
                                 </div>
                             </div>
                             <div style="position: relative;margin-left:0px;margin-top:0px;">
-                                <p class="postdetails postdet SP1 actfnt">Post details</p>
+                                <p class="postdetails postdet SP1 actfnt">SENDING DETAIL</p>
                                 <div class="actiondet" >
                                     <select class="SP1" id="chooseEmailList" class="actiondropdown" name="chooseEmailList" style="position: relative;margin-left:15px">
                                         <option style="background:#fff;" value="0">Select</option>
@@ -936,8 +935,7 @@
                                                 button--text-thick 
                                                 button--text-upper 
                                                 button--size-s" 
-                                                style="background-color:#E65C00;
-                                                width:120px;"
+                                                style="width:120px;"
                                                 onclick="postSocial()"
                                         value="Post"/>
                                 </div>
@@ -1192,7 +1190,7 @@
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
-                                <div ng-hide="twitter_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;" class="editbutton">
+                                <div ng-hide="twitter_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;left:15px;" class="editbutton">
                                 <button ng-click="editScheduleDetails(
                                             schedule_id, 
                                             entities_selected_time, 
@@ -1212,8 +1210,7 @@
                                                 button--text-thick 
                                                 button--text-upper 
                                                 button--size-s" 
-                                                style="background-color:#E65C00;
-                                                width:120px;"
+                                                style="width:120px;"
                                                 onclick="postSocial()"
                                         value="Post"/>                                
                                 </div>
