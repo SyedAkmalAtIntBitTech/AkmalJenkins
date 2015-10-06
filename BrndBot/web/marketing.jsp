@@ -271,7 +271,7 @@
                 background-color: #e4e4e4;
                 border: 1px solid #DADADA;
                 border-radius: 5px;
-                width:220px;
+                width: 135px;
                 height: 30px;
                 font-family: sans-serif;
                 font-size: 14px;
@@ -414,7 +414,6 @@
                 filter: alpha(opacity=80);
             }
             #actiontype{
-                border: none;
                 width: 304px;
                 height: 30px;
                 -webkit-appearance: none;
@@ -422,7 +421,7 @@
                 box-shadow: none !important;
                 appearance: none;
                 padding: 2px 1px 2px 2px;
-                border: 2px solid #d0d0d0;
+                border: 1px solid #d0d0d0;
                 border-left: none;
                 border-right: none;
                 border-top: none;
@@ -430,7 +429,7 @@
                 border-radius: 2px;
                 color: #2b2f35;
                 background: url("images/dropdown.png") no-repeat right center;
-                background-color: #F2F2F4;
+                border-color: #3e3e3e;
                 font-size: 18px;
                 color: #3f4042; 
              }
@@ -474,7 +473,11 @@
                 display:block;
                 opacity:1;
             }*/
-
+            p.actionLable
+            {
+                margin-left:3%;
+                color: #4e4e4e;
+            }
         </style>
         <script>
                  function overlay(){
@@ -601,26 +604,27 @@
                 <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
                     <h1 class="SP2 actfnt">ADD ACTION</h1>
                     <form class="form-horizontal" id="signform" >
-                        <div class="group" style="position:relative;margin-left:-50px;">
-                             <div class="col-md-3 col-md-offset-1">                            
-                                 <input id="title" class="brdr form-control simplebox inputbox MH1" name="title" type="text" required="" style="position:relative;top:0px;line-height:30px;width:300px;font-size:22px;">
-                                 <label class="MH2" style="font-size:22px;">TITLE</label><br>
-
-                             </div>
+                        <div class="group" style="position:relative;">
+                            <p class="actionLable SH2" >TYPE OF ACTION</p>
                         </div>
                         
-                            <div style="position:absolute;left:15px;top:50px;" class="SH2">
-                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 18px;width:100px;border-radius:5px;border:none;">
-                                    <option value="0">Select</option>
-                                    <option value="facebook">facebook</option>
-                                    <option value="twitter">twitter</option>
-                                    <option value="email">email</option>
-                                    <option value="note">note</option>
-                                </select></div>
-                            <div style="position:absolute;top:100px;left:15px;" class="SH2">
-                                Description <br><textarea cols="28" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;"></textarea>
+                        <div style="position:absolute;left:15px;top:20px;" class="SH2">
+                                <select id="actiontype" class="SS1" name="actiontype" style="margin-top:10%; border:1px solid !important;font-size: 18px;width:100px;border-radius:5px;">
+                                 <option value="0">Select</option>
+                                 <option value="facebook">facebook</option>
+                                 <option value="twitter">twitter</option>
+                                 <option value="email">email</option>
+                                 <option value="note">note</option>
+                               </select>
+                        </div>
+                        <div class="SH2" style="position:absolute;top:80px;left:15px;">
+                           TITLE <br><textarea cols="30" rows="2" name="addactiontitle" id="addactiontitle" class="SH2" style="resize: none;font-size:1.2em;"></textarea>
+                        </div>
+                            <div style="position:absolute;top:180px;left:15px;" class="SH2">                              
+                                Description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;"></textarea>
                             </div>
-                            <div class="SH2" style="position:absolute;top:190px;left:15px;" >
+                            <div class="SH2" style="position:absolute;top:280px;left:15px;" >
+                                SCHEDULED TO POST ON<br><br>
                                 Date 
                                 <input type="text" readonly name="actiondatetime"  class="inputdate MH1 ptr" id="datepicker" >
                                         <script>
@@ -634,20 +638,21 @@
                                     });
 
                                         </script><br>
+                                        <div style="position:relative;margin-top:-80px;margin-left:180px;">
                                         TIME
-                                     <input id="timepicker1" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;"/>
+                                     <input id="timepicker1" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:110px;"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepicker1').timepicki();
                                     </script>
-                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script></div>
                             </div>
                             
                             <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
                            
                    
                         <div class="row">
-                            <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:-15px;">
+                            <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:-15px;">
 
                                 <div class="row">
                                     <div>
@@ -1106,7 +1111,7 @@
                             </div>
 
                             <div style="position:absolute;margin-left:15px;margin-top:50px;">
-                                <p class="postdetails SP1 actfnt">Post details</p>
+                                <p class=" SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
@@ -1138,7 +1143,7 @@
                                         <option style="background:#fff;" value="complete">complete</option>
                             </select></div>
                             <div style="position:absolute;margin-left:16px;margin-top:10px;">
-                                <p class="postdetails SP1 actfnt">Post details</p>
+                                <p class=" SP1 actfnt">Post details</p>
                                 <div>
                                     
                                     

@@ -282,34 +282,16 @@
                     if (schedule_id == "0"){
                         var schedule_title = $("#schedule_title").val();
                         
-                        var schedule = $("#schedule_time").val();
-                        var dateepoch = Date.parse(schedule);
+                        var schedule_date = $("#schedule_date").val();
+                        var schedule_time = $("#schedule_time").val().replace(/ /g,'');
+//                        var schedule = $("#schedule_time").val();
 
-                        var newdate = new Date(dateepoch);
-
-                        console.log("new date:" + newdate);
-                        var schedule_hour = $("#hour").val();
-                        var schedule_minute = $("#minute").val();
-                        var schedule_AM = $("#AMPM").val();
-
-                        if (schedule_AM == "PM"){
-                            schedule_hour = parseInt(schedule_hour) + 12;
-                        }
-                        newdate.setHours(parseInt(schedule_hour));
-                        newdate.setMinutes(parseInt(schedule_minute));
-
-                        console.log("Value selected from Component: " + newdate);
-                        var schedule_time = Date.parse(newdate);
-
+                        var l=schedule_date.toLocaleString() +" "+schedule_time.toLocaleString();
+                        var schedule_time = Date.parse(l);
                         console.log("Epoch: " + schedule_time);
+                        var myEpoch = schedule_time;
+                        console.log("New Epoch: " + myEpoch);
 
-                        var dateObj = new Date(schedule_time);
-                        console.log(dateObj.getTimezoneOffset());
-
-                        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-                        var newEpoch = schedule_time;
-                        console.log("New Epoch: " + newEpoch);
 
                         var email_scheduling = {
                             "from_name": from_name, 
@@ -319,7 +301,7 @@
                             "reply_to_email_address": reply_to_email_address, 
                             "email_list": email_list, 
                             "schedule_title": schedule_title, 
-                            "schedule_time": newEpoch, 
+                            "schedule_time": myEpoch, 
                             "email_body": email_body, 
                             "schedule_desc": schedule_desc
                         };

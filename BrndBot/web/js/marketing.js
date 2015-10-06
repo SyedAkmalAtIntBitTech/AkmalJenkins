@@ -753,34 +753,21 @@ function controllerMarketingCampaign($scope, $http) {
 
 
     $scope.AddAction = function () {
-        var title = $("#title").val();
+        var title = $("#addactiontitle").val();
         var actiontype = $("#actiontype").val();
 
         var description = $("#description").val();
         var actiondate = $("#datepicker").val();
         var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
-        alert(actionDateTime.toLocaleString());
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var myDate = new Date(l); // Your timezone!
-        var myEpoch = myDate.getTime()/1000.0;
-//       document.write(myEpoch);
-      
         
-//        alert(actionDateTime);
-//        console.log("Value selected from Component: " + actionDateTime);
-//        var schedule_time = Date.parse(actionDateTime);
-//        console.log("Epoch: " + schedule_time);
-//
-//        var dateObj = new Date(schedule_time);
-//        console.log(dateObj.getTimezoneOffset());
-//
-//        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-//
-//        var newEpoch = schedule_time + tzOffsetInMillis;
-//        alert(newEpoch);
-////var Selecteddate=$("#datepicker").val();
-////var Selectedtime= $("#timepicker1").val();   
-// console.log("New Epoch1: " + Selecteddate);
+        var schedule_time = Date.parse(l);
+        console.log("Epoch: " + schedule_time);
+        
+
+        var myEpoch = schedule_time;
+
         console.log("New Epoch: " + myEpoch);
 
         if (validateaction()) {
@@ -816,27 +803,24 @@ function controllerMarketingCampaign($scope, $http) {
         var schedule_id = $("#email_scheduleid").val();
         var title = $("#email_edit_title").val();
 
+        var actiondate = $("#emaildatetime").val();
+        var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
+        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+        var schedule_time = Date.parse(l);
+        console.log("Epoch: " + schedule_time);
+        var myEpoch = schedule_time;
+        console.log("New Epoch: " + myEpoch);
+
         var description = $("#email_description").val();
         console.log(actiontype + "," + schedule_id + "," + title + "," + description);
-        var actiondate = $("#emaildatetime").val();
 
-        console.log("Value selected from Component: " + actiondate);
-        var schedule_time = Date.parse(actiondate);
-        console.log("Epoch: " + schedule_time);
-
-        var dateObj = new Date(schedule_time);
-        console.log(dateObj.getTimezoneOffset());
-
-        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-        var newEpoch = schedule_time + tzOffsetInMillis;
-        console.log("New Epoch: " + newEpoch);
+        console.log("New Epoch: " + myEpoch);
 
         if (validateemailaction()) {
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
-                "description": description, "action_date": newEpoch
+                "description": description, "action_date": myEpoch
             };
             $http({
                 method: 'POST',
@@ -866,28 +850,24 @@ function controllerMarketingCampaign($scope, $http) {
         console.log("action type" + actiontype);
         var schedule_id = $("#fb_scheduleid").val();
         var title = $("#fb_action_title").val();
+        
+        var actiondate = $("#datepicker2").val();
+        var actionDateTime=$("#timepicker2").val().replace(/ /g,'');
+        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+        var schedule_time = Date.parse(l);
+        console.log("Epoch: " + schedule_time);
+        var myEpoch = schedule_time;
+        console.log("New Epoch: " + myEpoch);
 
         var description = $("#fb_description").val();
         console.log(actiontype + "," + schedule_id + "," + title + "," + description);
-        var actiondate = $("#fbdatetime").val();
-
-        console.log("Value selected from Component: " + actiondate);
-        var schedule_time = Date.parse(actiondate);
-        console.log("Epoch: " + schedule_time);
-
-        var dateObj = new Date(schedule_time);
-        console.log(dateObj.getTimezoneOffset());
-
-        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-        var newEpoch = schedule_time + tzOffsetInMillis;
-        console.log("New Epoch: " + newEpoch);
+        console.log("New Epoch: " + myEpoch);
 
         if (validatefacebookaction()) {
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
-                "description": description, "action_date": newEpoch
+                "description": description, "action_date": myEpoch
             };
             $http({
                 method: 'POST',
@@ -917,28 +897,27 @@ function controllerMarketingCampaign($scope, $http) {
         console.log("action type" + actiontype);
         var schedule_id = $("#twitter_scheduleid").val();
         var title = $("#edit_twitter_title").val();
+        
+
+        var actiondate = $("#datepicker3").val();
+        var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
+        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+        var schedule_time = Date.parse(l);
+        console.log("Epoch: " + schedule_time);
+        var myEpoch = schedule_time;
+        console.log("New Epoch: " + myEpoch);
+
 
         var description = $("#twitter_description").val();
         console.log(actiontype + "," + schedule_id + "," + title + "," + description);
-        var actiondate = $("#twitterdatetime").val();
-
-        console.log("Value selected from Component: " + actiondate);
-        var schedule_time = Date.parse(actiondate);
-        console.log("Epoch: " + schedule_time);
-
-        var dateObj = new Date(schedule_time);
-        console.log(dateObj.getTimezoneOffset());
-
-        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-        var newEpoch = schedule_time + tzOffsetInMillis;
-        console.log("New Epoch: " + newEpoch);
+        
+        console.log("New Epoch: " + myEpoch);
 
         if (validatetwitteraction()) {
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
-                "description": description, "action_date": newEpoch
+                "description": description, "action_date": myEpoch
             };
             $http({
                 method: 'POST',
@@ -1031,27 +1010,25 @@ function controllerMarketingCampaign($scope, $http) {
         var note_title = $("#note_title").val();
         var status = $("#status").val();
         var note_desc = $("#note_desc").val();
-        var schedule_datetime = $("#notedate").val();
 
-        console.log("Value selected from Component: " + schedule_datetime);
-        var schedule_time = Date.parse(schedule_datetime);
+        
+        
+        var actiondate = $("#datepicker4").val();
+        var actionDateTime=$("#timepicker3").val().replace(/ /g,'');
+        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+        var schedule_time = Date.parse(l);
         console.log("Epoch: " + schedule_time);
+        var myEpoch = schedule_time;
+        console.log("New Epoch: " + myEpoch);
 
-        var dateObj = new Date(schedule_time);
-        console.log(dateObj.getTimezoneOffset());
-
-        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-        var newEpoch = schedule_time + tzOffsetInMillis;
-        console.log("New Epoch: " + newEpoch);
-
+ 
         var schedule_details = {
             "type": "note",
             "schedule_id": schedule_id,
             "schedule_title": note_title,
             "schedule_desc": note_desc,
             "status": status,
-            "schedule_time": newEpoch
+            "schedule_time": myEpoch
         }
         
         message = "Discard your changes?";
@@ -1088,27 +1065,26 @@ function controllerMarketingCampaign($scope, $http) {
         var email_entitytoaddress = $("#email_entitytoaddress").val();
         var email_entityfromaddress = $("#email_entityfromaddress").val();
         var email_entityreplytoaddress = $("#email_entityreplytoaddress").val();
-        var chooseEmailList = $("#chooseEmailList").val();
-        var schedule_datetime = $("#email_schedule_datetime").val();
-
-        console.log("Value selected from Component: " + schedule_datetime);
-        var schedule_time = Date.parse(schedule_datetime);
+        
+        var actiondate = $("#email_schedule_datetime").val();
+        var actionDateTime=$("#timepickeremailaction").val().replace(/ /g,'');
+        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+        var schedule_time = Date.parse(l);
         console.log("Epoch: " + schedule_time);
+        var myEpoch = schedule_time;
+        console.log("New Epoch: " + myEpoch);
+        
+        
+        var chooseEmailList = $("#chooseEmailList").val();
 
-        var dateObj = new Date(schedule_time);
-        console.log(dateObj.getTimezoneOffset());
-
-        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-        var newEpoch = schedule_time + tzOffsetInMillis;
-        console.log("New Epoch: " + newEpoch);
+        console.log("New Epoch: " + myEpoch);
 
         var schedule_details = {
             "type": "updateemail",
             "schedule_id": schedule_id,
             "entity_id": entity_id,
             "schedule_title": schedule_title,
-            "schedule_time": newEpoch,
+            "schedule_time": myEpoch,
             "email_subject": email_entitysubject,
             "to_email_addresses": email_entitytoaddress,
             "from_email_address": email_entityfromaddress,
@@ -1153,20 +1129,18 @@ function controllerMarketingCampaign($scope, $http) {
                 var facebook_schedule_url = $("#facebook_schedule_url").val();
                 var facebook_schedule_description = $("#facebook_schedule_description").val();
                 var schedule_datetime = $("#facebook_schedule_datetime").val();
-
-                console.log("Value selected from Component: " + schedule_datetime);
-                var schedule_time = Date.parse(schedule_datetime);
+                
+                
+                 var actiondate = $("#facebook_schedule_date").val();
+                var actionDateTime=$("#facebook_schedule_time").val().replace(/ /g,'');
+                var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+               var schedule_time = Date.parse(l);
                 console.log("Epoch: " + schedule_time);
+                var myEpoch = schedule_time;
+                console.log("New Epoch: " + myEpoch);
 
-                var dateObj = new Date(schedule_time);
-                console.log(dateObj.getTimezoneOffset());
-
-                var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-                var newEpoch = schedule_time + tzOffsetInMillis;
-                console.log("New Epoch: " + newEpoch);
-
-                var schedule_details = {"type": "updatesocial",
+               
+                   var schedule_details = {"type": "updatesocial",
                     "schedule_id": schedule_id,
                     "entity_id": entity_id,
                     "metadata": {
@@ -1174,7 +1148,7 @@ function controllerMarketingCampaign($scope, $http) {
                         post_text: '"' + facebook_schedule_posttext + '"',
                         url: '"' + facebook_schedule_url + '"'
                     },
-                    "schedule_time": newEpoch,
+                    "schedule_time": myEpoch,
                     "schedule_title": schedule_title,
                     "schedule_desc": schedule_Description
                 };
@@ -1210,26 +1184,23 @@ function controllerMarketingCampaign($scope, $http) {
                 var schedule_posttext = $("#twitter_schedule_post_text").val();
                 var schedule_datetime = $("#twitter_schedule_datetime").val();
 
-                console.log("Value selected from Component: " + schedule_datetime);
-                var schedule_time = Date.parse(schedule_datetime);
+
+                var actiondate = $("#twitter_schedule_date").val();
+                var actionDateTime=$("#timepicker_twittertime").val().replace(/ /g,'');
+                var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+                var schedule_time = Date.parse(l);
                 console.log("Epoch: " + schedule_time);
-
-                var dateObj = new Date(schedule_time);
-                console.log(dateObj.getTimezoneOffset());
-
-                var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-                var newEpoch = schedule_time + tzOffsetInMillis;
-                console.log("New Epoch: " + newEpoch);
-
-                var schedule_details = {"type": "updatesocial",
+                var myEpoch = schedule_time;
+                console.log("New Epoch: " + myEpoch);
+                
+               var schedule_details = {"type": "updatesocial",
                     "schedule_id": schedule_id,
                     "entity_id": entity_id,
                     "metadata": {
                         text: '"' + schedule_posttext + '"',
                         shorturl: '"' + $("#twitter_schedule_post_url").val() + '"'
                     },
-                    "schedule_time": newEpoch,
+                    "schedule_time": myEpoch,
                     "schedule_title": schedule_title,
                     "schedule_desc": schedule_Description
                 };
@@ -1263,7 +1234,8 @@ function controllerMarketingCampaign($scope, $http) {
         var facebook_schedule_posttext = $("#facebook_schedule_posttext").val();
         var facebook_schedule_url = $("#facebook_schedule_url").val();
         var facebook_schedule_description = $("#facebook_schedule_description").val();
-        var facebook_schedule_datetime = $("#facebook_schedule_datetime").val();
+        var facebook_schedule_date = $("#datepicker2").val();
+        var facebook_schedule_time = $("#timepicker2").val();
 
         if (facebook_schedule_title == "") {
             alert("schedule title not entered, please enter the value");
@@ -1290,9 +1262,14 @@ function controllerMarketingCampaign($scope, $http) {
             $("#facebook_schedule_description").focus();
             return false;
         }
-        if (facebook_schedule_datetime == "") {
-            alert("schedule date time not entered, please enter the value");
-            $("#facebook_schedule_datetime").focus();
+        if (facebook_schedule_date == "") {
+            alert("schedule date not entered, please enter the date");
+            $("#facebook_schedule_date").focus();
+            return false;
+        }
+        if (facebook_schedule_time == "") {
+            alert("schedule time not entered, please enter the time");
+            $("#facebook_schedule_time").focus();
             return false;
         }
         return true;
@@ -1305,7 +1282,8 @@ function controllerMarketingCampaign($scope, $http) {
         var schedule_title = $("#twitter_schedule_title").val();
         var schedule_Description = $("#twitter_schedule_Description").val();
         var schedule_posttext = $("#twitter_schedule_post_text").val();
-        var schedule_datetime = $("#twitter_schedule_datetime").val();
+        var schedule_date = $("#datepicker3").val();
+        var schedule_time = $("#timepickertwitter").val();
 
         if (schedule_title == "") {
             alert("schedule title not entered, please enter the value");
@@ -1322,9 +1300,14 @@ function controllerMarketingCampaign($scope, $http) {
             $("#twitter_schedule_post_text").focus();
             return false;
         }
-        if (schedule_datetime == "") {
-            alert("schedule date time not entered, please enter the value");
-            $("#twitter_schedule_datetime").focus();
+        if (schedule_date == "") {
+            alert("schedule date not entered, please enter the value");
+            $("#schedule_date").focus();
+            return false;
+        }
+        if (schedule_time == "") {
+            alert("schedule time not entered, please enter the value");
+            $("#schedule_time").focus();
             return false;
         }
         return true;

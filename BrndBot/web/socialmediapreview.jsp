@@ -858,7 +858,9 @@
                     var schedule_id_facebook = "0";
                     var schedule_id_twitter = "0";
                     var ManagedPage = "";
-
+                    
+                    
+                    
                     if ((isFacebook == "true") && (isTwitter == "false")) {
                         schedule_id_facebook = $("#facebookactions").val();
                         ManagedPage = $("#pagenameSend").val();
@@ -872,36 +874,43 @@
 
                     console.log(schedule_id_facebook);
                     if ((schedule_id_facebook == "0") && (schedule_id_twitter == "0")) {
-
+                        var schedule_date = $("#schedule_social_date").val();
+                        var schedule_time = $("#schedule_social_time").val().replace(/ /g,'');  
                         var schedule_title = $("#schedule_title").val();
-                        var schedule = $("#schedule_time").val();
-                        var dateepoch = Date.parse(schedule);
-
-                        var newdate = new Date(dateepoch);
-
-                        console.log("new date:" + newdate);
-                        var schedule_hour = $("#hour").val();
-                        var schedule_minute = $("#minute").val();
-                        var schedule_AM = $("#AMPM").val();
-
-                        if (schedule_AM == "PM") {
-                            schedule_hour = parseInt(schedule_hour) + 12;
-                        }
-                        newdate.setHours(parseInt(schedule_hour));
-                        newdate.setMinutes(parseInt(schedule_minute));
-
-                        console.log("Value selected from Component: " + newdate);
-                        var schedule_time = Date.parse(newdate);
-
+//                        var schedule = $("#schedule_time").val();
+//                        var dateepoch = Date.parse(schedule);
+                        
+                        var l=schedule_date.toLocaleString() +" "+schedule_time.toLocaleString();
+                        var schedule_time = Date.parse(l);
                         console.log("Epoch: " + schedule_time);
-
-                        var dateObj = new Date(schedule_time);
-                        console.log(dateObj.getTimezoneOffset());
-
-                        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-                        var newEpoch = schedule_time;
-                        console.log("New Epoch: " + newEpoch);
+                        var myEpoch = schedule_time;
+                        console.log("New Epoch: " + myEpoch);
+                        alert(myEpoch);
+//                        var newdate = new Date(dateepoch);
+//
+//                        console.log("new date:" + newdate);
+//                        var schedule_hour = $("#hour").val();
+//                        var schedule_minute = $("#minute").val();
+//                        var schedule_AM = $("#AMPM").val();
+//
+//                        if (schedule_AM == "PM") {
+//                            schedule_hour = parseInt(schedule_hour) + 12;
+//                        }
+//                        newdate.setHours(parseInt(schedule_hour));
+//                        newdate.setMinutes(parseInt(schedule_minute));
+//
+//                        console.log("Value selected from Component: " + newdate);
+//                        var schedule_time = Date.parse(newdate);
+//
+//                        console.log("Epoch: " + schedule_time);
+//
+//                        var dateObj = new Date(schedule_time);
+//                        console.log(dateObj.getTimezoneOffset());
+//
+//                        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+//
+//                        var newEpoch = schedule_time;
+//                        console.log("New Epoch: " + newEpoch);
                         var schedule_desc = $("#schedule_desc").val();
 
                         var social_schedule = "";
@@ -910,7 +919,7 @@
                                 {
                                     type: "facebook",
                                     image_name: image_name,
-                                    schedule_time: newEpoch,
+                                    schedule_time: myEpoch,
                                     schedule_title: schedule_title,
                                     schedule_desc: schedule_desc,
                                     token_data: {
@@ -930,7 +939,7 @@
                                 {
                                     type: "twitter",
                                     image_name: image_name,
-                                    schedule_time: newEpoch,
+                                    schedule_time: myEpoch,
                                     schedule_title: schedule_title,
                                     schedule_desc: schedule_desc,
                                     token_data: {
@@ -951,7 +960,7 @@
                                         {
                                             type: "facebook",
                                             image_name: image_name,
-                                            schedule_time: newEpoch,
+                                            schedule_time: myEpoch,
                                             schedule_title: schedule_title,
                                             schedule_desc: schedule_desc,
                                             token_data: {
@@ -967,7 +976,7 @@
                                         {
                                             type: "twitter",
                                             image_name: image_name,
-                                            schedule_time: newEpoch,
+                                            schedule_time: myEpoch,
                                             schedule_title: schedule_title,
                                             schedule_desc: schedule_desc,
                                             token_data: {
