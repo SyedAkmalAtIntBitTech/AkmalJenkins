@@ -117,24 +117,22 @@ public class MindbodyEmailListProcessor implements Runnable {
     private void updateUserPreferencesTable(Integer idOfRow,JSONObject userIdWithJSONObject) {
 
 
-        Iterator it = userIdWithJSONObject.entrySet().iterator();
         String query_string = "";
 
-        
-            PGobject pg_object = new PGobject();
-            query_string = "Update tbl_user_preferences SET mindbody_email_list=? where id=?";
-            try (Connection connection = connectionManager.getConnection();
-                    PreparedStatement ps = connection.prepareStatement(query_string)) {
-                pg_object.setType("json");
-                pg_object.setValue(userIdWithJSONObject.toString());
-                ps.setObject(1, pg_object, Types.OTHER);
-                ps.setInt(2, idOfRow);
-                ps.executeUpdate();
-            } catch (SQLException ex) {
-                logger.log(Level.SEVERE, "Mindbody email list processor", ex);
-            } catch (Exception e){
-                logger.log(Level.SEVERE, "Mindbody email list processor", e);
-            }
+        PGobject pg_object = new PGobject();
+        query_string = "Update tbl_user_preferences SET mindbody_email_list=? where id=?";
+        try (Connection connection = connectionManager.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query_string)) {
+            pg_object.setType("json");
+            pg_object.setValue(userIdWithJSONObject.toString());
+            ps.setObject(1, pg_object, Types.OTHER);
+            ps.setInt(2, idOfRow);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Mindbody email list processor", ex);
+        } catch (Exception e){
+            logger.log(Level.SEVERE, "Mindbody email list processor", e);
+        }
             
     }
 }
