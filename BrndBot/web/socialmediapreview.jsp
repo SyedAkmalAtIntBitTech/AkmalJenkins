@@ -50,6 +50,11 @@
         <title>social media preview</title>
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
+        <link rel="stylesheet" href="css/pikaday.css">
+        <link rel="stylesheet" href="css/datepickerpikaday.css">
+        <script src="js/pikaday.js"></script>
+         <link href="css/style.css" rel="stylesheet" type="text/css"/>
+       <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -62,6 +67,15 @@
         <script src="js/configurations.js" type="text/javascript"></script>
         <!--        <script src="js/socialmedia.js" type="text/javascript"></script>-->
         <style>
+            .timepicker_wrap{
+                left: 0px;
+                margin-top: -186px;
+            }
+            .arrow_top {
+                    top: 165px;
+                  left: 20px;
+                  transform: rotate(180deg);
+            }
             #mask {
                 position: absolute;
                 left: 0;
@@ -141,8 +155,8 @@
                 display:none;
                 position: fixed;
                 width:900px;
-                height:500px;
-                top: 30%;
+                height:550px;
+                top: 25%;
                 left: 30%;
                 margin-left:-155px;
                 margin-top:-110px;
@@ -374,32 +388,35 @@
                 {
                     document.getElementById('schedule_desc').disabled = true;
                     document.getElementById('schedule_title').disabled = true;
-                    document.getElementById('hour').disabled = true;
-                    document.getElementById('minute').disabled = true;
-                    document.getElementById('AMPM').disabled = true;
-                    document.getElementById('schedule_time').disabled = true;
+                    document.getElementById('schedule_social_date').disabled = true;
+                    document.getElementById('schedule_social_time').disabled = true;
+                    document.getElementById('schedule_social_time').value="";
+                      document.getElementById('schedule_social_date').value="";
+                 
                 }
                 else if ((parseInt(facebookactions) == 0) && (parseInt(twitteractions) != 0)) {
                     document.getElementById('schedule_desc').disabled = true;
                     document.getElementById('schedule_title').disabled = true;
-                    document.getElementById('hour').disabled = true;
-                    document.getElementById('minute').disabled = true;
-                    document.getElementById('AMPM').disabled = true;
-                    document.getElementById('schedule_time').disabled = true;
+                    document.getElementById('schedule_social_date').disabled = true;
+                    document.getElementById('schedule_social_time').disabled = true;
+                       document.getElementById('schedule_social_time').value="";
+                      document.getElementById('schedule_social_date').value="";
                 }
                 else if (((parseInt(facebookactions) != 0) && (parseInt(twitteractions) == 0))) {
                     document.getElementById('schedule_desc').disabled = true;
                     document.getElementById('schedule_title').disabled = true;
-                    document.getElementById('hour').disabled = true;
-                    document.getElementById('minute').disabled = true;
-                    document.getElementById('AMPM').disabled = true;
-                    document.getElementById('schedule_time').disabled = true;
+                    document.getElementById('schedule_social_date').disabled = true;
+                    document.getElementById('schedule_social_time').disabled = true;
+                       document.getElementById('schedule_social_time').value="";
+                      document.getElementById('schedule_social_date').value="";
+//                    document.getElementById('hour').disabled = true;
+//                    document.getElementById('minute').disabled = true;
+//                    document.getElementById('AMPM').disabled = true;
+//                    document.getElementById('schedule_time').disabled = true;
                 } else if (((parseInt(facebookactions) == 0) && (parseInt(twitteractions) == 0))) {
                     document.getElementById('schedule_title').disabled = false;
-                    document.getElementById('hour').disabled = false;
-                    document.getElementById('minute').disabled = false;
-                    document.getElementById('AMPM').disabled = false;
-                    document.getElementById('schedule_time').disabled = false;
+                    document.getElementById('schedule_social_date').disabled = false;
+                    document.getElementById('schedule_social_time').disabled = false;
                     document.getElementById('schedule_desc').disabled = false;
                 }
             }
@@ -530,8 +547,31 @@
                     <p class="SH2" style="position:relative;top:10px;width:700px;">PLEASE CREATE A NEW TITLE AND TIME TO ADD AN ACTION TO YOUR PLAN</p>                       
                     <br>
                     <input type="text" class="simplebox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
-                    <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description" style="font-variant: normal;"></textarea><br>
-                    <input type="date" class="simplebox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
+                    <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description" style="font-variant: normal;resize:none;"></textarea><br>
+                   
+                    
+                    <input type="text" readonly="true" id="schedule_social_date" name="schedule_social_date" class="SH1 simplebox ptr" style="width:190px;font-variant: normal;" placeholder="DATE">
+                    <script>
+                var picker = new Pikaday(
+                {
+                    field: document.getElementById('schedule_social_date'),
+                    firstDay: 1,
+                    minDate: new Date(2000, 0, 1),
+                    maxDate: new Date(2050, 12, 31),
+                    yearRange: [2000,2050]
+                });
+
+                    </script><br>
+                    <input id="schedule_social_time" type="text" name="schedule_social_time" class="SH1 simplebox ptr " style="width:150px;" placeholder="TIME"/><br>
+                 <script src="js/timepicki.js" type="text/javascript"></script>
+                <script>
+                    $('#schedule_social_time').timepicki();
+                </script>
+                <script src="js/bootstrap.min.js" type="text/javascript"></script>
+
+                    
+                    
+<!--                    <input type="date" class="simplebox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
                     <select name="hour" class="selectsocialact" id="hour" style="position:relative;width:50px;top:-30px;left:205px;">
                         <option value="00">00</option>
                         <option value="01">01</option>
@@ -612,9 +652,9 @@
                     <select name="AMPM" id="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
                         <option value="AM">AM</option>
                         <option value="PM">PM</option>
-                    </select>
+                    </select>-->
                     <input type="hidden" name="socialscheduleid" id="socialscheduleid" value="socialmedia"/>
-                    <input type="button" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;font-family:'proxima-nova',sans-serif;font-size:14px;" />   
+                    <input type="button" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;margin-left:0px;font-family:'proxima-nova',sans-serif;font-size:14px;" />   
 
                 </div>
             </div>
@@ -818,7 +858,9 @@
                     var schedule_id_facebook = "0";
                     var schedule_id_twitter = "0";
                     var ManagedPage = "";
-
+                    
+                    
+                    
                     if ((isFacebook == "true") && (isTwitter == "false")) {
                         schedule_id_facebook = $("#facebookactions").val();
                         ManagedPage = $("#pagenameSend").val();
@@ -832,36 +874,43 @@
 
                     console.log(schedule_id_facebook);
                     if ((schedule_id_facebook == "0") && (schedule_id_twitter == "0")) {
-
+                        var schedule_date = $("#schedule_social_date").val();
+                        var schedule_time = $("#schedule_social_time").val().replace(/ /g,'');  
                         var schedule_title = $("#schedule_title").val();
-                        var schedule = $("#schedule_time").val();
-                        var dateepoch = Date.parse(schedule);
-
-                        var newdate = new Date(dateepoch);
-
-                        console.log("new date:" + newdate);
-                        var schedule_hour = $("#hour").val();
-                        var schedule_minute = $("#minute").val();
-                        var schedule_AM = $("#AMPM").val();
-
-                        if (schedule_AM == "PM") {
-                            schedule_hour = parseInt(schedule_hour) + 12;
-                        }
-                        newdate.setHours(parseInt(schedule_hour));
-                        newdate.setMinutes(parseInt(schedule_minute));
-
-                        console.log("Value selected from Component: " + newdate);
-                        var schedule_time = Date.parse(newdate);
-
+//                        var schedule = $("#schedule_time").val();
+//                        var dateepoch = Date.parse(schedule);
+                        
+                        var l=schedule_date.toLocaleString() +" "+schedule_time.toLocaleString();
+                        var schedule_time = Date.parse(l);
                         console.log("Epoch: " + schedule_time);
-
-                        var dateObj = new Date(schedule_time);
-                        console.log(dateObj.getTimezoneOffset());
-
-                        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-                        var newEpoch = schedule_time;
-                        console.log("New Epoch: " + newEpoch);
+                        var myEpoch = schedule_time;
+                        console.log("New Epoch: " + myEpoch);
+                        alert(myEpoch);
+//                        var newdate = new Date(dateepoch);
+//
+//                        console.log("new date:" + newdate);
+//                        var schedule_hour = $("#hour").val();
+//                        var schedule_minute = $("#minute").val();
+//                        var schedule_AM = $("#AMPM").val();
+//
+//                        if (schedule_AM == "PM") {
+//                            schedule_hour = parseInt(schedule_hour) + 12;
+//                        }
+//                        newdate.setHours(parseInt(schedule_hour));
+//                        newdate.setMinutes(parseInt(schedule_minute));
+//
+//                        console.log("Value selected from Component: " + newdate);
+//                        var schedule_time = Date.parse(newdate);
+//
+//                        console.log("Epoch: " + schedule_time);
+//
+//                        var dateObj = new Date(schedule_time);
+//                        console.log(dateObj.getTimezoneOffset());
+//
+//                        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
+//
+//                        var newEpoch = schedule_time;
+//                        console.log("New Epoch: " + newEpoch);
                         var schedule_desc = $("#schedule_desc").val();
 
                         var social_schedule = "";
@@ -870,7 +919,7 @@
                                 {
                                     type: "facebook",
                                     image_name: image_name,
-                                    schedule_time: newEpoch,
+                                    schedule_time: myEpoch,
                                     schedule_title: schedule_title,
                                     schedule_desc: schedule_desc,
                                     token_data: {
@@ -890,7 +939,7 @@
                                 {
                                     type: "twitter",
                                     image_name: image_name,
-                                    schedule_time: newEpoch,
+                                    schedule_time: myEpoch,
                                     schedule_title: schedule_title,
                                     schedule_desc: schedule_desc,
                                     token_data: {
@@ -911,7 +960,7 @@
                                         {
                                             type: "facebook",
                                             image_name: image_name,
-                                            schedule_time: newEpoch,
+                                            schedule_time: myEpoch,
                                             schedule_title: schedule_title,
                                             schedule_desc: schedule_desc,
                                             token_data: {
@@ -927,7 +976,7 @@
                                         {
                                             type: "twitter",
                                             image_name: image_name,
-                                            schedule_time: newEpoch,
+                                            schedule_time: myEpoch,
                                             schedule_title: schedule_title,
                                             schedule_desc: schedule_desc,
                                             token_data: {

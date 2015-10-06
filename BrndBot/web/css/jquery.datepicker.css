@@ -110,8 +110,8 @@
 }
 
 .datepicker_1_calendar_1_months_month_weekdays_weekday_days_day.__current {
-    background: rgb(51, 174, 42);
-    color: rgb(59, 9, 9);
+    background: #5CC1A3;
+    color: rgb(255,255,255);
 }
 
 .datepicker_1_calendar_1_months_month_weekdays_weekday_days_day:not(.__selected):not(.__current):not(.__current_other):not(.__current_other_diff):not(.__previous_month):hover {

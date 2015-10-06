@@ -11,7 +11,9 @@
     <head>
         <%@ include file="fonttypekit.jsp"%>
         <%@ include file="checksession.jsp" %>
-
+        <link rel="stylesheet" href="css/pikaday.css">
+        <link rel="stylesheet" href="css/datepickerpikaday.css">
+        <script src="js/pikaday.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <link rel="stylesheet" href="css/pikaday.css">
@@ -30,7 +32,10 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/leftmenuhamburger.js" type="text/javascript"></script>
-    
+        
+       <link href="css/style.css" rel="stylesheet" type="text/css"/>
+       <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
+        
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
@@ -46,6 +51,15 @@
         </style>
         <title>email preview</title>
         <style>
+            .timepicker_wrap {
+                margin-top:22px;
+            }
+            .icon-chevron-up,.bootstrap-datetimepicker-widget,.timepicker,.timepicker-hours,.table-condensed,.btn,.dropdown-menu{
+                z-index: 2000;
+            }
+            .icon-chevron-up{
+                z-index: 2000;
+            }
             #iphone{
                 width: 25px;
                 height: 50px;
@@ -68,8 +82,8 @@
                 display:none;
                 position: fixed;
                 width:900px;
-                height:400px;
-                top: 40%;
+                height:450px;
+                top: 30%;
                 left: 30%;
                 margin-left:-155px;
                 margin-top:-110px;
@@ -100,6 +114,10 @@
                 background-color: #E3E4E8;
                 color:#686868;
 
+            }
+            .selectsocialact>option{
+                background-color: #fff;
+                font-size: 16px;
             }
             .selectsocialact{
                 background-color: #E3E4E8;
@@ -305,34 +323,16 @@
                     if (schedule_id == "0"){
                         var schedule_title = $("#schedule_title").val();
                         
-                        var schedule = $("#schedule_time").val();
-                        var dateepoch = Date.parse(schedule);
+                        var schedule_date = $("#schedule_date").val();
+                        var schedule_time = $("#schedule_time").val().replace(/ /g,'');
+//                        var schedule = $("#schedule_time").val();
 
-                        var newdate = new Date(dateepoch);
-
-                        console.log("new date:" + newdate);
-                        var schedule_hour = $("#hour").val();
-                        var schedule_minute = $("#minute").val();
-                        var schedule_AM = $("#AMPM").val();
-
-                        if (schedule_AM == "PM"){
-                            schedule_hour = parseInt(schedule_hour) + 12;
-                        }
-                        newdate.setHours(parseInt(schedule_hour));
-                        newdate.setMinutes(parseInt(schedule_minute));
-
-                        console.log("Value selected from Component: " + newdate);
-                        var schedule_time = Date.parse(newdate);
-
+                        var l=schedule_date.toLocaleString() +" "+schedule_time.toLocaleString();
+                        var schedule_time = Date.parse(l);
                         console.log("Epoch: " + schedule_time);
+                        var myEpoch = schedule_time;
+                        console.log("New Epoch: " + myEpoch);
 
-                        var dateObj = new Date(schedule_time);
-                        console.log(dateObj.getTimezoneOffset());
-
-                        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-
-                        var newEpoch = schedule_time;
-                        console.log("New Epoch: " + newEpoch);
 
                         var email_scheduling = {
                             "from_name": from_name, 
@@ -342,7 +342,7 @@
                             "reply_to_email_address": reply_to_email_address, 
                             "email_list": email_list, 
                             "schedule_title": schedule_title, 
-                            "schedule_time": newEpoch, 
+                            "schedule_time": myEpoch, 
                             "email_body": email_body, 
                             "schedule_desc": schedule_desc
                         };
@@ -536,17 +536,19 @@
                if(document.getElementById('email_actions').value === "0")
                 {
                 document.getElementById('schedule_title').disabled=false;
-                document.getElementById('hour').disabled=false;
-                document.getElementById('minute').disabled=false;
-                document.getElementById('AMPM').disabled=false;
-                document.getElementById('schedule_time').disabled=false; 
+                document.getElementById('schedule_date').disabled=false;
+                document.getElementById('schedule_time').disabled=false;
                  }
             else{
                 document.getElementById('schedule_title').disabled=true;
-                document.getElementById('hour').disabled=true;
-                document.getElementById('minute').disabled=true;
-                document.getElementById('AMPM').disabled=true;
-                document.getElementById('schedule_time').disabled=true; 
+                document.getElementById('schedule_date').disabled=true;
+                document.getElementById('schedule_time').disabled=true;
+                document.getElementById('schedule_time').value="";
+                document.getElementById('schedule_date').value="";
+//                document.getElementById('hour').disabled=true;
+//                document.getElementById('minute').disabled=true;
+//                document.getElementById('AMPM').disabled=true;
+//                document.getElementById('schedule_time').disabled=true; 
                  }
         }
 
@@ -643,86 +645,27 @@
                         <p class="SH2" style="position:relative;top:10px;width:700px;">PLEASE CREATE A NEW TITLE AND TIME TO ADD AN ACTION TO YOUR PLAN</p>                       
                         <br>
                         <input type="text" class="simpleinpbox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
-                        <input type="date" class="simpleinpbox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
-                        <select name="hour" id="hour" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:205px;">
-                            <option value="00">00</option>
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                            <option value="06">06</option>
-                            <option value="07">07</option>
-                            <option value="08">08</option>
-                            <option value="09">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                        </select>
-                        <select name="minute" id="minute" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:210px;">
-                            <option value="00">00</option>
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                            <option value="06">06</option>
-                            <option value="07">07</option>
-                            <option value="08">08</option>
-                            <option value="09">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
-                            <option value="32">32</option>
-                            <option value="33">33</option>
-                            <option value="34">34</option>
-                            <option value="35">35</option>
-                            <option value="36">36</option>
-                            <option value="37">37</option>
-                            <option value="38">38</option>
-                            <option value="39">39</option>
-                            <option value="40">40</option>
-                            <option value="41">41</option>
-                            <option value="42">42</option>
-                            <option value="43">43</option>
-                            <option value="44">44</option>
-                            <option value="45">45</option>
-                            <option value="46">46</option>
-                            <option value="47">47</option>
-                            <option value="48">48</option>
-                            <option value="49">49</option>                            
-                            <option value="50">50</option>
-                            <option value="51">51</option>
-                            <option value="52">52</option>
-                            <option value="53">53</option>
-                            <option value="54">54</option>
-                            <option value="55">55</option>
-                            <option value="56">56</option>
-                            <option value="57">57</option>
-                            <option value="58">58</option>
-                            <option value="59">59</option>
-                        </select>
-                        <select name="AMPM" id="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
-                            <option value="AM">AM</option>
-                            <option value="PM">PM</option>
+                        
+                        <input type="text" readonly="true" id="schedule_date" name="schedule_date" class="simpleinpbox SH2 ptr" style="width:190px;font-variant: normal;" placeholder="DATE">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('schedule_date'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                        </script><br>
+                                        <input id="schedule_time" type="text" name="schedule_time" class="simpleinpbox SH2 ptr " style="width:150px;" placeholder="TIME"/><br>
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#schedule_time').timepicki();
+                                    </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                        
+                        
                         </select>
                         
         <label for="datepicker">Date:</label>
@@ -757,7 +700,7 @@
         </script>
 
 
-                        <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
+        <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;margin-left:0px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
                     </div>
                 </div>
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
@@ -767,7 +710,5 @@
                 </div>
             </div>
         </div>
-<script type="text/javascript" src="https://tarruda.github.io/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>                             
-
     </body>
 </html>
