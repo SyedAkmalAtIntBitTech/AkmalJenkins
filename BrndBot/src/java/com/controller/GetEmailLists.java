@@ -199,6 +199,16 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
                     }
                 }
             }
+            emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListMindbodyKey);
+            for (int i = 0; i < emailListArrayJSON.size(); i++) {
+                JSONObject emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
+                String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
+                if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
+                    if (emailListName.equals(currentListName)) {
+                        emailIDs = (String)emailListJSONObject.get(IConstants.kEmailAddressesKey);
+                    }
+                }
+            }            
         }catch (Exception e){
             logger.log(Level.SEVERE,"", e);
         }

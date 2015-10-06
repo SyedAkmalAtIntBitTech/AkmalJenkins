@@ -736,7 +736,7 @@
                     <p class="header1 MH2"> Who do you want to send this email to?</p>
                     <br><br>   
                    
-                    <select id="chooseEmailList" name="chooseEmailList"  hidden="true">
+                    <select id="chooseEmailList" name="chooseEmailList" hidden="true">
                         <option value="1">Manual</option>
                         <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                         <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
