@@ -341,7 +341,8 @@
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts',
                     }).success(function (data, status, headers, config) {
-                        $scope.emailLists = data.allEmailListWithNoOfContacts;
+                        $scope.emailLists = data.allEmailListWithNoOfContacts.user;
+                        $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         
                         if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
@@ -497,12 +498,17 @@
                             <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList(email.emailListName)">EDIT LIST</button> </li>
                         </ul>
                        
+                        <ul class="emlOneRowDatalst L2 " ng-repeat="email in emailListsMindbody">
+                            <li style=" left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')"><p class="emlOneRowDatalst L2" style="width:300px;">{{email.emailListName}}</p><p class="BC1" style="width:200px;">{{email.listDescription}}</p></li>
+                            <li style="width:300px;text-align:center;left:100px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
+<!--                            <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList(email.emailListName)">EDIT LIST</button> </li>-->
+                        </ul>
                     </div><br><br>
 
                 </div>
               <div id="tab2" class="col-md-8 col-md-offset-2 " style="display:none;padding-top:5%;">
                   <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Create a new list</p></div>
-                <div class="col-md-6 col-md-offset-0">  <p class="SS2"style="width:400px;left:-245px;position:relative;top:80px;"> Create a new email list. After you hit save, you will then be
+                <div class="col-md-6 col-md-offset-0">  <p class="SS2" style="width:400px;left:-245px;position:relative;top:80px;"> Create a new email list. After you hit save, you will then be
                 able to add new contacts.</p></div>
                 <div class="col-md-6 col-md-offset-0 bgcols">
                     <div id="view1" style="position:relative;left:-350px;padding-top:8%;" >
