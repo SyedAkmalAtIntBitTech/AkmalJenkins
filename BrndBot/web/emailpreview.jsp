@@ -16,16 +16,6 @@
         <script src="js/pikaday.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
-        <link rel="stylesheet" href="css/pikaday.css">
-    	<link rel="stylesheet" href="css/site_1.css">
-	<link rel="stylesheet" href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css"/>
-        <link rel="stylesheet" href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap-responsive.css"/>
-        <link rel="stylesheet" href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap.css"/>
-        <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
-        <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-<!--        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script type="text/javascript" src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>-->
-        <script src="js/pikaday.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -113,7 +103,6 @@
                 transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
                 background-color: #E3E4E8;
                 color:#686868;
-
             }
             .selectsocialact>option{
                 background-color: #fff;
@@ -159,9 +148,7 @@
             {
                 margin:35px 0 0 80px;
                 width:50px;
-
             }
-
             .vlightbox {
                 display:-moz-inline-stack;
                 display:none;
@@ -200,48 +187,13 @@
                 /*                                margin-left: 60px;
                                                 zoom: 0.5;*/
             }
-
             #popup {
                 /*               
                                 width: 500px;
                                 height: 50em;*/
             }
             .preview{
-
             }
-
-        .navbar h3 {
-                color: #f5f5f5;
-                margin-top: 14px;
-        }
-        .hljs-pre {
-                background: #f8f8f8;
-                padding: 3px;
-        }
-        .footer {
-                border-top: 1px solid #eee;
-                margin-top: 40px;
-                padding: 40px 0;
-        }
-        .input-group {
-                width: 110px;
-                margin-bottom: 10px;
-        }
-        .pull-center {
-                margin-left: auto;
-                margin-right: auto;
-        }
-        @media (min-width: 768px) {
-          .container {
-            max-width: 730px;
-          }
-        }
-        @media (max-width: 767px) {
-          .pull-center {
-            float: right;
-          }
-        }
-
         </style>
         <script type="text/javascript">
             var started;
@@ -283,11 +235,8 @@
         %>
         <script>
             function emailSettings($scope, $http) {
-
                 $scope.getEmailSettings = function () {
-
                     var email_settings = {"type": "get"};
-
                     $http({
                         method: 'POST',
                         url: 'EmailSettingsServlet',
@@ -303,11 +252,8 @@
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
-
                 };
-
                 $scope.setScheduling = function () {
-
                     var schedule_id = "0";
                     var from_name = $("#name").val();
                     var email_subject = $("#subject").val();
@@ -326,14 +272,11 @@
                         var schedule_date = $("#schedule_date").val();
                         var schedule_time = $("#schedule_time").val().replace(/ /g,'');
 //                        var schedule = $("#schedule_time").val();
-
                         var l=schedule_date.toLocaleString() +" "+schedule_time.toLocaleString();
                         var schedule_time = Date.parse(l);
                         console.log("Epoch: " + schedule_time);
                         var myEpoch = schedule_time;
                         console.log("New Epoch: " + myEpoch);
-
-
                         var email_scheduling = {
                             "from_name": from_name, 
                             "email_subject": email_subject, 
@@ -359,7 +302,6 @@
                         }).error(function (data) {
                             alert("No data available, problem fetching the data");
                         });
-
                     }else {
                         var email_scheduling = {
                             "from_name": from_name, 
@@ -400,7 +342,6 @@
                     });
                 };
             }
-
         </script>
 
         <script>
@@ -416,13 +357,11 @@
                         //                    alert(formattedHTMLData);
                         $(".content").empty();
                         $(".content").append("<iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
-
                     }
                 });
             });
             function show(id) {
                 var imageUrl = $("#" + id).css("background-image");
-
                 if (id === "ipad") {
                     $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px")
                             .css("border-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px").css("background-color", "#FFF");
@@ -460,7 +399,6 @@
                 $("#popupschedule").hide();
                 $("#schedule_title").val("");
                 $("#schedule_time").val("");
-
             }
             function validate() {
                 var from_name = $("#name").val();
@@ -472,7 +410,6 @@
                 var email_list = $("#email_list").val();
                 var schedule_title = $("#schedule_title").val("");
                 var schedule_time = $("#schedule_time").val("");
-
                 if (from_name == "") {
                     alert("from name not entered, please enter the from name");
                     $("#name").focus();
@@ -505,7 +442,6 @@
                 }
                 return true;
             }
-
             function sendEmail() {
                 $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position", "absolute").css("top", "300px").css("left", "500px");
                 $.ajax({
@@ -522,15 +458,12 @@
                     },
                     success: function (responseText) {
                         $('#loadingGif').remove();
-
                         document.location.href = "emailsent.jsp";
                     },
                     error: function () {
                         alert("error");
                     }
-
                 });
-
             }
             function validateact(){
                if(document.getElementById('email_actions').value === "0")
@@ -551,7 +484,6 @@
 //                document.getElementById('schedule_time').disabled=true; 
                  }
         }
-
         </script>
         <jsp:include page="basejsp.jsp" />
     </head>
@@ -656,7 +588,6 @@
                                         maxDate: new Date(2050, 12, 31),
                                         yearRange: [2000,2050]
                                     });
-
                                         </script><br>
                                         <input id="schedule_time" type="text" name="schedule_time" class="simpleinpbox SH2 ptr " style="width:150px;" placeholder="TIME"/><br>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
@@ -666,41 +597,90 @@
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                         
                         
+<!--                        <input type="date" class="simpleinpbox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
+                        <select name="hour" id="hour" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:205px;">
+                            <option value="00">00</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
                         </select>
+                        <select name="minute" id="minute" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:210px;">
+                            <option value="00">00</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="46">46</option>
+                            <option value="47">47</option>
+                            <option value="48">48</option>
+                            <option value="49">49</option>                            
+                            <option value="50">50</option>
+                            <option value="51">51</option>
+                            <option value="52">52</option>
+                            <option value="53">53</option>
+                            <option value="54">54</option>
+                            <option value="55">55</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="58">58</option>
+                            <option value="59">59</option>
+                        </select>
+                        <select name="AMPM" id="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                        </select>-->
                         
-        <label for="datepicker">Date:</label>
-        <br>
-        <input type="text" id="datepicker">
-        <script>
-
-	    var picker = new Pikaday(
-	    {
-		field: document.getElementById('datepicker'),
-		firstDay: 1,
-		minDate: new Date(2000, 0, 1),
-		maxDate: new Date(2020, 12, 31),
-		yearRange: [2000,2020]
-	    });
-
-	</script>
-        <div id="datetimepicker3" class="input-append" style="position:relative;margin-top:0px;left:10px;z-index:5000;">
-            <input data-format="hh:mm:ss" type="text"/>
-            <span class="add-on" >
-              <i data-time-icon="icon-time" data-date-icon="icon-calendar" >
-              </i>
-            </span>
-          </div>
-
-        <script type="text/javascript">
-          $(function() {
-            $('#datetimepicker3').datetimepicker({
-              pickDate: false
-            });
-          });
-        </script>
-
-
-        <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;margin-left:0px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
+                        <!--<input id="timepicker1" type="text" name="timepicker1" />-->
+                        <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;margin-left:0px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
                     </div>
                 </div>
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
@@ -710,5 +690,6 @@
                 </div>
             </div>
         </div>
+<!--<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>--> 
     </body>
 </html>

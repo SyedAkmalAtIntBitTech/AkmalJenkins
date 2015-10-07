@@ -677,7 +677,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $('#fb_preview_postdet').css("margin-top", 10);
                     $("#fb_button_post").val(create_button_title);
                 } else {
-                    $('#fb_preview_postdet').css("margin-top", -60);
+                    $('#fb_preview_postdet').css("top", 550);
                     $("#fb_button_post").val("Post");
                     $('#prevfbimg').show();
                     $('#isFacebook').val("true");
@@ -716,7 +716,7 @@ function controllerMarketingCampaign($scope, $http) {
                 } else {
                     $('#prevtwtimg').show();
                     $("#twitter_button_post").val("Post");
-                    $('#twitter_preview_postdet').css("margin-top", -100);
+                    $('#twitter_preview_postdet').css("margin-top", -680);
                     $('#isFacebook').val("false");
                     $('#isTwitter').val("true");
                 }

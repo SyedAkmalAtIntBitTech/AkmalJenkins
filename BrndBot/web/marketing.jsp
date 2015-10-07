@@ -342,6 +342,19 @@
                 -webkit-appearance: none;
                 background: url(images/dropdown.png) no-repeat right center,270px center;
             }
+            .selaction{
+                background-color: #ffffff;
+                border: 1px solid #DADADA;
+                height:30px;
+                width:200px;
+                font-size: 18px;
+                border-radius: 12px;
+                padding-left:12px; 
+                appearance: none;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                background: url(images/dropdown.png) no-repeat right center,270px center;
+            }
             
 /*            .chooseEmailList {
                 background-color: #e4e4e4;
@@ -414,24 +427,21 @@
                 filter: alpha(opacity=80);
             }
             #actiontype{
-                width: 304px;
-                height: 30px;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                box-shadow: none !important;
-                appearance: none;
-                padding: 2px 1px 2px 2px;
-                border: 1px solid #d0d0d0;
-                border-left: none;
-                border-right: none;
-                border-top: none;
-                border-bottom: none;
-                border-radius: 2px;
-                color: #2b2f35;
-                background: url("images/dropdown.png") no-repeat right center;
-                border-color: #3e3e3e;
+                
+                 background-color: #ffffff;
+                border: 1px solid #DADADA;
+                height:30px;
+                width:200px;
                 font-size: 18px;
-                color: #3f4042; 
+                border-radius: 12px;
+                margin-left: 15px;
+                padding-left:12px; 
+                appearance: none;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                background: url(images/dropdown.png) no-repeat right center,270px center;
+                
+                
              }
              .actiondropdown{
                 border: none;
@@ -610,7 +620,7 @@
                         </div>
                         
                         <div style="position:absolute;left:15px;top:20px;" class="SH2">
-                                <select id="actiontype" class="SS1" name="actiontype" style="margin-top:10%; border:1px solid !important;font-size: 18px;width:100px;border-radius:5px;">
+                                <select id="actiontype" class="SS1 " name="actiontype" style="margin-top:10%;margin-left:2px;">
                                  <option value="0">Select</option>
                                  <option value="facebook">facebook</option>
                                  <option value="twitter">twitter</option>
@@ -619,7 +629,7 @@
                                </select>
                         </div>
                         <div class="SH2" style="position:absolute;top:80px;left:15px;">
-                           TITLE <br><textarea cols="30" rows="2" name="addactiontitle" id="addactiontitle" class="SH2" style="resize: none;font-size:1.2em;"></textarea>
+                           TITLE <br><textarea cols="28" rows="2" name="addactiontitle" id="addactiontitle" class="SH2" style="resize: none;font-size:1.2em;"></textarea>
                         </div>
                             <div style="position:absolute;top:180px;left:15px;" class="SH2">                              
                                 Description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;"></textarea>
@@ -640,7 +650,7 @@
                                     });
 
                                         </script><br>
-                                        <div style="position:relative;margin-top:-80px;margin-left:180px;">
+                                        <div style="position:relative;margin-top:-84px;margin-left:180px;">
                                         TIME
                                      <input id="timepicker1" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:110px;"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
@@ -857,16 +867,16 @@
                                         yearRange: [2000,2050]
                                     });
 
-                                        </script><br>
-                                       <div class="SP1 actfnt"  style="font-size:1.2em;"> TIME</div>
+                                        </script>
+                                       <div class="SP1 actfnt"  style="font-size:1.2em;margin-left:150px;margin-top:-63px;"> TIME
                                      <input id="timepickeremailaction" type="text" name="timepickeremail" class="inputtime MH1 ptr" style="width:150px;"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepickeremailaction').timepicki();
                                     </script>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
-                                    </div>
-                                    <div style="position:relative;margin-top:170px;"> 
+                                    </div></div>
+                                    <div style="position:relative;margin-top: 100px;"> 
                                     <!--<input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>-->
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
@@ -893,19 +903,18 @@
                             </div>
 
                             <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
-                                 style="position:relative;top:-30px;left:-100px;
-                                 transform: scale(0.45, 0.5);
-                                 -ms-transform: scale(0.45, 0.5);
-                                 -webkit-transform: scale(0.58, 0.7);
+                                 style="top: -200px;left: -170px;transform: scale(0.45);position:relative;
+                                 -ms-transform: scale(0.45);
+                                 -webkit-transform: scale(0.45);
                                  display:none;"/>
-                            <div style="position:absolute;top:170px;left:300px;">
+                            <div style="position:absolute;top:170px;left:320px;">
 
                                 <p class="SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
                             </div>
-                            <div id="fb_preview_postdet" style="position:absolute;margin-left:15px;margin-top:-60px;">
-                                <p class="postdetails SP1 actfnt">Post details</p>
+                            <div id="fb_preview_postdet" style="position:absolute;margin-left:15px;">
+                                <p class=" SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.metadata.ManagedPage}}</p>
@@ -1045,18 +1054,18 @@
                                 <p><input class="inputbox SP1" type="hidden" name="isFacebook" id="isFacebook" value='false' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             </div>
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                            <img id="edtfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-60px;left:-120px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.5, 0.6);display:none;"/>
+                            <img id="edtfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-200px;left:-170px;transform: scale(0.45);-ms-transform: scale(0.45);-webkit-transform: scale(0.45);display:none;"/>
                             <p><input class="inputbox SP1" type="hidden" name="facebook_image_name" id="facebook_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             <div style="position:absolute;top:160px;left:300px;">
                                 <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                             </div>
-                            <div style="position:absolute;margin-left:10px;margin-top:-100px;">
-                                <p class="postdetails SP1 actfnt">Post details</p>
+                            <div style="position:absolute;margin-left:10px;margin-top: -400px;">
+                                <p class=" SP1 actfnt">Post details</p>
                                 <div>
                                     <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                     <input type="text" readonly="true" name="facebook_schedule_date" class="inputdate MH1 ptr" id="facebook_schedule_date" style="width:150px;">
+                                     <input type="text" readonly name="facebook_schedule_date" class="inputdate MH1 ptr" id="facebook_schedule_date" style="width:150px;">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1067,14 +1076,14 @@
                                         yearRange: [2000,2050]
                                     });
 
-                                        </script><br><div class="SP1 actfnt"  style="font-size:1.2em;"> Time</div>
+                                        </script><div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-55px;"> Time
                                         <input id="facebook_schedule_time" type="text" name="facebook_schedule_time" class="inputtime MH1 ptr" style="width:150px;"/><br>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#facebook_schedule_time').timepicki();
                                     </script>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
-                                    
+                                    </div>                                   
                                     
                                     
                                     <!--<input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>-->
@@ -1141,7 +1150,7 @@
                                     
                                     
                                      <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                     <input type="text" readonly="true" name="notedate" class="inputdate MH1 ptr" id="datepicker4" style="width:150px;">
+                                     <input type="text" readonly name="notedate" class="inputdate MH1 ptr" id="datepicker4" style="width:150px;">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1152,13 +1161,14 @@
                                         yearRange: [2000,2050]
                                     });
 
-                                        </script><br><div class="SP1 actfnt"  style="font-size:1.2em;"> TIME</div>
+                                        </script><div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-55px;"> TIME
                                         <input id="timepicker3" type="text" name="timepicker2" class="inputtime MH1 ptr" style="width:150px;"/><br>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepicker3').timepicki();
                                     </script>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                                    </div>
                               
                                     
                                     
@@ -1189,12 +1199,12 @@
                             </div>
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
 
-                            <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-50px;left:-100px;transform: scale(0.5);-ms-transform: scale(0.5);-webkit-transform: scale(0.6);display:none;"/>
-                            <div style="position:relative;top:-50px;left:310px;">
+                            <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-200px;left: -170px;transform: scale(0.45);-ms-transform: scale(0.45);-webkit-transform: scale(0.45);display:none;"/>
+                            <div style="position:relative;top:-780px;left:300px;">
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.text}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.shorturl}}</p>
                             </div>
-                            <div id="twitter_preview_postdet" style="position:relative;margin-left:15px;margin-top:-100px;">  
+                            <div id="twitter_preview_postdet" style="position:relative;margin-left:15px;">  
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
@@ -1323,18 +1333,18 @@
 
                             </div>
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                            <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-60px;left:-100px;transform: scale(0.45, 0.45);-ms-transform: scale(0.45, 0.45);-webkit-transform: scale(0.6, 0.5);display:none;"/>
+                            <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-200px;left:-170px;transform: scale(0.45);-ms-transform: scale(0.45);-webkit-transform: scale(0.45);display:none;"/>
                             <p><input class="inputbox SP1" type="hidden" name="twitter_image_name" id="twitter_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                            <div style="position:relative;top:-50px;left:310px;">
+                            <div style="position:relative;top: -795px;left: 300px;">
                                 <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.text}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
                                 <p><input type="text" name="twitter_schedule_post_url" id="twitter_schedule_post_url" value='{{entitiesdetails.metadata.shorturl}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
                             </div>
-                            <div style="position:relative;margin-left:10px;margin-top:-180px;">
+                            <div style="position:relative;margin-left:10px;margin-top:-730px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     
                                     
-                                    <p class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</p>
+                                    <div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</div>
                                     <!--<input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>-->
 
                                 <input type="text" readonly class="inputdate MH1 ptr" name="twitter_schedule_date" id="twitter_schedule_date">
@@ -1348,13 +1358,13 @@
                                         yearRange: [2000,2050]
                                     });
 
-                                        </script><br><p class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">TIME</p>
+                                        </script><div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;margin-top:-55px;margin-left:170px;">Time
                                     <input name="timepicker_twittertime" id="timepicker_twittertime" type="text"  class="inputtime MH1 ptr" style="width:150px;"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepicker_twittertime').timepicki();
                                     </script>
-                                    <script src="js/bootstrap.min.js" type="text/javascript"></script><br>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script></div><br>
                                     
                                     <!--<input type='datetime-local'  class="inputdate"/><br>-->
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
