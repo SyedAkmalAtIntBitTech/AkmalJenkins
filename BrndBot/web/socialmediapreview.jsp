@@ -66,7 +66,7 @@
   left: 0;
   top: 0;
   z-index: 9000;
-  background-color: #000;
+  background-color:white;
   display: none;
 }
 
@@ -87,7 +87,7 @@
   width: 750px;
   height: 300px;
   padding: 10px;
-  background-color: #000;
+  background-color: white;
   font-family: 'Segoe UI Light', sans-serif;
   font-size: 15pt;
 }
@@ -528,7 +528,7 @@
 
                 //transition effect
                 $('#mask').fadeIn(500);	
-                $('#mask').fadeTo("slow",10);	
+                $('#mask').fadeTo("slow",0.95);	
 
                 //Get the window height and width
                 var winH = $(window).height();
