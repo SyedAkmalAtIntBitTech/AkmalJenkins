@@ -741,6 +741,8 @@ $(document).ready(function() {
                     }
             //var countBlock = 1;
             function showText(id, layout){
+                 //hiding filter Container 
+                  $("#filtercontainer").hide();
                   var currentBlockID = "";
                   var currentMindbodyQuery = "";
 //                  alert($(selectedBlockId).attr("id"));
@@ -864,7 +866,7 @@ $(document).ready(function() {
                                     var height = $(this).attr("height");
                         if (tag === "text")
                             {
-                            var colorName = $(this).attr("font-color-name");
+                                    var colorName = $(this).attr("font-color-name");
                                     fontsize = $(this).attr("font-size");
                                     fontstyle = $(this).attr("font-style");
                                     var fontweight = $(this).attr("font-weight");
@@ -886,6 +888,10 @@ $(document).ready(function() {
                             }
 //                                                fontcolor = $(this).attr("font-color");
                             textcount++;
+                                if(typeof(elementdata) === "undefined")
+                                           {
+                                             elementdata= $(this).attr("defaulttext");
+                                           }                            
                                     $(".preview #" + blockId).append("<textarea orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "EEE" + blockId + "') class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
                                     $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
                                     .css("position", "absolute")

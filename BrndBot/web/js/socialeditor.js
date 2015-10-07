@@ -311,6 +311,10 @@ $(".blockname").change(function (){
 
                                     }
                                     textcount++;
+                                    if(typeof(elementdata) === "undefined")
+                                          {
+                                           elementdata= $(this).attr("defaulttext");
+                                           }
 //                                    fontcolor = $(this).attr("font-color");
                                     fontsize = $(this).attr("font-size");
                                     fontstyle = $(this).attr("font-style");

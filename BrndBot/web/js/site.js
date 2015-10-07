@@ -1069,10 +1069,8 @@ $(document).ready(function () {
             
         var parentPos = $(".container").offset();
        
-        var finx = parseInt(tempX);
-        var finy = parseInt(tempY);
-        x = finx;
-        y = finy;
+        var finx = parseInt(tempX)-1;
+        var finy = parseInt(tempY)-1;
         if(selectedTextID.indexOf("Svgjs") >= 0)
         {
             $("#" + selectedTextID).parent().parent().css("left", ""+finx+"px");

@@ -276,6 +276,10 @@ $(document).ready(function () {
 
                                     }
                                     textcount++;
+                                    if(typeof(elementdata) === "undefined")
+                                      {
+                                        elementdata= $(this).attr("defaulttext");
+                                       }
                                     $(".preview #defaultblock1").append("<textarea orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "EEEdefaultblock1')  class=textAreas onclick=getTectId(" + type + "EEEdefaultblock1) id=" + type + "EEEdefaultblock1>" + elementdata + "</textarea>");
                                     $("#" + type + "EEEdefaultblock1").css("color", "" + fontcolor)
                                             .css("position", "absolute")

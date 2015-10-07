@@ -336,11 +336,11 @@ ul::-webkit-scrollbar-thumb {
             });
         </script>
         <script>
-                $(document).ready(function () {
+  
                     var jsondata;
                     var selectedDivId;
                     var mindbodydataId = $("#mindbodydata").val();
-                });
+     
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
@@ -389,7 +389,6 @@ ul::-webkit-scrollbar-thumb {
                             // or server returns response with an error status.
                     });
                             $scope.showStyles = function(){
-
                             $scope.curPage = 0;
                                     $scope.pageSize = 2;
                                     $http({
@@ -451,6 +450,8 @@ ul::-webkit-scrollbar-thumb {
             });
                           
                     function showText(id, layout){
+                     //hiding filter Container 
+                     $("#filtercontainer").hide();
                          var layout_mapper_url = "";
 
                    if (mindbodydataId != ""){
@@ -525,6 +526,10 @@ ul::-webkit-scrollbar-thumb {
 
                                                         }
                                                         textcount++;
+                                                        if(typeof(elementdata) === "undefined")
+                                                         {
+                                                            elementdata= $(this).attr("defaulttext");
+                                                         }
 //                                                            fontcolor = $(this).attr("font-color");
                                                             fontsize = $(this).attr("font-size");
                                                             fontstyle = $(this).attr("font-style");
