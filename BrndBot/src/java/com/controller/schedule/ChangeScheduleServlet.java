@@ -141,6 +141,9 @@ public class ChangeScheduleServlet extends HttpServlet {
                     ScheduleDAO.updateScheduleEntityList(Integer.parseInt(entity_id), 
                             Integer.parseInt(schedule_id), 
                             TemplateStatus.complete.toString(), conn);
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.getWriter().write("true");
+                    response.getWriter().flush();
                 }catch (Exception e){
                     logger.log(Level.SEVERE, util.Utility.logMessage(e,
                 "Exception while updating the schedule:", null), e);

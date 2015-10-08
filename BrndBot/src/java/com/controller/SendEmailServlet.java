@@ -5,14 +5,21 @@
  */
 package com.controller;
 
+
+import com.intbit.AppConstants;
+import static com.intbit.AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH;
+//import com.intbit.ScheduledEntityStatus;
 import com.intbit.dao.EmailHistoryDAO;
 import email.mandrill.Message;
 import email.mandrill.MessageResponses;
 import email.mandrill.Recipient;
 import email.mandrill.RecipientMetadata;
 import email.mandrill.SendMail;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -21,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.annotation.WebServlet;
+import org.apache.commons.io.FileUtils;
 
 
 /**
@@ -29,8 +37,6 @@ import javax.servlet.annotation.WebServlet;
  */
 @WebServlet(name = "SendEmailServlet", urlPatterns = {"/SendEmailServlet"})
 public class SendEmailServlet extends BrndBotBaseHttpServlet {
-
-    private final static String MANDRILL_KEY = "4jd3wIMvBAmJt9H0FcEb1w";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,19 +57,38 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         getSqlMethodsInstance().session = request.getSession(true);
         PrintWriter out = response.getWriter();
+        String html_text = "";
         try {
             String email_subject = request.getParameter("email_subject");
+
             String to_email_addresses = request.getParameter("email_addresses");
-            String html_text = request.getParameter("htmldata");
+//
+//            String email_addresses = request.getParameter("email_addresses");
+////            need to change with dymanic name
+//            String fileName = request.getParameter("html_file_name_with_path");
+//
+            if (request.getParameter("htmldata") != null){
+                html_text = request.getParameter("htmldata");
+            }
+
+            
+            //
             String emaillist_name = request.getParameter("email_list");
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
             
             String reply_to_address = request.getParameter("reply_to_email_address");
             String from_email_address = request.getParameter("from_email_address");
             String from_name = request.getParameter("from_name");
+            String path = "";
+            if (request.getParameter("iframeName") != null){
+                String iframeName=request.getParameter("iframeName");
+                path=AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH+File.separator+iframeName+".html";
+                File file = new File(path);
+                html_text = FileUtils.readFileToString(file, "UTF-8");
+            }
             Message message = new Message();
 
-            message.setKey(MANDRILL_KEY);
+            message.setKey(SendEmail.MANDRILL_KEY);
 
             message.setHtml(html_text);
             message.setSubject(email_subject);
@@ -105,12 +130,17 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             }
             
             MessageResponses mandrillResponse = send_email.sendMail(message);
+            
+            if (path.equals("")){
+                File IframeDelete=new File(path);
+                IframeDelete.delete();
+            }
             int lastUpdateId = EmailHistoryDAO.addToEmailHistory(user_id, 
                     html_text, from_email_address, emaillist_name, 
                     to_email_addresses, email_subject, SendMail.getTag(email_subject));
             if ( mandrillResponse != null && lastUpdateId != -1){
                 EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
-            }
+            }        
             out.write("true");
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while Sending Email:", getSqlMethodsInstance().error), e);

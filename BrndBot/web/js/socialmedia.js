@@ -86,7 +86,7 @@ $(document).ready(function () {
                             url: 'GetTwitterToken',
                             method: 'get',
                             success: function (responseText) {
-                                $("#twitterlink").html("<a href='" + responseText + "' target='_blank'>click here</a>");
+                                $("#twitterlink").html("<a href='" + responseText + "' target='_blank'>get your pin</a>");
                             }
                         });
                         $('#setPin').click(function () {

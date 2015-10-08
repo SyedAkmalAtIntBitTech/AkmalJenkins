@@ -132,14 +132,24 @@
                 background-color:transparent;
                 border: 0px solid;
                 height:30px;
-                width:260px;
+                width:220px;
                 position:relative;
 
             }
             .hideinputborder:focus{
                 outline: none;
             }
-
+            .hideinputborderInsideImage{
+                background-color:transparent;
+                border: 0px solid;
+                height:30px;
+                width:310px;
+                position:relative;
+                
+            }
+            .hideinputborderInsideImage:focus{
+                 outline: none;
+            }
             #chnagetolinkpost,#removelink,#posttofb{
                 border-radius: 15px;
             }
@@ -219,8 +229,7 @@
             .linkPostStyle{
                 outline: 2px #cccccc solid;
                 width: 325px;
-                height: 255px;
-
+                height: 245px;
             }
             .fbtable td{
                 padding: 5px;  
@@ -241,6 +250,8 @@
                 text-align: left;
                 line-height: 16.6px;
                 letter-spacing: 0em;
+                position: relative;
+                left: 7px;
                 opacity: 1;
             }
             .link_description{
@@ -251,6 +262,22 @@
                 text-align: left;
                 line-height: 10.8px;
                 letter-spacing: 0em;
+                position:relative;
+                top:-10px;
+                left: 7px;
+                opacity: 1;
+            }
+            .link_url{
+                font-family:AGaramondPro-Regular;
+                font-size:  11px;
+                color: #676767;
+                font-style: normal;
+                text-align: left;
+                line-height: 15px;
+                letter-spacing: 0em;
+                position: relative;
+                top: -15px;
+                left: 7px;
                 opacity: 1;
             }
             .selectsocialact{
@@ -437,22 +464,20 @@
                 </div>
                 <div class="col-sm-3 col-sm-offset-1">
                     <p class="psttxt ptpos">What social media would you like to post on?</p>
-
-                    <img class="socialimage" id="facebookimage" src="images/fb_icon.png"><span id="facebookcancel" class="glyphicon glyphicon-remove-sign"> </span>
-                    <img class="socialimage" id="twitterimage" src="images/twitter.jpeg"><span id="twittercancel" class="glyphicon glyphicon-remove-sign"></span><br><br><br>
+                    <img class="socialimage" id="facebookimage" src="images/fb_icon.png"><span id="facebookcancel" class="glyphicon glyphicon-remove-sign ptr"> </span>
+                    <img class="socialimage" id="twitterimage" src="images/twitter.jpeg"><span id="twittercancel" class="glyphicon glyphicon-remove-sign ptr"></span><br><br><br>
                     <div id="fbtextcontainer">
-                        <!--                        <div class="forfb">
-                                            Post text<input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here">
-                                            </div>
-                                            <br><br>-->
-                        <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
-                        <div id="linkpostdiv">
-                            <div class="forfb">
-                                <p class="psttxt"> Link Title</p><input class="hideinputborder"  id="title" type="text" placeholder="post text goes here"><br>
-                                <p class="psttxt"> Link Description</p><input class="hideinputborder" id="description" type="text" placeholder="post text goes here"><br>
-                            </div>
-                            <p class="psttxt"> Link URL</p><input class="hideinputborder" type="text" id="url" name="url" placeholder="post text goes here" ><br>
-
+<!--                        <div class="forfb">
+                    Post text<input type="text" class="hideinputborder" id="posttext" placeholder="post text goes here">
+                    </div>
+                    <br><br>-->
+                    <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
+                    <div id="linkpostdiv">
+                        <div class="forfb">
+                            <p class="psttxt"> Link Title</p><textarea class="hideinputborder ptr"  id="title" placeholder="Title goes here" style="height:40px; resize: none;"></textarea><br>
+                        <p class="psttxt"> Link Description</p><textarea class="hideinputborder ptr" id="description" placeholder="Description goes here" style="height:40px; resize: none;"></textarea><br>
+                        </div>
+                        <p class="psttxt"> Link URL</p><textarea class="hideinputborder ptr" id="url" placeholder="URL goes here" style="height:40px; resize: none;"></textarea><br>
                             <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
                         </div>
                     </div>
@@ -463,48 +488,48 @@
                 </div>
 
                 <div class="col-sm-3 col-sm-offset-0 " id="fabookpreviewdiv">
-                    <p id="fbprev"> Facebook Preview</p><br>
-                    <div id="previewchield" style="height:400px;width:350px;padding:7px; border-color:red;border:2px #cccccc solid;border-radius:10px;">
-                        <p style="font-weight:600;font-size:10px;bottom:-10px;position:relative;"> Everyone liked this.</p>
-                        <hr style="height:0.5px;background-color:#000;">
-                        <table class="fbtable">
-                            <tr>
-                                <td><img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>"></td>
-                                <td><p><%=companyName%></p></td>
-                            </tr>
-                        </table>
-                        <textarea class="hideinputborder" id="posttext" placeholder="post text goes here" style="resize:none;width:325px;"></textarea><br><br> 
-                        <div id="fblinkpostDiv">
-                            <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
-                            <table class="fbuserDestable"> 
-                                <tr><td><input id="link_title" type="text" class="link_title hideinputborder" placeholder="Link Title"><td></tr>
-                                <tr><td><input id="link_description" type="text" class="link_description hideinputborder" placeholder="Link Description"></td></tr>
-                                <tr><td><input class="hideinputborder" type="text" id="Linkurl" placeholder="Link URL"></td></tr> 
-
-                            </table>
-                        </div>
-                        <p class="fbText">100 Likes 8 Comments 9 Shares</p>
-                        <table class="likeComment">
-                            <tr>
-                                <td>Like</td>
-                                <td>Comment</td>
-                                <td>Share</td>
-                            </tr>
-                        </table>
-                    </div>
+                     <p id="fbprev"> Facebook Preview</p><br>
+                       <div id="previewchield" style="height:400px;width:350px;padding:7px; border-color:red;border:2px #cccccc solid;border-radius:10px;">
+                           <p style="font-weight:600;font-size:10px;bottom:-10px;position:relative;"> Everyone liked this.</p>
+                         <hr style="height:0.5px;background-color:#000;">
+                         <table class="fbtable">
+                             <tr>
+                                 <td><img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>"></td>
+                                 <td><p><%=companyName%></p></td>
+                             </tr>
+                         </table>
+                             <textarea class="hideinputborder ptr" id="posttext" placeholder="post text goes here" style="resize:none;width:325px;height:50px;"></textarea><br>
+                       <div id="fblinkpostDiv">
+                       <img id="facebookpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
+                       <table class="fbuserDestable"> 
+                           <tr><td><input id="link_title" type="text" class="link_title hideinputborderInsideImage" placeholder="Link Title" disabled></td></tr>
+                           <tr><td><textarea id="link_description" class="link_description hideinputborderInsideImage" placeholder="Link Description" disabled style="resize: none;"></textarea></td></tr>
+                           <tr><td><input class="hideinputborderInsideImage link_url" type="text" id="Linkurl" placeholder="LINK URL GOES HERE" disabled></td></tr> 
+                      
+                       </table>
+                       </div>
+                       <p class="fbText">100 Likes 8 Comments 9 Shares</p>
+                       <table class="likeComment">
+                           <tr>
+                           <td>Like</td>
+                           <td>Comment</td>
+                           <td>Share</td>
+                          </tr>
+                       </table>
+                       </div>
                 </div>
 
                 <div class="col-sm-3 col-sm-offset-2" id="twitterpreviewdiv">
                     <p id="fbprev"> Twitter Preview</p><br>
                     <div style="height:320px;width:420px;padding:7px; border-color:red;border:2px #cccccc solid;border-radius:10px;">
-                        <table class="fbtable">
-                            <tr>
-                                <td><img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>"></td>
-                                <td><p><%=companyName%></p></td>
-                            </tr>
-                        </table>
-                        <textarea class="hideinputborder" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"  style="left:50px;resize: none"></textarea>
-                        <img id="twitterpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
+                    <table class="fbtable">
+                             <tr>
+                                 <td><img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>"></td>
+                                 <td><p><%=companyName%></p></td>
+                             </tr>
+                         </table>
+                    <textarea class="hideinputborder ptr" maxlength="140" id="twittertext" placeholder="Twitter Text goes here until it reaches 140 characters long"  style="left:50px;resize: none"></textarea>
+                    <img id="twitterpreviewimage" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=<%=imageName%>'>
                     </div>
                 </div>
             </div>
@@ -550,7 +575,7 @@
                     <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description" style="font-variant: normal;resize:none;"></textarea><br>
                    
                     
-                    <input type="text" readonly="true" id="schedule_social_date" name="schedule_social_date" class="SH1 simplebox ptr" style="width:190px;font-variant: normal;" placeholder="DATE">
+                    <input type="text" readonly id="schedule_social_date" name="schedule_social_date" class="SH1 simplebox ptr" style="width:190px;font-variant: normal;" placeholder="DATE">
                     <script>
                 var picker = new Pikaday(
                 {
@@ -744,19 +769,20 @@
                     $("#twitterpreviewdiv").show();
                     $("#fbtextcontainer").show();
                 }
-
-                $("#chnagetolinkpost").click(function () {
-                    $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 127 characters long");
-                    $("#twittertext").attr("maxlength", "127");
-                    $("#linkpostdiv").show();
-                    $("#fblinkpostDiv").addClass("linkPostStyle");
-                    $("#previewchield").css("height", "480px");
-                    $("#Linkurl").show();
-                    $(".link_title").show();
-                    $(".link_description").show();
+                    $("#chnagetolinkpost").click(function () {
+                        $("#chnagetolinkpost").hide();
+                        $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 127 characters long");
+                        $("#twittertext").attr("maxlength", "127");
+                        $("#linkpostdiv").show();
+                        $("#fblinkpostDiv").addClass("linkPostStyle");
+                        $("#previewchield").css("height","480px");
+                        $("#Linkurl").show();
+                        $(".link_title").show();
+                        $(".link_description").show();
                 });
 
                 $("#removelink").click(function () {
+                    $("#chnagetolinkpost").show();
                     $("#twittertext").attr("placeholder", "Twitter Text goes here until it reaches 140 characters long");
                     $("#twittertext").attr("maxlength", "140");
                     $("#title").val("");
@@ -885,7 +911,6 @@
                         console.log("Epoch: " + schedule_time);
                         var myEpoch = schedule_time;
                         console.log("New Epoch: " + myEpoch);
-                        alert(myEpoch);
 //                        var newdate = new Date(dateepoch);
 //
 //                        console.log("new date:" + newdate);

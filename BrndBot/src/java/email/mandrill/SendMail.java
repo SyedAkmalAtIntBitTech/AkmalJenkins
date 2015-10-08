@@ -5,6 +5,7 @@
  */
 package email.mandrill;
 
+import com.controller.SendEmail;
 import com.controller.SqlMethods;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -28,8 +29,6 @@ import org.json.JSONObject;
 public class SendMail {
 
     private static final Logger logger = Logger.getLogger(util.Utility.getClassName(SendMail.class));
-
-    public final static String MANDRILL_KEY = "4jd3wIMvBAmJt9H0FcEb1w";
 
     public static MessageResponses sendMail(Message message) {
         try {
@@ -72,7 +71,7 @@ public class SendMail {
             HttpPost httppost = new HttpPost("https://mandrillapp.com/api/1.0/users/ping.json");
 
             JSONObject obj = new JSONObject();
-            obj.put("key", MANDRILL_KEY);
+            obj.put("key", SendEmail.MANDRILL_KEY);
             String request = obj.toString();
             HttpEntity entity = new ByteArrayEntity(request.getBytes("UTF-8"));
             httppost.setEntity(entity);

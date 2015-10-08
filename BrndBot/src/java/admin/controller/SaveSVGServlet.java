@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package social.controller;
+package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
-import com.controller.SqlMethods;
+import static com.controller.BrndBotBaseHttpServlet.logger;
+import com.intbit.AppConstants;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -17,9 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author sandeep-kumar
+ * @author ilyas
  */
-public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
+public class SaveSVGServlet extends BrndBotBaseHttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,24 +33,41 @@ public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try{
-           getSqlMethodsInstance().session = request.getSession(true);
-           String sessionValue = request.getParameter("sessionValue");
-           String sessionKey = request.getParameter("sessionKey");
-           String sessionIframeKey = request.getParameter("sessionIframeKey");
-           String sessionIframevalue = request.getParameter("sessionIframevalue");
-           getSqlMethodsInstance().session.setAttribute(sessionKey, sessionValue);
-           getSqlMethodsInstance().session.setAttribute(sessionIframeKey, sessionIframevalue);
-           
-        }catch (Exception e){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
-
+        String svgFileName = request.getParameter("svgFileName");
+        String svgString = request.getParameter("svgString");
+        File tempFolder = new File(AppConstants.BASE_TEMP_PATH);
+        if (!tempFolder.exists()) {
+                tempFolder.mkdirs();
+                
+            }
+        File tempSVGFile = new File(AppConstants.BASE_TEMP_PATH + File.separator + svgFileName);
+            if (!tempSVGFile.exists()) {
+                tempSVGFile.createNewFile();
+            }
+            FileWriter tempSVGWriter = new FileWriter(tempSVGFile, false); // true to append
+            // false to overwrite.
+            tempSVGWriter.write(svgString);
+            tempSVGWriter.close();
+            response.getWriter().write("Success");
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet SaveSVGServlet</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet SaveSVGServlet at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while saving manipulated svg:", getSqlMethodsInstance().error));
         }
     }
 

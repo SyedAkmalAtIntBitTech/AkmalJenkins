@@ -251,13 +251,13 @@ and open the template in the editor.
                                                 <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
 
                                                 <div id="sortable" class="step_wrapper">
-                                                    <div id="elementToPutStyleInto1" class="blankcolor-box step_box" style="background-color: {{user_preferences_colors.color1}}"  onclick="getElementID('elementToPutStyleInto1')"></div>
-                                                    <div id="elementToPutStyleInto2" class="blankcolor-box step_box" style="background-color: {{user_preferences_colors.color2}}"  onclick="getElementID('elementToPutStyleInto2')"></div>
-                                                    <div id="elementToPutStyleInto3" class="blankcolor-box step_box" style="background-color: {{user_preferences_colors.color3}}"  onclick="getElementID('elementToPutStyleInto3')"></div>
-                                                    <div id="elementToPutStyleInto4" class="blankcolor-box step_box" style="background-color: {{user_preferences_colors.color4}}"  onclick="getElementID('elementToPutStyleInto4')"></div>
-                                                    <div id="elementToPutStyleInto5" class="blankcolor-box step_box" style="background-color: {{user_preferences_colors.color5}}"  onclick="getElementID('elementToPutStyleInto5')"></div>   
-                                                    <div id="elementToPutStyleInto6" class="blankcolor-box step_box" style="background-color: {{user_preferences_colors.color6}}"  onclick="getElementID('elementToPutStyleInto6')"></div>
-                                                    <div class="resetpalette"> <p id="resetpalette">RESET ORIGINAL PALETTE</p></div>
+                                                    <div id="elementToPutStyleInto1" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color1}}"  onclick="getElementID('elementToPutStyleInto1')"></div>
+                                                    <div id="elementToPutStyleInto2" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color2}}"  onclick="getElementID('elementToPutStyleInto2')"></div>
+                                                    <div id="elementToPutStyleInto3" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color3}}"  onclick="getElementID('elementToPutStyleInto3')"></div>
+                                                    <div id="elementToPutStyleInto4" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color4}}"  onclick="getElementID('elementToPutStyleInto4')"></div>
+                                                    <div id="elementToPutStyleInto5" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color5}}"  onclick="getElementID('elementToPutStyleInto5')"></div>   
+                                                    <div id="elementToPutStyleInto6" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color6}}"  onclick="getElementID('elementToPutStyleInto6')"></div>
+                                                    <div class="resetpalette ptr"> <p id="resetpalette">RESET ORIGINAL PALETTE</p></div>
                                                 </div>
 
                                             </div>
@@ -283,10 +283,10 @@ and open the template in the editor.
 
                                                                     <div ng-repeat="colors in theme" id="rep1">
                                                                         <div ng-show="colors.theme_id == null">
-                                                                            <div id="{{colors.id}}" class="foo col-md-2 blankcolor-box step_box" onclick="getIDNo('{{colors.id}}')" style="background-color:{{colors.colorHex}};"></div>
+                                                                            <div id="{{colors.id}}" class="foo col-md-2 blankcolor-box step_box ptr" onclick="getIDNo('{{colors.id}}')" style="background-color:{{colors.colorHex}};"></div>
                                                                         </div>
 
-                                                                        <div id="{{colors.theme_id}}" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>
+                                                                        <div id="{{colors.theme_id}}" class="ptr" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>
 
                                                                     </div> 
                                                                     <div id='id'>
@@ -359,12 +359,12 @@ and open the template in the editor.
                                     <p>Choose a look</p>
                                     <div class="col-md-12 step_wrapper">
                                         <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
-                                            <img id="{{first.id}}" class="img-responsive lookchooser1 " src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}"  onclick="showLook({{first.id}})" width=250 height=150 />
+                                            <img id="{{first.id}}" class="img-responsive lookchooser1 ptr " src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}"  onclick="showLook({{first.id}})" width=250 height=150 />
                                         </div>
 
                                         <div class="col-md-12"></div>
                                         <div class="col-md-2 step_box" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
-                                            <img id="{{second.id}}" class="img-responsive lookchooser1" src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{second.file_name}}" onclick="showLook({{second.id}})" width=250 height=150 />
+                                            <img id="{{second.id}}" class="img-responsive lookchooser1 ptr" src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{second.file_name}}" onclick="showLook({{second.id}})" width=250 height=150 />
                                         </div>
 
                                     </div>

@@ -6,6 +6,7 @@
 package social.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.intbit.util.ServletUtil;
 import facebook4j.Account;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
@@ -50,7 +51,7 @@ public class GetFacebookManagePage extends BrndBotBaseHttpServlet {
             facebook = new FacebookFactory().getInstance();
             facebook.setOAuthAppId("592852577521569", "a87cc0c30d792fa5dd0aaef6b43994ef");
             facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
-            String url = request.getRequestURL().toString();
+            String url = ServletUtil.getServerName(request.getServletContext())+"GetFacebookManagePage";
             response.sendRedirect(facebook.getOAuthAuthorizationURL(url));
             response.setContentType("text/html;charset=UTF-8");
             

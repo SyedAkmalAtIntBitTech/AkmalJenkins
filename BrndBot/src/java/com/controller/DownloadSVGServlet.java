@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package social.controller;
+package com.controller;
 
-import com.controller.BrndBotBaseHttpServlet;
-import com.controller.SqlMethods;
+import com.google.gson.Gson;
+import com.intbit.AppConstants;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.logging.Level;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author sandeep-kumar
+ * @author ilyas
  */
-public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
+public class DownloadSVGServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,25 +34,36 @@ public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    public void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try{
-           getSqlMethodsInstance().session = request.getSession(true);
-           String sessionValue = request.getParameter("sessionValue");
-           String sessionKey = request.getParameter("sessionKey");
-           String sessionIframeKey = request.getParameter("sessionIframeKey");
-           String sessionIframevalue = request.getParameter("sessionIframevalue");
-           getSqlMethodsInstance().session.setAttribute(sessionKey, sessionValue);
-           getSqlMethodsInstance().session.setAttribute(sessionIframeKey, sessionIframevalue);
-           
-        }catch (Exception e){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
-
+         response.setContentType("text/html;charset=UTF-8");
+        
+        String fileName = request.getParameter("file_name");
+        if ( fileName == null || "".equals(fileName)){
+            Map<String, String> responseMap = new HashMap<>();
+            responseMap.put("error", "Name of the svg is missing");
+            response.getWriter().write(new Gson().toJson(responseMap));
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
         }
+        
+        //response.setContentType("application/xml");
+        response.setHeader("Content-Disposition", "inline;filename=" + fileName);
+        String svgPath = AppConstants.ADMIN_LAYOUT_SVG_HOME + File.separator + fileName;
+        File file = new File(svgPath);
+        response.setContentLength((int) file.length());
+        // Copy the contents of the file to the output stream
+        byte[] buf = new byte[1024];
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+            try (OutputStream out = response.getOutputStream()) {
+                int i;
+                while ((i = fileInputStream.read(buf)) >= 0) {
+                    out.write(buf, 0, i);
+                }
+                out.flush();
+            }
+        }
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

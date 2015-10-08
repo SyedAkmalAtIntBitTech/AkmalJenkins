@@ -190,26 +190,26 @@
             
             #chooseEmailList{
                border: none ;
-    width: 304px;
-    height: 27px;
-   -webkit-appearance: none;
-    -moz-appearance: none;
-     box-shadow: none !important ;
-    appearance: none;
-    padding: 2px 1px 2px 2px;
-    border: 2px solid #d0d0d0;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    border-bottom: none;
-    border-radius: 2px;
-    color:#2b2f35;
-    background: url("images/dropdown.png") no-repeat right center;
-    background-color: #F2F2F4; 
-    font-size:18px;
-    color: #3f4042;
-    height:40px;
-}
+                width: 304px;
+                height: 27px;
+               -webkit-appearance: none;
+                -moz-appearance: none;
+                 box-shadow: none !important ;
+                appearance: none;
+                padding: 7px 1px 5px 5px;
+                border: 2px solid #d0d0d0;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+                border-bottom: none;
+                border-radius: 2px;
+                color:#2b2f35;
+                background: url("images/dropdown.png") no-repeat 275px center;
+                background-color: #F2F2F4; 
+                font-size:18px;
+                color: #3f4042;
+                height:40px;
+            }
             
             #chooseEmailId:focus{
                 outline: none;
@@ -350,7 +350,7 @@
                     var x = document.getElementById("chooseEmailList").selectedIndex;
                     var List_name = document.getElementsByTagName("option")[x].value;
 
-                    if (List_name == 0){
+                    if (List_name == 1){
                         $("#emailaddresses").hide();
                         $("#drop-zone").hide();
                         $("#clickHere").hide();
@@ -427,13 +427,16 @@
       
             function selectCsvFile(){
                 $("#chooseEmailList").show();
+//                 $('#chooseEmailList').val("1").trigger('change');
+                 
                 var x = document.getElementById("chooseEmailList").selectedIndex;
                 var list_name = document.getElementsByTagName("option")[x].value;
-                if (list_name != 0){
+                if (list_name == 1){                   
                     $("#emailIdContinueButton").show();
                     $("#entertext").show();
                     $("#dragtext").show();
                     $("#emailaddresses").show();
+                    $("#emailaddresses").val('');
                     $("#drop-zone").show();
                     $("#clickHere").show();
                     $("#upload").show();
@@ -493,7 +496,69 @@
                     });
 
                 }else {
-                    alert("please select a list");
+                   $("#emailIdContinueButton").show();
+                    $("#entertext").show();
+                    $("#dragtext").show();
+                    $("#emailaddresses").show();
+//                    $("#emailaddresses").val('');
+                    $("#drop-zone").show();
+                    $("#clickHere").show();
+                    $("#upload").show();
+                    $("#emailIdContinueButton").css("top","-70px");
+                    $(function () {
+
+                    var dropZoneId = "drop-zone";
+                    var buttonId = "clickHere";
+                    var mouseOverClass = "mouse-over";
+
+                    var dropZone = $("#" + dropZoneId);
+                    var ooleft = dropZone.offset().left;
+                    var ooright = dropZone.outerWidth() + ooleft;
+                    var ootop = dropZone.offset().top;
+                    var oobottom = dropZone.outerHeight() + ootop;
+                    var inputFile = dropZone.find("input");
+
+                    document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        dropZone.addClass(mouseOverClass);
+                        var x = e.pageX;
+                        var y = e.pageY;
+
+                        if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
+                            inputFile.offset({ top: y - 15, left: x - 100 });
+                        } else {
+                            inputFile.offset({ top: -400, left: -400 });
+                        }
+
+                    }, true);
+
+                    if (buttonId != "") {
+                        var clickZone = $("#" + buttonId);
+
+                        var oleft = clickZone.offset().left;
+                        var oright = clickZone.outerWidth() + oleft;
+                        var otop = clickZone.offset().top;
+                        var obottom = clickZone.outerHeight() + otop;
+
+                        $("#" + buttonId).mousemove(function (e) {
+                            var x = e.pageX;
+                            var y = e.pageY;
+                            if (!(x < oleft || x > oright || y < otop || y > obottom)) {
+                                inputFile.offset({ top: y - 15, left: x - 160 });
+                            } else {
+                                inputFile.offset({ top: -400, left: -400 });
+                            }
+                        });
+                    }
+
+                    document.getElementById(dropZoneId).addEventListener("drop", function (e) {
+                        $("#" + dropZoneId).removeClass(mouseOverClass);
+                        alert("The CSV file has been added, click on the upload button to load the CSV file in the form.");
+    //                    upload();
+                    }, true);
+                    });
+
                 }
 
             }
@@ -559,7 +624,7 @@
             }
               function upload() {
                 var fileUpload = document.getElementById("file");
-                alert(fileUpload.value.toLowerCase());
+//                alert(fileUpload.value.toLowerCase());
                 var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
                 if (regex.test(fileUpload.value.toLowerCase())) {
                     if (typeof (FileReader) != "undefined") {

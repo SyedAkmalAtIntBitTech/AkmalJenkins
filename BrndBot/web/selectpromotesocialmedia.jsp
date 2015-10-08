@@ -324,8 +324,8 @@
             <p class="smltxt BC1">Click which social media platforms you want to post it on</p>
             <ul id="promotebuttonlist">
 
-                <li><img id="fb" class="socialimage fb" src="images/fbButton.svg" onclick="changeImagef();"/> <input type="checkbox" id="facebook" name="social"  value="facebook" hidden="true"><p class="il2">Facebook</p></li>
-                <li><img id="twt" class="socialimage twt" src="images/twtButton.svg" onclick="changeImaget();"/> <input type="checkbox" id="twitter" name="social" value="twitter" hidden="true"><p class="il2">Twitter</p></li>
+                <li><img id="fb" class="socialimage fb ptr" src="images/fbButton.svg" onclick="changeImagef();"/> <input type="checkbox" id="facebook" name="social"  value="facebook" hidden="true"><p class="il2">Facebook</p></li>
+                <li><img id="twt" class="socialimage twt ptr" src="images/twtButton.svg" onclick="changeImaget();"/> <input type="checkbox" id="twitter" name="social" value="twitter" hidden="true"><p class="il2">Twitter</p></li>
                 <li><div style="left:-330px;" class="col-md-5 col-md-offset-0">
 
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
@@ -354,7 +354,7 @@
         </div>
         <div id="myModal1" class="reveal-modal">
             <div id="content">
-                <p>Please click the url and get the pin</p>
+                <p>"You now need to connect BrndBot to your Twitter account. Click 'get your pin' you will be given a 7 digit pin by Twitter. Copy and paste that pin here and you are all set!"</p>
                 <div id="twitterlink">wait...</div>
                 Enter the pin<input type="text" id="pinTextBox" name="pinTextBox"><br><br><br>
                 <input id="setPin" type="button" class="btn btn-primary" value="ok">

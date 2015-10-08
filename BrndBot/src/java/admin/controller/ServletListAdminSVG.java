@@ -3,23 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package social.controller;
+package admin.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
-import com.controller.SqlMethods;
+import static com.controller.BrndBotBaseHttpServlet.logger;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.intbit.AppConstants;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
- * @author sandeep-kumar
+ * @author ilyas
  */
-public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
+public class ServletListAdminSVG extends BrndBotBaseHttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,23 +38,35 @@ public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try{
-           getSqlMethodsInstance().session = request.getSession(true);
-           String sessionValue = request.getParameter("sessionValue");
-           String sessionKey = request.getParameter("sessionKey");
-           String sessionIframeKey = request.getParameter("sessionIframeKey");
-           String sessionIframevalue = request.getParameter("sessionIframevalue");
-           getSqlMethodsInstance().session.setAttribute(sessionKey, sessionValue);
-           getSqlMethodsInstance().session.setAttribute(sessionIframeKey, sessionIframevalue);
-           
-        }catch (Exception e){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+        response.setContentType("application/json");
+        try (PrintWriter out = response.getWriter()) {
+            String imageBasePath = "";
+            imageBasePath = AppConstants.ADMIN_LAYOUT_SVG_HOME;
+
+            File backgroundImagesFolder = new File(imageBasePath);
+            if (!backgroundImagesFolder.exists()) {
+                backgroundImagesFolder.mkdirs();
+            }
+            File[] listOfImageFiles = backgroundImagesFolder.listFiles();
+
+            JSONArray json_arr = new JSONArray();
+            for (int i = 0; i < listOfImageFiles.length; i++) {
+                JSONObject json_ob = new JSONObject();
+                if (listOfImageFiles[i].isFile()) {
+                    json_ob.put("id", "" + i);
+                    json_ob.put("filename", listOfImageFiles[i].getName());
+
+                    json_arr.add(json_ob);
+
+                }
+            }
+
+            out.write(new Gson().toJson(json_arr));
+            } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while reading admin SVG:", e.getMessage()));
 
         }
     }

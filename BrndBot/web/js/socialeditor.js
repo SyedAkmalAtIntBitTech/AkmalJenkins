@@ -43,6 +43,7 @@ $(document).ready(function () {
     $("#justify").hide();
     $("#plus").hide();
     $("#minus").hide();
+    $("#lineHeightImage").hide();
     var status = "true";
     $("#tabs-1").show();
     $("#tabs-2").hide();
@@ -74,7 +75,22 @@ $(document).ready(function () {
                 $("#blockopacity").show();
                 $("#selectedshapecolorbox").css('background-color', '#' + hex);
                 var blockId = $(".blockname").val();
-                $("#" + blockId).css('background-color', '#' + hex);
+                
+                if($("#"+blockId).children().length > 0)
+                {
+                    var svgElement = SVG.get($("#"+blockId).children("svg").attr("id"));
+                    if(svgElement.attr("id").indexOf("Svgjs") >= 0)
+                    {
+
+                        svgElement.style("fill", '#' + hex);
+                        svgElement.each(function(i, children) {
+                            this.style("fill", '#' + hex);
+
+                        }, true); 
+                    }
+                }
+                else
+                    $("#" + blockId).css('background-color', '#' + hex);
                 $(el).colpickHide();
                 $("#openCustomColor").hide();
               
@@ -97,7 +113,21 @@ $(document).ready(function () {
         var blockId = $(".blockname").val();
         $("#selectedshapecolorbox").css("background-color", "" + color);
 //        $("#" + selectedDivId).css("background-color", "" + color);
-        $("#" + blockId).css('background-color', '#' + color);
+        if($("#"+blockId).children().length > 0)
+        {
+            var svgElement = SVG.get($("#"+blockId).children("svg").attr("id"));
+            if(svgElement.attr("id").indexOf("Svgjs") >= 0)
+            {
+
+                svgElement.style("fill", color);
+                svgElement.each(function(i, children) {
+                    this.style("fill", color);
+
+                }, true); 
+            }
+        }
+        else
+            $("#" + blockId).css('background-color', '#' + color);
         $("#openCustomColor").hide();
     });
      $("#selectedshapecolorbox").click(function(){
@@ -106,15 +136,25 @@ $(document).ready(function () {
   
 $(".blockname").change(function (){
     var blockId = $(".blockname").val();
-    var divBackgroundColor=$("#"+blockId).css("background-color");
-    var opcity=$("#"+blockId).css("opacity");
-     $('#selectedshapecolorbox').css("background-color",""+divBackgroundColor);
-       $('#slider').slider({
-        min: 0,
-        max: 1,
-        step: 0.01,
-        value: ""+opcity,
-        orientation: "horizontal" 
+    var divBackgroundColor, opacity;
+    if($("#"+blockId).children().length > 0)
+    {
+        var svgElement = SVG.get($("#"+blockId).children("svg").attr("id"));
+        divBackgroundColor = svgElement.style("fill");
+        opacity = svgElement.opacity();
+    }
+    else
+    {
+        divBackgroundColor=$("#"+blockId).css("background-color");
+        opacity=$("#"+blockId).css("opacity");
+    }
+    $('#selectedshapecolorbox').css("background-color",""+divBackgroundColor);
+    $('#slider').slider({
+     min: 0,
+     max: 1,
+     step: 0.01,
+     value: ""+opacity,
+     orientation: "horizontal" 
     });
 });
 
@@ -173,7 +213,7 @@ $(".blockname").change(function (){
 
 //    alert("loding");
 
-    jsondata;
+    var jsondata;
     mindbodydataId = $("#mindbodydata").val();
 
     var layoutfilename = $("#clickid").val();
@@ -250,6 +290,7 @@ $(".blockname").change(function (){
                                 var fontcolor;
                                 var fontsize;
                                 var fontstyle;
+                                var filter;
                                 var left = $(this).attr("x-co-ordinates");
                                 var top = $(this).attr("y-co-ordinates");
                                 var width = $(this).attr("width");
@@ -327,9 +368,17 @@ $(".blockname").change(function (){
 
                                 if (tag === "logo")
                                 {
+                                    if($(this).attr("filterEnable")== "true"){
+                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                       }
+                                    else
+                                    {
+                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                    }
                                     var userId=$("#userid").val();
                                     var userLogonmae = $("#userlogo").val();
-                                    var blendmode = $(this).attr("background-blend-mode");
+                                                    var blendmode = $(this).attr("Blend");
+                                                    var background_color=$(this).attr("blend-background-color");
                                     $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                     $("#" + type)
                                             .css("color", "" + fontcolor)
@@ -342,14 +391,24 @@ $(".blockname").change(function (){
                                             .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')" )
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
-
-                                            .css("position", "absolute");
+                                            .css("background-color", ""+ background_color)
+                                            .css("background-size","contain")
+                                            .css("position", "absolute")
+                                            .css("webkit-filter",""+ filter);                                          
                                 }
 
                                 if (tag === "image")
-                                {
-                                    var background_image = $(this).attr("background-image");
-                                    var blendmode = $(this).attr("background-blend-mode");
+                                {                                  
+                                    if($(this).attr("filterEnable")== "true"){
+                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                       }
+                                    else
+                                    {
+                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                    }
+                                                    var blendmode = $(this).attr("Blend");
+                                                    var background_image = $(this).attr("background-image");
+                                                    var background_color=$(this).attr("blend-background-color");
                                     $(".imagename").append("<option name=" + background_image + " value="+ type +">Image " + count + "</option>");
                                     count++;
                                     $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
@@ -366,7 +425,9 @@ $(".blockname").change(function (){
                                             .css("background-position", "center center")
                                             .css("position", "absolute")
                                             .css("background-position", "50% 50%")
-                                            .css("-webkit-background-size", "cover");
+                                            .css("-webkit-background-size", "cover")
+                                            .css("background-color", ""+background_color)
+                                            .css("webkit-filter",""+ filter);
                                 }
 
                                 if (tag === "button")
@@ -383,7 +444,7 @@ $(".blockname").change(function (){
                                     var borderRadius = $(this).attr("border-radius");
                                     var backgroundcolor;
 
-                                    $(".blockname").append("<option value=" + type + ">Block " + blockcount + "</option>");
+                                    $(".blockname").append("<option value=" + type + ">Shape " + blockcount + "</option>");
                                     blockcount++;
 
                                     for (var i = 1; i <= 6; i++)
@@ -410,6 +471,71 @@ $(".blockname").change(function (){
                                             .css("height", "" + height)
                                             .css("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")")
                                             .css("opacity", "" + opacity);
+
+                                }
+                                
+                                if (tag === "svg")
+                                {
+
+                                    var colorName = $(this).attr("color-name");
+                                    var borderRadius = $(this).attr("border-radius");
+                                    var backgroundcolor;
+
+                                    $(".blockname").append("<option value=" + type + ">Shape " + blockcount + "</option>");
+                                    blockcount++;
+
+                                    for (var i = 1; i <= 6; i++)
+                                    {
+                                        if (colorName === "Color-" + i)
+                                        {
+                                            backgroundcolor = $("#shapecolorbox" + i).css("background-color");
+                                        }
+
+                                    }
+                                    var width = $(this).attr("width");
+                                    var height = $(this).attr("height");
+                                    var drop_shadow = $(this).attr("Drop-shadow-color");
+                                    var h_shadow = $(this).attr("H-shadow");
+                                    var v_shadow = $(this).attr("V-shadow");
+                                    var Blur = $(this).attr("blur");
+                                    var filename = $(this).attr("filename");
+                                    $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
+                                    var draw = SVG(type);
+                                    $("#" + type)
+                                            //.css("background-color", "" + backgroundcolor)
+                                            .css("margin-left", "" + left + "px")
+                                            .css("margin-top", "" + top + "px")
+                                            .css("width", "" + width)
+                                            //.css("border-radius", "" + borderRadius)
+                                            .css("position", "absolute")
+                                            .css("height", "" + height)
+                                            //.css("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")")
+                                            //.css("opacity", "" + opacity)
+                                            ;
+                                    $.get('/BrndBot/DownloadSVGServlet?file_name='+filename, function(data) {
+                                    var svg1 = draw.svg(data);
+                                    var realsvg = svg1.last();  
+
+                                    svg1.attr("viewBox",realsvg.attr("viewBox"));
+                                    svg1.attr("enable-background",realsvg.attr("enable-background"));
+                                    svg1.attr("x",realsvg.attr("x"));
+                                    svg1.attr("y",realsvg.attr("y"));
+                                    svg1.attr("xml:space",realsvg.attr("xml:space"));
+                                    svg1.attr("width",width);
+                                    svg1.attr("height",height);
+                                    svg1.opacity(opacity);
+                                    
+                                    svg1.style("fill",backgroundcolor);
+                                    svg1.style("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")");
+                                    
+                                    svg1.each(function(i, children) {
+                                        this.style("fill",backgroundcolor);
+                                        this.opacity(opacity);
+                                    }, true); 
+                                   },"html");
+                                   
+                                   
+    
 
                                 }
 
@@ -440,7 +566,17 @@ $(".blockname").change(function (){
         value: 0,
         orientation: "horizontal",
         slide: function (e, ui) {
-            $('#' + $(".blockname").val()).css('opacity', ui.value);
+            var blockId = $(".blockname").val();
+            if($("#"+blockId).children().length > 0)
+            {
+                var svg1 = SVG.get($("#"+blockId).children("svg").attr("id"));
+                svg1.opacity(ui.value);
+                svg1.each(function(i, children) {
+                    this.opacity(ui.value);
+                }, true); 
+            }
+            else
+            $('#' + blockId).css('opacity', ui.value);
         }
     });
     $("#text").click(function () {
@@ -534,6 +670,7 @@ $(".blockname").change(function (){
             $("#justify").show();
             $("#plus").show();
             $("#minus").show();
+            $("#lineHeightImage").show();
             status = "false";
         }
         else {
@@ -543,6 +680,7 @@ $(".blockname").change(function (){
             $("#justify").hide();
             $("#plus").hide();
             $("#minus").hide();
+            $("#lineHeightImage").hide();
             status = "true";
         }
 
@@ -600,8 +738,13 @@ function getTectId(id) {
 
         var textDefaultAline = $("#" + selectedTextareaId).css("text-align");
         var textDefaultFontSize = $("#" + selectedTextareaId).css("font-size");
-        var textDefaultFontFamily = $("#" + selectedTextareaId).css("font-style");
+        var textDefaultFontFamily = $("#" + selectedTextareaId).css("font-family");
         $("#picker").css("background-color", "" + textDefaultcolor);
+        var font_name = textDefaultFontFamily.split(' ').join('+');
+        if(font_name.contains("+")){
+            font_name=font_name.replace(/'/g,"");
+        }
+        $("#fontname").val(""+font_name).trigger('change');
         reload_alignButtons1(textDefaultAline);
     });
     $("#"+selectedTextareaId).focusout(function(){

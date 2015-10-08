@@ -488,6 +488,14 @@
                 margin-left:3%;
                 color: #4e4e4e;
             }
+            
+           #imgcontainer>img{
+               max-width: 100%;
+           }
+           div#imgcontainer{
+                  width: 280px;
+                  height: auto;
+           }
         </style>
         <script>
                  function overlay(){
@@ -629,10 +637,10 @@
                                </select>
                         </div>
                         <div class="SH2" style="position:absolute;top:80px;left:15px;">
-                           TITLE <br><textarea cols="28" rows="2" name="addactiontitle" id="addactiontitle" class="SH2" style="resize: none;font-size:1.2em;"></textarea>
+                           TITLE <br><textarea cols="28" rows="2" name="addactiontitle" id="addactiontitle" class="SH2" style="resize: none;font-size:1.2em;height:70px;"></textarea>
                         </div>
                             <div style="position:absolute;top:180px;left:15px;" class="SH2">                              
-                                Description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;"></textarea>
+                                Description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;height:70px;"></textarea>
                             </div>
                             <div class="SH2" style="position:absolute;top:280px;left:15px;" >
                                 SCHEDULED TO POST ON<br><br>
@@ -901,12 +909,11 @@
                                 <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">{{schedule_desc}}</p>
                                 <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                             </div>
-
-                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
-                                 style="top: -200px;left: -170px;transform: scale(0.45);position:relative;
-                                 -ms-transform: scale(0.45);
-                                 -webkit-transform: scale(0.45);
-                                 display:none;"/>
+                            <div id="imgcontainer">
+                           <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
+                                style="display:none;"/>
+                           </div>    
+                            
                             <div style="position:absolute;top:170px;left:320px;">
 
                                 <p class="SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
@@ -1054,14 +1061,18 @@
                                 <p><input class="inputbox SP1" type="hidden" name="isFacebook" id="isFacebook" value='false' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             </div>
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                            <img id="edtfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-200px;left:-170px;transform: scale(0.45);-ms-transform: scale(0.45);-webkit-transform: scale(0.45);display:none;"/>
+                           <div id="imgcontainer">
+                           <img id="edtfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
+                                style="display:none;"/>
+                           </div>     
+                            
                             <p><input class="inputbox SP1" type="hidden" name="facebook_image_name" id="facebook_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             <div style="position:absolute;top:160px;left:300px;">
                                 <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                                 <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
                             </div>
-                            <div style="position:absolute;margin-left:10px;margin-top: -400px;">
+                            <div style="position:absolute;margin-left:15px;margin-top: 0px;">
                                 <p class=" SP1 actfnt">Post details</p>
                                 <div>
                                     <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
@@ -1088,7 +1099,7 @@
                                     
                                     <!--<input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>-->
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    <input type="text" name="social_type" id="social_type" value="{{schedule_type}}">
+                                    <input type="text" readonly class="SH1" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
                                 <div class="removesavetemplate"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                 <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
@@ -1198,14 +1209,17 @@
                                 <p class="SP1 actfnt" style="font-size:15px;font-weight:400;"> {{schedule_desc}}</p>
                             </div>
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-
-                            <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-200px;left: -170px;transform: scale(0.45);-ms-transform: scale(0.45);-webkit-transform: scale(0.45);display:none;"/>
-                            <div style="position:relative;top:-780px;left:300px;">
+                            <div id="imgcontainer">
+                           <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
+                                style="display:none;"/>
+                           </div>
+                            
+                            <div style="position:relative;top:-200px;left:300px;">
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.text}}</p>
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.shorturl}}</p>
                             </div>
                             <div id="twitter_preview_postdet" style="position:relative;margin-left:15px;">  
-                                <p class="postdetails SP1 actfnt">Post details</p>
+                                <p class="SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
@@ -1333,13 +1347,18 @@
 
                             </div>
                             <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                            <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' style="position:relative;top:-200px;left:-170px;transform: scale(0.45);-ms-transform: scale(0.45);-webkit-transform: scale(0.45);display:none;"/>
+                            
+                            <div id="imgcontainer">
+                           <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
+                                style="display:none;"/>
+                           </div>  
+                         
                             <p><input class="inputbox SP1" type="hidden" name="twitter_image_name" id="twitter_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                            <div style="position:relative;top: -795px;left: 300px;">
+                            <div style="position:relative;top: -200px;left: 300px;">
                                 <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.text}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
                                 <p><input type="text" name="twitter_schedule_post_url" id="twitter_schedule_post_url" value='{{entitiesdetails.metadata.shorturl}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
                             </div>
-                            <div style="position:relative;margin-left:10px;margin-top:-730px;">
+                            <div style="position:relative;margin-left:10px;margin-top:-300px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     
@@ -1368,7 +1387,7 @@
                                     
                                     <!--<input type='datetime-local'  class="inputdate"/><br>-->
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    <input type="text" name="social_type" id="social_type" value="{{schedule_type}}">
+                                    <input type="text" class="SH1" readonly name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
                                 <div style="margin-left:-10px;" class="removesavetemplate"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                 <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>

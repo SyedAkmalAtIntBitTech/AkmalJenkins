@@ -54,7 +54,20 @@ and open the template in the editor.
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
         <script src="js/ajaxfileupload.js" type="text/javascript"></script>
-        <style>
+        
+        <!-- For svg --> 
+        <script src="js/svg.js" type="text/javascript"></script>
+        
+        <style>           
+a.boxclose{
+    float:right;
+    margin-top:8px;
+    margin-right:30px;
+    cursor:pointer;
+    background-image: url(images/CloseIcon.svg);
+    width: 25px;
+    height: 25px;
+}
             #mask {
   position: absolute;
   left: 0;
@@ -289,6 +302,8 @@ ul::-webkit-scrollbar-thumb {
                 if (!request.getParameter("id").equals("null")){
                     mindbody_data_id = (String) request.getParameter("id");
                 }
+                else
+                    mindbody_data_id = "";
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
 
@@ -313,31 +328,19 @@ ul::-webkit-scrollbar-thumb {
 //            alert($(this).val());
                 var text = $("#fontname").find('option:selected').text();
                 var font_family_name = $("#fontname").val();
-                var font = font_family_name.split(",");
-//                var google_key_word = font[0].split(' ').join('+')
-//
-//                var ss = document.createElement("link");
-//                ss.type = "text/css";
-//                ss.rel = "stylesheet";
-//                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
-//                document.getElementsByTagName("head")[0].appendChild(ss);
-//
-//                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
-//                var styles = "@font-face {"+
-//                             "font-family:"+ text + ";"+
-//                             "src: url("+font_path+");"
-//                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
-                var font_name = font[0].split('+').join(' ');
-                $("#" + selectedTextareaId).css("font-family", font[0]);
+                var font_name = font_family_name.split('+').join(' ');
+                $("#" + selectedTextareaId).css("font-family", font_name);
 
             });
             });
         </script>
         <script>
+                $(document).ready(function () {
                     var jsondata;
                     var selectedDivId;
                     var mindbodydataId = $("#mindbodydata").val();
+                });
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
@@ -345,7 +348,7 @@ ul::-webkit-scrollbar-thumb {
                             method : 'GET',
                             url : 'GetUserPreferences'
                     }).success(function(data, status, headers, config) {
-//                        alert(JSON.stringify(data.user_colors));
+//                        alert(JSON.stringify(data.user_font_names));
                             $scope.user_preferences_colors = data.user_colors;
 
                             $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -354,14 +357,14 @@ ul::-webkit-scrollbar-thumb {
                             var font_object;
                             var font_family_name;
                             var font_name;
+                             $("#fontname").empty();
                             for (i; i<= data.user_font_names.length; i++){
                                 font_object = data.user_font_names[i];
                                 font_name = font_object.font_name;
                                 font_family_name = font_object.font_family_name;
-                                
-                                var font = font_family_name.split(",");
-                                var google_key_word = font[0].split(' ').join('+')
-
+                                var font = font_family_name.split(",");                     
+                                var google_key_word = font[0].split(' ').join('+');
+                                $("#fontname").append("<option value="+google_key_word+">"+font_name+"</option>");
                                 var ss = document.createElement("link");
                                 ss.type = "text/css";
                                 ss.rel = "stylesheet";
@@ -416,6 +419,7 @@ ul::-webkit-scrollbar-thumb {
                                     $("#tabs-1").hide();
                                     $("#tabs-2").hide();         
                                     $("#tabs-3").show().css("width", "430px").show("slide", { direction: "right" }, 1000);                                                                                                                                                                                                                                             
+                                    $("#imageGallery").show();
                                     $scope.curPage = 0;
                                     $scope.pageSize = 100;
                                     $http({
@@ -501,6 +505,7 @@ ul::-webkit-scrollbar-thumb {
                                                             var fontcolor;
                                                             var fontsize;
                                                             var fontstyle;
+                                                            var filter;
                                                             var left = $(this).attr("x-co-ordinates");
                                                             var top = $(this).attr("y-co-ordinates");
                                                             var opacity = $(this).attr("opacity");
@@ -541,9 +546,9 @@ ul::-webkit-scrollbar-thumb {
                                                                 .css("margin-top", "" + top + "px")
                                                                 .css("width", "" + width)
                                                                 .css("height", "" + height)
-                                                                .css("font-size", "" + fontsize)
-                                                                .css("font-style", "" + fontstyle)
+                                                                .css("font-size", "" + fontsize)                                                             
                                                                 .css("font-family", "" + font_family_name)
+                                                                .css("font-style", "" + fontstyle)
                                                                 .css("font-weight", "" + fontweight)
                                                                 .css("letter-spacing", "" + letterspacing)
                                                                 .css("line-height", "" + lineheight)
@@ -575,9 +580,18 @@ ul::-webkit-scrollbar-thumb {
                                                     }
 
                                                if (tag === "image")
-                                               {
+                                               {                                                
+                                                    if($(this).attr("filterEnable")== "true"){
+                                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                                       }
+                                                    else
+                                                    {
+                                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                                    }
+                                                   
+                                                    var blendmode = $(this).attr("Blend");
                                                     var background_image = $(this).attr("background-image");
-                                                    var blendmode = $(this).attr("background-blend-mode");
+                                                    var background_color=$(this).attr("blend-background-color");
 //                                                   
                                                     $(".imagename").append("<option name="+background_image+" value="+ type +">Image "+count+"</option>");
                                                         count++;
@@ -594,14 +608,24 @@ ul::-webkit-scrollbar-thumb {
                                                             .css("background-repeat", "no-repeat")
                                                             .css("background-position", "50% 50%")
                                                             .css("-webkit-background-size", "cover")
-                                                            .css("position", "absolute"); 
+                                                            .css("background-color", ""+background_color)
+                                                            .css("position", "absolute")
+                                                            .css("webkit-filter",""+ filter);
                                                     }
 
                                                     if (tag === "logo")
                                                     {
+                                                    if($(this).attr("filterEnable")== "true"){
+                                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                                       }
+                                                    else
+                                                    {
+                                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                                    }
                                                      var userId=$("#userid").val();
                                                     var userLogonmae = $("#userlogo").val();
-                                                    var blendmode = $(this).attr("background-blend-mode");
+                                                    var blendmode = $(this).attr("Blend");
+                                                    var background_color=$(this).attr("blend-background-color");
                                                     $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
                                                     $("#" + type)
                                                             .css("color", "" + fontcolor)
@@ -614,8 +638,10 @@ ul::-webkit-scrollbar-thumb {
                                                             .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')")
                                                             .css("background-repeat", "no-repeat")
                                                             .css("background-position", "center center")
-
-                                                            .css("position", "absolute"); 
+                                                            .css("background-color", ""+ background_color)
+                                                            .css("background-size","contain")
+                                                            .css("position", "absolute")
+                                                            .css("webkit-filter",""+ filter); 
                                                     }
 
                                                     if (tag === "button")
@@ -642,7 +668,7 @@ ul::-webkit-scrollbar-thumb {
                                                             }
 
                                                         }
-                                                        $(".blockname").append("<option value="+type+">Block "+blockcount+"</option>")
+                                                        $(".blockname").append("<option value="+type+">Shape "+blockcount+"</option>")
                                                         blockcount++;
                                                             var width = $(this).attr("width");
                                                             var height = $(this).attr("height");
@@ -660,6 +686,66 @@ ul::-webkit-scrollbar-thumb {
                                                                     .css("height", "" + height)
                                                                     .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
                                                                     .css("opacity", "" + opacity);
+                                                    }
+                                                    if (tag === "svg")
+                                                    {
+
+                                                        var colorName = $(this).attr("color-name");
+                                                        var borderRadius = $(this).attr("border-radius");
+                                                        var backgroundcolor;
+
+                                                        $(".blockname").append("<option value=" + type + ">Shape " + blockcount + "</option>");
+                                                        blockcount++;
+
+                                                        for (var i = 1; i <= 6; i++)
+                                                        {
+                                                            if (colorName === "Color-" + i)
+                                                            {
+                                                                backgroundcolor = $("#shapecolorbox" + i).css("background-color");
+                                                            }
+
+                                                        }
+                                                        var width = $(this).attr("width");
+                                                        var height = $(this).attr("height");
+                                                        var drop_shadow = $(this).attr("Drop-shadow-color");
+                                                        var h_shadow = $(this).attr("H-shadow");
+                                                        var v_shadow = $(this).attr("V-shadow");
+                                                        var Blur = $(this).attr("blur");
+                                                        var filename = $(this).attr("filename");
+                                                        $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
+                                                        var draw = SVG(type);
+                                                        $("#" + type)
+                                                                //.css("background-color", "" + backgroundcolor)
+                                                                .css("margin-left", "" + left + "px")
+                                                                .css("margin-top", "" + top + "px")
+                                                                .css("width", "" + width)
+                                                                //.css("border-radius", "" + borderRadius)
+                                                                .css("position", "absolute")
+                                                                .css("height", "" + height)
+                                                                //.css("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")")
+                                                                //.css("opacity", "" + opacity)
+                                                                ;
+                                                        $.get('/BrndBot/DownloadSVGServlet?file_name='+filename, function(data) {
+                                                        var svg1 = draw.svg(data);
+                                                        var realsvg = svg1.last();  
+
+                                                        svg1.attr("viewBox",realsvg.attr("viewBox"));
+                                                        svg1.attr("enable-background",realsvg.attr("enable-background"));
+                                                        svg1.attr("x",realsvg.attr("x"));
+                                                        svg1.attr("y",realsvg.attr("y"));
+                                                        svg1.attr("xml:space",realsvg.attr("xml:space"));
+                                                        svg1.attr("width",width);
+                                                        svg1.attr("height",height);
+                                                        svg1.opacity(opacity);
+                                                        svg1.style("fill",backgroundcolor);
+                                                        svg1.style("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")");
+                                                        svg1.each(function(i, children) {
+                                                            this.style("fill",backgroundcolor);
+                                                            this.opacity(opacity);
+                                                        }, true); 
+                                                       },"html");
+
+
                                                     }
 
                                                     } );
@@ -724,11 +810,12 @@ ul::-webkit-scrollbar-thumb {
                                 
                             </div>
                             <div class="span3 col-md-offset-0" >
-                                <input id="continue" class="button button--moema button--text-upper button--size-s" type="button" value="CONTINUE"><br><br>
+                                <input id="continue" class="button button--moema button--text-upper button--size-s" type="button" value="CONTINUE" style="margin-top: -7%;"><br><br>
                                 <script>
                                     function showImageName(user_id, image_name){
-                                        var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";                 
-                                                    $("#" +$(".imagename").val()).css("background", "url(" + global_host_address +""+image_path+ ")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
+                                        var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";   
+                                        var img = encodeURI(global_host_address + image_path);
+                                                    $("#" + $(".imagename").val()).css("background", "url("+img+")").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");
                                                     $("#imagespopup").hide(); 
                                                     $(".imagename option:selected").attr("name","url(" + global_host_address +""+image_path+ ")");
                                                     $("#tabs-1").show();
@@ -775,14 +862,14 @@ ul::-webkit-scrollbar-thumb {
 
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-1" >
-                            <div class="well lead editor" id="editor" style="height:500px;top:100px;left:45px;overflow-y:scroll;width:366px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
+                            <div class="well lead editor" id="editor" style="height:550px;top:35px;left:45px;overflow-y:scroll;width:366px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
                                             <p id="text3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
-                                                <li  style="position:relative;left:-9px;"><p id="editorheadere" class="SS1">font color</p>
-                                                    <div class="blankcolor-box1" id="picker" ></div>
+                                                <li  style="position:relative;left:-9px;"><p id="editorheadere" class="editorheadere SS1">font color</p>
+                                                    <div class="blankcolor-box1 ptr" id="picker" ></div>
                                                     
                                                   
                                                     
@@ -790,7 +877,7 @@ ul::-webkit-scrollbar-thumb {
                                                 <!--                                                <li><p id="editorheadere">font size</p><div class="glyphicon glyphicon-font"><br></div></li>
                                                                                                 <li><p id="editorheadere">font style</p><select></select></li>-->
                                                 <li>
-                                                    <p id="editorheadere" class="SS1">font size</p>
+                                                    <p id="editorheadere" class="editorheadere SS1">font size</p>
 <!--                                                    <select  id="fontsize" style="margin: 2px;width:80px; font-size: 15px;color: #3f4042;background-color: #ccc;border-radius:5px; ">
                                                         <option style="background:#FFF;" ng-repeat ="sizes in user_preferences_font_sizes" value="{{sizes}}">{{sizes}}</option>
                                                     </select> -->
@@ -798,40 +885,40 @@ ul::-webkit-scrollbar-thumb {
                                                     <div class="cursorpointer" id="minusFont" style="margin-top:5px;width:20px;height:30px;float:left;font-size: 16px; color: #5E5E5E">A</div>
                                                     <div class="cursorpointer" id="plusFont" style="width:20px;height:30px;float:left;font-size: 25px; color: #5E5E5E">A</div>
                                                 </div>-->
-                                                    <img id="minusFont" src="images/fontsize.png" width="20px"  height="20px" alt=""/> <img src="images/fontsize.png" width="25px"  height="25px" id="plusFont" alt=""/>
+                                                    <img id="minusFont" src="images/LittleA.svg" class="cursorpointer" width="20px"  height="20px" alt=""/> <img src="images/BigA.svg" width="25px"  height="25px" class="cursorpointer" id="plusFont" alt=""/>
                                                 </li>
 
                                                 <li style="width:120px;">
-                                                    <p id="editorheadere" class="SS1">font style</p>
-                                                    <select id="fontname" class="editordropdown">
-                                                        <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{ names.font_family_name}}">{{ names.font_name}} </option>
+                                                    <p id="editorheadere" class="editorheadere SS1">font style</p>
+                                                    <select id="fontname" class="LE1 editordropdown">
+<!--                                                        <option style="background:#FFF;" ng-repeat ="names in user_preferences_font_names" value="{{ names.font_family_name}}">{{ names.font_name}} </option>-->
 
                                                     </select>
                                                 </li>
                                                 <li> 
                                                     <ul id="pickColorForText" style="display:none;left:-13px;position:relative;margin-top:-80px;">
                                                         <li><p class="editpal">your palette</p></li>
-                                                        <li><p class="editcus custom-color-box-text" style="margin-left:120px;position:relative;">custom</p></li>
+                                                        <li><p class="editcus custom-color-box-text ptr" style="margin-left:120px;position:relative;">custom</p></li>
                                                         <li id="fcolcontainer">
                                                             <ul id="colorpalette" style="position:relative;left:0px;">
-                                                                   <li><div class="blankcolor-box-text" id="textcolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
-                                                                    <li> <div class="blankcolor-box-text" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
-                                                                    <li><div class="blankcolor-box-text" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                                   <li><div class="blankcolor-box-text ptr" id="textcolorbox1" style="background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text ptr" id="textcolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text ptr" id="textcolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text ptr" id="textcolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                                    <li> <div class="blankcolor-box-text ptr" id="textcolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                                    <li><div class="blankcolor-box-text ptr" id="textcolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                                 </ul>
                                                             </li>
                                                             
                                                         </ul>
                                                 </li>
-                                                <li style="left:-10px;"><div class="glyphicon glyphicon-indent-right alignButton cursorpointer" id="hidealignbutton"></div></li>
-                                                <li><div class="alignButton cursorpointer" id="justify" style="font-family: Glyphter2;">j</div></li>
-                                                <li><div class="alignButton cursorpointer" id="left" style="font-family: Glyphter2;">B</div></li>
-                                                <li><div class="alignButton cursorpointer" id="center" style="font-family: Glyphter2;">C</div></li>
-                                                <li><div class="alignButton cursorpointer" id="right" style="font-family: Glyphter2;">D</div></li>
-                                                <li><div class="cursorpointer" id="plus" style="font-family: Glyphter2;">A</div></li>
-                                                <li><div class="cursorpointer" id="minus" style="font-family: Glyphter;">E</div></li>
+                                               <li style="left:-20px;top:-2px;"><div class="cursorpointer" id="hidealignbutton"><img src="images/LineOptionButton.svg" height="40px" width="24px;"></div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="justify" style="font-family: Glyphter2;">j</div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="left" style="font-family: Glyphter2;">B</div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="center" style="font-family: Glyphter2;">C</div></li>
+                                               <li style="left:-20px;"><div class="alignButton cursorpointer" id="right" style="font-family: Glyphter2;">D</div></li>
+                                               <li style="left:-20px;"><img class="cursorpointer" id="plus" src="images/Plus.svg"  width="15px;" style="position:relative;top:-5px;" ><img class="cursorpointer" id="minus" src="images/Minus.svg"  width="15px;" style="position:relative;top:8px;left:-15px;"></li>
+                                               <li style="left:-50px;"><img class="cursorpointer" id="lineHeightImage" src='images/LineHeightButton.svg' width="25px"></li>
                                             </ul>
 
                                         </div>
@@ -845,25 +932,25 @@ ul::-webkit-scrollbar-thumb {
 
                                                         <li>
                                                             <select class="blockname LE1 editordropdown" id="editorhead">
-                                                                <option value="select">select</option>
+                                                                <option value="select">Select</option>
                                                             </select>
                                                         </li>
-                                                <li><div class="headblankcolor-box" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><div class="headblankcolor-box ptr" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
                                                 <li><ul id="openCustomColor">
                                                 <li><p class="editpal">your palette</p></li>
                                                 <li id="colcontainer">
                                                     <ul id="colorpalette">
-                                                       <li><div class="blankcolor-box" id="shapecolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
-                                                        <li> <div class="blankcolor-box" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
-                                                        <li><div class="blankcolor-box" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
+                                                       <li><div class="blankcolor-box ptr" id="shapecolorbox1" style="left:-14px;background-color: {{user_preferences_colors.color1}}"></div></li>
+                                                        <li><div class="blankcolor-box ptr" id="shapecolorbox2" style="background-color: {{user_preferences_colors.color2}}"></div></li>
+                                                        <li><div class="blankcolor-box ptr" id="shapecolorbox3" style="background-color: {{user_preferences_colors.color3}}"></div></li>
+                                                        <li><div class="blankcolor-box ptr" id="shapecolorbox4" style="background-color: {{user_preferences_colors.color4}}"></div></li>
+                                                        <li> <div class="blankcolor-box ptr" id="shapecolorbox5" style="background-color: {{user_preferences_colors.color5}}"></div></li>
+                                                        <li><div class="blankcolor-box ptr" id="shapecolorbox6" style="background-color: {{user_preferences_colors.color6}}"></div></li>
                                                     </ul>
                                                 </li>
                                                 
-                                                <li><p class="editpal custom-color-box" style="margin-right: 120px;">custom</p></li>
-                                                <li><p class="editpal" id="blockopacity">opacity</p><div id="slider"></div></li>
+                                                <li><p class="editpal custom-color-box ptr" style="margin-right: 120px;">custom</p></li>
+                                                <li><p class="editpal" id="blockopacity">opacity</p><div class="ptr" id="slider"></div></li>
                                                     </ul>   
                                             </ul>
                                         </div>
@@ -873,11 +960,11 @@ ul::-webkit-scrollbar-thumb {
                                             <ul id="imagemodification">
                                                 <li>
                                                     <select class="imagename LE1 editordropdown" id="editorhead">
-                                                        <option value="select">select</option>
+                                                        <option value="select">Select</option>
                                                     </select>
                                                 </li>
-                                                <li><label id="openImageDialog" class="btn  newupload"  ng-click="showImages()" >change</label></li>
-                                                <li><p  class="btn" onclick="showfilter()">edit</p></li>
+                                                <li><label id="openImageDialog" class="btn editorheadere newupload"  ng-click="showImages()" >change</label></li>
+                                                <li><p  class="btn editorheadere" onclick="showfilter()">edit</p></li>
                                                 <li></li>
                                             </ul>
                                         </div>
@@ -885,12 +972,12 @@ ul::-webkit-scrollbar-thumb {
                                         <div id="filtercontainer" style="display: none">
                                             <p>IMAGE FILTER</p>
                                             <ul id="filterImageList">
-                                                <li><img class="imageFilter " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p class="filtername">Still</p> </li>
-                                                <li><img class="imageFilter" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Peace</p></li>
-                                                <li><img class="imageFilter" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Sunrise</p></li>
-                                                <li><img class="imageFilter" id="convert4" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Strength</p> </li>
-                                                <li><img class="imageFilter" id="convert5" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vivid</p> </li>
-                                                <li><img class="imageFilter" id="convert6" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Intense</p> </li>
+                                                <li><img class="imageFilter ptr " id="convert1" src="images/Blackandwhite.jpg" alt="" ><p class="filtername">Still</p> </li>
+                                                <li><img class="imageFilter ptr" id="convert2" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Peace</p></li>
+                                                <li><img class="imageFilter ptr" id="convert3" src="images/Blackandwhite.jpg" alt=""> <p class="filtername">Sunrise</p></li>
+                                                <li><img class="imageFilter ptr" id="convert4" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Strength</p> </li>
+                                                <li><img class="imageFilter ptr" id="convert5" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vivid</p> </li>
+                                                <li><img class="imageFilter ptr" id="convert6" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Intense</p> </li>
 <!--                                                <li><img class="imageFilter" id="convert7" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vibrant</p> </li>
                                                 <li><img class="imageFilter" id="convert8" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Vintage</p> </li>
                                                 <li><img class="imageFilter" id="convert9" src="images/Blackandwhite.jpg" alt=""><p class="filtername">Shade</p> </li>
@@ -920,11 +1007,11 @@ ul::-webkit-scrollbar-thumb {
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="styles in datalists">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275"  />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275"  />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
-                                                            <div></div><p>&nbsp;</p>
+                                                            <div></div><p style="height:5px;">&nbsp;</p>
                                                         </li>
                                                     </ul>
 
@@ -938,9 +1025,10 @@ ul::-webkit-scrollbar-thumb {
                                     <li id="tabs-3">
                                           <ul id="imageGallery" style="height: 500px;width: 300px;position: relative;right: 80px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
-                                               <p class="BT2" id="galleryupload">upload image</p>
+                                             <a class="boxclose" id="boxclose"></a>
+                                               <p class="BT2 ptr" id="galleryupload">upload image</p>
                                                 <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
-                                                          <img id="{{images.id}}" class="img-responsive lookchooser5" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                                          <img id="{{images.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
                                                 </li>
                                             </ul>
 <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
@@ -1185,6 +1273,14 @@ ul::-webkit-scrollbar-thumb {
                        .removeClass("ig-willow");
         $("#"+image_Id).toggleClass("ig-brannan");
     };
+    $(".boxclose").click(function (){
+        $("#imageGallery").hide();
+        $("#tabs-1").css("display","block");
+         $("#imagecontainerZ\n\
+ ").css("display","block");
+        
+    });
+    
 };
 function showfilter(){
      $("#textcontainer").hide();
@@ -1218,10 +1314,10 @@ function showfilter(){
                                     // --------------------------------------------------------------------------
 
                             $('body').on("click", "button", function() {
-
+                                    $('.default').hide();
                                     // grab width and height of .crop-img for canvas
-                                    var width = $('.crop-container').width() - 80, // new image width
-                                      height = $('.crop-container').height() - 80; // new image height
+                                    var width = $('.crop-container').width(), // new image width
+                                      height = $('.crop-container').height(); // new image height
 
                                     $('canvas').remove();
                                     $('.default').after('<canvas width="' + width + '" height="' + height + '" id="canvas"/>');
@@ -1238,7 +1334,7 @@ function showfilter(){
                                     ctx.drawImage(img, x, y, w, h, 0, 0, width, height);
 //                                  alert( img.src);
                                             // display canvas image
-//                                            $('canvas').addClass('output').show().delay('4000').fadeOut('slow');
+                                            $('canvas').addClass('output').hide().delay('4000').fadeOut('slow');
                                             // save the image to server
                                             var canvas = document.getElementById("canvas");                 
                                             var dataURL =canvas.toDataURL("image/jpeg");   

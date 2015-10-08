@@ -77,11 +77,15 @@ public class MindBodyDataMapper {
                         String class_model_option = modelElement.getAttribute("option");
                         String defaultValue = modelElement.getAttribute("default");
                         String epochValue = modelElement.getAttribute("epoch");
-                        
+
                         logger.log(Level.INFO, modelElement.getAttribute("option"));
-                        if (class_model_option.equalsIgnoreCase("Select") && element.toLowerCase().contains("button")) {
-                             json_mindbody_enrollment_data.put(element, defaultValue);
-                         }
+                        if (class_model_option.equalsIgnoreCase("Select") && 
+                                (element.toLowerCase().contains("button") || 
+                                element.toLowerCase().contains("body") || 
+                                element.toLowerCase().contains("header") || 
+                                element.toLowerCase().contains("footer"))) {
+                            json_mindbody_enrollment_data.put(element, defaultValue);
+                        }
                         if (class_model_option.equalsIgnoreCase("EnrollmentID")) {
                             if (mindbody_enrollments.getID().getValue() != null) {
                                 json_mindbody_enrollment_data.put(element, mindbody_enrollments.getID().getValue());
@@ -257,9 +261,14 @@ public class MindBodyDataMapper {
                         String defaultValue = modelElement.getAttribute("default");
                         String epochValue = modelElement.getAttribute("epoch");
                         logger.log(Level.INFO, modelElement.getAttribute("option"));
-                         if (class_model_option.equalsIgnoreCase("Select") && element.toLowerCase().contains("button")) {
-                             json_mindbody_class_data.put(element, defaultValue);
-                         }
+
+                        if (class_model_option.equalsIgnoreCase("Select") && 
+                                (element.toLowerCase().contains("button") || 
+                                element.toLowerCase().contains("body") || 
+                                element.toLowerCase().contains("header") || 
+                                element.toLowerCase().contains("footer"))) {
+                            json_mindbody_class_data.put(element, defaultValue);
+                        }
                         if (class_model_option.equalsIgnoreCase("ClassID")) {
                             if (mindbody_class.getID().getValue() != null) {
                                 json_mindbody_class_data.put(element, mindbody_class.getID().getValue());
@@ -420,7 +429,7 @@ public class MindBodyDataMapper {
         Date result = calendarA.getTime();
         return result;
     }
-    
+
     public static JSONObject mapStaffData(com.mindbodyonline.clients.api._0_5Staff.Staff mindbody_staff, String socialEditorLayoutFileName) throws JSONException {
         JSONObject json_mindbody_staff_data = new JSONObject();
 
@@ -452,9 +461,13 @@ public class MindBodyDataMapper {
                         String defaultValue = modelElement.getAttribute("default");
                         String epochValue = modelElement.getAttribute("epoch");
                         logger.log(Level.INFO, modelElement.getAttribute("option"));
-                         if (class_model_option.equalsIgnoreCase("Select") && element.toLowerCase().contains("button")) {
-                             json_mindbody_staff_data.put(element, defaultValue);
-                         }
+                        if (class_model_option.equalsIgnoreCase("Select") && 
+                                (element.toLowerCase().contains("button") || 
+                                element.toLowerCase().contains("body") || 
+                                element.toLowerCase().contains("header") || 
+                                element.toLowerCase().contains("footer"))) {
+                            json_mindbody_staff_data.put(element, defaultValue);
+                        }
                         if (class_model_option.equalsIgnoreCase("Name")) {
                             if (mindbody_staff.getName() != null) {
                                 json_mindbody_staff_data.put(element, mindbody_staff.getName());
@@ -481,7 +494,7 @@ public class MindBodyDataMapper {
                         }
 
                         if (class_model_option.equalsIgnoreCase("Email")) {
-                            if (mindbody_staff.getEmail()!= null) {
+                            if (mindbody_staff.getEmail() != null) {
                                 json_mindbody_staff_data.put(element, Jsoup.parse(mindbody_staff.getEmail()).text());
                             } else {
                                 json_mindbody_staff_data.put(element, defaultValue);
@@ -524,7 +537,7 @@ public class MindBodyDataMapper {
         Date date = inputFormat.parse(dateTimeString);
         return date;
     }
-    
+
     private static Date parseEnrollmentDateToDate(String dateTimeString) throws ParseException {
 
 //        Jan 14, 2016 12:00:00 AM
