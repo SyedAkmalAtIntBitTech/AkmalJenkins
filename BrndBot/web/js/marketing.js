@@ -694,7 +694,7 @@ function controllerMarketingCampaign($scope, $http) {
                 } else {
                     $('#prevtwtimg').show();
                     $("#twitter_button_post").val("Post");
-                    $('#twitter_preview_postdet').css("margin-top", 50);
+                    $('#twitter_preview_postdet').css("margin-top", -250);
                     $('#isFacebook').val("false");
                     $('#isTwitter').val("true");
                 }
@@ -1154,7 +1154,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var schedule_title = $("#twitter_schedule_title").val();
                 var schedule_Description = $("#twitter_schedule_Description").val();
                 var schedule_posttext = $("#twitter_schedule_post_text").val();
-                var schedule_datetime = $("#twitter_schedule_datetime").val();
+                
 
 
                 var actiondate = $("#twitter_schedule_date").val();
