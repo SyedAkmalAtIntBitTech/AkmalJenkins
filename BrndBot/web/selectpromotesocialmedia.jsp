@@ -331,7 +331,6 @@
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
                             <input type="hidden" id="imageName" name="imageName" value='<%=ImageName%>' >
                             <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend" >
-                            <input type="hidden" id="pagenameSend" name="pagenameSend" >
                             <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
                             <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
                             <input type="hidden" id="isFacebook" name="isFacebook" value="false">

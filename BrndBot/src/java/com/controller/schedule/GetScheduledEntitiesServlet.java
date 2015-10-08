@@ -27,8 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 /**
  *
@@ -104,7 +102,7 @@ public class GetScheduledEntitiesServlet extends HttpServlet {
                 return;
             }
             
-            JSONObject scheduledEntities = 
+            Map<String, List<Map<String, Object>>> scheduledEntities = 
                      ScheduleDAO.getScheduledEntities(userId, fromDate, toDate);
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(AppConstants.GSON.toJson(scheduledEntities));

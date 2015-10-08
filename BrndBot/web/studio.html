@@ -39,12 +39,13 @@ and open the template in the editor.
                         } else {
                             alert(data);
                         }
-                    }).error(function (data, status) {
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
+                    })
+                            .error(function (data, status) {
+                                // called asynchronously if an error occurs
+                                // or server returns response with an error status.
 
-                        alert("request not succesful");
-                    });
+                                alert("request not succesful");
+                            });
                 };
 
                 $scope.getActivation = function () {
