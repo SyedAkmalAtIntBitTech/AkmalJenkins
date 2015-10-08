@@ -811,12 +811,13 @@ function getTectId(id) {
         var textDefaultFontSize = $("#" + selectedTextareaId).css("font-size");
         var textDefaultFontFamily = $("#" + selectedTextareaId).css("font-family");
         $("#picker").css("background-color", "" + textDefaultcolor);
+        reload_alignButtons1(textDefaultAline);
         var font_name = textDefaultFontFamily.split(' ').join('+');
         if(font_name.contains("+")){
             font_name=font_name.replace(/'/g,"");
         }
         $("#fontname").val(""+font_name).trigger('change');
-        reload_alignButtons1(textDefaultAline);
+
     });
      $("#"+selectedTextareaId).focusout(function(){
         var t= $("#"+selectedTextareaId).val();
@@ -825,7 +826,37 @@ function getTectId(id) {
     });
     
 }
-
+ function reload_alignButtons1(align)
+    {
+        if (align === "left")
+        {
+            $("#left").css("background-color", "#99b1f2");
+            $("#center").css("background-color", "inherit");
+            $("#right").css("background-color", "inherit");
+            $("#justify").css("background-color", "inherit");
+        }
+        else if (align === "center")
+        {
+            $("#left").css("background-color", "inherit");
+            $("#center").css("background-color", "#99b1f2");
+            $("#right").css("background-color", "inherit");
+            $("#justify").css("background-color", "inherit");
+        }
+        else if (align === "right")
+        {
+            $("#left").css("background-color", "inherit");
+            $("#center").css("background-color", "inherit");
+            $("#justify").css("background-color", "inherit");
+            $("#right").css("background-color", "#99b1f2");
+        }
+        else if (align === "justify")
+        {
+            $("#left").css("background-color", "inherit");
+            $("#right").css("background-color", "inherit");
+            $("#center").css("background-color", "inherit");
+            $("#justify").css("background-color", "#99b1f2");
+        }
+    }
 
 
 function getDivId(divid) {
