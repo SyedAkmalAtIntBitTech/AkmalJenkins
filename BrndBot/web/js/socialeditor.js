@@ -311,6 +311,10 @@ $(".blockname").change(function (){
 
                                     }
                                     textcount++;
+                                    if(typeof(elementdata) === "undefined")
+                                          {
+                                           elementdata= $(this).attr("defaulttext");
+                                           }
 //                                    fontcolor = $(this).attr("font-color");
                                     fontsize = $(this).attr("font-size");
                                     fontstyle = $(this).attr("font-style");
@@ -740,12 +744,12 @@ function getTectId(id) {
         var textDefaultFontSize = $("#" + selectedTextareaId).css("font-size");
         var textDefaultFontFamily = $("#" + selectedTextareaId).css("font-family");
         $("#picker").css("background-color", "" + textDefaultcolor);
+        reload_alignButtons1(textDefaultAline);
         var font_name = textDefaultFontFamily.split(' ').join('+');
         if(font_name.contains("+")){
             font_name=font_name.replace(/'/g,"");
         }
-        $("#fontname").val(""+font_name).trigger('change');
-        reload_alignButtons1(textDefaultAline);
+        $("#fontname").val(""+font_name).trigger('change');       
     });
     $("#"+selectedTextareaId).focusout(function(){
         var t= $("#"+selectedTextareaId).val();

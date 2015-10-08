@@ -104,7 +104,7 @@ and open the template in the editor.
                 left: 0;
                 top: 0;
                 z-index: 9000;
-                background-color: #000;
+                background-color: white;
                 display: none;
             }
 
@@ -438,7 +438,7 @@ and open the template in the editor.
 
         <script>
                     
-                    $(document).ready(function() {
+                    
                     var jsondata;
                     var selectedDivId;
                     var block_clicked = "false";
@@ -451,7 +451,7 @@ and open the template in the editor.
                     var temp_mind_body_query;
                     //$("#previewpopup").hide();
 
-
+$(document).ready(function() {
             $('#continueblock').prop('disabled', true);
                     $("#preview").click(function(){
             $.ajax({
@@ -741,12 +741,39 @@ and open the template in the editor.
                     }
             //var countBlock = 1;
             function showText(id, layout){
+                 //hiding filter Container 
+                  $("#filtercontainer").hide();
+                  var currentBlockID = "";
+                  var currentMindbodyQuery = "";
+//                  alert($(selectedBlockId).attr("id"));
+                  if(block_clicked== "true")
+                  {
+                    currentBlockID = temp_block_id;
+                    currentMindbodyQuery = temp_mind_body_query;
+                  }
+                  else
+                  {
+                    if ($(selectedBlockId).attr("id").indexOf("SSS") >= 0)
+                    {
+                        var arrBlocks = $(selectedBlockId).attr("id").split("SSS");
+                        currentBlockID = arrBlocks[0].replace("block","");
+                        currentMindbodyQuery = $(selectedBlockId).attr("mbquery");
+                        
+                       
+                    }
+                  }
+//                  alert(currentBlockID);
+//                alert(temp_block_id+","+ temp_mind_body_query+","+temp_block_id);
+//                alert(block_clicked +"=="+ "true" +"||"+ blockIdSelected +"!="+ "defaultblock1");
 //            alert(id+":"+layout+":"+mindbodydataId);
             var layoutfilename = layout;
                     var layout_mapper_url = "";
                     $("#clickid").val(layout);
                     if ((mindbodydataId != "") && (mindbodydataId != "0")) {
-                    layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
+                        if(block_clicked == "true"||$(selectedBlockId).attr("id") != "defaultblock1")
+                            layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email&query=block&block_id="+currentBlockID+"&mindbody_query="+currentMindbodyQuery;
+                        else
+                            layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
                     } else {
                     layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
                     }
@@ -779,9 +806,12 @@ and open the template in the editor.
                             success: function (xml) {
 
                             if (block_clicked == "true")
-                                    $(".preview").append("<div onclick=getBlockId(" + blockId + ") id='" + blockId + "' blockdetails='" + id + " name='" + mindbodydataId + "'></div>");
+                                    $(".preview").append("<div onclick=getBlockId(" + blockId + ") mbquery='"+ temp_mind_body_query +"' id='" + blockId + "' blockdetails='" + id + "' name='" + mindbodydataId + "'></div>");
                                     else
                                     $(".preview #" + blockId).empty();
+//                                    alert(blockId);
+                                    selectedBlockId = document.getElementById(""+blockId);
+                                    
                                     block_clicked = "false";
                                     //  $(".preview").empty();
                                     $(xml).find('layout').each(function () {
@@ -836,7 +866,7 @@ and open the template in the editor.
                                     var height = $(this).attr("height");
                         if (tag === "text")
                             {
-                            var colorName = $(this).attr("font-color-name");
+                                    var colorName = $(this).attr("font-color-name");
                                     fontsize = $(this).attr("font-size");
                                     fontstyle = $(this).attr("font-style");
                                     var fontweight = $(this).attr("font-weight");
@@ -858,6 +888,10 @@ and open the template in the editor.
                             }
 //                                                fontcolor = $(this).attr("font-color");
                             textcount++;
+                                if(typeof(elementdata) === "undefined")
+                                           {
+                                             elementdata= $(this).attr("defaulttext");
+                                           }                            
                                     $(".preview #" + blockId).append("<textarea orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "EEE" + blockId + "') class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
                                     $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
                                     .css("position", "absolute")
@@ -887,6 +921,7 @@ and open the template in the editor.
                                     var tempfontsize = parseInt(fontsize.replace("px", ""));
                                     var tempHeight = parseInt(height.replace("px", ""));
                                     $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize + "px");
+//                                    alert($("#" + type + "EEE" + blockId).attr("id"));
                                     if ($("#" + type + "EEE" + blockId).get(0).scrollHeight > tempHeight)
                             {
                             $("#" + type + "EEE" + blockId).css("line-height", "initial");
@@ -1334,7 +1369,7 @@ and open the template in the editor.
                                        <a class="boxclose" id="boxclose"></a>
                                         <div id="loadingGifformindbody" style="position: absolute; top:240px;left: 335px;" > <img src="images/YogaLoadingGif.gif" /></div>
                                         <div ng-controller="MyController" id="MyController" > 
-                                            <p id="text3" style="width: 500px;font-family: 'proxima-nova',sans-serif;font-weight: 600; position: relative;right:-65px;color:#000;margin-top:50px;">{{datalists.title}}</p><br>
+                                            <p id="text3" style="width: 500px;font-family: 'proxima-nova',sans-serif;font-weight: 600; position: relative;right:-65px;color:#000;margin-top:50px;padding: 5px;">{{datalists.title}}</p><br>
                                             <ul class="dataheaderfromindbody">
                                                 <div class="mindbodyHeaderData LE2" >
                                                     <li style="width: 400px;left:80px;">{{datalists.column_header[0]}}</li>
@@ -1429,7 +1464,7 @@ and open the template in the editor.
                                        
                                         //transition effect
                                         $('#mask').fadeIn(500);	
-                                        $('#mask').fadeTo("slow",0.9);	
+                                        $('#mask').fadeTo("slow",0.95);	
 
                                         //Get the window height and width
                                         var winH = $(window).height();
@@ -1473,7 +1508,7 @@ and open the template in the editor.
                                            $(".window").empty();
                                         $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
                                         $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
-                                        $("#imageDivPopup").append("<iframe style='width:768px;height:960px;position:relative;top:-225px;left:-174px;-webkit-transform: scale(0.471);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
+                                        $("#imageDivPopup").append("<iframe style='width:768px;height:960px;position:relative;top:-225px;left:-174px;-webkit-transform: scale(0.4799);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
 
                                             
 
@@ -1487,7 +1522,7 @@ and open the template in the editor.
                                         $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
                                         $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
 //                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-50)+"px;height:"+(dynamicHeight-135)+"px;margin-left:25px;position:relative;top:25px ;overflow:scroll;'>"+responseText+"</div>");
-                                        $("#imageDivPopup").append("<iframe style='width:768px;height:620px;position:relative;top:-132px;left:-165px;-webkit-transform: scale(0.5);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
+                                        $("#imageDivPopup").append("<iframe style='width:768px;height:611px;position:relative;top:-126px;left:-164px;-webkit-transform: scale(0.512);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
                                             
                                         }
                                     else if(getId === "iphone"){
@@ -1499,7 +1534,7 @@ and open the template in the editor.
                                         $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
                                         $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
 //                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-20)+"px;height:"+(dynamicHeight-60)+"px;margin-left:10px;position:relative;top:28px;overflow:scroll;'>"+responseText+"</div>");
-                                         $("#imageDivPopup").append("<iframe style='width:320px;height:509px;position:relative;top:-47px;left:-23px;-webkit-transform: scale(0.659);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
+                                         $("#imageDivPopup").append("<iframe style='width:320px;height:509px;position:relative;top:-47px;left:-22px;-webkit-transform: scale(0.696);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
 
                                         
                                         }
@@ -1666,8 +1701,9 @@ and open the template in the editor.
 
                                     $('body').on("click", "button", function() {
                                         $('.default').hide();
+                                        $("#cropper_popup1").hide();
                             // grab width and height of .crop-img for canvas
-                            var width = $('.crop-container').width(), // new image width
+                                var width = $('.crop-container').width(), // new image width
                                     height = $('.crop-container').height(); // new image height
 
                                     $('canvas').remove();
@@ -1709,9 +1745,9 @@ and open the template in the editor.
                                     //  on click of .upload class, open .uploadfile (input file)
                                     // --------------------------------------------------------------------------
 
-                                    //		$('body').on("click", ".newupload", function() {
-                                    //		    $('.uploadfile').click();
-                                    //		});
+                                    //	$('body').on("click", ".newupload", function() {
+                                    //	    $('.uploadfile').click();
+                                    //	});
 
                                     // on input[type="file"] change
                                     oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
@@ -1724,7 +1760,8 @@ and open the template in the editor.
                                     $("#imagespopup").hide();
                             });
                                     function imageEdit() {
-                                    $("#textcontainer").hide();
+                                            $("#cropper_popup1").show();
+                                            $("#textcontainer").hide();
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();
 //                                        $("body :not(#cropImageContainer)").fadeTo("slow",0.4);
@@ -1748,8 +1785,12 @@ and open the template in the editor.
                                             // load image into crop
                                             one.loadImg(image_file);
                                             $("#imagespopup").hide();
-                                            if (imageWidth > 350 && imageWidth <= 700){
+                                   if (imageWidth > 350 && imageWidth <= 600){
                                     $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.7").css("aline", "center");
+                                            $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
+                                    }
+                                    else if (imageWidth > 600 && imageWidth <= 750){
+                                            $(".default .cropMain").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px").css("zoom", "0.6").css("aline", "center");
                                             $(".crop-container").css("width", "" + imageWidth + "px").css("height", "" + imageHeight + "px");
                                     }
                                     else if (imageWidth > 700 && imageWidth <= 1050){

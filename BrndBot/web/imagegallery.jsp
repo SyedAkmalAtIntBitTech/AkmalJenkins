@@ -214,7 +214,7 @@ and open the template in the editor.
                <div class="row">
                    <jsp:include page="mainmenu.html"/>
     
-                    <div class="col-md-12" >
+                    <div class="col-md-9">
                         <div class="col-md-4 col-md-offset-2 " id="uploadModule">
                             <p style="width:300px;" id="text3" class="MH2"> Your Gallery </p>
                            
@@ -254,20 +254,21 @@ and open the template in the editor.
                           
                             
                          </div>
-                        
-                        <div  style="position:relative;text-align:center;width:350px;background-color: #e5e5e5;left:66em;right:0em;height:100%;">
-                            <p class="MH2" style="position: relative;top:-260px;"> UPLOAD A PHOTO</p>
+                    </div>
+                        <div  class="col-md-3" style="text-align:center; background-color: #e5e5e5;height:100vh; min-height: 100%">
+                            <p class="MH2" style="margin-top:70%"> UPLOAD A PHOTO</p>
                          
-                            <div class="group " ng-controller="myCtrl" style="position: relative;top:40%;left:100px;">
-                                    <div class="fileUpload btn "  >
-                                        <span class="SP2">Click to upload a image</span>
+                            <div class="group " ng-controller="myCtrl">
+                                <button  id="Servicecontinue" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="uploadFile()" style="margin-left: 100px;">UPLOAD</button>
+                                    <div class="fileUpload btn ">
+                                        <span class="SP2" style="margin-left: 130px;" >Click to upload a image</span>
                                                 <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload" file-model="myFile" />
                                             </div>    
-                                <button  id="Servicecontinue" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="uploadFile()">UPLOAD</button>
+                                
                                        
-                                    </div>
+                            </div>
                         </div>
-                    </div>
+                    
                   
             </div>  
         

@@ -73,7 +73,7 @@ a.boxclose{
   left: 0;
   top: 0;
   z-index: 9000;
-  background-color: #000;
+  background-color:white;
   display: none;
 }
 
@@ -94,7 +94,7 @@ a.boxclose{
   width: 750px;
   height: 300px;
   padding: 10px;
-  background-color: #000;
+  background-color: white;
   font-family: 'Segoe UI Light', sans-serif;
   font-size: 15pt;
 }
@@ -336,11 +336,11 @@ ul::-webkit-scrollbar-thumb {
             });
         </script>
         <script>
-                $(document).ready(function () {
+  
                     var jsondata;
                     var selectedDivId;
                     var mindbodydataId = $("#mindbodydata").val();
-                });
+     
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
@@ -389,7 +389,6 @@ ul::-webkit-scrollbar-thumb {
                             // or server returns response with an error status.
                     });
                             $scope.showStyles = function(){
-
                             $scope.curPage = 0;
                                     $scope.pageSize = 2;
                                     $http({
@@ -451,6 +450,8 @@ ul::-webkit-scrollbar-thumb {
             });
                           
                     function showText(id, layout){
+                     //hiding filter Container 
+                     $("#filtercontainer").hide();
                          var layout_mapper_url = "";
 
                    if (mindbodydataId != ""){
@@ -525,6 +526,10 @@ ul::-webkit-scrollbar-thumb {
 
                                                         }
                                                         textcount++;
+                                                        if(typeof(elementdata) === "undefined")
+                                                         {
+                                                            elementdata= $(this).attr("defaulttext");
+                                                         }
 //                                                            fontcolor = $(this).attr("font-color");
                                                             fontsize = $(this).attr("font-size");
                                                             fontstyle = $(this).attr("font-style");
@@ -1068,7 +1073,7 @@ ul::-webkit-scrollbar-thumb {
 
                 //transition effect
                 $('#mask').fadeIn(500);	
-                $('#mask').fadeTo("slow",10);	
+                $('#mask').fadeTo("slow",0.95);	
 
                 //Get the window height and width
                 var winH = $(window).height();
@@ -1315,6 +1320,7 @@ function showfilter(){
 
                             $('body').on("click", "button", function() {
                                     $('.default').hide();
+                                    $("#cropper_popup1").hide();
                                     // grab width and height of .crop-img for canvas
                                     var width = $('.crop-container').width(), // new image width
                                       height = $('.crop-container').height(); // new image height
@@ -1374,6 +1380,7 @@ function showfilter(){
                                     });
 
                                     function imageEdit() {
+                                            $("#cropper_popup1").show();
                                             $("#textcontainer").hide();
                                             $("#shapecontainer").hide();
                                             $("#imagecontainer").hide();

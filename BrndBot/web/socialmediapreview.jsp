@@ -77,44 +77,44 @@
                   transform: rotate(180deg);
             }
             #mask {
-                position: absolute;
-                left: 0;
-                top: 0;
-                z-index: 9000;
-                background-color: #000;
-                display: none;
-            }
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9000;
+  background-color:white;
+  display: none;
+}
 
-            #boxes .window {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 440px;
-                height: 200px;
-                display: none;
-                z-index: 9999;
-                padding: 20px;
-                border-radius: 15px;
-                text-align: center;
-            }
+#boxes .window {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 440px;
+  height: 200px;
+  display: none;
+  z-index: 9999;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
 
-            #boxes #dialog {
-                width: 750px;
-                height: 300px;
-                padding: 10px;
-                background-color: #000;
-                font-family: 'Segoe UI Light', sans-serif;
-                font-size: 15pt;
-            }
+#boxes #dialog {
+  width: 750px;
+  height: 300px;
+  padding: 10px;
+  background-color: white;
+  font-family: 'Segoe UI Light', sans-serif;
+  font-size: 15pt;
+}
 
-            #popupfoot {
-                font-size: 16pt;
-                position: absolute;
-                bottom: 0px;
-                width: 250px;
-                left: 250px;
-            }
-
+#popupfoot {
+  font-size: 16pt;
+  position: absolute;
+  bottom: 0px;
+  width: 250px;
+  left: 250px;
+}
+            
             .socialimage{
                 width: 30px;
                 height: 30px;
@@ -1130,8 +1130,8 @@
                 $('#mask').css({'width': maskWidth, 'height': maskHeight});
 
                 //transition effect
-                $('#mask').fadeIn(500);
-                $('#mask').fadeTo("slow", 10);
+                $('#mask').fadeIn(500);	
+                $('#mask').fadeTo("slow",0.95);	
 
                 //Get the window height and width
                 var winH = $(window).height();

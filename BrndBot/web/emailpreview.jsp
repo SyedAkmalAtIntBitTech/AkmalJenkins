@@ -397,13 +397,13 @@
                 $(".iphoneshow").css("background-image", imageUrl)
                         .css("display", 'block').css("height", "413px").css("width", "295px").css("margin-left", "-55px").css("margin-top", "-80px")
                         .css("border-color", "transparent").css("background-color","#FFF");
-                 $('#dynamictable').css("width","768px").css("height","620px").css("top","-320px").css("left","-272px").css("-webkit-transform","scale(0.33)");
+                 $('#dynamictable').css("width","768px").css("height","615px").css("top","-316px").css("left","-272px").css("-webkit-transform","scale(0.3326)");
             }
             else if (id === "iphone"){
                 $(".iphoneshow").css("background-image", imageUrl)
                         .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "-55px").css("margin-top", "-80px")
                         .css("border-color", "transparent").css("background-color","#FFF");
-                 $('#dynamictable').css("width","358px").css("height","573px").css("top","-241px").css("left","-108px").css("-webkit-transform","scale(0.488)");
+                 $('#dynamictable').css("width","358px").css("height","573px").css("top","-241px").css("left","-108px").css("-webkit-transform","scale(0.4999)");
             }
             
         }
