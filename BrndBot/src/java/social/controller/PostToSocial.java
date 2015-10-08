@@ -111,8 +111,8 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
 
             try {
 
-                 AccessToken accTok = null;
-
+                AccessToken accTok = null;
+                String shortUrl = "";
                 ConfigurationBuilder twitterConfigBuilder = new ConfigurationBuilder();
                 twitterConfigBuilder.setDebugEnabled(true);
                 twitterConfigBuilder.setOAuthConsumerKey("K7TJ3va8cyAeh6oN3Hia91S2o");
@@ -121,8 +121,8 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 twitterConfigBuilder.setOAuthAccessTokenSecret(request.getParameter("twitterTokenSecret"));
 
                 Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
-                String statusMessage = request.getParameter("text").replace("  bit.ly/1XOkJo","");
-                String shortUrl= request.getParameter("shorturl");
+                String statusMessage = request.getParameter("text").replace("bit.ly/1XOkJo","");
+                shortUrl= request.getParameter("shorturl");
                 if(shortUrl.length()>0){
                     String StatusMessageWithoutUrl=statusMessage.substring(0,statusMessage.length());
                     if (StatusMessageWithoutUrl.length() + shortUrl.length() < 140) {
@@ -156,8 +156,8 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, te.getMessage());
             
             } catch (Exception e) {
-                PrintWriter out1 = response.getWriter();
-                out1.println("Exception: " + e.getMessage());
+                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
             }
 
         }

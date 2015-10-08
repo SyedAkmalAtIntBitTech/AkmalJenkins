@@ -9,9 +9,7 @@
              <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
              
              <style>
-                 /*cursor pointer on every select box in Brndbot*/
                  select,.ptr{
-                     cursor: pointer;
+                     cursor:pointer;
                  }
-                 
              </style>

@@ -6,14 +6,12 @@
 package com.controller.schedule;
 
 import com.intbit.ConnectionManager;
-import com.intbit.ScheduledEntityStatus;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
 import com.intbit.dao.ScheduleDAO;
 import com.intbit.util.AuthenticationUtil;
 import com.intbit.util.ServletUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -58,34 +56,63 @@ public class AddActionServlet extends HttpServlet {
             ServletUtil.printIllegalArgumentError(response, "Request body is missing");
             return;
         }
-        List<String> errorMsgs = validateRequestBody(requestBodyMap);
-        if ( !errorMsgs.isEmpty()){
-            ServletUtil.printIllegalArgumentError(response, errorMsgs);
-            return;
-        }
+//        List<String> errorMsgs = validateRequestBody(requestBodyMap);
+//        if ( !errorMsgs.isEmpty()){
+//            ServletUtil.printIllegalArgumentError(response, errorMsgs);
+//            return;
+//        }
+        
         
         try(Connection conn = ConnectionManager.getInstance().getConnection()){
             conn.setAutoCommit(false);
-            try{
-                int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
-                    requestBodyMap.get("title").toString(),
-                    requestBodyMap.get("description").toString(),
-                    new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
-                    requestBodyMap.get("type").toString(), 
-                    ScheduledEntityStatus.scheduled.toString(), 
-                    userId, 
-                    TemplateStatus.no_template.toString(),
-                    conn
-                );
-                conn.commit();
-                Map<String, Object> data = new HashMap<>();
-                data.put("schedule_entity_id", scheduleId);
-                ServletUtil.printSuccessData(response, data);
-            } catch (SQLException ex) {
-                Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
-                conn.rollback();
-                ServletUtil.printInternalException(response, ex.getMessage());
+            String type = (String)requestBodyMap.get("type");
+            if (type.equalsIgnoreCase("save")){
+                String templateStatus = TemplateStatus.no_template.toString();
+                if ( ScheduledEntityType.note.toString().equals(requestBodyMap.get("actiontype").toString())){
+                    templateStatus = TemplateStatus.incomplete.toString();
+                }
+                try{
+                    int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
+                        requestBodyMap.get("title").toString(),
+                        requestBodyMap.get("description").toString(),
+                        new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
+                        requestBodyMap.get("actiontype").toString(), 
+                        templateStatus,
+                        userId,
+                        conn
+                    );
+                    conn.commit();
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("schedule_entity_id", scheduleId);
+                    ServletUtil.printSuccessData(response, data);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    conn.rollback();
+                    ServletUtil.printInternalException(response, ex.getMessage());
+                }                
+            }else if (type.equalsIgnoreCase("update")){
+                String scheduleID = (String)requestBodyMap.get("schedule_id");
+                try{
+                    int scheduleId = ScheduleDAO.updateScheduledEntity(Integer.parseInt(scheduleID),
+                        requestBodyMap.get("title").toString(),
+                        requestBodyMap.get("description").toString(),
+                        new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
+                        requestBodyMap.get("actiontype").toString(), 
+                        userId,
+                        conn
+                    );
+                    conn.commit();
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("schedule_entity_id", scheduleId);
+                    ServletUtil.printSuccessData(response, data);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    conn.rollback();
+                    ServletUtil.printInternalException(response, ex.getMessage());
+                }                
+                
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
             ServletUtil.printInternalException(response, ex.getMessage());

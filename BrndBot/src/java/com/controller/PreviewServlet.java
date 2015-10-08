@@ -88,7 +88,6 @@ public class PreviewServlet extends BrndBotBaseHttpServlet {
 //                    + "                    </td>\n"
 //                    + "                </tr>\n"
 //                    + "            </table>";
-//            response.getWriter().write("<html><head><title>this is test</title><body>" + htmlString + "</body></head></html>");
             response.getWriter().write(htmlString);
         } catch (Exception ex) {
             logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while creating the responsive html:", getSqlMethodsInstance().error));

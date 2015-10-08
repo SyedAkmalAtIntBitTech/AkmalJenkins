@@ -29,7 +29,6 @@
     <head>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
-
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js"></script>
@@ -142,6 +141,115 @@
 					new SelectFx(el);
 				} );
 			})();
+		</script>
+                
+    <style>
+                       
+                      
+/*                            #opt:hover
+			{
+				color: #000000;
+				background:#7ab5d3;
+                                
+			}	 
+                        
+                        div.selectBox
+			{
+				position:relative;
+				display:inline-block;
+				cursor:default;
+				text-align:left;
+				line-height:30px;
+				clear:both;
+                                font-weight:600;
+				color: #000000;
+                                border-top-left-radius: 5px;
+                                border-bottom-left-radius:  5px;
+                               background-color: #C6C6C6;
+                                border:transparent;
+			}
+                        .selectBox{
+                                position:relative;
+				display:inline-block;
+				cursor:default;
+				text-align:left;
+				line-height:30px;
+				clear:both;
+                                font-weight:600;
+				color: #000000;
+                                border-top-left-radius: 5px;
+                                border-bottom-left-radius:  5px;
+                                background-color: #C6C6C6;
+                                border:transparent;
+                                
+                        }
+			span.selected
+			{
+				width:167px;
+				text-indent:10px;
+				border:0px solid #ccc;
+                                border-top-left-radius: 5px;
+                                border-bottom-left-radius:  5px;
+				border-right:none;
+				background-color: #C6C6C6;
+				overflow:hidden;
+			}
+			span.selectArrow
+			{
+				width:20px;
+				text-align:center;
+				font-size:22px;
+                                border-top-right-radius:5px;
+                                border-bottom-right-radius:5px;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-o-user-select: none;
+				user-select: none;
+				background-image: url('images/dropdown.png');
+                                background-repeat: space;
+			}
+			
+			span.selectArrow,span.selected
+			{
+				position:relative;
+				float:left;
+				height:30px;
+				z-index:1;
+			}
+			
+			div.selectOptions
+			{
+				position:absolute;
+				top:35px;
+				left:0;
+				width:188px;
+				border:1px solid #ccc;
+                                border-radius:7px;
+				overflow:hidden;
+				background:#f6f6f6;
+				padding-top:2px;
+				display:none;
+			}
+				
+			span.selectOption
+			{   
+                             
+				display:block;
+				width:100%;
+				line-height:20px;
+				padding:5px 10%;
+                        }
+			
+			span.selectOption:hover
+			{
+				color: #000000;
+				background:#7ab5d3;
+                                
+			}	
+                            */
+                </style>     
+           
     </script>
     </body>
 </html>

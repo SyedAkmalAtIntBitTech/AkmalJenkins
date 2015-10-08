@@ -6,11 +6,12 @@
 package com.controller.schedule;
 
 import com.intbit.AppConstants;
-import com.intbit.dao.ScheduleDAO;
+import com.intbit.dao.ScheduleSocialPostDAO;
+import com.intbit.util.AuthenticationUtil;
+import com.intbit.util.ServletUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,17 +20,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
-import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author Mohamed
  */
-@WebServlet(name = "GetScheduledEmailDetailServlet", urlPatterns = {"/GetScheduledEmailDetail"})
-public class GetScheduledEmailDetailServlet extends HttpServlet {
-    private static final Logger logger = Logger.getLogger(GetScheduledEmailDetailServlet.class.getName());
+@WebServlet(name = "GetScheduledSocialPostDetailServlet", urlPatterns = {"/GetScheduledSocialPostDetail"})
+public class GetScheduledSocialPostDetailServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,45 +40,27 @@ public class GetScheduledEmailDetailServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
-        HttpSession session = request.getSession();
-        if (session.getAttribute("UID") == null) {
-            Map<String, Object> error = new HashMap<>();
-            error.put("error", "User is not logged in");
-            response.getWriter().write(AppConstants.GSON.toJson(error));
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.getWriter().flush();
-            return;
-        }
-        Integer userId = Integer.parseInt(session.getAttribute("UID").toString());
-        if ( StringUtils.isEmpty(request.getParameter("schedule_id")) ){
-            Map<String, Object> error = new HashMap<>();
-            error.put("error", "Schedule id is missing");
-            response.getWriter().write(AppConstants.GSON.toJson(error));
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().flush();
-            return;
-        }
-        
-        try{
-            Integer scheduleEmailId = Integer.parseInt(request.getParameter("schedule_id"));
-            Map<String, Object> scheduleEmailDetails = 
-                    ScheduleDAO.getScheduleEmailDetails(userId, scheduleEmailId);
-            response.getWriter().write(AppConstants.GSON.toJson(scheduleEmailDetails));
-            response.getWriter().flush();
-            response.setStatus(HttpServletResponse.SC_OK);
-        }catch (ParseException parse){
-            logger.log(Level.SEVERE, null, parse);
-        }catch(NumberFormatException ex){
-            logger.log(Level.SEVERE, null, ex);
-            Map<String, Object> error = new HashMap<>();
-            error.put("error", "Schedule id cannot be parsed to integer");
-            response.getWriter().write(AppConstants.GSON.toJson(error));
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        try {
+            response.setContentType("application/json;charset=UTF-8");
+            if ( !AuthenticationUtil.isUserLoggedIn(request)){
+                AuthenticationUtil.printAuthErrorToResponse(response);
+                return;
+            }
+            Integer userId = AuthenticationUtil.getUUID(request);
+            String scheduleId = request.getParameter("schedule_id");
+            if ( StringUtils.isEmpty(scheduleId)){
+                ServletUtil.printIllegalArgumentError(response, "Schedule id is missing");
+                return;
+            }
+            
+            Map<String, Object> schedulePostDetails =
+                    ScheduleSocialPostDAO.getScheduleSocialPostDetails(userId, Integer.parseInt(scheduleId));
+            response.getWriter().write(AppConstants.GSON.toJson(schedulePostDetails));
             response.getWriter().flush();
         } catch (SQLException ex) {
-            Logger.getLogger(GetScheduledEmailDetailServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetScheduledSocialPostDetailServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

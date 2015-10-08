@@ -15,7 +15,7 @@ import java.io.File;
 public class AppConstants {
     
     public static final Gson GSON = new Gson();
-
+    
     public static final String BASE_UPLOAD_PATH = "/home/tomcat/BrndBot";
     
     public static final String BASE_IMAGE_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "Images";
@@ -25,8 +25,6 @@ public class AppConstants {
     public static final String BASE_XML_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "xml";
 
     public static final String BASE_HTML_TEMPLATE_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "HTMLTemplates";
-    
-    public static final String BASE_TEMP_PATH = BASE_UPLOAD_PATH + File.separator + "TEMP";
 
     public static final String BASE_MODEL_PATH = BASE_UPLOAD_PATH + File.separator + "model";
             
@@ -46,8 +44,6 @@ public class AppConstants {
     public static final String LAYOUT_HTML_HOME = BASE_UPLOAD_PATH + File.separator + "LayoutHTML";
     
     public static final String ADMIN_LAYOUT_BACKGROUNDIMAGES_HOME = ADMIN_IMAGE_HOME + File.separator + "AdminLayoutBackgroundImages";
-    
-    public static final String ADMIN_LAYOUT_SVG_HOME = ADMIN_IMAGE_HOME + File.separator + "AdminLayoutSVG";
     
     public static final String TMP_FOLDER = "/tmp";
     
