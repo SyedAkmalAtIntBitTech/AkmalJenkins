@@ -16,7 +16,6 @@ import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
-import com.mindbodyonline.clients.api._0_5Class.StatusCode;
 import com.mindbodyonline.clients.api._0_5Staff.ArrayOfStaff;
 import com.mindbodyonline.clients.api._0_5Staff.GetStaffResult;
 import java.io.IOException;
@@ -37,7 +36,6 @@ import mindbody.controller.MindBodyClass;
 import mindbody.controller.MindBodyDuration;
 import mindbody.controller.MindBodyProcessedData;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.json.simple.JSONArray;
 
 /**
@@ -332,9 +330,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
         Integer studio_id = getSqlMethodsInstance().getStudioID(user_id);
         int[] siteids = new int[]{studio_id};
         MindBodyClass mind_body_class = new MindBodyClass(siteids);
-
-        GetClassesResult classResult = mind_body_class.getClasses(MindBodyDuration.Today);
-        return classResult.getStatus().equals(StatusCode.SUCCESS);
+        return mind_body_class.isActivated();
     }
 
     private MindBodyProcessedData getMindBodyProcessedStaffData(GetStaffResult result) throws JSONException {

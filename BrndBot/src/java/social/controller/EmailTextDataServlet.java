@@ -65,7 +65,7 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
 
     
     private boolean updateEmailListPreference(Integer user_id, String emailListName, String emailAddresses) throws JSONException, SQLException {
-        org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id);
+        org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id,IConstants.kEmailListUserKey);
 
         JSONObject json_user_preferences_email = new JSONObject();
         JSONObject emailListJSONObject = new JSONObject();
