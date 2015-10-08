@@ -1,7 +1,7 @@
 <%-- 
     Document   : basejsp
     Created on : 9 Sep, 2015, 4:48:59 PM
-    Author     : ilyas
+    Author     : Ilyas
 --%>
             <link rel="SHORTCUT ICON" href="images/favicon.png"/>
             <script src="//use.typekit.net/wnn8jyx.js"></script>
