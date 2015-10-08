@@ -33,8 +33,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mohamed
  */
-@WebServlet(name = "AddActionServlet", urlPatterns = {"/AddAction"})
-public class AddActionServlet extends HttpServlet {
+@WebServlet(name = "AddNoteServlet", urlPatterns = {"/AddNote"})
+public class AddNoteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,29 +52,32 @@ public class AddActionServlet extends HttpServlet {
             AuthenticationUtil.printAuthErrorToResponse(response);
             return;
         }
+        
         Integer userId = AuthenticationUtil.getUUID(request);
+        
         Map<String, Object> requestBodyMap = ServletUtil.getJsonFromRequestBody(request);
         if ( requestBodyMap == null){
             ServletUtil.printIllegalArgumentError(response, "Request body is missing");
             return;
         }
+        
         List<String> errorMsgs = validateRequestBody(requestBodyMap);
-        if ( !errorMsgs.isEmpty()){
+        if ( ! errorMsgs.isEmpty()){
             ServletUtil.printIllegalArgumentError(response, errorMsgs);
             return;
         }
         
-        try(Connection conn = ConnectionManager.getInstance().getConnection()){
+         try(Connection conn = ConnectionManager.getInstance().getConnection()){
             conn.setAutoCommit(false);
             try{
                 int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
                     requestBodyMap.get("title").toString(),
                     requestBodyMap.get("description").toString(),
-                    new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
+                    new Timestamp(Double.valueOf(requestBodyMap.get("schedule_time").toString()).longValue()), 
                     requestBodyMap.get("type").toString(), 
                     ScheduledEntityStatus.scheduled.toString(), 
                     userId, 
-                    TemplateStatus.no_template.toString(),
+                    TemplateStatus.na.toString(),
                     conn
                 );
                 conn.commit();
@@ -82,14 +85,16 @@ public class AddActionServlet extends HttpServlet {
                 data.put("schedule_entity_id", scheduleId);
                 ServletUtil.printSuccessData(response, data);
             } catch (SQLException ex) {
-                Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AddNoteServlet.class.getName()).log(Level.SEVERE, null, ex);
                 conn.rollback();
                 ServletUtil.printInternalException(response, ex.getMessage());
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddNoteServlet.class.getName()).log(Level.SEVERE, null, ex);
             ServletUtil.printInternalException(response, ex.getMessage());
         }
+        
+        
     }
     
     private List<String> validateRequestBody(Map<String, Object> requestBodyMap){
@@ -103,17 +108,21 @@ public class AddActionServlet extends HttpServlet {
         }
         
         if ( !ServletUtil.mapContainsKey(requestBodyMap, "type")){
-            errorMsgs.add("action type is missing");
+            errorMsgs.add("type is missing");
         }else{
             try{
-                ScheduledEntityType.valueOf(requestBodyMap.get("type").toString());
+                ScheduledEntityType type = 
+                        ScheduledEntityType.valueOf(requestBodyMap.get("type").toString());
+                if ( ScheduledEntityType.note != type){
+                    errorMsgs.add("Only type = note is supported while adding new notes");
+                }
             }catch(IllegalArgumentException ex){
                 errorMsgs.add("type: " + requestBodyMap.get("type").toString() +" is invalid");
             }
         }
         
-        if ( !ServletUtil.mapContainsKey(requestBodyMap, "action_date")){
-            errorMsgs.add("action_date is missing");
+        if ( !ServletUtil.mapContainsKey(requestBodyMap, "schedule_time")){
+            errorMsgs.add("schedule_time is missing");
         }
         return errorMsgs;
     }

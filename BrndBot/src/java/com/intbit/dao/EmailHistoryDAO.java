@@ -5,21 +5,19 @@
  */
 package com.intbit.dao;
 
-import com.controller.IConstants;
 import com.intbit.ConnectionManager;
+import com.intbit.ScheduledEntityStatus;
 import email.mandrill.MessageResponse;
 import email.mandrill.MessageResponses;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.postgresql.util.PGobject;
 
 /**
  *
@@ -83,20 +81,16 @@ public class EmailHistoryDAO {
             String contenthtml,
             String emailaddress, 
             String emaillistname,
-            String toemailAddresses,
             String emailSubject,
             String tag
     ) throws SQLException {
         int lastUpdateId = -1;
-        PGobject pg_object = new PGobject();
-        JSONObject json_email_addresses = new JSONObject();
-        JSONArray json_array_email_address = new JSONArray();
         try (Connection connection = connectionManager.getConnection()) {
             connection.setAutoCommit(false);
             try {
                 String query_string = "INSERT INTO tbl_emailsenthistory "
-                        + " (user_id, timesent, contenthtml, emailaddress, emaillistname, email_tag, subject, toemailaddresses) VALUES "
-                        + " (?,CURRENT_TIMESTAMP,?,?,?,?,?,?) RETURNING id";
+                        + " (user_id, timesent, contenthtml, emailaddress, emaillistname, email_tag, subject) VALUES "
+                        + " (?,CURRENT_TIMESTAMP,?,?,?,?,?) RETURNING id";
                 try (PreparedStatement prepared_statement = connection.prepareStatement(query_string)) {
                     prepared_statement.setInt(1, userid);
                     prepared_statement.setString(2, contenthtml);
@@ -104,14 +98,6 @@ public class EmailHistoryDAO {
                     prepared_statement.setString(4, emaillistname);
                     prepared_statement.setString(5, tag);
                     prepared_statement.setString(6, emailSubject);
-                    String[] emailids = toemailAddresses.split(",");
-                    for (int i = 0; i< emailids.length; i++){
-                        json_array_email_address.add(emailids[i].trim());
-                    }
-                    json_email_addresses.put(IConstants.kEmailAddressesKey, json_array_email_address);
-                    pg_object.setType("json");
-                    pg_object.setValue(json_email_addresses.toJSONString());
-                    prepared_statement.setObject(7, pg_object);
                     prepared_statement.execute();
                     try (ResultSet result_set = prepared_statement.getResultSet()) {
 

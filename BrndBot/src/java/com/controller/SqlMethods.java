@@ -389,6 +389,8 @@ public class SqlMethods {
 
             pg_object.setType("json");
             pg_object.setValue(json_object.toJSONString());
+//            Object obj = new Object();
+//            obj = json_object.toJSONString();
             prepared_statement.setObject(6, pg_object);
 
             prepared_statement.executeUpdate();
@@ -661,7 +663,7 @@ public class SqlMethods {
         if (editorType.equals("email")) {
             isEmail = true;
         }
-            String mapper_file_name = "";
+        String mapper_file_name = "";
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             if (model_mapper_id == 0) {
                 query_string = "Select * from tbl_model where category_id=" + category_id + " and (user_id=" + user_id + " or user_id=0) and organization_id=" + organization_id + " and sub_category_id=" + sub_category_id + " and social=" + !isEmail + " and email="+isEmail +" and block_id="+ block_id+ " order by id ASC";

@@ -117,7 +117,7 @@ most represents your company and ignore the colors for now.</p>
 
                     </div>
             </div>  
-        </div>
+
     </body>
 
 </html>

@@ -87,7 +87,6 @@ public class ScheduleEmailServlet extends HttpServlet {
                     requestBodyMap.get("from_email_address").toString(),
                     requestBodyMap.get("email_list").toString(),
                     requestBodyMap.get("from_name").toString(),
-                    requestBodyMap.get("reply_to_email_address").toString(),
                     requestBodyMap.get("to_email_addresses").toString().split(","),
                     requestBodyMap.get("schedule_title").toString(),
                     scheduleDesc, 
@@ -106,10 +105,7 @@ public class ScheduleEmailServlet extends HttpServlet {
             response.getWriter().write(AppConstants.GSON.toJson(error));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().flush();
-        } catch (Exception ex){
-            Logger.getLogger(ScheduleEmailServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     private List<String> validateRequestBody(Map<String, Object> requestBodyMap){

@@ -7,13 +7,11 @@
 <%@page import="com.controller.SqlMethods"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html ng-app>
+<html>
     <head>
-        <%@ include file="fonttypekit.jsp"%>
-        <%@ include file="checksession.jsp" %>
-        <link rel="stylesheet" href="css/pikaday.css">
-        <link rel="stylesheet" href="css/datepickerpikaday.css">
-        <script src="js/pikaday.js"></script>
+         <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -22,10 +20,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/leftmenuhamburger.js" type="text/javascript"></script>
-        
-       <link href="css/style.css" rel="stylesheet" type="text/css"/>
-       <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
-        
+       
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
@@ -41,15 +36,6 @@
         </style>
         <title>email preview</title>
         <style>
-            .timepicker_wrap {
-                margin-top:22px;
-            }
-            .icon-chevron-up,.bootstrap-datetimepicker-widget,.timepicker,.timepicker-hours,.table-condensed,.btn,.dropdown-menu{
-                z-index: 2000;
-            }
-            .icon-chevron-up{
-                z-index: 2000;
-            }
             #iphone{
                 width: 25px;
                 height: 50px;
@@ -71,16 +57,16 @@
             {
                 display:none;
                 position: fixed;
-                width:900px;
-                height:450px;
-                top: 30%;
-                left: 30%;
+                width:350px;
+                height:300px;
+                top: 40%;
+                left: 50%;
                 margin-left:-155px;
                 margin-top:-110px;
-                border:3px solid #888;
-                background-color:#fcfcfc;
-                padding:1px;
-                z-index:1005;
+                border:5px solid #686868 ;
+                background-color:#CDCDFF;
+                padding:30px;
+                z-index:102;
                 font-family:Verdana;
                 font-size:10pt;
                 border-radius:10px;
@@ -88,67 +74,19 @@
                 -moz-border-radius:20px;
                 font-weight:bold;
             }
-            .simpleinpbox{
-                display:block;
-                width:100%;
-                padding:6px 12px;
-                line-height:1.42857143;
-                color:#555;
-                border:1px solid #ccc;
-                border-radius:4px;
-                -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
-                box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
-                -webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-                -o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-                transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-                background-color: #E3E4E8;
-                color:#686868;
-            }
-            .selectsocialact>option{
-                background-color: #fff;
-                font-size: 16px;
-            }
-            .selectsocialact{
-                background-color: #E3E4E8;
-                border: 1px solid #DADADA;
-                height:30px;
-                width:250px;
-                border-radius: 5px;
-                margin-left: 0px;
-                color: #686868;
-                font-size:18px;
-                font-variant:normal;
-            }
             #content
             {
                 height:auto;
-                width:850px;
+                width:300px;
                 margin:5px auto;
-                position:relative;
-                left:-200px;
-                top:-10px;
-            }
-            .black_overlay{
-                display: none;
-                position: absolute;
-                top: 0%;
-                left: 0%;
-                width: 100%;
-                height: 1000em;
-                background-color: #E3E4E8;
-                z-index:1000;
-                -moz-opacity: 0.8;
-                opacity:.80;
-                filter: alpha(opacity=80);
-            }
-            #content input{
-                /*                width:200px;*/
             }
             #popupclose
             {
                 margin:35px 0 0 80px;
                 width:50px;
+
             }
+
             .vlightbox {
                 display:-moz-inline-stack;
                 display:none;
@@ -184,16 +122,19 @@
             .content{
                 position: relative;
                 top: 95px;
-                /*                                margin-left: 60px;
-                                                zoom: 0.5;*/
+/*                margin-left: 60px;
+                zoom: 0.5;*/
             }
             #popup {
-                /*               
-                                width: 500px;
-                                height: 50em;*/
+/*               
+                width: 500px;
+                height: 50em;*/
             }
             .preview{
+
             }
+
+
         </style>
         <script type="text/javascript">
             var started;
@@ -212,285 +153,210 @@
                     started = 0;
                 }
             }
-            function overlay() {
-                if (validate()) {
-                    document.getElementById('light').style.display = 'block';
-                    document.getElementById('fade').style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                }
-            }
         </script>
 
-        <%!            String emailSubject = "";
-            String emailList = "";
-            String htmlData = "";
-            String emailAddresses = "";
-        %>
-        <%  
-            sqlmethods.session = request.getSession(true);
-            emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
-            emailList = (String) sqlmethods.session.getAttribute("email_list");
-            emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
-            htmlData = (String) sqlmethods.session.getAttribute("htmldata");
-        %>
-        <script>
-            function emailSettings($scope, $http) {
-                $scope.getEmailSettings = function () {
-                    var email_settings = {"type": "get"};
-                    $http({
-                        method: 'POST',
-                        url: 'EmailSettingsServlet',
+    <%!
+        String emailSubject = "";
+        String emailList = "";
+        String htmlData = "";
+        String iframeName = "";
+        String iframeUrl="";
+    %>
+    <%
+        sqlmethods.session = request.getSession(true);
+
+        emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
+        emailList = (String) sqlmethods.session.getAttribute("email_list");
+        htmlData = (String) sqlmethods.session.getAttribute("htmldata");
+        iframeName = (String) sqlmethods.session.getAttribute("iframeName");
+        iframeUrl="/BrndBot/DownloadHtmlServlet?file_name="+iframeName+".html";
+    %>
+    <script>
+        function emailSettings($scope, $http){
+            
+            $scope.getEmailSettings = function(){
+                
+                var email_settings = {"type": "get"};
+                
+                $http({
+                        method : 'POST',
+                        url : 'EmailSettingsServlet',
                         headers: {'Content-Type': 'application/json'},
                         data: email_settings
-                    }).success(function (data, status, headers, config) {
-                        $scope.email_settings = data;
-                        if (data === error) {
-                            alert(data);
-                        }
-                    }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                }).success(function(data, status, headers, config) {
+                    $scope.email_settings = data;
+                    if (data === error){
+                        alert(data);
+                    }
+                }).error(function(data, status, headers, config) {
+                    alert("No data available, problem fetching the data");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                    });
-                };
-                $scope.setScheduling = function () {
-                    var schedule_id = "0";
-                    var from_name = $("#name").val();
-                    var email_subject = $("#subject").val();
-                    var to_email_addresses = $("#toaddress").val();
-                    var from_email_address = $("#formaddress").val();
-                    var reply_to_email_address = $("#email").val();
-                    var email_body = formattedHTMLData;
-                    var email_list = $("#email_list").val();
-                    var schedule_desc = "none";
+                });        
+                
+            };
+            
+            $scope.setScheduling = function(){
                     
-                    schedule_id = $("#email_actions").val();
-                    console.log(schedule_id);
-                    if (schedule_id == "0"){
-                        var schedule_title = $("#schedule_title").val();
-                        
-                        var schedule_date = $("#schedule_date").val();
-                        var schedule_time = $("#schedule_time").val().replace(/ /g,'');
-//                        var schedule = $("#schedule_time").val();
-                        var l=schedule_date.toLocaleString() +" "+schedule_time.toLocaleString();
-                        var schedule_time = Date.parse(l);
-                        console.log("Epoch: " + schedule_time);
-                        var myEpoch = schedule_time;
-                        console.log("New Epoch: " + myEpoch);
-                        var email_scheduling = {
-                            "from_name": from_name, 
-                            "email_subject": email_subject, 
-                            "to_email_addresses": to_email_addresses, 
-                            "from_email_address": from_email_address, 
-                            "reply_to_email_address": reply_to_email_address, 
-                            "email_list": email_list, 
-                            "schedule_title": schedule_title, 
-                            "schedule_time": myEpoch, 
-                            "email_body": email_body, 
-                            "schedule_desc": schedule_desc
-                        };
-                        $http({
-                            method: 'POST',
-                            url: 'ScheduleEmail',
-                            headers: {'Content-Type': 'application/json'},
-                            data: email_scheduling
-                        }).success(function (data) {
-                            if (data != "") {
-                                alert("details saved successfully");
-                                document.location.href = "dashboard.jsp";
-                            }
-                        }).error(function (data) {
-                            alert("No data available, problem fetching the data");
-                        });
-                    }else {
-                        var email_scheduling = {
-                            "from_name": from_name, 
-                            "email_subject": email_subject, 
-                            "to_email_addresses": to_email_addresses, 
-                            "from_email_address": from_email_address, 
-                            "reply_to_email_address": reply_to_email_address, 
-                            "email_list": email_list,
-                            "schedule_id":schedule_id,
-                            "email_body": email_body,
-                            "schedule_desc": schedule_desc
-                        };
-                        $http({
-                            method: 'POST',
-                            url: 'ScheduleEmailActions',
-                            headers: {'Content-Type': 'application/json'},
-                            data: email_scheduling
-                        }).success(function (data) {
-                            if (data != "") {
-                                alert("details saved successfully");
-                                document.location.href = "dashboard.jsp";
-                            }
-                        }).error(function (data) {
-                            alert("No data available, problem fetching the data");
-                        });
-                        
-                    }
-                    
-                };
-                $scope.getActions = function () {
-                    $http({
-                        method: 'GET',
-                        url: getHost() + 'GetScheduledActions?type=email'
-                    }).success(function (data) {
-                        $scope.email_actions = data;
-                    }).error(function (data) {
-                        alert("request not successful");
-                    });
-                };
-            }
-        </script>
-
-        <script>
-            var formattedHTMLData = "";
-            $(document).ready(function () {
-                $.ajax({
-                    url: getHost() + "PreviewServlet",
-                    method: "post",
-                    data: {htmlString: $(".content").html()},
-                    success: function (responseText) {
-                        formattedHTMLData = responseText;
-                        //show popup showing
-                        //                    alert(formattedHTMLData);
-                        $(".content").empty();
-                        $(".content").append("<iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name=emailhtmltemplate.html'></iframe>");
-                    }
-                });
-            });
-            function show(id) {
-                var imageUrl = $("#" + id).css("background-image");
-                if (id === "ipad") {
-                    $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px")
-                            .css("border-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px").css("background-color", "#FFF");
-                    $('#dynamictable').css("width", "768px").css("height", "987px").css("top", "-474px").css("left", "-300px").css("-webkit-transform", " scale(0.265)");
-                }
-                else if (id === "imac")
-                {
-                    $(".iphoneshow").css("background-image", imageUrl)
-                            .css("display", 'block').css("height", "413px").css("width", "295px").css("margin-left", "-55px").css("margin-top", "-80px")
-                            .css("border-color", "transparent").css("background-color", "#FFF");
-                    $('#dynamictable').css("width", "768px").css("height", "620px").css("top", "-320px").css("left", "-272px").css("-webkit-transform", "scale(0.33)");
-                }
-                else if (id === "iphone") {
-                    $(".iphoneshow").css("background-image", imageUrl)
-                            .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "-55px").css("margin-top", "-80px")
-                            .css("border-color", "transparent").css("background-color", "#FFF");
-                    $('#dynamictable').css("width", "320px").css("height", "655px").css("top", "-276px").css("left", "-107px").css("-webkit-transform", "scale(0.47)");
-                }
-            }
-            function displaySchedule() {
-                if (validate()) {
-                    angular.element(document.getElementById('emailSettings')).scope().getActions();
-                    $("#popupschedule").show();
-                    document.getElementById('light').style.display = 'block';
-                    document.getElementById('fade').style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                }
-                else {
-                    document.getElementById('light').style.display = 'none';
-                    document.getElementById('fade').style.display = 'none';
-                    document.body.style.overflow = 'scroll';
-                }
-            }
-            function hidepopup() {
-                $("#popupschedule").hide();
-                $("#schedule_title").val("");
-                $("#schedule_time").val("");
-            }
-            function validate() {
                 var from_name = $("#name").val();
                 var email_subject = $("#subject").val();
                 var to_email_addresses = $("#toaddress").val();
                 var from_email_address = $("#formaddress").val();
                 var reply_to_email_address = $("#email").val();
-                var htmldata = formattedHTMLData;
+                var email_body = formattedHTMLData;
                 var email_list = $("#email_list").val();
-                var schedule_title = $("#schedule_title").val("");
-                var schedule_time = $("#schedule_time").val("");
-                if (from_name == "") {
-                    alert("from name not entered, please enter the from name");
-                    $("#name").focus();
-                    return false;
-                }
-                if (email_subject == "") {
-                    alert("email subject name not entered, please enter the email subject");
-                    $("#subject").focus();
-                    return false;
-                }
-                if (to_email_addresses == "") {
-                    alert("email addresses not entered, please enter the email addresses");
-                    $("#toaddress").focus();
-                    return false;
-                }
-                if (from_email_address == "") {
-                    alert("from email addresses not entered, please enter the from email addresses");
-                    $("#formaddress").focus();
-                    return false;
-                }
-                if (reply_to_email_address == "") {
-                    alert("reply to email addresses not entered, please enter the reply to email addresses");
-                    $("#email").focus();
-                    return false;
-                }
-                if (email_list == "") {
-                    alert("email list not entered, please enter the email list");
-                    $("#email_list").focus();
-                    return false;
-                }
-                return true;
-            }
-            function sendEmail() {
-                $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position", "absolute").css("top", "300px").css("left", "500px");
-                $.ajax({
-                    url: getHost() + "SendEmailServlet",
-                    type: "post",
-                    data: {
-                        from_name: $("#name").val(),
-                        email_subject: $("#subject").val(),
-                        email_addresses: $("#toaddress").val(),
-                        from_email_address: $("#formaddress").val(),
-                        reply_to_email_address: $("#email").val(),
-                        htmldata: formattedHTMLData,
-                        email_list: $("#email_list").val()
-                    },
-                    success: function (responseText) {
-                        $('#loadingGif').remove();
-                        document.location.href = "emailsent.jsp";
-                    },
-                    error: function () {
-                        alert("error");
+                var schedule_title = $("#schedule_title").val();
+                var schedule = $("#schedule_time").val();
+                var schedule_time = Date.parse(schedule);
+                var email_scheduling = {"from_name": from_name, "email_subject":email_subject, "to_email_addresses":to_email_addresses, "from_email_address":from_email_address, "reply_to_email_address":reply_to_email_address, "email_list":email_list, "schedule_title":schedule_title, "schedule_time":schedule_time, "email_body":email_body}
+                $http({
+                        method : 'POST',
+                        url : 'ScheduleEmail',
+                        headers : {'Content-Type':'application/json'},
+                        data: email_scheduling
+                }).success(function(data){
+                    if (data != ""){
+                        alert("details saved successfully");
+                        document.location.href = "dashboard.jsp";
                     }
+                }).error(function(data){
+                    alert("No data available, problem fetching the data");
                 });
-            }
-            function validateact(){
-               if(document.getElementById('email_actions').value === "0")
-                {
-                document.getElementById('schedule_title').disabled=false;
-                document.getElementById('schedule_date').disabled=false;
-                document.getElementById('schedule_time').disabled=false;
-                 }
-            else{
-                document.getElementById('schedule_title').disabled=true;
-                document.getElementById('schedule_date').disabled=true;
-                document.getElementById('schedule_time').disabled=true;
-                document.getElementById('schedule_time').value="";
-                document.getElementById('schedule_date').value="";
-//                document.getElementById('hour').disabled=true;
-//                document.getElementById('minute').disabled=true;
-//                document.getElementById('AMPM').disabled=true;
-//                document.getElementById('schedule_time').disabled=true; 
-                 }
+            };
         }
-        </script>
+        
+    </script>
+    
+    <script>
+        var formattedHTMLData = "";
+       $(document).ready(function () {
+           formattedHTMLData=$("#dynamictable").contents().find("html").html();
+           show("iphone");
+//            $.ajax({
+//                url: getHost() + "PreviewServlet",
+//                method: "post",
+////                data: {htmlString: $(".content").html()},
+//                success: function (responseText) {
+//                    formattedHTMLData = responseText;
+//                    //show popup showing
+//                
+//                    $(".content").empty();
+//                    $(".content").append(");
+//
+//                }
+//            });
+        });
+        function show(id) {
+            formattedHTMLData=$("#dynamictable").contents().find("html").html();
+            
+            var imageUrl = $("#" + id).css("background-image");
+
+            if (id === "ipad") {
+                $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px")
+                        .css("border-color", "transparent").css("margin-left", "-55px").css("margin-top", "-80px").css("background-color","#FFF");
+                $('#dynamictable').css("width","770px").css("height","958px").css("top","-465px").css("left","-300px").css("-webkit-transform"," scale(0.265)");
+            }
+            else if (id === "imac")
+            {
+                $(".iphoneshow").css("background-image", imageUrl)
+                        .css("display", 'block').css("height", "413px").css("width", "295px").css("margin-left", "-55px").css("margin-top", "-80px")
+                        .css("border-color", "transparent").css("background-color","#FFF");
+                 $('#dynamictable').css("width","768px").css("height","620px").css("top","-320px").css("left","-272px").css("-webkit-transform","scale(0.33)");
+            }
+            else if (id === "iphone"){
+                $(".iphoneshow").css("background-image", imageUrl)
+                        .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "-55px").css("margin-top", "-80px")
+                        .css("border-color", "transparent").css("background-color","#FFF");
+                 $('#dynamictable').css("width","358px").css("height","573px").css("top","-241px").css("left","-108px").css("-webkit-transform","scale(0.488)");
+            }
+        }
+        function displaySchedule(){
+            if (validate()){
+                $("#popupschedule").show();
+            }
+        }
+        function hidepopup(){
+            $("#popupschedule").hide();
+            $("#schedule_title").val("");
+            $("#schedule_time").val("");
+        }
+        function validate(){
+            var from_name = $("#name").val();
+            var email_subject = $("#subject").val();
+            var to_email_addresses = $("#toaddress").val();
+            var from_email_address = $("#formaddress").val();
+            var reply_to_email_address = $("#email").val();
+            var htmldata = formattedHTMLData;
+            var email_list = $("email_list").val();
+            var schedule_title = $("#schedule_title").val("");
+            var schedule_time = $("#schedule_time").val("");
+
+            if (from_name == ""){
+                alert("from name not entered, please enter the from name");
+                $("#name").focus();
+                return false;
+            }
+            if (email_subject == ""){
+                alert("email subject name not entered, please enter the email subject");
+                $("#subject").focus();
+                return false;
+            }
+            if (to_email_addresses == ""){
+                alert("email addresses not entered, please enter the email addresses");
+                $("#toaddress").focus();
+                return false;
+            }
+            if (from_email_address == ""){
+                alert("from email addresses not entered, please enter the from email addresses");
+                $("#formaddress").focus();
+                return false;
+            }
+            if (reply_to_email_address == ""){
+                alert("reply to email addresses not entered, please enter the reply to email addresses");
+                $("#email").focus();
+                return false;
+            }
+            if (email_list == ""){
+                alert("email list not entered, please enter the email list");
+                $("#email_list").focus();
+                return false;
+            }
+            return true;
+        }
+        
+        function sendEmail() {
+            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
+                $.ajax({
+                url: getHost() + "SendEmailServlet",
+                type: "post",
+                data: {
+                    from_name: $("#name").val(),
+                    email_subject: $("#subject").val(),
+                    email_addresses: $("#toaddress").val(),
+                    from_email_address: $("#formaddress").val(),
+                    reply_to_email_address: $("#email").val(),
+                    htmldata: formattedHTMLData,
+                    email_list: $("#email_list").val(),
+                    iframeName: $("#iframe_name").val()
+                },
+                success: function (responseText) {
+                    $('#loadingGif').remove();
+                    document.location.href = "emailsent.jsp";
+                },
+                error: function (){
+                    alert("error");
+                }
+
+            });
+
+        }
+
+    </script>
         <jsp:include page="basejsp.jsp" />
     </head>
 
-    <body>
-        <div id="fade" class="black_overlay"></div>
-        <div class="row" ng-controller="emailSettings" id="emailSettings">
+    <body ng-app>
+        <div class="row" ng-controller="emailSettings">
             <jsp:include page="leftmenu.html"/>
             <div class="col-md-4 col-md-offset-1" ng-init="getEmailSettings()">
                 <p id="textgrt" class="MH1">SEND EMAIL PREVIEW</p>
@@ -504,7 +370,7 @@
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">                            
-                            <input id="subject" class="form-control simplebox" name="email_subject" type="text" value='<%= emailSubject%>'>
+                            <input id="subject" class="form-control simplebox" name="email_subject" type="text" value='<%= emailSubject %>'>
                             <label>SUBJECT</label><br>
                         </div>
                     </div>
@@ -517,7 +383,7 @@
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value='<%= emailAddresses%>'>
+                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value='<%=emailList %>'>
                             <label>TO ADDRESS</label><br>
                         </div>
                     </div>
@@ -533,12 +399,14 @@
                             <br><br><button type="button" onclick="sendEmail()" class="button button--moema button--text-thick button--text-upper button--size-s">SEND</button><br><br><br>
                         </div>
                         <div class="col-md-1 col-md-offset-1">
-                            <br><br><a href = "javascript:void(0)" ><button type="button" onclick="displaySchedule()" class="button button--moema button--text-thick button--text-upper button--size-s">SCHEDULE</button></a><br><br><br>
+                            <br><br><button type="button" onclick="displaySchedule()" class="button button--moema button--text-thick button--text-upper button--size-s">SCHEDULE</button><br><br><br>
                         </div>
                     </div>
+                            
 
-                    <input type="hidden" id="email_list" name="email_list" value='<%=emailList%>'>
-
+                            <input type="hidden" id="email_list" value='<%=emailList%>' name="email_list">
+                            <input type="hidden" id="iframe_name" value='<%=iframeName%>'>
+                                
                 </form>
             </div>
             <div class="col-md-4">
@@ -551,145 +419,38 @@
                                 </ul>-->
 
                 <ul class="images ">
-                    <li><div id="iphone" class="img-responsive " onclick="show('iphone');" style="background-image: url('images/iphone 6 screen.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
-                    <li><div id="imac" class="img-responsive" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
-                    <li><div id="ipad" class="img-responsive" onclick="show('ipad');"  style="background-image: url('images/IPAD3.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
+                    <li><div id="iphone" class="img-responsive ptr" onclick="show('iphone');" style="background-image: url('images/Phone.svg');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
+                    <li><div id="imac" class="img-responsive ptr" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
+                    <li><div id="ipad" class="img-responsive ptr" onclick="show('ipad');"  style="background-image: url('images/Tablet.svg');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                 </ul>
-
-
-
-
-                <div id="popupschedule" style="display:none;">
+                
+                <div id="popupschedule">
                     <div id="content">
-                        <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
-                                                    Layout file name<input type="text" id="layoutxml" required><br>-->
+<!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
+                            Layout file name<input type="text" id="layoutxml" required><br>-->
+                        Title: <input type="text" class="form-control simplebox" id="schedule_title" name="schedule_title"><br>
+                        Date : <input type="datetime-local" class="form-control simplebox" id="schedule_time" name="schedule_time"><br>
 
-                        <p class="SH2" style="width:600px;">PLEASE SELECT A TIME FROM YOUR PLAN</p> 
-                        <div id="light" class="white_content"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display = 'none';
-                                        document.getElementById('fade').style.display = 'none';
-                                        document.body.style.overflow = 'scroll';" style="text-decoration:none;">
-                                <p style="margin-left:740px;margin-top:-35px;cursor: pointer;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p></a></div>
-                        <select class="SH1 selectsocialact" style="font-variant: normal;" name="email_actions" id="email_actions" onchange="validateact()">
-                            <option value="0" style="background:#fff;">--SELECT--</option>
-                            <option ng-repeat="actions in email_actions" value="{{actions.id}}">{{actions.schedule_title}}</option>
-                        </select>
-                        <p class="SH2" style="position:relative;top:10px;">OR</p>
-                        <p class="SH2" style="position:relative;top:10px;width:700px;">PLEASE CREATE A NEW TITLE AND TIME TO ADD AN ACTION TO YOUR PLAN</p>                       
-                        <br>
-                        <input type="text" class="simpleinpbox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
-                        
-                        <input type="text" readonly="true" id="schedule_date" name="schedule_date" class="simpleinpbox SH2 ptr" style="width:190px;font-variant: normal;" placeholder="DATE">
-                                        <script>
-                                    var picker = new Pikaday(
-                                    {
-                                        field: document.getElementById('schedule_date'),
-                                        firstDay: 1,
-                                        minDate: new Date(2000, 0, 1),
-                                        maxDate: new Date(2050, 12, 31),
-                                        yearRange: [2000,2050]
-                                    });
-                                        </script><br>
-                                        <input id="schedule_time" type="text" name="schedule_time" class="simpleinpbox SH2 ptr " style="width:150px;" placeholder="TIME"/><br>
-                                     <script src="js/timepicki.js" type="text/javascript"></script>
-                                    <script>
-                                        $('#schedule_time').timepicki();
-                                    </script>
-                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
-                        
-                        
-<!--                        <input type="date" class="simpleinpbox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
-                        <select name="hour" id="hour" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:205px;">
-                            <option value="00">00</option>
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                            <option value="06">06</option>
-                            <option value="07">07</option>
-                            <option value="08">08</option>
-                            <option value="09">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                        </select>
-                        <select name="minute" id="minute" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:210px;">
-                            <option value="00">00</option>
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                            <option value="06">06</option>
-                            <option value="07">07</option>
-                            <option value="08">08</option>
-                            <option value="09">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
-                            <option value="32">32</option>
-                            <option value="33">33</option>
-                            <option value="34">34</option>
-                            <option value="35">35</option>
-                            <option value="36">36</option>
-                            <option value="37">37</option>
-                            <option value="38">38</option>
-                            <option value="39">39</option>
-                            <option value="40">40</option>
-                            <option value="41">41</option>
-                            <option value="42">42</option>
-                            <option value="43">43</option>
-                            <option value="44">44</option>
-                            <option value="45">45</option>
-                            <option value="46">46</option>
-                            <option value="47">47</option>
-                            <option value="48">48</option>
-                            <option value="49">49</option>                            
-                            <option value="50">50</option>
-                            <option value="51">51</option>
-                            <option value="52">52</option>
-                            <option value="53">53</option>
-                            <option value="54">54</option>
-                            <option value="55">55</option>
-                            <option value="56">56</option>
-                            <option value="57">57</option>
-                            <option value="58">58</option>
-                            <option value="59">59</option>
-                        </select>
-                        <select name="AMPM" id="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
-                            <option value="AM">AM</option>
-                            <option value="PM">PM</option>
-                        </select>-->
-                        
-                        <!--<input id="timepicker1" type="text" name="timepicker1" />-->
-                        <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;margin-left:0px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
+                        <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
+                        <input type="button" ng-click="setScheduling()" value="Done"/>   
+                        <input type="button" id="hidepopup" value="Close" onclick="hidepopup()"/>   
                     </div>
-                </div>
+                 </div>
+
+
                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain; display: none;">
                     <div class="content">  
-                        <%= htmlData%>
+                        <iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='<%=iframeUrl%>'></iframe>                   
                     </div>
                 </div>
+
+
+
+
+
+
             </div>
         </div>
-<!--<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>--> 
+
     </body>
 </html>

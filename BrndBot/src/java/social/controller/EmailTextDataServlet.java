@@ -47,14 +47,14 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
              sqlmethods.session = request.getSession();
 //            String html_data = request.getParameter("htmlString");
 //            sqlmethods.session.setAttribute("htmldata", html_data);
-             String emailSubject = request.getParameter("email_subject");
-             String email_addresses = request.getParameter("email_addresses");
+             String emailSubject=request.getParameter("email_subject");
+             String emaillist=request.getParameter("email_addresses");
              String emaillistname = request.getParameter("email_list");
              
              Integer user_id = (Integer)sqlmethods.session.getAttribute("UID");
              sqlmethods.session.setAttribute("email_subject", emailSubject);
-             sqlmethods.session.setAttribute("email_addresses", email_addresses);
-             sqlmethods.session.setAttribute("email_list", emaillistname);
+             sqlmethods.session.setAttribute("email_list", emaillist);
+             Boolean result = updateEmailListPreference(user_id, emaillistname, emaillist);
              
         }catch (Exception e){
             Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e.getCause());
