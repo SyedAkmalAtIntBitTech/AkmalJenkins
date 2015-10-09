@@ -308,6 +308,7 @@
                 position: relative;
                 margin-top: 10px;
                 margin-bottom:10px;
+                margin-left: -10px;
             }
             .savebutton{
                 position:relative;
@@ -1106,7 +1107,7 @@
                                     <input type="text" readonly class="SH2" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
                                 <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
-                                <div class="editbutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                <div class="editbutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="margin-left:300px;margin-top:-48px;" type="button">save</button> </div>
                             </div>
                         </div>
                     </div>                        
