@@ -263,7 +263,7 @@
                     });
                 };
                 $scope.setScheduling = function () {
-                    var schedule_id = "0";
+                    var schedule_id = $("#email_actions").val();
                     var from_name = $("#name").val();
                     var email_subject = $("#subject").val();
                     var to_email_addresses = $("#toaddress").val();
@@ -353,14 +353,16 @@
     <script>
         var formattedHTMLData = "";
         setTimeout(
-  function() 
+        function() 
         {
             formattedHTMLData=$("#dynamictable").contents().find("html").html();
           //do something special
-        }, 200);
+           alert("delay"+formattedHTMLData);
+        }, 1000);
        $(document).ready(function () {
            formattedHTMLData=$("#dynamictable").contents().find("html").html();
            show("iphone");
+           alert(formattedHTMLData);
            
         });
         function displaySchedule() {

@@ -265,7 +265,7 @@
                 border-bottom: 1px #888 solid; 
                 border-radius: 2px;
                 font-family: sans-serif;
-                font-size: 12px;
+                font-size: 13px;
             }
             .inputdate {
                 background-color: #e4e4e4;
@@ -488,6 +488,7 @@
                 margin-left:3%;
                 color: #4e4e4e;
             }
+           
             
            #imgcontainer>img{
                max-width: 100%;
@@ -642,7 +643,7 @@
                             <div style="position:absolute;top:180px;left:15px;" class="SH2">                              
                                 Description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;height:70px;"></textarea>
                             </div>
-                            <div class="SH2" style="position:absolute;top:280px;left:15px;" >
+                            <div class="SP2" style="position:absolute;top:280px;left:15px;" >
                                 SCHEDULED TO POST ON<br><br>
                                 Date 
                                 <input type="text" readonly name="actiondatetime"  class="inputdate MH1 ptr" id="datepicker" >
@@ -659,7 +660,7 @@
 
                                         </script><br>
                                         <div style="position:relative;margin-top:-84px;margin-left:180px;">
-                                        TIME
+                                        Time
                                      <input id="timepicker1" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:110px;"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
@@ -725,7 +726,7 @@
                                         <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     </div>
 
-                                    <div style="position:relative;
+                                    <div ng-hide="email_template_status=='Complete'" style="position:relative;
                                          left:10px;bottom:0px;top:0px;">
                                         <button id="button_edit" 
                                                 ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" 
@@ -737,7 +738,7 @@
                                                 width:120px;" type="button">
                                             EDIT</button> 
                                     </div>
-                                    <div style="position:relative;
+                                    <div ng-hide="email_template_status=='Complete'" style="position:relative;
                                          left:10px;bottom:0px;
                                          top:0px;">
                                         <input type="button" id="email_button_send"
@@ -773,11 +774,11 @@
                                     Description <br><textarea cols="28" rows="2" name="email_description" id="email_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
-                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    <p class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p><br>
+                                    <div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</div>
                                     <!--<input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>-->
 
-                                <input type="text" readonly class="inputdate MH1 ptr" name="emaildatetime" id="emaildatetime">
+                                    <input type="text" readonly class="inputdate MH1 ptr" name="emaildatetime" id="emaildatetime" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -788,18 +789,20 @@
                                         yearRange: [2000,2050]
                                     });
 
-                                        </script><br><p class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">TIME</p>
-                                    <input id="timepickeremail" type="text" name="timepicker_email" class="inputtime MH1 ptr" style="width:150px;"/>
+                                        </script>
+                                        <div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;margin-left:150px;margin-top:-63px;">Time
+                                    <input id="timepickeremail" type="text" name="timepicker_email" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepickeremail').timepicki();
                                     </script>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
-                                    
-                                </div>
+                                        </div>
+                                        
+                                    </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:430px;left:35px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:35px;">
 
                                     <div class="row">
                                         <div>
@@ -847,7 +850,7 @@
 
                                 <div class="col-md-6" id="popupright_panel" >
                                     <!--                                        <div><label>subject</label></div>-->
-                                    <div><p class="SP2 actfnt" style="font-weight:400;">Subject Line </p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">Subject Line </p><input type="text" class="inputbox SS2" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">To</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">From</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">Reply To</p><input type="text" class="inputbox" name="email_entityreplytoaddress" id="email_entityreplytoaddress" value="{{entitiesdetails.reply_to_email_address}}"></div>
@@ -864,8 +867,7 @@
                                     <div class="SH2" style="position:absolute;margin-top:10px;left:15px;" >
                                   
                                         <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                <input type="text" readonly  name="email_schedule_datetime" id="email_schedule_datetime"  class="inputdate MH1 ptr"  >
-                                        <script>
+                                <input type="text" readonly  name="email_schedule_datetime" id="email_schedule_datetime"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        <script>
                                     var picker = new Pikaday(
                                     {
                                         field: document.getElementById('email_schedule_datetime'),
@@ -876,8 +878,8 @@
                                     });
 
                                         </script>
-                                       <div class="SP1 actfnt"  style="font-size:1.2em;margin-left:150px;margin-top:-63px;"> TIME
-                                     <input id="timepickeremailaction" type="text" name="timepickeremail" class="inputtime MH1 ptr" style="width:150px;"/>
+                                       <div class="SP1 actfnt"  style="font-size:1.2em;margin-left:150px;margin-top:-63px;"> Time
+                                           <input id="timepickeremailaction" type="text" name="timepickeremail" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepickeremailaction').timepicki();
@@ -991,10 +993,10 @@
                                 <div style="position:absolute;top:110px;left:60px;" class="SP1 actfnt">
                                     Description <br><textarea cols="28" rows="2" name="fb_description" id="fb_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
-                                <div class="SH2" style="position:absolute; margin-top: 180px; margin-left: 60px;" >
+                                <div class="SH2" style="position:absolute; margin-top: 200px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                <input type="text" readonly class="inputdate MH1 ptr" name="fbdatetime" id="datepicker2">
+                                <input type="text" readonly class="inputdate MH1 ptr" name="fbdatetime" id="datepicker2" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1005,8 +1007,9 @@
                                         yearRange: [2000,2050]
                                     });
 
-                                    </script><br><div class="SP1 actfnt"  style="font-size:1.2em;"> TIME</div>
-                                    <input id="timepicker2" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;"/>
+                                    </script>
+                                    <div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-63px;"> Time
+                                    <input id="timepicker2" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepicker2').timepicki();
@@ -1018,7 +1021,7 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:35px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:35px;">
 
                                     <div class="row">
                                         <div>
@@ -1046,6 +1049,7 @@
                             </div>
                         </form>                            
                     </div>
+                    </div>
 
                     <div id="edit_facebook">
 
@@ -1068,15 +1072,15 @@
                             
                             <p><input class="inputbox SP1" type="hidden" name="facebook_image_name" id="facebook_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             <div style="position:absolute;top:160px;left:300px;">
-                                <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
-                                <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
-                                <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
+                                <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="color:#888;width:230px;font-weight:400;"/></p>
+                                <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="color:#888;width:230px;font-weight:400;"/></p>
+                                <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="color:#888;width:230px;font-weight:400;"/></p>
                             </div>
                             <div style="position:absolute;margin-left:15px;margin-top: 0px;">
                                 <p class=" SP1 actfnt">Post details</p>
                                 <div>
                                     <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                     <input type="text" readonly name="facebook_schedule_date" class="inputdate MH1 ptr" id="facebook_schedule_date" style="width:150px;">
+                                     <input type="text" readonly name="facebook_schedule_date" class="inputdate MH1 ptr" id="facebook_schedule_date" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}" style="width:150px;">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1088,7 +1092,7 @@
                                     });
 
                                         </script><div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-55px;"> Time
-                                        <input id="facebook_schedule_time" type="text" name="facebook_schedule_time" class="inputtime MH1 ptr" style="width:150px;"/><br>
+                                        <input id="facebook_schedule_time" type="text" name="facebook_schedule_time" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/><br>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#facebook_schedule_time').timepicki();
@@ -1099,16 +1103,17 @@
                                     
                                     <!--<input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>-->
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    <input type="text" readonly class="SH1" name="social_type" id="social_type" value="{{schedule_type}}">
+                                    <input type="text" readonly class="SH2" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
-                                <div class="removesavetemplate"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
-                                <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                <div class="editbutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                             </div>
                         </div>
                     </div>                        
                 </div>
 
             </div>
+               
 
             <div id="previewNote" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
                 <div>
@@ -1137,6 +1142,7 @@
 
                         </div>
                     </div>
+                
                     <div id="noteedit" style="display:none;">
 
                         <div style="position:relative;left:50px;">
@@ -1144,7 +1150,7 @@
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
                                 <p class="MH2" style="width:500px;"><input type="text" id="note_title" name="note_title" value="{{schedule_title}}"/></p>
-                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description:<input type="text" id="note_desc" name="note_desc" value="{{schedule_desc}}"/></p>
+                                <p class="SP1 actfnt" style="font-size:17px;font-weight:400;color:#888;"><input type="text" id="note_desc" name="note_desc" value="{{schedule_desc}}"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="note_schedule_id" id="note_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="note_entity_id" id="note_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             </div>       
@@ -1161,7 +1167,7 @@
                                     
                                     
                                      <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                     <input type="text" readonly name="notedate" class="inputdate MH1 ptr" id="datepicker4" style="width:150px;">
+                                     <input type="text" readonly name="notedate" class="inputdate MH1 ptr" id="datepicker4" style="width:150px;" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1172,8 +1178,8 @@
                                         yearRange: [2000,2050]
                                     });
 
-                                        </script><div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-55px;"> TIME
-                                        <input id="timepicker3" type="text" name="timepicker2" class="inputtime MH1 ptr" style="width:150px;"/><br>
+                                        </script><div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-55px;">  Time
+                                        <input id="timepicker3" type="text" name="timepicker2" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/><br>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepicker3').timepicki();
@@ -1181,10 +1187,6 @@
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                     </div>
                               
-                                    
-                                    
-                                    
-                               
                                     <!--<input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>-->
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
@@ -1219,7 +1221,7 @@
                                 <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.shorturl}}</p>
                             </div>
                             <div id="twitter_preview_postdet" style="position:relative;margin-left:15px;">  
-                                <p class="SP1 actfnt">Post details</p>
+                                <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
@@ -1276,10 +1278,10 @@
                                     Description <br><textarea cols="28" rows="2" name="twitter_description" id="twitter_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
-                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p><br>
 
                                     <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                <input type="text" readonly class="inputdate MH1 ptr" name="twitterdatetime" id="datepicker3"/>
+                                    <input type="text" readonly class="inputdate MH1 ptr" name="twitterdatetime" id="datepicker3" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}"/>
 
                                         <script>
                                     var picker = new Pikaday(
@@ -1291,8 +1293,9 @@
                                         yearRange: [2000,2050]
                                     });
 
-                                        </script><br><div class="SP1 actfnt"  style="font-size:1.2em;"> TIME</div>
-                                    <input id="timepickertwitter" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;"/>
+                                        </script>
+                                        <div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-63px;"> Time
+                                    <input id="timepickertwitter" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepickertwitter').timepicki();
@@ -1304,7 +1307,7 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:35px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:35px;">
 
                                     <div class="row">
                                         <div>
@@ -1332,7 +1335,7 @@
                             </div>
                         </form>                            
                     </div>
-
+                    </div>
                     <div id="edit_twitter">
                         <div style="position:relative;left:50px;top:-10px;">
                             <div class="actiondetails actiondet" >
@@ -1355,8 +1358,8 @@
                          
                             <p><input class="inputbox SP1" type="hidden" name="twitter_image_name" id="twitter_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             <div style="position:relative;top: -200px;left: 300px;">
-                                <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.text}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
-                                <p><input type="text" name="twitter_schedule_post_url" id="twitter_schedule_post_url" value='{{entitiesdetails.metadata.shorturl}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
+                                <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.text}}' class="actfnt" style="font-weight:300; width:230px;color:#888;"/></p>
+                                <p><input type="text" name="twitter_schedule_post_url" id="twitter_schedule_post_url" value='{{entitiesdetails.metadata.shorturl}}' class="actfnt" style="font-weight:300; width:230px;color:#888;"/></p>
                             </div>
                             <div style="position:relative;margin-left:10px;margin-top:-300px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
@@ -1366,7 +1369,7 @@
                                     <div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</div>
                                     <!--<input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>-->
 
-                                <input type="text" readonly class="inputdate MH1 ptr" name="twitter_schedule_date" id="twitter_schedule_date">
+                                <input type="text" readonly class="inputdate MH1 ptr" name="twitter_schedule_date" id="twitter_schedule_date" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1378,7 +1381,7 @@
                                     });
 
                                         </script><div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;margin-top:-55px;margin-left:170px;">Time
-                                    <input name="timepicker_twittertime" id="timepicker_twittertime" type="text"  class="inputtime MH1 ptr" style="width:150px;"/>
+                                    <input name="timepicker_twittertime" id="timepicker_twittertime" type="text"  class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepicker_twittertime').timepicki();
@@ -1387,7 +1390,7 @@
                                     
                                     <!--<input type='datetime-local'  class="inputdate"/><br>-->
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    <input type="text" class="SH1" readonly name="social_type" id="social_type" value="{{schedule_type}}">
+                                    <input type="text" class="SH2" readonly name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
                                 <div style="margin-left:-10px;" class="removesavetemplate"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                 <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
@@ -1399,15 +1402,16 @@
 
             </div>
 
-            <div id="light" class="white_content">
+            
+          
+               <div id="light" class="white_content">
                 <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
                     <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
                         <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="25" width="25" /></p>
                     </div>
                 </a>
             </div>
-        </div>    
-
+        </div>   
         <script>
         $(".cross").hide();
         $(".menu").hide();
