@@ -726,7 +726,7 @@
                                         <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     </div>
 
-                                    <div style="position:relative;
+                                    <div ng-hide="email_template_status=='Complete'" style="position:relative;
                                          left:10px;bottom:0px;top:0px;">
                                         <button id="button_edit" 
                                                 ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" 
@@ -738,7 +738,7 @@
                                                 width:120px;" type="button">
                                             EDIT</button> 
                                     </div>
-                                    <div style="position:relative;
+                                    <div ng-hide="email_template_status=='Complete'" style="position:relative;
                                          left:10px;bottom:0px;
                                          top:0px;">
                                         <input type="button" id="email_button_send"
@@ -1105,8 +1105,8 @@
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" readonly class="SH2" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
-                                <div class="removesavetemplate"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
-                                <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                <div class="editbutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                             </div>
                         </div>
                     </div>                        

@@ -1329,7 +1329,7 @@ function sendEmail() {
                            success: function (responseText) {
                                alert(responseText);
                                if (responseText == "true"){
-                                 alert("Your post has been published successfully");
+                                 alert("Your email has been sent successfully");
                                }
                             }
                         });
@@ -1361,7 +1361,7 @@ function postSocial() {
         if (($("#twitter_image_name").val()) != "") {
             image_name = $("#twitter_image_name").val();
             scheduleid = $("#twitter_schedule_id").val();
-            entityid = $("#twitter_schedule_id").val();
+            entityid = $("#twitter_entity_id").val();
         }
 
         var link = $("#twitter_schedule_post_url").val();
