@@ -1,6 +1,7 @@
 package com.intbit;
 
 import com.divtohtml.StringUtil;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
@@ -59,7 +61,31 @@ public class PhantomImageConverter {
             tempPathDir.mkdirs();
         }
     }
-
+    
+    public void createPDFFile(File file_name){
+//        PdfDocument doc = new PdfDocument();
+//
+//        // Read the image as BufferedImage object
+//        BufferedImage bufImg = ImageIO.read(new File(
+//            "SampleImage.PNG"));
+//
+//        // Create PdfImage object using the above BufferedImage object
+//        PdfImage img = PdfImage.create(bufImg);
+//
+//        // Create a PdfPage of image size (image width x image Height)
+//        PdfPage page1 = new PdfPage(img.width(), img.height());
+//
+//        // draw the image at 0, 0
+//        page1.drawImage(img, 0, 0);
+//
+//        // add the page to the document object
+//        doc.add(page1);
+//
+//        // save the document to the output file
+//        doc.save("PNGImageToPDF.pdf");
+//        doc.close();
+    }
+    
     public File getImage(String htmlString, JSONArray json_font_list, String width, String height, String x, String y) throws Exception {
         File createdHtmlFile = tempHTML(htmlString, json_font_list);
         File createdJSFile = tempJS(createdHtmlFile, width, height, x, y);

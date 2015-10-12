@@ -25,7 +25,7 @@
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
                 <link rel="stylesheet" href="css/main1.css">
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
-        <title>email subject</title>
+        <title>BrndBot - Email Subject</title>
         <style>
 /*            .slt {
                                 position:relative;
@@ -334,7 +334,7 @@
                 });
 
                 $("#emailSubjectContinueButton").click(function () {
-                   
+                    document.title="BrndBot - Email List Selection"; 
                     $("#chooseEmailList").show();
                     $("#emailsubjectdiv").hide();
                     $("#emailaddresses").hide();

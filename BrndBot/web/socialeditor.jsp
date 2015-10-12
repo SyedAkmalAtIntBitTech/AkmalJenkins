@@ -20,7 +20,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>social editor</title>
+        <title>BrndBot - Editor</title>
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
         <%@ include file="checksession.jsp" %>
@@ -59,53 +59,53 @@ and open the template in the editor.
         <script src="js/svg.js" type="text/javascript"></script>
         
         <style>           
-a.boxclose{
-    float:right;
-    margin-top:8px;
-    margin-right:30px;
-    cursor:pointer;
-    background-image: url(images/CloseIcon.svg);
-    width: 25px;
-    height: 25px;
-}
+            a.boxclose{
+                float:right;
+                margin-top:8px;
+                margin-right:30px;
+                cursor:pointer;
+                background-image: url(images/CloseIcon.svg);
+                width: 25px;
+                height: 25px;
+            }
             #mask {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 9000;
-  background-color:white;
-  display: none;
-}
+              position: absolute;
+              left: 0;
+              top: 0;
+              z-index: 9000;
+              background-color:white;
+              display: none;
+            }
 
-#boxes .window {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 440px;
-  height: 200px;
-  display: none;
-  z-index: 9999;
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-}
+            #boxes .window {
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 440px;
+              height: 200px;
+              display: none;
+              z-index: 9999;
+              padding: 20px;
+              border-radius: 15px;
+              text-align: center;
+            }
 
-#boxes #dialog {
-  width: 750px;
-  height: 300px;
-  padding: 10px;
-  background-color: white;
-  font-family: 'Segoe UI Light', sans-serif;
-  font-size: 15pt;
-}
+            #boxes #dialog {
+              width: 750px;
+              height: 300px;
+              padding: 10px;
+              background-color: white;
+              font-family: 'Segoe UI Light', sans-serif;
+              font-size: 15pt;
+            }
 
-#popupfoot {
-  font-size: 16pt;
-  position: absolute;
-  bottom: 0px;
-  width: 250px;
-  left: 250px;
-}
+            #popupfoot {
+              font-size: 16pt;
+              position: absolute;
+              bottom: 0px;
+              width: 250px;
+              left: 250px;
+            }
             @font-face {
                 font-family: Glyphter;
                 src: url(fonts/Glyphter.ttf);
@@ -139,8 +139,8 @@ a.boxclose{
                background-color: #FFF;
             }
             .noUi-origin .noUi-origin-lower{
-     background-color:red;
-}
+                    background-color:red;
+               }
             #popup
             {
                 display:none;
@@ -293,17 +293,21 @@ ul::-webkit-scrollbar-thumb {
             StringBuffer string_buffer = new StringBuffer();
             String mindbody_data_id = "";
             String logoImageName=null;
+            String media_type = "";
         %> 
         <%
             try {
                 sql_methods.session = request.getSession();
-                 user_id = (Integer)sql_methods.session.getAttribute("UID");
-                 logoImageName =(String)sql_methods.session.getAttribute("ImageFileName");
+                user_id = (Integer)sql_methods.session.getAttribute("UID");
+                logoImageName =(String)sql_methods.session.getAttribute("ImageFileName");
                 if (!request.getParameter("id").equals("null")){
                     mindbody_data_id = (String) request.getParameter("id");
-                }
-                else
-                    mindbody_data_id = "";
+                } 
+                
+                if (!request.getParameter("mediatype").equals("null")){
+                     media_type = (String)request.getParameter("mediatype");
+                } 
+                
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
 
@@ -313,17 +317,29 @@ ul::-webkit-scrollbar-thumb {
             }
 
         %>
-        
-        
-        
-        
-        
+        <input type="hidden" id="media_type" name="media_type" value = '<%=media_type%>' />
         <script>
             
             $(document).ready(function () {
                 document.getElementById('edtimg').src="images/sidebar/Icons_editButton_blue_new.svg";
-                         document.getElementById('edt').style.backgroundColor = '#fff';
-                                                document.getElementById('stl').style.backgroundColor = 'transparent';
+                document.getElementById('edt').style.backgroundColor = '#fff';
+                document.getElementById('stl').style.backgroundColor = 'transparent';
+                var media_type = $("#media_type").val();
+                
+                if (media_type == "print"){
+                    $("#continue").hide();
+                    $("#downloadpdf").show();
+                    $("#downloadimage").hide();
+                }else if(media_type == "image"){
+                    $("#continue").hide();
+                    $("#downloadpdf").hide();
+                    $("#downloadimage").show();
+                }else if (media_type == 'social'){
+                    $("#continue").show();
+                    $("#downloadpdf").hide();
+                    $("#downloadimage").hide();
+                }
+            
             $("#fontname").change(function () {
 //            alert($(this).val());
                 var text = $("#fontname").find('option:selected').text();
@@ -335,445 +351,445 @@ ul::-webkit-scrollbar-thumb {
             });
             });
         </script>
-        <script>
+<script>
   
-                    var jsondata;
-                    var selectedDivId;
-                    var mindbodydataId = $("#mindbodydata").val();
-     
-                    angular.module("myapp", [])
+var jsondata;
+var selectedDivId;
+var mindbodydataId = $("#mindbodydata").val();
 
-                    .controller("MyController", function($scope, $http) {
-                    $http({
-                            method : 'GET',
-                            url : 'GetUserPreferences'
-                    }).success(function(data, status, headers, config) {
+angular.module("myapp", [])
+
+.controller("MyController", function($scope, $http) {
+$http({
+        method : 'GET',
+        url : 'GetUserPreferences'
+}).success(function(data, status, headers, config) {
 //                        alert(JSON.stringify(data.user_font_names));
-                            $scope.user_preferences_colors = data.user_colors;
+        $scope.user_preferences_colors = data.user_colors;
 
-                            $scope.user_preferences_font_sizes = data.user_font_sizes;
-                            $scope.user_preferences_font_names = data.user_font_names;
-                            var i = 0;
-                            var font_object;
-                            var font_family_name;
-                            var font_name;
-                             $("#fontname").empty();
-                            for (i; i<= data.user_font_names.length; i++){
-                                font_object = data.user_font_names[i];
-                                font_name = font_object.font_name;
-                                font_family_name = font_object.font_family_name;
-                                var font = font_family_name.split(",");                     
-                                var google_key_word = font[0].split(' ').join('+');
-                                $("#fontname").append("<option value="+google_key_word+">"+font_name+"</option>");
-                                var ss = document.createElement("link");
-                                ss.type = "text/css";
-                                ss.rel = "stylesheet";
-                                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
-                                document.getElementsByTagName("head")[0].appendChild(ss);
+        $scope.user_preferences_font_sizes = data.user_font_sizes;
+        $scope.user_preferences_font_names = data.user_font_names;
+        var i = 0;
+        var font_object;
+        var font_family_name;
+        var font_name;
+         $("#fontname").empty();
+        for (i; i<= data.user_font_names.length; i++){
+            font_object = data.user_font_names[i];
+            font_name = font_object.font_name;
+            font_family_name = font_object.font_family_name;
+            var font = font_family_name.split(",");                     
+            var google_key_word = font[0].split(' ').join('+');
+            $("#fontname").append("<option value="+google_key_word+">"+font_name+"</option>");
+            var ss = document.createElement("link");
+            ss.type = "text/css";
+            ss.rel = "stylesheet";
+            ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word;
+            document.getElementsByTagName("head")[0].appendChild(ss);
 
-                                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
-                                var styles = "@font-face {"+
-                                             "font-family:"+ font_name + ";"+
-                                             "src: url("+font_path+");"
-                                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
+            var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
+            var styles = "@font-face {"+
+                         "font-family:"+ font_name + ";"+
+                         "src: url("+font_path+");"
+            $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
 
-                            }
-                            
-                    if (data === error){
-                        alert(data);
-                        }
-                    }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
-                    });
-                            $scope.showStyles = function(){
-                            $scope.curPage = 0;
-                                    $scope.pageSize = 2;
-                                    $http({
-                                    method : 'GET',
-                                            url : 'GetLayoutStyles?editorType=social'
-                                    }).success(function(data, status, headers, config) {
+        }
+
+if (data === error){
+    alert(data);
+    }
+}).error(function(data, status, headers, config) {
+alert("No data available, problem fetching the data");
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+});
+        $scope.showStyles = function(){
+        $scope.curPage = 0;
+                $scope.pageSize = 2;
+                $http({
+                method : 'GET',
+                        url : 'GetLayoutStyles?editorType=social'
+                }).success(function(data, status, headers, config) {
 //                                            alert(JSON.stringify(data));
-                                                $scope.datalists = data;
-                                                document.getElementById('stlimg').src="images/sidebar/Icons_styleButton_blue_new.svg";
-                                                document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
-                                                document.getElementById('edt').style.backgroundColor = 'transparent';
-                                                document.getElementById('stl').style.backgroundColor = '#fff';
-                                    $scope.numberOfPages = function() {
-                                    return Math.ceil($scope.datalists.length / $scope.pageSize);
-                                    };
-                                    if (data === error){
-                                        alert(data);
-                                        }
-                            }).error(function(data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
-                                    // called asynchronously if an error occurs
-                                    // or server returns response with an error status.
-                            });
-                            };
-                            $scope.showImages = function(){
-                                    $("#popup").hide();
-                                    $("#tabs-1").hide();
-                                    $("#tabs-2").hide();         
-                                    $("#tabs-3").show().css("width", "430px").show("slide", { direction: "right" }, 1000);                                                                                                                                                                                                                                             
-                                    $("#imageGallery").show();
-                                    $scope.curPage = 0;
-                                    $scope.pageSize = 100;
-                                    $http({
-                                    method : 'GET',
-                                            url : 'GetUserImages'
-                                    }).success(function(data, status, headers, config) {
-//                                        alert(JSON.stringify(data));
-                                    $scope.datalistimages = data;
-                                    $scope.numberOfPages = function() {
-                                    return Math.ceil($scope.datalistimages.length / $scope.pageSize);
-                                    };
-                                    if (data === error){
-                                        alert(data);
-                                    }
-                            }).error(function(data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
-                                    // called asynchronously if an error occurs
-                                    // or server returns response with an error status.
-                            });
-                            };
-                    });
-                    angular.module('myapp').filter('pagination', function()
-            {
-            return function(input, start)
-            {
-            start = + start;
-                    return input.slice(start);
-            };
-            });
-                          
-                    function showText(id, layout){
-                     //hiding filter Container 
-                     $("#filtercontainer").hide();
-                         var layout_mapper_url = "";
-
-                   if (mindbodydataId != ""){
-                       layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
-                   }else{
-                       layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
-                   }                         
-
-                            $.ajax({
-                                    type: 'GET',
-                                    url: layout_mapper_url,
-                                    data: {get_param: 'value'},
-                                    dataType: 'json',
-                                    success: function (data) {
-                                    jsondata = data;
-                                            $.ajax({
-                                            type: "GET",
-                                                    url: global_host_address + "DownloadXml?file_name="+layout+".xml",
-                                                    dataType: "xml",
-                                                    success: function (xml) {
-                                                    $(".preview").empty();
-                                                            $(xml).find('layout').each(function () {
-                                                            height = $(this).find('container').attr("Height");
-                                                            width = $(this).find('container').attr("Width");
-                                                            $(".preview").css("width", width + "px");
-                                                            $(".preview").css("height", height + "px");
-                                                    }
-
-                                                    );
-                                                            var count=1;
-                                                            var blockcount=1;
-                                                            var textcount=1;
-                                                            $(".imagename").find('option').remove().end();
-                                                            $(".blockname").find('option').remove().end();
-                                                            
-                                                            $(xml).find('element').each(function () {
-                                                            var tag = $(this).attr("tag");
-                                                            type = $(this).attr("type");
-                                                            var h = "";
-                                                            var t = "";
-                                                            var elementdata;
-                                                            $(jsondata).each(function (i, val) {
-
-                                                    $.each(val, function (k, v) {
-//                            alert(k + " : " + v+ ":"+ type);
-                                                    if (type.trim() == k.trim()) {
-                                                            elementdata = v;
-                                                    }
-
-                                                    });
-                                                    });
-                                                            var fontcolor;
-                                                            var fontsize;
-                                                            var fontstyle;
-                                                            var filter;
-                                                            var left = $(this).attr("x-co-ordinates");
-                                                            var top = $(this).attr("y-co-ordinates");
-                                                            var opacity = $(this).attr("opacity");
-                                                            var width = $(this).attr("width");
-                                                            var height = $(this).attr("height");
-                                                   if (tag === "text")
-                                                   {
-                                                       
-                                                        var colorName=$(this).attr("font-color-name");
-                                                        for(var i=1;i<=6; i++)
-                                                        {
-                                                            if(colorName == "Font-Color-"+i)
-                                                            {
-                                                              fontcolor= $("#shapecolorbox"+i).css("background-color");
-//                                                              fontcolor=user_preferences_colors.color+""+i; 
-                                                            }
-
-                                                        }
-                                                        textcount++;
-                                                        if(typeof(elementdata) === "undefined")
-                                                         {
-                                                            elementdata= $(this).attr("defaulttext");
-                                                         }
-//                                                            fontcolor = $(this).attr("font-color");
-                                                            fontsize = $(this).attr("font-size");
-                                                            fontstyle = $(this).attr("font-style");
-                                                            var fontweight = $(this).attr("font-weight");
-                                                            var font = $(this).attr("font-family");
-                                                            var font_family_name = font.split("+").join(" ");
-                                                            var letterspacing = $(this).attr("letter-spacing");
-                                                            var lineheight = $(this).attr("line-height");
-                                                            var textalign = $(this).attr("text-align");
-                                                            var webkittransform = $(this).attr("webkit-transform");
-                                                            var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-                                                       
-                                                        $(".preview").append("<div><textarea class=textAreas orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "')  onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
-                                                        $("#" + type).css("color", "" + fontcolor)
-                                                                .css("position", "absolute")
-                                                                .css("overflow", "hidden")
-                                                                .css("resize", "none") 
-                                                                .css("margin-left", "" + left + "px")
-                                                                .css("margin-top", "" + top + "px")
-                                                                .css("width", "" + width)
-                                                                .css("height", "" + height)
-                                                                .css("font-size", "" + fontsize)                                                             
-                                                                .css("font-family", "" + font_family_name)
-                                                                .css("font-style", "" + fontstyle)
-                                                                .css("font-weight", "" + fontweight)
-                                                                .css("letter-spacing", "" + letterspacing)
-                                                                .css("line-height", "" + lineheight)
-                                                                .css("background-color","inherit")
-                                                                .css("border","0px")
-                                                                .css("opacity", "" + opacity)
-                                                                .css("text-align", "" + textalign)
-                                                                .css("text-shadow", "" + dropshadow)
-                                                                .css("webkit-transform", "rotate(" + webkittransform + "deg)");
-                                                        //$("#" + type).autogrow();
-                                                        
-                                                        //resize of text to fit bound - By Syed Ilyas 26/8/2015
-                                                        var tempfontsize = parseInt(fontsize.replace("px",""));
-                                                        var tempHeight = parseInt(height.replace("px",""));
-                                                        if($("#" + type).get(0).scrollHeight > tempHeight)
-                                                        {
-                                                            $("#" + type).css("line-height", "initial");
-                                                        while ( $("#" + type).get(0).scrollHeight > tempHeight) {
-                                                               tempfontsize = tempfontsize - 1;
-                                                              $("#" + type).css("font-size", "" + tempfontsize +"px");
-                                                        }
-                                                         var xxyy = parseInt(tempfontsize);
-                                                        xxyy = Math.round(xxyy * 1.2);
-                                                         $("#" + type).css("line-height",""+xxyy+"px");
-                                                        }
-                                                        //resize end
-                                                        var addThis = $("#" + type).get(0).scrollHeight - $("#" + type).height();
-                                                        $("#" + type).attr("add-this",addThis);
-                                                    }
-
-                                               if (tag === "image")
-                                               {                                                
-                                                    if($(this).attr("filterEnable")== "true"){
-                                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
-                                                       }
-                                                    else
-                                                    {
-                                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
-                                                    }
-                                                   
-                                                    var blendmode = $(this).attr("Blend");
-                                                    var background_image = $(this).attr("background-image");
-                                                    var background_color=$(this).attr("blend-background-color");
-//                                                   
-                                                    $(".imagename").append("<option name="+background_image+" value="+ type +">Image "+count+"</option>");
-                                                        count++;
-                                                   $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
-                                                    $("#" + type)
-                                                            .css("color", "" + fontcolor)
-                                                            .css("margin-left", "" + left + "px")
-                                                            .css("margin-top", "" + top + "px")
-                                                            .css("background-blend-mode", "" + blendmode)
-                                                            .css("opacity", "" + opacity)
-                                                            .css("width", "" + width)
-                                                            .css("height", "" + height)
-                                                            .css("background", ""+background_image)
-                                                            .css("background-repeat", "no-repeat")
-                                                            .css("background-position", "50% 50%")
-                                                            .css("-webkit-background-size", "cover")
-                                                            .css("background-color", ""+background_color)
-                                                            .css("position", "absolute")
-                                                            .css("webkit-filter",""+ filter);
-                                                    }
-
-                                                    if (tag === "logo")
-                                                    {
-                                                    if($(this).attr("filterEnable")== "true"){
-                                                          filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
-                                                       }
-                                                    else
-                                                    {
-                                                         filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
-                                                    }
-                                                     var userId=$("#userid").val();
-                                                    var userLogonmae = $("#userlogo").val();
-                                                    var blendmode = $(this).attr("Blend");
-                                                    var background_color=$(this).attr("blend-background-color");
-                                                    $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
-                                                    $("#" + type)
-                                                            .css("color", "" + fontcolor)
-                                                            .css("margin-left", "" + left + "px")
-                                                            .css("margin-top", "" + top + "px")
-                                                            .css("background-blend-mode", "" + blendmode)
-                                                            .css("opacity", "" + opacity)
-                                                            .css("width", "" + width)
-                                                            .css("height", "" + height)
-                                                            .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')")
-                                                            .css("background-repeat", "no-repeat")
-                                                            .css("background-position", "center center")
-                                                            .css("background-color", ""+ background_color)
-                                                            .css("background-size","contain")
-                                                            .css("position", "absolute")
-                                                            .css("webkit-filter",""+ filter); 
-                                                    }
-
-                                                    if (tag === "button")
-                                                    {
-                                                       var imageSrc= $(this).attr("src");    
-                                                            $(".preview").append("<div><img src='" + elementdata + "'id=" + type + " alt='button'/>");
-                                                             $("#" + type) .css("position", "absolute")
-                                                                           .css("margin-left", "" + left + "px")
-                                                                           .css("margin-top", "" + top + "px")
-                                                                           .attr("src", "imageSrc");
-                                                    }
-
-                                                    if (tag === "block")
-                                                    {
-                                                        var borderRadius = $(this).attr("border-radius");
-                                                        var colorName=$(this).attr("color-name");
-                                                        var backgroundcolor;
-                                                        for(var i=1;i<=6; i++)
-                                                        {
-                                                            if(colorName == "Color-"+i)
-                                                            {
-                                                              backgroundcolor= $("#shapecolorbox"+i).css("background-color");
-//                                                              fontcolor=user_preferences_colors.color+""+i; 
-                                                            }
-
-                                                        }
-                                                        $(".blockname").append("<option value="+type+">Shape "+blockcount+"</option>")
-                                                        blockcount++;
-                                                            var width = $(this).attr("width");
-                                                            var height = $(this).attr("height");
-                                                            var drop_shadow=$(this).attr("Drop-shadow-color");
-                                                            var h_shadow =  $(this).attr("H-shadow"); 
-                                                            var v_shadow=$(this).attr("V-shadow");
-                                                            var Blur=$(this).attr("blur");
-                                                            $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                                                            $("#" + type).css("background-color", "" + backgroundcolor)
-                                                                    .css("margin-left", "" + left + "px")
-                                                                    .css("margin-top", "" + top + "px")
-                                                                    .css("width", "" + width)
-                                                                    .css("border-radius", "" + borderRadius)
-                                                                    .css("position", "absolute")
-                                                                    .css("height", "" + height)
-                                                                    .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
-                                                                    .css("opacity", "" + opacity);
-                                                    }
-                                                    if (tag === "svg")
-                                                    {
-
-                                                        var colorName = $(this).attr("color-name");
-                                                        var borderRadius = $(this).attr("border-radius");
-                                                        var backgroundcolor;
-
-                                                        $(".blockname").append("<option value=" + type + ">Shape " + blockcount + "</option>");
-                                                        blockcount++;
-
-                                                        for (var i = 1; i <= 6; i++)
-                                                        {
-                                                            if (colorName === "Color-" + i)
-                                                            {
-                                                                backgroundcolor = $("#shapecolorbox" + i).css("background-color");
-                                                            }
-
-                                                        }
-                                                        var width = $(this).attr("width");
-                                                        var height = $(this).attr("height");
-                                                        var drop_shadow = $(this).attr("Drop-shadow-color");
-                                                        var h_shadow = $(this).attr("H-shadow");
-                                                        var v_shadow = $(this).attr("V-shadow");
-                                                        var Blur = $(this).attr("blur");
-                                                        var filename = $(this).attr("filename");
-                                                        $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
-                                                        var draw = SVG(type);
-                                                        $("#" + type)
-                                                                //.css("background-color", "" + backgroundcolor)
-                                                                .css("margin-left", "" + left + "px")
-                                                                .css("margin-top", "" + top + "px")
-                                                                .css("width", "" + width)
-                                                                //.css("border-radius", "" + borderRadius)
-                                                                .css("position", "absolute")
-                                                                .css("height", "" + height)
-                                                                //.css("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")")
-                                                                //.css("opacity", "" + opacity)
-                                                                ;
-                                                        $.get('/BrndBot/DownloadSVGServlet?file_name='+filename, function(data) {
-                                                        var svg1 = draw.svg(data);
-                                                        var realsvg = svg1.last();  
-
-                                                        svg1.attr("viewBox",realsvg.attr("viewBox"));
-                                                        svg1.attr("enable-background",realsvg.attr("enable-background"));
-                                                        svg1.attr("x",realsvg.attr("x"));
-                                                        svg1.attr("y",realsvg.attr("y"));
-                                                        svg1.attr("xml:space",realsvg.attr("xml:space"));
-                                                        svg1.attr("width",width);
-                                                        svg1.attr("height",height);
-                                                        svg1.opacity(opacity);
-                                                        svg1.style("fill",backgroundcolor);
-                                                        svg1.style("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")");
-                                                        svg1.each(function(i, children) {
-                                                            this.style("fill",backgroundcolor);
-                                                            this.opacity(opacity);
-                                                        }, true); 
-                                                       },"html");
-
-
-                                                    }
-
-                                                    } );
-                                                    if(count==1 ){$("#imagecontainer").hide();}                                                   
-                                                    if(blockcount==1){$("#shapecontainer").hide();}
-                                                    if(textcount==1){$("#textcontainer").hide();}
-                                                    if(count!=1){$("#imagecontainer").show();}
-                                                    if(blockcount!=1){$("#shapecontainer").show();}
-                                                    if(textcount!=1){$("#textcontainer").show();}
-                                                    },
-                                                    error: function (e)
-                                                    {
-                                                    alert("error in xml file read");
-                                                    }
-                                            });
-                                    }
-                            });
+                            $scope.datalists = data;
+                            document.getElementById('stlimg').src="images/sidebar/Icons_styleButton_blue_new.svg";
+                            document.getElementById('edtimg').src="images/sidebar/Icons_editButton.svg";
+                            document.getElementById('edt').style.backgroundColor = 'transparent';
+                            document.getElementById('stl').style.backgroundColor = '#fff';
+                $scope.numberOfPages = function() {
+                return Math.ceil($scope.datalists.length / $scope.pageSize);
+                };
+                if (data === error){
+                    alert(data);
                     }
+        }).error(function(data, status, headers, config) {
+        alert("No data available, problem fetching the data");
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+        });
+        };
+        $scope.showImages = function(){
+                $("#popup").hide();
+                $("#tabs-1").hide();
+                $("#tabs-2").hide();         
+                $("#tabs-3").show().css("width", "430px").show("slide", { direction: "right" }, 1000);                                                                                                                                                                                                                                             
+                $("#imageGallery").show();
+                $scope.curPage = 0;
+                $scope.pageSize = 100;
+                $http({
+                method : 'GET',
+                        url : 'GetUserImages'
+                }).success(function(data, status, headers, config) {
+//                                        alert(JSON.stringify(data));
+                $scope.datalistimages = data;
+                $scope.numberOfPages = function() {
+                return Math.ceil($scope.datalistimages.length / $scope.pageSize);
+                };
+                if (data === error){
+                    alert(data);
+                }
+        }).error(function(data, status, headers, config) {
+        alert("No data available, problem fetching the data");
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+        });
+        };
+});
+angular.module('myapp').filter('pagination', function()
+{
+return function(input, start)
+{
+start = + start;
+return input.slice(start);
+};
+});
+
+function showText(id, layout){
+ //hiding filter Container 
+ $("#filtercontainer").hide();
+     var layout_mapper_url = "";
+
+if (mindbodydataId != ""){
+   layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
+}else{
+   layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
+}                         
+
+        $.ajax({
+                type: 'GET',
+                url: layout_mapper_url,
+                data: {get_param: 'value'},
+                dataType: 'json',
+                success: function (data) {
+                jsondata = data;
+                        $.ajax({
+                        type: "GET",
+                                url: global_host_address + "DownloadXml?file_name="+layout+".xml",
+                                dataType: "xml",
+                                success: function (xml) {
+                                $(".preview").empty();
+                                        $(xml).find('layout').each(function () {
+                                        height = $(this).find('container').attr("Height");
+                                        width = $(this).find('container').attr("Width");
+                                        $(".preview").css("width", width + "px");
+                                        $(".preview").css("height", height + "px");
+                                }
+
+                                );
+                                        var count=1;
+                                        var blockcount=1;
+                                        var textcount=1;
+                                        $(".imagename").find('option').remove().end();
+                                        $(".blockname").find('option').remove().end();
+
+                                        $(xml).find('element').each(function () {
+                                        var tag = $(this).attr("tag");
+                                        type = $(this).attr("type");
+                                        var h = "";
+                                        var t = "";
+                                        var elementdata;
+                                        $(jsondata).each(function (i, val) {
+
+                                $.each(val, function (k, v) {
+//                            alert(k + " : " + v+ ":"+ type);
+                                if (type.trim() == k.trim()) {
+                                        elementdata = v;
+                                }
+
+                                });
+                                });
+                                        var fontcolor;
+                                        var fontsize;
+                                        var fontstyle;
+                                        var filter;
+                                        var left = $(this).attr("x-co-ordinates");
+                                        var top = $(this).attr("y-co-ordinates");
+                                        var opacity = $(this).attr("opacity");
+                                        var width = $(this).attr("width");
+                                        var height = $(this).attr("height");
+                               if (tag === "text")
+                               {
+
+                                    var colorName=$(this).attr("font-color-name");
+                                    for(var i=1;i<=6; i++)
+                                    {
+                                        if(colorName == "Font-Color-"+i)
+                                        {
+                                          fontcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                        }
+
+                                    }
+                                    textcount++;
+                                    if(typeof(elementdata) === "undefined")
+                                     {
+                                        elementdata= $(this).attr("defaulttext");
+                                     }
+//                                                            fontcolor = $(this).attr("font-color");
+                                        fontsize = $(this).attr("font-size");
+                                        fontstyle = $(this).attr("font-style");
+                                        var fontweight = $(this).attr("font-weight");
+                                        var font = $(this).attr("font-family");
+                                        var font_family_name = font.split("+").join(" ");
+                                        var letterspacing = $(this).attr("letter-spacing");
+                                        var lineheight = $(this).attr("line-height");
+                                        var textalign = $(this).attr("text-align");
+                                        var webkittransform = $(this).attr("webkit-transform");
+                                        var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
+
+                                    $(".preview").append("<div><textarea class=textAreas orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "')  onclick=getTectId(" + type + ") id=" + type + ">" + elementdata + "</textarea>");
+                                    $("#" + type).css("color", "" + fontcolor)
+                                            .css("position", "absolute")
+                                            .css("overflow", "hidden")
+                                            .css("resize", "none") 
+                                            .css("margin-left", "" + left + "px")
+                                            .css("margin-top", "" + top + "px")
+                                            .css("width", "" + width)
+                                            .css("height", "" + height)
+                                            .css("font-size", "" + fontsize)                                                             
+                                            .css("font-family", "" + font_family_name)
+                                            .css("font-style", "" + fontstyle)
+                                            .css("font-weight", "" + fontweight)
+                                            .css("letter-spacing", "" + letterspacing)
+                                            .css("line-height", "" + lineheight)
+                                            .css("background-color","inherit")
+                                            .css("border","0px")
+                                            .css("opacity", "" + opacity)
+                                            .css("text-align", "" + textalign)
+                                            .css("text-shadow", "" + dropshadow)
+                                            .css("webkit-transform", "rotate(" + webkittransform + "deg)");
+                                    //$("#" + type).autogrow();
+
+                                    //resize of text to fit bound - By Syed Ilyas 26/8/2015
+                                    var tempfontsize = parseInt(fontsize.replace("px",""));
+                                    var tempHeight = parseInt(height.replace("px",""));
+                                    if($("#" + type).get(0).scrollHeight > tempHeight)
+                                    {
+                                        $("#" + type).css("line-height", "initial");
+                                    while ( $("#" + type).get(0).scrollHeight > tempHeight) {
+                                           tempfontsize = tempfontsize - 1;
+                                          $("#" + type).css("font-size", "" + tempfontsize +"px");
+                                    }
+                                     var xxyy = parseInt(tempfontsize);
+                                    xxyy = Math.round(xxyy * 1.2);
+                                     $("#" + type).css("line-height",""+xxyy+"px");
+                                    }
+                                    //resize end
+                                    var addThis = $("#" + type).get(0).scrollHeight - $("#" + type).height();
+                                    $("#" + type).attr("add-this",addThis);
+                                }
+
+                           if (tag === "image")
+                           {                                                
+                                if($(this).attr("filterEnable")== "true"){
+                                      filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                   }
+                                else
+                                {
+                                     filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                }
+
+                                var blendmode = $(this).attr("Blend");
+                                var background_image = $(this).attr("background-image");
+                                var background_color=$(this).attr("blend-background-color");
+//                                                   
+                                $(".imagename").append("<option name="+background_image+" value="+ type +">Image "+count+"</option>");
+                                    count++;
+                               $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
+                                $("#" + type)
+                                        .css("color", "" + fontcolor)
+                                        .css("margin-left", "" + left + "px")
+                                        .css("margin-top", "" + top + "px")
+                                        .css("background-blend-mode", "" + blendmode)
+                                        .css("opacity", "" + opacity)
+                                        .css("width", "" + width)
+                                        .css("height", "" + height)
+                                        .css("background", ""+background_image)
+                                        .css("background-repeat", "no-repeat")
+                                        .css("background-position", "50% 50%")
+                                        .css("-webkit-background-size", "cover")
+                                        .css("background-color", ""+background_color)
+                                        .css("position", "absolute")
+                                        .css("webkit-filter",""+ filter);
+                                }
+
+                                if (tag === "logo")
+                                {
+                                if($(this).attr("filterEnable")== "true"){
+                                      filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
+                                   }
+                                else
+                                {
+                                     filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
+                                }
+                                 var userId=$("#userid").val();
+                                var userLogonmae = $("#userlogo").val();
+                                var blendmode = $(this).attr("Blend");
+                                var background_color=$(this).attr("blend-background-color");
+                                $(".preview").append("<div onclick=getImageid(" + type + ") id=" + type + " ></div>");
+                                $("#" + type)
+                                        .css("color", "" + fontcolor)
+                                        .css("margin-left", "" + left + "px")
+                                        .css("margin-top", "" + top + "px")
+                                        .css("background-blend-mode", "" + blendmode)
+                                        .css("opacity", "" + opacity)
+                                        .css("width", "" + width)
+                                        .css("height", "" + height)
+                                        .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id="+userId+"&image_name="+userLogonmae+"')")
+                                        .css("background-repeat", "no-repeat")
+                                        .css("background-position", "center center")
+                                        .css("background-color", ""+ background_color)
+                                        .css("background-size","contain")
+                                        .css("position", "absolute")
+                                        .css("webkit-filter",""+ filter); 
+                                }
+
+                                if (tag === "button")
+                                {
+                                   var imageSrc= $(this).attr("src");    
+                                        $(".preview").append("<div><img src='" + elementdata + "'id=" + type + " alt='button'/>");
+                                         $("#" + type) .css("position", "absolute")
+                                                       .css("margin-left", "" + left + "px")
+                                                       .css("margin-top", "" + top + "px")
+                                                       .attr("src", "imageSrc");
+                                }
+
+                                if (tag === "block")
+                                {
+                                    var borderRadius = $(this).attr("border-radius");
+                                    var colorName=$(this).attr("color-name");
+                                    var backgroundcolor;
+                                    for(var i=1;i<=6; i++)
+                                    {
+                                        if(colorName == "Color-"+i)
+                                        {
+                                          backgroundcolor= $("#shapecolorbox"+i).css("background-color");
+//                                                              fontcolor=user_preferences_colors.color+""+i; 
+                                        }
+
+                                    }
+                                    $(".blockname").append("<option value="+type+">Shape "+blockcount+"</option>")
+                                    blockcount++;
+                                        var width = $(this).attr("width");
+                                        var height = $(this).attr("height");
+                                        var drop_shadow=$(this).attr("Drop-shadow-color");
+                                        var h_shadow =  $(this).attr("H-shadow"); 
+                                        var v_shadow=$(this).attr("V-shadow");
+                                        var Blur=$(this).attr("blur");
+                                        $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
+                                        $("#" + type).css("background-color", "" + backgroundcolor)
+                                                .css("margin-left", "" + left + "px")
+                                                .css("margin-top", "" + top + "px")
+                                                .css("width", "" + width)
+                                                .css("border-radius", "" + borderRadius)
+                                                .css("position", "absolute")
+                                                .css("height", "" + height)
+                                                .css("-webkit-filter","drop-shadow("+drop_shadow+" "+h_shadow+" " +v_shadow+" " +Blur+")")
+                                                .css("opacity", "" + opacity);
+                                }
+                                if (tag === "svg")
+                                {
+
+                                    var colorName = $(this).attr("color-name");
+                                    var borderRadius = $(this).attr("border-radius");
+                                    var backgroundcolor;
+
+                                    $(".blockname").append("<option value=" + type + ">Shape " + blockcount + "</option>");
+                                    blockcount++;
+
+                                    for (var i = 1; i <= 6; i++)
+                                    {
+                                        if (colorName === "Color-" + i)
+                                        {
+                                            backgroundcolor = $("#shapecolorbox" + i).css("background-color");
+                                        }
+
+                                    }
+                                    var width = $(this).attr("width");
+                                    var height = $(this).attr("height");
+                                    var drop_shadow = $(this).attr("Drop-shadow-color");
+                                    var h_shadow = $(this).attr("H-shadow");
+                                    var v_shadow = $(this).attr("V-shadow");
+                                    var Blur = $(this).attr("blur");
+                                    var filename = $(this).attr("filename");
+                                    $(".preview").append("<div onclick=getDivId(" + type + ") id=" + type + "></div>");
+                                    var draw = SVG(type);
+                                    $("#" + type)
+                                            //.css("background-color", "" + backgroundcolor)
+                                            .css("margin-left", "" + left + "px")
+                                            .css("margin-top", "" + top + "px")
+                                            .css("width", "" + width)
+                                            //.css("border-radius", "" + borderRadius)
+                                            .css("position", "absolute")
+                                            .css("height", "" + height)
+                                            //.css("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")")
+                                            //.css("opacity", "" + opacity)
+                                            ;
+                                    $.get('/BrndBot/DownloadSVGServlet?file_name='+filename, function(data) {
+                                    var svg1 = draw.svg(data);
+                                    var realsvg = svg1.last();  
+
+                                    svg1.attr("viewBox",realsvg.attr("viewBox"));
+                                    svg1.attr("enable-background",realsvg.attr("enable-background"));
+                                    svg1.attr("x",realsvg.attr("x"));
+                                    svg1.attr("y",realsvg.attr("y"));
+                                    svg1.attr("xml:space",realsvg.attr("xml:space"));
+                                    svg1.attr("width",width);
+                                    svg1.attr("height",height);
+                                    svg1.opacity(opacity);
+                                    svg1.style("fill",backgroundcolor);
+                                    svg1.style("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")");
+                                    svg1.each(function(i, children) {
+                                        this.style("fill",backgroundcolor);
+                                        this.opacity(opacity);
+                                    }, true); 
+                                   },"html");
 
 
-        </script>
+                                }
+
+                                } );
+                                if(count==1 ){$("#imagecontainer").hide();}                                                   
+                                if(blockcount==1){$("#shapecontainer").hide();}
+                                if(textcount==1){$("#textcontainer").hide();}
+                                if(count!=1){$("#imagecontainer").show();}
+                                if(blockcount!=1){$("#shapecontainer").show();}
+                                if(textcount!=1){$("#textcontainer").show();}
+                                },
+                                error: function (e)
+                                {
+                                alert("error in xml file read");
+                                }
+                        });
+                }
+        });
+}
+
+
+</script>
         
-        <script src="js/crop.js" type="text/javascript"></script>
+<script src="js/crop.js" type="text/javascript"></script>
         <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app="myapp">
@@ -816,6 +832,8 @@ ul::-webkit-scrollbar-thumb {
                             </div>
                             <div class="span3 col-md-offset-0" >
                                 <input id="continue" class="button button--moema button--text-upper button--size-s" type="button" value="CONTINUE" style="margin-top: -7%;"><br><br>
+                                <input id="downloadpdf" class="button button--moema button--text-upper button--size-s" type="button" value="DOWNLOAD PDF" style="margin-top: -7%; width: 170px;"><br><br>
+                                <input id="downloadimage" class="button button--moema button--text-upper button--size-s" type="button" value="DOWNLOAD IMAGE" style="margin-top: -7%; width: 170px;"><br><br>
                                 <script>
                                     function showImageName(user_id, image_name){
                                         var image_path = "DownloadImage?image_type=GALLERY&image_name="+image_name+"&user_id="+user_id+"";   
@@ -1053,12 +1071,12 @@ ul::-webkit-scrollbar-thumb {
                     </ul>
                 </div>
             </div>
-                                        <div id="boxes">
-                                            <div id="dialog" class="window"><br><br>
-                                              <img id="loadingGif" src="images/YogaLoadingGif.gif" />
-                                            </div>
-                                            <div id="mask"></div>
-                                        </div>
+            <div id="boxes">
+                <div id="dialog" class="window"><br><br>
+                  <img id="loadingGif" src="images/YogaLoadingGif.gif" />
+                </div>
+                <div id="mask"></div>
+            </div>
         </div>
     <script>
           function fadepopup() {	
@@ -1103,23 +1121,23 @@ ul::-webkit-scrollbar-thumb {
 
                 }
         </script>
-                                        <script>
-                                            function act(){
-                                                document.getElementById('edt').style.backgroundColor = '#555';
-                                            }
-    
-                                            function hle(){
-                                                 document.getElementById('edtimg').src="images/sidebar/Icons_editButton_blue_new.svg";
-                                                 document.getElementById('stlimg').src="images/sidebar/Icons_styleButton.svg";
-                                                   document.getElementById('edt').style.backgroundColor = '#fff';
-                                                document.getElementById('stl').style.backgroundColor = 'transparent';
-                                            }
-                                            $('.category_list li').click(function(){
-                                                $('.highlight').removeClass('highlight');
-                                                $(this).addClass('highlight');
+<script>
+    function act(){
+        document.getElementById('edt').style.backgroundColor = '#555';
+    }
 
-                                                });
-                                        </script>     
+    function hle(){
+         document.getElementById('edtimg').src="images/sidebar/Icons_editButton_blue_new.svg";
+         document.getElementById('stlimg').src="images/sidebar/Icons_styleButton.svg";
+           document.getElementById('edt').style.backgroundColor = '#fff';
+        document.getElementById('stl').style.backgroundColor = 'transparent';
+    }
+    $('.category_list li').click(function(){
+        $('.highlight').removeClass('highlight');
+        $(this).addClass('highlight');
+
+        });
+</script>     
 
 
 <!--     <script>
@@ -1162,37 +1180,94 @@ ul::-webkit-scrollbar-thumb {
                         });
         </script>
 
-        <script>
+<script>
 
-                        $("#continue").click(function (){
-                            fadepopup();
+    $("#continue").click(function (){
+        fadepopup();
 //                            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
-                            var PreviewWidth=$(".preview").css("width");
-                            var PreviewhHeight=$(".preview").css("height");
+        var PreviewWidth=$(".preview").css("width");
+        var PreviewhHeight=$(".preview").css("height");
 //                            alert($(".preview").children());
-                                $.ajax({
-                                   type: "POST",
-                                   url: "ConvertHtmlToImageServlet",                                   
-                                   data:{
-                                       htmlString:$(".preview").html(),
-                                       containerWidth: PreviewWidth,
-                                       containerHeight: PreviewhHeight
-                                   },
-                                   success: function (responseText) {
-                                           $('#loadingGif').remove();
-                                           var image=responseText;
+            $.ajax({
+               type: "POST",
+               url: "ConvertHtmlToImageServlet",                                   
+               data:{
+                   htmlString:$(".preview").html(),
+                   containerWidth: PreviewWidth,
+                   containerHeight: PreviewhHeight,
+                   mediatype:"continue"
+               },
+               success: function (responseText) {
+                       $('#loadingGif').remove();
+                       var image=responseText;
 //                                          alert(image);
-                                           document.location.href = "selectpromotesocialmedia.jsp?image="+image;
-                                                            $('#mask').hide();
-                                                        $('.window').hide();
-                                   }
+                       document.location.href = "selectpromotesocialmedia.jsp?image="+image;
+                                        $('#mask').hide();
+                                    $('.window').hide();
+               }
 
-                                   });
+               });
 
-                                  // document.location.href = "selectpromotesocialmedia.jsp";
-                       });                           
+              // document.location.href = "selectpromotesocialmedia.jsp";
+   });
+   $("#downloadpdf").click(function (){
+        fadepopup();
+//                            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
+        var PreviewWidth=$(".preview").css("width");
+        var PreviewhHeight=$(".preview").css("height");
+//                            alert($(".preview").children());
+            $.ajax({
+               type: "POST",
+               url: "ConvertHtmlToImageServlet",                                   
+               data:{
+                   htmlString:$(".preview").html(),
+                   containerWidth: PreviewWidth,
+                   containerHeight: PreviewhHeight,
+                   mediatype: "downloadpdf"
+               },
+               success: function (responseText) {
+                       $('#loadingGif').remove();
+                       var image=responseText;
+//                     alert(image);
+                       document.location.href = "dashboard.jsp";
+                            $('#mask').hide();
+                            $('.window').hide();
+               }
 
-        </script> 
+               });
+
+              // document.location.href = "selectpromotesocialmedia.jsp";
+   });
+    $("#downloadimage").click(function (){
+        fadepopup();
+//                            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
+        var PreviewWidth=$(".preview").css("width");
+        var PreviewhHeight=$(".preview").css("height");
+//                            alert($(".preview").children());
+            $.ajax({
+               type: "POST",
+               url: "ConvertHtmlToImageServlet",                                   
+               data:{
+                   htmlString:$(".preview").html(),
+                   containerWidth: PreviewWidth,
+                   containerHeight: PreviewhHeight,
+                   mediatype: "downloadimage"
+               },
+               success: function (responseText) {
+                       $('#loadingGif').remove();
+                       var image=responseText;
+//                                          alert(image);
+                       document.location.href = "dashboard.jsp";
+                            $('#mask').hide();
+                            $('.window').hide();
+               }
+
+               });
+
+              // document.location.href = "selectpromotesocialmedia.jsp";
+   });
+
+</script> 
        
 <script>    
     var selectedImageId;
