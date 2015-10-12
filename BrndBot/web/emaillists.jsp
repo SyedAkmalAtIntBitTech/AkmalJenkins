@@ -341,7 +341,8 @@
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts',
                     }).success(function (data, status, headers, config) {
-                        $scope.emailLists = data.allEmailListWithNoOfContacts;
+                        $scope.emailLists = data.allEmailListWithNoOfContacts.user;
+                        $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         
                         if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
@@ -496,7 +497,12 @@
                             <li style="width:300px;text-align:center;left:100px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
                             <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList(email.emailListName)">EDIT LIST</button> </li>
                         </ul>
-                       
+                        <ul class="emlOneRowDatalst L2 " ng-repeat="email in emailListsMindbody">
+                            <li style=" left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')"><p class="emlOneRowDatalst L2" style="width:300px;">{{email.emailListName}}</p><p class="BC1" style="width:200px;">{{email.listDescription}}</p></li>
+                            <li style="width:300px;text-align:center;left:100px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
+<!--                            <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList(email.emailListName)">EDIT LIST</button> </li>-->
+                        </ul>
+
                     </div><br><br>
 
                 </div>
