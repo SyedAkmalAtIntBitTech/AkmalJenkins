@@ -747,18 +747,32 @@ public class SqlMethods {
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             if (type.equalsIgnoreCase(IConstants.kEmailListUserKey)){
                 query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+    
+                logger.log(Level.INFO, query_string);
+                prepared_statement = connection.prepareStatement(query_string);
+
+                result_set = prepared_statement.executeQuery();
+
+                if (result_set.next()) {
+                    pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
+                }
+                
+                  
             }else if(type.equalsIgnoreCase(IConstants.kEmailListMindbodyKey)){
-                query_string = "Select * from mindbody_email_list where user_id=" + user_id + "";
+                query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+
+                logger.log(Level.INFO, query_string);
+                prepared_statement = connection.prepareStatement(query_string);
+
+                result_set = prepared_statement.executeQuery();
+
+                if (result_set.next()) {
+                    pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesMindbodyKey);
+                }
+                
+            
             }
                 
-            logger.log(Level.INFO, query_string);
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
-            }
             pgobject.setType("json");
             String obj = pgobject.getValue();
             userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);

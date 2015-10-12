@@ -371,11 +371,16 @@
                                 success: function(result){
                                     var i = 0;
                                     var emails = "";
-                                    for(i=0; i<result.emailAddresses.length; i++){
-                                        if (result.emailAddresses[i].emailid != ""){
-                                            emails = result.emailAddresses[i].emailid + "," + emails;
+                                    for(i=0; i<result.user_emailAddresses.length; i++){
+                                        if (result.user_emailAddresses[i].emailid != ""){
+                                            emails = result.user_emailAddresses[i].emailid + "," + emails;
+                                        }
                                     }
-                                    }
+                                    for(i=0; i<result.mindbody_emailAddresses.length; i++){
+                                        if (result.mindbody_emailAddresses[i] != ""){
+                                            emails = result.mindbody_emailAddresses[i] + "," + emails;
+                                        }
+                                    }                                    
                                     $("#emailaddresses").val(emails);
                                 }
                         });
