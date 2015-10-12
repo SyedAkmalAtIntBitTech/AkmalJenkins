@@ -1286,7 +1286,8 @@ function controllerMarketingCampaign($scope, $http) {
 
     };
     };
-var error_message = "unable to post the scheduling";
+var error_message = "unable to post the schedule";
+var error_message_email = "unable to send the email";
 
 function sendEmail() {
     var email_from_name = $("#email_entity_from_name").val();
@@ -1361,7 +1362,7 @@ function postSocial() {
         if (($("#twitter_image_name").val()) != "") {
             image_name = $("#twitter_image_name").val();
             scheduleid = $("#twitter_schedule_id").val();
-            entityid = $("#twitter_schedule_id").val();
+            entityid = $("#twitter_entity_id").val();
         }
 
         var link = $("#twitter_schedule_post_url").val();
@@ -1413,7 +1414,11 @@ function postSocial() {
                            mimeType: 'application/json',
                            data:JSON.stringify(schedule_data),
                            success: function (responseText) {
-                                alert("Your post has been published successfully");
+                               alert("Your post has been published successfully");
+                               document.location.href = "marketing.jsp";
+                            },
+                            error: function () {
+                                alert(error_message);
                             }
                         });
                         document.location.href = "marketing.jsp";

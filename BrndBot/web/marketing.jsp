@@ -725,7 +725,7 @@
                                         <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     </div>
 
-                                    <div style="position:relative;
+                                    <div ng-hide="email_template_status=='Complete'" style="position:relative;
                                          left:10px;bottom:0px;top:0px;">
                                         <button id="button_edit" 
                                                 ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" 
@@ -737,7 +737,7 @@
                                                 width:120px;" type="button">
                                             EDIT</button> 
                                     </div>
-                                    <div style="position:relative;
+                                    <div ng-hide="email_template_status=='Complete'" style="position:relative;
                                          left:10px;bottom:0px;
                                          top:0px;">
                                         <input type="button" id="email_button_send"

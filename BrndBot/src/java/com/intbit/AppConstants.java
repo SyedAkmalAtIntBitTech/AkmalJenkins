@@ -16,7 +16,7 @@ public class AppConstants {
     
     public static final Gson GSON = new Gson();
 
-    public static final String BASE_UPLOAD_PATH = "/home/ilyas/tomcat/BrndBot";
+    public static final String BASE_UPLOAD_PATH = "/home/tomcat/BrndBot";
     
     public static final String BASE_IMAGE_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "Images";
     
@@ -42,6 +42,8 @@ public class AppConstants {
             + File.separator + "Categories";
     
     public static final String LAYOUT_IMAGES_HOME = ADMIN_IMAGE_HOME + File.separator + "LayoutImages";
+    
+    public static final String PDF_FILES_PATH = ADMIN_IMAGE_HOME + File.separator + "PDFFiles";
     
     public static final String LAYOUT_HTML_HOME = BASE_UPLOAD_PATH + File.separator + "LayoutHTML";
     
