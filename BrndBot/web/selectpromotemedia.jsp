@@ -38,6 +38,10 @@
                 
                 category_id = (String)sql_methods.session.getAttribute("category_id");
                 sub_category_id = (String)sql_methods.session.getAttribute("sub_category_id");
+                if(category_id==null){
+                category_id = (String)request.getParameter("category_id");
+                sub_category_id = (String)request.getParameter("sub_category_id");
+                }
 
             } catch (Exception e) {
                 System.out.println(e.getCause());
@@ -82,6 +86,9 @@
                     }).success(function (data, status, headers, config) {
                         $scope.email_templates = data.email_template_availability;
                         $scope.social_templates = data.social_template_availability;
+                        $scope.social_temlates_print=data.social_template_print;
+                        $scope.social_temlates_download=data.social_template_download;
+                        alert(JSON.stringify(data.social_template_download));
                         if (data === error) {
                             alert(data);
                         }
@@ -108,8 +115,8 @@
                     <ul id="promotebuttonlist">
                         <li ng-show="social_templates != 0"><a onclick="selected_media('social')"><img src="images/NavIcon_Social-white.svg" id="social" class="glyphicon glyphicon-comment"/></a><p id="soceml">Social</p></li>
                         <li ng-show="email_templates != 0"><a onclick="selected_media('emailsubject')"><img src="images/NavIcon_Email-white.svg" id="email" class="glyphicon glyphicon-envelope" style="padding-bottom:7%;"/></a><p id="soceml">Email</p></li>
-                        <li><a onclick="selected_media('print')"><img src="images/NavIcon_Social-white.svg" id="print" class="glyphicon glyphicon-comment"/></a><p id="soceml">Print</p></li>
-                        <li><a onclick="selected_media('image')"><img src="images/NavIcon_Social-white.svg" id="download" class="glyphicon glyphicon-comment"/></a><p id="soceml">Image</p></li>
+                        <li ng-show="social_temlates_print != 0"><a onclick="selected_media('print')"><img src="images/NavIcon_Social-white.svg" id="print" class="glyphicon glyphicon-comment"/></a><p id="soceml">Print</p></li>
+                        <li ng-show="social_temlates_download != 0"><a onclick="selected_media('image')"><img src="images/NavIcon_Social-white.svg" id="download" class="glyphicon glyphicon-comment"/></a><p id="soceml">Image</p></li>
 <!--                                <li><a ><span id="print" class="glyphicon glyphicon-print"></span></a><p id="promotebutton">Print</p></li>-->
                     </ul>    
                 </div>

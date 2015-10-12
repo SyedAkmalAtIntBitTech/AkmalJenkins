@@ -68,11 +68,17 @@ public class GetTemplates extends HttpServlet {
                     sub_category_id.intValue(), "email");
             Integer social_template_availability = chktemplates.checkTemplates(category_id.intValue(),
                     sub_category_id.intValue(), "social");
+            Integer social_template_print = chktemplates.checkTemplates(category_id.intValue(),
+                    sub_category_id.intValue(), "print");
+            Integer social_template_download = chktemplates.checkTemplates(category_id.intValue(),
+                    sub_category_id.intValue(), "download");
 
             JSONObject responseObject = new JSONObject();
             
             responseObject.put("email_template_availability", email_template_availability);
             responseObject.put("social_template_availability", social_template_availability);
+            responseObject.put("social_template_print", social_template_print);
+            responseObject.put("social_template_download", social_template_download);
             String json = new Gson().toJson(responseObject);
             response.setContentType("application/json");
             response.getWriter().write(json);
