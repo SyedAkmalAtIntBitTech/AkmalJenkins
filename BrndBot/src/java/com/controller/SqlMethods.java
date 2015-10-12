@@ -734,7 +734,7 @@ public class SqlMethods {
         return userPreferencesJSONObject;
     }
 
-    public org.json.simple.JSONArray getEmailListsPreferences(Integer user_id) {
+        public org.json.simple.JSONArray getEmailListsPreferences(Integer user_id, String type) {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
@@ -745,15 +745,34 @@ public class SqlMethods {
         org.json.simple.JSONArray emailListJSONArray = new org.json.simple.JSONArray();
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
-            logger.log(Level.INFO, query_string);
-            prepared_statement = connection.prepareStatement(query_string);
+            if (type.equalsIgnoreCase(IConstants.kEmailListUserKey)){
+                query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+    
+                logger.log(Level.INFO, query_string);
+                prepared_statement = connection.prepareStatement(query_string);
 
-            result_set = prepared_statement.executeQuery();
+                result_set = prepared_statement.executeQuery();
 
-            if (result_set.next()) {
-                pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
+                if (result_set.next()) {
+                    pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
+                }
+                
+                  
+            }else if(type.equalsIgnoreCase(IConstants.kEmailListMindbodyKey)){
+                query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+
+                logger.log(Level.INFO, query_string);
+                prepared_statement = connection.prepareStatement(query_string);
+
+                result_set = prepared_statement.executeQuery();
+
+                if (result_set.next()) {
+                    pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesMindbodyKey);
+                }
+                
+            
             }
+                
             pgobject.setType("json");
             String obj = pgobject.getValue();
             userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
