@@ -48,6 +48,11 @@
 
         <link href="../css/spectrum.css" rel="stylesheet" type="text/css"/>
         <script src="../js/configurations.js" type="text/javascript"></script>
+        <style>
+            .popuptable{
+                margin-left:70px;
+            }
+        </style>
         <script language="javascript" type="text/javascript">
             $(document).ready(function () {
                 var textSize = 5;
@@ -287,7 +292,9 @@
 
             var imagename = $("#imagename").val();
             var social = $("#socialmedia").val();
-
+            var isSocial=$("#socialCheckbox").is(':checked');
+            var isPrint=$("#printCheckbox").is(':checked');
+            var isDownload=$("#downloadCheckbox").is(':checked');
               $.ajax({
                       url: global_host_address + 'Model',
                       method: 'post',
@@ -305,7 +312,11 @@
                           layout : layoutxml,
                           model_name : model_name,
                           imagename : imagename,
-                          socialmedia : social
+                          socialmedia : social,
+                          isSocial: isSocial,
+                          isPrint: isPrint,
+                          isDownload: isDownload
+                          
                       },
                       success: function (responseText) {
                         alert("Model saved successfully");
@@ -676,9 +687,19 @@
    <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                                         Layout file name<input type="text" id="layoutxml" required><br>-->
                                     Model Name: <input type="text" id="namexml" ><br>
-                                    <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/>
-                                    <input type="button" onclick="validate()" value="Done"/>   
-                                    <input type="button" id="hidepopup" value="Close"/>   
+                                    <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/><br>
+                                    <table class="popuptable">
+                                        <tr>
+                                            <td><input type="checkbox" id="socialCheckbox" name="social" value="social" checked>social</td>
+                                            <td><input type="checkbox" id="printCheckbox" name="image" value="image">print</td>
+                                            <td><input type="checkbox" id="downloadCheckbox" name="pdf" value="pdf">download</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="button" onclick="validate()" value="Done"/> </td>  
+                                            <td><input type="button" id="hidepopup" value="Close"/> </td> 
+                                        </tr>
+                                    </table>
+                                    
                                 </div>
                              </div>
 

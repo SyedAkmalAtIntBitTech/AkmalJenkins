@@ -357,11 +357,11 @@
         {
             formattedHTMLData=$("#dynamictable").contents().find("html").html();
           //do something special
-        }, 200);
+        }, 1000);
        $(document).ready(function () {
            formattedHTMLData=$("#dynamictable").contents().find("html").html();
            show("iphone");
-           
+
         });
         function displaySchedule() {
                 if (validate()) {
