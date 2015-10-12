@@ -392,6 +392,10 @@
         <servlet-name>SaveSVGServlet</servlet-name>
         <servlet-class>admin.controller.SaveSVGServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetTemplates</servlet-name>
+        <servlet-class>com.controller.GetTemplates</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -795,6 +799,10 @@
     <servlet-mapping>
         <servlet-name>SaveSVGServlet</servlet-name>
         <url-pattern>/SaveSVGServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetTemplates</servlet-name>
+        <url-pattern>/GetTemplates</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
