@@ -20,7 +20,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>social editor</title>
+        <title>BrndBot - Editor</title>
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
         <%@ include file="checksession.jsp" %>

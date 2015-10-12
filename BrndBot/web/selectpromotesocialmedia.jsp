@@ -39,7 +39,7 @@
         
 <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
 <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
-        <title>social media</title>
+        <title>BrndBot - Social Media</title>
 
         <style>
             #loadingGif{

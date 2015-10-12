@@ -12,7 +12,7 @@
 <html>
     <head>
 
-        <title>promote media</title>
+        <title>BrndBot - Channel Selection</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
          <%@ include file="checksession.jsp" %>

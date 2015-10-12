@@ -47,7 +47,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>social media preview</title>
+        <title>BrndBot - Social Media Posting</title>
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
         <link rel="stylesheet" href="css/pikaday.css">
@@ -417,8 +417,10 @@
                     document.getElementById('schedule_title').disabled = true;
                     document.getElementById('schedule_social_date').disabled = true;
                     document.getElementById('schedule_social_time').disabled = true;
+                    document.getElementById('schedule_title').value="";
+                    document.getElementById('schedule_desc').value="";
                     document.getElementById('schedule_social_time').value="";
-                      document.getElementById('schedule_social_date').value="";
+                    document.getElementById('schedule_social_date').value="";
                  
                 }
                 else if ((parseInt(facebookactions) == 0) && (parseInt(twitteractions) != 0)) {
@@ -426,16 +428,20 @@
                     document.getElementById('schedule_title').disabled = true;
                     document.getElementById('schedule_social_date').disabled = true;
                     document.getElementById('schedule_social_time').disabled = true;
-                       document.getElementById('schedule_social_time').value="";
-                      document.getElementById('schedule_social_date').value="";
+                    document.getElementById('schedule_title').value="";
+                    document.getElementById('schedule_desc').value="";
+                    document.getElementById('schedule_social_time').value="";
+                    document.getElementById('schedule_social_date').value="";
                 }
                 else if (((parseInt(facebookactions) != 0) && (parseInt(twitteractions) == 0))) {
                     document.getElementById('schedule_desc').disabled = true;
                     document.getElementById('schedule_title').disabled = true;
                     document.getElementById('schedule_social_date').disabled = true;
                     document.getElementById('schedule_social_time').disabled = true;
-                       document.getElementById('schedule_social_time').value="";
-                      document.getElementById('schedule_social_date').value="";
+                    document.getElementById('schedule_title').value="";
+                    document.getElementById('schedule_desc').value="";
+                    document.getElementById('schedule_social_time').value="";
+                    document.getElementById('schedule_social_date').value="";
 //                    document.getElementById('hour').disabled = true;
 //                    document.getElementById('minute').disabled = true;
 //                    document.getElementById('AMPM').disabled = true;
@@ -557,11 +563,11 @@
                         </a>
                     </div>
                     <select name="facebookactions" id="facebookactions" class="SH1 selectsocialact" style="font-variant: normal;" onchange="validateact();">
-                        <option value="0" style="background:#fff;" >SELECT FACEBOOK</option>
+                        <option value="0" style="background:#fff;" >CUSTOM FACEBOOK</option>
                         <option style="background:#fff;" ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
                     </select><br><br>
                     <select name="twitteractions" id="twitteractions" class="SH1 selectsocialact" style="font-variant: normal;" onchange="validateact();">
-                        <option style="background:#fff;" value="0">SELECT TWITTER</option>
+                        <option style="background:#fff;" value="0">CUSTOM TWITTER</option>
                         <option style="background:#fff;" ng-repeat="twitteractions in twitter_actions" value="{{twitteractions.id}}">{{twitteractions.schedule_title}}</option>
                     </select><br>
                     <!--                         <select name="socialactions" id="socialactions" class="SH1 selectsocialact" style="font-variant: normal;">

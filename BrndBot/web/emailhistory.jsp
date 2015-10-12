@@ -27,7 +27,7 @@
          <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
      
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>History</title>
+        <title>BrndBot - Email History</title>
         <script src="js/crop.js" type="text/javascript"></script>
         <script>
 
