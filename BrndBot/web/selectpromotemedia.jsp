@@ -88,7 +88,6 @@
                         $scope.social_templates = data.social_template_availability;
                         $scope.social_temlates_print=data.social_template_print;
                         $scope.social_temlates_download=data.social_template_download;
-                        alert(JSON.stringify(data.social_template_download));
                         if (data === error) {
                             alert(data);
                         }
