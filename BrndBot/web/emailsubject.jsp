@@ -772,7 +772,7 @@
                             <input type="button" onclick="uploadCsvFileData()" value="upload">
                             <br><br>
                             <center>
-                                <textarea id="textArea" style="width:300px; height:100px;"></textarea><br><br>
+                                <textarea id="textArea" style="width:300px; height:100px; resize: none;" ></textarea><br><br>
                                 <input type="button" class="btn btn-default" ng-click="addEmailList()" value="Save">
                                 <input type="button" id="popupCancel" class="btn btn-default" value="Cancel">
                             </center>

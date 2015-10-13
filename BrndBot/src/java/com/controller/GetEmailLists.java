@@ -66,8 +66,8 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
                 org.json.simple.JSONArray json_email_ids_mindbody = getEmailIds_mindbody(user_id, emailListName);
                 responseObject.put(IConstants.kEmailListNameKey, emailListName);
 
-                    responseObject.put(IConstants.kEmailListMindbodyKey+"_"+IConstants.kEmailAddressesKey, json_email_ids_mindbody);
-                    responseObject.put(IConstants.kEmailListUserKey+"_"+IConstants.kEmailAddressesKey, json_email_ids);
+                responseObject.put(IConstants.kEmailListMindbodyKey+"_"+IConstants.kEmailAddressesKey, json_email_ids_mindbody);
+                responseObject.put(IConstants.kEmailListUserKey+"_"+IConstants.kEmailAddressesKey, json_email_ids);
                 
             } else if (queryParameter.equalsIgnoreCase("allEmailListWithAddresses")) {
                 org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);

@@ -550,6 +550,7 @@ left:-4px;
 }
 .menu li a,p{
     margin-left: 0px;
+    cursor: pointer;
 }
 .menu li a{
       padding: 10px 15px;
