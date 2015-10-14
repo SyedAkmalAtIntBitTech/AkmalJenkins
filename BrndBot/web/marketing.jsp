@@ -486,7 +486,6 @@
             p.actionLable
             {
                 margin-left:3%;
-                color: #4e4e4e;
             }
             
            #imgcontainer>img{
@@ -624,7 +623,7 @@
                     <h1 class="SP2 actfnt">ADD ACTION</h1>
                     <form class="form-horizontal" id="signform" >
                         <div class="group" style="position:relative;">
-                            <p class="actionLable SH2" >TYPE OF ACTION</p>
+                            <p class="actionLable SH2" >type of action</p>
                         </div>
                         
                         <div style="position:absolute;left:15px;top:20px;" class="SH2">
@@ -636,15 +635,15 @@
                                  <option value="note">note</option>
                                </select>
                         </div>
-                        <div class="SH2" style="position:absolute;top:80px;left:15px;">
-                           TITLE <br><textarea cols="28" rows="2" name="addactiontitle" id="addactiontitle" class="SH2" style="resize: none;font-size:1.2em;height:70px;"></textarea>
+                        <div  style="position:absolute;top:80px;left:15px;">
+                            <p class="SH1">TITLE</p><textarea cols="36" rows="2" name="addactiontitle" id="addactiontitle" class="SS2" style="resize:none;font-size:1.3em;height:70px;margin-top:-5px;"></textarea>
                         </div>
                             <div style="position:absolute;top:180px;left:15px;" class="SH2">                              
-                                Description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;height:70px;"></textarea>
+                                description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;height:70px;"></textarea>
                             </div>
-                            <div class="SH2" style="position:absolute;top:280px;left:15px;" >
-                                SCHEDULED TO POST ON<br><br>
-                                Date 
+                            <div class="SH2" style="position:absolute;top:282px;left:15px;" >
+                                scheduled to post on<br><br>
+                                date 
                                 <input type="text" readonly name="actiondatetime"  class="inputdate MH1 ptr" id="datepicker" >
                                         <script>
 
@@ -659,7 +658,7 @@
 
                                         </script><br>
                                         <div style="position:relative;margin-top:-84px;margin-left:180px;">
-                                        TIME
+                                        time
                                      <input id="timepicker1" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:110px;"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
