@@ -8,27 +8,34 @@ package util;
 import admin.controller.Layout;
 import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
-import com.imagetopdf.Images2PDF;
 import com.imagetopdf.image.Image;
 import com.imagetopdf.image.ImageTypes;
 import com.intbit.AppConstants;
 import com.intbit.PhantomImageConverter;
+import com.intbit.dao.ScheduleDAO;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.graphics.PDXObject;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 /**
  *
  * @author sandeep-kumar
  */
 public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
-
+    private static final Logger logger = Logger.getLogger(ConvertHtmlToImageServlet.class.getName());
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,7 +49,7 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
-        Images2PDF images2PDFObj = new Images2PDF();    
+//        Images2PDF images2PDFObj = new Images2PDF();    
 
         try {
             String htmlString = request.getParameter("htmlString");
@@ -60,26 +67,63 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
             String filename = imagePngFile.getName();
             
             if (mediaType.equalsIgnoreCase("downloadpdf")){
-                Image image2 = new Image(AppConstants.LAYOUT_IMAGES_HOME + File.separator + filename,
-                                                    ImageTypes.PNG);
+                String image2 = AppConstants.LAYOUT_IMAGES_HOME + File.separator + filename;
+                                                   
 
                 String pdf_file_name = filename.replace("png", "pdf");
                 String pdf_save_path = AppConstants.PDF_FILES_PATH + File.separator + pdf_file_name;
 
-                File file_name = new File(pdf_save_path);
-                images2PDFObj.convert(pdf_save_path, image2);
+                File uploadDir = new File(AppConstants.PDF_FILES_PATH);
+                        if (!uploadDir.exists()) {
+                            uploadDir.mkdirs();
+                        } 
+                  PDDocument doc = null;
+                        
+//                File file_name = new File(pdf_save_path);
+//                images2PDFObj.convert(pdf_save_path, image2);
+                  try
+                    {
+                        doc = new PDDocument();
 
-                if (Desktop.isDesktopSupported()) {
-                    try {
-                        Desktop.getDesktop().open(file_name);
-                    } catch (IOException ex) {
-                        // no application registered for PDFs
-                      System.out.println(ex);
+                        //we will add the image to the first page.
+                        PDPage page = new PDPage();
+                        doc.addPage(page);
+                        // createFromFile is the easiest way with an image file
+                        // if you already have the image in a BufferedImage, 
+                        // call LosslessFactory.createFromImage() instead
+                        PDImageXObject pdImage = PDImageXObject.createFromFile(image2, doc);
+                        PDPageContentStream contentStream = new PDPageContentStream(doc, page, true, true);
+
+                        // contentStream.drawImage(ximage, 20, 20 );
+                        // better method inspired by http://stackoverflow.com/a/22318681/535646
+                        // reduce this value if the image is too large
+                        float scale = 1.0f;
+                        contentStream.drawImage(pdImage, 0, 0);
+
+                        contentStream.close();
+                        doc.save( pdf_save_path );
                     }
-                }            
-                deleteFile(file_name);
+                  finally
+                    {
+                        if( doc != null )
+                        {
+                            doc.close();
+                        }
+                    }
+
+
+//                if (Desktop.isDesktopSupported()) {
+//                    try {
+//                        Desktop.getDesktop().open(file_name);
+//                    } catch (IOException ex) {
+//                        // no application registered for PDFs
+//                      System.out.println(ex);
+//                    }
+//                }            
+                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, pdf_file_name);
+//                deleteFile(file_name);
                 response.setContentType("text/plain");
-                response.getWriter().write("downloadpdf");
+                response.getWriter().write(pdf_file_name);
 
             }else if (mediaType.equalsIgnoreCase("downloadimage")){
                 Image image2 = new Image(AppConstants.LAYOUT_IMAGES_HOME + File.separator + filename,
@@ -95,8 +139,10 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
                       System.out.println(ex);
                     }
                 }
+                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, filename);
+                
                 response.setContentType("text/plain");
-                response.getWriter().write("downloadimage");
+                response.getWriter().write(filename);
                 
             }else if (mediaType.equalsIgnoreCase("continue")){
                 getSqlMethodsInstance().session.setAttribute("image_file_name", filename);
@@ -105,6 +151,7 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
                 response.getWriter().write(filename);
             }
         } catch (Exception e) {
+            Logger.getLogger(ConvertHtmlToImageServlet.class.getName()).log(Level.SEVERE, null, e);
             response.setContentType("text/html;charset=UTF-8");
             StringBuffer sb = new StringBuffer();
             PrintWriter out = response.getWriter();

@@ -217,12 +217,11 @@ $(".blockname").change(function (){
     mindbodydataId = $("#mindbodydata").val();
 
     var layoutfilename = $("#clickid").val();
-
-//   alert(layoutfilename);
+    var media_type=$("#media_type").val();
 
     $.ajax({
         type: 'POST',
-        url: "GetLayoutStyles?editorType=social",
+        url: "GetLayoutStyles?editorType=social&media_type="+media_type+"",
         dataType: 'json',
         success: function (data) {
             var jsondataDefault = data;

@@ -96,13 +96,13 @@ public class Model extends BrndBotBaseHttpServlet {
             if (request.getParameter("socialmedia") != null){
                 type_social = true;
             }
-            if (request.getParameter("isSocial").equalsIgnoreCase("true")){
+            if (request.getParameter("isSocial") != null && request.getParameter("isSocial").equalsIgnoreCase("true")){
                 isSocial = true;
             }
-            if (request.getParameter("isPrint").equalsIgnoreCase("true")){
+            if (request.getParameter("isPrint") != null && request.getParameter("isPrint").equalsIgnoreCase("true")){
                 isPrint = true;
             }
-             if (request.getParameter("isDownload").equalsIgnoreCase("true")){
+             if (request.getParameter("isDownload") != null && request.getParameter("isDownload").equalsIgnoreCase("true")){
                 isDownload = true;
             }
             

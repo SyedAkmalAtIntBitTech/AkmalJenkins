@@ -405,11 +405,12 @@ alert("No data available, problem fetching the data");
         // or server returns response with an error status.
 });
         $scope.showStyles = function(){
+        var media_type=$("#media_type").val();
         $scope.curPage = 0;
                 $scope.pageSize = 2;
                 $http({
                 method : 'GET',
-                        url : 'GetLayoutStyles?editorType=social'
+                    url : 'GetLayoutStyles?editorType=social&media_type='+media_type+''
                 }).success(function(data, status, headers, config) {
 //                                            alert(JSON.stringify(data));
                             $scope.datalists = data;
@@ -1226,6 +1227,8 @@ if (mindbodydataId != ""){
                    mediatype: "downloadpdf"
                },
                success: function (responseText) {
+                       $('body').append("<a href=/BrndBot/DownloadImage?image_type=PDF_FILES_PATH&image_name="+responseText+" download=/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+responseText+"><p id=PDFDownload>clickto download image</p></a>");
+                       $("#PDFDownload").trigger("click");
                        $('#loadingGif').remove();
                        var image=responseText;
 //                     alert(image);
@@ -1254,9 +1257,13 @@ if (mindbodydataId != ""){
                    mediatype: "downloadimage"
                },
                success: function (responseText) {
+                       $('body').append("<a href=/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+responseText+" download=/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+responseText+"><p id=imageDownload>clickto download image</p></a>");
+                       $("#imageDownload").trigger("click");
                        $('#loadingGif').remove();
                        var image=responseText;
-//                                          alert(image);
+//                         alert(responseText);
+                        
+                        
                        document.location.href = "dashboard.jsp";
                             $('#mask').hide();
                             $('.window').hide();
