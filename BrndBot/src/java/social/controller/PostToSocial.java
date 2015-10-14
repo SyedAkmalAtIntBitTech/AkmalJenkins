@@ -101,7 +101,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             }
             try {
                 
-            getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile);
+            getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile, null);
             }catch (Exception ex){
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());
@@ -142,7 +142,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 status.setMedia(file);
                 twitter.updateStatus(status);
                 try {
-                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile);
+                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile, null);
                     }catch (Exception ex){
                         Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
                         Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());

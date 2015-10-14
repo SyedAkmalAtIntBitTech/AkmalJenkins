@@ -105,15 +105,16 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
                         {
                             doc.close();
                         }
-                    }
-           
-                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, pdf_file_name);
+                    }          
+                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, null, pdf_file_name);
+
 //                deleteFile(file_name);
                 response.setContentType("text/plain");
                 response.getWriter().write(pdf_file_name);
 
             }else if (mediaType.equalsIgnoreCase("downloadimage")){
-                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, filename);
+                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, filename, null);
+
                 
                 response.setContentType("text/plain");
                 response.getWriter().write(filename);
