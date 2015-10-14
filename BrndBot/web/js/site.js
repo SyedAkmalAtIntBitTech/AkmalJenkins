@@ -824,7 +824,7 @@ $(document).ready(function () {
                 left: childPos.left - parentPos.left
             }
             
-                alert(childPos.top +" "+parentPos.top+":"+childOffset.left);
+//                alert(childPos.top +" "+parentPos.top+":"+childOffset.left);
             x = Math.round(childOffset.left)-1;
             y = Math.round(childOffset.top)-1;
             $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
