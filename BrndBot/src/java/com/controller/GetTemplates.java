@@ -65,13 +65,13 @@ public class GetTemplates extends HttpServlet {
             Double sub_category_id = (Double)requestBodyMap.get("sub_category_id");
             CheckTemplates chktemplates = new CheckTemplates();
             Integer email_template_availability = chktemplates.checkTemplates(category_id.intValue(),
-                    sub_category_id.intValue(), "email");
+                    sub_category_id.intValue(), "email", userId);
             Integer social_template_availability = chktemplates.checkTemplates(category_id.intValue(),
-                    sub_category_id.intValue(), "social");
+                    sub_category_id.intValue(), "social", userId);
             Integer social_template_print = chktemplates.checkTemplates(category_id.intValue(),
-                    sub_category_id.intValue(), "print");
+                    sub_category_id.intValue(), "print", userId);
             Integer social_template_download = chktemplates.checkTemplates(category_id.intValue(),
-                    sub_category_id.intValue(), "download");
+                    sub_category_id.intValue(), "download", userId);
 
             JSONObject responseObject = new JSONObject();
             

@@ -1227,7 +1227,7 @@ if (mindbodydataId != ""){
                    mediatype: "downloadpdf"
                },
                success: function (responseText) {
-                       $('body').append("<a href=/BrndBot/DownloadImage?image_type=PDF_FILES_PATH&image_name="+responseText+" download=/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+responseText+"><p id=PDFDownload>clickto download image</p></a>");
+                       $('body').append("<a href=/BrndBot/DownloadImage?image_type=PDF_FILES_PATH&image_name="+responseText+" download=/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+responseText+"><p id=PDFDownload></p></a>");
                        $("#PDFDownload").trigger("click");
                        $('#loadingGif').remove();
                        var image=responseText;
@@ -1257,7 +1257,7 @@ if (mindbodydataId != ""){
                    mediatype: "downloadimage"
                },
                success: function (responseText) {
-                       $('body').append("<a href=/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+responseText+" download=/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+responseText+"><p id=imageDownload>clickto download image</p></a>");
+                       $('body').append("<a href=/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+responseText+" download=/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name="+responseText+"><p id=imageDownload></p></a>");
                        $("#imageDownload").trigger("click");
                        $('#loadingGif').remove();
                        var image=responseText;

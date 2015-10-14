@@ -20,14 +20,13 @@ import java.util.logging.Logger;
 public class CheckTemplates {
     private static final Logger logger = Logger.getLogger(CheckTemplates.class.getName());
 
-    public Integer checkTemplates(Integer category_id, Integer sub_category_id, 
-                                  String type)throws SQLException{
+    public Integer checkTemplates(Integer category_id, Integer sub_category_id, String type, Integer user_id)throws SQLException{
         String query_string = "";
         Integer Number = 0;
         try(Connection conn = ConnectionManager.getInstance().getConnection()){
             if (type.equalsIgnoreCase("email")){
                 query_string = "Select Count(*) from tbl_model where category_id=?"
-                        + " and sub_category_id=? and email=?";
+                        + " and sub_category_id=? and email=? and (user_id=" + user_id + " or user_id=0)";
                 try(PreparedStatement prepared_statement = conn.prepareStatement(query_string)){
                     prepared_statement.setInt(1, category_id);
                     prepared_statement.setInt(2, sub_category_id);
@@ -42,7 +41,7 @@ public class CheckTemplates {
             }
         }else if(type.equalsIgnoreCase("social")) {
             query_string = "Select Count(*) from tbl_model where category_id=?"
-                    + " and sub_category_id=? and social=? and media=?";
+                    + " and sub_category_id=? and social=? and media=? and (user_id=" + user_id + " or user_id=0)";
                 try(PreparedStatement prepared_statement = conn.prepareStatement(query_string)){
                 prepared_statement.setInt(1, category_id);
                 prepared_statement.setInt(2, sub_category_id);
@@ -61,7 +60,7 @@ public class CheckTemplates {
             
             }else if(type.equalsIgnoreCase("print")) {
             query_string = "Select Count(*) from tbl_model where category_id=?"
-                    + " and sub_category_id=? and social=? and print=?";
+                    + " and sub_category_id=? and social=? and print=? and (user_id=" + user_id + " or user_id=0)";
                 try(PreparedStatement prepared_statement = conn.prepareStatement(query_string)){
                 prepared_statement.setInt(1, category_id);
                 prepared_statement.setInt(2, sub_category_id);
@@ -80,7 +79,7 @@ public class CheckTemplates {
             
             }else if(type.equalsIgnoreCase("download")) {
             query_string = "Select Count(*) from tbl_model where category_id=?"
-                    + " and sub_category_id=? and social=? and download=?";
+                    + " and sub_category_id=? and social=? and download=? and (user_id=" + user_id + " or user_id=0)";
                 try(PreparedStatement prepared_statement = conn.prepareStatement(query_string)){
                 prepared_statement.setInt(1, category_id);
                 prepared_statement.setInt(2, sub_category_id);
