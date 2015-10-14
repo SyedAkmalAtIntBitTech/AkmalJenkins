@@ -105,10 +105,12 @@ public class MindbodyEmailListProcessor implements Runnable {
                     json_email_array.add(json_email_object);
 
                 }
-                JSONObject json_clientIndexes = new JSONObject();
-                json_clientIndexes.put(IConstants.kEmailAddressUserPreferenceKey, json_email_array);
+                if (json_email_array.size() >= 0 ){
+                    JSONObject json_clientIndexes = new JSONObject();
+                    json_clientIndexes.put(IConstants.kEmailAddressUserPreferenceKey, json_email_array);
 
-                updateUserPreferencesTable(pair.getKey(), json_clientIndexes);
+                    updateUserPreferencesTable(pair.getKey(), json_clientIndexes);
+                }
 
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "Mindbody email list processor", e);

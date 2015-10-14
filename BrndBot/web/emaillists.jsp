@@ -385,14 +385,19 @@
                             $("#addcontacts").show();
                             $("#deleteSelected").show();
                             $("#selectAll").show();
-                            if (data.user_emailAddresses.length == 1){
-                                $("#NoContacts").css("display","block");
-                                setTimeout(function() 
-                                {
-                                  //do something special
-                                  $('input[type="checkbox"]').css("display","none");
+                            for (var i = 0; i <= data.user_emailAddresses.length; i++){
+                                
+                                var emailadd = data.user_emailAddresses[i];
+                                if (emailadd.emailid == ""){
+                                    $("#NoContacts").css("display","block");
+                                    setTimeout(function() 
+                                    {
+                                      //do something special
+                                      $('input[type="checkbox"]').css("display","none");
 
-                                }, 100);
+                                    }, 100);
+                                }
+
                             }
                         }else if (type == 'mindbody'){
                             
@@ -618,12 +623,12 @@
                     <div id="scrl" class="col-md-6" >
                         <ul id="uluseremails" class="emlOneRowDatalst L2 LE2" ng-repeat="email in user_emailAddresses">
                             <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}</li>
+                            <p ng-show="email.emailid == '' && type == 'user'" id='NoContacts' style="margin-top:-80px;">No contacts available</p>
                         </ul>
-                        <p ng-show="user_emailAddresses.length == 1 && type == 'user'" id='NoContacts'>No contacts available</p>
                         <ul class="emlOneRowDatalst L2 LE2" ng-repeat="email in mindbody_emailAddresses">
                             <li style="width:300px;left:-30px;top:-80px;">{{email}}</li>
                         </ul>
-                        <p ng-show="mindbody_emailAddresses.length == 0 && type == 'mindbody'" >No contacts available</p>
+                        <p ng-show="mindbody_emailAddresses.length == 0 && type == 'mindbody'" style="margin-top:-80px;">No contacts available</p>
                     </div>
                 </div>
 
@@ -634,7 +639,7 @@
                     <p class="header1">Email List:</p>
                     <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/> <br>
                     <div class="col-md-7 col-md-offset-0">
-                        <label id="">Upload CSV</label><br><br>
+                        <label>Upload CSV</label><br><br>
                         <input type="file" class="fileUpload" id="fileUpload" name="fileUpload"><br>
                         <input class="button button--moema button--text-thick button--text-upper button--size-s" type="button" id="upload" value="Upload" onclick="upload()" /><br>
                     </div><br>
