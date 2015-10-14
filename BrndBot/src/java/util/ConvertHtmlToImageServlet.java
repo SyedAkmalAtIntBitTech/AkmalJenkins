@@ -120,26 +120,26 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
 //                      System.out.println(ex);
 //                    }
 //                }            
-                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, pdf_file_name);
+                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, null, pdf_file_name);
 //                deleteFile(file_name);
                 response.setContentType("text/plain");
                 response.getWriter().write(pdf_file_name);
 
             }else if (mediaType.equalsIgnoreCase("downloadimage")){
-                Image image2 = new Image(AppConstants.LAYOUT_IMAGES_HOME + File.separator + filename,
-                                                    ImageTypes.PNG);
+//                Image image2 = new Image(AppConstants.LAYOUT_IMAGES_HOME + File.separator + filename,
+//                                                    ImageTypes.PNG);
                 
                 File file_name = new File(AppConstants.LAYOUT_IMAGES_HOME + File.separator + filename);
 
-                if (Desktop.isDesktopSupported()) {
-                    try {
-                        Desktop.getDesktop().open(file_name);
-                    } catch (IOException ex) {
-                        // no application registered for PDFs
-                      System.out.println(ex);
-                    }
-                }
-                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, filename);
+//                if (Desktop.isDesktopSupported()) {
+//                    try {
+//                        Desktop.getDesktop().open(file_name);
+//                    } catch (IOException ex) {
+//                        // no application registered for PDFs
+//                      System.out.println(ex);
+//                    }
+//                }
+                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, filename, null);
                 
                 response.setContentType("text/plain");
                 response.getWriter().write(filename);
