@@ -56,6 +56,9 @@ public class Model extends BrndBotBaseHttpServlet {
         String fileName, fieldName, uploadPath;
         boolean type_email = false;
         boolean type_social = false;
+        boolean isSocial = false;
+        boolean isPrint = false;
+        boolean isDownload = false;
         RequestDispatcher request_dispatcher;
         
         try {
@@ -93,7 +96,16 @@ public class Model extends BrndBotBaseHttpServlet {
             if (request.getParameter("socialmedia") != null){
                 type_social = true;
             }
-
+            if (request.getParameter("isSocial") != null && request.getParameter("isSocial").equalsIgnoreCase("true")){
+                isSocial = true;
+            }
+            if (request.getParameter("isPrint") != null && request.getParameter("isPrint").equalsIgnoreCase("true")){
+                isPrint = true;
+            }
+             if (request.getParameter("isDownload") != null && request.getParameter("isDownload").equalsIgnoreCase("true")){
+                isDownload = true;
+            }
+            
             String textstyleinfo = request.getParameter("textstyle");
             String containerstyle = request.getParameter("containerstyle");
             String mapfiledata = request.getParameter("element");
@@ -182,7 +194,7 @@ public class Model extends BrndBotBaseHttpServlet {
             try {
                 layout.getFontList(Integer.parseInt(brand_id));
                 String image_name=  layout.createImage(request,layoutfilename,getServletContext(),modelname);
-                layout.addLayouts(Integer.parseInt(organization_id), Integer.parseInt(user_id), category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, Integer.parseInt(brand_id), block_id,image_name,modelname);
+                layout.addLayouts(Integer.parseInt(organization_id), Integer.parseInt(user_id), category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, Integer.parseInt(brand_id), block_id,image_name,modelname,isSocial,isPrint,isDownload);
             } catch (SAXException ex) {
                 Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
             }

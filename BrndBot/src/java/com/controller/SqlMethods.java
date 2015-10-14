@@ -4,11 +4,13 @@ import com.divtohtml.DivHTMLModel;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLType;
 import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Types;
@@ -955,28 +957,51 @@ public class SqlMethods {
 
     }
 
-    public void setSocialPostHistory(Integer userid, String contenthtml, boolean twitter, boolean facebook, String imagefilename) throws SQLException {
+    public void setSocialPostHistory(Integer userid, String contenthtml, boolean twitter, boolean facebook, String imagefilename, String pdffilename) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
+        
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
 
-         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-
-            query_string = "Insert into tbl_socialposthistory(user_id, timesent, contenthtml, twitter, facebook, imagefilename) Values (?,?,?,?,?,?)";
-
-            prepared_statement = getConnection().prepareStatement(query_string);
             
-            prepared_statement.setInt(1, userid);
-            prepared_statement.setTimestamp(2, getCurrentTimeStamp());
-            prepared_statement.setString(3, contenthtml);
-            prepared_statement.setBoolean(4, twitter);
-            prepared_statement.setBoolean(5, facebook);
-            prepared_statement.setString(6, imagefilename);
+            if (pdffilename != null){
+                query_string = "Insert into tbl_socialposthistory(user_id, timesent, contenthtml, twitter, facebook, pdffiles) Values (?,?,?,?,?,?)";
+
+                prepared_statement = getConnection().prepareStatement(query_string);
+
+                prepared_statement.setInt(1, userid);
+                prepared_statement.setTimestamp(2, getCurrentTimeStamp());
+                prepared_statement.setString(3, contenthtml);
+                prepared_statement.setBoolean(4, twitter);
+                prepared_statement.setBoolean(5, facebook);
+
+                File pdf_file = new File(AppConstants.PDF_FILES_PATH + File.separator + pdffilename);
+                FileInputStream fis = new FileInputStream(pdf_file);
+                prepared_statement.setBinaryStream(6, fis, pdf_file.length());
+            }
+            
+            
+            if (imagefilename != null){
+                query_string = "Insert into tbl_socialposthistory(user_id, timesent, contenthtml, twitter, facebook, imagefilename) Values (?,?,?,?,?,?)";
+
+                prepared_statement = getConnection().prepareStatement(query_string);
+
+                prepared_statement.setInt(1, userid);
+                prepared_statement.setTimestamp(2, getCurrentTimeStamp());
+                prepared_statement.setString(3, contenthtml);
+                prepared_statement.setBoolean(4, twitter);
+                prepared_statement.setBoolean(5, facebook);
+
+                File file = new File(AppConstants.LAYOUT_IMAGES_HOME + File.separator + imagefilename);
+                FileInputStream fis = new FileInputStream(file);
+                prepared_statement.setBinaryStream(6, fis, file.length());
+            }
 
             prepared_statement.executeUpdate();
 
         } catch (Exception e) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
 
         } finally {
             close(result_set, prepared_statement);

@@ -96,13 +96,13 @@ public class Layout {
 //        return fileName;
 //    }
     
-    public void addLayouts(Integer organization_id, Integer user_id, Integer category_id, String layout, String model, boolean email, boolean social, Integer sub_category_id, Integer brand_id, Integer block_id, String Style_image_name, String file_name) throws SQLException {
+    public void addLayouts(Integer organization_id, Integer user_id, Integer category_id, String layout, String model, boolean email, boolean social, Integer sub_category_id, Integer brand_id, Integer block_id, String Style_image_name, String file_name,boolean isSocial,boolean isPrint,boolean isDownload) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Insert into tbl_model (organization_id, user_id, category_id, layout_file_name, model_file_name, email, social, sub_category_id, brand_id, block_id,image_file_name, model_name) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+            query_string = "Insert into tbl_model (organization_id, user_id, category_id, layout_file_name, model_file_name, email, social, sub_category_id, brand_id, block_id,image_file_name, model_name,media,print,download) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setInt(1, organization_id);
@@ -117,6 +117,9 @@ public class Layout {
             prepared_statement.setInt(10, block_id);
             prepared_statement.setString(11, Style_image_name);
             prepared_statement.setString(12, file_name);
+            prepared_statement.setBoolean(13, isSocial);
+            prepared_statement.setBoolean(14, isPrint);
+            prepared_statement.setBoolean(15, isDownload);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);

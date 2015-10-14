@@ -7,7 +7,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>setting</title>
+        <title>BrndBot - Account Settings</title>
         <meta charset="UTF-8" >
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
          <%@ include file="fonttypekit.jsp"%>
@@ -197,7 +197,7 @@ and open the template in the editor.
 
                 <div class="col-md-10 col-md-offset-2">
                     <div class="col-md-10 ">
-                        <p id="text3"> Setting page</p>
+                        <p class="MH2" id="text3"> Setting page</p>
 
 
                         <div style="width:500px; margin:0px; padding:120px 0 40px;">

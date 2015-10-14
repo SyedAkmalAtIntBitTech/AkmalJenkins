@@ -24,7 +24,7 @@ and open the template in the editor.
                 background-color: #B24700;
                  border-color: #E65C00;
             }
-            #social,#email,#print{
+            #social,#email,#print,#download{
                margin: 25px;
                font-size:70px; 
                color: white;
@@ -36,6 +36,6 @@ and open the template in the editor.
                 left: 35px;
                 font-size: small;
             }
-  #social:hover,#email:hover,#print:hover{
+  #social:hover,#email:hover,#print:hover,#download:hover{
        background-color: #E65C00;
 }

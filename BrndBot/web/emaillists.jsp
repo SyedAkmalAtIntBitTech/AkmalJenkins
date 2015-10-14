@@ -25,7 +25,7 @@
          <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
          <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
 
-        <title>Email Lists</title>
+        <title>BrndBot - Email List</title>
         <style>
            .brdr{ 
                text-align:left;
