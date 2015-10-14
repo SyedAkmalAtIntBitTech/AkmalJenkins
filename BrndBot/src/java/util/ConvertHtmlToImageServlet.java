@@ -48,8 +48,7 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
     @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.processRequest(request, response);
-//        Images2PDF images2PDFObj = new Images2PDF();    
+        super.processRequest(request, response); 
 
         try {
             String htmlString = request.getParameter("htmlString");
@@ -78,9 +77,6 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
                             uploadDir.mkdirs();
                         } 
                   PDDocument doc = null;
-                        
-//                File file_name = new File(pdf_save_path);
-//                images2PDFObj.convert(pdf_save_path, image2);
                   try
                     {
                         doc = new PDDocument();
@@ -98,7 +94,7 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
                         // better method inspired by http://stackoverflow.com/a/22318681/535646
                         // reduce this value if the image is too large
                         float scale = 1.0f;
-                        contentStream.drawImage(pdImage, 0, 0);
+                        contentStream.drawImage(pdImage, 0, 200, pdImage.getWidth()*scale, pdImage.getHeight()*scale);
 
                         contentStream.close();
                         doc.save( pdf_save_path );
@@ -110,35 +106,13 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
                             doc.close();
                         }
                     }
-
-
-//                if (Desktop.isDesktopSupported()) {
-//                    try {
-//                        Desktop.getDesktop().open(file_name);
-//                    } catch (IOException ex) {
-//                        // no application registered for PDFs
-//                      System.out.println(ex);
-//                    }
-//                }            
+           
                 getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, pdf_file_name);
 //                deleteFile(file_name);
                 response.setContentType("text/plain");
                 response.getWriter().write(pdf_file_name);
 
             }else if (mediaType.equalsIgnoreCase("downloadimage")){
-                Image image2 = new Image(AppConstants.LAYOUT_IMAGES_HOME + File.separator + filename,
-                                                    ImageTypes.PNG);
-                
-                File file_name = new File(AppConstants.LAYOUT_IMAGES_HOME + File.separator + filename);
-
-                if (Desktop.isDesktopSupported()) {
-                    try {
-                        Desktop.getDesktop().open(file_name);
-                    } catch (IOException ex) {
-                        // no application registered for PDFs
-                      System.out.println(ex);
-                    }
-                }
                 getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, filename);
                 
                 response.setContentType("text/plain");

@@ -629,7 +629,7 @@ if (mindbodydataId != ""){
                                         .css("background", ""+background_image)
                                         .css("background-repeat", "no-repeat")
                                         .css("background-position", "50% 50%")
-                                        .css("-webkit-background-size", "cover")
+                                        .css("background-size", "cover")
                                         .css("background-color", ""+background_color)
                                         .css("position", "absolute")
                                         .css("webkit-filter",""+ filter);

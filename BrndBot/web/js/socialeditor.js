@@ -427,8 +427,7 @@ $(".blockname").change(function (){
                                             .css("background-repeat", "no-repeat")
                                             .css("background-position", "center center")
                                             .css("position", "absolute")
-                                            .css("background-position", "50% 50%")
-                                            .css("-webkit-background-size", "cover")
+                                            .css("background-size", "cover")
                                             .css("background-color", ""+background_color)
                                             .css("webkit-filter",""+ filter);
                                 }
