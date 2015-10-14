@@ -106,36 +106,36 @@ function validateEmail(sEmail) {
 }
 
 function validateaction() {
-    var title = $("#title").val();
+    var title = $("#addactiontitle").val();
     var actiontype = $("#actiontype").val();
     var description = $("#description").val();
-    var actiondate = $("#actiondate").val();
-    var status = $("#status").val();
+    var actiondate = $("#datepicker").val();
+    var actiontime = $("#timepicker1").val();
 
-    if (title === "") {
-        alert("title not entered, please enter the title");
-        $("#title").focus();
-        return false;
-    }
-
-    if (actiontype === "") {
-        alert("actiontype not entered, please enter the actiontype");
+    if (actiontype === '0') {
+        alert("actiontype not selected, please select any one action");
         $("#actiontype").focus();
         return false;
     }
+    if (title === "") {
+        alert("title not entered, please enter the title");
+        $("#addactiontitle").focus();
+        return false;
+    }
+
     if (description === "") {
         alert("description not entered, please enter the description");
         $("#description").focus();
         return false;
     }
     if (actiondate === "") {
-        alert("actiondate not entered, please enter the actiondate");
-        $("#actiondate").focus();
+        alert("date not selected, please select the date");
+        $("#datepicker").focus();
         return false;
     }
-    if (status === "") {
-        alert("status not entered, please enter the status");
-        $("#status").focus();
+    if (actiontime === "") {
+        alert("time not selected, please selecet the time");
+        $("#timepicker1").focus();
         return false;
     }
 
