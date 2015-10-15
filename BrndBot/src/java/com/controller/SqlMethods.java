@@ -785,6 +785,7 @@ public class SqlMethods {
                     pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesMindbodyKey);
                 }
 
+
                 if (pgobject != null & pgobject.getValue() != null && !StringUtil.isEmpty(pgobject.getValue())) {
                     pgobject.setType("json");
                     String obj = pgobject.getValue();
@@ -797,6 +798,7 @@ public class SqlMethods {
                             emailListJSONArray.add(emailJSONObject);
                         }
                     }
+                    
                 }
 
             }
