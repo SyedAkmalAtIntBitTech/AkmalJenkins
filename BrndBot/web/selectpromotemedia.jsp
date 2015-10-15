@@ -12,7 +12,7 @@
 <html>
     <head>
 
-        <title>promote media</title>
+        <title>BrndBot - Channel Selection</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
          <%@ include file="checksession.jsp" %>
@@ -21,6 +21,8 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
+        <script src="js/configurations.js" type="text/javascript"></script>
         
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
@@ -55,25 +57,72 @@
         %>
         
         <script>
+            var print = "print";
+            var download = "image";
             function selected_media(selectedmedia) {
-                var configuration = global_host_address + selectedmedia + ".jsp" + "?id=" +<%= minbodyid%>;
-                window.open(configuration, "_self");
+                
+                if (selectedmedia == print){
+                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +<%= minbodyid %>+"&mediatype=print";
+                    window.open(configuration, "_self");
+                }else if (selectedmedia == download){
+                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +<%= minbodyid %>+"&mediatype=image";
+                    window.open(configuration, "_self");
+                }else if (selectedmedia == 'social'){
+                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +<%= minbodyid %>+"&mediatype=social";
+                    window.open(configuration, "_self");
+                }else if (selectedmedia == 'emailsubject'){
+                    var configuration = global_host_address + "emailsubject.jsp" + "?id=" +<%= minbodyid %>;
+                    window.open(configuration, "_self");
+                }    
             }
+            
+            function selectPromoteMediaController($scope, $http){
+                
+                $scope.checkTemplateAvailability = function(){
+                    var category_id = <%=category_id%>;
+                    var sub_category_id = <%=sub_category_id%>;
+                    
+                    var category = {"category_id": category_id, "sub_category_id": sub_category_id};
+                    
+                    $http({
+                        method: 'POST',
+                        url: 'GetTemplates',
+                        headers: {'Content-Type': 'application/json'},
+                        data: category
+                    }).success(function (data, status, headers, config) {
+                        $scope.email_templates = data.email_template_availability;
+                        $scope.social_templates = data.social_template_availability;
+                        $scope.social_temlates_print=data.social_template_print;
+                        $scope.social_temlates_download=data.social_template_download;
+                        if (data === error) {
+                            alert(data);
+                        }
+                    }).error(function (data, status, headers, config) {
+                        alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+                };    
+            };
+
         </script>
         <jsp:include page="basejsp.jsp" />
     </head>
-    <body>
+    <body ng-app>
 
-        <div> 
-            <div class="row">
+        <div ng-controller="selectPromoteMediaController"> 
+            <div class="row" ng-init="checkTemplateAvailability()">
                 <jsp:include page="mainmenu.html"/><!--/end left column-->
 
                 <div class="col-md-10 col-md-offset-2">
                     <p id="text3"  class="MH2" style="padding-bottom: 2%;">How would you like to promote it?</p> 
-                    <ul id="promotebuttonlist"> 
-                        <li><a onclick="selected_media('socialeditor')"><img src="images/NavIcon_Social-white.svg" id="social" class="glyphicon glyphicon-comment ptr"/></a><p id="soceml">Social</p></li>
-                        <li><a onclick="selected_media('emailsubject')"><img src="images/NavIcon_Email-white.svg" id="email" class="glyphicon glyphicon-envelope ptr" style="padding-bottom:7%;"/></a><p id="soceml">Email</p></li>
-                        <!--                                <li><a ><span id="print" class="glyphicon glyphicon-print"></span></a><p id="promotebutton">Print</p></li>-->
+
+                    <ul id="promotebuttonlist">
+                        <li ng-show="social_templates != 0"><a onclick="selected_media('social')"><img src="images/NavIcon_Social-white.svg" id="social" class="glyphicon glyphicon-comment"/></a><p id="soceml">Social</p></li>
+                        <li ng-show="email_templates != 0"><a onclick="selected_media('emailsubject')"><img src="images/NavIcon_Email-white.svg" id="email" class="glyphicon glyphicon-envelope" style="padding-bottom:7%;"/></a><p id="soceml">Email</p></li>
+                        <li ng-show="social_temlates_print != 0"><a onclick="selected_media('print')"><img src="images/NavIcon_Social-white.svg" id="print" class="glyphicon glyphicon-comment"/></a><p id="soceml">Print</p></li>
+                        <li ng-show="social_temlates_download != 0"><a onclick="selected_media('image')"><img src="images/NavIcon_Social-white.svg" id="download" class="glyphicon glyphicon-comment"/></a><p id="soceml">Image</p></li>
+<!--                                <li><a ><span id="print" class="glyphicon glyphicon-print"></span></a><p id="promotebutton">Print</p></li>-->
                     </ul>    
                 </div>
 

@@ -48,7 +48,9 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
         String image_name,  layout_file_name, model_file_name,image_file_name;
         Integer user_id, id, organization_id, block_id = 0;
         String category_id, sub_category_id, editorType;
-        Boolean isEmail = false;
+        boolean mediadefault=false;
+        String socialEditorType="media="+ mediadefault +"";
+        Boolean isEmail = false, media = false, print = false, download = false;
          HashMap<Integer, Object> hash_map = new HashMap<Integer, Object>();
 
         getSqlMethodsInstance().session = request.getSession(true);
@@ -62,6 +64,23 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
             sub_category_id = (String)getSqlMethodsInstance().session.getAttribute("sub_category_id");
 
             editorType = request.getParameter("editorType");
+            
+            if (editorType.equalsIgnoreCase("social") && request.getParameter("media_type")!= null){
+                if (request.getParameter("media_type").equalsIgnoreCase("social")){
+                    media=true;
+                    socialEditorType="media="+ media +"";
+                }
+                if (request.getParameter("media_type").equalsIgnoreCase("print")){
+                    print=true;
+                    socialEditorType="print="+ print +"";
+                }
+                if (request.getParameter("media_type").equalsIgnoreCase("image")){
+                    download=true;
+                    socialEditorType="download="+ download +"";
+                }
+               
+                
+            }
             if (editorType.equalsIgnoreCase("email")) {
                 isEmail = true;//Else it is initialized as false -- social
             }
@@ -72,7 +91,12 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
                 category_id = "0";//Since its a block
             }
             
-            String query = "Select * from tbl_model where organization_id="+organization_id+" and (user_id="+user_id+" or user_id=0) and category_id="+category_id+" and social="+!isEmail+" and email="+isEmail+" and sub_category_id="+sub_category_id+" and block_id="+block_id;
+            String query = "Select * from tbl_model where organization_id="+organization_id+" "
+                    + "and (user_id="+user_id+" or user_id=0) and "
+                    + "category_id="+category_id+" and social="+!isEmail+" "
+                    + "and email="+isEmail+" and "
+                    + "sub_category_id="+sub_category_id+" "
+                    + "and block_id="+block_id+" and "+socialEditorType+"";
             prepared_statement = connection.prepareStatement(query);
             result_set = prepared_statement.executeQuery();
             

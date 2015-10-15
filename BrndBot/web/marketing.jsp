@@ -31,7 +31,7 @@
         <link rel="stylesheet" href="css/main1.css">
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
-        <title>marketing campaign</title>
+        <title>BrndBot - Your Plan</title>
 
         <style type='text/css'>
             input[type=checkbox],input[type=datetime]{
@@ -487,7 +487,6 @@
             p.actionLable
             {
                 margin-left:3%;
-                color: #4e4e4e;
             }
            
             
@@ -590,7 +589,7 @@
                                     <div class="col-md-3" style="width:300px;margin-left:-40px;">
                                         <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
                                             <p class="MH1" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description)">{{entitydetails.schedule_title}}</p></a>
-                                        <p class="SP1 fntschld">Scheduled for {{entitydetails.schedule_time| date:"h:mma"}}</p>
+                                        <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entitydetails.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entitydetails.template_status}}</div>
@@ -626,7 +625,7 @@
                     <h1 class="SP2 actfnt">ADD ACTION</h1>
                     <form class="form-horizontal" id="signform" >
                         <div class="group" style="position:relative;">
-                            <p class="actionLable SH2" >TYPE OF ACTION</p>
+                            <p class="actionLable SH2" >type of action</p>
                         </div>
                         
                         <div style="position:absolute;left:15px;top:20px;" class="SH2">
@@ -638,15 +637,15 @@
                                  <option value="note">note</option>
                                </select>
                         </div>
-                        <div class="SH2" style="position:absolute;top:80px;left:15px;">
-                           TITLE <br><textarea cols="28" rows="2" name="addactiontitle" id="addactiontitle" class="SH2" style="resize: none;font-size:1.2em;height:70px;"></textarea>
+                        <div  style="position:absolute;top:80px;left:15px;">
+                            <p class="SH1">TITLE</p><textarea cols="36" rows="2" name="addactiontitle" id="addactiontitle" class="SS2" style="resize:none;font-size:1.3em;height:70px;margin-top:-5px;"></textarea>
                         </div>
                             <div style="position:absolute;top:180px;left:15px;" class="SH2">                              
-                                Description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;height:70px;"></textarea>
+                                description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;height:70px;"></textarea>
                             </div>
-                            <div class="SP2" style="position:absolute;top:280px;left:15px;" >
-                                SCHEDULED TO POST ON<br><br>
-                                Date 
+                            <div class="SH2" style="position:absolute;top:282px;left:15px;" >
+                                scheduled to post on<br><br>
+                                date 
                                 <input type="text" readonly name="actiondatetime"  class="inputdate MH1 ptr" id="datepicker" >
                                         <script>
 
@@ -661,7 +660,7 @@
 
                                         </script><br>
                                         <div style="position:relative;margin-top:-84px;margin-left:180px;">
-                                        Time
+                                        time
                                      <input id="timepicker1" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:110px;"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
@@ -724,7 +723,7 @@
                                 <div style="position:absolute;margin-top:280px;">
                                     <p class=" SP1 actfnt">SENDING DETAILS</p>
                                     <div class="actiondet">
-                                        <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                        <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     </div>
 
                                     <div ng-hide="email_template_status=='Complete'" style="position:relative;
@@ -889,7 +888,7 @@
                                     </div></div>
                                     <div style="position:relative;margin-top: 100px;"> 
                                     <!--<input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>-->
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                     <div class="editbutton"><button ng-click="updateEmailSchedule()" class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                     </div>
@@ -928,7 +927,7 @@
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.metadata.ManagedPage}}</p>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
 
                                 <div ng-hide="facebook_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;left:-10px;">
@@ -1103,8 +1102,8 @@
                                     
                                     
                                     <!--<input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>-->
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    <input type="text" readonly class="SH2" name="social_type" id="social_type" value="{{schedule_type}}">
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <input type="text" readonly class="SH1" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
                                 <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                 <div class="editbutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="margin-left:300px;margin-top:-48px;" type="button">save</button> </div>
@@ -1132,7 +1131,7 @@
                             <div style="position:absolute;margin-left:15px;margin-top:50px;">
                                 <p class=" SP1 actfnt">Post details</p>
                                 <div>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
 
                                 <div style="position:relative;left:-10px;">
@@ -1189,7 +1188,7 @@
                                     </div>
                               
                                     <!--<input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>-->
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
                                 <div class="savebutton" ng-click="updateNote()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                             </div>
@@ -1225,7 +1224,7 @@
                                 <p class="postdetails SP1 actfnt">Post details</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
                                 <div ng-hide="twitter_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;left:-5px;" class="editbutton">
                                 <button ng-click="editScheduleDetails(
@@ -1390,8 +1389,8 @@
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script></div><br>
                                     
                                     <!--<input type='datetime-local'  class="inputdate"/><br>-->
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    <input type="text" class="SH2" readonly name="social_type" id="social_type" value="{{schedule_type}}">
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <input type="text" class="SH1" readonly name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
                                 <div style="margin-left:-10px;" class="removesavetemplate"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                 <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>

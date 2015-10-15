@@ -13,7 +13,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Select promoting category </title>
+        <title>BrndBot - Content Selection</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
          <%@ include file="checksession.jsp" %>

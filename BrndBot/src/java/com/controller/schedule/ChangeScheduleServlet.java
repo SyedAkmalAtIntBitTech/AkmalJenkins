@@ -138,7 +138,7 @@ public class ChangeScheduleServlet extends HttpServlet {
                 String entity_id = (String)requestBodyMap.get("entityid");
 
                 try(Connection conn = connectionManager.getConnection()){
-                    ScheduleDAO.updateScheduleEntityList(Integer.parseInt(entity_id), 
+                    Integer id = ScheduleDAO.updateScheduleEntityList(Integer.parseInt(entity_id), 
                             Integer.parseInt(schedule_id), 
                             TemplateStatus.complete.toString(), conn);
                     response.setStatus(HttpServletResponse.SC_OK);

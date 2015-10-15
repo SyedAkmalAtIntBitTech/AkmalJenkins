@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>image gallery</title>
+        <title>BrndBot - Library</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
          <%@ include file="checksession.jsp" %>
