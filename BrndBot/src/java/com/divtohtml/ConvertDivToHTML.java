@@ -273,23 +273,24 @@ public class ConvertDivToHTML {
                 String key = null;
                 String value = null;
                 String[] keyValue = null;
-
-                if (entry.contains("background") && entry.contains("url")) {
-                    keyValue = entry.split(":");
-                    key = keyValue[0];
-                    int startPosition = entry.indexOf("(") + "(".length();
-                    int endPosition = entry.indexOf(")", startPosition);
-                    value = entry.substring(startPosition, endPosition);
-                } else if (entry.contains("src")) {
-                    keyValue = entry.split("=");
-                    key = keyValue[0];
-                    value = keyValue[1];
-                } else {
-                    keyValue = entry.split(":");
-                    key = keyValue[0];
-                    value = keyValue[1];
+                if (!StringUtil.isEmpty(entry)) {
+                    if (entry.contains("background") && entry.contains("url")) {
+                        keyValue = entry.split(":");
+                        key = keyValue[0];
+                        int startPosition = entry.indexOf("(") + "(".length();
+                        int endPosition = entry.indexOf(")", startPosition);
+                        value = entry.substring(startPosition, endPosition);
+                    } else if (entry.contains("src")) {
+                        keyValue = entry.split("=");
+                        key = keyValue[0];
+                        value = keyValue[1];
+                    } else {
+                        keyValue = entry.split(":");
+                        key = keyValue[0];
+                        value = keyValue[1];
+                    }
+                    map.put(key, value);
                 }
-                map.put(key, value);
             }
         }
         return map;
@@ -376,7 +377,7 @@ public class ConvertDivToHTML {
 
         PhantomImageConverter phantomImageConverter = new PhantomImageConverter(servletRequest.getServletContext(), filePath);
         compressedBackgroundImageFile = phantomImageConverter.getImage(backgroundImageWithBlocksHTML.toString(), null, width, height, "0", "0");
-            //Should create the compressed image out of this and replace the background with it.
+        //Should create the compressed image out of this and replace the background with it.
 
         String imageURL = ServletUtil.getServerName(servletRequest.getServletContext()) + "DownloadImage?image_type=HTML_IMAGES&image_name=" + compressedBackgroundImageFile.getName();
         logger.log(Level.INFO, "\nURL of the image:" + imageURL);
