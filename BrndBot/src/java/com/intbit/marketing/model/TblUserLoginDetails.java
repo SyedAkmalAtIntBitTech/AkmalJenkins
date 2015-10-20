@@ -118,41 +118,13 @@ public class TblUserLoginDetails  implements java.io.Serializable {
         this.companyName = companyName;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tblUserLoginDetails")
-    public Set getTblScheduledEmailLists() {
-        return this.tblScheduledEmailLists;
-    }
-    
-    public void setTblScheduledEmailLists(Set tblScheduledEmailLists) {
-        this.tblScheduledEmailLists = tblScheduledEmailLists;
-    }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tblUserLoginDetails")
-    public Set getTblUserMarketingPrograms() {
-        return this.tblUserMarketingPrograms;
-    }
-    
-    public void setTblUserMarketingPrograms(Set tblUserMarketingPrograms) {
-        this.tblUserMarketingPrograms = tblUserMarketingPrograms;
-    }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tblUserLoginDetails")
-    public Set getTblMarketingCategoryUsersLookups() {
-        return this.tblMarketingCategoryUsersLookups;
-    }
-    
-    public void setTblMarketingCategoryUsersLookups(Set tblMarketingCategoryUsersLookups) {
-        this.tblMarketingCategoryUsersLookups = tblMarketingCategoryUsersLookups;
-    }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tblUserLoginDetails")
-    public Set getTblMarketingPrograms() {
-        return this.tblMarketingPrograms;
-    }
-    
-    public void setTblMarketingPrograms(Set tblMarketingPrograms) {
-        this.tblMarketingPrograms = tblMarketingPrograms;
-    }
+
+
+
+
 
 
 

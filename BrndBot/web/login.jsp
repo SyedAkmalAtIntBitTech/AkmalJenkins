@@ -66,7 +66,21 @@
                 </div>
             </form>
         </div>
-                    
+                        <script>
+           
+           $(document).ready(function () {
+               alert("hi");
+           
+$.ajax({
+                                           type: "GET",
+                                                   url: "/login",
+                                                   
+                                                   success: function (data) {
+alert("Hits fine!");
+}
+});
+   });    
+        </script>
     </body>
 </html>
     

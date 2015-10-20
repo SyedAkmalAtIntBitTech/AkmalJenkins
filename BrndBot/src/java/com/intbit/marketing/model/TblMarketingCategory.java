@@ -62,7 +62,7 @@ public class TblMarketingCategory  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="organization_id")
     public TblOrganization getTblOrganization() {
         return this.tblOrganization;
@@ -102,32 +102,9 @@ public class TblMarketingCategory  implements java.io.Serializable {
         this.image = image;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tblMarketingCategory")
-    public Set getTblMarketingActions() {
-        return this.tblMarketingActions;
-    }
-    
-    public void setTblMarketingActions(Set tblMarketingActions) {
-        this.tblMarketingActions = tblMarketingActions;
-    }
+   
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tblMarketingCategory")
-    public Set getTblMarketingCategoryUsersLookups() {
-        return this.tblMarketingCategoryUsersLookups;
-    }
     
-    public void setTblMarketingCategoryUsersLookups(Set tblMarketingCategoryUsersLookups) {
-        this.tblMarketingCategoryUsersLookups = tblMarketingCategoryUsersLookups;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tblMarketingCategory")
-    public Set getTblMarketingPrograms() {
-        return this.tblMarketingPrograms;
-    }
-    
-    public void setTblMarketingPrograms(Set tblMarketingPrograms) {
-        this.tblMarketingPrograms = tblMarketingPrograms;
-    }
 
 
 

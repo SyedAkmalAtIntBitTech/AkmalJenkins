@@ -24,10 +24,11 @@ public class MarketingCategoryController {
     private static final Logger logger = Logger.getLogger(MarketingCategoryController.class.getName());
     @Autowired
     private MarketingCategoryService marketingCategoryService;
-    @RequestMapping("")
+    @RequestMapping("/dashboard")
 	public ModelAndView getAllMarketingCategory() {
-		ModelAndView mav = new ModelAndView("");
+		ModelAndView mav = new ModelAndView("login");
 		try {
+                    System.out.println("hii");
 			List<TblMarketingCategory> marketingCategorysList = marketingCategoryService.getAllMarketingCategory();
 			mav.addObject("MARKETING_DETAILS_RESULTS_KEY", marketingCategorysList);
 		}

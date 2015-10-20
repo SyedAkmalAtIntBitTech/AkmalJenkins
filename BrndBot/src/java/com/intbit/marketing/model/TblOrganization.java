@@ -61,14 +61,6 @@ public class TblOrganization  implements java.io.Serializable {
         this.organizationName = organizationName;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tblOrganization")
-    public Set getTblMarketingCategories() {
-        return this.tblMarketingCategories;
-    }
-    
-    public void setTblMarketingCategories(Set tblMarketingCategories) {
-        this.tblMarketingCategories = tblMarketingCategories;
-    }
 
 
 

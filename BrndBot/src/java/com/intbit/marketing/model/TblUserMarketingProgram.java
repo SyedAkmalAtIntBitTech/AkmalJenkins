@@ -101,14 +101,7 @@ public class TblUserMarketingProgram  implements java.io.Serializable {
         this.createDate = createDate;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tblUserMarketingProgram")
-    public Set getTblScheduledEntityLists() {
-        return this.tblScheduledEntityLists;
-    }
-    
-    public void setTblScheduledEntityLists(Set tblScheduledEntityLists) {
-        this.tblScheduledEntityLists = tblScheduledEntityLists;
-    }
+
 
 
 

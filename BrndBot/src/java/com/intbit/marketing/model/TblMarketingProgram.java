@@ -64,7 +64,7 @@ public class TblMarketingProgram  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+   @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="marketing_category_id", nullable=false)
     public TblMarketingCategory getTblMarketingCategory() {
         return this.tblMarketingCategory;
@@ -74,7 +74,7 @@ public class TblMarketingProgram  implements java.io.Serializable {
         this.tblMarketingCategory = tblMarketingCategory;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+   @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
     public TblUserLoginDetails getTblUserLoginDetails() {
         return this.tblUserLoginDetails;
@@ -114,14 +114,7 @@ public class TblMarketingProgram  implements java.io.Serializable {
         this.htmlData = htmlData;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tblMarketingProgram")
-    public Set getTblMarketingActions() {
-        return this.tblMarketingActions;
-    }
-    
-    public void setTblMarketingActions(Set tblMarketingActions) {
-        this.tblMarketingActions = tblMarketingActions;
-    }
+
 
 
 
