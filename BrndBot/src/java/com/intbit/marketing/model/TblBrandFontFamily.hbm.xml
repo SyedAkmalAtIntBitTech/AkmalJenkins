@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19 Oct, 2015 6:43:25 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.intbit.marketing.model.TblBrandFontFamily" table="tbl_brand_font_family" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="brandId" type="int">
+            <column name="brand_id" not-null="true" />
+        </property>
+        <property name="fontId1" type="int">
+            <column name="font_id1" not-null="true" />
+        </property>
+        <property name="fontId2" type="int">
+            <column name="font_id2" not-null="true" />
+        </property>
+        <property name="fontId3" type="int">
+            <column name="font_id3" not-null="true" />
+        </property>
+        <property name="fontId4" type="int">
+            <column name="font_id4" not-null="true" />
+        </property>
+        <property name="fontId5" type="int">
+            <column name="font_id5" not-null="true" />
+        </property>
+        <property name="fontSize1" type="int">
+            <column name="font_size1" not-null="true" />
+        </property>
+        <property name="fontSize2" type="int">
+            <column name="font_size2" not-null="true" />
+        </property>
+        <property name="fontSize3" type="int">
+            <column name="font_size3" not-null="true" />
+        </property>
+        <property name="fontSize4" type="int">
+            <column name="font_size4" not-null="true" />
+        </property>
+        <property name="fontSize5" type="int">
+            <column name="font_size5" not-null="true" />
+        </property>
+        <property name="fontStyles1" type="int">
+            <column name="font_styles1" not-null="true" />
+        </property>
+        <property name="fontStyles2" type="int">
+            <column name="font_styles2" not-null="true" />
+        </property>
+        <property name="fontStyles3" type="int">
+            <column name="font_styles3" not-null="true" />
+        </property>
+        <property name="fontStyles4" type="int">
+            <column name="font_styles4" not-null="true" />
+        </property>
+        <property name="fontStyles5" type="int">
+            <column name="font_styles5" not-null="true" />
+        </property>
+        <set name="tblUserPreferenceses" table="tbl_user_preferences" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="font_theme_id" not-null="true" />
+            </key>
+            <one-to-many class="com.intbit.marketing.model.TblUserPreferences" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19 Oct, 2015 6:43:25 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.intbit.marketing.model.TblSocialposthistory" table="tbl_socialposthistory" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+        </property>
+        <property name="timesent" type="date">
+            <column name="timesent" length="13" />
+        </property>
+        <property name="contenthtml" type="string">
+            <column name="contenthtml" />
+        </property>
+        <property name="twitter" type="java.lang.Boolean">
+            <column name="twitter" />
+        </property>
+        <property name="facebook" type="java.lang.Boolean">
+            <column name="facebook" />
+        </property>
+        <property name="pdffiles" type="binary">
+            <column name="pdffiles" />
+        </property>
+        <property name="imagefilename" type="binary">
+            <column name="imagefilename" />
+        </property>
+    </class>
+</hibernate-mapping>

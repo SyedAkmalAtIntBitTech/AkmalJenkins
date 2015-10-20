@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19 Oct, 2015 6:43:25 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.intbit.marketing.model.TblEmailMandrillHistory" table="tbl_email_mandrill_history" schema="public" optimistic-lock="version">
+        <composite-id name="id" class="com.intbit.marketing.model.TblEmailMandrillHistoryId">
+            <key-property name="emailHistoryId" type="int">
+                <column name="email_history_id" />
+            </key-property>
+            <key-property name="toEmail" type="string">
+                <column name="to_email" length="250" />
+            </key-property>
+        </composite-id>
+        <property name="mandrillEmailId" type="string">
+            <column name="mandrill_email_id" length="300" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="200" />
+        </property>
+        <property name="rejectReason" type="string">
+            <column name="reject_reason" length="300" />
+        </property>
+    </class>
+</hibernate-mapping>

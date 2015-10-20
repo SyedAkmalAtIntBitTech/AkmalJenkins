@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19 Oct, 2015 6:43:25 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.intbit.marketing.model.TblEmailsenthistory" table="tbl_emailsenthistory" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+        </property>
+        <property name="timesent" type="timestamp">
+            <column name="timesent" length="35" />
+        </property>
+        <property name="contenthtml" type="string">
+            <column name="contenthtml" />
+        </property>
+        <property name="emailaddress" type="string">
+            <column name="emailaddress" length="150" />
+        </property>
+        <property name="emaillistname" type="string">
+            <column name="emaillistname" length="150" />
+        </property>
+        <property name="emailTag" type="string">
+            <column name="email_tag" length="1000" />
+        </property>
+        <property name="subject" type="string">
+            <column name="subject" length="1000" />
+        </property>
+        <property name="toemailaddresses" type="serializable">
+            <column name="toemailaddresses" />
+        </property>
+    </class>
+</hibernate-mapping>

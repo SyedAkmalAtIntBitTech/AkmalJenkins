@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19 Oct, 2015 6:43:25 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.intbit.marketing.model.TblFontFamily" table="tbl_font_family" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="fontName" type="string">
+            <column name="font_name" length="30" not-null="true" />
+        </property>
+        <property name="fileName" type="string">
+            <column name="file_name" length="120" />
+        </property>
+        <property name="fontFamilyName" type="string">
+            <column name="font_family_name" length="150" />
+        </property>
+    </class>
+</hibernate-mapping>
