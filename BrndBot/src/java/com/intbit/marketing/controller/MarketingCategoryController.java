@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -24,20 +25,21 @@ public class MarketingCategoryController {
     private static final Logger logger = Logger.getLogger(MarketingCategoryController.class.getName());
     @Autowired
     private MarketingCategoryService marketingCategoryService;
-    @RequestMapping("/dashboard")
+   @RequestMapping(value="/allmarketingCategory", method = RequestMethod.GET)
 	public ModelAndView getAllMarketingCategory() {
-		ModelAndView mav = new ModelAndView("login");
+		ModelAndView mav = new ModelAndView("dashboard");
 		try {
                     System.out.println("hii");
 			List<TblMarketingCategory> marketingCategorysList = marketingCategoryService.getAllMarketingCategory();
 			mav.addObject("MARKETING_DETAILS_RESULTS_KEY", marketingCategorysList);
+                        System.err.println("bye");
 		}
 		
 		catch (Throwable throwable) {
 			logger.log(Level.SEVERE, null, throwable);
 			mav.addObject("mainError", throwable.getMessage());
 		}
-		return mav;
+		return null;
     
 }
 }

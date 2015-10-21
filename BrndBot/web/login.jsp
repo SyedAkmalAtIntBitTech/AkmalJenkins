@@ -73,11 +73,15 @@
            
 $.ajax({
                                            type: "GET",
-                                                   url: "/login",
+                                                   url: "http://localhost:8084/BrndBot/allmarketingCategory.do",
                                                    
                                                    success: function (data) {
 alert("Hits fine!");
-}
+},
+       error: function(xhr, ajaxOptions, thrownError){
+           
+        alert(thrownError);
+       }
 });
    });    
         </script>

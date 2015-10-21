@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author intbit-6
  */
 @Service
-@Transactional(rollbackFor = Throwable.class)
+@Transactional
 public class MarketingCategoryServiceImpl implements MarketingCategoryService{
     
      @Autowired
