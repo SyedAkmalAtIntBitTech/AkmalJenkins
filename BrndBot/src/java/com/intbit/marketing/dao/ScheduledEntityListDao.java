@@ -47,5 +47,13 @@ public interface ScheduledEntityListDao {
 	 * @throws java.lang.Throwable 
     */
    public void delete(Integer id) throws Throwable;
+   
+   /**
+	 * This method retrieves {@link scheduledEntityList} by passing id
+	 * @param userMarketingProgramId
+	 * @return {@link scheduledEntityList}
+        * @throws java.lang.Throwable 
+    */
+   public List<TblScheduledEntityList> getScheduledEntityLisId(Integer userMarketingProgramId) throws Throwable; 
     
 }

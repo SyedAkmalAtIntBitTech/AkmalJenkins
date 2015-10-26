@@ -6,7 +6,6 @@
 package com.intbit.marketing.dao.implementation;
 
 import com.intbit.marketing.dao.ScheduledEntityListDao;
-import com.intbit.marketing.model.TblMarketingAction;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,7 +35,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao{
     public TblScheduledEntityList getById(Integer id) throws Throwable {
         try {
                 Criteria criteria=sessionFactory.getCurrentSession()
-                        .createCriteria(TblMarketingAction.class)
+                        .createCriteria(TblScheduledEntityList.class)
                         .setFetchMode("tblMarketingCategory", FetchMode.JOIN)
                          .setFetchMode("tblMarketingProgram", FetchMode.JOIN)
                         .add(Restrictions.eq("id", id));
@@ -100,6 +99,22 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao{
                     logger.log(Level.SEVERE, null, throwable);
                     throw new Throwable("Database error while retrieving record.");
 		}
+    }
+
+    /**
+	 * {@inheritDoc}
+     */
+    public List<TblScheduledEntityList> getScheduledEntityLisId(Integer userMarketingProgramId) throws Throwable {
+       try {
+                Criteria criteria=sessionFactory.getCurrentSession()
+                        .createCriteria(TblScheduledEntityList.class)                   
+                         .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
+                        .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId));
+                return criteria.list();
+		} catch (Throwable throwable) {
+			logger.log(Level.SEVERE, null, throwable);
+			throw new Throwable("Database error while retrieving record");
+            }
     }
     
 }
