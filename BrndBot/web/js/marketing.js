@@ -7,10 +7,11 @@
 var sliderDialog = "";
 var prevSliderDialog = "";
 var create_button_title = "Create";
-
+var slider="";
 $(document).ready(function ()
 {
     $("#liPriority").click(function () {
+        $slider=1;
         sliderDialog = "#dvPriorityDialog";
         $('#slider-button').click();
         prevSliderDialog = "#dvPriorityDialog";
@@ -41,25 +42,52 @@ $(document).ready(function ()
 //        }
 ////    })
 //    }
+    
     $('#slider-button').click(function () {
         //To hide the dialog if user click on another node
-        if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
-            if ($('#slider-button').css("margin-right") == "530px")
-            {
-                $(prevSliderDialog).animate({"margin-right": '-=600'});
-                $('#slider-button').animate({"margin-right": '-=530'});
+        if($slider==2)
+        {
+            if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                if ($('#slider-button').css("margin-right") == "788px")
+                {
+                    $(prevSliderDialog).animate({"margin-right": '-=850px'});
+                    $('#slider-button').animate({"margin-right": '-=788px'});
+                }
             }
-        }
 
-        if ($('#slider-button').css("margin-right") == "530px")
-        {
-            $(sliderDialog).animate({"margin-right": '-=600'});
-            $('#slider-button').animate({"margin-right": '-=530'});
+            if ($('#slider-button').css("margin-right") == "788px")
+            {
+                $slider=0;
+                $(sliderDialog).animate({"margin-right": '-=850px'});
+                $('#slider-button').animate({"margin-right": '-=788px'});
+            }
+            else
+            {
+                $(sliderDialog).animate({"margin-right": '+=850px'});
+                $('#slider-button').animate({"margin-right": '+=788px'});
+            }  
         }
-        else
+        if($slider==1)
         {
-            $(sliderDialog).animate({"margin-right": '+=600'});
-            $('#slider-button').animate({"margin-right": '+=530'});
+            if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                if ($('#slider-button').css("margin-right") == "375px")
+                {
+                    $(prevSliderDialog).animate({"margin-right": '-=424px'});
+                    $('#slider-button').animate({"margin-right": '-=375px'});
+                }
+            }
+
+            if ($('#slider-button').css("margin-right") == "375px")
+            {
+                $slider=0;
+                $(sliderDialog).animate({"margin-right": '-=424px'});
+                $('#slider-button').animate({"margin-right": '-=375px'});
+            }
+            else
+            {
+                $(sliderDialog).animate({"margin-right": '+=424px'});
+                $('#slider-button').animate({"margin-right": '+=375px'});
+            }  
         }
     });
 
@@ -480,12 +508,14 @@ function controllerMarketingCampaign($scope, $http) {
     };
 
     $scope.showScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
-
+        
         if (entity_type == "email") {
+            $slider=2;
+            $("#preview_email").hide();
+            $("#edit_email").show();
             sliderDialog = "#preview";
             $('#slider-button').click();
             prevSliderDialog = "#preview";
-
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
@@ -517,6 +547,7 @@ function controllerMarketingCampaign($scope, $http) {
             });
 
         } else if (entity_type == "facebook") {
+            $slider=2;
             sliderDialog = "#previewfb";
             $('#slider-button').click();
             prevSliderDialog = "#previewfb";
@@ -547,6 +578,7 @@ function controllerMarketingCampaign($scope, $http) {
             });
 
         } else if (entity_type == "twitter") {
+            $slider=2;
             sliderDialog = "#previewtwitter";
             $('#slider-button').click();
             prevSliderDialog = "#previewtwitter";
@@ -578,6 +610,7 @@ function controllerMarketingCampaign($scope, $http) {
             });
 
         } else if (entity_type == "note") {
+            $slider=1;
             sliderDialog = "#previewNote";
             $('#slider-button').click();
             prevSliderDialog = "#previewNote";
@@ -607,12 +640,13 @@ function controllerMarketingCampaign($scope, $http) {
 
 
         if (entity_type == "email") {
-            sliderDialog = "#preview";
-            $('#slider-button').click();
-            prevSliderDialog = "#preview";
+            $slider=2;
             $("#preview_email").show();
             $("#edit_email").hide();
             $("#edit_email_action").hide();
+            sliderDialog = "#preview";
+            $('#slider-button').click();
+            prevSliderDialog = "#preview";
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
@@ -638,6 +672,7 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful");
             });
         } else if (entity_type == "facebook") {
+            $slider=2;
             sliderDialog = "#previewfb";
             $('#slider-button').click();
             prevSliderDialog = "#previewfb";
@@ -674,6 +709,7 @@ function controllerMarketingCampaign($scope, $http) {
             });
 
         } else if (entity_type == "twitter") {
+            $slider=2;
             sliderDialog = "#previewtwitter";
             $('#slider-button').click();
             prevSliderDialog = "#previewtwitter";
@@ -711,6 +747,7 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful");
             });
         } else if (entity_type == "note") {
+            $slider=1;
             sliderDialog = "#previewNote";
             $('#slider-button').click();
             prevSliderDialog = "#previewNote";

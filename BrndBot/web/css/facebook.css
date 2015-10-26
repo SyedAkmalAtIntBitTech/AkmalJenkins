@@ -1,0 +1,181 @@
+.firstcol{
+    margin: 51px 40.3px 48px 57px;
+}
+.secondcol{
+    margin: 51px 40.3px 48px 42.7px;
+}
+.borderright{
+    border-right: 2px solid #979797;
+}
+.headtitle{
+}
+.headdelete{
+    margin-left:40px;
+    margin-top:5px;
+}
+.inlineFlex
+{
+    display:inline-flex;
+    width:100%;
+}
+.left{
+    margin-left:57px;
+    width: 100%;
+}
+.left1
+{
+    margin-left:47px;
+    width: 100%;
+}
+.rightthirty{
+    margin-right:30px;
+}
+.rightfive{
+    margin-right:5px;
+}
+right223
+{
+    margin-right:223.7px;
+}
+.toptwo{
+    margin-top:2px;
+}
+.topfive{
+    margin-top:5px;
+}
+.topnine{
+    margin-top:9px;
+}
+.topten{
+    margin-top:10px;
+}
+.top10nhalf{
+    margin-top:10.5px;
+}
+.topnineteen{
+    margin-top:19px;
+}
+.top111{
+    margin-top:111px;
+}
+.toptweenty{
+    margin-top:20px;
+}
+.top20nhalf
+{
+    margin-top: 20.5px;
+}
+.toptweentyone{
+    margin-top:21px;
+}
+.toptweentyfive{
+    margin-top: 25px;
+}
+.top27{
+    margin-top: 27px;
+}
+.topthirty{
+    margin-top:30px;
+}
+.top32{
+    margin-top:32px;
+}
+.topfourty{
+    margin-top:40px;
+}
+.topsixeight{
+    margin-top:68px;
+}
+.top120
+{
+    margin-top:120px;
+}
+.tenpix
+{
+    font-size: 10px;
+}
+.twlvpix
+{
+    font-size: 12px;
+}
+.sixtnpix
+{
+    font-size: 16px;
+}
+.headcolor{
+    color: #2d4355;
+}
+.titlecontain{
+    color:#19587c;
+}
+.containe{
+    color:#3f3f42;
+}
+.half{
+    width:50%;
+}
+.scrolly{
+    overflow-y:scroll;
+}
+.height75{
+    height:75px;
+}
+.greenDot{
+    height:10px;
+    width:10px;
+    background-color:#5cc2a5;
+    border-radius: 50%;
+}
+.redDot{
+    height:10px;
+    width:10px;
+    background-color:#f27821;
+    border-radius: 50%;
+}
+.buttonmargin{
+    margin:0px !important;
+}
+.editbuttonwidthheightcolor{
+    width:103px;
+    height:25px;
+    background-color:#e3e3e3 !important;
+    color: #3f3f42 !important;
+    font-size: 12px !important;
+}
+.approvebuttonwidthheightcolor{
+    width:126px;
+    height:25px;
+    background-color:#e3e3e3 !important;
+    color: #3f3f42 !important;
+    font-size: 12px !important;
+}
+.button.approvebuttonwidthheightcolor.buttonmargin.button--moema.button--text-thick.button--text-upper.fontpns {
+    width: 165px !important;
+}
+.fbimg{
+    height:124px;
+    width:260px;
+    border: 1px solid #979797;
+}
+.mailimg{
+    height:306px;
+    width:260px;
+    border: 1px solid #979797;
+}
+.actionmainviv
+{
+    margin-bottom: 48px;
+    margin-left: 47px;
+    margin-right: 28px;
+    margin-top: 51px;
+}
+ #dvPriorityDialog, #dvFastingDialog {
+    position:fixed;
+    height:100%;
+    background:#ffffff;
+    width:424px;
+    right:0px;
+    margin-right: -424px;
+    border: 1px solid #ccc;
+    z-index: 1005;
+            }

@@ -30,10 +30,22 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="css/main1.css">
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
-       <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
+        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="css/facebook.css" type="text/css"/>
         <title>marketing campaign</title>
 
         <style type='text/css'>
+           
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             input[type=checkbox],input[type=datetime]{
                 cursor:pointer;
             }
@@ -192,30 +204,11 @@
                 width: 220px;
                 height: 35px;
             }
-            #dvPriorityDialog, #dvFastingDialog {
-                position:fixed;
-                height:100%;
-                background:#ffffff;
-                width:600px;
-                right:0px;
-                margin-right: -600px;
-                border: 1px solid #ccc;
-            }
-
-            #preview, #previewemail, #emailedit, #editfacebook, #edittwitter,
-            #previewfb, #previewNote, #previewtwitter, #editNote{
-                position:fixed;
-                max-height:100%;
-                background:#ffffff;
-                width:600px;
-                right:0px;
-                margin-right: -600px;
-                border: 1px solid #ccc;
-            }
+            
             #slider-button
             {
                 position:fixed;
-                width:70px;
+                width:38px;
                 height:50px;
                 right:0px;
                 background:transparent;
@@ -393,12 +386,6 @@
                 font-size:1.8em;
                 font-weight: 600;
             }
-            .actfnt{
-                color:#888;
-                font-variant:normal;
-                font-size:1.5em;
-                font-weight: 600;
-            }
             .fntschld{
                 color:#888;
                 font-variant:normal;
@@ -428,7 +415,7 @@
             }
             #actiontype{
                 
-                 background-color: #ffffff;
+                background-color: #ffffff;
                 border: 1px solid #DADADA;
                 height:30px;
                 width:200px;
@@ -468,7 +455,135 @@
             select#actiontype > option{
                 background-color: #fff;
             }
-
+            #previewNote, #editNote{
+                position:fixed;
+                max-height:100%;
+                background:#ffffff;
+                width:424px;
+                right:0px;
+                margin-right: -424px;
+                border: 1px solid #ccc;
+            }
+           
+            /******************************** Start Satyajit Roy css code *******************/
+            .pfont{
+                font-size: 14px !important;
+                left: 0px !important;
+            }
+            .actfnt{
+                color:#86868b;
+                font-variant:normal;
+                font-size:1.5em;
+                font-weight: 600;
+            }
+            .h5font {
+                font-size:10px !important;
+                margin-bottom: 0 !important;
+/*                margin-top: 17px !important;*/
+                color: #a2a2a2 !important;
+                cursor:pointer;
+            }
+            
+            .header{
+                font-size: 85%;
+                color: #585858;
+                font-variant: normal;
+                font-weight: 600;            
+            }
+            .description {
+                color: #626262;
+                font-weight: 500;
+            }
+            #previewemail, #emailedit, #editfacebook, #edittwitter,#preview,#previewtwitter,#previewfb{
+                z-index:1005;
+                height:100%;
+                overflow-y:scroll;
+                overflow-x:hidden;
+                position:fixed;
+                max-height:100%;
+                background:#ffffff;
+                width:850px;
+                right:0px;
+                margin-right: -850px;
+                border: 1px solid #ccc;
+            }
+            #imgcontainer1 > img {
+                margin-left: -15px !important;
+            }
+            #imgcontainer
+            {
+                width:100% !important;
+            }
+            .border {
+                border-left: 1px solid #dadadd;
+                margin-left: 7% !important;
+            }
+            #imgcontainer1 > img {
+                    max-width: 100%;
+            }
+            .status {
+                color: #626262;
+                font-size: 11px;
+                font-weight: 500;
+            }
+             .fontpns{
+                font-family: "proxima-nova",sans-serif;
+                font-style: normal;
+                font-weight: 600;
+            }
+             .fontpnr{
+                 font-family: "proxima-nova",sans-serif;
+                 font-style: normal;
+                 font-weight: 400;
+            }
+            .buttonText{
+                font-size:12px;
+            }
+            .titleContect{
+                font-size:16px;
+               color:#19587c;
+            }
+            .scrollEfect {
+                max-height: 100px;
+                overflow-y: scroll;
+            }
+            .buttonGrey
+            {
+               background-color: #e3e3e3 !important;
+               font-size: 12px;
+               color: #3f3f42;
+            }
+            .buttonGrey:hover
+            {
+               color: #3f3f42;
+            }
+            .titleField {
+                background-color: #f6f7f7;
+                border: 1px solid #e3e3e3;
+                height: 50px;
+                font-size:16px;
+                color:#19587c;
+                line-height:5px;
+                width:300px;
+            }
+            .titleDescriptionField {
+                background-color: #f6f7f7;
+                border: 1px solid #e3e3e3;
+                height: 85px;
+                font-size:12px;
+                color:#3f3f42;
+                width:300px;
+                overflow-y: scroll;
+            }
+/*            .button--size-size{
+                 width:270px !important;
+                 background-color: #9b9c9c;
+            }
+            .button--size-size:after{
+                 width:270px !important;
+                 background-color: #9b9c9c;
+            }*/
+            /********************************* end Satyajit Roy css code ******************/
             /*            #mask{  create are mask 
                 position:fixed;
                 top:0;
@@ -619,9 +734,62 @@
             </div>
             <!--           </div><div id="mask" onclick="document.location='#';">CLICK</div>    -->
             
-            <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
-                <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
-                    <h1 class="SP2 actfnt">ADD ACTION</h1>
+            <div id="dvPriorityDialog" class="pollSlider">
+                        <div id="dvPriorityContent" class="actionmainviv">
+                            <div class="inlineFlex">
+                                <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
+                                <div class="headdelete h5font fontpnr">DELETE ACTION</div>
+                            </div>
+                            <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                            <div class="topten titlecontain sixtnpix fontpns">
+                                User’s Title for Action Goes Here Two Line tets
+                            </div>
+                            <div class="toptweentyone headcolor tenpix fontpns">
+                                DESCRIPTION
+                            </div>
+                            <div class="height75 scrolly topten">
+                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                            <div class="inlineFlex toptweenty">
+                                <div class="half headcolor fontpns tenpix">
+                                    STATUS
+                                </div>
+                                <div class="half headcolor fontpns tenpix">
+                                    MARKETING PROGRAM
+                                </div>
+                            </div>
+                            <div class="inlineFlex toptnine">
+                                <div class="half containe fontpnr tenpix">
+                                    <div class="inlineFlex">
+                                        <div class="rightfive toptwo">
+                                            <div class="greenDot"></div>
+                                        </div>
+                                        <div class="containe tenpix fontpnr ">TEMPLATE SAVED</div>
+                                    </div>
+                                </div>
+                                <div class="half containe fontpnr tenpix">
+                                    (User Marketing Program Name)
+                                </div>
+                            </div>
+                            <div class="topfourty headtitle pfont actfnt fontpnr">
+                                POSTING DETAILS
+                            </div>
+                            <div class="toptweenty headcolor tenpix fontpns">
+                                SCHEDULED TO POST ON
+                            </div>
+                            <div class="containe fontpnr tenpix">
+                                September 5, 2015 at 2:02 PM
+                            </div>
+                            <div class="inlineFlex top120">
+                                <div class="rightthirty">
+                                    <input type="button" value="Edit" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                </div>
+                                <div class="">
+                                    <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                </div>
+                        </div>
+                    
+<!--                    <h1 class="SP2 actfnt ">ADD ACTION</h1>
                     <form class="form-horizontal" id="signform" >
                         <div class="group" style="position:relative;">
                             <p class="actionLable SH2" >TYPE OF ACTION</p>
@@ -669,7 +837,7 @@
 
                             </div>
                             
-                            <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
+                                                                Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
                            
                    
                         <div class="row">
@@ -699,11 +867,521 @@
 
                             </div>
                         </div>
-                    </form> 
+                    </form> -->
 
-                </div></div>
-            <div id="preview" class="pollSlider" style="z-index:1005;overflow-y:scroll;overflow-x:hidden;height:100%;">
-                <div>
+                </div>
+            </div>
+            <div id="preview" class="pollSlider">
+                
+                 <div id="preview_email" class="inlineFlex">
+                    <div class="half">
+                    <div class="borderright">
+                        <div class="firstcol">
+                            <div class="inlineFlex">
+                                <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
+                                <div class="headdelete h5font fontpnr">DELETE ACTION</div>
+                            </div>
+                            <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                            <div class="topten titlecontain sixtnpix fontpns">
+                                User’s Title for Action Goes Here Two Line tets
+                            </div>
+                            <div class="toptweentyone headcolor tenpix fontpns">
+                                DESCRIPTION
+                            </div>
+                            <div class="height75 scrolly topten">
+                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                            <div class="inlineFlex toptweenty">
+                                <div class="half headcolor fontpns tenpix">
+                                    STATUS
+                                </div>
+                                <div class="half headcolor fontpns tenpix">
+                                    MARKETING PROGRAM
+                                </div>
+                            </div>
+                            <div class="inlineFlex toptnine">
+                                <div class="half containe fontpnr tenpix">
+                                    <div class="inlineFlex">
+                                        <div class="rightfive toptwo">
+                                            <div class="greenDot"></div>
+                                        </div>
+                                        <div class="containe tenpix fontpnr ">TEMPLATE SAVED</div>
+                                    </div>
+                                </div>
+                                <div class="half containe fontpnr tenpix">
+                                    (User Marketing Program Name)
+                                </div>
+                            </div>
+                            <div class="topfourty headtitle pfont actfnt fontpnr">
+                                POSTING DETAILS
+                            </div>
+                            <div class="toptweenty headcolor tenpix fontpns">
+                                SCHEDULED TO POST ON
+                            </div>
+                            <div class="containe fontpnr tenpix">
+                                September 5, 2015 at 2:02 PM
+                            </div>
+                            <div class="inlineFlex top120">
+                                <div class="rightthirty">
+                                    <input type="button" value="Edit" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                </div>
+                                <div class="">
+                                    <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="half">
+                        <div class="secondcol">
+                            <div class="inlineFlex">
+                                <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
+                                <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
+                            </div>
+                            <div class="toptweentyone headcolor tenpix fontpns">
+                                PREVIEW
+                            </div>
+                            <div class="topten">
+                                <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
+                            </div>
+                            <div class="top27 headcolor tenpix fontpns">
+                                SUBJECT LINE
+                            </div>
+                            <div class="containe fontpnr tenpix">
+                                September 5, 2015 at 2:02 PM
+                            </div>
+                            <div class="inlineFlex toptweenty">
+                                <div class="half headcolor fontpns tenpix">
+                                    TO EMAIL LIST
+                                </div>
+                                <div class="half headcolor fontpns tenpix">
+                                    ADDITIONAL EMAIL LIST
+                                </div>
+                            </div>
+                            <div class="inlineFlex toptnine">
+                                <div class="half containe fontpnr tenpix">
+                                    To mail list text
+                                </div>
+                                <div class="half containe fontpnr tenpix">
+                                    Additional mail list text
+                                </div>
+                            </div>
+                             <div class="inlineFlex toptweenty">
+                                <div class="half headcolor fontpns tenpix">
+                                    FROM NAME
+                                </div>
+                                <div class="half headcolor fontpns tenpix">
+                                    From name text
+                                </div>
+                            </div>
+                            <div class="inlineFlex toptnine">
+                                <div class="half containe fontpnr tenpix">
+                                    FROM EMAIL ADDRESS
+                                </div>
+                                <div class="half containe fontpnr tenpix">
+                                    From email address
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+                
+                
+                
+<!--                <div class="row" id="preview_email">
+                    <div class="col-sm-10 col-md-5 col-lg-5">
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
+                                <p class="pfont actfnt fontpnr">ACTION DETAIL</p>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4  actiondetails actiondet">
+                                <h5 class="h5font fontpnr">DELETE ACTION</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpn fontpns">TITLE</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="titleContect fontpns">Workshop Notice Post Two Line Check</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpns">DESCRIPTION</h5>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="description fontpnr">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+do eiusmod tempor incididunt ut labore et dolore magna
+aliqua.</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpns">STATUS</h5>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>                           
+                            <div class="col-sm-10 col-md-10 col-lg-10 algn">
+                                    <div class="row">
+                                        <div class="col-lg-1">
+                                            <div class="greenDot">   else redDot class</div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <h5 class="status fontpnr">TEMPLATE SAVED</h5>
+                                        </div>                                
+                                          <select name="actiontype" class="SS1 " id="actiontype">
+                                        <option value="0">Select</option>
+                                        <option value="facebook">INCOMPLETE</option>
+                                        <option value="twitter">COMPLETE</option>
+                                        </select>
+                                    </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10 actiondet">
+                                <p class="pfont actfnt fontpnr">POSTING DETAILS</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row" style="position:relative;">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="header fontpns">POSTING TO:</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">Email</h5>
+                            </div>
+                        </div>
+                        <br/>
+                         <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpns">SCHEDULED TO POST ON</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="description fontpnr">September 5, 2015 at 2:02pm</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
+                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Post"/>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
+                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Approved"/>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4"></div>
+                        </div>
+                    </div>                    
+                    <div class="col-sm-11 col-md-6 col-lg-6 border">
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
+                                <p class="pfont actfnt fontpnr">SAVED EMAIL</p>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5  actiondetails actiondet">
+                                <h5 class="h5font fontpnr">REMOVED SAVED EMAIL</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <h5 class="header fontpn fontpns">Preview</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-11 col-md-11 col-lg-11">
+                                <div id="imgcontainer1">
+                                    <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150910124930877.png' />
+                                </div>                                
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <h5 class="header fontpns">SUBJECT LINE</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <p class="description fontpnr">Lorem ipsum dolor sit amet</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="header fontpns">TO EMAIL LIST</h5>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5 ">
+                                <h5 class="header fontpns">ADDITIONAL EMAIL LIST</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="header fontpns">FROM NAME</h5>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5 ">
+                                <h5 class="header fontpns">FROM EMAIL ADDRESS</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
+                            </div>
+                        </div>
+                        <br/> 
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-11 col-md-11 col-lg-11 actiondet">
+                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-size" onclick="postSocial()" value="REMOVE SAVED TEMPLATE"/>
+                            </div>
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                        </div>
+                    </div>
+                </div>-->
+
+
+<!--                <div id="edit_email">
+                    <div class="col-sm-10 col-md-5 col-lg-5">
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
+                                <p class="pfont actfnt fontpnr">ACTION DETAIL</p>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4  actiondetails actiondet">
+                                <h5 class="h5font fontpnr">DELETE ACTION</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpn fontpns">TITLE</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p><input type="textarea" class="titleField fontpns" id="email_entitytitle" name="email_entitytitle" value="User’s Title for Action Goes Here Two Line tets" /></p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpns">DESCRIPTION</h5>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p><input type="textarea" class="titleDescriptionField fontpnr" id="email_entitytitle" name="email_entitytitle" value="<THIS AREA SHOULD BE ABLE TO SCROLL> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/></p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpns">STATUS</h5>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>                           
+                            <div class="col-sm-10 col-md-10 col-lg-10 algn">
+                                    <div class="row">
+                                        <div class="col-lg-1">
+                                            <div class="greenDot">   else redDot class</div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <h5 class="status fontpnr">TEMPLATE SAVED</h5>
+                                        </div>                                
+                                          <select name="actiontype" class="SS1 " id="actiontype">
+                                        <option value="0">Select</option>
+                                        <option value="facebook">INCOMPLETE</option>
+                                        <option value="twitter">COMPLETE</option>
+                                        </select>
+                                    </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10 actiondet">
+                                <p class="pfont actfnt fontpnr">POSTING DETAILS</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row" style="position:relative;">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="header fontpns">POSTING TO:</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">Email</h5>
+                            </div>
+                        </div>
+                        <br/>
+                         <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpns">SCHEDULED TO POST ON</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="description fontpnr">September 5, 2015 at 2:02pm</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
+                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Post"/>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
+                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Approved"/>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4"></div>
+                        </div>
+                    </div>                    
+                    <div class="col-sm-11 col-md-6 col-lg-6 border">
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
+                                <p class="pfont actfnt fontpnr">SAVED EMAIL</p>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5  actiondetails actiondet">
+                                <h5 class="h5font fontpnr">REMOVED SAVED EMAIL</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <h5 class="header fontpn fontpns">Preview</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-11 col-md-11 col-lg-11">
+                                <div id="imgcontainer1">
+                                    <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150910124930877.png' />
+                                </div>                                
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <h5 class="header fontpns">SUBJECT LINE</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <p class="description fontpnr">Lorem ipsum dolor sit amet</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="header fontpns">TO EMAIL LIST</h5>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5 ">
+                                <h5 class="header fontpns">ADDITIONAL EMAIL LIST</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="header fontpns">FROM NAME</h5>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5 ">
+                                <h5 class="header fontpns">FROM EMAIL ADDRESS</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
+                            </div>
+                        </div>
+                        <br/> 
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-11 col-md-11 col-lg-11 actiondet">
+                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-size" onclick="postSocial()" value="REMOVE SAVED TEMPLATE"/>
+                            </div>
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                        </div>
+                    </div>
+                </div>-->
+
+
+
+                <!--                <div>
                     <div id="preview_email" style="display:block;">
 
                         <div class="actiondet">
@@ -713,7 +1391,7 @@
                                 <div class="actiondetails actiondet">
                                     <p class="SP2 actfnt">ACTION DETAILS</p>
                                     <p class="MH2" style="width:300px;"> {{schedule_title}}</p>
-                                    <!--                                    <p class="MH2" style="width:500px;">Description: {{schedule_desc}}</p>-->
+                                                                        <p class="MH2" style="width:500px;">Description: {{schedule_desc}}</p>
                                 </div>
                                 <div class="SP1 actfnt" style="position:relative;left:15px;">Saved Email <div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div></div>
 
@@ -763,7 +1441,7 @@
                                     <input id="email_edit_title" class=" inputbox MH2" type="text" name="email_edit_title" value="{{schedule_title}}" style="position:relative;top:7px;line-height:40px;width:400px;font-size:26px;"/>
                                     <p><input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
 
-                                    <!--                                    <label>TITLE</label>-->
+                                                                        <label>TITLE</label>
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:60px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
@@ -775,7 +1453,7 @@
                                 <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <p class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</p>
-                                    <!--<input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>-->
+                                    <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
 
                                 <input type="text" readonly class="inputdate MH1 ptr" name="emaildatetime" id="emaildatetime">
                                         <script>
@@ -846,7 +1524,7 @@
                                 </div>
 
                                 <div class="col-md-6" id="popupright_panel" >
-                                    <!--                                        <div><label>subject</label></div>-->
+                                                                            <div><label>subject</label></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">Subject Line </p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">To</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">From</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
@@ -885,7 +1563,7 @@
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                     </div></div>
                                     <div style="position:relative;margin-top: 100px;"> 
-                                    <!--<input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>-->
+                                    <input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                     <div class="editbutton"><button ng-click="updateEmailSchedule()" class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
@@ -895,24 +1573,336 @@
                             </div>
                         </div>
                     </div>
-                </div></div>
+                </div>-->   
+            </div>
 
-            <div id="previewfb" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
-                <div>
-                    <div id="preview_facebook">
-
-
-                        <div style="position:relative;left:50px;">
-                            <div class="actiondetails actiondet">
-                                <p class="SP2 actfnt">ACTION DETAILS</p>
-                                <p class="MH2" style="width:400px;">{{schedule_title}}</p>
-                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">{{schedule_desc}}</p>
-                                <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+            <div id="previewfb" class="pollSlider inlineFlex">
+                <div class="half">
+                <div class="borderright">
+                    <div class="firstcol" id="preview_facebook">
+                        <div class="inlineFlex">
+                            <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
+                            <div class="headdelete h5font fontpnr">DELETE ACTION</div>
+                        </div>
+                        <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                        <div class="topten titlecontain sixtnpix fontpns">
+                            User’s Title for Action Goes Here Two Line tets
+                        </div>
+                        <div class="toptweentyone headcolor tenpix fontpns">
+                            DESCRIPTION
+                        </div>
+                        <div class="height75 scrolly topten">
+                            <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="inlineFlex toptweenty">
+                            <div class="half headcolor fontpns tenpix">
+                                STATUS
                             </div>
-                            <div id="imgcontainer">
-                           <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
-                                style="display:none;"/>
-                           </div>    
+                            <div class="half headcolor fontpns tenpix">
+                                MARKETING PROGRAM
+                            </div>
+                        </div>
+                        <div class="inlineFlex toptnine">
+                            <div class="half containe fontpnr tenpix">
+                                <div class="inlineFlex">
+                                    <div class="rightfive toptwo">
+                                        <div class="redDot"></div>
+                                    </div>
+                                    <div class="containe tenpix fontpnr ">INCOMPLETE</div>
+                                </div>
+                            </div>
+                            <div class="half containe fontpnr tenpix">
+                                (User Marketing Program Name)
+                            </div>
+                        </div>
+                        <div class="topfourty headtitle pfont actfnt fontpnr">
+                            POSTING DETAILS
+                        </div>
+                        <div class="inlineFlex topnineteen">
+                            <div class="half headcolor fontpns tenpix">
+                                POSTING TO
+                            </div>
+                            <div class="half headcolor fontpns tenpix">
+                                BRNDBOT
+                            </div>
+                        </div>
+                        <div class="inlineFlex toptnine">
+                            <div class="half containe fontpnr tenpix">
+                                FACEBOOK
+                            </div>
+                            <div class="half containe fontpnr tenpix">
+                                BRNDBOT
+                            </div>
+                        </div>
+                        <div class="toptweenty headcolor tenpix fontpns">
+                            SCHEDULED TO POST ON
+                        </div>
+                        <div class="containe fontpnr tenpix">
+                            September 5, 2015 at 2:02 PM
+                        </div>
+                        <div class="inlineFlex topsixeight">
+                            <div class="rightthirty">
+                                <input type="button" value="Edit" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                            </div>
+                            <div class="">
+                                <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="half">
+                    <div class="secondcol">
+                        <div class="inlineFlex">
+                                <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
+                                <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
+                        </div>
+                        <div class="toptweentyone headcolor tenpix fontpns">
+                            PREVIEW
+                        </div>
+                        <div class="topten">
+                            <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
+                        </div>
+                        <div class="toptweenty headcolor tenpix fontpns">
+                            POST TEXT
+                        </div>
+                        <div class="height75 scrolly topten">
+                            <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="toptweenty headcolor tenpix fontpns">
+                            LINK TITLE
+                        </div>
+                        <div class="topten containe fontpnr twlvpix">
+                            Link Name Goes Here
+                        </div>
+                        <div class="toptweentyfive headcolor tenpix fontpns">
+                            LINK DESCRIPTION
+                        </div>
+                        <div class="topten containe fontpnr twlvpix">
+                            Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </div>
+                        <div class="toptweenty headcolor tenpix fontpns">
+                            LINK URL NAME
+                        </div>
+                        <div class="topten containe fontpnr twlvpix">
+                            Link URL Name
+                        </div>
+                    </div>
+                </div>
+                
+                
+<!---------------- bootstrap facebook preview --------------------------------------------->
+ <!--                <div class="row" id="preview_facebook">
+                    <div class="col-sm-10 col-md-5 col-lg-5">
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
+                                <p class="pfont actfnt fontpnr">ACTION DETAIL</p>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4  actiondetails actiondet">
+                                <h5 class="h5font fontpnr">DELETE ACTION</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpn fontpns">TITLE</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="titleContect fontpns">User’s Title for Action Goes Here Two Line tets</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpns">DESCRIPTION</h5>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="description fontpnr">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+do eiusmod tempor incididunt ut labore et dolore magna
+aliqua.</p>
+                            </div>
+                        </div>
+                        <br/>
+                         <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <h5 class="header fontpns">STATUS</h5>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6 ">
+                                <h5 class="header fontpns">MARKETING PROGRAM</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
+                            <div class="row ">
+                                <div class="col-sm-2 col-md-2 col-lg-2"></div>                           
+                                <div class="col-sm-10 col-md-10 col-lg-10 algn">
+                                        <div class="row">
+                                            <div class="col-lg-1">
+                                              <div class="redDot">     else greenDot class  </div>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <h5 class="status fontpnr">INCOMPLETE</h5>
+                                            </div>                                
+                                              <select name="actiontype" class="SS1 " id="actiontype">
+                                            <option value="0">Select</option>
+                                            <option value="facebook">INCOMPLETE</option>
+                                            <option value="twitter">COMPLETE</option>
+                                            </select>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <h5 class="description fontpnr">User Marketing Program Name</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10 actiondet">
+                                <p class="pfont actfnt fontpnr">POSTING DETAILS</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="header fontpns">POSTING TO</h5>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5 ">
+                                <h5 class="header fontpns">MANAGED PAGE</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">FACEBOOK</h5>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description fontpnr">BRNDBOT</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpns">SCHEDULED TO POST ON</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="description fontpnr">September 5, 2015 at 2:02pm</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
+                                <input type="button" id="fb_button_post" class="button buttonGrey button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Post"/>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
+                                <input type="button" id="fb_button_post" class="button buttonGrey button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Approved"/>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4"></div>
+                        </div>
+                    </div>                    
+                    <div class="col-sm-11 col-md-6 col-lg-6 border">
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
+                                <p class="pfont actfnt fontpnr">SAVED POST</p>
+                            </div>
+                            <div class="col-sm-5 col-md-5 col-lg-5  actiondetails actiondet">
+                                <h5 class="h5font fontpnr">REMOVED SAVED POST</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <h5 class="header fontpn fontpns">Preview</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-11 col-md-11 col-lg-11">
+                                <div id="imgcontainer">
+                                    <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=33.png' />
+                                </div>                                
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <h5 class="header fontpns">POST TEXT</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <p class="description fontpnr scrollEfect"><THIS AREA SHOULD BE ABLE TO SCROLL> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua  consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                        <br/>
+                         <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpns">LINK TITLE</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="description fontpnr">Link Name Goes Here</p>
+                            </div>
+                        </div>
+                        <br/>
+                         <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpns">LINK DESCRIPTION</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="description fontpnr">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                        <br/>
+                         <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header fontpns">LINK URL NAME</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="description fontpnr">Link URL Name</p>
+                            </div>
+                        </div>
+                        <br/> 
+                    </div>
+                </div>-->
+                        
+                        
+                                
+<!--                                 
                             
                             <div style="position:absolute;top:170px;left:320px;">
 
@@ -967,7 +1957,7 @@
                                               font-weight:400;line-height:10px;
                                               width:300px;"/>
                                     </p>
-<!--                                    <label>TITLE</label>-->
+                                    <label>TITLE</label>
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:60px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
@@ -980,13 +1970,13 @@
                                               font-weight:400;line-height:10px;
                                               width:300px;"/>
                                     </p>
-<!--                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
                                         <option value="email">email</option>
-                                        <option value="note">note</option>-->
-                                    <!--</select>-->
+                                        <option value="note">note</option>
+                                    </select>
                                 </div>
                                 <div style="position:absolute;top:110px;left:60px;" class="SP1 actfnt">
                                     Description <br><textarea cols="28" rows="2" name="fb_description" id="fb_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
@@ -1014,7 +2004,7 @@
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                 </div>
 
-                                <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
+                                                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
 
                             </div>
                             <div class="row">
@@ -1097,7 +2087,7 @@
                                     </div>                                   
                                     
                                     
-                                    <!--<input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>-->
+                                    <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" readonly class="SH1" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
@@ -1110,12 +2100,58 @@
 
             </div>
 
+            -->
+            </div>
             <div id="previewNote" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
-                <div>
-                    <div id="noteprev">
-
-                        <div style="position:relative;left:50px;">
-
+                <div id="noteprev">
+                        <div class="firstcol">
+                            <div class="inlineFlex">
+                                <div class="headtitle pfont actfnt fontpnr">NOTE DETAILS</div>
+                                <div class="headdelete h5font fontpnr">DELETE ACTION</div>
+                            </div>
+                            <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                            <div class="topten titlecontain sixtnpix fontpns">
+                                User’s Title for Action Goes Here Two Line tets
+                            </div>
+                            <div class="toptweentyone headcolor tenpix fontpns">
+                                DESCRIPTION
+                            </div>
+                            <div class="height75 scrolly topten">
+                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                            <div class="inlineFlex top32">
+                                <div class="headcolor fontpns tenpix">
+                                    STATUS
+                                </div>
+                            </div>
+                            <div class="toptnine">
+                                <div class="containe fontpnr tenpix inlineFlex">
+                                    <div class="rightfive toptwo">
+                                        <div class="redDot"></div>
+                                    </div>
+                                    <div class="containe tenpix fontpnr ">INCOMPLETE</div>
+                                </div>
+                            </div>
+                            <div class="toptweenty headtitle pfont actfnt fontpns">
+                                MARKETING PROGRAM
+                            </div>
+                            <div class="toptnine headcolor tenpix fontpnr">
+                                (User Marketing Program Name)
+                            </div>
+                            <div class="top20nhalf headtitle pfont actfnt fontpns">
+                                SCHEDULED TO SEND ON
+                            </div>
+                            <div class="top10n half headcolor tenpix fontpnr">
+                                September 5, 2015 at 2:02 PM
+                            </div>
+                            <div class="inlineFlex top111">
+                                <div class="right223">
+                                    <input type="button" value="Edit" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                </div>
+                            </div>
+                        </div>
+                    
+<!--                        <div style="position:relative;left:50px;">
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
                                 <p class="MH2" style="width:400px;"> {{schedule_title}}</p>
@@ -1135,12 +2171,13 @@
 
                             </div>
 
-                        </div>
-                    </div>
+                        </div>-->
+                </div>
                     <div id="noteedit" style="display:none;">
 
                         <div style="position:relative;left:50px;">
 
+                    <div class="col-sm-1 col-md-1 col-lg-1"></div>
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
                                 <p class="MH2" style="width:500px;"><input type="text" id="note_title" name="note_title" value="{{schedule_title}}"/></p>
@@ -1180,12 +2217,7 @@
                                     </script>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                     </div>
-                              
-                                    
-                                    
-                                    
-                               
-                                    <!--<input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>-->
+                                    <input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
                                 <div class="savebutton" ng-click="updateNote()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
@@ -1196,61 +2228,260 @@
                 </div>
 
             </div>
-
-            <div id="previewtwitter" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
-                <div>
-                    <div id="preview_twitter">
-
-                        <div style="position:relative;left:50px;">
-
-                            <div class="actiondetails actiondet">
-                                <p class="SP2 actfnt">ACTION DETAILS</p>
-                                <p class="MH2" style="width:400px;">{{schedule_title}}</p>
-                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;"> {{schedule_desc}}</p>
+            <div id="previewtwitter" class="pollSlider">
+                <div id="preview_twitter" class="inlineFlex">
+                    <div class="half">
+                    <div class="borderright">
+                        <div class="firstcol" id="preview_facebook">
+                            <div class="inlineFlex">
+                                <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
+                                <div class="headdelete h5font fontpnr">DELETE ACTION</div>
                             </div>
-                            <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                            <div id="imgcontainer">
-                           <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
-                                style="display:none;"/>
-                           </div>
-                            
-                            <div style="position:relative;top:-200px;left:300px;">
-                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.text}}</p>
-                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.shorturl}}</p>
+                            <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                            <div class="topten titlecontain sixtnpix fontpns">
+                                User’s Title for Action Goes Here Two Line tets
                             </div>
-                            <div id="twitter_preview_postdet" style="position:relative;margin-left:15px;">  
-                                <p class="SP1 actfnt">Post details</p>
-                                <div>
-                                    <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                            <div class="toptweentyone headcolor tenpix fontpns">
+                                DESCRIPTION
+                            </div>
+                            <div class="height75 scrolly topten">
+                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                            <div class="inlineFlex toptweenty">
+                                <div class="half headcolor fontpns tenpix">
+                                    STATUS
                                 </div>
-                                <div ng-hide="twitter_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;left:-5px;" class="editbutton">
-                                <button ng-click="editScheduleDetails(
-                                            schedule_id, 
-                                            entities_selected_time, 
-                                            schedule_type, 
-                                            schedule_title, 
-                                            schedule_desc)" 
-                                            class="button 
-                                            button--moema 
-                                            button--text-thick 
-                                            button--text-upper 
-                                            button--size-s" 
-                                            style="background-color:#E65C00;
-                                            width:120px;" 
-                                            type="button">EDIT</button>
-                                <input type="button" id="twitter_button_post"
-                                       class="button button--moema 
-                                                button--text-thick 
-                                                button--text-upper 
-                                                button--size-s" 
-                                                style="width:120px;"
-                                                onclick="postSocial()"
-                                        value="Post"/>                                
+                                <div class="half headcolor fontpns tenpix">
+                                    MARKETING PROGRAM
+                                </div>
+                            </div>
+                            <div class="inlineFlex toptnine">
+                                <div class="half containe fontpnr tenpix">
+                                    <div class="inlineFlex">
+                                        <div class="rightfive toptwo">
+                                            <div class="redDot"></div>
+                                        </div>
+                                        <div class="containe tenpix fontpnr ">INCOMPLETE</div>
+                                    </div>
+                                </div>
+                                <div class="half containe fontpnr tenpix">
+                                    (User Marketing Program Name)
+                                </div>
+                            </div>
+                            <div class="topfourty headtitle pfont actfnt fontpnr">
+                                POSTING DETAILS
+                            </div>
+                             <div class="topnineteen headcolor tenpix fontpns">
+                                POSTING TO
+                            </div>
+                            <div class="containe fontpnr tenpix">
+                                TWITTER
+                            </div>
+                            <div class="toptweenty headcolor tenpix fontpns">
+                                SCHEDULED TO POST ON
+                            </div>
+                            <div class="containe fontpnr tenpix">
+                                September 5, 2015 at 2:02 PM
+                            </div>
+                            <div class="inlineFlex topsixeight">
+                                <div class="rightthirty">
+                                    <input type="button" value="Edit" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                </div>
+                                <div class="">
+                                    <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </div>
+                    <div class="half">
+                        <div class="secondcol">
+                             <div class="inlineFlex">
+                                <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
+                                <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
+                            </div>
+                            <div class="toptweentyone headcolor tenpix fontpns">
+                                PREVIEW
+                            </div>
+                            <div class="topten">
+                                <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
+                            </div>
+                            <div class="toptweenty headcolor tenpix fontpns">
+                                POST TEXT
+                            </div>
+                            <div class="height75 scrolly topten">
+                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                            <div class="toptweenty headcolor tenpix fontpns">
+                                LINK NAME
+                            </div>
+                            <div class="topten containe fontpnr twlvpix">
+                                Link Name Goes Here
+                            </div>
+                        </div>
+                    </div>
+<!--                <div>
+                    <div class="row" id="preview_twitter">
+                    <div class="col-sm-10 col-md-5 col-lg-5">
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
+                                <p class="pfont actfnt">ACTION DETAILS</p>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4  actiondetails actiondet">
+                                <h5 class="h5font">DELETE ACTION</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header">TITLE</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="MH2">Workshop Notice Post Two Line Check</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header">DESCRIPTION</h5>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+do eiusmod tempor incididunt ut labore et dolore magna
+aliqua.</p>
+                            </div>
+                        </div>
+                        <br/>
+                         <div class="row" style="position:relative;">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header">STATUS</h5>
+                            </div>
+                        </div>
+                        <div class="row SH2" style="position:absolute;">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <select name="actiontype" class="SS1 " id="actiontype">
+                                    <option value="0">Select</option>
+                                    <option value="facebook">INCOMPLETE</option>
+                                    <option value="twitter">COMPLETE</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10 actiondetails actiondet">
+                                <p class="pfont actfnt">POSTING DETAILS</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row" style="position:relative;">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="header">POSTING TO:</h5>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4 ">
+                                <h5 class="header">MANAGED PAGE</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <h5 class="description">Twitter</h5>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <h5 class="description">BrndBot</h5>
+                            </div>
+                        </div>
+                        <br/>
+                         <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <h5 class="header">SCHEDULED TO POST ON</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-10 col-md-10 col-lg-10">
+                                <p class="description">September 5, 2015 at 2:02pm</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
+                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Post"/>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
+                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Approved"/>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-11 col-md-6 col-lg-6 border">
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-11 col-md-11 col-lg-11 actiondetails actiondet">
+                                <p class="pfont actfnt">SAVED POST</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <h5 class="SP2 actfnt">Preview</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-7 col-md-7 col-lg-7">
+                                <div id="imgcontainer">
+                                    <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=logo-1200-630.jpg' />
+                                </div>                                
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <h5 class="header">POST TEXT</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+do eiusmod tempor incididunt ut labore et dolore magna
+aliqua.</p>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <h5 class="header">LINK URL</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                 <input type="reset" value="Remove/Save" class="button button--moema button--text-thick button--text-upper  button--size-size" onclick="cancelform();"/>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                
                     <div id="edit_twitter_action" style="position:relative;top:50px;left:50px;">
                         <h1 class="SP1 actfnt" style="font-size:2em;margin-left:45px;">UPDATE ACTION</h1>
                         <form class="form-horizontal" id="signform">
@@ -1259,18 +2490,18 @@
                                 <div class="col-md-4 col-md-offset-1 ">
                                     <input id="edit_twitter_title" class=" inputbox MH2" type="text" name="edit_twitter_title" value="{{schedule_title}}" style="position:relative;top:0px;line-height:40px;width:400px;font-size:26px;"/>
                                     <p><input class="inputbox SP1" type="hidden" name="twitter_scheduleid" id="twitter_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                    <!--                                    <label>TITLE</label>-->
+                                                                        <label>TITLE</label>
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:50px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p><input class="inputbox SP1" type="hidden" name="twitter_action_type" id="twitter_action_type" value='{{schedule_type}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                    <!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                                                        Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                                                             <option value="0">Select</option>
                                                                             <option value="facebook">facebook</option>
                                                                             <option value="twitter">twitter</option>
                                                                             <option value="email">email</option>
                                                                             <option value="note">note</option>
-                                                                        </select>-->
+                                                                        </select>
                                 </div>
                                 <div style="position:absolute;top:110px;left:60px;" class="SP1 actfnt">
                                     Description <br><textarea cols="28" rows="2" name="twitter_description" id="twitter_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
@@ -1300,7 +2531,7 @@
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                 </div>
 
-                                <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
+                                                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
 
                             </div>
                             <div class="row">
@@ -1364,7 +2595,7 @@
                                     
                                     
                                     <div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</div>
-                                    <!--<input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>-->
+                                    <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
 
                                 <input type="text" readonly class="inputdate MH1 ptr" name="twitter_schedule_date" id="twitter_schedule_date">
                                         <script>
@@ -1385,7 +2616,7 @@
                                     </script>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script></div><br>
                                     
-                                    <!--<input type='datetime-local'  class="inputdate"/><br>-->
+                                    <input type='datetime-local'  class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" class="SH1" readonly name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
@@ -1395,14 +2626,14 @@
                         </div>
                     </div>
 
-                </div>
+                </div>-->
 
             </div>
-
+            </div>
             <div id="light" class="white_content">
                 <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
                     <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
-                        <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="25" width="25" /></p>
+                        <p style="margin-top:-7px;margin-left:-11px;"><img src="images/CloseIcon.svg" height="25" width="25" /></p>
                     </div>
                 </a>
             </div>
