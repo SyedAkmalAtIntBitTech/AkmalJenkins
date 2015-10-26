@@ -1,39 +1,38 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 19 Oct, 2015 6:43:25 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.intbit.marketing.model.TblScheduledEntityList" table="tbl_scheduled_entity_list" schema="public" optimistic-lock="version">
-        <id name="id" type="int">
-            <column name="id" />
-            <generator class="assigned" />
-        </id>
-        <many-to-one name="tblUserMarketingProgram" class="com.intbit.marketing.model.TblUserMarketingProgram" fetch="select">
-            <column name="user_marketing_program_id" />
-        </many-to-one>
-        <property name="entityId" type="java.lang.Integer">
-            <column name="entity_id" />
-        </property>
-        <property name="scheduleTitle" type="string">
-            <column name="schedule_title" length="1024" />
-        </property>
-        <property name="scheduleTime" type="timestamp">
-            <column name="schedule_time" length="35" />
-        </property>
-        <property name="entityType" type="string">
-            <column name="entity_type" length="250" />
-        </property>
-        <property name="status" type="string">
-            <column name="status" length="50" />
-        </property>
-        <property name="userId" type="java.lang.Integer">
-            <column name="user_id" />
-        </property>
-        <property name="scheduleDesc" type="string">
-            <column name="schedule_desc" length="2048" />
-        </property>
-        <property name="isRecuring" type="java.lang.Boolean">
-            <column name="is_recuring" />
-        </property>
-    </class>
+  <class name="com.intbit.marketing.model.TblScheduledEntityList" optimistic-lock="version" schema="public" table="tbl_scheduled_entity_list">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="com.intbit.marketing.model.TblUserMarketingProgram" fetch="select" name="tblUserMarketingProgram">
+      <column name="user_marketing_program_id"/>
+    </many-to-one>
+    <property name="scheduleEmailId" type="java.lang.Integer">
+      <column name="entity_id"/>
+    </property>
+    <property name="scheduleTitle" type="string">
+      <column length="1024" name="schedule_title"/>
+    </property>
+    <property name="scheduleTime" type="timestamp">
+      <column length="35" name="schedule_time"/>
+    </property>
+    <property name="entityType" type="string">
+      <column length="250" name="entity_type"/>
+    </property>
+    <property name="status" type="string">
+      <column length="50" name="status"/>
+    </property>
+    <property name="userId" type="java.lang.Integer">
+      <column name="user_id"/>
+    </property>
+    <property name="scheduleDesc" type="string">
+      <column length="2048" name="schedule_desc"/>
+    </property>
+    <property name="isRecuring" type="java.lang.Boolean">
+      <column name="is_recuring"/>
+    </property>
+  </class>
 </hibernate-mapping>
