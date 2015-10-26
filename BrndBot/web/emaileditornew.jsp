@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-     <head>
+    <head>
         <title>Email Editor</title>
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
@@ -22,20 +22,52 @@
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/dashboard.js"></script>
-         <jsp:include page="basejsp.jsp"/>   
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+        <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
+        <link href="css/froala_style.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="css/plugins/code_view.css">
+        <link rel="stylesheet" href="css/plugins/colors.css">
+        <link rel="stylesheet" href="css/plugins/emoticons.css">
+        <link rel="stylesheet" href="css/plugins/image_manager.css">
+        <link rel="stylesheet" href="css/plugins/image.css">
+        <link rel="stylesheet" href="css/plugins/line_breaker.css">
+        <link rel="stylesheet" href="css/plugins/table.css">
+        <link rel="stylesheet" href="css/plugins/char_counter.css">
+        <link rel="stylesheet" href="css/plugins/video.css">
+        <link rel="stylesheet" href="css/plugins/fullscreen.css">
+        <link rel="stylesheet" href="css/plugins/file.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+
+        <jsp:include page="basejsp.jsp"/>  
     </head>
     <body >
         <div class="row">
             <div class="col-md-1 col-lg-1 col-sm-1">
-                    <jsp:include page="leftmenu.html"/>
+                <jsp:include page="leftmenu.html"/>
             </div>
+            
             <div class="col-md-11 col-lg-11 col-sm-11 ">
+<style>
+    #edit{
+position: relative;
+top:0px;
+font-family:"proxima-nova";
+font-weight:500;
+left: 0em; 
+color: #2D4444;
+    
+}
+</style>
                 <div class="row">
-                    <div class="col-md-6 col-lg-6 col-sm-6 editcol">
+                    <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="row">
-                            <div class="emleditorhead fontpnr">Froala Editor</div> 
-                            <div class="framediv">
-                            </div>                           
+                            <div id="editor">
+                                <div id='edit' style="margin-top: 30px;">
+                                </div>
+                            </div>
+<!--                            <div class="framediv">
+                            </div>                           -->
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-lg-6 col-sm-6">
@@ -73,13 +105,13 @@
                                     <div class="col-md-12 col-lg-12 col-sm-12">
                                         <ul id="blklist" class="blocklist fontpnr">
                                             <li> 
-                                               <div>Preheader</div>
+                                                <div>Preheader</div>
                                             </li>
                                             <li> 
                                                 <div>Intro</div>
                                             </li>
                                             <li>
-                                               <div>Article</div>
+                                                <div>Article</div>
                                             </li>
                                             <li>
                                                 <div>Image</div>
@@ -128,36 +160,69 @@
                                         <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
                                         <p>STYLE</p>
                                     </li>
-                                     <li id="blocktab">
+                                    <li id="blocktab">
                                         <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
                                         <p>BLOCK</p>
                                     </li>
                                 </ul>
-                                
-                           </div>
+
+                            </div>
                         </div>                            
                     </div>
-                    
+
                 </div>
-                
-                
+
+
             </div>
-            
-            <script>
-                $("#blklist").click(function (){
-                    $(".addblkbtn").css("background-color","#0f76a6").css("color","#f6f7f7");
-                });
-                $("#styletab").click(function(){
-                    $("#styletab").css("background-color","#ffffff").css("color","#19587c");
-                    $("#blocktab").css("background-color","transparent").css("color","#19587c");
-                });
-                $("#blocktab").click(function(){
-                    $("#blocktab").css("background-color","#ffffff").css("color","#19587c");
-                     $("#styletab").css("background-color","transparent").css("color","#19587c");
-                });
-               $( document ).ready(function() {
-                $("#blocktab").css("background-color","#ffffff").css("color","#19587c");
-                });
-            </script>
+        </div>
+        <script>
+            $("#blklist").click(function () {
+                $(".addblkbtn").css("background-color", "#0f76a6").css("color", "#f6f7f7");
+            });
+            $("#styletab").click(function () {
+                $("#styletab").css("background-color", "#ffffff").css("color", "#19587c");
+                $("#blocktab").css("background-color", "transparent").css("color", "#19587c");
+            });
+            $("#blocktab").click(function () {
+                $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+                $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+            });
+            $(document).ready(function () {
+                $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+            });
+        </script>
+
+
+        <script type="text/javascript" src="js/froala_editor.min.js" ></script>
+        <script type="text/javascript" src="js/plugins/align.min.js"></script>
+        <script type="text/javascript" src="js/plugins/code_view.min.js"></script>
+        <script type="text/javascript" src="js/plugins/colors.min.js" ></script>
+        <script type="text/javascript" src="js/plugins/emoticons.min.js"></script>
+        <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
+        <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
+        <script type="text/javascript" src="js/plugins/image.min.js"></script>
+        <script type="text/javascript" src="js/plugins/file.min.js"></script>
+        <script type="text/javascript" src="js/plugins/image_manager.min.js"></script>
+        <script type="text/javascript" src="js/plugins/line_breaker.min.js"></script>
+        <script type="text/javascript" src="js/plugins/link.min.js"></script>
+        <script type="text/javascript" src="js/plugins/lists.min.js"></script>
+        <script type="text/javascript" src="js/plugins/paragraph_format.min.js"></script>
+        <script type="text/javascript" src="js/plugins/paragraph_style.min.js"></script>
+        <script type="text/javascript" src="js/plugins/video.min.js"></script>
+        <script type="text/javascript" src="js/plugins/table.min.js"></script>
+        <script type="text/javascript" src="js/plugins/url.min.js"></script>
+        <script type="text/javascript" src="js/plugins/entities.min.js"></script>
+        <script type="text/javascript" src="js/plugins/char_counter.min.js"></script>
+        <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
+        <script type="text/javascript" src="js/plugins/save.min.js"></script>
+        <script type="text/javascript" src="js/plugins/fullscreen.min.js"></script>
+        <script type="text/javascript" src="js/plugins/quote.min.js"></script>
+        <script>
+                            $(function () {
+                       $('#edit').froalaEditor();                    
+                    });
+        </script>
+
+
     </body>
 </html>
