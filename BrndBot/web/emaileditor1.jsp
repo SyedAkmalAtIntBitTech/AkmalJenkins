@@ -64,14 +64,16 @@
      <script>
             var rendomIframeFilename="";
                     $(document).ready(function () {
+                          
+                        $("#blocktab").css("background-color","#ffffff").css("color","#19587c");
+                        
                         rendomIframeFilename=event.timeStamp;
 //                        alert(rendomIframeFilename);
                    $("#loadingGif").hide();
                    $(".boxclose").click(function (){
-                        $("#tabs-4").hide();
+                       $("#tabs-4").hide();
 //                       $("#tabs-4").css("width", "830px").css("position","fixed").css("margin-left","-460px").hide("slide", { direction: "right" }, 1000);;
                        $("#tabs-1").show();
-
                    });
                    $(".boxclosegallery").click(function (){
                        $("#imageGallery").hide();
@@ -90,24 +92,8 @@
                     var font_name = font_family_name.split('+').join(' ');
                 $("#" + selectedTextareaId).css("font-family", font_name);
             });
-            });</script>
-
-        <script>
-                    
-                    
-                    var jsondata;
-                    var selectedDivId;
-                    var block_clicked = "false";
-                    var block_id = "0";
-                    var blockIdSelected = "defaultblock1";
-                    var mindbodydataId = $("#mindbodydata").val();
-                    var temp_style_id;
-                    var temp_style_layout;
-                    var temp_block_id;
-                    var temp_mind_body_query;
-                    //$("#previewpopup").hide();
-
-$(document).ready(function() {
+            
+            
             $('#continueblock').prop('disabled', true);
                     $("#preview").click(function(){
             $.ajax({
@@ -127,11 +113,52 @@ $(document).ready(function() {
                     }
             });
             });
-//                            $("#closepreview").click(function(){
-//                                $("#previewpopup").hide();
-//                            });
+            
+            });</script>
 
-            });
+        <script>
+                    
+                    
+                    var jsondata;
+                    var selectedDivId;
+                    var block_clicked = "false";
+                    var block_id = "0";
+                    var blockIdSelected = "defaultblock1";
+                    var mindbodydataId = $("#mindbodydata").val();
+                    var temp_style_id;
+                    var temp_style_layout;
+                    var temp_block_id;
+                    var temp_mind_body_query;
+                    //$("#previewpopup").hide();
+
+//$(document).ready(function() {
+//                
+//             
+//                
+////            $('#continueblock').prop('disabled', true);
+////                    $("#preview").click(function(){
+////            $.ajax({
+////            url: getHost() + "PreviewServlet",
+////                    method: "post",
+////                    data:{
+////                        htmlString: $(".dataForEmail").html(),
+////                        iframeName: rendomIframeFilename
+////                    },
+////                    success: function (responseText) {
+////
+////                    //show popup showing
+////                    $("#previewcontent").empty();
+////                            $("#previewcontent").append(responseText);
+////                            //$("#previewpopup").show();
+////                            $(".clickpreview").click();
+////                    }
+////            });
+////            });
+////                            $("#closepreview").click(function(){
+////                                $("#previewpopup").hide();
+////                            });
+//
+//            });
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
@@ -181,7 +208,10 @@ $(document).ready(function() {
                                     block_id = arr[0].replace("block", "");
                             };
                             $scope.showStyles = function(){
-                                alert("style click");
+                                $("#stylelist").css("display","block");
+                                $("#blklistid").css("display","none");
+                                $("#styletab").css("background-color","#ffffff").css("color","#19587c");
+                                $("#blocktab").css("background-color","transparent").css("color","#19587c");
                                     var queryurl;
                                     $scope.curPage = 0;
                                     $scope.pageSize = 2;
@@ -209,6 +239,7 @@ $(document).ready(function() {
                                     return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                                     };
                                     if (data === error){
+                                        
                                             alert(data);
                                             }
 
@@ -219,6 +250,10 @@ $(document).ready(function() {
                             });
                             };
                             $scope.showBlocks = function(){
+                                $("#stylelist").css("display","none");
+                                $("#blklistid").css("display","block");
+                                $("#blocktab").css("background-color","#ffffff").css("color","#19587c");
+                                $("#styletab").css("background-color","transparent").css("color","#19587c");
                             $('body').scrollTop(0);
                                     $scope.curPage = 0;
                                     $scope.pageSize = 2;
@@ -237,6 +272,7 @@ $(document).ready(function() {
                                     return Math.ceil($scope.datalists.length / $scope.pageSize);
                                     };
                                     if (data === error){
+                                        
                                     alert(data);
                                     }
                             }).error(function(data, status, headers, config) {
@@ -246,6 +282,14 @@ $(document).ready(function() {
                             });
                             };
                             $scope.showImageOfBlock = function(id, mind_body_query){
+                                
+                                
+                                $("#stylelist").css("display","none");
+                                $("#blklist").css("display","block");
+                                $("#blocktab").css("background-color","#ffffff").css("color","#19587c");
+                                $("#styletab").css("background-color","transparent").css("color","#19587c");
+
+                                
                             $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
                             var jsondataDefault = data;
                                     var allLayoutFilename = [];
@@ -302,6 +346,7 @@ $(document).ready(function() {
                             };
                             if (data === error){
                     alert(data);
+                    
                     }
 
 //                            $("#loadingGif").hide();
@@ -718,8 +763,13 @@ $(document).ready(function() {
                             }
                     });
             }
+           function addblock(){
+               document.getElementById("addblkbtn").style.backgroundColor = "#0f76a6";
+               document.getElementById("addblkbtn").style.color = "#f6f7f7";
+           }
 
         </script>
+      
     </head>
     <body ng-app="myapp">
          <input type="hidden" id='userid' value=<%= user_id%>>
@@ -775,7 +825,7 @@ $(document).ready(function() {
                             <div class="selblock fontpnr">Select a Block</div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-6">
-                            <div class="addblkdiv"><input class="addblkbtn fontpns " type="button" value="Add Block"></div>
+                            <div class="addblkdiv"><input id="addblkbtn" class="addblkbtn fontpns " type="button" value="Add Block"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -783,9 +833,14 @@ $(document).ready(function() {
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
-                            <ul id="blklist" class="blocklist fontpnr">
-                                <li ng-repeat="blocks in datalists"> 
+                            <ul id="blklistid" class="blocklist fontpnr" value="blklist">
+                                <li ng-repeat="blocks in datalists" id="blklist" onclick="addblock();"> 
                                     <div id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>
+                                </li>
+                            </ul>
+                            <ul id="stylelist" class="blocklist fontpnr" style="display:none;">
+                                <li ng-repeat="styles in datalistsstyles" id="stylelistid">
+                                    <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
                                 </li>
                                
                             </ul>
@@ -809,23 +864,7 @@ $(document).ready(function() {
                 </div>
             </div>
         </div>
-            <script>
-                $("#blklist").click(function (){
-                    $(".addblkbtn").css("background-color","#0f76a6").css("color","#f6f7f7");
-                });
-                $("#styletab").click(function(){
-                    $("#styletab").css("background-color","#ffffff").css("color","#19587c");
-                    $("#blocktab").css("background-color","transparent").css("color","#19587c");
-                });
-                $("#blocktab").click(function(){
-                    $("#blocktab").css("background-color","#ffffff").css("color","#19587c");
-                     $("#styletab").css("background-color","transparent").css("color","#19587c");
-                });
-               $( document ).ready(function() {
-                $("#blocktab").css("background-color","#ffffff").css("color","#19587c");
-                });
-                
-            </script>
+            
 <!--         <script type="text/javascript" src="js/froala_editor.min.js" ></script>-->
          <script src="js/froala_editor.min_Email.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/plugins/align.min.js"></script>
