@@ -24,13 +24,13 @@ public class ApplicationContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.log(Level.INFO, "Application Deployed");
-        mindbodyEmailListScheduler = new MindbodyEmailListScheduler();
-        mindbodyEmailListScheduler.startScheduler();
+//        mindbodyEmailListScheduler = new MindbodyEmailListScheduler();
+//        mindbodyEmailListScheduler.startScheduler();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         logger.log(Level.INFO, "Application Un Deployed");
-        mindbodyEmailListScheduler.stopScheduler();
+//        mindbodyEmailListScheduler.stopScheduler();
     }
 }
