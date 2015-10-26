@@ -400,6 +400,14 @@
         <servlet-name>GetTemplates</servlet-name>
         <servlet-class>com.controller.GetTemplates</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetFilesListServlet</servlet-name>
+        <servlet-class>com.controller.GetFilesListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetStyleServlet</servlet-name>
+        <servlet-class>com.controller.GetStyleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -807,6 +815,14 @@
     <servlet-mapping>
         <servlet-name>GetTemplates</servlet-name>
         <url-pattern>/GetTemplates</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetFilesListServlet</servlet-name>
+        <url-pattern>/GetFilesListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetStyleServlet</servlet-name>
+        <url-pattern>/GetStyleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

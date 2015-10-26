@@ -12,18 +12,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Syed
  */
 public class UploadImages extends BrndBotBaseHttpServlet {
-    
+
     private static final Logger logger = Logger.getLogger(UploadImages.class.getName());
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,15 +41,34 @@ public class UploadImages extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         try {
-			Integer user_id = (Integer) request.getSession().getAttribute("UID");
-            String pathSuffix = AppConstants.USER_IMAGE_HOME + File.separator + user_id;
-            String fileName = FileUploadUtil.uploadFile(pathSuffix, request);
-            getSqlMethodsInstance().AddImages(user_id, fileName);
+            Integer user_id = (Integer) request.getSession().getAttribute("UID");
+            String pathSuffix = "";
+            String fileName = "";
+            String link = "";
+            String styleImage="";
+            if(user_id != null){
+                //User upload
+                pathSuffix = AppConstants.USER_IMAGE_HOME + File.separator + user_id;
+                fileName = FileUploadUtil.uploadFile(pathSuffix, request);
+                getSqlMethodsInstance().AddImages(user_id, fileName);
+                link = "/BrndBot/DownloadImage?image_type=GALLERY&user_id=" + user_id + "&image_name=" + fileName;
+                
+            } else {
+                //Admin upload for editor
+                pathSuffix = AppConstants.ADMIN_LAYOUT_BACKGROUNDIMAGES_HOME + File.separator ;
+                fileName = FileUploadUtil.uploadFile(pathSuffix, request);
+                link = "/BrndBot/DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&user_id=null&image_name=" + fileName;
+            }
+            JSONObject json = new JSONObject();
+            json.put("link", link);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            logger.info(json.toString());
+            response.getWriter().write(json.toString());  
         } catch (Exception ex) {
-                    logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
-}
-}
-
+            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -39,7 +39,7 @@
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Layout Model<span class="caret"></span></a>
           <ul class="dropdown-menu">
               <li><a href="sociallayoutmodel.jsp">social</a></li>
-              <li><a href="emaillayoutmodel.jsp">email</a></li>
+              <li><a href="emaillayout.jsp">email</a></li>
               <li><a href="addhtmltemplate.jsp">Add new HTML Template</a></li>
           </ul>
         </li>

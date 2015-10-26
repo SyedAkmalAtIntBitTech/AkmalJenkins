@@ -8,6 +8,7 @@ package com.intbit;
 import admin.controller.Layout;
 import com.controller.BrndBotBaseHttpServlet;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -36,7 +37,6 @@ import org.xml.sax.SAXException;
  */
 public class Model extends BrndBotBaseHttpServlet {
 
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,7 +46,6 @@ public class Model extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   
     @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,15 +53,17 @@ public class Model extends BrndBotBaseHttpServlet {
         Layout layout = new Layout();
         String filePath;
         String fileName, fieldName, uploadPath;
+        String emailHtmldata = "";
+        String imagefilePath = "";
         boolean type_email = false;
         boolean type_social = false;
         boolean isSocial = false;
         boolean isPrint = false;
         boolean isDownload = false;
         RequestDispatcher request_dispatcher;
-        
+
         try {
-            
+
             response.setContentType("text/html;charset=UTF-8");
             uploadPath = AppConstants.BASE_XML_UPLOAD_PATH;
 
@@ -74,138 +75,145 @@ public class Model extends BrndBotBaseHttpServlet {
             String mapperfilename = request.getParameter("mapper");
             String layoutfilename = request.getParameter("layout");
             String modelname = request.getParameter("model_name");
-            
-            String Style_image_name=request.getParameter("imagename");
+
+            String Style_image_name = request.getParameter("imagename");
             Integer block_id = 0;
-            
-            if (request.getParameter("categories") != null){
+
+            if (request.getParameter("categories") != null) {
                 category_id = Integer.parseInt(request.getParameter("categories"));
             }
-            if (request.getParameter("subcategories") != null){
+            if (request.getParameter("subcategories") != null) {
                 sub_category_id = Integer.parseInt(request.getParameter("subcategories"));
             }
-            
-            if (request.getParameter("blocks") != null){
+
+            if (request.getParameter("blocks") != null) {
                 block_id = Integer.parseInt(request.getParameter("blocks"));
             }
-            
-            if (request.getParameter("mail") != null){
-                 type_email = true;
+
+            if (request.getParameter("mail") != null) {
+                type_email = true;
             }
-            
-            if (request.getParameter("socialmedia") != null){
+
+            if (request.getParameter("socialmedia") != null) {
                 type_social = true;
             }
-            if (request.getParameter("isSocial") != null && request.getParameter("isSocial").equalsIgnoreCase("true")){
+            if (request.getParameter("isSocial") != null && request.getParameter("isSocial").equalsIgnoreCase("true")) {
                 isSocial = true;
             }
-            if (request.getParameter("isPrint") != null && request.getParameter("isPrint").equalsIgnoreCase("true")){
+            if (request.getParameter("isPrint") != null && request.getParameter("isPrint").equalsIgnoreCase("true")) {
                 isPrint = true;
             }
-             if (request.getParameter("isDownload") != null && request.getParameter("isDownload").equalsIgnoreCase("true")){
+            if (request.getParameter("isDownload") != null && request.getParameter("isDownload").equalsIgnoreCase("true")) {
                 isDownload = true;
             }
-            
-            String textstyleinfo = request.getParameter("textstyle");
-            String containerstyle = request.getParameter("containerstyle");
-            String mapfiledata = request.getParameter("element");
-            String textstylearray[] = textstyleinfo.split(",");
-            String containerstylearray[] = containerstyle.split("%%");
-            String mapfiledataarray[] = mapfiledata.split(",");
-            //        String image = request.getParameter("image");
-            logger.log(Level.INFO, containerstyle);
 
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            if (!type_email) {
+                String textstyleinfo = request.getParameter("textstyle");
+                String containerstyle = request.getParameter("containerstyle");
+                String mapfiledata = request.getParameter("element");
+                String textstylearray[] = textstyleinfo.split(",");
+                String containerstylearray[] = containerstyle.split("%%");
+                String mapfiledataarray[] = mapfiledata.split(",");
+                //        String image = request.getParameter("image");
+                logger.log(Level.INFO, containerstyle);
 
-            // root elements
-            Document doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement("layout");
-            doc.appendChild(rootElement);
+                DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-            Document doc1 = docBuilder.newDocument();
-            Element rootElement1 = doc1.createElement("models");
-            doc1.appendChild(rootElement1);
+                // root elements
+                Document doc = docBuilder.newDocument();
+                Element rootElement = doc.createElement("layout");
+                doc.appendChild(rootElement);
 
-            Element container = doc.createElement("container");
-            rootElement.appendChild(container);
+                Document doc1 = docBuilder.newDocument();
+                Element rootElement1 = doc1.createElement("models");
+                doc1.appendChild(rootElement1);
 
-            for (int i = 0; i <= containerstylearray.length - 1; i++) {
-                String v[] = containerstylearray[i].split("!");
-                Attr attr = doc.createAttribute(v[0]);
-                attr.setValue("" + v[1]);
-                container.setAttributeNode(attr);
-            }
+                Element container = doc.createElement("container");
+                rootElement.appendChild(container);
 
-            // staff elements
-            for (int i = 0; i <= textstylearray.length - 1; i++) {
-                Element element = doc.createElement("element");
-                rootElement.appendChild(element);
-                String field1[] = textstylearray[i].split("%%");
+                for (int i = 0; i <= containerstylearray.length - 1; i++) {
+                    String v[] = containerstylearray[i].split("!");
+                    Attr attr = doc.createAttribute(v[0]);
+                    attr.setValue("" + v[1]);
+                    container.setAttributeNode(attr);
+                }
 
-                for (int j = 0; j <= field1.length - 1; j++) {
-                    String field2[] = field1[j].split("!");
+                //elements
+                for (int i = 0; i <= textstylearray.length - 1; i++) {
+                    Element element = doc.createElement("element");
+                    rootElement.appendChild(element);
+                    String field1[] = textstylearray[i].split("%%");
+
+                    for (int j = 0; j <= field1.length - 1; j++) {
+                        String field2[] = field1[j].split("!");
 //                    logger.info(field2[j]);
-                    for (int k = 0; k < field2.length - 1; k++) {
-                        Attr attr = doc.createAttribute(field2[0]);
-                        attr.setValue("" + field2[1]);
-                        element.setAttributeNode(attr);
+                        for (int k = 0; k < field2.length - 1; k++) {
+                            Attr attr = doc.createAttribute(field2[0]);
+                            attr.setValue("" + field2[1]);
+                            element.setAttributeNode(attr);
+                        }
+
                     }
 
                 }
-
-            }
 
 //            for mapper xml file
-            for (int i = 0; i <= mapfiledataarray.length - 1; i++) {
-                Element element1 = doc1.createElement("model");
-                rootElement1.appendChild(element1);
-                String field1[] = mapfiledataarray[i].split("%%");
-                for (int j = 0; j <= field1.length - 1; j++) {
-                    String field2[] = field1[j].split("!");
-                    for (int k = 0; k < field2.length - 1; k++) {
-                        Attr attr = doc1.createAttribute(field2[k]);
-                        attr.setValue("" + field2[1]);
-                        element1.setAttributeNode(attr);
+                for (int i = 0; i <= mapfiledataarray.length - 1; i++) {
+                    Element element1 = doc1.createElement("model");
+                    rootElement1.appendChild(element1);
+                    String field1[] = mapfiledataarray[i].split("%%");
+                    for (int j = 0; j <= field1.length - 1; j++) {
+                        String field2[] = field1[j].split("!");
+                        for (int k = 0; k < field2.length - 1; k++) {
+                            Attr attr = doc1.createAttribute(field2[k]);
+                            attr.setValue("" + field2[1]);
+                            element1.setAttributeNode(attr);
+                        }
                     }
                 }
-            }
-            
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
-            }
 
-            // write the content into xml file
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(uploadPath + File.separator +layoutfilename + ".xml"));
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
 
-            TransformerFactory transformerFactory1 = TransformerFactory.newInstance();
-            Transformer transformer1 = transformerFactory1.newTransformer();
-            DOMSource source1 = new DOMSource(doc1);
-            StreamResult result1 = new StreamResult(new File(uploadPath + File.separator + mapperfilename + ".xml"));
-            // Output to console for testing
-            // StreamResult result = new StreamResult(System.out);
-            transformer.transform(source, result);
-            transformer1.transform(source1, result1);
+                // write the content into xml file
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                DOMSource source = new DOMSource(doc);
+                StreamResult result = new StreamResult(new File(uploadPath + File.separator + layoutfilename + ".xml"));
 
-            try {
+                TransformerFactory transformerFactory1 = TransformerFactory.newInstance();
+                Transformer transformer1 = transformerFactory1.newTransformer();
+                DOMSource source1 = new DOMSource(doc1);
+                StreamResult result1 = new StreamResult(new File(uploadPath + File.separator + mapperfilename + ".xml"));
+                // Output to console for testing
+                // StreamResult result = new StreamResult(System.out);
+                transformer.transform(source, result);
+                transformer1.transform(source1, result1);
+
+                try {
+                    layout.getFontList(Integer.parseInt(brand_id));
+                    String image_name = layout.createImage(request, layoutfilename, getServletContext(), modelname);
+                    layout.addLayouts(Integer.parseInt(organization_id), Integer.parseInt(user_id), category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, Integer.parseInt(brand_id), block_id, image_name, modelname, isSocial, isPrint, isDownload, emailHtmldata, imagefilePath);
+                } catch (SAXException ex) {
+                    Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (type_email) {
+                emailHtmldata = request.getParameter("htmldata");
+                imagefilePath = request.getParameter("UploadImage");
+                String location = request.getParameter("imageFile");
                 layout.getFontList(Integer.parseInt(brand_id));
-                String image_name=  layout.createImage(request,layoutfilename,getServletContext(),modelname);
-                layout.addLayouts(Integer.parseInt(organization_id), Integer.parseInt(user_id), category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, Integer.parseInt(brand_id), block_id,image_name,modelname,isSocial,isPrint,isDownload);
-            } catch (SAXException ex) {
-                Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                layout.addEmailLayouts(Integer.parseInt(organization_id), Integer.parseInt(user_id), category_id, layoutfilename, mapperfilename, type_email, type_social, sub_category_id, Integer.parseInt(brand_id), block_id, imagefilePath, modelname, isSocial, isPrint, isDownload, emailHtmldata, imagefilePath);
             }
-            
             logger.log(Level.INFO, "File saved!");
-            if (request.getParameter("mail") != null){
-                 type_email = true;
+            if (request.getParameter("mail") != null) {
+                type_email = true;
                 response.sendRedirect(request.getContextPath() + "/admin/emaillayoutmodel.jsp");
             }
-            
-            if (request.getParameter("socialmedia") != null){
+
+            if (request.getParameter("socialmedia") != null) {
                 type_social = true;
                 response.sendRedirect(request.getContextPath() + "/admin/sociallayoutmodel.jsp");
             }
@@ -218,11 +226,11 @@ public class Model extends BrndBotBaseHttpServlet {
         } catch (SQLException s) {
             logger.log(Level.SEVERE, util.Utility.logMessage(s, "Exception while creating model:", getSqlMethodsInstance().error));
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while creating model:", getSqlMethodsInstance().error));
-        }finally {
-        }        
+        } finally {
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
