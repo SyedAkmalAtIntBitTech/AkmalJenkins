@@ -66,7 +66,7 @@
                     $(document).ready(function () {
                           
                         $("#blocktab").css("background-color","#ffffff").css("color","#19587c");
-                        
+                        $("#blocktab").click();
                         rendomIframeFilename=event.timeStamp;
 //                        alert(rendomIframeFilename);
                    $("#loadingGif").hide();
@@ -208,6 +208,8 @@
                                     block_id = arr[0].replace("block", "");
                             };
                             $scope.showStyles = function(){
+                                document.getElementById("addblkbtn").style.backgroundColor = "#e3e3e3";
+                                document.getElementById("addblkbtn").style.color = "#9c9da1";
                                 $("#stylelist").css("display","block");
                                 $("#blklistid").css("display","none");
                                 $("#styletab").css("background-color","#ffffff").css("color","#19587c");
@@ -782,17 +784,17 @@
                             #edit{
                         position: relative;
                         top:0px;
-                        font-family:"proxima-nova";
+                        font-family:"proxima-nova",sans-serif;
                         font-weight:500;
                         left: 0em; 
                         color: #2D4444;
-
+                        max-height: 450px;
                         }
                         </style>
                         
 <!--                            <div class="emleditorhead fontpnr">Froala Editor</div> -->
                             <div id="editor">
-                                <div id='edit' style="margin-top: 30px;">
+                                <div id='edit' style="margin-top: 37px;">
                                 </div>
                             </div>
 <!--                            <div class="framediv">
