@@ -11,8 +11,10 @@ import com.intbit.AppConstants;
 import com.intbit.marketing.model.TblMarketingCategory;
 import com.intbit.marketing.model.TblOrganization;
 import com.intbit.marketing.service.MarketingCategoryService;
+import com.intbit.util.ServletUtil;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,6 +22,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -34,8 +37,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,13 +65,16 @@ public class MarketingCategoryController {
                 List<TblMarketingCategory> marketingCategorysList = marketingCategoryService.getAllMarketingCategory();
                      
                 org.json.JSONArray marketingCategoryJsonArray = new org.json.JSONArray();
+                Integer i = 1;
                 for (TblMarketingCategory marketingCategoryobject : marketingCategorysList) {
                     org.json.JSONObject json_object = new org.json.JSONObject();
-                   json_object.put("id", marketingCategoryobject.getId());
+                   json_object.put("id", i);
+                   json_object.put("category_id", marketingCategoryobject.getId());
                    json_object.put("name", marketingCategoryobject.getName());
                    json_object.put("order", marketingCategoryobject.getCategoryOrder().toString());
                    json_object.put("organization_id", marketingCategoryobject.getTblOrganization().getId());
                    marketingCategoryJsonArray.put(json_object);
+                   i++;
                 }
                    
                     jsonObject.put("marketingData",marketingCategoryJsonArray);  
@@ -78,7 +86,24 @@ public class MarketingCategoryController {
        }
        return jsonObject.toJSONString();
    }
-   
+
+   @RequestMapping(value="/deleteMarketingCategory", method = RequestMethod.POST)
+   public @ResponseBody String deleteMarketingCategories(HttpServletRequest request, 
+                HttpServletResponse response)throws ServletException, IOException, Throwable {
+
+       try {
+
+           Map<String, Object> requestBodyMap =
+                    AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+           Double category_id = (Double)requestBodyMap.get("category_id");
+           
+           marketingCategoryService.delete(category_id.intValue());
+            
+       }catch (Exception e){
+           logger.log(Level.SEVERE, "Exception while deleting the categories", e);
+       }
+       return "true";
+   }   
 //   public ModelAndView getAllMarketingCategory() {
 //		ModelAndView mav = new ModelAndView("admin/marketingcategories");
 //		try {
@@ -181,7 +206,7 @@ public class MarketingCategoryController {
                             marketing_category.setId(0);
                             marketing_category.setName(category_name);
                             marketing_category.setCategoryOrder(Integer.parseInt(category_order));
-                            marketing_category.setImage(extractBytes2(filePath));
+                            marketing_category.setImage(ServletUtil.extractBytes2(filePath));
                             marketing_category.setTblOrganization(organization);
                             marketing_category.getTblOrganization().setId(Integer.parseInt(organization_id));
                             marketingCategoryService.save(marketing_category);
@@ -202,21 +227,5 @@ public class MarketingCategoryController {
             out.close();
         }
     
-        }
-        public static byte[] extractBytes2(String ImageName) throws IOException {
-            File imgPath = new File(ImageName);
-            BufferedImage bufferedImage = ImageIO.read(imgPath);
-
-            ByteOutputStream bos = null;
-            try {
-                bos = new ByteOutputStream();
-                ImageIO.write(bufferedImage, "png", bos);
-            } finally {
-                try {
-                    bos.close();
-                } catch (Exception e) {
-                }
-            }
-            return bos == null ? null : bos.getBytes();
         }
 }
