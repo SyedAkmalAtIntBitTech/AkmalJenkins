@@ -30,9 +30,9 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="css/main1.css">
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="css/facebook.css" type="text/css"/>
-        <title>marketing campaign</title>
+       <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
+       <link rel="stylesheet" href="css/facebook.css" type="text/css"/>
+        <title>BrndBot - Your Plan</title>
 
         <style type='text/css'>
            
@@ -703,7 +703,7 @@
                                     <div class="col-md-3" style="width:300px;margin-left:-40px;">
                                         <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
                                             <p class="MH1" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description)">{{entitydetails.schedule_title}}</p></a>
-                                        <p class="SP1 fntschld">Scheduled for {{entitydetails.schedule_time| date:"h:mma"}}</p>
+                                        <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entitydetails.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entitydetails.template_status}}</div>
@@ -713,13 +713,12 @@
                                         <a href = "javascript:void(0)" onclick = "overlay();">
                                         <button type="button" 
                                                 class="edtbtn" 
-                                                ng-click="showScheduleDetails(
-                                                            entitydetails.schedule_id, 
+                                                ng-click="getScheduleDetails(entitydetails.schedule_id, 
+                                                            entitydetails.template_status,
                                                             entitydetails.schedule_time, 
                                                             entitydetails.entity_type, 
                                                             entitydetails.schedule_title, 
-                                                            entitydetails.schedule_description
-                                                            )">EDIT</button>
+                                                            entitydetails.schedule_description)">SHOW</button>
                                         </a>
                                     </div>
                                 </div>
@@ -734,65 +733,12 @@
             </div>
             <!--           </div><div id="mask" onclick="document.location='#';">CLICK</div>    -->
             
-            <div id="dvPriorityDialog" class="pollSlider">
-                        <div id="dvPriorityContent" class="actionmainviv">
-                            <div class="inlineFlex">
-                                <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                <div class="headdelete h5font fontpnr">DELETE ACTION</div>
-                            </div>
-                            <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
-                            <div class="topten titlecontain sixtnpix fontpns">
-                                User’s Title for Action Goes Here Two Line tets
-                            </div>
-                            <div class="toptweentyone headcolor tenpix fontpns">
-                                DESCRIPTION
-                            </div>
-                            <div class="height75 scrolly topten">
-                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                            <div class="inlineFlex toptweenty">
-                                <div class="half headcolor fontpns tenpix">
-                                    STATUS
-                                </div>
-                                <div class="half headcolor fontpns tenpix">
-                                    MARKETING PROGRAM
-                                </div>
-                            </div>
-                            <div class="inlineFlex toptnine">
-                                <div class="half containe fontpnr tenpix">
-                                    <div class="inlineFlex">
-                                        <div class="rightfive toptwo">
-                                            <div class="greenDot"></div>
-                                        </div>
-                                        <div class="containe tenpix fontpnr ">TEMPLATE SAVED</div>
-                                    </div>
-                                </div>
-                                <div class="half containe fontpnr tenpix">
-                                    (User Marketing Program Name)
-                                </div>
-                            </div>
-                            <div class="topfourty headtitle pfont actfnt fontpnr">
-                                POSTING DETAILS
-                            </div>
-                            <div class="toptweenty headcolor tenpix fontpns">
-                                SCHEDULED TO POST ON
-                            </div>
-                            <div class="containe fontpnr tenpix">
-                                September 5, 2015 at 2:02 PM
-                            </div>
-                            <div class="inlineFlex top120">
-                                <div class="rightthirty">
-                                    <input type="button" value="Edit" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
-                                </div>
-                                <div class="">
-                                    <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
-                                </div>
-                        </div>
-                    
-<!--                    <h1 class="SP2 actfnt ">ADD ACTION</h1>
+            <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
+                <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
+                    <h1 class="SP2 actfnt">ADD ACTION</h1>
                     <form class="form-horizontal" id="signform" >
                         <div class="group" style="position:relative;">
-                            <p class="actionLable SH2" >TYPE OF ACTION</p>
+                            <p class="actionLable SH2" >type of action</p>
                         </div>
                         
                         <div style="position:absolute;left:15px;top:20px;" class="SH2">
@@ -804,15 +750,15 @@
                                  <option value="note">note</option>
                                </select>
                         </div>
-                        <div class="SH2" style="position:absolute;top:80px;left:15px;">
-                           TITLE <br><textarea cols="28" rows="2" name="addactiontitle" id="addactiontitle" class="SH2" style="resize: none;font-size:1.2em;height:70px;"></textarea>
+                        <div  style="position:absolute;top:80px;left:15px;">
+                            <p class="SH1">TITLE</p><textarea cols="36" rows="2" name="addactiontitle" id="addactiontitle" class="SS2" style="resize:none;font-size:1.3em;height:70px;margin-top:-5px;"></textarea>
                         </div>
                             <div style="position:absolute;top:180px;left:15px;" class="SH2">                              
-                                Description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;height:70px;"></textarea>
+                                description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;height:70px;"></textarea>
                             </div>
-                            <div class="SH2" style="position:absolute;top:280px;left:15px;" >
-                                SCHEDULED TO POST ON<br><br>
-                                Date 
+                            <div class="SH2" style="position:absolute;top:282px;left:15px;" >
+                                scheduled to post on<br><br>
+                                date 
                                 <input type="text" readonly name="actiondatetime"  class="inputdate MH1 ptr" id="datepicker" >
                                         <script>
 
@@ -827,7 +773,7 @@
 
                                         </script><br>
                                         <div style="position:relative;margin-top:-84px;margin-left:180px;">
-                                        TIME
+                                        time
                                      <input id="timepicker1" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:110px;"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
@@ -837,7 +783,7 @@
 
                             </div>
                             
-                                                                Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
+                            <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
                            
                    
                         <div class="row">
@@ -867,14 +813,13 @@
 
                             </div>
                         </div>
-                    </form> -->
+                    </form> 
 
-                </div>
-            </div>
+                </div></div>
             <div id="preview" class="pollSlider">
-                
-                 <div id="preview_email" class="inlineFlex">
-                    <div class="half">
+                <div>
+                    <div id="preview_email"  class="inlineFlex">
+                          <div class="half">
                     <div class="borderright">
                         <div class="firstcol">
                             <div class="inlineFlex">
@@ -883,13 +828,13 @@
                             </div>
                             <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
                             <div class="topten titlecontain sixtnpix fontpns">
-                                User’s Title for Action Goes Here Two Line tets
+                                {{schedule_title}}
                             </div>
                             <div class="toptweentyone headcolor tenpix fontpns">
                                 DESCRIPTION
                             </div>
                             <div class="height75 scrolly topten">
-                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
                             </div>
                             <div class="inlineFlex toptweenty">
                                 <div class="half headcolor fontpns tenpix">
@@ -919,11 +864,11 @@
                                 SCHEDULED TO POST ON
                             </div>
                             <div class="containe fontpnr tenpix">
-                                September 5, 2015 at 2:02 PM
+                                {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}
                             </div>
                             <div class="inlineFlex top120">
                                 <div class="rightthirty">
-                                    <input type="button" value="Edit" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                    <input type="button"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" value="Edit" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
                                 </div>
                                 <div class="">
                                     <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
@@ -941,7 +886,7 @@
                             <div class="toptweentyone headcolor tenpix fontpns">
                                 PREVIEW
                             </div>
-                            <div class="topten">
+                            <div class="topten"><!-- <div class="content"></div> -->
                                 <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
                             </div>
                             <div class="top27 headcolor tenpix fontpns">
@@ -984,407 +929,14 @@
                             </div>
                         </div>
                     </div>
-            </div>
-                
-                
-                
-<!--                <div class="row" id="preview_email">
-                    <div class="col-sm-10 col-md-5 col-lg-5">
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
-                                <p class="pfont actfnt fontpnr">ACTION DETAIL</p>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4  actiondetails actiondet">
-                                <h5 class="h5font fontpnr">DELETE ACTION</h5>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpn fontpns">TITLE</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="titleContect fontpns">Workshop Notice Post Two Line Check</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpns">DESCRIPTION</h5>
-                            </div>
-                        </div>
-                         <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="description fontpnr">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-do eiusmod tempor incididunt ut labore et dolore magna
-aliqua.</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpns">STATUS</h5>
-                            </div>
-                        </div>
-                        <div class="row ">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>                           
-                            <div class="col-sm-10 col-md-10 col-lg-10 algn">
-                                    <div class="row">
-                                        <div class="col-lg-1">
-                                            <div class="greenDot">   else redDot class</div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <h5 class="status fontpnr">TEMPLATE SAVED</h5>
-                                        </div>                                
-                                          <select name="actiontype" class="SS1 " id="actiontype">
-                                        <option value="0">Select</option>
-                                        <option value="facebook">INCOMPLETE</option>
-                                        <option value="twitter">COMPLETE</option>
-                                        </select>
-                                    </div>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10 actiondet">
-                                <p class="pfont actfnt fontpnr">POSTING DETAILS</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row" style="position:relative;">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="header fontpns">POSTING TO:</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">Email</h5>
-                            </div>
-                        </div>
-                        <br/>
-                         <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpns">SCHEDULED TO POST ON</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="description fontpnr">September 5, 2015 at 2:02pm</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
-                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Post"/>
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
-                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Approved"/>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4"></div>
-                        </div>
-                    </div>                    
-                    <div class="col-sm-11 col-md-6 col-lg-6 border">
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
-                                <p class="pfont actfnt fontpnr">SAVED EMAIL</p>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5  actiondetails actiondet">
-                                <h5 class="h5font fontpnr">REMOVED SAVED EMAIL</h5>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <h5 class="header fontpn fontpns">Preview</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-11 col-md-11 col-lg-11">
-                                <div id="imgcontainer1">
-                                    <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150910124930877.png' />
-                                </div>                                
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <h5 class="header fontpns">SUBJECT LINE</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <p class="description fontpnr">Lorem ipsum dolor sit amet</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="header fontpns">TO EMAIL LIST</h5>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5 ">
-                                <h5 class="header fontpns">ADDITIONAL EMAIL LIST</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="header fontpns">FROM NAME</h5>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5 ">
-                                <h5 class="header fontpns">FROM EMAIL ADDRESS</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
-                            </div>
-                        </div>
-                        <br/> 
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-11 col-md-11 col-lg-11 actiondet">
-                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-size" onclick="postSocial()" value="REMOVE SAVED TEMPLATE"/>
-                            </div>
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                        </div>
-                    </div>
-                </div>-->
+                        
+                        
+                        
+                        
+                        
+                        
 
-
-<!--                <div id="edit_email">
-                    <div class="col-sm-10 col-md-5 col-lg-5">
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
-                                <p class="pfont actfnt fontpnr">ACTION DETAIL</p>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4  actiondetails actiondet">
-                                <h5 class="h5font fontpnr">DELETE ACTION</h5>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpn fontpns">TITLE</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p><input type="textarea" class="titleField fontpns" id="email_entitytitle" name="email_entitytitle" value="User’s Title for Action Goes Here Two Line tets" /></p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpns">DESCRIPTION</h5>
-                            </div>
-                        </div>
-                         <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p><input type="textarea" class="titleDescriptionField fontpnr" id="email_entitytitle" name="email_entitytitle" value="<THIS AREA SHOULD BE ABLE TO SCROLL> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/></p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpns">STATUS</h5>
-                            </div>
-                        </div>
-                        <div class="row ">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>                           
-                            <div class="col-sm-10 col-md-10 col-lg-10 algn">
-                                    <div class="row">
-                                        <div class="col-lg-1">
-                                            <div class="greenDot">   else redDot class</div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <h5 class="status fontpnr">TEMPLATE SAVED</h5>
-                                        </div>                                
-                                          <select name="actiontype" class="SS1 " id="actiontype">
-                                        <option value="0">Select</option>
-                                        <option value="facebook">INCOMPLETE</option>
-                                        <option value="twitter">COMPLETE</option>
-                                        </select>
-                                    </div>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10 actiondet">
-                                <p class="pfont actfnt fontpnr">POSTING DETAILS</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row" style="position:relative;">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="header fontpns">POSTING TO:</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">Email</h5>
-                            </div>
-                        </div>
-                        <br/>
-                         <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpns">SCHEDULED TO POST ON</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="description fontpnr">September 5, 2015 at 2:02pm</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
-                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Post"/>
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
-                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Approved"/>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4"></div>
-                        </div>
-                    </div>                    
-                    <div class="col-sm-11 col-md-6 col-lg-6 border">
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
-                                <p class="pfont actfnt fontpnr">SAVED EMAIL</p>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5  actiondetails actiondet">
-                                <h5 class="h5font fontpnr">REMOVED SAVED EMAIL</h5>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <h5 class="header fontpn fontpns">Preview</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-11 col-md-11 col-lg-11">
-                                <div id="imgcontainer1">
-                                    <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150910124930877.png' />
-                                </div>                                
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <h5 class="header fontpns">SUBJECT LINE</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <p class="description fontpnr">Lorem ipsum dolor sit amet</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="header fontpns">TO EMAIL LIST</h5>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5 ">
-                                <h5 class="header fontpns">ADDITIONAL EMAIL LIST</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="header fontpns">FROM NAME</h5>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5 ">
-                                <h5 class="header fontpns">FROM EMAIL ADDRESS</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
-                            </div>
-                        </div>
-                        <br/> 
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-11 col-md-11 col-lg-11 actiondet">
-                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-size" onclick="postSocial()" value="REMOVE SAVED TEMPLATE"/>
-                            </div>
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                        </div>
-                    </div>
-                </div>-->
-
-
-
-                <!--                <div>
-                    <div id="preview_email" style="display:block;">
-
-                        <div class="actiondet">
+<!--                        <div class="actiondet">
 
                             <div style="background-color:#fff;position:relative;top:25px;left:50px;">
 
@@ -1400,10 +952,10 @@ aliqua.</p>
                                 <div style="position:absolute;margin-top:280px;">
                                     <p class=" SP1 actfnt">SENDING DETAILS</p>
                                     <div class="actiondet">
-                                        <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                        <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     </div>
 
-                                    <div style="position:relative;
+                                    <div ng-hide="email_template_status=='Complete'" style="position:relative;
                                          left:10px;bottom:0px;top:0px;">
                                         <button id="button_edit" 
                                                 ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" 
@@ -1415,7 +967,7 @@ aliqua.</p>
                                                 width:120px;" type="button">
                                             EDIT</button> 
                                     </div>
-                                    <div style="position:relative;
+                                    <div ng-hide="email_template_status=='Complete'" style="position:relative;
                                          left:10px;bottom:0px;
                                          top:0px;">
                                         <input type="button" id="email_button_send"
@@ -1430,7 +982,7 @@ aliqua.</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <div id="edit_email_action" style="position:relative;left:50px;top:70px;height: 100%;">
                         <h1 class="SP1 actfnt" style="font-size:2em;margin-left:45px;">UPDATE ACTION</h1>
@@ -1441,7 +993,7 @@ aliqua.</p>
                                     <input id="email_edit_title" class=" inputbox MH2" type="text" name="email_edit_title" value="{{schedule_title}}" style="position:relative;top:7px;line-height:40px;width:400px;font-size:26px;"/>
                                     <p><input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
 
-                                                                        <label>TITLE</label>
+                                    <!--                                    <label>TITLE</label>-->
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:60px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
@@ -1451,11 +1003,11 @@ aliqua.</p>
                                     Description <br><textarea cols="28" rows="2" name="email_description" id="email_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
-                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
-                                    <p class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</p>
-                                    <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
+                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p><br>
+                                    <div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</div>
+                                    <!--<input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>-->
 
-                                <input type="text" readonly class="inputdate MH1 ptr" name="emaildatetime" id="emaildatetime">
+                                    <input type="text" readonly class="inputdate MH1 ptr" name="emaildatetime" id="emaildatetime" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1466,18 +1018,20 @@ aliqua.</p>
                                         yearRange: [2000,2050]
                                     });
 
-                                        </script><br><p class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">TIME</p>
-                                    <input id="timepickeremail" type="text" name="timepicker_email" class="inputtime MH1 ptr" style="width:150px;"/>
+                                        </script>
+                                        <div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;margin-left:150px;margin-top:-63px;">Time
+                                    <input id="timepickeremail" type="text" name="timepicker_email" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepickeremail').timepicki();
                                     </script>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
-                                    
-                                </div>
+                                        </div>
+                                        
+                                    </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:430px;left:35px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:35px;">
 
                                     <div class="row">
                                         <div>
@@ -1524,8 +1078,8 @@ aliqua.</p>
                                 </div>
 
                                 <div class="col-md-6" id="popupright_panel" >
-                                                                            <div><label>subject</label></div>
-                                    <div><p class="SP2 actfnt" style="font-weight:400;">Subject Line </p><input type="text" class="inputbox" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
+                                    <!--                                        <div><label>subject</label></div>-->
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">Subject Line </p><input type="text" class="inputbox SS2" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">To</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">From</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">Reply To</p><input type="text" class="inputbox" name="email_entityreplytoaddress" id="email_entityreplytoaddress" value="{{entitiesdetails.reply_to_email_address}}"></div>
@@ -1542,8 +1096,7 @@ aliqua.</p>
                                     <div class="SH2" style="position:absolute;margin-top:10px;left:15px;" >
                                   
                                         <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                <input type="text" readonly  name="email_schedule_datetime" id="email_schedule_datetime"  class="inputdate MH1 ptr"  >
-                                        <script>
+                                <input type="text" readonly  name="email_schedule_datetime" id="email_schedule_datetime"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        <script>
                                     var picker = new Pikaday(
                                     {
                                         field: document.getElementById('email_schedule_datetime'),
@@ -1554,8 +1107,8 @@ aliqua.</p>
                                     });
 
                                         </script>
-                                       <div class="SP1 actfnt"  style="font-size:1.2em;margin-left:150px;margin-top:-63px;"> TIME
-                                     <input id="timepickeremailaction" type="text" name="timepickeremail" class="inputtime MH1 ptr" style="width:150px;"/>
+                                       <div class="SP1 actfnt"  style="font-size:1.2em;margin-left:150px;margin-top:-63px;"> Time
+                                           <input id="timepickeremailaction" type="text" name="timepickeremail" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepickeremailaction').timepicki();
@@ -1563,8 +1116,8 @@ aliqua.</p>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                     </div></div>
                                     <div style="position:relative;margin-top: 100px;"> 
-                                    <input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <!--<input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>-->
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                     <div class="editbutton"><button ng-click="updateEmailSchedule()" class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                                     </div>
@@ -1573,336 +1126,25 @@ aliqua.</p>
                             </div>
                         </div>
                     </div>
-                </div>-->   
+                </div>
             </div>
 
-            <div id="previewfb" class="pollSlider inlineFlex">
-                <div class="half">
-                <div class="borderright">
-                    <div class="firstcol" id="preview_facebook">
-                        <div class="inlineFlex">
-                            <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                            <div class="headdelete h5font fontpnr">DELETE ACTION</div>
-                        </div>
-                        <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
-                        <div class="topten titlecontain sixtnpix fontpns">
-                            User’s Title for Action Goes Here Two Line tets
-                        </div>
-                        <div class="toptweentyone headcolor tenpix fontpns">
-                            DESCRIPTION
-                        </div>
-                        <div class="height75 scrolly topten">
-                            <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                        <div class="inlineFlex toptweenty">
-                            <div class="half headcolor fontpns tenpix">
-                                STATUS
+            <div id="previewfb" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
+                <div>
+                    <div id="preview_facebook">
+
+
+                        <div style="position:relative;left:50px;">
+                            <div class="actiondetails actiondet">
+                                <p class="SP2 actfnt">ACTION DETAILS</p>
+                                <p class="MH2" style="width:400px;">{{schedule_title}}</p>
+                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">{{schedule_desc}}</p>
+                                <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
                             </div>
-                            <div class="half headcolor fontpns tenpix">
-                                MARKETING PROGRAM
-                            </div>
-                        </div>
-                        <div class="inlineFlex toptnine">
-                            <div class="half containe fontpnr tenpix">
-                                <div class="inlineFlex">
-                                    <div class="rightfive toptwo">
-                                        <div class="redDot"></div>
-                                    </div>
-                                    <div class="containe tenpix fontpnr ">INCOMPLETE</div>
-                                </div>
-                            </div>
-                            <div class="half containe fontpnr tenpix">
-                                (User Marketing Program Name)
-                            </div>
-                        </div>
-                        <div class="topfourty headtitle pfont actfnt fontpnr">
-                            POSTING DETAILS
-                        </div>
-                        <div class="inlineFlex topnineteen">
-                            <div class="half headcolor fontpns tenpix">
-                                POSTING TO
-                            </div>
-                            <div class="half headcolor fontpns tenpix">
-                                BRNDBOT
-                            </div>
-                        </div>
-                        <div class="inlineFlex toptnine">
-                            <div class="half containe fontpnr tenpix">
-                                FACEBOOK
-                            </div>
-                            <div class="half containe fontpnr tenpix">
-                                BRNDBOT
-                            </div>
-                        </div>
-                        <div class="toptweenty headcolor tenpix fontpns">
-                            SCHEDULED TO POST ON
-                        </div>
-                        <div class="containe fontpnr tenpix">
-                            September 5, 2015 at 2:02 PM
-                        </div>
-                        <div class="inlineFlex topsixeight">
-                            <div class="rightthirty">
-                                <input type="button" value="Edit" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
-                            </div>
-                            <div class="">
-                                <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div class="half">
-                    <div class="secondcol">
-                        <div class="inlineFlex">
-                                <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
-                        </div>
-                        <div class="toptweentyone headcolor tenpix fontpns">
-                            PREVIEW
-                        </div>
-                        <div class="topten">
-                            <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
-                        </div>
-                        <div class="toptweenty headcolor tenpix fontpns">
-                            POST TEXT
-                        </div>
-                        <div class="height75 scrolly topten">
-                            <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                        <div class="toptweenty headcolor tenpix fontpns">
-                            LINK TITLE
-                        </div>
-                        <div class="topten containe fontpnr twlvpix">
-                            Link Name Goes Here
-                        </div>
-                        <div class="toptweentyfive headcolor tenpix fontpns">
-                            LINK DESCRIPTION
-                        </div>
-                        <div class="topten containe fontpnr twlvpix">
-                            Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </div>
-                        <div class="toptweenty headcolor tenpix fontpns">
-                            LINK URL NAME
-                        </div>
-                        <div class="topten containe fontpnr twlvpix">
-                            Link URL Name
-                        </div>
-                    </div>
-                </div>
-                
-                
-<!---------------- bootstrap facebook preview --------------------------------------------->
- <!--                <div class="row" id="preview_facebook">
-                    <div class="col-sm-10 col-md-5 col-lg-5">
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
-                                <p class="pfont actfnt fontpnr">ACTION DETAIL</p>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4  actiondetails actiondet">
-                                <h5 class="h5font fontpnr">DELETE ACTION</h5>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpn fontpns">TITLE</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="titleContect fontpns">User’s Title for Action Goes Here Two Line tets</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpns">DESCRIPTION</h5>
-                            </div>
-                        </div>
-                         <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="description fontpnr">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-do eiusmod tempor incididunt ut labore et dolore magna
-aliqua.</p>
-                            </div>
-                        </div>
-                        <br/>
-                         <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-4 col-md-4 col-lg-4">
-                                <h5 class="header fontpns">STATUS</h5>
-                            </div>
-                            <div class="col-sm-6 col-md-6 col-lg-6 ">
-                                <h5 class="header fontpns">MARKETING PROGRAM</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-4 col-md-4 col-lg-4">
-                                <h5 class="description fontpnr">Lorem ipsum dolor sit amet</h5>
-                            <div class="row ">
-                                <div class="col-sm-2 col-md-2 col-lg-2"></div>                           
-                                <div class="col-sm-10 col-md-10 col-lg-10 algn">
-                                        <div class="row">
-                                            <div class="col-lg-1">
-                                              <div class="redDot">     else greenDot class  </div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <h5 class="status fontpnr">INCOMPLETE</h5>
-                                            </div>                                
-                                              <select name="actiontype" class="SS1 " id="actiontype">
-                                            <option value="0">Select</option>
-                                            <option value="facebook">INCOMPLETE</option>
-                                            <option value="twitter">COMPLETE</option>
-                                            </select>
-                                        </div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="col-sm-6 col-md-6 col-lg-6">
-                                <h5 class="description fontpnr">User Marketing Program Name</h5>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10 actiondet">
-                                <p class="pfont actfnt fontpnr">POSTING DETAILS</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="header fontpns">POSTING TO</h5>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5 ">
-                                <h5 class="header fontpns">MANAGED PAGE</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                             <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">FACEBOOK</h5>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description fontpnr">BRNDBOT</h5>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpns">SCHEDULED TO POST ON</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="description fontpnr">September 5, 2015 at 2:02pm</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
-                                <input type="button" id="fb_button_post" class="button buttonGrey button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Post"/>
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
-                                <input type="button" id="fb_button_post" class="button buttonGrey button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Approved"/>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4"></div>
-                        </div>
-                    </div>                    
-                    <div class="col-sm-11 col-md-6 col-lg-6 border">
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
-                                <p class="pfont actfnt fontpnr">SAVED POST</p>
-                            </div>
-                            <div class="col-sm-5 col-md-5 col-lg-5  actiondetails actiondet">
-                                <h5 class="h5font fontpnr">REMOVED SAVED POST</h5>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <h5 class="header fontpn fontpns">Preview</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-11 col-md-11 col-lg-11">
-                                <div id="imgcontainer">
-                                    <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=33.png' />
-                                </div>                                
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <h5 class="header fontpns">POST TEXT</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <p class="description fontpnr scrollEfect"><THIS AREA SHOULD BE ABLE TO SCROLL> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua  consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                        </div>
-                        <br/>
-                         <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpns">LINK TITLE</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="description fontpnr">Link Name Goes Here</p>
-                            </div>
-                        </div>
-                        <br/>
-                         <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpns">LINK DESCRIPTION</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="description fontpnr">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                        </div>
-                        <br/>
-                         <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header fontpns">LINK URL NAME</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="description fontpnr">Link URL Name</p>
-                            </div>
-                        </div>
-                        <br/> 
-                    </div>
-                </div>-->
-                        
-                        
-                                
-<!--                                 
+                            <div id="imgcontainer">
+                           <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
+                                style="display:none;"/>
+                           </div>    
                             
                             <div style="position:absolute;top:170px;left:320px;">
 
@@ -1915,7 +1157,7 @@ aliqua.</p>
                                 <div>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.metadata.ManagedPage}}</p>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
 
                                 <div ng-hide="facebook_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;left:-10px;">
@@ -1957,7 +1199,7 @@ aliqua.</p>
                                               font-weight:400;line-height:10px;
                                               width:300px;"/>
                                     </p>
-                                    <label>TITLE</label>
+<!--                                    <label>TITLE</label>-->
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:60px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
@@ -1970,21 +1212,21 @@ aliqua.</p>
                                               font-weight:400;line-height:10px;
                                               width:300px;"/>
                                     </p>
-                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+<!--                                Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                         <option value="0">Select</option>
                                         <option value="facebook">facebook</option>
                                         <option value="twitter">twitter</option>
                                         <option value="email">email</option>
-                                        <option value="note">note</option>
-                                    </select>
+                                        <option value="note">note</option>-->
+                                    <!--</select>-->
                                 </div>
                                 <div style="position:absolute;top:110px;left:60px;" class="SP1 actfnt">
                                     Description <br><textarea cols="28" rows="2" name="fb_description" id="fb_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
-                                <div class="SH2" style="position:absolute; margin-top: 180px; margin-left: 60px;" >
+                                <div class="SH2" style="position:absolute; margin-top: 200px; margin-left: 60px;" >
                                     <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                <input type="text" readonly class="inputdate MH1 ptr" name="fbdatetime" id="datepicker2">
+                                <input type="text" readonly class="inputdate MH1 ptr" name="fbdatetime" id="datepicker2" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1995,8 +1237,9 @@ aliqua.</p>
                                         yearRange: [2000,2050]
                                     });
 
-                                    </script><br><div class="SP1 actfnt"  style="font-size:1.2em;"> TIME</div>
-                                    <input id="timepicker2" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;"/>
+                                    </script>
+                                    <div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-63px;"> Time
+                                    <input id="timepicker2" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepicker2').timepicki();
@@ -2004,11 +1247,11 @@ aliqua.</p>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                 </div>
 
-                                                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
+                                <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:35px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:35px;">
 
                                     <div class="row">
                                         <div>
@@ -2036,6 +1279,7 @@ aliqua.</p>
                             </div>
                         </form>                            
                     </div>
+                    </div>
 
                     <div id="edit_facebook">
 
@@ -2058,15 +1302,15 @@ aliqua.</p>
                             
                             <p><input class="inputbox SP1" type="hidden" name="facebook_image_name" id="facebook_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             <div style="position:absolute;top:160px;left:300px;">
-                                <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
-                                <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
-                                <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="font-weight:300;width:230px;"/></p>
+                                <p><input type="text" name="facebook_schedule_posttext" id="facebook_schedule_posttext" value='{{entitiesdetails.metadata.post_text}}' class="actfnt" style="color:#888;width:230px;font-weight:400;"/></p>
+                                <p><input type='text' name="facebook_schedule_url" id="facebook_schedule_url"  value='{{entitiesdetails.metadata.url}}' class="actfnt" style="color:#888;width:230px;font-weight:400;"/></p>
+                                <p><input type='text' name='facebook_schedule_description' id="facebook_schedule_description" value='{{entitiesdetails.metadata.description}}' class="actfnt" style="color:#888;width:230px;font-weight:400;"/></p>
                             </div>
                             <div style="position:absolute;margin-left:15px;margin-top: 0px;">
                                 <p class=" SP1 actfnt">Post details</p>
                                 <div>
                                     <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                     <input type="text" readonly name="facebook_schedule_date" class="inputdate MH1 ptr" id="facebook_schedule_date" style="width:150px;">
+                                     <input type="text" readonly name="facebook_schedule_date" class="inputdate MH1 ptr" id="facebook_schedule_date" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}" style="width:150px;">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -2078,7 +1322,7 @@ aliqua.</p>
                                     });
 
                                         </script><div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-55px;"> Time
-                                        <input id="facebook_schedule_time" type="text" name="facebook_schedule_time" class="inputtime MH1 ptr" style="width:150px;"/><br>
+                                        <input id="facebook_schedule_time" type="text" name="facebook_schedule_time" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/><br>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#facebook_schedule_time').timepicki();
@@ -2087,71 +1331,26 @@ aliqua.</p>
                                     </div>                                   
                                     
                                     
-                                    <input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <!--<input type='datetime-local' name="facebook_schedule_datetime" id="facebook_schedule_datetime" class="inputdate"/><br>-->
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" readonly class="SH1" name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
-                                <div class="removesavetemplate"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
-                                <div class="savebutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                <div class="editbutton" ng-click="updateSocialSchedule()"><button class="button button--moema button--text-thin button--text-upper button--size-s" style="margin-left:300px;margin-top:-48px;" type="button">save</button> </div>
                             </div>
                         </div>
                     </div>                        
                 </div>
 
             </div>
+               
 
-            -->
-            </div>
             <div id="previewNote" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
-                <div id="noteprev">
-                        <div class="firstcol">
-                            <div class="inlineFlex">
-                                <div class="headtitle pfont actfnt fontpnr">NOTE DETAILS</div>
-                                <div class="headdelete h5font fontpnr">DELETE ACTION</div>
-                            </div>
-                            <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
-                            <div class="topten titlecontain sixtnpix fontpns">
-                                User’s Title for Action Goes Here Two Line tets
-                            </div>
-                            <div class="toptweentyone headcolor tenpix fontpns">
-                                DESCRIPTION
-                            </div>
-                            <div class="height75 scrolly topten">
-                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                            <div class="inlineFlex top32">
-                                <div class="headcolor fontpns tenpix">
-                                    STATUS
-                                </div>
-                            </div>
-                            <div class="toptnine">
-                                <div class="containe fontpnr tenpix inlineFlex">
-                                    <div class="rightfive toptwo">
-                                        <div class="redDot"></div>
-                                    </div>
-                                    <div class="containe tenpix fontpnr ">INCOMPLETE</div>
-                                </div>
-                            </div>
-                            <div class="toptweenty headtitle pfont actfnt fontpns">
-                                MARKETING PROGRAM
-                            </div>
-                            <div class="toptnine headcolor tenpix fontpnr">
-                                (User Marketing Program Name)
-                            </div>
-                            <div class="top20nhalf headtitle pfont actfnt fontpns">
-                                SCHEDULED TO SEND ON
-                            </div>
-                            <div class="top10n half headcolor tenpix fontpnr">
-                                September 5, 2015 at 2:02 PM
-                            </div>
-                            <div class="inlineFlex top111">
-                                <div class="right223">
-                                    <input type="button" value="Edit" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
-                                </div>
-                            </div>
-                        </div>
-                    
-<!--                        <div style="position:relative;left:50px;">
+                <div>
+                    <div id="noteprev">
+
+                        <div style="position:relative;left:50px;">
+
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
                                 <p class="MH2" style="width:400px;"> {{schedule_title}}</p>
@@ -2162,7 +1361,7 @@ aliqua.</p>
                             <div style="position:absolute;margin-left:15px;margin-top:50px;">
                                 <p class=" SP1 actfnt">Post details</p>
                                 <div>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
 
                                 <div style="position:relative;left:-10px;">
@@ -2171,17 +1370,17 @@ aliqua.</p>
 
                             </div>
 
-                        </div>-->
-                </div>
+                        </div>
+                    </div>
+                
                     <div id="noteedit" style="display:none;">
 
                         <div style="position:relative;left:50px;">
 
-                    <div class="col-sm-1 col-md-1 col-lg-1"></div>
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
                                 <p class="MH2" style="width:500px;"><input type="text" id="note_title" name="note_title" value="{{schedule_title}}"/></p>
-                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">Description:<input type="text" id="note_desc" name="note_desc" value="{{schedule_desc}}"/></p>
+                                <p class="SP1 actfnt" style="font-size:17px;font-weight:400;color:#888;"><input type="text" id="note_desc" name="note_desc" value="{{schedule_desc}}"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="note_schedule_id" id="note_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                                 <p><input class="inputbox SP1" type="hidden" name="note_entity_id" id="note_entity_id" value='{{entitiesdetails.id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             </div>       
@@ -2198,7 +1397,7 @@ aliqua.</p>
                                     
                                     
                                      <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                     <input type="text" readonly name="notedate" class="inputdate MH1 ptr" id="datepicker4" style="width:150px;">
+                                     <input type="text" readonly name="notedate" class="inputdate MH1 ptr" id="datepicker4" style="width:150px;" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -2209,16 +1408,17 @@ aliqua.</p>
                                         yearRange: [2000,2050]
                                     });
 
-                                        </script><div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-55px;"> TIME
-                                        <input id="timepicker3" type="text" name="timepicker2" class="inputtime MH1 ptr" style="width:150px;"/><br>
+                                        </script><div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-55px;">  Time
+                                        <input id="timepicker3" type="text" name="timepicker2" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/><br>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepicker3').timepicki();
                                     </script>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                     </div>
-                                    <input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                              
+                                    <!--<input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>-->
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
                                 <div class="savebutton" ng-click="updateNote()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                             </div>
@@ -2228,260 +1428,61 @@ aliqua.</p>
                 </div>
 
             </div>
-            <div id="previewtwitter" class="pollSlider">
-                <div id="preview_twitter" class="inlineFlex">
-                    <div class="half">
-                    <div class="borderright">
-                        <div class="firstcol" id="preview_facebook">
-                            <div class="inlineFlex">
-                                <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                <div class="headdelete h5font fontpnr">DELETE ACTION</div>
+
+            <div id="previewtwitter" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
+                <div>
+                    <div id="preview_twitter">
+
+                        <div style="position:relative;left:50px;">
+
+                            <div class="actiondetails actiondet">
+                                <p class="SP2 actfnt">ACTION DETAILS</p>
+                                <p class="MH2" style="width:400px;">{{schedule_title}}</p>
+                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;"> {{schedule_desc}}</p>
                             </div>
-                            <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
-                            <div class="topten titlecontain sixtnpix fontpns">
-                                User’s Title for Action Goes Here Two Line tets
+                            <br><p class="SP1 actfnt" style="margin-left:15px;">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-35px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                            <div id="imgcontainer">
+                           <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
+                                style="display:none;"/>
+                           </div>
+                            
+                            <div style="position:relative;top:-200px;left:300px;">
+                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.text}}</p>
+                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.shorturl}}</p>
                             </div>
-                            <div class="toptweentyone headcolor tenpix fontpns">
-                                DESCRIPTION
-                            </div>
-                            <div class="height75 scrolly topten">
-                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                            <div class="inlineFlex toptweenty">
-                                <div class="half headcolor fontpns tenpix">
-                                    STATUS
+                            <div id="twitter_preview_postdet" style="position:relative;margin-left:15px;">  
+                                <p class="postdetails SP1 actfnt">Post details</p>
+                                <div>
+                                    <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
-                                <div class="half headcolor fontpns tenpix">
-                                    MARKETING PROGRAM
-                                </div>
-                            </div>
-                            <div class="inlineFlex toptnine">
-                                <div class="half containe fontpnr tenpix">
-                                    <div class="inlineFlex">
-                                        <div class="rightfive toptwo">
-                                            <div class="redDot"></div>
-                                        </div>
-                                        <div class="containe tenpix fontpnr ">INCOMPLETE</div>
-                                    </div>
-                                </div>
-                                <div class="half containe fontpnr tenpix">
-                                    (User Marketing Program Name)
-                                </div>
-                            </div>
-                            <div class="topfourty headtitle pfont actfnt fontpnr">
-                                POSTING DETAILS
-                            </div>
-                             <div class="topnineteen headcolor tenpix fontpns">
-                                POSTING TO
-                            </div>
-                            <div class="containe fontpnr tenpix">
-                                TWITTER
-                            </div>
-                            <div class="toptweenty headcolor tenpix fontpns">
-                                SCHEDULED TO POST ON
-                            </div>
-                            <div class="containe fontpnr tenpix">
-                                September 5, 2015 at 2:02 PM
-                            </div>
-                            <div class="inlineFlex topsixeight">
-                                <div class="rightthirty">
-                                    <input type="button" value="Edit" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
-                                </div>
-                                <div class="">
-                                    <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                <div ng-hide="twitter_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;left:-5px;" class="editbutton">
+                                <button ng-click="editScheduleDetails(
+                                            schedule_id, 
+                                            entities_selected_time, 
+                                            schedule_type, 
+                                            schedule_title, 
+                                            schedule_desc)" 
+                                            class="button 
+                                            button--moema 
+                                            button--text-thick 
+                                            button--text-upper 
+                                            button--size-s" 
+                                            style="background-color:#E65C00;
+                                            width:120px;" 
+                                            type="button">EDIT</button>
+                                <input type="button" id="twitter_button_post"
+                                       class="button button--moema 
+                                                button--text-thick 
+                                                button--text-upper 
+                                                button--size-s" 
+                                                style="width:120px;"
+                                                onclick="postSocial()"
+                                        value="Post"/>                                
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </div>
-                    <div class="half">
-                        <div class="secondcol">
-                             <div class="inlineFlex">
-                                <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
-                            </div>
-                            <div class="toptweentyone headcolor tenpix fontpns">
-                                PREVIEW
-                            </div>
-                            <div class="topten">
-                                <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
-                            </div>
-                            <div class="toptweenty headcolor tenpix fontpns">
-                                POST TEXT
-                            </div>
-                            <div class="height75 scrolly topten">
-                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                            <div class="toptweenty headcolor tenpix fontpns">
-                                LINK NAME
-                            </div>
-                            <div class="topten containe fontpnr twlvpix">
-                                Link Name Goes Here
-                            </div>
-                        </div>
-                    </div>
-<!--                <div>
-                    <div class="row" id="preview_twitter">
-                    <div class="col-sm-10 col-md-5 col-lg-5">
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-6 col-md-6 col-lg-6  actiondetails actiondet">
-                                <p class="pfont actfnt">ACTION DETAILS</p>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4  actiondetails actiondet">
-                                <h5 class="h5font">DELETE ACTION</h5>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header">TITLE</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="MH2">Workshop Notice Post Two Line Check</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header">DESCRIPTION</h5>
-                            </div>
-                        </div>
-                         <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-do eiusmod tempor incididunt ut labore et dolore magna
-aliqua.</p>
-                            </div>
-                        </div>
-                        <br/>
-                         <div class="row" style="position:relative;">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header">STATUS</h5>
-                            </div>
-                        </div>
-                        <div class="row SH2" style="position:absolute;">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <select name="actiontype" class="SS1 " id="actiontype">
-                                    <option value="0">Select</option>
-                                    <option value="facebook">INCOMPLETE</option>
-                                    <option value="twitter">COMPLETE</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10 actiondetails actiondet">
-                                <p class="pfont actfnt">POSTING DETAILS</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row" style="position:relative;">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="header">POSTING TO:</h5>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4 ">
-                                <h5 class="header">MANAGED PAGE</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-5 col-md-5 col-lg-5">
-                                <h5 class="description">Twitter</h5>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4">
-                                <h5 class="description">BrndBot</h5>
-                            </div>
-                        </div>
-                        <br/>
-                         <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <h5 class="header">SCHEDULED TO POST ON</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-10 col-md-10 col-lg-10">
-                                <p class="description">September 5, 2015 at 2:02pm</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
-                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Post"/>
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-2 col-md-2 col-lg-2  actiondetails actiondet">
-                                <input type="button" id="fb_button_post" class="button button--moema  button--text-thick  button--text-upper  button--size-s" onclick="postSocial()" value="Approved"/>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4"></div>
-                        </div>
-                    </div>
-                    <div class="col-sm-11 col-md-6 col-lg-6 border">
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-11 col-md-11 col-lg-11 actiondetails actiondet">
-                                <p class="pfont actfnt">SAVED POST</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <h5 class="SP2 actfnt">Preview</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-7 col-md-7 col-lg-7">
-                                <div id="imgcontainer">
-                                    <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=logo-1200-630.jpg' />
-                                </div>                                
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <h5 class="header">POST TEXT</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-do eiusmod tempor incididunt ut labore et dolore magna
-aliqua.</p>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                <h5 class="header">LINK URL</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
-                            <div class="col-sm-9 col-md-9 col-lg-9">
-                                 <input type="reset" value="Remove/Save" class="button button--moema button--text-thick button--text-upper  button--size-size" onclick="cancelform();"/>
-                            </div>
-                        </div>
-                       
-                    </div>
-                </div>
-                
                     <div id="edit_twitter_action" style="position:relative;top:50px;left:50px;">
                         <h1 class="SP1 actfnt" style="font-size:2em;margin-left:45px;">UPDATE ACTION</h1>
                         <form class="form-horizontal" id="signform">
@@ -2490,27 +1491,27 @@ aliqua.</p>
                                 <div class="col-md-4 col-md-offset-1 ">
                                     <input id="edit_twitter_title" class=" inputbox MH2" type="text" name="edit_twitter_title" value="{{schedule_title}}" style="position:relative;top:0px;line-height:40px;width:400px;font-size:26px;"/>
                                     <p><input class="inputbox SP1" type="hidden" name="twitter_scheduleid" id="twitter_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                                                        <label>TITLE</label>
+                                    <!--                                    <label>TITLE</label>-->
                                 </div><br>
                                 <div style="position:absolute;left:60px;top:50px;" class="SH2">
                                     <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
                                     <p><input class="inputbox SP1" type="hidden" name="twitter_action_type" id="twitter_action_type" value='{{schedule_type}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
-                                                                        Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
+                                    <!--                                    Type :  <select id="actiontype" class="SS1" name="actiontype" style="margin-left:-350px;margin: 10px;font-size: 15px;width:100px;color:#444;background-color: #fff;border:none;border-bottom: 1px solid #000;">
                                                                             <option value="0">Select</option>
                                                                             <option value="facebook">facebook</option>
                                                                             <option value="twitter">twitter</option>
                                                                             <option value="email">email</option>
                                                                             <option value="note">note</option>
-                                                                        </select>
+                                                                        </select>-->
                                 </div>
                                 <div style="position:absolute;top:110px;left:60px;" class="SP1 actfnt">
                                     Description <br><textarea cols="28" rows="2" name="twitter_description" id="twitter_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
                                 </div>
                                 <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
-                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p><br>
 
                                     <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
-                                <input type="text" readonly class="inputdate MH1 ptr" name="twitterdatetime" id="datepicker3"/>
+                                    <input type="text" readonly class="inputdate MH1 ptr" name="twitterdatetime" id="datepicker3" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}"/>
 
                                         <script>
                                     var picker = new Pikaday(
@@ -2522,8 +1523,9 @@ aliqua.</p>
                                         yearRange: [2000,2050]
                                     });
 
-                                        </script><br><div class="SP1 actfnt"  style="font-size:1.2em;"> TIME</div>
-                                    <input id="timepickertwitter" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;"/>
+                                        </script>
+                                        <div class="SP1 actfnt"  style="font-size:1.2em;margin-left:170px;margin-top:-63px;"> Time
+                                    <input id="timepickertwitter" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepickertwitter').timepicki();
@@ -2531,11 +1533,11 @@ aliqua.</p>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                 </div>
 
-                                                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
+                                <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:35px;">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:35px;">
 
                                     <div class="row">
                                         <div>
@@ -2563,7 +1565,7 @@ aliqua.</p>
                             </div>
                         </form>                            
                     </div>
-
+                    </div>
                     <div id="edit_twitter">
                         <div style="position:relative;left:50px;top:-10px;">
                             <div class="actiondetails actiondet" >
@@ -2586,8 +1588,8 @@ aliqua.</p>
                          
                             <p><input class="inputbox SP1" type="hidden" name="twitter_image_name" id="twitter_image_name" value='{{entitiesdetails.image_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
                             <div style="position:relative;top: -200px;left: 300px;">
-                                <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.text}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
-                                <p><input type="text" name="twitter_schedule_post_url" id="twitter_schedule_post_url" value='{{entitiesdetails.metadata.shorturl}}' class="actfnt" style="font-weight:300; width:230px;"/></p>
+                                <p><input type="text" name="twitter_schedule_post_text" id="twitter_schedule_post_text" value='{{entitiesdetails.metadata.text}}' class="actfnt" style="font-weight:300; width:230px;color:#888;"/></p>
+                                <p><input type="text" name="twitter_schedule_post_url" id="twitter_schedule_post_url" value='{{entitiesdetails.metadata.shorturl}}' class="actfnt" style="font-weight:300; width:230px;color:#888;"/></p>
                             </div>
                             <div style="position:relative;margin-left:10px;margin-top:-300px;">
                                 <p class="postdetails SP1 actfnt">Post details</p>
@@ -2595,9 +1597,9 @@ aliqua.</p>
                                     
                                     
                                     <div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</div>
-                                    <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
+                                    <!--<input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>-->
 
-                                <input type="text" readonly class="inputdate MH1 ptr" name="twitter_schedule_date" id="twitter_schedule_date">
+                                <input type="text" readonly class="inputdate MH1 ptr" name="twitter_schedule_date" id="twitter_schedule_date" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -2609,15 +1611,15 @@ aliqua.</p>
                                     });
 
                                         </script><div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;margin-top:-55px;margin-left:170px;">Time
-                                    <input name="timepicker_twittertime" id="timepicker_twittertime" type="text"  class="inputtime MH1 ptr" style="width:150px;"/>
+                                    <input name="timepicker_twittertime" id="timepicker_twittertime" type="text"  class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepicker_twittertime').timepicki();
                                     </script>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script></div><br>
                                     
-                                    <input type='datetime-local'  class="inputdate"/><br>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Scheduled on {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <!--<input type='datetime-local'  class="inputdate"/><br>-->
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <input type="text" class="SH1" readonly name="social_type" id="social_type" value="{{schedule_type}}">
                                 </div>
                                 <div style="margin-left:-10px;" class="removesavetemplate"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
@@ -2626,19 +1628,20 @@ aliqua.</p>
                         </div>
                     </div>
 
-                </div>-->
+                </div>
 
             </div>
-            </div>
-            <div id="light" class="white_content">
+
+            
+          
+               <div id="light" class="white_content">
                 <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
                     <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
-                        <p style="margin-top:-7px;margin-left:-11px;"><img src="images/CloseIcon.svg" height="25" width="25" /></p>
+                        <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="25" width="25" /></p>
                     </div>
                 </a>
             </div>
-        </div>    
-
+        </div>   
         <script>
         $(".cross").hide();
         $(".menu").hide();
