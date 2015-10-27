@@ -463,6 +463,7 @@
                 right:0px;
                 margin-right: -424px;
                 border: 1px solid #ccc;
+                z-index: 1004;
             }
            
             /******************************** Start Satyajit Roy css code *******************/
@@ -1129,60 +1130,153 @@
                 </div>
             </div>
 
-            <div id="previewfb" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
-                <div>
-                    <div id="preview_facebook">
-
-
-                        <div style="position:relative;left:50px;">
-                            <div class="actiondetails actiondet">
-                                <p class="SP2 actfnt">ACTION DETAILS</p>
-                                <p class="MH2" style="width:400px;">{{schedule_title}}</p>
-                                <p class="SP1 actfnt" style="font-size:15px;font-weight:400;">{{schedule_desc}}</p>
-                                <p class="SP1 actfnt">Saved Post </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
-                            </div>
-                            <div id="imgcontainer">
-                           <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
-                                style="display:none;"/>
-                           </div>    
-                            
-                            <div style="position:absolute;top:170px;left:320px;">
-
-                                <p class="SP1 actfnt">{{entitiesdetails.metadata.post_text}}</p>
-                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.url}}</p>
-                                <p class="actfnt" style="font-weight:300;">{{entitiesdetails.metadata.description}}</p>
-                            </div>
-                            <div id="fb_preview_postdet" style="position:absolute;margin-left:15px;">
-                                <p class=" SP1 actfnt">Post details</p>
-                                <div>
-                                    <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
-                                    <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.metadata.ManagedPage}}</p>
-                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+            <div id="previewfb" class="pollSlider">
+                    <div id="preview_facebook" class="inlineFlex">
+                        <div class="half">
+                            <div class="borderright">
+                                <div class="firstcol">
+                                    <div class="inlineFlex">
+                                        <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
+                                        <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                    </div>
+                                    <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                                    <div class="topten titlecontain sixtnpix fontpns">
+                                        {{schedule_title}}
+                                    </div>
+                                    <div class="toptweentyone headcolor tenpix fontpns">
+                                        DESCRIPTION
+                                    </div>
+                                    <div class="height75 scrolly topten">
+                                        <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
+                                    </div>
+                                    <div class="inlineFlex toptweenty">
+                                        <div class="half headcolor fontpns tenpix">
+                                            STATUS
+                                        </div>
+                                        <div class="half headcolor fontpns tenpix">
+                                            MARKETING PROGRAM
+                                        </div>
+                                    </div>
+                                    <div class="inlineFlex toptnine">
+                                        <div class="half containe fontpnr tenpix">
+                                            <div class="inlineFlex">
+                                                <div class="rightfive toptwo">
+                                                    <div class="greenDot"></div>
+                                                </div>
+                                                <div class="containe tenpix fontpnr ">{{facebook_template_status}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="half containe fontpnr tenpix">
+                                            (User Marketing Program Name)
+                                        </div>
+                                    </div>
+                                    <div class="topfourty headtitle pfont actfnt fontpnr">
+                                        POSTING DETAILS
+                                    </div>
+                                    <div class="inlineFlex topnineteen">
+                                        <div class="half headcolor fontpns tenpix">
+                                            POSTING TO
+                                        </div>
+                                        <div class="half headcolor fontpns tenpix">
+                                            MANAGED PAGE
+                                        </div>
+                                    </div>
+                                    <div class="inlineFlex toptnine">
+                                        <div class="half containe fontpnr tenpix">
+                                            {{schedule_type}}
+                                        </div>
+                                        <div class="half containe fontpnr tenpix">
+                                            BRNDBOT
+                                        </div>
+                                    </div>
+                                    <div class="toptweenty headcolor tenpix fontpns">
+                                        SCHEDULED TO POST ON
+                                    </div>
+                                    <div class="containe fontpnr tenpix">
+                                            {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}
+                                    </div>
+                                    <div class="inlineFlex topsixeight">
+                                        <div class="rightthirty">
+                                            <input type="button" value="Edit" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                        </div>
+                                        <div class="">
+                                            <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div ng-hide="facebook_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;left:-10px;">
-                                <button id="button_edit" 
-                                            class="button button--moema 
-                                            button--text-thick 
-                                            button--text-upper 
-                                            button--size-s" 
-                                            style="background-color:#E65C00;
-                                            width:120px;" type="button" 
-                                            ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)">EDIT
-                                </button>
-                                <input type="button" id="fb_button_post"
-                                       class="button button--moema 
-                                                button--text-thick 
-                                                button--text-upper 
-                                                button--size-s" 
-                                                style="width:120px;"
-                                                onclick="postSocial()"
-                                        value="Post"/>
-                                </div>
-
                             </div>
                         </div>
-                    </div>
+                        <div class="half">
+                                <div class="secondcol">
+                                     <div class="inlineFlex">
+                                        <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
+                                        <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
+                                    </div>
+                                    <div class="toptweentyone headcolor tenpix fontpns">
+                                        PREVIEW
+                                    </div>
+                                    <div class="topten">
+                                        <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' /> <!--  {{entitiesdetails.image_name}}  -->
+                                    </div>
+                                    <div id="imgcontainer"  style="display:none;">
+                                    <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                    </div> 
+                                    <div class="toptweenty headcolor tenpix fontpns">
+                                        POST TEXT
+                                    </div>
+                                    <div class="height75 scrolly topten">
+                                        <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    </div>
+                                    <div class="toptweenty headcolor tenpix fontpns">
+                                        LINK TITLE
+                                    </div>
+                                    <div class="topten containe fontpnr twlvpix">
+                                        Link Name Goes Here
+                                    </div>
+                                    <div class="toptweentyfive headcolor tenpix fontpns">
+                                        LINK DESCRIPTION
+                                    </div>
+                                    <div class="topten containe fontpnr twlvpix">
+                                        Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    </div>
+                                    <div class="toptweenty headcolor tenpix fontpns">
+                                        LINK URL NAME
+                                    </div>
+                                    <div class="topten containe fontpnr twlvpix">
+                                        {{entitiesdetails.metadata.ManagedPage}}
+                                    </div>
+                                    
+<!--                                    <div id="fb_preview_postdet" style="position:absolute;margin-left:15px;">
+                                        <p class=" SP1 actfnt">Post details</p>
+                                        <div>
+                                            <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
+                                            <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.metadata.ManagedPage}}</p>
+                                            <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                        </div>
+
+                                        <div ng-hide="facebook_template_status=='Complete'" style="position:relative;bottom:0px;top:0px;left:-10px;">
+                                        <button id="button_edit" 
+                                                    class="button button--moema 
+                                                    button--text-thick 
+                                                    button--text-upper 
+                                                    button--size-s" 
+                                                    style="background-color:#E65C00;
+                                                    width:120px;" type="button" 
+                                                    ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)">EDIT
+                                        </button>
+                                        <input type="button" id="fb_button_post"
+                                               class="button button--moema 
+                                                        button--text-thick 
+                                                        button--text-upper 
+                                                        button--size-s" 
+                                                        style="width:120px;"
+                                                        onclick="postSocial()"
+                                                value="Post"/>
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
                     <div id="edit_facebook_action" style="position:relative;left:50px;top:50px;">
                          <h1 class="SP1 actfnt" style="font-size:2em;margin-left:45px;">UPDATE ACTION</h1>
                         <form class="form-horizontal" id="signform">
@@ -1342,14 +1436,59 @@
                     </div>                        
                 </div>
 
-            </div>
-               
 
-            <div id="previewNote" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
+            <div id="previewNote" class="pollSlider">
                 <div>
                     <div id="noteprev">
-
-                        <div style="position:relative;left:50px;">
+                        <div id="noteprev">
+                            <div class="firstcol">
+                                <div class="inlineFlex">
+                                    <div class="headtitle pfont actfnt fontpnr">NOTE DETAILS</div>
+                                    <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                </div>
+                                <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                                <div class="topten titlecontain sixtnpix fontpns">
+                                    {{schedule_title}}
+                                </div>
+                                <div class="toptweentyone headcolor tenpix fontpns">
+                                    DESCRIPTION
+                                </div>
+                                <div class="height75 scrolly topten">
+                                    <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
+                                </div>
+                                <div class="inlineFlex top32">
+                                    <div class="headcolor fontpns tenpix">
+                                        STATUS
+                                    </div>
+                                </div>
+                                <div class="toptnine">
+                                    <div class="containe fontpnr tenpix inlineFlex">
+                                        <div class="rightfive toptwo">
+                                            <div class="redDot"></div>
+                                        </div>
+                                        <div class="containe tenpix fontpnr ">INCOMPLETE</div>
+                                    </div>
+                                </div>
+                                <div class="toptweenty headtitle pfont actfnt fontpns">
+                                    MARKETING PROGRAM
+                                </div>
+                                <div class="toptnine headcolor tenpix fontpnr">
+                                    (User Marketing Program Name)
+                                </div>
+                                <div class="top20nhalf headtitle pfont actfnt fontpns">
+                                    SCHEDULED TO SEND ON
+                                </div>
+                                <div class="top10n half headcolor tenpix fontpnr">
+                                    {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}
+                                </div>
+                                <div class="inlineFlex top111">
+                                    <div class="right223">
+                                        <input type="button" value="Edit" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" onclick="postSocial()" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!--                        <div style="position:relative;left:50px;">
 
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
@@ -1370,7 +1509,7 @@
 
                             </div>
 
-                        </div>
+                        </div>-->
                     </div>
                 
                     <div id="noteedit" style="display:none;">
@@ -1394,8 +1533,6 @@
                             <div style="position:absolute;margin-left:16px;margin-top:10px;">
                                 <p class=" SP1 actfnt">Post details</p>
                                 <div>
-                                    
-                                    
                                      <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
                                      <input type="text" readonly name="notedate" class="inputdate MH1 ptr" id="datepicker4" style="width:150px;" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">
                                         <script>
@@ -1429,13 +1566,80 @@
 
             </div>
 
-            <div id="previewtwitter" class="pollSlider" style="z-index:1005;height:100%;overflow-y:scroll;overflow-x:hidden;">
-                <div>
-                    <div id="preview_twitter">
-
-                        <div style="position:relative;left:50px;">
-
-                            <div class="actiondetails actiondet">
+            <div id="previewtwitter" class="pollSlider">
+                <div id="preview_twitter" class="inlineFlex">
+                    <div class="half">
+                        <div class="borderright">
+                            <div class="firstcol">
+                                <div class="inlineFlex">
+                                    <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
+                                    <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')">DELETE ACTION</div>
+                                </div>
+                                <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                                <div class="topten titlecontain sixtnpix fontpns">
+                                    {{schedule_title}}
+                                </div>
+                                <div class="toptweentyone headcolor tenpix fontpns">
+                                    DESCRIPTION
+                                </div>
+                                <div class="height75 scrolly topten">
+                                    <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
+                                </div>
+                                <div id="imgcontainer" style="display: none">
+                                    <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                </div>
+                                <div class="inlineFlex toptweenty">
+                                    <div class="half headcolor fontpns tenpix">
+                                        STATUS
+                                    </div>
+                                    <div class="half headcolor fontpns tenpix">
+                                        MARKETING PROGRAM
+                                    </div>
+                                </div>
+                                <div class="inlineFlex toptnine">
+                                    <div class="half containe fontpnr tenpix">
+                                        <div class="inlineFlex">
+                                            <div class="rightfive toptwo">
+                                                <div class="redDot"></div>
+                                            </div>
+                                            <div class="containe tenpix fontpnr ">INCOMPLETE</div>
+                                        </div>
+                                    </div>
+                                    <div class="half containe fontpnr tenpix">
+                                        (User Marketing Program Name)
+                                    </div>
+                                </div>
+                                <div class="topfourty headtitle pfont actfnt fontpnr">
+                                    POSTING DETAILS
+                                </div>
+                                 <div class="topnineteen headcolor tenpix fontpns">
+                                    POSTING TO
+                                </div>
+                                <div class="containe fontpnr tenpix">
+                                    {{schedule_type}}
+                                </div>
+                                <div class="toptweenty headcolor tenpix fontpns">
+                                    SCHEDULED TO POST ON
+                                </div>
+                                <div class="containe fontpnr tenpix">
+                                    {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}
+                                </div>
+                                <div class="inlineFlex topsixeight">
+                                    <div class="rightthirty">
+                                        <input type="button" value="Edit" onclick="postSocial()" ng-click="editScheduleDetails(
+                                            schedule_id, 
+                                            entities_selected_time, 
+                                            schedule_type, 
+                                            schedule_title, 
+                                            schedule_desc)"  class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                    </div>
+                                    <div class="">
+                                        <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                    </div>
+                                </div>
+                            </div>
+                            
+<!--                            <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
                                 <p class="MH2" style="width:400px;">{{schedule_title}}</p>
                                 <p class="SP1 actfnt" style="font-size:15px;font-weight:400;"> {{schedule_desc}}</p>
@@ -1480,9 +1684,36 @@
                                                 onclick="postSocial()"
                                         value="Post"/>                                
                                 </div>
+                            </div>-->
+                        </div>
+                    </div>
+                    <div class="half">
+                        <div class="secondcol">
+                             <div class="inlineFlex">
+                                <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
+                                <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
+                            </div>
+                            <div class="toptweentyone headcolor tenpix fontpns">
+                                PREVIEW
+                            </div>
+                            <div class="topten">
+                                <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150907175706740.png' />
+                            </div>
+                            <div class="toptweenty headcolor tenpix fontpns">
+                                POST TEXT
+                            </div>
+                            <div class="height75 scrolly topten">
+                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                            <div class="toptweenty headcolor tenpix fontpns">
+                                LINK NAME
+                            </div>
+                            <div class="topten containe fontpnr twlvpix">
+                                Link Name Goes Here
                             </div>
                         </div>
                     </div>
+                </div>
                     <div id="edit_twitter_action" style="position:relative;top:50px;left:50px;">
                         <h1 class="SP1 actfnt" style="font-size:2em;margin-left:45px;">UPDATE ACTION</h1>
                         <form class="form-horizontal" id="signform">
