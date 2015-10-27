@@ -25,8 +25,7 @@ public class TblScheduledEntityList  implements java.io.Serializable {
 
      private int id;
      private TblUserMarketingProgram tblUserMarketingProgram;
-     private TblScheduledEmailList scheduleEmailId;
-     private TblScheduledSocialpostList scheduledSocialpostId;
+     private Integer entityId;
      private String scheduleTitle;
      private Date scheduleTime;
      private String entityType;
@@ -42,10 +41,10 @@ public class TblScheduledEntityList  implements java.io.Serializable {
     public TblScheduledEntityList(int id) {
         this.id = id;
     }
-    public TblScheduledEntityList(int id, TblUserMarketingProgram tblUserMarketingProgram, TblScheduledEmailList entityId, String scheduleTitle, Date scheduleTime, String entityType, String status, Integer userId, String scheduleDesc, Boolean isRecuring) {
+    public TblScheduledEntityList(int id, TblUserMarketingProgram tblUserMarketingProgram, Integer entityId, String scheduleTitle, Date scheduleTime, String entityType, String status, Integer userId, String scheduleDesc, Boolean isRecuring) {
        this.id = id;
        this.tblUserMarketingProgram = tblUserMarketingProgram;
-       this.scheduleEmailId = entityId;
+       this.entityId = entityId;
        this.scheduleTitle = scheduleTitle;
        this.scheduleTime = scheduleTime;
        this.entityType = entityType;
@@ -79,12 +78,12 @@ public class TblScheduledEntityList  implements java.io.Serializable {
 
     
     @Column(name="entity_id")
-    public TblScheduledEmailList getEntityId() {
-        return this.scheduleEmailId;
+    public Integer getEntityId() {
+        return this.entityId;
     }
     
-    public void setEntityId(TblScheduledEmailList entityId) {
-        this.scheduleEmailId = entityId;
+    public void setEntityId(Integer entityId) {
+        this.entityId = entityId;
     }
 
     
@@ -155,15 +154,6 @@ public class TblScheduledEntityList  implements java.io.Serializable {
     
     public void setIsRecuring(Boolean isRecuring) {
         this.isRecuring = isRecuring;
-    }
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="")
-    public TblScheduledSocialpostList getTblScheduledSocialpostList() {
-        return this.scheduledSocialpostId;
-    }
-    
-    public void setTblUserMarketingProgram(TblScheduledSocialpostList tblScheduledSocialpostList) {
-        this.scheduledSocialpostId = tblScheduledSocialpostList;
     }
 
 

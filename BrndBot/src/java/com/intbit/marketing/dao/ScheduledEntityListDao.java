@@ -63,6 +63,6 @@ public interface ScheduledEntityListDao {
 	 * @return {@link scheduledEntityList}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId,Boolean isRecuring, String entityType) throws Throwable;
+//   public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId,Boolean isRecuring, String entityType) throws Throwable;
     
 }
