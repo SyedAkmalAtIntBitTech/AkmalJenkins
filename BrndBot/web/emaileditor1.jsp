@@ -79,10 +79,10 @@
                        $("#imageGallery").hide();
                        $("#tabs-1").show();
                    });
-                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
-                    document.getElementById('edt').style.backgroundColor = '#fff';
-                    document.getElementById('stl').style.backgroundColor = 'transparent';
-                    document.getElementById('blk').style.backgroundColor = 'transparent';
+//                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton_blue_new.svg";
+//                    document.getElementById('edt').style.backgroundColor = '#fff';
+//                    document.getElementById('stl').style.backgroundColor = 'transparent';
+//                    document.getElementById('blk').style.backgroundColor = 'transparent';
                     var numitems = $("#imageGallery li").length;
                     $("ul#imageGallery").css("column-count", numitems / 2);
                    
