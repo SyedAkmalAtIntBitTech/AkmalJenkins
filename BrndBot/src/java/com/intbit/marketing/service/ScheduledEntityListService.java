@@ -48,4 +48,6 @@ public interface ScheduledEntityListService {
 	 * @throws java.lang.Throwable 
     */
    public void delete(Integer id) throws Throwable;
+   
+   public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId,Boolean isRecuring, String entityType) throws Throwable;
 }

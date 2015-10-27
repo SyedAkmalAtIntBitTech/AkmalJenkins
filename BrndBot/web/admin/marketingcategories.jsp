@@ -94,12 +94,11 @@
                     var category_details = {"type": "get"};
 
                     $http({
-                        method: 'POST',
-                        url: getHost() + 'ServletMarketingCategories',
-                        headers: {'Content-Type': 'application/json'},
-                        data: JSON.stringify(category_details)
+                        method: 'GET',
+                        url: getHost() + 'allmarketingCategory.do'
                     }).success(function (data, status){
-                        $scope.marketingcategories = data;
+//                        alert(JSON.stringify(data));
+                        $scope.marketingcategories = data.marketingData;
                     }).error(function (){
                         alert("No data available, problem fetching the data");
                     });
@@ -107,28 +106,25 @@
                 
                 $scope.deleteCategory = function(category_id){
                     
-                    var category_details = {"type": "delete", "category_id": category_id};
-                    
+                var category_details = {"category_id": category_id};
                     $http({
                         method: 'POST',
-                        url: getHost() + 'ServletMarketingCategories',
+                        url: getHost() + 'deleteMarketingCategory.do',
                         headers: {'Content-Type': 'application/json'},
                         data: JSON.stringify(category_details)
-                    }).success(function (data, status){
-                        $scope.data = data;
+                }).success(function (data, status){
                         if (data == "true"){
-                            alert("details deleted successfully");
-                            $scope.getMarketingCategories();
+                            alert("record deleted successfully");
                         }
-                    }).error(function (){
-                        alert("No data available, problem fetching the data");
-                    });                
+                        $scope.getMarketingCategories();
+                }).error(function (){
+                    alert("No data available, problem fetching the data");
+                });
                 };
-                
             }
         </script>
     </head>    
-    <jsp:include page="checksession.jsp" />
+    
     <jsp:declaration>
         Logger logger = Logger.getLogger("categories.jsp");
         Integer num = 1;
@@ -164,22 +160,22 @@
     <body ng-app class="container">
     <%@include file="menus.jsp" %>
         <div class="jumbotron" align="center" ng-controller="marketingCategoriesController" >
-            <div  style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
-                <form name="formCategories" action="<%= application.getContextPath()%>/ServletAddMarketingCategories" enctype="multipart/form-data" method="post" onsubmit="return validate()">
+            <div  style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 400px; width: 600px;">
+                <form name="formCategories" action="<%= application.getContextPath()%>/setMarketingCategory.do" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
                     <div>
-                        <div class="col-md-3 col-md-offset-5">
-                            <p>Categories:</p>
+                        <div class="col-md-8 col-md-offset-4" style="width:250px;">
+                            <p>Marketing Categories:</p>
                         </div>
                     </div>
                     <div ng-init="getOrganizations()" style="float:left; left:20px; padding-left: 166px;">
                         <%= exist1 %>
-                         <input type="text" id="category_name" name="category_name" value=""/><br>
+                         Category Name: <input type="text" id="category_name" name="category_name" value=""/><br>
                         Select organization: <select name="organization" id="organization" style="width:180px;">
                             <option value="0">--select--</option>
                             <option ng-repeat="org in organizations" value="{{org.id}}">{{org.organization_name}}</option>
                         </select><br><br>
-                        <input type="text" id="category_order" name="category_order" />
+                        Category Order: <input type="text" id="category_order" name="category_order" />
                     </div><br>    
                     <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
                         <div>
@@ -205,7 +201,7 @@
                     <tr>
                         <td>ID Number </td>
                         <td>Category Name</td>
-                        <td>Category ID</td>
+                        <td>Category order</td>
                         <td>Organization ID</td>
                         <td></td>
                         <td></td>
@@ -216,8 +212,8 @@
                         <td>{{marketing.name}}</td>
                         <td>{{marketing.order}}</td>
                         <td>{{marketing.organization_id}}</td>
-                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editCategory()">edit</button></td>
-                        <td><button class="btn btn-info" id="brand" name="brand" value="delete" ng-click="deleteCategory(marketing.category_id)">delete</button></td>
+                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editCategory()" disabled></button></td>
+                        <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteCategory(marketing.category_id)">delete</button></td>
                     </tr>
                     
                 </table>

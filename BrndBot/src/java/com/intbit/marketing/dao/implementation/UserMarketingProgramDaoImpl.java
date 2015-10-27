@@ -83,7 +83,7 @@ public class UserMarketingProgramDaoImpl implements UserMarketingProgramDao{
     }
 
    /**
-	 * {@inheritDoc}
+	* {@inheritDoc}
      */
     public void delete(Integer id) throws Throwable {
         try {

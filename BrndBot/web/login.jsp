@@ -66,25 +66,7 @@
                 </div>
             </form>
         </div>
-                        <script>
-           
-           $(document).ready(function () {
-               alert("hi");
-           
-$.ajax({
-                                           type: "GET",
-                                                   url: "http://localhost:8084/BrndBot/allmarketingCategory.do",
-                                                   
-                                                   success: function (data) {
-alert("Hits fine!");
-},
-       error: function(xhr, ajaxOptions, thrownError){
-           
-        alert(thrownError);
-       }
-});
-   });    
-        </script>
+                        
     </body>
 </html>
     

@@ -58,5 +58,10 @@ public class ScheduledEntityListServiceImpl  implements ScheduledEntityListServi
     public void delete(Integer id) throws Throwable {
         scheduledEntityListDao.delete(id);
     }
+
+    @Override
+    public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId, Boolean isRecuring, String entityType) throws Throwable {
+        return  scheduledEntityListDao.getAllScheduledEmailList();
+    }
     
 }
