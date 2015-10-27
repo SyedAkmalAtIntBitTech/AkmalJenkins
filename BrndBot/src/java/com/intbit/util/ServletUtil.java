@@ -6,6 +6,7 @@
 package com.intbit.util;
 
 import com.intbit.AppConstants;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -115,5 +116,13 @@ public class ServletUtil {
             }
             return bos == null ? null : bos.getBytes();
         }
+    public static String bytesTo64(byte[] ImageName) throws IOException {
+        String url = "";
+        try {
+        url = "data:image/png;base64,"+ Base64.encode(ImageName);
+        } catch (Exception e){
 
+        }
+        return url;
+    }
 }

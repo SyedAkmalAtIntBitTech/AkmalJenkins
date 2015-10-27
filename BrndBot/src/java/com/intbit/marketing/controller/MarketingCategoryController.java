@@ -12,6 +12,7 @@ import com.intbit.marketing.model.TblMarketingCategory;
 import com.intbit.marketing.model.TblOrganization;
 import com.intbit.marketing.service.MarketingCategoryService;
 import com.intbit.util.ServletUtil;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -72,6 +73,7 @@ public class MarketingCategoryController {
                    json_object.put("category_id", marketingCategoryobject.getId());
                    json_object.put("name", marketingCategoryobject.getName());
                    json_object.put("order", marketingCategoryobject.getCategoryOrder().toString());
+                   json_object.put("image", ServletUtil.bytesTo64(marketingCategoryobject.getImage()));
                    json_object.put("organization_id", marketingCategoryobject.getTblOrganization().getId());
                    marketingCategoryJsonArray.put(json_object);
                    i++;

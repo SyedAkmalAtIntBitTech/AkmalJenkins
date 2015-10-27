@@ -62,7 +62,7 @@ public class TblScheduledEmailList  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
     public TblUserLoginDetails getTblUserLoginDetails() {
         return this.tblUserLoginDetails;
