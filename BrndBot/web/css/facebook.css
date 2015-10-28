@@ -46,6 +46,9 @@ right223
 .topsix{
     margin-top:6px;
 }
+.top8{
+    margin-top:8.8px;
+}
 .topnine{
     margin-top:9px;
 }
@@ -58,6 +61,10 @@ right223
 .top12
 {
     margin-top:12px;
+}
+.top11
+{
+    margin-top:11px;
 }
 .topnineteen{
     margin-top:19px;
@@ -78,6 +85,9 @@ right223
 .toptweentyfive{
     margin-top: 25px;
 }
+.top26{
+    margin-top: 26.3px;
+}
 .top27{
     margin-top: 27px;
 }
@@ -93,8 +103,15 @@ right223
 .topfourty{
     margin-top:40px;
 }
+.top58{
+    margin-top:58.3px;
+    padding-bottom: 48px !important;
+}
 .topsixeight{
     margin-top:68px;
+}
+.top80{
+    margin-top:80.3px !important;
 }
 .top120
 {
@@ -220,6 +237,43 @@ right223
     height: 25px;
     width: 138px;
 }
+.addactiondetinput{
+                border-color:#e3e3e3 !important;  
+                border-radius:3px;
+                width:100% !important;
+                height:50px !important;
+                background-color: #f6f7f7;
+                color:#19587c !important;
+                font-size: 16px;
+                padding:5px 5px 5px 5px;
+                resize:none;
+                overflow: hidden;
+            }
+            .addactcrtbtn{
+                width:103px !important;
+                height:25px !important;
+                padding:5px 33.5px 5px 20.5px;
+                margin:0px !important;   
+                border:none;
+                background-color: #5cc2a5 !important;
+            } 
+            .btnpad{
+                padding:5px 38px 5px 33px !important;
+            }
+.addactiondesc{
+                border-color:#e3e3e3 !important;  
+                border-radius:3px;
+                border-width:1px;
+                width:100% !important;
+                height:85px !important;
+                background-color: #f6f7f7;
+                color:#3f3f42 !important;
+                font-size: 12px;
+                padding:5px 5px 5px 5px;
+                resize:none;
+                overflow-x: hidden;
+                overflow-y: scroll;
+            }    
    .actiondetinput{
                 border-color:#e3e3e3 !important;  
                 border-radius:1px;
@@ -261,6 +315,19 @@ right223
                 overflow-y:scroll;
                 height: 62px;
             }
+.addactcol{
+    margin: 51px 28px 50px 47px !important;
+}
+.headdeletenote{
+     margin-left:54px;
+    margin-top:5px;
+}          
+.right100{
+    margin-right:100px;
+}
+
+
+
 #create_Post {
     margin-left: 78px !important;
 }

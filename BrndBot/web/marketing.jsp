@@ -437,7 +437,17 @@
                 filter: alpha(opacity=80);
             }
             #actiontype{
-                
+                background-color: #f6f7f7 !important;
+                border-radius: 3px;
+                border-color:#e3e3e3;
+                height:25px;
+                width:120px;
+                font-size: 12px;
+                appearance: none;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                background: url(images/dropdown.png) no-repeat right center,270px center; 
+/*                
                 background-color: #ffffff;
                 border: 1px solid #DADADA;
                 height:30px;
@@ -450,7 +460,7 @@
                 -moz-appearance: none;
                 -webkit-appearance: none;
                 background: url(images/dropdown.png) no-repeat right center,270px center;
-                
+                */
                 
              }
              .actiondropdown{
@@ -476,11 +486,11 @@
              }
                          
             select#actiontype > option{
-                background-color: #fff;
+                background-color: #f6f7f7 !important;
             }
             #previewNote, #editNote{
                 position:fixed;
-                max-height:100%;
+                height:100%;
                 background:#ffffff;
                 width:424px;
                 right:0px;
@@ -758,7 +768,79 @@
             <!--           </div><div id="mask" onclick="document.location='#';">CLICK</div>    -->
             
             <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
-                <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
+                <form class="form-horizontal" id="signfrm" >
+                <div class="addactcol">
+                    <div class="inlineFlex">
+                        <div class="pfont actfnt fontpnr">CREATE A NEW ACTION</div>
+                    </div>
+                    <div class="tenpix headcolor fontpns topthirty">ACTION NAME</div>
+                    <div><textarea class="addactiondetinput top8 fontpns" name="addactiontitle" id="addactiontitle">User’s Title for Action Goes Here Two Line tets</textarea></div>
+                    <div class="top26 fontpns tenpix headcolor">ACTION TYPE</div>
+                    <div class="topfive fontpnr">
+                        <select id="actiontype"name="actiontype">
+                            <option value="0">Select</option>
+                            <option value="facebook">facebook</option>
+                            <option value="twitter">twitter</option>
+                            <option value="email">email</option>
+                            <option value="note">note</option>
+                        </select>
+                    </div>
+                    <div class="toptweenty fontpns tenpix headcolor">DESCRIPTION</div>
+                    <div class="topten"><textarea class="addactiondesc fontpnr" name="description" id="description">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</textarea></div>
+                    <div class="toptweenty fontpns tenpix headcolor">STATUS</div>
+                    <div class="inlineFlex">
+                        <div class="rightfive top11">
+                            <div class="redDot"></div>
+                        </div>
+                        <div class="tenpix fontpnr topnine containe">INCOMPLETE</div>
+                    </div>
+                    <div class="tenpix fontpns headcolor toptweenty">SCHEDULED TO POST ON</div>
+                    <div class="inlineFlex">
+                        <div class="half">
+                            <div class="containe fontpnr tenpix topten">
+                                Day
+                            </div>
+                            <div class="topsix">
+                                <input type="text" readonly  name="actiondatetime" id="datepicker"  class="inputdate fontpns ptr" />                                        
+                                <script>
+                            var picker = new Pikaday(
+                            {
+                                field: document.getElementById('datepicker'),
+                                firstDay: 1,
+                                minDate: new Date(2000, 0, 1),
+                                maxDate: new Date(2050, 12, 31),
+                                yearRange: [2000,2050]
+                            });
+
+                                </script>
+                            </div>
+                        </div>
+                        <div class="half right100">
+                            <div class=" containe fontpnr tenpix topten">
+                                Time
+                            </div>
+                            <div class="topsix">
+                                <input id="timepicker1" type="text" name="timepicker1" class="inputtime fontpns ptr"  /> 
+                                <script src="js/timepicki.js" type="text/javascript"></script>
+                                <script>
+                                    $('#timepicker1').timepicki();
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top58">
+                        <button class="addactcrtbtn fontpns twlvpix button--moema 
+                                                   button--text-thick 
+                                                   button--text-upper 
+                                                   button--size-s" 
+                                                   ng-click="AddAction()" 
+                                                   >Create</button>
+                    </div>
+                    
+                </div>
+                 </form>
+                
+<!--                <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
                     <h1 class="SP2 actfnt">ADD ACTION</h1>
                     <form class="form-horizontal" id="signform" >
                         <div class="group" style="position:relative;">
@@ -807,7 +889,7 @@
 
                             </div>
                             
-                            <!--                                    Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>-->
+                                                                Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
                            
                    
                         <div class="row">
@@ -839,7 +921,8 @@
                         </div>
                     </form> 
 
-                </div></div>
+                </div>-->
+            </div>
             <div id="preview" class="pollSlider">
                 <div>
                     <div id="preview_email"  class="inlineFlex">
@@ -848,7 +931,7 @@
                         <div class="firstcol">
                             <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                <div class="headdelete h5font fontpnr">DELETE ACTION</div>
+                                <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                             </div>
                             <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
                             <div class="topten titlecontain sixtnpix fontpns">
@@ -905,7 +988,7 @@
                         <div class="secondcol">
                             <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
+                                <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','email')">REMOVED SAVED POST</div>
                             </div>
                             <div class="toptweentyone headcolor tenpix fontpns">
                                 PREVIEW
@@ -919,7 +1002,10 @@
                                 </div>
                             </div>
                             <div id="mailpreviewdecond">
-                                <div class="topten"><!-- <div class="content"></div> -->
+<!--                                <div id="imgcontainer"  style="display:none;">
+                                            <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        </div> entitiesdetails-->
+                                <div class="content"><!-- <div class="content"></div> -->
                                     <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
                                 </div>
                                 <div class="top27 headcolor tenpix fontpns">
@@ -1099,7 +1185,7 @@
                                 <div class="firstcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
-                                        <div class="headdelete h5font fontpnr">DELETE ACTION</div>
+                                        <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                                     </div>
                                     <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
                                     <div class="topten titlecontain sixtnpix fontpns">
@@ -1189,7 +1275,7 @@
                         <div class="secondcol">
                             <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
+                                <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','email')">REMOVED SAVED POST</div>
                             </div>
                             <div class="toptweentyone headcolor tenpix fontpns">
                                 PREVIEW
@@ -1411,17 +1497,17 @@
                                         </div>
                                     </div>
                                     <div id="fbpreviewdecond">
-                                        <div class="topten">
-                                            <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' /> <!--  {{entitiesdetails.image_name}}  -->
-                                        </div>
+<!--                                        <div class="topten">
+                                            <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />   {{entitiesdetails.image_name}}  
+                                        </div>-->
                                         <div id="imgcontainer"  style="display:none;">
-                                        <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
-                                        </div> 
+                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        </div> entitiesdetails
                                         <div class="toptweenty headcolor tenpix fontpns">
                                             POST TEXT
                                         </div>
                                         <div class="height75 scrolly topten">
-                                            <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                            <p class="containe twlvpix fontpnr">{{entitiesdetails.metadata.post_text}}</p>
                                         </div>
                                         <div class="toptweenty headcolor tenpix fontpns">
                                             LINK TITLE
@@ -1433,13 +1519,13 @@
                                             LINK DESCRIPTION
                                         </div>
                                         <div class="topten containe fontpnr twlvpix">
-                                            Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            {{entitiesdetails.metadata.description}}
                                         </div>
                                         <div class="toptweenty headcolor tenpix fontpns">
                                             LINK URL NAME
                                         </div>
                                         <div class="topten containe fontpnr twlvpix">
-                                            {{entitiesdetails.metadata.ManagedPage}}
+                                            {{entitiesdetails.metadata.url}}
                                         </div>
                                     </div>
                                     
@@ -1710,8 +1796,70 @@
                     </div>
                 
                     <div id="noteedit" style="display:none;">
+                        <div class="firstcol">
+                            <div class="inlineFlex">
+                                    <div class="headtitle pfont actfnt fontpnr">NOTE DETAILS</div>
+                                    <div class="headdeletenote h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                            </div>
+                            <div class="tenpix headcolor fontpns topthirty">ACTION NAME</div>
+                            <div><textarea class="addactiondetinput top8 fontpns" id="note_title" name="note_title" >{{schedule_title}}</textarea></div>
+                            <div class="top12 fontpns tenpix headcolor">DESCRIPTION</div>
+                            <div class="topten"><textarea class="addactiondesc fontpnr" id="note_desc" name="note_desc">{{schedule_desc}}</textarea></div>
+                            <div class="toptweenty fontpns tenpix headcolor">STATUS</div>
+                            <div class="inlineFlex">
+                                <div class="rightfive top11">
+                                    <div class="redDot"></div>
+                                </div>
+                                <div class="tenpix fontpnr topnine containe">INCOMPLETE</div>
+                            </div>
+                            <div class="toptweenty fontpns tenpix headcolor">MARKETING PROGRAM</div>
+                            <div class="tenpix fontpnr topnine containe">(User Marketing Program Name)</div>
+                            <div class="tenpix fontpns headcolor toptweenty">SCHEDULED TO POST ON</div>
+                            <div class="inlineFlex">
+                                <div class="half">
+                                    <div class="containe fontpnr tenpix topten">
+                                        Day
+                                    </div>
+                                    <div class="topsix">
+                                        <input type="text" readonly name="notedate" id="datepicker4"   class="inputdate fontpns ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}"/>                                        
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepicker4'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
 
-                        <div style="position:relative;left:50px;">
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="half right100">
+                                    <div class=" containe fontpnr tenpix topten">
+                                        Time
+                                    </div>
+                                    <div class="topsix">
+                                        <input id="timepicker3" name="timepicker2" type="text"  class="inputtime fontpns ptr"  value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                                        <script src="js/timepicki.js" type="text/javascript"></script>
+                                        <script>
+                                            $('#timepicker3').timepicki();
+                                        </script>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="top80">
+                                    <button class="addactcrtbtn btnpad fontpns twlvpix button--moema 
+                                                               button--text-thick 
+                                                               button--text-upper 
+                                                               button--size-s" 
+                                                               ng-click="AddAction()" 
+                                                               >save</button>
+                                </div>
+                            </div>
+                        
+
+<!--                        <div style="position:relative;left:50px;">
 
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
@@ -1751,12 +1899,12 @@
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                     </div>
                               
-                                    <!--<input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>-->
+                                    <input type="datetime-local" id="notedate" name="notedate"  class="inputdate"/><br>
                                     <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                 </div>
                                 <div class="savebutton" ng-click="updateNote()"><button class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
 
                 </div>
