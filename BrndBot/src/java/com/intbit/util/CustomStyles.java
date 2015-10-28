@@ -30,11 +30,6 @@ public class CustomStyles {
         JSONParser parser = new JSONParser();
         FileReader fileReader = new FileReader(getCustomColorsFilePath(request));
         customColors = (JSONObject) parser.parse(fileReader);
-//        JSONArray ColorArray = (JSONArray) json.get("admincustomcolors");
-//        Iterator i = ColorArray.iterator();
-//        while (i.hasNext()) { 
-//            System.out.println(" " + i.next()); 
-//        }
         } catch (Exception ex) 
         { 
             ex.printStackTrace();

@@ -3,30 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit;
+package com.controller;
 
-import com.controller.BrndBotBaseHttpServlet;
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
+import static com.controller.BrndBotBaseHttpServlet.logger;
+import com.google.gson.Gson;
+import com.intbit.AppConstants;
+import com.intbit.ConnectionManager;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.codec.binary.Base64;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import pojos.TblModel;
 
 /**
  *
  * @author sandeep-kumar
  */
-public class CropImage extends BrndBotBaseHttpServlet {
-    private Object dateFormat;
+public class GetEmaiLayoutHtmlServlet extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,39 +38,40 @@ public class CropImage extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-  
-    @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
-           Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHH:mm:ssSSS");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-         logger.log(Level.INFO, "enter in servlet");
-//        sqlmethods.session = request.getSession(true);
-        StringBuffer string_buffer = new StringBuffer();
-        boolean check = true;
-        try {
-
-            String imageData = request.getParameter("image");
+        JSONArray json_arr = new JSONArray();
+        String html="";
+        JSONObject Htmljson = new JSONObject();
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+        Integer tbl_model_id = Integer.parseInt(request.getParameter("id"));
+        String model_name = request.getParameter("layout");
+        
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            String query = "Select * from tbl_model where id=" + tbl_model_id + "";
+            prepared_statement = connection.prepareStatement(query);
+            result_set = prepared_statement.executeQuery();
+       if(result_set.next()){
+            html = result_set.getString("emailhtmldata");
             
-            imageData = imageData.replaceAll("^data:image[^;]+;base64,", "");
-            logger.log(Level.INFO, getServletContext().getRealPath(""));
-            byte[] data = Base64.decodeBase64(imageData);
-             try (OutputStream stream = new FileOutputStream(getServletContext().getRealPath("")+"/images/temp_image/"+dateFormat.format(date)+".png")) {
-                stream.write(data);
-                 response.setContentType("text/plain");
-                  response.getWriter().write(dateFormat.format(date)+".png");
-             } 
-        }
-        catch(Exception e){
+       }
+        Htmljson.put("htmldata",html);
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write(AppConstants.GSON.toJson(Htmljson));
+        response.getWriter().flush();
+
+        } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
         } finally {
             out.close();
-            getSqlMethodsInstance().closeConnection();
+            getSqlMethodsInstance().close(result_set, prepared_statement);
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

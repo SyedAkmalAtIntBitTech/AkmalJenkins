@@ -6,6 +6,14 @@ package pojos;
  */
 public class TblModel implements java.io.Serializable {
 
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
     private int id;
 
     private Integer organization_id;
@@ -13,6 +21,16 @@ public class TblModel implements java.io.Serializable {
     private Integer category_id;
     private String layout_file_name;
     private String model_file_name;
+    private String image_url;
+    private  String layout_html_data;
+
+    public String getLayout_html_data() {
+        return layout_html_data;
+    }
+
+    public void setLayout_html_data(String layout_html_data) {
+        this.layout_html_data = layout_html_data;
+    }
 
     public String getImage_file_name() {
         return image_file_name;
@@ -72,6 +90,10 @@ public class TblModel implements java.io.Serializable {
 
     public void setModel_file_name(String model_file_name) {
         this.model_file_name = model_file_name;
+    }
+
+    public void setlayout_html_data(String layout_html_data) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

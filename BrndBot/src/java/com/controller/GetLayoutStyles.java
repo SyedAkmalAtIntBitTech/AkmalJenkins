@@ -7,6 +7,7 @@ package com.controller;
 
 import com.google.gson.Gson;
 import com.intbit.ConnectionManager;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -45,7 +46,7 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
         JSONArray json_arr = new JSONArray();
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        String image_name,  layout_file_name, model_file_name,image_file_name;
+        String image_name,  layout_file_name, model_file_name,image_file_name,image_url,layout_html_data;
         Integer user_id, id, organization_id, block_id = 0;
         String category_id, sub_category_id, editorType;
         boolean mediadefault=false;
@@ -86,11 +87,12 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
             }
 
             if (queryParameter != null && queryParameter.equalsIgnoreCase("block")) {
-                block_id = Integer.parseInt(request.getParameter("block_id"));
+                block_id = Integer.parseInt(request.getParameter("0"));
                 sub_category_id = "0";//Since its a block
                 category_id = "0";//Since its a block
             }
             
+
             String query = "Select * from tbl_model where organization_id="+organization_id+" "
                     + "and (user_id="+user_id+" or user_id=0) and "
                     + "category_id="+category_id+" and social="+!isEmail+" "
@@ -106,10 +108,13 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
                 layout_file_name = result_set.getString("layout_file_name");
                 model_file_name = result_set.getString("model_file_name");
                 image_file_name = result_set.getString("image_file_name");
-                
+                image_url ="data:image/png;base64," + Base64.encode(result_set.getBytes("email_style_image")) ;
+                layout_html_data=result_set.getString("emailhtmldata");
                 layout_model.setId(id);
                 layout_model.setLayout_file_name(layout_file_name);
                 layout_model.setImage_file_name(image_file_name);
+                layout_model.setImage_url(image_url);
+                layout_model.setLayout_html_data(layout_html_data);
                 json_arr.add(layout_model);
             }
 
@@ -125,7 +130,7 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
             getSqlMethodsInstance().close(result_set, prepared_statement);
         }
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

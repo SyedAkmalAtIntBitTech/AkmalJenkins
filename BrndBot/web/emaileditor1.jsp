@@ -250,12 +250,13 @@ $(document).ready(function() {
                             {
                             queryurl = 'GetLayoutStyles?editorType=email';
                             }
-
+                        alert(queryurl);
                             $http({
                             method : 'GET',
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
                             $scope.datalistsstyles = data;
+                            alert(JSON.stringify(data));
                                     document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
                                     document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
                                     document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
@@ -319,6 +320,7 @@ $(document).ready(function() {
                                 
                             $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
                             var jsondataDefault = data;
+                            alert(JSON.stringify(data));
                                     var allLayoutFilename = [];
                                     $(jsondataDefault).each(function (i, val) {
                             var i = 0;
@@ -459,336 +461,47 @@ $(document).ready(function() {
 
 
                     function showSomething(block_id_temp, id, style, mind_body_query){
-                    temp_style_id = id;
-                            temp_style_layout = style;
-                            temp_block_id = block_id_temp;
-                            temp_mind_body_query = mind_body_query;
-                            $('.blockchooser').removeClass('border-highlight');
-                            $("#" + block_id_temp).addClass('border-highlight');
-                            //$("#continueblock").attr('ng-click',"showData('"+block_id_temp+"','"+ mind_body_query +"')");
-                            $('#continueblock').prop('disabled', false);
+//                            temp_style_id = id;
+//                            temp_style_layout = style;
+//                            temp_block_id = block_id_temp;
+//                            temp_mind_body_query = mind_body_query;
+//                            $('.blockchooser').removeClass('border-highlight');
+//                            $("#" + block_id_temp).addClass('border-highlight');
+//                            //$("#continueblock").attr('ng-click',"showData('"+block_id_temp+"','"+ mind_body_query +"')");
+//                            $('#continueblock').prop('disabled', false);
+                             $.ajax({
+                     method : 'POST',   
+                    url: "GetLayoutStyles?editorType=email&query=block&block_id="+block_id_temp,
+                    dataType: 'json',
+                    success: function (data) {
+                        $(".fr-element").empty();
+                        $(".fr-element").append(data.htmldata)
+
+                    }
+            });
+
+
+
+
                     }
             //var countBlock = 1;
             function showText(id, layout){
                  //hiding filter Container 
-                  $("#filtercontainer").hide();
-                  var currentBlockID = "";
-                  var currentMindbodyQuery = "";
-//                  alert($(selectedBlockId).attr("id"));
-                  if(block_clicked== "true")
-                  {
-                    currentBlockID = temp_block_id;
-                    currentMindbodyQuery = temp_mind_body_query;
-                  }
-                  else
-                  {
-                    if ($(selectedBlockId).attr("id").indexOf("SSS") >= 0)
-                    {
-                        var arrBlocks = $(selectedBlockId).attr("id").split("SSS");
-                        currentBlockID = arrBlocks[0].replace("block","");
-                        currentMindbodyQuery = $(selectedBlockId).attr("mbquery");
-                        
-                       
-                    }
-                  }
-//                  alert(currentBlockID);
-//                alert(temp_block_id+","+ temp_mind_body_query+","+temp_block_id);
-//                alert(block_clicked +"=="+ "true" +"||"+ blockIdSelected +"!="+ "defaultblock1");
-//            alert(id+":"+layout+":"+mindbodydataId);
-            var layoutfilename = layout;
-                    var layout_mapper_url = "";
-                    $("#clickid").val(layout);
-                    if ((mindbodydataId != "") && (mindbodydataId != "0")) {
-                        if(block_clicked == "true"||$(selectedBlockId).attr("id") != "defaultblock1")
-                            layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email&query=block&block_id="+currentBlockID+"&mindbody_query="+currentMindbodyQuery;
-                        else
-                            layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
-                    } else {
-                    layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
-                    }
-
-            $.ajax({
-            type: 'GET',
-                    url: layout_mapper_url,
-                    data: {get_param: 'value'},
+                 alert("stule image clicked");
+                    $.ajax({
+                     method : 'POST',   
+                    url: "GetEmaiLayoutHtmlServlet",
+                    data: {
+                        id: id,
+                        layout:layout
+                        },
                     dataType: 'json',
                     success: function (data) {
+                        $(".fr-element").empty();
+                        $(".fr-element").append(data.htmldata)
 
-                    displayElement(id, layout, data);
                     }
             });
-            }
-
-            function displayElement(id, layout, data){
-            var random_number = Math.floor(Math.random() * 200) + 1;
-                    if (blockIdSelected == "defaultblock1")
-                    blockId = "defaultblock1";
-                    else if (blockIdSelected.indexOf("SSS") >= 0)
-                    blockId = blockIdSelected;
-                    else
-                    blockId = "block" + block_id + "SSS" + random_number;
-                    jsondata = data;
-                    $.ajax({
-                    type: "GET",
-                            url: global_host_address + "DownloadXml?file_name=" + layout + ".xml",
-                            dataType: "xml",
-                            success: function (xml) {
-
-                            if (block_clicked == "true")
-                                    $(".preview").append("<div onclick=getBlockId(" + blockId + ") mbquery='"+ temp_mind_body_query +"' id='" + blockId + "' blockdetails='" + id + "' name='" + mindbodydataId + "'></div>");
-                                    else
-                                    $(".preview #" + blockId).empty();
-//                                    alert(blockId);
-                                    selectedBlockId = document.getElementById(""+blockId);
-                                    
-                                    block_clicked = "false";
-                                    //  $(".preview").empty();
-                                    $(xml).find('layout').each(function () {
-                                     height = $(this).find('container').attr("Height");
-                                    width = $(this).find('container').attr("Width");
-                                    $(".preview #" + blockId).css("width", width + "px");
-                                    $(".preview #" + blockId).css("height", height + "px");
-                                    $(".dataForEmail").css("width", width + "px").css("max-width","549px");
-//                                  $(".dataForEmail").css("height", height + "px");                                    
-                                    $(".preview #" + blockId).css("position", "relative");
-                                    $(".preview #" + blockId).attr("blockdetails", id);
-                            }
-
-                            );
-                                    var count = 1;
-                                    var blockcount = 1;
-                                    var textcount = 1;
-                                    $(".imagename").find('option').remove().end();
-                                    $(".blockname").find('option').remove().end();
-                                    $(xml).find('element').each(function () {
-                            var tag = $(this).attr("tag");
-                                    type = $(this).attr("type");
-                                    var h = "";
-                                    var t = "";
-                                    var elementdata;
-                                    if (jsondata == null)
-                            {
-
-                            elementdata = type;
-                            }
-                            else{
-
-                            $(jsondata).each(function (i, val) {
-
-                            $.each(val, function (k, v) {
-                            //                               alert(k + " : " + v+ ":"+ type);
-                            if (type.trim() == k.trim()) {
-                            elementdata = v;
-                            }
-
-                            });
-                            });
-                            }
-                                    var fontcolor;
-                                    var fontsize;
-                                    var fontstyle;
-                                    var filter;
-                                    var left = $(this).attr("x-co-ordinates");
-                                    var top = $(this).attr("y-co-ordinates");
-                                    var opacity = $(this).attr("opacity");
-                                    var width = $(this).attr("width");
-                                    var height = $(this).attr("height");
-                        if (tag === "text")
-                            {
-                                    var colorName = $(this).attr("font-color-name");
-                                    fontsize = $(this).attr("font-size");
-                                    fontstyle = $(this).attr("font-style");
-                                    var fontweight = $(this).attr("font-weight");
-                                    var letterspacing = $(this).attr("letter-spacing");
-                                    var lineheight = $(this).attr("line-height");
-                                    var textalign = $(this).attr("text-align");
-                                    var font = $(this).attr("font-family");
-                                    var font_family_name = font.split("+").join(" ");
-                                    var webkittransform = $(this).attr("webkit-transform");
-                                    var dropshadow = $(this).attr("H-shadow") + " " + $(this).attr("V-shadow") + " " + $(this).attr("blur") + " " + $(this).attr("text-shadow");
-                                    for (var i = 1; i <= 6; i++)
-                            {
-                            if (colorName == "Font-Color-" + i)
-                            {
-                            fontcolor = $("#shapecolorbox" + i).css("background-color");
-//                                                              fontcolor=user_preferences_colors.color+""+i; 
-                            }
-
-                            }
-//                                                fontcolor = $(this).attr("font-color");
-                            textcount++;
-                                if(typeof(elementdata) === "undefined")
-                                           {
-                                             elementdata= $(this).attr("defaulttext");
-                                           }                            
-                                    $(".preview #" + blockId).append("<textarea orginial-size='" + fontsize + "' onkeyup=textAreaKeyUp(event,'" + type + "EEE" + blockId + "') class=textAreas onclick=getTectId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + ">" + elementdata + "</textarea>");
-                                    $("#" + type + "EEE" + blockId).css("color", "" + fontcolor)
-                                    .css("position", "absolute")
-                                    .css("overflow", "hidden")
-                                    .css("left", "" + left + "px")
-                                    .css("top", "" + top + "px")
-                                    .css("width", "" + width)
-
-                                    .css("height", "" + height)
-
-                                    .css("font-style", "" + fontstyle)
-                                    .css("font-weight", "" + fontweight)
-                                    .css("font-family", "" + font_family_name)
-                                    .css("letter-spacing", "" + letterspacing)
-                                    .css("opacity", "" + opacity)
-                                    .css("text-align", "" + textalign)
-                                    .css("text-shadow", "" + dropshadow)
-                                    .css("webkit-transform", "rotate(" + webkittransform + "deg)")
-                                    .css("resize", "none")
-                                    .css("background-color", "inherit")
-                                    .css("border", "none")
-                                    .css("focus", "none")
-                                    .css("line-height", "" + lineheight);
-                                    //$("#" + type + "EEE" + blockId).autogrow();
-
-                                    //resize of text to fit bound - By Syed Ilyas 26/8/2015
-                                    var tempfontsize = parseInt(fontsize.replace("px", ""));
-                                    var tempHeight = parseInt(height.replace("px", ""));
-                                    $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize + "px");
-//                                    alert($("#" + type + "EEE" + blockId).attr("id"));
-                                    if ($("#" + type + "EEE" + blockId).get(0).scrollHeight > tempHeight)
-                            {
-                            $("#" + type + "EEE" + blockId).css("line-height", "initial");
-                                    while ($("#" + type + "EEE" + blockId).get(0).scrollHeight > tempHeight) {
-                            tempfontsize = tempfontsize - 1;
-                                    $("#" + type + "EEE" + blockId).css("font-size", "" + tempfontsize + "px");
-                            }
-//                            var xxyy = parseInt(tempfontsize);
-//                                    xxyy = Math.round(xxyy * 1.2);
-//                                    $("#" + type + "EEE" + blockId).css("line-height", "" + xxyy + "px");
-                            }
-                            //resize end
-
-                            var addThis = $("#" + type + "EEE" + blockId).get(0).scrollHeight - $("#" + type + "EEE" + blockId).height();
-                                    $("#" + type + "EEE" + blockId).attr("add-this", addThis);
-                            }
-
-                            if (tag === "image")
-                            {
-                                if($(this).attr("filterEnable")== "true"){
-                                      filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
-                                   }
-                                else
-                                {
-                                     filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
-                                }
-                                    var blendmode = $(this).attr("Blend");
-                                    var background_image = $(this).attr("background-image");
-                                    var background_color=$(this).attr("blend-background-color");
-                                    $(".imagename").append("<option name=" + background_image + " value=" + type + "EEE" + blockId + ">Image " + count + "</option>");
-                                    count++;
-                                    $(".preview #" + blockId).append("<div class=images onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
-                                    $("#" + type + "EEE" + blockId)
-                                    .css("color", "" + fontcolor)
-                                    .css("margin-left", "" + left + "px")
-                                    .css("margin-top", "" + top + "px")
-                                    .css("background-blend-mode", "" + blendmode)
-                                    .css("opacity", "" + opacity)
-                                    .css("width", "" + width)
-                                    .css("position", "absolute")
-                                    .css("height", "" + height)
-                                    .css("background", "" + background_image)
-                                    .css("background-repeat", "no-repeat")
-                                    .css("background-position", "50% 50%")
-                                    .css("-webkit-background-size", "cover")
-                                    .css("background-color", ""+background_color)
-                                    .css("position", "absolute")
-                                    .css("webkit-filter",""+ filter);
-                            }
-
-                            if (tag === "logo")
-                            {
-                                if($(this).attr("filterEnable")== "true"){
-                                      filter="blur("+$(this).attr('blur')+") grayscale("+$(this).attr('grayscale')+") sepia("+$(this).attr('sepia')+") saturate("+$(this).attr('saturate')+") hue-rotate("+$(this).attr('huerotate')+") invert("+$(this).attr('invert')+") brightness("+$(this).attr('brightness')+") contrast("+$(this).attr('contrast')+")";
-                                   }
-                                else
-                                {
-                                     filter="drop-shadow("+$(this).attr("Drop-shadow-color")+" "+$(this).attr("H-shadow")+" "+$(this).attr("V-shadow")+" "+$(this).attr("blur")+")";
-                                }
-                                    var userId = $("#userid").val();
-                                    var userLogonmae = $("#userlogo").val();
-                                    var blendmode = $(this).attr("Blend");
-                                    var background_color=$(this).attr("blend-background-color");
-                                    $(".preview #" + blockId).append("<div onclick=getImageid(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + " ></div>");
-                                    $("#" + type + "EEE" + blockId)
-                                    .css("color", "" + fontcolor)
-                                    .css("margin-left", "" + left + "px")
-                                    .css("margin-top", "" + top + "px")
-                                    .css("background-blend-mode", "" + blendmode)
-                                    .css("opacity", "" + opacity)
-                                    .css("width", "" + width)
-                                    .css("height", "" + height)
-                                    .css("background", "url('/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=" + userId + "&image_name=" + userLogonmae + "')")
-                                    .css("background-repeat", "no-repeat")
-                                    .css("background-position", "center center")
-                                    .css("background-color", ""+background_color)
-                                    .css("background-size","contain")
-                                    .css("position", "absolute")
-                                    .css("webkit-filter",""+ filter);
-                            }
-
-                            if (tag === "button")
-                            {
-                            var src_image = $(this).attr("src").replace("../", "");
-                                    $(".preview #" + blockId).append("<div><a href=\"#\" data-reveal-id=\"myModal\"><img src='" + src_image + "' buttonLink='" + elementdata + "' id=" + type + "EEE" + blockId + " onclick=getButtonid('" + type + "EEE" + blockId + "') alt='button'/></a>");
-                                    $("#" + type + "EEE" + blockId).css("left", "" + left + "px")
-                                    .css("position", "absolute")
-                                    .css("top", "" + top + "px")
-                                    .attr("src", src_image);
-                            }
-
-                            if (tag === "block")
-                            {
-                            var borderRadius = $(this).attr("border-radius");
-                                    var colorName = $(this).attr("color-name");
-                                    var backgroundcolor;
-                                    var width = $(this).attr("width");
-                                    var height = $(this).attr("height");
-//                                      var backgroundcolor = $(this).attr("background-color");                                                          
-                                    var drop_shadow = $(this).attr("Drop-shadow-color");
-                                    var h_shadow = $(this).attr("H-shadow");
-                                    var v_shadow = $(this).attr("V-shadow");
-                                    var Blur = $(this).attr("blur");
-                                    for (var i = 1; i <= 6; i++)
-                            {
-                            if (colorName == "Color-" + i)
-                            {
-                            backgroundcolor = $("#shapecolorbox" + i).css("background-color");
-//                                                              fontcolor=user_preferences_colors.color+""+i; 
-                            }
-                            }
-                            $(".blockname").append("<option value=" + type + "EEE" + blockId + ">Shape " + blockcount + "</option>");
-                                    blockcount++;
-                                    $(".preview #" + blockId).append("<div class=block onclick=getDivId(" + type + "EEE" + blockId + ") id=" + type + "EEE" + blockId + "></div>");
-                                    $("#" + type + "EEE" + blockId).css("background-color", "" + backgroundcolor)
-                                    .css("margin-left", "" + left + "px")
-                                    .css("margin-top", "" + top + "px")
-                                    .css("width", "" + width)
-                                    .css("border-radius", "" + borderRadius)
-                                    .css("position", "absolute")
-                                    .css("height", "" + height)
-                                    .css("-webkit-filter", "drop-shadow(" + drop_shadow + " " + h_shadow + " " + v_shadow + " " + Blur + ")")
-                                    .css("opacity", "" + opacity);
-                            }
-
-                            });
-                                    if (count == 1){$("#imagecontainer").hide(); }
-                            if (blockcount == 1){$("#shapecontainer").hide(); }
-                            if (textcount == 1){$("#textcontainer").hide(); }
-                            if (count != 1){$("#imagecontainer").show(); }
-                            if (blockcount != 1){$("#shapecontainer").show(); }
-                            if (textcount != 1){$("#textcontainer").show(); }
-                            },
-                            error: function (e)
-                            {
-                            alert("error in xml file read");
-                            }
-                    });
             }
            function addblock(){
                document.getElementById("addblkbtn").style.backgroundColor = "#0f76a6";
@@ -865,15 +578,9 @@ $(document).ready(function() {
                                     <div id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>
                                 </li>
                             </ul>
-                            <ul id="stylelist" class="blocklist fontpnr" style="display:none;">
+                            <ul id="stylelist" class="stylelist fontpnr">
                                 <li ng-repeat="styles in datalistsstyles" id="stylelistid">
-                                    <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
-                                </li>
-                               
-                            </ul>
-                            <ul id="stylelist" class="blocklist fontpnr">
-                                <li ng-repeat="styles in datalistsstyles">
-                                    <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
+                                    <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" style="height:200px;"/><br></div>
                                 </li>
                                
                             </ul>
@@ -935,7 +642,7 @@ $(document).ready(function() {
         <script type="text/javascript" src="js/plugins/table.min.js"></script>
         <script type="text/javascript" src="js/plugins/url.min.js"></script>
         <script type="text/javascript" src="js/plugins/entities.min.js"></script>
-        <script type="text/javascript" src="js/plugins/char_counter.min.js"></script>
+<!--        <script type="text/javascript" src="js/plugins/char_counter.min.js"></script>-->
         <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
         <script type="text/javascript" src="js/plugins/save.min.js"></script>
 <!--        <script type="text/javascript" src="js/plugins/fullscreen.min.js"></script>-->

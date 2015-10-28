@@ -9,7 +9,6 @@ var colorcodeArray;
     url: 'GetColorsServlet',
     dataType: 'json',
 success:function(data){
-    alert(JSON.stringify(data));
     colorcodeArray=data;
 }
  });

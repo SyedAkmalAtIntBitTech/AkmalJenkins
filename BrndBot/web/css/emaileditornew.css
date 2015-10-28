@@ -125,15 +125,41 @@ and open the template in the editor.
                  margin-left: 25.9px;
                  margin-top:16px;
              }
-             
+.stylelist{
+margin-left: -15px;
+margin-top:2.5px;
+height:480px;
+/*overflow: -moz-scrollbars-none;
+-ms-overflow-style: none;*/
+}     
+.stylelist li{
+    margin-top: 7px;
+    width:280px;
+    height: 80px;
+    display: inline-block;
+/*    color:#3f3f42;
+    font-size:16px;
+    padding:5px 8px 5px 8px;*/
+}
+.stylelist li img{
+    max-height:100% !important;
+}
+.stylelist li a:hover,ul.stylelist li:hover,ul.stylelist div:hover{
+    background-color: #0f76a6 !important;
+    text-decoration: none;
+    color:#f6f7f7 !important;
+    cursor: pointer;
+}
+
+/*.stylelist::-webkit-scrollbar { width: 0 !important }*/
 .blocklist {
 margin-left: -15px;
 margin-top:2.5px;
 height:480px;
-overflow: -moz-scrollbars-none;
--ms-overflow-style: none;
+/*overflow: -moz-scrollbars-none;
+-ms-overflow-style: none;*/
 }
-.blocklist::-webkit-scrollbar { width: 0 !important }
+/*.blocklist::-webkit-scrollbar { width: 0 !important }*/
 .blocklist li{
     margin-top: 7px;
     width:280px;
