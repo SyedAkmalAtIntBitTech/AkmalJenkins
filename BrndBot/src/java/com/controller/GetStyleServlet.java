@@ -5,13 +5,17 @@
  */
 package com.controller;
 
+import com.intbit.AppConstants;
 import com.intbit.util.CustomStyles;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -32,9 +36,18 @@ public class GetStyleServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String userType=request.getParameter("user_type");
-
-
+        String styletype=request.getParameter("styletype");
+        System.out.println(styletype);
+         JSONObject jsonresponce = null;
+        if(styletype.equalsIgnoreCase("colors")){
+         jsonresponce=CustomStyles.getCustomColorsJson(request);
+        }
+        else if(styletype.equalsIgnoreCase("fonts")){
+          jsonresponce=CustomStyles.getCustomFontsJson(request);
+        }
+        response.setContentType("application/json");
+        response.getWriter().write(jsonresponce.toString());
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

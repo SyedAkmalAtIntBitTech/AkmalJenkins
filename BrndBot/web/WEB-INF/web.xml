@@ -408,6 +408,14 @@
         <servlet-name>GetStyleServlet</servlet-name>
         <servlet-class>com.controller.GetStyleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetColorsServlet</servlet-name>
+        <servlet-class>com.intbit.GetColorsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetFontsServlet</servlet-name>
+        <servlet-class>com.intbit.GetFontsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -823,6 +831,14 @@
     <servlet-mapping>
         <servlet-name>GetStyleServlet</servlet-name>
         <url-pattern>/GetStyleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetColorsServlet</servlet-name>
+        <url-pattern>/GetColorsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetFontsServlet</servlet-name>
+        <url-pattern>/GetFontsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

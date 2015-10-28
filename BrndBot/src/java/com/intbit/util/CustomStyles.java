@@ -9,6 +9,9 @@ import com.intbit.AppConstants;
 import java.io.File;
 import java.io.FileReader;
 import java.util.*;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,12 +23,12 @@ import org.json.simple.parser.JSONParser;
 public class CustomStyles {
     private  static  JSONObject customColors;
     private  static  JSONObject customFonts;
-    public static JSONObject getCustomColorsJson(String path){
+    public static JSONObject getCustomColorsJson(HttpServletRequest request){
       if(customColors==null){
        customColors = new JSONObject();
         try {
         JSONParser parser = new JSONParser();
-        FileReader fileReader = new FileReader(path);
+        FileReader fileReader = new FileReader(getCustomColorsFilePath(request));
         customColors = (JSONObject) parser.parse(fileReader);
 //        JSONArray ColorArray = (JSONArray) json.get("admincustomcolors");
 //        Iterator i = ColorArray.iterator();
@@ -41,12 +44,12 @@ public class CustomStyles {
     }
        return customColors;
     }
-    public static JSONObject getCustomFontsJson(String path){
+    public static JSONObject getCustomFontsJson(HttpServletRequest request){
         if(customFonts==null){
        customFonts = new JSONObject();
         try {
         JSONParser parser = new JSONParser();
-        FileReader fileReader = new FileReader(path);
+        FileReader fileReader = new FileReader(getCustomFontsFilePath(request));
         customFonts = (JSONObject) parser.parse(fileReader);
         } catch (Exception ex) 
             {
@@ -56,6 +59,29 @@ public class CustomStyles {
         }
         return customFonts;
     }
+    public static String getCustomColorsFilePath(HttpServletRequest request)
+            
+    {
+       ServletContext servletContext = request.getSession().getServletContext();
+      String relativeWebPath = "/admin/colors/CustomColors.json";
+      String absoluteDiskPath = servletContext.getRealPath(relativeWebPath);
+    
+    return absoluteDiskPath;
+    }
+    
+     public static String getCustomFontsFilePath(HttpServletRequest request)
+            
+    {
+       ServletContext servletContext = request.getSession().getServletContext();
+      String relativeWebPath = "/admin/colors/CustomFonts.json";
+      String absoluteDiskPath = servletContext.getRealPath(relativeWebPath);
+    
+    return absoluteDiskPath;
+    }
+    
+            
+            
+            
     
 
     

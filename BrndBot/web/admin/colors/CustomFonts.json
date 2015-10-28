@@ -1,13 +1,8 @@
 {
-    "admincustomfonts":[
-       "Arial,Helvetica,sans-serif",
-       "'Georgia,serif': 'Georgia'",
-       "'Impact,Charcoal,sans-serif': 'Impact'",
-       "'Tahoma,Geneva,sans-serif': 'Tahoma'",
-       "''Times New Roman',Times,serif': 'Times New Roman'"
-    ],
-    "usercustomfonts":[
-       "Arial",
-       "#FABCAA"
-    ]
+    "Arial,Helvetica":"Arial, Helvetica",
+    "Courier,Courier New":"Courier, Courier New",
+    "Georgia":"Georgia", 
+    "Times New Roman,Times":"Times New Roman,Times",
+    "Trebuchet MS":"Trebuchet MS",
+    "Verdana, Geneva":"Verdana,Geneva"
 }

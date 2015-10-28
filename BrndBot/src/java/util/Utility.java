@@ -66,4 +66,18 @@ public class Utility {
         }
         return html_content.toString();
     }
+    public static String rgbToHex(String rgb){
+        String colorcode=rgb.replace("rgb(", "").replace(")", "").replace(" ","");
+        String Hex="#";
+        String[] integervalue=colorcode.split(",");
+        int r=Integer.parseInt(integervalue[0]);
+        int g=Integer.parseInt(integervalue[1]);
+        int b=Integer.parseInt(integervalue[2]);
+       Hex= Hex.concat(Integer.toHexString(r));
+       Hex= Hex.concat(Integer.toHexString(g));
+       Hex= Hex.concat(Integer.toHexString(b));
+        
+       return Hex.toUpperCase();
+    }
+    
 }

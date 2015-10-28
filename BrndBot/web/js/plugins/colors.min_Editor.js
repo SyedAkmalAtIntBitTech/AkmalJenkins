@@ -4,16 +4,15 @@
  * Copyright 2014-2015 Froala Labs
  */
 var colorcodeArray;
-                 $.ajax({
-                   async: false,
-                   url: global_host_address+"admin/colors/CustomColors.json",
-                   dataType: 'json',
-                   success:function(data){
-                    colorcodeArray=data.usercustomcolors;
-                     
-
-                    }
-                });
+ $.ajax({
+    async: false,
+    url: 'GetColorsServlet',
+    dataType: 'json',
+success:function(data){
+    alert(JSON.stringify(data));
+    colorcodeArray=data;
+}
+ });
 !function (a) {
     "use strict";
     a.extend(a.FroalaEditor.POPUP_TEMPLATES, {"colors.picker": "[_TABS_][_TEXT_COLORS_][_BACKGROUND_COLORS_]"}), a.extend(a.FroalaEditor.DEFAULTS, {colorsText: colorcodeArray , colorsBackground: ["#61BD6D", "#1ABC9C", "#54ACD2", "#2C82C9", "#9365B8", "#475577", "#CCCCCC", "#41A85F", "#00A885", "#3D8EB9", "#2969B0", "#553982", "#28324E", "#000000", "#F7DA64", "#FBA026", "#EB6B56", "#E25041", "#A38F84", "#EFEFEF", "#FFFFFF", "#FAC51C", "#F37934", "#D14841", "#B8312F", "#7C706B", "#D1D5D8", "REMOVE"], colorsStep: 6, colorsDefaultTab: "text"}), a.FroalaEditor.PLUGINS.colors = function (b) {
