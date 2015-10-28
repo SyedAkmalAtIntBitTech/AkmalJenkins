@@ -43,7 +43,7 @@
             
             function validate(){
                 var program_name = $("#program_name").val();
-                var user = $("#user").val();
+                var user = $("#users").val();
                 var category = $("#category").val();
                 var program_order = $("#program_order").val();
                 var html_data = $("#html_data").val();
@@ -56,7 +56,7 @@
                 
                 if (user == ""){
                     alert("user not selected, kindly select an user");
-                    $("#user").focus();
+                    $("#users").focus();
                     return false;
                 }
                 
@@ -100,35 +100,31 @@
                     var category_details = {"type": "get"};
 
                     $http({
-                        method: 'POST',
-                        url: getHost() + 'ServletMarketingCategories',
-                        headers: {'Content-Type': 'application/json'},
-                        data: JSON.stringify(category_details)
+                        method: 'GET',
+                        url: getHost() + 'allmarketingCategory.do'
                     }).success(function (data, status){
-                        $scope.marketingcategories = data;
+                        $scope.marketingcategories = data.marketingData;
                     }).error(function (){
                         alert("No data available, problem fetching the data");
                     });
                 };
                 
                 $scope.saveMarketingPrograms = function(){
-                    
-                    if (validate){
+                    if (validate()){
                         var program_name = $("#program_name").val();
-                        var user = $("#user").val();
+                        var user = $("#users").val();
                         var category = $("#category").val();
                         var program_order = $("#program_order").val();
                         var html_data = $("#html_data").val();
 
-
-                        var marketing_program = {"type":"save", "program_name":program_name,
+                        var marketing_program = {"program_name":program_name,
                                                  "user":user, "category":category, 
                                                  "program_order":program_order,
                                                  "html_data":html_data
                                                 };
                         $http({
                            method: 'POST',
-                           url:getHost + '',
+                           url:getHost() + 'setMarketingPrograms.do',
                            headers: {'Content-Type': 'application/json'},
                            data: JSON.stringify(marketing_program)
                         }).success(function (data, status){
@@ -143,8 +139,9 @@
                 $scope.getMarketingPrograms = function(){
                   $http({
                         method: 'GET',
-                        url: getHost() + 'GetMarketingPrograms'
+                        url: getHost() + 'getMarketingPrograms.do'
                     }).success(function (data, status, headers, config) {
+                        
                         $scope.programs = data;
                     }).error(function (data, status, headers, config) {
                         alert("No data available, problem fetching the data");
@@ -155,11 +152,11 @@
                 
                 $scope.deleteProgram = function(program_id){
                     
-                    var program_details = {"type": "delete", "program_id": program_id};
+                    var program_details = {"program_id": program_id};
                     
                     $http({
                         method: 'POST',
-                        url: getHost() + 'ServletMarketingCategories',
+                        url: getHost() + 'deleteMarketingPrograms.do',
                         headers: {'Content-Type': 'application/json'},
                         data: JSON.stringify(program_details)
                     }).success(function (data, status){
@@ -175,7 +172,16 @@
                 
             }
         </script>
-    <jsp:include page="checksession.jsp" />
+    
+    <%!
+        PreparedStatement ps;
+        ResultSet rs;
+        String Query = "";
+        Integer id = 0;
+        String user_name = "";
+        String brand_name = "";
+        String font_name = "";
+    %>    
     <jsp:declaration>
         Logger logger = Logger.getLogger("categories.jsp");
         Integer num = 1;
@@ -207,38 +213,67 @@
         }        
     %>        
     </head>
-    <body>
+    <body ng-app class="container">
        <%@include file="menus.jsp" %>
         <div class="jumbotron" align="center" ng-controller="marketingCategoriesController" >
-            <div  style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 350px; width: 600px;">
+            <div  style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 500px; width: 600px;">
                 <form name="formPrograms" method="post">
 
                     <div>
                         <div class="col-md-3 col-md-offset-5">
-                            <p>Categories:</p>
+                            <p>Programs:</p>
                         </div>
                     </div>
-                    <div ng-init="getOrganizations()" style="float:left; left:20px; padding-left: 166px;">
+                    <div ng-init="getMarketingCategories()" style="float:left; left:20px; padding-left: 166px;">
                         <%= exist1 %>
-                         <input type="text" id="program_name" name="program_name" value=""/><br>
-    Select organization:<select name="user" id="user" style="width:180px;">
-                            <option value="0">--select--</option>
-                            <option ng-repeat="user in users" value="{{user.id}}">{{user.user_name}}</option>
-                        </select><br><br>
+                Program Name: <input type="text" id="program_name" name="program_name" value=""/><br>
+    
+                Users : <select name="users" id="users" multiple>
+                            <option value="0">-Select-</option>
+                    <%
+                        Connection conn = null;
+                        try {
+                            try {
+                                conn = ConnectionManager.getInstance().getConnection();
+                                Query = "Select * from tbl_user_login_details";
+                                ps = conn.prepareStatement(Query);
+
+                                rs = ps.executeQuery();
+                                while (rs.next()) {
+                                    id = rs.getInt("id");
+                                    user_name = rs.getString("user_name");
+                    %>            
+                            <option value="<%=id%>"><%= user_name%></option>
+                    <%
+                                }
+                        } catch (Exception e) {
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        } finally {
+                            ps.close();
+                            rs.close();
+                        }
+                        } finally {
+                            ConnectionManager.getInstance().closeConnection(conn);
+                        }
+                    %>
+
+                </select><br><br>                     
+                         
         Select category:<select name="category" id="category" style="width:180px;">
                             <option value="0">--select--</option>
                             <option value="{{category.id}}" ng-repeat="category in marketingcategories">{{category.name}}</option>
                         </select><br><br>
                         
-                        <input type="text" id="program_order" name="program_order" />
+        Program order: <input type="text" id="program_order" name="program_order" />
                     </div><br>
                     <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
-                        <div>
-                            <textarea id="html_data" name="html_data" ></textarea>
-                        </div>
+                   <div>
+        HTML Data:  <textarea id="html_data" name="html_data" ></textarea>
+                   </div>
                         <br>
                         <div style="float: left; left:20px; margin-top: -110px;">
-                            <button id="Servicecontinue" type="submit" class="btn btn-info">Save</button>
+                            <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="saveMarketingPrograms()">Save</button>
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
                         </div>
                     </div>

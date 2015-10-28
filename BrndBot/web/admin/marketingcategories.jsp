@@ -124,7 +124,14 @@
             }
         </script>
     </head>    
-    
+    <%!     PreparedStatement ps;
+            ResultSet rs;
+            String Query = "";
+            Integer id = 0;
+            String user_name = "";
+            String brand_name = "";
+            String font_name = "";
+    %>    
     <jsp:declaration>
         Logger logger = Logger.getLogger("categories.jsp");
         Integer num = 1;
@@ -160,7 +167,7 @@
     <body ng-app class="container">
     <%@include file="menus.jsp" %>
         <div class="jumbotron" align="center" ng-controller="marketingCategoriesController" >
-            <div  style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 400px; width: 600px;">
+            <div  style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 480px; width: 600px;">
                 <form name="formCategories" action="<%= application.getContextPath()%>/setMarketingCategory.do" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 
                     <div>
@@ -171,7 +178,38 @@
                     <div ng-init="getOrganizations()" style="float:left; left:20px; padding-left: 166px;">
                         <%= exist1 %>
                          Category Name: <input type="text" id="category_name" name="category_name" value=""/><br>
-                        Select organization: <select name="organization" id="organization" style="width:180px;">
+                         Users : <select name="users" id="users" multiple>
+                            <option value="0">-Select-</option>
+                    <%
+                        Connection conn = null;
+                        try {
+                            try {
+                                conn = ConnectionManager.getInstance().getConnection();
+                                Query = "Select * from tbl_user_login_details";
+                                ps = conn.prepareStatement(Query);
+
+                                rs = ps.executeQuery();
+                                while (rs.next()) {
+                                    id = rs.getInt("id");
+                                    user_name = rs.getString("user_name");
+                    %>            
+                            <option value="<%=id%>"><%= user_name%></option>
+                    <%
+                                }
+                        } catch (Exception e) {
+                            System.out.println(e.getCause());
+                            System.out.println(e.getMessage());
+                        } finally {
+                            ps.close();
+                            rs.close();
+                        }
+                        } finally {
+                            ConnectionManager.getInstance().closeConnection(conn);
+                        }
+                    %>
+
+                </select><br><br>
+            Select organization: <select name="organization" id="organization" style="width:180px;">
                             <option value="0">--select--</option>
                             <option ng-repeat="org in organizations" value="{{org.id}}">{{org.organization_name}}</option>
                         </select><br><br>

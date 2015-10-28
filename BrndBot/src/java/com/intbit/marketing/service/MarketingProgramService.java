@@ -10,10 +10,10 @@ import java.util.List;
 
 /**
  *
- * @author intbit-6
+ * @author development
  */
 public interface MarketingProgramService {
-    /**
+/**
 	 * This method retrieves {@link TblMarketingProgram} by passing id
 	 * @param id
 	 * @return {@link TblMarketingProgram}
@@ -55,6 +55,5 @@ public interface MarketingProgramService {
 	 * @param id
 	 * @throws java.lang.Throwable 
     */
-   public void delete(Integer id) throws Throwable;
-    
+   public void delete(Integer id) throws Throwable;    
 }
