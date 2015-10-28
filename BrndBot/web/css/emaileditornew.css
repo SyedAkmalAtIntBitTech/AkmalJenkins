@@ -128,7 +128,8 @@ and open the template in the editor.
 .stylelist{
 margin-left: -15px;
 margin-top:2.5px;
-height:480px;
+height:500px !important;
+overflow-y:scroll;
 /*overflow: -moz-scrollbars-none;
 -ms-overflow-style: none;*/
 }     
@@ -143,11 +144,12 @@ height:480px;
 }
 .stylelist li img{
     max-height:100% !important;
+    width:90%;
 }
 .stylelist li a:hover,ul.stylelist li:hover,ul.stylelist div:hover{
-    background-color: #0f76a6 !important;
+/*    background-color: #0f76a6 !important;
     text-decoration: none;
-    color:#f6f7f7 !important;
+    color:#f6f7f7 !important;*/
     cursor: pointer;
 }
 
