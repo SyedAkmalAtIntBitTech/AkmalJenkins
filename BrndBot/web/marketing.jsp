@@ -260,7 +260,30 @@
                 font-family: sans-serif;
                 font-size: 12px;
             }
-            .inputdate {
+             .inputdate {
+               background-color: #f6f7f7;
+               border-color: #e3e3e3 !important;
+               border-radius: 1px;
+               width: 100px;
+               height: 25px;
+               font-family: sans-serif;
+               font-size: 10px;
+               position: relative;
+               top:2px;
+               bottom:2px;
+           }
+           .inputtime{
+               background-color: #f6f7f7;
+               border-color: #e3e3e3 !important;
+               border-radius: 1px;
+               width: 100px !important;
+               height: 25px;
+               font-size: 10px;
+               position: relative;
+               top:2px;
+               bottom:2px;
+           }
+/*            .inputdate {
                 background-color: #e4e4e4;
                 border: 1px solid #DADADA;
                 border-radius: 5px;
@@ -283,7 +306,7 @@
                 position: relative;
                 top:2px;
                 bottom:2px;
-            }
+            }*/
             #popupright_panel{
                 left: 255px;
                 position: relative;
@@ -820,7 +843,7 @@
             <div id="preview" class="pollSlider">
                 <div>
                     <div id="preview_email"  class="inlineFlex">
-                          <div class="half">
+                    <div class="half">
                     <div class="borderright">
                         <div class="firstcol">
                             <div class="inlineFlex">
@@ -887,45 +910,55 @@
                             <div class="toptweentyone headcolor tenpix fontpns">
                                 PREVIEW
                             </div>
-                            <div class="topten"><!-- <div class="content"></div> -->
-                                <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
-                            </div>
-                            <div class="top27 headcolor tenpix fontpns">
-                                SUBJECT LINE
-                            </div>
-                            <div class="containe fontpnr tenpix">
-                                September 5, 2015 at 2:02 PM
-                            </div>
-                            <div class="inlineFlex toptweenty">
-                                <div class="half headcolor fontpns tenpix">
-                                    TO EMAIL LIST
+                             <div id="mailremovedtemplate">
+                                <div class="rectangle">
+                                    <div class="circle"></div>
                                 </div>
-                                <div class="half headcolor fontpns tenpix">
-                                    ADDITIONAL EMAIL LIST
+                                <div class="rightthirty">
+                                    <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                 </div>
                             </div>
-                            <div class="inlineFlex toptnine">
-                                <div class="half containe fontpnr tenpix">
-                                    To mail list text
+                            <div id="mailpreviewdecond">
+                                <div class="topten"><!-- <div class="content"></div> -->
+                                    <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
                                 </div>
-                                <div class="half containe fontpnr tenpix">
-                                    Additional mail list text
+                                <div class="top27 headcolor tenpix fontpns">
+                                    SUBJECT LINE
                                 </div>
-                            </div>
-                             <div class="inlineFlex toptweenty">
-                                <div class="half headcolor fontpns tenpix">
-                                    FROM NAME
+                                <div class="containe fontpnr tenpix">
+                                    September 5, 2015 at 2:02 PM
                                 </div>
-                                <div class="half headcolor fontpns tenpix">
-                                    From name text
+                                <div class="inlineFlex toptweenty">
+                                    <div class="half headcolor fontpns tenpix">
+                                        TO EMAIL LIST
+                                    </div>
+                                    <div class="half headcolor fontpns tenpix">
+                                        ADDITIONAL EMAIL LIST
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="inlineFlex toptnine">
-                                <div class="half containe fontpnr tenpix">
-                                    FROM EMAIL ADDRESS
+                                <div class="inlineFlex toptnine">
+                                    <div class="half containe fontpnr tenpix">
+                                        To mail list text
+                                    </div>
+                                    <div class="half containe fontpnr tenpix">
+                                        Additional mail list text
+                                    </div>
                                 </div>
-                                <div class="half containe fontpnr tenpix">
-                                    From email address
+                                 <div class="inlineFlex toptweenty">
+                                    <div class="half headcolor fontpns tenpix">
+                                        FROM NAME
+                                    </div>
+                                    <div class="half headcolor fontpns tenpix">
+                                        From name text
+                                    </div>
+                                </div>
+                                <div class="inlineFlex toptnine">
+                                    <div class="half containe fontpnr tenpix">
+                                        FROM EMAIL ADDRESS
+                                    </div>
+                                    <div class="half containe fontpnr tenpix">
+                                        From email address
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1060,9 +1093,163 @@
                             </div>
                         </form>                            
                     </div>
-                    <div id="edit_email" style="display:none;">
+                    <div id="edit_email" class="inlineFlex">
+                        <div class="half">
+                            <div class="borderright">
+                                <div class="firstcol">
+                                    <div class="inlineFlex">
+                                        <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
+                                        <div class="headdelete h5font fontpnr">DELETE ACTION</div>
+                                    </div>
+                                    <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                                    <div class="topten titlecontain sixtnpix fontpns">
+                                       <textarea id="email_entitytitle" name="email_entitytitle" class="actiondetinput fontpns">{{schedule_title}}</textarea>
+                                    </div>
+                                    <div class="top12 headcolor tenpix fontpns">
+                                        DESCRIPTION
+                                    </div>
+                                    <div class="height75 topten">
+                                        <p class="containe twlvpix fontpnr">
+                                            <textarea class="actiondetdesc">{{schedule_desc}}</textarea></p>
+                                    </div>
+                                    <div class="inlineFlex topten">
+                                        <div class="half headcolor fontpns tenpix topten">
+                                            STATUS
+                                        </div>
+                                        <div class="half headcolor fontpns tenpix topten">
+                                            MARKETING PROGRAM
+                                        </div>
+                                    </div>
+                                    <div class="inlineFlex toptnine">
+                                        <div class="half containe fontpnr tenpix">
+                                            <div class="inlineFlex">
+                                                <div class="rightfive topten">
+                                                    <div class="redDot"></div>
+                                                </div>
+                                                <div class=" tenpix fontpnr topten">CANNOT EDIT</div>
+                                            </div>
+                                        </div>
+                                        <div class="half containe fontpnr tenpix topten">
+                                            CANNOT EDIT
+                                        </div>
+                                    </div>
+                                    <div class="topthirty8 pfont actfnt fontpnr">
+                                        POSTING DETAILS
+                                    </div>
+                                    <div class="topnineteen tenpix fontpns postto">  
+                                        POSTING TO
+                                    </div>
+                                    <div class="containe fontpnr tenpix topten">
+                                        CANNOT EDIT
+                                    </div>
+                                    <div class="toptweenty headcolor tenpix fontpns">
+                                        SCHEDULED TO POST ON
+                                    </div>
+                                    <div class="inlineFlex">
+                                        <div class="half">
+                                            <div class=" containe fontpnr tenpix topten">
+                                                Day
+                                            </div>
+                                            <div class="topsix">
+                                                <input type="text" readonly  name="email_schedule_datetime" id="email_schedule_datetime"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
+                                                <script>
+                                            var picker = new Pikaday(
+                                            {
+                                                field: document.getElementById('email_schedule_datetime'),
+                                                firstDay: 1,
+                                                minDate: new Date(2000, 0, 1),
+                                                maxDate: new Date(2050, 12, 31),
+                                                yearRange: [2000,2050]
+                                            });
 
-                        <div style="position:relative;left:50px;;">
+                                                </script>
+                                            </div>
+                                        </div>
+                                        <div class="half">
+                                            <div class=" containe fontpnr tenpix topten">
+                                                Time
+                                            </div>
+                                            <div class="topsix">
+                                                <input id="timepickeremailaction" type="text" name="timepickeremail" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                                                <script src="js/timepicki.js" type="text/javascript"></script>
+                                                <script>
+                                                    $('#timepickeremailaction').timepicki();
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="topthirty8">
+                                        <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns">Save</button>                                       
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        
+                        <div class="half">
+                        <div class="secondcol">
+                            <div class="inlineFlex">
+                                <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
+                                <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
+                            </div>
+                            <div class="toptweentyone headcolor tenpix fontpns">
+                                PREVIEW
+                            </div>
+                             <div id="mailremovedtemplate">
+                                <div class="rectangle">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="rightthirty">
+                                    <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                </div>
+                            </div>
+                            <div id="mailpreviewdecond">
+                                <div class="topten"><!-- <div class="content"></div> -->
+                                    <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
+                                </div>
+                                <div class="top27 headcolor tenpix fontpns">
+                                    SUBJECT LINE
+                                </div>
+                                <div class="containe fontpnr tenpix">
+                                    September 5, 2015 at 2:02 PM
+                                </div>
+                                <div class="inlineFlex toptweenty">
+                                    <div class="half headcolor fontpns tenpix">
+                                        TO EMAIL LIST
+                                    </div>
+                                    <div class="half headcolor fontpns tenpix">
+                                        ADDITIONAL EMAIL LIST
+                                    </div>
+                                </div>
+                                <div class="inlineFlex toptnine">
+                                    <div class="half containe fontpnr tenpix">
+                                        To mail list text
+                                    </div>
+                                    <div class="half containe fontpnr tenpix">
+                                        Additional mail list text
+                                    </div>
+                                </div>
+                                 <div class="inlineFlex toptweenty">
+                                    <div class="half headcolor fontpns tenpix">
+                                        FROM NAME
+                                    </div>
+                                    <div class="half headcolor fontpns tenpix">
+                                        From name text
+                                    </div>
+                                </div>
+                                <div class="inlineFlex toptnine">
+                                    <div class="half containe fontpnr tenpix">
+                                        FROM EMAIL ADDRESS
+                                    </div>
+                                    <div class="half containe fontpnr tenpix">
+                                        From email address
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                        
+<!--                        <div style="position:relative;left:50px;;">
                             <div class="actiondetails actiondet">
                                 <p class="SP2 actfnt">ACTION DETAILS</p>
                                 <p><input type="text" class="inputbox MH2" id="email_entitytitle" name="email_entitytitle" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:20px;"/></p>
@@ -1079,7 +1266,7 @@
                                 </div>
 
                                 <div class="col-md-6" id="popupright_panel" >
-                                    <!--                                        <div><label>subject</label></div>-->
+                                                                            <div><label>subject</label></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">Subject Line </p><input type="text" class="inputbox SS2" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">To</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
                                     <div><p class="SP2 actfnt" style="font-weight:400;">From</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
@@ -1117,7 +1304,7 @@
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                                     </div></div>
                                     <div style="position:relative;margin-top: 100px;"> 
-                                    <!--<input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>-->
+                                    <input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>
                                     <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
                                     <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
                                     <div class="editbutton"><button ng-click="updateEmailSchedule()" class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
@@ -1125,7 +1312,7 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -1210,40 +1397,50 @@
                                 <div class="secondcol">
                                      <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
+                                        <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','facebook')">REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor tenpix fontpns">
                                         PREVIEW
                                     </div>
-                                    <div class="topten">
-                                        <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' /> <!--  {{entitiesdetails.image_name}}  -->
+                                    <div id="fbremovedtemplate">
+                                        <div class="rectangle">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="rightthirty">
+                                            <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                        </div>
                                     </div>
-                                    <div id="imgcontainer"  style="display:none;">
-                                    <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
-                                    </div> 
-                                    <div class="toptweenty headcolor tenpix fontpns">
-                                        POST TEXT
-                                    </div>
-                                    <div class="height75 scrolly topten">
-                                        <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                    <div class="toptweenty headcolor tenpix fontpns">
-                                        LINK TITLE
-                                    </div>
-                                    <div class="topten containe fontpnr twlvpix">
-                                        Link Name Goes Here
-                                    </div>
-                                    <div class="toptweentyfive headcolor tenpix fontpns">
-                                        LINK DESCRIPTION
-                                    </div>
-                                    <div class="topten containe fontpnr twlvpix">
-                                        Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </div>
-                                    <div class="toptweenty headcolor tenpix fontpns">
-                                        LINK URL NAME
-                                    </div>
-                                    <div class="topten containe fontpnr twlvpix">
-                                        {{entitiesdetails.metadata.ManagedPage}}
+                                    <div id="fbpreviewdecond">
+                                        <div class="topten">
+                                            <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' /> <!--  {{entitiesdetails.image_name}}  -->
+                                        </div>
+                                        <div id="imgcontainer"  style="display:none;">
+                                        <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        </div> 
+                                        <div class="toptweenty headcolor tenpix fontpns">
+                                            POST TEXT
+                                        </div>
+                                        <div class="height75 scrolly topten">
+                                            <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        </div>
+                                        <div class="toptweenty headcolor tenpix fontpns">
+                                            LINK TITLE
+                                        </div>
+                                        <div class="topten containe fontpnr twlvpix">
+                                            Link Name Goes Here
+                                        </div>
+                                        <div class="toptweentyfive headcolor tenpix fontpns">
+                                            LINK DESCRIPTION
+                                        </div>
+                                        <div class="topten containe fontpnr twlvpix">
+                                            Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                        </div>
+                                        <div class="toptweenty headcolor tenpix fontpns">
+                                            LINK URL NAME
+                                        </div>
+                                        <div class="topten containe fontpnr twlvpix">
+                                            {{entitiesdetails.metadata.ManagedPage}}
+                                        </div>
                                     </div>
                                     
 <!--                                    <div id="fb_preview_postdet" style="position:absolute;margin-left:15px;">
@@ -1691,25 +1888,35 @@
                         <div class="secondcol">
                              <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                <div class="headdelete h5font fontpnr">REMOVED SAVED POST</div>
+                                <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','twitter')">REMOVED SAVED POST</div>
                             </div>
                             <div class="toptweentyone headcolor tenpix fontpns">
                                 PREVIEW
                             </div>
-                            <div class="topten">
-                                <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150907175706740.png' />
+                            <div id="twremovedtemplate">
+                                <div class="rectangle">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="rightthirty">
+                                    <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                </div>
                             </div>
-                            <div class="toptweenty headcolor tenpix fontpns">
-                                POST TEXT
-                            </div>
-                            <div class="height75 scrolly topten">
-                                <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                            <div class="toptweenty headcolor tenpix fontpns">
-                                LINK NAME
-                            </div>
-                            <div class="topten containe fontpnr twlvpix">
-                                Link Name Goes Here
+                            <div id="twpreviewdecond">
+                                <div class="topten">
+                                    <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150907175706740.png' />
+                                </div>
+                                <div class="toptweenty headcolor tenpix fontpns">
+                                    POST TEXT
+                                </div>
+                                <div class="height75 scrolly topten">
+                                    <p class="containe twlvpix fontpnr">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                                <div class="toptweenty headcolor tenpix fontpns">
+                                    LINK NAME
+                                </div>
+                                <div class="topten containe fontpnr twlvpix">
+                                    Link Name Goes Here
+                                </div>
                             </div>
                         </div>
                     </div>

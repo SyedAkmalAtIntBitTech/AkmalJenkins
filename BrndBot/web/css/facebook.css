@@ -43,6 +43,9 @@ right223
 .topfive{
     margin-top:5px;
 }
+.topsix{
+    margin-top:6px;
+}
 .topnine{
     margin-top:9px;
 }
@@ -51,6 +54,10 @@ right223
 }
 .top10nhalf{
     margin-top:10.5px;
+}
+.top12
+{
+    margin-top:12px;
 }
 .topnineteen{
     margin-top:19px;
@@ -79,6 +86,9 @@ right223
 }
 .top32{
     margin-top:32px;
+}
+.topthirty8{
+    margin-top:38px;
 }
 .topfourty{
     margin-top:40px;
@@ -178,4 +188,82 @@ right223
     margin-right: -424px;
     border: 1px solid #ccc;
     z-index: 1005;
+}
+.circle {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #b2b2b2;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 1px;
+    height: 80px;
+    width: 80px;
+    margin-left: 57px;
+    margin-top: 10px
+}
+.rectangle {
+    background-color: #ffffff;
+    border: 1px solid #b3b3b3;
+    height: 106px;
+    margin-bottom: 24px;
+    margin-left: 50px;
+    margin-top: 23px;
+    width: 200px;
+}
+.createPostbuttonwidthheightcolor
+{
+    background-color: #e3e3e3 !important;
+    color: #3f3f42 !important;
+    font-size: 12px !important;
+    height: 25px;
+    width: 138px;
+}
+   .actiondetinput{
+                border-color:#e3e3e3 !important;  
+                border-radius:1px;
+                width:100% !important;
+                height:50px !important;
+                background-color: #f6f7f7;
+                color:#19587c !important;
+                font-size: 16px;
+                padding:5px 5px 5px 5px;
+                resize:none;
+                overflow: hidden;
+            }
+            .actiondetdesc{
+                border-color:#e3e3e3 !important;  
+                border-radius:1px;
+                width:100% !important;
+                height:85px !important;
+                background-color: #f6f7f7;
+                color:#3f3f42 !important;
+                font-size: 12px;
+                padding:5px 5px 5px 5px;
+                resize:none;
+                overflow-x: hidden;
+                overflow-y: scroll;
+            }
+            .postto{
+                color:#2d4355 !important;
+            }
+            .emailsavebtn{
+                width:103px;
+                height:25px;
+                margin:0px !important;
+                color:#f6f7f7;
+                font-size: 12px;
+                padding:5px 38px 5px 32px;
+            }
+            .posttextemail{
+                overflow-x: hidden;
+                overflow-y:scroll;
+                height: 62px;
+            }
+#create_Post {
+    margin-left: 78px !important;
+}
+#fbremovedtemplate, #twremovedtemplate, #mailremovedtemplate{
+    display:none;
 }

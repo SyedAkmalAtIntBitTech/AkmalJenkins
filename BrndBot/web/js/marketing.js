@@ -967,7 +967,7 @@ function controllerMarketingCampaign($scope, $http) {
         });
     };
 
-    $scope.deleteSchedule = function (schedules_to_delete, type) {
+    $scope.deleteSchedule = function (schedules_to_delete, type, section) {
         var message;
         var requestBody;
         var responseMessage;
@@ -999,8 +999,18 @@ function controllerMarketingCampaign($scope, $http) {
             {
                 $scope.status = data;
                 if (data !== "") {
+                    if(section == "facebook")
+                    {
+                        $("#fbpreviewdecond").hide();
+                        $("#fbremovedtemplate").show();                        
+                    }
+                    if(section == "twitter")
+                    {
+                        $("#twpreviewdecond").hide();
+                        $("#twremovedtemplate").show();                     
+                    }
                     alert(responseMessage);
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    //window.open(getHost() + 'marketing.jsp', "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
