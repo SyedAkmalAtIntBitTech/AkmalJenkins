@@ -117,29 +117,6 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao{
             }
     }
 
-//    @Override
-//    public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId, Boolean isRecuring, String entityType) throws Throwable {
-//         try {
-//             String entityTypeCheck;
-//             if(entityType.contains("not"))
-//                 entityTypeCheck = "scheduledSocialpostId";
-//             else
-//                 entityTypeCheck = "scheduleEmailId";
-//             
-//            Criteria criteria = sessionFactory.getCurrentSession()
-//                    .createCriteria(TblScheduledEntityList.class)
-//                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
-//                     .setFetchMode(entityTypeCheck, FetchMode.JOIN)
-//                     
-//                     .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingId))
-//                     .add(Restrictions.eq("isRecuring", isRecuring))
-//                     .add(Restrictions.eq("entityType", entityType));
-//                   return criteria.list();
-//		} catch (Throwable throwable) {
-//                   logger.log(Level.SEVERE, null, throwable);
-//                   throw new Throwable("Database error while retrieving record(s).");
-//		}
-//    
-//    }
+
     
 }

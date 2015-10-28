@@ -105,7 +105,7 @@
                 };
                 
                 $scope.deleteCategory = function(category_id){
-                    
+                    alert(category_id);
                 var category_details = {"category_id": category_id};
                     $http({
                         method: 'POST',

@@ -94,5 +94,25 @@ public class ScheduledEmailListDaoImpl  implements ScheduledEmailListDao{
                     throw new Throwable("Database error while retrieving record.");
 		}
     }
+
+    @Override
+    public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecuring, String entityType) throws Throwable {
+      try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblScheduledEmailList.class)
+                    .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
+                    .setFetchMode("tblScheduledEntityList", FetchMode.JOIN)
+                     .setFetchMode("tblScheduledEntityList.tblUserMarketingProgram", FetchMode.JOIN)
+                      .createAlias("tblScheduledEntityList.tblUserMarketingProgram", "umId")
+                     .add(Restrictions.eq("umId.id", UserMarketingId))
+                     .createAlias("tblScheduledEntityList", "sl")
+                     .add(Restrictions.eq("sl.isRecuring", isRecuring))
+                     .add(Restrictions.eq("sl.entityType", entityType));		
+                   return criteria.list();
+		} catch (Throwable throwable) {
+                   logger.log(Level.SEVERE, null, throwable);
+                   throw new Throwable("Database error while retrieving record(s).");
+		}  
+    }
     
 }

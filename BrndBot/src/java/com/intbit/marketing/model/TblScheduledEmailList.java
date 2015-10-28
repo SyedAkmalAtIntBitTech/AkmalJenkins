@@ -32,7 +32,7 @@ public class TblScheduledEmailList  implements java.io.Serializable {
      private String fromName;
      private Serializable toEmailAddresses;
      private String replyToEmailAddress;
-
+     private TblScheduledEntityList tblScheduledEntityList;
     public TblScheduledEmailList() {
     }
 
@@ -40,7 +40,7 @@ public class TblScheduledEmailList  implements java.io.Serializable {
     public TblScheduledEmailList(int id) {
         this.id = id;
     }
-    public TblScheduledEmailList(int id, TblUserLoginDetails tblUserLoginDetails, String subject, String body, String fromAddress, String emailListName, String fromName, Serializable toEmailAddresses, String replyToEmailAddress) {
+    public TblScheduledEmailList(int id, TblUserLoginDetails tblUserLoginDetails, String subject, String body, String fromAddress, String emailListName, String fromName, Serializable toEmailAddresses, String replyToEmailAddress,TblScheduledEntityList tblScheduledEntityList) {
        this.id = id;
        this.tblUserLoginDetails = tblUserLoginDetails;
        this.subject = subject;
@@ -50,6 +50,7 @@ public class TblScheduledEmailList  implements java.io.Serializable {
        this.fromName = fromName;
        this.toEmailAddresses = toEmailAddresses;
        this.replyToEmailAddress = replyToEmailAddress;
+       this.tblScheduledEntityList = tblScheduledEntityList;
     }
    
      @Id 
@@ -146,7 +147,15 @@ public class TblScheduledEmailList  implements java.io.Serializable {
         this.replyToEmailAddress = replyToEmailAddress;
     }
 
-
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="entity_list_id")
+    public TblScheduledEntityList getTblScheduledEntityList() {
+        return this.tblScheduledEntityList;
+    }
+    
+    public void setTblScheduledEntityList(TblScheduledEntityList tblScheduledEntityList) {
+        this.tblScheduledEntityList = tblScheduledEntityList;
+    }
 
 
 }

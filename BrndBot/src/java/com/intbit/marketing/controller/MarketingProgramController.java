@@ -78,8 +78,7 @@ public class MarketingProgramController {
     }
 
     @RequestMapping(value = "/setMarketingPrograms", method = RequestMethod.POST)
-    public @ResponseBody
-    String setMarketingPrograms(HttpServletRequest request,
+    public @ResponseBody String setMarketingPrograms(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException, Throwable {
         String returnResponse = "true";
         try {

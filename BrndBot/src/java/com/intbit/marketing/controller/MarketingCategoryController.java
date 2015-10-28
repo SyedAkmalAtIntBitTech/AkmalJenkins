@@ -137,7 +137,7 @@ public class MarketingCategoryController {
    @RequestMapping(value="/deleteMarketingCategory", method = RequestMethod.POST)
    public @ResponseBody String deleteMarketingCategories(HttpServletRequest request, 
                 HttpServletResponse response)throws ServletException, IOException, Throwable {
-
+       String status = "false";
        try {
 
            Map<String, Object> requestBodyMap =
@@ -145,11 +145,11 @@ public class MarketingCategoryController {
            Double category_id = (Double)requestBodyMap.get("category_id");
            
            marketingCategoryService.delete(category_id.intValue());
-            
+           status = "true";
        }catch (Exception e){
            logger.log(Level.SEVERE, "Exception while deleting the categories", e);
        }
-       return "true";
+       return status;
    }   
 @RequestMapping(value="/setMarketingCategory", method = RequestMethod.POST)
 public @ResponseBody void setMarketingCategory(HttpServletRequest request, 

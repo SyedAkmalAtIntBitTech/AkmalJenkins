@@ -35,6 +35,7 @@ public class TblScheduledEntityList  implements java.io.Serializable {
      private Integer userId;
      private String scheduleDesc;
      private Boolean isRecuring;
+    
 
     public TblScheduledEntityList() {
     }
@@ -43,7 +44,7 @@ public class TblScheduledEntityList  implements java.io.Serializable {
     public TblScheduledEntityList(int id) {
         this.id = id;
     }
-    public TblScheduledEntityList(int id, TblUserMarketingProgram tblUserMarketingProgram, Integer entityId, String scheduleTitle, Date scheduleTime, String entityType, String status, Integer userId, String scheduleDesc, Boolean isRecuring) {
+    public TblScheduledEntityList(int id, TblUserMarketingProgram tblUserMarketingProgram, Integer entityId, String scheduleTitle, Date scheduleTime, String entityType, String status, Integer userId, String scheduleDesc, Boolean isRecuring,TblScheduledEntityList tblScheduledEntityList) {
        this.id = id;
        this.tblUserMarketingProgram = tblUserMarketingProgram;
        this.entityId = entityId;
@@ -54,6 +55,7 @@ public class TblScheduledEntityList  implements java.io.Serializable {
        this.userId = userId;
        this.scheduleDesc = scheduleDesc;
        this.isRecuring = isRecuring;
+       
     }
    
      @Id 
@@ -70,7 +72,7 @@ public class TblScheduledEntityList  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_marketing_program_id")
     public TblUserMarketingProgram getTblUserMarketingProgram() {
         return this.tblUserMarketingProgram;
@@ -160,7 +162,7 @@ public class TblScheduledEntityList  implements java.io.Serializable {
         this.isRecuring = isRecuring;
     }
 
-
+   
 
 
 }

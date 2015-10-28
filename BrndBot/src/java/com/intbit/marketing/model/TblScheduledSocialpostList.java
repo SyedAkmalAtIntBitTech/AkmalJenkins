@@ -5,8 +5,11 @@ package com.intbit.marketing.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -26,6 +29,7 @@ public class TblScheduledSocialpostList  implements java.io.Serializable {
      private Serializable tokenData;
      private Serializable metadata;
      private String type;
+     private TblScheduledEntityList tblScheduledEntityList;
 
     public TblScheduledSocialpostList() {
     }
@@ -34,13 +38,14 @@ public class TblScheduledSocialpostList  implements java.io.Serializable {
     public TblScheduledSocialpostList(int id) {
         this.id = id;
     }
-    public TblScheduledSocialpostList(int id, Integer userId, String imageName, Serializable tokenData, Serializable metadata, String type) {
+    public TblScheduledSocialpostList(int id, Integer userId, String imageName, Serializable tokenData, Serializable metadata, String type,TblScheduledEntityList tblScheduledEntityList) {
        this.id = id;
        this.userId = userId;
        this.imageName = imageName;
        this.tokenData = tokenData;
        this.metadata = metadata;
        this.type = type;
+       this.tblScheduledEntityList = tblScheduledEntityList;
     }
    
      @Id 
@@ -107,7 +112,15 @@ public class TblScheduledSocialpostList  implements java.io.Serializable {
         this.type = type;
     }
 
-
+     @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="entity_list_id")
+    public TblScheduledEntityList getTblScheduledEntityList() {
+        return this.tblScheduledEntityList;
+    }
+    
+    public void setTblScheduledEntityList(TblScheduledEntityList tblScheduledEntityList) {
+        this.tblScheduledEntityList = tblScheduledEntityList;
+    }
 
 
 }

@@ -133,9 +133,9 @@
                 $scope.getMarketingCategories = function(){
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetMarketingCategories'
+                        url: getHost() + 'allmarketingCategory.do'
                     }).success(function (data, status, headers, config) {
-                        $scope.categories = data;
+                        $scope.categories = data.marketingData;
                     }).error(function (data, status, headers, config) {
                         alert("No data available, problem fetching the data");
                         // called asynchronously if an error occurs
@@ -146,7 +146,7 @@
                 $scope.getMarketingPrograms = function(){
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetMarketingPrograms'
+                        url: getHost() + 'getMarketingPrograms.do'
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
                     }).error(function (data, status, headers, config) {
@@ -162,7 +162,7 @@
                         var marketingactiontitle = $("#marketingactiontitle").val();
                         var days = $("#days").val();
                         var marketingactiontime = $("#marketingactiontime").val();
-                        var is_recuring = $("#is_recuring").val();
+                        var is_recuring = document.getElementById("is_recuring").checked;
                         var marketingactiontilldate = $("#marketingactiontilldate").val();
                         var description = $("#description").val();
                         var type = $("#type").val();
@@ -173,7 +173,13 @@
                                  "till date": marketingactiontilldate,"type":type,
                                  "description":description });
                     }
-                         
+                        $("#marketingactiontitle").val("");
+                        $("#days").val("");
+                        $("#marketingactiontime").val("");
+                        $("#is_recuring").val("");
+                        $("#marketingactiontilldate").val("");
+                        $("#description").val("");
+                        $("#type").val(0);
                     console.log(JSON.stringify(marketing_actions));
                 };
                 
@@ -201,11 +207,12 @@
                     var category = $("#category").val();
                     var programs = $("#programs").val();
 
-                    var marketingactions = {"category": category, "programs": programs, "marketing_actions": marketing_actions};
-
+                    var marketingactions = {"category": category, 
+                                            "programs": programs, 
+                                            "marketing_actions": marketing_actions};
                     $http({
                         method: 'POST',
-                        url: getHost() + 'SetMarketingActions',
+                        url: getHost() + 'setMarketingProgramActions.do',
                         headers: {'Content-Type': 'application/json'},
                         data: JSON.stringify(marketingactions)
                     }).success(function (data, status){
@@ -243,17 +250,17 @@
                         <p>Marketing Actions:</p>
                     </div>
                 </div>
-                <div style="float:left; left:20px; padding-left: 166px;">
+                    <div ng-init="getMarketingCategories(); getMarketingPrograms();" style="float:left; left:20px; padding-left: 166px;">
                     <%= exist1 %>
                    Select category:<select name="category" id="category" style="width:180px;">
                                        <option value="0">--select--</option>
-                                       <option value="" ng-repeat="category in categories"></option>
+                                       <option value="{{category.category_id}}" ng-repeat="category in categories">{{category.name}}</option>
                                    </select><br><br>
                    Select program:<select name="programs" id="programs" style="width:180px;">
                                        <option value="0">--select--</option>
-                                       <option value="" ng-repeat="program in programs"></option>
+                                       <option value="{{program.program_id}}" ng-repeat="program in programs">{{program.name}}</option>
                                   </select><br><br>
-                </div>
+                    </div>
                 <div style="float:left; border:1px solid #000; left:0px; padding-left: 6px; margin-left: 150px; position:relative; width: 350px; top:0px;">
                         Title:<input type="text" id="marketingactiontitle" name="marketingactiontitle" />
                         

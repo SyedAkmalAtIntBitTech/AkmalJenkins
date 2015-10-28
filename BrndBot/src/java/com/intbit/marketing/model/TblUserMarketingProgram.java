@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,7 +33,7 @@ public class TblUserMarketingProgram  implements java.io.Serializable {
      private String name;
      private Date dateEvent;
      private Date createDate;
-     private Boolean status;
+     private String status;
      private Set tblScheduledEntityLists = new HashSet(0);
      private String url;
      
@@ -45,7 +44,7 @@ public class TblUserMarketingProgram  implements java.io.Serializable {
     public TblUserMarketingProgram(int id) {
         this.id = id;
     }
-    public TblUserMarketingProgram(int id, TblMarketingProgram tblMarketingProgram, TblUserLoginDetails tblUserLoginDetails, String name, Date dateEvent, Date createDate, Boolean status, Set tblScheduledEntityLists) {
+    public TblUserMarketingProgram(int id, TblMarketingProgram tblMarketingProgram, TblUserLoginDetails tblUserLoginDetails, String name, Date dateEvent, Date createDate, String status, Set tblScheduledEntityLists) {
        this.id = id;
        this.tblMarketingProgram = tblMarketingProgram;
        this.tblUserLoginDetails = tblUserLoginDetails;
@@ -131,11 +130,11 @@ public class TblUserMarketingProgram  implements java.io.Serializable {
 
     
     @Column(name="status")
-    public Boolean getStatus() {
+    public String getStatus() {
         return this.status;
     }
     
-    public void setStatus(Boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
