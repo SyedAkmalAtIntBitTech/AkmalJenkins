@@ -128,7 +128,7 @@
                            headers: {'Content-Type': 'application/json'},
                            data: JSON.stringify(marketing_program)
                         }).success(function (data, status){
-
+                            window.open(getHost() + 'marketingprogram.jsp', "_self");
                         }).error(function(){
                             alert("No data available, problem fetching the data");
                         });
@@ -141,7 +141,6 @@
                         method: 'GET',
                         url: getHost() + 'getMarketingPrograms.do'
                     }).success(function (data, status, headers, config) {
-                        
                         $scope.programs = data;
                     }).error(function (data, status, headers, config) {
                         alert("No data available, problem fetching the data");
@@ -163,7 +162,7 @@
                         $scope.data = data;
                         if (data == "true"){
                             alert("details deleted successfully");
-                            $scope.getMarketingCategories();
+                            $scope.getMarketingPrograms();
                         }
                     }).error(function (){
                         alert("No data available, problem fetching the data");
@@ -304,8 +303,8 @@
                         <td>{{program.order}}</td>
                         <td>{{program.category_id}}</td>
                         <td>{{program.user_id}}</td>
-                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editCategory()">edit</button></td>
-                        <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteCategory(program.program_id)">delete</button></td>
+                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editCategory()" disabled>edit</button></td>
+                        <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteProgram(program.program_id)">delete</button></td>
                     </tr>
                     
                 </table>

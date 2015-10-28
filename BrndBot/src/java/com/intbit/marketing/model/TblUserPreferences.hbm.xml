@@ -28,6 +28,6 @@
         </property>
         <property name="mindbodyEmailList" type="serializable">
             <column name="mindbody_email_list" />
-        </property>
+        </property>        
     </class>
 </hibernate-mapping>
