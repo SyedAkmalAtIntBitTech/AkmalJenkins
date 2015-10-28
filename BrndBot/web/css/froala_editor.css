@@ -1,4 +1,4 @@
-/*!
+    /*!
  * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
@@ -33,6 +33,7 @@
 }
 .fr-box.fr-basic .fr-element {
   padding: 10px;
+  max-height: 470px;
 }
 iframe.fr-iframe {
   width: 100%;

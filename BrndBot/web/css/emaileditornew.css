@@ -89,7 +89,7 @@ and open the template in the editor.
              .blockstyletab{
                 right:0px;
                 position:fixed;
-                width:70px;
+                width:61px;
                 height:635px;
                 background-color:#f4f4f4;
              }
@@ -116,13 +116,13 @@ and open the template in the editor.
                  margin-top: 45px !important; 
              }
              .selblkline{
-                 width:270.1px;
+                 width:258.1px;
                  height:0.5px;
                  border:#979797 1px;
                  background-color: #979797;
              }
              .selblklinediv{
-                 margin-left: 11.9px;
+                 margin-left: 25.9px;
                  margin-top:16px;
              }
              
@@ -130,9 +130,10 @@ and open the template in the editor.
 margin-left: -15px;
 margin-top:2.5px;
 height:480px;
-overflow-y: scroll;
-overflow-x: hidden;
+overflow: -moz-scrollbars-none;
+-ms-overflow-style: none;
 }
+.blocklist::-webkit-scrollbar { width: 0 !important }
 .blocklist li{
     margin-top: 7px;
     width:280px;
@@ -166,7 +167,7 @@ overflow-x: hidden;
 }
 
 .righttabs{
-    margin-left: -25px;
+    margin-left: -28px;
     padding-top:145.1px;
 }
 .righttabs li{

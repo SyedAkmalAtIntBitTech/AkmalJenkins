@@ -5,7 +5,6 @@
  */
 !function (a) {
    var uid= $("#userid").val();
-    alert(uid);
     "use strict";
     if (a.extend(a.FroalaEditor.DEFAULTS, {imageManagerLoadURL: global_host_address+"GetFilesListServlet?image_type=GALLERY&user_id="+uid, imageManagerLoadMethod: "get", imageManagerLoadParams: {}, imageManagerPreloader: "", imageManagerDeleteURL: "", imageManagerDeleteMethod: "post", imageManagerDeleteParams: {}, imageManagerPageSize: 12, imageManagerScrollOffset: 20}), a.FroalaEditor.PLUGINS.imageManager = function (b) {
         function c() {
