@@ -49,6 +49,7 @@ iframe.fr-iframe {
   position: relative;
   overflow: auto;
   z-index: 1;
+  max-height: 470px !important;
 }
 .fr-wrapper .fr-placeholder {
   position: absolute;
