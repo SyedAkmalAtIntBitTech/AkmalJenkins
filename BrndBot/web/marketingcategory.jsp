@@ -43,10 +43,10 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 marketinglist1">
                 <ul>
                 <li id="one" ng-repeat="category in categories">
-                    <a href="selectpromotion.jsp">
+                    <a href="marketingprograms.jsp?categoryid={{category.category_id}}">
                     <img id="" class="marketingimage" 
                          src="{{category.image}}" 
-                         class="{{category.order}}" alt="" ng-click="showMarketingPrograms(category.id)" /></a>
+                         class="{{category.order}}" alt="" ng-click="showMarketingPrograms(category.category_id)" /></a>
                     <p class="markimgtxt fontpnr">{{category.name}}</p>
                 </li>
                 </ul>

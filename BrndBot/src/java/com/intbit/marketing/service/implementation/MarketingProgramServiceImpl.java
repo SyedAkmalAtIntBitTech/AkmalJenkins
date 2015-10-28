@@ -57,5 +57,10 @@ public class MarketingProgramServiceImpl implements MarketingProgramService{
     public void delete(Integer id) throws Throwable {
         marketingProgramDao.delete(id);
     }
+
+    @Override
+    public List<TblMarketingProgram> getAllTblMarketingProgramForCategory(Integer marketingCategoryId, Integer userId) throws Throwable {
+        return  marketingProgramDao.getAllTblMarketingProgramForCategory(marketingCategoryId, userId);
+    }
     
 }

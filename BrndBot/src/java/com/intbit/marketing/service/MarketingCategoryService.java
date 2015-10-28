@@ -6,6 +6,7 @@
 package com.intbit.marketing.service;
 
 import com.intbit.marketing.model.TblMarketingCategory;
+import com.intbit.marketing.model.TblMarketingCategoryUsersLookup;
 import java.util.List;
 
 /**
@@ -27,6 +28,13 @@ public interface MarketingCategoryService {
 	 * @throws java.lang.Throwable 
     */
    public List<TblMarketingCategory> getAllMarketingCategory() throws Throwable;
+   
+   /**
+	 * This method retrieves all {@link MarketingCategory}
+	 * @return {@link MarketingCategory}
+	 * @throws java.lang.Throwable 
+    */
+   public List<TblMarketingCategoryUsersLookup> getAllMarketingCategoryForUser(Integer userId) throws Throwable;
    
    /**
 	 * This method save {@link MarketingCategory} by passing marketingCategory

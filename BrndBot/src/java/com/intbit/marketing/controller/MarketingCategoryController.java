@@ -6,9 +6,11 @@
 package com.intbit.marketing.controller;
 
 import admin.controller.Categories;
+import com.controller.SqlMethods;
 import com.google.gson.Gson;
 import com.intbit.AppConstants;
 import com.intbit.marketing.model.TblMarketingCategory;
+import com.intbit.marketing.model.TblMarketingCategoryUsersLookup;
 import com.intbit.marketing.model.TblOrganization;
 import com.intbit.marketing.service.MarketingCategoryService;
 import com.intbit.util.ServletUtil;
@@ -52,6 +54,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MarketingCategoryController {
     private static final Logger logger = Logger.getLogger(MarketingCategoryController.class.getName());
+    SqlMethods sql_methods = new SqlMethods();
     @Autowired
     private MarketingCategoryService marketingCategoryService;
    @RequestMapping(value="/allmarketingCategory", method = RequestMethod.GET)
@@ -88,7 +91,46 @@ public class MarketingCategoryController {
        }
        return jsonObject.toJSONString();
    }
+   
+   @RequestMapping(value="/displaymarketingCategory", method = RequestMethod.GET)
+   public @ResponseBody String getMarketingCategoriesForUser(HttpServletRequest request, 
+                HttpServletResponse response)throws ServletException, IOException, Throwable {
+//       List<TblMarketingCategory> marketingCategorysList = null;
+       sql_methods.session = request.getSession();
+                Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+                
+       String json = "test";
+       JSONArray json_array = new JSONArray();
+       JSONObject json_obj = new JSONObject();
+       JSONObject jsonObject= new JSONObject();
+       try {
 
+                List<TblMarketingCategoryUsersLookup> marketingCategorysList = marketingCategoryService.getAllMarketingCategoryForUser(user_id);
+                     
+                org.json.JSONArray marketingCategoryJsonArray = new org.json.JSONArray();
+                Integer i = 1;
+                for (TblMarketingCategoryUsersLookup marketingCategoryobject : marketingCategorysList) {
+                   JSONObject json_object = new JSONObject();
+                   json_object.put("id", i);
+                   json_object.put("category_id", marketingCategoryobject.getId());
+                   json_object.put("name", marketingCategoryobject.getTblMarketingCategory().getName());
+                   json_object.put("order", marketingCategoryobject.getTblMarketingCategory().getCategoryOrder().toString());
+                   json_object.put("image", ServletUtil.bytesTo64(marketingCategoryobject.getTblMarketingCategory().getImage()));
+                   json_object.put("organization_id", marketingCategoryobject.getTblMarketingCategory().getTblOrganization().getId());
+                   marketingCategoryJsonArray.put(json_object);
+                   i++;
+                }
+                   
+                    jsonObject.put("marketingData",marketingCategoryJsonArray);  
+                    System.out.println(marketingCategoryJsonArray);
+                    return jsonObject.toString();
+                                    
+       }catch (Exception e){
+           logger.log(Level.SEVERE, "Exception while getting the categories", e);
+       }
+       return jsonObject.toJSONString();
+   }
+   
    @RequestMapping(value="/deleteMarketingCategory", method = RequestMethod.POST)
    public @ResponseBody String deleteMarketingCategories(HttpServletRequest request, 
                 HttpServletResponse response)throws ServletException, IOException, Throwable {

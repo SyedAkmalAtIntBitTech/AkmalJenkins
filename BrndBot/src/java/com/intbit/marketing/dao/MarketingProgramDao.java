@@ -30,6 +30,15 @@ public interface MarketingProgramDao {
    public List<TblMarketingProgram> getAllTblMarketingProgram() throws Throwable;
    
    /**
+	 * This method retrieves all for a category and user{@link MarketingProgram}
+         * @param marketingCategoryId
+         * @param userId
+	 * @return {@link MarketingProgram}
+	 * @throws java.lang.Throwable 
+    */
+   public List<TblMarketingProgram> getAllTblMarketingProgramForCategory(Integer marketingCategoryId, Integer userId) throws Throwable;
+   
+   /**
 	 * This method save {@link MarketingProgram} by passing marketingProgram
 	 * @param marketingProgram
 	 * @throws java.lang.Throwable 

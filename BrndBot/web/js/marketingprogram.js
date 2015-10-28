@@ -9,9 +9,9 @@ function controllerMarketingCategories($scope, $http, $window){
     $scope.getMarketingCategories = function(){
         $http({
             method: 'GET',
-            url: 'allmarketingCategory.do'
+            url: 'displaymarketingCategory.do'
         }).success(function (data, status, headers, config) {
-            //alert(JSON.stringify(data.marketingData[0].name));
+           // alert(JSON.stringify(data.marketingData[0].name));
             $scope.categories = data.marketingData;
             if (data === error) {
                 alert(data);
@@ -23,17 +23,17 @@ function controllerMarketingCategories($scope, $http, $window){
         });                
     };
 
-    $scope.showMarketingPrograms = function(category_id){
+    $scope.showMarketingPrograms = function(){
         var marketing_path = getHost() + 'marketingprograms.jsp?categoryid='+category_id;
-        $window.location.href(marketing_path);
+        window.location.replace(marketing_path);
     };
     
     $scope.getMarketingPrograms = function(){
         $http({
             method: 'GET',
-            url: 'GetMarketingPrograms'
+            url: 'displaymarketingProgram.do?marketingCategoryId='+$("#categoryidHidden").val()
         }).success(function (data, status, headers, config) {
-            $scope.programs = data;
+            $scope.programs = data.marketingProgramsData;
             if (data === error) {
                 alert(data);
             }
@@ -44,8 +44,22 @@ function controllerMarketingCategories($scope, $http, $window){
         });  
     };
     
-    $scope.showhtmldata = function(html_data){
+    $scope.showhtmldata = function(id,html_data){
         $("#html_data").empty();
         $("#html_data").append(html_data);
+        $("#programidHidden").val(id);
+    };
+    $scope.submitclick = function(){
+        if($("#programidHidden").val()!="0")
+        {
+        var path1 = getHost() + 'usermarketingprogram.jsp?categoryid='+$("#categoryidHidden").val()+'&programid='+$("#programidHidden").val();
+        window.location.replace(path1);
+        }
+        else
+        {
+            alert("Please select a marketing program type");
+        }
+    
+        
     };
 }
