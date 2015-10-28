@@ -55,11 +55,10 @@ public class TblUserPreferences  implements java.io.Serializable {
        this.mindbodyEmailList = mindbodyEmailList;
     }
    
-     @Id 
+    @Id 
 
-        @GenericGenerator(name="id" , strategy="increment")
+    @GenericGenerator(name="id" , strategy="increment")
     @GeneratedValue(generator="id")
-
     @Column(name="id", unique=true, nullable=false)
     public int getId() {
         return this.id;
@@ -99,7 +98,7 @@ public class TblUserPreferences  implements java.io.Serializable {
         this.userId = userId;
     }
 
-    
+
     @Column(name="location", nullable=false, length=30)
     public String getLocation() {
         return this.location;

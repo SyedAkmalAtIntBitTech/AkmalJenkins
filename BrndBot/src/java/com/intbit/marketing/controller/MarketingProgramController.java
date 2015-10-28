@@ -56,17 +56,19 @@ public class MarketingProgramController {
         try {
 
             List<TblMarketingProgram> MarketingPrograms = marketingprogramservice.getAllTblMarketingProgram();
-
+            Integer i = 1;
             for (TblMarketingProgram marketing_program : MarketingPrograms) {
 
                 JSONObject json_marketing_programming = new JSONObject();
-                json_marketing_programming.put("id", marketing_program.getId());
+                json_marketing_programming.put("id", i);
+                json_marketing_programming.put("program_id", marketing_program.getId());
                 json_marketing_programming.put("name", marketing_program.getName());
-                json_marketing_programming.put("order", marketing_program.getProgramOrder());
+                json_marketing_programming.put("program_order", marketing_program.getProgramOrder());
                 json_marketing_programming.put("htmldata", marketing_program.getHtmlData());
                 json_marketing_programming.put("category_id", marketing_program.getTblMarketingCategory().getId());
 
                 json_array_marketing_program.put(json_marketing_programming);
+                i++;
             }
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);
@@ -79,7 +81,7 @@ public class MarketingProgramController {
     public @ResponseBody
     String setMarketingPrograms(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException, Throwable {
-        JSONArray json_array_marketing_program = new JSONArray();
+        String returnResponse = "true";
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
@@ -117,9 +119,8 @@ public class MarketingProgramController {
             }
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);
-
         }
-        return json_array_marketing_program.toString();
+        return "redirect:/getMarketingPrograms.do";
     }
 
     @RequestMapping(value = "/deleteMarketingPrograms", method = RequestMethod.POST)

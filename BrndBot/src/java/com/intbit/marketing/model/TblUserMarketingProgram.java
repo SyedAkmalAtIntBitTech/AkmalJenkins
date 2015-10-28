@@ -36,7 +36,8 @@ public class TblUserMarketingProgram  implements java.io.Serializable {
      private Date createDate;
      private Boolean status;
      private Set tblScheduledEntityLists = new HashSet(0);
-
+     private String url;
+     
     public TblUserMarketingProgram() {
     }
 
@@ -57,7 +58,7 @@ public class TblUserMarketingProgram  implements java.io.Serializable {
    
      @Id 
 
-        @GenericGenerator(name="id" , strategy="increment")
+    @GenericGenerator(name="id" , strategy="increment")
     @GeneratedValue(generator="id")
 
     @Column(name="id", unique=true, nullable=false)
@@ -97,6 +98,15 @@ public class TblUserMarketingProgram  implements java.io.Serializable {
     
     public void setName(String name) {
         this.name = name;
+    }
+    
+    @Column(name="url", nullable=false, length=150)
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
