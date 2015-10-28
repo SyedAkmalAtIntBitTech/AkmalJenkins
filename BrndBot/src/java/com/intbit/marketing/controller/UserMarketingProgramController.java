@@ -52,6 +52,7 @@ public class UserMarketingProgramController {
       public @ResponseBody String getAllUserMarketingProgram() {
                 Integer uMarketingId = 1;
                 String entityType = "1";
+                Integer marketingProgramId = 1;
 		try {  
 
                    
@@ -94,14 +95,14 @@ public class UserMarketingProgramController {
                         scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
                       
                   }
-                    TblUserMarketingProgram userMarketingProgram = userMarketingProgramService.getById(uMarketingId);
+                    TblUserMarketingProgram userMarketingProgram = userMarketingProgramService.getByUserMarketingProgramIdAndMarketingProgramId(uMarketingId, marketingProgramId);
                     System.out.println(userMarketingProgram);
                     JSONObject userMarketinProgramObject= new JSONObject();   
                         userMarketinProgramObject.put("programName", userMarketingProgram.getName());
                         userMarketinProgramObject.put("noOfActions", "15");
-                        userMarketinProgramObject.put("linktodestination", "http://localhost:8080/BrndBot/allmarketingProgram.do");
+                        userMarketinProgramObject.put("linktodestination", userMarketingProgram.getUrl());
                         userMarketinProgramObject.put("dateofevent", userMarketingProgram.getDateEvent());
-                        userMarketinProgramObject.put("description", "this is description");
+                        userMarketinProgramObject.put("description", userMarketingProgram.getTblMarketingProgram().getHtmlData());
                    
                     JSONObject jSONObject = new JSONObject();
                         jSONObject.put("programdetails",userMarketinProgramObject );
