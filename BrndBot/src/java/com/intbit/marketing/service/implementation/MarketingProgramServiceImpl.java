@@ -7,6 +7,7 @@ package com.intbit.marketing.service.implementation;
 
 import com.intbit.marketing.dao.MarketingProgramDao;
 import com.intbit.marketing.model.TblMarketingProgram;
+import com.intbit.marketing.model.TblMarketingProgramUsersLookup;
 import com.intbit.marketing.service.MarketingProgramService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author intbit-6
  */
 @Service
-@Transactional(rollbackFor = Throwable.class)
+@Transactional
 public class MarketingProgramServiceImpl implements MarketingProgramService{
     @Autowired
     public MarketingProgramDao marketingProgramDao;
@@ -56,6 +57,11 @@ public class MarketingProgramServiceImpl implements MarketingProgramService{
      */
     public void delete(Integer id) throws Throwable {
         marketingProgramDao.delete(id);
+    }
+
+    @Override
+    public List<TblMarketingProgramUsersLookup> getAllTblMarketingProgramForCategory(Integer marketingCategoryId, Integer userId) throws Throwable {
+        return  marketingProgramDao.getAllTblMarketingProgramForCategory(marketingCategoryId, userId);
     }
     
 }

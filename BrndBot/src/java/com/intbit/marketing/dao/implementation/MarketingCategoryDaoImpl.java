@@ -7,6 +7,7 @@ package com.intbit.marketing.dao.implementation;
 
 import com.intbit.marketing.dao.MarketingCategoryDao;
 import com.intbit.marketing.model.TblMarketingCategory;
+import com.intbit.marketing.model.TblMarketingCategoryUsersLookup;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,6 +83,21 @@ public class MarketingCategoryDaoImpl implements MarketingCategoryDao{
                     throw new Throwable("Database error while retrieving record.");
 		}
 		
+    }
+
+    @Override
+    public List<TblMarketingCategoryUsersLookup> getAllMarketingCategoryForUser(Integer userId) throws Throwable {
+         try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblMarketingCategoryUsersLookup.class)
+                    .setFetchMode("tblMarketingCategory", FetchMode.JOIN)
+                    .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
+                    .add(Restrictions.eq("tblUserLoginDetails.id", userId));
+                   return criteria.list();
+		} catch (Throwable throwable) {
+                   logger.log(Level.SEVERE, null, throwable);
+                   throw new Throwable("Database error while retrieving record(s).");
+		}
     }
     
 }

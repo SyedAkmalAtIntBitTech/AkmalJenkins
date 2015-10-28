@@ -30,7 +30,7 @@ public class ScheduledSocialpostListDaoImpl implements ScheduledSocialpostListDa
     private SessionFactory sessionFactory;
 
     @Override
-    public List<TblScheduledSocialpostList> getAllScheduledSocialpostListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecuring, Integer entityType) throws Throwable {
+    public List<TblScheduledSocialpostList> getAllScheduledSocialpostListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecuring, String entityType) throws Throwable {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(TblScheduledSocialpostList.class)

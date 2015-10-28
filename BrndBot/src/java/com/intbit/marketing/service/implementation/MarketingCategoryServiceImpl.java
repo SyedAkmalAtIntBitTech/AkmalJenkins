@@ -7,6 +7,7 @@ package com.intbit.marketing.service.implementation;
 
 import com.intbit.marketing.dao.MarketingCategoryDao;
 import com.intbit.marketing.model.TblMarketingCategory;
+import com.intbit.marketing.model.TblMarketingCategoryUsersLookup;
 import com.intbit.marketing.service.MarketingCategoryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,11 @@ public class MarketingCategoryServiceImpl implements MarketingCategoryService{
      */
     public void delete(Integer id) throws Throwable {
         marketingCategoryDao.delete(id);
+    }
+
+    @Override
+    public List<TblMarketingCategoryUsersLookup> getAllMarketingCategoryForUser(Integer userId) throws Throwable {
+        return  marketingCategoryDao.getAllMarketingCategoryForUser(userId);
     }
     
 }

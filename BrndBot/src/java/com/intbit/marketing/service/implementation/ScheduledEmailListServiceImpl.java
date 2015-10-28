@@ -59,7 +59,7 @@ public class ScheduledEmailListServiceImpl  implements ScheduledEmailListService
     }
 
     @Override
-    public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecuring, Integer entityType) throws Throwable {
+    public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecuring, String entityType) throws Throwable {
         return  scheduledEmailListDao.getAllScheduledEmailListForUserMarketingProgram(UserMarketingId, isRecuring, entityType);
     }
     

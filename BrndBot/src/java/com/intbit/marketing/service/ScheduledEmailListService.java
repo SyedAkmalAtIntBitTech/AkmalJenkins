@@ -56,6 +56,6 @@ public interface ScheduledEmailListService {
 	 * @return {@link scheduledEmailList}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId,Boolean isRecuring , Integer entityType  ) throws Throwable;
+   public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId,Boolean isRecuring , String entityType  ) throws Throwable;
     
 }
