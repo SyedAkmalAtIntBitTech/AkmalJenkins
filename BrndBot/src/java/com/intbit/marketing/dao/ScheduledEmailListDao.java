@@ -47,5 +47,14 @@ public interface ScheduledEmailListDao {
 	 * @throws java.lang.Throwable 
     */
    public void delete(Integer id) throws Throwable;
+    /**
+	 * This method retrieves all {@link ScheduledEmailList}
+         * @param  UserMarketingId
+         * @param  isRecuring
+         * @param  entityType
+	 * @return {@link scheduledEmailList}
+	 * @throws java.lang.Throwable 
+    */
+   public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId,Boolean isRecuring , Integer entityType  ) throws Throwable;
     
 }

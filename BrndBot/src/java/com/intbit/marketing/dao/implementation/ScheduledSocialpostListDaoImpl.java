@@ -1,0 +1,51 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.intbit.marketing.dao.implementation;
+
+import com.intbit.marketing.dao.ScheduledSocialpostListDao;
+import com.intbit.marketing.model.TblScheduledEmailList;
+import com.intbit.marketing.model.TblScheduledSocialpostList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+/**
+ *
+ * @author intbit-6
+ */
+@Repository
+public class ScheduledSocialpostListDaoImpl implements ScheduledSocialpostListDao{
+    
+     private static final Logger logger = Logger.getLogger(ScheduledSocialpostListDaoImpl.class.getName());
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    @Override
+    public List<TblScheduledSocialpostList> getAllScheduledSocialpostListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecuring, Integer entityType) throws Throwable {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblScheduledSocialpostList.class)
+                    .setFetchMode("tblScheduledEntityList", FetchMode.JOIN)
+                    .setFetchMode("tblScheduledEntityList.tblUserMarketingProgram", FetchMode.JOIN)
+                    .createAlias("tblScheduledEntityList.tblUserMarketingProgram", "umId")
+                    .add(Restrictions.eq("umId.id", UserMarketingId))
+                    .createAlias("tblScheduledEntityList", "sl")
+                    .add(Restrictions.eq("sl.isRecuring", isRecuring))
+                    .add(Restrictions.eq("sl.entityType", entityType));		
+                   return criteria.list();
+		} catch (Throwable throwable) {
+                   logger.log(Level.SEVERE, null, throwable);
+                   throw new Throwable("Database error while retrieving record(s).");
+		}  
+    }
+    
+}
