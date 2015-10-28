@@ -33,7 +33,7 @@ public class UserMarketingProgramController {
      private UserMarketingProgramService userMarketingProgramService;
      @Autowired
      private ScheduledEntityListService scheduledEntityListService;
-      @RequestMapping(value="/allmarketingCategory", method = RequestMethod.GET)
+      @RequestMapping(value="/allmarketingProgram", method = RequestMethod.GET)
       public @ResponseBody String getAllUserMarketingProgram(@RequestParam("userMarketingId") Integer uMarketingId) {
 
 		try {

@@ -7,7 +7,7 @@ package com.intbit.util;
 
 import com.intbit.AppConstants;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
+import com.sun.xml.messaging.saaj.util.ByteOutputStream;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;

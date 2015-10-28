@@ -1,5 +1,5 @@
 package com.intbit.marketing.model;
-// Generated 19 Oct, 2015 6:43:25 PM by Hibernate Tools 4.3.1
+// Generated Oct 28, 2015 12:01:09 PM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.AttributeOverride;
