@@ -5,6 +5,7 @@
  */
 package com.intbit.marketing.controller;
 
+import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.marketing.model.TblMarketingCategory;
 import com.intbit.marketing.model.TblMarketingProgram;
@@ -40,18 +41,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class MarketingProgramController {
+
     Logger logger = Logger.getLogger(MarketingProgramController.class.getName());
+    SqlMethods sql_methods = new SqlMethods();
     @Autowired
     private MarketingProgramService marketingprogramservice;
     @Autowired
     private MarketingProgramUsersService marketingprogramusers;
-    @RequestMapping(value="/getMarketingPrograms", method = RequestMethod.GET)
-      public @ResponseBody String getMarketingPrograms() {
+
+    @RequestMapping(value = "/getMarketingPrograms", method = RequestMethod.GET)
+    public @ResponseBody
+    String getMarketingPrograms() {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
 
             List<TblMarketingProgram> MarketingPrograms = marketingprogramservice.getAllTblMarketingProgram();
-            
+
             for (TblMarketingProgram marketing_program : MarketingPrograms) {
 
                 JSONObject json_marketing_programming = new JSONObject();
@@ -63,77 +68,106 @@ public class MarketingProgramController {
 
                 json_array_marketing_program.put(json_marketing_programming);
             }
-        }          
-
-        catch (Throwable throwable) {
-                logger.log(Level.SEVERE, null, throwable);
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
 
         }
         return json_array_marketing_program.toString();
     }
-    @RequestMapping(value="/setMarketingPrograms", method = RequestMethod.POST)
-    public @ResponseBody String setMarketingPrograms(HttpServletRequest request, 
-                 HttpServletResponse response)throws ServletException, IOException, Throwable {
+
+    @RequestMapping(value = "/setMarketingPrograms", method = RequestMethod.POST)
+    public @ResponseBody
+    String setMarketingPrograms(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException, Throwable {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
-            Map<String, Object> requestBodyMap =
-                     AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             String user_ids = requestBodyMap.get("user").toString();
             String program_name = requestBodyMap.get("program_name").toString();
             String program_order = requestBodyMap.get("program_order").toString();
             String html_data = requestBodyMap.get("html_data").toString();
             String category = requestBodyMap.get("category").toString();
-            
+
             JSONParser json_parser = new JSONParser();
 
-            org.json.simple.JSONArray users = (org.json.simple.JSONArray)json_parser.parse(user_ids.toString());
+            org.json.simple.JSONArray users = (org.json.simple.JSONArray) json_parser.parse(user_ids.toString());
             Integer i = 0;
-                
-                TblMarketingProgram marketing_program = new TblMarketingProgram();
-                marketing_program.setId(0);
-                marketing_program.setName(program_name);
-                marketing_program.setProgramOrder(Integer.parseInt(program_order));
-                marketing_program.setHtmlData(html_data);
-                TblMarketingCategory marketing_category = new TblMarketingCategory();
-                marketing_category.setId(Integer.parseInt(category));
-                marketing_program.setTblMarketingCategory(marketing_category);
-                Integer program_id = marketingprogramservice.save(marketing_program);
-                
-                for (i = 0; i< users.size(); i++){
 
-                    TblMarketingProgramUsersLookup marketing_program_users = new TblMarketingProgramUsersLookup();
-                    marketing_program_users.setId(0);
-                    marketing_program.setId(program_id);
-                    marketing_program_users.setTblMarketingProgram(marketing_program);
-                    TblUserLoginDetails user_login = new TblUserLoginDetails();
-                    user_login.setId(Integer.parseInt(users.get(i).toString()));
-                    marketing_program_users.setTblUserLoginDetails(user_login);
-                    marketingprogramusers.save(marketing_program_users);
-                }
-        }          
+            TblMarketingProgram marketing_program = new TblMarketingProgram();
+            marketing_program.setId(0);
+            marketing_program.setName(program_name);
+            marketing_program.setProgramOrder(Integer.parseInt(program_order));
+            marketing_program.setHtmlData(html_data);
+            TblMarketingCategory marketing_category = new TblMarketingCategory();
+            marketing_category.setId(Integer.parseInt(category));
+            marketing_program.setTblMarketingCategory(marketing_category);
+            Integer program_id = marketingprogramservice.save(marketing_program);
 
-        catch (Throwable throwable) {
-                logger.log(Level.SEVERE, null, throwable);
+            for (i = 0; i < users.size(); i++) {
+
+                TblMarketingProgramUsersLookup marketing_program_users = new TblMarketingProgramUsersLookup();
+                marketing_program_users.setId(0);
+                marketing_program.setId(program_id);
+                marketing_program_users.setTblMarketingProgram(marketing_program);
+                TblUserLoginDetails user_login = new TblUserLoginDetails();
+                user_login.setId(Integer.parseInt(users.get(i).toString()));
+                marketing_program_users.setTblUserLoginDetails(user_login);
+                marketingprogramusers.save(marketing_program_users);
+            }
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
 
         }
         return json_array_marketing_program.toString();
     }
-    @RequestMapping(value="/deleteMarketingPrograms", method = RequestMethod.POST)
-    public @ResponseBody String deleteMarketingPrograms(HttpServletRequest request, 
-                 HttpServletResponse response)throws ServletException, IOException, Throwable {
+
+    @RequestMapping(value = "/deleteMarketingPrograms", method = RequestMethod.POST)
+    public @ResponseBody
+    String deleteMarketingPrograms(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException, Throwable {
 
         try {
 
-            Map<String, Object> requestBodyMap =
-                     AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            Double program_id = (Double)requestBodyMap.get("program_id");
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            Double program_id = (Double) requestBodyMap.get("program_id");
 
             marketingprogramservice.delete(program_id.intValue());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.log(Level.SEVERE, "Exception while deleting the categories", e);
         }
         return "true";
     }
-      
+
+    @RequestMapping(value = "/displaymarketingProgram", method = RequestMethod.GET)
+    public @ResponseBody
+    String getMarketingProgramForCategoryUser(HttpServletRequest request,
+            HttpServletResponse response, @RequestParam("marketingCategoryId") Integer marketingCategoryId) {
+        try {
+            sql_methods.session = request.getSession();
+            Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+            System.out.println(marketingCategoryId.toString() + ":" + user_id.toString());
+            List<TblMarketingProgramUsersLookup> marketingProgramList = marketingprogramservice.getAllTblMarketingProgramForCategory(marketingCategoryId, user_id);
+            JSONArray marketingProgramJsonArray = new JSONArray();
+
+            for (TblMarketingProgramUsersLookup marketingProgramObject : marketingProgramList) {
+                JSONObject marketingProgramJsonObject = new JSONObject();
+                marketingProgramJsonObject.put("id", marketingProgramObject.getTblMarketingProgram().getId());
+                marketingProgramJsonObject.put("name", marketingProgramObject.getTblMarketingProgram().getName());
+                marketingProgramJsonObject.put("html_data", marketingProgramObject.getTblMarketingProgram().getHtmlData());
+                marketingProgramJsonObject.put("order", marketingProgramObject.getTblMarketingProgram().getProgramOrder());
+                marketingProgramJsonArray.put(marketingProgramJsonObject);
+            }
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("marketingProgramsData", marketingProgramJsonArray);
+            System.out.println(marketingProgramJsonArray);
+            return jsonObject.toString();
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+
+        }
+        return null;
+    }
 }

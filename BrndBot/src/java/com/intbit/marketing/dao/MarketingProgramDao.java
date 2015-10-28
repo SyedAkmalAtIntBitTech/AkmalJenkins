@@ -6,6 +6,7 @@
 package com.intbit.marketing.dao;
 
 import com.intbit.marketing.model.TblMarketingProgram;
+import com.intbit.marketing.model.TblMarketingProgramUsersLookup;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public interface MarketingProgramDao {
 	 * @return {@link MarketingProgram}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblMarketingProgram> getAllTblMarketingProgramForCategory(Integer marketingCategoryId, Integer userId) throws Throwable;
+   public List<TblMarketingProgramUsersLookup> getAllTblMarketingProgramForCategory(Integer marketingCategoryId, Integer userId) throws Throwable;
    
    /**
 	 * This method save {@link MarketingProgram} by passing marketingProgram

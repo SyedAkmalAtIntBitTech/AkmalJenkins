@@ -7,6 +7,7 @@ package com.intbit.marketing.dao.implementation;
 
 import com.intbit.marketing.dao.MarketingProgramDao;
 import com.intbit.marketing.model.TblMarketingProgram;
+import com.intbit.marketing.model.TblMarketingProgramUsersLookup;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -97,14 +98,16 @@ public class MarketingProgramDaoImpl implements MarketingProgramDao{
     }
 
     @Override
-    public List<TblMarketingProgram> getAllTblMarketingProgramForCategory(Integer marketingCategoryId, Integer userId) throws Throwable {
+    public List<TblMarketingProgramUsersLookup> getAllTblMarketingProgramForCategory(Integer marketingCategoryId, Integer userId) throws Throwable {
         try {
-            Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblMarketingProgram.class)
-                     .setFetchMode("tblMarketingCategory", FetchMode.JOIN)
-                         .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
-                    .add(Restrictions.eq("tblMarketingCategory.id", marketingCategoryId))
-                    .add(Restrictions.eq("tblUserLoginDetails.id", userId));
+             Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblMarketingProgramUsersLookup.class)
+                    .setFetchMode("tblMarketingProgram", FetchMode.JOIN)
+                     .setFetchMode("tblMarketingProgram.tblMarketingCategory", FetchMode.JOIN)
+                     .createAlias("tblMarketingProgram.tblMarketingCategory", "marketingCategoryVar")
+                    .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
+                    .add(Restrictions.eq("tblUserLoginDetails.id", userId))
+                    .add(Restrictions.eq("marketingCategoryVar.id", marketingCategoryId));
                    return criteria.list();
 		} catch (Throwable throwable) {
                    logger.log(Level.SEVERE, null, throwable);
