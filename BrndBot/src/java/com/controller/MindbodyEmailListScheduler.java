@@ -24,6 +24,8 @@ public class MindbodyEmailListScheduler {
 
     final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
     
+    private MindbodyEmailListProcessor mindbodyEmailListRunnable;
+    
     void startScheduler() {
         
         LocalDateTime localNow = LocalDateTime.now();
@@ -39,15 +41,17 @@ public class MindbodyEmailListScheduler {
         long periodicTime = 24*60*60;
         initalDelay = 0;
         periodicTime =  24*60*60;
-        Runnable mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
-        scheduler.scheduleAtFixedRate(mindbodyEmailListProcessor, initalDelay, periodicTime, TimeUnit.SECONDS);
+//        mindbodyEmailListRunnable = new MindbodyEmailListProcessor();
+//        mindbodyEmailListRunnable.startThread();
+//        scheduler.scheduleAtFixedRate(mindbodyEmailListRunnable, initalDelay, periodicTime, TimeUnit.SECONDS);
         //initial delay is to make sure the program runs at 4 in the morning always.
         //24*60*60 splits fixed the interval time to 24 hours
     }
 
     void stopScheduler() {
         if (scheduler != null) {
-            scheduler.shutdown();
+//            mindbodyEmailListRunnable.terminateThread();
+//            scheduler.shutdownNow();
         }
     }
     
