@@ -87,7 +87,7 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
             }
 
             if (queryParameter != null && queryParameter.equalsIgnoreCase("block")) {
-                block_id = Integer.parseInt(request.getParameter("0"));
+                block_id = Integer.parseInt(request.getParameter("block_id"));
                 sub_category_id = "0";//Since its a block
                 category_id = "0";//Since its a block
             }

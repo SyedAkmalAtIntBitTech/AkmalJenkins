@@ -187,45 +187,6 @@ $(document).ready(function() {
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
-
-                    $http({
-                    method : 'GET',
-                            url : 'GetUserPreferences'
-                    }).success(function(data, status, headers, config) {
-                    $scope.user_preferences_colors = data.user_colors;
-                            $scope.user_preferences_font_sizes = data.user_font_sizes;
-                            $scope.user_preferences_font_names = data.user_font_names;
-                            var i = 0;
-                            var font_object;
-                            var font_family_name;
-                            var font_name;
-                             $("#fontname").empty();
-                            for (i; i <= data.user_font_names.length; i++){
-                            font_object = data.user_font_names[i];
-                            font_name = font_object.font_name;
-                            font_family_name = font_object.font_family_name;
-                            var font = font_family_name.split(",");
-                            var google_key_word = font[0].split(' ').join('+');
-                            $("#fontname").append("<option value="+google_key_word+">"+font_name+"</option>");
-                            var ss = document.createElement("link");
-                            ss.type = "text/css";
-                            ss.rel = "stylesheet";
-                            ss.href = "https://fonts.googleapis.com/css?family=" + google_key_word;
-                            document.getElementsByTagName("head")[0].appendChild(ss);
-                            var font_path = global_host_address + "DownloadFonts?file_name=" + font[1];
-                            var styles = "@font-face {" +
-                            "font-family:" + font_name + ";" +
-                            "src: url(" + font_path + ");"
-                            $('<style type="text/css">' + styles + '</style>').appendTo(document.head);
-                    }
-                    if (data === error){
-                         alert(data);
-                    }
-                    }).error(function(data, status, headers, config) {
-                             alert("No data available, problem fetching the data");
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
-                    });
                             $scope.showStylesAfterData = function(){
 
                             blockIdSelected = $(selectedBlockId).attr("id").toString();
@@ -278,6 +239,7 @@ $(document).ready(function() {
                             });
                             };
                             $scope.showBlocks = function(){
+                                alert("Block clicked");
                                 $("#stylelist").css("display","none");
                                 $("#blklistid").css("display","block");
                                 $("#blocktab").css("background-color","#ffffff").css("color","#19587c");
@@ -290,6 +252,7 @@ $(document).ready(function() {
                                             url : 'GetBlocks'
                                     }).success(function(data, status, headers, config) {
                             $scope.datalists = data;
+                            alert(JSON.stringtify(data));
                                     document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
                                     document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
                                     document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
@@ -338,7 +301,7 @@ $(document).ready(function() {
                             $scope.showData(temp_block_id, temp_mind_body_query);
                             }
                     $scope.showData = function(id, mind_body_query){
-
+                        alert(id);
                             block_clicked = "true";
                             blockIdSelected = "";
                             block_id = id;
@@ -360,7 +323,7 @@ $(document).ready(function() {
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
                             $("#tabs-5").hide();
-                         $("#tabs-4").show().css("width", "830px").css("height", "680px").css("position","fixed").css("margin-left","-460px").css("top","45px");
+                         $("#tabs-4").show().css("width", "830px").css("height", "680px").css("position","fixed").css("margin-left","-600px").css("top","0px");
                          $("#loadingGifformindbody").show();
                           $scope.curPage = 0;
                           $scope.pageSize = 4;
@@ -368,7 +331,7 @@ $(document).ready(function() {
                             method : 'GET',
                                     url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
                             }).success(function(data, status, headers, config) {
-
+                                alert(JSON.stringify(data));
                             $scope.datalists = data;
                             $scope.numberOfPages = function() {
                             return Math.ceil($scope.datalists.length / $scope.pageSize);
@@ -382,7 +345,7 @@ $(document).ready(function() {
 //                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
 
                             $("#loadingGifformindbody").hide();
-                            $("#tabs-4").css("width", "830px").css("position","fixed").css("margin-left","-460px").css("top","45px").show("slide", { direction: "right" }, 1000);
+                            $("#tabs-4").css("width", "830px").css("position","fixed").css("margin-left","-600px").css("top","0px").show("slide", { direction: "right" }, 1000);
                             
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
@@ -461,20 +424,20 @@ $(document).ready(function() {
 
 
                     function showSomething(block_id_temp, id, style, mind_body_query){
-//                            temp_style_id = id;
-//                            temp_style_layout = style;
-//                            temp_block_id = block_id_temp;
-//                            temp_mind_body_query = mind_body_query;
-//                            $('.blockchooser').removeClass('border-highlight');
-//                            $("#" + block_id_temp).addClass('border-highlight');
-//                            //$("#continueblock").attr('ng-click',"showData('"+block_id_temp+"','"+ mind_body_query +"')");
-//                            $('#continueblock').prop('disabled', false);
+                            temp_style_id = id;
+                            temp_style_layout = style;
+                            temp_block_id = block_id_temp;
+                            temp_mind_body_query = mind_body_query;
+                            $('.blockchooser').removeClass('border-highlight');
+                            $("#" + block_id_temp).addClass('border-highlight');
+                            //$("#continueblock").attr('ng-click',"showData('"+block_id_temp+"','"+ mind_body_query +"')");
+                            $('#continueblock').prop('disabled', false);
                              $.ajax({
                      method : 'POST',   
                     url: "GetLayoutStyles?editorType=email&query=block&block_id="+block_id_temp,
                     dataType: 'json',
                     success: function (data) {
-                        $(".fr-element").empty();
+                        alert(JSON.stringify(data));
                         $(".fr-element").append(data.htmldata)
 
                     }
@@ -487,6 +450,7 @@ $(document).ready(function() {
             //var countBlock = 1;
             function showText(id, layout){
                  //hiding filter Container 
+                 alert(id+":"+layout)
                  alert("stule image clicked");
                     $.ajax({
                      method : 'POST',   
@@ -565,7 +529,7 @@ $(document).ready(function() {
                             <div class="selblock fontpnr">Select a Block</div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-6">
-                            <div class="addblkdiv"><input id="addblkbtn" class="addblkbtn fontpns " type="button" value="Add Block"></div>
+                            <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns " type="button" value="Add Block"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -589,7 +553,7 @@ $(document).ready(function() {
                 </div>
 
             </div>
-            <div class="col-sm-1 col-md-1 col-lg-1">
+            <div class="col-sm-1 col-md-1 col-lg-1" style="z-index: 10">
                 <div class="blockstyletab">      
                     <ul class="righttabs fontpnr">
                         <li id="styletab" ng-click="showStyles()">
@@ -600,6 +564,38 @@ $(document).ready(function() {
                             <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
                             <p>BLOCK</p>
                         </li>
+                                     <li id="tabs-4"style="background:#FFFFFF;position:absolute;z-index: 10;overflow-y: scroll">
+                                       <a class="boxclose" id="boxclose"></a>
+                                        <div id="loadingGifformindbody" style="position: absolute; top:240px;left: 335px;" > <img src="images/YogaLoadingGif.gif" /></div>
+                                        <div ng-controller="MyController" id="MyController" > 
+                                            <p id="text3" style="width: 500px;font-family: 'proxima-nova',sans-serif;font-weight: 600; position: relative;right:-65px;color:#000;margin-top:50px;padding: 5px;">{{datalists.title}}</p><br>
+                                            <ul class="dataheaderfromindbody">
+                                                <div class="mindbodyHeaderData LE2" >
+                                                    <li style="width: 250px;margin-left:10px;">{{datalists.column_header[0]}}</li>
+                                                    <li style="width: 230px;left:278px;">{{datalists.column_header[1]}}</li>
+                                                    <li style="width: 100px;left:413px;">{{datalists.column_header[2]}}</li>
+                                                </div>
+                                            </ul>
+                  
+
+                                            <div  class="tab-pane active" id="picktheme">
+                                                <div>
+
+                                                    <div style="width: 700px;height: 530px;overflow-x:hidden; overflow-y: scroll; float: right; margin-right: 90px;" >
+
+                                                        <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;">
+                                                            <!--                                    {{jsonclass}}-->
+                                                            <div class='mindbodyOneRowData MH1' ng-click="select_category_details(jsonclass.id)" style="font-weight: 400;font-size: 16px;">
+                                                                <li style="width: 250px;height: 0px;">{{jsonclass.column1}}</li>
+                                                                <li style="width: 200px;height: 0px;">{{jsonclass.column2}}</li>
+                                                                <li style="width: 180px;height: 0px;margin-left: 10px;">{{jsonclass.column3}}</li>
+                                                            </div>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </li>
                     </ul>
                 </div>
             </div>
