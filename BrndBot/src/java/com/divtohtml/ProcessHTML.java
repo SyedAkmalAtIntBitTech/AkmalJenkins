@@ -42,7 +42,7 @@ public class ProcessHTML {
     private final HashMap<String, String> colorHashmap;
     private final JSONObject externalSourceMapper;
     private final String userLogoURL;
-    
+    //color hash map should have keys with color1,color2
     public ProcessHTML(String htmlContent, HashMap<String, String> colorHashmap, JSONObject externalSourceMapper, String logoURL) {
         this.htmlContent = htmlContent;
         this.colorHashmap = colorHashmap;
@@ -135,7 +135,7 @@ public class ProcessHTML {
             String nameSpace[] = externalValueKey.split(".");
             if (nameSpace.length == 3) {
                 if (nameSpace[0].equalsIgnoreCase(KExternalValueMindBody)) {
-                    externalValueKey = (String) externalSourceMapper.get(nameSpace[2]);
+                    text = (String) externalSourceMapper.get(nameSpace[2]);
                 }
             }
         }
