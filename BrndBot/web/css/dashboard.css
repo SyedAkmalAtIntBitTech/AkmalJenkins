@@ -90,13 +90,13 @@ body{
    margin-top: 50px;
 }
 #hyshead{
-    width:200px;
+    width:850px;
     font-family:"proxima-nova-soft",sans-serif;
    font-weight: 500;
    position: relative;
    
-    padding-top: 1%;
-   padding-bottom: 4%;
+    padding-top: 20%;
+   padding-bottom: 1%;
 }
 /*#leftnav{
     

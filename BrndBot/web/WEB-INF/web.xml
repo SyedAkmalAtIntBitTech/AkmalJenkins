@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>com.controller.ApplicationContextListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>BrndBotBaseServlet</servlet-name>
         <servlet-class>com.controller.BrndBotBaseServlet</servlet-class>
@@ -391,6 +395,10 @@
     <servlet>
         <servlet-name>SaveSVGServlet</servlet-name>
         <servlet-class>admin.controller.SaveSVGServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetTemplates</servlet-name>
+        <servlet-class>com.controller.GetTemplates</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
@@ -795,6 +803,10 @@
     <servlet-mapping>
         <servlet-name>SaveSVGServlet</servlet-name>
         <url-pattern>/SaveSVGServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetTemplates</servlet-name>
+        <url-pattern>/GetTemplates</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

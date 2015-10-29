@@ -7,16 +7,16 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>setting</title>
+        <title>BrndBot - Account Settings</title>
         <meta charset="UTF-8" >
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-         <%@ include file="fonttypekit.jsp"%>
-         <%@ include file="checksession.jsp" %>
+        <%@ include file="fonttypekit.jsp"%>
+        <%@ include file="checksession.jsp" %>
 
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <script src="js/configurations.js" type="text/javascript"></script>
-        
+
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -27,7 +27,7 @@ and open the template in the editor.
         <script src="js/prettify.js"></script>
         <script src="js/jquery.bsFormAlerts.js"></script>
         <script type="text/javascript" src="jscolor/jscolor.js"></script>
-   <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/tabcontent.js" type="text/javascript"></script>
         <script src="js/settings.js" type="text/javascript"></script>
         <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
@@ -68,38 +68,35 @@ and open the template in the editor.
         <script>
                     var ElementID;
                     /*------ get selected element ID -----*/
-                            function getElementID(IDNo){
-                            ElementID = IDNo;
-                                    $('.step_wrapper').on('click', '.step_box', function () {
-                            $(this).parent().find('.step_box').css('width', '').css('height', '').css('border-color', '').css('border-radius', '');
-                                    $(this).css('width', '80px').css('height', '40px').css('border-color', '#FF0000').css('border-radius', '10px');
-                            });
-                                    $("#sortable").sortable();
-                                    $("#sortable").disableSelection();
-                            }
+                    function getElementID(IDNo){
+                    ElementID = IDNo;
+                            $('.step_wrapper').on('click', '.step_box', function () {
+                    $(this).parent().find('.step_box').css('width', '').css('height', '').css('border-color', '').css('border-radius', '');
+                            $(this).css('width', '80px').css('height', '40px').css('border-color', '#FF0000').css('border-radius', '10px');
+                    });
+                            $("#sortable").sortable();
+                            $("#sortable").disableSelection();
+                    }
                     /*------ pass color into the selected element got by id-----*/
                     function getIDNo(IDNo){
-                    alert(IDNo);
                             var s = $("#" + IDNo).attr("style");
                             var s1 = s.split(":");
                             $("#" + ElementID).css("background-color", s1[1].replace(";", " "));
                     }
 
 
-        var id = 1;
-        var theme_id = 0;
-        function doSomething(theme_id){     
-            var theamNum = parseInt(theme_id.replace("theme",""));
-            theamNum--;
-            var num=theamNum*6;
-            $("#themeid").val(theme_id);
-            for(var i=1; i<=6;i++){
-                var colorid="color"+(i+num);
-                $("#elementToPutStyleInto"+i).css("background-color",$("#"+colorid).css("background-color"));
-                  
-                
-            }
-        }
+                    var id = 1;
+                    var theme_id = 0;
+                    function doSomething(theme_id){
+                    var theamNum = parseInt(theme_id.replace("theme", ""));
+                            theamNum--;
+                            var num = theamNum * 6;
+                            $("#themeid").val(theme_id);
+                            for (var i = 1; i <= 6; i++){
+                    var colorid = "color" + (i + num);
+                            $("#elementToPutStyleInto" + i).css("background-color", $("#" + colorid).css("background-color"));
+                    }
+                    }
 //                            function doSomething(theme_id){
 //                                    if (theme_id == "theme1"){
 //                            var s = $("#color1").attr("style");
@@ -197,7 +194,7 @@ and open the template in the editor.
 
                 <div class="col-md-10 col-md-offset-2">
                     <div class="col-md-10 ">
-                        <p id="text3"> Setting page</p>
+                        <p class="MH2" id="text3"> Setting page</p>
 
 
                         <div style="width:500px; margin:0px; padding:120px 0 40px;">
@@ -239,7 +236,7 @@ and open the template in the editor.
                                 <div id="view2" style="width:750px; height:auto;" >
                                     <b>Select color palettes</b>
 
-                                    <div class="container">
+                                    <div class="container" ng-init="showColors()">
                                         <div class="row">
                                         </div>
 
@@ -248,7 +245,7 @@ and open the template in the editor.
                                             <div class="col-md-8 col-md-offset-0">
                                                 <p id="comment1"> Choose a palette </p> 
                                                 <p id="comment2">Click on a color to change it or choose from a theme. Don?t worry, you can always change it later.</p>
-                                                <div class="col-md-12"><p id="test" class="span3" >MOST USED <span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
+                                                <div class="col-md-12"><p id="test" class="span3" >MOST USED<span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
 
                                                 <div id="sortable" class="step_wrapper">
                                                     <div id="elementToPutStyleInto1" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color1}}"  onclick="getElementID('elementToPutStyleInto1')"></div>
@@ -278,15 +275,15 @@ and open the template in the editor.
                                                         <%! Integer i = 1;%>
                                                         <div class="tab-pane active" id="picktheme">
                                                             <div style="height:250px; overflow-y:scroll;">
-                                                                
+
                                                                 <div ng-repeat= "theme in themes" id="rep" >
 
                                                                     <div ng-repeat="colors in theme" id="rep1">
                                                                         <div ng-show="colors.theme_id == null">
-                                                                            <div id="{{colors.id}}" class="foo col-md-2 blankcolor-box step_box ptr" onclick="getIDNo('{{colors.id}}')" style="background-color:{{colors.colorHex}};"></div>
+                                                                            <div id="{{colors.id}}" class="foo blankcolor-box step_box ptr" onclick="getIDNo('{{colors.id}}')" style="background-color:{{colors.colorHex}};"></div>
                                                                         </div>
 
-                                                                        <div id="{{colors.theme_id}}" class="ptr" onclick="doSomething('{{colors.theme_id}}')">{{colors.theme_name}}</div>
+                                                                        <div id="{{colors.theme_id}}" class="ptr" onclick="doSomething('{{colors.theme_id}}')"><div ng-show="colors.id == null" style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{colors.theme_name}}</div></div>
 
                                                                     </div> 
                                                                     <div id='id'>
@@ -306,7 +303,7 @@ and open the template in the editor.
 
                                                         <div class="tab-pane" id="logocolor" >
                                                             <div class="tab-pane active" id="picktheme" ng-init="getLogoColors()">
-<!--                                                                <div><button type="button" class="btn btn-primary" value="click to display colors" ng-click="getLogoColors()">click to display colors</button></div>-->
+                                                                <!--                                                                <div><button type="button" class="btn btn-primary" value="click to display colors" ng-click="getLogoColors()">click to display colors</button></div>-->
                                                                 <div ng-repeat="col in color">
                                                                     <div id="{{col.id}}" class="foo" style="background-color:{{col.colorHex}};" onclick="getIDNo('{{col.id}}')"></div>
                                                                 </div>
@@ -425,8 +422,7 @@ and open the template in the editor.
                                     <%!
                                         String file_name = null;
                                     %>
-                                    <%
-                                        try {
+                                    <%                                        try {
                                             sqlmethods.session = request.getSession(true);
                                             user_id = (Integer) sqlmethods.session.getAttribute("UID");
                                             file_name = (String) sqlmethods.session.getAttribute("ImageFileName");

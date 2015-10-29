@@ -823,8 +823,10 @@ $(document).ready(function () {
                 top: childPos.top - parentPos.top,
                 left: childPos.left - parentPos.left
             }
-            x = Math.round(childOffset.left);
-            y = Math.round(childOffset.top);
+            
+//                alert(childPos.top +" "+parentPos.top+":"+childOffset.left);
+            x = Math.round(childOffset.left)-1;
+            y = Math.round(childOffset.top)-1;
             $(".selectedElement").text("Selected item: " + $("#" + selectedTextID).attr("id"));
             $(".position").text("Co ordinates: X=" + x + ", Y=" + y);
             $("#imageX").val(x);

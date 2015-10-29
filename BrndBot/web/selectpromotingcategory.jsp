@@ -13,7 +13,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Select promoting category </title>
+        <title>BrndBot - Content Selection</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
          <%@ include file="checksession.jsp" %>
@@ -264,9 +264,9 @@ and open the template in the editor.
                             <li style="width: 250px">{{datalists.column_header[1]}}</li>
                             <li style="width: 100px">{{datalists.column_header[2]}}</li></div>
                     </ul>
-                    <hr id="dividerline" style="width:850px;position:relative;left:-52px;top:-30px;">
+                    <hr id="dividerline" style="width:850px;position:absolute;left:60px;top:32px;">
 
-                    <div style="position:fixed;height:45%;top:16em;" class="tab-pane active" id="picktheme" ng-init="showData()">
+                    <div style="position:fixed;height:45%;margin-top: -1.8em;" class="tab-pane active" id="picktheme" ng-init="showData()">
 
                         <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
                             <div id="{{jsonclass.id}}" class="mindbodyOneRowData LE2" onclick="select_category_details('{{jsonclass.id}}')" >

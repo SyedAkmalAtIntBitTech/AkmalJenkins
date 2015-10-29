@@ -25,7 +25,7 @@
          <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
          <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
 
-        <title>Email Lists</title>
+        <title>BrndBot - Email List</title>
         <style>
            .brdr{ 
                text-align:left;
@@ -39,7 +39,16 @@
                 bottom:0px;
                 top:-70px;
             }
-            .emlist {
+            .button--moema {
+                padding: 1.5em 0.8em;
+                padding-right: 1em;
+                border-radius: 5px;
+                background: #5CC1A3;
+                color: #fff;
+/*                -webkit-transition: background-color 0.3s, color 0.3s;
+                transition: background-color 0.3s, color 0.3s; */
+            }
+                    .emlist {
                 position: relative;
                 width:200px;
                 left:-50px;
@@ -341,7 +350,8 @@
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts',
                     }).success(function (data, status, headers, config) {
-                        $scope.emailLists = data.allEmailListWithNoOfContacts;
+                        $scope.emailLists = data.allEmailListWithNoOfContacts.user;
+                        $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         
                         if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
@@ -358,20 +368,58 @@
                     $("#chooseEmailList").val("");
                 };
                 
-                $scope.updateList = function (list_name) {
+                $scope.updateList = function (list_name, type) {
 //                    alert(list_name);
                     $("#email_list_name").val(list_name);
                     $http({
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
                     }).success(function (data, status, headers, config) {
-                        $scope.emailAddresses = data.emailAddresses;
-                        
-                        if (data.emailAddresses !== "") {
+                        $scope.user_emailAddresses = data.user_emailAddresses;
+                        $scope.mindbody_emailAddresses = data.mindbody_emailAddresses;
+                        $scope.selected_email_listname = list_name;
+                        $scope.type = type;
+                        if (type == 'user'){
                             $("#tab3").show();
                             $("#tab1").hide();
-//                                window.open(getHost() + 'emaillists.jsp', "_self");
-                        } else if (data === error) {
+                            $("#addcontacts").show();
+                            $("#deleteSelected").show();
+                            $("#selectAll").show();
+                            for (var i = 0; i <= data.user_emailAddresses.length; i++){
+                                
+                                var emailadd = data.user_emailAddresses[i];
+                                if (emailadd.emailid == ""){
+                                    $("#NoContacts").css("display","block");
+                                    setTimeout(function() 
+                                    {
+                                      //do something special
+                                      $('input[type="checkbox"]').css("display","none");
+
+                                    }, 100);
+                                }
+
+                            }
+                        }else if (type == 'mindbody'){
+                            
+                            $("#tab3").show();
+                            $("#tab1").hide();
+//                            $("#addcontacts").attr("disabled", true);
+                            $("#addcontacts").hide();
+                            $("#deleteSelected").hide();
+                            $("#emailaddrs").hide();
+                            $(".head").css("padding-bottom","15%");
+//                            
+//                            $("#selectAll").attr("disabled", true);
+//                            document.getElementById('email1').hide();
+                            $("#email1").hide();
+                            setTimeout(function() 
+                            {
+                              //do something special
+                              $('input[type="checkbox"]').css("display","none");
+                              
+                            }, 100);
+                        }
+                        if (data === error) {
                             alert(data);
                         }
                     });
@@ -391,9 +439,14 @@
                             $("#tab1").hide();
                             var i = 0;
                             var emails = "";
-                            for(i=0; i<data.emailAddresses.length; i++){
-                                if (data.emailAddresses[i].emailid != ""){
-                                    emails = data.emailAddresses[i].emailid + "," + emails;
+                            for(i=0; i<data.user_emailAddresses.length; i++){
+                                        if (data.user_emailAddresses[i].emailid != ""){
+                                            emails = data.user_emailAddresses[i].emailid + "," + emails;
+                                        }
+                                    }
+                            for(i=0; i<data.mindbody_emailAddresses.length; i++){
+                                if (data.mindbody_emailAddresses[i] != ""){
+                                    emails = data.mindbody_emailAddresses[i] + "," + emails;
                                 }
                             }
                             $("#textArea").val(emails);
@@ -419,7 +472,6 @@
                     var selectAll = document.getElementById("selectAll").checked;
                     var email_list_name = "";
                     if (selectAll){
-                        
                         email_list_name = $("#email_list_name").val();
                         var Emails = {"update": "deleteAllEmailsFromList", "emailListName":email_list_name};
                         $http({
@@ -438,7 +490,8 @@
                                 alert(data);
                             }
                         });
-                    }else{
+                    }else if (selectedemailids != ""){
+                        
                         email_list_name = $("#email_list_name").val();
                         var Emails = {"update": "deleteEmailInEmailList", "emailListName":email_list_name, "emailAddresses":selectedemailids};
                         $http({
@@ -451,12 +504,14 @@
                             if (data === "true") {
                                 alert("Data deleted successfully");
                                 $scope.updateList(email_list_name);
-                                
+                                selectedemailids = "";
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);
                             }
                         });
+                    }else {
+                        alert("no email has been selected");
                     }
                 };
                 $scope.showAddContacts = function (){
@@ -489,14 +544,18 @@
                         </ul>
                     </div>
                     <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;top:-60px;">
-
                     <div id="scrl" class="col-md-6"  ng-init="showEmailListWithContacts()">
                         <ul class="emlOneRowDatalst L2 " ng-repeat="email in emailLists">                            
                             <li style=" left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')"><p class="emlOneRowDatalst L2" style="width:300px;">{{email.emailListName}}</p><p class="BC1" style="width:200px;">{{email.listDescription}}</p></li>
                             <li style="width:300px;text-align:center;left:100px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
-                            <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList(email.emailListName)">EDIT LIST</button> </li>
+                            <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList(email.emailListName, 'user')">EDIT LIST</button> </li>
                         </ul>
-                       
+                        <ul class="emlOneRowDatalst L2 " ng-repeat="email in emailListsMindbody">
+                            <li style=" left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')"><p class="emlOneRowDatalst L2" style="width:300px;">{{email.emailListName}}</p><p class="BC1" style="width:200px;">{{email.listDescription}}</p></li>
+                            <li style="width:300px;text-align:center;left:100px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
+                            <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList(email.emailListName, 'mindbody')">DETAILS</button> </li>
+                        </ul>
+
                     </div><br><br>
 
                 </div>
@@ -547,24 +606,30 @@
                 <div ng-controller="EmailListController">
                     
                     <div class="col-md-6 col-md-offset-0" style="width:400px;">
-                        <p id="hyshead" class="MH2">Manage "List Name" List</p>
-                        <button type="button" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:140px;position:relative;left:780px;top:-68px;" ng-click="getEmailList()">ADD CONTACTS</button>
+                        <p id="hyshead" class="MH2 head">Manage {{selected_email_listname}}</p>
+                        <button type="button" id="addcontacts" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:140px;position:relative;left:780px;top:-68px;" ng-click="getEmailList()">ADD CONTACTS</button>
                     </div>
                     <br>
                     
-                    <div class="col-md-5 col-md-offset-0">
+                    <div class="col-md-5 col-lg-10 col-md-offset-0">
                     
                         <ul class="delsel L2 ">
-                            <li style="left:-50px;"><p  style="width:200px;" ng-click="deleteSelected()">delete selected</p></li>
-                            <li> <input style="top:17px;position:relative;left:-160px;" id="selectAll" type="checkbox" ng-click="selectCheckBox()">email address</li>
-                        </ul> </div>
+                            <li style="left:-50px;"><p  style="width:200px;" id="deleteSelected" ng-click="deleteSelected()">delete selected</p></li>
+                            <li> <input style="top:17px;position:relative;left:-160px;" id="selectAll" type="checkbox" ng-click="selectCheckBox()" ><p id="emailaddrs">email address</p></li>
+                        </ul>
+                    </div>
                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;top:-70px;">
 
-                <div id="scrl" class="col-md-6 ">
-                    <ul class="emlOneRowDatalst L2 LE2"ng-repeat="email in emailAddresses">
-                        <li style="width:300px;left:-30px;top:-80px;"><input  style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}</li>
-                    </ul>
-                </div>
+                    <div id="scrl" class="col-md-6" >
+                        <ul id="uluseremails" class="emlOneRowDatalst L2 LE2" ng-repeat="email in user_emailAddresses">
+                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}</li>
+                            <p ng-show="email.emailid == '' && type == 'user'" id='NoContacts' style="margin-top:-80px;">No contacts available</p>
+                        </ul>
+                        <ul class="emlOneRowDatalst L2 LE2" ng-repeat="email in mindbody_emailAddresses">
+                            <li style="width:300px;left:-30px;top:-80px;">{{email}}</li>
+                        </ul>
+                        <p ng-show="mindbody_emailAddresses.length == 0 && type == 'mindbody'" style="margin-top:-80px;">No contacts available</p>
+                    </div>
                 </div>
 
             </div>
@@ -574,7 +639,7 @@
                     <p class="header1">Email List:</p>
                     <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/> <br>
                     <div class="col-md-7 col-md-offset-0">
-                        <label id="">Upload CSV</label><br><br>
+                        <label>Upload CSV</label><br><br>
                         <input type="file" class="fileUpload" id="fileUpload" name="fileUpload"><br>
                         <input class="button button--moema button--text-thick button--text-upper button--size-s" type="button" id="upload" value="Upload" onclick="upload()" /><br>
                     </div><br>

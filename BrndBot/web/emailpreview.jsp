@@ -39,7 +39,7 @@
                 position: relative; z-index: 999; -o-transform: scale(1.03,1.03); -ms-transform: scale(1.03,1.03); -moz-transform: scale(1.03,1.03); -webkit-transform: scale(1.03,1.03); transform: scale(1.03,1.03);
             }
         </style>
-        <title>email preview</title>
+        <title>BrndBot - Preview Email</title>
         <style>
             .timepicker_wrap {
                 margin-top:22px;
@@ -263,7 +263,7 @@
                     });
                 };
                 $scope.setScheduling = function () {
-                    var schedule_id = "0";
+                    var schedule_id = $("#email_actions").val();
                     var from_name = $("#name").val();
                     var email_subject = $("#subject").val();
                     var to_email_addresses = $("#toaddress").val();
@@ -353,15 +353,14 @@
     <script>
         var formattedHTMLData = "";
         setTimeout(
-  function() 
+        function() 
         {
             formattedHTMLData=$("#dynamictable").contents().find("html").html();
           //do something special
-        }, 200);
+        }, 1000);
        $(document).ready(function () {
            formattedHTMLData=$("#dynamictable").contents().find("html").html();
            show("iphone");
-           
         });
         function displaySchedule() {
                 if (validate()) {
@@ -488,6 +487,7 @@
                 document.getElementById('schedule_title').disabled=true;
                 document.getElementById('schedule_date').disabled=true;
                 document.getElementById('schedule_time').disabled=true;
+                document.getElementById('schedule_title').value="";
                 document.getElementById('schedule_time').value="";
                 document.getElementById('schedule_date').value="";
                 }
@@ -580,7 +580,7 @@
                                         document.body.style.overflow = 'scroll';" style="text-decoration:none;">
                                 <p style="margin-left:740px;margin-top:-35px;cursor: pointer;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p></a></div>
                         <select class="SH1 selectsocialact" style="font-variant: normal;" name="email_actions" id="email_actions" onchange="validateact()">
-                            <option value="0" style="background:#fff;">--SELECT--</option>
+                            <option value="0" style="background:#fff;">CUSTOM</option>
                             <option ng-repeat="actions in email_actions" value="{{actions.id}}">{{actions.schedule_title}}</option>
                         </select>
                         <p class="SH2" style="position:relative;top:10px;">OR</p>

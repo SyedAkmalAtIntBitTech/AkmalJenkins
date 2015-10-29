@@ -106,36 +106,36 @@ function validateEmail(sEmail) {
 }
 
 function validateaction() {
-    var title = $("#title").val();
+    var title = $("#addactiontitle").val();
     var actiontype = $("#actiontype").val();
     var description = $("#description").val();
-    var actiondate = $("#actiondate").val();
-    var status = $("#status").val();
+    var actiondate = $("#datepicker").val();
+    var actiontime = $("#timepicker1").val();
 
-    if (title === "") {
-        alert("title not entered, please enter the title");
-        $("#title").focus();
-        return false;
-    }
-
-    if (actiontype === "") {
-        alert("actiontype not entered, please enter the actiontype");
+    if (actiontype === '0') {
+        alert("actiontype not selected, please select any one action");
         $("#actiontype").focus();
         return false;
     }
+    if (title === "") {
+        alert("title not entered, please enter the title");
+        $("#addactiontitle").focus();
+        return false;
+    }
+
     if (description === "") {
         alert("description not entered, please enter the description");
         $("#description").focus();
         return false;
     }
     if (actiondate === "") {
-        alert("actiondate not entered, please enter the actiondate");
-        $("#actiondate").focus();
+        alert("date not selected, please select the date");
+        $("#datepicker").focus();
         return false;
     }
-    if (status === "") {
-        alert("status not entered, please enter the status");
-        $("#status").focus();
+    if (actiontime === "") {
+        alert("time not selected, please selecet the time");
+        $("#timepicker1").focus();
         return false;
     }
 
@@ -694,7 +694,7 @@ function controllerMarketingCampaign($scope, $http) {
                 } else {
                     $('#prevtwtimg').show();
                     $("#twitter_button_post").val("Post");
-                    $('#twitter_preview_postdet').css("margin-top", 50);
+                    $('#twitter_preview_postdet').css("margin-top", -250);
                     $('#isFacebook').val("false");
                     $('#isTwitter').val("true");
                 }
@@ -1154,7 +1154,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var schedule_title = $("#twitter_schedule_title").val();
                 var schedule_Description = $("#twitter_schedule_Description").val();
                 var schedule_posttext = $("#twitter_schedule_post_text").val();
-                var schedule_datetime = $("#twitter_schedule_datetime").val();
+                
 
 
                 var actiondate = $("#twitter_schedule_date").val();
@@ -1286,7 +1286,8 @@ function controllerMarketingCampaign($scope, $http) {
 
     };
     };
-var error_message = "unable to post the scheduling";
+var error_message = "unable to post the schedule";
+var error_message_email = "unable to send the email";
 
 function sendEmail() {
     var email_from_name = $("#email_entity_from_name").val();
@@ -1329,7 +1330,7 @@ function sendEmail() {
                            success: function (responseText) {
                                alert(responseText);
                                if (responseText == "true"){
-                                 alert("Your post has been published successfully");
+                                 alert("Your email has been sent successfully");
                                }
                             }
                         });
@@ -1361,7 +1362,7 @@ function postSocial() {
         if (($("#twitter_image_name").val()) != "") {
             image_name = $("#twitter_image_name").val();
             scheduleid = $("#twitter_schedule_id").val();
-            entityid = $("#twitter_schedule_id").val();
+            entityid = $("#twitter_entity_id").val();
         }
 
         var link = $("#twitter_schedule_post_url").val();
@@ -1413,7 +1414,11 @@ function postSocial() {
                            mimeType: 'application/json',
                            data:JSON.stringify(schedule_data),
                            success: function (responseText) {
-                                alert("Your post has been published successfully");
+                               alert("Your post has been published successfully");
+                               document.location.href = "marketing.jsp";
+                            },
+                            error: function () {
+                                alert(error_message);
                             }
                         });
                         document.location.href = "marketing.jsp";

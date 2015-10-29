@@ -25,7 +25,7 @@
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
                 <link rel="stylesheet" href="css/main1.css">
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
-        <title>email subject</title>
+        <title>BrndBot - Email Subject</title>
         <style>
 /*            .slt {
                                 position:relative;
@@ -334,7 +334,7 @@
                 });
 
                 $("#emailSubjectContinueButton").click(function () {
-                   
+                    document.title="BrndBot - Email List Selection"; 
                     $("#chooseEmailList").show();
                     $("#emailsubjectdiv").hide();
                     $("#emailaddresses").hide();
@@ -371,11 +371,16 @@
                                 success: function(result){
                                     var i = 0;
                                     var emails = "";
-                                    for(i=0; i<result.emailAddresses.length; i++){
-                                        if (result.emailAddresses[i].emailid != ""){
-                                            emails = result.emailAddresses[i].emailid + "," + emails;
+                                    for(i=0; i<result.user_emailAddresses.length; i++){
+                                        if (result.user_emailAddresses[i].emailid != ""){
+                                            emails = result.user_emailAddresses[i].emailid + "," + emails;
+                                        }
                                     }
-                                    }
+                                    for(i=0; i<result.mindbody_emailAddresses.length; i++){
+                                        if (result.mindbody_emailAddresses[i] != ""){
+                                            emails = result.mindbody_emailAddresses[i] + "," + emails;
+                                        }
+                                    }                                    
                                     $("#emailaddresses").val(emails);
                                 }
                         });
@@ -680,7 +685,8 @@
                             method: 'GET',
                             url: getHost() + 'GetEmailLists?update=allEmailListNames'
                     }).success(function(data, status, headers, config) {
-                            $scope.emailLists = data.allEmailListNames;
+                            $scope.emailLists = data.user;
+                            $scope.emailLists_mindbody = data.mindbody;
                             if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
                             } else if (data === error) {
@@ -738,6 +744,7 @@
                     <select id="chooseEmailList" name="chooseEmailList"  hidden="true">
                         <option value="1">Manual</option>
                         <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                        <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
                     </select>
                     
                     
@@ -765,7 +772,7 @@
                             <input type="button" onclick="uploadCsvFileData()" value="upload">
                             <br><br>
                             <center>
-                                <textarea id="textArea" style="width:300px; height:100px;"></textarea><br><br>
+                                <textarea id="textArea" style="width:300px; height:100px; resize: none;" ></textarea><br><br>
                                 <input type="button" class="btn btn-default" ng-click="addEmailList()" value="Save">
                                 <input type="button" id="popupCancel" class="btn btn-default" value="Cancel">
                             </center>

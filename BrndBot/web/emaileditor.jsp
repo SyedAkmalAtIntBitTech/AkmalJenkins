@@ -19,7 +19,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>email editor</title>
+        <title>BrndBot - Email Editor</title>
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
         <%@ include file="checksession.jsp" %>
