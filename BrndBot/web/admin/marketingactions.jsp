@@ -11,6 +11,8 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="checksession.jsp" />
+
 <!DOCTYPE html>
 <html>
     <head>

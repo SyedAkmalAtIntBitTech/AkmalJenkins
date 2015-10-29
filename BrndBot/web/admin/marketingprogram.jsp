@@ -12,6 +12,7 @@
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
+<jsp:include page="checksession.jsp" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -162,7 +163,7 @@
                         $scope.data = data;
                         if (data == "true"){
                             alert("details deleted successfully");
-                            $scope.getMarketingPrograms();
+                            window.open(getHost() + 'admin/marketingprogram.jsp', "_self");
                         }
                     }).error(function (){
                         alert("No data available, problem fetching the data");
@@ -242,7 +243,7 @@
                                     id = rs.getInt("id");
                                     user_name = rs.getString("user_name");
                     %>            
-                            <option value="<%=id%>"><%= user_name%></option>
+                                <option value="<%=id%>"><%= user_name%></option>
                     <%
                                 }
                         } catch (Exception e) {
@@ -300,7 +301,7 @@
                     <tr ng-repeat = "program in programs">
                         <td>{{program.id}}</td>
                         <td>{{program.name}}</td>
-                        <td>{{program.order}}</td>
+                        <td>{{program.program_order}}</td>
                         <td>{{program.category_id}}</td>
                         <td>{{program.user_id}}</td>
                         <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editCategory()" disabled>edit</button></td>

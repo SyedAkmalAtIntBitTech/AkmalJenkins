@@ -77,12 +77,12 @@ public class MarketingActionDaoImpl implements MarketingActionDao{
 	 * {@inheritDoc}
      */
     public void update(TblMarketingAction marketingAction) throws Throwable {
-       try {			
-		  sessionFactory.getCurrentSession().update(marketingAction);
-		} catch (Throwable throwable) {
-			logger.log(Level.SEVERE, null, throwable);
-			throw new Throwable("Database error while saving record.");
-		}
+       try {
+            sessionFactory.getCurrentSession().update(marketingAction);
+          } catch (Throwable throwable) {
+                  logger.log(Level.SEVERE, null, throwable);
+                  throw new Throwable("Database error while saving record.");
+          }
     }
 
      /**
