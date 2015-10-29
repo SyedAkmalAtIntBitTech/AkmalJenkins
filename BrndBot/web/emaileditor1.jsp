@@ -532,7 +532,7 @@ $(document).ready(function() {
                         
 <!--                            <div class="emleditorhead fontpnr">Froala Editor</div> -->
                             <div id="editor">
-                                <div id='edit' style="margin-top: 37px;">
+                                <div id='edit' style="margin-top: 5px;">
                                 </div>
                             </div>
 <!--                            <div class="framediv">
