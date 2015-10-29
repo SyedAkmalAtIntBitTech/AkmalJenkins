@@ -216,7 +216,7 @@
                         headers: {'Content-Type': 'application/json'},
                         data: JSON.stringify(marketingactions)
                     }).success(function (data, status){
-                          $scope.marketingcategories = data;
+                         window.open(getHost() + 'admin/marketingactions.jsp', "_self");
                     }).error(function (){
                           alert("No data available, problem fetching the data");
                     });
@@ -228,13 +228,32 @@
                     
                     $http({
                         method: 'GET',
-                        url:getHost() + 'GetMarketingActions'
+                        url:getHost() + 'getAllMarketingProgramActions.do'
                     }).success(function (data, status){
+                        
                         $scope.marketingActions = data;
                     }).error(function (){
                         alert("No data available, problem fetching the data");
                     });
                 };
+                
+                $scope.deleteAction = function(action_id){
+                    alert(action_id);
+                    var action_details = {"action_id": action_id};
+                    $http({
+                        method: 'POST',
+                        url: getHost() + 'deleteMarketingProgramAction.do',
+                        headers: {'Content-Type': 'application/json'},
+                        data: JSON.stringify(action_details)
+                }).success(function (data, status){
+                    if (data == "true"){
+                        alert("record deleted successfully");
+                    }
+                    $scope.getMarketingActions();
+                }).error(function (){
+                    alert("No data available, problem fetching the data");
+                });                
+            };
             };
         
     </script>        
@@ -250,17 +269,17 @@
                         <p>Marketing Actions:</p>
                     </div>
                 </div>
-                    <div ng-init="getMarketingCategories(); getMarketingPrograms();" style="float:left; left:20px; padding-left: 166px;">
-                    <%= exist1 %>
-                   Select category:<select name="category" id="category" style="width:180px;">
-                                       <option value="0">--select--</option>
-                                       <option value="{{category.category_id}}" ng-repeat="category in categories">{{category.name}}</option>
+                <div ng-init="getMarketingCategories(); getMarketingPrograms();" style="float:left; left:20px; padding-left: 166px;">
+                <%= exist1 %>
+                    Select category:<select name="category" id="category" style="width:180px;">
+                                        <option value="0">--select--</option>
+                                        <option value="{{category.category_id}}" ng-repeat="category in categories">{{category.name}}</option>
+                                    </select><br><br>
+                    Select program:<select name="programs" id="programs" style="width:180px;">
+                                        <option value="0">--select--</option>
+                                        <option value="{{program.program_id}}" ng-repeat="program in programs">{{program.name}}</option>
                                    </select><br><br>
-                   Select program:<select name="programs" id="programs" style="width:180px;">
-                                       <option value="0">--select--</option>
-                                       <option value="{{program.program_id}}" ng-repeat="program in programs">{{program.name}}</option>
-                                  </select><br><br>
-                    </div>
+                </div>
                 <div style="float:left; border:1px solid #000; left:0px; padding-left: 6px; margin-left: 150px; position:relative; width: 350px; top:0px;">
                         Title:<input type="text" id="marketingactiontitle" name="marketingactiontitle" />
                         
@@ -302,16 +321,18 @@
                         <td>ID Number </td>
                         <td>Category Name</td>
                         <td>Program Name</td>
+                        <td>Actions</td>
                         <td></td>
                         <td></td>
                     </tr>
                    
                     <tr ng-repeat = "marketing in marketingActions">
-                        <td>{{marketing.action_id}}</td>
-                        <td>{{marketing.category}}</td>
-                        <td>{{marketing.program}}</td>
-                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editActions()">edit</button></td>
-                        <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteActions(marketing.action_id)">delete</button></td>
+                        <td>{{marketing.id}}</td>
+                        <td>{{marketing.category_name}}</td>
+                        <td>{{marketing.program_name}}</td>
+                        <td>{{marketing.json_data}}</td>
+                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editActions()" disabled>edit</button></td>
+                        <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteAction(marketing.action_id)">delete</button></td>
                     </tr>
                     
                 </table>

@@ -51,7 +51,9 @@ public class MarketingActionDaoImpl implements MarketingActionDao{
     public List<TblMarketingAction> getAllMarketingAction() throws Throwable {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblMarketingAction.class);
+                    .createCriteria(TblMarketingAction.class)
+                     .setFetchMode("tblMarketingCategory", FetchMode.JOIN)
+                      .setFetchMode("tblMarketingProgram", FetchMode.JOIN);
                    return criteria.list();
 		} catch (Throwable throwable) {
                    logger.log(Level.SEVERE, null, throwable);

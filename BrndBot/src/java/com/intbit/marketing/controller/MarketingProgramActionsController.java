@@ -5,6 +5,7 @@
  */
 package com.intbit.marketing.controller;
 
+import com.controller.IConstants;
 import com.controller.SqlMethods;
 import com.google.gson.Gson;
 import com.intbit.AppConstants;
@@ -18,12 +19,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +82,52 @@ public class MarketingProgramActionsController {
             logger.log(Level.SEVERE, null, throwable);
         }
         return "true";
-    }    
+    }
+    
+    @RequestMapping(value = "/getAllMarketingProgramActions", method = RequestMethod.GET)
+    public @ResponseBody String getAllMarketingProgramActions() 
+            throws ServletException, IOException, Throwable {
+
+        JSONArray json_array_marketing_actions = new JSONArray();
+        try {
+            
+            List<TblMarketingAction> MarketingActions = marketing_action_service.getAllMarketingAction();
+            Integer i = 1;
+            for(TblMarketingAction marketing_action: MarketingActions){
+                JSONObject json_object = new JSONObject();
+                
+                json_object.put("id", i);
+                json_object.put("action_id", marketing_action.getId());
+
+                JSONParser json_parser = new JSONParser();
+
+                org.json.simple.JSONObject actions = (org.json.simple.JSONObject) json_parser.parse(marketing_action.getJsonTemplate());
+                json_object.put("json_data", actions.get(IConstants.kMarketingActionsKey));
+                json_object.put("program_name", marketing_action.getTblMarketingProgram().getName());
+                json_object.put("category_name", marketing_action.getTblMarketingCategory().getName());
+                json_array_marketing_actions.add(json_object);
+                i++;
+            }
+
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+        }
+        return json_array_marketing_actions.toString();
+    }
+    
+    @RequestMapping(value = "/deleteMarketingProgramAction", method = RequestMethod.POST)
+    public @ResponseBody String deleteMarketingProgramAction(HttpServletRequest request,
+            HttpServletResponse response)throws ServletException, IOException, Throwable{
+        String return_response = "false";
+        try{
+        Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+        Double program_action_id = (Double)requestBodyMap.get("action_id");
+
+        marketing_action_service.delete(program_action_id.intValue());
+        }catch (Throwable throwable){
+            logger.log(Level.SEVERE, null, throwable);
+        }
+        return return_response;
+    }
 }
