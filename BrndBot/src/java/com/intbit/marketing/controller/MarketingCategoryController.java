@@ -115,7 +115,7 @@ public class MarketingCategoryController {
                 for (TblMarketingCategoryUsersLookup marketingCategoryobject : marketingCategorysList) {
                    JSONObject json_object = new JSONObject();
                    json_object.put("id", i);
-                   json_object.put("category_id", marketingCategoryobject.getId());
+                   json_object.put("category_id", marketingCategoryobject.getTblMarketingCategory().getId());
                    json_object.put("name", marketingCategoryobject.getTblMarketingCategory().getName());
                    json_object.put("order", marketingCategoryobject.getTblMarketingCategory().getCategoryOrder().toString());
                    json_object.put("image", ServletUtil.bytesTo64(marketingCategoryobject.getTblMarketingCategory().getImage()));
