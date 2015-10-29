@@ -51,7 +51,9 @@ public class MarketingActionDaoImpl implements MarketingActionDao{
     public List<TblMarketingAction> getAllMarketingAction() throws Throwable {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblMarketingAction.class);
+                    .createCriteria(TblMarketingAction.class)
+                     .setFetchMode("tblMarketingCategory", FetchMode.JOIN)
+                      .setFetchMode("tblMarketingProgram", FetchMode.JOIN);
                    return criteria.list();
 		} catch (Throwable throwable) {
                    logger.log(Level.SEVERE, null, throwable);
@@ -94,6 +96,22 @@ public class MarketingActionDaoImpl implements MarketingActionDao{
                     logger.log(Level.SEVERE, null, throwable);
                     throw new Throwable("Database error while retrieving record.");
 		}
+    }
+
+    @Override
+    public TblMarketingAction getMarketingActionByMCategoryIdAndMProgramId(Integer mCategoryId, Integer mProgramId) throws Throwable {
+        try {
+                Criteria criteria=sessionFactory.getCurrentSession()
+                        .createCriteria(TblMarketingAction.class)
+                        .setFetchMode("tblMarketingCategory", FetchMode.JOIN)
+                        .setFetchMode("tblMarketingProgram", FetchMode.JOIN)
+                        .add(Restrictions.eq("tblMarketingCategory.id", mCategoryId))
+                        .add(Restrictions.eq("tblMarketingProgram.id", mProgramId));
+                           return(TblMarketingAction)criteria.list().get(0);
+		} catch (Throwable throwable) {
+			logger.log(Level.SEVERE, null, throwable);
+			throw new Throwable("Database error while retrieving record");
+            }
     }
     
     

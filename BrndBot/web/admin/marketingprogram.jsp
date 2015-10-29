@@ -128,7 +128,7 @@
                            headers: {'Content-Type': 'application/json'},
                            data: JSON.stringify(marketing_program)
                         }).success(function (data, status){
-                            window.open(getHost() + 'marketingprogram.jsp', "_self");
+                            window.open(getHost() + 'admin/marketingprogram.jsp', "_self");
                         }).error(function(){
                             alert("No data available, problem fetching the data");
                         });
