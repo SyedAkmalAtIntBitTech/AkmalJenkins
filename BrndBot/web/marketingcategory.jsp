@@ -26,10 +26,13 @@
 </head>
 <body ng-app>
     <div class="row" ng-controller="controllerMarketingCategories">
-        <div class="col-md-1 col-lg-1 col-sm-2" ng-init="getMarketingCategories()" >
-        <jsp:include page="leftmenu.html"/> 
+        <div class="col-md-1 col-lg-1 col-sm-1 halfcol" ng-init="getMarketingCategories()" >
+            <jsp:include page="leftmenu.html"/> 
         </div>
-        <div class="col-md-11 col-lg-11 col-sm-10 " >
+        <div class="col-md-1 col-lg-1 col-sm-1">
+            <jsp:include page="marketingcatsubmenu.html"/>
+        </div>
+        <div class="col-md-10 col-lg-10 col-sm-10 " >
             <div class="row" >
                 <div class="col-sm-12 col-lg-12 col-md-12 ">
                     <div class="marktext"> Please choose a marketing program type.</div>
@@ -54,5 +57,10 @@
             </div>
         </div>
     </div>
+        <script>
+          $( window ).onload(function() {
+              
+});
+        </script>
 </body>
 </html>
