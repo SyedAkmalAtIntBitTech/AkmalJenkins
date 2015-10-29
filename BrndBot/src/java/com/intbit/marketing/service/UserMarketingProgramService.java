@@ -47,5 +47,13 @@ public interface UserMarketingProgramService {
 	 * @throws java.lang.Throwable 
     */
    public void delete(Integer id) throws Throwable;  
+   /**
+	 * This method retrieves {@link userMarketingProgram} by passing id
+	 * @param id
+         * @param marketingProgramId
+	 * @return {@link userMarketingProgram}
+        * @throws java.lang.Throwable 
+    */
+   public TblUserMarketingProgram  getByUserMarketingProgramIdAndMarketingProgramId(Integer id ,Integer marketingProgramId) throws Throwable; 
     
 }

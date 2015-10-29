@@ -14,7 +14,7 @@
         <many-to-one name="tblMarketingProgram" class="com.intbit.marketing.model.TblMarketingProgram" fetch="select">
             <column name="marketing_program_id" not-null="true" />
         </many-to-one>
-        <property name="jsonTemplate" type="JSONObject">
+        <property name="jsonTemplate" type="string">
             <column name="json_template" />
         </property>
     </class>

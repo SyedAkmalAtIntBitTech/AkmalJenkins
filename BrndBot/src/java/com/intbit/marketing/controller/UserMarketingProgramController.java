@@ -11,6 +11,7 @@ import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
+import com.intbit.marketing.model.TblMarketingProgram;
 import com.intbit.marketing.model.TblUserLoginDetails;
 import com.intbit.marketing.model.TblUserMarketingProgram;
 import com.intbit.marketing.service.ScheduledEmailListService;
@@ -18,13 +19,17 @@ import com.intbit.marketing.service.ScheduledSocialpostListService;
 import com.intbit.marketing.service.UserMarketingProgramService;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import static oracle.jrockit.jfr.events.Bits.intValue;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +57,7 @@ public class UserMarketingProgramController {
       public @ResponseBody String getAllUserMarketingProgram() {
                 Integer uMarketingId = 1;
                 String entityType = "1";
+                Integer marketingProgramId = 1;
 		try {  
 
                    
@@ -94,14 +100,14 @@ public class UserMarketingProgramController {
                         scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
                       
                   }
-                    TblUserMarketingProgram userMarketingProgram = userMarketingProgramService.getById(uMarketingId);
+                    TblUserMarketingProgram userMarketingProgram = userMarketingProgramService.getByUserMarketingProgramIdAndMarketingProgramId(uMarketingId, marketingProgramId);
                     System.out.println(userMarketingProgram);
                     JSONObject userMarketinProgramObject= new JSONObject();   
                         userMarketinProgramObject.put("programName", userMarketingProgram.getName());
                         userMarketinProgramObject.put("noOfActions", "15");
-                        userMarketinProgramObject.put("linktodestination", "http://localhost:8080/BrndBot/allmarketingProgram.do");
+                        userMarketinProgramObject.put("linktodestination", userMarketingProgram.getUrl());
                         userMarketinProgramObject.put("dateofevent", userMarketingProgram.getDateEvent());
-                        userMarketinProgramObject.put("description", "this is description");
+                        userMarketinProgramObject.put("description", userMarketingProgram.getTblMarketingProgram().getHtmlData());
                    
                     JSONObject jSONObject = new JSONObject();
                         jSONObject.put("programdetails",userMarketinProgramObject );
@@ -123,23 +129,39 @@ public class UserMarketingProgramController {
     @RequestMapping(value="/setMarketingProgram", method = RequestMethod.POST)
       public @ResponseBody String setUserMarketingProgram(HttpServletRequest request, 
                 HttpServletResponse response) throws IOException, Throwable{
+          try {  
           TblUserMarketingProgram addUserMarketingProgram = new TblUserMarketingProgram();
           TblUserLoginDetails userLoginDetails = new TblUserLoginDetails();
+          TblMarketingProgram marketingProgram = new TblMarketingProgram();
           sql_methods.session = request.getSession();
                 Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
           userLoginDetails.setId(user_id);
+          
+          
           Map<String, Object> requestBodyMap =
                     AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
           addUserMarketingProgram.setName(requestBodyMap.get("program_name").toString());
-          double itemDouble = (double)requestBodyMap.get("program_date_time");
-long itemLong = (long) (itemDouble * 1000);
-          Date eventDate = new Date(itemLong);
-          
+          String target = requestBodyMap.get("program_date_time").toString();
+          DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+          Date eventDate =  df.parse(target);  
+          Integer marketingProgramId = intValue((double)requestBodyMap.get("marketing_category_id"));
+          Integer marketingCategoryId = intValue((double)requestBodyMap.get("marketing_program_id"));
+          marketingProgram.setId(marketingProgramId);
+          addUserMarketingProgram.setId(0);
           addUserMarketingProgram.setDateEvent(eventDate);
           addUserMarketingProgram.setCreateDate(new Date());
           addUserMarketingProgram.setTblUserLoginDetails(userLoginDetails);
+          addUserMarketingProgram.setStatus("Open");
+          addUserMarketingProgram.setUrl(requestBodyMap.get("program_url").toString());
+          addUserMarketingProgram.setTblMarketingProgram(marketingProgram);
           userMarketingProgramService.save(addUserMarketingProgram);
           return "success";
+          }
+          catch(Exception ex)
+          {
+              logger.log(Level.SEVERE, null, ex.getMessage());
+          }
+          return "false";
       }
 
 }

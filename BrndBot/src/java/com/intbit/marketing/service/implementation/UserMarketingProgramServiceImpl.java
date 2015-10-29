@@ -57,5 +57,10 @@ public class UserMarketingProgramServiceImpl implements UserMarketingProgramServ
     public void delete(Integer id) throws Throwable {
        userMarketingProgramDao.delete(id);
     }
+
+    @Override
+    public TblUserMarketingProgram getByUserMarketingProgramIdAndMarketingProgramId(Integer id, Integer marketingProgramId) throws Throwable {
+        return  userMarketingProgramDao.getByUserMarketingProgramIdAndMarketingProgramId(id, marketingProgramId);
+    }
     
 }

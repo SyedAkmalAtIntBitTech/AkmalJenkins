@@ -72,7 +72,7 @@ public class MarketingProgramActionsController {
             marketing_program.setId(Integer.parseInt(programs_id));
 
             marketing_action.setTblMarketingProgram(marketing_program);
-            marketing_action.setJsonTemplate(actions);
+            marketing_action.setJsonTemplate(actions.toString());
             Integer program_action = marketing_action_service.save(marketing_action);
 
         } catch (Throwable throwable) {

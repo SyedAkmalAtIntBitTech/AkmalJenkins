@@ -76,7 +76,7 @@
                     var marketing_program_id = <%= marketing_program_id %>;
 
                     var program_details = {"program_name": program_name, 
-                                           "program_date_time": myEpoch,
+                                           "program_date_time": program_date_time,
                                            "program_url":program_url,
                                            "marketing_category_id":marketing_category_id,
                                            "marketing_program_id":marketing_program_id
@@ -92,7 +92,7 @@
                             alert(data);
                         }
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data"+status+data);
+                        alert("No data available, problem fetching the data");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -125,7 +125,7 @@
                             <div class="row padlft">
                                 <div class="col-md-5 col-lg-5 col-sm-6">
                                     <div class="inputday">
-                                        <input id="programdatetime" type="datetime-local" name="programdatetime"/>
+                                        <input id="programdatetime" type="date" name="programdatetime"/>
 <!--                                        <input id="" class="form-control subinputday fontpnr" type="text" required  placeholder="Day">-->
                                     </div>
                                 </div>

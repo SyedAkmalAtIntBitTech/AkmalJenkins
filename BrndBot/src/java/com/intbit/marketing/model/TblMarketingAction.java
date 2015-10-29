@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 import org.json.simple.JSONObject;
 
 /**
@@ -21,13 +24,14 @@ import org.json.simple.JSONObject;
 @Table(name="tbl_marketing_action"
     ,schema="public"
 )
+@TypeDefs( {@TypeDef( name= "StringJsonObject", typeClass = StringJsonUserType.class)})
 public class TblMarketingAction  implements java.io.Serializable {
 
 
      private int id;
      private TblMarketingCategory tblMarketingCategory;
      private TblMarketingProgram tblMarketingProgram;
-     private JSONObject jsonTemplate;
+     private String jsonTemplate;
 
     public TblMarketingAction() {
     }
@@ -36,7 +40,7 @@ public class TblMarketingAction  implements java.io.Serializable {
         this.id = id;
         this.tblMarketingProgram = tblMarketingProgram;
     }
-    public TblMarketingAction(int id, TblMarketingCategory tblMarketingCategory, TblMarketingProgram tblMarketingProgram, JSONObject jsonTemplate) {
+    public TblMarketingAction(int id, TblMarketingCategory tblMarketingCategory, TblMarketingProgram tblMarketingProgram, String jsonTemplate) {
        this.id = id;
        this.tblMarketingCategory = tblMarketingCategory;
        this.tblMarketingProgram = tblMarketingProgram;
@@ -77,11 +81,12 @@ public class TblMarketingAction  implements java.io.Serializable {
 
     
     @Column(name="json_template")
-    public JSONObject getJsonTemplate() {
+    @Type(type = "StringJsonObject")
+    public String getJsonTemplate() {
         return this.jsonTemplate;
     }
     
-    public void setJsonTemplate(JSONObject jsonTemplate) {
+    public void setJsonTemplate(String jsonTemplate) {
         this.jsonTemplate = jsonTemplate;
     }
 
