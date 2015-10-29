@@ -97,6 +97,26 @@ public class MarketingActionDaoImpl implements MarketingActionDao{
                     throw new Throwable("Database error while retrieving record.");
 		}
     }
-    
-    
+
+    @Override
+    public TblMarketingAction getMarketingActionByMCategoryIdAndMProgramId(Integer mCategoryId, Integer mProgramId) throws Throwable {
+        try {
+                Criteria criteria=sessionFactory.getCurrentSession()
+                        .createCriteria(TblMarketingAction.class)
+                        .setFetchMode("tblMarketingCategory", FetchMode.JOIN)
+                        .setFetchMode("tblMarketingProgram", FetchMode.JOIN)
+                        .add(Restrictions.eq("tblMarketingCategory.id", mCategoryId))
+                        .add(Restrictions.eq("tblMarketingProgram.id", mProgramId));
+                    if(criteria.list().isEmpty())
+                    {
+                        return null;
+                    }else {
+                        return (TblMarketingAction)criteria.list().get(0);
+                    }
+		} catch (Throwable throwable) {
+			logger.log(Level.SEVERE, null, throwable);
+			throw new Throwable("Database error while retrieving record");
+            }
+    }
+        
 }

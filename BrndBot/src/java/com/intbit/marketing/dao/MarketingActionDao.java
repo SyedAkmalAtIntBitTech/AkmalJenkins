@@ -48,5 +48,13 @@ public interface MarketingActionDao {
 	 * @throws java.lang.Throwable 
     */
    public void delete(Integer id) throws Throwable;
+   /**
+	 * This method retrieves {@link TblMarketingAction} by passing id
+	 * @param mCategoryId
+         * @param mProgramId
+	 * @return {@link TblMarketingAction}
+        * @throws java.lang.Throwable 
+    */
+   public TblMarketingAction getMarketingActionByMCategoryIdAndMProgramId(Integer mCategoryId,Integer mProgramId) throws Throwable; 
     
 }

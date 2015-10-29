@@ -58,6 +58,11 @@ public class MarketingActionServiceImpl  implements MarketingActionService{
     public void delete(Integer id) throws Throwable {
        marketingActionDao.delete(id);
     }
+
+    @Override
+    public TblMarketingAction getMarketingActionByMCategoryIdAndMProgramId(Integer mCategoryId, Integer mProgramId) throws Throwable {
+        return marketingActionDao.getMarketingActionByMCategoryIdAndMProgramId(mCategoryId, mProgramId);
+    }
     
     
 }

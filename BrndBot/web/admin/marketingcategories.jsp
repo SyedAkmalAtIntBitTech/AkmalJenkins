@@ -243,7 +243,6 @@
                         <td>Category order</td>
                         <td>Organization ID</td>
                         <td></td>
-                        <td></td>
                     </tr>
                    
                     <tr ng-repeat = "marketing in marketingcategories">
@@ -251,7 +250,6 @@
                         <td>{{marketing.name}}</td>
                         <td>{{marketing.order}}</td>
                         <td>{{marketing.organization_id}}</td>
-                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editCategory()" disabled></button></td>
                         <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteCategory(marketing.category_id)">delete</button></td>
                     </tr>
                     

@@ -39,7 +39,7 @@
             }
         </script>
         <title>Marketing Actions</title>
-    <jsp:include page="checksession.jsp" />
+   
     <jsp:declaration>
         Logger logger = Logger.getLogger("categories.jsp");
         Integer num = 1;
@@ -82,8 +82,10 @@
                 $("#is_recuring").click(function(){
                    var is_recuring = document.getElementById("is_recuring").checked;
                    if(is_recuring == true){
+                       $("#marketingactiontilldate").val("");
                        $("#marketingactiontilldate").attr("disabled",false);
                    }else if(is_recuring == false){
+                       $("#marketingactiontilldate").val("");
                        $("#marketingactiontilldate").attr("disabled",true);
                    }
                 });
@@ -172,7 +174,7 @@
                         marketing_actions.actions.push(
                                 {"title":marketingactiontitle, "days": days,
                                  "time":marketingactiontime, "is_recuring": is_recuring,
-                                 "till date": marketingactiontilldate,"type":type,
+                                 "tilldate": marketingactiontilldate,"type":type,
                                  "description":description });
                     }
                         $("#marketingactiontitle").val("");
@@ -325,7 +327,6 @@
                         <td>Program Name</td>
                         <td>Actions</td>
                         <td></td>
-                        <td></td>
                     </tr>
                    
                     <tr ng-repeat = "marketing in marketingActions">
@@ -333,7 +334,6 @@
                         <td>{{marketing.category_name}}</td>
                         <td>{{marketing.program_name}}</td>
                         <td>{{marketing.json_data}}</td>
-                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editActions()" disabled>edit</button></td>
                         <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteAction(marketing.action_id)">delete</button></td>
                     </tr>
                     
