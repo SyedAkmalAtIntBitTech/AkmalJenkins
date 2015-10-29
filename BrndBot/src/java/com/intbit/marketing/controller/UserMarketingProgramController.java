@@ -11,9 +11,13 @@ import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
+import com.intbit.marketing.model.TblMarketingAction;
 import com.intbit.marketing.model.TblMarketingProgram;
+import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblUserLoginDetails;
 import com.intbit.marketing.model.TblUserMarketingProgram;
+import com.intbit.marketing.service.MarketingActionService;
+import com.intbit.marketing.service.MarketingProgramService;
 import com.intbit.marketing.service.ScheduledEmailListService;
 import com.intbit.marketing.service.ScheduledSocialpostListService;
 import com.intbit.marketing.service.UserMarketingProgramService;
@@ -31,7 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static oracle.jrockit.jfr.events.Bits.intValue;
 import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +58,9 @@ public class UserMarketingProgramController {
      private ScheduledEmailListService scheduledEmailListService;
      @Autowired
      private ScheduledSocialpostListService scheduledSocialpostListService;
+     @Autowired
+     private MarketingActionService marketingActionService;
+     
       @RequestMapping(value="/allmarketingProgram", method = RequestMethod.GET)
       public @ResponseBody String getAllUserMarketingProgram() {
                 Integer uMarketingId = 1;
@@ -154,7 +162,13 @@ public class UserMarketingProgramController {
           addUserMarketingProgram.setStatus("Open");
           addUserMarketingProgram.setUrl(requestBodyMap.get("program_url").toString());
           addUserMarketingProgram.setTblMarketingProgram(marketingProgram);
-          userMarketingProgramService.save(addUserMarketingProgram);
+           userMarketingProgramService.save(addUserMarketingProgram);
+          
+           
+           
+             TblScheduledEntityList scheduledEntityList = new  TblScheduledEntityList();
+             
+              
           return "success";
           }
           catch(Exception ex)
@@ -163,5 +177,7 @@ public class UserMarketingProgramController {
           }
           return "false";
       }
+  
+       
 
 }
