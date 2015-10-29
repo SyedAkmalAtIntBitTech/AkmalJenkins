@@ -6,19 +6,20 @@
 package com.controller;
 
 import static com.controller.BrndBotBaseHttpServlet.logger;
-import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.EmailIds;
-import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -29,6 +30,9 @@ import org.json.simple.parser.ParseException;
  */
 public class SetEmailLists extends BrndBotBaseHttpServlet {
 
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -164,7 +168,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                 JSONObject json_user_preferences_email = new JSONObject();
 
                 json_user_preferences_email.put(IConstants.kEmailListNameKey, emailListName);
-                json_user_preferences_email.put(IConstants.kEmailAddressesKey, "");
+                json_user_preferences_email.put(IConstants.kEmailAddressesKey, new JSONArray());
                 json_user_preferences_email.put(IConstants.kEmailListDefaultFromName, defaultName);
                 json_user_preferences_email.put(IConstants.kEmailListListDescription, listDescription);
 
@@ -174,7 +178,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                 JSONObject json_user_preferences_email = new JSONObject();
 
                 json_user_preferences_email.put(IConstants.kEmailListNameKey, emailListName);
-                json_user_preferences_email.put(IConstants.kEmailAddressesKey, "");
+                json_user_preferences_email.put(IConstants.kEmailAddressesKey, new JSONArray());
                 
                 json_user_preferences_email.put(IConstants.kEmailListDefaultFromName, defaultName);
                 json_user_preferences_email.put(IConstants.kEmailListListDescription, listDescription);
@@ -186,17 +190,37 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
     }
 
     private boolean updateEmailListPreference(Integer user_id, String emailListName, String emailAddresses) throws JSONException, SQLException {
+        
         org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
-
-        JSONObject json_user_preferences_email = new JSONObject();
         JSONObject emailListJSONObject = new JSONObject();
-
+        
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
             emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
             String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
             if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
                 if (emailListName.equals(currentListName)) {
-                    emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddresses);
+
+                    JSONArray emailAddressesJSONArray = (JSONArray) emailListJSONObject.get(IConstants.kEmailAddressesKey);
+                    String emailAddressesSplit[] = emailAddresses.split(",");
+                    Set<String> receivedEmailAddressesSet = new HashSet<String>(Arrays.asList(emailAddressesSplit));
+                    
+                    //Cleaning up the set for existing values.
+                    for (Object emailAddressObject : emailAddressesJSONArray) {
+                        JSONObject emailAddressJSONObject = (JSONObject) emailAddressObject;
+                        String emailAddress = (String) emailAddressJSONObject.get(IConstants.kEmailAddressKey);
+                        if (receivedEmailAddressesSet.contains(emailAddress)) {
+                            receivedEmailAddressesSet.remove(emailAddress);
+                        }
+                    }
+                    
+                    for (String emailAddress : receivedEmailAddressesSet) {
+                        JSONObject emailAddressJSONObject = new JSONObject();
+                        emailAddressJSONObject.put(IConstants.kEmailAddressKey, emailAddress);
+                        emailAddressJSONObject.put(IConstants.kEmailAddressAddedKey, dateFormat.format(new Date()));
+                        emailAddressesJSONArray.add(emailAddressJSONObject);
+                    }
+                    
+                    emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddressesJSONArray);
                     emailListArrayJSON.set(i, emailListJSONObject);
                     break;
                 }
@@ -214,7 +238,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
             String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
             if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
                 if (emailListName.equals(currentListName)) {
-                    emailListJSONObject.put(IConstants.kEmailAddressesKey, "");
+                    emailListJSONObject.put(IConstants.kEmailAddressesKey, new JSONArray());
                     emailListArrayJSON.remove(i);
                     emailListArrayJSON.add(i,emailListJSONObject);
                     break;
