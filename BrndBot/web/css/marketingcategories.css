@@ -19,7 +19,6 @@ and open the template in the editor.
      font-weight: 400;
 }
 .markimgtxt{
-    position: fixed;
     font-size:12px;
     height:30px;
     width:85px;
@@ -64,11 +63,14 @@ and open the template in the editor.
      margin-left: 7%;
  }
     .marketinglist1 {
+            height:400px;
+            overflow-y: scroll;
            margin-left:-15px !important;  
-
     }
+    .marketinglist1::-webkit-scrollbar { width: 0 !important }
     .marketinglist1 li{
        display: inline-block !important;
+       margin-right: 0px !important;
     }
 @media screen and (min-width: 990px){
     .space{
