@@ -30,7 +30,7 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <title>categories</title>
         <script src="../js/categoriesfunctions.js" type="text/javascript"></script>
-        
+        <script src="../js/marketingemailtemplate.js" type="text/javascript"></script>
         <script type="text/javascript">
             function showFileName() {
                 var fil = document.getElementById("myFile");
@@ -39,87 +39,6 @@
 //                fil.setAttribute("name", file)
             }
         </script>
-        <script>
-            
-            function validate(){
-                var template_name = $("#template_name").val();
-                var html_data = $("#html_data").val();
-
-                if (template_name == ""){
-                    alert("template name not entered, kindly enter the template");
-                    $("#template_name").focus();
-                    return false;
-                }
-                
-                if (html_data == ""){
-                    alert("html data not selected, kindly select an html data");
-                    $("#html_data").focus();
-                    return false;
-                }
-                
-                return true;
-            }
-            
-            function marketingEmailTemplateController($scope, $http){
-                
-                $scope.saveMarketingEmailTemplate = function(){
-                    if (validate()){
-                        var template_name = $("#template_name").val();
-                        var html_data = $("#html_data").val();
-
-                        var marketing_template = {"template_name":template_name,
-                                                 "html_data":html_data
-                                                };
-                        $http({
-                           method: 'POST',
-                           url:getHost() + 'setMarketingPrograms.do',
-                           headers: {'Content-Type': 'application/json'},
-                           data: JSON.stringify(marketing_template)
-                        }).success(function (data, status){
-                            window.open(getHost() + 'admin/marketingemailtemplate.jsp', "_self");
-                        }).error(function(){
-                            alert("No data available, problem fetching the data");
-                        });
-                    };
-                    
-                };
-                
-                $scope.getMarketingEmailTemplate = function(){
-                  $http({
-                        method: 'GET',
-                        url: getHost() + 'getMarketingPrograms.do'
-                    }).success(function (data, status, headers, config) {
-                        $scope.programs = data;
-                    }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                    });  
-                };
-                
-                $scope.deleteEmailTemplate = function(template_id){
-                    
-                    var email_template = {"template_id": template_id};
-                    
-                    $http({
-                        method: 'POST',
-                        url: getHost() + 'deleteMarketingPrograms.do',
-                        headers: {'Content-Type': 'application/json'},
-                        data: JSON.stringify(email_template)
-                    }).success(function (data, status){
-                        $scope.data = data;
-                        if (data == "true"){
-                            alert("details deleted successfully");
-                            window.open(getHost() + 'admin/marketingemailtemplate.jsp', "_self");
-                        }
-                    }).error(function (){
-                        alert("No data available, problem fetching the data");
-                    });                
-                };
-                
-            }
-        </script>
-    
     <%!
         PreparedStatement ps;
         ResultSet rs;
@@ -128,7 +47,7 @@
         String user_name = "";
         String brand_name = "";
         String font_name = "";
-    %>    
+    %>
     <jsp:declaration>
         Logger logger = Logger.getLogger("marketingemailtemplate.jsp");
         Integer num = 1;
@@ -163,7 +82,7 @@
     <body ng-app class="container">
        <%@include file="menus.jsp" %>
         <div class="jumbotron" align="center" ng-controller="marketingEmailTemplateController" >
-            <div  style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 550px; width: 600px;">
+            <div id="save" style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 400px; width: 600px;">
                 <form name="formPrograms" method="post">
 
                     <div>
@@ -180,7 +99,32 @@
                     </div>
                         <br>
                         <div style="float: left; left:20px; margin-top: -110px;">
-                            <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="saveMarketingTemplates()">Save</button>
+                            <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="saveMarketingEmailTemplate()">Save</button>
+                            <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div id="update" style="display:none; margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 400px; width: 600px;">
+                <form name="formPrograms" method="post">
+
+                    <div>
+                        <div class="col-md-9 col-md-offset-3">
+                            <p>Update Email Template</p>
+                        </div>
+                    </div>
+                    <div style="float:left; left:20px; padding-left: 166px;">
+                    <input type="hidden" id="template_id" name="template_id" value="{{email_template.template_id}}"/><br>
+        Email Template Name: <input type="text" id="template_update_name" name="template_update_name" value="{{email_template.template_name}}"/><br>
+                    </div><br>
+                    <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
+                    <div>
+             HTML Data:  <textarea id="update_html_data" name="update_html_data" style="height: 120px; width: 240px; resize: none;" >{{email_template.html_data}}</textarea>
+                    </div>
+                        <br>
+                        <div style="float: left; left:20px; margin-top: -110px;">
+                            <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="updateMarketingEmailTemplate()">Update</button>
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
                         </div>
                     </div>
@@ -193,20 +137,20 @@
             <br>
             <div ng-init="getMarketingEmailTemplate()" style="margin-top: 0px;">
 
-                <div>&nbsp;Display Programs<br></div>
+                <div>&nbsp;Display Templates<br></div>
                 <table border="1" style="margin-top: 20px;">
                     <tr>
                         <td>ID Number </td>
                         <td>Template Name</td>
                         <td></td>
+                        <td></td>
                     </tr>
                    
-                    <tr ng-repeat = "program in programs">
-                        <td>{{program.id}}</td>
-                        <td>{{program.name}}</td>
-                        <td>{{program.program_order}}</td>
-                        <td>{{program.category_id}}</td>
-                        <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteProgram(program.program_id)">delete</button></td>
+                    <tr ng-repeat = "template in email_templates">
+                        <td>{{template.id}}</td>
+                        <td>{{template.template_name}}</td>
+                        <td><button class="btn btn-info" id="update" name="update" value="update" ng-click="showMarketingEmailTemplate(template.template_id)">update</button></td>
+                        <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteEmailTemplate(template.template_id)">delete</button></td>
                     </tr>
                     
                 </table>

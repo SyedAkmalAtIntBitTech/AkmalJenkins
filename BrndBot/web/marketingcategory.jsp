@@ -60,7 +60,7 @@
         <script>
           $( window ).onload(function() {
               
-});
+          });
         </script>
 </body>
 </html>
