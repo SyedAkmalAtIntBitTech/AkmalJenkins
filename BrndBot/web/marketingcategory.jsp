@@ -11,7 +11,7 @@
     <title>Marketing category</title>
     <meta charset="UTF-8">
     <%@ include file="fonttypekit.jsp"%>
-     
+    <%@ include file="checksession.jsp" %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery.min.js"></script>
@@ -39,7 +39,8 @@
                     <div class="toppad">Lorem ipsum dolor sit ametdaf, 
                         consectetur adipiscing elit, 
                         sed do eiusmod tempor incididunt ut 
-                        labore et dolore magna aliqua.</div>
+                        labore et dolore magna aliqua.
+                    </div>
                 </div>    
             </div>
             <div class="row">
