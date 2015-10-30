@@ -41,6 +41,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -133,7 +134,12 @@ public class UserMarketingProgramController {
 		return null;
     
             }
-
+      public Integer getCurrentUser(HttpServletRequest request)
+      {
+         sql_methods.session = request.getSession();
+                Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+                return user_id;
+      }
     @RequestMapping(value="/setMarketingProgram", method = RequestMethod.POST)
       public @ResponseBody String setUserMarketingProgram(HttpServletRequest request, 
                 HttpServletResponse response) throws IOException, Throwable{
@@ -177,7 +183,25 @@ public class UserMarketingProgramController {
           }
           return "false";
       }
-  
+      @RequestMapping(value="/listAllMarketingProgram", method = RequestMethod.GET)
+      public @ResponseBody String listAllUserMarketingProgram(HttpServletRequest request, 
+                HttpServletResponse response,@RequestParam("programType") String programType) throws Throwable {
+          System.out.println("in listAllmarketingProgram");
+          Integer user_id = getCurrentUser(request);
+          List<TblUserMarketingProgram> userMarketingProgramList = userMarketingProgramService.getAllUserMarketingProgramByType(user_id,programType);
+          JSONObject jsonObject= new JSONObject();
+          JSONArray json_array = new JSONArray();
+          
+          for (TblUserMarketingProgram userMarketingProgramObject : userMarketingProgramList) {
+//              JSONObject json_obj = new JSONObject();
+//              json_obj.put("id", userMarketingProgramObject.getId());
+//              json_obj.put("program name", userMarketingProgramObject.getName());
+              json_array.put(userMarketingProgramObject);
+              
+          }
+          jsonObject.put("programs", json_array);
+          return jsonObject.toString();
+      }
        
 
 }

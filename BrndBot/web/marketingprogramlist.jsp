@@ -23,10 +23,31 @@
         <script src="js/angular.min.js"></script>
         <script src="js/dashboard.js"></script>
         <jsp:include page="basejsp.jsp"/>
-         
+        <script>
+            function controllerUserMarketingProgamsByStatus($scope, $http, $window){
+        $scope.getUserMarketingProgamsByStatus = function(){
+            var programStatus = { "programType": "Open" };
+            $http({
+                method: 'GET',
+                url: 'listAllMarketingProgram.do?programType=Open',
+                data: programStatus 
+            }).success(function (data, status, headers, config) {
+                alert(JSON.stringify(data));
+                $scope.programs = data.programs;
+                if (data === error) {
+                    alert(data);
+                }
+            }).error(function (data, status, headers, config) {
+                alert("No data available, problem fetching the data");
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });                
+        };
+    }
+        </script> 
     </head>
-    <body>
-        <div class="row">
+    <body ng-app>
+        <div class="row" ng-controller="controllerUserMarketingProgamsByStatus">
             <div class="col-md-1 col-lg-1 col-sm-1" style="width:45px;">
             <jsp:include page="leftmenu.html"/> 
             </div>
@@ -51,7 +72,7 @@
                             <div id="pastprogs" class="curprog fontpns">Your Past Programs</div>
                         </div>
                     </div>
-                        <div id="prog">
+                    <div id="prog"  ng-init="getUserMarketingProgamsByStatus()">
                             <div class="row">
                                 <ul class="programsheader">
                                     <li><div class="prognamhead fontpnr">Programs</div></li>
@@ -119,7 +140,7 @@
                     
                 </div>
             </div>
-        </div>  
+         
             <script>
                 
                 $( document ).ready(function() {
