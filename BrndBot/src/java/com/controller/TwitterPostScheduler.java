@@ -18,21 +18,21 @@ import java.util.logging.Logger;
  *
  * @author AR
  */
-public class MindbodyEmailListScheduler {
+class TwitterPostScheduler {
 
-    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ApplicationContextListener.class));
+    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(TwitterPostScheduler.class));
 
     final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
     
-    private MindbodyEmailListProcessor mindbodyEmailListRunnable;
+    private TwitterPostProcessor emailListProcessorRunnable;
     
     void startScheduler() {
-        
         LocalDateTime localNow = LocalDateTime.now();
         ZoneId currentZone = ZoneId.of("America/New_York");
         ZonedDateTime zonedNow = ZonedDateTime.of(localNow, currentZone);
         ZonedDateTime zonedNext5 ;
-        zonedNext5 = zonedNow.withHour(4).withMinute(0).withSecond(0);
+        //Start at 12 in the night
+        zonedNext5 = zonedNow.withHour(0).withMinute(0).withSecond(0);
         if(zonedNow.compareTo(zonedNext5) > 0)
             zonedNext5 = zonedNext5.plusDays(1);
 
@@ -41,17 +41,17 @@ public class MindbodyEmailListScheduler {
         long periodicTime = 24*60*60;
         initalDelay = 0;
         periodicTime =  24*60*60;
-//        mindbodyEmailListRunnable = new MindbodyEmailListProcessor();
-//        mindbodyEmailListRunnable.startThread();
-//        scheduler.scheduleAtFixedRate(mindbodyEmailListRunnable, initalDelay, periodicTime, TimeUnit.SECONDS);
+        emailListProcessorRunnable = new TwitterPostProcessor();
+        emailListProcessorRunnable.startThread();
+        scheduler.scheduleAtFixedRate(emailListProcessorRunnable, initalDelay, periodicTime, TimeUnit.SECONDS);
         //initial delay is to make sure the program runs at 4 in the morning always.
         //24*60*60 splits fixed the interval time to 24 hours
     }
 
     void stopScheduler() {
         if (scheduler != null) {
-//            mindbodyEmailListRunnable.terminateThread();
-//            scheduler.shutdownNow();
+            emailListProcessorRunnable.terminateThread();
+            scheduler.shutdownNow();
         }
     }
     

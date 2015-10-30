@@ -5,25 +5,18 @@
  */
 package com.controller;
 
-import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
-import com.mindbodyonline.clients.api._0_5Client.Client;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import mindbody.controller.MindBodyClass;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -33,9 +26,9 @@ import org.postgresql.util.PGobject;
  *
  * @author AR
  */
-public class MindbodyEmailListProcessor implements Runnable {
+class TwitterPostProcessor implements Runnable {
 
-    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindbodyEmailListProcessor.class));
+    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(TwitterPostProcessor.class));
     private static final ConnectionManager connectionManager = ConnectionManager.getInstance();
     private volatile boolean running = true;
 
@@ -43,7 +36,7 @@ public class MindbodyEmailListProcessor implements Runnable {
     void startThread() {
         running = true;
     }
-    
+
     public void terminateThread() {
         running = false;
         Thread.currentThread().interrupt();
@@ -57,77 +50,74 @@ public class MindbodyEmailListProcessor implements Runnable {
                 logger.log(Level.INFO, "Started the automation");
                 startProcessing();
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "Interupted the thread of Mindbody email list");
+                logger.log(Level.SEVERE, "Interupted the thread of Email list");
             }
         }
     }
 
     private void startProcessing() {
 
-        HashMap<Integer, String> rowIdLocationHashMap = new HashMap<>();
+        HashMap<Integer, String> rowIdPreferencesHashMap = new HashMap<>();
 
-        String sql = "SELECT id, location"
+        String sql = "SELECT id, user_preferences"
                 + " FROM tbl_user_preferences "
-                + " WHERE location IS NOT NULL";
+                + " WHERE user_preferences IS NOT NULL";
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    String location = rs.getString("location");
+                    String user_preferences = rs.getString("user_preferences");
                     int rowId = rs.getInt("id");
-                    rowIdLocationHashMap.put(rowId, location);
+                    rowIdPreferencesHashMap.put(rowId, user_preferences);
                 }
             }
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Mindbody email list processor", ex);
         }
 
-        processEachRow(rowIdLocationHashMap);
+        processEachRow(rowIdPreferencesHashMap);
     }
 
-    private void processEachRow(HashMap<Integer, String> rowIdLocationHashMap) {
-        JSONParser parser = new JSONParser();
-        JSONArray json_email_array = new JSONArray();
-        Iterator it = rowIdLocationHashMap.entrySet().iterator();
+    private void processEachRow(HashMap<Integer, String> rowIdPreferencesHashMap) {
+
+        Iterator it = rowIdPreferencesHashMap.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry<Integer, String> pair = (Entry<Integer, String>) it.next();
-            int[] siteids = new int[]{Integer.parseInt(pair.getValue())};
-            MindBodyClass mind_body_class = new MindBodyClass(siteids);
-            HashMap<String, List<Client>> clientIndexesHashmap = new HashMap<String, List<Client>>();
+            Map.Entry<Integer, String> pair = (Map.Entry<Integer, String>) it.next();
             try {
                 long startTime = System.currentTimeMillis();
-                logger.log(Level.INFO, "Started working on getting email lists for :" + siteids[0]);
-                //String key is the Email List Name. And the value is the clients associated with it.
-                try {
-                    clientIndexesHashmap = mind_body_class.getAllClientIndexes();
-                } catch (Exception ex) {
-                    logger.log(Level.SEVERE, "Mindbody email list processor", ex);
-                }
-                logger.log(Level.INFO, "Ended working on getting email lists for :" + siteids[0] + " Processing time:" + ((System.currentTimeMillis() - startTime) / 1000.0) + " Email Indexes Present:" + clientIndexesHashmap.keySet().size());
-                //convert clientIndexesHashmap to JSONObject and update table
-                //Email list name : [clientEmailAddresses].
+                logger.log(Level.INFO, "Started working on email lists for :" + pair.getKey());
 
-                for (String email_list_name : clientIndexesHashmap.keySet()) {
-                    org.json.JSONObject json_email_object = new org.json.JSONObject();
-                    List email_client = (List<Client>) clientIndexesHashmap.get(email_list_name);
-                    org.json.JSONArray json_array_emailclient = new org.json.JSONArray();
+                JSONObject userPreferencesJSONObject = (JSONObject) new JSONParser().parse(pair.getValue());
+                JSONArray emailListsArray = (JSONArray) userPreferencesJSONObject.get("emailLists");
 
-                    for (int i = 0; i < email_client.size(); i++) {
-                        Client email_object1 = (Client) email_client.get(i);
-                        String email_id = email_object1.getEmail();
-                        json_array_emailclient.put(email_id);
+                if (emailListsArray != null && emailListsArray.size() > 0) {
+                    for (Object emailListsArrayItem : emailListsArray) {
+                        JSONObject emailListJSONObject = (JSONObject) emailListsArrayItem;
+                        Object emailAddresses = emailListJSONObject.get("emailAddresses");
+                        JSONArray emailAddressJSONArray = new JSONArray();
+                        if (emailAddresses instanceof String) {
+                            String emailAddressWithCommaArray[] = emailAddresses.toString().split(",");
+                            for (String emailAddress : emailAddressWithCommaArray) {
+                                JSONObject jsonObject = new JSONObject();
+                                jsonObject.put("emailaddress", emailAddress);
+//                                jsonObject.put("addeddate", emailAddresses)
+                                emailAddressJSONArray.add(new JSONParser().parse(emailAddress));
+                            }
+                        } else {
+                            emailAddressJSONArray = (JSONArray) new JSONParser().parse(emailAddresses.toString());
+                        }
+
+                        if (emailAddressJSONArray != null && emailAddressJSONArray.size() > 0) {
+                            for (Object emailAddressItem : emailAddressJSONArray) {
+                                JSONObject emailAddressJSONItem = (JSONObject) emailAddressItem;
+                                
+                            }
+                        }
                     }
-                    json_email_object.put(IConstants.kEmailListNameKey, "Mindbody - " + email_list_name);
-                    json_email_object.put(IConstants.kEmailAddressesKey, json_array_emailclient);
-                    json_email_array.add(json_email_object);
 
+                    updateUserPreferencesTable(pair.getKey(), userPreferencesJSONObject);
                 }
-                if (json_email_array.size() >= 0) {
-                    JSONObject json_clientIndexes = new JSONObject();
-                    json_clientIndexes.put(IConstants.kEmailAddressUserPreferenceKey, json_email_array);
-
-                    updateUserPreferencesTable(pair.getKey(), json_clientIndexes);
-                }
+//                logger.log(Level.INFO, "Ended working on getting email lists for :" + siteids[0] + " Processing time:" + ((System.currentTimeMillis() - startTime) / 1000.0) + " Email Indexes Present:" + clientIndexesHashmap.keySet().size());
 
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "Mindbody email list processor", e);
@@ -141,7 +131,7 @@ public class MindbodyEmailListProcessor implements Runnable {
         String query_string = "";
 
         PGobject pg_object = new PGobject();
-        query_string = "Update tbl_user_preferences SET mindbody_email_list=? where id=?";
+        query_string = "Update tbl_user_preferences SET tbl_user_preferences=? where id=?";
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(query_string)) {
             pg_object.setType("json");
@@ -155,7 +145,7 @@ public class MindbodyEmailListProcessor implements Runnable {
             logger.log(Level.SEVERE, "Mindbody email list processor", e);
         }
 
-        query_string = "Update tbl_user_preferences SET mindbody_email_list=? where id=?";
+        query_string = "Update tbl_user_preferences SET tbl_user_preferences=? where id=?";
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(query_string)) {
             pg_object.setType("json");
@@ -170,4 +160,5 @@ public class MindbodyEmailListProcessor implements Runnable {
         }
 
     }
+
 }
