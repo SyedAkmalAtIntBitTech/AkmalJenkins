@@ -162,8 +162,10 @@
                     }).success(function (data, status){
                         $scope.data = data;
                         if (data == "true"){
-                            alert("details deleted successfully");
+                            alert("record deleted successfully");
                             window.open(getHost() + 'admin/marketingprogram.jsp', "_self");
+                        }else {
+                            alert("problem deleting record");
                         }
                     }).error(function (){
                         alert("No data available, problem fetching the data");
