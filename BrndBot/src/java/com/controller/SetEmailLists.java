@@ -256,11 +256,18 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
             String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
             if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
                 if (emailListName.equals(currentListName)) {
-                    String emailAddresses = (String)emailListJSONObject.get(IConstants.kEmailAddressesKey);
-                    emailid = emailid + ",";
-                    emailAddresses = emailAddresses.replace(emailid, "");
-//                    emailAddresses = emailAddresses.replace(emailid, "");
-                    emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddresses);
+                    
+                    JSONArray emailAddressesJSONArray = (JSONArray)emailListJSONObject.get(IConstants.kEmailAddressesKey);
+                    for (Object emailAddressesJSONArrayItem : emailAddressesJSONArray) {
+                        JSONObject emailAddressJSONObject = (JSONObject) emailAddressesJSONArrayItem;
+                        String emailAddress = (String) emailAddressJSONObject.get(IConstants.kEmailAddressKey);
+                        if (emailAddress.equalsIgnoreCase(emailid)) {
+                            emailAddressesJSONArray.remove(emailAddressesJSONArrayItem);
+                            break;
+                        }
+                    }
+                    
+                    emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddressesJSONArray);
                     emailListArrayJSON.remove(i);
                     emailListArrayJSON.add(i,emailListJSONObject);
                     break;
