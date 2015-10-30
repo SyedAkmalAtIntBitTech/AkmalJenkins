@@ -35,8 +35,8 @@ public class RecuringEmailController {
     private RecuringEmailTemplateService recuring_email_template_service;
     String return_response = "false";
     
-    @RequestMapping (value = "/getAllRecuringEmail", method = RequestMethod.GET)
-    public @ResponseBody String getAllRecuringEmail(){
+    @RequestMapping (value = "/getAllRecuringEmailTemplates", method = RequestMethod.GET)
+    public @ResponseBody String getAllRecuringEmailTemplates(){
          JSONArray json_array_recuring_email_template = new JSONArray();
          try{
 
@@ -59,8 +59,8 @@ public class RecuringEmailController {
          return json_array_recuring_email_template.toString();
     }
     
-    @RequestMapping (value = "/getRecuringEmail", method = RequestMethod.POST)
-    public @ResponseBody String getRecuringEmail(HttpServletRequest request,
+    @RequestMapping (value = "/getRecuringEmailTemplate", method = RequestMethod.POST)
+    public @ResponseBody String getRecuringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
         JSONObject json_marketing_programming = new JSONObject();
          try{
@@ -80,8 +80,8 @@ public class RecuringEmailController {
          return json_marketing_programming.toString();
     }
     
-    @RequestMapping (value = "/setRecuringEmail", method = RequestMethod.POST)
-    public @ResponseBody String setRecuringEmail(HttpServletRequest request,
+    @RequestMapping (value = "/setRecuringEmailTemplate", method = RequestMethod.POST)
+    public @ResponseBody String setRecuringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
         
         try {
@@ -105,8 +105,8 @@ public class RecuringEmailController {
         return return_response;
     }
     
-    @RequestMapping (value = "/deleteRecuringEmail", method = RequestMethod.POST)
-    public @ResponseBody String deleteRecuringEmail(HttpServletRequest request,
+    @RequestMapping (value = "/deleteRecuringEmailTemplate", method = RequestMethod.POST)
+    public @ResponseBody String deleteRecuringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
         try {
             Map<String, Object> requestBodyMap
@@ -123,8 +123,8 @@ public class RecuringEmailController {
         return return_response;
     }
 
-    @RequestMapping (value = "/updateRecuringEmail", method = RequestMethod.POST)
-    public @ResponseBody String updateRecuringEmail(HttpServletRequest request,
+    @RequestMapping (value = "/updateRecuringEmailTemplate", method = RequestMethod.POST)
+    public @ResponseBody String updateRecuringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
         try {
             Map<String, Object> requestBodyMap

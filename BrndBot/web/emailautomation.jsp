@@ -62,6 +62,24 @@
             
             function emailautomation($scope, $http){
                 
+                $scope.showEmailList = function () {
+                            $(".emaillist").show();
+                            $("#email_list_name").hide();
+                    var emailids = {"update": "allEmailListNames"};
+                    $http({
+                        method: 'GET',
+                        url: getHost() + 'GetEmailLists?update=allEmailListNames'
+                    }).success(function(data, status, headers, config) {
+                        $scope.emailLists = data.user;
+                        $scope.emailLists_mindbody = data.mindbody;
+                        if (data === "true") {
+//                                window.open(getHost() + 'emaillists.jsp', "_self");
+                        } else if (data === error) {
+                            alert(data);
+                        }
+                    });
+                };
+                
                 $scope.saveEmailAutomation = function(){
                     if (validate()){
                         var days = $("#days").val();
@@ -125,7 +143,9 @@
                                 </li>                                
                                 <li>
                                     <select id="emaillist" class="emllstdrp fontpnr">
-                                        <option value="0">email list</option>
+                                        <option value="0">-- Select --</option>
+                                        <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                                        <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
                                     </select>
                                 </li>
                             </ul>

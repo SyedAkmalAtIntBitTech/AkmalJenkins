@@ -28,6 +28,8 @@ public interface UserMarketingProgramService {
     */
    public List<TblUserMarketingProgram> getAllUserMarketingProgram() throws Throwable;
    
+   public List<TblUserMarketingProgram> getAllUserMarketingProgramByType(Integer user_id, String programType) throws Throwable;
+   
    /**
 	 * This method save {@link userMarketingProgram} by passing userMarketingProgram
 	 * @param userMarketingProgram

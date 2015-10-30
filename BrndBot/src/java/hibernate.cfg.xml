@@ -40,5 +40,6 @@
     <mapping resource="com/intbit/marketing/model/TblBrandFontFamily.hbm.xml"/>
     <mapping resource="com/intbit/marketing/model/TblUserLoginDetails.hbm.xml"/>
     <mapping resource="com/intbit/marketing/model/TblScheduledEmailRecipients.hbm.xml"/>
+    <mapping resource="com/intbit/marketing/model/TblScheduledTwitter.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

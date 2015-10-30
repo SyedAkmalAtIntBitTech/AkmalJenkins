@@ -53,7 +53,7 @@ function marketingEmailTemplateController($scope, $http) {
             };
             $http({
                 method: 'POST',
-                url: getHost() + 'setRecuringEmail.do',
+                url: getHost() + 'setRecuringEmailTemplate.do',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(marketing_template)
             }).success(function (data, status) {
@@ -83,7 +83,7 @@ function marketingEmailTemplateController($scope, $http) {
             };
             $http({
                 method: 'POST',
-                url: getHost() + 'updateRecuringEmail.do',
+                url: getHost() + 'updateRecuringEmailTemplate.do',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(marketing_template)
             }).success(function (data, status) {
@@ -105,7 +105,7 @@ function marketingEmailTemplateController($scope, $http) {
     $scope.getMarketingEmailTemplate = function () {
         $http({
             method: 'GET',
-            url: getHost() + 'getAllRecuringEmail.do'
+            url: getHost() + 'getAllRecuringEmailTemplate.do'
         }).success(function (data, status, headers, config) {
             $scope.email_templates = data;
         }).error(function (data, status, headers, config) {
@@ -119,7 +119,7 @@ function marketingEmailTemplateController($scope, $http) {
         var email_template = {"template_id": template_id};
         $http({
             method: 'POST',
-            url: getHost() + 'getRecuringEmail.do',
+            url: getHost() + 'getRecuringEmailTemplate.do',
             headers: {'Content-Type': 'application/json'},
             data: JSON.stringify(email_template)
         }).success(function (data, status, headers, config) {
@@ -140,7 +140,7 @@ function marketingEmailTemplateController($scope, $http) {
 
         $http({
             method: 'POST',
-            url: getHost() + 'deleteRecuringEmail.do',
+            url: getHost() + 'deleteRecuringEmailTemplate.do',
             headers: {'Content-Type': 'application/json'},
             data: JSON.stringify(email_template)
         }).success(function (data, status) {

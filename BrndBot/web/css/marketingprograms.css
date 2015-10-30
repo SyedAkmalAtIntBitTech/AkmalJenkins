@@ -94,11 +94,11 @@ and open the template in the editor.
     width:316px;
     display: inline-block;
 }
-.promolist1 li a:hover,ul.promolist1 li:hover,ul.promolist1 div:hover{
+.promolist1 li a:hover,ul.promolist1 li:hover,ul.promolist1 li div:hover{
     background-color: #5cc1a3 !important;
     text-decoration: none;
     color:#f6f7f7 !important;
-
+    cursor: pointer;
 }
 .mrkli{
         margin-top:10px;
@@ -106,7 +106,7 @@ and open the template in the editor.
 .prognamelst{
         color:#3f3f42;
         font-size:14px;
-        width:262px;
+        width:320px;
         height:17px;
         padding:10px 34px 10px 20px;
         height:37px;

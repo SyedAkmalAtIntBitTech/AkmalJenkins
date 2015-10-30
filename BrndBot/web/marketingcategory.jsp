@@ -11,7 +11,7 @@
     <title>Marketing category</title>
     <meta charset="UTF-8">
     <%@ include file="fonttypekit.jsp"%>
-     
+    <%@ include file="checksession.jsp" %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery.min.js"></script>
@@ -39,19 +39,21 @@
                     <div class="toppad">Lorem ipsum dolor sit ametdaf, 
                         consectetur adipiscing elit, 
                         sed do eiusmod tempor incididunt ut 
-                        labore et dolore magna aliqua.</div>
+                        labore et dolore magna aliqua.
+                    </div>
                 </div>    
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 marketinglist1">
                 <ul>
-                <li id="one" ng-repeat="category in categories">
-                    <a href="marketingprograms.jsp?categoryid={{category.category_id}}">
-                    <img id="" class="marketingimage" 
-                         src="{{category.image}}" 
-                         class="{{category.order}}" alt="" ng-click="showMarketingPrograms(category.category_id)" /></a>
-                    <p class="markimgtxt fontpnr">{{category.name}}</p>
-                </li>
+                    <li id="one" class="col-lg-2 col-md-2 col-sm-2" ng-repeat="category in categories">
+                        <a href="marketingprograms.jsp?categoryid={{category.category_id}}">
+                        <img id="" class="marketingimage" 
+                             src="{{category.image}}" 
+                             class="{{category.order}}" alt="" ng-click="showMarketingPrograms(category.category_id)" /></a>
+                        <p class="markimgtxt fontpnr">{{category.name}}</p>
+                    </li>
+                
                 </ul>
                 </div>
             </div>
