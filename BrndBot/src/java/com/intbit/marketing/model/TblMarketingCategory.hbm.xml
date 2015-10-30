@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 28, 2015 12:01:09 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.intbit.marketing.model.TblMarketingCategory" table="tbl_marketing_category" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="tblOrganization" class="com.intbit.marketing.model.TblOrganization" fetch="select">
+            <column name="organization_id" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="150" />
+        </property>
+        <property name="categoryOrder" type="java.lang.Integer">
+            <column name="category_order" />
+        </property>
+        <property name="image" type="binary">
+            <column name="image" />
+        </property>
+        <set name="tblMarketingActions" table="tbl_marketing_action" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="marketing_category_id" />
+            </key>
+            <one-to-many class="com.intbit.marketing.model.TblMarketingAction" />
+        </set>
+        <set name="tblMarketingCategoryUsersLookups" table="tbl_marketing_category_users_lookup" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="maketing_category_id" not-null="true" />
+            </key>
+            <one-to-many class="com.intbit.marketing.model.TblMarketingCategoryUsersLookup" />
+        </set>
+        <set name="tblMarketingPrograms" table="tbl_marketing_program" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="marketing_category_id" not-null="true" />
+            </key>
+            <one-to-many class="com.intbit.marketing.model.TblMarketingProgram" />
+        </set>
+    </class>
+</hibernate-mapping>

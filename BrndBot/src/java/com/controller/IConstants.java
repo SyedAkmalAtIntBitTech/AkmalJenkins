@@ -27,6 +27,7 @@ public interface IConstants {
     final static String kEmailSettings = "emailSettings";
     final static String kEmailFromAddress = "from_address";
     final static String kEmailReplyAddress = "reply_email_address";
+    final static String kMarketingActionsKey = "actions";
     final static String kColor1 = "color1";
     final static String kColor2 = "color2";
     final static String kColor3 = "color3";

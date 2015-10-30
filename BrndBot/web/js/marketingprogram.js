@@ -1,0 +1,65 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+function controllerMarketingCategories($scope, $http, $window){
+            
+    $scope.getMarketingCategories = function(){
+        $http({
+            method: 'GET',
+            url: 'displaymarketingCategory.do'
+        }).success(function (data, status, headers, config) {
+           // alert(JSON.stringify(data.marketingData[0].name));
+            $scope.categories = data.marketingData;
+            if (data === error) {
+                alert(data);
+            }
+        }).error(function (data, status, headers, config) {
+            alert("No data available, problem fetching the data");
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });                
+    };
+
+    $scope.showMarketingPrograms = function(){
+        var marketing_path = getHost() + 'marketingprograms.jsp?categoryid='+category_id;
+        window.location.replace(marketing_path);
+    };
+    
+    $scope.getMarketingPrograms = function(){
+        $http({
+            method: 'GET',
+            url: 'displaymarketingProgram.do?marketingCategoryId='+$("#categoryidHidden").val()
+        }).success(function (data, status, headers, config) {
+            $scope.programs = data.marketingProgramsData;
+            if (data === error) {
+                alert(data);
+            }
+        }).error(function (data, status, headers, config) {
+            alert("No data available, problem fetching the data");
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });  
+    };
+    
+    $scope.showhtmldata = function(id,html_data){
+        $("#html_data").empty();
+        $("#html_data").append(html_data);
+        $("#programidHidden").val(id);
+    };
+    $scope.submitclick = function(){
+        if($("#programidHidden").val()!="0")
+        {
+        var path1 = getHost() + 'usermarketingprogram.jsp?categoryid='+$("#categoryidHidden").val()+'&programid='+$("#programidHidden").val();
+        window.location.replace(path1);
+        }
+        else
+        {
+            alert("Please select a marketing program type");
+        }
+    
+        
+    };
+}
