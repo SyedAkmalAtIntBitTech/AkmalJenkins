@@ -77,14 +77,22 @@
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="descript fontpnr">Description</div>
                                 <hr class="descline ">
+                                <div class="htmldatacontainer">
                                 <div id="html_data" class="newclientpromo fontpnr">
-                                    New Client Intro Offer Promotion</div>
+                                    New Client Intro Offer Promotion
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             </div>                                  
-        </div>    
+        </div>
+            <script>
+                $(document). ready(function (){
+                    $(".htmldatacontainer").css("overflow","hidden");
+                });
+            </script>
     </body>
 </html>
