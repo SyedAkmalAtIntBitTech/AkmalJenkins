@@ -107,7 +107,7 @@ public class ServletUtil {
             ByteOutputStream bos = null;
             try {
                 bos = new ByteOutputStream();
-                ImageIO.write(bufferedImage, "svg", bos);
+                ImageIO.write(bufferedImage, "png", bos);
             } finally {
                 try {
                     bos.close();

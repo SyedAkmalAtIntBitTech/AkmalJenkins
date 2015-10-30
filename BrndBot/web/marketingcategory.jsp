@@ -46,13 +46,14 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 marketinglist1">
                 <ul>
-                <li id="one" ng-repeat="category in categories">
-                    <a href="marketingprograms.jsp?categoryid={{category.category_id}}">
-                    <img id="" class="marketingimage" 
-                         src="{{category.image}}" 
-                         class="{{category.order}}" alt="" ng-click="showMarketingPrograms(category.category_id)" /></a>
-                    <p class="markimgtxt fontpnr">{{category.name}}</p>
-                </li>
+                    <li id="one" class="col-lg-2 col-md-2 col-sm-2" ng-repeat="category in categories">
+                        <a href="marketingprograms.jsp?categoryid={{category.category_id}}">
+                        <img id="" class="marketingimage" 
+                             src="{{category.image}}" 
+                             class="{{category.order}}" alt="" ng-click="showMarketingPrograms(category.category_id)" /></a>
+                        <p class="markimgtxt fontpnr">{{category.name}}</p>
+                    </li>
+                
                 </ul>
                 </div>
             </div>
