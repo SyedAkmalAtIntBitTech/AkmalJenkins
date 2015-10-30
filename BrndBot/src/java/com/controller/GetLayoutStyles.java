@@ -109,6 +109,7 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
                 model_file_name = result_set.getString("model_file_name");
                 image_file_name = result_set.getString("image_file_name");
                 image_url ="data:image/png;base64," + Base64.encode(result_set.getBytes("email_style_image")) ;
+               
                 layout_html_data=result_set.getString("emailhtmldata");
                 layout_model.setId(id);
                 layout_model.setLayout_file_name(layout_file_name);
