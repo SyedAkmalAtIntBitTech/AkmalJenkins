@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -115,7 +116,7 @@ public class MarketingCategoryController {
                 for (TblMarketingCategoryUsersLookup marketingCategoryobject : marketingCategorysList) {
                    JSONObject json_object = new JSONObject();
                    json_object.put("id", i);
-                   json_object.put("category_id", marketingCategoryobject.getId());
+                   json_object.put("category_id", marketingCategoryobject.getTblMarketingCategory().getId());
                    json_object.put("name", marketingCategoryobject.getTblMarketingCategory().getName());
                    json_object.put("order", marketingCategoryobject.getTblMarketingCategory().getCategoryOrder().toString());
                    json_object.put("image", ServletUtil.bytesTo64(marketingCategoryobject.getTblMarketingCategory().getImage()));
@@ -236,7 +237,8 @@ public @ResponseBody void setMarketingCategory(HttpServletRequest request,
                         filePath = uploadPath + File.separator + file_name;
                         File storeFile = new File(filePath);
                         fi.write(storeFile);
-
+                        FileReader fiss = new FileReader(filePath);
+                        
                         TblOrganization organization = new TblOrganization();
                         organization.setId(Integer.parseInt(organization_id));
                         TblMarketingCategory marketing_category = new TblMarketingCategory();

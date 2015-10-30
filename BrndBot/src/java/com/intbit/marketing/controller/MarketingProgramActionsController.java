@@ -63,20 +63,49 @@ public class MarketingProgramActionsController {
             JSONParser json_parser = new JSONParser();
 
             org.json.simple.JSONObject actions = (org.json.simple.JSONObject) json_parser.parse(data);
-            Integer i = 0;
-
-            TblMarketingAction marketing_action = new TblMarketingAction();
-            marketing_action.setId(0);
-            TblMarketingCategory marketing_category = new TblMarketingCategory();
-            marketing_category.setId(Integer.parseInt(category_id));
-            marketing_action.setTblMarketingCategory(marketing_category);
             
-            TblMarketingProgram marketing_program = new TblMarketingProgram();
-            marketing_program.setId(Integer.parseInt(programs_id));
+            TblMarketingAction marketing_action_saved = marketing_action_service.getMarketingActionByMCategoryIdAndMProgramId(
+                    Integer.parseInt(category_id), Integer.parseInt(programs_id));
+            
+            if (marketing_action_saved == null){
 
-            marketing_action.setTblMarketingProgram(marketing_program);
-            marketing_action.setJsonTemplate(actions.toString());
-            Integer program_action = marketing_action_service.save(marketing_action);
+                TblMarketingAction marketing_action = new TblMarketingAction();
+                marketing_action.setId(0);
+                TblMarketingCategory marketing_category = new TblMarketingCategory();
+                marketing_category.setId(Integer.parseInt(category_id));
+                marketing_action.setTblMarketingCategory(marketing_category);
+
+                TblMarketingProgram marketing_program = new TblMarketingProgram();
+                marketing_program.setId(Integer.parseInt(programs_id));
+
+                marketing_action.setTblMarketingProgram(marketing_program);
+                marketing_action.setJsonTemplate(actions.toString());
+                Integer program_action = marketing_action_service.save(marketing_action);
+            
+            }else {    
+                String saved_actions = marketing_action_saved.getJsonTemplate();
+
+                org.json.simple.JSONObject saved_marketing_actions_json = (org.json.simple.JSONObject) json_parser.parse(saved_actions);
+                JSONArray saved_marketing_actions_json_array = (JSONArray)saved_marketing_actions_json.get(IConstants.kMarketingActionsKey);
+                JSONArray json_array_from_UI = (JSONArray)actions.get(IConstants.kMarketingActionsKey);
+                
+                saved_marketing_actions_json_array.addAll(json_array_from_UI);
+                
+                actions.put(IConstants.kMarketingActionsKey, saved_marketing_actions_json_array);
+                TblMarketingAction marketing_action = new TblMarketingAction();
+                marketing_action.setId(marketing_action_saved.getId());
+                
+                TblMarketingCategory marketing_category = new TblMarketingCategory();
+                marketing_category.setId(Integer.parseInt(category_id));
+                marketing_action.setTblMarketingCategory(marketing_category);
+
+                TblMarketingProgram marketing_program = new TblMarketingProgram();
+                marketing_program.setId(Integer.parseInt(programs_id));
+
+                marketing_action.setTblMarketingProgram(marketing_program);
+                marketing_action.setJsonTemplate(actions.toString());
+                marketing_action_service.update(marketing_action);
+            }
 
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);

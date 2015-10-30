@@ -1,7 +1,6 @@
-
 <%-- 
-    Document   : marketingPrograms
-    Created on : Oct 20, 2015, 4:24:23 PM
+    Document   : marketingemailtemplate
+    Created on : Oct 29, 2015, 8:26:43 PM
     Author     : development
 --%>
 
@@ -43,37 +42,17 @@
         <script>
             
             function validate(){
-                var program_name = $("#program_name").val();
-                var user = $("#users").val();
-                var category = $("#category").val();
-                var program_order = $("#program_order").val();
+                var template_name = $("#template_name").val();
                 var html_data = $("#html_data").val();
 
-                if (program_name == ""){
-                    alert("program name not entered, kindly enter the program");
-                    $("#program_name").focus();
+                if (template_name == ""){
+                    alert("template name not entered, kindly enter the template");
+                    $("#template_name").focus();
                     return false;
                 }
                 
-                if (user == ""){
-                    alert("user not selected, kindly select an user");
-                    $("#users").focus();
-                    return false;
-                }
-                
-                if (category == ""){
-                    alert("category not entered,kindly enter the category");
-                    $("#category").focus();
-                    return false;
-                }
-                
-                if (program_order == ""){
-                    alert("program_order not entered,kindly enter the program order");
-                    $("#program_order").focus();
-                    return false;
-                }
                 if (html_data == ""){
-                    alert("html data not entered,kindly enter the html data");
+                    alert("html data not selected, kindly select an html data");
                     $("#html_data").focus();
                     return false;
                 }
@@ -81,55 +60,23 @@
                 return true;
             }
             
-            function marketingCategoriesController($scope, $http){
+            function marketingEmailTemplateController($scope, $http){
                 
-                $scope.getUsers = function(){
-                    $http({
-                        method: 'GET',
-                        url: getHost() + ''
-                    }).success(function (data, status, headers, config) {
-                        $scope.Users = data;
-                    }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                    });
-                };
-                
-                $scope.getMarketingCategories = function(){
-                    
-                    var category_details = {"type": "get"};
-
-                    $http({
-                        method: 'GET',
-                        url: getHost() + 'allmarketingCategory.do'
-                    }).success(function (data, status){
-                        $scope.marketingcategories = data.marketingData;
-                    }).error(function (){
-                        alert("No data available, problem fetching the data");
-                    });
-                };
-                
-                $scope.saveMarketingPrograms = function(){
+                $scope.saveMarketingEmailTemplate = function(){
                     if (validate()){
-                        var program_name = $("#program_name").val();
-                        var user = $("#users").val();
-                        var category = $("#category").val();
-                        var program_order = $("#program_order").val();
+                        var template_name = $("#template_name").val();
                         var html_data = $("#html_data").val();
 
-                        var marketing_program = {"program_name":program_name,
-                                                 "user":user, "category":category, 
-                                                 "program_order":program_order,
+                        var marketing_template = {"template_name":template_name,
                                                  "html_data":html_data
                                                 };
                         $http({
                            method: 'POST',
                            url:getHost() + 'setMarketingPrograms.do',
                            headers: {'Content-Type': 'application/json'},
-                           data: JSON.stringify(marketing_program)
+                           data: JSON.stringify(marketing_template)
                         }).success(function (data, status){
-                            window.open(getHost() + 'admin/marketingprogram.jsp', "_self");
+                            window.open(getHost() + 'admin/marketingemailtemplate.jsp', "_self");
                         }).error(function(){
                             alert("No data available, problem fetching the data");
                         });
@@ -137,7 +84,7 @@
                     
                 };
                 
-                $scope.getMarketingPrograms = function(){
+                $scope.getMarketingEmailTemplate = function(){
                   $http({
                         method: 'GET',
                         url: getHost() + 'getMarketingPrograms.do'
@@ -150,20 +97,20 @@
                     });  
                 };
                 
-                $scope.deleteProgram = function(program_id){
+                $scope.deleteEmailTemplate = function(template_id){
                     
-                    var program_details = {"program_id": program_id};
+                    var email_template = {"template_id": template_id};
                     
                     $http({
                         method: 'POST',
                         url: getHost() + 'deleteMarketingPrograms.do',
                         headers: {'Content-Type': 'application/json'},
-                        data: JSON.stringify(program_details)
+                        data: JSON.stringify(email_template)
                     }).success(function (data, status){
                         $scope.data = data;
                         if (data == "true"){
                             alert("details deleted successfully");
-                            window.open(getHost() + 'admin/marketingprogram.jsp', "_self");
+                            window.open(getHost() + 'admin/marketingemailtemplate.jsp', "_self");
                         }
                     }).error(function (){
                         alert("No data available, problem fetching the data");
@@ -183,7 +130,7 @@
         String font_name = "";
     %>    
     <jsp:declaration>
-        Logger logger = Logger.getLogger("categories.jsp");
+        Logger logger = Logger.getLogger("marketingemailtemplate.jsp");
         Integer num = 1;
         String exist = "";
         String exist1 = "";
@@ -215,65 +162,25 @@
     </head>
     <body ng-app class="container">
        <%@include file="menus.jsp" %>
-        <div class="jumbotron" align="center" ng-controller="marketingCategoriesController" >
+        <div class="jumbotron" align="center" ng-controller="marketingEmailTemplateController" >
             <div  style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 550px; width: 600px;">
                 <form name="formPrograms" method="post">
 
                     <div>
                         <div class="col-md-3 col-md-offset-5">
-                            <p>Programs:</p>
+                            <p>Email Templates</p>
                         </div>
                     </div>
-                    <div ng-init="getMarketingCategories()" style="float:left; left:20px; padding-left: 166px;">
-                        <%= exist1 %>
-                Program Name: <input type="text" id="program_name" name="program_name" value=""/><br>
-    
-                Users : <select name="users" id="users" multiple>
-                            <option value="0">-Select-</option>
-                    <%
-                        Connection conn = null;
-                        try {
-                            try {
-                                conn = ConnectionManager.getInstance().getConnection();
-                                Query = "Select * from tbl_user_login_details";
-                                ps = conn.prepareStatement(Query);
-
-                                rs = ps.executeQuery();
-                                while (rs.next()) {
-                                    id = rs.getInt("id");
-                                    user_name = rs.getString("user_name");
-                    %>            
-                                <option value="<%=id%>"><%= user_name%></option>
-                    <%
-                                }
-                        } catch (Exception e) {
-                            System.out.println(e.getCause());
-                            System.out.println(e.getMessage());
-                        } finally {
-                            ps.close();
-                            rs.close();
-                        }
-                        } finally {
-                            ConnectionManager.getInstance().closeConnection(conn);
-                        }
-                    %>
-
-                </select><br><br>                     
-                         
-        Select category:<select name="category" id="category" style="width:180px;">
-                            <option value="0">--select--</option>
-                            <option value="{{category.category_id}}" ng-repeat="category in marketingcategories">{{category.name}}</option>
-                        </select><br><br>
-                        
-        Program order: <input type="text" id="program_order" name="program_order" />
+                    <div style="float:left; left:20px; padding-left: 166px;">
+        Email Template Name: <input type="text" id="template_name" name="template_name" value=""/><br>
                     </div><br>
                     <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
-                   <div>
-                       HTML Data:  <textarea id="html_data" name="html_data" style="height: 120px; width: 240px; resize: none;" ></textarea>
-                   </div>
+                    <div>
+             HTML Data:  <textarea id="html_data" name="html_data" style="height: 120px; width: 240px; resize: none;" ></textarea>
+                    </div>
                         <br>
                         <div style="float: left; left:20px; margin-top: -110px;">
-                            <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="saveMarketingPrograms()">Save</button>
+                            <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="saveMarketingTemplates()">Save</button>
                             <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
                         </div>
                     </div>
@@ -284,15 +191,13 @@
                 <img src="" id="previewimage" />
             </div>
             <br>
-            <div ng-init="getMarketingPrograms()" style="margin-top: 0px;">
+            <div ng-init="getMarketingEmailTemplate()" style="margin-top: 0px;">
 
                 <div>&nbsp;Display Programs<br></div>
                 <table border="1" style="margin-top: 20px;">
                     <tr>
                         <td>ID Number </td>
-                        <td>Program Name</td>
-                        <td>Order ID</td>
-                        <td>category ID</td>
+                        <td>Template Name</td>
                         <td></td>
                     </tr>
                    

@@ -11,6 +11,7 @@
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
+<jsp:include page="checksession.jsp" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -242,7 +243,6 @@
                         <td>Category order</td>
                         <td>Organization ID</td>
                         <td></td>
-                        <td></td>
                     </tr>
                    
                     <tr ng-repeat = "marketing in marketingcategories">
@@ -250,7 +250,6 @@
                         <td>{{marketing.name}}</td>
                         <td>{{marketing.order}}</td>
                         <td>{{marketing.organization_id}}</td>
-                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editCategory()" disabled></button></td>
                         <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteCategory(marketing.category_id)">delete</button></td>
                     </tr>
                     
