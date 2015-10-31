@@ -35,6 +35,10 @@ public class TblScheduledEntityList  implements java.io.Serializable {
      private Integer userId;
      private String scheduleDesc;
      private Boolean isRecuring;
+     private Integer days;
+     private Date tillDate;
+     private Integer recuringEmailId;
+     
     
 
     public TblScheduledEntityList() {
@@ -44,7 +48,7 @@ public class TblScheduledEntityList  implements java.io.Serializable {
     public TblScheduledEntityList(int id) {
         this.id = id;
     }
-    public TblScheduledEntityList(int id, TblUserMarketingProgram tblUserMarketingProgram, Integer entityId, String scheduleTitle, Date scheduleTime, String entityType, String status, Integer userId, String scheduleDesc, Boolean isRecuring,TblScheduledEntityList tblScheduledEntityList) {
+    public TblScheduledEntityList(int id, TblUserMarketingProgram tblUserMarketingProgram, Integer entityId, String scheduleTitle, Date scheduleTime, String entityType, String status, Integer userId, String scheduleDesc, Boolean isRecuring,TblScheduledEntityList tblScheduledEntityList,Integer days,Date tillDate,Integer recuringEmailId) {
        this.id = id;
        this.tblUserMarketingProgram = tblUserMarketingProgram;
        this.entityId = entityId;
@@ -55,12 +59,14 @@ public class TblScheduledEntityList  implements java.io.Serializable {
        this.userId = userId;
        this.scheduleDesc = scheduleDesc;
        this.isRecuring = isRecuring;
+       this.days= days;
+       this.recuringEmailId= recuringEmailId;
        
     }
    
      @Id 
 
-        @GenericGenerator(name="id" , strategy="increment")
+     @GenericGenerator(name="id" , strategy="increment")
     @GeneratedValue(generator="id")
 
     @Column(name="id", unique=true, nullable=false)
@@ -79,7 +85,7 @@ public class TblScheduledEntityList  implements java.io.Serializable {
     }
     
     public void setTblUserMarketingProgram(TblUserMarketingProgram tblUserMarketingProgram) {
-        this.tblUserMarketingProgram = tblUserMarketingProgram;
+        this.tblUserMarketingProgram  = tblUserMarketingProgram;
     }
 
     
@@ -162,8 +168,32 @@ public class TblScheduledEntityList  implements java.io.Serializable {
         this.isRecuring = isRecuring;
     }
 
-   
+    @Column(name="days")
+    public Integer getDays() {
+        return this.days;
+    }
+    
+    public void setDays(Integer days) {
+        this.days = days;
+    }
 
+     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="till_date", length=35)
+    public Date getTillDate() {
+        return this.tillDate;
+    }
+    
+    public void setTillDate(Date tillDate) {
+        this.tillDate = tillDate;
+    }
+    @Column(name="recuring_email_id")
+    public Integer getRecuringEmailId() {
+        return this.recuringEmailId;
+    }
+    
+    public void setRecuringEmailId(Integer recuringEmailId) {
+        this.recuringEmailId = recuringEmailId;
+    }
 
 }
 
