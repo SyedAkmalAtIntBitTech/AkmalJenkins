@@ -23,6 +23,7 @@
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/dashboard.js"></script>
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
@@ -840,14 +841,15 @@ $(document).ready(function() {
 //               
 //                
             </script>-->
+            <script src="js/froala_editor.min.js" type="text/javascript"></script>
 <!--         <script type="text/javascript" src="js/froala_editor.min.js" ></script>-->
-         <script src="js/froala_editor.min_Email.js" type="text/javascript"></script>
+<!--         <script src="js/froala_editor.min_Email.js" type="text/javascript"></script>-->
         <script type="text/javascript" src="js/plugins/align.min.js"></script>
         <script type="text/javascript" src="js/plugins/code_view.min.js"></script>
-        <script type="text/javascript" src="js/plugins/colors.min.js" ></script>
+<!--        <script type="text/javascript" src="js/plugins/colors.min.js" ></script>-->
         <script type="text/javascript" src="js/plugins/emoticons.min.js"></script>
         <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-        <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
+<!--        <script type="text/javascript" src="js/plugins/font_family.min.js"></script>-->
         <script type="text/javascript" src="js/plugins/image.min.js"></script>
         <script type="text/javascript" src="js/plugins/file.min.js"></script>
         <script type="text/javascript" src="js/plugins/image_manager.min.js"></script>

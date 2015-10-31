@@ -70,10 +70,13 @@ and open the template in the editor.
              }
              .emailedtrsave{
                  font-size:12px;
-                 padding:0px 38px 0px 35px;                 
+                 padding:0px 38px 0px 35px !important;                 
                  width:103px;
-                 height:25px;
-                 margin-top: 7px !important;    
+                 height:25px !important;
+                 margin-top: 7px !important;  
+             }
+             .button{
+                 margin:0px;
              }
              .emledtrsavebtn{
                     margin-left:-20px !important;
