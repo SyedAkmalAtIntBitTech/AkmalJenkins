@@ -429,7 +429,7 @@
                                     dataType: 'json',
                                     success: function (data) {
                                     alert(JSON.stringify(data));
-//                        $(".fr-element").append(data.htmldata)
+                        $(".fr-element").append(data.htmldata)
 
                                     }
                             });
@@ -477,7 +477,7 @@
                                     mimeType: 'application/json',
                                     data: JSON.stringify(data),  
                                     success: function (data) {
-                                    alert(temp_block_id);
+                                    alert(JSON.stringify(data));
                                             if (block_clicked === "false"){                                            
                                             $("#defaultblock1").empty().append(data.htmldata);
                                     }
@@ -499,6 +499,13 @@
 
             function selecterBlockId(selectblock, blockid){
             alert(selectblock);
+            $("img").click(function(){
+        alert(this.id);
+        $("#button").empty().append("<input type='image' src='http://images.aviary.com/images/edit-photo.png'   onclick='return launchEditor(\""+this.id+"\");' />")
+    });
+            
+            
+            
                     if (selectblock == "defaultblock1")
             {
                     block_clicked = "false";
@@ -556,6 +563,7 @@
                                 </div>   
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1">
                                     <div class="mobileprev fontpnr">Mobile Preview</div>
+                                    <p id="button"></p>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1">
                                     <div class="emledtrsavebtn"><input class="emailedtrsave fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="save"></div>
@@ -688,5 +696,41 @@
                     $('#edit').froalaEditor();
                     });
         </script>
+<!--          <script>
+$(document).ready(function(){
+    $("img").click(function(){
+        alert(this.id);
+        $("#button").empty().append("<input type='image' src='http://images.aviary.com/images/edit-photo.png'   onclick='return launchEditor(\""+this.id+"\");' />")
+    });
+});
+</script>-->
+  
+
+  <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+<!-- Instantiate Feather -->
+<script type='text/javascript'>
+   var featherEditor = new Aviary.Feather({
+       apiKey: '75ed2ca5-7d87-454f-ab9f-e46446ed542d',
+       apiVersion: 3,
+       theme: 'dark', // Check out our new 'light' and 'dark' themes!
+       tools: 'all',
+       appendTo: '',
+       onSave: function(imageID, newURL) {
+           var img = document.getElementById(imageID);
+           img.src = newURL;
+       },
+       onError: function(errorObj) {
+           alert(errorObj.message);
+       }
+   });
+   function launchEditor(id, src) {
+       featherEditor.launch({
+           image: id,
+           url: src
+       });
+      return false;
+   }
+</script>
+        
     </body>
 </html>

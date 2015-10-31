@@ -55,7 +55,7 @@ public class GetEmaiLayoutHtmlServlet extends BrndBotBaseHttpServlet {
         ResultSet result_set = null;
         Integer tbl_model_id = Integer.parseInt(request.getParameter("id"));  
         sql_methods.session = request.getSession();
-         Map<String, Object> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+        Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
          
         
         String logo_name = (String) sql_methods.session.getAttribute("ImageFileName");
@@ -74,7 +74,7 @@ public class GetEmaiLayoutHtmlServlet extends BrndBotBaseHttpServlet {
             prepared_statement = connection.prepareStatement(query);
             result_set = prepared_statement.executeQuery();
             if (result_set.next()) {
-                ProcessHTML mindbodyHtmlData = new ProcessHTML(result_set.getString("emailhtmldata"), colorHashmap, Htmljson, logo_url);
+                ProcessHTML mindbodyHtmlData = new ProcessHTML(result_set.getString("emailhtmldata"), colorHashmap, requestBodyMap, logo_url);
                 html = mindbodyHtmlData.processHTML();
 
             }

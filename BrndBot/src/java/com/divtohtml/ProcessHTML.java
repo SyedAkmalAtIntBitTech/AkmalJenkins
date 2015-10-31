@@ -17,7 +17,7 @@ public class ProcessHTML {
     private final static String KStyleKey = "style";
 
     private final static String KElementText = "text";
-    private final static String kElementType = "elementtype";
+    private final static String kElementId = "id";
     private final static String kElementGeneral = "general";
     private final static String kElementImage = "image";
     private final static String kElementLogo = "logo";
@@ -35,15 +35,15 @@ public class ProcessHTML {
     private final static String kBorderColorKey = "border-color";
     private final static String kBackgroundImageKey = "background";
 
-    private final static String kElementSearchPattern = "*[" + kElementType
+    private final static String kElementSearchPattern = "*[" + kElementId
             + "]";
 
     private final String htmlContent;
     private final HashMap<String, String> colorHashmap;
-    private final JSONObject externalSourceMapper;
+    private final Map<String, String> externalSourceMapper;
     private final String userLogoURL;
     //color hash map should have keys with color1,color2
-    public ProcessHTML(String htmlContent, HashMap<String, String> colorHashmap, JSONObject externalSourceMapper, String logoURL) {
+    public ProcessHTML(String htmlContent, HashMap<String, String> colorHashmap, Map<String, String> externalSourceMapper, String logoURL) {
         this.htmlContent = htmlContent;
         this.colorHashmap = colorHashmap;
         this.externalSourceMapper = externalSourceMapper;
@@ -57,7 +57,7 @@ public class ProcessHTML {
 
         Elements divElements = doc.select(kElementSearchPattern);
         for (Element item : divElements) {
-            String elementType = item.attr(kElementType);
+            String elementType = item.attr(kElementId);
             String style = item.attr(KStyleKey);
             HashMap<String, String> styleHashmap = getKeyValuePair(style);
             styleHashmap = changeColors(item, styleHashmap);
@@ -132,7 +132,7 @@ public class ProcessHTML {
     private String getValueForExternalSource(String externalValueKey) {
         String text = "Invalid or no proper key specified. Please check the rules.";
         if (!StringUtil.isEmpty(externalValueKey) && externalSourceMapper != null) {
-            String nameSpace[] = externalValueKey.split(".");
+            String[] nameSpace = externalValueKey.split("\\.");
             if (nameSpace.length == 3) {
                 if (nameSpace[0].equalsIgnoreCase(KExternalValueMindBody)) {
                     text = (String) externalSourceMapper.get(nameSpace[2]);
