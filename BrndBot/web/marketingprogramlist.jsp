@@ -24,26 +24,57 @@
         <script src="js/dashboard.js"></script>
         <jsp:include page="basejsp.jsp"/>
         <script>
-            function controllerUserMarketingProgamsByStatus($scope, $http, $window){
-        $scope.getUserMarketingProgamsByStatus = function(){
-            var programStatus = { "programType": "Open" };
-            $http({
-                method: 'GET',
-                url: 'listAllMarketingProgram.do?programType=Open',
-                data: programStatus 
-            }).success(function (data, status, headers, config) {
-                alert(JSON.stringify(data));
-                $scope.programs = data.programs;
-                if (data === error) {
-                    alert(data);
-                }
-            }).error(function (data, status, headers, config) {
-                alert("No data available, problem fetching the data");
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });                
-        };
-    }
+        
+        function controllerUserMarketingProgamsByStatus($scope, $http){
+            $scope.getUserMarketingProgramsOpen = function(){
+                alert("false");
+                $("#pastprogs").hide();
+                $("#curprogs").show();
+                $("#email ").show();
+                $("#prog").hide();
+                var programStatus = { "programType": "Open" };
+                
+                $http({
+                    method: 'GET',
+                    url: 'listAllMarketingProgram.do?programType=Open',
+                    data: programStatus 
+                }).success(function (data, status, headers, config) {
+                    alert(JSON.stringify(data));
+                    $scope.programs = data.programs;
+                    if (data === error) {
+                        alert(data);
+                    }
+                }).error(function (data, status, headers, config) {
+                    alert("No data available, problem fetching the data");
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });                
+            };
+            $scope.getUserMarketingProgramsClosed = function(){
+                var programStatus = { "programType": "Closed" };
+                alert("false");
+                $("#pastprogs").show();
+                $("#prog").show();
+                $("#curprogs").hide();
+                $("#email").hide();
+                $http({
+                    method: 'GET',
+                    url: 'listAllMarketingProgram.do?programType=Closed',
+                    data: programStatus 
+                }).success(function (data, status, headers, config) {
+                    alert(JSON.stringify(data));
+                    $scope.programs = data.programs;
+                    if (data === error) {
+                        alert(data);
+                    }
+                }).error(function (data, status, headers, config) {
+                    alert("No data available, problem fetching the data");
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });                
+            };
+            
+        }
         </script> 
     </head>
     <body ng-app>
@@ -57,12 +88,12 @@
                      <div class="progtabs"> 
                          <ul class="proghislist fontpnr">
                              <li id="crtprogpg"><p>Create <br>New Program</p></li>
-                             <li id="lstcurprogs"><p>Current Programs</p></li>
-                             <li id="lstpstprogs"><p>Past <br>Programs</p></li>
+                             <li id="lstcurprogs" ng-click="getUserMarketingProgramsOpen()"><p>Current Programs</p></li>
+                             <li id="lstpstprogs" ng-click="getUserMarketingProgramsClosed()"><p>Past <br>Programs</p></li>
                          </ul>
                      </div>
                     </div>
-               </div>
+                </div>
             </div>
             <div class="col-md-9 col-sm-9 col-lg-9">
                 <div class="row">
@@ -88,7 +119,7 @@
                                     <li><div class="lstprog fontpns">Program Name</div>
                                         <div class="lststrtdt fontpnr">Marketing Program start Date | Template name </div>
                                     </li>
-                                    <li >
+                                    <li>
                                     <ul class="li1">
                                         <li>
                                             <div class="lstlftact fontpnr">Oct 15</div>
@@ -144,24 +175,24 @@
             <script>
                 
                 $( document ).ready(function() {
-                    if(window.location.href.indexOf("curprog") !== -1)
-                    {
-                         $("#pastprogs").hide();
-                    $("#curprogs").show();
-                    $("#email").show();
-                     $("#prog").hide();
-                        alert("type : Currentprograms");
-                    }
-                    else if(window.location.href.indexOf("pastprog") !== -1)
-                    {   
-                        $("#pastprogs").show();
-                    $("#prog").show();
-                    $("#curprogs").hide();
-                    $("#email").hide();
-                        alert("type : Pastprogrograms");
-                    }
-                    else
-                    {
+//                    if(window.location.href.indexOf("curprog") !== -1)
+//                    {
+//                         $("#pastprogs").hide();
+//                         $("#curprogs").show();
+//                         $("#email").show();
+//                         $("#prog").hide();
+//                         alert("type : Currentprograms");
+//                         angular.element(document.getElementById('controllerUserMarketingProgamsByStatus')).scope().getUserMarketingProgramsOpen();
+//                    }
+//                    else if(window.location.href.indexOf("pastprog") !== -1)
+//                    {
+//                        $("#pastprogs").show();
+//                        $("#prog").show();
+//                        $("#curprogs").hide();
+//                        $("#email").hide();
+//                        alert("type : Pastprogrograms");
+//                        angular.element(document.getElementById('controllerUserMarketingProgamsByStatus')).scope().getUserMarketingProgramsClosed();
+//                    }else {
                         $("#curprogs").show();
                         $("#email").show();
 //                         $("#pastprogs").hide();
@@ -169,27 +200,27 @@
 //                        $("#prog").hide();
                         $("#prog").hide();
                         alert("type not found!!");
-                    }
+//                    }
 //                        var= curprogs;
 //                        curprogs=location.search;
 //                        alert(curprogs);
 //                    window.location = "marketingprogramlist.jsp?type=curprogs";    
 //                    $("#email").hide();
                 });
-                $("#lstpstprogs").click(function (){
-                    $("#pastprogs").show();
-                    $("#prog").show();
-                    $("#curprogs").hide();
-                    $("#email").hide();
-                    location.href="marketingprogramlist.jsp?type=pastprog";
-                });
-                $("#lstcurprogs").click(function (){
-                    $("#pastprogs").hide();
-                    $("#curprogs").show();
-                    $("#email ").show();
-                     $("#prog").hide();
-                     location.href="marketingprogramlist.jsp?type=curprog";
-                });
+//                $("#lstpstprogs").click(function (){
+//                    $("#pastprogs").show();
+//                    $("#prog").show();
+//                    $("#curprogs").hide();
+//                    $("#email").hide();
+//                    location.href="marketingprogramlist.jsp?type=pastprog";
+//                });
+//                $("#lstcurprogs").click(function (){
+//                    $("#pastprogs").hide();
+//                    $("#curprogs").show();
+//                    $("#email ").show();
+//                    $("#prog").hide();
+//                    location.href="marketingprogramlist.jsp?type=curprog";
+//                });
                 
                 $("#crtprogpg").click(function (){
                    document.location.href="marketingcategory.jsp"; 
