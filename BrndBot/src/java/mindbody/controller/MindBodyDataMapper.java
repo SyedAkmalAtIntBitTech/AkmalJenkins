@@ -14,9 +14,6 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -79,11 +76,11 @@ public class MindBodyDataMapper {
                         String epochValue = modelElement.getAttribute("epoch");
 
                         logger.log(Level.INFO, modelElement.getAttribute("option"));
-                        if (class_model_option.equalsIgnoreCase("Select") && 
-                                (element.toLowerCase().contains("button") || 
-                                element.toLowerCase().contains("body") || 
-                                element.toLowerCase().contains("header") || 
-                                element.toLowerCase().contains("footer"))) {
+                        if (class_model_option.equalsIgnoreCase("Select")
+                                && (element.toLowerCase().contains("button")
+                                || element.toLowerCase().contains("body")
+                                || element.toLowerCase().contains("header")
+                                || element.toLowerCase().contains("footer"))) {
                             json_mindbody_enrollment_data.put(element, defaultValue);
                         }
                         if (class_model_option.equalsIgnoreCase("EnrollmentID")) {
@@ -262,11 +259,11 @@ public class MindBodyDataMapper {
                         String epochValue = modelElement.getAttribute("epoch");
                         logger.log(Level.INFO, modelElement.getAttribute("option"));
 
-                        if (class_model_option.equalsIgnoreCase("Select") && 
-                                (element.toLowerCase().contains("button") || 
-                                element.toLowerCase().contains("body") || 
-                                element.toLowerCase().contains("header") || 
-                                element.toLowerCase().contains("footer"))) {
+                        if (class_model_option.equalsIgnoreCase("Select")
+                                && (element.toLowerCase().contains("button")
+                                || element.toLowerCase().contains("body")
+                                || element.toLowerCase().contains("header")
+                                || element.toLowerCase().contains("footer"))) {
                             json_mindbody_class_data.put(element, defaultValue);
                         }
                         if (class_model_option.equalsIgnoreCase("ClassID")) {
@@ -461,11 +458,11 @@ public class MindBodyDataMapper {
                         String defaultValue = modelElement.getAttribute("default");
                         String epochValue = modelElement.getAttribute("epoch");
                         logger.log(Level.INFO, modelElement.getAttribute("option"));
-                        if (class_model_option.equalsIgnoreCase("Select") && 
-                                (element.toLowerCase().contains("button") || 
-                                element.toLowerCase().contains("body") || 
-                                element.toLowerCase().contains("header") || 
-                                element.toLowerCase().contains("footer"))) {
+                        if (class_model_option.equalsIgnoreCase("Select")
+                                && (element.toLowerCase().contains("button")
+                                || element.toLowerCase().contains("body")
+                                || element.toLowerCase().contains("header")
+                                || element.toLowerCase().contains("footer"))) {
                             json_mindbody_staff_data.put(element, defaultValue);
                         }
                         if (class_model_option.equalsIgnoreCase("Name")) {
@@ -525,6 +522,166 @@ public class MindBodyDataMapper {
         return json_mindbody_staff_data;
     }
 
+    public static JSONObject mapStaffDataRaw(com.mindbodyonline.clients.api._0_5Staff.Staff mindbody_staff) {
+        JSONObject json_mindbody_staff_data = new JSONObject();
+
+        try {
+            if (mindbody_staff != null) {
+
+                if (mindbody_staff.getName() != null) {
+                    json_mindbody_staff_data.put("name", mindbody_staff.getName());
+                }
+
+                if (mindbody_staff.getImageURL() != null) {
+                    json_mindbody_staff_data.put("imageurl", mindbody_staff.getImageURL());
+                }
+                if (!StringUtil.isEmpty(mindbody_staff.getBio())) {
+                    json_mindbody_staff_data.put("bio", Jsoup.parse(mindbody_staff.getBio()).text());
+                }
+                if (mindbody_staff.getEmail() != null) {
+                    json_mindbody_staff_data.put("email", Jsoup.parse(mindbody_staff.getEmail()).text());
+                }
+
+                if (mindbody_staff.getMobilePhone() != null) {
+                    json_mindbody_staff_data.put("mobilephone", mindbody_staff.getMobilePhone());
+                }
+            }
+        } catch (Throwable t) {
+
+        }
+        //System.exit (0);        
+
+        return json_mindbody_staff_data;
+    }
+
+    public static JSONObject mapEnrollmentDataRaw(ClassSchedule mindbody_enrollments) {
+        JSONObject json_mindbody_enrollment_data = new JSONObject();
+        try {
+            if (mindbody_enrollments != null) {
+                if (mindbody_enrollments.getID().getValue() != null) {
+                    json_mindbody_enrollment_data.put("enrollmentid", mindbody_enrollments.getID().getValue());
+                }
+
+                if (mindbody_enrollments.getClassDescription().getName() != null) {
+                    json_mindbody_enrollment_data.put("enrollmentname", Jsoup.parse(mindbody_enrollments.getClassDescription().getName()).text());
+                }
+
+                if (mindbody_enrollments.getClassDescription().getDescription() != null) {
+                    json_mindbody_enrollment_data.put("enrollmentdescription", Jsoup.parse(mindbody_enrollments.getClassDescription().getDescription()).text());
+                }
+
+                Program program = mindbody_enrollments.getClassDescription().getProgram();
+
+                if (program.getName() != null) {
+                    json_mindbody_enrollment_data.put("enrollmentprogramname", Jsoup.parse(program.getName()).text());
+                }
+
+                if (mindbody_enrollments.getClassDescription().getImageURL() != null) {
+                    json_mindbody_enrollment_data.put("enrollmentimageurl", mindbody_enrollments.getClassDescription().getImageURL());
+                }
+
+                JAXBElement<XMLGregorianCalendar> jcalendarStartDate = mindbody_enrollments.getStartDate();
+                JAXBElement<XMLGregorianCalendar> jcalendarStartTime = mindbody_enrollments.getStartTime();
+
+                XMLGregorianCalendar xmlcalendarStartDate = (XMLGregorianCalendar) jcalendarStartDate.getValue();
+                XMLGregorianCalendar xmlcalendarStartTime = (XMLGregorianCalendar) jcalendarStartTime.getValue();
+
+                Date combinedStartDate = combineDateTime(xmlcalendarStartDate, xmlcalendarStartTime);
+                if (combinedStartDate != null) {
+                    json_mindbody_enrollment_data.put("enrollmentstartdatetime", combinedStartDate);
+                }
+
+                JAXBElement<XMLGregorianCalendar> jcalendarEndDate = mindbody_enrollments.getEndDate();
+                JAXBElement<XMLGregorianCalendar> jcalendarEndTime = mindbody_enrollments.getEndTime();
+
+                XMLGregorianCalendar xmlcalendarEndDate = (XMLGregorianCalendar) jcalendarEndDate.getValue();
+                XMLGregorianCalendar xmlcalendarEndTime = (XMLGregorianCalendar) jcalendarEndTime.getValue();
+
+                Date combinedEndDate = combineDateTime(xmlcalendarEndDate, xmlcalendarEndTime);
+                if (combinedEndDate != null) {
+                    json_mindbody_enrollment_data.put("enrollmentenddatetime", combinedEndDate);
+                }
+
+                Staff staff = mindbody_enrollments.getStaff();
+
+                String First_name = staff.getFirstName();
+                String Last_name = staff.getLastName();
+                String Name = First_name + " " + Last_name;
+
+                if (Name != null) {
+                    json_mindbody_enrollment_data.put("staffname", Name);
+                }
+
+            }//end of for loop with s var
+
+        } catch (Throwable t) {
+        }
+        //System.exit (0);        
+
+        return json_mindbody_enrollment_data;
+    }
+
+    public static JSONObject mapClassDataRaw(Class mindbody_class) throws JSONException {
+        JSONObject json_mindbody_class_data = new JSONObject();
+
+        try {
+            if (mindbody_class != null) {
+
+                if (mindbody_class.getID().getValue() != null) {
+                    json_mindbody_class_data.put("classid", mindbody_class.getID().getValue());
+                }
+
+                if (mindbody_class.getClassDescription().getName() != null) {
+
+                    json_mindbody_class_data.put("classname", Jsoup.parse(mindbody_class.getClassDescription().getName()).text());
+                }
+                if (mindbody_class.getClassDescription().getDescription() != null) {
+                    json_mindbody_class_data.put("classdescription", Jsoup.parse(mindbody_class.getClassDescription().getDescription()).text());
+                }
+                Program program = mindbody_class.getClassDescription().getProgram();
+
+                if (program.getName() != null) {
+                    json_mindbody_class_data.put("classprogramname", Jsoup.parse(program.getName()).text());
+                }
+                if (mindbody_class.getClassDescription().getImageURL() != null) {
+                    json_mindbody_class_data.put("classimageurl", mindbody_class.getClassDescription().getImageURL());
+                }
+                JAXBElement<XMLGregorianCalendar> calendarStart = mindbody_class.getStartDateTime();
+
+                XMLGregorianCalendar calendarStartDateTime = (XMLGregorianCalendar) calendarStart.getValue();
+
+                if (calendarStartDateTime != null) {
+                    Date date = parseMindBodyDateToDate(calendarStartDateTime.toString());
+
+                    json_mindbody_class_data.put("classstartdatetime", date);
+                }
+                Staff staff = mindbody_class.getStaff();
+
+                String First_name = staff.getFirstName();
+                String Last_name = staff.getLastName();
+                String Name = First_name + " " + Last_name;
+
+                if (Name != null) {
+                    json_mindbody_class_data.put("staffname", Jsoup.parse(Name).text());
+                }
+
+                JAXBElement<XMLGregorianCalendar> calendarEnd = mindbody_class.getEndDateTime();
+
+                XMLGregorianCalendar calendarEndDateTime = (XMLGregorianCalendar) calendarEnd.getValue();
+
+                if (calendarEndDateTime != null) {
+                    Date date = parseMindBodyDateToDate(calendarEndDateTime.toString());
+                    json_mindbody_class_data.put("classenddatetime", date);
+                }
+
+            }
+        } catch (Throwable t) {
+        }
+        //System.exit (0);        
+
+        return json_mindbody_class_data;
+    }
+
     private static Date toDate(XMLGregorianCalendar calendar) {
         if (calendar == null) {
             return null;
@@ -544,4 +701,5 @@ public class MindBodyDataMapper {
         Date date = enrollmentInputFormat.parse(dateTimeString);
         return date;
     }
+
 }
