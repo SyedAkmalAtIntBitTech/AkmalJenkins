@@ -21,7 +21,7 @@ public class BrndBotBaseHttpServlet extends HttpServlet {
 
     public static final Logger logger = Logger.getLogger(util.Utility.getClassName(BrndBotBaseHttpServlet.class));
 
-    private SqlMethods sql_methods;
+    SqlMethods sql_methods;
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);

@@ -6,14 +6,17 @@
 package com.controller;
 
 import static com.controller.BrndBotBaseHttpServlet.logger;
+import com.divtohtml.ProcessHTML;
 import com.google.gson.Gson;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
+import com.intbit.util.GetUserColors;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -44,25 +47,35 @@ public class GetEmaiLayoutHtmlServlet extends BrndBotBaseHttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONArray json_arr = new JSONArray();
-        String html="";
+        String html = "";
         JSONObject Htmljson = new JSONObject();
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-        Integer tbl_model_id = Integer.parseInt(request.getParameter("id"));
-        String model_name = request.getParameter("layout");
-        
+        Integer tbl_model_id = Integer.parseInt(request.getParameter("id"));  
+        sql_methods.session = request.getSession();
+        String logo_name = (String) sql_methods.session.getAttribute("ImageFileName");
+        Integer user_Id = (Integer) sql_methods.session.getAttribute("UID");
+        String logo_url = "/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=" + user_Id + "&image_name=" + logo_name;
+        HashMap<String, String> colorHashmap = new HashMap();
+        JSONArray userColors = GetUserColors.getColorUserPreferences(user_Id);
+        for (int i = 0; i < userColors.size(); i++) {
+            String userColor = (String) userColors.get(i);
+            colorHashmap.put("color" + i, userColor);
+
+        }
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
             String query = "Select * from tbl_model where id=" + tbl_model_id + "";
             prepared_statement = connection.prepareStatement(query);
             result_set = prepared_statement.executeQuery();
-       if(result_set.next()){
-            html = result_set.getString("emailhtmldata");
-            
-       }
-        Htmljson.put("htmldata",html);
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write(AppConstants.GSON.toJson(Htmljson));
-        response.getWriter().flush();
+            if (result_set.next()) {
+                ProcessHTML mindbodyHtmlData = new ProcessHTML(result_set.getString("emailhtmldata"), colorHashmap, Htmljson, logo_url);
+                html = mindbodyHtmlData.processHTML();
+
+            }
+            Htmljson.put("htmldata", html);
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write(AppConstants.GSON.toJson(Htmljson));
+            response.getWriter().flush();
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
@@ -71,7 +84,7 @@ public class GetEmaiLayoutHtmlServlet extends BrndBotBaseHttpServlet {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
