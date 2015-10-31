@@ -31,7 +31,8 @@ import util.Utility;
 public class GetUserColors {
     
      public static JSONArray getColorUserPreferences(Integer user_id) throws ServletException, IOException {
-        PreparedStatement prepared_statement = null;
+
+         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         Object object = new Object();
         JSONObject json_colors = new JSONObject();

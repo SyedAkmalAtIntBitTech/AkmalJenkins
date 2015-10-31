@@ -48,6 +48,7 @@ public class GetColorsServlet extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        getSqlMethodsInstance().session = request.getSession(true);
         Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
         JSONArray userColor = GetUserColors.getColorUserPreferences(user_id);
         JSONArray customColor = getCustomColorFromFile(request);

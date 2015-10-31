@@ -11,12 +11,14 @@ import com.google.gson.Gson;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.util.GetUserColors;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -53,11 +55,15 @@ public class GetEmaiLayoutHtmlServlet extends BrndBotBaseHttpServlet {
         ResultSet result_set = null;
         Integer tbl_model_id = Integer.parseInt(request.getParameter("id"));  
         sql_methods.session = request.getSession();
+         Map<String, Object> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+         
+        
         String logo_name = (String) sql_methods.session.getAttribute("ImageFileName");
         Integer user_Id = (Integer) sql_methods.session.getAttribute("UID");
         String logo_url = "/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=" + user_Id + "&image_name=" + logo_name;
         HashMap<String, String> colorHashmap = new HashMap();
         JSONArray userColors = GetUserColors.getColorUserPreferences(user_Id);
+
         for (int i = 0; i < userColors.size(); i++) {
             String userColor = (String) userColors.get(i);
             colorHashmap.put("color" + i, userColor);

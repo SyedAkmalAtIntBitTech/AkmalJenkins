@@ -172,6 +172,7 @@
                             });
                     });
                             showText(allLayoutFilename[0]);
+                            $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
                     }
             });
             });
@@ -445,15 +446,17 @@
                     currentMindbodyQuery = temp_mind_body_query;
             }
             //   $("#clickid").val(layout);
-            if ((mindbodydataId != "") && (mindbodydataId != "0") && (mindbodydataId != "undefined")) {
-            if (block_clicked == "true"){
-                    layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email&query=block&block_id=" + currentBlockID + "&mindbody_query=" + currentMindbodyQuery;
+            alert(mindbodydataId);
+            if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof(mindbodydataId) !== "undefined")) 
+            {
+                if (block_clicked == "true"){
+                layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email&query=block&block_id=" + currentBlockID + "&mindbody_query=" + currentMindbodyQuery;
                 }
-            else{
-                    layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
-            }
-        } else {
-            layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
+                else{
+                layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
+                }
+            } else {
+                layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
             }
             alert(layout_mapper_url);
                     $.ajax({
@@ -464,18 +467,18 @@
                             success: function (data) {
 
                             // displayElement(id, layout, data);
-
+                            alert("sucess of layout mapper");
+                            alert(id+"......"+JSON.stringify(data));
                             $.ajax({
                             method : 'POST',
                                     url: "GetEmaiLayoutHtmlServlet?id=" + id,
-                                    data: data,
                                     dataType: 'json',
+                                    contentType: 'application/json',
+                                    mimeType: 'application/json',
+                                    data: JSON.stringify(data),  
                                     success: function (data) {
                                     alert(temp_block_id);
-                                            if (block_clicked === "false"){
-                                    var id
-                                            if ($("#mainContainer :first-child").attr('id'))
-                                            $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
+                                            if (block_clicked === "false"){                                            
                                             $("#defaultblock1").empty().append(data.htmldata);
                                     }
                                     else{
@@ -498,11 +501,11 @@
             alert(selectblock);
                     if (selectblock == "defaultblock1")
             {
-            block_clicked = "false";
+                    block_clicked = "false";
                     blockIdSelected = "defaultblock1";
             }
             else{
-            block_clicked = "true";
+                    block_clicked = "true";
                     blockIdSelected = "";
                     block_id = blockid;
                     addblockid = selectblock;
@@ -548,6 +551,7 @@
                         <div class="btmdiv">
                             <div class="row">
                                 <div class="col-lg-7 col-md-7 col-sm-7">
+                                    <input type="hidden" id="mindbodydata" value='<%= mindbody_data_id%>'>
                                     <div class="editemail fontpnr">Edit this Email</div>
                                 </div>   
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1">
@@ -595,7 +599,7 @@
             <div class="col-sm-1 col-md-1 col-lg-1" style="z-index: 10">
                 <div class="blockstyletab">      
                     <ul class="righttabs fontpnr">
-                        <li id="styletab" ng-click="showStyles()">
+                        <li id="styletab" ng-init="showStyles()" ng-click="showStyles()">
                             <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
                             <p>STYLE</p>
                         </li>
