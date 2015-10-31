@@ -12,6 +12,7 @@
 <%@page import="com.controller.SqlMethods"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
+<jsp:include page="checksession.jsp" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -161,8 +162,10 @@
                     }).success(function (data, status){
                         $scope.data = data;
                         if (data == "true"){
-                            alert("details deleted successfully");
-                            $scope.getMarketingPrograms();
+                            alert("record deleted successfully");
+                            window.open(getHost() + 'admin/marketingprogram.jsp', "_self");
+                        }else {
+                            alert("problem deleting record");
                         }
                     }).error(function (){
                         alert("No data available, problem fetching the data");
@@ -215,7 +218,7 @@
     <body ng-app class="container">
        <%@include file="menus.jsp" %>
         <div class="jumbotron" align="center" ng-controller="marketingCategoriesController" >
-            <div  style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 500px; width: 600px;">
+            <div  style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 550px; width: 600px;">
                 <form name="formPrograms" method="post">
 
                     <div>
@@ -242,7 +245,7 @@
                                     id = rs.getInt("id");
                                     user_name = rs.getString("user_name");
                     %>            
-                            <option value="<%=id%>"><%= user_name%></option>
+                                <option value="<%=id%>"><%= user_name%></option>
                     <%
                                 }
                         } catch (Exception e) {
@@ -261,14 +264,14 @@
                          
         Select category:<select name="category" id="category" style="width:180px;">
                             <option value="0">--select--</option>
-                            <option value="{{category.id}}" ng-repeat="category in marketingcategories">{{category.name}}</option>
+                            <option value="{{category.category_id}}" ng-repeat="category in marketingcategories">{{category.name}}</option>
                         </select><br><br>
                         
         Program order: <input type="text" id="program_order" name="program_order" />
                     </div><br>
                     <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
                    <div>
-        HTML Data:  <textarea id="html_data" name="html_data" ></textarea>
+                       HTML Data:  <textarea id="html_data" name="html_data" style="height: 120px; width: 240px; resize: none;" ></textarea>
                    </div>
                         <br>
                         <div style="float: left; left:20px; margin-top: -110px;">
@@ -285,25 +288,21 @@
             <br>
             <div ng-init="getMarketingPrograms()" style="margin-top: 0px;">
 
-                <div>&nbsp;Display Categories<br></div>
+                <div>&nbsp;Display Programs<br></div>
                 <table border="1" style="margin-top: 20px;">
                     <tr>
                         <td>ID Number </td>
                         <td>Program Name</td>
                         <td>Order ID</td>
                         <td>category ID</td>
-                        <td>user ID</td>
-                        <td></td>
                         <td></td>
                     </tr>
                    
                     <tr ng-repeat = "program in programs">
                         <td>{{program.id}}</td>
                         <td>{{program.name}}</td>
-                        <td>{{program.order}}</td>
+                        <td>{{program.program_order}}</td>
                         <td>{{program.category_id}}</td>
-                        <td>{{program.user_id}}</td>
-                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="editCategory()" disabled>edit</button></td>
                         <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteProgram(program.program_id)">delete</button></td>
                     </tr>
                     

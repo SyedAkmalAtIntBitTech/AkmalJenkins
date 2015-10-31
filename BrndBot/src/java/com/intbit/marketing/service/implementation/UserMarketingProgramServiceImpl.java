@@ -62,5 +62,10 @@ public class UserMarketingProgramServiceImpl implements UserMarketingProgramServ
     public TblUserMarketingProgram getByUserMarketingProgramIdAndMarketingProgramId(Integer id, Integer marketingProgramId) throws Throwable {
         return  userMarketingProgramDao.getByUserMarketingProgramIdAndMarketingProgramId(id, marketingProgramId);
     }
+
+    @Override
+    public List<TblUserMarketingProgram> getAllUserMarketingProgramByType(Integer user_id, String programType) throws Throwable {
+        return  userMarketingProgramDao.getAllUserMarketingProgramByType(user_id, programType);
+    }
     
 }

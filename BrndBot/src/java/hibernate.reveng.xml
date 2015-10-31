@@ -34,4 +34,5 @@
   <table-filter match-name="tbl_brand_color_theme"/>
   <table-filter match-name="tbl_marketing_program"/>
   <table-filter match-name="tbl_category"/>
+  <table-filter match-name="tbl_scheduled_twitter"/>
 </hibernate-reverse-engineering>

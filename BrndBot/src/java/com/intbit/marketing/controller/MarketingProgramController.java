@@ -80,7 +80,7 @@ public class MarketingProgramController {
     @RequestMapping(value = "/setMarketingPrograms", method = RequestMethod.POST)
     public @ResponseBody String setMarketingPrograms(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException, Throwable {
-        String returnResponse = "true";
+        String return_response = "false";
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
@@ -116,17 +116,18 @@ public class MarketingProgramController {
                 marketing_program_users.setTblUserLoginDetails(user_login);
                 marketingprogramusers.save(marketing_program_users);
             }
+            return_response = "true";
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);
         }
-        return "redirect:/getMarketingPrograms.do";
+        return return_response;
     }
 
     @RequestMapping(value = "/deleteMarketingPrograms", method = RequestMethod.POST)
     public @ResponseBody
     String deleteMarketingPrograms(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException, Throwable {
-
+        String return_response = "false";
         try {
 
             Map<String, Object> requestBodyMap
@@ -134,11 +135,11 @@ public class MarketingProgramController {
             Double program_id = (Double) requestBodyMap.get("program_id");
 
             marketingprogramservice.delete(program_id.intValue());
-
+            return_response = "true";
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Exception while deleting the categories", e);
         }
-        return "true";
+        return return_response;
     }
 
     @RequestMapping(value = "/displaymarketingProgram", method = RequestMethod.GET)

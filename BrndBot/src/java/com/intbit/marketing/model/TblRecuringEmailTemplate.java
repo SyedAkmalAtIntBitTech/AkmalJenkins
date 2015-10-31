@@ -36,11 +36,11 @@ public class TblRecuringEmailTemplate  implements java.io.Serializable {
        this.name = name;
     }
    
-     @Id 
+
+    @Id
 
     @GenericGenerator(name="id" , strategy="increment")
     @GeneratedValue(generator="id")
-
     @Column(name="id", unique=true, nullable=false)
     public int getId() {
         return this.id;
@@ -68,6 +68,7 @@ public class TblRecuringEmailTemplate  implements java.io.Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
 
 
 }

@@ -77,12 +77,12 @@ public class MarketingActionDaoImpl implements MarketingActionDao{
 	 * {@inheritDoc}
      */
     public void update(TblMarketingAction marketingAction) throws Throwable {
-       try {			
-		  sessionFactory.getCurrentSession().update(marketingAction);
-		} catch (Throwable throwable) {
-			logger.log(Level.SEVERE, null, throwable);
-			throw new Throwable("Database error while saving record.");
-		}
+       try {
+            sessionFactory.getCurrentSession().update(marketingAction);
+          } catch (Throwable throwable) {
+                  logger.log(Level.SEVERE, null, throwable);
+                  throw new Throwable("Database error while saving record.");
+          }
     }
 
      /**
@@ -107,12 +107,16 @@ public class MarketingActionDaoImpl implements MarketingActionDao{
                         .setFetchMode("tblMarketingProgram", FetchMode.JOIN)
                         .add(Restrictions.eq("tblMarketingCategory.id", mCategoryId))
                         .add(Restrictions.eq("tblMarketingProgram.id", mProgramId));
-                           return(TblMarketingAction)criteria.list().get(0);
+                    if(criteria.list().isEmpty())
+                    {
+                        return null;
+                    }else {
+                        return (TblMarketingAction)criteria.list().get(0);
+                    }
 		} catch (Throwable throwable) {
 			logger.log(Level.SEVERE, null, throwable);
 			throw new Throwable("Database error while retrieving record");
             }
     }
-    
-    
+        
 }

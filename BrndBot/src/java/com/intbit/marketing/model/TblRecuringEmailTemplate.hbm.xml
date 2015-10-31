@@ -11,5 +11,8 @@
         <property name="template" type="string">
             <column name="template" />
         </property>
+        <property name="name" type="string">
+            <column name="name" />
+        </property>        
     </class>
 </hibernate-mapping>
