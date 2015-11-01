@@ -23,10 +23,18 @@ public interface ScheduledEntityListDao {
    
    /**
 	 * This method retrieves all {@link scheduledEntityList}
+         * @param program_id
+         * @param status
 	 * @return {@link scheduledEntityList}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblScheduledEntityList> getAllScheduledEmailList() throws Throwable;
+   public Integer getCurrentRecords(Integer program_id)throws Throwable;
+   /**
+	 * This method retrieves all {@link scheduledEntityList}
+	 * @return {@link scheduledEntityList}
+	 * @throws java.lang.Throwable 
+    */
+  public List<TblScheduledEntityList> getAllScheduledEmailList() throws Throwable;
    
    /**
 	 * This method save {@link scheduledEntityList} by passing scheduledEntityList

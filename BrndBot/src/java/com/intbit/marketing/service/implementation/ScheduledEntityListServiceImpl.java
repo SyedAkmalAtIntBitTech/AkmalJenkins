@@ -33,6 +33,13 @@ public class ScheduledEntityListServiceImpl  implements ScheduledEntityListServi
 
    /**
 	 * {@inheritDoc}
+    */
+   public Integer getCurrentRecords(Integer program_id)throws Throwable{
+       return scheduledEntityListDao.getCurrentRecords(program_id);
+   }
+    
+   /**
+	 * {@inheritDoc}
      */
     public List<TblScheduledEntityList> getAllScheduledEmailList() throws Throwable {
         return  scheduledEntityListDao.getAllScheduledEmailList();
