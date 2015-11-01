@@ -16,7 +16,13 @@ import java.util.TimeZone;
 public class DateTimeUtil {
 
     public static boolean timeEqualsCurrentTime(Date datetime) {
+        //Make sure time zone is the same when comparison is done. Time doesnt have to be equal to the second. Just the minute is enough.
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static long differenceCurrentTime(Date nextPostDate) {
+        //Make sure time zone is the same when difference is taken. Return milliseconds.
+        return 0;
     }
     
     

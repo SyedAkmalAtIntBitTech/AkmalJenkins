@@ -19,6 +19,7 @@ import facebook4j.PhotoUpdate;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,8 +49,6 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private Facebook facebook;
-
     @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -78,35 +77,8 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 String title = request.getParameter("title");
                 String description = request.getParameter("description");
                 String url1 = request.getParameter("url");
+                String returnMessage = PostToFacebook.postStatus(accessToken, title, file_image_path, posttext, imagePostURL, getImageFile, url1, description, user_id, htmlString);
 
-                facebook = new FacebookFactory().getInstance();
-                facebook.setOAuthAppId("592852577521569", "a87cc0c30d792fa5dd0aaef6b43994ef");
-                facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
-//            File file = new File(file_image_path);
-                facebook.setOAuthAccessToken(new AccessToken(accessToken));
-
-                if (title == "") {
-
-                    Media media = new Media(new File(file_image_path));
-                    PhotoUpdate update = new PhotoUpdate(media);
-                    update.message(posttext);
-                    facebook.postPhoto(update);
-                } else {
-                    logger.info(title);
-                    PostUpdate post = new PostUpdate(posttext)
-                            .picture(new URL(imagePostURL + "DownloadImage?image_type=LAYOUT_IMAGES&image_name=" + getImageFile))
-                            .name(title)
-                            .link(new URL(url1))
-                            .description(description);
-                    facebook.postFeed(post);
-                }
-                try {
-
-                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile, null);
-                } catch (Exception ex) {
-                    Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
-                    Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());
-                }
             }
             if (isTwitter.equalsIgnoreCase("true")) {
 
@@ -119,9 +91,9 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 out1.println(returnMessage);
 
             }
-        } catch (FacebookException e) {
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getCause());
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
+
+        } catch (Exception e) {
+            
         }
     }
 

@@ -15,46 +15,48 @@ import util.DateTimeUtil;
  *
  * @author AR
  */
-public class ScheduleTwitterPost implements Callable {
-    
-    @Override
-    public Date call() throws Exception {
-        TblScheduledTwitter scheduledTwitterPost = getLatestApprovedTwitterPost();
-        
-        //The time zone of the saved date should be extracted. 
-        //This time zone should be applied to the current time and then this comparison needs to be made.
-        boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledTwitterPost.getDatetime());
-        
-        if (shouldPostNow) {
-            TblScheduledSocialpostList twitterPost = getTwitterPost(scheduledTwitterPost);
-            String message = PostToTwitter.postStatus(null, null, null, null, null, Integer.SIZE, null, null);
-            if (message.equalsIgnoreCase("success")) {
-                deleteScheduledTwitter(scheduledTwitterPost);
-                //Get the next in line
-                scheduledTwitterPost = getLatestApprovedTwitterPost();
-            }
-        }
-        
-        return scheduledTwitterPost.getDatetime();
-    }
-
-    private void deleteScheduledTwitter(TblScheduledTwitter scheduledTwitterPost) {
-        //Call the DAO here
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private TblScheduledSocialpostList getTwitterPost(TblScheduledTwitter scheduledTwitterPost) {
-        //Call the DAO here
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    private static TblScheduledTwitter getLatestApprovedTwitterPost() {
-        //Call the DAO here
-        return new TblScheduledTwitter();
-    }
+public class ScheduleFacebookPost implements Callable {
 
     public void terminateThread() {
         Thread.currentThread().interrupt();
     }
-    
+
+    @Override
+    public Date call() throws Exception {
+        //The below table should be reused or needs a new table specifically for FB.
+        TblScheduledTwitter scheduledFacebookPost = getLatestApprovedFacebookPost();
+
+        //The time zone of the saved date should be extracted. 
+        //This time zone should be applied to the current time and then this comparison needs to be made.
+        boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledFacebookPost.getDatetime());
+
+        if (shouldPostNow) {
+            TblScheduledSocialpostList facebookPost = getFacebookPost(scheduledFacebookPost);
+            String message = "";
+//            String message = PostToFacebook.postStatus(null, null, null, null, null, Integer.SIZE, null, null);
+            if (message.equalsIgnoreCase("success")) {
+                deleteScheduledFacebook(scheduledFacebookPost);
+                //Get the next in line
+                scheduledFacebookPost = getLatestApprovedFacebookPost();
+            }
+        }
+
+        return scheduledFacebookPost.getDatetime();
+    }
+
+    private void deleteScheduledFacebook(TblScheduledTwitter scheduledFacebookPost) {
+        //Call the DAO here
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private TblScheduledSocialpostList getFacebookPost(TblScheduledTwitter scheduledFacebookPost) {
+        //Call the DAO here
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static TblScheduledTwitter getLatestApprovedFacebookPost() {
+        //Call the DAO here
+        return new TblScheduledTwitter();
+    }
+
 }

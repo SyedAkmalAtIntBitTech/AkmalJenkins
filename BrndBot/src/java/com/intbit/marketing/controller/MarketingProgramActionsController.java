@@ -164,8 +164,7 @@ public class MarketingProgramActionsController {
         String return_response = "false";
         //Calling this restart to refresh the scheduler. 
         //Make sure this needs to be called for approve/unapprove/removed saved template or delete action.
-        ApplicationContextListener listener = ApplicationContextListener.getApplicationContextListener();
-        listener.restartTwitterScheduler();
+        ApplicationContextListener.refreshTwitterScheduler();
         return return_response;
         
     }

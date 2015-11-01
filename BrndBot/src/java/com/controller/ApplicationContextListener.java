@@ -18,13 +18,26 @@ import javax.servlet.ServletContextListener;
 public class ApplicationContextListener implements ServletContextListener {
 
     public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ApplicationContextListener.class));
+    static ApplicationContextListener applicationContextListener;
 
     public static ApplicationContextListener getApplicationContextListener() {
-        return ApplicationUtil.getApplicationContextListener();
+        return applicationContextListener;
+    }
+
+    public static void refreshTwitterScheduler() {
+        getApplicationContextListener().getSocialPostScheduler().startTwitterScheduler();
+    }
+    
+    public static void refreshFacebookScheduler() {
+        getApplicationContextListener().getSocialPostScheduler().startFacebookScheduler();
+    }
+    
+    public static void refreshEmailScheduler() {
+        getApplicationContextListener().getSocialPostScheduler().startEmailScheduler();
     }
 
     private MindbodyEmailListScheduler mindbodyEmailListScheduler;
-    public SocialPostScheduler socialPostScheduler;
+    private SocialPostScheduler socialPostScheduler;
 
     public SocialPostScheduler getSocialPostScheduler() {
         return socialPostScheduler;
@@ -37,7 +50,7 @@ public class ApplicationContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.log(Level.INFO, "Application Deployed");
-        ApplicationUtil.setApplicationContextListener(this);
+        applicationContextListener = this;
 //        mindbodyEmailListScheduler = new MindbodyEmailListScheduler();
 //        mindbodyEmailListScheduler.startScheduler();
         
@@ -52,9 +65,5 @@ public class ApplicationContextListener implements ServletContextListener {
 //        mindbodyEmailListScheduler.stopScheduler();
         socialPostScheduler.stopScheduler();
         
-    }
-
-    public void restartTwitterScheduler() {
-        socialPostScheduler.startTwitterScheduler();
     }
 }
