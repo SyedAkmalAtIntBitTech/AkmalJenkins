@@ -5,6 +5,7 @@
  */
 package com.intbit.marketing.controller;
 
+import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
 import com.controller.SqlMethods;
 import com.google.gson.Gson;
@@ -12,13 +13,9 @@ import com.intbit.AppConstants;
 import com.intbit.marketing.model.TblMarketingAction;
 import com.intbit.marketing.model.TblMarketingCategory;
 import com.intbit.marketing.model.TblMarketingProgram;
-import com.intbit.marketing.model.TblMarketingProgramUsersLookup;
-import com.intbit.marketing.model.TblUserLoginDetails;
 import com.intbit.marketing.service.MarketingActionService;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.StringReader;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -158,5 +155,19 @@ public class MarketingProgramActionsController {
             logger.log(Level.SEVERE, null, throwable);
         }
         return return_response;
+        
     }
+    
+    @RequestMapping(value = "/approveTwitterAction", method = RequestMethod.POST)
+    public @ResponseBody String approveTwitterAction(HttpServletRequest request,
+            HttpServletResponse response)throws ServletException, IOException, Throwable{
+        String return_response = "false";
+        //Calling this restart to refresh the scheduler. 
+        //Make sure this needs to be called for approve/unapprove/removed saved template or delete action.
+        ApplicationContextListener listener = ApplicationContextListener.getApplicationContextListener();
+        listener.restartTwitterScheduler();
+        return return_response;
+        
+    }
+    
 }

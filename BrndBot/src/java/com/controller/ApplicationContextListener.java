@@ -19,25 +19,42 @@ public class ApplicationContextListener implements ServletContextListener {
 
     public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ApplicationContextListener.class));
 
+    public static ApplicationContextListener getApplicationContextListener() {
+        return ApplicationUtil.getApplicationContextListener();
+    }
+
     private MindbodyEmailListScheduler mindbodyEmailListScheduler;
-    private TwitterPostScheduler emailListScheduler;
+    public SocialPostScheduler socialPostScheduler;
+
+    public SocialPostScheduler getSocialPostScheduler() {
+        return socialPostScheduler;
+    }
+
+    public void setSocialPostScheduler(SocialPostScheduler socialPostScheduler) {
+        this.socialPostScheduler = socialPostScheduler;
+    }
     
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.log(Level.INFO, "Application Deployed");
-        mindbodyEmailListScheduler = new MindbodyEmailListScheduler();
-        mindbodyEmailListScheduler.startScheduler();
+        ApplicationUtil.setApplicationContextListener(this);
+//        mindbodyEmailListScheduler = new MindbodyEmailListScheduler();
+//        mindbodyEmailListScheduler.startScheduler();
         
-//        emailListScheduler = new TwitterPostScheduler();
-//        emailListScheduler.startScheduler();
+        socialPostScheduler = new SocialPostScheduler();
+        socialPostScheduler.startTwitterScheduler();
         
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         logger.log(Level.INFO, "Application Un Deployed");
-        mindbodyEmailListScheduler.stopScheduler();
-//        emailListScheduler.stopScheduler();
+//        mindbodyEmailListScheduler.stopScheduler();
+        socialPostScheduler.stopScheduler();
         
+    }
+
+    public void restartTwitterScheduler() {
+        socialPostScheduler.startTwitterScheduler();
     }
 }
