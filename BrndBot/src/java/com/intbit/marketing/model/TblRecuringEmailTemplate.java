@@ -22,7 +22,7 @@ public class TblRecuringEmailTemplate  implements java.io.Serializable {
      private int id;
      private String template;
      private String name;
-     
+
     public TblRecuringEmailTemplate() {
     }
 
@@ -30,12 +30,15 @@ public class TblRecuringEmailTemplate  implements java.io.Serializable {
     public TblRecuringEmailTemplate(int id) {
         this.id = id;
     }
-    public TblRecuringEmailTemplate(int id, String template) {
+    public TblRecuringEmailTemplate(int id, String template,String name) {
        this.id = id;
        this.template = template;
+       this.name = name;
     }
    
+
     @Id
+
     @GenericGenerator(name="id" , strategy="increment")
     @GeneratedValue(generator="id")
     @Column(name="id", unique=true, nullable=false)

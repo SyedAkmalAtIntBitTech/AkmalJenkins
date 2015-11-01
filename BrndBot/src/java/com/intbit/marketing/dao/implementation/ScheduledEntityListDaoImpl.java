@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -46,7 +47,21 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao{
             }
     }
 
-    
+    public Integer getCurrentRecords(Integer program_id)throws Throwable{
+        try {
+                Criteria criteria = sessionFactory.getCurrentSession()
+                        .createCriteria(TblScheduledEntityList.class)
+                        .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
+                        .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
+//                        .add(Restrictions.eq("status", "template_saved"))
+                        .add(Restrictions.eq("status", "no_template"));
+                List<TblScheduledEntityList> entity_list = criteria.list();
+                return (Integer)entity_list.size();
+        }catch (Throwable throwable){
+                logger.log(Level.SEVERE, null, throwable);
+		throw new Throwable("Database error while retrieving record");
+        }
+    }
     /**
 	 * {@inheritDoc}
      */

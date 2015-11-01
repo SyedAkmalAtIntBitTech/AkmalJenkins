@@ -35,5 +35,13 @@ public interface IConstants {
     final static String kColor4 = "color4";
     final static String kColor5 = "color5";
     final static String kColor6 = "color6";
+    final static String kMarketingProgramTemplateTillDate = "tillDate";
+    final static String kMarketingProgramTemplateDays = "days";
+    final static String kMarketingProgramTemplateDescription = "description";
+    final static String kMarketingProgramTemplateTime = "time";
+    final static String kMarketingProgramTemplateIsRecuring = "isRecuring";
+    final static String kMarketingProgramTemplateTitle = "title";
+    final static String kMarketingProgramTemplateEntityType = "type";
+    
     
 }

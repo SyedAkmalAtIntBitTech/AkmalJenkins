@@ -45,9 +45,12 @@ function controllerMarketingCategories($scope, $http, $window){
     };
     
     $scope.showhtmldata = function(id,html_data){
-        $("#html_data").empty();
+        
+            $(".htmldatacontainer").css("overflow", "scroll");
+            $("#html_data").empty();
         $("#html_data").append(html_data);
         $("#programidHidden").val(id);
+       
     };
     $scope.submitclick = function(){
         if($("#programidHidden").val()!="0")

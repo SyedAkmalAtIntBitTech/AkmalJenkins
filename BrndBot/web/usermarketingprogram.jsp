@@ -87,7 +87,11 @@
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(program_details)
                     }).success(function (data, status, headers, config) {
-                        alert(data);
+                        if (data == "success"){
+                            alert("details saved successfully");
+                        }else {
+                            alert("problem saving the record");
+                        }    
                         if (data === error) {
                             alert(data);
                         }
@@ -146,12 +150,14 @@
                     </div>
                     <div class="row">
                          <div class="col-sm-12 col-lg-12 col-md-12">
-                             <a href=""><button  type="submit"  
+                             <a href="">
+                                 <button  type="submit"  
                                                  ng-click="saveMarketingProgram()"
                                                  class="subcont button 
                                                  button--moema button--text-thick 
                                                  button--text-upper button--size-s">
-                                     continue</button></a>
+                                     continue</button>
+                             </a>
                          </div>
                     </div>
                     
