@@ -56,7 +56,7 @@ public class ApplicationContextListener implements ServletContextListener {
         
         socialPostScheduler = new SocialPostScheduler();
         socialPostScheduler.startTwitterScheduler();
-        
+        socialPostScheduler.startFacebookScheduler();
     }
 
     @Override
