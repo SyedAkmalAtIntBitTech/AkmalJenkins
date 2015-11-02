@@ -28,7 +28,6 @@
 %>        
 <% 
     program_id = request.getParameter("program_id");
-    out.println(program_id);
 %>
 <script>
             var program = "";
@@ -96,7 +95,7 @@
                         </div>
                          <div class="col-lg-2 col-md-2 col-sm-4">
                             <div class="dtofevnt fontpnr">Date of Event</div>
-                            <div class="evntdt fontpns">{{programs.programdetails.dateOfEvent}}</div>
+                            <div class="evntdt fontpns">{{programs.programdetails.dateOfEvent| date:'MMM dd yyyy'}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-4">
                             <div class="asclink fontpnr">Associated Link</div>
@@ -142,7 +141,7 @@
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5">
                              <div class="listelem fontpnr">{{emailautomation.programTemplateName}}</div>
-                             <div class="sublst fontpnr">{{emailautomation.dateTime}}&nbsp;{{emailautomation.emailRecuringTemplateName}}</div>
+                             <div class="sublst fontpnr">Started on {{emailautomation.dateTime| date:'  d/M/yy'+' At '+'h:mm a'}}&nbsp;&nbsp;&nbsp;&nbsp;{{emailautomation.emailRecuringTemplateName}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1">
                             <div class="stslst fontpnr">{{emailautomation.status}}</div>
@@ -190,12 +189,10 @@
                         </div>
                          <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="listelem fontpnr">{{programaction.programTemplateName}}</div>
-                             <div class="otasublst fontpnr"> {{programaction.postTime}}</div>
+                             <div class="otasublst fontpnr">Scheduled for {{programaction.postTime| date:'h a'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="oatlstdt fontpnr">Oct 15
-                                <!--{{programaction.postDate}}-->
-                            </div>
+                            <div class="oatlstdt fontpnr">{{programaction.postDate| date:'MMM yy'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
                             <div class="oatlstpost fontpnr">{{programaction.actionType}}</div>
