@@ -92,19 +92,17 @@
                     <div>
                         <p id="planhead" class="MH2">Your Plan</p>
                         <a href = "javascript:void(0)" onclick = "overlay();">
-                            <button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" style="z-index:0;background-color:#E65C00;width:120px;position:relative;margin-top:-47px;margin-left:13em;">ADD ACTION</button>
+                            <button id="liPriority" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="ShowAddAction()">ADD ACTION</button>
                         </a>
-                        <button id="delsel" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:160px;z-index:0;position:relative;margin-top:-47px;margin-left:25em;display:none;" ng-click="deleteSchedule('0','deleteMultiple')">DELETE SELECTED</button> 
+                        <button id="delsel" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="deleteSchedule('0','deleteMultiple')">DELETE SELECTED</button> 
                     </div>
 
 
                     <div class="col-md-12" style="display: none;" id="default" ng-init="getCampaigns()">
-                        <div class="row" style="width:750px;position:relative;top:25px;margin-left:-15px;">
+                        <div class="row">
 
                             <!--<div class='col-md-1 SP2 fonthead'>Today</div>-->
                             <div class='col-md-3' style="width:280px;"></div>
-                            <div class='col-md-3 SS2' style="margin-left:90px;">Action Type</div>
-                            <div class='col-md-2 SS2' style="margin-left:-20px;">Template Saved</div>
                             <div class='col-md-3' ></div></div> 
 
                         <div id="daydetails" ng-repeat="entity in entitySet">
@@ -129,7 +127,7 @@
                                     </div>
                                     <div class="col-md-3" style="width:300px;margin-left:-40px;">
                                         <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
-                                            <p class="MH1" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description)">{{entitydetails.schedule_title}}</p></a>
+                                            <p class="MH1" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description,entitydetails.marketingName)">{{entitydetails.schedule_title}}</p></a>
                                         <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}}</p>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entitydetails.entity_type}}</div>
@@ -145,7 +143,8 @@
                                                             entitydetails.schedule_time, 
                                                             entitydetails.entity_type, 
                                                             entitydetails.schedule_title, 
-                                                            entitydetails.schedule_description)">DETAILS</button>
+                                                            entitydetails.schedule_description,
+                                                            entitydetails.marketingName)">DETAILS</button>
                                         </a>
                                     </div>
                                 </div>
@@ -166,20 +165,27 @@
                     <div class="inlineFlex">
                         <div class="pfont actfnt fontpnr">CREATE A NEW ACTION</div>
                     </div>
-                    <div class="tenpix headcolor fontpns topthirty">ACTION NAME</div>
-                    <div><textarea class="addactiondetinput top8 fontpns" name="addactiontitle" id="addactiontitle">User’s Title for Action Goes Here Two Line tets</textarea></div>
+                    <div class="top18 fontpns tenpix headcolor">MARKETING PROGRAM</div>
+                    <div class="topfive fontpnr">
+                        <select id="marketing_program" name="marketing_program_type">
+                            <option value="0">Select</option>
+                            <option ng-repeat="row in marketprogram" value="{{row.user_program_id}}">{{row.name}}</option>
+                        </select>
+                    </div>
+                    <div class="top18 tenpix headcolor fontpns ">ACTION NAME</div>
+                    <div><textarea class="addactiondetinput top8 fontpns" name="addactiontitle" id="addactiontitle" placeholder="Title here"></textarea></div>
                     <div class="top26 fontpns tenpix headcolor">ACTION TYPE</div>
                     <div class="topfive fontpnr">
                         <select id="actiontype"name="actiontype">
                             <option value="0">Select</option>
-                            <option value="facebook">facebook</option>
-                            <option value="twitter">twitter</option>
-                            <option value="email">email</option>
-                            <option value="note">note</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="twitter">Twitter</option>
+                            <option value="email">Email</option>
+                            <option value="note">Note</option>
                         </select>
                     </div>
-                    <div class="toptweenty fontpns tenpix headcolor">DESCRIPTION</div>
-                    <div class="topten"><textarea class="addactiondesc fontpnr" name="description" id="description">(THIS AREA SHOULD BE ABLE TO SCROLL) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</textarea></div>
+                    <div class="top18 fontpns tenpix headcolor">DESCRIPTION</div>
+                    <div class="topten"><textarea class="addactiondesc fontpnr" name="description" id="description" placeholder="Description here"></textarea></div>
                     <div class="toptweenty fontpns tenpix headcolor">STATUS</div>
                     <div class="inlineFlex">
                         <div class="rightfive top11">
@@ -187,7 +193,7 @@
                         </div>
                         <div class="tenpix fontpnr topnine containe">INCOMPLETE</div>
                     </div>
-                    <div class="tenpix fontpns headcolor toptweenty">SCHEDULED TO POST ON</div>
+                    <div class="tenpix fontpns headcolor ">SCHEDULED TO POST ON</div>
                     <div class="inlineFlex">
                         <div class="half">
                             <div class="containe fontpnr tenpix topten">
@@ -221,7 +227,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="top58">
+                    <div class="topfourty">
                         <button class="addactcrtbtn fontpns twlvpix button--moema 
                                                    button--text-thick 
                                                    button--text-upper 
@@ -357,7 +363,7 @@
                                     </div>
                                 </div>
                                 <div class="half containe fontpnr tenpix">
-                                    (User Marketing Program Name)
+                                    {{marketing_program_name}}
                                 </div>
                             </div>
                             <div class="topfourty headtitle pfont actfnt fontpnr">
@@ -371,7 +377,7 @@
                             </div>
                             <div class="inlineFlex top120">
                                 <div class="rightthirty">
-                                    <input type="button"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
+                                    <input type="button"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc,marketing_program_name)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                 </div>
                                 <div class="approve">
                                     <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
@@ -695,7 +701,7 @@
                                                 </div>
                                             </div>
                                             <div class="half containe fontpnr tenpix topten">
-                                                CANNOT EDIT
+                                                {{marketing_program_name}}
                                             </div>
                                         </div>
                                         <div class="topthirty8 pfont actfnt fontpnr">
@@ -928,7 +934,7 @@
                                             </div>
                                         </div>
                                         <div class="half containe fontpnr tenpix">
-                                            (User Marketing Program Name)
+                                            {{marketing_program_name}}
                                         </div>
                                     </div>
                                     <div class="topfourty headtitle pfont actfnt fontpnr">
@@ -1346,7 +1352,7 @@
                                             </div>
                                         </div>
                                         <div class="half containe fontpnr tenpix topten">
-                                            CANNOT EDIT
+                                            {{marketing_program_name}}
                                         </div>
                                     </div>
                                      <div class="topthirty8 pfont actfnt fontpnr">
@@ -1609,7 +1615,7 @@
                                     MARKETING PROGRAM
                                 </div>
                                 <div class="toptnine headcolor tenpix fontpnr">
-                                    (User Marketing Program Name)
+                                    {{marketing_program_name}}
                                 </div>
                                 <div class="top20nhalf headtitle pfont actfnt fontpns">
                                     SCHEDULED TO SEND ON
@@ -1684,7 +1690,7 @@
                             
                             
                             <div class="toptweenty fontpns tenpix headcolor">MARKETING PROGRAM</div>
-                            <div class="tenpix fontpnr topnine containe">(User Marketing Program Name)</div>
+                            <div class="tenpix fontpnr topnine containe">{{marketing_program_name}}</div>
                             <div class="tenpix fontpns headcolor toptweenty">SCHEDULED TO POST ON</div>
                             <div class="inlineFlex">
                                 <div class="half">
@@ -1829,7 +1835,7 @@
                                         </div>
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        (User Marketing Program Name)
+                                        {{marketing_program_name}}
                                     </div>
                                 </div>
                                 <div class="topfourty headtitle pfont actfnt fontpnr">
@@ -2081,7 +2087,7 @@
                                                 </div>
                                             </div>
                                             <div class="half containe fontpnr tenpix topten">
-                                                CANNOT EDIT
+                                                {{marketing_program_name}}
                                             </div>
                                         </div>
                                          <div class="topthirty8 pfont actfnt fontpnr">
@@ -2190,7 +2196,7 @@
 
             
           
-               <div id="light" class="white_content">
+               <div id="light" class="white_content closepopup">
                 <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
                     <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
                         <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="25" width="25" /></p>
