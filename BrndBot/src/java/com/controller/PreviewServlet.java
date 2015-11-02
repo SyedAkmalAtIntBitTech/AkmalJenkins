@@ -36,11 +36,11 @@ public class PreviewServlet extends BrndBotBaseHttpServlet {
             super.processRequest(request, response);
             response.setContentType("text/html;charset=UTF-8");
 
-            ConvertDivToHTML convertDivToHTML = new ConvertDivToHTML(request);
+//            ConvertDivToHTML convertDivToHTML = new ConvertDivToHTML(request);
 
             String htmlString = request.getParameter("htmlString");
             String iframeName=request.getParameter("iframeName");
-            htmlString = convertDivToHTML.getResponsiveHTMLFromDiv(htmlString);
+//            htmlString = convertDivToHTML.getResponsiveHTMLFromDiv(htmlString);
 
             File emailTemplateFile = new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator +iframeName+".html");
             if(!emailTemplateFile.exists()) {

@@ -79,9 +79,10 @@ public class GetEmaiLayoutHtmlServlet extends BrndBotBaseHttpServlet {
 
             }
             Htmljson.put("htmldata", html);
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write(AppConstants.GSON.toJson(Htmljson));
-            response.getWriter().flush();
+            response.getWriter().write(Htmljson.toString());
+//            response.setStatus(HttpServletResponse.SC_OK);
+//            response.getWriter().write(AppConstants.GSON.toJson(Htmljson));
+//            response.getWriter().flush();
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
