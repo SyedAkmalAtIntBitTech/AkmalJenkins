@@ -179,6 +179,14 @@
             <script>
                 
                 $( document ).ready(function() {
+                    $("#lstcurprogs").click(function (){
+                        $("#lstcurprogs").css("color","#3f3f42").css("background-color","#f6f7f7");
+                        $("#lstpstprogs").css("color","#3f3f42").css("background-color","transparent");
+                    });
+                     $("#lstpstprogs").click(function (){
+                        $("#lstpstprogs").css("color","#3f3f42").css("background-color","#f6f7f7");
+                        $("#lstcurprogs").css("color","#3f3f42").css("background-color","transparent");
+                    });
 //                    if(window.location.href.indexOf("curprog") !== -1)
 //                    {
 //                         $("#pastprogs").hide();
@@ -226,6 +234,7 @@
 //                });
                 
                 $("#crtprogpg").click(function (){
+                    
                    document.location.href="marketingcategory.jsp"; 
                 });
             </script>

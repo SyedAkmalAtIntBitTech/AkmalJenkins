@@ -4,13 +4,17 @@
         <title>marketing category sub menu</title>
         <style>
             .categorysubmenunav{
-                height: 630px !important;
+                /*height: 630px !important;*/
+                position: fixed;
+                height: 100% !important;
                 width:100px !important;
                 background-color: #e3e3e3;
+                overflow: hidden;
             }
             .catnav{  
     padding-top: 170px !important;
     margin-left:-40px;
+    height:100%;
 }
 .proghislist li{
    
@@ -47,7 +51,7 @@
 </head>
 <div class="categorysubmenunav">
     <ul class="catnav fontpnr">
-        <li><a href="marketingcategory.jsp"><p>Create <br>Program</p></a></li>
+        <li id="createprog"><a href="marketingcategory.jsp"><p>Create <br>Program</p></a></li>
         <li><a href="marketingprogramlist.jsp"><p>Existing Programs</p></a></li>
     </ul>
 </div>
