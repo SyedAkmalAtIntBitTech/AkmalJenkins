@@ -28,15 +28,17 @@
 %>        
 <% 
     program_id = request.getParameter("program_id");
+    out.println(program_id);
 %>
 <script>
-            var program_id = <%= program_id %>
+            var program = "";
+            program = <%= program_id %>;
             function programactions($scope, $http, $window){
                 
                 $scope.getProgramActions = function(){
                      $http({
                         method: 'GET',
-                        url: 'allmarketingProgram.do?program_id='+program_id
+                        url: 'alluserMarketingProgramForDisplay.do?program_id='+program
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
 //                        $scope.programs_emailautomation = data.emailautomation;
