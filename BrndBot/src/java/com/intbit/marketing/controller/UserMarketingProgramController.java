@@ -312,7 +312,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
              TblRecuringEmailTemplate   recuringEmailTemplate = recuringEmailTemplateService.getById(scheduledEntityListObject.getRecuringEmailId());
                JSONObject jSONObject = new JSONObject();
                 jSONObject.put("scheduledEntityListId", scheduledEntityListObject.getId());
-                jSONObject.put("dateTime", "Started on "+scheduledEntityListObject.getTblUserMarketingProgram().getCreateDate());
+                jSONObject.put("dateTime", scheduledEntityListObject.getTblUserMarketingProgram().getCreateDate().getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
                 jSONObject.put("status", scheduledEntityListObject.getStatus());
                 jSONObject.put("emailRecuringTemplateName",recuringEmailTemplate.getName());
@@ -337,16 +337,16 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                       Calendar cal = Calendar.getInstance();
                        cal.setTime(eventDate);
                        cal.add(Calendar.DAY_OF_MONTH, -days);
-                       String postDate =formatter.format(cal.getTime());
-                       String postTime =TimeFormatter.format(cal.getTime());
+                       String postDate =formatter.format(cal.getTimeInMillis());
+                       String postTime =TimeFormatter.format(cal.getTimeInMillis());
                 JSONObject jSONObject = new JSONObject();
                 jSONObject.put("scheduledEntityListId", scheduledEntityListObject.getId());
-                jSONObject.put("eventDate", dateString);
+                jSONObject.put("eventDate", eventDate.getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
                 jSONObject.put("status", scheduledEntityListObject.getStatus());
                 jSONObject.put("actionStatus",actionStatus);
-                jSONObject.put("postDate",postDate);
-                jSONObject.put("postTime","Scheduled for "+postTime);
+                jSONObject.put("postDate",cal.getTimeInMillis());
+                jSONObject.put("postTime",cal.getTimeInMillis());
                 jSONObject.put("actionType",scheduledEntityListObject.getEntityType());
                 scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
                System.out.println(scheduledEmailAndSocailPostJsonForRecuringArray);
@@ -370,16 +370,16 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                       Calendar cal = Calendar.getInstance();
                        cal.setTime(eventDate);
                        cal.add(Calendar.DAY_OF_MONTH, -days);
-                       String postDate =formatter.format(cal.getTime());
-                       String postTime =TimeFormatter.format(cal.getTime());
+                       String postDate =formatter.format(cal.getTimeInMillis());
+                       String postTime =TimeFormatter.format(cal.getTimeInMillis());
                JSONObject jSONObject = new JSONObject();
                jSONObject.put("scheduledEntityListId", scheduledSocialpostListObject.getId());
                jSONObject.put("eventDate", dateString);
                jSONObject.put("programTemplateName", scheduledSocialpostListObject.getScheduleTitle());
                jSONObject.put("status", scheduledSocialpostListObject.getStatus());
                jSONObject.put("actionStatus",actionStatus);
-               jSONObject.put("postDate",postDate);
-               jSONObject.put("postTime","Scheduled for "+postTime);
+               jSONObject.put("postDate",cal.getTimeInMillis());
+               jSONObject.put("postTime",cal.getTimeInMillis());
                jSONObject.put("actionType",scheduledSocialpostListObject.getEntityType());
                 scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
 
@@ -392,7 +392,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                 userMarketinProgramObject.put("programName", userMarketingProgram.getName());
                 userMarketinProgramObject.put("noOfActions", "15");
                 userMarketinProgramObject.put("linktodestination", userMarketingProgram.getUrl());
-                userMarketinProgramObject.put("dateOfEvent", dateOfEvent);
+                userMarketinProgramObject.put("dateOfEvent", dateEvent.getTime());
                 userMarketinProgramObject.put("description", userMarketingProgram.getTblMarketingProgram().getHtmlData());
 
             JSONObject jSONObject = new JSONObject();

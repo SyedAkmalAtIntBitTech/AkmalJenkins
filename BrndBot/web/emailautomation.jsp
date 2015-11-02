@@ -41,7 +41,7 @@
         <script src="js/angular.min.js"></script>        
         <script src="js/dashboard.js"></script>
         
-         <style>
+  <style>
 
       div#editor {
           width: 100%;
@@ -59,6 +59,7 @@
             $("#emlautomeditorcontainer").hide();
             $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
             } );
+            var template_id = "";
             function validate(){
                 var days = $("#days").val();
                 var emaillisttext = $("#emaillist :selected").text();
@@ -102,6 +103,8 @@
             }
             
             function emailautomation($scope, $http){
+            
+            $scope.days = 10;
             /*
              * Bring all the email list from the database
              */
@@ -147,10 +150,14 @@
 
                  };
                  
-                 $scope.showHTMLData = function(html_data){
-                     alert(html_data);
-                     $(".fr-iframe").empty();
-                     $(".fr-iframe").append(html_data);
+                 $scope.showHTMLData = function(html_data, id){
+                        var $iframe = $('.fr-iframe');
+                        $iframe.contents().find("body").append(html_data);
+                        template_id = id;
+//                     alert(html_data);
+//                     $(".fr-iframe").empty();
+////                     $(".fr-wrapper").appendChild("<div id='html_data'></div>")
+//                     $(".fr-iframe").append(html_data);
                  };
                 $scope.saveEmailAutomation = function(){
                     if (validate()){
@@ -160,25 +167,37 @@
                         var subject = $("#subject").val();
                         var from_name = $("#from_name").val();
                         var reply_to_address = $("#reply_to_address").val();
-                        var emailautomation = {"days":days, "emaillist":emaillist,
-                                                "subject":subject, "from_name":from_name,
-                                                "reply_to_address":reply_to_address
+                        var entity_id = 140;
+                        var days = 10;
+                        
+                        var $iframe = $('.fr-iframe');
+                        var html_data = $iframe.contents().find("html").html(); 
+                        html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
+                        console.log(html_data);
+                        alert(html_data);
+                        var emailautomation = {"entity_id":entity_id, "template_id":template_id,
+                                               "days":days, "emaillist":emaillist,
+                                               "subject":subject, "from_name":from_name,
+                                               "reply_to_address":reply_to_address,
+                                               "html_data": html_data
                                               };
-//                        $http({
-//                            method: 'POST',
-//                            url: 'SetEmailAutomation',
-//                            headers: {'Content-Type':'application/json'},
-//                            data: JSON.stringify(emailautomation)
-//                        }).success(function (data, status, headers, config) {
-//                            $scope.categories = data;
-//                            if (data === error) {
-//                                alert(data);
-//                            }
-//                        }).error(function (data, status, headers, config) {
-//                            alert("No data available, problem fetching the data");
-//                            // called asynchronously if an error occurs
-//                            // or server returns response with an error status.
-//                        });
+                        $http({
+                            method: 'POST',
+                            url: 'setEmailTemplateToRecuringAction.do',
+                            headers: {'Content-Type':'application/json'},
+                            data: JSON.stringify(emailautomation)
+                        }).success(function (data, status, headers, config) {
+                            $scope.categories = data;
+                            if (data === "true") {
+                                alert("details saved succesfully");
+                            }else {
+                                alert("problem saving the record");
+                            }
+                        }).error(function (data, status, headers, config) {
+                            alert("No data available, problem fetching the data");
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                        });
                     }
                 };
             }
@@ -225,8 +244,6 @@
       
 </head>
 
-<body>
-
      <body ng-app>
         <div class="row" ng-controller="emailautomation">
             <div class="col-md-1 col-lg-1 col-sm-2 halfcol" >
@@ -248,10 +265,10 @@
                                 </li>
                                 <li>
                                     <select id="days" class="eventsel fontpnr">
-                                        <option value="0">0</option>
+                                        <option value="{{days}}">{{days}}</option>
                                     </select>
                                     <script>
-                                            $(function(){
+                                        $(function(){
                                             for(i=1; i<=31; i++){
                                             $('#days').append('<option value='+i+'>'+ i + '</option>');
                                             }
@@ -297,12 +314,13 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-lg-12 col-md-12 padlft">
-                            <button  type="submit"  class="emlautombtn button 
-                                                           button--moema 
-                                                           button--text-thick 
-                                                           button--text-upper 
-                                                           button--size-s" 
-                                                           ng-click="getEmailTemplates()">
+                            <button type="submit" 
+                                    class="emlautombtn button 
+                                            button--moema 
+                                            button--text-thick 
+                                            button--text-upper 
+                                            button--size-s" 
+                                            ng-click="getEmailTemplates()">
                                 Save</button>
                         </div>
                     </div>
@@ -348,7 +366,16 @@
                                             <div class="mobileprev fontpnr">Mobile Preview</div>
                                         </div>
                                         <div class="col-lg-1 col-md-1 col-sm-1">
-                                            <div class="emledtrsavebtn"><input class="emailedtrsave fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="save"></div>
+                                            <div class="emledtrsavebtn">
+                                                <input class="emailedtrsave fontpns 
+                                                       button button--moema 
+                                                       button--text-thick 
+                                                       button--text-upper 
+                                                       button--size-s" 
+                                                       type="button" 
+                                                       value="save" 
+                                                       ng-click="saveEmailAutomation()">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>                                
@@ -372,7 +399,7 @@
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <ul id="blklist" class="blocklist fontpnr">
                                 <li ng-repeat="email_template in recuring_email_templates"> 
-                                    <div ng-click="showHTMLData(email_template.html_data)">{{email_template.template_name}}</div>
+                                    <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
                                 </li>
                             </ul>
 <!--                            <ul id="stylelist" class="blocklist fontpnr">
@@ -384,7 +411,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="col-sm-1 col-md-1 col-lg-1">
                 <div class="blockstyletab">      
@@ -401,11 +427,8 @@
                 </div>
             </div>
         </div>
-                </div>
         </div>
-                
-            
-               
+        </div>
     </body>
     
 </html>

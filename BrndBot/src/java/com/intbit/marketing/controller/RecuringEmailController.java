@@ -5,10 +5,16 @@
  */
 package com.intbit.marketing.controller;
 
+import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.marketing.model.TblMarketingProgram;
 import com.intbit.marketing.model.TblRecuringEmailTemplate;
+import com.intbit.marketing.model.TblScheduledEmailList;
+import com.intbit.marketing.model.TblScheduledEntityList;
+import com.intbit.marketing.model.TblUserLoginDetails;
 import com.intbit.marketing.service.RecuringEmailTemplateService;
+import com.intbit.marketing.service.ScheduledEmailListService;
+import com.intbit.marketing.service.ScheduledEntityListService;
 import java.io.BufferedReader;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +39,15 @@ public class RecuringEmailController {
     Logger logger = Logger.getLogger(RecuringEmailController.class.getName());
     @Autowired
     private RecuringEmailTemplateService recuring_email_template_service;
+    @Autowired
+    private ScheduledEmailListService schedule_email_list_service;
+    @Autowired
+    private ScheduledEntityListService schedule_entity_list_service;
     String return_response = "false";
-    
+    /*
+        this method is used to get all of the recuring email templates from the database
+        table tbl_recuring_email_template
+    */
     @RequestMapping (value = "/getAllRecuringEmailTemplates", method = RequestMethod.GET)
     public @ResponseBody String getAllRecuringEmailTemplates(){
          JSONArray json_array_recuring_email_template = new JSONArray();
@@ -58,6 +71,11 @@ public class RecuringEmailController {
          }
          return json_array_recuring_email_template.toString();
     }
+    /*
+        this method is used to get the recuring email template from the database
+        table tbl_recuring_email_template with the query parameter
+        @template_id
+    */
     
     @RequestMapping (value = "/getRecuringEmailTemplate", method = RequestMethod.POST)
     public @ResponseBody String getRecuringEmailTemplate(HttpServletRequest request,
@@ -79,7 +97,9 @@ public class RecuringEmailController {
          }
          return json_marketing_programming.toString();
     }
-    
+    /*
+        saves a new recuring email template into the database table tbl_recuring_email_template
+    */
     @RequestMapping (value = "/setRecuringEmailTemplate", method = RequestMethod.POST)
     public @ResponseBody String setRecuringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
@@ -146,6 +166,53 @@ public class RecuringEmailController {
             logger.log(Level.SEVERE,"Exception while deleting the recuring email template:", throwable);
         }
         return return_response;
+    }
+    
+    @RequestMapping (value = "/setEmailTemplateToRecuringAction", method = RequestMethod.POST)
+    public @ResponseBody String setEmailTemplateToRecuringAction(HttpServletRequest request,
+            HttpServletResponse response){
+        try{
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            SqlMethods sql_methods = new SqlMethods();
+            
+       sql_methods.session = request.getSession(true);
+                Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+            
+            Double entity_id = (Double)requestBodyMap.get("entity_id");
+            Double days = (Double)requestBodyMap.get("days");
+            String template_id = (String)requestBodyMap.get("template_id");
+            String emaillist = requestBodyMap.get("emaillist").toString();
+            String subject = requestBodyMap.get("subject").toString();
+            String from_name = requestBodyMap.get("from_name").toString();
+            String reply_to_address = requestBodyMap.get("reply_to_address").toString();
+            String html_data = requestBodyMap.get("html_data").toString();
+            
+            TblScheduledEmailList scheduled_email_list = new TblScheduledEmailList();
+            scheduled_email_list.setId(0);
+            TblUserLoginDetails user_login = new TblUserLoginDetails();
+            user_login.setId(user_id);
+            scheduled_email_list.setTblUserLoginDetails(user_login);
+            scheduled_email_list.setSubject(subject);
+            scheduled_email_list.setBody(html_data);
+            scheduled_email_list.setEmailListName(emaillist);
+            scheduled_email_list.setFromName(from_name);
+            scheduled_email_list.setReplyToEmailAddress(reply_to_address);
+            
+            Integer email_list_id = schedule_email_list_service.save(scheduled_email_list);
+            
+            TblScheduledEntityList scheduled_entity_list = schedule_entity_list_service.getById(entity_id.intValue());
+            
+            scheduled_entity_list.setEntityId(email_list_id);
+            scheduled_entity_list.setDays(days.intValue());
+            
+            schedule_entity_list_service.update(scheduled_entity_list);
+            return "true";
+            
+        }catch (Throwable throwable){
+            logger.log(Level.SEVERE,"Exception while saving the email action in the table:", throwable);
+        }
+        return "false";
     }
     
 }

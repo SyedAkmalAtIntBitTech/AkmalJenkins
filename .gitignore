@@ -8,3 +8,5 @@
 /BrndBot/nb-configuration.xml
 /BrndBot/.nb-gradle/
 /BrndBot/nbproject/genfiles.properties
+/BrndBot/web/META-INF/context.xml
+/BrndBot/web/WEB-INF/jdbc.properties
