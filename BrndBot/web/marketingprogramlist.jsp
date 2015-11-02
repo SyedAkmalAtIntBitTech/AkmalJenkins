@@ -179,6 +179,7 @@
             <script>
                 
                 $( document ).ready(function() {
+                    $("#lstcurprogs").css("color","#3f3f42").css("background-color","#f6f7f7");
                     $("#lstcurprogs").click(function (){
                         $("#lstcurprogs").css("color","#3f3f42").css("background-color","#f6f7f7");
                         $("#lstpstprogs").css("color","#3f3f42").css("background-color","transparent");

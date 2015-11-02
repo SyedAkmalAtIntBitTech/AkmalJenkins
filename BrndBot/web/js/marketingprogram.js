@@ -45,10 +45,11 @@ function controllerMarketingCategories($scope, $http, $window){
     };
     
     $scope.showhtmldata = function(id,html_data){
-            $(".prognamelst").click(function () {
-        $(".prognamelst").css("background-color", "#fff").css("color","#3f3f42");
-        $(this).css("background-color", "#5cc1a3").css("color","#f6f7f7");
-        });
+
+              $(".prognamelst").click(function () {
+                $(".prognamelst").css("background-color", "#fff").css("color","#3f3f42");
+                $(this).css("background-color", "#5cc1a3").css("color","#f6f7f7");
+                });
             
             $(".htmldatacontainer").css("overflow", "scroll");
             $("#html_data").empty();
