@@ -5,6 +5,8 @@
  */
 package social.controller;
 
+import com.controller.ApplicationContextListener;
+import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
 import com.intbit.marketing.model.TblScheduledTwitter;
 import java.util.Date;
@@ -24,39 +26,38 @@ public class ScheduleFacebookPost implements Callable {
     @Override
     public Date call() throws Exception {
         //The below table should be reused or needs a new table specifically for FB.
-        TblScheduledTwitter scheduledFacebookPost = getLatestApprovedFacebookPost();
+        TblScheduledEntityList scheduledFacebookPost = getLatestApprovedFacebookPost();
 
         //The time zone of the saved date should be extracted. 
         //This time zone should be applied to the current time and then this comparison needs to be made.
-        boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledFacebookPost.getDatetime());
+        boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledFacebookPost.getScheduleTime());
 
         if (shouldPostNow) {
             TblScheduledSocialpostList facebookPost = getFacebookPost(scheduledFacebookPost);
             String message = "";
 //            String message = PostToFacebook.postStatus(null, null, null, null, null, Integer.SIZE, null, null);
             if (message.equalsIgnoreCase("success")) {
-                deleteScheduledFacebook(scheduledFacebookPost);
+                updateStatusScheduledFacebook(scheduledFacebookPost);
                 //Get the next in line
                 scheduledFacebookPost = getLatestApprovedFacebookPost();
             }
         }
 
-        return scheduledFacebookPost.getDatetime();
+        return scheduledFacebookPost.getScheduleTime();
     }
 
-    private void deleteScheduledFacebook(TblScheduledTwitter scheduledFacebookPost) {
+    private void updateStatusScheduledFacebook(TblScheduledEntityList scheduledFacebookPost) {
         //Call the DAO here
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private TblScheduledSocialpostList getFacebookPost(TblScheduledTwitter scheduledFacebookPost) {
-        //Call the DAO here
+    private TblScheduledSocialpostList getFacebookPost(TblScheduledEntityList scheduledFacebookPost) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private static TblScheduledTwitter getLatestApprovedFacebookPost() {
+    private static TblScheduledEntityList getLatestApprovedFacebookPost() {
         //Call the DAO here
-        return new TblScheduledTwitter();
+        return new TblScheduledEntityList();
     }
 
 }
