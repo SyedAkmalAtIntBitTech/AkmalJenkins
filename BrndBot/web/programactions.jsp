@@ -73,7 +73,7 @@
     </head>
     <body ng-app>
         <div class="row" ng-controller="programactions">
-            <div class="row" ng-init="getProgramActions()">
+            <div class="row" ng-init="getProgramActions()" >
                 <div class="col-lg-1 col-md-1 col-sm-2">
                    <jsp:include page="leftmenu.html"/> 
                 </div>
@@ -127,7 +127,7 @@
                              <div class="addemlautomdiv "><button type="button" class="addemlautombtn button button--moema button--text-thick button--text-upper button--size-s fontpnr">
                                 Add Email Automation</button></div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-1">
                              <div class="emlstats fontpnr">Status</div>
                         </div>
                     </div>
@@ -142,32 +142,22 @@
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5">
                              <div class="listelem fontpnr">{{emailautomation.programTemplateName}}</div>
-                             <div class="sublst fontpnr">{{emailautomation.dateTime}}</div>
-                              <div class="sublst fontpnr">{{emailautomation.emailRecuringTemplateName}}</div>
+                             <div class="sublst fontpnr">{{emailautomation.dateTime}}&nbsp;{{emailautomation.emailRecuringTemplateName}}</div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1">
                             <div class="stslst fontpnr">{{emailautomation.status}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                             <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s fontpnr">Details</button>
                         </div>
+                        <hr class="emlautombtmline padlineleftreceml">
                     </div>
-                    <div class="row">
+<!--                    <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <hr class="emlautombtmline">
                         </div>
-                    </div>
-                    
-                   <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <hr class="emlautombtmline">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                             <hr class="addemlautomline">
-                        </div>
-                    </div>
+                    </div>-->
+                
                      <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-2">
                              <div class="otact fontpns">One Time Actions</div>
@@ -203,7 +193,9 @@
                              <div class="otasublst fontpnr"> {{programaction.postTime}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="oatlstdt fontpnr">{{programaction.postDate}}</div>
+                            <div class="oatlstdt fontpnr">Oct 15
+                                <!--{{programaction.postDate}}-->
+                            </div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
                             <div class="oatlstpost fontpnr">{{programaction.actionType}}</div>
@@ -211,29 +203,28 @@
                         <div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="oatlststat"></div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2">
-                            <button type="button" class="emledtbtn fontpnr">Edit</button>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1">
+                            <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s  fontpnr">Details</button>
+                        </div>
+                        <div class="otactlstlinediv">
+                        <hr class="otactlstline">
                         </div>
                     </div>
-                    <div class="row">
+<!--                    <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <hr class="otactlstline">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <hr class="addemlautomline">
-                        </div>
+                    </div>-->
+                 
                     </div>
                       <div id="light" class="white_content">
-                <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
-                    <div id="slider-button" style="z-index:1006;display:none;">
-                        <img src="images/CloseIcon.svg" height="25" width="25" />
-                    </div>
-                </a>
-            </div>      
-                    </div>
+                        <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
+                            <div id="slider-button" style="z-index:1006;display:none;">
+                                <img src="images/CloseIcon.svg" height="25" width="25" />
+                            </div>
+                        </a>
+                    </div>      
                 </div>
-            </div>
+        </div>
     </body>
 </html>

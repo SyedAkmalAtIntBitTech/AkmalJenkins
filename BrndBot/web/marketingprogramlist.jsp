@@ -125,7 +125,7 @@
                                         <li>
                                             <div class="lstlftact fontpnr">{{program.end_date | date: "MMM dd"}}</div>
                                         </li>
-                                        <li>
+                                        <li >
                                             <button class="viewbtn" ng-click="sendProgramId(program.id)">View</button>
                                         </li>
                                     </ul>
@@ -162,15 +162,13 @@
                                 <li>
                                      <div class="lstcomp fontpnr">{{program.noofpostleft}}</div>
                                 </li>
-                                <li>
-                                    <button class="viewbtn" ng-click="sendProgramId(program.id)">View</button>
+                                <li class="viewbtnli">
+                                    <button class="viewbtn button--moema button--text-thick button--text-upper button--size-s fontpnr" ng-click="sendProgramId(program.id)">View</button>
                                 </li>
                             </ul>
                             </li>
+                            <hr class="pstprogline padlineleft">
                          </ul>
-                        <div class="row">
-                            <hr class="pstprogline">
-                        </div>
                     </div>
                     
                 </div>

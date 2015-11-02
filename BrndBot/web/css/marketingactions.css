@@ -138,7 +138,7 @@ and open the template in the editor.
     height:15px;
     font-size: 12px;
     color:#3f3f42;
-    margin-left:51px !important;
+    margin-left:42px !important;
     margin-top:55px !important;
 }
 .emlchkbox{
@@ -165,7 +165,7 @@ and open the template in the editor.
     margin-top:0px !important;
 }
 .sublst{
-    width:88px;
+    width:422px;
     height:15px;
     font-size: 12px;
     color:#3f3f42;
@@ -181,14 +181,14 @@ and open the template in the editor.
     margin-top:14.5px !important;
 }
 .emledtbtn{
-    padding: 6px 39.5px 7px 39.5px;
-    color:#3f3f42;
-    font-size: 14px;
-    width:103px;
-    height:30px;
-    border:#f4f4f4;
-    border-radius: 5px;
-    background-color:#f4f4f4;
+    padding: 6px 39.5px 6px 29.5px !important;
+    color:#3f3f42 !important;
+    font-size: 14px !important;
+    width:103px !important;
+    height:30px !important;
+    border:#f4f4f4 !important;
+    border-radius: 5px !important;
+    background-color:#f4f4f4 !important;
     margin-left:20px !important;
     margin-top:7px !important;
 }
@@ -200,15 +200,20 @@ and open the template in the editor.
     margin-top:17px !important;
     border: #f4f4f4 3px; 
 }
+.padlineleftreceml{
+    margin-left:15px !important;
+    margin-top: 17px !important;
+}
+
 .addemlautomdiv{
     margin-top:42px;
     margin-left:15.5px;
     width:165px !important;
 }
 .addemlautombtn{
-    padding: 6px 15.5px 6px 12.5px !important;
+    padding: 6px 15.5px 6px 6.5px !important;
     color:#3f3f42 !important;
-    font-size: 14px;
+    font-size: 14px !important;
     width:165px !important;
     height:30px;
     border:#e3e3e3;
@@ -218,7 +223,8 @@ and open the template in the editor.
     margin-top:0px !important;
 }
 .button,.button--text-upper{
-    margin:0px !important;
+    margin-top:0px !important;
+    margin-left:-15px !important;
     letter-spacing: 0.5px !important;
     text-transform: none !important;
 }
@@ -283,7 +289,7 @@ and open the template in the editor.
     height:15px;
     font-size:12px;
     color:#3f3f42;
-    margin-left:26px !important;
+    margin-left:25px !important;
     margin-top:21px !important;  
 }
 .oatlstpost{
@@ -291,8 +297,9 @@ and open the template in the editor.
     height:15px;
     font-size:12px;
     color:#3f3f42;
-    margin-left:13px !important;
+    margin-left:16px !important;
     margin-top:21px !important;  
+    text-align: center;
 }
 .oatlststat{
     width:20px;
@@ -302,13 +309,15 @@ and open the template in the editor.
     margin-left:61px !important;
     margin-top:20px !important;  
 }
+.otactlstlinediv{
+    margin-top:60px !important;
+}
 .otactlstline{
     width:897px;
     height:3px;
     background-color: #f4f4f4;
-    margin-left:1px !important;
-    margin-top:16px !important;
     border: #f4f4f4 3px; 
+    margin-left:15px !important;
 }
 .otaddactbtn{
     padding: 6px 18.5px 7px 15.5px !important;
@@ -346,8 +355,8 @@ and open the template in the editor.
     font-size: 14px !important;
     width:176px !important;
     height:30px !important;
-    border:#e3e3e3;
-    border-radius: 5px;
+    border:#e3e3e3 !important;
+    border-radius: 5px !important;
     background-color:#e3e3e3 !important;
 }
 .endmrkprogbtn:hover{
