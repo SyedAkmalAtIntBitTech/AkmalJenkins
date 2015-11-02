@@ -22,16 +22,25 @@
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/dashboard.js"></script>
-        <script>
-            
+        
+<%! 
+    String program_id = "";
+%>        
+<% 
+    program_id = request.getParameter("program_id");
+%>
+<script>
+            var program_id = <%= program_id %>
             function programactions($scope, $http, $window){
                 
                 $scope.getProgramActions = function(){
                      $http({
                         method: 'GET',
-                        url: 'allmarketingProgram.do'
+                        url: 'allmarketingProgram.do?program_id='+program_id
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
+//                        $scope.programs_emailautomation = data.emailautomation;
+//                        $scope.programs_programactions = data.programactions;
                         alert(JSON.stringify(data));
                         if (data === error) {
                             alert(data);
@@ -52,22 +61,22 @@
             <div class="row" ng-init="getProgramActions()">
                 <div class="col-lg-1 col-md-1 col-sm-2">
                    <jsp:include page="leftmenu.html"/> 
-                </div>{{programs}}
+                </div>
                 <div class="col-md-11 col-sm-10 col-lg-11 col-lg-offset-2 col-md-offset-2">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 ">
-                            <div class="markprog fontpns">{{programs.programdetails.programname}}</div>
+                            <div class="markprog fontpns">{{programs.programdetails.programName}}</div>
                             <div class="edtprog fontpnr">Edit Program Details</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4">
                             <div class="noofact fontpnr">Number of actions</div>
-                            <div class="actno fontpns">{{programs.programdetails.noofactions}}</div>
+                            <div class="actno fontpns">{{programs.programdetails.noOfActions}}</div>
                         </div>
                          <div class="col-lg-2 col-md-2 col-sm-4">
                             <div class="dtofevnt fontpnr">Date of Event</div>
-                            <div class="evntdt fontpns">{{programs.programdetails.dateofevent}}</div>
+                            <div class="evntdt fontpns">{{programs.programdetails.dateOfEvent}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-4">
                             <div class="asclink fontpnr">Associated Link</div>
@@ -81,10 +90,10 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                      <div class=" offrpromo fontpnr">{{programs.programdetails.description}}</div>
-                                     <div class=" promosubhead fontpnr">This is a subheader</div>
-                                     <p class="prompara fontpnr">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+<!--                                     <div class=" promosubhead fontpnr">This is a subheader</div>-->
+                                     <p class="prompara fontpnr">
                                      </p>
-                                     <p class="helplink fontpnr">Link to help you out</p>
+<!--                                     <p class="helplink fontpnr">Link to help you out</p>-->
                                      </div>
                                 </div>                                  
                             </div>
@@ -108,8 +117,9 @@
                             <div class="emlchkbox"><input type="checkbox"  id=""  value="" /></div>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5">
-                             <div class="listelem fontpnr">{{emailautomation.emailautomationname}}</div>
-                             <div class="sublst fontpnr">{{emailautomation.datetime}}</div>
+                             <div class="listelem fontpnr">{{emailautomation.programTemplateName}}</div>
+                             <div class="sublst fontpnr">{{emailautomation.dateTime}}</div>
+                              <div class="sublst fontpnr">{{emailautomation.emailRecuringTemplateName}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="stslst fontpnr">{{emailautomation.status}}</div>
@@ -159,14 +169,14 @@
                             <div class="emlchkbox"><input type="checkbox"  id=""  value="" /></div>
                         </div>
                          <div class="col-lg-3 col-md-3 col-sm-3">
-                             <div class="listelem fontpnr">{{programaction.actionname}}</div>
-                             <div class="otasublst fontpnr">Not Scheduled | {{programaction.programname}}</div>
+                             <div class="listelem fontpnr">{{programaction.programTemplateName}}</div>
+                             <div class="otasublst fontpnr"> {{programaction.postTime}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="oatlstdt fontpnr">{{programaction.datetime}}</div>
+                            <div class="oatlstdt fontpnr">{{programaction.postDate}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="oatlstpost fontpnr">{{programaction.actiontype}}</div>
+                            <div class="oatlstpost fontpnr">{{programaction.actionType}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="oatlststat"></div>

@@ -70,6 +70,11 @@
                 });                
             };
             
+            $scope.sendProgramId = function(program_id){
+                alert(program_id);
+                window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
+            };
+            
         }
         </script> 
     </head>
@@ -99,7 +104,7 @@
                             <div id="pastprogs" class="curprog fontpns">Your Past Programs</div>
                         </div>
                     </div>
-                    <div id="prog" ng-init="getUserMarketingProgamsByStatus()">
+                    <div id="prog" ng-init="getUserMarketingProgramsOpen()">
                             <div class="row">
                                 <ul class="programsheader">
                                     <li><div class="prognamhead fontpnr">Programs</div></li>
@@ -109,6 +114,7 @@
                             <div class="row">
                                     <hr class="pstprogline">
                             </div>
+                        <div ng-show="programs==''">No records available</div>
                         <div class="row" ng-repeat="program in programs">
                                 <ul class="programsheader">
                                     <li><div class="lstprog fontpns">{{program.program_name}}</div>
@@ -120,7 +126,7 @@
                                             <div class="lstlftact fontpnr">{{program.end_date | date: "MMM dd"}}</div>
                                         </li>
                                         <li>
-                                            <button class="viewbtn">View</button>
+                                            <button class="viewbtn" ng-click="sendProgramId(program.id)">View</button>
                                         </li>
                                     </ul>
                                     </li>
@@ -142,8 +148,10 @@
                         <div class="row">
                                 <hr class="pstprogline">
                         </div>
+                        <div ng-show="programs==''">No records available</div>
                         <ul class="programsheader" ng-repeat="program in programs">
-                            <li><div class="lstprog fontpns">{{program.program_name}}</div>
+                            <div ng-show="program.program_name==''">No records available</div>
+                             <li><div class="lstprog fontpns">{{program.program_name}}</div>
                                 <div class="lststrtdt fontpnr">Started on {{program.start_date | date: 'MMM dd yyyy'+' on '+'h:mma'}} | Template name </div>
                             </li>
                             <li>
@@ -155,7 +163,7 @@
                                      <div class="lstcomp fontpnr">{{program.noofpostleft}}</div>
                                 </li>
                                 <li>
-                                    <button class="viewbtn">View</button>
+                                    <button class="viewbtn" ng-click="sendProgramId(program.id)">View</button>
                                 </li>
                             </ul>
                             </li>
@@ -195,7 +203,6 @@
                         $("#pastprogs").hide();
 //                        $("#prog").hide();
                         $("#prog").hide();
-                        alert("type not found!!");
 //                    }
 //                        var= curprogs;
 //                        curprogs=location.search;

@@ -12,6 +12,7 @@ import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
+import com.intbit.TemplateStatus;
 import com.intbit.marketing.model.TblMarketingAction;
 import com.intbit.marketing.model.TblMarketingProgram;
 import com.intbit.marketing.model.TblRecuringEmailTemplate;
@@ -19,7 +20,6 @@ import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblUserLoginDetails;
 import com.intbit.marketing.model.TblUserMarketingProgram;
 import com.intbit.marketing.service.MarketingActionService;
-import com.intbit.marketing.service.MarketingProgramService;
 import com.intbit.marketing.service.RecuringEmailTemplateService;
 import com.intbit.marketing.service.ScheduledEmailListService;
 import com.intbit.marketing.service.ScheduledEntityListService;
@@ -27,13 +27,11 @@ import com.intbit.marketing.service.ScheduledSocialpostListService;
 import com.intbit.marketing.service.UserMarketingProgramService;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,31 +71,32 @@ public class UserMarketingProgramController {
      private RecuringEmailTemplateService recuringEmailTemplateService;
              
      
-      @RequestMapping(value="/allmarketingProgram", method = RequestMethod.GET)
-      public @ResponseBody String getAllUserMarketingProgram() {
-        Integer uMarketingId = 1;
-        String entityType = "email";
-        Integer marketingProgramId = 1;
+       @RequestMapping(value="/allmarketingProgram", method = RequestMethod.GET)
+      public @ResponseBody String getAllUserMarketingProgram(HttpServletRequest request, 
+                HttpServletResponse response,@RequestParam("program_id") Integer userProgram_id) {
+//        Integer uMarketingId = 1;
+//        Integer marketingProgramId = 1;
         Boolean actionStatus;
         
-         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
          SimpleDateFormat TimeFormatter = new SimpleDateFormat("hh:mm");
         try { 
         
-           List<TblScheduledEmailList> scheduledEmailList = scheduledEmailListService.getAllScheduledEmailListForUserMarketingProgram(uMarketingId, Boolean.TRUE, entityType);
+           List<TblScheduledEmailList> scheduledEmailList = scheduledEmailListService.getAllScheduledEmailListForUserMarketingProgram(userProgram_id, Boolean.TRUE);
                 JSONArray scheduledEmailJsonArray= new JSONArray();
            for (TblScheduledEmailList scheduledEmailListObject : scheduledEmailList) {
-
+             TblRecuringEmailTemplate   recuringEmailTemplate = recuringEmailTemplateService.getById(scheduledEmailListObject.getRecuringEmailId());
                JSONObject jSONObject = new JSONObject();
+                jSONObject.put("scheduledEntityListId", scheduledEmailListObject.getTblScheduledEntityList().getId());
                 jSONObject.put("emailAutomationName", scheduledEmailListObject.getEmailListName());
-                jSONObject.put("dateTime", scheduledEmailListObject.getTblScheduledEntityList().getScheduleTime());
+                jSONObject.put("dateTime", "Started on "+scheduledEmailListObject.getTblScheduledEntityList().getTblUserMarketingProgram().getCreateDate());
                 jSONObject.put("programTemplateName", scheduledEmailListObject.getTblScheduledEntityList().getScheduleTitle());
                 jSONObject.put("status", scheduledEmailListObject.getTblScheduledEntityList().getStatus());
-
+                jSONObject.put("emailRecuringTemplateName",recuringEmailTemplate.getName());
                 scheduledEmailJsonArray.put(jSONObject);
 
           }
-             List<TblScheduledEmailList> scheduledEmailListForRecuring = scheduledEmailListService.getAllScheduledEmailListForUserMarketingProgram(uMarketingId, Boolean.FALSE, entityType);
+             List<TblScheduledEmailList> scheduledEmailListForRecuring = scheduledEmailListService.getAllScheduledEmailListForUserMarketingProgram(userProgram_id, Boolean.FALSE);
                 JSONArray scheduledEmailAndSocailPostJsonForRecuringArray= new JSONArray();
             for (TblScheduledEmailList scheduledEmailListObject : scheduledEmailListForRecuring) {
                     TblScheduledEntityList scheduledEntityListObject = scheduledEntityListService.getById(scheduledEmailListObject.getTblScheduledEntityList().getId());
@@ -118,7 +117,6 @@ public class UserMarketingProgramController {
                        cal.add(Calendar.DAY_OF_MONTH, -days);
                        String postDate =formatter.format(cal.getTime());
                        String postTime =TimeFormatter.format(cal.getTime());
-                     TblRecuringEmailTemplate   recuringEmailTemplate = recuringEmailTemplateService.getById(scheduledEmailListObject.getTblScheduledEntityList().getRecuringEmailId());
                 JSONObject jSONObject = new JSONObject();
 //                jSONObject.put("emailAutomationName", scheduledEmailListObject.getEmailListName());
                 jSONObject.put("scheduledEntityListId", scheduledEmailListObject.getTblScheduledEntityList().getId());
@@ -129,13 +127,12 @@ public class UserMarketingProgramController {
                 jSONObject.put("postDate",postDate);
                 jSONObject.put("postTime","Scheduled for "+postTime);
                 jSONObject.put("actionType",scheduledEmailListObject.getTblScheduledEntityList().getEntityType());
-                jSONObject.put("emailRecuringTemplateName",recuringEmailTemplate.getName());
                 scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
                System.out.println(scheduledEmailAndSocailPostJsonForRecuringArray);
 
                
           }
-             List<TblScheduledSocialpostList> scheduledSocialpostList = scheduledSocialpostListService.getAllScheduledSocialpostListForUserMarketingProgram(uMarketingId, Boolean.FALSE, entityType);
+             List<TblScheduledSocialpostList> scheduledSocialpostList = scheduledSocialpostListService.getAllScheduledSocialpostListForUserMarketingProgram(userProgram_id);
 
            for (TblScheduledSocialpostList scheduledSocialpostListObject : scheduledSocialpostList) {
                 Date eventDate = scheduledSocialpostListObject.getTblScheduledEntityList().getTblUserMarketingProgram().getDateEvent();
@@ -154,7 +151,6 @@ public class UserMarketingProgramController {
                        cal.add(Calendar.DAY_OF_MONTH, -days);
                        String postDate =formatter.format(cal.getTime());
                        String postTime =TimeFormatter.format(cal.getTime());
-               TblRecuringEmailTemplate   recuringEmailTemplate = recuringEmailTemplateService.getById(scheduledSocialpostListObject.getTblScheduledEntityList().getRecuringEmailId());
                JSONObject jSONObject = new JSONObject();
                jSONObject.put("scheduledEntityListId", scheduledSocialpostListObject.getTblScheduledEntityList().getId());
                jSONObject.put("eventDate", dateString);
@@ -163,14 +159,13 @@ public class UserMarketingProgramController {
                jSONObject.put("actionStatus",actionStatus);
                jSONObject.put("postDate",postDate);
                jSONObject.put("postTime","Scheduled for "+postTime);
-               jSONObject.put("emailRecuringTemplateName",recuringEmailTemplate.getName());
                jSONObject.put("actionType",scheduledSocialpostListObject.getTblScheduledEntityList().getEntityType());
                 scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
 
           }
-            TblUserMarketingProgram userMarketingProgram = userMarketingProgramService.getByUserMarketingProgramIdAndMarketingProgramId(uMarketingId, marketingProgramId);
-            System.out.println(userMarketingProgram);
-            JSONObject userMarketinProgramObject= new JSONObject();  
+           TblUserMarketingProgram marketingProgram = userMarketingProgramService.getById(userProgram_id);
+            TblUserMarketingProgram userMarketingProgram = userMarketingProgramService.getByUserMarketingProgramIdAndMarketingProgramId(userProgram_id, marketingProgram.getTblMarketingProgram().getId());
+                JSONObject userMarketinProgramObject= new JSONObject();  
                 Date dateEvent = userMarketingProgram.getDateEvent();
                 String dateOfEvent = formatter.format(dateEvent);
                 userMarketinProgramObject.put("programName", userMarketingProgram.getName());
@@ -205,6 +200,8 @@ public class UserMarketingProgramController {
 public @ResponseBody String setUserMarketingProgram(HttpServletRequest request, 
         HttpServletResponse response) throws IOException, Throwable{
     try {  
+    SimpleDateFormat formatter = null;
+    Date tillDate = null;
     TblUserMarketingProgram addUserMarketingProgram = new TblUserMarketingProgram();
     TblUserLoginDetails userLoginDetails = new TblUserLoginDetails();
     TblMarketingProgram marketingProgram = new TblMarketingProgram();
@@ -237,8 +234,11 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
         for(Integer i = 0; i< jSONArray.size(); i++){
             JSONObject jsonObject = (JSONObject)jSONArray.get(i);
             String tillDateString = jsonObject.get("tilldate").toString();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
-            Date tillDate = formatter.parse(tillDateString);
+            
+            if (!(tillDateString.equals(""))){
+                formatter = new SimpleDateFormat("yyyy-MM-DD");
+                tillDate = formatter.parse(tillDateString);
+            }
             String timeString = jsonObject.get("time").toString();
             SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
             Date time = formatterTime.parse(timeString);
@@ -247,10 +247,11 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
             scheduledEntityList.setEntityType(jsonObject.get("type").toString());
             scheduledEntityList.setIsRecuring(Boolean.parseBoolean(jsonObject.get("is_recuring").toString()));
             scheduledEntityList.setScheduleDesc(jsonObject.get("description").toString());
+            scheduledEntityList.setEntityId(0);
             scheduledEntityList.setScheduleTime(time);
             scheduledEntityList.setTillDate(tillDate);
             scheduledEntityList.setDays(Integer.parseInt(jsonObject.get("days").toString()));
-            scheduledEntityList.setStatus("No template");
+            scheduledEntityList.setStatus(TemplateStatus.no_template.toString());
             scheduledEntityList.setScheduleTitle(jsonObject.get("title").toString());
             scheduledEntityList.setUserId(user_id);
             TblUserMarketingProgram userMarketingProgram = new TblUserMarketingProgram();

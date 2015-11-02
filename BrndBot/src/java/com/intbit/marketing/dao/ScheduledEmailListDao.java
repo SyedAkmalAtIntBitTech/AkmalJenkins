@@ -51,10 +51,9 @@ public interface ScheduledEmailListDao {
 	 * This method retrieves all {@link ScheduledEmailList}
          * @param  UserMarketingId
          * @param  isRecuring
-         * @param  entityType
 	 * @return {@link scheduledEmailList}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId,Boolean isRecuring , String entityType  ) throws Throwable;
+   public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId,Boolean isRecuring) throws Throwable;
     
 }

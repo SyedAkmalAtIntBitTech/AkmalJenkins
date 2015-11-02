@@ -26,8 +26,8 @@
 
    <title>Email Automation</title>
         <meta charset="UTF-8">
-         <%@ include file="fonttypekit.jsp"%>
-         
+        <%@ include file="fonttypekit.jsp"%>
+        <%@ include file="checksession.jsp" %>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -102,28 +102,56 @@
             }
             
             function emailautomation($scope, $http){
-                
+            /*
+             * Bring all the email list from the database
+             */
                 $scope.showEmailList = function () {
                             
-//                            $(".emaillist").show();
-//                            $("#email_list_name").hide();
                     var emailids = {"update": "allEmailListNames"};
                     $http({
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=allEmailListNames'
                     }).success(function(data, status, headers, config) {
 //                        alert(JSON.stringify(data.allEmailListNames));
-                        $scope.emailLists = data.allEmailListNames;
-//                        $scope.emailLists_mindbody = data.mindbody;
+                        $scope.emailLists = data.user;
+                        $scope.emailLists_mindbody = data.mindbody;
                         if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
                         } else if (data === error) {
                             alert(data);
                         }
                         
+                    }).error(function(){
+                        alert("problem fetching the data");
                     });
-                };
+                    };
                 
+                /*
+                 * Bring all the recuring email templates form the database
+                 */
+                 $scope.getEmailTemplates = function(){
+                    if (validate()){
+                        $("#emailautomationcontent").hide();
+                        $("#emlautomeditorcontainer").show();
+                        
+                        $http({
+                            method: 'GET',
+                            url: getHost() + 'getAllRecuringEmailTemplates.do'
+                        }).success(function(data, status){
+                            alert(JSON.stringify(data));
+                            $scope.recuring_email_templates = data;
+                        }).error(function(){
+                            alert("problem fetching the data");
+                        });
+                    }
+
+                 };
+                 
+                 $scope.showHTMLData = function(html_data){
+                     alert(html_data);
+                     $(".fr-iframe").empty();
+                     $(".fr-iframe").append(html_data);
+                 };
                 $scope.saveEmailAutomation = function(){
                     if (validate()){
                         
@@ -131,28 +159,26 @@
                         var emaillist = $("#emaillist").val();
                         var subject = $("#subject").val();
                         var from_name = $("#from_name").val();
-                        var reply_to_address = $("#reply_to_address").val();                        
-                        $("#emailautomationcontent").hide();
-                        $("#emlautomeditorcontainer").show();
+                        var reply_to_address = $("#reply_to_address").val();
                         var emailautomation = {"days":days, "emaillist":emaillist,
                                                 "subject":subject, "from_name":from_name,
                                                 "reply_to_address":reply_to_address
                                               };
-                        $http({
-                            method: 'POST',
-                            url: 'SetEmailAutomation',
-                            headers: {'Content-Type':'application/json'},
-                            data: JSON.stringify(emailautomation)
-                        }).success(function (data, status, headers, config) {
-                            $scope.categories = data;
-                            if (data === error) {
-                                alert(data);
-                            }
-                        }).error(function (data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
-                        });
+//                        $http({
+//                            method: 'POST',
+//                            url: 'SetEmailAutomation',
+//                            headers: {'Content-Type':'application/json'},
+//                            data: JSON.stringify(emailautomation)
+//                        }).success(function (data, status, headers, config) {
+//                            $scope.categories = data;
+//                            if (data === error) {
+//                                alert(data);
+//                            }
+//                        }).error(function (data, status, headers, config) {
+//                            alert("No data available, problem fetching the data");
+//                            // called asynchronously if an error occurs
+//                            // or server returns response with an error status.
+//                        });
                     }
                 };
             }
@@ -239,7 +265,7 @@
                                     <select id="emaillist" class="emllstdrp fontpnr">
                                         <option value="0">-- Select --</option>
                                         <option  ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                                        <!--<option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>-->
+                                        <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
                                     </select>
                                 </li>
                             </ul>
@@ -276,14 +302,14 @@
                                                            button--text-thick 
                                                            button--text-upper 
                                                            button--size-s" 
-                                                           ng-click="saveEmailAutomation()">
+                                                           ng-click="getEmailTemplates()">
                                 Save</button>
                         </div>
                     </div>
                 </div>
             </div>
                 <div id="emlautomeditorcontainer">
-                    <div class="row" ng-controller="MyController">
+                    <div class="row">
             <div class="col-sm-7 col-md-7 col-lg-7">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 bgcolor"> 
@@ -345,8 +371,8 @@
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <ul id="blklist" class="blocklist fontpnr">
-                                <li> 
-                                    <div >New Client Intro - First Email</div>
+                                <li ng-repeat="email_template in recuring_email_templates"> 
+                                    <div ng-click="showHTMLData(email_template.html_data)">{{email_template.template_name}}</div>
                                 </li>
                             </ul>
 <!--                            <ul id="stylelist" class="blocklist fontpnr">
