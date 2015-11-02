@@ -37,7 +37,7 @@ public class TblScheduledEmailList  implements java.io.Serializable {
      private String toEmailAddresses;
      private String replyToEmailAddress;
      private TblScheduledEntityList tblScheduledEntityList;
-     private Integer recuringEmailId;
+    
     public TblScheduledEmailList() {
     }
 
@@ -45,7 +45,7 @@ public class TblScheduledEmailList  implements java.io.Serializable {
     public TblScheduledEmailList(int id) {
         this.id = id;
     }
-    public TblScheduledEmailList(int id, TblUserLoginDetails tblUserLoginDetails, String subject, String body, String fromAddress, String emailListName, String fromName, String toEmailAddresses, String replyToEmailAddress,TblScheduledEntityList tblScheduledEntityList, Integer recuringEmailId) {
+    public TblScheduledEmailList(int id, TblUserLoginDetails tblUserLoginDetails, String subject, String body, String fromAddress, String emailListName, String fromName, String toEmailAddresses, String replyToEmailAddress,TblScheduledEntityList tblScheduledEntityList) {
        this.id = id;
        this.tblUserLoginDetails = tblUserLoginDetails;
        this.subject = subject;
@@ -56,7 +56,7 @@ public class TblScheduledEmailList  implements java.io.Serializable {
        this.toEmailAddresses = toEmailAddresses;
        this.replyToEmailAddress = replyToEmailAddress;
        this.tblScheduledEntityList = tblScheduledEntityList;
-       this.recuringEmailId = recuringEmailId;
+      
     }
    
      @Id 
@@ -163,14 +163,7 @@ public class TblScheduledEmailList  implements java.io.Serializable {
         this.tblScheduledEntityList = tblScheduledEntityList;
     }
 
-@Column(name="recuring_email_id")
-    public Integer getRecuringEmailId() {
-        return this.recuringEmailId;
-    }
-    
-    public void setRecuringEmailId(Integer recuringEmailId) {
-        this.recuringEmailId = recuringEmailId;
-    }
+
 
 }
 

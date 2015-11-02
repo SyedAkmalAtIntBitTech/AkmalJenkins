@@ -6,6 +6,7 @@
 package com.intbit.marketing.dao.implementation;
 
 import com.intbit.marketing.dao.ScheduledEntityListDao;
+import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,6 +134,42 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao{
             }
     }
 
+    @Override
+    public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId, Boolean isRecuring) throws Throwable {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblScheduledEntityList.class)
+                    .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
+                     .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId))
+                     .add(Restrictions.eq("isRecuring", isRecuring))
+                     .add(Restrictions.eq("entityType", "email"));		
+                   return criteria.list();
+		} catch (Throwable throwable) {
+                   logger.log(Level.SEVERE, null, throwable);
+                   throw new Throwable("Database error while retrieving record(s).");
+		}  
+    } 
 
+    @Override
+    public List<TblScheduledEntityList> getScheduledEntityListIdForSocialPostType(Integer userMarketingProgramId) throws Throwable {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblScheduledEntityList.class)
+                    .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
+                     .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId));
+                    Criterion rest1= Restrictions.and(Restrictions.eq("entityType", "twitter"));
+                    Criterion rest2= Restrictions.and(Restrictions.eq("entityType", "facebook"));
+                    criteria.add(Restrictions.or(rest1, rest2));
+                   return criteria.list();
+		} catch (Throwable throwable) {
+                   logger.log(Level.SEVERE, null, throwable);
+                   throw new Throwable("Database error while retrieving record(s).");
+		}  
+    }
     
 }
+    
+ 
+
+    
+

@@ -62,5 +62,20 @@ public interface ScheduledEntityListDao {
 	 * @return {@link scheduledEntityList}
         * @throws java.lang.Throwable 
     */
-   public List<TblScheduledEntityList> getScheduledEntityLisId(Integer userMarketingProgramId) throws Throwable; 
+   public List<TblScheduledEntityList> getScheduledEntityLisId(Integer userMarketingProgramId) throws Throwable;
+   /**
+	 * This method retrieves {@link scheduledEntityList} by passing id
+	 * @param userMarketingProgramId
+         * @param isRecuring
+	 * @return {@link scheduledEntityList}
+        * @throws java.lang.Throwable 
+    */
+   public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId,Boolean isRecuring) throws Throwable;
+    /**
+	 * This method retrieves {@link scheduledEntityList} by passing id
+	 * @param userMarketingProgramId
+	 * @return {@link scheduledEntityList}
+        * @throws java.lang.Throwable 
+    */
+   public List<TblScheduledEntityList> getScheduledEntityListIdForSocialPostType(Integer userMarketingProgramId) throws Throwable;
 }
