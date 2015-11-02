@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-       <title>Email Action</title>
+       <title>Email Program Action</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
         
@@ -54,6 +54,19 @@
             };
             
         </script>
+        <script>
+            function overlay(){
+                        document.getElementById('light').style.display = 'block';
+                            document.getElementById('fade').style.display = 'block';
+                            document.getElementById('slider-button').style.display = 'block';
+                            document.body.style.overflow = 'hidden';
+                    }
+            function closeoverlay(){
+                    document.getElementById('light').style.display = 'none';
+                    document.getElementById('fade').style.display = 'none';
+                    document.body.style.overflow = 'scroll';
+            }
+        </script>
         <jsp:include page="basejsp.jsp"/>
     </head>
     <body ng-app>
@@ -62,11 +75,16 @@
                 <div class="col-lg-1 col-md-1 col-sm-2">
                    <jsp:include page="leftmenu.html"/> 
                 </div>
+                <div id="fade" class="black_overlay"></div>
                 <div class="col-md-11 col-sm-10 col-lg-11 col-lg-offset-2 col-md-offset-2">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="markprog fontpns">{{programs.programdetails.programName}}</div>
                             <div class="edtprog fontpnr">Edit Program Details</div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="endmrkprogbtndiv fontpnr"><button type="button" class="endmrkprogbtn button button--moema button--text-thick button--text-upper fontpnr">
+                                End Marketing Program</button></div>
                         </div>
                     </div>
                     <div class="row">
@@ -100,10 +118,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="recuremlautom fontpns">Recurring Email Automation</div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                             <div class="addemlautomdiv "><button type="button" class="addemlautombtn button button--moema button--text-thick button--text-upper button--size-s fontpnr">
+                                Add Email Automation</button></div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="emlstats fontpnr">Status</div>
                         </div>
                     </div>
@@ -125,7 +147,7 @@
                             <div class="stslst fontpnr">{{emailautomation.status}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
-                            <button type="button" class="emledtbtn fontpnr">Edit</button>
+                            <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s fontpnr">Details</button>
                         </div>
                     </div>
                     <div class="row">
@@ -141,13 +163,19 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <button type="button" class="addemlautombtn fontpnr">Add Email Automation</button>
                              <hr class="addemlautomline">
                         </div>
                     </div>
                      <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="col-lg-2 col-md-2 col-sm-2">
                              <div class="otact fontpns">One Time Actions</div>
+                        </div>
+                          <div class="col-lg-2 col-md-2 col-sm-2">
+                              <div class="addactdiv">
+                                  <a href = "javascript:void(0)" onclick = "overlay();">
+                                        <button type="button" class="otaddactbtn  button button--moema button--text-thick button--text-upper button--size-s fontpnr">Add Action</button>
+                                  </a>      
+                                 </div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
                              <div class="otactdt fontpnr">Date</div>
@@ -192,11 +220,16 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <button type="button" class="otaddactbtn fontpnr">Add Action</button>
-                             <hr class="addemlautomline">
+                            <hr class="addemlautomline">
                         </div>
                     </div>
-                            
+                      <div id="light" class="white_content">
+                <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
+                    <div id="slider-button" style="z-index:1006;display:none;">
+                        <img src="images/CloseIcon.svg" height="25" width="25" />
+                    </div>
+                </a>
+            </div>      
                     </div>
                 </div>
             </div>
