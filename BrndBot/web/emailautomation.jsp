@@ -170,8 +170,6 @@
                         var entity_id = 140;
                         var days = 10;
                         
-//                        var $iframe = $(".fr-iframe").text();
-//                        var html_data = $iframe
                         var $iframe = $('.fr-iframe');
                         var html_data = $iframe.contents().find("html").html(); 
                         html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
@@ -190,8 +188,10 @@
                             data: JSON.stringify(emailautomation)
                         }).success(function (data, status, headers, config) {
                             $scope.categories = data;
-                            if (data === error) {
-                                alert(data);
+                            if (data === "true") {
+                                alert("details saved succesfully");
+                            }else {
+                                alert("problem saving the record");
                             }
                         }).error(function (data, status, headers, config) {
                             alert("No data available, problem fetching the data");

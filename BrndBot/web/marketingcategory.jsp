@@ -60,8 +60,8 @@
         </div>
     </div>
         <script>
-          $( window ).onload(function() {
-              
+          $( document ).ready(function() {
+              $("#createprog").css("color","#3f3f42").css("background-color","#f6f7f7");
           });
         </script>
 </body>
