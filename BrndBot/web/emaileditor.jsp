@@ -130,6 +130,7 @@
                  var rendomIframeFilename="";
        $(document).ready(function () {
            rendomIframeFilename=event.timeStamp;
+           selecterBlockId('defaultblock1', temp_block_id);
                         $("#sortUpBlock").click(function () {
                             var current = $("#" + addblockid);
                                     current.prev().before(current);
@@ -422,17 +423,21 @@
                     });
             }
 
-            function addblock(){
-            document.getElementById("addblkbtn").style.backgroundColor = "#0f76a6";
-                    document.getElementById("addblkbtn").style.color = "#f6f7f7";
-            }
+//            function addblock(){
+//            document.getElementById("addblkbtn").style.backgroundColor = "#0f76a6";
+//                    document.getElementById("addblkbtn").style.color = "#f6f7f7";
+//            }
 
             function selecterBlockId(selectblock, blockid){
-//            alert(selectblock);
-//            $("img").click(function(){
-//        alert(this.id);
-//        $("#button").empty().append("<input type='image' src='http://images.aviary.com/images/edit-photo.png'   onclick='return (\""+this.id+"\");' />")
-//    });
+            alert(selectblock);
+
+            $("img").click(function(){
+                alert(this.id);
+                uploadImageToEditor(this.id);
+           });
+//document.getElementById("img").onclick = function(){
+//    uploadImageToEditor("assda");
+//}
                 if (selectblock == "defaultblock1")
                 {
                         block_clicked = "false";
@@ -602,17 +607,17 @@
         <script type="text/javascript" src="js/froala_editor.min_Email.js" ></script>
         <script type="text/javascript" src="js/plugins/align.min.js"></script>
         <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
-        <script type="text/javascript" src="js/plugins/emoticons.min.js"></script>
+<!--        <script type="text/javascript" src="js/plugins/emoticons.min.js"></script>-->
         <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
         <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
         <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
         <script type="text/javascript" src="js/plugins/file.min.js"></script>
         <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/line_breaker.min.js"></script>
+<!--        <script type="text/javascript" src="js/plugins/line_breaker.min.js"></script>
         <script type="text/javascript" src="js/plugins/link.min.js"></script>
-        <script type="text/javascript" src="js/plugins/lists.min.js"></script>
-        <script type="text/javascript" src="js/plugins/paragraph_format.min.js"></script>
-        <script type="text/javascript" src="js/plugins/paragraph_style.min.js"></script>
+        <script type="text/javascript" src="js/plugins/lists.min.js"></script>-->
+<!--        <script type="text/javascript" src="js/plugins/paragraph_format.min.js"></script>
+        <script type="text/javascript" src="js/plugins/paragraph_style.min.js"></script>-->
         <script type="text/javascript" src="js/plugins/table.min.js"></script>
         <script type="text/javascript" src="js/plugins/url.min.js"></script>
         <script type="text/javascript" src="js/plugins/entities.min.js"></script>
