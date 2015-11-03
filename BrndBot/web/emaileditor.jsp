@@ -91,11 +91,11 @@
 
      
             }
-              .border-highlight {
-                width: 250px;
-                height: inherit;
-                color: white;
-                background-color: #5CC1A3; 
+              li.border-highlight {
+                /*width: 250px;*/
+                /*height: inherit;*/
+                color: #f6f7f7;
+                background-color: #0f76a6; 
             }
 
         </style>
@@ -280,7 +280,8 @@
                             });
                             };
                             $scope.showImageOfBlock = function(id, mind_body_query){
-                         
+                                
+                              hlt();
                             $("#stylelist").css("display", "none");
                                     $("#blklist").css("display", "block");
                                     $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
@@ -362,8 +363,8 @@
                     }
                     };
                             $scope.select_category_details = function(id) {
-                              
-                                    $("#blocktab").click();
+                                    $("#blocktab").trigger( "click" );
+//                                    $("#blocktab").click();
                                     mindbodydataId = id;
                                     //$scope.showStyles();
                                     showText(temp_style_id);
@@ -390,7 +391,9 @@
                             temp_style_layout = style;
                             temp_block_id = block_id_temp;
                             temp_mind_body_query = mind_body_query;
-                            $('.blockchooser').removeClass('border-highlight');
+//                            $("#" + block_id_temp).css("color","red");
+//                            $('.listblock').css("color","black");
+                            $('.listblock').removeClass('border-highlight');
                             $("#" + block_id_temp).addClass('border-highlight');
                             //$("#continueblock").attr('ng-click',"showData('"+block_id_temp+"','"+ mind_body_query +"')");
                             $('#continueblock').prop('disabled', false);
@@ -547,7 +550,7 @@
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <ul id="blklistid" class="blocklist fontpnr" value="blklist">
-                                <li ng-repeat="blocks in datalists" id="blklist" onclick="addblock();"> 
+                                <li ng-repeat="blocks in datalists" id="blklist" class="listblock" onclick="addblock();hlt();"> 
                                     <div  id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>
                                 </li>
                             </ul>
@@ -618,11 +621,11 @@
                 $("#blocktab").click();
                 $("#tabs-4").hide();
             });
-            
-            $("#blklist").click(function (){
-                
-                $(this).css("background-color","#0f76a6").css("color","#f4f4f4");   
-                });
+//            
+//            $("#blklist").click(function (){
+//                
+//                $(this).css("background-color","#0f76a6").css("color","#f4f4f4");   
+//                });
             $("#styletab").click(function(){
                     $("#addblkbtn").prop('disabled', true);
                     $("#stylelist").css("display", "block");
@@ -772,7 +775,12 @@
 
 
                              });
-                                
+                                function hlt(){
+                                 var $li = $('#blklistid li').click(function() {
+                                        $li.removeClass('border-highlight');
+                                        $(this).addClass('border-highlight');
+                                    });
+                                }
                 </script>   
     </body>
 </html>
