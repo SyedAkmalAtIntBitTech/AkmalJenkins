@@ -72,8 +72,9 @@ public class AddActionServlet extends HttpServlet {
                     templateStatus = TemplateStatus.incomplete.toString();
                 }
                 try{
-                    int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
+                        int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
                         requestBodyMap.get("title").toString(),
+                        requestBodyMap.get("marketingType").toString(),                        
                         requestBodyMap.get("description").toString(),
                         new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
                         requestBodyMap.get("actiontype").toString(), 

@@ -49,6 +49,7 @@ public class ScheduleDAO {
 
     public static Map<String, Integer> addToScheduledEmailList(int userId,
             String subject,
+            String marketingType,
             String body,
             String fromAddress,
             String emailListName,
@@ -101,6 +102,7 @@ public class ScheduleDAO {
 
                 scheduleEntityId = addToScheduleEntityList(emailScheduleId,
                         scheduledTitle,
+                        marketingType,
                         scheduleDesc,
                         scheduledTime,
                         ScheduledEntityType.email.toString(),
@@ -252,6 +254,7 @@ public class ScheduleDAO {
 
     public static int addToScheduleEntityList(Integer entityId,
             String scheduleTitle,
+            String marketingType,
             String scheduleDesc,
             Timestamp scheduleTime,
             String entityType,
@@ -259,8 +262,8 @@ public class ScheduleDAO {
             int userId,
             Connection connection) throws SQLException {
         String sql = "INSERT INTO tbl_scheduled_entity_list"
-                + " (entity_id, schedule_title, schedule_desc, schedule_time, entity_type, status, user_id) VALUES"
-                + " (?, ?, ?, ?, ?, ?, ?) RETURNING id";
+                + " (entity_id, schedule_title,schedule_time,entity_type,status,user_id, schedule_desc,is_recuring,user_marketing_program_id,days,till_date,recuring_email_id ) VALUES"
+                + " (?, ?, ?, ?, ?, ?, ?,?,?,?,?,?) RETURNING id";
 
         int scheduleId = -1;
 
@@ -270,13 +273,19 @@ public class ScheduleDAO {
             } else {
                 ps.setInt(1, entityId);
             }
-
+            int marketinkProgramId=Integer.parseInt(marketingType);
             ps.setString(2, scheduleTitle);
-            ps.setString(3, scheduleDesc);
-            ps.setTimestamp(4, scheduleTime);
-            ps.setString(5, entityType);
-            ps.setString(6, status);
-            ps.setInt(7, userId);
+            ps.setTimestamp(3, scheduleTime);
+            ps.setString(4, entityType );
+            ps.setString(5, status);
+            ps.setInt(6, userId);
+            ps.setString(7, scheduleDesc);
+            ps.setBoolean(8, false);
+            ps.setInt(9, marketinkProgramId);
+            ps.setInt(10, 0);
+            ps.setTimestamp(11, null);
+            ps.setInt(12, 0);
+            
             ps.execute();
             try (ResultSet rs = ps.getResultSet()) {
                 if (rs.next()) {
@@ -377,6 +386,10 @@ public class ScheduleDAO {
                     //String scheduleDateStr = new Date(scheduleDate).toString();
                     scheduleDetailJSONObject.put("schedule_id", rs.getInt("id"));
                     scheduleDetailJSONObject.put("entity_id", rs.getInt("entity_id"));
+                    int marketingId=rs.getInt("user_marketing_program_id");
+                    String marketingName=getMarketingProgramName(marketingId, connection);
+                    scheduleDetailJSONObject.put("marketingName",marketingName);
+                    scheduleDetailJSONObject.put("user_marketing_program_id", rs.getInt("user_marketing_program_id"));
                     scheduleDetailJSONObject.put("schedule_title", rs.getString("schedule_title"));
                     scheduleDetailJSONObject.put("schedule_description", rs.getString("schedule_desc"));
                     scheduleDetailJSONObject.put("schedule_time", scheduleTime);
@@ -385,7 +398,7 @@ public class ScheduleDAO {
                     scheduleDetailJSONObject.put("user_id", rs.getInt("user_id"));
                     scheduleDetailJSONObject.put("color", rs.getString("color"));
                     scheduleDetailJSONObject.put("template_status",
-                            TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
+                    TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
 
                     if (!result.containsKey(String.valueOf(scheduleDate))) {
                         result.put(String.valueOf(scheduleDate), new JSONArray());
@@ -446,6 +459,28 @@ public class ScheduleDAO {
 
     }
 
+    public static String getMarketingProgramName(int marketingId, Connection connection)
+    {
+        String marketingProgram="";
+        String sql1 = "SELECT name FROM tbl_user_marketing_program WHERE id = ? ";
+        try(PreparedStatement ps1 = connection.prepareStatement(sql1)) {
+                ps1.setInt(1, marketingId);
+            try(ResultSet rs1 = ps1.executeQuery()){
+                if (rs1.next()) {
+                    marketingProgram=rs1.getString("name");
+                }
+            }catch(Exception e)
+            {
+                System.out.println(e);
+            }
+        }catch (Exception e){
+            logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                    "Exception while getting the program names :", null), e);
+        }
+        return marketingProgram;
+    }
+    
+    
     public static Map<String, Object> getScheduleEmailDetails(int userId, int scheduleId) throws SQLException, ParseException {
         PGobject pgobject = new PGobject();
         JSONParser parser = new JSONParser();

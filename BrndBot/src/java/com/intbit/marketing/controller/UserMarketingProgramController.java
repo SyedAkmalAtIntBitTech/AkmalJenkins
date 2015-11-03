@@ -386,13 +386,18 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                 scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
 
           }
+           
+           Integer list1_size = scheduledEntityList.size();
+           Integer list2_size = scheduledEmailListForRecuring.size();
+           Integer list3_size = scheduledEntityListForSocialpost.size();
+           
            TblUserMarketingProgram marketingProgram = userMarketingProgramService.getById(userProgram_id);
             TblUserMarketingProgram userMarketingProgram = userMarketingProgramService.getByUserMarketingProgramIdAndMarketingProgramId(userProgram_id, marketingProgram.getTblMarketingProgram().getId());
                 JSONObject userMarketinProgramObject= new JSONObject();  
                 Date dateEvent = userMarketingProgram.getDateEvent();
                 String dateOfEvent = formatter.format(dateEvent);
                 userMarketinProgramObject.put("programName", userMarketingProgram.getName());
-                userMarketinProgramObject.put("noOfActions", "15");
+                userMarketinProgramObject.put("noOfActions", list1_size+list2_size+list3_size);
                 userMarketinProgramObject.put("linktodestination", userMarketingProgram.getUrl());
                 userMarketinProgramObject.put("dateOfEvent", dateEvent.getTime());
                 userMarketinProgramObject.put("description", userMarketingProgram.getTblMarketingProgram().getHtmlData());

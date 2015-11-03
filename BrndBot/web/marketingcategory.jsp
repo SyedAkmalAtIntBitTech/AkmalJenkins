@@ -53,7 +53,6 @@
                              class="{{category.order}}" alt="" ng-click="showMarketingPrograms(category.category_id)" /></a>
                         <p class="markimgtxt fontpnr">{{category.name}}</p>
                     </li>
-                
                 </ul>
                 </div>
             </div>

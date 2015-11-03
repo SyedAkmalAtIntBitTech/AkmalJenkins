@@ -10,12 +10,12 @@ and open the template in the editor.
 .fontpns{
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 600 !important;
 }
 .fontpnr{
      font-family: "proxima-nova",sans-serif;
      font-style: normal;
-     font-weight: 400;
+     font-weight: 400 !important;
 }
 .navicon {
     position:relative;

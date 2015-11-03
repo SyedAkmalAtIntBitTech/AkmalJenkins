@@ -46,16 +46,14 @@ function controllerMarketingCategories($scope, $http, $window){
     
     $scope.showhtmldata = function(id,html_data){
 
-              $(".prognamelst").click(function () {
                 $(".prognamelst").css("background-color", "#fff").css("color","#3f3f42");
-                $(this).css("background-color", "#5cc1a3").css("color","#f6f7f7");
-                });
+                $("#"+id).css("background-color", "#5cc1a3").css("color","#f6f7f7");
             
             $(".htmldatacontainer").css("overflow", "scroll");
             $("#html_data").empty();
         $("#html_data").append(html_data);
         $("#programidHidden").val(id);
-       
+       $(".newclientpromo").css("transform","scale(0.57)");
     };
     $scope.submitclick = function(){
         if($("#programidHidden").val()!="0")
