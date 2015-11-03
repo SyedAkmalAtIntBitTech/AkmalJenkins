@@ -153,7 +153,7 @@
     width:50%;
 }
 .scrolly{
-    overflow-y:scroll;
+    overflow-y:auto;
 }
 .height75{
     height:75px;
@@ -346,8 +346,7 @@
                 font-size: 12px;
                 padding:5px 5px 5px 5px;
                 resize:none;
-                overflow-x: hidden;
-                overflow-y: scroll;
+                overflow-y: auto;
             }
             .postto{
                 color:#2d4355 !important;
@@ -361,8 +360,7 @@
                 padding:5px 38px 5px 32px;
             }
             .posttextemail{
-                overflow-x: hidden;
-                overflow-y:scroll;
+                overflow-y:auto;
                 height: 62px;
             }
 .addactcol{
@@ -577,8 +575,7 @@
                 list-style: none;
             }
             .content{
-               overflow-y:scroll;
-               overflow-x:scroll;
+               overflow-y:auto;
                height:306px;
                width:260px;
                background-color: #d8d8d8;
@@ -592,8 +589,7 @@
                 margin-left: -70px;*/
             }
             .editcontent{
-                overflow-y:scroll;
-                overflow-x:hidden;
+                overflow-y:auto;
                 height:400px;
                 width:650px;
                 position: absolute;
@@ -608,10 +604,21 @@
                 position:relative;
                 left:15px;
                 top:10px;
-
-
             }
-
+            .delsel
+            {
+                display:none;
+            }
+            .button--size-s1{
+                font-size: 12px;
+                height: 30px;
+                width: 116px !important;
+            }
+            .button--size-s2 {
+               font-size: 12px;
+                width: 161px;
+                height: 30px;
+            }
             .inputbox {
                 position:relative;
                 top:-10px;
@@ -894,8 +901,7 @@
             #previewemail, #emailedit, #editfacebook, #edittwitter,#preview,#previewtwitter,#previewfb{
                 z-index:1005;
                 height:100%;
-                overflow-y:scroll;
-                overflow-x:hidden;
+                overflow-y:auto;
                 position:fixed;
                 max-height:100%;
                 background:#ffffff;
@@ -943,7 +949,7 @@
             }
             .scrollEfect {
                 max-height: 100px;
-                overflow-y: scroll;
+                overflow-y: auto;
             }
             .buttonGrey
             {
@@ -971,7 +977,7 @@
                 font-size:12px;
                 color:#3f3f42;
                 width:300px;
-                overflow-y: scroll;
+                overflow-y: auto;
             }
 /*            .button--size-size{
                  width:270px !important;

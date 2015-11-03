@@ -43,59 +43,124 @@ $(document).ready(function ()
 ////    })
 //    }
 $a=0;
+$edit=0;
     $('#slider-button').click(function () {
         $a+=1;
          //To hide the dialog if user click on another node
-         if($a==2)
-         {
-             confirm("You want to close it .. !");
-         }
-        if($slider==2)
+        if($a>=2 && $edit==1)
+        {   
+            if (confirm("Do you want to close it .. !"))
+            { 
+                $edit=0;  
+                if($slider==2)
+                {
+                    if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                        if ($('#slider-button').css("margin-right") == "788px")
+                        {
+                            $(prevSliderDialog).animate({"margin-right": '-=850px'});
+                            $('#slider-button').animate({"margin-right": '-=788px'});
+                        }
+                    }
+
+                    if ($('#slider-button').css("margin-right") == "788px")
+                    {
+                        $slider=0;
+                        $a=0;
+                        $(sliderDialog).animate({"margin-right": '-=850px'});
+                        $('#slider-button').animate({"margin-right": '-=788px'});
+                        closeoverlay();
+                    }
+                    else
+                    {
+                        $(sliderDialog).animate({"margin-right": '+=850px'});
+                        $('#slider-button').animate({"margin-right": '+=788px'});
+                        overlay();
+                    }  
+                }
+                if($slider==1)
+                {
+                    if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                        if ($('#slider-button').css("margin-right") == "375px")
+                        {
+                            $(prevSliderDialog).animate({"margin-right": '-=424px'});
+                            $('#slider-button').animate({"margin-right": '-=375px'});
+                        }
+                    }
+
+                    if ($('#slider-button').css("margin-right") == "375px")
+                    {
+                        $slider=0;
+                        $a=0;
+                        $(sliderDialog).animate({"margin-right": '-=424px'});
+                        $('#slider-button').animate({"margin-right": '-=375px'});
+                        closeoverlay();
+                    }
+                    else
+                    {
+                        $(sliderDialog).animate({"margin-right": '+=424px'});
+                        $('#slider-button').animate({"margin-right": '+=375px'});
+                        overlay();
+                    }  
+                }
+            }
+            else
+            {
+            }
+        }
+        else
         {
-            if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+            if($slider==2)
+            {
+                if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                    if ($('#slider-button').css("margin-right") == "788px")
+                    {
+                        $(prevSliderDialog).animate({"margin-right": '-=850px'});
+                        $('#slider-button').animate({"margin-right": '-=788px'});
+                    }
+                }
+
                 if ($('#slider-button').css("margin-right") == "788px")
                 {
-                    $(prevSliderDialog).animate({"margin-right": '-=850px'});
+                    $slider=0;
+                    $a=0;
+                    $(sliderDialog).animate({"margin-right": '-=850px'});
                     $('#slider-button').animate({"margin-right": '-=788px'});
+                    closeoverlay();
                 }
+                else
+                {
+                    $(sliderDialog).animate({"margin-right": '+=850px'});
+                    $('#slider-button').animate({"margin-right": '+=788px'});
+                    overlay();
+                }  
             }
+            if($slider==1)
+            {
+                if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                    if ($('#slider-button').css("margin-right") == "375px")
+                    {
+                        $(prevSliderDialog).animate({"margin-right": '-=424px'});
+                        $('#slider-button').animate({"margin-right": '-=375px'});
+                    }
+                }
 
-            if ($('#slider-button').css("margin-right") == "788px")
-            {
-                $slider=0;
-                $a=0;
-                $(sliderDialog).animate({"margin-right": '-=850px'});
-                $('#slider-button').animate({"margin-right": '-=788px'});
-            }
-            else
-            {
-                $(sliderDialog).animate({"margin-right": '+=850px'});
-                $('#slider-button').animate({"margin-right": '+=788px'});
-            }  
-        }
-        if($slider==1)
-        {
-            if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
                 if ($('#slider-button').css("margin-right") == "375px")
                 {
-                    $(prevSliderDialog).animate({"margin-right": '-=424px'});
+                    $slider=0;
+                    $a=0;
+                    $(sliderDialog).animate({"margin-right": '-=424px'});
                     $('#slider-button').animate({"margin-right": '-=375px'});
+                    closeoverlay();
                 }
+                else
+                {
+                    $(sliderDialog).animate({"margin-right": '+=424px'});
+                    $('#slider-button').animate({"margin-right": '+=375px'});
+                    overlay();
+                }  
             }
-
-            if ($('#slider-button').css("margin-right") == "375px")
-            {
-                $slider=0;
-                $a=0;
-                $(sliderDialog).animate({"margin-right": '-=424px'});
-                $('#slider-button').animate({"margin-right": '-=375px'});
-            }
-            else
-            {
-                $(sliderDialog).animate({"margin-right": '+=424px'});
-                $('#slider-button').animate({"margin-right": '+=375px'});
-            }  
         }
+        
     });
 
 //    $('#button_edit').click(function(){
@@ -149,9 +214,9 @@ function validateaction() {
     var marketing_program = $("#marketing_program").val();
     
     if (marketing_program === '0') {
-        alert("Marketing Program not selected, please select any one Program");
-        $("#marketing_program").focus();
-        return false;
+        //alert("Marketing Program not selected, please select any one Program");
+        //$("#marketing_program").focus();
+        //return false;
     }
     if (actiontype === '0') {
         alert("actiontype not selected, please select any one action");
@@ -405,7 +470,7 @@ function controllerMarketingCampaign($scope, $http) {
     };
 
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
-  
+        $edit=1;  
         if (entity_type == "email") {
             $http({
                 method: 'GET',
@@ -679,6 +744,7 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.ShowAddAction = function()
     {
         $slider=1;
+        $edit=1; 
         sliderDialog = "#dvPriorityDialog";
         $('#slider-button').click();
         prevSliderDialog = "#dvPriorityDialog";
