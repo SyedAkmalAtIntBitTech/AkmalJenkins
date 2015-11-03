@@ -90,29 +90,45 @@ public class ProcessHTML {
             String cleanItemString = StringEscapeUtils.unescapeHtml4(item.toString());
             replaceStyleMap.put(elementType, cleanItemString);
         }
-        String finalString = replaceExistingTds(replaceStyleMap, doc.toString());
+        String finalString = replaceExistingTag(replaceStyleMap, doc.toString());
         return finalString;
     }
 
-    private String replaceExistingTds(HashMap<String, String> replaceStyleMap, String orgHtml) {
-        String[] lines = orgHtml.split(StringUtil.lineSeparator());
-        StringBuilder newHtml = new StringBuilder();
-        for (String line : lines) {
-            Iterator<Entry<String, String>> it = replaceStyleMap.entrySet()
-                    .iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                if (line.contains(pair.getKey().toString())) {
-                    line = pair.getValue().toString();
-                    it.remove();
-                    break;
+//    private String replaceExistingTds(HashMap<String, String> replaceStyleMap, String orgHtml) {
+//        String[] lines = orgHtml.split(StringUtil.lineSeparator());
+//        StringBuilder newHtml = new StringBuilder();
+//        for (String line : lines) {
+//            Iterator<Entry<String, String>> it = replaceStyleMap.entrySet()
+//                    .iterator();
+//            while (it.hasNext()) {
+//                Map.Entry pair = (Map.Entry) it.next();
+//                if (line.contains(pair.getKey().toString())) {
+//                    line = pair.getValue().toString();
+//                    it.remove();
+//                    break;
+//                }
+//            }
+//            newHtml.append(line);
+//        }
+//        return newHtml.toString();
+//    }
+ private String replaceExistingTag(HashMap<String, String> replaceStyleMap, String orgHtml) {
+           String finalHtml = null;
+           Document html = Jsoup.parse(orgHtml);
+           Elements elements = html.getAllElements();
+           finalHtml = orgHtml;
+       Iterator<Entry<String, String>> it = replaceStyleMap.entrySet().iterator();
+        while (it.hasNext()){
+           Map.Entry pair = (Map.Entry) it.next(); 
+           for(Element element : elements){
+                        if(element.attr("id").equalsIgnoreCase(pair.getKey().toString())){
+                                finalHtml = finalHtml.replace(element.toString(), pair.getValue().toString());
+                        break;
                 }
-            }
-            newHtml.append(line);
-        }
-        return newHtml.toString();
-    }
-
+               }        
+       }
+   return  finalHtml;
+  }
     private String getUserLogoImage() {
         String logoURL = "invalid or no logo url provided";
         if(!StringUtil.isEmpty(this.userLogoURL)) {
