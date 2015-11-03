@@ -197,10 +197,10 @@
                         </div>
                          <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="listelem fontpnr">{{programaction.programTemplateName}}</div>
-                             <div class="otasublst fontpnr">Scheduled for {{programaction.postTime| date:'h a'}}</div>
+                             <div class="otasublst fontpnr">Scheduled for {{programaction.postTime| date:'h:mm a'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="oatlstdt fontpnr">{{programaction.postDate| date:'MMM yy'}}</div>
+                            <div class="oatlstdt fontpnr">{{programaction.postDate| date:'MMM dd'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
                             <div class="oatlstpost fontpnr">{{programaction.actionType}}</div>
