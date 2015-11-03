@@ -67,9 +67,6 @@
                 border-radius: 15px;
                 text-align: center;
             }
-            .display-none{
-                display:none;
-            }
             #boxes #dialog {
                 width: 250px;
                 height: 300px;
@@ -88,8 +85,17 @@
             }
             .fr-wrapper{
                 
-                    min-height: 920px;
+                    min-height: 550px !important;
     height: auto !important;
+     max-height: 546px !important;
+
+     
+            }
+              .border-highlight {
+                width: 250px;
+                height: inherit;
+                color: white;
+                background-color: #5CC1A3; 
             }
 
         </style>
@@ -430,14 +436,12 @@
                     });
             }
 
-//            function addblock(){
-//            document.getElementById("addblkbtn").style.backgroundColor = "#0f76a6";
-//                    document.getElementById("addblkbtn").style.color = "#f6f7f7";
-//            }
+            function addblock(){
+            document.getElementById("addblkbtn").style.backgroundColor = "#0f76a6";
+                    document.getElementById("addblkbtn").style.color = "#f6f7f7";
+            }
 
             function selecterBlockId(selectblock, blockid){
-            alert(selectblock);
-
             $("img").click(function(){
                 alert(this.id);
                 uploadImageToEditor(this.id);
@@ -502,9 +506,9 @@
                                 </div>   
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1 display-none">
                                     <div class="mobileprev fontpnr" id="iphone" class="img-responsive ptr" onclick="show('iphone');">Mobile Preview</div>
-                                    <div class="glyphicon glyphicon-arrow-up ptr" id="sortUpBlock"></div><br /><br />
+<!--                                    <div class="glyphicon glyphicon-arrow-up ptr" id="sortUpBlock"></div><br /><br />
                                     <div class="glyphicon glyphicon-trash ptr" id="deleteBlock"></div><br /><br />
-                                    <div class="glyphicon glyphicon-arrow-down ptr" id="sortDownBlock"></div>
+                                    <div class="glyphicon glyphicon-arrow-down ptr" id="sortDownBlock"></div>-->
                                     <p id="button"></p>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1">
@@ -625,7 +629,8 @@
         <script type="text/javascript" src="js/plugins/lists.min.js"></script>-->
 <!--        <script type="text/javascript" src="js/plugins/paragraph_format.min.js"></script>
         <script type="text/javascript" src="js/plugins/paragraph_style.min.js"></script>-->
-        <script type="text/javascript" src="js/plugins/table.min.js"></script>
+<!--<script src="js/plugins/table.js" type="text/javascript"></script>-->
+        <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
         <script type="text/javascript" src="js/plugins/url.min.js"></script>
         <script type="text/javascript" src="js/plugins/entities.min.js"></script>
         <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>

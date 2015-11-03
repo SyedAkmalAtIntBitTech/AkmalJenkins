@@ -7,6 +7,19 @@ and open the template in the editor.
     Created on : Oct 22, 2015, 5:52:53 PM
     Author     : Syed Akmal at IntBit Technologies.
 */
+@media screen and ( max-height: 720px )
+{
+    .bgcolor
+    {
+       min-height: 620px !important;
+   height: auto !important;
+   }
+   .fr-wrapper{
+       min-height: 559px !important;
+   height: auto !important;
+       
+   }
+}
 .show-placeholder{
     min-height: 819px !important;
     height: auto !important;
@@ -75,6 +88,7 @@ and open the template in the editor.
                  height:16px;
                  color:#3f3f42;
                  font-size:13px;
+                 cursor: pointer;
              }
              .emailedtrsave{
                  font-size:12px;
