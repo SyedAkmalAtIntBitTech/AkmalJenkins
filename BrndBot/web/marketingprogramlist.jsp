@@ -114,11 +114,11 @@
                             <div class="row">
                                     <hr class="pstprogline">
                             </div>
-                        <div ng-show="programs==''">No records available</div>
+                        <div class="fontpns" style="margin-left: 15px;" ng-show="programs==''">No Records Available</div>
                         <div class="row" ng-repeat="program in programs">
                                 <ul class="programsheader">
                                     <li><div class="lstprog fontpns">{{program.program_name}}</div>
-                                        <div class="lststrtdt fontpnr">Started on {{program.start_date | date: 'MMM dd yyyy'+' on '+'h:mma'}} | Template name </div>
+                                        <div class="lststrtdt fontpnr">Started on {{program.start_date | date: 'MMM dd yyyy'+' on '+'h:mma'}}</div>
                                     </li>
                                     <li>
                                     <ul class="li1">
@@ -152,7 +152,7 @@
                         <ul class="programsheader" ng-repeat="program in programs">
                             <div ng-show="program.program_name==''">No records available</div>
                              <li><div class="lstprog fontpns">{{program.program_name}}</div>
-                                <div class="lststrtdt fontpnr">Started on {{program.start_date | date: 'MMM dd yyyy'+' on '+'h:mma'}} | Template name </div>
+                                <div class="lststrtdt fontpnr">Started on {{program.start_date | date: 'MMM dd yyyy'+' on '+'h:mma'}}</div>
                             </li>
                             <li>
                             <ul class="li1 lftcur">
