@@ -265,7 +265,7 @@
     <body ng-app class="container">
     <%@include file="menus.jsp" %>
         <div class="jumbotron" align="center" ng-controller="marketingActionsController" >
-            <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 800px; width: 600px;">
+            <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 860px; width: 600px;">
                 <form name="formCategories" >
 
                 <div>
@@ -292,15 +292,15 @@
                         Time:<input type="time" id="marketingactiontime" name="marketingactiontime"/><br>
                         Recurring: <input type="checkbox" id="is_recuring" style="width:25px;"/>
                         Till Date: <input type="date" id="marketingactiontilldate" name="marketingactiontilldate"/><br>
-                        Description:<input type="text" name="description" id="description"/><br>
+                        <textarea id="description" name="description" style="resize: none; height: 180px; width: 300px;"></textarea><br>
                        
                         Type:<select id="type" name="type">
-                            <option value="0">--Select--</option>
-                            <option value="email">email</option>
-                            <option value="facebook">facebook</option>
-                            <option value="twitter">twitter</option>
-                            <option value="note">note</option>
-                        </select>
+                                <option value="0">--Select--</option>
+                                <option value="email">email</option>
+                                <option value="facebook">facebook</option>
+                                <option value="twitter">twitter</option>
+                                <option value="note">note</option>
+                            </select>
                         <br><br>
                         <button type="button" id="saveaction" name="saveaction" class="btn btn-info" ng-click="createMarketingActionsJSON()">Save Action</button>
                         <br>

@@ -198,7 +198,7 @@
                             <div class="oatlstpost fontpnr">{{programaction.actionType}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
-                            <div class="oatlststat"></div>
+                            <div class="oatlststat fontpnr">{{programaction.status}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1">
                             <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s  fontpnr">Details</button>
