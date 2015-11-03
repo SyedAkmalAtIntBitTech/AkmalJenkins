@@ -22,7 +22,7 @@ var image;
 
 !function (a) {
     "use strict";
-    a.extend(a.FroalaEditor.POPUP_TEMPLATES, {"image.insert": "[_BUTTONS_][_UPLOAD_LAYER_][_BY_URL_LAYER_][_PROGRESS_BAR_]", "image.edit": "[_BUTTONS_]", "image.alt": "[_BUTTONS_][_ALT_LAYER_]", "image.size": "[_BUTTONS_][_SIZE_LAYER_]"}), a.extend(a.FroalaEditor.DEFAULTS, {imageInsertButtons: ["imageBack", "|", "imageUpload", "imageByURL"], imageEditButtons: ["imageReplace", "imageRemove", "|", "imageLink", "linkOpen", "linkEdit", "linkRemove", "-", "imageDisplay", "imageStyle"], imageAltButtons: ["imageBack", "|"], imageSizeButtons: ["imageBack", "|"], imageUploadURL: global_host_address+"/UploadImages", imageUploadParam: "file", imageUploadParams: {}, imageUploadToS3: !1, imageUploadMethod: "POST", imageMaxSize: 10485760, imageAllowedTypes: ["jpeg", "jpg", "png", "gif", "svg+xml"], imageResize: !0, imageResizeWithPercent: !1, imageMove: !0, imageDefaultWidth: 300, imageDefaultAlign: "center", imageDefaultDisplay: "block", imageStyles: {"fr-rounded": "Rounded", "fr-bordered": "Bordered"}, imageMultipleStyles: !0, imageTextNear: !0, imagePaste: !0, imageIframeStyle: "body img {max-width:100%;}body img{z-index:3;position:relative;overflow:auto;cursor:pointer}body img.fr-dib{margin:auto;display:block;float:none;vertical-align:top}body img.fr-dib.fr-fil{margin:5px auto 5px 0}body img.fr-dib.fr-fir{margin:5px 0 5px auto}body img.fr-dii{margin:auto;display:inline-block;float:none}body img.fr-dii.fr-fil{margin:5px 5px 5px 0;float:left}body img.fr-dii.fr-fir{margin:5px 0 5px 5px;float:right}"}), a.FroalaEditor.PLUGINS.image = function (b) {
+    a.extend(a.FroalaEditor.POPUP_TEMPLATES, {"image.insert": "[_BUTTONS_][_UPLOAD_LAYER_][_BY_URL_LAYER_][_PROGRESS_BAR_]", "image.edit": "[_BUTTONS_]", "image.alt": "[_BUTTONS_][_ALT_LAYER_]", "image.size": "[_BUTTONS_][_SIZE_LAYER_]"}), a.extend(a.FroalaEditor.DEFAULTS, {imageInsertButtons: ["imageBack", "|", "imageUpload", "imageByURL"], imageEditButtons: ["imageReplace", "imageRemove", "|", "imageLink", "linkOpen", "linkEdit", "linkRemove", "imageStyle"], imageAltButtons: ["imageBack", "|"], imageSizeButtons: ["imageBack", "|"], imageUploadURL: global_host_address+"/UploadImages", imageUploadParam: "file", imageUploadParams: {}, imageUploadToS3: !1, imageUploadMethod: "POST", imageMaxSize: 10485760, imageAllowedTypes: ["jpeg", "jpg", "png", "gif", "svg+xml"], imageResize: !0, imageResizeWithPercent: !1, imageMove: !0, imageDefaultWidth: 300, imageDefaultAlign: "center", imageDefaultDisplay: "block", imageStyles: {"fr-rounded": "Rounded", "fr-bordered": "Bordered"}, imageMultipleStyles: !0, imageTextNear: !0, imagePaste: !0, imageIframeStyle: "body img {max-width:100%;}body img{z-index:3;position:relative;overflow:auto;cursor:pointer}body img.fr-dib{margin:auto;display:block;float:none;vertical-align:top}body img.fr-dib.fr-fil{margin:5px auto 5px 0}body img.fr-dib.fr-fir{margin:5px 0 5px auto}body img.fr-dii{margin:auto;display:inline-block;float:none}body img.fr-dii.fr-fil{margin:5px 5px 5px 0;float:left}body img.fr-dii.fr-fir{margin:5px 0 5px 5px;float:right}"}), a.FroalaEditor.PLUGINS.image = function (b) {
         function c() {
             var a = b.popups.get("image.insert"), c = a.find(".fr-image-by-url-layer input");
             c.val(""), ka && c.val(ka.attr("src")), c.trigger("change")
@@ -485,7 +485,7 @@ var image;
             }
         }
         function ea(a) {
-            launchEditor(image);
+
             
             ka.removeClass("fr-dii fr-dib"), "inline" == a ? ka.addClass("fr-dii") : "block" == a && ka.addClass("fr-dib"), k(), e()
         }
@@ -532,13 +532,14 @@ var image;
             return ka
         }
         function ja(a) {
-            if (!ka)
-                return!1;
-            if (!b.opts.imageMultipleStyles) {
-                var c = Object.keys(b.opts.imageStyles);
-                c.splice(c.indexOf(a), 1), ka.removeClass(c.join(" "))
-            }
-            ka.toggleClass(a), ka.trigger("click").trigger("touchend")
+//            if (!ka)
+//                return!1;
+//            if (!b.opts.imageMultipleStyles) {
+//                var c = Object.keys(b.opts.imageStyles);
+//                c.splice(c.indexOf(a), 1), ka.removeClass(c.join(" "))
+//            }
+//            ka.toggleClass(a), ka.trigger("click").trigger("touchend")
+            launchEditor(image);
         }
         var ka, la, ma, na, oa = 1, pa = 2, qa = 3, ra = 4, sa = 5, ta = 6, ua = 7, va = {};
         va[oa] = "Image cannot be loaded from the passed link.", va[pa] = "No link in upload response.", va[qa] = "Error during file upload.", va[ra] = "Parsing response failed.", va[sa] = "File is too large.", va[ta] = "Image file type is invalid.", va[ua] = "Files can be uploaded only to same domain in IE 8 and IE 9.";
@@ -588,7 +589,7 @@ var image;
             b || this.opts.toolbarInline ? (a.removeClass("fr-hidden"), a.next(".fr-separator").removeClass("fr-hidden")) : (a.addClass("fr-hidden"), a.next(".fr-separator").addClass("fr-hidden"))
         }}), a.FroalaEditor.RegisterCommand("imageDismissError", {title: "OK", callback: function () {
             this.image.hideProgressBar(!0)
-        }}), a.FroalaEditor.DefineIcon("imageStyle", {NAME: "magic"}), a.FroalaEditor.RegisterCommand("imageStyle", {title: "Style", type: "dropdown", html: function () {
+        }}), a.FroalaEditor.DefineIcon("imageStyle", {NAME: "magic"}), a.FroalaEditor.RegisterCommand("imageStyle", {title: "Style", html: function () {
             var a = '<ul class="fr-dropdown-list">', b = this.opts.imageStyles;
             for (var c in b)
                 a += '<li><a class="fr-command" data-cmd="imageStyle" data-param1="' + c + '">' + b[c] + "</a></li>";

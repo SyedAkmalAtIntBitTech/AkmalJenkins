@@ -452,7 +452,6 @@
 
             function selecterBlockId(selectblock, blockid){
             $("img").click(function(){
-                alert(this.id);
                 uploadImageToEditor(this.id);
            });
 //document.getElementById("img").onclick = function(){
@@ -472,7 +471,7 @@
                 }
 
             }
-            $("#selcatdet").click(function (){alert("sdf");
+            $("#selcatdet").click(function (){
                 $("#blocktab").click();
                 $("#tabs-4").hide();
             });
