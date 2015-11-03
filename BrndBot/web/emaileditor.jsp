@@ -129,6 +129,8 @@
                     
                  var rendomIframeFilename="";
        $(document).ready(function () {
+           $("#addblkbtn").prop('disabled', true);
+           $(".selectrow").css("display","none");
            rendomIframeFilename=event.timeStamp;
                         $("#sortUpBlock").click(function () {
                             var current = $("#" + addblockid);
@@ -184,6 +186,7 @@
                             block_id = arr[0].replace("block", "");
                     };
                             $scope.showStyles = function(){
+                                $(".selectrow").css("display","none");
                             document.getElementById("addblkbtn").style.backgroundColor = "#e3e3e3";
                                     document.getElementById("addblkbtn").style.color = "#9c9da1";
                                     $("#stylelist").css("display", "block");
@@ -229,6 +232,7 @@
                             });
                             };
                             $scope.showBlocks = function(){
+                                    $(".selectrow").css("display","block");
                                     $("#stylelist").css("display", "none");
                                     $("#blklistid").css("display", "block");
                                     $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
@@ -262,12 +266,12 @@
                             });
                             };
                             $scope.showImageOfBlock = function(id, mind_body_query){
-
-
+                         
                             $("#stylelist").css("display", "none");
                                     $("#blklist").css("display", "block");
                                     $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
                                     $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+                                 
                                     $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
                             var jsondataDefault = data;
 //                                    alert(JSON.stringify(data));
@@ -284,7 +288,7 @@
                             }).error();
                             };
                             $scope.showDataTemp = function(){
-
+                                
                             $scope.showData(temp_block_id, temp_mind_body_query);
                             }
                     $scope.showData = function(id, mind_body_query){
@@ -333,6 +337,8 @@
 //                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
 
                     $("#loadingGifformindbody").hide();
+                    $("#clsbtn").css("display","block");
+                    $("#addblkbtn").prop('disabled', true).css("background-color","#e3e3e3").css("color","#9c9da1");
                             $("#tabs-4").css("width", "830px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px").show("slide", { direction: "right" }, 1000);
                     }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
@@ -342,8 +348,9 @@
                     }
                     };
                             $scope.select_category_details = function(id) {
-
-                            mindbodydataId = id;
+                              
+                                    $("#blocktab").click();
+                                    mindbodydataId = id;
                                     //$scope.showStyles();
                                     showText(temp_style_id);
                                     $("#tabs-1").show();
@@ -364,6 +371,7 @@
             };
             });
         function showSomething(block_id_temp, id, style, mind_body_query){
+                      $("#addblkbtn").prop('disabled', false);
                     temp_style_id = id;
                             temp_style_layout = style;
                             temp_block_id = block_id_temp;
@@ -423,7 +431,8 @@
             }
 
             function addblock(){
-            document.getElementById("addblkbtn").style.backgroundColor = "#0f76a6";
+                    
+                    document.getElementById("addblkbtn").style.backgroundColor = "#0f76a6";
                     document.getElementById("addblkbtn").style.color = "#f6f7f7";
             }
 
@@ -447,7 +456,10 @@
                 }
 
             }
-
+            $("#selcatdet").click(function (){alert("sdf");
+                $("#blocktab").click();
+                $("#tabs-4").hide();
+            });
         </script>
 
     </head>
@@ -505,7 +517,7 @@
             </div>
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <div class="blockselection">     
-                    <div class="row">
+                    <div class="row selectrow">
                         <div class="col-md-6 col-lg-6 col-sm-6">
                             <div class="selblock fontpnr">Select a Block</div>
                         </div>
@@ -519,8 +531,8 @@
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <ul id="blklistid" class="blocklist fontpnr" value="blklist">
-                                <li ng-repeat="blocks in datalists" id="blklist" onclick="addblock();"> 
-                                    <div id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>
+                                <li ng-repeat="blocks in datalists" class="blocklist" id="blklist" onclick="addblock();"> 
+                                    <div id="{{blocks.block_id}}"  ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>
                                 </li>
                             </ul>
                             <ul id="stylelist" class="stylelist fontpnr">
@@ -545,16 +557,16 @@
                             <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
                             <p>BLOCK</p>
                         </li>
-                        <li id="tabs-4"style="background:#FFFFFF;position:absolute;z-index: 10;overflow-y: scroll">
-                            <a class="boxclose" id="boxclose"></a>
+                        <li id="tabs-4" style="background:#FFFFFF; position:absolute;z-index: 10;overflow-y: scroll;display:none;">
+                            <a class="boxclose" id="boxclose"><img id="clsbtn" src="images/CloseIcon.svg" height="15" width="15" style="display:none;"/></a>
                             <div id="loadingGifformindbody" style="position: absolute; top:240px;left: 335px;" > <img src="images/YogaLoadingGif.gif" /></div>
                             <div ng-controller="MyController" id="MyController" > 
-                                <p id="text3" style="width: 500px;font-family: 'proxima-nova',sans-serif;font-weight: 600; position: relative;right:-65px;color:#000;margin-top:50px;padding: 5px;">{{datalists.title}}</p><br>
+                                <p class="selclasstopromote fontpnr">{{datalists.title}}</p><br>
                                 <ul class="dataheaderfromindbody">
-                                    <div class="mindbodyHeaderData LE2" >
-                                        <li style="width: 250px;margin-left:10px;">{{datalists.column_header[0]}}</li>
-                                        <li style="width: 230px;left:278px;">{{datalists.column_header[1]}}</li>
-                                        <li style="width: 100px;left:413px;">{{datalists.column_header[2]}}</li>
+                                    <div class="mindbodyHeaderData fontpns" >
+                                        <li>{{datalists.column_header[0]}}</li>
+                                        <li class="teach">{{datalists.column_header[1]}}</li>
+                                        <li>{{datalists.column_header[2]}}</li>
                                     </div>
                                 </ul>
 
@@ -562,14 +574,14 @@
                                 <div  class="tab-pane active" id="picktheme">
                                     <div>
 
-                                        <div style="width: 700px;height: 530px;overflow-x:hidden; overflow-y: scroll; float: right; margin-right: 90px;" >
+                                        <div class="mindbodydatacontainer" >
 
-                                            <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data" style="width: 700px;position: relative;">
+                                            <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
                                                 <!--                                    {{jsonclass}}-->
-                                                <div class='mindbodyOneRowData MH1' ng-click="select_category_details(jsonclass.id)" style="font-weight: 400;font-size: 16px;">
-                                                    <li style="width: 250px;height: 0px;">{{jsonclass.column1}}</li>
-                                                    <li style="width: 200px;height: 0px;">{{jsonclass.column2}}</li>
-                                                    <li style="width: 180px;height: 0px;margin-left: 10px;">{{jsonclass.column3}}</li>
+                                                <div class='mindbodyOneRowData fontpnr' id="selcatdet" ng-click="select_category_details(jsonclass.id)" >
+                                                    <li class="frstcol">{{jsonclass.column1}}</li>
+                                                    <li>{{jsonclass.column2}}</li>
+                                                    <li>{{jsonclass.column3}}</li>
                                                 </div>
                                             </ul>
                                         </div>
@@ -582,10 +594,21 @@
             </div>
         </div>
         <script>
+            $("#addblkbtn").click(function (){
+                $("#tabs-4").css("display","block");
+                $("#clsbtn").css("display","none");
+            });
+            $("#boxclose").click(function (){
+                $("#blocktab").click();
+                $("#tabs-4").hide();
+            });
+            
             $("#blklist").click(function (){
-                $(".addblkbtn").css("background-color", "#0f76a6").css("color", "#f6f7f7");
+                
+                $(this).css("background-color","#0f76a6").css("color","#f4f4f4");   
                 });
             $("#styletab").click(function(){
+                    $("#addblkbtn").prop('disabled', true);
                     $("#stylelist").css("display", "block");
                     $("#blklist").css("display", "none");
                     $("#styletab").css("background-color", "#ffffff").css("color", "#19587c");

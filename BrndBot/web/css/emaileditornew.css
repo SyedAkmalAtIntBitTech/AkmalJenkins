@@ -67,6 +67,7 @@ and open the template in the editor.
                  height:16px;
                  color:#3f3f42;
                  font-size:13px;
+                 cursor:pointer;
              }
              .emailedtrsave{
                  font-size:12px;
@@ -218,4 +219,41 @@ height:480px;
     margin-left: 12px;
     
 }
-        
+.boxclose img{
+     width:25px !important;
+}
+.selclasstopromote{
+    width: 500px;
+    color:#000 !important;
+    margin-top: 0px !important;
+    margin-left: 45px !important;
+    font-size: 21px !important;
+}     
+div.mindbodyHeaderData li{
+    font-size:17px !important;
+    width: 208px;
+    margin-left:5px;
+    height:40px !important;
+}
+.teach{
+        margin-left: 70px!important;
+}
+div.mindbodyOneRowData {
+    margin-left:10px;
+    height: 5px !important;
+    margin-bottom: 60px !important;
+}
+div.mindbodyOneRowData li{
+    font-size: 14px;
+    width: 191px;
+}
+.frstcol{
+    width:285px !important;
+}
+.mindbodydatacontainer{
+    width: 700px;
+    height: 530px;
+    overflow-x:hidden;
+    overflow-y: scroll;
+    margin-left: 10px;
+}
