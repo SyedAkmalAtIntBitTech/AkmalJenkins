@@ -105,7 +105,7 @@ function marketingEmailTemplateController($scope, $http) {
     $scope.getMarketingEmailTemplate = function () {
         $http({
             method: 'GET',
-            url: getHost() + 'getAllRecuringEmailTemplate.do'
+            url: getHost() + 'getAllRecuringEmailTemplates.do'
         }).success(function (data, status, headers, config) {
             $scope.email_templates = data;
         }).error(function (data, status, headers, config) {

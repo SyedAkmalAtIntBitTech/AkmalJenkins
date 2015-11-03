@@ -89,6 +89,7 @@
                     }).success(function (data, status, headers, config) {
                         if (data == "success"){
                             alert("details saved successfully");
+                            window.open(getHost() + 'usermarketingprogram.jsp', "_self");
                         }else {
                             alert("problem saving the record");
                         }    

@@ -5,8 +5,6 @@
  */
 package com.intbit.marketing.controller;
 
-
-
 import com.controller.IConstants;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
@@ -231,7 +229,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
     String jsonString =marketingAction.getJsonTemplate();     
     JSONObject json = (JSONObject)new JSONParser().parse(jsonString);
     org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray)json.get(IConstants.kMarketingActionsKey);
-        for(Integer i = 0; i< jSONArray.size(); i++){
+    for(Integer i = 0; i< jSONArray.size(); i++){
             JSONObject jsonObject = (JSONObject)jSONArray.get(i);
             String tillDateString = jsonObject.get("tilldate").toString();
             
@@ -263,7 +261,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
         }
         catch(Exception ex)
         {
-            logger.log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, "Exception while saving the user marketing program", ex);
         }
         return "false";          
       }
@@ -309,15 +307,19 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
            List<TblScheduledEntityList> scheduledEntityList = scheduledEntityListService.getScheduledEntityListIdForEmailType(userProgram_id, Boolean.TRUE);
                 JSONArray scheduledEmailJsonArray= new JSONArray();
            for (TblScheduledEntityList scheduledEntityListObject : scheduledEntityList) {
-             TblRecuringEmailTemplate   recuringEmailTemplate = recuringEmailTemplateService.getById(scheduledEntityListObject.getRecuringEmailId());
                JSONObject jSONObject = new JSONObject();
+               if(scheduledEntityListObject.getRecuringEmailId() != null)
+               {
+                 TblRecuringEmailTemplate   recuringEmailTemplate = recuringEmailTemplateService.getById(scheduledEntityListObject.getRecuringEmailId());
+                  jSONObject.put("emailRecuringTemplateName",recuringEmailTemplate.getName());
+               } else {
+                  jSONObject.put("emailRecuringTemplateName","no recuring template");
+               }
                 jSONObject.put("scheduledEntityListId", scheduledEntityListObject.getId());
                 jSONObject.put("dateTime", scheduledEntityListObject.getTblUserMarketingProgram().getCreateDate().getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
-                jSONObject.put("status", scheduledEntityListObject.getStatus());
-                jSONObject.put("emailRecuringTemplateName",recuringEmailTemplate.getName());
+                jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
                 scheduledEmailJsonArray.put(jSONObject);
-
           }
              List<TblScheduledEntityList> scheduledEmailListForRecuring = scheduledEntityListService.getScheduledEntityListIdForEmailType(userProgram_id, Boolean.FALSE);
                 JSONArray scheduledEmailAndSocailPostJsonForRecuringArray= new JSONArray();
@@ -343,7 +345,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                 jSONObject.put("scheduledEntityListId", scheduledEntityListObject.getId());
                 jSONObject.put("eventDate", eventDate.getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
-                jSONObject.put("status", scheduledEntityListObject.getStatus());
+                jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
                 jSONObject.put("actionStatus",actionStatus);
                 jSONObject.put("postDate",cal.getTimeInMillis());
                 jSONObject.put("postTime",cal.getTimeInMillis());
@@ -376,7 +378,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                jSONObject.put("scheduledEntityListId", scheduledSocialpostListObject.getId());
                jSONObject.put("eventDate", dateString);
                jSONObject.put("programTemplateName", scheduledSocialpostListObject.getScheduleTitle());
-               jSONObject.put("status", scheduledSocialpostListObject.getStatus());
+               jSONObject.put("status", TemplateStatus.valueOf(scheduledSocialpostListObject.getStatus()).getDisplayName());
                jSONObject.put("actionStatus",actionStatus);
                jSONObject.put("postDate",cal.getTimeInMillis());
                jSONObject.put("postTime",cal.getTimeInMillis());
