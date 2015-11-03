@@ -7,7 +7,10 @@ and open the template in the editor.
     Created on : Oct 22, 2015, 5:52:53 PM
     Author     : Syed Akmal at IntBit Technologies.
 */
-
+.show-placeholder{
+    min-height: 819px !important;
+    height: auto !important;
+}
 .halfcol{
     width:4% !important;
 }
@@ -15,10 +18,15 @@ and open the template in the editor.
                  margin-left:-15px !important;
              }
              .bgcolor{
-                 width:746px;
-                 height:597px;
-                 background-color: #f6f4f5;
-             }
+                width: 746px;
+    
+    background-color: #f6f4f5;
+    
+    min-height: 920px;
+    height: auto !important;
+    
+}
+             
              .emleditorhead{
                  margin-left:51px;             
                  margin-top: 37px;
@@ -87,11 +95,22 @@ and open the template in the editor.
                  background-color:#FFFFFF;
              }
              .blockstyletab{
-                right:0px;
-                position:fixed;
-                width:61px;
-                height:635px;
-                background-color:#f4f4f4;
+                //right:0px;
+                //position:fixed;
+                //width:61px;
+                //height:635px;
+                //background-color:#f4f4f4;
+                right: 0px;
+                position: fixed;
+                width: 61px;
+                height: 635px;
+                background-color: #f4f4f4;
+                height:auto;
+                min-height:960px;
+               height:auto !important;        /* for IE as it does not support min-height */
+   
+                
+                
              }
              .selblock{
                 margin-left:30px; 
@@ -202,7 +221,7 @@ height:480px;
     display:inline-block; 
     padding:5px 15px 5px 0px;
     width:70px;
-    height: 85px;
+    height: 0px;
     font-size: 12px;
     margin-left: -15px;
     cursor:pointer;

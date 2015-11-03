@@ -67,7 +67,9 @@
                 border-radius: 15px;
                 text-align: center;
             }
-
+            .display-none{
+                display:none;
+            }
             #boxes #dialog {
                 width: 250px;
                 height: 300px;
@@ -84,7 +86,11 @@
                 width: 250px;
                 left: 250px;
             }
-
+            .fr-wrapper{
+                
+                    min-height: 920px;
+    height: auto !important;
+            }
 
         </style>
         <%!               
@@ -233,6 +239,7 @@
                                     $("#blklistid").css("display", "block");
                                     $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
                                     $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+                                    
                                     $('body').scrollTop(0);
                                     $scope.curPage = 0;
                                     $scope.pageSize = 2;
@@ -488,7 +495,7 @@
                                     <input type="hidden" id="mindbodydata" value='<%= mindbody_data_id%>'>
                                     <div class="editemail fontpnr">Edit this Email</div>
                                 </div>   
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1 display-none">
                                     <div class="mobileprev fontpnr" id="iphone" class="img-responsive ptr" onclick="show('iphone');">Mobile Preview</div>
                                     <div class="glyphicon glyphicon-arrow-up ptr" id="sortUpBlock"></div><br /><br />
                                     <div class="glyphicon glyphicon-trash ptr" id="deleteBlock"></div><br /><br />
@@ -505,7 +512,7 @@
             </div>
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <div class="blockselection">     
-                    <div class="row">
+                    <div class="row showhide">
                         <div class="col-md-6 col-lg-6 col-sm-6">
                             <div class="selblock fontpnr">Select a Block</div>
                         </div>
@@ -520,7 +527,7 @@
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <ul id="blklistid" class="blocklist fontpnr" value="blklist">
                                 <li ng-repeat="blocks in datalists" id="blklist" onclick="addblock();"> 
-                                    <div id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>
+                                    <div  id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>
                                 </li>
                             </ul>
                             <ul id="stylelist" class="stylelist fontpnr">
