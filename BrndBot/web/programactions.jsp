@@ -29,7 +29,7 @@
 <% 
     program_id = request.getParameter("program_id");
 %>
-<script>
+    <script>
             var program = "";
             program = <%= program_id %>;
             function programactions($scope, $http, $window){
@@ -40,9 +40,6 @@
                         url: 'alluserMarketingProgramForDisplay.do?program_id='+program
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
-//                        $scope.programs_emailautomation = data.emailautomation;
-//                        $scope.programs_programactions = data.programactions;
-                        alert(JSON.stringify(data));
                         if (data === error) {
                             alert(data);
                         }
@@ -52,22 +49,25 @@
                         // or server returns response with an error status.
                     });
                 };
+                $scope.setEntityId = function(entity_list_Id, days){
+                    window.open(getHost() + 'emailautomation.jsp?entitylistid='+entity_list_Id+'&days='+days, "_self");
+                };
             };
             
-        </script>
-        <script>
-            function overlay(){
-                        document.getElementById('light').style.display = 'block';
-                            document.getElementById('fade').style.display = 'block';
-                            document.getElementById('slider-button').style.display = 'block';
-                            document.body.style.overflow = 'hidden';
-                    }
-            function closeoverlay(){
-                    document.getElementById('light').style.display = 'none';
-                    document.getElementById('fade').style.display = 'none';
-                    document.body.style.overflow = 'scroll';
-            }
-        </script>
+    </script>
+    <script>
+        function overlay(){
+                    document.getElementById('light').style.display = 'block';
+                        document.getElementById('fade').style.display = 'block';
+                        document.getElementById('slider-button').style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                }
+        function closeoverlay(){
+                document.getElementById('light').style.display = 'none';
+                document.getElementById('fade').style.display = 'none';
+                document.body.style.overflow = 'scroll';
+        }
+    </script>
         <jsp:include page="basejsp.jsp"/>
     </head>
     <body ng-app>
@@ -147,7 +147,15 @@
                             <div class="stslst fontpnr">{{emailautomation.status}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
-                            <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s fontpnr">Details</button>
+                            <button type="button" 
+                                    ng-click="setEntityId(emailautomation.scheduledEntityListId, emailautomation.days)" 
+                                    class="emledtbtn button 
+                                           button--moema button--text-thick 
+                                           button--text-upper 
+                                           button--size-s 
+                                           fontpnr">
+                                Details
+                            </button>
                         </div>
                         <hr class="emlautombtmline padlineleftreceml">
                     </div>

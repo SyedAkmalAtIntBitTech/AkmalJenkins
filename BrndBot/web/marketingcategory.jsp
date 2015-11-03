@@ -36,10 +36,7 @@
             <div class="row" >
                 <div class="col-sm-12 col-lg-12 col-md-12 ">
                     <div class="marktext"> Please choose a marketing program type.</div>
-                    <div class="toppad">Lorem ipsum dolor sit ametdaf, 
-                        consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut 
-                        labore et dolore magna aliqua.
+                    <div class="toppad">
                     </div>
                 </div>    
             </div>

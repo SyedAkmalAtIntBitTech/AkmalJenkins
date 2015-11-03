@@ -54,11 +54,19 @@
       }
           
   </style>
+<%! 
+    String entitylistid = "";
+    String days = "";
+%>        
+<% 
+    entitylistid = request.getParameter("entitylistid");
+    days = request.getParameter("days");
+%>  
          <script>
             $(document).ready(function (){
-            $("#emlautomeditorcontainer").hide();
-            $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
-            } );
+                $("#emlautomeditorcontainer").hide();
+                $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
+            });
             var template_id = "";
             function validate(){
                 var days = $("#days").val();
@@ -104,7 +112,7 @@
             
             function emailautomation($scope, $http){
             
-            $scope.days = 10;
+                $scope.days = <%= days %>;
             /*
              * Bring all the email list from the database
              */
@@ -152,12 +160,10 @@
                  
                  $scope.showHTMLData = function(html_data, id){
                         var $iframe = $('.fr-iframe');
+//                         $(".fr-iframe").empty();
+                        $iframe.contents().find("body").empty();
                         $iframe.contents().find("body").append(html_data);
                         template_id = id;
-//                     alert(html_data);
-//                     $(".fr-iframe").empty();
-////                     $(".fr-wrapper").appendChild("<div id='html_data'></div>")
-//                     $(".fr-iframe").append(html_data);
                  };
                 $scope.saveEmailAutomation = function(){
                     if (validate()){
@@ -167,8 +173,7 @@
                         var subject = $("#subject").val();
                         var from_name = $("#from_name").val();
                         var reply_to_address = $("#reply_to_address").val();
-                        var entity_id = 140;
-                        var days = 10;
+                        var entity_id = <%= entitylistid %>;
                         
                         var $iframe = $('.fr-iframe');
                         var html_data = $iframe.contents().find("html").html(); 
@@ -190,6 +195,7 @@
                             $scope.categories = data;
                             if (data === "true") {
                                 alert("details saved succesfully");
+                                window.open(getHost() + 'marketingprogramlist.jsp?type=current', "_self");
                             }else {
                                 alert("problem saving the record");
                             }

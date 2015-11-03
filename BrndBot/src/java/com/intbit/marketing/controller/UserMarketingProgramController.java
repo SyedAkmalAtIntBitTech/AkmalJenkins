@@ -318,6 +318,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                 jSONObject.put("scheduledEntityListId", scheduledEntityListObject.getId());
                 jSONObject.put("dateTime", scheduledEntityListObject.getTblUserMarketingProgram().getCreateDate().getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
+                jSONObject.put("days", scheduledEntityListObject.getDays());
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
                 scheduledEmailJsonArray.put(jSONObject);
           }
