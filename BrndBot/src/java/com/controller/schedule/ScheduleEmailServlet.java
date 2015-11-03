@@ -83,6 +83,7 @@ public class ScheduleEmailServlet extends HttpServlet {
             Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
                     userId,
                     requestBodyMap.get("email_subject").toString(),
+                    requestBodyMap.get("marketingType").toString(),
                     requestBodyMap.get("email_body").toString(),
                     requestBodyMap.get("from_email_address").toString(),
                     requestBodyMap.get("email_list").toString(),

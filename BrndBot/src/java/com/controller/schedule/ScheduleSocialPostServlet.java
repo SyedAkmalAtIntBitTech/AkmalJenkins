@@ -121,9 +121,10 @@ public class ScheduleSocialPostServlet extends HttpServlet {
                     //As of now schedule description is not yet mandatory.
                     String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
                             ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
-
+                    String marketingType="";
                     Map<String, Integer> daoResponse = ScheduleSocialPostDAO.addToScheduleSocialPost(
                             userId,
+                            marketingType,
                             requestBodyMap.get("image_name").toString(),
                             AppConstants.GSON.fromJson(tokenDataString, Map.class),
                             AppConstants.GSON.fromJson(metadataString, Map.class),
