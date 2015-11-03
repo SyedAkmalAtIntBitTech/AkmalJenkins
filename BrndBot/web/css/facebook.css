@@ -67,6 +67,10 @@
 {
     margin-top:11px;
 }
+.top18
+{
+    margin-top:18px;
+}
 .topnineteen{
     margin-top:19px;
 }
@@ -318,8 +322,7 @@
                 font-size: 12px;
                 padding:5px 5px 5px 5px;
                 resize:none;
-                overflow-x: hidden;
-                overflow-y: scroll;
+                overflow-y: auto;
             }    
    .actiondetinput{
                 border-color:#e3e3e3 !important;  
@@ -379,6 +382,23 @@
 #noteincomplete,#notecomplete
 {display:none;
 }
+#marketing_program {
+    -moz-appearance: none;
+    background-attachment: scroll, scroll;
+    background-clip: border-box, border-box;
+    background-color: #f6f7f7 !important;
+    background-image: url("images/dropdown.png"), none;
+    background-origin: padding-box, padding-box;
+    background-position: right center, 270px center;
+    background-repeat: no-repeat, repeat;
+    background-size: auto auto, auto auto;
+    border-color: #e3e3e3;
+    border-radius: 3px;
+    font-size: 12px;
+    height: 25px;
+    width: 120px;
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
   

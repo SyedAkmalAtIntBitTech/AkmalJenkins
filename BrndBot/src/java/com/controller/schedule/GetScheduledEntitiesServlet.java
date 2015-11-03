@@ -111,6 +111,8 @@ public class GetScheduledEntitiesServlet extends HttpServlet {
             response.getWriter().flush();
         } catch (SQLException ex) {
             Logger.getLogger(GetScheduledEntitiesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e){
+            Logger.getLogger(GetScheduledEntitiesServlet.class.getName()).log(Level.SEVERE, null, e);
         }
         
     }
