@@ -54,5 +54,15 @@ public interface ScheduledEntityListDao {
 	 * @return {@link scheduledEntityList}
         * @throws java.lang.Throwable 
     */
-   public List<TblScheduledEntityList> getScheduledEntityLisId(Integer userMarketingProgramId) throws Throwable; 
+   public List<TblScheduledEntityList> getScheduledEntityLisId(Integer userMarketingProgramId) throws Throwable;
+   /**
+	 * This method retrieves {@link scheduledEntityList} by passing id
+	 * @param status
+         * @param entityType 
+         * @param programStatus
+	 * @return {@link scheduledEntityList}
+        * @throws java.lang.Throwable 
+    */
+    public TblScheduledEntityList getLatestApprovedFacebookPost(String status,String entityType,String programStatus) throws Throwable;
+    
 }

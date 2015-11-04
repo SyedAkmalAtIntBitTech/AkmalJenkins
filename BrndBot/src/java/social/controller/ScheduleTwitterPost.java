@@ -5,10 +5,19 @@
  */
 package social.controller;
 
+import com.controller.IConstants;
+import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
 import com.intbit.marketing.model.TblScheduledTwitter;
+import com.intbit.marketing.service.ScheduledEntityListService;
+import com.intbit.marketing.service.ScheduledSocialpostListService;
 import java.util.Date;
 import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import util.DateTimeUtil;
 
 /**
@@ -16,41 +25,61 @@ import util.DateTimeUtil;
  * @author AR
  */
 public class ScheduleTwitterPost implements Callable {
+    @Autowired
+    ScheduledEntityListService scheduledEntityListService;
+    @Autowired
+    ScheduledSocialpostListService scheduledSocialpostListService;
     
     @Override
     public Date call() throws Exception {
-        TblScheduledTwitter scheduledTwitterPost = getLatestApprovedTwitterPost();
-        
-        //The time zone of the saved date should be extracted. 
-        //This time zone should be applied to the current time and then this comparison needs to be made.
-        boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledTwitterPost.getDatetime());
-        
-        if (shouldPostNow) {
-            TblScheduledSocialpostList twitterPost = getTwitterPost(scheduledTwitterPost);
-            String message = PostToTwitter.postStatus(null, null, null, null, null, Integer.SIZE, null, null);
-            if (message.equalsIgnoreCase("success")) {
-                deleteScheduledTwitter(scheduledTwitterPost);
-                //Get the next in line
-                scheduledTwitterPost = getLatestApprovedTwitterPost();
+        TblScheduledEntityList scheduledTwitterPost = null ;
+        try {
+             scheduledTwitterPost = getLatestApprovedTwitterPost();
+            
+            //The time zone of the saved date should be extracted.
+            //This time zone should be applied to the current time and then this comparison needs to be made.
+            boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledTwitterPost.getScheduleTime());
+            
+            if (shouldPostNow) {
+                TblScheduledSocialpostList twitterPost = getTwitterPost(scheduledTwitterPost);
+                String jsonString= twitterPost.getMetadata();
+                JSONObject jsonObject = (JSONObject)new JSONParser().parse(jsonString); 
+                String text = jsonObject.get(IConstants.kTwitterTextKey).toString();
+                PostToTwitter postToTwitter = new PostToTwitter();
+                 Integer userId =getLatestApprovedTwitterPost().getUserId();
+                String twitterAccessToken = postToTwitter.getTwitterAccessToken(userId);
+                String twitterTokenSecret = postToTwitter.getTwitterAccessTokenSecret(userId);
+                
+                String message = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, null, null, userId, null, null);
+                if (message.equalsIgnoreCase("success")) {
+                    updateStatusScheduledTwitter(scheduledTwitterPost);
+                    //Get the next in line
+                    scheduledTwitterPost = getLatestApprovedTwitterPost();
+                }
             }
+            
+            
+        } catch (Throwable ex) {
+            Logger.getLogger(ScheduleTwitterPost.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return scheduledTwitterPost.getDatetime();
+        return scheduledTwitterPost.getScheduleTime();
     }
 
-    private void deleteScheduledTwitter(TblScheduledTwitter scheduledTwitterPost) {
+    private void updateStatusScheduledTwitter(TblScheduledEntityList scheduledTwitterPost) throws Throwable {
         //Call the DAO here
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       scheduledTwitterPost.setStatus(IConstants.kSocialPostCommpleteStatus);
+       scheduledEntityListService.update(scheduledTwitterPost);
     }
 
-    private TblScheduledSocialpostList getTwitterPost(TblScheduledTwitter scheduledTwitterPost) {
+    private TblScheduledSocialpostList getTwitterPost(TblScheduledEntityList scheduledTwitterPost) throws Throwable {
         //Call the DAO here
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TblScheduledSocialpostList  scheduledSocialpostList = scheduledSocialpostListService.getByEntityId(scheduledTwitterPost.getId());
+         return  scheduledSocialpostList;
     }
     
-    private static TblScheduledTwitter getLatestApprovedTwitterPost() {
-        //Call the DAO here
-        return new TblScheduledTwitter();
+    private  TblScheduledEntityList getLatestApprovedTwitterPost() throws Throwable {
+        TblScheduledEntityList  scheduledEntityList = scheduledEntityListService.getLatestApprovedSocialPost(IConstants.kSocialPostTemplateSavedStatus, IConstants.kTwitterKey,IConstants.kUserMarketingProgramOpenStatus);
+        return scheduledEntityList;
     }
 
     public void terminateThread() {

@@ -63,5 +63,12 @@ public class ScheduledEntityListServiceImpl  implements ScheduledEntityListServi
     public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId, Boolean isRecuring, String entityType) throws Throwable {
         return  scheduledEntityListDao.getAllScheduledEmailList();
     }
+
+    @Override
+    public TblScheduledEntityList getLatestApprovedSocialPost(String status, String entityType,String programStatus) throws Throwable {
+       return scheduledEntityListDao.getLatestApprovedFacebookPost(status, entityType,programStatus);
+    }
+
+   
     
 }

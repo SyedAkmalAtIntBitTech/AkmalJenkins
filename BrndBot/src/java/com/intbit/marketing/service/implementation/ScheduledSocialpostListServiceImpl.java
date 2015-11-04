@@ -28,5 +28,10 @@ public class ScheduledSocialpostListServiceImpl  implements ScheduledSocialpostL
     public List<TblScheduledSocialpostList> getAllScheduledSocialpostListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecuring, String entityType) throws Throwable {
        return  scheduledSocialpostListDao.getAllScheduledSocialpostListForUserMarketingProgram(UserMarketingId, isRecuring, entityType);
     }
+
+    @Override
+    public TblScheduledSocialpostList getByEntityId(Integer entityId) throws Throwable {
+       return scheduledSocialpostListDao.getByEntityId(entityId);
+    }
     
 }

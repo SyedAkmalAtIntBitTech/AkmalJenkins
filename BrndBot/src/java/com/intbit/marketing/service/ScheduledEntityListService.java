@@ -50,4 +50,14 @@ public interface ScheduledEntityListService {
    public void delete(Integer id) throws Throwable;
    
    public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId,Boolean isRecuring, String entityType) throws Throwable;
+    /**
+	 * This method retrieves {@link scheduledEntityList} by passing id
+	 * @param status
+         * @param entityType 
+         * @param programStatus
+	 * @return {@link scheduledEntityList}
+        * @throws java.lang.Throwable 
+    */
+    public TblScheduledEntityList getLatestApprovedSocialPost(String status,String entityType,String programStatus) throws Throwable;
+      
 }

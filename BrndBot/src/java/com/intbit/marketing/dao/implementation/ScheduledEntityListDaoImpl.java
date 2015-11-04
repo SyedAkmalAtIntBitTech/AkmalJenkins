@@ -10,9 +10,11 @@ import com.intbit.marketing.model.TblScheduledEntityList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.OrderBy;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,8 +38,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao{
         try {
                 Criteria criteria=sessionFactory.getCurrentSession()
                         .createCriteria(TblScheduledEntityList.class)
-                        .setFetchMode("tblMarketingCategory", FetchMode.JOIN)
-                         .setFetchMode("tblMarketingProgram", FetchMode.JOIN)
+                        .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                         .add(Restrictions.eq("id", id));
                 return (TblScheduledEntityList)criteria.list().get(0);
 		} catch (Throwable throwable) {
@@ -116,6 +117,29 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao{
 			throw new Throwable("Database error while retrieving record");
             }
     }
+
+     /**
+	 * {@inheritDoc}
+     */
+    public TblScheduledEntityList getLatestApprovedFacebookPost(String status, String entityType,String programStatus) throws Throwable {
+        try {
+               Criteria criteria=sessionFactory.getCurrentSession()
+                       .createCriteria(TblScheduledEntityList.class)                   
+                        .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
+                        .createAlias("tblUserMarketingProgram", "tump")
+                       .add(Restrictions.eq("status", status))
+                        .add(Restrictions.eq("tump.status", programStatus))
+                       .add(Restrictions.eq("entityType",entityType));
+//                       .setProjection(Projections.min("tump.dateEvent"));
+                       
+               
+               return (TblScheduledEntityList) criteria.list().get(0);
+               } catch (Throwable throwable) {
+                       logger.log(Level.SEVERE, null, throwable);
+                       throw new Throwable("Database error while retrieving record");
+           } 
+    }
+
 
 
     

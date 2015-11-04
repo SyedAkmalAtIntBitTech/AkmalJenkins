@@ -22,6 +22,13 @@ public interface ScheduledSocialpostListService {
 	 * @throws java.lang.Throwable 
     */
    public List<TblScheduledSocialpostList> getAllScheduledSocialpostListForUserMarketingProgram(Integer UserMarketingId,Boolean isRecuring , String entityType  )throws Throwable;
-    
+   
+    /**
+	 * This method retrieves {@link ScheduledSocialpostList} by passing id
+	 * @param entityId
+	 * @return {@link scheduledEntityList}
+        * @throws java.lang.Throwable 
+    */
+    public TblScheduledSocialpostList getByEntityId(Integer entityId) throws Throwable; 
     
 }

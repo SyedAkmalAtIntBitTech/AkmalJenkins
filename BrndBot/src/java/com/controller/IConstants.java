@@ -35,5 +35,12 @@ public interface IConstants {
     final static String kColor4 = "color4";
     final static String kColor5 = "color5";
     final static String kColor6 = "color6";
+    final static String kFacebookDescriptionKey = "description";
+    final static String kFacebookPostTextKey = "post_text";
+    final static String kFacebookUrlKey = "url";
+    final static String kSocialPostCommpleteStatus = "complete";
+    final static String kSocialPostTemplateSavedStatus = "template_saved";
+    final static String kUserMarketingProgramOpenStatus = "open";
+    final static String kTwitterTextKey = "text";
     
 }

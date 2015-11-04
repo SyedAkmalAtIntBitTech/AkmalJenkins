@@ -6,9 +6,15 @@
 package social.controller;
 
 import com.controller.SqlMethods;
+import com.intbit.marketing.model.TblUserPreferences;
+import com.intbit.marketing.service.UserPreferencesService;
 import java.io.File;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -20,6 +26,8 @@ import twitter4j.conf.ConfigurationBuilder;
  * @author AR
  */
 public class PostToTwitter {
+     @Autowired 
+    public UserPreferencesService userPreferencesService;
 
     public static String postStatus(String twitterAccessToken, String twitterTokenSecret, String text, String shortURL, String fileImagePath, Integer userId, String htmlString, String getImageFile) {
         String returnMessage = "";
@@ -75,6 +83,33 @@ public class PostToTwitter {
             Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
         }
         return returnMessage;
+    }
+    public  HashMap<String,String>getTwitterUserPreferences(Integer userId) throws Throwable{
+
+    TblUserPreferences userPreferences = userPreferencesService.getById(userId);
+        String userPreferencesJson = userPreferences.getUserPreferences();
+        JSONObject jsonObject = (JSONObject)new JSONParser().parse(userPreferencesJson);
+        HashMap<String,String> hashUserPerfernce = new HashMap<String,String>();
+        hashUserPerfernce.put("twitter_access_token", jsonObject.get("twitter_access_token").toString());
+        hashUserPerfernce.put("twitter_access_token_secret", jsonObject.get("twitter_access_token_secret").toString());
+        hashUserPerfernce.put("TwitterLoggedIn", jsonObject.get("TwitterLoggedIn").toString());
+        hashUserPerfernce.put("twitter_user_name", jsonObject.get("twitter_user_name").toString());
+       return hashUserPerfernce;
+    }
+    public  String getTwitterAccessToken(Integer userId) throws Throwable{
+       HashMap<String , String> hashMap= getTwitterUserPreferences(userId);
+        if(hashMap != null){
+            return hashMap.get("twitter_access_token");
+        }
+        return "";
+    }
+    public  String getTwitterAccessTokenSecret(Integer userId) throws Throwable{
+         HashMap<String , String> hashMap= getTwitterUserPreferences(userId);
+         if(hashMap != null){
+             return hashMap.get("twitter_access_token_secret");
+         }
+         return "";
+         
     }
 
 }

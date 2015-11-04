@@ -19,6 +19,7 @@ import com.intbit.marketing.model.TblUserMarketingProgram;
 import com.intbit.marketing.service.MarketingActionService;
 import com.intbit.marketing.service.MarketingProgramService;
 import com.intbit.marketing.service.ScheduledEmailListService;
+import com.intbit.marketing.service.ScheduledEntityListService;
 import com.intbit.marketing.service.ScheduledSocialpostListService;
 import com.intbit.marketing.service.UserMarketingProgramService;
 import java.io.BufferedReader;
@@ -61,6 +62,7 @@ public class UserMarketingProgramController {
      private ScheduledSocialpostListService scheduledSocialpostListService;
      @Autowired
      private MarketingActionService marketingActionService;
+     @Autowired ScheduledEntityListService scheduledEntityListService;
      
       @RequestMapping(value="/allmarketingProgram", method = RequestMethod.GET)
       public @ResponseBody String getAllUserMarketingProgram() {
@@ -202,6 +204,23 @@ public class UserMarketingProgramController {
           jsonObject.put("programs", json_array);
           return jsonObject.toString();
       }
+//      @RequestMapping(value="/forFacebook", method = RequestMethod.GET)
+//      public @ResponseBody String Facebook(HttpServletRequest request, 
+//                HttpServletResponse response) throws Throwable {
+//          TblScheduledEntityList scheduledEntityList = scheduledEntityListService.getLatestApprovedFacebookPost("template_saved", "facebook");
+//            System.out.println(scheduledEntityList);
+//            System.out.println(scheduledEntityList.getScheduleTime());
+//            System.out.println(scheduledEntityList.getScheduleTitle());
+//       
+////              JSONObject json_obj = new JSONObject();
+////              json_obj.put("id", userMarketingProgramObject.getId());
+////              json_obj.put("program name", userMarketingProgramObject.getName());
+//              
+//              
+//          
+//         return null;
+//         
+//      }
        
 
 }

@@ -6,6 +6,7 @@
 package com.intbit.marketing.dao;
 
 
+import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
 import java.util.List;
 
@@ -24,5 +25,15 @@ public interface ScheduledSocialpostListDao {
 	 * @throws java.lang.Throwable 
     */
    public List<TblScheduledSocialpostList> getAllScheduledSocialpostListForUserMarketingProgram(Integer UserMarketingId,Boolean isRecuring , String entityType  )throws Throwable;
+    /**
+	 * This method retrieves {@link ScheduledSocialpostList} by passing id
+	 * @param entityId
+	 * @return {@link scheduledEntityList}
+        * @throws java.lang.Throwable 
+    */
+    public TblScheduledSocialpostList getByEntityId(Integer entityId) throws Throwable; 
+   
+   
+   
     
 }
