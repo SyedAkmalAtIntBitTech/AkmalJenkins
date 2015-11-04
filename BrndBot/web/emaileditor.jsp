@@ -459,6 +459,8 @@
             $("img").click(function(){
                 uploadImageToEditor(this.id);
            });
+           
+           MoveBlock(selectblock);
 //document.getElementById("img").onclick = function(){
 //    uploadImageToEditor("assda");
 //}
@@ -643,6 +645,7 @@
             });
                 
         </script>
+                <link rel="stylesheet" href="css/plugins/image_manager.css">
         <script type="text/javascript" src="js/froala_editor.min_Email.js" ></script>
         <script type="text/javascript" src="js/plugins/align.min.js"></script>
         <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
@@ -652,11 +655,11 @@
         <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
         <script type="text/javascript" src="js/plugins/file.min.js"></script>
         <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-<!--        <script type="text/javascript" src="js/plugins/line_breaker.min.js"></script>
-        <script type="text/javascript" src="js/plugins/link.min.js"></script>
-        <script type="text/javascript" src="js/plugins/lists.min.js"></script>-->
-<!--        <script type="text/javascript" src="js/plugins/paragraph_format.min.js"></script>
-        <script type="text/javascript" src="js/plugins/paragraph_style.min.js"></script>-->
+       <script type="text/javascript" src="js/plugins/line_breaker.min.js"></script>
+   <!--      <script type="text/javascript" src="js/plugins/link.min.js"></script>-->
+<!--        <script type="text/javascript" src="js/plugins/lists.min.js"></script>-->
+        <script type="text/javascript" src="js/plugins/paragraph_format.min.js"></script>
+<!--        <script type="text/javascript" src="js/plugins/paragraph_style.min.js"></script>-->
 <!--<script src="js/plugins/table.js" type="text/javascript"></script>-->
         <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
         <script type="text/javascript" src="js/plugins/url.min.js"></script>
@@ -670,8 +673,7 @@
                     });                               
         </script>
 
-
-
+ 
         <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
         <script>
                     function show(id) {
