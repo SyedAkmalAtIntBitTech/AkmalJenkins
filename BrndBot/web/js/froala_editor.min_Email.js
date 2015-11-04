@@ -5,6 +5,11 @@
  */
 if ("undefined" == typeof jQuery)
     throw new Error("Froala requires jQuery");
+var Blockid;
+function MoveBlock(selectedBlockId){
+    alert(selectedBlockId);
+   Blockid=selectedBlockId;   
+}
 !function (a) {
     "use strict";
     var b = function (c, d) {
@@ -2284,7 +2289,7 @@ if ("undefined" == typeof jQuery)
     }
 }(jQuery), function (a) {
     "use strict";
-    a.FroalaEditor.ICON_DEFAULT_TEMPLATE = "font_awesome", a.FroalaEditor.ICON_TEMPLATES = {font_awesome: '<i class="fa fa-[NAME]"></i>', text: '<span style="text-align: center;">[NAME]</span>', image: "<img src=[SRC] alt=[ALT] />"}, a.FroalaEditor.ICONS = {bold: {NAME: "bold"}, italic: {NAME: "italic"}, underline: {NAME: "underline"}, strikeThrough: {NAME: "strikethrough"}, subscript: {NAME: "subscript"}, superscript: {NAME: "superscript"}, color: {NAME: "tint"}, outdent: {NAME: "outdent"}, indent: {NAME: "indent"}, undo: {NAME: "rotate-left"}, redo: {NAME: "rotate-right"}, insertHR: {NAME: "minus"}, clearFormatting: {NAME: "eraser"}, selectAll: {NAME: "mouse-pointer"}}, a.FroalaEditor.DefineIconTemplate = function (b, c) {
+    a.FroalaEditor.ICON_DEFAULT_TEMPLATE = "font_awesome", a.FroalaEditor.ICON_TEMPLATES = {font_awesome: '<i class="fa fa-[NAME]"></i>', text: '<span style="text-align: center;">[NAME]</span>', image: "<img src=[SRC] alt=[ALT] />"}, a.FroalaEditor.ICONS = {bold: {NAME: "bold"}, italic: {NAME: "italic"}, underline: {NAME: "underline"},uparraw:{Name: "uparraw"}, strikeThrough: {NAME: "strikethrough"}, subscript: {NAME: "subscript"}, superscript: {NAME: "superscript"}, color: {NAME: "tint"}, outdent: {NAME: "outdent"}, indent: {NAME: "indent"}, undo: {NAME: "rotate-left"}, redo: {NAME: "rotate-right"}, insertHR: {NAME: "minus"}, clearFormatting: {NAME: "eraser"}, selectAll: {NAME: "mouse-pointer"}}, a.FroalaEditor.DefineIconTemplate = function (b, c) {
         a.FroalaEditor.ICON_TEMPLATES[b] = c
     }, a.FroalaEditor.DefineIcon = function (b, c) {
         a.FroalaEditor.ICONS[b] = c
@@ -2628,7 +2633,7 @@ if ("undefined" == typeof jQuery)
         }})
 }(jQuery), function (a) {
     "use strict";
-    a.extend(a.FroalaEditor.DEFAULTS, {toolbarInline: !1, toolbarVisibleWithoutSelection: !1, toolbarSticky: !0, toolbarButtons: ["bold", "italic", "underline", "strikeThrough", "subscript", "superscript","|", "fontFamily", "fontSize",  "color",  "paragraphFormat", "align", "formatOL", "formatUL", "outdent", "indent", "insertHR","|", "insertLink", "undo", "redo", "html"], toolbarButtonsXS: ["bold", "italic", "fontFamily", "fontSize", "undo", "redo"], toolbarButtonsSM: ["fullscreen", "bold", "italic", "underline", "fontFamily", "fontSize", "insertLink", "insertImage", "undo", "redo"], toolbarButtonsMD: ["fullscreen", "bold", "italic", "underline", "fontFamily", "fontSize", "color", "paragraphStyle", "paragraphFormat", "align", "formatOL", "formatUL", "outdent", "indent", "insertHR", "insertLink", "insertImage", "undo", "redo", "-", "|"], toolbarStickyOffset: 0}), a.FroalaEditor.MODULES.toolbar = function (b) {
+    a.extend(a.FroalaEditor.DEFAULTS, {toolbarInline: !1, toolbarVisibleWithoutSelection: !1, toolbarSticky: !0, toolbarButtons: ["bold", "italic","insert","uparrow", "underline","uparraw", "strikeThrough", "subscript", "superscript","|", "fontFamily", "fontSize",  "color",  "paragraphFormat", "align", "formatOL", "formatUL", "outdent", "indent", "insertHR","|", "insertLink", "undo", "redo", "html"], toolbarButtonsXS: ["bold","insert","uparrow", "italic", "fontFamily", "fontSize", "undo", "redo"], toolbarButtonsSM: ["fullscreen", "bold","insert","uparrow", "italic", "underline", "fontFamily", "fontSize", "insertLink", "insertImage", "undo", "redo"], toolbarButtonsMD: ["fullscreen","uparraw", "bold","insert", "italic", "underline", "fontFamily", "fontSize", "color", "paragraphStyle", "paragraphFormat", "align", "formatOL", "formatUL", "outdent", "indent", "insertHR", "insertLink", "insertImage", "undo", "redo", "-", "|"], toolbarStickyOffset: 0}), a.FroalaEditor.MODULES.toolbar = function (b) {
         function c() {
             var a = b.button.buildList(b.opts.toolbarButtons);
             b.$tb.append(a), b.button.bindCommands(b.$tb)
@@ -2684,6 +2689,28 @@ if ("undefined" == typeof jQuery)
         var o, p, q = !1;
         return{require: ["events", "tooltip", "button", "icon", "core", "language"], _init: l, hide: f, show: g, showInline: e, disable: m, enable: n}
     }
+    $.FroalaEditor.DefineIcon('insert', {NAME: 'plus'});
+    $.FroalaEditor.RegisterCommand('insert', {
+      title: 'Up Arrow',
+      focus: true,
+      undo: true,
+      refreshAfterCallback: true,
+      callback: function () {
+   var current = $("#" + Blockid);
+   current.prev().before(current);
+      }
+    });    
+    $.FroalaEditor.DefineIcon('uparrow', {NAME: 'plus'});
+    $.FroalaEditor.RegisterCommand('uparrow', {
+      title: 'Down Arrow',
+      focus: true,
+      undo: true,
+      refreshAfterCallback: true,
+      callback: function () {
+      var current = $("#" + addblockid);
+      current.next().after(current);
+      }
+    });   
 }(jQuery), function (a) {
     "use strict";
     a.FroalaEditor.MODULES.tooltip = function (b) {
@@ -2754,4 +2781,35 @@ if ("undefined" == typeof jQuery)
         var j = null;
         return{require: ["snapshot", "events", "core"], _init: i, run: f, redo: g, canDo: c, canRedo: d, reset: h, saveStep: e}
     }
-}(jQuery);
+}(jQuery),
+
+        $.FroalaEditor.DefineIcon('uparraw', { NAME: 'uparraw'});
+       $.FroalaEditor.RegisterCommand('myButton', {
+  // Button title.
+  title: 'uparraw',
+
+  // Specify the icon for the button.
+  // If this option is not specified, the button name will be used.
+  icon: 'uparraw',
+
+  // Save the button action into undo stack.
+  undo: true,
+
+  // Focus inside the editor before the callback.
+  focus: true,
+
+  // Refresh the buttons state after the callback.
+  refreshAfterCallback: true,
+
+  // Called when the button is hit.
+  callback: function () {
+    // The current context is the editor instance.
+    console.log (this.html.get());
+                    alert("asfddjasfahs");
+  },
+
+  // Called when the button state might have changed.
+  refresh: function ($btn) {
+    // The current context is the editor instance.
+    console.log (this.selection.element());
+  }});
