@@ -29,7 +29,7 @@
 <% 
     program_id = request.getParameter("program_id");
 %>
-<script>
+    <script>
             var program = "";
             program = <%= program_id %>;
             function programactions($scope, $http, $window){
@@ -40,9 +40,12 @@
                         url: 'alluserMarketingProgramForDisplay.do?program_id='+program
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
+<<<<<<< HEAD
 //                        $scope.programs_emailautomation = data.emailautomation;
 //                        $scope.programs_programactions = data.programactions;
                         //alert(JSON.stringify(data));
+=======
+>>>>>>> e28d11cb19e5aba15dc215829a85914d41465615
                         if (data === error) {
                             alert(data);
                         }
@@ -52,22 +55,25 @@
                         // or server returns response with an error status.
                     });
                 };
+                $scope.setEntityId = function(entity_list_Id, days){
+                    window.open(getHost() + 'emailautomation.jsp?entitylistid='+entity_list_Id+'&days='+days, "_self");
+                };
             };
             
-        </script>
-        <script>
-            function overlay(){
-                        document.getElementById('light').style.display = 'block';
-                            document.getElementById('fade').style.display = 'block';
-                            document.getElementById('slider-button').style.display = 'block';
-                            document.body.style.overflow = 'hidden';
-                    }
-            function closeoverlay(){
-                    document.getElementById('light').style.display = 'none';
-                    document.getElementById('fade').style.display = 'none';
-                    document.body.style.overflow = 'scroll';
-            }
-        </script>
+    </script>
+    <script>
+        function overlay(){
+                    document.getElementById('light').style.display = 'block';
+                        document.getElementById('fade').style.display = 'block';
+                        document.getElementById('slider-button').style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                }
+        function closeoverlay(){
+                document.getElementById('light').style.display = 'none';
+                document.getElementById('fade').style.display = 'none';
+                document.body.style.overflow = 'scroll';
+        }
+    </script>
         <jsp:include page="basejsp.jsp"/>
     </head>
     <body ng-app>
@@ -147,7 +153,15 @@
                             <div class="stslst fontpnr">{{emailautomation.status}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
-                            <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s fontpnr">Details</button>
+                            <button type="button" 
+                                    ng-click="setEntityId(emailautomation.scheduledEntityListId, emailautomation.days)" 
+                                    class="emledtbtn button 
+                                           button--moema button--text-thick 
+                                           button--text-upper 
+                                           button--size-s 
+                                           fontpnr">
+                                Details
+                            </button>
                         </div>
                         <hr class="emlautombtmline padlineleftreceml">
                     </div>
@@ -189,10 +203,10 @@
                         </div>
                          <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="listelem fontpnr">{{programaction.programTemplateName}}</div>
-                             <div class="otasublst fontpnr">Scheduled for {{programaction.postTime| date:'h a'}}</div>
+                             <div class="otasublst fontpnr">Scheduled for {{programaction.postTime| date:'h:mm a'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="oatlstdt fontpnr">{{programaction.postDate| date:'MMM yy'}}</div>
+                            <div class="oatlstdt fontpnr">{{programaction.postDate| date:'MMM dd'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
                             <div class="oatlstpost fontpnr">{{programaction.actionType}}</div>

@@ -55,10 +55,16 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao{
                         .createCriteria(TblScheduledEntityList.class)
                         .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                         .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
-//                        .add(Restrictions.eq("status", "template_saved"))
                         .add(Restrictions.eq("status", "no_template"));
                 List<TblScheduledEntityList> entity_list = criteria.list();
-                return (Integer)entity_list.size();
+                criteria = sessionFactory.getCurrentSession()
+                        .createCriteria(TblScheduledEntityList.class)
+                        .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
+                        .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
+                        .add(Restrictions.eq("status", "template_saved"));
+                List<TblScheduledEntityList> entity_list1 = criteria.list();
+                
+        return (Integer)entity_list.size() + (Integer)entity_list1.size();
         }catch (Throwable throwable){
                 logger.log(Level.SEVERE, null, throwable);
 		throw new Throwable("Database error while retrieving record");

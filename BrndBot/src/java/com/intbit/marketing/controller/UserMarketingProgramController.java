@@ -319,6 +319,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                 jSONObject.put("scheduledEntityListId", scheduledEntityListObject.getId());
                 jSONObject.put("dateTime", scheduledEntityListObject.getTblUserMarketingProgram().getCreateDate().getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
+                jSONObject.put("days", scheduledEntityListObject.getDays());
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
                 scheduledEmailJsonArray.put(jSONObject);
           }
@@ -349,7 +350,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
                 jSONObject.put("actionStatus",actionStatus);
                 jSONObject.put("postDate",cal.getTimeInMillis());
-                jSONObject.put("postTime",cal.getTimeInMillis());
+                jSONObject.put("postTime",scheduledEntityListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType",scheduledEntityListObject.getEntityType());
                 scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
                System.out.println(scheduledEmailAndSocailPostJsonForRecuringArray);
@@ -382,7 +383,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                jSONObject.put("status", TemplateStatus.valueOf(scheduledSocialpostListObject.getStatus()).getDisplayName());
                jSONObject.put("actionStatus",actionStatus);
                jSONObject.put("postDate",cal.getTimeInMillis());
-               jSONObject.put("postTime",cal.getTimeInMillis());
+               jSONObject.put("postTime",scheduledSocialpostListObject.getScheduleTime().getTime());
                jSONObject.put("actionType",scheduledSocialpostListObject.getEntityType());
                 scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
 

@@ -5,8 +5,10 @@
  */
 package com.intbit.marketing.controller;
 
+import com.controller.IConstants;
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
+import com.intbit.TemplateStatus;
 import com.intbit.marketing.model.TblMarketingProgram;
 import com.intbit.marketing.model.TblRecuringEmailTemplate;
 import com.intbit.marketing.model.TblScheduledEmailList;
@@ -176,12 +178,16 @@ public class RecuringEmailController {
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             SqlMethods sql_methods = new SqlMethods();
             
-       sql_methods.session = request.getSession(true);
-                Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+            sql_methods.session = request.getSession(true);
+            Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+
+            org.json.simple.JSONObject json_user_preferences = sql_methods.getJSONUserPreferences(user_id);
             
+            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_user_preferences.get(IConstants.kEmailSettings);
+
             Double entity_id = (Double)requestBodyMap.get("entity_id");
-            Double days = (Double)requestBodyMap.get("days");
-            String template_id = (String)requestBodyMap.get("template_id");
+            String days = (String)requestBodyMap.get("days");
+            Double template_id = (Double)requestBodyMap.get("template_id");
             String emaillist = requestBodyMap.get("emaillist").toString();
             String subject = requestBodyMap.get("subject").toString();
             String from_name = requestBodyMap.get("from_name").toString();
@@ -195,6 +201,8 @@ public class RecuringEmailController {
             scheduled_email_list.setTblUserLoginDetails(user_login);
             scheduled_email_list.setSubject(subject);
             scheduled_email_list.setBody(html_data);
+            String from_address = (String)json_object_email_settings.get(IConstants.kEmailFromAddress);
+            scheduled_email_list.setFromAddress(from_address);
             scheduled_email_list.setEmailListName(emaillist);
             scheduled_email_list.setFromName(from_name);
             scheduled_email_list.setReplyToEmailAddress(reply_to_address);
@@ -204,8 +212,9 @@ public class RecuringEmailController {
             TblScheduledEntityList scheduled_entity_list = schedule_entity_list_service.getById(entity_id.intValue());
             
             scheduled_entity_list.setEntityId(email_list_id);
-            scheduled_entity_list.setDays(days.intValue());
-            
+            scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
+            scheduled_entity_list.setDays(Integer.parseInt(days));
+            scheduled_entity_list.setRecuringEmailId(template_id.intValue());
             schedule_entity_list_service.update(scheduled_entity_list);
             return "true";
             
