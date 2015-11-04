@@ -180,6 +180,7 @@
                     var program_details = {"program_name": program_name, 
                                            "program_date_time": d,
                                            "program_url":program_url,
+                                           "program_url_name":program_url_name,
                                            "marketing_category_id":marketing_category_id,
                                            "marketing_program_id":marketing_program_id
                                           };

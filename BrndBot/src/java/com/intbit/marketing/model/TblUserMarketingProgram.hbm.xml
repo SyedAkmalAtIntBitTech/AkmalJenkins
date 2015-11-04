@@ -29,6 +29,9 @@
         <property name="url" type="string">
             <column name="url" length="150"/>
         </property>
+        <property name="linkName" type="string">
+            <column name="link_name" length="50"/>
+        </property>
         <set name="tblScheduledEntityLists" table="tbl_scheduled_entity_list" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="user_marketing_program_id" />

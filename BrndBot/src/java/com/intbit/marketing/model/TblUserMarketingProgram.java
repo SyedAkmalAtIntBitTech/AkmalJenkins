@@ -36,6 +36,7 @@ public class TblUserMarketingProgram  implements java.io.Serializable {
      private String status;
      private Set tblScheduledEntityLists = new HashSet(0);
      private String url;
+     private String linkName;
      
     public TblUserMarketingProgram() {
     }
@@ -106,6 +107,15 @@ public class TblUserMarketingProgram  implements java.io.Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+    
+    @Column(name="link_name", nullable=false, length=50)
+    public String getLinkName() {
+        return linkName;
+    }
+
+    public void setLinkName(String linkName) {
+        this.linkName = linkName;
     }
 
     @Temporal(TemporalType.TIMESTAMP)

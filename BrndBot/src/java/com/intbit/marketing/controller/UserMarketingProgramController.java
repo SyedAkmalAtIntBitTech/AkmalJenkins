@@ -222,6 +222,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
     addUserMarketingProgram.setTblUserLoginDetails(userLoginDetails);
     addUserMarketingProgram.setStatus("Open");
     addUserMarketingProgram.setUrl(requestBodyMap.get("program_url").toString());
+    addUserMarketingProgram.setLinkName(requestBodyMap.get("program_url_name").toString());
     addUserMarketingProgram.setTblMarketingProgram(marketingProgram);
     Integer userMarketingProgramId= userMarketingProgramService.save(addUserMarketingProgram);
     String link=userMarketingProgramId.toString();
