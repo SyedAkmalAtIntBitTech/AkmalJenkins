@@ -397,6 +397,16 @@
     width: 120px;
 }
 
+#programdatetime {
+    background-color: #e3e3e3 !important;
+    border: 1px none #4b4b4b;
+    border-radius: 5px;
+    color: #3f3f42;
+    font-size: 14px !important;
+    height: 30px;
+    padding: 7px 14.5px 6px;
+    width: 204px;
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
   

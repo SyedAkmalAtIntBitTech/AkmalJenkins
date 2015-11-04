@@ -42,7 +42,7 @@
                         $scope.programs = data;
 //                        $scope.programs_emailautomation = data.emailautomation;
 //                        $scope.programs_programactions = data.programactions;
-                        alert(JSON.stringify(data));
+                        //alert(JSON.stringify(data));
                         if (data === error) {
                             alert(data);
                         }
