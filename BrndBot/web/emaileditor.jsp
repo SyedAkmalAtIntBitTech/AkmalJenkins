@@ -366,6 +366,8 @@
                                     $("#blocktab").trigger( "click" );
 //                                    $("#blocktab").click();
                                     mindbodydataId = id;
+//                                    name1 = name;
+//                                    alert(name1);
                                     //$scope.showStyles();
                                     showText(temp_style_id);
                                     $("#tabs-1").show();
