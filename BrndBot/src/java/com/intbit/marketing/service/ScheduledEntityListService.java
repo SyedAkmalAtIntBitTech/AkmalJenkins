@@ -59,5 +59,15 @@ public interface ScheduledEntityListService {
         * @throws java.lang.Throwable 
     */
     public TblScheduledEntityList getLatestApprovedSocialPost(String status,String entityType,String programStatus) throws Throwable;
-      
+      /**
+	 * This method retrieves {@link scheduledEntityList} by passing id
+	 * @param status
+         * @param entityType 
+         * @param programStatus
+         * @param isRecuring
+	 * @return {@link scheduledEntityList}
+        * @throws java.lang.Throwable 
+    */
+    public TblScheduledEntityList getLatestApprovedSendEmail(String status,String entityType,String programStatus,Boolean isRecuring) throws Throwable;
+     
 }

@@ -25,6 +25,7 @@ public interface IConstants {
     final static String kEmailAddressAddedKey = "addedDate";
     final static String kFacebookKey = "facebook";
     final static String kTwitterKey = "twitter";
+    final static String kEmailKey = "email";
     final static String kEmailSettings = "emailSettings";
     final static String kEmailFromAddress = "from_address";
     final static String kEmailReplyAddress = "reply_email_address";

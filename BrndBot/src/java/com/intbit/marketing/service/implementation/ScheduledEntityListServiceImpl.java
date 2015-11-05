@@ -69,6 +69,11 @@ public class ScheduledEntityListServiceImpl  implements ScheduledEntityListServi
        return scheduledEntityListDao.getLatestApprovedFacebookPost(status, entityType,programStatus);
     }
 
+    @Override
+    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecuring) throws Throwable {
+        return scheduledEntityListDao.getLatestApprovedSendEmail(status, entityType, programStatus, isRecuring);
+          }
+
    
     
 }

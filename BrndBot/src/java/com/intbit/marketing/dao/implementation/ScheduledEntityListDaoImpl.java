@@ -7,6 +7,7 @@ package com.intbit.marketing.dao.implementation;
 
 import com.intbit.marketing.dao.ScheduledEntityListDao;
 import com.intbit.marketing.model.TblScheduledEntityList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -123,6 +124,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao{
      */
     public TblScheduledEntityList getLatestApprovedFacebookPost(String status, String entityType,String programStatus) throws Throwable {
         try {
+                   
                Criteria criteria=sessionFactory.getCurrentSession()
                        .createCriteria(TblScheduledEntityList.class)                   
                         .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
@@ -137,6 +139,24 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao{
                } catch (Throwable throwable) {
                        logger.log(Level.SEVERE, null, throwable);
                        throw new Throwable("Database error while retrieving record");
+           } 
+    }
+
+    @Override
+    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecuring) throws Throwable {
+         try{
+               Criteria criteria=sessionFactory.getCurrentSession()
+                    .createCriteria(TblScheduledEntityList.class)                   
+                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
+                     .createAlias("tblUserMarketingProgram", "tump")
+                    .add(Restrictions.eq("status", status))
+                    .add(Restrictions.eq("tump.status", programStatus))
+                    .add(Restrictions.eq("entityType",entityType))
+                    .add(Restrictions.eq("entityType",isRecuring));
+               return (TblScheduledEntityList) criteria.list().get(0);
+               }catch (Throwable throwable) {
+                    logger.log(Level.SEVERE, null, throwable);
+                    throw new Throwable("Database error while retrieving record");
            } 
     }
 

@@ -33,9 +33,22 @@ public class DateTimeUtil {
 		}
 		return flag;
 		}
-    public static long differenceCurrentTime(Date nextPostDate) {
+    public static long differenceCurrentTime(Date nextPostDate) throws Exception {
         //Make sure time zone is the same when difference is taken. Return milliseconds.
-        return 0;
+        
+        String dateFormat = "z";
+		SimpleDateFormat timeZoneFormat = new SimpleDateFormat(dateFormat);
+		String timeZoneStr = timeZoneFormat.format(new Date());
+                String formatStr = "yyyy-MM-dd hh:mm a";
+		
+		SimpleDateFormat format1 = new SimpleDateFormat(formatStr);
+                format1.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
+                String s = format1.format(nextPostDate);
+                
+               Date d =  format1.parse(s);
+               
+               
+        return d.getTime()-System.currentTimeMillis();
     }
     }
 

@@ -8,7 +8,6 @@ package social.controller;
 import com.controller.IConstants;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
-import com.intbit.marketing.model.TblScheduledTwitter;
 import com.intbit.marketing.service.ScheduledEntityListService;
 import com.intbit.marketing.service.ScheduledSocialpostListService;
 import java.util.Date;
