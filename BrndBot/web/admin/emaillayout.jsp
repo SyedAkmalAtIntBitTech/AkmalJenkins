@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Email Layout</title>
+        <title>JSP Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -190,8 +190,9 @@
             }
 
             function showblocks(str) {
-           
+
                 if (typeof XMLHttpRequest !== "undefined") {
+
                     xmlHttp = new XMLHttpRequest();
 
                 }
@@ -212,14 +213,13 @@
                 url += "?Brand_id=" + str;
 
                 xmlHttp.onreadystatechange = brandChange;
-            
+
 
                 xmlHttp.open("GET", url, true);
 
                 xmlHttp.send(null);
-          
+
             }
-            
 
             function usersChange() {
 
@@ -307,6 +307,8 @@
             }
 
             function showmindbodyquery(str) {
+
+
                 if (str == 0) {
                     $("#categories").attr("disabled", false);
                     $("#subcategories").attr("disabled", false);
@@ -318,7 +320,7 @@
                 }
 
                 if (typeof XMLHttpRequest !== "undefined") {
-                    
+
                     xmlHttp = new XMLHttpRequest();
 
                 }
@@ -335,6 +337,7 @@
                 }
 
                 var url = "showmindbodyquery.jsp";
+
                 url += "?block_id=" + str;
 
                 xmlHttp.onreadystatechange = blockChange;
@@ -510,7 +513,7 @@
                                     },
                                     success: function (responseText) {
                                         alert("Model saved successfully");
-                                        window.open(getHost() + 'admin/emaillayoutmodel.jsp', "_self");
+                                        window.open(getHost() + 'admin/emaillayout.jsp', "_self");
                                     }
                                 });
 
@@ -556,245 +559,7 @@
             String name = "";
             String font_name = "";
         %>
-        <div id="tabs" style="display:none;">
-            <ul>
-                <li><a href="#tabs-1">Text</a></li>
-                <li><a href="#tabs-2">Image</a></li>
-                <li><a href="#tabs-3">Button</a></li>
-                <li><a href="#tabs-4">Color Block</a></li>
-            </ul>
-            <div id="tabs-1">
-                <p>
-                    <span class="selectedElement">Selected Item: None</span>
-                </p>
-                <p>
-                    <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
-                    <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="textX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="textY" value="0" /></span>
-                    <input type="button" class="coordButton" value="done">
-                </p>
-                <p>
-                    Enter Text: <br /><textarea id="textArea"></textarea>
-                </p>
-                <hr>
-                <p>
-                    <input type="button" class="textButton" id="boldButton" value="bold" />
-                    <input type="button" class="textButton" id="italicButton" value="italic" /><br />
-                    <input type="button" class="alignButton" id="leftButton" value="left" />
-                    <input type="button" class="alignButton" id="centerButton" value="center" />
-                    <input type="button" class="alignButton" id="rightButton" value="right" />
-                </p>
-
-                <p>
-                    Font Size: <select id="textSize">
-                        <!--                                 <option value="8">8px</option>
-                                                         <option value="12">12px</option>
-                                                         <option value="14">14px</option>
-                                                         <option value="18">18px</option>
-                                                         <option value="22">22px</option>
-                                                         <option value="26">26px</option>
-                                                         <option value="30">30px</option>
-                                                         <option value="34">34px</option>                           -->
-                    </select>
-                </p>
-
-                <p>
-                    Font Family: <select id="textFontFamily">
-                        <option>select</option>
-                    </select>
-
-                    <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
-                                           <option value="0"></option>
-                                       </select>-->
-                </p>
-                <p>
-                    <!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
-                    Font Color: <select id="fontColor">
-                                    <option value="#F27821">Font-Color-1</option>
-                                    <option value="#00A8BD">Font-Color-2</option>
-                                    <option value="#EE7766">Font-Color-3</option>
-                                    <option value="#EEEEEE">Font-Color-4</option>
-                                    <option value="#FFFFFF">Font-Color-5</option>
-                                    <option value="#353333">Font-Color-6</option>
-                                </select>
-                </p>
-                <hr>
-                <!--                <p>
-                                    Drop shadow:<br /><br />
-                
-                                    Color: <input type="text" class='basic' id="dropShadowColorPick" value="black" />
-                                    Blur: <input id="blur" maxlength="2" size="2" value="0" /> px  <br /><br />
-                                    H Shadow: <input id="hShadow" maxlength="2" size="2" value="0" /> px 
-                                    V Shadow: <input id="vShadow" maxlength="2" size="2" value="0" /> px
-                                </p>-->
-                <!--                <hr>-->
-                <p>
-                    Leading / Line Height: 
-                    <input maxlength="3" size="3" value="15" id="lineHeight" /> px
-                </p>
-                <p>
-                    Kerning/ Letter Space: 
-
-                    <input maxlength="3" size="3" value="0" id="letterSpace" /> px
-                </p>
-                <hr>
-                <p>
-                    Opacity: <input type="text" id="opacity" maxlength="6" size="6" value="1" />px
-                </p>
-                <!--                <p>
-                                    Rotate: <input type="text" id="rotate" maxlength="4" size="4" value="0" />deg
-                                </p>-->
-            </div>
-            <div id="tabs-2">
-                <p>
-                    <span class="selectedElement">Selected Item: None</span>
-                </p>
-                <p>
-                    <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
-                    <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="imageX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="imageY" value="0" /></span>
-                    <input type="button" class="coordButton" value="done">
-                </p>
-                <p>
-                    <span class="size">Height=0px, Width=0px</span>
-                </p>
-                <p>
-                    Opacity: <input type="text" id="opacityImage" maxlength="6" size="6" value="1" />px
-                </p>
-                <p>
-                    Blend Color: 
-                    <select id="blendColorSelect" >
-                        <option value="normal">normal</option>
-                        <option value="multiply">multiply</option>
-                        <option value="screen">screen</option>
-                        <option value="overlay">overlay</option>
-                        <option value="darken">darken</option>
-                        <option value="lighten">lighten</option>
-                        <option value="color-dodge">color-dodge</option>
-                        <option value="color-burn">color-burn</option>
-                        <option value="hard-light">hard-light</option>
-                        <option value="soft-light">soft-light</option>
-                        <option value="difference">difference</option>
-                        <option value="exclusion">exclusion</option>
-                        <option value="hue">hue</option>
-                        <option value="saturation">saturation</option>
-                        <option value="color">color</option>
-                        <option value="luminosity">luminosity</option>
-                    </select>
-                    <input type='text' class='basic' id='blendColorPick' value='black' />
-                </p>  
-                <hr>
-<!--                <p>
-                    File Path:<br /><br />
-                    <input type="text" size="35" id="filePath" /> <br /><br />
-                    <input type="button" class="fileButton" id="fileButton" value="Submit" />
-                </p>-->
-               <p>
-                    <label id="selectImage" title="Please upload all your images using FTP client in the following folder: admin/AdminLayoutBackgroundImages">Please Select Image:</label><br /><br />
-                    <select id="adminBackgroundImage"  title="Please upload all your images using FTP client in the following folder: admin/AdminLayoutBackgroundImages"><option value="none">---select---</option></select>
-                    
-                </p>
-                <hr>
-                <p>
-                    Filters:
-                </p>   
-
-                <table>
-                    <tr>
-                        <td>
-                            Blur:</td><td> <input id="blurFilter" class="filters" maxlength="2" size="2" value="0" /> px  </td></tr><tr><td>
-                            Grayscale:</td><td> <input id="grayscaleFilter" class="filters" maxlength="2" size="2" value="0" /> %  </td></tr><tr><td>
-                            Sepia:</td><td> <input id="sepiaFilter" class="filters" maxlength="2" size="2" value="0" /> %  </td></tr><tr><td>
-                            Saturate:</td><td> <input id="saturateFilter" class="moreFilters" maxlength="2" size="2" value="100" /> %  </td></tr><tr><td>
-                            Hue Rotate:</td><td> <input id="hueRotateFilter" class="someMoreFilters" maxlength="2" size="2" value="0" /> deg  </td></tr><tr><td>
-                            Invert:</td><td> <input id="invertFilter" class="filters" maxlength="2" size="2" value="0" /> %  </td></tr><tr><td>
-                            Brightness:</td><td> <input id="brightnessFilter" class="moreFilters" maxlength="2" size="2" value="100" /> %  </td></tr><tr><td>
-                            Contrast:</td><td> <input id="contrastFilter" class="moreFilters" maxlength="2" size="2" value="100" /> %  </td></tr></table>
-
-                <p>
-                    Drop shadow:<br /><br />
-
-                    Color: <input type="text" class='basic' id="dropShadowFilterColorPick" value="black" />
-                    Blur: <input class="dropShadowFilters" id="blurDropShadowFilter" maxlength="2" size="2" value="0" /> px  <br /><br />
-                    H Shadow: <input class="dropShadowFilters" id="hShadowDropShadowFilter" maxlength="2" size="2" value="0" /> px 
-                    V Shadow: <input class="dropShadowFilters" id="vShadowDropShadowFilter" maxlength="2" size="2" value="0" /> px
-                </p>
-
-
-            </div>
-            <div id="tabs-3">
-                <p>
-                    <span class="selectedElement">Selected Item: None</span>
-                </p>
-                <p>
-                    <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
-                    <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="buttonX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="buttonY" value="0" /></span>
-                    <input type="button" class="coordButton" value="done">
-                </p>
-                <p>
-                    Button Style: <select id="buttonSelect">
-                        <option value="FilledButton_White.png">FilledButton_White</option>
-                        <option value="FilledButton_dark.png">FilledButton_dark</option>
-                        <option value="OutlineButton_dark.png">OutlineButton_dark</option>
-                        <option value="OutlineButton_white.png">OutlineButton_white</option>
-                        <option value="TextButton_Dark.png">TextButton_Dark</option>
-                        <option value="TextButton_White.png">TextButton_White</option>
-                    </select>
-
-                </p>
-            </div>
-            <div id="tabs-4">
-                <p>
-                    <span class="selectedElement">Selected Item: None</span>
-                </p>
-                <p>
-                    <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
-                    <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="blockX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="blockY" value="0" /></span>
-                    <input type="button" class="coordButton" value="done">
-                </p>
-                <p>
-                    <input type="checkbox" id="circleCheckBox"> Circle
-                </p>
-                <p>
-                    Block Size:
-                </p>
-                <p>
-                    Width: <input type="text" id="blockWidth" maxlength="6" size="6" value="80" /> px 
-                </p>
-                <p>
-                    height: <input type="text" id="blockHeight" maxlength="6" size="6" value="40" /> px
-                </p>
-
-                <p>
-                    Opacity: <input type="text" id="opacityBlock" maxlength="6" size="6" value="1" />px
-                </p>
-                <p>
-                    Block Color: <input type='text' class='basic' id='blockColor' value='black' />
-                </p>
-                <p>
-                    <select id="blockColorFromDropDown">
-                                    <option>Color-1</option>
-                                    <option>Color-2</option>
-                                    <option>Color-3</option>
-                                    <option>Color-4</option>
-                                    <option>Color-5</option>
-                                    <option>Color-6</option>
-                        
-                    </select>
-                </p>
-                
-                <p>
-                    <input type="button" class="blockButton" id="blockButton" value="Apply" />
-                </p>
-                <hr>
-                <!--                <p>
-                                    Drop shadow:<br /><br />
-                
-                                    Color: <input type="text" class='basic' id="dropShadowColorPickBlock" value="black" />
-                                    Blur: <input class="dropShadowBlock" id="blurDropShadowBlock" maxlength="2" size="2" value="0" /> px  <br /><br />
-                                    H Shadow: <input class="dropShadowBlock" id="hShadowDropShadowBlock" maxlength="2" size="2" value="0" /> px 
-                                    V Shadow: <input class="dropShadowBlock" id="vShadowDropShadowBlock" maxlength="2" size="2" value="0" /> px
-                                </p>-->
-            </div>
-        </div>
+        
         <div id="main">
             <h3>Email Layout Model</h3>
             <form>
@@ -907,11 +672,9 @@
             <script type="text/javascript" src="../js/plugins/align.min.js"></script>
             <script type="text/javascript" src="../js/plugins/code_view.min.js"></script>
             <script type="text/javascript" src="../js/plugins/colors.min.js" ></script>
-            <script src="../js/plugins/colors.min_Editor.js" type="text/javascript"></script>
             <script type="text/javascript" src="../js/plugins/emoticons.min.js"></script>
             <script type="text/javascript" src="../js/plugins/font_size.min.js"></script>
             <script type="text/javascript" src="../js/plugins/font_family.min.js"></script>
-
             <script type="text/javascript" src="../js/plugins/image.min.js"></script>
             <script type="text/javascript" src="../js/plugins/file.min.js"></script>
             <script type="text/javascript" src="../js/plugins/image_manager.min.js"></script>
@@ -949,6 +712,87 @@
  //                   });
 
             </script>
- 
+
+            <div id="tabs-1" style="display: none;">
+                <p>
+                    <span class="selectedElement">Selected Item: None</span>
+                </p>
+                <p>
+                    <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
+                    <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="textX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="textY" value="0" /></span>
+                    <input type="button" class="coordButton" value="done">
+                </p>
+                <p>
+                    Enter Text: <br /><textarea id="textArea"></textarea>
+                </p>
+                <hr>
+                <p>
+                    <input type="button" class="textButton" id="boldButton" value="bold" />
+                    <input type="button" class="textButton" id="italicButton" value="italic" /><br />
+                    <input type="button" class="alignButton" id="leftButton" value="left" />
+                    <input type="button" class="alignButton" id="centerButton" value="center" />
+                    <input type="button" class="alignButton" id="rightButton" value="right" />
+                </p>
+
+                <p>
+                    Font Size: <select id="textSize">
+                        <!--                                 <option value="8">8px</option>
+                                                         <option value="12">12px</option>
+                                                         <option value="14">14px</option>
+                                                         <option value="18">18px</option>
+                                                         <option value="22">22px</option>
+                                                         <option value="26">26px</option>
+                                                         <option value="30">30px</option>
+                                                         <option value="34">34px</option>                           -->
+                    </select>
+                </p>
+
+                <p>
+                    Font Family: <select id="textFontFamily">
+                        <option>select</option>
+                    </select>
+
+                    <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
+                                           <option value="0"></option>
+                                       </select>-->
+                </p>
+                <p>
+                    <!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
+                    Font Color: <select id="fontColor">
+                                    <option value="#F27821">Font-Color-1</option>
+                                    <option value="#00A8BD">Font-Color-2</option>
+                                    <option value="#EE7766">Font-Color-3</option>
+                                    <option value="#EEEEEE">Font-Color-4</option>
+                                    <option value="#FFFFFF">Font-Color-5</option>
+                                    <option value="#353333">Font-Color-6</option>
+                                </select>
+                </p>
+                <hr>
+                <!--                <p>
+                                    Drop shadow:<br /><br />
+                
+                                    Color: <input type="text" class='basic' id="dropShadowColorPick" value="black" />
+                                    Blur: <input id="blur" maxlength="2" size="2" value="0" /> px  <br /><br />
+                                    H Shadow: <input id="hShadow" maxlength="2" size="2" value="0" /> px 
+                                    V Shadow: <input id="vShadow" maxlength="2" size="2" value="0" /> px
+                                </p>-->
+                <!--                <hr>-->
+                <p>
+                    Leading / Line Height: 
+                    <input maxlength="3" size="3" value="15" id="lineHeight" /> px
+                </p>
+                <p>
+                    Kerning/ Letter Space: 
+
+                    <input maxlength="3" size="3" value="0" id="letterSpace" /> px
+                </p>
+                <hr>
+                <p>
+                    Opacity: <input type="text" id="opacity" maxlength="6" size="6" value="1" />px
+                </p>
+                <!--                <p>
+                                    Rotate: <input type="text" id="rotate" maxlength="4" size="4" value="0" />deg
+                                </p>-->
+            </div>
     </body>
 </html>

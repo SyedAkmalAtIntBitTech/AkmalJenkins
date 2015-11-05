@@ -11,8 +11,9 @@ and open the template in the editor.
 {
     .bgcolor
     {
-        min-height: 620px !important;
+        min-height: 650px !important;
         height: auto !important;
+        height: 650px;
     }
     .fr-wrapper{
         min-height: 559px !important;
@@ -93,7 +94,7 @@ and open the template in the editor.
 }
 .emailedtrsave{
     font-size:12px;
-    padding:0px 38px 0px 35px;                 
+    padding:0px 38px 0px 32px;                 
     width:103px;
     height:25px;
     margin-top: 7px !important;         
@@ -146,7 +147,7 @@ and open the template in the editor.
 } 
 .addblkdiv{
     margin-left:26px;
-    margin-top: 45px !important; 
+    margin-top: 49px !important; 
 }
 .selblkline{
     width:258.1px;
@@ -160,8 +161,8 @@ and open the template in the editor.
 }
 .stylelist{
     margin-left: -15px;
-    margin-top:2.5px;
-    height:500px !important;
+    margin-top:49px;
+    height:650px !important;
     overflow-y:scroll;
     /*overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;*/

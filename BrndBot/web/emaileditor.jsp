@@ -42,8 +42,19 @@
         <link rel="stylesheet" href="css/plugins/file.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
         <style>
-            .fr-box.fr-basic .fr-element {
+            .btmdiv{
+                background-color: #e2e3e7;
+                position: fixed;
+                bottom: 0;
+                width: 57.5%;
+                margin-left:-16px;
+            }
+            .datafromindbody:hover{
+                background-color: #00A37A;
+            }
+            .fr-box .fr-basic .fr-element {
                 max-height: 480px;
+                max-height: 650px;
             } 
 
             #mask {
@@ -331,7 +342,7 @@
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
                             $("#tabs-5").hide();
-                            $("#tabs-4").show().css("width", "830px").css("height", "680px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px");
+                            $("#tabs-4").show().css("width", "830px").css("height", "100%").css("position", "fixed").css("margin-left", "-600px").css("top", "0px");
                             $("#loadingGifformindbody").show();
                             $scope.curPage = 0;
                             $scope.pageSize = 4;
@@ -546,11 +557,12 @@
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-6">
                             <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns " type="button" value="Add Block"></div>
-                        </div>
-                    </div>
-                    <div class="row">
+                        </div> 
+                        <div class="row">
                         <div class="selblklinediv"><hr class="selblkline"></div>
                     </div>
+                    </div>
+                   
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <ul id="blklistid" class="blocklist fontpnr" value="blklist">

@@ -2688,9 +2688,10 @@ function MoveBlock(selectedBlockId){
         var o, p, q = !1;
         return{require: ["events", "tooltip", "button", "icon", "core", "language"], _init: l, hide: f, show: g, showInline: e, disable: m, enable: n}
     }
-    $.FroalaEditor.DefineIcon('insert', {NAME: 'plus'});
+    $.FroalaEditor.DefineIcon('insert', {SRC: ''+global_host_address+'images/UpArrow.png', ALT: 'Up Arrow', template: 'image'});
     $.FroalaEditor.RegisterCommand('insert', {
       title: 'Up Arrow',
+      icon: 'insert',
       focus: true,
       undo: true,
       refreshAfterCallback: true,
@@ -2699,9 +2700,10 @@ function MoveBlock(selectedBlockId){
    current.prev().before(current);
       }
     });    
-    $.FroalaEditor.DefineIcon('uparrow', {NAME: 'plus'});
+    $.FroalaEditor.DefineIcon('uparrow', {SRC: ''+global_host_address+'images/DownArrow.png', ALT: 'Up Arrow', template: 'image'});
     $.FroalaEditor.RegisterCommand('uparrow', {
       title: 'Down Arrow',
+       icon: 'uparrow',
       focus: true,
       undo: true,
       refreshAfterCallback: true,
