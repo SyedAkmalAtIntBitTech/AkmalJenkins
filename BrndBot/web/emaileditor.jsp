@@ -364,7 +364,7 @@
                     };
                             $scope.select_category_details = function(id) {
                                     $("#blocktab").trigger( "click" );
-//                                    $("#blocktab").click();
+                                    $("#blocktab").trigger( "click" );
                                     mindbodydataId = id;
 //                                    name1 = name;
 //                                    alert(name1);

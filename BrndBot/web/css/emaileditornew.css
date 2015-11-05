@@ -120,9 +120,8 @@ and open the template in the editor.
     width: 61px;
     height: 635px;
     background-color: #f4f4f4;
-    height:auto;
     min-height:960px;
-    height:auto !important;        /* for IE as it does not support min-height */
+    height: 100% !important;  /* for IE as it does not support min-height */
 
 
 
