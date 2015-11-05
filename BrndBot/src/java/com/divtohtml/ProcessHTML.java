@@ -1,5 +1,6 @@
 package com.divtohtml;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -42,6 +43,7 @@ public class ProcessHTML {
     private final HashMap<String, String> colorHashmap;
     private final Map<String, String> externalSourceMapper;
     private final String userLogoURL;
+
     //color hash map should have keys with color1,color2
     public ProcessHTML(String htmlContent, HashMap<String, String> colorHashmap, Map<String, String> externalSourceMapper, String logoURL) {
         this.htmlContent = htmlContent;
@@ -51,7 +53,7 @@ public class ProcessHTML {
     }
 
     public String processHTML() {
-        HashMap<String, String> replaceStyleMap = new HashMap<String, String>();
+        ArrayList<HTMLModel> foundIdsList = new ArrayList<>();
 
         Document doc = Jsoup.parse(htmlContent);
 
@@ -88,9 +90,9 @@ public class ProcessHTML {
             }
             item.attr(KStyleKey, createKeyValuePair(styleHashmap));
             String cleanItemString = StringEscapeUtils.unescapeHtml4(item.toString());
-            replaceStyleMap.put(elementType, cleanItemString);
+            foundIdsList.add(new HTMLModel(elementType, cleanItemString));
         }
-        String finalString = replaceExistingTag(replaceStyleMap, doc.toString());
+        String finalString = replaceExistingTag(foundIdsList, doc.toString());
         return finalString;
     }
 
@@ -112,26 +114,42 @@ public class ProcessHTML {
 //        }
 //        return newHtml.toString();
 //    }
- private String replaceExistingTag(HashMap<String, String> replaceStyleMap, String orgHtml) {
-           String finalHtml = null;
-           Document html = Jsoup.parse(orgHtml);
-           Elements elements = html.getAllElements();
-           finalHtml = orgHtml;
-       Iterator<Entry<String, String>> it = replaceStyleMap.entrySet().iterator();
-        while (it.hasNext()){
-           Map.Entry pair = (Map.Entry) it.next(); 
-           for(Element element : elements){
-                        if(element.attr("id").equalsIgnoreCase(pair.getKey().toString())){
-                                finalHtml = finalHtml.replace(element.toString(), pair.getValue().toString());
-                        break;
+    private String replaceExistingTag(HashMap<String, String> replaceStyleMap, String orgHtml) {
+        String finalHtml = null;
+        Document html = Jsoup.parse(orgHtml);
+        Elements elements = html.getAllElements();
+        finalHtml = orgHtml;
+        Iterator<Entry<String, String>> it = replaceStyleMap.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            for (Element element : elements) {
+                if (element.attr("id").equalsIgnoreCase(pair.getKey().toString())) {
+                    finalHtml = finalHtml.replace(element.toString(), pair.getValue().toString());
+                    break;
                 }
-               }        
-       }
-   return  finalHtml;
-  }
+            }
+        }
+        return finalHtml;
+    }
+
+    private String replaceExistingTag(final ArrayList<HTMLModel> foundIdsList, final String orgHtml) {
+        String finalHtml = orgHtml;
+        Document html = Jsoup.parse(orgHtml);
+        Elements elements = html.getAllElements();
+        for (HTMLModel model : foundIdsList) {
+            for (Element element : elements) {
+                if (element.attr("id").equalsIgnoreCase(model.getId())) {
+                    finalHtml = finalHtml.replace(element.toString(), model.getHtml());
+                    break;
+                }
+            }
+        }
+        return finalHtml;
+    }
+
     private String getUserLogoImage() {
         String logoURL = "invalid or no logo url provided";
-        if(!StringUtil.isEmpty(this.userLogoURL)) {
+        if (!StringUtil.isEmpty(this.userLogoURL)) {
             logoURL = this.userLogoURL;
         }
         return logoURL;
@@ -144,7 +162,7 @@ public class ProcessHTML {
     private String getTextForExternalValue(String externalValueKey) {
         return getValueForExternalSource(externalValueKey);
     }
-    
+
     private String getValueForExternalSource(String externalValueKey) {
         String text = "Invalid or no proper key specified. Please check the rules.";
         if (!StringUtil.isEmpty(externalValueKey) && externalSourceMapper != null) {
@@ -157,10 +175,10 @@ public class ProcessHTML {
         }
         return text;
     }
-    
+
     private String getUserColorForColorKey(String userBackgroundColorKey) {
         String color = "#000000"; //Default black color if hashmap is not set
-        if(!colorHashmap.isEmpty()){
+        if (!colorHashmap.isEmpty()) {
             if (colorHashmap.containsKey(userBackgroundColorKey) && !StringUtil.isEmpty(colorHashmap.get(userBackgroundColorKey))) {
                 color = colorHashmap.get(userBackgroundColorKey);
             }
@@ -224,5 +242,4 @@ public class ProcessHTML {
 
         return builder.toString();
     }
-
 }
