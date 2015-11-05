@@ -383,9 +383,55 @@
                             <div class="inlineFlex top120">
                                 <div class="rightthirty">
                                     <input type="button"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc,marketing_program_name)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
+                                
                                 </div>
                                 <div class="approve">
-                                    <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                      <div ng-controller="EmpDetCtrl">       
+    <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
+
+       
+        <div class="EmployeeInfo">
+
+            <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+        </div>
+      </div>
+    <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
+   
+
+        <div class="EmployeeInfo"  ng-hide="EmployeeInfoDiv1" >
+           
+            <div ng-model="botton_container">
+               
+                <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+               
+            </div> 
+
+        </div>
+       
+        
+        
+        
+        
+        <div class="EmployeeInfo6"  ng-hide="EmployeeInfoDiv2">
+           
+            <div ng-model="botton_container">
+               
+                <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+               
+            </div> 
+
+        </div>
+        
+   </div>
+       
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+</div>  
+                                   
                                 </div>
                             </div>
                         </div>
