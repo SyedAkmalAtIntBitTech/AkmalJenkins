@@ -7,7 +7,6 @@ if ("undefined" == typeof jQuery)
     throw new Error("Froala requires jQuery");
 var Blockid;
 function MoveBlock(selectedBlockId){
-    alert(selectedBlockId);
    Blockid=selectedBlockId;   
 }
 !function (a) {
@@ -2633,7 +2632,7 @@ function MoveBlock(selectedBlockId){
         }})
 }(jQuery), function (a) {
     "use strict";
-    a.extend(a.FroalaEditor.DEFAULTS, {toolbarInline: !1, toolbarVisibleWithoutSelection: !1, toolbarSticky: !0, toolbarButtons: ["bold", "italic","insert","uparrow", "underline","uparraw", "strikeThrough", "subscript", "superscript","|", "fontFamily", "fontSize",  "color",  "paragraphFormat", "align", "formatOL", "formatUL", "outdent", "indent", "insertHR","|", "insertLink", "undo", "redo", "html"], toolbarButtonsXS: ["bold","insert","uparrow", "italic", "fontFamily", "fontSize", "undo", "redo"], toolbarButtonsSM: ["fullscreen", "bold","insert","uparrow", "italic", "underline", "fontFamily", "fontSize", "insertLink", "insertImage", "undo", "redo"], toolbarButtonsMD: ["fullscreen","uparraw", "bold","insert", "italic", "underline", "fontFamily", "fontSize", "color", "paragraphStyle", "paragraphFormat", "align", "formatOL", "formatUL", "outdent", "indent", "insertHR", "insertLink", "insertImage", "undo", "redo", "-", "|"], toolbarStickyOffset: 0}), a.FroalaEditor.MODULES.toolbar = function (b) {
+    a.extend(a.FroalaEditor.DEFAULTS, {toolbarInline: !1, toolbarVisibleWithoutSelection: !1, toolbarSticky: !0, toolbarButtons: ["bold", "italic", "underline","uparraw", "strikeThrough", "subscript", "superscript","|", "fontFamily", "fontSize",  "color",  "paragraphFormat", "align", "formatOL", "formatUL", "outdent", "indent", "insertHR","|", "insertLink", "undo", "redo","|","uparrow","insert", "html"], toolbarButtonsXS: ["bold", "italic", "fontFamily", "fontSize", "undo", "redo","uparrow","insert"], toolbarButtonsSM: ["fullscreen", "bold","uparrow", "italic", "underline", "fontFamily", "fontSize", "insertLink", "insertImage", "undo", "redo","|","uparrow","insert"], toolbarButtonsMD: ["fullscreen","uparraw", "bold", "italic", "underline", "fontFamily", "fontSize", "color", "paragraphStyle", "paragraphFormat", "align", "formatOL", "formatUL", "outdent", "indent", "insertHR", "insertLink", "insertImage", "undo", "redo", "-", "|","insert",], toolbarStickyOffset: 0}), a.FroalaEditor.MODULES.toolbar = function (b) {
         function c() {
             var a = b.button.buildList(b.opts.toolbarButtons);
             b.$tb.append(a), b.button.bindCommands(b.$tb)

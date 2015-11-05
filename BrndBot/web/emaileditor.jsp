@@ -652,11 +652,11 @@
         <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
         <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
         <script type="text/javascript" src="js/plugins/file.min.js"></script>
-        <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-       <script type="text/javascript" src="js/plugins/line_breaker.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
+<!--       <script type="text/javascript" src="js/plugins/line_breaker.min.js"></script>-->
    <!--      <script type="text/javascript" src="js/plugins/link.min.js"></script>-->
 <!--        <script type="text/javascript" src="js/plugins/lists.min.js"></script>-->
-        <script type="text/javascript" src="js/plugins/paragraph_format.min.js"></script>
+<!--        <script type="text/javascript" src="js/plugins/paragraph_format.min.js"></script>-->
 <!--        <script type="text/javascript" src="js/plugins/paragraph_style.min.js"></script>-->
 <!--<script src="js/plugins/table.js" type="text/javascript"></script>-->
         <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
