@@ -40,6 +40,12 @@
                         url: 'alluserMarketingProgramForDisplay.do?program_id='+program_id
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
+<<<<<<< HEAD
+//                        $scope.programs_emailautomation = data.emailautomation;
+//                        $scope.programs_programactions = data.programactions;
+                        //alert(JSON.stringify(data));
+=======
+>>>>>>> e28d11cb19e5aba15dc215829a85914d41465615
                         if (data === error) {
                             alert(data);
                         }
