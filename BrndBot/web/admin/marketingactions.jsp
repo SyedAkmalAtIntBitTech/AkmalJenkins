@@ -242,7 +242,7 @@
                 };
                 
                 $scope.deleteAction = function(action_id){
-                    alert(action_id);
+                  
                     var action_details = {"action_id": action_id};
                     $http({
                         method: 'POST',

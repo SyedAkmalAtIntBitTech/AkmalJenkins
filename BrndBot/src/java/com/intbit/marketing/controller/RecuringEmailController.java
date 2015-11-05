@@ -8,16 +8,21 @@ package com.intbit.marketing.controller;
 import com.controller.IConstants;
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
+import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
 import com.intbit.marketing.model.TblMarketingProgram;
 import com.intbit.marketing.model.TblRecuringEmailTemplate;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblUserLoginDetails;
+import com.intbit.marketing.model.TblUserMarketingProgram;
 import com.intbit.marketing.service.RecuringEmailTemplateService;
 import com.intbit.marketing.service.ScheduledEmailListService;
 import com.intbit.marketing.service.ScheduledEntityListService;
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -26,6 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -224,4 +231,91 @@ public class RecuringEmailController {
         return "false";
     }
     
+    @RequestMapping (value = "/addRecuringAction", method = RequestMethod.POST)
+    public @ResponseBody String addRecuringAction(HttpServletRequest request,
+            HttpServletResponse response)throws IOException, ParseException{
+        try {
+        Map<String, Object> requestBodyMap
+                = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+        SqlMethods sql_methods = new SqlMethods();
+
+        sql_methods.session = request.getSession(true);
+        Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+            
+        String days = (String)requestBodyMap.get("days");
+        String emaillist = (String)requestBodyMap.get("emaillist");
+        ArrayList email_addresses = (ArrayList)requestBodyMap.get("to_email_addresses");
+
+//        JSONParser parser = new JSONParser();
+//        
+//        org.json.simple.JSONObject json_object_email_addresses = (org.json.simple.JSONObject)parser.parse(emails);
+        String subject = (String)requestBodyMap.get("subject");
+        String from_name = (String)requestBodyMap.get("from_name");
+        String reply_to_address = (String)requestBodyMap.get("reply_to_address");
+        String recuring_email_title = (String)requestBodyMap.get("recuring_email_title");
+        String recuring_email_description = (String)requestBodyMap.get("recuring_email_description");
+        Double till_date_epoch = (Double)requestBodyMap.get("till_date_epoch");
+        
+        Date till_date = new Date(till_date_epoch.longValue());
+        
+        Double schedule_time_epoch = (Double)requestBodyMap.get("schedule_time_epoch");
+        
+        Date schedule_time = new Date(schedule_time_epoch.longValue());
+        Double program_id = (Double)requestBodyMap.get("program_id");
+        
+        TblScheduledEmailList schedule_email_list = new TblScheduledEmailList();
+        
+        schedule_email_list.setId(0);
+        TblUserLoginDetails user_login = new TblUserLoginDetails();
+        user_login.setId(user_id);
+        
+        schedule_email_list.setTblUserLoginDetails(user_login);
+        schedule_email_list.setEmailListName(emaillist);
+        schedule_email_list.setFromAddress(getFromAddress(user_id));
+        schedule_email_list.setFromName(from_name);
+        schedule_email_list.setReplyToEmailAddress(reply_to_address);
+        schedule_email_list.setSubject(subject);
+        schedule_email_list.setToEmailAddresses(email_addresses.toString());
+        schedule_email_list.setTblScheduledEntityList(null);
+        
+        Integer email_list_id = schedule_email_list_service.save(schedule_email_list);
+
+        TblScheduledEntityList schedule_entity_list = new TblScheduledEntityList();
+        
+        schedule_entity_list.setId(0);
+        schedule_entity_list.setEntityId(email_list_id);
+        schedule_entity_list.setEntityType(ScheduledEntityType.email.toString());
+        schedule_entity_list.setIsRecuring(Boolean.TRUE);
+        schedule_entity_list.setRecuringEmailId(null);
+        schedule_entity_list.setScheduleDesc(recuring_email_description);
+        schedule_entity_list.setScheduleTime(schedule_time);
+        schedule_entity_list.setScheduleTitle(recuring_email_title);
+        schedule_entity_list.setStatus(TemplateStatus.no_template.toString());
+        TblUserMarketingProgram user_marketing_program = new TblUserMarketingProgram();
+        user_marketing_program.setId(program_id.intValue());
+        
+        schedule_entity_list.setTblUserMarketingProgram(user_marketing_program);
+        schedule_entity_list.setDays(Integer.parseInt(days));
+        schedule_entity_list.setTillDate(till_date);
+        schedule_entity_list.setUserId(user_id);
+        
+        schedule_entity_list_service.save(schedule_entity_list);
+        
+        return "true";
+        }catch (Throwable throwable){
+            logger.log(Level.SEVERE,"Exception while saving the email action in the table:", throwable);
+        }
+        return "true";
+    }
+    
+    public String getFromAddress(Integer user_id){
+        SqlMethods sql_methods = new SqlMethods();
+
+        org.json.simple.JSONObject json_user_preferences = sql_methods.getJSONUserPreferences(user_id);
+            
+        org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_user_preferences.get(IConstants.kEmailSettings);
+
+        String from_address = (String)json_object_email_settings.get(IConstants.kEmailFromAddress);
+        return from_address;
+    }
 }

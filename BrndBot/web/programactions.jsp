@@ -30,14 +30,14 @@
     program_id = request.getParameter("program_id");
 %>
     <script>
-            var program = "";
-            program = <%= program_id %>;
+            var program_id = "";
+            program_id = <%= program_id %>;
             function programactions($scope, $http, $window){
                 
                 $scope.getProgramActions = function(){
                      $http({
                         method: 'GET',
-                        url: 'alluserMarketingProgramForDisplay.do?program_id='+program
+                        url: 'alluserMarketingProgramForDisplay.do?program_id='+program_id
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
                         if (data === error) {
@@ -50,22 +50,25 @@
                     });
                 };
                 $scope.setEntityId = function(entity_list_Id, days){
-                    window.open(getHost() + 'emailautomation.jsp?entitylistid='+entity_list_Id+'&days='+days, "_self");
+                    window.open(getHost() + 'emailautomation.jsp?entity_id='+entity_Id+'&days='+days, "_self");
+                };
+                $scope.addRecuringAction = function(){
+                    window.open(getHost() + 'emailautomation.jsp?entity_id='+0+'&type=add&program_id='+program_id, "_self");
                 };
             };
             
     </script>
     <script>
         function overlay(){
-                    document.getElementById('light').style.display = 'block';
-                        document.getElementById('fade').style.display = 'block';
-                        document.getElementById('slider-button').style.display = 'block';
-                        document.body.style.overflow = 'hidden';
-                }
+            document.getElementById('light').style.display = 'block';
+            document.getElementById('fade').style.display = 'block';
+            document.getElementById('slider-button').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
         function closeoverlay(){
-                document.getElementById('light').style.display = 'none';
-                document.getElementById('fade').style.display = 'none';
-                document.body.style.overflow = 'scroll';
+            document.getElementById('light').style.display = 'none';
+            document.getElementById('fade').style.display = 'none';
+            document.body.style.overflow = 'scroll';
         }
     </script>
         <jsp:include page="basejsp.jsp"/>
@@ -84,8 +87,15 @@
                             <div class="edtprog fontpnr">Edit Program Details</div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="endmrkprogbtndiv fontpnr"><button type="button" class="endmrkprogbtn button button--moema button--text-thick button--text-upper fontpnr">
-                                End Marketing Program</button></div>
+                            <div class="endmrkprogbtndiv fontpnr">
+                                <button type="button" class="endmrkprogbtn button 
+                                                             button--moema 
+                                                             button--text-thick 
+                                                             button--text-upper 
+                                                             fontpnr">
+                                End Marketing Program
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -108,7 +118,7 @@
                             <div class="progdesc">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12">
-                                     <div class=" offrpromo fontpnr">{{programs.programdetails.description}}</div>
+                                     <div class=" offrpromo fontpnr"  ng-bind-html-unsafe="programs.programdetails.description"></div>
 <!--                                     <div class=" promosubhead fontpnr">This is a subheader</div>-->
                                      <p class="prompara fontpnr">
                                      </p>
@@ -123,8 +133,15 @@
                              <div class="recuremlautom fontpns">Recurring Email Automation</div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3">
-                             <div class="addemlautomdiv "><button type="button" class="addemlautombtn button button--moema button--text-thick button--text-upper button--size-s fontpnr">
-                                Add Email Automation</button></div>
+                             <div class="addemlautomdiv ">
+                                 <button type="button" class="addemlautombtn 
+                                                              button button--moema 
+                                                              button--text-thick 
+                                                              button--text-upper 
+                                                              button--size-s 
+                                                              fontpnr" ng-click="addRecuringAction(program_id)">
+                                Add Email Automation</button>
+                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-1">
                              <div class="emlstats fontpnr">Status</div>

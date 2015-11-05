@@ -419,5 +419,25 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
         return null;
 
     }
+      @RequestMapping (value = "/setProgramStatus", method = RequestMethod.POST)
+      public @ResponseBody String setProgramStatus(HttpServletRequest request, 
+                HttpServletResponse response){
+          return "false";
+      }
+      
+      @RequestMapping (value = "/getEntityDetails", method = RequestMethod.POST)
+      public @ResponseBody String getEntityDetails(HttpServletRequest request, 
+                HttpServletResponse response)throws IOException, Throwable{
+
+        Map<String, Object> requestBodyMap =
+                  AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+        
+        Double entity_id = (Double)requestBodyMap.get("entity_id");
+        TblScheduledEntityList schedule_entity = scheduledEntityListService.getById(entity_id.intValue());
+        
+        
+        return "false";
+      }
+      
        
 }

@@ -23,6 +23,9 @@
   <link rel="stylesheet" href="css/plugins/char_counter.css">
   <link rel="stylesheet" href="css/plugins/video.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+        <link rel="stylesheet" href="css/pikaday.css">
+        <link rel="stylesheet" href="css/datepickerpikaday.css">
+        <script src="js/pikaday.js"></script>
 
    <title>Email Automation</title>
         <meta charset="UTF-8">
@@ -33,6 +36,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
         <link href="css/emailautomationeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
@@ -55,19 +59,46 @@
           
   </style>
 <%! 
-    String entitylistid = "";
-    String days = "";
+    String entity_id = "";
+    String program_id = "";
+    String type = "";
 %>        
 <% 
-    entitylistid = request.getParameter("entitylistid");
-    days = request.getParameter("days");
+    entity_id = request.getParameter("entity_id");
+    program_id = request.getParameter("program_id");
+    type = request.getParameter("type");
 %>  
          <script>
+            var emails = "";
             $(document).ready(function (){
                 $("#emlautomeditorcontainer").hide();
                 $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
+
+            
+            $("#emaillist").change(function () {
+               
+                var List_name = $("#emaillist").val();
+//                var x = document.getElementById("emaillist").selectedIndex;
+//                var List_name = document.getElementsByTagName("option")[x].value;
+                alert(List_name);
+                $.ajax({
+                    url: getHost() + "GetEmailLists",
+                    data: {
+                        update: "emailsForEmailList",
+                        list_name: List_name
+                    },
+                    success: function(result){
+                        var i = 0;
+                        emails = result.user_emailAddresses;
+                    }
+                });
+                
+            });
+        
             });
             var template_id = "";
+            var program_id = <%= program_id %>;
+            
             function validate(){
                 var days = $("#days").val();
                 var emaillisttext = $("#emaillist :selected").text();
@@ -75,6 +106,11 @@
                 var subject = $("#subject").val();
                 var from_name = $("#from_name").val();
                 var reply_to_address = $("#reply_to_address").val();
+                var recuring_email_title = $("#recuring_email_title").val();
+                var recuring_email_description = $("#recuring_email_description").val();
+
+                var till_date = $("#datepicker").val();
+                var schedule_time=$("#timepicker1").val().replace(/ /g,'');
                 
                 if (days === "0") {
                     alert("please select the day");
@@ -106,16 +142,49 @@
                     $("#reply_to_address").focus();
                     return false;
                 }
+                if (recuring_email_title == ""){
+                    alert("Enter the title");
+                    $("#recuring_email_title").focus();
+                    return false;
+                }
+                if (recuring_email_description == ""){
+                    alert("Enter the description");
+                    $("#recuring_email_description").focus();
+                    return false;
+                }
+                if (till_date == ""){
+                    alert("till date not selected,please select the date");
+                    $("#datepicker").focus();
+                    return false;
+                }
+                if (schedule_time == ""){
+                    alert("select the time");
+                    $("#timepicker1").focus();
+                    return false;
+                }
                 
                 return true;
             }
             
             function emailautomation($scope, $http){
             
-                $scope.days = <%= days %>;
-            /*
-             * Bring all the email list from the database
-             */
+                $scope.getEntityDetails = function (){
+                    var entity_id = <%= entity_id %>;
+                    
+                    var entity_details = {"entity_id": entity_id};
+                    
+                    $http({
+                        method: 'POST',
+                        url: getHost() + ''
+                    }).success(function(data, status){
+                        
+                    }).error(function(){
+                        alert("problem fetching the data");
+                    });
+                };
+                /*
+                * Bring all the email list from the database
+                */
                 $scope.showEmailList = function () {
                             
                     var emailids = {"update": "allEmailListNames"};
@@ -123,19 +192,12 @@
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=allEmailListNames'
                     }).success(function(data, status, headers, config) {
-//                        alert(JSON.stringify(data.allEmailListNames));
                         $scope.emailLists = data.user;
                         $scope.emailLists_mindbody = data.mindbody;
-                        if (data === "true") {
-//                                window.open(getHost() + 'emaillists.jsp', "_self");
-                        } else if (data === error) {
-                            alert(data);
-                        }
-                        
                     }).error(function(){
                         alert("problem fetching the data");
                     });
-                    };
+                };
                 
                 /*
                  * Bring all the recuring email templates form the database
@@ -149,22 +211,70 @@
                             method: 'GET',
                             url: getHost() + 'getAllRecuringEmailTemplates.do'
                         }).success(function(data, status){
-                            alert(JSON.stringify(data));
                             $scope.recuring_email_templates = data;
                         }).error(function(){
                             alert("problem fetching the data");
                         });
                     }
 
-                 };
+                };
                  
-                 $scope.showHTMLData = function(html_data, id){
+                $scope.addRecuringAction = function(){
+                    if (validate()){
+                        var days = $("#days").val();
+                        var emaillist = $("#emaillist").val();
+                        var subject = $("#subject").val();
+                        var from_name = $("#from_name").val();
+                        var reply_to_address = $("#reply_to_address").val();
+                        var recuring_email_title = $("#recuring_email_title").val();
+                        var recuring_email_description = $("#recuring_email_description").val();
+                        
+                        var till_date = $("#datepicker").val();
+                        var schedule_time=$("#timepicker1").val().replace(/ /g,'');
+                        
+                        var till_date_epoch = Date.parse(till_date);
+                        var schedule_time_epoch = Date.parse(schedule_time);
+                        
+                        var recuring_action = {
+                            "days":days, "emaillist":emaillist, 
+                            "to_email_addresses": emails,
+                            "subject":subject, "from_name":from_name,
+                            "reply_to_address":reply_to_address,
+                            "recuring_email_title":recuring_email_title,
+                            "recuring_email_description":recuring_email_description,
+                            "till_date_epoch":till_date_epoch,
+                            "schedule_time_epoch":schedule_time_epoch,
+                            "program_id" :program_id 
+                        };
+                        
+                        $http({
+                            method: 'POST',
+                            url: 'addRecuringAction.do',
+                            headers: {'Content-Type':'application/json'},
+                            data: JSON.stringify(recuring_action)
+                        }).success(function (data, status, headers, config) {
+                            if (data === "true") {
+                                alert("details saved succesfully");
+                                window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
+                            }else {
+                                alert("problem saving the record");
+                            }
+                        }).error(function (data, status, headers, config) {
+                            alert("No data available, problem fetching the data");
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                        });
+                    }
+                };
+                
+                $scope.showHTMLData = function(html_data, id){
                         var $iframe = $('.fr-iframe');
 //                         $(".fr-iframe").empty();
                         $iframe.contents().find("body").empty();
                         $iframe.contents().find("body").append(html_data);
                         template_id = id;
-                 };
+                };
+                
                 $scope.saveEmailAutomation = function(){
                     if (validate()){
                         
@@ -173,14 +283,14 @@
                         var subject = $("#subject").val();
                         var from_name = $("#from_name").val();
                         var reply_to_address = $("#reply_to_address").val();
-                        var entity_id = <%= entitylistid %>;
+                        var entity_id = <%= entity_id %>;
                         
                         var $iframe = $('.fr-iframe');
                         var html_data = $iframe.contents().find("html").html(); 
                         html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
                         console.log(html_data);
-                        alert(html_data);
-                        var emailautomation = {"entity_id":entity_id, "template_id":template_id,
+                        var emailautomation = {
+                                               "entity_id":entity_id, "template_id":template_id,
                                                "days":days, "emaillist":emaillist,
                                                "subject":subject, "from_name":from_name,
                                                "reply_to_address":reply_to_address,
@@ -241,15 +351,14 @@
         fullPage: true
       });
        $("#templatetab").click(function (){
-                    $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
-                });
+       $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
+       });
     });
   </script>
   
-         <jsp:include page="basejsp.jsp"/>
+<jsp:include page="basejsp.jsp"/>
       
 </head>
-
      <body ng-app>
         <div class="row" ng-controller="emailautomation">
             <div class="col-md-1 col-lg-1 col-sm-2 halfcol" >
@@ -260,23 +369,50 @@
                     <div class="row">
                         <div class="col-sm-10 col-lg-12 col-md-12">
                             <div class="emlautoact fontpnr">Create a trigger for this email automation action:</div>
-                            <div class="emlautocont">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            <div class="emlautocont"></div>
                         </div>
                     </div>
                     <div class="row " ng-init="showEmailList()">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-12 col-md-12">
+                         <div class="sublineinp fontpnr">Enter a name for this Recuring Email Automation:</div>
+                           <div class="group">
+                                <input id="recuring_email_title" 
+                                       class="form-control subinp fontpnr" 
+                                       type="text" required  
+                                       placeholder="Name">
+                           </div>
+                       </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-12 col-md-12">
+                         <div class="sublineinp fontpnr">Enter a brief description:</div>
+                           <div class="group ">
+                                <input id="recuring_email_description" 
+                                       class="form-control subinp fontpnr" 
+                                       type="text" required  
+                                       placeholder="Description">
+                           </div>
+                       </div>
+                    </div>
+                        
                         <div class="col-sm-10 col-lg-12 col-md-12 ">
                             <ul class="eventlist autopadlft">
                                 <li>
                                     <div class="sndemlrecp fontpnr">Send an email to a recipient</div>
-                                </li>
+                                </li>                                
                                 <li>
-                                    <select id="days" class="eventsel fontpnr">
-                                        <option value="{{days}}">{{days}}</option>
-                                    </select>
+                                <select id="days" class="eventsel fontpnr"></select>
                                     <script>
                                         $(function(){
+                                            var days = 10;
                                             for(i=1; i<=31; i++){
-                                            $('#days').append('<option value='+i+'>'+ i + '</option>');
+                                                if ( i == days){
+                                                    $('#days').append('<option value='+i+' selected>'+ i + '</option>');
+                                                }else {
+                                                    $('#days').append('<option value='+i+'>'+ i + '</option>');
+                                                }
+                                            
                                             }
                                         });
                                     </script>
@@ -285,19 +421,51 @@
                                     <p class="daystxt fontpnr">days after they are added to</p>
                                 </li>                                
                                 <li>
-                                    <select id="emaillist" class="emllstdrp fontpnr">
+                                    <select id="emaillist" name="emaillist" class="emllstdrp fontpnr">
                                         <option value="0">-- Select --</option>
-                                        <option  ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                                        <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
+                                        <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
                                     </select>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="row">
+                        <ul class="eventlist autopadlft">
+                            <li>
+                                <div class="selatime fontpnr">Select a time:</div>
+                            </li>
+                            <li>
+                                <input id="timepicker1" readonly type="text" name="timepicker1" class="timpkr form-control fontpnr"  /> 
+                                <script src="js/timepicki.js" type="text/javascript"></script>
+                                <script>
+                                    $('#timepicker1').timepicki();
+                                </script>
+                            </li>
+                            <li>
+                                <p class="daystxt fontpnr">Select a date:</p>
+                            </li>
+                            <li>
+                                <input type="text" readonly  name="datepicker" id="datepicker"  class="datepkr form-control fontpnr" />                                        
+                                <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepicker'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+                                </script>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        
+                    </div>                    
+                    <div class="row">
                         <div class="col-sm-12 col-lg-12 col-md-12">
                          <div class="sublineinp fontpnr">Enter a subject line:</div>
-                           <div class="group ">
+                           <div class="group">
                                 <input id="subject" class="form-control subinp fontpnr" type="text" required  placeholder="Subject Line">
                            </div>
                        </div>
@@ -305,7 +473,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-12 col-md-12">
                          <div class="fromnminp fontpnr">Enter a from name</div>
-                           <div class="group ">
+                           <div class="group">
                                 <input id="from_name" class="form-control subinp fontpnr" type="text" required  placeholder="From Name">
                            </div>
                        </div>
@@ -313,7 +481,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-12 col-md-12">
                          <div class="repltoaddinp fontpnr">Enter a reply-to-address:</div>
-                           <div class="group ">
+                           <div class="group">
                                 <input id="reply_to_address" class="form-control subinp fontpnr" type="text" required  placeholder="Reply-to-address">
                            </div>
                        </div>
@@ -326,7 +494,7 @@
                                             button--text-thick 
                                             button--text-upper 
                                             button--size-s" 
-                                            ng-click="getEmailTemplates()">
+                                            ng-click="addRecuringAction()">
                                 Save</button>
                         </div>
                     </div>
@@ -380,7 +548,7 @@
                                                        button--size-s" 
                                                        type="button" 
                                                        value="save" 
-                                                       ng-click="saveEmailAutomation()">
+                                                       ng-click="addRecuringAction()">
                                             </div>
                                         </div>
                                     </div>

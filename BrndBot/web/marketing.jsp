@@ -181,7 +181,7 @@
                     <div><textarea class="addactiondetinput top8 fontpns" name="addactiontitle" id="addactiontitle" placeholder="Title here"></textarea></div>
                     <div class="top26 fontpns tenpix headcolor">ACTION TYPE</div>
                     <div class="topfive fontpnr">
-                        <select id="actiontype"name="actiontype">
+                        <select id="actiontype" name="actiontype">
                             <option value="0">Select</option>
                             <option value="facebook">Facebook</option>
                             <option value="twitter">Twitter</option>
