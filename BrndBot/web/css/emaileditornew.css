@@ -120,9 +120,8 @@ and open the template in the editor.
     width: 61px;
     height: 635px;
     background-color: #f4f4f4;
-    height:auto;
     min-height:960px;
-    height:auto !important;        /* for IE as it does not support min-height */
+    height: 100% !important;  /* for IE as it does not support min-height */
 
 
 
@@ -274,14 +273,18 @@ div.mindbodyHeaderData li{
 div.mindbodyOneRowData {
     margin-left:10px;
     height: 5px !important;
-    margin-bottom: 60px !important;
+    padding-bottom: 39px !important;
 }
 div.mindbodyOneRowData li{
-    font-size: 14px;
+    font-size: 13px;
     width: 191px;
 }
+/*.datafromindbody div:hover{
+    background-color: black;
+}*/
 .frstcol{
     width:285px !important;
+    max-width: 100% !important;
 }
 .mindbodydatacontainer{
     width: 700px;
