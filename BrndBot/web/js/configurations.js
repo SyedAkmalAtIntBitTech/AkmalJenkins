@@ -17,6 +17,10 @@ function getHost(){
     return "http://localhost:8080/BrndBot/";
 }
 
+function getFroalaLicenseKey(){
+    return "snJ-7c1krD-13fD1wzF-7==";
+}
+
 function kUserPreference_HasLoggedInFacebook (){
     return "facebook";
 }
