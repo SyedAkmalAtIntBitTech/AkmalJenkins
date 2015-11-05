@@ -53,6 +53,8 @@ public class AppConstants {
     
     public static final String TMP_FOLDER = "/tmp";
     
+    public static final String ADMIN_COLORS_FOLDER= "/admin/colors";
+    
     public static final String USER_LOGO = BASE_IMAGE_UPLOAD_PATH + File.separator + "Customers";
     
 }

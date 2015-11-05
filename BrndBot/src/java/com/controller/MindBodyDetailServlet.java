@@ -86,15 +86,27 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
             if (sub_category_name.contains("class")) {
                 Object selected_object = mindbody_hash_map.get(mindbody_data_id);
                 Class mindbody_class = (Class) selected_object;
-                mapped_json_object = MindBodyDataMapper.mapClassData(mindbody_class, editor_mapper_file_name);
+                if (editor_type.equalsIgnoreCase("email")) {
+                    mapped_json_object = MindBodyDataMapper.mapClassDataRaw(mindbody_class);
+                } else {
+                    mapped_json_object = MindBodyDataMapper.mapClassData(mindbody_class, editor_mapper_file_name);
+                }
             } else if (sub_category_name.contains("work shop") || sub_category_name.contains("workshop")) {
                 Object selected_object = mindbody_hash_map.get(mindbody_data_id);
                 ClassSchedule mindbody_enrollments = (ClassSchedule) selected_object;
+                if (editor_type.equalsIgnoreCase("email")) {
+                    mapped_json_object = MindBodyDataMapper.mapEnrollmentDataRaw(mindbody_enrollments);
+                } else {
                 mapped_json_object = MindBodyDataMapper.mapEnrollmentData(mindbody_enrollments, editor_mapper_file_name);
+                }
             } else if (sub_category_name.contains("staff")) {
                 Object selected_object = mindbody_hash_map.get(mindbody_data_id);
                 Staff mindbody_staff = (Staff) selected_object;
+                if (editor_type.equalsIgnoreCase("email")) {
+                    mapped_json_object = MindBodyDataMapper.mapStaffDataRaw(mindbody_staff);
+                } else {
                 mapped_json_object = MindBodyDataMapper.mapStaffData(mindbody_staff, editor_mapper_file_name);
+                }
             }
 
             if (mapped_json_object != null) {
