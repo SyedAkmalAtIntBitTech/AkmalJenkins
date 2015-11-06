@@ -348,6 +348,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                 jSONObject.put("eventDate", eventDate.getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
+                jSONObject.put("description",scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("actionStatus",actionStatus);
                 jSONObject.put("postDate",cal.getTimeInMillis());
                 jSONObject.put("postTime",scheduledEntityListObject.getScheduleTime().getTime());
