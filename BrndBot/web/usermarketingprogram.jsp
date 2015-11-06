@@ -20,9 +20,10 @@
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
+        <script src="js/marketing.js"></script>
         <link href="css/usermarketingprogram.css" rel="stylesheet" type="text/css"/>
         <link href="css/facebook.css" rel="stylesheet" type="text/css"/>
-        
+        <link href="css/facebook.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/pikaday.css">
         <link rel="stylesheet" href="css/datepickerpikaday.css">
         <script src="js/pikaday.js"></script>

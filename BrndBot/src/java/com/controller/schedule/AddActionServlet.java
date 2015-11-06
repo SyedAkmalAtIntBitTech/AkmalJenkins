@@ -77,7 +77,7 @@ public class AddActionServlet extends HttpServlet {
                         requestBodyMap.get("marketingType").toString(),                        
                         requestBodyMap.get("description").toString(),
                         new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
-                        requestBodyMap.get("actiontype").toString(), 
+                        requestBodyMap.get("actiontype").toString(), requestBodyMap.get("days").toString(),
                         templateStatus,
                         userId,
                         conn

@@ -1,3 +1,4 @@
+
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -207,37 +208,44 @@ function validateEmail(sEmail) {
 
 function validateaction() {
     var title = $("#addactiontitle").val();
+    var days=$("#day").val();
     var actiontype = $("#actiontype").val();
     var description = $("#description").val();
     var actiondate = $("#datepicker").val();
     var actiontime = $("#timepicker1").val();
     var marketing_program = $("#marketing_program").val();
     
-    if (marketing_program === '0') {
-        //alert("Marketing Program not selected, please select any one Program");
-        //$("#marketing_program").focus();
-        //return false;
+     if (title === "") {
+        alert("title not entered, please enter the title");
+        $("#addactiontitle").focus();
+        return false;
     }
+    
     if (actiontype === '0') {
         alert("actiontype not selected, please select any one action");
         $("#actiontype").focus();
         return false;
     }
-    if (title === "") {
-        alert("title not entered, please enter the title");
-        $("#addactiontitle").focus();
-        return false;
+    
+    if (marketing_program === '0') {
+        //alert("Marketing Program not selected, please select any one Program");
+        //$("#marketing_program").focus();
+        //return false;
     }
-
     if (description === "") {
         alert("description not entered, please enter the description");
         $("#description").focus();
         return false;
     }
-    if (actiondate === "") {
-        alert("date not selected, please select the date");
-        $("#datepicker").focus();
+    if (days === "") {
+        alert("Days not entered, please enter days");
+        $("#days").focus();
         return false;
+    }
+    if (actiondate === "") {
+        //alert("date not selected, please select the date");
+        //$("#datepicker").focus();
+        //return false;
     }
     if (actiontime === "") {
         alert("time not selected, please selecet the time");
@@ -425,27 +433,31 @@ function setTodaysDate() {
     user_selected_date = '';
     angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
 }
-  function EmpDetCtrl($scope) {
 
-  
+function programactions($scope, $http, $window){
+                
+    $scope.getProgramActions = function(){
+         $http({
+            method: 'GET',
+            url: 'alluserMarketingProgramForDisplay.do?program_id='+program
+        }).success(function (data, status, headers, config) {
+            $scope.programs = data;
 
-      $scope.ShowAddEmployee = function () {
-           alert('Approved');
-         return $scope.EmployeeInfoDiv = true;
-        
-     }
-   
-$scope.SaveData = function () {
-          alert('Unapproved');
-          $("#button1").css("display", "block");
-         return $scope.EmployeeInfoDiv1 = true;
-        
-     }
-    
- }
-
-function controllerMarketingCampaign($scope, $http) {
-    $scope.entities_selected_time = "";
+            if (data === error) {
+                alert(data);
+            }
+        }).error(function (data, status, headers, config) {
+            alert("No data available, problem fetching the data");
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+    };
+    $scope.setEntityId = function(entity_list_Id, days){
+        window.open(getHost() + 'emailautomation.jsp?entitylistid='+entity_list_Id+'&days='+days, "_self");
+    };
+                
+                 
+ $scope.entities_selected_time = "";
     $scope.getCampaigns = function () {
         var curr_date = '';
         var tomorrowDate = '';
@@ -482,11 +494,9 @@ function controllerMarketingCampaign($scope, $http) {
             alert("request not successful");
         });
     };
-
     var millisToUTCDate = function (millis) {
         return toUTCDate(new Date(millis));
     };
-
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
         $edit=1;  
         if (entity_type == "email") {
@@ -503,7 +513,6 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#edit_email").show();
                     $('#mailnotemplate1').show();
                     $('#mailtemplatesaved1').hide();
-                    
                     //$("#edit_email_action").hide();
                 } else {
                     $('#maileditremove').show();
@@ -635,7 +644,6 @@ function controllerMarketingCampaign($scope, $http) {
 
 
     };
-
     $scope.showScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
 
         if (entity_type == "email") {
@@ -759,9 +767,15 @@ function controllerMarketingCampaign($scope, $http) {
         }
 
     };
-
-    $scope.ShowAddAction = function()
-    {
+    $scope.ShowAddAction = function(){
+        
+        $('#select>option').each(function(){
+        var text = $(this).class().val();
+        alert(text);
+        //(text.indexOf(valThis) == 0) ? $(this).show() : $(this).hide();         
+        });
+        
+        //$("#select option").filter(".a13").attr('selected','selected');
         $slider=1;
         $edit=1; 
         sliderDialog = "#dvPriorityDialog";
@@ -779,15 +793,19 @@ function controllerMarketingCampaign($scope, $http) {
                 }
                 
 //                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
-                
+            setTimeout(
+            function() 
+            {
+                $('#marketing_program option[value='+program+']').attr("selected", "selected");
+            }, 200); 
             }).error(function (data) {
                 alert("request not successful");
             });
     }
-
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName) {
-        
+       
         if (entity_type == "email") {
+            
             $slider=2;
             sliderDialog = "#preview";
             $('#slider-button').click();
@@ -839,7 +857,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.schedule_type = entity_type;
                 $scope.marketing_program_name = marketingName;
             }).error(function (data) {
-                alert("request not successful");
+                alert("request not successful ");
             });
         } else if (entity_type == "facebook") {
             $slider=2;
@@ -964,14 +982,14 @@ function controllerMarketingCampaign($scope, $http) {
 
 
     };
-
-
     $scope.AddAction = function () {
         var title = $("#addactiontitle").val();
         var actiontype = $("#actiontype").val();
         var marketingProgramType=$("#marketing_program").val();
         var description = $("#description").val();
-        var actiondate = $("#datepicker").val();
+        var actiondate = "1970/01/01";
+        var days=$("#days").val();
+        
         var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var myDate = new Date(l); // Your timezone!
@@ -986,7 +1004,7 @@ function controllerMarketingCampaign($scope, $http) {
 
         if (validateaction()) {
             var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
-                "description": description, "action_date": myEpoch
+                "description": description, "action_date": myEpoch, "days":days
             };
             $http({
                 method: 'POST',
@@ -998,7 +1016,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.status = data;
                 if (data != "") {
                     alert("action saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
 
                 }
             }).error(function (data, status) {
@@ -1046,7 +1064,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.status = data;
                 if (data != "") {
                     alert("action saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
 
                 }
             }).error(function (data, status) {
@@ -1093,7 +1111,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.status = data;
                 if (data != "") {
                     alert("action saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
 
                 }
             }).error(function (data, status) {
@@ -1143,7 +1161,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.status = data;
                 if (data != "") {
                     alert("action saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
 
                 }
             }).error(function (data, status) {
@@ -1155,8 +1173,6 @@ function controllerMarketingCampaign($scope, $http) {
 
         }
     };
-
-
     $scope.showEmailList = function () {
 
         var emailids = {"update": "allEmailListNames"};
@@ -1171,7 +1187,6 @@ function controllerMarketingCampaign($scope, $http) {
             }
         });
     };
-
     $scope.deleteSchedule = function (schedules_to_delete, type, section) {
         var message;
         var requestBody;
@@ -1220,7 +1235,7 @@ function controllerMarketingCampaign($scope, $http) {
                         $("#mailremovedtemplate").show();                     
                     }
                     alert(responseMessage);
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
@@ -1230,7 +1245,6 @@ function controllerMarketingCampaign($scope, $http) {
             });
         }
     };
-
     $scope.updateNote = function () {
         var message;
         
@@ -1268,7 +1282,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.status = data;
                 if (data != "") {
                     alert("details saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
 
                 }
             }).error(function (data, status) {
@@ -1280,8 +1294,6 @@ function controllerMarketingCampaign($scope, $http) {
             
         }
     };
-
-
     $scope.updateEmailSchedule = function () {
         var schedule_id = $("#email_schedule_id").val();
         var entity_id = $("#email_entity_id").val();
@@ -1326,7 +1338,7 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.status = data;
             if (data != "") {
                 alert("details saved successfully");
-                window.open(getHost() + 'marketing.jsp', "_self");
+                window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
 
             }
         }).error(function (data, status) {
@@ -1337,7 +1349,6 @@ function controllerMarketingCampaign($scope, $http) {
         });
 
     };
-
     $scope.updateSocialSchedule = function () {
 
         var social_type = $("#social_type").val();
@@ -1385,7 +1396,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.status = data;
                     if (data != "") {
                         alert("details saved successfully");
-                        window.open(getHost() + 'marketing.jsp', "_self");
+                        window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
 
                     }
                 }).error(function (data, status) {
@@ -1437,7 +1448,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.status = data;
                     if (data != "") {
                         alert("details saved successfully");
-                        window.open(getHost() + 'marketing.jsp', "_self");
+                        window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
 
                     }
                 }).error(function (data, status) {
@@ -1536,163 +1547,23 @@ function controllerMarketingCampaign($scope, $http) {
         return true;
 
     };
-    };
-var error_message = "unable to post the schedule";
-var error_message_email = "unable to send the email";
-
-function sendEmail() {
-    var email_from_name = $("#email_entity_from_name").val();
-    var email_entitysubject = $("#email_entitysubject").val();
-    var email_entitytoaddress = $("#email_entitytoaddress").val();
-    var email_entityfromaddress = $("#email_entityfromaddress").val();
-    var email_entityreplytoaddress = $("#email_entityreplytoaddress").val();
-    var chooseEmailList = $("#chooseEmailList").val();
-    var email_body = $("#email_entity_body").val();
-    var scheduleid = $("#email_schedule_id").val();
-    var entityid = $("#email_entity_id").val();
-    if ($("#email_button_send").val() == "Send") {
-        $.ajax({
-            url: getHost() + "SendEmailServlet",
-            type: "post",
-            data: {
-                from_name: email_from_name,
-                email_subject: email_entitysubject,
-                email_addresses: email_entitytoaddress,
-                from_email_address: email_entityfromaddress,
-                reply_to_email_address: email_entityreplytoaddress,
-                htmldata: email_body,
-                email_list: chooseEmailList
-            },
-            success: function (responseText) {
-                $('#loadingGif').remove();
-                    var schedule_data = {
-                                            type: 'updateSchedule',
-                                            scheduleid: scheduleid,
-                                            entityid: entityid
-                                            }
-                        //alert(JSON.stringify(schedule_data));
-                        $.ajax({
-                           url:'ChangeScheduleServlet',
-                           method:'Post',
-                           dataType: 'json',
-                           contentType: 'application/json',
-                           mimeType: 'application/json',
-                           data:JSON.stringify(schedule_data),
-                           success: function (responseText) {
-                               alert(responseText);
-                               if (responseText == "true"){
-                                 alert("Your email has been sent successfully");
-                               }
-                            }
-                        });
-                        document.location.href = "marketing.jsp";
-            },
-            error: function () {
-                alert(error_message);
-            }
-
-        });
-
-    } else if (checkifcreatebutton($("#email_button_send").val())) {
-        document.location.href = "dashboard.jsp";
-    }
-
-}
-
-function postSocial() {
-    var image_name = "";
-    var isFacebook = $("#isFacebook").val();
-    var isTwitter = $("#isTwitter").val();
-    var scheduleid = '', entityid = '';
-    if (($("#fb_button_post").val() == "Post") && ($("#twitter_button_post").val() == "Post")) {
-        if (($("#facebook_image_name").val()) != "") {
-            image_name = $("#facebook_image_name").val();
-            scheduleid = $("#facebook_schedule_id").val();
-            entityid = $("#facebook_entity_id").val();
+                
+            };
+            
+            
+            
+        function overlay(){
+                    document.getElementById('light').style.display = 'block';
+                        document.getElementById('fade').style.display = 'block';
+                        document.getElementById('slider-button').style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                }
+        function closeoverlay(){
+                document.getElementById('light').style.display = 'none';
+                document.getElementById('fade').style.display = 'none';
+                document.body.style.overflow = 'scroll';
         }
-        if (($("#twitter_image_name").val()) != "") {
-            image_name = $("#twitter_image_name").val();
-            scheduleid = $("#twitter_schedule_id").val();
-            entityid = $("#twitter_entity_id").val();
-        }
-
-        var link = $("#twitter_schedule_post_url").val();
-        var f = link.startsWith("http");
-        if (!f)
-        {
-            link = "http://" + $("#twitter_schedule_post_url").val();
-        }
-        var url = link;
-        var username = "sandeep264328"; // bit.ly username
-        var key = "R_63e2f83120b743bc9d9534b841d41be6";
-        $.ajax({
-            url: "http://api.bit.ly/v3/shorten",
-            data: {longUrl: url, apiKey: key, login: username},
-            dataType: "jsonp",
-            success: function (v)
-            {
-                var bit_url = v.data.url;
-                $.ajax({
-                    url: 'PostToSocial',
-                    method: 'post',
-                    data: {
-                        imageToPost: image_name,
-                        accesstoken: $("#facebook_accesstoken").val(),
-                        postText: $("#facebook_schedule_posttext").val(),
-                        title: $("#facebook_schedule_posttext").val(),
-                        description: $("#facebook_schedule_description").val(),
-                        url: $("#facebook_schedule_url").val(),
-                        twittweraccestoken: $("#twitter_entity_accesstoken").val(),
-                        twitterTokenSecret: $("#twitter_entity_tokensecret").val(),
-                        text: $("#twitter_schedule_post_text").val(),
-                        isFacebook: isFacebook,
-                        isTwitter: isTwitter,
-                        imagePost: image_name,
-                        shorturl: bit_url
-                    },
-                    success: function (responseText) {
-                        var schedule_data = {
-                                            type: 'updateSchedule',
-                                            scheduleid: scheduleid,
-                                            entityid: entityid
-                                            }
-                        //alert(JSON.stringify(schedule_data));
-                        $.ajax({
-                           url:'ChangeScheduleServlet',
-                           method:'Post',
-                           dataType: 'json',
-                           contentType: 'application/json',
-                           mimeType: 'application/json',
-                           data:JSON.stringify(schedule_data),
-                           success: function (responseText) {
-                               alert("Your post has been published successfully");
-                               document.location.href = "marketing.jsp";
-                            },
-                            error: function () {
-                                alert(error_message);
-                            }
-                        });
-                        document.location.href = "marketing.jsp";
-                    },
-                    error: function () {
-                        alert(error_message);
-                    }
-                });
-            }
-
-        });
-
-    } else if (checkifcreatebutton($("#fb_button_post").val()) || (checkifcreatebutton($("#twitter_button_post").val()))) {
-        document.location.href = "dashboard.jsp";
-    }
-
-    function checkifcreatebutton(value) {
-        if (value == create_button_title) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-}
-
+ 
+ 
+ 
+ 
