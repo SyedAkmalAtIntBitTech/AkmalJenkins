@@ -266,7 +266,7 @@ public class RecuringEmailController {
         SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
         Date time = formatterTime.parse(schedule_time);
 
-        Double program_id = (Double)requestBodyMap.get("program_id");
+        String program_id = (String)requestBodyMap.get("program_id");
         
         TblScheduledEmailList schedule_email_list = new TblScheduledEmailList();
         
@@ -297,7 +297,7 @@ public class RecuringEmailController {
         schedule_entity_list.setScheduleTitle(recuring_email_title);
         schedule_entity_list.setStatus(TemplateStatus.no_template.toString());
         TblUserMarketingProgram user_marketing_program = new TblUserMarketingProgram();
-        user_marketing_program.setId(program_id.intValue());
+        user_marketing_program.setId(Integer.parseInt(program_id));
         
         schedule_entity_list.setTblUserMarketingProgram(user_marketing_program);
         schedule_entity_list.setDays(Integer.parseInt(days));
@@ -349,7 +349,7 @@ public class RecuringEmailController {
         SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
         Date time = formatterTime.parse(schedule_time);
 
-        Double program_id = (Double)requestBodyMap.get("program_id");
+        String program_id = (String)requestBodyMap.get("program_id");
         
         TblScheduledEntityList schedule_entity_list = schedule_entity_list_service.getById(Integer.parseInt(entity_id));
         
@@ -358,17 +358,18 @@ public class RecuringEmailController {
         schedule_entity_list.setId(Integer.parseInt(entity_id));
         schedule_entity_list.setEntityType(ScheduledEntityType.email.toString());
         schedule_entity_list.setIsRecuring(Boolean.TRUE);
-        schedule_entity_list.setRecuringEmailId(template_id.intValue());
         schedule_entity_list.setScheduleDesc(recuring_email_description);
         schedule_entity_list.setScheduleTime(time);
         schedule_entity_list.setScheduleTitle(recuring_email_title);
         if (template_id.intValue() == 0){
             schedule_entity_list.setStatus(TemplateStatus.no_template.toString());
+            schedule_entity_list.setRecuringEmailId(null);
         }else {
             schedule_entity_list.setStatus(TemplateStatus.template_saved.toString());
+            schedule_entity_list.setRecuringEmailId(template_id.intValue());
         }
         TblUserMarketingProgram user_marketing_program = new TblUserMarketingProgram();
-        user_marketing_program.setId(program_id.intValue());
+        user_marketing_program.setId(Integer.parseInt(program_id));
         
         schedule_entity_list.setTblUserMarketingProgram(user_marketing_program);
         schedule_entity_list.setDays(Integer.parseInt(days));
@@ -436,16 +437,18 @@ public class RecuringEmailController {
         json_entity_list.put("recuring_email_status", schedule_entity_list.getStatus());
         json_entity_list.put("recuring_email_user_marketing_program_id", schedule_entity_list.getTblUserMarketingProgram().getId());
         json_entity_list.put("recuring_email_till_date", schedule_entity_list.getTillDate().getTime());
+        if (schedule_entity_list.getEntityId().intValue() != 0){
+            TblScheduledEmailList schedule_email_list = schedule_email_list_service.getById(schedule_entity_list.getEntityId().intValue());
 
-        TblScheduledEmailList schedule_email_list = schedule_email_list_service.getById(schedule_entity_list.getEntityId().intValue());
-
-        json_entity_list.put("recuring_email_body", schedule_email_list.getBody());
-        json_entity_list.put("recuring_email_email_list_name", schedule_email_list.getEmailListName());
-        json_entity_list.put("recuring_email_from_address", schedule_email_list.getFromAddress());
-        json_entity_list.put("recuring_email_reply_to_email_address", schedule_email_list.getReplyToEmailAddress());
-        json_entity_list.put("recuring_email_subject", schedule_email_list.getSubject());
-        json_entity_list.put("recuring_email_to_email_addresses", schedule_email_list.getToEmailAddresses());
-        json_entity_list.put("recuring_email_from_name", schedule_email_list.getFromName());
+            json_entity_list.put("recuring_email_body", schedule_email_list.getBody());
+            json_entity_list.put("recuring_email_email_list_name", schedule_email_list.getEmailListName());
+            json_entity_list.put("recuring_email_from_address", schedule_email_list.getFromAddress());
+            json_entity_list.put("recuring_email_reply_to_email_address", schedule_email_list.getReplyToEmailAddress());
+            json_entity_list.put("recuring_email_subject", schedule_email_list.getSubject());
+            json_entity_list.put("recuring_email_to_email_addresses", schedule_email_list.getToEmailAddresses());
+            json_entity_list.put("recuring_email_from_name", schedule_email_list.getFromName());
+            
+        }
         return json_entity_list.toString();
         
         }catch (Throwable throwable){

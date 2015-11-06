@@ -60,27 +60,47 @@
     String program_id = "";
     String type = "";
 %>        
-<% 
-    entity_id = request.getParameter("entity_id");
-    program_id = request.getParameter("program_id");
-    type = request.getParameter("type");
-%>  
+<%
+    if (request.getParameter("entity_id") != null){
+        entity_id = request.getParameter("entity_id");
+    }
+    if (request.getParameter("program_id") != null){
+        program_id = request.getParameter("program_id");
+    }
+    if (request.getParameter("type") != null){
+        type = request.getParameter("type");
+    }
+%>
 <script src="js/angular.min.js"></script>
 <script>
     
     var emails = "";
     var schedule_time = "";
     var schedule_date = "";
-    var entity_id = '205';
-    var type = 'template';
-    var program_id = 13;
     var email_list_name = "";
     var template_id = 0;
     var days = 0;
+    var entity_id = 0;
+    var type = "";
+    var program_id = "";
+    
+//    setTimeout(
+//        function() 
+//        {
+          //do something special
+         // alert("delay");
+          //$("#select option").filter(".a0").attr('selected','selected');
+            var entity_id = '<%= entity_id %>';
+            var type = '<%= type %>';
+            var program_id = '<%= program_id %>';
+
+//        }, 1000);
+        
+    
     function emailautomation($scope, $http){
 
         $scope.getEntityDetails = function (){
-
+            
             var entity_details = {"entity_id": entity_id};
 
             $http({
@@ -233,47 +253,47 @@
                 template_id = id;
         };
 
-        $scope.saveEmailAutomation = function(){
-            if (validate()){
-
-                var days = $("#days").val();
-                var emaillist = $("#emaillist").val();
-                var subject = $("#subject").val();
-                var from_name = $("#from_name").val();
-                var reply_to_address = $("#reply_to_address").val();
-                var entity_id = <%= entity_id %>;
-
-                var $iframe = $('.fr-iframe');
-                var html_data = $iframe.contents().find("html").html(); 
-                html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
-                console.log(html_data);
-                var emailautomation = {
-                                       "entity_id":entity_id, "template_id":template_id,
-                                       "days":days, "emaillist":emaillist,
-                                       "subject":subject, "from_name":from_name,
-                                       "reply_to_address":reply_to_address,
-                                       "html_data": html_data
-                                      };
-                $http({
-                    method: 'POST',
-                    url: 'setEmailTemplateToRecuringAction.do',
-                    headers: {'Content-Type':'application/json'},
-                    data: JSON.stringify(emailautomation)
-                }).success(function (data, status, headers, config) {
-                    $scope.categories = data;
-                    if (data === "true") {
-                        alert("details saved succesfully");
-                        window.open(getHost() + 'marketingprogramlist.jsp?type=current', "_self");
-                    }else {
-                        alert("problem saving the record");
-                    }
-                }).error(function (data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });
-            }
-        };
+//        $scope.saveEmailAutomation = function(){
+//            if (validate()){
+//
+//                var days = $("#days").val();
+//                var emaillist = $("#emaillist").val();
+//                var subject = $("#subject").val();
+//                var from_name = $("#from_name").val();
+//                var reply_to_address = $("#reply_to_address").val();
+//                var entity_id =;
+//
+//                var $iframe = $('.fr-iframe');
+//                var html_data = $iframe.contents().find("html").html(); 
+//                html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
+//                console.log(html_data);
+//                var emailautomation = {
+//                                       "entity_id":entity_id, "template_id":template_id,
+//                                       "days":days, "emaillist":emaillist,
+//                                       "subject":subject, "from_name":from_name,
+//                                       "reply_to_address":reply_to_address,
+//                                       "html_data": html_data
+//                                      };
+//                $http({
+//                    method: 'POST',
+//                    url: 'setEmailTemplateToRecuringAction.do',
+//                    headers: {'Content-Type':'application/json'},
+//                    data: JSON.stringify(emailautomation)
+//                }).success(function (data, status, headers, config) {
+//                    $scope.categories = data;
+//                    if (data === "true") {
+//                        alert("details saved succesfully");
+//                        window.open(getHost() + 'marketingprogramlist.jsp?type=current', "_self");
+//                    }else {
+//                        alert("problem saving the record");
+//                    }
+//                }).error(function (data, status, headers, config) {
+//                    alert("No data available, problem fetching the data");
+//                    // called asynchronously if an error occurs
+//                    // or server returns response with an error status.
+//                });
+//            }
+//        };
     }
 
 </script> 
@@ -284,11 +304,14 @@
                 $("#emlautomeditorcontainer").hide();
                 $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
 
+            alert(type);
+
             $("#emaillist").change(function () {
                
                 var List_name = $("#emaillist").val();
                 $.ajax({
                     url: getHost() + "GetEmailLists",
+                    method: 'POST',                    
                     data: {
                         update: "emailsForEmailList",
                         list_name: List_name
@@ -301,7 +324,6 @@
                 
             });
 
-            
             if (type == 'edit'){
                 var entity_details = {"entity_id": entity_id};                    
                 $("#emailautomationcontent").show();
@@ -335,6 +357,9 @@
             }else if (type == 'template'){
                 $("#emailautomationcontent").hide();
                 $("#emlautomeditorcontainer").show();
+            }else if (type == 'add'){
+                $("#emailautomationcontent").show();
+                $("#emlautomeditorcontainer").hide();
             }
             });
             function validate(){

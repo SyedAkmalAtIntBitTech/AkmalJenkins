@@ -84,7 +84,7 @@
                   
              
                        });
-                        function checkboxclick(){
+                        function checkboxclick(entity_recuring_id){
                             
                             var n = $("input:checked.chckbox").length;
                             if(n==0)
@@ -111,10 +111,10 @@
                             } 
                         }
         function overlay(){
-                    document.getElementById('light').style.display = 'block';
-                        document.getElementById('fade').style.display = 'block';
-                        document.getElementById('slider-button').style.display = 'block';
-                        document.body.style.overflow = 'hidden';
+                document.getElementById('light').style.display = 'block';
+                document.getElementById('fade').style.display = 'block';
+                document.getElementById('slider-button').style.display = 'block';
+                document.body.style.overflow = 'hidden';
                 }
         function closeoverlay(){
                 document.getElementById('light').style.display = 'none';
@@ -139,8 +139,11 @@
                             <div id="saveprogdet" class="edtprog fontpnr">Save Program Details</div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="endmrkprogbtndiv fontpnr"><button type="button" class="endmrkprogbtn button button--moema button--text-thick button--text-upper fontpnr">
-                                End Marketing Program</button></div>
+                            <div class="endmrkprogbtndiv fontpnr">
+                                <button type="button" class="endmrkprogbtn button button--moema button--text-thick button--text-upper fontpnr">
+                                End Marketing Program
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -192,8 +195,20 @@
                              <div class="recuremlautom fontpns">Recurring Email Automation</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
-                             <div class="addemlautomdiv "><button type="button" id="addemlactbtn" class="addemlautombtn button button--moema button--text-thick button--text-upper button--size-s fontpnr"  ng-click="addRecuringAction(program_id)">
-                                Add Email Automation</button></div>
+                             <div class="addemlautomdiv ">
+                                 <button type="button" 
+                                         id="addemlactbtn" 
+                                        class="addemlautombtn 
+                                             button 
+                                             button--moema 
+                                             button--text-thick 
+                                             button--text-upper 
+                                             button--size-s 
+                                             fontpnr"  
+                                             ng-click="addRecuringAction(program_id)">
+                                Add Email Automation
+                                 </button>
+                             </div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="delemlautomdiv  ">
@@ -217,7 +232,7 @@
                     </div>
                     <div class="row" ng-repeat="emailautomation in programs.emailautomation">
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="emlchkbox"><input type="checkbox"  class="chckbox" onclick="checkboxclick()" value="" /></div>
+                            <div class="emlchkbox"><input type="checkbox" id="{{emailautomation.schedule_id}}" class="chckbox" onclick="setSelectedRecuringIds('{{emailautomation.schedule_id}}')" value="{{emailautomation.schedule_id}}" /></div>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5">
                              <div class="listelem fontpnr">{{emailautomation.programTemplateName}}</div>
@@ -279,7 +294,7 @@
                     </div>
                     <div class="row" ng-repeat="programaction in programs.programactions">
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="emlchkbox"><input type="checkbox" class="delchckbx" onclick="deladdaction()" value="" /></div>
+                            <div class="emlchkbox"><input type="checkbox" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="" /></div>
                         </div>
                          <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="listelem fontpnr">{{programaction.programTemplateName}}</div>
