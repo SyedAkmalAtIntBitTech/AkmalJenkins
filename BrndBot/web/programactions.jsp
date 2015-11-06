@@ -40,12 +40,7 @@
                         url: 'alluserMarketingProgramForDisplay.do?program_id='+program_id
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
-<<<<<<< HEAD
-//                        $scope.programs_emailautomation = data.emailautomation;
-//                        $scope.programs_programactions = data.programactions;
-                        //alert(JSON.stringify(data));
-=======
->>>>>>> e28d11cb19e5aba15dc215829a85914d41465615
+
                         if (data === error) {
                             alert(data);
                         }
@@ -192,20 +187,20 @@
                         <div class="col-lg-2 col-md-2 col-sm-2">
                              <div class="otact fontpns">One Time Actions</div>
                         </div>
-                          <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="col-lg-2 col-md-2 col-sm-2">
                               <div class="addactdiv">
                                   <a href = "javascript:void(0)" onclick = "overlay();">
                                         <button type="button" class="otaddactbtn  button button--moema button--text-thick button--text-upper button--size-s fontpnr">Add Action</button>
                                   </a>      
-                                 </div>
+                              </div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
                              <div class="otactdt fontpnr">Date</div>
                         </div>
-                         <div class="col-lg-1 col-md-1 col-sm-1">
+                        <div class="col-lg-1 col-md-1 col-sm-1">
                              <div class="otacttype fontpnr">Action Type</div>
                         </div>
-                         <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="col-lg-2 col-md-2 col-sm-2">
                              <div class="otactstats fontpnr">Status</div>
                         </div>
                     </div>
@@ -245,7 +240,7 @@
                     </div>-->
                  
                     </div>
-                      <div id="light" class="white_content">
+                    <div id="light" class="white_content">
                         <a href = "javascript:void(0)" onclick = "closeoverlay();" style="text-decoration:none;">
                             <div id="slider-button" style="z-index:1006;display:none;">
                                 <img src="images/CloseIcon.svg" height="25" width="25" />
