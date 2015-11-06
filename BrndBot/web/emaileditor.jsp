@@ -682,6 +682,7 @@
         <script type="text/javascript" src="js/plugins/save.min.js"></script>
         <script type="text/javascript" src="js/plugins/quote.min.js"></script>
         <script>
+            $("#editor").froalaEditor({key: getFroalaLicenseKey()});
             $(function () {
                     $('#edit').froalaEditor();
                     });                               
