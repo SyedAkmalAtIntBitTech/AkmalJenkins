@@ -425,6 +425,24 @@ function setTodaysDate() {
     user_selected_date = '';
     angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
 }
+  function EmpDetCtrl($scope) {
+
+  
+
+      $scope.ShowAddEmployee = function () {
+           alert('Approved');
+         return $scope.EmployeeInfoDiv = true;
+        
+     }
+   
+$scope.SaveData = function () {
+          alert('Unapproved');
+          $("#button1").css("display", "block");
+         return $scope.EmployeeInfoDiv1 = true;
+        
+     }
+    
+ }
 
 function controllerMarketingCampaign($scope, $http) {
     $scope.entities_selected_time = "";
@@ -485,6 +503,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#edit_email").show();
                     $('#mailnotemplate1').show();
                     $('#mailtemplatesaved1').hide();
+                    
                     //$("#edit_email_action").hide();
                 } else {
                     $('#maileditremove').show();
