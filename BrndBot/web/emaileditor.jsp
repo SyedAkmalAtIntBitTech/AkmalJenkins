@@ -46,7 +46,7 @@
                 background-color: #e2e3e7;
                 position: fixed;
                 bottom: 0;
-                width: 57.5%;
+                width: 746px;
                 margin-left:-16px;
             }
             .datafromindbody:hover{
@@ -550,7 +550,8 @@
             </div>
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <div class="blockselection">     
-                    <div class="row selectrow">
+                    <div class="selectrow">
+                    <div class="row">
 
                         <div class="col-md-6 col-lg-6 col-sm-6">
                             <div class="selblock fontpnr">Select a Block</div>
@@ -558,11 +559,14 @@
                         <div class="col-md-6 col-lg-6 col-sm-6">
                             <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns " type="button" value="Add Block"></div>
                         </div> 
-                        <div class="row">
-                        <div class="selblklinediv"><hr class="selblkline"></div>
+                        
+                    </div>
+                    <div  class="row">
+                        <div class="selblklinediv">
+                            <hr class="selblkline">
+                        </div>
                     </div>
                     </div>
-                   
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <ul id="blklistid" class="blocklist fontpnr" value="blklist">
