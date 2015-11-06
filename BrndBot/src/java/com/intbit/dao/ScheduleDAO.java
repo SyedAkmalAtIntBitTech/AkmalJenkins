@@ -106,6 +106,7 @@ public class ScheduleDAO {
                         scheduleDesc,
                         scheduledTime,
                         ScheduledEntityType.email.toString(),
+                        "0",
                         templateStatus,
                         userId,
                         connection);
@@ -258,12 +259,13 @@ public class ScheduleDAO {
             String scheduleDesc,
             Timestamp scheduleTime,
             String entityType,
+            String days,
             String status,
             int userId,
             Connection connection) throws SQLException {
         String sql = "INSERT INTO tbl_scheduled_entity_list"
                 + " (entity_id, schedule_title,schedule_time,entity_type,status,user_id, schedule_desc,is_recuring,user_marketing_program_id,days,till_date,recuring_email_id ) VALUES"
-                + " (?, ?, ?, ?, ?, ?, ?,?,?,?,?,?) RETURNING id";
+                + " (?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?) RETURNING id";
 
         int scheduleId = -1;
 
@@ -282,7 +284,7 @@ public class ScheduleDAO {
             ps.setString(7, scheduleDesc);
             ps.setBoolean(8, false);
             ps.setInt(9, marketinkProgramId);
-            ps.setInt(10, 0);
+            ps.setInt(10, Integer.parseInt(days) );
             ps.setTimestamp(11, null);
             ps.setInt(12, 0);
             
