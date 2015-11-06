@@ -68,7 +68,7 @@ public class TblScheduledEntityList  implements java.io.Serializable {
 
      @GenericGenerator(name="id" , strategy="increment")
     @GeneratedValue(generator="id")
-
+//@GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id", unique=true, nullable=false)
     public int getId() {
         return this.id;
