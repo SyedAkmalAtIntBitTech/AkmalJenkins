@@ -152,10 +152,10 @@
                     
                  var rendomIframeFilename="";
        $(document).ready(function () {
-           $("#addblkbtn").prop('disabled', true);
-           $(".selectrow").css("display","none");
-           rendomIframeFilename=event.timeStamp;
-           selecterBlockId('defaultblock1', temp_block_id);
+                        $("#addblkbtn").prop('disabled', true);
+                        $(".selectrow").css("display","none");
+                        rendomIframeFilename=event.timeStamp;
+                        selecterBlockId('defaultblock1', temp_block_id);
                         $("#sortUpBlock").click(function () {
                             var current = $("#" + addblockid);
                                     current.prev().before(current);
@@ -196,7 +196,8 @@
                                     });
                             });
                                     showText(allLayoutFilename[0]);
-                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
+                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
+//                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
                             }
                     });
             });              
@@ -323,7 +324,7 @@
                             block_id = id;
                             addblockid = "block" + addBlockcCount;
                             addBlockcCount++;
-                            $(".fr-element").append("<div id=" + addblockid + " onclick=selecterBlockId('" + addblockid + "','" + temp_block_id + "');></div>")
+//                            $(".fr-element").append("<div id=" + addblockid + " onclick=selecterBlockId('" + addblockid + "','" + temp_block_id + "');></div>")
                             if (mind_body_query == "null")
                     {
                     mindbodydataId = "0";
@@ -447,11 +448,12 @@
                                             success: function (data) {
 //                                            alert(JSON.stringify(data));
                                                     if (block_clicked === "false"){
-                                            $("#defaultblock1").empty().append(data.htmldata);
+                                                    $('#edit').froalaEditor('html.set','<div id=defaultblock1>'+data.htmldata+'</div>');
+//                                            $("#defaultblock1").empty().append(data.htmldata);
                                             }
                                             else{
-
-                                            $("#" + addblockid).empty().append(data.htmldata);
+                                            $('div#defaultblock1').froalaEditor('html.set','<div id=defaultblock2>'+data.htmldata+'</div>', true);
+//                                            $("#" + addblockid).empty().append(data.htmldata);
                                             }
 
                                             }
