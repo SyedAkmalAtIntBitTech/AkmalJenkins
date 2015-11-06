@@ -147,17 +147,6 @@ public class TblUserMarketingProgram  implements java.io.Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-    @Column(name="link_name")
-    public String getLink_name() {
-        return linkName;
-    }
-
-    public void setLink_name(String link_name) {
-        this.linkName = link_name;
-    }
-
-
-
 }
 
 
