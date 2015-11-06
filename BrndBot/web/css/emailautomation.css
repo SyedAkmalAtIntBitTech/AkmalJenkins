@@ -36,6 +36,27 @@ ul.autopadlft{
     color:#888891;
       
   }
+  .selatime{
+    margin-left:15px;
+    margin-top:24.4px;
+    width:245px;
+    height:24px;
+    font-size:20px;
+    color:#888891;
+  }
+  .timpkr{
+      margin-left:-100px;
+      width:100px;
+  }
+  .timepicker_wrap {
+    top: -2px !important;
+    left: -114px !important;
+    width: 263px;
+  }
+  .datepkr{
+       margin-left:-100px;
+       width:150px;
+  }
   .promoprev{
         padding:2% !important;
         width:100%;
@@ -74,7 +95,7 @@ ul.autopadlft{
     .sublineinp{
     margin-left:0px;
     margin-top:37.9px;
-    width:155px;
+    width:500px;
     height:22px;
     font-size:18px;
     color:#3f3f42;

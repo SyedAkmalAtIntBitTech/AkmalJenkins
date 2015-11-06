@@ -87,6 +87,7 @@ public class ScheduleSocialPostDAO {
                     scheduleDesc,
                     scheduleTime,
                     type,
+                    "0",
                     templateStatus,
                     userId,
                     conn);
