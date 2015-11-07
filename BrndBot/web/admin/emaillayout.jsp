@@ -695,7 +695,7 @@
 
             <script> 
                 $(function () {
-                       $('#edit').froalaEditor();                    
+                       $('#edit').froalaEditor({key: FroalaLicenseKey});                    
                     });
 //                $('.selector').froalaEditor({
 //                    imageUploadURL: '/UploadImages'

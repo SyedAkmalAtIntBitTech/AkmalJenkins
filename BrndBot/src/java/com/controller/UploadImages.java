@@ -7,6 +7,7 @@ package com.controller;
 
 import com.intbit.AppConstants;
 import com.intbit.FileUploadUtil;
+import com.intbit.util.ServletUtil;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,18 +47,19 @@ public class UploadImages extends BrndBotBaseHttpServlet {
             String fileName = "";
             String link = "";
             String styleImage="";
+           String imageURL=ServletUtil.getServerName(request.getServletContext());
             if(user_id != null){
                 //User upload
                 pathSuffix = AppConstants.USER_IMAGE_HOME + File.separator + user_id;
                 fileName = FileUploadUtil.uploadFile(pathSuffix, request);
                 getSqlMethodsInstance().AddImages(user_id, fileName);
-                link = "/BrndBot/DownloadImage?image_type=GALLERY&user_id=" + user_id + "&image_name=" + fileName;
+                link = ""+imageURL+"DownloadImage?image_type=GALLERY&user_id=" + user_id + "&image_name=" + fileName;
                 
             } else {
                 //Admin upload for editor
                 pathSuffix = AppConstants.ADMIN_LAYOUT_BACKGROUNDIMAGES_HOME + File.separator ;
                 fileName = FileUploadUtil.uploadFile(pathSuffix, request);
-                link = "/BrndBot/DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&user_id=null&image_name=" + fileName;
+                link = ""+imageURL+"DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&user_id=null&image_name=" + fileName;
             }
             JSONObject json = new JSONObject();
             json.put("link", link);
