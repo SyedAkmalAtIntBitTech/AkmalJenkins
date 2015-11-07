@@ -90,6 +90,7 @@ and open the template in the editor.
     color:  #010101;
     line-height: 35px;
     letter-spacing: 0em;
+    cursor:auto !important;
 }
 #text3{
        

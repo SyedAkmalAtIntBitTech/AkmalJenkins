@@ -315,23 +315,23 @@
             $(document).ready(function () {
                 
                 
-                $(".cross").hide();
-                $(".menu").hide();
+//                $(".cross").hide();
+//                $(".menu").hide();
                 $("#emaillist").hide();
                 $("#popup").hide();
 
-                $(".hamburger").click(function () {
-                    $(".menu").slideToggle("slow", function () {
-                        $(".hamburger").hide();
-                        $(".cross").show();
-                    });
-                });
-                $(".cross").click(function () {
-                    $(".menu").slideToggle("slow", function () {
-                        $(".cross").hide();
-                        $(".hamburger").show();
-                    });
-                });
+//                $(".hamburger").click(function () {
+//                    $(".menu").slideToggle("slow", function () {
+//                        $(".hamburger").hide();
+//                        $(".cross").show();
+//                    });
+//                });
+//                $(".cross").click(function () {
+//                    $(".menu").slideToggle("slow", function () {
+//                        $(".cross").hide();
+//                        $(".hamburger").show();
+//                    });
+//                });
 
                 $("#emailSubjectContinueButton").click(function () {
                     document.title="BrndBot - Email List Selection"; 
