@@ -137,7 +137,8 @@ and open the template in the editor.
 }
 .addblkbtn{
     font-size:12px;
-    padding:5px 23px 5px 21px;                 
+    padding:5px 23px 5px 8px;          
+    margin: 0px !important;
     width:103px;
     height:25px;
     background-color: #e3e3e3;

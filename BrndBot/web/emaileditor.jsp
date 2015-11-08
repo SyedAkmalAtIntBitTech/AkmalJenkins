@@ -566,7 +566,7 @@
                             <div class="selblock fontpnr">Select a Block</div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-6">
-                            <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns " type="button" value="Add Block"></div>
+                            <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Add Block"></div>
                         </div> 
                         
                     </div>
