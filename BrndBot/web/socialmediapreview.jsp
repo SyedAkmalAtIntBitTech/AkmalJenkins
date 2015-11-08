@@ -699,23 +699,23 @@
         </div>
 
         <script>
-            $(".cross").hide();
-            $(".menu").hide();
+//            $(".cross").hide();
+//            $(".menu").hide();
             $("#Linkurl").hide();
             $(".link_title").hide();
             $(".link_description").hide();
-            $(".hamburger").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".hamburger").hide();
-                    $(".cross").show();
-                });
-            });
-            $(".cross").click(function () {
-                $(".menu").slideToggle("slow", function () {
-                    $(".cross").hide();
-                    $(".hamburger").show();
-                });
-            });
+//            $(".hamburger").click(function () {
+//                $(".menu").slideToggle("slow", function () {
+//                    $(".hamburger").hide();
+//                    $(".cross").show();
+//                });
+//            });
+//            $(".cross").click(function () {
+//                $(".menu").slideToggle("slow", function () {
+//                    $(".cross").hide();
+//                    $(".hamburger").show();
+//                });
+//            });
 
 
             $(document).ready(function () {

@@ -51,6 +51,7 @@
             }
             .datafromindbody:hover{
                 background-color: #00A37A;
+                color:#fff;
             }
             .fr-box .fr-basic .fr-element {
                 max-height: 480px;
