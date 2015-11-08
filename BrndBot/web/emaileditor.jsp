@@ -42,6 +42,11 @@
         <link rel="stylesheet" href="css/plugins/file.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
         <style>
+              body {
+                  margin: 0; 
+                  height: 100%;
+                  overflow: hidden;
+              }
             .btmdiv{
                 background-color: #e2e3e7;
                 position: fixed;
@@ -150,8 +155,10 @@
                     var temp_mind_body_query;
                     var addblockid;
                     var addBlockcCount = 1;
-                    
-                 var rendomIframeFilename="";
+                    var styleHtml="";
+                    var BlockHtml="";
+
+                    var rendomIframeFilename="";
        $(document).ready(function () {
                         $("#addblkbtn").prop('disabled', true);
                         $(".selectrow").css("display","none");
@@ -161,7 +168,7 @@
                             var current = $("#" + addblockid);
                                     current.prev().before(current);
                             });
-//     $("#deleteBlock").easyconfirm();           
+//     $("#deleteBlock").easyconfirm(); 
         $("#deleteBlock").click(function () {
             new $.flavr({
                     content     : 'Are you sure you want to delete this style?',
@@ -197,7 +204,7 @@
                                     });
                             });
                                     showText(allLayoutFilename[0]);
-                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
+//                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
 //                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
                             }
                     });
@@ -230,7 +237,7 @@
                             {
                             queryurl = 'GetLayoutStyles?editorType=email';
                             }
-//                            alert(queryurl);
+                            alert(queryurl);
                                     $http({
                                     method : 'GET',
                                             url : queryurl
@@ -449,12 +456,14 @@
                                             success: function (data) {
 //                                            alert(JSON.stringify(data));
                                                     if (block_clicked === "false"){
-                                                    $('#edit').froalaEditor('html.set','<div id=defaultblock1>'+data.htmldata+'</div>');
+                                                        styleHtml='<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,'+ temp_block_id +')">'+data.htmldata+'</div>';
+                                                    $('#edit').froalaEditor('html.insert',''+styleHtml+'');
 //                                            $("#defaultblock1").empty().append(data.htmldata);
                                             }
                                             else{
-                                            $('div#defaultblock1').froalaEditor('html.set','<div id=defaultblock2>'+data.htmldata+'</div>', true);
-//                                            $("#" + addblockid).empty().append(data.htmldata);
+                                                BlockHtml='<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>'+data.htmldata+'</div>';
+                                            $('#edit').froalaEditor('html.set',''+styleHtml+''+BlockHtml+'');
+//                                            $("#" + defaultblock1).append(data.htmldata);
                                             }
 
                                             }
@@ -470,25 +479,23 @@
             }
 
             function selecterBlockId(selectblock, blockid){
+                var selectblockid=selectblock.id;
             $("img").click(function(){
-                uploadImageToEditor(this.id);
+                uploadImageToEditor(selectblockid);
            });
            
-           MoveBlock(selectblock);
-//document.getElementById("img").onclick = function(){
-//    uploadImageToEditor("assda");
-//}
+           MoveBlock(selectblock.id);
                 if (selectblock == "defaultblock1")
                 {
-                        block_clicked = "false";
+                        block_clicked = "true";
                         blockIdSelected = "defaultblock1";
-                        addblockid = selectblock;
+                        addblockid = selectblockid;
                 }
                 else{
                         block_clicked = "true";
                         blockIdSelected = "";
                         block_id = blockid;
-                        addblockid = selectblock;
+                        addblockid = selectblockid;
                 }
 
             }
@@ -553,9 +560,8 @@
             </div>
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <div class="blockselection">     
-                    <div class="selectrow">
+                    <div class="selectrow" style="display: none;">
                     <div class="row">
-
                         <div class="col-md-6 col-lg-6 col-sm-6">
                             <div class="selblock fontpnr">Select a Block</div>
                         </div>
@@ -572,12 +578,12 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
-                            <ul id="blklistid" class="blocklist fontpnr" value="blklist">
+                            <ul id="blklistid" class="blocklist fontpnr" value="blklist" style="display: none;">
                                 <li ng-repeat="blocks in datalists" id="blklist" class="listblock" onclick="addblock();hlt();"> 
                                     <div  id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>
                                 </li>
                             </ul>
-                            <ul id="stylelist" class="stylelist fontpnr">
+                            <ul id="stylelist" class="stylelist fontpnr" style="display: none;">
                                 <li ng-repeat="styles in datalistsstyles" id="stylelistid">
                                     <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}"  onclick="showText('{{styles.id}}')" width="275" style="height:200px;"/><br></div>
                                 </li>
@@ -687,10 +693,10 @@
         <script type="text/javascript" src="js/plugins/save.min.js"></script>
         <script type="text/javascript" src="js/plugins/quote.min.js"></script>
         <script>
-            $("#editor").froalaEditor({key: getFroalaLicenseKey()});
+//            $("#editor").froalaEditor({key: FroalaLicenseKey});
             $(function () {
-                    $('#edit').froalaEditor();
-                    });                               
+                    $('#edit').froalaEditor({key: FroalaLicenseKey});
+                    });   
         </script>
 
  

@@ -8,7 +8,8 @@
 //var global_host_address = "http://45.79.184.221/BrndBot/";
 var global_host_address = "http://localhost:8080/BrndBot/";
 
-var error = "system failure error";    
+var error = "system failure error";  
+var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
 
 function getHost(){
 //    return "http://clients.brndbot.com/BrndBot/";
@@ -16,11 +17,6 @@ function getHost(){
 //    return "http://45.79.184.221/BrndBot/";
     return "http://localhost:8080/BrndBot/";
 }
-
-function getFroalaLicenseKey(){
-    return "snJ-7c1krD-13fD1wzF-7==";
-}
-
 function kUserPreference_HasLoggedInFacebook (){
     return "facebook";
 }
