@@ -487,7 +487,7 @@
                                 var imagename = $("#imagename").val();
                                 var mail = $("#mail").val();
                                 var htmldata=$(".fr-wrapper").children().html();
-                                var UploadImage=imageUrl.replace("/BrndBot/DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&user_id=null&image_name=","");
+                                var UploadImage=imageUrl.replace(""+global_host_address+"DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&user_id=null&image_name=","");
                              
                                 $.ajax({
                                     url: global_host_address + 'Model',
