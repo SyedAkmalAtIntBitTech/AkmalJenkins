@@ -313,6 +313,89 @@ public class RecuringEmailController {
         return "true";
     }
     
+    @RequestMapping (value = "/addupdateRecuringAction", method = RequestMethod.POST)
+    public @ResponseBody String addupdateRecuringAction(HttpServletRequest request,
+            HttpServletResponse response)throws IOException, ParseException{
+        try{
+            
+        Map<String, Object> requestBodyMap
+                = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+        SqlMethods sql_methods = new SqlMethods();
+
+        sql_methods.session = request.getSession(true);
+        Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+            
+        String entity_id = (String)requestBodyMap.get("entity_id");
+        String days = (String)requestBodyMap.get("days");
+        String emaillist = (String)requestBodyMap.get("emaillist");
+        ArrayList email_addresses = (ArrayList)requestBodyMap.get("to_email_addresses");
+
+        JSONParser parser = new JSONParser();
+        JSONArray array = new JSONArray(email_addresses);
+        org.json.simple.JSONObject json_object = new org.json.simple.JSONObject();
+        json_object.put(IConstants.kEmailAddressesKey, array);
+                
+        String subject = (String)requestBodyMap.get("subject");
+        String from_name = (String)requestBodyMap.get("from_name");
+        String reply_to_address = (String)requestBodyMap.get("reply_to_address");
+        String recuring_email_title = (String)requestBodyMap.get("recuring_email_title");
+        String recuring_email_description = (String)requestBodyMap.get("recuring_email_description");
+        Double till_date_epoch = (Double)requestBodyMap.get("till_date_epoch");
+        
+        Date till_date = new Date(till_date_epoch.longValue());
+        
+        String schedule_time = (String)requestBodyMap.get("schedule_time_epoch");
+        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
+        Date time = formatterTime.parse(schedule_time);
+
+        String program_id = (String)requestBodyMap.get("program_id");
+        
+        TblScheduledEmailList schedule_email_list = new TblScheduledEmailList();
+        
+        schedule_email_list.setId(0);
+        TblUserLoginDetails user_login = new TblUserLoginDetails();
+        user_login.setId(user_id);
+        
+        schedule_email_list.setTblUserLoginDetails(user_login);
+        schedule_email_list.setEmailListName(emaillist);
+        schedule_email_list.setFromAddress(getFromAddress(user_id));
+        schedule_email_list.setFromName(from_name);
+        schedule_email_list.setReplyToEmailAddress(reply_to_address);
+        schedule_email_list.setSubject(subject);
+        schedule_email_list.setToEmailAddresses(json_object.toString());
+        schedule_email_list.setTblScheduledEntityList(null);
+        
+        Integer email_list_id = schedule_email_list_service.save(schedule_email_list);
+        
+        TblScheduledEntityList schedule_entity_list = schedule_entity_list_service.getById(Integer.parseInt(entity_id));
+        
+        schedule_entity_list.setId(Integer.parseInt(entity_id));
+        schedule_entity_list.setEntityId(email_list_id);
+        schedule_entity_list.setEntityType(ScheduledEntityType.email.toString());
+        schedule_entity_list.setIsRecuring(Boolean.TRUE);
+        schedule_entity_list.setScheduleDesc(recuring_email_description);
+        schedule_entity_list.setScheduleTime(time);
+        schedule_entity_list.setScheduleTitle(recuring_email_title);
+        schedule_entity_list.setStatus(TemplateStatus.no_template.toString());
+        schedule_entity_list.setRecuringEmailId(null);
+        TblUserMarketingProgram user_marketing_program = new TblUserMarketingProgram();
+        user_marketing_program.setId(Integer.parseInt(program_id));
+        
+        schedule_entity_list.setTblUserMarketingProgram(user_marketing_program);
+        schedule_entity_list.setDays(Integer.parseInt(days));
+        schedule_entity_list.setTillDate(till_date);
+        schedule_entity_list.setUserId(user_id);
+        
+        schedule_entity_list_service.update(schedule_entity_list);
+        return "true";
+        
+        }catch (Throwable throwable){
+            logger.log(Level.SEVERE,"Exception while saving the email action in the table:", throwable);
+        }
+
+        return "false";
+    }
+    
     @RequestMapping (value = "/updateRecuringAction", method = RequestMethod.POST)
     public @ResponseBody String updateRecuringAction(HttpServletRequest request,
             HttpServletResponse response)throws IOException, ParseException{

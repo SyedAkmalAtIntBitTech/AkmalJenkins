@@ -80,6 +80,7 @@
     var email_list_name = "";
     var template_id = 0;
     var days = 0;
+    var entity_no_email_template = "";
     var entity_id = 0;
     var type = "";
     var program_id = "";
@@ -110,6 +111,7 @@
                 data: JSON.stringify(entity_details)
             }).success(function(data, status){
                 $scope.entity_details = data;
+                alert(JSON.stringify(data));
                 $scope.showEmailList();
                 showEmailListName(data.recuring_email_email_list_name);
                 days = data.recuring_email_days;
@@ -170,7 +172,9 @@
 //                        var schedule_time_epoch = Date.parse(schedule_time);
 //                        alert(schedule_time_epoch);
                 var $iframe = $('.fr-iframe');
-                var html_data = $iframe.contents().find("html").html();
+                var html_data = $('#edit').froalaEditor('html.get');
+                
+//                var html_data = $iframe.contents().find("html").html();
                 html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
 
                 if ( type == 'add'){
@@ -204,6 +208,40 @@
                         // or server returns response with an error status.
                     });
 
+                }else if ((type == 'template') && (entity_no_email_template == "true")){
+                    var recuring_action = {
+                        
+                        "entity_id" : entity_id, 
+                        "days":days, "emaillist":emaillist, 
+                        "to_email_addresses": emails,
+                        "subject":subject, "from_name":from_name,
+                        "reply_to_address":reply_to_address,
+                        "recuring_email_title":recuring_email_title,
+                        "recuring_email_description":recuring_email_description,
+                        "till_date_epoch":till_date_epoch,
+                        "schedule_time_epoch": schedule_time,
+                        "program_id" :program_id 
+                    };
+
+                    $http({
+                        method: 'POST',
+                        url: 'addupdateRecuringAction.do',
+                        headers: {'Content-Type':'application/json'},
+                        data: JSON.stringify(recuring_action)
+                    }).success(function (data, status, headers, config) {
+                        if((data == "true") && (entity_no_email_template == "true")) {
+                            alert("details saved succesfully");
+                            $("#emailautomationcontent").hide();
+                            $("#emlautomeditorcontainer").show();
+                        }else {
+                            alert("problem saving the record");
+                        }
+                    }).error(function (data, status, headers, config) {
+                        alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+
                 }else if((type == 'edit')||(type == 'template')){
                     alert(emails);
 
@@ -227,12 +265,13 @@
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
-                        if (data === "true") {
+                        if ((data === "true")) {
                             alert("details saved succesfully");
                             window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
                         }else {
                             alert("problem saving the record");
                         }
+                        
                     }).error(function (data, status, headers, config) {
                         alert("No data available, problem fetching the data");
                         // called asynchronously if an error occurs
@@ -248,8 +287,9 @@
         $scope.showHTMLData = function(html_data, id){
                 var $iframe = $('.fr-iframe');
 //                         $(".fr-iframe").empty();
-                $iframe.contents().find("body").empty();
-                $iframe.contents().find("body").append(html_data);
+                $('#edit').froalaEditor('html.set',''+html_data+'');
+//                $iframe.contents().find("body").empty();
+//                $iframe.contents().find("body").append(html_data);
                 template_id = id;
         };
 
@@ -355,8 +395,25 @@
 //                });
                 
             }else if (type == 'template'){
-                $("#emailautomationcontent").hide();
-                $("#emlautomeditorcontainer").show();
+                
+                    setTimeout(
+                        function() 
+                        {
+                          //do something special
+                         // alert("delay");
+                          //$("#select option").filter(".a0").attr('selected','selected');
+                        if (validate()){
+                            $("#emailautomationcontent").hide();
+                            $("#emlautomeditorcontainer").show();
+                            entity_no_email_template = "false";
+                        }else {
+                            entity_no_email_template = "true";
+                            $("#emailautomationcontent").show();
+                            $("#emlautomeditorcontainer").hide();
+                        }
+                    }, 1000);
+                
+                
             }else if (type == 'add'){
                 $("#emailautomationcontent").show();
                 $("#emlautomeditorcontainer").hide();
@@ -554,7 +611,7 @@
                                 </script>
                             </li>
                             <li>
-                                <p class="daystxt fontpnr">Select a date:</p>
+                                <p class="daystxt fontpnr">Select a till date:</p>
                             </li>
                             <li>
                                 <input type="text" readonly  name="datepicker" 
