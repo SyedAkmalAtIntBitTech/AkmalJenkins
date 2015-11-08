@@ -57,6 +57,9 @@
         %>
         
         <script>
+            $(document).ready(function (){
+                $("#soc,#eml,#prnt,#dwnld").hide();
+            });
             var print = "print";
             var download = "image";
             function selected_media(selectedmedia) {
@@ -90,6 +93,11 @@
                         headers: {'Content-Type': 'application/json'},
                         data: category
                     }).success(function (data, status, headers, config) {
+                        if($scope.email_templates !== 0){$("#eml").show();}
+                        if($scope.social_templates !== 0){$("#soc").show();}
+                        if($scope.social_temlates_print !== 0){$("#prnt").show();}
+                        if($scope.social_temlates_download !== 0){$("#dwnld").show();}
+                                     
                         $scope.email_templates = data.email_template_availability;
                         $scope.social_templates = data.social_template_availability;
                         $scope.social_temlates_print=data.social_template_print;
@@ -118,10 +126,10 @@
                     <p id="text3"  class="MH2" style="padding-bottom: 2%;">How would you like to promote it?</p> 
 
                     <ul id="promotebuttonlist">
-                        <li ng-show="social_templates != 0"><a onclick="selected_media('social')"><img src="images/NavIcon_Social-white.svg" id="social" class="glyphicon glyphicon-comment"/></a><p id="soceml">Social</p></li>
-                        <li ng-show="email_templates != 0"><a onclick="selected_media('emailsubject')"><img src="images/NavIcon_Email-white.svg" id="email" class="glyphicon glyphicon-envelope" style="padding-bottom:7%;"/></a><p id="soceml">Email</p></li>
-                        <li ng-show="social_temlates_print != 0"><a onclick="selected_media('print')"><img src="images/NavIcon_Social-white.svg" id="print" class="glyphicon glyphicon-comment"/></a><p id="soceml">Print</p></li>
-                        <li ng-show="social_temlates_download != 0"><a onclick="selected_media('image')"><img src="images/NavIcon_Social-white.svg" id="download" class="glyphicon glyphicon-comment"/></a><p id="soceml">Image</p></li>
+                        <li id="soc"  ng-show="social_templates != 0"><a onclick="selected_media('social')"><img src="images/NavIcon_Social-white.svg" id="social" class="glyphicon glyphicon-comment"/></a><p id="soceml">Social</p></li>
+                        <li id="eml" ng-show="email_templates != 0"><a onclick="selected_media('emailsubject')"><img src="images/NavIcon_Email-white.svg" id="email" class="glyphicon glyphicon-envelope" style="padding-bottom:7%;"/></a><p id="soceml">Email</p></li>
+                        <li id="prnt" ng-show="social_temlates_print != 0"><a onclick="selected_media('print')"><img src="images/NavIcon_Social-white.svg" id="print" class="glyphicon glyphicon-comment"/></a><p id="soceml">Print</p></li>
+                        <li id="dwnld" ng-show="social_temlates_download != 0"><a onclick="selected_media('image')"><img src="images/NavIcon_Social-white.svg" id="download" class="glyphicon glyphicon-comment"/></a><p id="soceml">Image</p></li>
 <!--                                <li><a ><span id="print" class="glyphicon glyphicon-print"></span></a><p id="promotebutton">Print</p></li>-->
                     </ul>    
                 </div>

@@ -56,6 +56,7 @@
             }
             .datafromindbody:hover{
                 background-color: #00A37A;
+                color:#fff;
             }
             .fr-box .fr-basic .fr-element {
                 max-height: 480px;
@@ -571,7 +572,7 @@
                             <div class="selblock fontpnr">Select a Block</div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-6">
-                            <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns " type="button" value="Add Block"></div>
+                            <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Add Block"></div>
                         </div> 
                         <div class="row">
                         <div class="selblklinediv"><hr class="selblkline"></div>

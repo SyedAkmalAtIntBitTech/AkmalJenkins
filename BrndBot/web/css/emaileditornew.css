@@ -38,7 +38,7 @@ and open the template in the editor.
     height: auto !important;*/
     min-height: 100% !important;
     height: 100% !important;
-    padding-bottom: 100px !important;
+    padding-bottom: 300px !important;
 }
 
 .emleditorhead{
@@ -137,7 +137,8 @@ and open the template in the editor.
 }
 .addblkbtn{
     font-size:12px;
-    padding:5px 23px 5px 21px;                 
+    padding:5px 23px 5px 8px;          
+    margin: 0px !important;
     width:103px;
     height:25px;
     background-color: #e3e3e3;
@@ -162,7 +163,7 @@ and open the template in the editor.
 .stylelist{
     margin-left: -15px;
     margin-top:49px;
-    height:650px !important;
+    height:600px !important;
     overflow-y:scroll;
     /*overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;*/
