@@ -47,13 +47,6 @@
                   height: 100%;
                   overflow: hidden;
               }
-            .btmdiv{
-                background-color: #e2e3e7;
-                position: fixed;
-                bottom: 0;
-                width: 57.5%;
-                margin-left:-16px;
-            }
             .datafromindbody:hover{
                 background-color: #00A37A;
                 color:#fff;
@@ -237,7 +230,7 @@
                             {
                             queryurl = 'GetLayoutStyles?editorType=email';
                             }
-                            alert(queryurl);
+//                            alert(queryurl);
                                     $http({
                                     method : 'GET',
                                             url : queryurl
@@ -367,10 +360,6 @@
                             if (data === error){
                     alert(data);
                     }
-
-//                            $("#loadingGif").hide();
-//                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
-
                     $("#loadingGifformindbody").hide();
                     $("#clsbtn").css("display","block");
                     $("#addblkbtn").prop('disabled', true).css("background-color","#e3e3e3").css("color","#9c9da1");
