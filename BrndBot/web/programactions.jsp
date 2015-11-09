@@ -48,6 +48,8 @@
                 $("#assoctdlnkedt").hide();
                 
                 $("#editprogdet").click(function (){
+                    var ok=confirm("Do You Really want to Edit?");
+                    if(ok==true){
                     $("#link_name").show();
                     $("#link_url").show();
                     $("#editprogdet").hide();
@@ -60,102 +62,9 @@
                     $("#assoctdlnkedt").show();
                     $("#assoctdnameedt").show();
                     $("#saveprogdet").show();
+                }
                 });
-//                $("#saveprogdet").click(function (){
-//                     var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
-//                    if($("#progactdatepicker").val() == "")
-//                    {
-//                        alert("Please Enter date of Event");
-//                        $("#progactdatepicker").focus();
-//                    }
-//                    else if(($("#link_url").val() == "") || (!myRegExp.test($("#link_url").val())))
-//                    {   
-//                        alert("Please Enter Associated link");
-//                        $("#link_url").focus();
-//                        $("#link_url").val('http://');
-//                         return false;
-//                    }
-//                    else if($("#link_name").val() == "")
-//                    {
-//                        alert("Please Enter Associated Name");
-//                        $("#link_name").focus();
-//                         return false;
-//                    }
-//                    else
-//                    {
-//                        alert("Date : "+$("#progactdatepicker").val()+"\nAssociated Link : "+$("#link_url").val()+"\nAssociated Name : "+$("#link_name").val());
-//                        alert("Program details saved Successfully!");
-//                        $("#progactdatepicker").hide();
-//                        $("#link_url").hide();
-//                        $("#link_name").hide();
-//                        $("#editprogdet").show();
-//                        $("#saveprogdet").hide();
-//                        $("#dateofevntedt").hide();
-//                        $("#dateofevntprv").show();
-//                        $("#assoctdlnkprv").show();
-//                        $("#assoctdnameprv").show();
-//                        $("#associated_link").hide();
-//                        $("#associated_name").show();
-//                        $("#assoctdlnkedt").hide();
-//                        $("#assoctdnameedt").hide();
-//                    }
-                    
-//                    else if($("#progactdatepicker").val() !== "" && $("#accostdlnkinp").val() !== ""){
-//                        //do something
-//                        //do something
-//                        alert("Date : "+$("#progactdatepicker").val()+"\nLink : "+$("#accostdlnkinp").val());
-//                        alert("Program details saved Successfully!");
-//                        $("#saveprogdet").hide();
-//                        $("#editprogdet").show();
-//                        $("#dateofevntedt").hide();
-//                        $("#assoctdlnkedt").hide(); 
-//                        $("#dateofevntprv").show();
-//                       $("#assoctdlnkprv").show();
-//                    }
-//                });
             });
-//             function checkboxclick(){
-//                 var a = $("input:checked.chckbox").length;
-//                 if(a==0)
-//                 {
-//                    $("#delemlactbtn").hide();
-//                    $("#addemlactbtn").show();
-//                 }
-//                 else if(a!=0)
-//                 {
-//                     $("#delemlactbtn").show();
-//                     $("#addemlactbtn").hide();
-//                 }
-//             }
-//             function checkboxclick1(){
-//                
-//                 var d = $("input:checked.delchckbx").length;
-//                 if(d==0)
-//                 {
-//                     $("#liPriority").show();
-//                     $("#delactbtn").hide();
-//                 }
-//                 else if(d!=0)
-//                 {
-//                     $("#liPriority").hide();
-//                     $("#delactbtn").show();
-
-//                 }
-//             }
-//             function deladdaction()
-//             {
-//                var n = $("input:checked.delchckbx").length;
-//                 if(n==0)
-//                 {   
-//                    $("#liPriority").show(); 
-//                    $("#delactbtn").hide(); 
-//                 }
-//                 else if(n!=0)
-//                 {
-//                    $("#liPriority").hide(); 
-//                    $("#delactbtn").show(); 
-//                 } 
-//             }
         function overlay(){
                 document.getElementById('light').style.display = 'block';
                 document.getElementById('fade').style.display = 'block';
@@ -179,12 +88,12 @@
                 <div id="fade" class="black_overlay"></div>
                 <div class="col-md-11 col-sm-10 col-lg-11 col-lg-offset-2 col-md-offset-2">
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="col-lg-7 col-md-7 col-sm-7">
                             <div class="markprog fontpns">{{programs.programdetails.programName}}</div>
                             <div id="editprogdet" class="edtprog fontpnr">Edit Program Details</div>
                             <div id="saveprogdet" class="edtprog fontpnr" ng-click="updateUserProgram()">Save Program Details</div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="col-lg-1 col-md-1 col-sm-1">
                             <div class="endmrkprogbtndiv fontpnr">
                                 <button type="button" class="endmrkprogbtn button 
                                                         button--moema 

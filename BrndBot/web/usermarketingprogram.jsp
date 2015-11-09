@@ -223,7 +223,7 @@
                     <div class="row" >
                         <div class="col-sm-12 col-lg-12 col-md-12">
                             <div class="markprog fontpnr">Please enter a name for this marketing program:</div>
-                            <div class="marksubline fontpnr">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            <!--<div class="marksubline fontpnr">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>-->
                             <div class="inputname">
                                 <input id="program_name" class="form-control fontpnr subinput" value="" type="text" required  placeholder="Enter Name Here">
                             </div>
@@ -232,7 +232,7 @@
                     <div class="row">
                         <div class="col-sm-5 col-lg-5 col-md-5 ">
                             <div class="datevent fontpnr">Please select a date for the event:</div>
-                            <p class="datepara">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <!--<p class="datepara">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
                             <div class="row padlft">
                                 <div class="col-md-5 col-lg-5 col-sm-6">
                                     <div class="inputday">
@@ -260,7 +260,7 @@
                         </div> 
                         <div class="col-sm-4 col-lg-4 col-md-4 ">
                             <div class="worklink fontpnr">Give a link to this workshop:</div>
-                            <p class="workpara">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <!--<p class="workpara">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
                             <div class="inputlink">
                                 <input id="program_url" value="" class="form-control subinputlink fontpnr" type="text" required  placeholder="Enter Link Ex. http://www.google.com">
                                 <input id="program_url_name" value="" class="top20nhalf form-control subinputlink fontpnr" type="text" required  placeholder="Enter Name for Link">
