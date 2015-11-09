@@ -97,7 +97,6 @@ $edit=0;
                 if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
                     if ($('#slider-button').css("margin-right") == "788px")
                     {
-                        alert("ok1");
                         $(prevSliderDialog).animate({"margin-right": '-=850px'});
                         $('#slider-button').animate({"margin-right": '-=788px'});
                     }
@@ -105,7 +104,6 @@ $edit=0;
 
                 if ($('#slider-button').css("margin-right") == "788px")
                 {
-                    alert("close");
                     $slider=0;
                     $a=0;
                     $(sliderDialog).animate({"margin-right": '-=850px'});
@@ -114,8 +112,6 @@ $edit=0;
                 }
                 else
                 {
-                    alert("open");
-                    alert(sliderDialog);
                     $(sliderDialog).animate({"margin-right": '+=850px'});
                     $('#slider-button').animate({"margin-right": '+=788px'});
                     overlay();
@@ -615,6 +611,12 @@ function programactions($scope, $http, $window){
     var millisToUTCDate = function (millis) {
         return toUTCDate(new Date(millis));
     };
+    
+      $scope.addEditRecuringAction = function(type,program_id,entity_id){
+            window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
+      };
+    
+    
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
         $edit=1;  
         if (entity_type == "email") {
@@ -923,13 +925,11 @@ function programactions($scope, $http, $window){
     
     $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName) {
          
-         alert("ok");
             $slider=2;
             sliderDialog = "#recuring_preview";
             $('#slider-button').click();
             prevSliderDialog = "#recuring_preview";
             $("#recuring_preview_email").show();
-            $("#recuring_preview").hide();
             $("#recuring_edit_email_action").hide();
             $http({
                 method: 'GET',
@@ -953,13 +953,13 @@ function programactions($scope, $http, $window){
                 }
                 if(template_status=="complete")
                 {
-                    $("#emailgreen").show();
-                    $("#emailred").hide();
+                    $("#recuringemailgreen").show();
+                    $("#recuringemailred").hide();
                 }
                 else
                 {
-                    $("#emailgreen").hide();
-                    $("#emailred").show();
+                    $("#recuringemailgreen").hide();
+                    $("#recuringemailred").show();
                 }
                 var date = new Date(schedule_time);
                 $(".content").empty();

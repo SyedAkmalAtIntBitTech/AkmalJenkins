@@ -165,7 +165,7 @@
                                              button--text-upper 
                                              button--size-s 
                                              fontpnr"  
-                                             ng-click="addRecuringAction(program_id)">
+                                             ng-click="addEditRecuringAction('add',<%=program_id%>,'0')">
                                 Add Email Automation
                                  </button>
                              </div>
@@ -191,7 +191,11 @@
                     </div>
                     <div class="row" ng-repeat="emailautomation in programs.emailautomation">
                         <div class="col-lg-1 col-md-1 col-sm-1 checkBox" >
-                            <div class="emlchkbox"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}" class="chckbox" onclick="setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}')" value="{{emailautomation.scheduledEntityListId}}" /></div>
+                            <div class="emlchkbox"><input type="checkbox" 
+                                                          ng-disabled="checkProgramStatus()" 
+                                                          id="{{emailautomation.scheduledEntityListId}}" 
+                                                          class="chckbox" 
+                                                          onclick="setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}')" value="{{emailautomation.scheduledEntityListId}}" /></div>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5">
                              <div class="listelem fontpnr">{{emailautomation.programTemplateName}}</div>
@@ -200,7 +204,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1">
                             <div class="stslst fontpnr">{{emailautomation.status}}</div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2" ng-hide="programs.programdetails.program_status=='Closed'" >
+                        <div class="col-lg-2 col-md-2 col-sm-2">
                              <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s  fontpnr" 
                                     ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId, 
                                                             emailautomation.status,
@@ -268,7 +272,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="oatlststat fontpnr">{{programaction.status}}</div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1" ng-hide="programs.programdetails.program_status=='Closed'" >
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1" >
                             <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s  fontpnr" 
                                     ng-click="getScheduleDetails(programaction.scheduledEntityListId, 
                                                             programaction.status,
@@ -451,7 +455,7 @@
                         <div class="firstcol">
                             <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status=='Closed'"  ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                             </div>
                             <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
                             
@@ -485,7 +489,8 @@
                                     </div>
                                 </div>
                                 <div class="half containe fontpnr tenpix">
-                                    {{marketing_program_name}}
+
+                                {{programs.programdetails.programName}}
                                 </div>
                             </div>
                             <div class="topfourty headtitle pfont actfnt fontpnr">
@@ -501,10 +506,12 @@
                             </div>
                             <div class="inlineFlex top120">
                                 <div class="rightthirty">
-                                    <input type="button"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc,marketing_program_name)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
+                                    <input type="button" ng-hide="programs.programdetails.program_status=='Closed'"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc,marketing_program_name)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                 </div>
                                 <div class="approve">
                                     <input type="button" value="Approve to Post" ng-show="action_status=='true'" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                    <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                    <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                 </div>
                             </div>
                         </div>
@@ -525,7 +532,7 @@
                                     <div class="circle"></div>
                                 </div>
                                 <div class="rightthirty">
-                                    <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                    <input ng-hide="programs.programdetails.program_status=='Closed'" type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                 </div>
                             </div>
                             <div id="mailpreviewdecond">
@@ -819,7 +826,7 @@
                                                 </div>
                                             </div>
                                             <div class="half containe fontpnr tenpix topten">
-                                                {{marketing_program_name}}
+                                                {{programs.programdetails.programName}}
                                             </div>
                                         </div>
                                         <div class="topthirty8 pfont actfnt fontpnr">
@@ -869,6 +876,9 @@
                                         </div>
                                         <div class="topthirty8">
                                             <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns"  ng-click="updateActionEmail()" >Save</button>                                       
+                                            <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                            <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                       
                                         </div>
                                     </div>
                                 </div>
@@ -1016,7 +1026,7 @@
                                 <div class="firstcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                        <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                        <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status=='Closed'" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                                     </div>
                                     <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
                                     <div class="topten titlecontain sixtnpix fontpns">
@@ -1052,7 +1062,7 @@
                                             </div>
                                         </div>
                                         <div class="half containe fontpnr tenpix">
-                                            {{marketing_program_name}}
+                                            {{programs.programdetails.programName}}
                                         </div>
                                     </div>
                                     <div class="topfourty headtitle pfont actfnt fontpnr">
@@ -1082,10 +1092,11 @@
                                     </div>
                                     <div class="inlineFlex topsixeight">
                                         <div class="rightthirty">
-                                            <input type="button" value="Edit" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                            <input type="button" value="Edit" ng-hide="programs.programdetails.program_status=='Closed'" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
                                         </div>
                                         <div class="approve">
                                             <input type="button" value="Approve to Post" 
+                                                   ng-show="action_status=='true'" 
                                                    ng-click="setApproveTemplate(schedule_id, 'approved')" 
                                                    class="button approvebuttonwidthheightcolor 
                                                    buttonmargin button--moema  
@@ -1114,7 +1125,7 @@
                                             <div class="circle"></div>
                                         </div>
                                         <div class="rightthirty left82">
-                                            <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                            <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status=='Closed'" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                         </div>
                                     </div>
                                     <div id="fbpreviewdecond">
@@ -1479,7 +1490,7 @@
                                             </div>
                                         </div>
                                         <div class="half containe fontpnr tenpix topten">
-                                            {{marketing_program_name}}
+                                            {{programs.programdetails.programName}}
                                         </div>
                                     </div>
                                      <div class="topthirty8 pfont actfnt fontpnr">
@@ -1542,6 +1553,9 @@
                                     </div>
                                     <div class="topthirty8">
                                         <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns" ng-click="updateActionFacebook()" >Save</button>                                       
+                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                        <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -1551,7 +1565,7 @@
                                 <div class="secondcol">
                                      <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div id="fbeditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','facebook')">REMOVED SAVED POST</div>
+                                        <div id="fbeditremove" class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status=='Closed'"   ng-click="deleteSchedule(schedule_id,'remove','facebook')">REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor tenpix fontpns">
                                         PREVIEW
@@ -1561,7 +1575,7 @@
                                             <div class="circle"></div>
                                         </div>
                                         <div class="rightthirty left82">
-                                            <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                            <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status=='Closed'" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                         </div>
                                     </div>
                                     <div id="fbpreviewdecond2">
@@ -1700,7 +1714,7 @@
                             <div class="firstcol">
                                 <div class="inlineFlex">
                                     <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                    <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')">DELETE ACTION</div>
+                                    <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status=='Closed'" ng-click="deleteSchedule(schedule_id,'delete')">DELETE ACTION</div>
                                 </div>
                                 <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
                                 <div class="topten titlecontain sixtnpix fontpns">
@@ -1740,7 +1754,7 @@
                                         </div>
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        {{marketing_program_name}}
+                                        {{programs.programdetails.programName}}
                                     </div>
                                 </div>
                                 <div class="topfourty headtitle pfont actfnt fontpnr">
@@ -1760,7 +1774,7 @@
                                 </div>
                                 <div class="inlineFlex topsixeight">
                                     <div class="rightthirty">
-                                        <input type="button" value="Edit" ng-click="editScheduleDetails(
+                                        <input type="button" ng-hide="programs.programdetails.program_status=='Closed'" value="Edit" ng-click="editScheduleDetails(
                                             schedule_id, 
                                             entities_selected_time, 
                                             schedule_type, 
@@ -1768,7 +1782,9 @@
                                             schedule_desc)"  class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="twitter_button_post">
                                     </div>
                                     <div class="approve">
-                                        <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="ftwitter_approve_button_post">
+                                        <input type="button" ng-show="action_status=='true'" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="ftwitter_approve_button_post">
+                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                        <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                     </div>
                                 </div>
                             </div>
@@ -1835,7 +1851,7 @@
                                     <div class="circle"></div>
                                 </div>
                                 <div class="rightthirty left82">
-                                    <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                    <input type="button" ng-hide="programs.programdetails.program_status=='Closed'" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                 </div>
                             </div>
                             <div id="twpreviewdecond">
@@ -1992,7 +2008,7 @@
                                                 </div>
                                             </div>
                                             <div class="half containe fontpnr tenpix topten">
-                                                {{marketing_program_name}}
+                                                {{programs.programdetails.programName}}
                                             </div>
                                         </div>
                                          <div class="topthirty8 pfont actfnt fontpnr">
@@ -2107,7 +2123,7 @@
                                 <div class="firstcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                        <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                        <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status=='Closed'" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                                     </div>
                                     <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
 
@@ -2131,17 +2147,17 @@
                                     <div class="inlineFlex toptnine">
                                         <div class="half containe fontpnr tenpix">
                                              <div class="inlineFlex">
-                                                <div class="rightfive toptwo" id="emailred">
+                                                <div class="rightfive toptwo" id="recuringemailred">
                                                     <div class="redDot"></div>
                                                 </div>
-                                                 <div class="rightfive toptwo" id="emailgreen">
+                                                 <div class="rightfive toptwo" id="recuringemailgreen">
                                                     <div class="greenDot"></div>
                                                 </div>
                                                 <div class="containe tenpix fontpnr ">{{email_template_status}}</div>
                                             </div>
                                         </div>
                                         <div class="half containe fontpnr tenpix">
-                                            {{marketing_program_name}}
+                                            {{programs.programdetails.programName}}
                                         </div>
                                     </div>
                                     <div class="topfourty headtitle pfont actfnt fontpnr">
@@ -2155,10 +2171,12 @@
                                     </div>
                                     <div class="inlineFlex top120">
                                         <div class="rightthirty">
-                                            <input type="button"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc,marketing_program_name)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
+                                            <input type="button" ng-hide="programs.programdetails.program_status=='Closed'" ng-click="addEditRecuringAction('edit',<%=program_id%>,schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                         </div>
                                         <div class="approve">
-                                            <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                            <input type="button" value="Approve to Post" ng-show="action_status=='true'" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                            <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                            <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                         </div>
                                     </div>
                                 </div>
@@ -2179,7 +2197,7 @@
                                             <div class="circle"></div>
                                         </div>
                                         <div class="rightthirty">
-                                            <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                            <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status=='Closed'"  ng-click="addEditRecuringAction('template',<%=program_id%>,schedule_id)"  class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                         </div>
                                     </div>
                                     <div id="mailpreviewdecond5">
@@ -2239,6 +2257,7 @@
 
                         </div>
                     </div>
+<<<<<<< HEAD
 <!--                    <div id="edit_email_action" >
                         <h1 class="SP1 actfnt">UPDATE ACTION</h1>
                         <form class="form-horizontal" id="signform">
@@ -2547,7 +2566,6 @@
                             </div>
                         </div>-->
                     </div>
-               
             </div>
 
             <div id="light" class="white_content closepopup">
