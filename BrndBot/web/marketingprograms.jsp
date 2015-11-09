@@ -53,11 +53,11 @@
                             <button ng-click="submitclick()" type="submit" class="contbtn1 button button--moema button--text-thick button--text-upper button--size-s">continue</button>
                         </div>
                     </div>
-                    <div class="row">
+<!--                    <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">                        
                             <p class="cattxt fontpnr">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
                         </div>
-                    </div>
+                    </div>-->
                     </div>
                </div> 
                 <div class="row">
