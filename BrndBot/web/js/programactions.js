@@ -112,7 +112,6 @@ $edit=0;
                 }
                 else
                 {
-                    $("#recuring_preview_email").show();
                     $(sliderDialog).animate({"margin-right": '+=850px'});
                     $('#slider-button').animate({"margin-right": '+=788px'});
                     overlay();
@@ -527,10 +526,6 @@ function programactions($scope, $http, $window){
             // or server returns response with an error status.
         });
     };
-
-    $scope.addEditRecuringAction = function(type,program_id,entity_id){
-            window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
-
          $scope.checkProgramStatus= function (){
             var status;
             if(program_status === "Closed"){
@@ -545,7 +540,6 @@ function programactions($scope, $http, $window){
     $scope.addRecuringAction = function(program_id){
         alert(program_id);
         window.open(getHost() + 'emailautomation.jsp?type=add&program_id='+program_id+'&entity_id=0', "_self");
-
     };
     
     $scope.setEntityId = function(entity_list_Id, days){
@@ -594,6 +588,12 @@ function programactions($scope, $http, $window){
     var millisToUTCDate = function (millis) {
         return toUTCDate(new Date(millis));
     };
+    
+      $scope.addEditRecuringAction = function(type,program_id,entity_id){
+            window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
+      };
+    
+    
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
         $edit=1;  
         if (entity_type == "email") {
@@ -901,13 +901,13 @@ function programactions($scope, $http, $window){
     };
     
     $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName) {
-           
+         
             $slider=2;
             sliderDialog = "#recuring_preview";
             $('#slider-button').click();
             prevSliderDialog = "#recuring_preview";
             $("#recuring_preview_email").show();
-            $("#recuring_edit_email").hide();
+            $("#recuring_edit_email_action").hide();
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
@@ -937,7 +937,7 @@ function programactions($scope, $http, $window){
                 {
                     $("#recuringemailgreen").hide();
                     $("#recuringemailred").show();
-               }
+                }
                 var date = new Date(schedule_time);
                 $(".content").empty();
                 $(".content").append(data.body);
@@ -956,9 +956,10 @@ function programactions($scope, $http, $window){
             });
     };
     
-    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, post_time) {
+    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, post_time) {
        
         if (entity_type == "email") {
+            
             $slider=2;
             sliderDialog = "#preview";
             $('#slider-button').click();
@@ -996,12 +997,12 @@ function programactions($scope, $http, $window){
                     $("#emailgreen").hide();
                     $("#emailred").show();
                 }
-                //var date = new Date(schedule_time);
+                var date = new Date(schedule_time);
                 $(".content").empty();
                 $(".content").append(data.body);
 //                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
                 
-                $scope.entities_selected_date = schedule_date;
+                $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
@@ -1052,15 +1053,15 @@ function programactions($scope, $http, $window){
                     $('#isFacebook').val("true");
                     $('#isTwitter').val("false");
                 }
-                alert("ok");
-                $scope.entities_selected_date = schedule_date;
+                
+                var date = new Date(schedule_time);
+                $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 $scope.schedule_desc = schedule_desc;
                 $scope.facebook_template_status = template_status;
                 $scope.schedule_type = entity_type;
-                $scope.marketing_program_name = schedule_title;
-                $scope.post_time=post_time;
+                $scope.marketing_program_name = marketingName;
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -1104,15 +1105,15 @@ function programactions($scope, $http, $window){
                     $('#isTwitter').val("true");
                 }
 
-                $scope.entities_selected_date = schedule_date;
+                var date = new Date(schedule_time);
+                $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.twitter_template_status = template_status;
                 $scope.schedule_type = entity_type;
-                $scope.marketing_program_name = schedule_title;
-                $scope.post_time=post_time;
+                $scope.marketing_program_name = marketingName;
             }).error(function (data) {
                 alert("request not successful");
             });

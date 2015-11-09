@@ -423,17 +423,20 @@
 }
 #recuring_preview{
      z-index:1005;
-                height:100%;
-                overflow-y:auto;
-                position:fixed;
-                max-height:100%;
-                background:#ffffff;
-                width:850px;
-                right:0px;
-                margin-right: -850px;
-                border: 1px solid #ccc;
+     height:100%;
+     overflow-y:auto;
+     position:fixed;
+     max-height:100%;
+     background:#ffffff;
+     width:850px;
+     right:0px;
+     margin-right: -850px;
+     border: 1px solid #ccc;
 }
-
+.hide1,.hide2
+{
+    
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
             .timepicker_wrap {
