@@ -30,6 +30,13 @@ public interface MarketingProgramService {
    public List<TblMarketingProgram> getAllTblMarketingProgram() throws Throwable;
    
    /**
+	 * This method retrieves all {@link MarketingProgram}
+	 * @return {@link MarketingProgram}
+	 * @throws java.lang.Throwable 
+    */
+   public List<TblMarketingProgram> getAllTblMarketingProgramForCategory(Integer categoryId) throws Throwable;
+
+   /**
 	 * This method retrieves all for a category and user{@link MarketingProgram}
          * @param marketingCategoryId
          * @param userId

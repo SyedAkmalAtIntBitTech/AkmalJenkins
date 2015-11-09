@@ -50,12 +50,14 @@ public class MarketingProgramController {
     private MarketingProgramUsersService marketingprogramusers;
 
     @RequestMapping(value = "/getMarketingPrograms", method = RequestMethod.GET)
-    public @ResponseBody
-    String getMarketingPrograms() {
+    public @ResponseBody String getMarketingPrograms(HttpServletRequest request,
+            HttpServletResponse response,@RequestParam("marketingCategoryId") Integer marketingCategoryId ) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
 
-            List<TblMarketingProgram> MarketingPrograms = marketingprogramservice.getAllTblMarketingProgram();
+            sql_methods.session = request.getSession(true);
+            Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+            List<TblMarketingProgram> MarketingPrograms = marketingprogramservice.getAllTblMarketingProgramForCategory(marketingCategoryId);
             Integer i = 1;
             for (TblMarketingProgram marketing_program : MarketingPrograms) {
 
@@ -72,7 +74,6 @@ public class MarketingProgramController {
             }
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);
-
         }
         return json_array_marketing_program.toString();
     }
@@ -147,7 +148,7 @@ public class MarketingProgramController {
     String getMarketingProgramForCategoryUser(HttpServletRequest request,
             HttpServletResponse response, @RequestParam("marketingCategoryId") Integer marketingCategoryId) {
         try {
-            sql_methods.session = request.getSession();
+            sql_methods.session = request.getSession(true);
             Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
             System.out.println(marketingCategoryId.toString() + ":" + user_id.toString());
             List<TblMarketingProgramUsersLookup> marketingProgramList = marketingprogramservice.getAllTblMarketingProgramForCategory(marketingCategoryId, user_id);
