@@ -27,8 +27,6 @@
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/dashboard.js"></script>
-        
-        
 <%! 
     String program_id = "";
 %>        
@@ -141,6 +139,7 @@
 //                 {
 //                     $("#liPriority").hide();
 //                     $("#delactbtn").show();
+
 //                 }
 //             }
 //             function deladdaction()
@@ -281,12 +280,12 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <hr class="emlautomline">
+                            <hr class="emlautomline">   
                         </div>
                     </div>
                     <div class="row" ng-repeat="emailautomation in programs.emailautomation">
-                        <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="emlchkbox"><input type="checkbox" id="{{emailautomation.scheduledEntityListId}}" class="chckbox" onclick="setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}')" value="{{emailautomation.scheduledEntityListId}}" /></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 checkBox" >
+                            <div class="emlchkbox"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}" class="chckbox" onclick="setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}')" value="{{emailautomation.scheduledEntityListId}}" /></div>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5">
                              <div class="listelem fontpnr">{{emailautomation.programTemplateName}}</div>
@@ -295,7 +294,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1">
                             <div class="stslst fontpnr">{{emailautomation.status}}</div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="col-lg-2 col-md-2 col-sm-2" ng-hide="programs.programdetails.program_status=='Closed'" >
                              <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s  fontpnr" 
                                     ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId, 
                                                             emailautomation.status,
@@ -347,8 +346,8 @@
                         </div>
                     </div>
                     <div class="row" ng-repeat="programaction in programs.programactions">
-                        <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="emlchkbox"><input type="checkbox" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" /></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1"  >
+                            <div class="emlchkbox"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" /></div>
                         </div>
                          <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="listelem fontpnr">{{programaction.programTemplateName}}</div>
@@ -363,7 +362,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="oatlststat fontpnr">{{programaction.status}}</div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1" ng-hide="programs.programdetails.program_status=='Closed'" >
                             <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s  fontpnr" 
                                     ng-click="getScheduleDetails(programaction.scheduledEntityListId, 
                                                             programaction.status,
