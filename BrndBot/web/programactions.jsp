@@ -125,7 +125,7 @@
                                                               button--text-thick 
                                                               button--text-upper 
                                                               button--size-s 
-                                                              fontpnr" ng-click="addRecuringAction(program_id)">
+                                                              fontpnr">
                                 Add Email Automation</button>
                              </div>
                         </div>
@@ -151,15 +151,15 @@
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                              <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s  fontpnr" 
-                                    ng-click="getScheduleDetails(emailautomation.schedule_id, 
-                                                            emailautomation.template_status,
-                                                            emailautomation.schedule_time, 
-                                                            emailautomation.entity_type, 
-                                                            emailautomation.schedule_title, 
-                                                            emailautomation.schedule_description,
-                                                            emailautomation.marketingName)">Details
+                                    ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId, 
+                                                            emailautomation.status,
+                                                            emailautomation.dateTime,
+                                                            emailautomation.actionType, 
+                                                            emailautomation.programTemplateName, 
+                                                            emailautomation.description, 
+                                                            emailautomation.programTemplateName)">Details
                             </button>
-<!--                            <button type="button" 
+<!--                         <button type="button" 
                                     ng-click="setEntityId(emailautomation.scheduledEntityListId, emailautomation.days)" 
                                     class="emledtbtn button 
                                            button--moema button--text-thick 
@@ -224,7 +224,7 @@
                                                             programaction.actionType, 
                                                             programaction.programTemplateName, 
                                                             programaction.description, 
-                                                            programaction.programTemplateName)">Details</button>
+                                                            programaction.postTime)">Details</button>
                         </div>
                         <div class="otactlstlinediv">
                         <hr class="otactlstline">
@@ -239,7 +239,7 @@
                 </div>
            
                 
-              <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;" >
+            <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;" >
                 <form class="form-horizontal" id="signfrm" >
                 <div class="addactcol">
                     <div class="inlineFlex">
@@ -433,8 +433,7 @@
                                     </div>
                                 </div>
                                 <div class="half containe fontpnr tenpix">
-                                    {{marketing_program_name}}
-                                </div>
+                                    {{marketing_program_name}}                                </div>
                             </div>
                             <div class="topfourty headtitle pfont actfnt fontpnr">
                                 POSTING DETAILS
@@ -443,7 +442,9 @@
                                 SCHEDULED TO POST ON
                             </div>
                             <div class="containe fontpnr tenpix">
+                                
                                 {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}
+
                             </div>
                             <div class="inlineFlex top120">
                                 <div class="rightthirty">
@@ -1630,8 +1631,6 @@
                     </div>                        
             </div>
 
-
-
             <div id="previewtwitter" class="pollSlider">
                 <div id="preview_twitter" class="inlineFlex">
                     <div class="half">
@@ -2035,6 +2034,458 @@
                            <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
                                 style="display:none;"/>
                            </div> 
+            </div>
+                
+            <div id="recuring_preview">
+                
+                    <div id="recuring_preview_email">
+                        <div class="inlineFlex">
+                            <div class="half">
+                            <div class="borderright">
+                                <div class="firstcol">
+                                    <div class="inlineFlex">
+                                        <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
+                                        <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                    </div>
+                                    <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+
+                                    <div class="topten titlecontain sixtnpix fontpns">
+                                        {{schedule_title}}
+                                    </div>
+                                    <div class="toptweentyone headcolor tenpix fontpns">
+                                        DESCRIPTION
+                                    </div>
+                                    <div class="height75 scrolly topten">
+                                        <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
+                                    </div>
+                                    <div class="inlineFlex toptweenty">
+                                        <div class="half headcolor fontpns tenpix">
+                                            STATUS
+                                        </div>
+                                        <div class="half headcolor fontpns tenpix">
+                                            MARKETING PROGRAM
+                                        </div>
+                                    </div>
+                                    <div class="inlineFlex toptnine">
+                                        <div class="half containe fontpnr tenpix">
+                                             <div class="inlineFlex">
+                                                <div class="rightfive toptwo" id="emailred">
+                                                    <div class="redDot"></div>
+                                                </div>
+                                                 <div class="rightfive toptwo" id="emailgreen">
+                                                    <div class="greenDot"></div>
+                                                </div>
+                                                <div class="containe tenpix fontpnr ">{{email_template_status}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="half containe fontpnr tenpix">
+                                            {{marketing_program_name}}
+                                        </div>
+                                    </div>
+                                    <div class="topfourty headtitle pfont actfnt fontpnr">
+                                        POSTING DETAILS
+                                    </div>
+                                    <div class="toptweenty headcolor tenpix fontpns">
+                                        SCHEDULED TO POST ON
+                                    </div>
+                                    <div class="containe fontpnr tenpix">
+                                        {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}
+                                    </div>
+                                    <div class="inlineFlex top120">
+                                        <div class="rightthirty">
+                                            <input type="button"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc,marketing_program_name)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
+                                        </div>
+                                        <div class="approve">
+                                            <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="half">
+                                <div class="secondcol">
+                                    <div class="inlineFlex">
+                                        <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
+                                        <div id="mailpreviewremove6" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','email')">REMOVED SAVED POST</div>
+                                    </div>
+                                    <div class="toptweentyone headcolor tenpix fontpns">
+                                        PREVIEW
+                                    </div>
+                                     <div id="mailremovedtemplate6">
+                                        <div class="rectangle">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="rightthirty">
+                                            <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                        </div>
+                                    </div>
+                                    <div id="mailpreviewdecond5">
+        <!--                                <div id="imgcontainer"  style="display:none;">
+                                                    <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                                </div> entitiesdetails-->
+                                       <!-- <div class="content"><!-- <div class="content"></div> -->
+                                        <!--    <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
+                                        </div> -->
+                                        <div class="topten"><!-- <div class="content"></div> -->
+        <!--                                <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
+                                            <div class="content">
+                                                <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                            </div>
+                                        </div>
+                                        <div class="top27 headcolor tenpix fontpns">
+                                            SUBJECT LINE
+                                        </div>
+                                        <div class="containe fontpnr tenpix">
+                                            September 5, 2015 at 2:02 PM
+                                        </div>
+                                        <div class="inlineFlex toptweenty">
+                                            <div class="half headcolor fontpns tenpix">
+                                                TO EMAIL LIST
+                                            </div>
+                                            <div class="half headcolor fontpns tenpix">
+                                                ADDITIONAL EMAIL LIST
+                                            </div>
+                                        </div>
+                                        <div class="inlineFlex toptnine">
+                                            <div class="half containe fontpnr tenpix">
+                                                To mail list text
+                                            </div>
+                                            <div class="half containe fontpnr tenpix">
+                                                Additional mail list text
+                                            </div>
+                                        </div>
+                                         <div class="inlineFlex toptweenty">
+                                            <div class="half headcolor fontpns tenpix">
+                                                FROM NAME
+                                            </div>
+                                            <div class="half headcolor fontpns tenpix">
+                                                From name text
+                                            </div>
+                                        </div>
+                                        <div class="inlineFlex toptnine">
+                                            <div class="half containe fontpnr tenpix">
+                                                FROM EMAIL ADDRESS
+                                            </div>
+                                            <div class="half containe fontpnr tenpix">
+                                                From email address
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+<!--                    <div id="edit_email_action" >
+                        <h1 class="SP1 actfnt">UPDATE ACTION</h1>
+                        <form class="form-horizontal" id="signform">
+
+                            <div class="group">
+                                <div class="col-md-4 col-md-offset-1 ">                            
+                                    <input id="email_edit_title" class=" inputbox MH2" type="text" name="email_edit_title" value="{{schedule_title}}" style="position:relative;top:7px;line-height:40px;width:400px;font-size:26px;"/>
+                                    <p><input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+
+                                                                        <label>TITLE</label>
+                                </div><br>
+                                <div style="position:absolute;left:60px;top:60px;" class="SH2">
+                                    <p class="SP1 actfnt" style="font-weight:400;">{{schedule_type}}</p>
+                                    <p><input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                </div>
+                                <div style="position:absolute;top:110px;left:60px;" class="SP1 actfnt">
+                                    Description <br><textarea cols="28" rows="2" name="email_description" id="email_description" class="SS2" style="font-variant:normal;resize: none;">{{schedule_desc}}</textarea>
+                                </div>
+                                <div class="SH2" style="position:absolute; margin-top: 190px; margin-left: 60px;" >
+                                    <p class="SP1 actfnt" style="font-weight:400;font-size:1.2em;">Selected Date: {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p><br>
+                                    <div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;">Date</div>
+                                    <input type="datetime-local" name="emaildatetime" id="emaildatetime" class="inputdate MH1"/>
+
+                                    <input type="text" readonly class="inputdate MH1 ptr" name="emaildatetime" id="emaildatetime" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">
+                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('emaildatetime'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                        </script>
+                                        <div class="SP1 actfnt" style="font-weight:500;font-size:1.2em;margin-left:150px;margin-top:-63px;">Time
+                                    <input id="timepickeremail" type="text" name="timepicker_email" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/>
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#timepickeremail').timepicki();
+                                    </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                                        </div>
+                                        
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="width:250px;position:absolute;top:380px;left:35px;">
+
+                                    <div class="row">
+                                        <div>
+                                            <div class="col-md-6" id="dvButtonContainer">
+                                                <input type="button" value="Save" 
+                                                       class="button button--moema 
+                                                       button--text-thick 
+                                                       button--text-upper 
+                                                       button--size-s" 
+                                                       ng-click="updateActionEmail()" 
+                                                       style="width:100px;" />
+                                            </div>
+                                            <div class="col-md-6" id="dvButtonContainer">
+                                                <input type="reset" value="Cancel" 
+                                                       class="button button--moema 
+                                                       button--text-thick 
+                                                       button--text-upper 
+                                                       button--size-s" 
+                                                       style="width:100px;" onclick="cancelform();"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>                            
+                    </div>-->
+                    <div id="recuring_edit_email">
+                        <div  class="inlineFlex">
+                            <div class="half">
+                                <div class="borderright" style="height: 578px;">
+                                    <div class="firstcol">
+                                        <div class="inlineFlex">
+                                            <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
+                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                        </div>
+                                        <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                                        <div class="topten titlecontain sixtnpix fontpns">
+                                           <textarea id="email_edit_title" name="email_edit_title" class="actiondetinput fontpns">{{schedule_title}}</textarea>
+                                           <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' />
+                                           <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}'/></p>
+                                        </div>
+                                        <div class="top12 headcolor tenpix fontpns">
+                                            DESCRIPTION
+                                        </div>
+                                        <div class="height75 topten">
+                                            <p class="containe twlvpix fontpnr">
+                                                <textarea class="actiondetdesc"id="email_description" name="email_description">{{schedule_desc}}</textarea></p>
+                                        </div>
+                                        <div class="inlineFlex topten">
+                                            <div class="half headcolor fontpns tenpix topten">
+                                                STATUS
+                                            </div>
+                                            <div class="half headcolor fontpns tenpix topten">
+                                                MARKETING PROGRAM
+                                            </div>
+                                        </div>
+                                        <div class="inlineFlex toptnine">
+                                            <div class="half containe fontpnr tenpix">
+                                                <div class="inlineFlex" id="mailnotemplate5">
+                                                    <div class="rightfive toptwo">
+                                                        <div class="redDot"></div>
+                                                    </div>
+                                                    <div class="containe tenpix fontpnr ">No Template</div>
+                                                </div>
+                                                <div class="inlineFlex" id="mailtemplatesaved5">
+                                                    <div class="rightfive toptwo">
+                                                        <div class="greenDot"></div>
+                                                    </div>
+                                                    <div class="containe tenpix fontpnr ">Template Saved</div>
+                                                </div>
+                                            </div>
+                                            <div class="half containe fontpnr tenpix topten">
+                                                {{marketing_program_name}}
+                                            </div>
+                                        </div>
+                                        <div class="topthirty8 pfont actfnt fontpnr">
+                                            POSTING DETAILS
+                                        </div>
+                                        <div class="topnineteen tenpix fontpns postto">  
+                                            POSTING TO
+                                        </div>
+                                        <div class="containe fontpnr twlvpix topten">
+                                            {{schedule_type}}
+                                        </div>
+                                        <div class="toptweenty headcolor tenpix fontpns">
+                                            SCHEDULED TO POST ON
+                                        </div>
+                                        <div class="inlineFlex">
+                                            <div class="half">
+                                                <div class=" containe fontpnr tenpix topten">
+                                                    Day
+                                                </div>
+                                                <div class="topsix">
+                                                    <input type="text" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
+                                                    <script>
+                                                var picker = new Pikaday(
+                                                {
+                                                    field: document.getElementById('emaildatetime'),
+                                                    firstDay: 1,
+                                                    minDate: new Date(2000, 0, 1),
+                                                    maxDate: new Date(2050, 12, 31),
+                                                    yearRange: [2000,2050]
+                                                });
+
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <div class="half">
+                                                <div class=" containe fontpnr tenpix topten">
+                                                    Time
+                                                </div>
+                                                <div class="topsix">
+                                                    <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                                                    <script src="js/timepicki.js" type="text/javascript"></script>
+                                                    <script>
+                                                        $('#timepickeremail').timepicki();
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="topthirty8">
+                                            <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns"  ng-click="updateActionEmail()" >Save</button>                                       
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+
+                            <div class="half">
+                        <div class="secondcol">
+                            <div class="inlineFlex">
+                                <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
+                                <div id="maileditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','email')">REMOVED SAVED POST</div>
+                            </div>
+                            <div class="toptweentyone headcolor tenpix fontpns">
+                                PREVIEW
+                            </div>
+                             <div id="mailremovedtemplate6">
+                                <div class="rectangle">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="rightthirty">
+                                    <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                </div>
+                            </div>
+                            <div id="mailpreviewdecond6">
+                                <div class="topten"><!-- <div class="content"></div> -->
+<!--                                    <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
+                                    <div class="content">
+                                        <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                    </div>
+                                </div>
+                                <div class="top27 headcolor tenpix fontpns">
+                                    SUBJECT LINE
+                                </div>
+                                <div class="containe fontpnr tenpix">
+                                    September 5, 2015 at 2:02 PM
+                                </div>
+                                <div class="inlineFlex toptweenty">
+                                    <div class="half headcolor fontpns tenpix">
+                                        TO EMAIL LIST
+                                    </div>
+                                    <div class="half headcolor fontpns tenpix">
+                                        ADDITIONAL EMAIL LIST
+                                    </div>
+                                </div>
+                                <div class="inlineFlex toptnine">
+                                    <div class="half containe fontpnr tenpix">
+                                        To mail list text
+                                    </div>
+                                    <div class="half containe fontpnr tenpix">
+                                        Additional mail list text
+                                    </div>
+                                </div>
+                                 <div class="inlineFlex toptweenty">
+                                    <div class="half headcolor fontpns tenpix">
+                                        FROM NAME
+                                    </div>
+                                    <div class="half headcolor fontpns tenpix">
+                                        From name text
+                                    </div>
+                                </div>
+                                <div class="inlineFlex toptnine">
+                                    <div class="half containe fontpnr tenpix">
+                                        FROM EMAIL ADDRESS
+                                    </div>
+                                    <div class="half containe fontpnr tenpix">
+                                        From email address
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                        
+<!--                        <div style="position:relative;left:50px;;">
+                            <div class="actiondetails actiondet">
+                                <p class="SP2 actfnt">ACTION DETAILS</p>
+                                <p><input type="text" class="inputbox MH2" id="email_entitytitle" name="email_entitytitle" value="{{schedule_title}}" style="position:relative;top:7px;line-height:30px;width:300px;font-size:20px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="email_schedule_id" id="email_schedule_id" value='{{schedule_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="email_entity_id" id="email_entity_id" value='{{entitiesdetails.schedule_email_id}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="email_entity_body" id="email_entity_body" value='{{entitiesdetails.body}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+                                <p><input class="inputbox SP1" type="hidden" name="email_entity_from_name" id="email_entity_from_name" value='{{entitiesdetails.from_name}}' style="position:relative;top:10px;font-size:15px;font-weight:400;line-height:10px;width:300px;"/></p>
+
+                                <br><p class="SP1 actfnt">Saved Email </p><div class="SP2 actfnt" style="margin-left:150px;margin-top:-25px;font-size:14px;font-weight:500;color:#444;">PREVIEW</div>
+                            </div>
+                            <div class="row" style="width:400px;">
+                                <div class="col-md-3">
+                                    <div class="editcontent"></div>
+                                </div>
+
+                                <div class="col-md-6" id="popupright_panel" >
+                                                                            <div><label>subject</label></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">Subject Line </p><input type="text" class="inputbox SS2" name="email_entitysubject" id="email_entitysubject" value="{{entitiesdetails.subject}}"/></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">To</p><input type="text" class="inputbox" name="email_entitytoaddress" id="email_entitytoaddress" value="{{entitiesdetails.to_email_addresses}}"></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">From</p><input type="text" class="inputbox" name="email_entityfromaddress" id="email_entityfromaddress" value="{{entitiesdetails.from_address}}"></div>
+                                    <div><p class="SP2 actfnt" style="font-weight:400;">Reply To</p><input type="text" class="inputbox" name="email_entityreplytoaddress" id="email_entityreplytoaddress" value="{{entitiesdetails.reply_to_email_address}}"></div>
+                                </div>
+                            </div>
+                            <div style="position: relative;margin-left:0px;margin-top:0px;">
+                                <p class=" postdet SP1 actfnt">SENDING DETAIL</p>
+                                <div class="actiondet" >
+                                    <select class="SP1" id="chooseEmailList" class="actiondropdown" name="chooseEmailList" style="position: relative;margin-left:15px">
+                                        <option style="background:#fff;" value="0">Select</option>
+                                        <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                                    </select>
+                                    <p class="SP1 actfnt" style="font-weight:400;">{{entitiesdetails.email_list_name}}</p>
+                                    <div class="SH2" style="position:absolute;margin-top:10px;left:15px;" >
+                                  
+                                        <div class="SP1 actfnt"  style="font-size:1.2em;"> Date</div>
+                                <input type="text" readonly  name="email_schedule_datetime" id="email_schedule_datetime"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('email_schedule_datetime'),
+                                        firstDay: 1,
+                                        minDate: new Date(2000, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [2000,2050]
+                                    });
+
+                                        </script>
+                                       <div class="SP1 actfnt"  style="font-size:1.2em;margin-left:150px;margin-top:-63px;"> Time
+                                           <input id="timepickeremailaction" type="text" name="timepickeremail" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                                     <script src="js/timepicki.js" type="text/javascript"></script>
+                                    <script>
+                                        $('#timepickeremailaction').timepicki();
+                                    </script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                                    </div></div>
+                                    <div style="position:relative;margin-top: 100px;"> 
+                                    <input type="datetime-local" class="inputdate postdet " name="email_schedule_datetime" id="email_schedule_datetime"/>
+                                    <p class="SP1 actfnt" style="font-weight:400;">Schedule for {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}</p>
+                                    <div class="editbutton"><button ng-click="deleteSchedule(schedule_id,'remove')" class="button button--moema button--text-thin button--text-upper button--size-s" style="background-color:#444;width:230px;" type="button">REMOVE SAVED TEMPLATE</button> </div>
+                                    <div class="editbutton"><button ng-click="updateEmailSchedule()" class="button button--moema button--text-thin button--text-upper button--size-s" type="button">save</button> </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>-->
+                    </div>
+               
             </div>
 
             <div id="light" class="white_content closepopup">

@@ -975,6 +975,7 @@ function controllerMarketingCampaign($scope, $http) {
         var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var myDate = new Date(l); // Your timezone!
+        var days=0;
         
         var schedule_time = Date.parse(l);
         console.log("Epoch: " + schedule_time);
@@ -986,7 +987,7 @@ function controllerMarketingCampaign($scope, $http) {
 
         if (validateaction()) {
             var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
-                "description": description, "action_date": myEpoch
+                "description": description, "action_date": myEpoch, "days":days
             };
             $http({
                 method: 'POST',
