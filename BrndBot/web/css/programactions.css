@@ -433,17 +433,9 @@
      margin-right: -850px;
      border: 1px solid #ccc;
 }
-#recuring_preview_email,#recuring_edit_email{
-    z-index:1006;
-    height:100%;
-    overflow-y:auto;
-    position:fixed;
-    max-height:100%;
-    background:#ffffff;
-    width:850px;
-    right:0px;
-    margin-right: -850px;
-    border: 1px solid #ccc;
+.hide1,.hide2
+{
+    
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
