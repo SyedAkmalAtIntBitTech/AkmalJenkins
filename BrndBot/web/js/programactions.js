@@ -411,10 +411,10 @@ function setSelectedIds(selectedid) {
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
         console.log(selected_schedules_to_delete);
-        if (selected_schedules_to_delete === "") {
+//        if (selected_schedules_to_delete === "") {
         $("#liPriority").hide(); 
         $("#delactbtn").show(); 
-        }
+//        }
         ;
     }
 
@@ -459,6 +459,81 @@ function setTodaysDate() {
 
 function programactions($scope, $http, $window){
                 
+    $scope.endMarketingProgram = function(){
+      var program_id = {"program_id": program};
+      
+        $http({
+            method: 'POST',
+            url: 'endMarketingProgram.do',
+            headers: {'Content-Type':'application/json'},
+            data: JSON.stringify(program_id)
+        }).success(function (data, status, headers, config) {
+            if (data === error) {
+                alert(data);
+            }
+        }).error(function (data, status, headers, config) {
+            alert("No data available, problem fetching the data");
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });      
+      
+      
+    };
+    
+    $scope.validate_program_link_details = function(){
+      var event_date = $("#progactdatepicker").val();
+      var link_url = $("#link_url").val();
+      var link_name = $("#link_name").val();
+      
+      if (event_date == ""){
+          alert("date not selected, please select the date");
+          $("#progactdatepicker").focus();
+          return false;
+      }
+      if (link_url == ""){
+          alert("link url not entered, please entered the link url");
+          $("#link_url").focus();
+          return false;
+      }
+      if (link_name == ""){
+          alert("link name not entered, please entered the link name");
+          $("#link_name").focus();
+          return false;
+      }
+      return true;
+    };
+    
+    $scope.updateUserProgram = function(){
+        
+      if ($scope.validate_program_link_details){
+        var event_date = $("#progactdatepicker").val();
+        var event_date_epoch = Date.parse(event_date);
+        var link_url = $("#link_url").val();
+        var link_name = $("#link_name").val();
+
+        var program_details = {"program_id": program, "date_of_event": event_date_epoch,
+                          "link_url": link_url, "link_name": link_name};
+
+          $http({
+              method: 'POST',
+              url: 'updateUserProgram.do',
+              headers: {'Content-Type':'application/json'},
+              data: JSON.stringify(program_id)
+          }).success(function (data, status, headers, config) {
+              if (data === error) {
+                  alert(data);
+              }
+          }).error(function (data, status, headers, config) {
+              alert("No data available, problem fetching the data");
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });      
+          
+      }  
+      
+      
+    };
+    
     $scope.getProgramActions = function(){
          $http({
             method: 'GET',

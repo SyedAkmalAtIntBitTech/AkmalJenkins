@@ -48,68 +48,72 @@
                 $("#saveprogdet").hide();
                 $("#dateofevntedt").hide();
                 $("#assoctdlnkedt").hide();
+                
                 $("#editprogdet").click(function (){
-                    $("#saveprogdet").show();
+                    $("#link_name").show();
+                    $("#link_url").show();
                     $("#editprogdet").hide();
                     $("#dateofevntedt").show();
                     $("#dateofevntprv").hide();
-                      $("#assoctdlnkprv").hide();
-                     $("#assoctdlnkedt").show();
+                    $("#assoctdlnkprv").hide();
+                    $("#assoctdnameprv").hide();
+                    $("#associated_link").show();
+                    $("#associated_name").show();
+                    $("#assoctdlnkedt").show();
+                    $("#assoctdnameedt").show();
+                    $("#saveprogdet").show();
                 });
-                $("#saveprogdet").click(function (){
-                    if($("#progactdatepicker").val() == "")
-                    {
-                        alert("Please Enter date of Event");
-                        $("#progactdatepicker").focus();
-                    }
-                    else if($("#accostdlnkinp").val() == "")
-                    {
-                        alert("Please Enter Associated link");
-                        $("#accostdlnkinp").focus();
-                    }
-                    else if($("#progactdatepicker").val() !== "" && $("#accostdlnkinp").val() !== ""){
-                        //do something
-                        //do something
-                        alert("Date : "+$("#progactdatepicker").val()+"\nLink : "+$("#accostdlnkinp").val());
-                        alert("Program details saved Successfully!");
-                        $("#saveprogdet").hide();
-                        $("#editprogdet").show();
-                        $("#dateofevntedt").hide();
-                        $("#assoctdlnkedt").hide(); 
-                        $("#dateofevntprv").show();
-                       $("#assoctdlnkprv").show();
-                    }
-                });
-                
-                  
-             
-                       });
-                        function checkboxclick(entity_recuring_id){
-                            
-                            var n = $("input:checked.chckbox").length;
-                            if(n==0)
-                            {
-                               $("#delemlactbtn").hide(); 
-                            }
-                            else if(n!=0)
-                            {
-                                $("#delemlactbtn").show();
-                            }
-                        }
-                        function deladdaction()
-                        {
-                           var n = $("input:checked.delchckbx").length;
-                            if(n==0)
-                            {   
-                               $("#liPriority").show(); 
-                               $("#delactbtn").hide(); 
-                            }
-                            else if(n!=0)
-                            {
-                               $("#liPriority").hide(); 
-                               $("#delactbtn").show(); 
-                            } 
-                        }
+//                $("#saveprogdet").click(function (){
+//                    if($("#progactdatepicker").val() == "")
+//                    {
+//                        alert("Please Enter date of Event");
+//                        $("#progactdatepicker").focus();
+//                    }
+//                    else if($("#accostdlnkinp").val() == "")
+//                    {
+//                        alert("Please Enter Associated link");
+//                        $("#accostdlnkinp").focus();
+//                    }
+//                    else if($("#progactdatepicker").val() !== "" && $("#accostdlnkinp").val() !== ""){
+//                        //do something
+//                        //do something
+//                        alert("Date : "+$("#progactdatepicker").val()+"\nLink : "+$("#accostdlnkinp").val());
+//                        alert("Program details saved Successfully!");
+//                        $("#saveprogdet").hide();
+//                        $("#editprogdet").show();
+//                        $("#dateofevntedt").hide();
+//                        $("#assoctdlnkedt").hide(); 
+//                        $("#dateofevntprv").show();
+//                       $("#assoctdlnkprv").show();
+//                    }
+//                });
+            });
+             function checkboxclick(entity_recuring_id){
+
+                 var n = $("input:checked.chckbox").length;
+                 if(n==0)
+                 {
+                    $("#delemlactbtn").hide(); 
+                 }
+                 else if(n!=0)
+                 {
+                     $("#delemlactbtn").show();
+                 }
+             }
+             function deladdaction()
+             {
+                var n = $("input:checked.delchckbx").length;
+                 if(n==0)
+                 {   
+                    $("#liPriority").show(); 
+                    $("#delactbtn").hide(); 
+                 }
+                 else if(n!=0)
+                 {
+                    $("#liPriority").hide(); 
+                    $("#delactbtn").show(); 
+                 } 
+             }
         function overlay(){
                 document.getElementById('light').style.display = 'block';
                 document.getElementById('fade').style.display = 'block';
@@ -136,11 +140,15 @@
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="markprog fontpns">{{programs.programdetails.programName}}</div>
                             <div id="editprogdet" class="edtprog fontpnr">Edit Program Details</div>
-                            <div id="saveprogdet" class="edtprog fontpnr">Save Program Details</div>
+                            <div id="saveprogdet" class="edtprog fontpnr" ng-click="updateUserProgram()">Save Program Details</div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="endmrkprogbtndiv fontpnr">
-                                <button type="button" class="endmrkprogbtn button button--moema button--text-thick button--text-upper fontpnr">
+                                <button type="button" class="endmrkprogbtn button 
+                                                        button--moema 
+                                                        button--text-thick 
+                                                        button--text-upper 
+                                                        fontpnr" ng-click="endMarketingProgram()">
                                 End Marketing Program
                                 </button>
                             </div>
@@ -154,7 +162,7 @@
                          <div class="col-lg-2 col-md-2 col-sm-4">
                             <div class="dtofevnt fontpnr">Date of Event</div>
                             <div id="dateofevntprv" class="evntdt fontpns">{{programs.programdetails.dateOfEvent| date:'MMM dd yyyy'}}</div>
-                            <div id="dateofevntedt" class="evntdt fontpns"><input type="text" readonly  name="datepicker" id="progactdatepicker"  class="progactinputdate fontpns ptr" />                                        
+                            <div id="dateofevntedt" class="evntdt fontpns"><input type="text" readonly name="datepicker" id="progactdatepicker"  class="progactinputdate fontpns ptr" />                                        
                                 <script>
                             var picker = new Pikaday(
                             {
@@ -168,12 +176,16 @@
                                 </script>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4">
+                        <div id="associated_link" class="col-lg-2 col-md-2 col-sm-4" style="display:none;"> 
                             <div class="asclink fontpnr">Associated Link</div>
                             <div id="assoctdlnkprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
-                            <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="accostdlnkinp" class="progactinputdate fontpns ptr"/></div>
+                            <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="link_name" name="link_name" class="progactinputdate fontpns ptr"/></div>
                         </div>
-                        
+                        <div id="associated_name" class="col-lg-2 col-md-2 col-sm-4">
+                            <div class="asclink fontpnr">Associated Name</div>
+                            <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.link_name}}</div>
+                            <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr"/></div>
+                        </div>                        
                     </div>
                     <div class="row">
                         <div class="col-lg-10 col-md-10 col-sm-12 ">
@@ -232,7 +244,7 @@
                     </div>
                     <div class="row" ng-repeat="emailautomation in programs.emailautomation">
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="emlchkbox"><input type="checkbox" id="{{emailautomation.schedule_id}}" class="chckbox" onclick="setSelectedRecuringIds('{{emailautomation.schedule_id}}')" value="{{emailautomation.schedule_id}}" /></div>
+                            <div class="emlchkbox"><input type="checkbox" id="{{emailautomation.scheduledEntityListId}}" class="chckbox" onclick="setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}')" value="{{emailautomation.scheduledEntityListId}}" /></div>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5">
                              <div class="listelem fontpnr">{{emailautomation.programTemplateName}}</div>
@@ -294,7 +306,7 @@
                     </div>
                     <div class="row" ng-repeat="programaction in programs.programactions">
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="emlchkbox"><input type="checkbox" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="" /></div>
+                            <div class="emlchkbox"><input type="checkbox" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" /></div>
                         </div>
                          <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="listelem fontpnr">{{programaction.programTemplateName}}</div>
