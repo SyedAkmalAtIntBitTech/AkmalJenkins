@@ -22,27 +22,7 @@ $(document).ready(function ()
         sliderDialog = "#dvFastingDialog";
         $('#slider-button').click();
         prevSliderDialog = "#dvFastingDialog";
-    });
-//    $('#datetimepicker3').datetimepicker({
-//        pickDate: false
-//    });
-//    $("#entitydetails").click(function () {
-//        
-//        sliderDialog = "#previewfb";
-//        $('#slider-button').click();
-//        prevSliderDialog = "#previewfb";
-//    });
-//    
-//    function cancelform()
-//    {
-//        
-////    $("#"+cancelbtn).click(function(){
-//        if(confirm("Do you want to cancel the process?")){
-//            $('#slider-button').click();
-//            
-//        }
-////    })
-//    }
+    });  
 $a=0;
 $edit=0;
     $('#slider-button').click(function () {
@@ -58,6 +38,7 @@ $edit=0;
                     if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
                         if ($('#slider-button').css("margin-right") == "788px")
                         {
+                            
                             $(prevSliderDialog).animate({"margin-right": '-=850px'});
                             $('#slider-button').animate({"margin-right": '-=788px'});
                         }
@@ -115,6 +96,7 @@ $edit=0;
                 if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
                     if ($('#slider-button').css("margin-right") == "788px")
                     {
+                        alert("ok1");
                         $(prevSliderDialog).animate({"margin-right": '-=850px'});
                         $('#slider-button').animate({"margin-right": '-=788px'});
                     }
@@ -122,6 +104,7 @@ $edit=0;
 
                 if ($('#slider-button').css("margin-right") == "788px")
                 {
+                    alert("close");
                     $slider=0;
                     $a=0;
                     $(sliderDialog).animate({"margin-right": '-=850px'});
@@ -130,6 +113,8 @@ $edit=0;
                 }
                 else
                 {
+                    alert("open");
+                    alert(sliderDialog);
                     $(sliderDialog).animate({"margin-right": '+=850px'});
                     $('#slider-button').animate({"margin-right": '+=788px'});
                     overlay();
@@ -163,27 +148,6 @@ $edit=0;
         }
         
     });
-
-//    $('#button_edit').click(function(){
-//        if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
-//            if ($('#slider-button').css("margin-right") == "530px")
-//            {
-//                $(prevSliderDialog).animate({"margin-right": '-=600'});
-//                $('#slider-button').animate({"margin-right": '-=530'});
-//            }
-//        }
-//        if ($('#slider-button').css("margin-right") == "530px")
-//        {
-//            $(sliderDialog).animate({"margin-right": '-=600'});
-//            $('#slider-button').animate({"margin-right": '-=530'});
-//        }
-//        else
-//        {
-//            $(sliderDialog).animate({"margin-right": '+=600'});
-//            $('#slider-button').animate({"margin-right": '+=530'});
-//        }
-//        
-//    });
 });
 
 function showEditNote() {
@@ -398,6 +362,7 @@ function setSelectedRecuringIds(selectedid) {
 }
 function setSelectedIds(selectedid) {
 
+
     var checked = document.getElementById(selectedid).checked;
 
     if (checked) {
@@ -558,6 +523,7 @@ function programactions($scope, $http, $window){
     $scope.setEntityId = function(entity_list_Id, days){
         window.open(getHost() + 'emailautomation.jsp?entitylistid='+entity_list_Id+'&days='+days, "_self");
     };
+
                 
                  
     $scope.entities_selected_time = "";
@@ -784,7 +750,8 @@ function programactions($scope, $http, $window){
                 alert("request not successful");
             });
 
-        } else if (entity_type == "facebook") {
+        } 
+        else if (entity_type == "facebook") {
             sliderDialog = "#previewfb";
             $('#slider-button').click();
             prevSliderDialog = "#previewfb";
@@ -871,7 +838,6 @@ function programactions($scope, $http, $window){
 
     };
     $scope.ShowAddAction = function(){
-        
         $('#select>option').each(function(){
         var text = $(this).class().val();
         alert(text);
@@ -904,8 +870,67 @@ function programactions($scope, $http, $window){
             }).error(function (data) {
                 alert("request not successful");
             });
-    }
-    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName) {
+    };
+    
+    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName) {
+         
+         alert("ok");
+            $slider=2;
+            sliderDialog = "#recuring_preview";
+            $('#slider-button').click();
+            prevSliderDialog = "#recuring_preview";
+            $("#recuring_preview_email").show();
+            $("#recuring_preview").hide();
+            $("#recuring_edit_email_action").hide();
+            $http({
+                method: 'GET',
+                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
+            }).success(function (data) {
+                $scope.entitiesdetails = data;
+                if (data.body == undefined) {
+                    $("#mailpreviewremove6").hide();
+                    $('#mailremovedtemplate6').show();
+                    $('#mailpreviewdecond5').hide();
+                    $('.approve').hide();
+                    $("#email_button_send").val(create_button_title);
+                } else {
+                    $('.approve').show();
+                    $("#mailpreviewremove6").show();
+                    $('#mailremovedtemplate6').hide();
+                    $('#mailpreviewdecond5').show();
+                    $('.content').show();
+                    $('#mailimgprev').show();
+                    $("#email_button_send").val("Send");
+                }
+                if(template_status=="complete")
+                {
+                    $("#emailgreen").show();
+                    $("#emailred").hide();
+                }
+                else
+                {
+                    $("#emailgreen").hide();
+                    $("#emailred").show();
+                }
+                var date = new Date(schedule_time);
+                $(".content").empty();
+                $(".content").append(data.body);
+//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+                
+                $scope.entities_selected_time = schedule_time;
+                $scope.schedule_title = schedule_title;
+                $scope.schedule_id = schedule_id;
+                console.log(schedule_desc);
+                $scope.schedule_desc = schedule_desc;
+                $scope.email_template_status = template_status;
+                $scope.schedule_type = entity_type;
+                $scope.marketing_program_name = marketingName;
+            }).error(function (data) {
+                alert("request not successful ");
+            });
+    };
+    
+    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, post_time) {
        
         if (entity_type == "email") {
             
@@ -958,7 +983,8 @@ function programactions($scope, $http, $window){
                 $scope.schedule_desc = schedule_desc;
                 $scope.email_template_status = template_status;
                 $scope.schedule_type = entity_type;
-                $scope.marketing_program_name = marketingName;
+                $scope.marketing_program_name = schedule_title;
+                $scope.post_time=post_time;
             }).error(function (data) {
                 alert("request not successful ");
             });
@@ -1649,12 +1675,8 @@ function programactions($scope, $http, $window){
         }
         return true;
 
-    };
-                
-            };
-            
-            
-            
+    };          
+            };     
         function overlay(){
                     document.getElementById('light').style.display = 'block';
                         document.getElementById('fade').style.display = 'block';
