@@ -147,6 +147,7 @@ public class TblUserMarketingProgram  implements java.io.Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
 }
 
 

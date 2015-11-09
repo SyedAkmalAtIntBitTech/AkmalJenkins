@@ -338,12 +338,12 @@ function validatetwitteraction() {
 
 var selected_schedules_to_delete = "";
 
-function setSelectedIds(selectedid) {
+function setSelectedRecuringIds(selectedid) {
 
     var checked = document.getElementById(selectedid).checked;
 
     if (checked) {
-        $("#delsel").show();
+        $("#delemlactbtn").show();
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
         console.log(selected_schedules_to_delete);
@@ -353,7 +353,32 @@ function setSelectedIds(selectedid) {
         selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
         console.log(selected_schedules_to_delete);
         if (selected_schedules_to_delete === "") {
-            $("#delsel").hide();
+            $("#delemlactbtn").hide();
+        }
+        ;
+    }
+
+
+}
+function setSelectedIds(selectedid) {
+
+
+    var checked = document.getElementById(selectedid).checked;
+
+    if (checked) {
+        $("#liPriority").show(); 
+        $("#delactbtn").hide(); 
+        var selected_schedule_id = $("#" + selectedid).val();
+        selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+        console.log(selected_schedules_to_delete);
+    }
+    else {
+        var selected_schedule_id = $("#" + selectedid).val();
+        selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+        console.log(selected_schedules_to_delete);
+        if (selected_schedules_to_delete === "") {
+        $("#liPriority").hide(); 
+        $("#delactbtn").show(); 
         }
         ;
     }
@@ -405,7 +430,7 @@ function programactions($scope, $http, $window){
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
         }).success(function (data, status, headers, config) {
             $scope.programs = data;
-
+            $scope.program_id = program;
             if (data === error) {
                 alert(data);
             }
@@ -415,11 +440,18 @@ function programactions($scope, $http, $window){
             // or server returns response with an error status.
         });
     };
+    $scope.addRecuringAction = function(program_id){
+        alert(program_id);
+        window.open(getHost() + 'emailautomation.jsp?type=add&program_id='+program_id+'&entity_id=0', "_self");
+    };
+    
     $scope.setEntityId = function(entity_list_Id, days){
         window.open(getHost() + 'emailautomation.jsp?entitylistid='+entity_list_Id+'&days='+days, "_self");
     };
-                   
- $scope.entities_selected_time = "";
+
+                
+                 
+    $scope.entities_selected_time = "";
     $scope.getCampaigns = function () {
         var curr_date = '';
         var tomorrowDate = '';

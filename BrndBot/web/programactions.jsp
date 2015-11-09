@@ -36,25 +36,90 @@
     program_id = request.getParameter("program_id");
 %>
     <script>
-
             var program = "";
             program = <%= program_id %>;
                    
-  
-
     </script>
     <script src="js/programactions.js"></script>
     <script>
+          $(document).ready(function (){
+                $("#delactbtn").hide();
+                $("#delemlactbtn").hide();
+                $("#saveprogdet").hide();
+                $("#dateofevntedt").hide();
+                $("#assoctdlnkedt").hide();
+                $("#editprogdet").click(function (){
+                    $("#saveprogdet").show();
+                    $("#editprogdet").hide();
+                    $("#dateofevntedt").show();
+                    $("#dateofevntprv").hide();
+                      $("#assoctdlnkprv").hide();
+                     $("#assoctdlnkedt").show();
+                });
+                $("#saveprogdet").click(function (){
+                    if($("#progactdatepicker").val() == "")
+                    {
+                        alert("Please Enter date of Event");
+                        $("#progactdatepicker").focus();
+                    }
+                    else if($("#accostdlnkinp").val() == "")
+                    {
+                        alert("Please Enter Associated link");
+                        $("#accostdlnkinp").focus();
+                    }
+                    else if($("#progactdatepicker").val() !== "" && $("#accostdlnkinp").val() !== ""){
+                        //do something
+                        //do something
+                        alert("Date : "+$("#progactdatepicker").val()+"\nLink : "+$("#accostdlnkinp").val());
+                        alert("Program details saved Successfully!");
+                        $("#saveprogdet").hide();
+                        $("#editprogdet").show();
+                        $("#dateofevntedt").hide();
+                        $("#assoctdlnkedt").hide(); 
+                        $("#dateofevntprv").show();
+                       $("#assoctdlnkprv").show();
+                    }
+                });
+                
+                  
+             
+                       });
+                        function checkboxclick(entity_recuring_id){
+                            
+                            var n = $("input:checked.chckbox").length;
+                            if(n==0)
+                            {
+                               $("#delemlactbtn").hide(); 
+                            }
+                            else if(n!=0)
+                            {
+                                $("#delemlactbtn").show();
+                            }
+                        }
+                        function deladdaction()
+                        {
+                           var n = $("input:checked.delchckbx").length;
+                            if(n==0)
+                            {   
+                               $("#liPriority").show(); 
+                               $("#delactbtn").hide(); 
+                            }
+                            else if(n!=0)
+                            {
+                               $("#liPriority").hide(); 
+                               $("#delactbtn").show(); 
+                            } 
+                        }
         function overlay(){
-            document.getElementById('light').style.display = 'block';
-            document.getElementById('fade').style.display = 'block';
-            document.getElementById('slider-button').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
+                document.getElementById('light').style.display = 'block';
+                document.getElementById('fade').style.display = 'block';
+                document.getElementById('slider-button').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                }
         function closeoverlay(){
-            document.getElementById('light').style.display = 'none';
-            document.getElementById('fade').style.display = 'none';
-            document.body.style.overflow = 'scroll';
+                document.getElementById('light').style.display = 'none';
+                document.getElementById('fade').style.display = 'none';
+                document.body.style.overflow = 'scroll';
         }
     </script>
         <jsp:include page="basejsp.jsp"/>
@@ -70,15 +135,12 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="markprog fontpns">{{programs.programdetails.programName}}</div>
-                            <div class="edtprog fontpnr">Edit Program Details</div>
+                            <div id="editprogdet" class="edtprog fontpnr">Edit Program Details</div>
+                            <div id="saveprogdet" class="edtprog fontpnr">Save Program Details</div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="endmrkprogbtndiv fontpnr">
-                                <button type="button" class="endmrkprogbtn button 
-                                                             button--moema 
-                                                             button--text-thick 
-                                                             button--text-upper 
-                                                             fontpnr">
+                                <button type="button" class="endmrkprogbtn button button--moema button--text-thick button--text-upper fontpnr">
                                 End Marketing Program
                                 </button>
                             </div>
@@ -91,11 +153,25 @@
                         </div>
                          <div class="col-lg-2 col-md-2 col-sm-4">
                             <div class="dtofevnt fontpnr">Date of Event</div>
-                            <div class="evntdt fontpns">{{programs.programdetails.dateOfEvent| date:'MMM dd yyyy'}}</div>
+                            <div id="dateofevntprv" class="evntdt fontpns">{{programs.programdetails.dateOfEvent| date:'MMM dd yyyy'}}</div>
+                            <div id="dateofevntedt" class="evntdt fontpns"><input type="text" readonly  name="datepicker" id="progactdatepicker"  class="progactinputdate fontpns ptr" />                                        
+                                <script>
+                            var picker = new Pikaday(
+                            {
+                                field: document.getElementById('progactdatepicker'),
+                                firstDay: 1,
+                                minDate: new Date(2000, 0, 1),
+                                maxDate: new Date(2050, 12, 31),
+                                yearRange: [2000,2050]
+                            });
+
+                                </script>
+                            </div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-4">
                             <div class="asclink fontpnr">Associated Link</div>
-                            <div class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
+                            <div id="assoctdlnkprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
+                            <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="accostdlnkinp" class="progactinputdate fontpns ptr"/></div>
                         </div>
                         
                     </div>
@@ -104,7 +180,7 @@
                             <div class="progdesc">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12">
-                                     <div class=" offrpromo fontpnr"  ng-bind-html-unsafe="programs.programdetails.description"></div>
+                                     <div class=" offrpromo fontpnr" ng-bind-html-unsafe="programs.programdetails.description"></div>
 <!--                                     <div class=" promosubhead fontpnr">This is a subheader</div>-->
                                      <p class="prompara fontpnr">
                                      </p>
@@ -118,18 +194,35 @@
                         <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="recuremlautom fontpns">Recurring Email Automation</div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3">
+                        <div class="col-lg-2 col-md-2 col-sm-2">
                              <div class="addemlautomdiv ">
-                                 <button type="button" class="addemlautombtn 
+                                 <button type="button" 
+                                         id="addemlactbtn" 
+                                        class="addemlautombtn 
+                                             button 
+                                             button--moema 
+                                             button--text-thick 
+                                             button--text-upper 
+                                             button--size-s 
+                                             fontpnr"  
+                                             ng-click="addRecuringAction(program_id)">
+                                Add Email Automation
+                                 </button>
+                             </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <div class="delemlautomdiv  ">
+                                 <button type="button" id="delemlactbtn" class="delemlautombtn 
                                                               button button--moema 
                                                               button--text-thick 
                                                               button--text-upper 
                                                               button--size-s 
-                                                              fontpnr">
-                                Add Email Automation</button>
+
+                                                              fontpnr" >
+                                Delete Email Automation</button>
                              </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-1">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="emlstats fontpnr">Status</div>
                         </div>
                     </div>
@@ -140,7 +233,7 @@
                     </div>
                     <div class="row" ng-repeat="emailautomation in programs.emailautomation">
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="emlchkbox"><input type="checkbox"  id=""  value="" /></div>
+                            <div class="emlchkbox"><input type="checkbox" id="{{emailautomation.schedule_id}}" class="chckbox" onclick="setSelectedRecuringIds('{{emailautomation.schedule_id}}')" value="{{emailautomation.schedule_id}}" /></div>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5">
                              <div class="listelem fontpnr">{{emailautomation.programTemplateName}}</div>
@@ -181,7 +274,8 @@
                               <div class="addactdiv" >
                                   <a href = "javascript:void(0)" onclick = "overlay();">
                                         <button id="liPriority" onclick = "overlay();" class="otaddactbtn  button button--moema button--text-thick button--text-upper button--size-s fontpnr" ng-click="ShowAddAction()">Add Action</button>
-                                  </a>      
+                                  </a> 
+                                   <button id="delactbtn" type="button" class="otaddactbtn delactbtn widthdelactbtn button button--moema button--text-thick button--text-upper button--size-s fontpnr">Delete Action</button>
                                  </div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
@@ -201,7 +295,7 @@
                     </div>
                     <div class="row" ng-repeat="programaction in programs.programactions">
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="emlchkbox"><input type="checkbox"  id=""  value="" /></div>
+                            <div class="emlchkbox"><input type="checkbox" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="" /></div>
                         </div>
                          <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="listelem fontpnr">{{programaction.programTemplateName}}</div>
@@ -256,7 +350,7 @@
                     <div><textarea class="addactiondetinput top8 fontpns" name="addactiontitle" id="addactiontitle" placeholder="Title here"></textarea></div>
                     <div class="top26 fontpns tenpix headcolor">ACTION TYPE</div>
                     <div class="topfive fontpnr">
-                        <select id="actiontype"name="actiontype">
+                        <select id="actiontype" name="actiontype">
                             <option value="0">Select</option>
                             <option value="facebook">Facebook</option>
                             <option value="twitter">Twitter</option>
@@ -733,14 +827,14 @@
                                         <div class="topten titlecontain sixtnpix fontpns">
                                            <textarea id="email_edit_title" name="email_edit_title" class="actiondetinput fontpns">{{schedule_title}}</textarea>
                                            <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' />
-                                           <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}'/></p>
+                                           <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}'/>
                                         </div>
                                         <div class="top12 headcolor tenpix fontpns">
                                             DESCRIPTION
                                         </div>
                                         <div class="height75 topten">
                                             <p class="containe twlvpix fontpnr">
-                                                <textarea class="actiondetdesc"id="email_description" name="email_description">{{schedule_desc}}</textarea></p>
+                                                <textarea class="actiondetdesc" id="email_description" name="email_description">{{schedule_desc}}</textarea></p>
                                         </div>
                                         <div class="inlineFlex topten">
                                             <div class="half headcolor fontpns tenpix topten">
@@ -2030,7 +2124,7 @@
                         </div>
                     </div>
                             
-                           <div id="imgcontainer" style="display:none";>
+                           <div id="imgcontainer" style="display:none;">
                            <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
                                 style="display:none;"/>
                            </div> 

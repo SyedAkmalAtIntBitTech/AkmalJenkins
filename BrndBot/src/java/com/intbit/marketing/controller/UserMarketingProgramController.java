@@ -213,9 +213,9 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
     String target = requestBodyMap.get("program_date_time").toString();
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     Date eventDate =  df.parse(target);  
-    Integer marketingCategoryId = intValue((double)requestBodyMap.get("marketing_category_id"));
-    Integer marketingProgramId = intValue((double)requestBodyMap.get("marketing_program_id"));
-    marketingProgram.setId(marketingProgramId);
+    Double marketingCategoryId = (Double)requestBodyMap.get("marketing_category_id");
+    Double marketingProgramId = (Double)requestBodyMap.get("marketing_program_id");
+    marketingProgram.setId(marketingProgramId.intValue());
     addUserMarketingProgram.setId(0);
     addUserMarketingProgram.setDateEvent(eventDate);
     addUserMarketingProgram.setCreateDate(new Date());
@@ -227,7 +227,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
     Integer userMarketingProgramId= userMarketingProgramService.save(addUserMarketingProgram);
     String link=userMarketingProgramId.toString();
 
-    TblMarketingAction marketingAction = marketingActionService.getMarketingActionByMCategoryIdAndMProgramId(marketingCategoryId, marketingProgramId);
+    TblMarketingAction marketingAction = marketingActionService.getMarketingActionByMCategoryIdAndMProgramId(marketingCategoryId.intValue(), marketingProgramId.intValue());
     String jsonString =marketingAction.getJsonTemplate();     
     JSONObject json = (JSONObject)new JSONParser().parse(jsonString);
     org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray)json.get(IConstants.kMarketingActionsKey);
