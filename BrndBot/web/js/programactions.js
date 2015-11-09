@@ -959,7 +959,7 @@ function programactions($scope, $http, $window){
             });
     };
     
-    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, post_time) {
+    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, post_time) {
        
         if (entity_type == "email") {
             
@@ -1000,12 +1000,11 @@ function programactions($scope, $http, $window){
                     $("#emailgreen").hide();
                     $("#emailred").show();
                 }
-                var date = new Date(schedule_time);
                 $(".content").empty();
                 $(".content").append(data.body);
 //                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
                 
-                $scope.entities_selected_time = schedule_time;
+                $scope.entities_selected_date = schedule_date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
@@ -1057,14 +1056,13 @@ function programactions($scope, $http, $window){
                     $('#isTwitter').val("false");
                 }
                 
-                var date = new Date(schedule_time);
-                $scope.entities_selected_time = schedule_time;
+                $scope.entities_selected_date = schedule_date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 $scope.schedule_desc = schedule_desc;
                 $scope.facebook_template_status = template_status;
                 $scope.schedule_type = entity_type;
-                $scope.marketing_program_name = marketingName;
+                $scope.post_time=post_time;
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -1108,15 +1106,14 @@ function programactions($scope, $http, $window){
                     $('#isTwitter').val("true");
                 }
 
-                var date = new Date(schedule_time);
-                $scope.entities_selected_time = schedule_time;
+                $scope.entities_selected_date = schedule_date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.twitter_template_status = template_status;
                 $scope.schedule_type = entity_type;
-                $scope.marketing_program_name = marketingName;
+                $scope.post_time=post_time;
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -1128,13 +1125,13 @@ function programactions($scope, $http, $window){
 
             $("#noteprev").show();
             $("#noteedit").hide();
-            $scope.entities_selected_time = schedule_time;
+            $scope.entities_selected_date = schedule_date;
             $scope.schedule_title = schedule_title;
             $scope.schedule_id = schedule_id;
             $scope.schedule_desc = schedule_desc;
             $scope.schedule_type = entity_type;
             $scope.note_template_status = template_status;
-            $scope.marketing_program_name = marketingName;
+            $scope.post_time=post_time;
 
         }
 

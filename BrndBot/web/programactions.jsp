@@ -590,7 +590,8 @@
                             </div>
                             <div class="containe fontpnr tenpix">
                                 
-                                {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}
+                                {{entities_selected_date| date:'MMM dd yyyy'}}
+                                {{post_time| date:'h :mma'}}
 
                             </div>
                             <div class="inlineFlex top120">
@@ -599,7 +600,7 @@
                                 </div>
                                 <div class="approve">
                                     <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
-                                    <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+<!--                                    <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
                                     <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                        
                                 </div>
@@ -937,7 +938,7 @@
                                                     Day
                                                 </div>
                                                 <div class="topsix">
-                                                    <input type="text" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
+                                                    <input type="text" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate ptr" value="{{entities_selected_date| date:'MMM dd yyyy'}}">                                        
                                                     <script>
                                                 var picker = new Pikaday(
                                                 {
@@ -956,7 +957,7 @@
                                                     Time
                                                 </div>
                                                 <div class="topsix">
-                                                    <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                                                    <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'h : mma'}}"/> 
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
                                                         $('#timepickeremail').timepicki();
@@ -966,7 +967,7 @@
                                         </div>
                                         <div class="topthirty8">
                                             <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns"  ng-click="updateActionEmail()" >Save</button>                                       
-                                            <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+<!--                                            <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
                                             <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                        
                                         </div>
@@ -1178,7 +1179,8 @@
                                         SCHEDULED TO POST ON
                                     </div>
                                     <div class="containe fontpnr tenpix">
-                                            {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}
+                                            {{entities_selected_date| date:'MMM dd yyyy'}}
+                                            {{post_time| date:'h:mma'}}
                                     </div>
                                     <div class="inlineFlex topsixeight">
                                         <div class="rightthirty">
@@ -1604,7 +1606,7 @@
                                                 Day
                                             </div>
                                             <div class="topsix">
-                                                <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="inputdate ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
+                                                <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="inputdate ptr" value="{{entities_selected_date| date:'MMM dd yyyy'}}">                                        
                                                 <script>
                                             var picker = new Pikaday(
                                             {
@@ -1623,7 +1625,7 @@
                                                 Time
                                             </div>
                                             <div class="topsix">
-                                                <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                                                <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'h : mma'}}"/> 
                                                 <script src="js/timepicki.js" type="text/javascript"></script>
                                                 <script>
                                                     $('#timepickerfb').timepicki();
@@ -1633,7 +1635,7 @@
                                     </div>
                                     <div class="topthirty8">
                                         <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns" ng-click="updateActionFacebook()" >Save</button>                                       
-                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+<!--                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
                                         <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                        
                                     </div>
@@ -1850,7 +1852,8 @@
                                     SCHEDULED TO POST ON
                                 </div>
                                 <div class="containe fontpnr tenpix">
-                                    {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}
+                                    {{entities_selected_date| date:'MMM dd yyyy'}}
+                                    {{post_time| date:'h:mma'}}
                                 </div>
                                 <div class="inlineFlex topsixeight">
                                     <div class="rightthirty">
@@ -1863,7 +1866,7 @@
                                     </div>
                                     <div class="approve">
                                         <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="ftwitter_approve_button_post">
-                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+<!--                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
                                         <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                     </div>
                                 </div>
@@ -2110,7 +2113,7 @@
                                                     Day
                                                 </div>
                                                 <div class="topsix">
-                                                    <input type="text" readonly  name="datepickertwitter" id="datepickertwitter"  class="inputdate ptr"  value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">   <!-- id="datepicker3"  name="twitterdatetime"  -->                                     
+                                                    <input type="text" readonly  name="datepickertwitter" id="datepickertwitter"  class="inputdate ptr"  value="{{entities_selected_date| date:'MMM dd yyyy'}}">   <!-- id="datepicker3"  name="twitterdatetime"  -->                                     
                                                     <script>
                                                 var picker = new Pikaday(
                                                 {
@@ -2129,7 +2132,7 @@
                                                     Time
                                                 </div>
                                                 <div class="topsix">
-                                                    <input id="timepickertwitter" type="text" name="timepickertwitter" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
+                                                    <input id="timepickertwitter" type="text" name="timepickertwitter" class="inputtime MH1 ptr" style="width:150px;" value="{{post_time| date:'h : mma'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
                                                         $('#timepickertwitter').timepicki();
@@ -2247,7 +2250,8 @@
                                         SCHEDULED TO POST ON
                                     </div>
                                     <div class="containe fontpnr tenpix">
-                                        {{entities_selected_time| date:'MMM dd yyyy'+' on '+'h:mma'}}
+                                        {{entities_selected_date| date:'MMM dd yyyy'}}
+                                        {{post_time| date:'h:mma'}}
                                     </div>
                                     <div class="inlineFlex top120">
                                         <div class="rightthirty">
@@ -2255,7 +2259,7 @@
                                         </div>
                                         <div class="approve">
                                             <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
-                                            <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+<!--                                            <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
                                             <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                         </div>
                                     </div>
