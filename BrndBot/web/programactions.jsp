@@ -61,57 +61,7 @@
                     $("#assoctdnameedt").show();
                     $("#saveprogdet").show();
                 });
-//                $("#saveprogdet").click(function (){
-//                    if($("#progactdatepicker").val() == "")
-//                    {
-//                        alert("Please Enter date of Event");
-//                        $("#progactdatepicker").focus();
-//                    }
-//                    else if($("#accostdlnkinp").val() == "")
-//                    {
-//                        alert("Please Enter Associated link");
-//                        $("#accostdlnkinp").focus();
-//                    }
-//                    else if($("#progactdatepicker").val() !== "" && $("#accostdlnkinp").val() !== ""){
-//                        //do something
-//                        //do something
-//                        alert("Date : "+$("#progactdatepicker").val()+"\nLink : "+$("#accostdlnkinp").val());
-//                        alert("Program details saved Successfully!");
-//                        $("#saveprogdet").hide();
-//                        $("#editprogdet").show();
-//                        $("#dateofevntedt").hide();
-//                        $("#assoctdlnkedt").hide(); 
-//                        $("#dateofevntprv").show();
-//                       $("#assoctdlnkprv").show();
-//                    }
-//                });
             });
-//             function checkboxclick(entity_recuring_id){
-//
-//                 var n = $("input:checked.chckbox").length;
-//                 if(n==0)
-//                 {
-//                    $("#delemlactbtn").hide(); 
-//                 }
-//                 else if(n!=0)
-//                 {
-//                     $("#delemlactbtn").show();
-//                 }
-//             }
-//             function deladdaction()
-//             {
-//                var n = $("input:checked.delchckbx").length;
-//                 if(n==0)
-//                 {   
-//                    $("#liPriority").show(); 
-//                    $("#delactbtn").hide(); 
-//                 }
-//                 else if(n!=0)
-//                 {
-//                    $("#liPriority").hide(); 
-//                    $("#delactbtn").show(); 
-//                 } 
-//             }
         function overlay(){
                 document.getElementById('light').style.display = 'block';
                 document.getElementById('fade').style.display = 'block';
@@ -204,7 +154,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="recuremlautom fontpns">Recurring Email Automation</div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="addemlautomdiv ">
                                  <button type="button" 
                                          id="addemlactbtn" 
@@ -219,8 +169,6 @@
                                 Add Email Automation
                                  </button>
                              </div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="delemlautomdiv  ">
                                  <button type="button" id="delemlactbtn" class="delemlautombtn 
                                                               button button--moema 
@@ -228,11 +176,11 @@
                                                               button--text-upper 
                                                               button--size-s 
 
-                                                              fontpnr" >
+                                                              fontpnr"  ng-click="deleteSchedule('0','deleteMultiple')">
                                 Delete Email Automation</button>
                              </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-1">
                              <div class="emlstats fontpnr">Status</div>
                         </div>
                     </div>
@@ -285,7 +233,7 @@
                                   <a href = "javascript:void(0)" onclick = "overlay();">
                                         <button id="liPriority" onclick = "overlay();" class="otaddactbtn  button button--moema button--text-thick button--text-upper button--size-s fontpnr" ng-click="ShowAddAction()">Add Action</button>
                                   </a> 
-                                   <button id="delactbtn" type="button" class="otaddactbtn delactbtn widthdelactbtn button button--moema button--text-thick button--text-upper button--size-s fontpnr">Delete Action</button>
+                                  <button id="delactbtn" type="button" class="otaddactbtn delactbtn widthdelactbtn button button--moema button--text-thick button--text-upper button--size-s fontpnr" ng-click="deleteSchedule('0','deleteMultiple')">Delete Action</button>
                                  </div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
@@ -537,7 +485,8 @@
                                     </div>
                                 </div>
                                 <div class="half containe fontpnr tenpix">
-                                    {{marketing_program_name}}                                </div>
+                                    {{marketing_program_name}}
+                                </div>
                             </div>
                             <div class="topfourty headtitle pfont actfnt fontpnr">
                                 POSTING DETAILS
@@ -555,7 +504,7 @@
                                     <input type="button"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc,marketing_program_name)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                 </div>
                                 <div class="approve">
-                                    <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                    <input type="button" value="Approve to Post" ng-show="action_status=='true'" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
                                 </div>
                             </div>
                         </div>
@@ -1136,7 +1085,13 @@
                                             <input type="button" value="Edit" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
                                         </div>
                                         <div class="approve">
-                                            <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_approve_button_post">
+                                            <input type="button" value="Approve to Post" 
+                                                   ng-click="setApproveTemplate(schedule_id, 'approved')" 
+                                                   class="button approvebuttonwidthheightcolor 
+                                                   buttonmargin button--moema  
+                                                   button--text-thick  
+                                                   button--text-upper 
+                                                   fontpns" id="fb_approve_button_post">
                                         </div>
                                     </div>
                                 </div>
@@ -1146,7 +1101,10 @@
                                 <div class="secondcol">
                                      <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div id="fbpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','facebook')">REMOVED SAVED POST</div>
+                                        <div id="fbpreviewremove" 
+                                             class="headdelete h5font fontpnr" 
+                                             ng-click="deleteSchedule(schedule_id,'remove','facebook')">
+                                            REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor tenpix fontpns">
                                         PREVIEW
@@ -2369,14 +2327,14 @@
                                         <div class="topten titlecontain sixtnpix fontpns">
                                            <textarea id="email_edit_title" name="email_edit_title" class="actiondetinput fontpns">{{schedule_title}}</textarea>
                                            <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' />
-                                           <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}'/></p>
+                                           <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}'/>
                                         </div>
                                         <div class="top12 headcolor tenpix fontpns">
                                             DESCRIPTION
                                         </div>
                                         <div class="height75 topten">
                                             <p class="containe twlvpix fontpnr">
-                                                <textarea class="actiondetdesc"id="email_description" name="email_description">{{schedule_desc}}</textarea></p>
+                                                <textarea class="actiondetdesc" id="email_description" name="email_description">{{schedule_desc}}</textarea></p>
                                         </div>
                                         <div class="inlineFlex topten">
                                             <div class="half headcolor fontpns tenpix topten">

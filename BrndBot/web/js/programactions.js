@@ -340,48 +340,49 @@ function validatetwitteraction() {
 var selected_schedules_to_delete = "";
 
 function setSelectedRecuringIds(selectedid) {
-
     var checked = document.getElementById(selectedid).checked;
-
-    if (checked) {
+    var a = $("input:checked.chckbox").length;
+    if (checked && a!=0) {
+          $("#addemlactbtn").hide();
         $("#delemlactbtn").show();
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
         console.log(selected_schedules_to_delete);
     }
-    else {
+    else if(!checked && a==0)
+    {
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
         console.log(selected_schedules_to_delete);
-        if (selected_schedules_to_delete === "") {
+//        if (selected_schedules_to_delete === "") {
             $("#delemlactbtn").hide();
-        }
+            $("#addemlactbtn").show();
+//        }
         ;
     }
 
 
 }
 function setSelectedIds(selectedid) {
-
-
-    var checked = document.getElementById(selectedid).checked;
-
-    if (checked) {
-        $("#liPriority").show(); 
-        $("#delactbtn").hide(); 
+        var d = $("input:checked.delchckbx").length;
+        var checked = document.getElementById(selectedid).checked;
+    if (checked && d!=0) {
+        $("#liPriority").hide(); 
+        $("#delactbtn").show(); 
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
         console.log(selected_schedules_to_delete);
     }
-    else {
+    else
+    if(!checked && d==0){
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
         console.log(selected_schedules_to_delete);
 //        if (selected_schedules_to_delete === "") {
-        $("#liPriority").hide(); 
-        $("#delactbtn").show(); 
+        $("#liPriority").show(); 
+        $("#delactbtn").hide(); 
 //        }
-        ;
+        
     }
 
 
@@ -435,7 +436,7 @@ function programactions($scope, $http, $window){
             data: JSON.stringify(program_id)
         }).success(function (data, status, headers, config) {
             if (data == "true"){
-              window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+              window.open(getHost() + 'marketingprogramlist.jsp', "_self");
             }else {
                 alert("problem saving the record");
             }
@@ -449,6 +450,7 @@ function programactions($scope, $http, $window){
     };
     
     $scope.validate_program_link_details = function(){
+      var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;  
       var event_date = $("#progactdatepicker").val();
       var link_url = $("#link_url").val();
       var link_name = $("#link_name").val();
@@ -458,19 +460,44 @@ function programactions($scope, $http, $window){
           $("#progactdatepicker").focus();
           return false;
       }
-      if (link_url == ""){
-          alert("link url not entered, please entered the link url");
-          $("#link_url").focus();
-          return false;
-      }
       if (link_name == ""){
           alert("link name not entered, please entered the link name");
           $("#link_name").focus();
           return false;
       }
+      if((link_url == "") || (!myRegExp.test(link_url))){
+          alert("link url not entered Or Not Valid, please Enter the Valid link url");
+          $("#link_url").focus();
+          $("#link_url").val('http://');
+          return false;
+      }
       return true;
     };
     
+    $scope.setApproveTemplate = function(entity_id, approve_status){
+        
+        var status = {"entity_id":entity_id, "approve_status": approve_status};
+        alert("true");
+
+          $http({
+              method: 'POST',
+              url: 'approveStatus.do',
+              headers: {'Content-Type':'application/json'},
+              data: JSON.stringify(status)
+          }).success(function (data, status, headers, config) {
+            if (data == "true"){
+              window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+            }else {
+                alert("problem saving the record");
+            }
+          }).error(function (data, status, headers, config) {
+              alert("No data available, problem fetching the data");
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });        
+    };
+    
+
     $scope.updateUserProgram = function(){
         
       if ($scope.validate_program_link_details()){
@@ -500,11 +527,8 @@ function programactions($scope, $http, $window){
               alert("No data available, problem fetching the data");
               // called asynchronously if an error occurs
               // or server returns response with an error status.
-          });      
-          
-      }  
-      
-      
+          });
+      }
     };
     
     $scope.getProgramActions = function(){
@@ -541,8 +565,7 @@ function programactions($scope, $http, $window){
                 
            return  status;
         }; 
-    $scope.addRecuringAction = function(program_id){
-        alert(program_id);
+    $scope.addRecuringAction = function(program_id){        
         window.open(getHost() + 'emailautomation.jsp?type=add&program_id='+program_id+'&entity_id=0', "_self");
     };
     
@@ -956,7 +979,10 @@ function programactions($scope, $http, $window){
             });
     };
     
-    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, post_time) {
+    $scope.getScheduleDetails = function (schedule_id, template_status, 
+                                          schedule_time, entity_type, 
+                                          schedule_title, schedule_desc, 
+                                          post_time, action_status) {
        
         if (entity_type == "email") {
             
@@ -1005,6 +1031,7 @@ function programactions($scope, $http, $window){
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
+                $scope.action_status = action_status;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.email_template_status = template_status;
@@ -1058,6 +1085,7 @@ function programactions($scope, $http, $window){
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
+                $scope.action_status = action_status;
                 $scope.schedule_desc = schedule_desc;
                 $scope.facebook_template_status = template_status;
                 $scope.schedule_type = entity_type;
@@ -1109,6 +1137,7 @@ function programactions($scope, $http, $window){
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
+                $scope.action_status = action_status;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.twitter_template_status = template_status;

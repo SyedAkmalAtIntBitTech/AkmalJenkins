@@ -467,6 +467,32 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
         return "false";
       }
       
+      @RequestMapping (value = "/approveStatus", method = RequestMethod.POST)
+      public @ResponseBody String approveStatus(HttpServletRequest request, 
+                HttpServletResponse response)throws IOException, Throwable{
+          try{
+              
+            Map<String, Object> requestBodyMap =
+                      AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+
+            Double entity_id = (Double)requestBodyMap.get("entity_id");
+            String entity_status = (String)requestBodyMap.get("entity_status");
+
+            TblScheduledEntityList scheduled_entity_list =  scheduledEntityListService.getById(entity_id.intValue());
+
+            if (entity_status.equalsIgnoreCase("approved")){
+                scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
+            }else if(entity_status.equalsIgnoreCase("template_saved")){
+                scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
+            }
+            scheduledEntityListService.update(scheduled_entity_list);
+            return "true";
+          }catch (Throwable throwable){
+            logger.log(Level.SEVERE, null, throwable);
+          }
+          return "false";
+      }
+      
       @RequestMapping (value = "/endMarketingProgram", method = RequestMethod.POST)
       public @ResponseBody String endMarketingProgram(HttpServletRequest request, 
                 HttpServletResponse response)throws IOException, Throwable{
