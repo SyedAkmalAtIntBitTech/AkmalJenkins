@@ -176,14 +176,14 @@
                                 </script>
                             </div>
                         </div>
-                        <div id="associated_link" class="col-lg-2 col-md-2 col-sm-4" style="display:none;"> 
-                            <div class="asclink fontpnr">Associated Link</div>
-                            <div id="assoctdlnkprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
+                        <div id="associated_name" class="col-lg-2 col-md-2 col-sm-4" > 
+                            <div class="asclink fontpnr">Associated Name</div>
+                            <div id="assoctdlnkprv" class="evntdt fontpns">{{programs.programdetails.link_name}}</div>
                             <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="link_name" name="link_name" class="progactinputdate fontpns ptr"/></div>
                         </div>
-                        <div id="associated_name" class="col-lg-2 col-md-2 col-sm-4">
-                            <div class="asclink fontpnr">Associated Name</div>
-                            <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.link_name}}</div>
+                        <div id="associated_link" class="col-lg-2 col-md-2 col-sm-4" style="display:none;">
+                            <div class="asclink fontpnr">Associated Link</div>
+                            <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
                             <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr"/></div>
                         </div>                        
                     </div>

@@ -433,8 +433,10 @@ function programactions($scope, $http, $window){
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(program_id)
         }).success(function (data, status, headers, config) {
-            if (data === error) {
-                alert(data);
+            if (data == "true"){
+              window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+            }else {
+                alert("problem saving the record");
             }
         }).error(function (data, status, headers, config) {
             alert("No data available, problem fetching the data");
@@ -470,7 +472,9 @@ function programactions($scope, $http, $window){
     
     $scope.updateUserProgram = function(){
         
-      if ($scope.validate_program_link_details){
+      if ($scope.validate_program_link_details()){
+          
+        alert("true");
         var event_date = $("#progactdatepicker").val();
         var event_date_epoch = Date.parse(event_date);
         var link_url = $("#link_url").val();
@@ -478,16 +482,19 @@ function programactions($scope, $http, $window){
 
         var program_details = {"program_id": program, "date_of_event": event_date_epoch,
                           "link_url": link_url, "link_name": link_name};
+        alert("true");
 
           $http({
               method: 'POST',
               url: 'updateUserProgram.do',
               headers: {'Content-Type':'application/json'},
-              data: JSON.stringify(program_id)
+              data: JSON.stringify(program_details)
           }).success(function (data, status, headers, config) {
-              if (data === error) {
-                  alert(data);
-              }
+            if (data == "true"){
+              window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+            }else {
+                alert("problem saving the record");
+            }
           }).error(function (data, status, headers, config) {
               alert("No data available, problem fetching the data");
               // called asynchronously if an error occurs

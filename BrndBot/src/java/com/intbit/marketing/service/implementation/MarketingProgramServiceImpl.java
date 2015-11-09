@@ -37,7 +37,12 @@ public class MarketingProgramServiceImpl implements MarketingProgramService{
     public List<TblMarketingProgram> getAllTblMarketingProgram() throws Throwable {
         return  marketingProgramDao.getAllTblMarketingProgram();
     }
-
+    /**
+	 * {@inheritDoc}
+     */
+    public List<TblMarketingProgram> getAllTblMarketingProgramForCategory(Integer categoryId) throws Throwable {
+        return  marketingProgramDao.getAllTblMarketingProgramForCategory(categoryId);
+    }
    /**
 	 * {@inheritDoc}
      */
