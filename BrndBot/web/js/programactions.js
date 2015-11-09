@@ -339,48 +339,49 @@ function validatetwitteraction() {
 var selected_schedules_to_delete = "";
 
 function setSelectedRecuringIds(selectedid) {
-
     var checked = document.getElementById(selectedid).checked;
-
-    if (checked) {
+    var a = $("input:checked.chckbox").length;
+    if (checked && a!=0) {
+          $("#addemlactbtn").hide();
         $("#delemlactbtn").show();
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
         console.log(selected_schedules_to_delete);
     }
-    else {
+    else if(!checked && a==0)
+    {
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
         console.log(selected_schedules_to_delete);
-        if (selected_schedules_to_delete === "") {
+//        if (selected_schedules_to_delete === "") {
             $("#delemlactbtn").hide();
-        }
+            $("#addemlactbtn").show();
+//        }
         ;
     }
 
 
 }
 function setSelectedIds(selectedid) {
-
-
-    var checked = document.getElementById(selectedid).checked;
-
-    if (checked) {
-        $("#liPriority").show(); 
-        $("#delactbtn").hide(); 
+        var d = $("input:checked.delchckbx").length;
+        var checked = document.getElementById(selectedid).checked;
+    if (checked && d!=0) {
+        $("#liPriority").hide(); 
+        $("#delactbtn").show(); 
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
         console.log(selected_schedules_to_delete);
     }
-    else {
+    else
+    if(!checked && d==0){
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
         console.log(selected_schedules_to_delete);
 //        if (selected_schedules_to_delete === "") {
-        $("#liPriority").hide(); 
-        $("#delactbtn").show(); 
+        $("#liPriority").show(); 
+        $("#delactbtn").hide(); 
 //        }
-        ;
+        
     }
 
 

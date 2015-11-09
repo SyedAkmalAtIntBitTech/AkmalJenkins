@@ -63,17 +63,45 @@
                     $("#assoctdnameedt").show();
                     $("#saveprogdet").show();
                 });
-//                $("#saveprogdet").click(function (){
-//                    if($("#progactdatepicker").val() == "")
-//                    {
-//                        alert("Please Enter date of Event");
-//                        $("#progactdatepicker").focus();
-//                    }
-//                    else if($("#accostdlnkinp").val() == "")
-//                    {
-//                        alert("Please Enter Associated link");
-//                        $("#accostdlnkinp").focus();
-//                    }
+                $("#saveprogdet").click(function (){
+                     var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
+                    if($("#progactdatepicker").val() == "")
+                    {
+                        alert("Please Enter date of Event");
+                        $("#progactdatepicker").focus();
+                    }
+                    else if(($("#link_url").val() == "") || (!myRegExp.test($("#link_url").val())))
+                    {   
+                        alert("Please Enter Associated link");
+                        $("#link_url").focus();
+                        $("#link_url").val('http://');
+                         return false;
+                    }
+                    else if($("#link_name").val() == "")
+                    {
+                        alert("Please Enter Associated Name");
+                        $("#link_name").focus();
+                         return false;
+                    }
+                    else
+                    {
+                        alert("Date : "+$("#progactdatepicker").val()+"\nAssociated Link : "+$("#link_url").val()+"\nAssociated Name : "+$("#link_name").val());
+                        alert("Program details saved Successfully!");
+                        $("#progactdatepicker").hide();
+                        $("#link_url").hide();
+                        $("#link_name").hide();
+                        $("#editprogdet").show();
+                        $("#saveprogdet").hide();
+                        $("#dateofevntedt").hide();
+                        $("#dateofevntprv").show();
+                        $("#assoctdlnkprv").show();
+                        $("#assoctdnameprv").show();
+                        $("#associated_link").hide();
+                        $("#associated_name").show();
+                        $("#assoctdlnkedt").hide();
+                        $("#assoctdnameedt").hide();
+                    }
+                    
 //                    else if($("#progactdatepicker").val() !== "" && $("#accostdlnkinp").val() !== ""){
 //                        //do something
 //                        //do something
@@ -86,34 +114,49 @@
 //                        $("#dateofevntprv").show();
 //                       $("#assoctdlnkprv").show();
 //                    }
-//                });
+                });
             });
-             function checkboxclick(entity_recuring_id){
-
-                 var n = $("input:checked.chckbox").length;
-                 if(n==0)
-                 {
-                    $("#delemlactbtn").hide(); 
-                 }
-                 else if(n!=0)
-                 {
-                     $("#delemlactbtn").show();
-                 }
-             }
-             function deladdaction()
-             {
-                var n = $("input:checked.delchckbx").length;
-                 if(n==0)
-                 {   
-                    $("#liPriority").show(); 
-                    $("#delactbtn").hide(); 
-                 }
-                 else if(n!=0)
-                 {
-                    $("#liPriority").hide(); 
-                    $("#delactbtn").show(); 
-                 } 
-             }
+//             function checkboxclick(){
+//                 var a = $("input:checked.chckbox").length;
+//                 if(a==0)
+//                 {
+//                    $("#delemlactbtn").hide();
+//                    $("#addemlactbtn").show();
+//                 }
+//                 else if(a!=0)
+//                 {
+//                     $("#delemlactbtn").show();
+//                     $("#addemlactbtn").hide();
+//                 }
+//             }
+//             function checkboxclick1(){
+//                
+//                 var d = $("input:checked.delchckbx").length;
+//                 if(d==0)
+//                 {
+//                     $("#liPriority").show();
+//                     $("#delactbtn").hide();
+//                 }
+//                 else if(d!=0)
+//                 {
+//                     $("#liPriority").hide();
+//                     $("#delactbtn").show();
+//                 }
+//             }
+//             function deladdaction()
+//             {
+//                var n = $("input:checked.delchckbx").length;
+//                 if(n==0)
+//                 {   
+//                    $("#liPriority").show(); 
+//                    $("#delactbtn").hide(); 
+//                 }
+//                 else if(n!=0)
+//                 {
+//                    $("#liPriority").hide(); 
+//                    $("#delactbtn").show(); 
+//                 } 
+//             }
         function overlay(){
                 document.getElementById('light').style.display = 'block';
                 document.getElementById('fade').style.display = 'block';
@@ -179,12 +222,12 @@
                         <div id="associated_link" class="col-lg-2 col-md-2 col-sm-4" style="display:none;"> 
                             <div class="asclink fontpnr">Associated Link</div>
                             <div id="assoctdlnkprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
-                            <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="link_name" name="link_name" class="progactinputdate fontpns ptr"/></div>
+                            <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="link_url" name="link_url"  class="progactinputdate fontpns ptr"/></div>
                         </div>
                         <div id="associated_name" class="col-lg-2 col-md-2 col-sm-4">
                             <div class="asclink fontpnr">Associated Name</div>
                             <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.link_name}}</div>
-                            <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr"/></div>
+                            <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_name" name="link_name" class="progactinputdate fontpns ptr"/></div>
                         </div>                        
                     </div>
                     <div class="row">
@@ -206,7 +249,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="recuremlautom fontpns">Recurring Email Automation</div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
                              <div class="addemlautomdiv ">
                                  <button type="button" 
                                          id="addemlactbtn" 
@@ -221,8 +264,6 @@
                                 Add Email Automation
                                  </button>
                              </div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="delemlautomdiv  ">
                                  <button type="button" id="delemlactbtn" class="delemlautombtn 
                                                               button button--moema 
@@ -230,11 +271,11 @@
                                                               button--text-upper 
                                                               button--size-s 
 
-                                                              fontpnr" >
+                                                              fontpnr"  ng-click="deleteSchedule('0','deleteMultiple')">
                                 Delete Email Automation</button>
                              </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-1">
                              <div class="emlstats fontpnr">Status</div>
                         </div>
                     </div>
@@ -287,7 +328,7 @@
                                   <a href = "javascript:void(0)" onclick = "overlay();">
                                         <button id="liPriority" onclick = "overlay();" class="otaddactbtn  button button--moema button--text-thick button--text-upper button--size-s fontpnr" ng-click="ShowAddAction()">Add Action</button>
                                   </a> 
-                                   <button id="delactbtn" type="button" class="otaddactbtn delactbtn widthdelactbtn button button--moema button--text-thick button--text-upper button--size-s fontpnr">Delete Action</button>
+                                  <button id="delactbtn" type="button" class="otaddactbtn delactbtn widthdelactbtn button button--moema button--text-thick button--text-upper button--size-s fontpnr" ng-click="deleteSchedule('0','deleteMultiple')">Delete Action</button>
                                  </div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
