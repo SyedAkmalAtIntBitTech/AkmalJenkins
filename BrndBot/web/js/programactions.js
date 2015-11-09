@@ -8,6 +8,7 @@
 var sliderDialog = "";
 var prevSliderDialog = "";
 var create_button_title = "Edit";
+var program_status;
 
 $(document).ready(function ()
 {
@@ -505,6 +506,13 @@ function programactions($scope, $http, $window){
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
         }).success(function (data, status, headers, config) {
             $scope.programs = data;
+            program_status = data.programdetails.program_status;
+            if(program_status === "Closed"){
+                $(".endmrkprogbtn").hide();
+                $(".addemlautombtn").hide();
+                $(".otaddactbtn").hide(); 
+                 $("#checkBox").hide();
+            }
             $scope.program_id = program;
             if (data === error) {
                 alert(data);
@@ -515,6 +523,17 @@ function programactions($scope, $http, $window){
             // or server returns response with an error status.
         });
     };
+         $scope.checkProgramStatus= function (){
+            var status;
+            if(program_status === "Closed"){
+                status=true;
+            }
+            else{
+                status=false;
+            }
+                
+           return  status;
+        }; 
     $scope.addRecuringAction = function(program_id){
         alert(program_id);
         window.open(getHost() + 'emailautomation.jsp?type=add&program_id='+program_id+'&entity_id=0', "_self");
@@ -1688,7 +1707,3 @@ function programactions($scope, $http, $window){
                 document.getElementById('fade').style.display = 'none';
                 document.body.style.overflow = 'scroll';
         }
- 
- 
- 
- 
