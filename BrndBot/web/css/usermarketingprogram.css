@@ -11,7 +11,7 @@ and open the template in the editor.
 .markprog{
     margin-left:0px;
     margin-top:82.3px;
-    width:422px;
+    /*width:422px;*/
     height:24px;
     font-size:20px;
     color:#3f3f42;
@@ -127,7 +127,7 @@ and open the template in the editor.
 }
 .inputlink{
     margin-left:0px;
-    margin-top:35px;
+    margin-top:25px;
 }
 .subcont{
     margin-left:0px !important;

@@ -10,7 +10,7 @@ and open the template in the editor.
 .selmarkprog {
     margin-top:75px;
     margin-left:128px;
-    width:445px;
+    /*width:445px;*/
     height:30px;
     font-size: 25px;
     color:#2d4355;
