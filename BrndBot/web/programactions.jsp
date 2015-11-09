@@ -259,7 +259,7 @@
                             <div class="emlchkbox"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" /></div>
                         </div>
                          <div class="col-lg-3 col-md-3 col-sm-3">
-                             <div class="listelem fontpnr">{{programaction.programTemplateName}}</div>
+                             <div class="listelem txtwidth fontpnr">{{programaction.programTemplateName}}</div>
                              <div class="otasublst fontpnr">Scheduled for {{programaction.postTime| date:'h:mm a'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">

@@ -1645,12 +1645,15 @@ div.offrpromo{
     border: #f4f4f4 3px; 
 }
 .listelem{
-    width:245px;
+    width:533px;
     /*height:22px;*/
     font-size: 18px;
     color:#0f76a6;
     margin-left:4px !important;
     margin-top:0px !important;
+}
+.txtwidth{
+    width:270px !important;
 }
 .sublst{
     width:422px;

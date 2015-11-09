@@ -533,12 +533,7 @@
                 </div>
                 <div id="emailautomationcontent" ng-init="getEntityDetails();">
                 <div class="col-md-11 col-lg-11 col-sm-10 col-md-offset-2 col-lg-offset-2">
-                    <div class="row">
-                        <div class="col-sm-10 col-lg-12 col-md-12">
-                            <div class="emlautoact fontpnr">Create a trigger for this email automation action:</div>
-                            <div class="emlautocont"></div>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12 col-md-12">
@@ -553,7 +548,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-lg-12 col-md-12">
-                         <div class="sublineinp fontpnr">Enter a brief description:</div>
+                         <div class="sublineinp brfdesc fontpnr">Enter a brief description:</div>
                            <div class="group ">
                                 <input id="recuring_email_description" 
                                        class="form-control subinp fontpnr" 
@@ -562,7 +557,12 @@
                            </div>
                        </div>
                     </div>
-                        
+                    <div class="row">
+                        <div class="col-sm-10 col-lg-12 col-md-12">
+                            <div class="emlautoact fontpnr">Create a trigger for this email automation action:</div>
+                            <!--<div class="emlautocont"></div>-->
+                        </div>
+                    </div>
                         <div class="col-sm-10 col-lg-12 col-md-12 ">
                             <ul class="eventlist autopadlft">
                                 <li>
