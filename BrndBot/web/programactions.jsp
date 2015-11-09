@@ -63,44 +63,44 @@
                     $("#assoctdnameedt").show();
                     $("#saveprogdet").show();
                 });
-                $("#saveprogdet").click(function (){
-                     var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
-                    if($("#progactdatepicker").val() == "")
-                    {
-                        alert("Please Enter date of Event");
-                        $("#progactdatepicker").focus();
-                    }
-                    else if(($("#link_url").val() == "") || (!myRegExp.test($("#link_url").val())))
-                    {   
-                        alert("Please Enter Associated link");
-                        $("#link_url").focus();
-                        $("#link_url").val('http://');
-                         return false;
-                    }
-                    else if($("#link_name").val() == "")
-                    {
-                        alert("Please Enter Associated Name");
-                        $("#link_name").focus();
-                         return false;
-                    }
-                    else
-                    {
-                        alert("Date : "+$("#progactdatepicker").val()+"\nAssociated Link : "+$("#link_url").val()+"\nAssociated Name : "+$("#link_name").val());
-                        alert("Program details saved Successfully!");
-                        $("#progactdatepicker").hide();
-                        $("#link_url").hide();
-                        $("#link_name").hide();
-                        $("#editprogdet").show();
-                        $("#saveprogdet").hide();
-                        $("#dateofevntedt").hide();
-                        $("#dateofevntprv").show();
-                        $("#assoctdlnkprv").show();
-                        $("#assoctdnameprv").show();
-                        $("#associated_link").hide();
-                        $("#associated_name").show();
-                        $("#assoctdlnkedt").hide();
-                        $("#assoctdnameedt").hide();
-                    }
+//                $("#saveprogdet").click(function (){
+//                     var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
+//                    if($("#progactdatepicker").val() == "")
+//                    {
+//                        alert("Please Enter date of Event");
+//                        $("#progactdatepicker").focus();
+//                    }
+//                    else if(($("#link_url").val() == "") || (!myRegExp.test($("#link_url").val())))
+//                    {   
+//                        alert("Please Enter Associated link");
+//                        $("#link_url").focus();
+//                        $("#link_url").val('http://');
+//                         return false;
+//                    }
+//                    else if($("#link_name").val() == "")
+//                    {
+//                        alert("Please Enter Associated Name");
+//                        $("#link_name").focus();
+//                         return false;
+//                    }
+//                    else
+//                    {
+//                        alert("Date : "+$("#progactdatepicker").val()+"\nAssociated Link : "+$("#link_url").val()+"\nAssociated Name : "+$("#link_name").val());
+//                        alert("Program details saved Successfully!");
+//                        $("#progactdatepicker").hide();
+//                        $("#link_url").hide();
+//                        $("#link_name").hide();
+//                        $("#editprogdet").show();
+//                        $("#saveprogdet").hide();
+//                        $("#dateofevntedt").hide();
+//                        $("#dateofevntprv").show();
+//                        $("#assoctdlnkprv").show();
+//                        $("#assoctdnameprv").show();
+//                        $("#associated_link").hide();
+//                        $("#associated_name").show();
+//                        $("#assoctdlnkedt").hide();
+//                        $("#assoctdnameedt").hide();
+//                    }
                     
 //                    else if($("#progactdatepicker").val() !== "" && $("#accostdlnkinp").val() !== ""){
 //                        //do something
@@ -114,7 +114,7 @@
 //                        $("#dateofevntprv").show();
 //                       $("#assoctdlnkprv").show();
 //                    }
-                });
+//                });
             });
 //             function checkboxclick(){
 //                 var a = $("input:checked.chckbox").length;
@@ -219,15 +219,15 @@
                                 </script>
                             </div>
                         </div>
-                        <div id="associated_link" class="col-lg-2 col-md-2 col-sm-4" style="display:none;"> 
-                            <div class="asclink fontpnr">Associated Link</div>
-                            <div id="assoctdlnkprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
-                            <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="link_url" name="link_url"  class="progactinputdate fontpns ptr"/></div>
-                        </div>
-                        <div id="associated_name" class="col-lg-2 col-md-2 col-sm-4">
+                        <div id="associated_name" class="col-lg-2 col-md-2 col-sm-4" > 
                             <div class="asclink fontpnr">Associated Name</div>
-                            <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.link_name}}</div>
-                            <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_name" name="link_name" class="progactinputdate fontpns ptr"/></div>
+                            <div id="assoctdlnkprv" class="evntdt fontpns">{{programs.programdetails.link_name}}</div>
+                            <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="link_name" name="link_name" class="progactinputdate fontpns ptr"/></div>
+                        </div>
+                        <div id="associated_link" class="col-lg-2 col-md-2 col-sm-4" style="display:none;">
+                            <div class="asclink fontpnr">Associated Link</div>
+                            <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
+                            <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr"/></div>
                         </div>                        
                     </div>
                     <div class="row">

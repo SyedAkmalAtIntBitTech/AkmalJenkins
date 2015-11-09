@@ -405,6 +405,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                 userMarketinProgramObject.put("noOfActions", list1_size+list2_size+list3_size);
                 userMarketinProgramObject.put("linktodestination", userMarketingProgram.getUrl());
                 userMarketinProgramObject.put("link_name", userMarketingProgram.getLinkName());
+                userMarketinProgramObject.put("program_status", userMarketingProgram.getStatus());
                 userMarketinProgramObject.put("dateOfEvent", dateEvent.getTime());
                 userMarketinProgramObject.put("description", userMarketingProgram.getTblMarketingProgram().getHtmlData());
 
@@ -427,7 +428,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
       @RequestMapping (value = "/updateUserProgram", method = RequestMethod.POST)
       public @ResponseBody String updateUserProgram(HttpServletRequest request, 
                 HttpServletResponse response)throws IOException, Throwable{
-
+       try{
         Map<String, Object> requestBodyMap =
                 AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
@@ -445,6 +446,10 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
         user_marketing_program.setLinkName(link_name);
         
         userMarketingProgramService.update(user_marketing_program);
+        return "true";
+       }catch (Throwable throwable){
+            logger.log(Level.SEVERE, null, throwable);
+       }
         return "false";
       }
       
@@ -476,8 +481,9 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
         user_marketing_program.setStatus("Closed");
         
         userMarketingProgramService.update(user_marketing_program);
+        return "true";
         }catch (Throwable throwable){
-                logger.log(Level.SEVERE, null, throwable);
+            logger.log(Level.SEVERE, null, throwable);
         }
         return "false";  
       }

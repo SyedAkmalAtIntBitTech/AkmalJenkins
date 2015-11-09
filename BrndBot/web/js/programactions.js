@@ -434,8 +434,10 @@ function programactions($scope, $http, $window){
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(program_id)
         }).success(function (data, status, headers, config) {
-            if (data === error) {
-                alert(data);
+            if (data == "true"){
+              window.open(getHost() + 'marketingprogramlist.jsp', "_self");
+            }else {
+                alert("problem saving the record");
             }
         }).error(function (data, status, headers, config) {
             alert("No data available, problem fetching the data");
@@ -447,6 +449,7 @@ function programactions($scope, $http, $window){
     };
     
     $scope.validate_program_link_details = function(){
+      var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;  
       var event_date = $("#progactdatepicker").val();
       var link_url = $("#link_url").val();
       var link_name = $("#link_name").val();
@@ -456,14 +459,15 @@ function programactions($scope, $http, $window){
           $("#progactdatepicker").focus();
           return false;
       }
-      if (link_url == ""){
-          alert("link url not entered, please entered the link url");
-          $("#link_url").focus();
-          return false;
-      }
       if (link_name == ""){
           alert("link name not entered, please entered the link name");
           $("#link_name").focus();
+          return false;
+      }
+      if((link_url == "") || (!myRegExp.test(link_url))){
+          alert("link url not entered Or Not Valid, please Enter the Valid link url");
+          $("#link_url").focus();
+          $("#link_url").val('http://');
           return false;
       }
       return true;
@@ -471,7 +475,9 @@ function programactions($scope, $http, $window){
     
     $scope.updateUserProgram = function(){
         
-      if ($scope.validate_program_link_details){
+      if ($scope.validate_program_link_details()){
+          
+        alert("true");
         var event_date = $("#progactdatepicker").val();
         var event_date_epoch = Date.parse(event_date);
         var link_url = $("#link_url").val();
@@ -479,16 +485,19 @@ function programactions($scope, $http, $window){
 
         var program_details = {"program_id": program, "date_of_event": event_date_epoch,
                           "link_url": link_url, "link_name": link_name};
+        alert("true");
 
           $http({
               method: 'POST',
               url: 'updateUserProgram.do',
               headers: {'Content-Type':'application/json'},
-              data: JSON.stringify(program_id)
+              data: JSON.stringify(program_details)
           }).success(function (data, status, headers, config) {
-              if (data === error) {
-                  alert(data);
-              }
+            if (data == "true"){
+              window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+            }else {
+                alert("problem saving the record");
+            }
           }).error(function (data, status, headers, config) {
               alert("No data available, problem fetching the data");
               // called asynchronously if an error occurs

@@ -123,11 +123,11 @@
                                         </li>
                                     </ul>
                                     </li>
-                                 </ul>
+                                 </ul><hr class="pstprogline">
                         </div>
-                        <div class="row">
+<!--                        <div class="row">
                             <hr class="pstprogline">
-                        </div>
+                        </div>-->
                     </div>
                     </div>
                     <div id="email" ng-init="getUserMarketingProgramsOpen()">
