@@ -296,6 +296,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
           jsonObject.put("programs", json_array);
           return jsonObject.toString();
       }
+      
        @RequestMapping(value="/alluserMarketingProgramForDisplay", method = RequestMethod.GET)
       public @ResponseBody String getAllUserMarketingProgramDetails(HttpServletRequest request, 
                 HttpServletResponse response,@RequestParam("program_id")Integer userProgram_id ) {
@@ -403,6 +404,8 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                 userMarketinProgramObject.put("programName", userMarketingProgram.getName());
                 userMarketinProgramObject.put("noOfActions", list1_size+list2_size+list3_size);
                 userMarketinProgramObject.put("linktodestination", userMarketingProgram.getUrl());
+                userMarketinProgramObject.put("link_name", userMarketingProgram.getLinkName());
+                userMarketinProgramObject.put("program_status", userMarketingProgram.getStatus());
                 userMarketinProgramObject.put("dateOfEvent", dateEvent.getTime());
                 userMarketinProgramObject.put("description", userMarketingProgram.getTblMarketingProgram().getHtmlData());
 
@@ -422,10 +425,32 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
         return null;
 
     }
-      @RequestMapping (value = "/setProgramStatus", method = RequestMethod.POST)
-      public @ResponseBody String setProgramStatus(HttpServletRequest request, 
-                HttpServletResponse response){
-          return "false";
+      @RequestMapping (value = "/updateUserProgram", method = RequestMethod.POST)
+      public @ResponseBody String updateUserProgram(HttpServletRequest request, 
+                HttpServletResponse response)throws IOException, Throwable{
+       try{
+        Map<String, Object> requestBodyMap =
+                AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+
+        Double program_id = (Double)requestBodyMap.get("program_id");
+        Double date_of_event = (Double)requestBodyMap.get("date_of_event");
+        String link_url = (String)requestBodyMap.get("link_url");
+        String link_name = (String)requestBodyMap.get("link_name");
+        
+        TblUserMarketingProgram user_marketing_program = userMarketingProgramService.getById(program_id.intValue());
+
+        Date event_date = new Date(date_of_event.longValue());
+        
+        user_marketing_program.setDateEvent(event_date);
+        user_marketing_program.setUrl(link_url);
+        user_marketing_program.setLinkName(link_name);
+        
+        userMarketingProgramService.update(user_marketing_program);
+        return "true";
+       }catch (Throwable throwable){
+            logger.log(Level.SEVERE, null, throwable);
+       }
+        return "false";
       }
       
       @RequestMapping (value = "/getEntityDetails", method = RequestMethod.POST)
@@ -442,5 +467,24 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
         return "false";
       }
       
-       
+      @RequestMapping (value = "/endMarketingProgram", method = RequestMethod.POST)
+      public @ResponseBody String endMarketingProgram(HttpServletRequest request, 
+                HttpServletResponse response)throws IOException, Throwable{
+        try{
+              
+        Map<String, Object> requestBodyMap =
+                  AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+
+        Double program_id = (Double)requestBodyMap.get("program_id");
+        TblUserMarketingProgram user_marketing_program = userMarketingProgramService.getById(program_id.intValue());
+
+        user_marketing_program.setStatus("Closed");
+        
+        userMarketingProgramService.update(user_marketing_program);
+        return "true";
+        }catch (Throwable throwable){
+            logger.log(Level.SEVERE, null, throwable);
+        }
+        return "false";  
+      }
 }

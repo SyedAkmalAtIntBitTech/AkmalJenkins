@@ -147,10 +147,12 @@
                     });
                 };
                 
-                $scope.getMarketingPrograms = function(){
+                $scope.getMarketingPrograms = function(category_id){
+                    alert(category_id);
+                    var category_id = $("#category").val();
                     $http({
                         method: 'GET',
-                        url: getHost() + 'getMarketingPrograms.do'
+                        url: getHost() + 'getMarketingPrograms.do?category_id='+category_id
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
                     }).error(function (data, status, headers, config) {
@@ -275,11 +277,11 @@
                 </div>
                 <div ng-init="getMarketingCategories(); getMarketingPrograms();" style="float:left; left:20px; padding-left: 166px;">
                 <%= exist1 %>
-                    Select category:<select name="category" id="category" style="width:180px;">
+                    Select category:<select name="category" id="category" style="width:180px;" ng-change="getMarketingPrograms()">
                                         <option value="0">--select--</option>
                                         <option value="{{category.category_id}}" ng-repeat="category in categories">{{category.name}}</option>
                                     </select><br><br>
-                    Select program:<select name="programs" id="programs" style="width:180px;">
+                    Select program:<select name="programs" id="programs" style="width:180px;" >
                                         <option value="0">--select--</option>
                                         <option value="{{program.program_id}}" ng-repeat="program in programs">{{program.name}}</option>
                                    </select><br><br>
