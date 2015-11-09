@@ -1501,7 +1501,7 @@ and open the template in the editor.
 .markprog{
     margin-top:64.9px;
     margin-left:0px;
-    width:372px;
+    /*width:372px;*/
     height:30px;
     font-size: 25px;
     color:#2d4355;
@@ -1516,7 +1516,7 @@ and open the template in the editor.
     cursor:pointer;
 }
 .noofact{
-    width:113px;
+    width:123px;
     height:17px;
     font-size: 14px;
     color:#3f3f42;
@@ -1532,7 +1532,7 @@ and open the template in the editor.
     margin-top:10px !important;
 }
 .dtofevnt{
-    width:83px;
+    width:93px;
     height:17px;
     font-size: 14px;
     color:#3f3f42;
@@ -1563,7 +1563,7 @@ and open the template in the editor.
     width:130px !important;
 }
 .asclink{
-    width:197px;
+    width:207px;
     height:17px;
     font-size: 14px;
     color:#3f3f42;
@@ -1615,7 +1615,7 @@ div.offrpromo{
     margin-top:15.5px !important;
 }
 .recuremlautom{
-    width:250px;
+    width:260px;
     height:24px;
     font-size: 20px;
     color:#3f3f42;
@@ -1645,12 +1645,15 @@ div.offrpromo{
     border: #f4f4f4 3px; 
 }
 .listelem{
-    width:545px;
-    height:22px;
+    width:533px;
+    /*height:22px;*/
     font-size: 18px;
     color:#0f76a6;
     margin-left:4px !important;
     margin-top:0px !important;
+}
+.txtwidth{
+    width:270px !important;
 }
 .sublst{
     width:422px;
@@ -1746,7 +1749,7 @@ div.offrpromo{
     border: #f4f4f4 3px;
 }
 .otact{
-    width:160px;
+    width:170px;
     height:24px;
     font-size:20px;
     color:#3f3f42;
@@ -1754,7 +1757,7 @@ div.offrpromo{
     margin-top:45px !important;
 }
 .otactdt{
-    width:26px;
+    width:36px;
     height:15px;
     font-size:12px;
     color:#3f3f42;
@@ -1762,7 +1765,7 @@ div.offrpromo{
     margin-top:54px !important;
 }
 .otacttype{
-    width:63px;
+    width:73px;
     height:15px;
     font-size:12px;
     color:#3f3f42;
@@ -1863,7 +1866,7 @@ div.offrpromo{
 }
 .endmrkprogbtndiv{
     margin-top:68px;
-    margin-left:360.2px;
+    margin-left:62px;
     
 }
 .endmrkprogbtn{

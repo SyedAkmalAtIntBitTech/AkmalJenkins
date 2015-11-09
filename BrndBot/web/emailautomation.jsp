@@ -243,7 +243,6 @@
                     });
 
                 }else if((type == 'edit')||(type == 'template')){
-                    alert(emails);
 
                     var recuring_action = {
                         "entity_id" : entity_id, 
@@ -258,7 +257,6 @@
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
-                    alert("test");
                     $http({
                         method: 'POST',
                         url: 'updateRecuringAction.do',
@@ -344,25 +342,23 @@
                 $("#emlautomeditorcontainer").hide();
                 $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
 
-            alert(type);
+                $("#emaillist").change(function () {
 
-            $("#emaillist").change(function () {
-               
-                var List_name = $("#emaillist").val();
-                $.ajax({
-                    url: getHost() + "GetEmailLists",
-                    method: 'POST',                    
-                    data: {
-                        update: "emailsForEmailList",
-                        list_name: List_name
-                    },
-                    success: function(result){
-                        var i = 0;
-                        emails = result.user_emailAddresses;
-                    }
+                    var List_name = $("#emaillist").val();
+                    $.ajax({
+                        url: getHost() + "GetEmailLists",
+                        method: 'POST',                    
+                        data: {
+                            update: "emailsForEmailList",
+                            list_name: List_name
+                        },
+                        success: function(result){
+                            var i = 0;
+                            emails = result.user_emailAddresses;
+                        }
+                    });
+
                 });
-                
-            });
 
             if (type == 'edit'){
                 var entity_details = {"entity_id": entity_id};                    
@@ -533,12 +529,7 @@
                 </div>
                 <div id="emailautomationcontent" ng-init="getEntityDetails();">
                 <div class="col-md-11 col-lg-11 col-sm-10 col-md-offset-2 col-lg-offset-2">
-                    <div class="row">
-                        <div class="col-sm-10 col-lg-12 col-md-12">
-                            <div class="emlautoact fontpnr">Create a trigger for this email automation action:</div>
-                            <div class="emlautocont"></div>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12 col-md-12">
@@ -553,7 +544,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-lg-12 col-md-12">
-                         <div class="sublineinp fontpnr">Enter a brief description:</div>
+                         <div class="sublineinp brfdesc fontpnr">Enter a brief description:</div>
                            <div class="group ">
                                 <input id="recuring_email_description" 
                                        class="form-control subinp fontpnr" 
@@ -562,7 +553,12 @@
                            </div>
                        </div>
                     </div>
-                        
+                    <div class="row">
+                        <div class="col-sm-10 col-lg-12 col-md-12">
+                            <div class="emlautoact fontpnr">Create a trigger for this email automation action:</div>
+                            <!--<div class="emlautocont"></div>-->
+                        </div>
+                    </div>
                         <div class="col-sm-10 col-lg-12 col-md-12 ">
                             <ul class="eventlist autopadlft">
                                 <li>

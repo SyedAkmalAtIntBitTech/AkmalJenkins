@@ -48,6 +48,8 @@
                 $("#assoctdlnkedt").hide();
                 
                 $("#editprogdet").click(function (){
+                    var ok=confirm("Do You Really want to Edit?");
+                    if(ok==true){
                     $("#link_name").show();
                     $("#link_url").show();
                     $("#editprogdet").hide();
@@ -60,6 +62,7 @@
                     $("#assoctdlnkedt").show();
                     $("#assoctdnameedt").show();
                     $("#saveprogdet").show();
+                }
                 });
             });
         function overlay(){
@@ -85,12 +88,12 @@
                 <div id="fade" class="black_overlay"></div>
                 <div class="col-md-11 col-sm-10 col-lg-11 col-lg-offset-2 col-md-offset-2">
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="col-lg-7 col-md-7 col-sm-7">
                             <div class="markprog fontpns">{{programs.programdetails.programName}}</div>
                             <div id="editprogdet" class="edtprog fontpnr">Edit Program Details</div>
                             <div id="saveprogdet" class="edtprog fontpnr" ng-click="updateUserProgram()">Save Program Details</div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="col-lg-1 col-md-1 col-sm-1">
                             <div class="endmrkprogbtndiv fontpnr">
                                 <button type="button" class="endmrkprogbtn button 
                                                         button--moema 
@@ -260,7 +263,7 @@
                             <div class="emlchkbox"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" /></div>
                         </div>
                          <div class="col-lg-3 col-md-3 col-sm-3">
-                             <div class="listelem fontpnr">{{programaction.programTemplateName}}</div>
+                             <div class="listelem txtwidth fontpnr">{{programaction.programTemplateName}}</div>
                              <div class="otasublst fontpnr">Scheduled for {{programaction.postTime| date:'h:mm a'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
@@ -2257,7 +2260,6 @@
 
                         </div>
                     </div>
-<<<<<<< HEAD
 <!--                    <div id="edit_email_action" >
                         <h1 class="SP1 actfnt">UPDATE ACTION</h1>
                         <form class="form-horizontal" id="signform">
