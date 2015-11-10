@@ -284,7 +284,8 @@
                                                             programaction.actionType, 
                                                             programaction.programTemplateName, 
                                                             programaction.description, 
-                                                            programaction.postTime)">Details</button>
+                                                            programaction.postTime,
+                                                            programaction.postDateStatus)">Details</button>
                         </div>
                         <div class="otactlstlinediv">
                         <hr class="otactlstline">
