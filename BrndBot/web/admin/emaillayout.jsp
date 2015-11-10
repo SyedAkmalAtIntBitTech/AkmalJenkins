@@ -438,14 +438,30 @@
 
         </script>
         <script>
-            function validate(imageUrl) {
+            function validate(imageUrl) {                
+                var UploadImage=imageUrl.replace(""+global_host_address+"DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&user_id=null&image_name=","");
                 var model_name = $("#namexml").val();
+                var htmldata=$(".fr-wrapper").children().html();
 
-                if (model_name == "") {
+                if (model_name === ""){
                     alert("model name not entered");
                     $("#namexml").focus();
                     return false;
-                } else {
+                }
+                else if(UploadImage === "null")
+                    {
+                    alert("Please select a image");
+                    HidePopUp();
+                    $("#filesToUpload").focus();
+                    return false;
+                } 
+                else if(htmldata === "<p><br></p>"){
+                    alert("Please add html data");
+                    HidePopUp();
+                    return false;
+                    
+                }        
+                else {
                     $.ajax({
                         url: global_host_address + 'ServletValidateModel',
                         method: 'post',
@@ -486,9 +502,7 @@
 
                                 var imagename = $("#imagename").val();
                                 var mail = $("#mail").val();
-                                var htmldata=$(".fr-wrapper").children().html();
-                                var UploadImage=imageUrl.replace(""+global_host_address+"DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&user_id=null&image_name=","");
-                             
+                                                          
                                 $.ajax({
                                     url: global_host_address + 'Model',
                                     method: 'post',
