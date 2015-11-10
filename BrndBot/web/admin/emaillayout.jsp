@@ -502,7 +502,7 @@
 
                                 var imagename = $("#imagename").val();
                                 var mail = $("#mail").val();
-                                                          
+                                                           
                                 $.ajax({
                                     url: global_host_address + 'Model',
                                     method: 'post',
