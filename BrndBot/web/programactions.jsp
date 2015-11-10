@@ -558,7 +558,7 @@
                                     SUBJECT LINE
                                 </div>
                                 <div class="containe fontpnr tenpix">
-                                    September 5, 2015 at 2:02 PM
+                                    {{entitiesdetails.subject}}
                                 </div>
                                 <div class="inlineFlex toptweenty">
                                     <div class="half headcolor fontpns tenpix">
@@ -570,10 +570,10 @@
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
-                                        To mail list text
+                                        {{entitiesdetails.to_email_addresses}}
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        Additional mail list text
+                                        {{entitiesdetails.email_list_name}}
                                     </div>
                                 </div>
                                  <div class="inlineFlex toptweenty">
@@ -586,10 +586,10 @@
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
-                                        FROM EMAIL ADDRESS
+                                        {{entitiesdetails.from_name}}
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        From email address
+                                        {{entitiesdetails.from_address}}
                                     </div>
                                 </div>
                             </div>
@@ -890,7 +890,7 @@
                                 </div>
                                 </div>
 
-                            <div class="half">
+                        <div class="half">
                         <div class="secondcol">
                             <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
@@ -918,7 +918,7 @@
                                     SUBJECT LINE
                                 </div>
                                 <div class="containe fontpnr tenpix">
-                                    September 5, 2015 at 2:02 PM
+                                    {{entitiesdetails.subject}}
                                 </div>
                                 <div class="inlineFlex toptweenty">
                                     <div class="half headcolor fontpns tenpix">
@@ -930,10 +930,10 @@
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
-                                        To mail list text
+                                        {{entitiesdetails.to_email_addresses}}
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        Additional mail list text
+                                        {{entitiesdetails.email_list_name}}
                                     </div>
                                 </div>
                                  <div class="inlineFlex toptweenty">
@@ -946,10 +946,10 @@
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
-                                        FROM EMAIL ADDRESS
+                                        {{entitiesdetails.from_name}}
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        From email address
+                                        {{entitiesdetails.from_address}}
                                     </div>
                                 </div>
                             </div>
@@ -1156,7 +1156,7 @@
                                             LINK TITLE
                                         </div>
                                         <div class="topten containe fontpnr twlvpix">
-                                            Link Name Goes Here
+                                            {{entitiesdetails.metadata.title}}
                                         </div>
                                         <div class="toptweentyfive headcolor tenpix fontpns">
                                             LINK DESCRIPTION
@@ -1606,7 +1606,7 @@
                                             LINK TITLE
                                         </div>
                                         <div class="topten containe fontpnr twlvpix">
-                                            Link Name Goes Here
+                                            {{entitiesdetails.metadata.title}}
                                         </div>
                                         <div class="toptweentyfive headcolor tenpix fontpns">
                                             LINK DESCRIPTION
@@ -1879,13 +1879,13 @@
                                     POST TEXT
                                 </div>
                                 <div class="height75 scrolly topten">
-                                    <p class="containe twlvpix fontpnr">{{entitiesdetails.meta.text}}</p>
+                                    <p class="containe twlvpix fontpnr">{{{entitiesdetails.metadata.post_text}}</p>
                                 </div>
                                 <div class="toptweenty headcolor tenpix fontpns">
                                     LINK NAME
                                 </div>
                                 <div class="topten containe fontpnr twlvpix">
-                                    Link Name Goes Here
+                                    {{entitiesdetails.metadata.title}}
                                 </div>
                             </div>
                         </div>
@@ -2106,13 +2106,13 @@
                                     POST TEXT
                                 </div>
                                 <div class="height75 scrolly topten">
-                                    <p class="containe twlvpix fontpnr">{{entitiesdetails.meta.text}}</p>
+                                    <p class="containe twlvpix fontpnr">{{entitiesdetails.metadata.post_text}}</p>
                                 </div>
                                 <div class="toptweenty headcolor tenpix fontpns">
                                     LINK NAME
                                 </div>
                                 <div class="topten containe fontpnr twlvpix">
-                                    Link Name Goes Here
+                                    {{entitiesdetails.metadata.title}}
                                 </div>
                             </div>
                         </div>
@@ -2230,7 +2230,7 @@
                                             SUBJECT LINE
                                         </div>
                                         <div class="containe fontpnr tenpix">
-                                            September 5, 2015 at 2:02 PM
+                                            {{entitiesdetails.subject}}
                                         </div>
                                         <div class="inlineFlex toptweenty">
                                             <div class="half headcolor fontpns tenpix">
@@ -2242,10 +2242,10 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                To mail list text
+                                                {{entitiesdetails.to_email_addresses}}
                                             </div>
                                             <div class="half containe fontpnr tenpix">
-                                                Additional mail list text
+                                                {{entitiesdetails.email_list_name}}
                                             </div>
                                         </div>
                                          <div class="inlineFlex toptweenty">
@@ -2258,10 +2258,10 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                FROM EMAIL ADDRESS
+                                                {{entitiesdetails.from_name}}
                                             </div>
                                             <div class="half containe fontpnr tenpix">
-                                                From email address
+                                                {{entitiesdetails.from_address}}
                                             </div>
                                         </div>
                                     </div>

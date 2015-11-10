@@ -111,7 +111,7 @@
                 data: JSON.stringify(entity_details)
             }).success(function(data, status){
                 $scope.entity_details = data;
-                alert(JSON.stringify(data));
+                
                 $scope.showEmailList();
                 showEmailListName(data.recuring_email_email_list_name);
                 days = data.recuring_email_days;
