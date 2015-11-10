@@ -1156,7 +1156,7 @@
                                             LINK TITLE
                                         </div>
                                         <div class="topten containe fontpnr twlvpix">
-                                            Link Name Goes Here
+                                            {{entitiesdetails.metadata.title}}
                                         </div>
                                         <div class="toptweentyfive headcolor tenpix fontpns">
                                             LINK DESCRIPTION

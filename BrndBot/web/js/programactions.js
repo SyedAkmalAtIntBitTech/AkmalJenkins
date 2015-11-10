@@ -217,7 +217,6 @@ function validateaction() {
     return true;
 }
 function validateemailaction() {
-    var actiontype = $("#email_schedule_type").val();
     var schedule_id = $("#email_scheduleid").val();
     var title = $("#email_edit_title").val();
 
@@ -231,11 +230,6 @@ function validateemailaction() {
         return false;
     }
 
-    if (actiontype === "") {
-        alert("actiontype not entered, please enter the actiontype");
-        $("#email_schedule_type").focus();
-        return false;
-    }
     if (description === "") {
         alert("description not entered, please enter the description");
         $("#email_description").focus();
@@ -1193,25 +1187,25 @@ function programactions($scope, $http, $window){
     };
     $scope.updateActionEmail = function () {
 
-        var actiontype = $("#email_schedule_type").val();
-        console.log("action type" + actiontype);
-        var schedule_id = $("#email_scheduleid").val();
-        var title = $("#email_edit_title").val();
-
-        var actiondate = $("#emaildatetime").val();
-        var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
-        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-        var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
-        var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
-
-        var description = $("#email_description").val();
-        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
-
-        console.log("New Epoch: " + myEpoch);
-
         if (validateemailaction()) {
+            var actiontype = "email";
+            console.log("action type" + actiontype);
+            var schedule_id = $("#email_scheduleid").val();
+            var title = $("#email_edit_title").val();
+
+            var actiondate = $("#emaildatetime").val();
+            var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
+            var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+            var schedule_time = Date.parse(l);
+            console.log("Epoch: " + schedule_time);
+            var myEpoch = schedule_time;
+            console.log("New Epoch: " + myEpoch);
+
+            var description = $("#email_description").val();
+            console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+
+            console.log("New Epoch: " + myEpoch);
+
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
@@ -1241,24 +1235,25 @@ function programactions($scope, $http, $window){
     };
     $scope.updateActionFacebook = function () {
 
-        var actiontype = $("#fb_scheduletype").val();
-        console.log("action type" + actiontype);
-        var schedule_id = $("#fb_scheduleid").val();
-        var title = $("#fb_action_title").val();
-        
-        var actiondate = $("#datepickerfb").val();
-        var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
-        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-        var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
-        var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
-
-        var description = $("#fb_description").val();
-        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
-        console.log("New Epoch: " + myEpoch);
-      
         if (validatefacebookaction()) {
+            
+            var actiontype = "facebook";
+            console.log("action type" + actiontype);
+            var schedule_id = $("#fb_scheduleid").val();
+            var title = $("#fb_action_title").val();
+        
+            var actiondate = $("#datepickerfb").val();
+            var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
+            var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+            var schedule_time = Date.parse(l);
+            console.log("Epoch: " + schedule_time);
+            var myEpoch = schedule_time;
+            console.log("New Epoch: " + myEpoch);
+
+            var description = $("#fb_description").val();
+            console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+            console.log("New Epoch: " + myEpoch);
+            
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
@@ -1288,19 +1283,7 @@ function programactions($scope, $http, $window){
     };
     $scope.updateActionTwitter = function () {
 
-        var actiontype = $("#twitter_action_type").val();
-        console.log("action type" + actiontype);
-        var schedule_id = $("#twitter_scheduleid").val();
-        var title = $("#edit_twitter_title").val();
         
-
-        var actiondate = $("#datepickertwitter").val();
-        var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
-        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-        var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
-        var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
 
 
         var description = $("#twitter_description").val();
@@ -1309,6 +1292,19 @@ function programactions($scope, $http, $window){
         console.log("New Epoch: " + myEpoch);
 
         if (validatetwitteraction()) {
+            
+            var actiontype = "twitter";
+            console.log("action type" + actiontype);
+            var schedule_id = $("#twitter_scheduleid").val();
+            var title = $("#edit_twitter_title").val();        
+            var actiondate = $("#datepickertwitter").val();
+            var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
+            var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+            var schedule_time = Date.parse(l);
+            console.log("Epoch: " + schedule_time);
+            var myEpoch = schedule_time;
+            console.log("New Epoch: " + myEpoch);
+            
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
