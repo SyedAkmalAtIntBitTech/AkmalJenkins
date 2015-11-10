@@ -1567,7 +1567,7 @@ and open the template in the editor.
     height:17px;
     font-size: 14px;
     color:#3f3f42;
-    margin-left:3px !important;
+    margin-left:0px !important;
     margin-top:25px !important;
 }
 .progdesc{
@@ -1615,7 +1615,7 @@ div.offrpromo{
     margin-top:15.5px !important;
 }
 .recuremlautom{
-    width:260px;
+    width:272px;
     height:24px;
     font-size: 20px;
     color:#3f3f42;
@@ -1749,8 +1749,8 @@ div.offrpromo{
     border: #f4f4f4 3px;
 }
 .otact{
-    width:170px;
-    height:24px;
+    width:171px;
+    /*height:24px;*/
     font-size:20px;
     color:#3f3f42;
     margin-left:1px !important;
