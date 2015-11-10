@@ -72,13 +72,17 @@ public class AddActionServlet extends HttpServlet {
                     templateStatus = TemplateStatus.incomplete.toString();
                 }
                 try{
+                        Double tempmarketingType=new Double(requestBodyMap.get("marketingType").toString().trim());
+                        Double tempDays = new Double(requestBodyMap.get("days").toString().trim());
+                        Integer marketingType=tempmarketingType.intValue();
+                        Integer days = tempDays.intValue();
                         int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
                         requestBodyMap.get("title").toString(),
-                        requestBodyMap.get("marketingType").toString(),                        
+                        marketingType.toString(),                        
                         requestBodyMap.get("description").toString(),
                         new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
                         requestBodyMap.get("actiontype").toString(), 
-                        requestBodyMap.get("days").toString().trim(),
+                        days.toString().trim(),
                         templateStatus,
                         userId,
                         conn

@@ -216,7 +216,6 @@
                                                             emailautomation.actionType, 
                                                             emailautomation.programTemplateName, 
                                                             emailautomation.description, 
-                                                            emailautomation.programTemplateName,
                                                             emailautomation.postDateStatus)">Details
                             </button>
 <!--                         <button type="button" 
@@ -2182,8 +2181,7 @@
                                         SCHEDULED TO POST ON
                                     </div>
                                     <div class="containe fontpnr tenpix">
-                                        {{entities_selected_date| date:'MMM dd yyyy'}}
-                                        {{post_time| date:'h:mma'}}
+                                        {{entities_selected_time| date:'MMM dd yyyy' +' n '+'h:mma'}}
                                     </div>
                                     <div class="inlineFlex top120">
                                         <div class="rightthirty">
