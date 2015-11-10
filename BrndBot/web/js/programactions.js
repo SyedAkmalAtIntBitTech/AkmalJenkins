@@ -470,30 +470,6 @@ function programactions($scope, $http, $window){
       return true;
     };
     
-    $scope.setApproveTemplate = function(entity_id, approve_status){
-        
-        var status = {"entity_id":entity_id, "approve_status": approve_status};
-        alert("true");
-
-          $http({
-              method: 'POST',
-              url: 'approveStatus.do',
-              headers: {'Content-Type':'application/json'},
-              data: JSON.stringify(status)
-          }).success(function (data, status, headers, config) {
-            if (data == "true"){
-              window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
-            }else {
-                alert("problem saving the record");
-            }
-          }).error(function (data, status, headers, config) {
-              alert("No data available, problem fetching the data");
-              // called asynchronously if an error occurs
-              // or server returns response with an error status.
-          });        
-    };
-    
-
     $scope.updateUserProgram = function(){
         
       if ($scope.validate_program_link_details()){
@@ -523,8 +499,11 @@ function programactions($scope, $http, $window){
               alert("No data available, problem fetching the data");
               // called asynchronously if an error occurs
               // or server returns response with an error status.
-          });
-      }
+          });      
+          
+      }  
+      
+      
     };
     
     $scope.getProgramActions = function(){
@@ -561,7 +540,8 @@ function programactions($scope, $http, $window){
                 
            return  status;
         }; 
-    $scope.addRecuringAction = function(program_id){        
+    $scope.addRecuringAction = function(program_id){
+        alert(program_id);
         window.open(getHost() + 'emailautomation.jsp?type=add&program_id='+program_id+'&entity_id=0', "_self");
     };
     
@@ -616,7 +596,9 @@ function programactions($scope, $http, $window){
             window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
       };
     
-    
+    $scope.createPost = function(type,program_id,entity_id){
+            window.open(getHost() + 'dashboard.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
+      };
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
         $edit=1;  
         if (entity_type == "email") {
@@ -923,7 +905,7 @@ function programactions($scope, $http, $window){
             });
     };
     
-    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName) {
+    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, action_status) {
          
             $slider=2;
             sliderDialog = "#recuring_preview";
@@ -973,14 +955,14 @@ function programactions($scope, $http, $window){
                 $scope.schedule_desc = schedule_desc;
                 $scope.email_template_status = template_status;
                 $scope.schedule_type = entity_type;
-                $scope.marketing_program_name = marketingName;
+                $scope.action_status=action_status;
             }).error(function (data) {
                 alert("request not successful ");
             });
     };
     
     $scope.getScheduleDetails = function (schedule_id, template_status, 
-                                          schedule_time, entity_type, 
+                                          schedule_date, entity_type, 
                                           schedule_title, schedule_desc, 
                                           post_time, action_status) {
        
@@ -1030,7 +1012,7 @@ function programactions($scope, $http, $window){
                 $scope.entities_selected_date = schedule_date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
-                $scope.action_status = action_status;
+                $scope.action_status=action_status;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.email_template_status = template_status;
@@ -1083,8 +1065,8 @@ function programactions($scope, $http, $window){
                 $scope.entities_selected_date = schedule_date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
-                $scope.action_status = action_status;
                 $scope.schedule_desc = schedule_desc;
+                $scope.action_status=action_status;
                 $scope.facebook_template_status = template_status;
                 $scope.schedule_type = entity_type;
                 $scope.post_time=post_time;
@@ -1134,7 +1116,7 @@ function programactions($scope, $http, $window){
                 $scope.entities_selected_date = schedule_date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
-                $scope.action_status = action_status;
+                $scope.action_status=action_status;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.twitter_template_status = template_status;
