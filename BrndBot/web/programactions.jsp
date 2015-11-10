@@ -41,6 +41,7 @@
     <script src="js/programactions.js"></script>
     <script>
           $(document).ready(function (){
+                
                 $("#delactbtn").hide();
                 $("#delemlactbtn").hide();
                 $("#saveprogdet").hide();
@@ -48,7 +49,7 @@
                 $("#assoctdlnkedt").hide();
                 
                 $("#editprogdet").click(function (){
-                    var ok=confirm("Do You Really want to Edit?");
+                    var ok=confirm("Do you really want to Edit?");
                     if(ok==true){
                     $("#link_name").show();
                     $("#link_url").show();
@@ -79,7 +80,7 @@
     </script>
         <jsp:include page="basejsp.jsp"/>
     </head>
-    <body ng-app>
+    <body id="proghide" ng-app>
         <div class="row" ng-controller="programactions">
             <div class="row" ng-init="getProgramActions()" >
                 <div class="col-lg-1 col-md-1 col-sm-2">
@@ -90,7 +91,7 @@
                     <div class="row">
                         <div class="col-lg-7 col-md-7 col-sm-7">
                             <div class="markprog fontpns">{{programs.programdetails.programName}}</div>
-                            <div id="editprogdet" class="edtprog fontpnr">Edit Program Details</div>
+                            <div id="editprogdet" class="edtprog fontpnr" ng-hide="programs.programdetails.program_status=='Closed'">Edit Program Details</div>
                             <div id="saveprogdet" class="edtprog fontpnr" ng-click="updateUserProgram()">Save Program Details</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
