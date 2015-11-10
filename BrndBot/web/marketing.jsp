@@ -1004,7 +1004,7 @@
                                             {{schedule_type}}
                                         </div>
                                         <div class="half containe fontpnr tenpix">
-                                            BRNDBOT
+                                            {{entitiesdetails.metadata.ManagedPage}}
                                         </div>
                                     </div>
                                     <div class="toptweenty headcolor tenpix fontpns">

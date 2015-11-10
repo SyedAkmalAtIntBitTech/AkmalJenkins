@@ -215,7 +215,6 @@
                                                             emailautomation.actionType, 
                                                             emailautomation.programTemplateName, 
                                                             emailautomation.description, 
-                                                            emailautomation.programTemplateName,
                                                             emailautomation.postDateStatus)">Details
                             </button>
 <!--                         <button type="button" 
@@ -1088,7 +1087,7 @@
                                             {{schedule_type}}
                                         </div>
                                         <div class="half containe fontpnr tenpix">
-                                            BRNDBOT
+                                            {{entitiesdetails.metadata.ManagedPage}}
                                         </div>
                                     </div>
                                     <div class="toptweenty headcolor tenpix fontpns">
@@ -1523,7 +1522,7 @@
                                             </div>
                                         </div>
                                         <div class="half containe fontpnr tenpix topten">
-                                            CANNOT EDIT
+                                            {{entitiesdetails.metadata.ManagedPage}}
                                         </div>
                                     </div>
                                     
@@ -2181,8 +2180,7 @@
                                         SCHEDULED TO POST ON
                                     </div>
                                     <div class="containe fontpnr tenpix">
-                                        {{entities_selected_date| date:'MMM dd yyyy'}}
-                                        {{post_time| date:'h:mma'}}
+                                        {{entities_selected_time| date:'MMM dd yyyy'+' on '+ 'h:mma'}}
                                     </div>
                                     <div class="inlineFlex top120">
                                         <div class="rightthirty">

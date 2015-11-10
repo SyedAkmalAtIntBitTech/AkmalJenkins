@@ -349,6 +349,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                 jSONObject.put("dateTime", scheduledEntityListObject.getTblUserMarketingProgram().getCreateDate().getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
                 jSONObject.put("days", scheduledEntityListObject.getDays());
+                jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
                 scheduledEmailJsonArray.put(jSONObject);
@@ -431,6 +432,7 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                jSONObject.put("programTemplateName", scheduledSocialpostListObject.getScheduleTitle());
                jSONObject.put("status", TemplateStatus.valueOf(scheduledSocialpostListObject.getStatus()).getDisplayName());
                jSONObject.put("actionStatus",actionStatus);
+               jSONObject.put("description",scheduledSocialpostListObject.getScheduleDesc());
                jSONObject.put("postDateStatus", postDateStatus);
                jSONObject.put("postDate",cal.getTimeInMillis());
                jSONObject.put("postTime",scheduledSocialpostListObject.getScheduleTime().getTime());
