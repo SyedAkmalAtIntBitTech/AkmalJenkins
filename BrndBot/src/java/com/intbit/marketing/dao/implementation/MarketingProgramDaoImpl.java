@@ -67,9 +67,8 @@ public class MarketingProgramDaoImpl implements MarketingProgramDao{
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(TblMarketingProgram.class)
-                    .setFetchMode("tblMarketingProgram.tblMarketingCategory", FetchMode.JOIN)
-                    .createAlias("tblMarketingProgram.tblMarketingCategory", "marketingCategoryVar")
-                    .add(Restrictions.eq("marketingCategoryVar.id", categoryId));
+                    .setFetchMode("tblMarketingCategory", FetchMode.JOIN)
+                    .add(Restrictions.eq("tblMarketingCategory.id", categoryId));
                    return criteria.list();
 		} catch (Throwable throwable) {
                    logger.log(Level.SEVERE, null, throwable);

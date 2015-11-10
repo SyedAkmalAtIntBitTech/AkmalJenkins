@@ -11,7 +11,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="checksession.jsp" />
+
 
 <!DOCTYPE html>
 <html>
@@ -89,6 +89,12 @@
                        $("#marketingactiontilldate").attr("disabled",true);
                    }
                 });
+                
+                $("#category").change(function(){
+
+                    angular.element(document.getElementById('marketingActionsController')).scope().getMarketingPrograms();
+                    
+                });
             });            
             
             function validate(){
@@ -147,12 +153,12 @@
                     });
                 };
                 
-                $scope.getMarketingPrograms = function(category_id){
-                    alert(category_id);
+                $scope.getMarketingPrograms = function(){
+                    
                     var category_id = $("#category").val();
                     $http({
                         method: 'GET',
-                        url: getHost() + 'getMarketingPrograms.do?category_id='+category_id
+                        url: getHost() + 'getMarketingPrograms.do?marketingCategoryId='+category_id
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
                     }).error(function (data, status, headers, config) {
@@ -266,7 +272,7 @@
     </head>
     <body ng-app class="container">
     <%@include file="menus.jsp" %>
-        <div class="jumbotron" align="center" ng-controller="marketingActionsController" >
+        <div class="jumbotron" id="marketingActionsController" align="center" ng-controller="marketingActionsController" >
             <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 860px; width: 600px;">
                 <form name="formCategories" >
 
@@ -277,7 +283,7 @@
                 </div>
                 <div ng-init="getMarketingCategories(); getMarketingPrograms();" style="float:left; left:20px; padding-left: 166px;">
                 <%= exist1 %>
-                    Select category:<select name="category" id="category" style="width:180px;" ng-change="getMarketingPrograms()">
+                    Select category:<select name="category" id="category" style="width:180px;">
                                         <option value="0">--select--</option>
                                         <option value="{{category.category_id}}" ng-repeat="category in categories">{{category.name}}</option>
                                     </select><br><br>

@@ -243,7 +243,6 @@
                     });
 
                 }else if((type == 'edit')||(type == 'template')){
-                    alert(emails);
 
                     var recuring_action = {
                         "entity_id" : entity_id, 
@@ -258,7 +257,6 @@
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
-                    alert("test");
                     $http({
                         method: 'POST',
                         url: 'updateRecuringAction.do',
@@ -344,25 +342,23 @@
                 $("#emlautomeditorcontainer").hide();
                 $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
 
-            alert(type);
+                $("#emaillist").change(function () {
 
-            $("#emaillist").change(function () {
-               
-                var List_name = $("#emaillist").val();
-                $.ajax({
-                    url: getHost() + "GetEmailLists",
-                    method: 'POST',                    
-                    data: {
-                        update: "emailsForEmailList",
-                        list_name: List_name
-                    },
-                    success: function(result){
-                        var i = 0;
-                        emails = result.user_emailAddresses;
-                    }
+                    var List_name = $("#emaillist").val();
+                    $.ajax({
+                        url: getHost() + "GetEmailLists",
+                        method: 'POST',                    
+                        data: {
+                            update: "emailsForEmailList",
+                            list_name: List_name
+                        },
+                        success: function(result){
+                            var i = 0;
+                            emails = result.user_emailAddresses;
+                        }
+                    });
+
                 });
-                
-            });
 
             if (type == 'edit'){
                 var entity_details = {"entity_id": entity_id};                    

@@ -51,12 +51,10 @@ public class MarketingProgramController {
 
     @RequestMapping(value = "/getMarketingPrograms", method = RequestMethod.GET)
     public @ResponseBody String getMarketingPrograms(HttpServletRequest request,
-            HttpServletResponse response,@RequestParam("marketingCategoryId") Integer marketingCategoryId ) {
+            HttpServletResponse response, @RequestParam("marketingCategoryId") Integer marketingCategoryId) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
 
-            sql_methods.session = request.getSession(true);
-            Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
             List<TblMarketingProgram> MarketingPrograms = marketingprogramservice.getAllTblMarketingProgramForCategory(marketingCategoryId);
             Integer i = 1;
             for (TblMarketingProgram marketing_program : MarketingPrograms) {

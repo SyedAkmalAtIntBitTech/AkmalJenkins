@@ -11,7 +11,7 @@ package com.intbit;
  */
 public enum TemplateStatus {
     no_template("No Template"), template_saved("Template Saved"), 
-    incomplete("Incomplete"), complete("Complete");
+    incomplete("Incomplete"), complete("Complete"), approved("Approved");
     
     private TemplateStatus(String displayName) {
         this.displayName = displayName;
