@@ -45,7 +45,7 @@ and open the template in the editor.
 .datevent{
     margin-left:0px;
     margin-top:60.3px;
-    width:298px;
+    /*width:298px;*/
     height:24px;
     font-size:20px;
     color:#3f3f42;
@@ -61,7 +61,7 @@ and open the template in the editor.
 .worklink{
     margin-left:0px;
     margin-top:59.1px;
-    width:246px;
+    /*width:246px;*/
     height:24px;
     font-size:20px;
     color:#3f3f42;

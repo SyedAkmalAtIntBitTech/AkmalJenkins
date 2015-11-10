@@ -145,8 +145,8 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                      <div class=" offrpromo fontpnr" ng-bind-html-unsafe="programs.programdetails.description"></div>
 <!--                                     <div class=" promosubhead fontpnr">This is a subheader</div>-->
-                                     <p class="prompara fontpnr">
-                                     </p>
+<!--                                     <p class="prompara fontpnr">
+                                     </p>-->
 <!--                                     <p class="helplink fontpnr">Link to help you out</p>-->
                                      </div>
                                 </div>                                  
