@@ -22,6 +22,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -366,25 +367,49 @@ public class ScheduleDAO {
             LocalDate fromDate, LocalDate toDate) throws SQLException {
 
         Map<String, JSONArray> result = new LinkedHashMap<>();
-        String sql = "SELECT slist.*, tc.color, date(schedule_time) schedule_date "
+        String sql = "SELECT DISTINCT ON (id) slist.*, date(programtable.date_event) - slist.days as cal_schedule_time, date(schedule_time) schedule_date "
                 + " FROM tbl_scheduled_entity_list slist, "
-                + " tbl_scheduled_entity_type_color tc "
-                + " WHERE user_id = ? "
-                + " AND date(schedule_time) <= ? "
-                + " AND date(schedule_time) >= ? "
+                + " tbl_scheduled_entity_type_color tc, tbl_user_marketing_program programtable"
+                + " WHERE slist.user_id = ? "
+                + " AND (date(schedule_time) <= ? "
+                + " AND date(schedule_time) >= ?) "
+                + " OR ((slist.is_recuring = 'false' AND date(programtable.date_event) - slist.days <= ? "
+                + " AND date(programtable.date_event) - slist.days >= ?) "
+                + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
+                + " AND date(programtable.date_event) >= ?)) "
                 + " AND slist.entity_type = tc.entity_type"
-                + " ORDER BY schedule_time ";
+                + " AND slist.user_marketing_program_id = programtable.id"
+                + " ORDER BY slist.id, schedule_time ";
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, userId);
             ps.setDate(2, Date.valueOf(toDate));
             ps.setDate(3, Date.valueOf(fromDate));
+            ps.setDate(4, Date.valueOf(toDate));
+            ps.setDate(5, Date.valueOf(fromDate));
+            ps.setDate(6, Date.valueOf(toDate));
+            ps.setDate(7, Date.valueOf(fromDate));
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Timestamp scheduleTimestamp = rs.getTimestamp("schedule_time");
                     long scheduleTime = scheduleTimestamp.getTime();
                     JSONObject scheduleDetailJSONObject = new JSONObject();
-                    long scheduleDate = rs.getDate("schedule_date").getTime();
+                    long scheduleDate;
+                    if(rs.getInt("user_marketing_program_id")==0)
+                    scheduleDate = rs.getDate("schedule_date").getTime();
+                    else
+                    {
+                        Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
+                        if(rs.getBoolean("is_recuring"))
+                        {
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(scheduleTimestamp1);
+                            cal.add(Calendar.DAY_OF_WEEK, rs.getInt("days"));
+                            scheduleDate = cal.getTime().getTime();
+                        }
+                        else
+                            scheduleDate = scheduleTimestamp1.getTime();
+                    }
                     //String scheduleDateStr = new Date(scheduleDate).toString();
                     scheduleDetailJSONObject.put("schedule_id", rs.getInt("id"));
                     scheduleDetailJSONObject.put("entity_id", rs.getInt("entity_id"));
@@ -394,12 +419,28 @@ public class ScheduleDAO {
                     scheduleDetailJSONObject.put("user_marketing_program_id", rs.getInt("user_marketing_program_id"));
                     scheduleDetailJSONObject.put("schedule_title", rs.getString("schedule_title"));
                     scheduleDetailJSONObject.put("schedule_description", rs.getString("schedule_desc"));
-                    scheduleDetailJSONObject.put("schedule_time", scheduleTime);
+                    if(rs.getInt("user_marketing_program_id")==0)
+                        scheduleDetailJSONObject.put("schedule_time", scheduleTime);
+                    else
+                    {
+                        Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
+                        long scheduleTime1;
+                        if(rs.getBoolean("is_recuring"))
+                        {
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(scheduleTimestamp1);
+                            cal.add(Calendar.DAY_OF_WEEK, rs.getInt("days"));
+                            scheduleTime1 = cal.getTime().getTime();
+                        }
+                        else
+                        scheduleTime1 = scheduleTimestamp1.getTime();
+                        scheduleDetailJSONObject.put("schedule_time", scheduleTime1);    
+                    }
                     scheduleDetailJSONObject.put("is_recuring", rs.getBoolean("is_recuring"));
                     scheduleDetailJSONObject.put("entity_type", rs.getString("entity_type"));
                     scheduleDetailJSONObject.put("status", rs.getString("status"));
                     scheduleDetailJSONObject.put("user_id", rs.getInt("user_id"));
-                    scheduleDetailJSONObject.put("color", rs.getString("color"));
+                    //scheduleDetailJSONObject.put("color", rs.getString("color"));
                     scheduleDetailJSONObject.put("template_status",
                     TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
 
@@ -409,6 +450,7 @@ public class ScheduleDAO {
 
                     result.get(String.valueOf(scheduleDate)).add(scheduleDetailJSONObject);
                 }
+                System.out.println("result:"+result.toString());
             } catch (Exception e) {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e,
                         "Exception while deleting the schedule:", null), e);
@@ -416,7 +458,7 @@ public class ScheduleDAO {
         }
         Set<String> dateSet = result.keySet();
         JSONArray entityDataArray = new JSONArray();
-
+System.out.println("dateSet"+dateSet.toString());
         try {
             Instant instant = fromDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
             java.util.Date from_date = (java.util.Date) Date.from(instant);
