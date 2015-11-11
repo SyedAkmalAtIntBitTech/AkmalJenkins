@@ -348,7 +348,6 @@ function setSelectedRecuringIds(selectedid) {
             $("#delemlactbtn").hide();
             $("#addemlactbtn").show();
 //        }
-        ;
     }
 
 
@@ -374,8 +373,6 @@ function setSelectedIds(selectedid) {
 //        }
         
     }
-
-
 }
 
 Date.prototype.customFormat = function (formatString) {
@@ -468,7 +465,6 @@ function programactions($scope, $http, $window){
         
       if ($scope.validate_program_link_details()){
           
-        alert("true");
         var event_date = $("#progactdatepicker").val();
         var event_date_epoch = Date.parse(event_date);
         var link_url = $("#link_url").val();
@@ -476,8 +472,7 @@ function programactions($scope, $http, $window){
 
         var program_details = {"program_id": program, "date_of_event": event_date_epoch,
                           "link_url": link_url, "link_name": link_name};
-        alert("true");
-
+        
           $http({
               method: 'POST',
               url: 'updateUserProgram.do',
@@ -523,19 +518,18 @@ function programactions($scope, $http, $window){
             // or server returns response with an error status.
         });
     };
-         $scope.checkProgramStatus= function (){
-            var status;
-            if(program_status === "Closed"){
-                status=true;
-            }
-            else{
-                status=false;
-            }
-                
-           return  status;
-        }; 
+    $scope.checkProgramStatus= function (){
+       var status;
+       if(program_status === "Closed"){
+           status=true;
+       }
+       else{
+           status=false;
+       }
+
+      return  status;
+   }; 
     $scope.addRecuringAction = function(program_id){
-        alert(program_id);
         window.open(getHost() + 'emailautomation.jsp?type=add&program_id='+program_id+'&entity_id=0', "_self");
     };
     
@@ -543,8 +537,6 @@ function programactions($scope, $http, $window){
         window.open(getHost() + 'emailautomation.jsp?entitylistid='+entity_list_Id+'&days='+days, "_self");
     };
 
-                
-                 
     $scope.entities_selected_time = "";
     $scope.getCampaigns = function () {
         var curr_date = '';
@@ -735,10 +727,7 @@ function programactions($scope, $http, $window){
             }).error(function (data) {
                 alert("request not successful");
             });
-
         }
-
-
     };
     $scope.showScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
 
@@ -1006,7 +995,7 @@ function programactions($scope, $http, $window){
                 $scope.entities_selected_date = schedule_date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
-                $scope.action_status=action_status;
+                $scope.email_action_status=action_status;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.email_template_status = template_status;
@@ -1060,7 +1049,7 @@ function programactions($scope, $http, $window){
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 $scope.schedule_desc = schedule_desc;
-                $scope.action_status=action_status;
+                $scope.facebook_action_status=action_status;
                 $scope.facebook_template_status = template_status;
                 $scope.schedule_type = entity_type;
                 $scope.post_time=post_time;
@@ -1110,7 +1099,7 @@ function programactions($scope, $http, $window){
                 $scope.entities_selected_date = schedule_date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
-                $scope.action_status=action_status;
+                $scope.twitter_action_status=action_status;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.twitter_template_status = template_status;
@@ -1134,10 +1123,7 @@ function programactions($scope, $http, $window){
             $scope.schedule_type = entity_type;
             $scope.note_template_status = template_status;
             $scope.post_time=post_time;
-
         }
-
-
     };
     $scope.AddAction = function () {
         var title = $("#addactiontitle").val();

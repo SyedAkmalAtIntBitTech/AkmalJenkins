@@ -513,7 +513,7 @@ public class RecuringEmailController {
         json_entity_list.put("recuring_email_entity_id", schedule_entity_list.getEntityId());
         json_entity_list.put("recuring_email_entity_type", schedule_entity_list.getEntityType());
         json_entity_list.put("recuring_email_is_recuring", schedule_entity_list.getIsRecuring());
-        json_entity_list.put("recuring_email_id", schedule_entity_list.getRecuringEmailId());
+        json_entity_list.put("recuring_email_template_id", schedule_entity_list.getRecuringEmailId());
         json_entity_list.put("recuring_email_description", schedule_entity_list.getScheduleDesc());
         json_entity_list.put("recuring_email_time", schedule_entity_list.getScheduleTime().getTime());
         json_entity_list.put("recuring_email_title", schedule_entity_list.getScheduleTitle());
