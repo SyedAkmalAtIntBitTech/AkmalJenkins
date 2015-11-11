@@ -1,7 +1,7 @@
 <%-- 
     Document   : emailautomate
     Created on : Oct 14, 2015, 2:56:27 PM
-    Author     : Sandeep Kumar at IntBit Technologies.
+    Author     : IntBit Technologies.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -111,7 +111,14 @@
                 data: JSON.stringify(entity_details)
             }).success(function(data, status){
                 $scope.entity_details = data;
-                alert(JSON.stringify(data));
+                if (data.recuring_email_template_id != null){
+                    template_id = data.recuring_email_template_id;
+                }else {
+                    entity_no_email_template = "true";
+                }
+                html_data = data.recuring_email_body;
+                $('#edit').froalaEditor('html.set',''+html_data+'');
+                
                 $scope.showEmailList();
                 showEmailListName(data.recuring_email_email_list_name);
                 days = data.recuring_email_days;
@@ -208,9 +215,9 @@
                         // or server returns response with an error status.
                     });
 
-                }else if ((type == 'template') && (entity_no_email_template == "true")){
+                }else if((type == 'template') && (entity_no_email_template == "true")){
+
                     var recuring_action = {
-                        
                         "entity_id" : entity_id, 
                         "days":days, "emaillist":emaillist, 
                         "to_email_addresses": emails,
@@ -232,6 +239,7 @@
                         if((data == "true") && (entity_no_email_template == "true")) {
                             alert("details saved succesfully");
                             $("#emailautomationcontent").hide();
+                            entity_no_email_template = "false";
                             $("#emlautomeditorcontainer").show();
                         }else {
                             alert("problem saving the record");
@@ -242,8 +250,39 @@
                         // or server returns response with an error status.
                     });
 
-                }else if((type == 'edit')||(type == 'template')){
+                }else if ((type == 'edit') && (entity_no_email_template == "true")){
+                    var recuring_action = {
+                        "entity_id" : entity_id, 
+                        "days":days, "emaillist":emaillist, 
+                        "to_email_addresses": emails,
+                        "subject":subject, "from_name":from_name,
+                        "reply_to_address":reply_to_address,
+                        "recuring_email_title":recuring_email_title,
+                        "recuring_email_description":recuring_email_description,
+                        "till_date_epoch":till_date_epoch,
+                        "schedule_time_epoch": schedule_time,
+                        "program_id" :program_id 
+                    };
 
+                    $http({
+                        method: 'POST',
+                        url: 'addupdateRecuringAction.do',
+                        headers: {'Content-Type':'application/json'},
+                        data: JSON.stringify(recuring_action)
+                    }).success(function (data, status, headers, config) {
+                        if ((data === "true")) {
+                            alert("details saved succesfully");
+                            window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
+                        }else {
+                            alert("problem saving the record");
+                        }
+                    }).error(function (data, status, headers, config) {
+                        alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+                    
+                }else if((type == 'edit')||(type == 'template')){
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "template_id" : template_id, "html_data": html_data,
@@ -291,47 +330,6 @@
                 template_id = id;
         };
 
-//        $scope.saveEmailAutomation = function(){
-//            if (validate()){
-//
-//                var days = $("#days").val();
-//                var emaillist = $("#emaillist").val();
-//                var subject = $("#subject").val();
-//                var from_name = $("#from_name").val();
-//                var reply_to_address = $("#reply_to_address").val();
-//                var entity_id =;
-//
-//                var $iframe = $('.fr-iframe');
-//                var html_data = $iframe.contents().find("html").html(); 
-//                html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
-//                console.log(html_data);
-//                var emailautomation = {
-//                                       "entity_id":entity_id, "template_id":template_id,
-//                                       "days":days, "emaillist":emaillist,
-//                                       "subject":subject, "from_name":from_name,
-//                                       "reply_to_address":reply_to_address,
-//                                       "html_data": html_data
-//                                      };
-//                $http({
-//                    method: 'POST',
-//                    url: 'setEmailTemplateToRecuringAction.do',
-//                    headers: {'Content-Type':'application/json'},
-//                    data: JSON.stringify(emailautomation)
-//                }).success(function (data, status, headers, config) {
-//                    $scope.categories = data;
-//                    if (data === "true") {
-//                        alert("details saved succesfully");
-//                        window.open(getHost() + 'marketingprogramlist.jsp?type=current', "_self");
-//                    }else {
-//                        alert("problem saving the record");
-//                    }
-//                }).error(function (data, status, headers, config) {
-//                    alert("No data available, problem fetching the data");
-//                    // called asynchronously if an error occurs
-//                    // or server returns response with an error status.
-//                });
-//            }
-//        };
     }
 
 </script> 
@@ -364,6 +362,7 @@
                 var entity_details = {"entity_id": entity_id};                    
                 $("#emailautomationcontent").show();
                 $("#emlautomeditorcontainer").hide();
+                
                 //                
 //                $.ajax({
 //                    url: getHost() + "getRecuringEntity.do",

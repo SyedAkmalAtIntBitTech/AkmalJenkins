@@ -76,6 +76,33 @@ public class MarketingProgramController {
         return json_array_marketing_program.toString();
     }
 
+    @RequestMapping(value = "/getAllMarketingPrograms", method = RequestMethod.GET)
+    public @ResponseBody String getAllMarketingPrograms(HttpServletRequest request,
+            HttpServletResponse response) {
+        JSONArray json_array_marketing_program = new JSONArray();
+        try {
+
+            List<TblMarketingProgram> MarketingPrograms = marketingprogramservice.getAllTblMarketingProgram();
+            Integer i = 1;
+            for (TblMarketingProgram marketing_program : MarketingPrograms) {
+
+                JSONObject json_marketing_programming = new JSONObject();
+                json_marketing_programming.put("id", i);
+                json_marketing_programming.put("program_id", marketing_program.getId());
+                json_marketing_programming.put("name", marketing_program.getName());
+                json_marketing_programming.put("program_order", marketing_program.getProgramOrder());
+                json_marketing_programming.put("htmldata", marketing_program.getHtmlData());
+                json_marketing_programming.put("category_id", marketing_program.getTblMarketingCategory().getId());
+
+                json_array_marketing_program.put(json_marketing_programming);
+                i++;
+            }
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+        }
+        return json_array_marketing_program.toString();
+    }
+    
     @RequestMapping(value = "/setMarketingPrograms", method = RequestMethod.POST)
     public @ResponseBody String setMarketingPrograms(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException, Throwable {

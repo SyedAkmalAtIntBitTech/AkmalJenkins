@@ -287,7 +287,7 @@ public class ScheduleDAO {
             ps.setInt(9, marketinkProgramId);
             ps.setInt(10, Integer.parseInt(days) );
             ps.setTimestamp(11, null);
-            ps.setInt(12, 0);
+            ps.setNull(12, java.sql.Types.INTEGER);
             
             ps.execute();
             try (ResultSet rs = ps.getResultSet()) {

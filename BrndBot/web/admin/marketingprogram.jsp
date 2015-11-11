@@ -140,7 +140,7 @@
                 $scope.getMarketingPrograms = function(){
                   $http({
                         method: 'GET',
-                        url: getHost() + 'getMarketingPrograms.do'
+                        url: getHost() + 'getAllMarketingPrograms.do'
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
                     }).error(function (data, status, headers, config) {
