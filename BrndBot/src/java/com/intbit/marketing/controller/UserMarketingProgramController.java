@@ -525,13 +525,13 @@ public @ResponseBody String setUserMarketingProgram(HttpServletRequest request,
                       AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
             Double entity_id = (Double)requestBodyMap.get("entity_id");
-            String entity_status = (String)requestBodyMap.get("entity_status");
+            String template_status = (String)requestBodyMap.get("template_status");
 
             TblScheduledEntityList scheduled_entity_list =  scheduledEntityListService.getById(entity_id.intValue());
 
-            if (entity_status.equalsIgnoreCase("approved")){
+            if (template_status.equalsIgnoreCase("approved")){
                 scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
-            }else if(entity_status.equalsIgnoreCase("template_saved")){
+            }else if(template_status.equalsIgnoreCase("template_saved")){
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
             }
             scheduledEntityListService.update(scheduled_entity_list);
