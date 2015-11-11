@@ -430,7 +430,7 @@
                                             <div class="approve">
                                                 <input type="button" 
                                                        value="Approve to Post" 
-                                                       ng-show="email_action_status == true" 
+                                                       ng-show="email_action_status == true && email_template_status=='Template Saved'" 
                                                        onclick="postSocial()" 
                                                        class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
                                                 <button ng-click="SaveData();" 
@@ -787,7 +787,7 @@
                                         </div>
                                         <div class="approve">
                                             <input type="button" value="Approve to Post" 
-                                                   ng-show="facebook_action_status == true"
+                                                   ng-show="facebook_action_status == true && facebook_template_status=='Template Saved'"
                                                    ng-click="setApproveTemplate(schedule_id, 'approved')" 
                                                    class="button approvebuttonwidthheightcolor 
                                                    buttonmargin button--moema  
@@ -1128,7 +1128,7 @@
                                         </div>
                                         <div class="approve">
                                             <input type="button" 
-                                                   ng-show="twitter_action_status == true" 
+                                                   ng-show="twitter_action_status == true && twitter_template_status=='Template Saved'" 
                                                    value="Approve to Post" 
                                                    onclick="postSocial()" 
                                                    class="button approvebuttonwidthheightcolor 
@@ -1413,7 +1413,7 @@
                                                 <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="addEditRecuringAction('edit',<%=program_id%>, schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
-                                                <input type="button" value="Approve to Post" ng-show="recuring_action_status == true" ng-click="Approval(schedule_id, 'approved')" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                                <input type="button" value="Approve to Post" ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved')" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
                                                 <button ng-click="SaveData();" ng-show="recuring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
                                                 <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                             </div>
