@@ -886,7 +886,7 @@ if (mindbodydataId != ""){
 
                         <!--        editor container      -->
                         <div class="col-md-3 col-md-offset-1" >
-                            <div class="well lead editor" id="editor" style="height:550px;top:35px;left:45px;overflow-y:scroll;width:366px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
+                            <div class="well lead editor" id="editor" style="height:550px;top:35px;left:45px;overflow-y:auto;width:366px;overflow-x:hidden;border:1px #FFF solid;box-shadow: inset 0 1px 1px rgba(0,0,0,0);">                       
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
@@ -1376,20 +1376,20 @@ function showfilter(){
      $("#filtercontainer").show();
 }
 
-                            $(".cross").hide();
-                            $(".menu").hide();
-                            $(".hamburger").click(function () {
-                                 $(".menu").slideToggle("slow", function () {
-                                     $(".hamburger").hide();
-                                             $(".cross").show();
-                                 });
-                             });
-                            $(".cross").click(function () {
-                                $(".menu").slideToggle("slow", function () {
-                                $(".cross").hide();
-                                        $(".hamburger").show();
-                                });
-                            });
+//                            $(".cross").hide();
+//                            $(".menu").hide();
+//                            $(".hamburger").click(function () {
+//                                 $(".menu").slideToggle("slow", function () {
+//                                     $(".hamburger").hide();
+//                                             $(".cross").show();
+//                                 });
+//                             });
+//                            $(".cross").click(function () {
+//                                $(".menu").slideToggle("slow", function () {
+//                                $(".cross").hide();
+//                                        $(".hamburger").show();
+//                                });
+//                            });
                                     //  cropper settings
                                     // --------------------------------------------------------------------------
 

@@ -42,8 +42,18 @@
         <link rel="stylesheet" href="css/plugins/file.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
         <style>
-            .fr-box.fr-basic .fr-element {
+              body {
+                  margin: 0; 
+                  height: 100%;
+                  overflow: hidden;
+              }
+            .datafromindbody:hover{
+                background-color: #00A37A;
+                color:#fff;
+            }
+            .fr-box .fr-basic .fr-element {
                 max-height: 480px;
+                max-height: 650px;
             } 
 
             #mask {
@@ -138,18 +148,20 @@
                     var temp_mind_body_query;
                     var addblockid;
                     var addBlockcCount = 1;
-                    
-                 var rendomIframeFilename="";
+                    var styleHtml="";
+                    var BlockHtml="";
+
+                    var rendomIframeFilename="";
        $(document).ready(function () {
-           $("#addblkbtn").prop('disabled', true);
-           $(".selectrow").css("display","none");
-           rendomIframeFilename=event.timeStamp;
-           selecterBlockId('defaultblock1', temp_block_id);
+                        $("#addblkbtn").prop('disabled', true);
+                        $(".selectrow").css("display","none");
+                        rendomIframeFilename=event.timeStamp;
+                        selecterBlockId('defaultblock1', temp_block_id);
                         $("#sortUpBlock").click(function () {
                             var current = $("#" + addblockid);
                                     current.prev().before(current);
                             });
-//     $("#deleteBlock").easyconfirm();           
+//     $("#deleteBlock").easyconfirm(); 
         $("#deleteBlock").click(function () {
             new $.flavr({
                     content     : 'Are you sure you want to delete this style?',
@@ -185,7 +197,8 @@
                                     });
                             });
                                     showText(allLayoutFilename[0]);
-                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
+//                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
+//                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
                             }
                     });
             });              
@@ -303,16 +316,16 @@
                             }).error();
                             };
                             $scope.showDataTemp = function(){
-                                
+
                             $scope.showData(temp_block_id, temp_mind_body_query);
                             }
                     $scope.showData = function(id, mind_body_query){
-                    block_clicked = "true";
+                            block_clicked = "true";
                             blockIdSelected = "";
                             block_id = id;
                             addblockid = "block" + addBlockcCount;
                             addBlockcCount++;
-                            $(".fr-element").append("<div id=" + addblockid + " onclick=selecterBlockId('" + addblockid + "','" + temp_block_id + "');></div>")
+//                            $(".fr-element").append("<div id=" + addblockid + " onclick=selecterBlockId('" + addblockid + "','" + temp_block_id + "');></div>")
                             if (mind_body_query == "null")
                     {
                     mindbodydataId = "0";
@@ -331,7 +344,7 @@
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
                             $("#tabs-5").hide();
-                            $("#tabs-4").show().css("width", "830px").css("height", "680px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px");
+                            $("#tabs-4").show().css("width", "830px").css("height", "100%").css("position", "fixed").css("margin-left", "-600px").css("top", "0px");
                             $("#loadingGifformindbody").show();
                             $scope.curPage = 0;
                             $scope.pageSize = 4;
@@ -347,10 +360,6 @@
                             if (data === error){
                     alert(data);
                     }
-
-//                            $("#loadingGif").hide();
-//                            $("#tabs-4").css("width", "430px").show("slide", { direction: "right" }, 1000);
-
                     $("#loadingGifformindbody").hide();
                     $("#clsbtn").css("display","block");
                     $("#addblkbtn").prop('disabled', true).css("background-color","#e3e3e3").css("color","#9c9da1");
@@ -361,14 +370,12 @@
                             // or server returns response with an error status.
                     });
                     }
+                    $scope.showStyles();
                     };
                             $scope.select_category_details = function(id) {
-                                    $("#blocktab").trigger( "click" );
-                                    $("#blocktab").trigger( "click" );
                                     mindbodydataId = id;
-//                                    name1 = name;
-//                                    alert(name1);
-                                    //$scope.showStyles();
+                                    $("#stylelist").css("display", "block");
+                                     $scope.showStyles();
                                     showText(temp_style_id);
                                     $("#tabs-1").show();
                                     $("#filtercontainer").hide();
@@ -393,11 +400,8 @@
                             temp_style_layout = style;
                             temp_block_id = block_id_temp;
                             temp_mind_body_query = mind_body_query;
-//                            $("#" + block_id_temp).css("color","red");
-//                            $('.listblock').css("color","black");
                             $('.listblock').removeClass('border-highlight');
                             $("#" + block_id_temp).addClass('border-highlight');
-                            //$("#continueblock").attr('ng-click',"showData('"+block_id_temp+"','"+ mind_body_query +"')");
                             $('#continueblock').prop('disabled', false);
                     }
         function showText(id){
@@ -407,7 +411,6 @@
                                 currentBlockID = temp_block_id;
                                 currentMindbodyQuery = temp_mind_body_query;
                         }
-//            alert(mindbodydataId);
                     if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
                         if (block_clicked == "true"){
                         layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email&query=block&block_id=" + currentBlockID + "&mindbody_query=" + currentMindbodyQuery;
@@ -425,7 +428,6 @@
                             data: {get_param: 'value'},
                             dataType: 'json',
                             success: function (data) {
-                            // displayElement(id, layout, data);
                                     $.ajax({
                                     method : 'POST',
                                             url: "GetEmaiLayoutHtmlServlet?id=" + id,
@@ -434,13 +436,30 @@
                                             mimeType: 'application/json',
                                             data: JSON.stringify(data),
                                             success: function (data) {
-//                                            alert(JSON.stringify(data));
                                                     if (block_clicked === "false"){
-                                            $("#defaultblock1").empty().append(data.htmldata);
-                                            }
+                                                        var editorHtml=$('#edit').froalaEditor('html.get');
+                                                        
+                                                       if(editorHtml.contains('id="defaultblock1"')){
+                                                        var jHtmlObject = jQuery(editorHtml);
+                                                        var editor = jQuery("<p>").append(jHtmlObject);
+                                                        editor.find("#defaultblock1").remove();           
+                                                        editorHtml=editor.html();
+                                                        }
+                                                     styleHtml='<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">'+data.htmldata+'</div>';
+                                                     $('#edit').froalaEditor('html.set',''+styleHtml+''+editorHtml+'');
+//                                                   $("#defaultblock1").empty().append(data.htmldata);
+                                                     }
                                             else{
-
-                                            $("#" + addblockid).empty().append(data.htmldata);
+                                                var editorHtml=$('#edit').froalaEditor('html.get');
+                                                if(editorHtml.contains('id="'+addblockid+'"')){
+                                                        var jHtmlObject = jQuery(editorHtml);
+                                                        var editor = jQuery("<p>").append(jHtmlObject);
+                                                        editor.find("#"+addblockid).remove();
+                                                        editorHtml= editor.html();
+                                                    }
+                                              BlockHtml='<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>'+data.htmldata+'</div>';
+                                              $('#edit').froalaEditor('html.set',''+editorHtml+''+BlockHtml+'');
+//                                            $("#" + defaultblock1).append(data.htmldata);
                                             }
 
                                             }
@@ -450,31 +469,28 @@
             }
 
             function addblock(){
-                    
                     document.getElementById("addblkbtn").style.backgroundColor = "#0f76a6";
                     document.getElementById("addblkbtn").style.color = "#f6f7f7";
             }
 
             function selecterBlockId(selectblock, blockid){
-            $("img").click(function(){
-                uploadImageToEditor(this.id);
-           });
-           
-           MoveBlock(selectblock);
-//document.getElementById("img").onclick = function(){
-//    uploadImageToEditor("assda");
-//}
-                if (selectblock == "defaultblock1")
+                var selectblockid=selectblock.id;
+//                alert(selectblockid);
+                $("img").click(function(){
+                    uploadImageToEditor(this.id);
+                   });
+                MoveBlock(selectblock.id);
+                if (selectblock == "defaultblock1" || selectblockid == "defaultblock1" )
                 {
                         block_clicked = "false";
                         blockIdSelected = "defaultblock1";
-                        addblockid = selectblock;
+                        addblockid = selectblockid;
                 }
                 else{
                         block_clicked = "true";
                         blockIdSelected = "";
                         block_id = blockid;
-                        addblockid = selectblock;
+                        addblockid = selectblockid;
                 }
 
             }
@@ -538,27 +554,28 @@
                 </div> 
             </div>
             <div class="col-sm-3 col-md-3 col-lg-3">
-                <div class="blockselection">     
-                    <div class="row selectrow">
+                <div class="blockselection" >     
+                    <div class="row selectrow" style="display: none;">
 
                         <div class="col-md-6 col-lg-6 col-sm-6">
                             <div class="selblock fontpnr">Select a Block</div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-6">
-                            <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns " type="button" value="Add Block"></div>
-                        </div>
-                    </div>
-                    <div class="row">
+                            <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Add Block"></div>
+                        </div> 
+                        <div class="row">
                         <div class="selblklinediv"><hr class="selblkline"></div>
                     </div>
+                    </div>
+                   
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
-                            <ul id="blklistid" class="blocklist fontpnr" value="blklist">
+                            <ul id="blklistid" class="blocklist fontpnr" value="blklist" style="display: none;">
                                 <li ng-repeat="blocks in datalists" id="blklist" class="listblock" onclick="addblock();hlt();"> 
                                     <div  id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>
                                 </li>
                             </ul>
-                            <ul id="stylelist" class="stylelist fontpnr">
+                            <ul id="stylelist" class="stylelist fontpnr" style="display: none;">
                                 <li ng-repeat="styles in datalistsstyles" id="stylelistid">
                                     <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}"  onclick="showText('{{styles.id}}')" width="275" style="height:200px;"/><br></div>
                                 </li>
@@ -668,9 +685,10 @@
         <script type="text/javascript" src="js/plugins/save.min.js"></script>
         <script type="text/javascript" src="js/plugins/quote.min.js"></script>
         <script>
+//            $("#editor").froalaEditor({key: FroalaLicenseKey});
             $(function () {
-                    $('#edit').froalaEditor();
-                    });                               
+                    $('#edit').froalaEditor({key: FroalaLicenseKey});
+                    });   
         </script>
 
  
@@ -740,51 +758,41 @@
         </script> 
                 <script>
 
-            $("#saveButton").click(function (){
-                
+            $("#saveButton").click(function (){               
                         $.ajax({
-                       url: getHost() + "PreviewServlet",
-                    method: "post",
-                      data:{
+                            url: getHost() + "PreviewServlet",
+                         method: "post",
+                           data:{
                             htmlString: $(".fr-element").html(),
                             iframeName: rendomIframeFilename
                             },
                     success: function (responseText) {
+                                $("#previewcontent").empty();
+                                $("#previewcontent").append(responseText);
+                                $.ajax({
+                                        url: getHost() + "SaveKeyValueSessionServlet",
+                                        method: "post",
+                                        data:{
+                                        sessionKey:"htmldata",
+                                        sessionValue: $(".fr-element").html(),
+                                        sessionIframeKey:"iframeName",
+                                        sessionIframevalue:""+rendomIframeFilename
+                                        },
+                                        success: function (responseText) {
 
-                    //show popup showing
-                    $("#previewcontent").empty();
-                    $("#previewcontent").append(responseText);
-                            //$("#previewpopup").show();
-//                            $(".clickpreview").click();
-                            $.ajax({
-                                    url: getHost() + "SaveKeyValueSessionServlet",
-                                    method: "post",
-                                    data:{
-                                    sessionKey:"htmldata",
-                                    sessionValue: $(".fr-element").html(),
-                                    sessionIframeKey:"iframeName",
-                                    sessionIframevalue:""+rendomIframeFilename
-                                    },
-                                    success: function (responseText) {
+                                        document.location.href = "emailpreview.jsp";
+                                        }
 
-                                    document.location.href = "emailpreview.jsp";
-                                    }
-
-                            });
-                    }
+                                });
+                        }
             });
-
-
-
-
-
-                             });
-                                function hlt(){
-                                 var $li = $('#blklistid li').click(function() {
-                                        $li.removeClass('border-highlight');
-                                        $(this).addClass('border-highlight');
-                                    });
-                                }
+       });
+       function hlt(){
+            var $li = $('#blklistid li').click(function() {
+                     $li.removeClass('border-highlight');
+                     $(this).addClass('border-highlight');
+                         });
+               }
                 </script>   
     </body>
 </html>

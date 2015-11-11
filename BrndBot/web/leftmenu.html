@@ -4,8 +4,8 @@
 <div id="sidebar-wrapper" class="col-md-1">
                     <nav class="navbar navbar-default " role="navigation">
                         <img src="images/logo-white.svg"  alt="logo" class="logo" height="60" ><br>
-                        <button class="hamburger"><img src="images/Nav_Icons/Hamburger.svg" width="23px;"></button>
-                        <button class="cross" ><img src="images/Nav_Icons/Hamburger.svg" width="23px;"></button>
+                        <button id="humbrgr" class="hamburger"><img src="images/Nav_Icons/Hamburger.svg" width="23px;"></button>
+                        <button id="crs" class="cross" ><img src="images/Nav_Icons/Hamburger.svg" width="23px;"></button>
                         <ul class="nav nav-stacked menu" style="height:1000px;"><br>
                             <li><a href="dashboard.jsp"><img class="navicons" src="images/Nav_Icons/NavIcon_Home_white.svg" width="35px;" /></a></li>
                             <li><a href="marketing.jsp"><img class="navicons" src="images/Nav_Icons/PlanIconNav.svg" width="35px;" /></a></li>
@@ -18,3 +18,21 @@
                         <!-- /.navbar-collapse -->
                     </nav>
 </div><!--/end left column-->
+<script>
+    $(".cross").hide();
+    $(".menu").hide();
+    $("#emaillist").hide();
+
+    $(".hamburger").click(function () {
+        $(".menu").slideToggle("slow", function () {
+            $(".hamburger").hide();
+            $(".cross").show();
+        });
+    });
+    $(".cross").click(function () {
+        $(".menu").slideToggle("slow", function () {
+            $(".cross").hide();
+            $(".hamburger").show();
+        });
+    });
+</script>

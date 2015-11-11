@@ -21,7 +21,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-        <script src="js/leftmenuhamburger.js" type="text/javascript"></script>
+        <!--<script src="js/leftmenuhamburger.js" type="text/javascript"></script>-->
         
        <link href="css/style.css" rel="stylesheet" type="text/css"/>
        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
@@ -301,7 +301,7 @@
                             url: 'ScheduleEmail',
                             headers: {'Content-Type': 'application/json'},
                             data: email_scheduling
-                        }).success(function (data) {
+                        }).success(function (data) {                            
                             if (data != "") {
                                 alert("details saved successfully");
                                 document.location.href = "dashboard.jsp";
@@ -359,6 +359,17 @@
           //do something special
         }, 1000);
        $(document).ready(function () {
+//            $(".hamburger,.cross").hide();
+           $("#humbrgr").click(function (){
+            if (confirm("Are you sure, You want to leave this page?")){
+                
+            }
+            else{
+                $("#crs").click(); 
+               $(".navicons,#txtlog").hide().delay( 800 ).fadeIn( 600 );     
+            }
+        }
+            );
            formattedHTMLData=$("#dynamictable").contents().find("html").html();
            show("iphone");
         });
@@ -417,7 +428,9 @@
             var email_list = $("email_list").val();
             var schedule_title = $("#schedule_title").val("");
             var schedule_time = $("#schedule_time").val("");
-
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;  
+            var emlval=re.test(to_email_addresses);
+            
             if (from_name == ""){
                 alert("from name not entered, please enter the from name");
                 $("#name").focus();
@@ -429,7 +442,7 @@
                 return false;
             }
             if (to_email_addresses == ""){
-                alert("email addresses not entered, please enter the email addresses");
+                alert("email addresses not entered, please enter the email address");
                 $("#toaddress").focus();
                 return false;
             }
@@ -451,6 +464,8 @@
             return true;
             }
             function sendEmail() {
+                
+                if(validate()){
                 $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position", "absolute").css("top", "300px").css("left", "500px");
                
                 $.ajax({
@@ -468,6 +483,7 @@
                         iframeName: $("#iframe_name").val()
                     },
                     success: function (responseText) {
+                       
                         $('#loadingGif').remove();
                         document.location.href = "emailsent.jsp";
                     },
@@ -475,6 +491,7 @@
                         alert("error");
                     }
                 });
+            }
             }
             function validateact(){
                if(document.getElementById('email_actions').value === "0")
@@ -491,7 +508,7 @@
                 document.getElementById('schedule_time').value="";
                 document.getElementById('schedule_date').value="";
                 }
-
+                 
         }
         </script>
         <jsp:include page="basejsp.jsp" />
@@ -500,7 +517,7 @@
     <body>
         <div id="fade" class="black_overlay"></div>
         <div class="row" ng-controller="emailSettings" id="emailSettings">
-            <jsp:include page="leftmenu.html"/>
+            <div id="warn"><jsp:include page="leftmenu.html"/></div>
             <div class="col-md-4 col-md-offset-1" ng-init="getEmailSettings()">
                 <p id="textgrt" class="MH1">SEND EMAIL PREVIEW</p>
                 <p id="text2">go back</p>
@@ -545,7 +562,7 @@
                             <br><br><a href = "javascript:void(0)" ><button type="button" onclick="displaySchedule()" class="button button--moema button--text-thick button--text-upper button--size-s">SCHEDULE</button></a><br><br><br>
                         </div>
                     </div>
-
+                            
                             <input type="hidden" id="email_list" value='<%=emailList%>' name="email_list">
                             <input type="hidden" id="iframe_name" value='<%=iframeName%>'>
                                 

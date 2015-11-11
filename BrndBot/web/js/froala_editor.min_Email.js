@@ -154,7 +154,7 @@ function MoveBlock(selectedBlockId){
     }
 }(jQuery), function (a) {
     "use strict";
-    a.extend(a.FroalaEditor.DEFAULTS, {htmlAllowedTags: ["a", "abbr", "address", "area", "article", "aside", "audio", "b", "base", "bdi", "bdo", "blockquote", "br", "button", "canvas", "caption", "cite", "code", "col", "colgroup", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup", "hr", "i", "iframe", "img", "input", "ins", "kbd", "keygen", "label", "legend", "li", "link", "main", "map", "mark", "menu", "menuitem", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "pre", "progress", "queue", "rp", "rt", "ruby", "s", "samp", "script", "style", "section", "select", "small", "source", "span", "strike", "strong", "sub", "summary", "sup", "table", "tbody", "td", "textarea", "tfoot", "th", "thead", "time", "tr", "track", "u", "ul", "var", "video", "wbr"], htmlRemoveTags: ["script", "style"], htmlAllowedAttrs: ["accept", "accept-charset", "accesskey", "action", "align", "alt", "async", "autocomplete", "autofocus", "autoplay", "autosave", "background", "bgcolor", "border", "charset", "cellpadding", "cellspacing", "checked", "cite", "class", "color", "cols", "colspan", "content", "contenteditable", "contextmenu", "controls", "coords", "data", "data-.*", "datetime", "default", "defer", "dir", "dirname", "disabled", "download", "draggable", "dropzone", "enctype", "for", "form", "formaction", "headers", "height", "hidden", "high", "href", "hreflang", "http-equiv", "icon", "id", "ismap", "itemprop", "keytype", "kind", "label", "lang", "language", "list", "loop", "low", "max", "maxlength", "media", "method", "min", "multiple", "name", "novalidate", "open", "optimum", "pattern", "ping", "placeholder", "poster", "preload", "pubdate", "radiogroup", "readonly", "rel", "required", "reversed", "rows", "rowspan", "sandbox", "scope", "scoped", "scrolling", "seamless", "selected", "shape", "size", "sizes", "span", "src", "srcdoc", "srclang", "srcset", "start", "step", "summary", "spellcheck", "style", "tabindex", "target", "title", "type", "translate", "usemap", "value", "valign", "width", "wrap"], htmlAllowComments: !0, fullPage: !1}), a.FroalaEditor.HTML5Map = {B: "STRONG", I: "EM", STRIKE: "S"}, a.FroalaEditor.MODULES.clean = function (b) {
+    a.extend(a.FroalaEditor.DEFAULTS, {htmlAllowedTags: ["onclick","a", "abbr", "address", "area", "article", "aside", "audio", "b", "base", "bdi", "bdo", "blockquote", "br", "button", "canvas", "caption", "cite", "code", "col", "colgroup", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup", "hr", "i", "iframe", "img", "input", "ins", "kbd", "keygen", "label", "legend", "li", "link", "main", "map", "mark", "menu", "menuitem", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "pre", "progress", "queue", "rp", "rt", "ruby", "s", "samp", "script", "style", "section", "select", "small", "source", "span", "strike", "strong", "sub", "summary", "sup", "table", "tbody", "td", "textarea", "tfoot", "th", "thead", "time", "tr", "track", "u", "ul", "var", "video", "wbr"], htmlRemoveTags: ["script", "style"], htmlAllowedAttrs: ["onclick","accept", "accept-charset", "accesskey", "action", "align", "alt", "async", "autocomplete", "autofocus", "autoplay", "autosave", "background", "bgcolor", "border", "charset", "cellpadding", "cellspacing", "checked", "cite", "class", "color", "cols", "colspan", "content", "contenteditable", "contextmenu", "controls", "coords", "data", "data-.*", "datetime", "default", "defer", "dir", "dirname", "disabled", "download", "draggable", "dropzone", "enctype", "for", "form", "formaction", "headers", "height", "hidden", "high", "href", "hreflang", "http-equiv", "icon", "id", "ismap", "itemprop", "keytype", "kind", "label", "lang", "language", "list", "loop", "low", "max", "maxlength", "media", "method", "min", "multiple", "name", "novalidate", "open", "optimum", "pattern", "ping", "placeholder", "poster", "preload", "pubdate", "radiogroup", "readonly", "rel", "required", "reversed", "rows", "rowspan", "sandbox", "scope", "scoped", "scrolling", "seamless", "selected", "shape", "size", "sizes", "span", "src", "srcdoc", "srclang", "srcset", "start", "step", "summary", "spellcheck", "style", "tabindex", "target", "title", "type", "translate", "usemap", "value", "valign", "width", "wrap"], htmlAllowComments: !0, fullPage: !1}), a.FroalaEditor.HTML5Map = {B: "STRONG", I: "EM", STRIKE: "S"}, a.FroalaEditor.MODULES.clean = function (b) {
         function c(a) {
             if (a.className && a.className.indexOf("fr-marker") >= 0)
                 return!1;
@@ -1960,7 +1960,7 @@ function MoveBlock(selectedBlockId){
     }
 }(jQuery), function (a) {
     "use strict";
-    a.extend(a.FroalaEditor.DEFAULTS, {placeholderText: "Type something", placeholderFontFamily: "Arial, Helvetica, sans-serif"}), a.FroalaEditor.MODULES.placeholder = function (b) {
+    a.extend(a.FroalaEditor.DEFAULTS, {placeholderFontFamily: "Arial, Helvetica, sans-serif"}), a.FroalaEditor.MODULES.placeholder = function (b) {
         function c() {
             var c = 0, d = b.node.contents(b.$el.get(0));
             d.length && d[0].nodeType == Node.ELEMENT_NODE ? (c = b.helpers.getPX(a(d[0]).css("margin-top")), b.$placeholder.css("font-size", a(d[0]).css("font-size")), b.$placeholder.css("line-height", a(d[0]).css("line-height"))) : (b.$placeholder.css("font-size", b.$el.css("font-size")), b.$placeholder.css("line-height", b.$el.css("line-height"))), b.$wp.addClass("show-placeholder"), b.$placeholder.css("margin-top", c).text(b.opts.placeholderText || b.$original_element.attr("placeholder") || "")
@@ -2688,9 +2688,10 @@ function MoveBlock(selectedBlockId){
         var o, p, q = !1;
         return{require: ["events", "tooltip", "button", "icon", "core", "language"], _init: l, hide: f, show: g, showInline: e, disable: m, enable: n}
     }
-    $.FroalaEditor.DefineIcon('insert', {NAME: 'plus'});
+    $.FroalaEditor.DefineIcon('insert', {SRC: ''+global_host_address+'images/UpArrow.png', ALT: 'Up Arrow', template: 'image'});
     $.FroalaEditor.RegisterCommand('insert', {
       title: 'Up Arrow',
+      icon: 'insert',
       focus: true,
       undo: true,
       refreshAfterCallback: true,
@@ -2699,14 +2700,15 @@ function MoveBlock(selectedBlockId){
    current.prev().before(current);
       }
     });    
-    $.FroalaEditor.DefineIcon('uparrow', {NAME: 'plus'});
+    $.FroalaEditor.DefineIcon('uparrow', {SRC: ''+global_host_address+'images/DownArrow.png', ALT: 'Up Arrow', template: 'image'});
     $.FroalaEditor.RegisterCommand('uparrow', {
       title: 'Down Arrow',
+       icon: 'uparrow',
       focus: true,
       undo: true,
       refreshAfterCallback: true,
       callback: function () {
-      var current = $("#" + addblockid);
+      var current = $("#" + Blockid);
       current.next().after(current);
       }
     });   
