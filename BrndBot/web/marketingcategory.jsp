@@ -36,10 +36,7 @@
             <div class="row" >
                 <div class="col-sm-12 col-lg-12 col-md-12 ">
                     <div class="marktext"> Please choose a marketing program type.</div>
-                    <div class="toppad">Lorem ipsum dolor sit ametdaf, 
-                        consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut 
-                        labore et dolore magna aliqua.
+                    <div class="toppad">
                     </div>
                 </div>    
             </div>
@@ -53,15 +50,14 @@
                              class="{{category.order}}" alt="" ng-click="showMarketingPrograms(category.category_id)" /></a>
                         <p class="markimgtxt fontpnr">{{category.name}}</p>
                     </li>
-                
                 </ul>
                 </div>
             </div>
         </div>
     </div>
         <script>
-          $( window ).onload(function() {
-              
+          $( document ).ready(function() {
+              $("#createprog").css("color","#3f3f42").css("background-color","#f6f7f7");
           });
         </script>
 </body>

@@ -96,7 +96,7 @@ public class ScheduledEmailListDaoImpl  implements ScheduledEmailListDao{
     }
 
     @Override
-    public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecuring, String entityType) throws Throwable {
+    public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecuring) throws Throwable {
       try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(TblScheduledEmailList.class)
@@ -107,7 +107,7 @@ public class ScheduledEmailListDaoImpl  implements ScheduledEmailListDao{
                      .add(Restrictions.eq("umId.id", UserMarketingId))
                      .createAlias("tblScheduledEntityList", "sl")
                      .add(Restrictions.eq("sl.isRecuring", isRecuring))
-                     .add(Restrictions.eq("sl.entityType", entityType));		
+                     .add(Restrictions.eq("sl.entityType", "email"));		
                    return criteria.list();
 		} catch (Throwable throwable) {
                    logger.log(Level.SEVERE, null, throwable);

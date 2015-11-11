@@ -13,7 +13,7 @@ ul.autopadlft{
 }
 .emlautoact{
     margin-left:0px;
-    margin-top:85.3px;
+    margin-top:40px;
     width:380px;
     height:22px;
     font-size:18px;
@@ -35,6 +35,31 @@ ul.autopadlft{
     font-size:20px;
     color:#888891;
       
+  }
+  .selatime{
+    margin-left:15px;
+    margin-top:24.4px;
+    width:245px;
+    height:24px;
+    font-size:20px;
+    color:#888891;
+  }
+  .timpkr{
+      margin-left:-100px;
+      width:100px;
+  }
+  .timepicker_wrap {
+    top: 42px !important;
+    left: -100px !important;
+    width: 183px;
+  }
+  .arrow_top{
+    top: -10px;
+    left: 7px;
+  }
+  .datepkr{
+       margin-left:-100px;
+       width:150px;
   }
   .promoprev{
         padding:2% !important;
@@ -73,11 +98,14 @@ ul.autopadlft{
     }
     .sublineinp{
     margin-left:0px;
-    margin-top:37.9px;
-    width:155px;
+    margin-top:35px;
+    width:500px;
     height:22px;
     font-size:18px;
     color:#3f3f42;
+    }
+    .brfdesc{
+        margin-top:22px !important;
     }
     .subinp{
     margin-left:0px;

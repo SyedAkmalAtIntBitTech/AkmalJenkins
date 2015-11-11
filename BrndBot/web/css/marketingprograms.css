@@ -10,7 +10,7 @@ and open the template in the editor.
 .selmarkprog {
     margin-top:75px;
     margin-left:128px;
-    width:445px;
+    /*width:445px;*/
     height:30px;
     font-size: 25px;
     color:#2d4355;
@@ -61,8 +61,8 @@ and open the template in the editor.
     
 }
 .newclientpromo{
-    margin-top:20.5px;
-    margin-left:1px;
+    margin-top: -49.5px;
+    margin-left: -70px;
     width:100%;
     max-width:100%;
     height:100%;
@@ -72,7 +72,9 @@ and open the template in the editor.
 .htmldatacontainer{
     width:370px !important;
     height:300px !important;
-    overflow: scroll;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    /*overflow-y: scroll !important;*/
 }
 .subhead{
     margin-top:5.5px;

@@ -13,6 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="checksession.jsp" />
 
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -89,6 +90,12 @@
                        $("#marketingactiontilldate").attr("disabled",true);
                    }
                 });
+                
+                $("#category").change(function(){
+
+                    angular.element(document.getElementById('marketingActionsController')).scope().getMarketingPrograms();
+                    
+                });
             });            
             
             function validate(){
@@ -148,9 +155,11 @@
                 };
                 
                 $scope.getMarketingPrograms = function(){
+                    
+                    var category_id = $("#category").val();
                     $http({
                         method: 'GET',
-                        url: getHost() + 'getMarketingPrograms.do'
+                        url: getHost() + 'getMarketingPrograms.do?marketingCategoryId='+category_id
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
                     }).error(function (data, status, headers, config) {
@@ -242,7 +251,7 @@
                 };
                 
                 $scope.deleteAction = function(action_id){
-                    alert(action_id);
+                  
                     var action_details = {"action_id": action_id};
                     $http({
                         method: 'POST',
@@ -264,8 +273,8 @@
     </head>
     <body ng-app class="container">
     <%@include file="menus.jsp" %>
-        <div class="jumbotron" align="center" ng-controller="marketingActionsController" >
-            <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 800px; width: 600px;">
+        <div class="jumbotron" id="marketingActionsController" align="center" ng-controller="marketingActionsController" >
+            <div style="margin-top: 20px; margin-bottom: 10px; border: 1px solid; height: 860px; width: 600px;">
                 <form name="formCategories" >
 
                 <div>
@@ -279,7 +288,7 @@
                                         <option value="0">--select--</option>
                                         <option value="{{category.category_id}}" ng-repeat="category in categories">{{category.name}}</option>
                                     </select><br><br>
-                    Select program:<select name="programs" id="programs" style="width:180px;">
+                    Select program:<select name="programs" id="programs" style="width:180px;" >
                                         <option value="0">--select--</option>
                                         <option value="{{program.program_id}}" ng-repeat="program in programs">{{program.name}}</option>
                                    </select><br><br>
@@ -292,15 +301,15 @@
                         Time:<input type="time" id="marketingactiontime" name="marketingactiontime"/><br>
                         Recurring: <input type="checkbox" id="is_recuring" style="width:25px;"/>
                         Till Date: <input type="date" id="marketingactiontilldate" name="marketingactiontilldate"/><br>
-                        Description:<input type="text" name="description" id="description"/><br>
+                        <textarea id="description" name="description" style="resize: none; height: 180px; width: 300px;"></textarea><br>
                        
                         Type:<select id="type" name="type">
-                            <option value="0">--Select--</option>
-                            <option value="email">email</option>
-                            <option value="facebook">facebook</option>
-                            <option value="twitter">twitter</option>
-                            <option value="note">note</option>
-                        </select>
+                                <option value="0">--Select--</option>
+                                <option value="email">email</option>
+                                <option value="facebook">facebook</option>
+                                <option value="twitter">twitter</option>
+                                <option value="note">note</option>
+                            </select>
                         <br><br>
                         <button type="button" id="saveaction" name="saveaction" class="btn btn-info" ng-click="createMarketingActionsJSON()">Save Action</button>
                         <br>
@@ -342,5 +351,5 @@
             <br>
 
         </div>
-
+    </body>
 </html>

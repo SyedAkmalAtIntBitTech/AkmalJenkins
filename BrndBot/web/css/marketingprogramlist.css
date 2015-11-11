@@ -11,7 +11,7 @@ and open the template in the editor.
 .pstprog{
     margin-left:0px;
     margin-top:44px;
-    width:258px;
+    /*width:258px;*/
     height:30px;
     font-size:25px;
     color:#2d4355;
@@ -19,7 +19,7 @@ and open the template in the editor.
 .curprog{
     margin-left:0px;
     margin-top:44px;
-    width:222px;
+    /*width:222px;*/
     height:30px;
     font-size:25px;
     color:#2d4355;
@@ -37,11 +37,11 @@ and open the template in the editor.
   display: inline-block;   
 }
 .progactlfthead{
-    width:49px;
+    /*width:49px;*/
     height: 15px;
     font-size: 12px;
     color:#3f3f42;
-    margin-left:391px;
+    margin-left:524px;
     margin-top: 30px;
 }
 .progcurlfthead{
@@ -49,7 +49,7 @@ and open the template in the editor.
     height: 15px;
     font-size: 12px;
     color:#3f3f42;
-    margin-left:300px;
+    margin-left:417px;
     margin-top: 30px;
 }
 .progactpsthead{
@@ -84,6 +84,10 @@ and open the template in the editor.
     margin-top:0px !important;
     border: #f4f4f4 3px; 
 }
+.padlineleft{
+    margin-left:-25px !important;
+    margin-top: 10px !important;
+}
 .lstprog{
     margin-left:15px;
     margin-top:7px;
@@ -93,7 +97,7 @@ and open the template in the editor.
     color:#3f3f42;
 }
 .lststrtdt{
-    width:265.2px;
+    width:400.2px;
     height: 15px;
     font-size: 12px;
     color:#3f3f42;
@@ -116,7 +120,7 @@ and open the template in the editor.
     height:17px;
     color:#3f3f42;
     margin-top:0px !important;
-    margin-left:347.8px !important;
+    margin-left:111.8px !important;
     font-size:14px;
 }
 .lstlftact{
@@ -142,11 +146,11 @@ and open the template in the editor.
     font-size:14px;
 }
 .li1 {
-   top: -36px !important;
+   top: -21px !important;
    position: relative;
 }
 .lftcur{
-    margin-left:25px;
+    margin-left:-5px;
 }
 .lstdate{
     color:#2d4355;
@@ -159,7 +163,7 @@ and open the template in the editor.
     background-color: #e3e3e3 !important;
     height: 100% !important;
     width: 95px !important;
-    margin-left: 38px;
+    margin-left: 40px;
 }
 .proghislist{  
     margin-top: 173px !important;
@@ -190,14 +194,22 @@ and open the template in the editor.
 #sidebar-wrapper{
     width:60px !important;
 }
+.viewbtnli{
+        margin-left: 79px !important;
+}
 .viewbtn{
-    width:98.9px;
-    height:30px;
-    background-color: #f4f4f4;
-    font-size: 13.4px;
+    width:98.9px !important;
+    height:30px !important;
+    background-color: #f4f4f4 !important;
+    font-size: 13.4px !important;
     color:#3f3f42 !important;
-    padding:7px 34.9px 7px 33.9px;
-    border-radius: 5px;
+    padding:7px 34.9px 7px 33.9px !important;
+    border-radius: 5px !important;
     border:none;
-    margin-left:150px;
+    margin-left:150px !important;
+}
+.button,.button--text-upper{
+    margin:0px !important;
+    letter-spacing: 0.5px !important;
+    text-transform: none !important;
 }

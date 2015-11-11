@@ -37,6 +37,7 @@ public class TblScheduledEmailList  implements java.io.Serializable {
      private String toEmailAddresses;
      private String replyToEmailAddress;
      private TblScheduledEntityList tblScheduledEntityList;
+    
     public TblScheduledEmailList() {
     }
 
@@ -55,6 +56,7 @@ public class TblScheduledEmailList  implements java.io.Serializable {
        this.toEmailAddresses = toEmailAddresses;
        this.replyToEmailAddress = replyToEmailAddress;
        this.tblScheduledEntityList = tblScheduledEntityList;
+      
     }
    
      @Id 
@@ -162,6 +164,6 @@ public class TblScheduledEmailList  implements java.io.Serializable {
     }
 
 
-}
 
+}
 

@@ -394,7 +394,7 @@
     border-radius: 3px;
     font-size: 12px;
     height: 25px;
-    width: 120px;
+    width: 220px !important;
 }
 
 #programdatetime {
@@ -407,15 +407,47 @@
     padding: 7px 14.5px 6px;
     width: 204px;
 }
+#days {
+    background-color: #f6f7f7;
+    border-color: #e3e3e3 !important;
+    border-radius: 3px;
+    border-width: 1px;
+    color: #3f3f42 !important;
+    font-size: 12px;
+    height: 25px !important;
+    overflow-y: auto;
+    padding: 5px;
+    resize: none;
+    width: 110px !important;
+    margin-top: 3px !important;
+}
+#recuring_preview{
+     z-index:1005;
+     height:100%;
+     overflow-y:auto;
+     position:fixed;
+     max-height:100%;
+     background:#ffffff;
+     width:850px;
+     right:0px;
+     margin-right: -850px;
+     border: 1px solid #ccc;
+}
+.hide1,.hide2
+{
+    
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-  
+            .timepicker_wrap {
+                top: -178px !important;
+            }
             
             input[type=checkbox],input[type=datetime]{
                 cursor:pointer;
             }
             .arrow_top{
-                top: 163px;
+                top: 166px !important;
                 left: 20px;
                 transform: rotate(180deg);
             }

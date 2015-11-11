@@ -100,7 +100,7 @@ public class MarketingCategoryController {
    public @ResponseBody String getMarketingCategoriesForUser(HttpServletRequest request, 
                 HttpServletResponse response)throws ServletException, IOException, Throwable {
 //       List<TblMarketingCategory> marketingCategorysList = null;
-       sql_methods.session = request.getSession();
+       sql_methods.session = request.getSession(true);
                 Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
                 
        String json = "test";

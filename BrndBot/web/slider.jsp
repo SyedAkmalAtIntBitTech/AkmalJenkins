@@ -16,6 +16,7 @@
         <!--        <script type="text/javascript" src="js/angular.min.js"></script>-->
         <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
+        <script src="js/slider.js" type="text/javascript"></script>
         <jsp:include page="basejsp.jsp" />
         <%@ include file="checksession.jsp" %>
 
@@ -33,138 +34,9 @@
        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
        <link rel="stylesheet" href="css/facebook.css" type="text/css"/>
         <title>BrndBot - Your Plan</title>
-
-        <style type='text/css'>
-           
-          
-            
-        </style>
-        <script>
-                 function overlay(){
-                        document.getElementById('light').style.display = 'block';
-                            document.getElementById('fade').style.display = 'block';
-                             document.getElementById('blk').style.display = 'block';
-                            document.getElementById('slider-button').style.display = 'block';
-                            document.body.style.overflow = 'hidden';
-                            $("#calendar").css("pointer-events","none");
-                    }
-            function closeoverlay(){
-                    document.getElementById('light').style.display = 'none';
-                    $("#calendar").css("pointer-events","auto");
-                    document.getElementById('fade').style.display = 'none';
-                    document.body.style.overflow = 'scroll';
-                     document.getElementById('blk').style.display = 'none';
-                    document.getElementById('edtfbimg').style.display = 'none';
-                    document.getElementById('prevtwtimg').style.display = 'none';
-                    document.getElementById('edttwtimg').style.display = 'none';
-                    document.getElementById('prevfbimg').style.display = 'none';
-            }
-            function cancelform()
-            {   
-//                var chng=false;
-//                if(chng)
-                $("#signform").change(function() {
-//                    alert("changed");
-                })
-        //    $("#"+cancelbtn).click(function(){
-                if(confirm("Do you want to cancel the process?")){
-                    $('#slider-button').click();
-
-                }
-        //    })
-            }
-            
-        </script>
     </head>
     <body ng-app class="claro">
-        <div class="row"><jsp:include page="mainmenu.html"/></div>
-        <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign" class="container"> 
-            <div id="fade" class="black_overlay"></div>
-            <!--/end left column-->
-
-            <div  id="marktng"><jsp:include page="marketingsubmenu.html" /></div>
-
-            <script src="js/marketing.js" type="text/javascript"></script>
-            <!--<div id="overlay">-->
-            <div class="col-md-8 col-md-offset-3 " >
-                <div class="col-md-10 col-md-offset-0">
-
-                    <div class="inlineFlex top26">
-                        <div>
-                            <p id="planhead" class="MH2">Your Plan</p>
-                        </div>
-                        
-                        <a href = "javascript:void(0)" class="topten">
-                            <button id="liPriority" onclick = "overlay();" class="button button--moema button--text-thick button--text-upper button--size-s1" ng-click="ShowAddAction()">ADD ACTION</button>
-                        </a>
-                        <div class="topten">
-                        <button id="delsel" class="button button--moema button--text-thick button--text-upper button--size-s2" style="display:none;" ng-click="deleteSchedule('0','deleteMultiple')">DELETE SELECTED</button> 
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-12" style="display: none;" id="default" ng-init="getCampaigns()">
-                        <div class="row">
-
-                            <!--<div class='col-md-1 SP2 fonthead'>Today</div>-->
-                            <div class='col-md-3' style="width:280px;"></div>
-                            <div class='col-md-3' ></div></div> 
-
-                        <div id="daydetails" ng-repeat="entity in entitySet">
-                        <div ng-show="entity.date == today_date">
-                            <p class="SS2 actfnt">Today</p>
-                        </div>
-                             
-                        <div ng-show='entity.date==tomorrow_date'>
-                            <p class="SS2 actfnt">Tomorrow</p>
-                        </div>
-                        <div ng-show="(entity.date != today_date) && (entity.date!=tomorrow_date)">
-
-                            <p class="SS2 actfnt">{{entity.date| date: "MMM dd yyyy"}}</p>
-                        </div>
-                        <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-15px;top:-20px;">
-                        <p ng-show="entity.dataArray == ''" class="MH1" id="messagetoday" style="display:block;position:relative;top:-25px;" >{{nodata}}</p>
-                        <ul>
-                            <li ng-repeat="entitydetails in entity.dataArray">
-                                <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails" >
-                                    <div class="col-md-1">
-                                        <input type="checkbox" name="removetodays" id='{{entitydetails.schedule_id}}' style="width:15px;" value="{{entitydetails.schedule_id}}" onclick="setSelectedIds('{{entitydetails.schedule_id}}')"/>
-                                    </div>
-                                    <div class="col-md-3" style="width:300px;margin-left:-40px;">
-                                        <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
-                                            <p class="MH1" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description,entitydetails.marketingName)">{{entitydetails.schedule_title}}</p></a>
-                                        <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}}</p>
-                                    </div>
-                                    <div class="col-md-2 MH1 socfnts">{{entitydetails.entity_type}}</div>
-                                    <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entitydetails.template_status}}</div>
-                                    <div class="col-md-2" 
-                                         style="margin-left:20px;" 
-                                         ng-hide="(entitydetails.template_status=='Complete')">
-                                        <a href = "javascript:void(0)" onclick = "overlay();">
-                                        <button type="button" 
-                                                class="edtbtn" 
-                                                ng-click="getScheduleDetails(entitydetails.schedule_id, 
-                                                            entitydetails.template_status,
-                                                            entitydetails.schedule_time, 
-                                                            entitydetails.entity_type, 
-                                                            entitydetails.schedule_title, 
-                                                            entitydetails.schedule_description,
-                                                            entitydetails.marketingName)">DETAILS</button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                            
-                        </div>
-                        
-                    </div>
-
-                </div>
-            </div>
-            <!--           </div><div id="mask" onclick="document.location='#';">CLICK</div>    -->
-            
-            <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
+        <div id="dvPriorityDialog" class="pollSlider" style="z-index:1005;">
                 <form class="form-horizontal" id="signfrm" >
                 <div class="addactcol">
                     <div class="inlineFlex">
@@ -173,7 +45,7 @@
                     <div class="top18 fontpns tenpix headcolor">MARKETING PROGRAM</div>
                     <div class="topfive fontpnr">
                         <select disabled id="marketing_program" name="marketing_program_type">
-                            <option value="0">General</option>
+                            <option value="0">Genaral</option>
                             <option ng-repeat="row in marketprogram" value="{{row.user_program_id}}">{{row.name}}</option>
                         </select>
                     </div>
@@ -181,7 +53,7 @@
                     <div><textarea class="addactiondetinput top8 fontpns" name="addactiontitle" id="addactiontitle" placeholder="Title here"></textarea></div>
                     <div class="top26 fontpns tenpix headcolor">ACTION TYPE</div>
                     <div class="topfive fontpnr">
-                        <select id="actiontype" name="actiontype">
+                        <select id="actiontype"name="actiontype">
                             <option value="0">Select</option>
                             <option value="facebook">Facebook</option>
                             <option value="twitter">Twitter</option>
@@ -327,6 +199,7 @@
 
                 </div>-->
             </div>
+            
             <div id="preview" class="pollSlider">
                 <div>
                     <div id="preview_email"  class="inlineFlex">
@@ -383,55 +256,9 @@
                             <div class="inlineFlex top120">
                                 <div class="rightthirty">
                                     <input type="button"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc,marketing_program_name)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
-                                
                                 </div>
                                 <div class="approve">
-                                      <div ng-controller="EmpDetCtrl">       
-    <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
-
-       
-        <div class="EmployeeInfo">
-
-            <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
-        </div>
-      </div>
-    <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
-   
-
-        <div class="EmployeeInfo"  ng-hide="EmployeeInfoDiv1" >
-           
-            <div ng-model="botton_container">
-               
-                <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-               
-            </div> 
-
-        </div>
-       
-        
-        
-        
-        
-        <div class="EmployeeInfo6"  ng-hide="EmployeeInfoDiv2">
-           
-            <div ng-model="botton_container">
-               
-                <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
-               
-            </div> 
-
-        </div>
-        
-   </div>
-       
-                                          
-                                          
-                                          
-                                          
-                                          
-                                          
-</div>  
-                                   
+                                    <input type="button" value="Approve to Post" onclick="postSocial()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
                                 </div>
                             </div>
                         </div>
@@ -472,7 +299,7 @@
                                     SUBJECT LINE
                                 </div>
                                 <div class="containe fontpnr tenpix">
-                                    {{entitiesdetails.subject}}
+                                    September 5, 2015 at 2:02 PM
                                 </div>
                                 <div class="inlineFlex toptweenty">
                                     <div class="half headcolor fontpns tenpix">
@@ -484,10 +311,10 @@
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.to_email_addresses}}
+                                        To mail list text
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.email_list_name}}
+                                        Additional mail list text
                                     </div>
                                 </div>
                                  <div class="inlineFlex toptweenty">
@@ -500,10 +327,10 @@
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.from_name}}
+                                        FROM EMAIL ADDRESS
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.from_address}}
+                                        From email address
                                     </div>
                                 </div>
                             </div>
@@ -577,6 +404,12 @@
                         </div>
                     </div>-->
                         
+                        
+                        
+                        
+                        
+                        
+
 <!--                        <div class="actiondet">
 
                             <div style="background-color:#fff;position:relative;top:25px;left:50px;">
@@ -801,7 +634,7 @@
                                 </div>
                                 </div>
 
-                        <div class="half">
+                            <div class="half">
                         <div class="secondcol">
                             <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
@@ -829,7 +662,7 @@
                                     SUBJECT LINE
                                 </div>
                                 <div class="containe fontpnr tenpix">
-                                    {{entitiesdetails.subject}}
+                                    September 5, 2015 at 2:02 PM
                                 </div>
                                 <div class="inlineFlex toptweenty">
                                     <div class="half headcolor fontpns tenpix">
@@ -841,10 +674,10 @@
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.to_email_addresses}}
+                                        To mail list text
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.email_list_name}}
+                                        Additional mail list text
                                     </div>
                                 </div>
                                  <div class="inlineFlex toptweenty">
@@ -857,10 +690,10 @@
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.from_name}}
+                                        FROM EMAIL ADDRESS
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.from_address}}
+                                        From email address
                                     </div>
                                 </div>
                             </div>
@@ -998,7 +831,7 @@
                                             {{schedule_type}}
                                         </div>
                                         <div class="half containe fontpnr tenpix">
-                                            {{entitiesdetails.metadata.ManagedPage}}
+                                            BRNDBOT
                                         </div>
                                     </div>
                                     <div class="toptweenty headcolor tenpix fontpns">
@@ -1052,7 +885,7 @@
                                             LINK TITLE
                                         </div>
                                         <div class="topten containe fontpnr twlvpix">
-                                            {{entitiesdetails.metadata.title}}
+                                            Link Name Goes Here
                                         </div>
                                         <div class="toptweentyfive headcolor tenpix fontpns">
                                             LINK DESCRIPTION
@@ -1499,7 +1332,7 @@
                                             LINK TITLE
                                         </div>
                                         <div class="topten containe fontpnr twlvpix">
-                                            {{entitiesdetails.metadata.title}}
+                                            Link Name Goes Here
                                         </div>
                                         <div class="toptweentyfive headcolor tenpix fontpns">
                                             LINK DESCRIPTION
@@ -1611,11 +1444,9 @@
                     </div>                        
             </div>
 
-
             <div id="previewNote" class="pollSlider">
                 <div>
                     <div id="noteprev">
-                        <div id="noteprev">
                             <div class="firstcol">
                                 <div class="inlineFlex">
                                     <div class="headtitle pfont actfnt fontpnr">NOTE DETAILS</div>
@@ -1674,7 +1505,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
 <!--                        <div style="position:relative;left:50px;">
 
                             <div class="actiondetails actiondet">
@@ -1725,7 +1555,7 @@
                                 </div>
                                 <div class="containe tenpix fontpnr ">Template Saved</div>
                             </div>
-                            <input type="hidden" name="status" id="status" value="incomplete"/>
+                            <input type="hideen" name="status" id="status" value="incomplete"/>
                             <div class="containe fontpnr tenpix inlineFlex">
                                 <div class="rightfive toptwo">
                                     <div class="redDot"></div>
@@ -1834,7 +1664,7 @@
             </div>
 
             <div id="previewtwitter" class="pollSlider">
-                <div id="preview_twitter" class="inlineFlex">
+                    <div id="preview_twitter" class="inlineFlex">
                     <div class="half">
                         <div class="borderright">
                             <div class="firstcol">
@@ -1990,13 +1820,13 @@
                                     POST TEXT
                                 </div>
                                 <div class="height75 scrolly topten">
-                                    <p class="containe twlvpix fontpnr">{{entitiesdetails.metadata.post_text}}</p>
+                                    <p class="containe twlvpix fontpnr">{{entitiesdetails.meta.text}}</p>
                                 </div>
                                 <div class="toptweenty headcolor tenpix fontpns">
                                     LINK NAME
                                 </div>
                                 <div class="topten containe fontpnr twlvpix">
-                                    {{entitiesdetails.metadata.title}}
+                                    Link Name Goes Here
                                 </div>
                             </div>
                         </div>
@@ -2188,7 +2018,7 @@
                                 </div>
                                 </div>
 
-                        <div class="half">
+                            <div class="half">
                         <div class="secondcol">
                              <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
@@ -2217,13 +2047,13 @@
                                     POST TEXT
                                 </div>
                                 <div class="height75 scrolly topten">
-                                    <p class="containe twlvpix fontpnr">{{entitiesdetails.metadata.post_text}}</p>
+                                    <p class="containe twlvpix fontpnr">{{entitiesdetails.meta.text}}</p>
                                 </div>
                                 <div class="toptweenty headcolor tenpix fontpns">
                                     LINK NAME
                                 </div>
                                 <div class="topten containe fontpnr twlvpix">
-                                    {{entitiesdetails.metadata.title}}
+                                    Link Name Goes Here
                                 </div>
                             </div>
                         </div>
@@ -2248,27 +2078,6 @@
                     </div>
                 </a>
             </div>
-        </div>   
-        <script>
-        $(".cross").hide();
-        $(".menu").hide();
-        $(".hamburger").click(function () {
-            $(".menu").slideToggle("slow", function () {
-            $(".hamburger").hide();
-                    $(".cross").show();
-            });
-        });
-        $(".cross").click(function () {
-            $(".menu").slideToggle("slow", function () {
-            $(".cross").hide();
-                    $(".hamburger").show();
-            });
-        });
-
-        </script>
-
-<script type="text/javascript" src="https://tarruda.github.io/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>     
-        
 
     </body>
 </html>

@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,7 +31,7 @@ public class ScheduledSocialpostListDaoImpl implements ScheduledSocialpostListDa
     private SessionFactory sessionFactory;
 
     @Override
-    public List<TblScheduledSocialpostList> getAllScheduledSocialpostListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecuring, String entityType) throws Throwable {
+    public List<TblScheduledSocialpostList> getAllScheduledSocialpostListForUserMarketingProgram(Integer UserMarketingId) throws Throwable {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(TblScheduledSocialpostList.class)
@@ -38,9 +39,10 @@ public class ScheduledSocialpostListDaoImpl implements ScheduledSocialpostListDa
                     .setFetchMode("tblScheduledEntityList.tblUserMarketingProgram", FetchMode.JOIN)
                     .createAlias("tblScheduledEntityList.tblUserMarketingProgram", "umId")
                     .add(Restrictions.eq("umId.id", UserMarketingId))
-                    .createAlias("tblScheduledEntityList", "sl")
-                    .add(Restrictions.eq("sl.isRecuring", isRecuring))
-                    .add(Restrictions.eq("sl.entityType", entityType));		
+                    .createAlias("tblScheduledEntityList", "sl");
+                    Criterion rest1= Restrictions.and(Restrictions.eq("sl.entityType", "twitter"));
+                    Criterion rest2= Restrictions.and(Restrictions.eq("sl.entityType", "facebook"));
+                    criteria.add(Restrictions.or(rest1, rest2));
                    return criteria.list();
 		} catch (Throwable throwable) {
                    logger.log(Level.SEVERE, null, throwable);

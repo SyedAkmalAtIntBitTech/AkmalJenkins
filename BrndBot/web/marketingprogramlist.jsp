@@ -38,10 +38,7 @@
                     url: 'listAllMarketingProgram.do?programType=Open',
                     data: programStatus 
                 }).success(function (data, status, headers, config) {
-                    $scope.programs = data.programs;
-//                    if (data === error) {
-//                        alert(data);
-//                    }
+                    $scope.current_programs = data.programs;
                 }).error(function (data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                     // called asynchronously if an error occurs
@@ -59,15 +56,16 @@
                     url: 'listAllMarketingProgram.do?programType=Closed',
                     data: programStatus 
                 }).success(function (data, status, headers, config) {
-                    $scope.programs = data.programs;
-//                    if (data === error) {
-//                        alert(data);
-//                    }
+                    $scope.past_programs = data.programs;
                 }).error(function (data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                 });                
+            };
+            
+            $scope.sendProgramId = function(program_id){
+                window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
             };
             
         }
@@ -99,7 +97,7 @@
                             <div id="pastprogs" class="curprog fontpns">Your Past Programs</div>
                         </div>
                     </div>
-                    <div id="prog" ng-init="getUserMarketingProgamsByStatus()">
+                    <div id="prog" ng-init="getUserMarketingProgramsClosed()">
                             <div class="row">
                                 <ul class="programsheader">
                                     <li><div class="prognamhead fontpnr">Programs</div></li>
@@ -109,29 +107,30 @@
                             <div class="row">
                                     <hr class="pstprogline">
                             </div>
-                        <div class="row" ng-repeat="program in programs">
+                        <div class="fontpns" style="margin-left: 15px;" ng-show="past_programs==''">No Records Available</div>
+                        <div class="row" ng-repeat="program in past_programs">
                                 <ul class="programsheader">
                                     <li><div class="lstprog fontpns">{{program.program_name}}</div>
-                                        <div class="lststrtdt fontpnr">Started on {{program.start_date | date: 'MMM dd yyyy'+' on '+'h:mma'}} | Template name </div>
+                                        <div class="lststrtdt fontpnr">Started on {{program.start_date | date: 'MMM dd yyyy'+' on '+'h:mma'}}</div>
                                     </li>
                                     <li>
                                     <ul class="li1">
                                         <li>
                                             <div class="lstlftact fontpnr">{{program.end_date | date: "MMM dd"}}</div>
                                         </li>
-                                        <li>
-                                            <button class="viewbtn">View</button>
+                                        <li >
+                                            <button class="viewbtn" ng-click="sendProgramId(program.id)">View</button>
                                         </li>
                                     </ul>
                                     </li>
-                                 </ul>
-                            </div>
-                            <div class="row">
-                                <hr class="pstprogline">
-                            </div>
-                       </div>
+                                 </ul><hr class="pstprogline">
+                        </div>
+<!--                        <div class="row">
+                            <hr class="pstprogline">
+                        </div>-->
                     </div>
-                    <div id="email">
+                    </div>
+                    <div id="email" ng-init="getUserMarketingProgramsOpen()">
                         <div class="row">
                                 <ul class="programsheader">
                                     <li><div class="prognamhead fontpnr">Programs</div></li>
@@ -142,27 +141,27 @@
                         <div class="row">
                                 <hr class="pstprogline">
                         </div>
-                        <ul class="programsheader" ng-repeat="program in programs">
+                        <div ng-show="current_programs==''">No records available</div>
+                        <ul class="programsheader" ng-repeat="program in current_programs">
+                            <div ng-show="program.program_name==''">No records available</div>
                             <li><div class="lstprog fontpns">{{program.program_name}}</div>
-                                <div class="lststrtdt fontpnr">Started on {{program.start_date | date: 'MMM dd yyyy'+' on '+'h:mma'}} | Template name </div>
+                                <div class="lststrtdt fontpnr">Started on {{program.start_date | date: 'MMM dd yyyy'+' on '+'h:mma'}}</div>
                             </li>
                             <li>
-                            <ul class="li1 lftcur">
-                                <li>
-                                    <div class="lstlftactcur fontpnr">{{program.end_date | date: "MMM dd"}}</div>
-                                </li>
-                                <li>
-                                     <div class="lstcomp fontpnr">{{program.noofpostleft}}</div>
-                                </li>
-                                <li>
-                                    <button class="viewbtn">View</button>
-                                </li>
-                            </ul>
+                                <ul class="li1 lftcur">
+                                    <li>
+                                        <div class="lstlftactcur fontpnr">{{program.end_date | date: "MMM dd"}}</div>
+                                    </li>
+                                    <li>
+                                         <div class="lstcomp fontpnr">{{program.noofpostleft}}</div>
+                                    </li>
+                                    <li class="viewbtnli">
+                                        <button class="viewbtn button--moema button--text-thick button--text-upper button--size-s fontpnr" ng-click="sendProgramId(program.id)">View</button>
+                                    </li>
+                                </ul>
                             </li>
-                         </ul>
-                        <div class="row">
-                            <hr class="pstprogline">
-                        </div>
+                            <hr class="pstprogline padlineleft">
+                        </ul>
                     </div>
                     
                 </div>
@@ -170,32 +169,32 @@
          
             <script>
                 
-                $( document ).ready(function() {
-//                    if(window.location.href.indexOf("curprog") !== -1)
-//                    {
-//                         $("#pastprogs").hide();
-//                         $("#curprogs").show();
-//                         $("#email").show();
-//                         $("#prog").hide();
-//                         alert("type : Currentprograms");
-//                         angular.element(document.getElementById('controllerUserMarketingProgamsByStatus')).scope().getUserMarketingProgramsOpen();
-//                    }
-//                    else if(window.location.href.indexOf("pastprog") !== -1)
-//                    {
-//                        $("#pastprogs").show();
-//                        $("#prog").show();
-//                        $("#curprogs").hide();
-//                        $("#email").hide();
-//                        alert("type : Pastprogrograms");
-//                        angular.element(document.getElementById('controllerUserMarketingProgamsByStatus')).scope().getUserMarketingProgramsClosed();
-//                    }else {
-                        $("#curprogs").show();
-                        $("#email").show();
-//                         $("#pastprogs").hide();
-                        $("#pastprogs").hide();
-//                        $("#prog").hide();
-                        $("#prog").hide();
-                        alert("type not found!!");
+                $(document).ready(function() {
+                    $("#lstcurprogs").css("color","#3f3f42").css("background-color","#f6f7f7");
+                    $("#lstcurprogs").click(function (){
+                        $("#lstcurprogs").css("color","#3f3f42").css("background-color","#f6f7f7");
+                        $("#lstpstprogs").css("color","#3f3f42").css("background-color","transparent");
+                    });
+                     $("#lstpstprogs").click(function (){
+                        $("#lstpstprogs").css("color","#3f3f42").css("background-color","#f6f7f7");
+                        $("#lstcurprogs").css("color","#3f3f42").css("background-color","transparent");
+                    });
+                    if(window.location.href.indexOf("current") !== -1)
+                    {
+                         $("#pastprogs").hide();
+                         $("#curprogs").show();
+                         $("#email").show();
+                         $("#prog").hide();
+                    }
+                    else if(window.location.href.indexOf("past") !== -1)
+                    {
+                        $("#pastprogs").show();
+                        $("#prog").show();
+                        $("#curprogs").hide();
+                        $("#email").hide();
+                        $("#lstpstprogs").css("color","#3f3f42").css("background-color","#f6f7f7");
+                        $("#lstcurprogs").css("color","#3f3f42").css("background-color","transparent");
+                    }
 //                    }
 //                        var= curprogs;
 //                        curprogs=location.search;
@@ -219,6 +218,7 @@
 //                });
                 
                 $("#crtprogpg").click(function (){
+                    
                    document.location.href="marketingcategory.jsp"; 
                 });
             </script>

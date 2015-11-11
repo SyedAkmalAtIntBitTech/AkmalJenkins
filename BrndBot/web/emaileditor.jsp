@@ -1675,7 +1675,7 @@ $(document).ready(function() {
                                             $("#imagecontainer").hide();
                                             $("#filtercontainer").show();
                                     }
-                            $(".cross").hide();
+                                    $(".cross").hide();
                                     $(".menu").hide();
                                     $(".hamburger").click(function () {
                             $(".menu").slideToggle("slow", function () {
