@@ -1,0 +1,145 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 21, 2015, 6:01:11 PM
+    Author     : development
+*/
+.fontpns
+{
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 600;
+}
+.fontpnr{
+     font-family: "proxima-nova",sans-serif;
+     font-style: normal;
+     font-weight: 400;
+}
+.markimgtxt{
+    font-size:12px;
+    height:30px;
+    width:85px;
+    color: #6d6d74;
+    text-align:center;
+}
+.marketingimage{
+    margin-right: 30px;
+    margin-bottom: 14.5px;
+    width:85px;
+    height:85px;
+    border-radius: 5px;
+}
+.toppad{
+    font-family: "proxima-nova",sans-serif;
+    font-size:12px;
+    color:#6d6d74;
+    margin-top:10.7px;
+    margin-bottom: 60px;
+    width:564px;
+    height:30px;
+    margin-left:32px;
+    font-size:12px;
+    font-style: normal;
+    font-weight: 400;
+}
+ .marktext{
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size:30px;
+    margin-left:32px;
+    margin-bottom: 0px; 
+    margin-top:75.3px; 
+    color:#3f3f42;
+    text-align:left;
+    height: 37px;
+    /*width: 564px;*/
+    letter-spacing: 0em;
+ }
+ .proglist{
+     margin-left: 7%;
+ }
+    .marketinglist1 {
+            height:400px;
+            overflow-y: scroll;
+           margin-left:-15px !important;  
+    }
+    .marketinglist1::-webkit-scrollbar { width: 0 !important }
+    .marketinglist1 li{
+       display: inline-block !important;
+       margin-right: 0px !important;
+    }
+@media screen and (min-width: 990px){
+    .space{
+        padding-left: 5% !important;
+    }
+    .menutext li a p{
+        text-align:center;
+    }
+    .navmob{
+        width: 90% !important;        
+    }
+    .nav.nav-stacked.hidhov.menutext li{
+        display: inline-flex;
+    }
+    ul.marketinglist{
+        padding-right:0px !important;  
+    }
+    
+}
+@media screen and (max-width: 990px){
+    .navmob{
+        width: 90% !important;        
+    }
+    .nav.nav-stacked.hidhov.menutext li{
+        display: inline-flex;
+    }
+    ul.marketinglist li{
+        padding-right:-10px !important;  
+    }
+}
+@media screen and (max-width: 767px){
+    .space{
+        padding-left: 5% !important;
+    }
+    .mobmenu{
+        padding-left: 35%;        
+    }
+    .navmob{
+        width: 90% !important;        
+    }
+    .nav.nav-stacked.hidhov.menutext li{
+        display: inline-flex;
+    }
+    #marktext{
+        margin-left: -4% !important;
+    }
+}
+@media screen and (max-width: 344px){
+    #marktext{
+        font-size: 17px;
+        padding-top: 24% !important;
+    }
+    .mspace{
+        padding-left: 8% !important;
+    }
+    .navmob{
+        width: 70%;        
+    }
+    .mobmenu{
+        padding-left: 30%;        
+    }
+    .nav.nav-stacked.hidhov.menutext li{
+        display: inline-flex;
+    }
+    
+}
+.halfcol{
+    width: 45px;
+}
+#sidebar-wrapper{
+    width:60px !important;
+}

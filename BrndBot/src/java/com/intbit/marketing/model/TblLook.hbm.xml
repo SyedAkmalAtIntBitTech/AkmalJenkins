@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 28, 2015 12:01:09 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.intbit.marketing.model.TblLook" table="tbl_look" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="lookName" type="string">
+            <column name="look_name" />
+        </property>
+        <property name="fileName" type="string">
+            <column name="file_name" length="80" />
+        </property>
+        <property name="organizationId" type="java.lang.Integer">
+            <column name="organization_id" />
+        </property>
+    </class>
+</hibernate-mapping>

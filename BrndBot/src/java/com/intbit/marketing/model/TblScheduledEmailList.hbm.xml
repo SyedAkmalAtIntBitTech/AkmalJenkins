@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 28, 2015 12:01:09 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.intbit.marketing.model.TblScheduledEmailList" table="tbl_scheduled_email_list" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="tblUserLoginDetails" class="com.intbit.marketing.model.TblUserLoginDetails" fetch="select">
+            <column name="user_id" />
+        </many-to-one>
+        <property name="subject" type="string">
+            <column name="subject" length="2048" />
+        </property>
+        <property name="body" type="string">
+            <column name="body" />
+        </property>
+        <property name="fromAddress" type="string">
+            <column name="from_address" length="250" />
+        </property>
+        <property name="emailListName" type="string">
+            <column name="email_list_name" length="250" />
+        </property>
+        <property name="fromName" type="string">
+            <column name="from_name" length="1024" />
+        </property>
+        <property name="toEmailAddresses" type="serializable">
+            <column name="to_email_addresses" />
+        </property>
+        <property name="replyToEmailAddress" type="string">
+            <column name="reply_to_email_address" length="150" />
+        </property>
+    </class>
+</hibernate-mapping>

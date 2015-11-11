@@ -86,13 +86,8 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
                     org.json.simple.JSONObject emailListObject = new org.json.simple.JSONObject();
                     org.json.simple.JSONObject json_object = (org.json.simple.JSONObject)emailListArrayFromUsers.get(i);
                     emailListObject.put(IConstants.kEmailListNameKey, json_object.get(IConstants.kEmailListNameKey));
-                    String emails = json_object.get(IConstants.kEmailAddressesKey).toString();
-                    if (!emails.equals("")){
-                        String email_addresses[] = json_object.get(IConstants.kEmailAddressesKey).toString().split(",");
-                        emailListObject.put("noofcontants", email_addresses.length);
-                    }else if (emails.equals("")) {
-                        emailListObject.put("noofcontants", "0");
-                    }
+                    org.json.simple.JSONArray emailAddressArray= (org.json.simple.JSONArray) json_object.get(IConstants.kEmailAddressesKey);
+                    emailListObject.put("noofcontants", emailAddressArray.size());
 
                     emailListObject.put(IConstants.kEmailListDefaultFromName, json_object.get(IConstants.kEmailListDefaultFromName));
                     emailListObject.put(IConstants.kEmailListListDescription , json_object.get(IConstants.kEmailListListDescription));
@@ -180,7 +175,7 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
     }// </editor-fold>
 
     private org.json.simple.JSONArray getEmailIds(Integer user_id, String emailListName) throws JSONException, ClassNotFoundException, SQLException {
-        String emailIDs = "";
+        org.json.simple.JSONArray emailIDSJSONArray = new org.json.simple.JSONArray();
         org.json.simple.JSONArray json_email_address = new org.json.simple.JSONArray();
         try{
             org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
@@ -189,17 +184,18 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
                 String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
                 if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
                     if (emailListName.equals(currentListName)) {
-                        emailIDs = (String)emailListJSONObject.get(IConstants.kEmailAddressesKey);
+                        emailIDSJSONArray = (org.json.simple.JSONArray) emailListJSONObject.get(IConstants.kEmailAddressesKey);
+                        break;
                     }
                 }
             }
-            String emails[] = emailIDs.split(",");
             String email = "email";
-            for(int i = 0; i< emails.length; i++){
+            for(int i = 0; i< emailIDSJSONArray.size(); i++){
                     EmailIds email_model = new EmailIds();
                     int j = i + 1;
                     email = "email" + j;
-                    email_model.setEmailid(emails[i]);
+                    JSONObject emailAddressJSONObject = (JSONObject) emailIDSJSONArray.get(i);
+                    email_model.setEmailid((String) emailAddressJSONObject.get(IConstants.kEmailAddressKey));
                     email_model.setId(email);
                     json_email_address.add(email_model);
             }

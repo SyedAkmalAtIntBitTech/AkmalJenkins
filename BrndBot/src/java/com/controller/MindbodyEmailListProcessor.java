@@ -35,14 +35,31 @@ import org.postgresql.util.PGobject;
  */
 public class MindbodyEmailListProcessor implements Runnable {
 
-    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(ApplicationContextListener.class));
+    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindbodyEmailListProcessor.class));
     private static final ConnectionManager connectionManager = ConnectionManager.getInstance();
+    private volatile boolean running = true;
+
+    //This is added just in case the application server itself shutdowns. That time the contextDestroyed is not called.
+    void startThread() {
+        running = true;
+    }
+    
+    public void terminateThread() {
+        running = false;
+        Thread.currentThread().interrupt();
+    }
 
     @Override
     public void run() {
-        logger.log(Level.INFO, "Scheduler at " + new Date());
-        logger.log(Level.INFO, "Started the automation");
-        startProcessing();
+        while (running) {
+            try {
+                logger.log(Level.INFO, "Scheduler at " + new Date());
+                logger.log(Level.INFO, "Started the automation");
+                startProcessing();
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Interupted the thread of Mindbody email list");
+            }
+        }
     }
 
     private void startProcessing() {
@@ -105,7 +122,7 @@ public class MindbodyEmailListProcessor implements Runnable {
                     json_email_array.add(json_email_object);
 
                 }
-                if (json_email_array.size() >= 0 ){
+                if (json_email_array.size() >= 0) {
                     JSONObject json_clientIndexes = new JSONObject();
                     json_clientIndexes.put(IConstants.kEmailAddressUserPreferenceKey, json_email_array);
 

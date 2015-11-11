@@ -41,6 +41,8 @@ public class AppConstants {
     public static final String ORG_CATEGORIES_HOME = ADMIN_IMAGE_HOME + File.separator + "Organizations" 
             + File.separator + "Categories";
     
+    public static final String MARKETING_ORG_CATEGORIES_HOME = ADMIN_IMAGE_HOME + File.separator + "Marketing";
+
     public static final String LAYOUT_IMAGES_HOME = ADMIN_IMAGE_HOME + File.separator + "LayoutImages";
     
     public static final String PDF_FILES_PATH = ADMIN_IMAGE_HOME + File.separator + "PDFFiles";

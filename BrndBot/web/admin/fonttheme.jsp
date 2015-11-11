@@ -127,7 +127,7 @@
                               url: getHost() +'ServletFontTheme',
                               headers: {'Content-Type': 'application/json'},
                               data:  colort
-                          }).success(function (data) 
+                            }).success(function (data) 
                               {
                                 $scope.status=data;
                                 if(data === "true"){

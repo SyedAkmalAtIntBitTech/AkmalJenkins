@@ -63,14 +63,13 @@ Author: senthil
 	border: 1px solid #ccc;
 	float: left;
 	position: absolute;
-	margin-top: 45px;
 	left: 0px;
         
 }
 
 .arrow_top {
 	position: absolute;
-	top: -10px;
+	top: 167px;
 	left: 20px;
 	background: url(../images/top_arr.png) no-repeat;
 	width: 18px;

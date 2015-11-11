@@ -1,0 +1,215 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 21, 2015, 7:47:49 PM
+    Author     : Syed Akmal at IntBit Technologies.
+*/
+
+.pstprog{
+    margin-left:0px;
+    margin-top:44px;
+    /*width:258px;*/
+    height:30px;
+    font-size:25px;
+    color:#2d4355;
+}
+.curprog{
+    margin-left:0px;
+    margin-top:44px;
+    /*width:222px;*/
+    height:30px;
+    font-size:25px;
+    color:#2d4355;
+}
+.prognamhead{
+    width: 84px;
+    height:24px;
+    font-size: 20px;
+    color:#3f3f42;
+    margin-left:15px;
+    margin-top: 45px;
+}
+.programsheader li{
+    margin-left:-40px;
+  display: inline-block;   
+}
+.progactlfthead{
+    /*width:49px;*/
+    height: 15px;
+    font-size: 12px;
+    color:#3f3f42;
+    margin-left:524px;
+    margin-top: 30px;
+}
+.progcurlfthead{
+    width:49px;
+    height: 15px;
+    font-size: 12px;
+    color:#3f3f42;
+    margin-left:417px;
+    margin-top: 30px;
+}
+.progactpsthead{
+    width:111px;
+    height: 15px;
+    font-size: 12px;
+    color:#3f3f42;
+    margin-left:61px !important;
+    margin-top: 54px;
+}
+.progactcomphead{    
+    width: 105px;
+    height: 15px;
+    font-size: 12px;
+    color:#3f3f42;
+    margin-left:32px;
+    margin-top: 30px;
+}
+.progactendthead{
+    width:105px;
+    height: 15px;
+    font-size: 12px;
+    color:#3f3f42;
+    margin-left:25px;
+    margin-top: 30px;
+}
+.pstprogline{
+    width:861.6px;
+    height:3px;
+    background-color: #f4f4f4;
+    margin-left:15px !important;
+    margin-top:0px !important;
+    border: #f4f4f4 3px; 
+}
+.padlineleft{
+    margin-left:-25px !important;
+    margin-top: 10px !important;
+}
+.lstprog{
+    margin-left:15px;
+    margin-top:7px;
+    width:265.2px;
+    height:17px;
+    font-size:14px;
+    color:#3f3f42;
+}
+.lststrtdt{
+    width:400.2px;
+    height: 15px;
+    font-size: 12px;
+    color:#3f3f42;
+    margin-left:15px;
+    margin-top: 11px;
+}
+.progtempnm{
+    width:150px;
+    height: 15px;
+    font-size: 12px;
+    color:#3f3f42;
+    margin-left:0px;
+    margin-top: 15px;
+}
+.padlft{
+    margin-left: -15px !important;
+}
+.lstlftactcur{
+    width:50px;
+    height:17px;
+    color:#3f3f42;
+    margin-top:0px !important;
+    margin-left:111.8px !important;
+    font-size:14px;
+}
+.lstlftact{
+    width:50px;
+    height:17px;
+    color:#3f3f42;
+    margin-top:0px !important;
+    margin-left:211.8px !important;
+    font-size:14px;
+}
+.lstpst{
+    color:#ed7923;
+    margin-top:0px !important;
+    margin-left:30px !important;
+    font-size:25px;
+}
+.lstcomp{
+    width:50px;
+    height:17px;
+    color:#3f3f42;
+    margin-top:0px !important;
+    margin-left:95px !important;
+    font-size:14px;
+}
+.li1 {
+   top: -21px !important;
+   position: relative;
+}
+.lftcur{
+    margin-left:-5px;
+}
+.lstdate{
+    color:#2d4355;
+    margin-top:0px !important;
+    margin-left:15px !important;
+    font-size:25px;
+}
+.progtabs{
+    position: fixed;
+    background-color: #e3e3e3 !important;
+    height: 100% !important;
+    width: 95px !important;
+    margin-left: 40px;
+}
+.proghislist{  
+    margin-top: 173px !important;
+    margin-left: -40px;
+}
+.proghislist li p{
+    width:90px !important;
+    padding:10px -5px 0px 0px;
+}
+.proghislist li{
+    padding-left:13px;
+    padding-top:5px;
+    padding-right:15px;
+    height:47px !important;
+    display:inline-block !important;
+    color:#3f3f42 !important;
+    font-size:12px;
+    width: 95px;
+}
+.proghislist li:hover{
+    cursor: pointer;
+    color:#3f3f42;
+    background-color: #f6f7f7 !important;
+}
+.padtab{
+    margin-left:-56px !important;
+}
+#sidebar-wrapper{
+    width:60px !important;
+}
+.viewbtnli{
+        margin-left: 79px !important;
+}
+.viewbtn{
+    width:98.9px !important;
+    height:30px !important;
+    background-color: #f4f4f4 !important;
+    font-size: 13.4px !important;
+    color:#3f3f42 !important;
+    padding:7px 34.9px 7px 33.9px !important;
+    border-radius: 5px !important;
+    border:none;
+    margin-left:150px !important;
+}
+.button,.button--text-upper{
+    margin:0px !important;
+    letter-spacing: 0.5px !important;
+    text-transform: none !important;
+}

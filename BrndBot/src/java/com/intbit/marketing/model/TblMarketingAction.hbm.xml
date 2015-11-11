@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 28, 2015 12:01:09 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.intbit.marketing.model.TblMarketingAction" table="tbl_marketing_action" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="tblMarketingCategory" class="com.intbit.marketing.model.TblMarketingCategory" fetch="select">
+            <column name="marketing_category_id" />
+        </many-to-one>
+        <many-to-one name="tblMarketingProgram" class="com.intbit.marketing.model.TblMarketingProgram" fetch="select">
+            <column name="marketing_program_id" not-null="true" />
+        </many-to-one>
+        <property name="jsonTemplate" type="string">
+            <column name="json_template" />
+        </property>
+    </class>
+</hibernate-mapping>

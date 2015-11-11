@@ -36,6 +36,14 @@
               <li><a href="blocks.jsp">Blocks</a></li>
           </ul>
         </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Marketing Program<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href="marketingcategories.jsp">Category</a></li>
+              <li><a href="marketingprogram.jsp">Program</a></li>
+              <li><a href="marketingactions.jsp">Actions</a></li>
+              <li><a href="marketingemailtemplate.jsp">Email Templates</a></li>
+          </ul>
+        </li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Layout Model<span class="caret"></span></a>
           <ul class="dropdown-menu">
               <li><a href="sociallayoutmodel.jsp">social</a></li>

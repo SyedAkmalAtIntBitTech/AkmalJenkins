@@ -960,7 +960,8 @@
                                         description: '"' + $("#description").val() + '"',
                                         post_text: '"' + $("#posttext").val() + '"',
                                         url: '"' + $("#url").val() + '"',
-                                        ManagedPage: '"' + ManagedPage + '"'
+                                        ManagedPage: '"' + ManagedPage + '"',
+                                        title:'"' + $("#link_title").val() + '"'
                                     }
                                 }
                             ];
@@ -1001,7 +1002,8 @@
                                                 description: '"' + $("#description").val() + '"',
                                                 post_text: '"' + $("#posttext").val() + '"',
                                                 url: '"' + $("#url").val() + '"',
-                                                ManagedPage: '"' + ManagedPage + '"'
+                                                ManagedPage: '"' + ManagedPage + '"',
+                                                title:'"' + $("#link_title").val() + '"'
                                             }
                                         },
                                         {
@@ -1050,7 +1052,8 @@
                                         description: '"' + $("#description").val() + '"',
                                         post_text: '"' + $("#posttext").val() + '"',
                                         url: '"' + $("#url").val() + '"',
-                                        ManagedPage: '"' + ManagedPage + '"'
+                                        ManagedPage: '"' + ManagedPage + '"',
+                                        title:'"' + $("#link_title").val() + '"'
                                     }
                                 }
                             ];
@@ -1087,7 +1090,8 @@
                                                 description: '"' + $("#description").val() + '"',
                                                 post_text: '"' + $("#posttext").val() + '"',
                                                 url: '"' + $("#url").val() + '"',
-                                                ManagedPage: '"' + ManagedPage + '"'
+                                                ManagedPage: '"' + ManagedPage + '"',
+                                                title:'"' + $("#link_title").val() + '"'
                                             }
                                         },
                                         {

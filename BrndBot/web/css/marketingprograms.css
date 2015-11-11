@@ -1,0 +1,394 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 21, 2015, 6:04:44 PM
+    Author     : development
+*/
+.selmarkprog {
+    margin-top:75px;
+    margin-left:128px;
+    /*width:445px;*/
+    height:30px;
+    font-size: 25px;
+    color:#2d4355;
+}
+.contbtn1{
+    width:103px !important;
+    height:25px !important;
+    margin-left: 66px !important;
+    margin-top: 75px !important;
+}
+.cattxt{
+    margin-left:125px;
+    margin-top:11px;
+    width:564px;
+    height:30px;
+    color:#6d6d74;
+}
+.mptxt{
+    margin-left: 125px;
+    margin-top:46px;
+    width:186px;
+    height:15px;
+    font-size:12px;
+    color:#3f3f42;
+}
+.markline{
+    margin-left:124px;
+    margin-top:5px;
+    width:316px;
+    height:3px;
+    background-color: #e3e3e3;
+    border:1px;
+}
+.descript{
+    margin-top:46px;
+    height:15px;
+    width:186px;
+    font-size:12px;
+    color:#3f3f42;
+}
+.descline{
+    width:362px;
+    height:3px;
+    background-color: #e3e3e3;
+    border:1px;
+    margin-left:0px;
+    margin-top:5px;
+    
+}
+.newclientpromo{
+    margin-top: -49.5px;
+    margin-left: -70px;
+    width:100%;
+    max-width:100%;
+    height:100%;
+    font-size:18px;
+    color:#0f76a6;
+}
+.htmldatacontainer{
+    width:370px !important;
+    height:300px !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    /*overflow-y: scroll !important;*/
+}
+.subhead{
+    margin-top:5.5px;
+    margin-left:1px;
+    width:362px;
+    height:17px;
+    font-size:14px;
+    color:#3f3f42;
+}
+.subpara{
+    margin-top:15px;
+    margin-left:1px;
+    width:362px;
+    height:60px;
+    font-size:12px;
+    color:#6d6d74;
+}
+.promolist1 {
+     margin-left:85px;
+     margin-top:20px;
+     margin-bottom: 104px;
+}
+.promolist1 li{
+   
+    width:316px;
+    display: inline-block;
+}
+.promolist1 li a:hover,ul.promolist1 li:hover,ul.promolist1 li div:hover{
+    background-color: #5cc1a3 !important;
+    text-decoration: none;
+    color:#f6f7f7 !important;
+    cursor: pointer;
+}
+.mrkli{
+        margin-top:10px;
+}
+.prognamelst{
+        color:#3f3f42;
+        font-size:14px;
+        width:320px;
+        height:17px;
+        padding:10px 34px 10px 20px;
+        height:37px;
+    }
+/*ul.promolist li a:hover,ul.promolist li:hover,ul.promolist div:hover{
+    background-color: #5cc1a3 !important;
+    text-decoration: none;
+    color:#f4f4f4 !important;
+}*/
+@media screen and (max-width: 767px){
+    .row1 {
+    display: inline-flex;
+    width: 100%;
+    padding-top: 10%;
+}
+    .row11 {
+            width: 50%;
+        }
+    .row12{
+        width: 50%;
+    }
+    .row2 {
+        display: inline-flex;
+        width: 90%;
+    }
+    .row21 {
+        width: 45%;
+    }
+    .row22 {
+        width: 60%;
+    }
+
+}
+
+@media screen and (min-width: 768px){
+    .row1 {
+    width: 100%;
+    display: inline-flex;
+    padding-top:14%;
+    }
+    .row11 {
+        width: 40%;
+    }
+    .row12{
+        width: 30%;
+    }
+    .row2 {
+        display: inline-flex;
+        width: 90%;
+    }
+    .row21 {
+        width: 50%;
+    }
+    .row22 {
+        width: 70%;
+    }
+}
+@media screen and (min-width: 991px){
+    .desc{
+        font-size:17px !important;
+        font-weight: 500;
+    }
+    .promoprev{
+        padding:2% !important;
+        width:100%;
+        height:300px;
+        background-color: #204d74;
+    }
+    .contbtn {
+        margin-left: 0% !important;
+        margin-top: 10% !important;
+    }
+    .promolist{
+        max-width: 100% !important;
+        margin-left: -12% !important;
+    }
+    .promolist li{
+        display: inline !important;
+        width: 90% !important;
+        cursor:pointer;
+    }
+  
+    .progname{
+        font-size:18px;
+        font-weight: 500;
+        border-radius: 3px;
+        color: #3f4042;
+        font-family: "proxima-nova",sans-serif;
+        font-style: normal;
+        letter-spacing: 0;
+        line-height: 20.4px;
+        opacity: 1;
+        text-align: center;
+        padding: 10px 16px;
+    }
+    .row1 {
+        padding-left:1% !important;
+        display: inline-flex;
+        width: 100%;
+        padding-top: 10%;
+    }
+    .row11 {
+            width: 38%;
+        }
+    .row12{
+        width: 50%;
+    }
+    .row2 {
+        padding-left:1% !important;
+        display: inline-flex;
+        width: 90%;
+    }
+    .row21 {
+        width: 45%;
+    }
+    .row22 {
+        width: 60%;
+    }
+    
+}
+@media screen and (max-width: 990px){
+    .desc{
+        font-size:17px !important;
+        font-weight: 500;
+    }
+    .promoprev{
+            padding:5% !important;
+            width:90%;
+            height:300px;
+            background-color: #5cc1a3;
+        }
+    .contbtn {
+        margin-left: 0% !important;
+        margin-top: 14% !important;
+    }  
+    .promolist li{
+        display: inline !important;
+        width: 90% !important;
+        cursor:pointer;
+    }
+    .promolist li:hover{
+        background-color: #00CC99;
+        color:#f4f4f4 !important;
+    }
+    .progname{
+        font-size:18px;
+        background-color: #f4f4f4;
+        border-radius: 3px;
+        color: #3f4042;
+        font-family: "proxima-nova",sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 20.4px;
+        opacity: 1;
+        text-align: center;
+         padding: 10px 16px;
+}
+    .promolist{
+            max-width: 100% !important;
+            margin-left: -12% !important;
+        }
+}
+@media screen and (max-width: 767px){
+    #marktext{
+        padding-left: 10% !important;
+        width:100% !important; 
+        padding-bottom:3% !important;
+    }
+    .promoprev{
+        width:90%;
+        height:300px;
+        background-color: #5cc1a3;
+    }
+    .contbtn {
+    margin-left: 0% !important;
+    margin-top: 12% !important;
+    
+}
+    .promolist li{
+            
+            display: inline !important;
+            width: 90% !important;
+            cursor:pointer;
+        }
+        .promolist li:hover{
+            background-color: #00CC99;
+            color:#f4f4f4 !important;
+        }
+        .progname{
+            font-size:18px;
+            background-color: #f4f4f4;
+            border-radius: 3px;
+            color: #3f4042;
+            font-family: "proxima-nova",sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 20.4px;
+            opacity: 1;
+            text-align: center;
+             padding: 10px 16px;
+    }
+    .promolist{
+        
+        max-width: 100% !important;
+        margin-left: -5% !important;
+    }
+}
+@media screen and (max-width: 400px){
+    
+    .promoprev{
+        margin-left: 2% !important;
+        width:90%;
+        max-height:50% !important;
+        background-color:#5cc1a3;
+    }
+   .contbtn {
+    margin-left: 12% !important;
+    margin-top: 0% !important;
+} 
+    .promolist li{
+        display: inline !important;
+        width: 100% !important;
+        cursor:pointer;
+    }
+    .promolist li:hover{
+        background-color: #00CC99;
+        color:#f4f4f4 !important;
+    }
+    .progname{
+        font-size:18px;
+        background-color: #f4f4f4;
+        border-radius: 3px;
+        color: #3f4042;
+        font-family: "proxima-nova",sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 20.4px;
+        opacity: 1;
+        text-align: center;
+        padding: 10px 16px;
+    }
+    .promotext{
+        font-size: 22px !important;
+    }
+    .promolist{
+        max-width: 90% !important;
+        margin-left: -1% !important;
+    }
+    .row2 {
+        display: inline-block;
+        width: 100%;
+    }
+    .row21 {
+        width: 100%;
+    }
+    .row22 {
+        padding-left:5% !important;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 344px){
+
+    .row1 {
+        width: 100%;
+        display: inline-block;
+        padding-top:5%;
+    }
+    .row11 {
+        width: 100%;
+    }
+    .row12{
+        width: 100%;
+    }
+}  

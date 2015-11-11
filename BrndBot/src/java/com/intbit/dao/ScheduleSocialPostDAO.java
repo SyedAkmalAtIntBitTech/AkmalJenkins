@@ -41,6 +41,7 @@ public class ScheduleSocialPostDAO {
 
     public static Map<String, Integer> addToScheduleSocialPost(int userId,
             String imageName,
+            String marketingType,
             Map<String, Object> tokenDataMap,
             Map<String, Object> metadataMap,
             String type,
@@ -82,9 +83,11 @@ public class ScheduleSocialPostDAO {
             }
             int scheduleId = ScheduleDAO.addToScheduleEntityList(scheduleSocialPostId,
                     scheduleTitle,
+                    marketingType,
                     scheduleDesc,
                     scheduleTime,
                     type,
+                    "0",
                     templateStatus,
                     userId,
                     conn);
