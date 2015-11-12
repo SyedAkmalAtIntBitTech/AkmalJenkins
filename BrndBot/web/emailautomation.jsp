@@ -91,9 +91,9 @@
           //do something special
          // alert("delay");
           //$("#select option").filter(".a0").attr('selected','selected');
-            var entity_id = '<%= entity_id %>';
-            var type = '<%= type %>';
-            var program_id = '<%= program_id %>';
+    var entity_id = '<%= entity_id %>';
+    var type = '<%= type %>';
+    var program_id = '<%= program_id %>';
 
 //        }, 1000);
         
@@ -334,36 +334,36 @@
 
 </script> 
 
-         <script>
-                        
-            $(document).ready(function (){
-                $("#emlautomeditorcontainer").hide();
-                $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
+<script>
 
-                $("#emaillist").change(function () {
+   $(document).ready(function (){
+       $("#emlautomeditorcontainer").hide();
+       $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
 
-                    var List_name = $("#emaillist").val();
-                    $.ajax({
-                        url: getHost() + "GetEmailLists",
-                        method: 'POST',                    
-                        data: {
-                            update: "emailsForEmailList",
-                            list_name: List_name
-                        },
-                        success: function(result){
-                            var i = 0;
-                            emails = result.user_emailAddresses;
-                        }
-                    });
+       $("#emaillist").change(function () {
 
-                });
+           var List_name = $("#emaillist").val();
+           $.ajax({
+               url: getHost() + "GetEmailLists",
+               method: 'POST',                    
+               data: {
+                   update: "emailsForEmailList",
+                   list_name: List_name
+               },
+               success: function(result){
+                   var i = 0;
+                   emails = result.user_emailAddresses;
+               }
+           });
 
-            if (type == 'edit'){
-                var entity_details = {"entity_id": entity_id};                    
-                $("#emailautomationcontent").show();
-                $("#emlautomeditorcontainer").hide();
-                
-                //                
+       });
+
+   if (type == 'edit'){
+       var entity_details = {"entity_id": entity_id};                    
+       $("#emailautomationcontent").show();
+       $("#emlautomeditorcontainer").hide();
+
+       //                
 //                $.ajax({
 //                    url: getHost() + "getRecuringEntity.do",
 //                    method: 'POST',
@@ -388,98 +388,98 @@
 //                        angular.element(document.getElementById('emailautomation')).scope().setDateNTime(result.recuring_email_time, result.recuring_email_till_date, result.recuring_email_email_list_name);
 //                    }
 //                });
-                
-            }else if (type == 'template'){
-                
-                    setTimeout(
-                        function() 
-                        {
-                          //do something special
-                         // alert("delay");
-                          //$("#select option").filter(".a0").attr('selected','selected');
-                        if (validate()){
-                            $("#emailautomationcontent").hide();
-                            $("#emlautomeditorcontainer").show();
-                            entity_no_email_template = "false";
-                        }else {
-                            entity_no_email_template = "true";
-                            $("#emailautomationcontent").show();
-                            $("#emlautomeditorcontainer").hide();
-                        }
-                    }, 1000);
-                
-                
-            }else if (type == 'add'){
-                $("#emailautomationcontent").show();
-                $("#emlautomeditorcontainer").hide();
-            }
-            });
-            function validate(){
-                var days = $("#days").val();
-                var emaillisttext = $("#emaillist :selected").text();
-                var emaillist = $("#emaillist").val();
-                var subject = $("#subject").val();
-                var from_name = $("#from_name").val();
-                var reply_to_address = $("#reply_to_address").val();
-                var recuring_email_title = $("#recuring_email_title").val();
-                var recuring_email_description = $("#recuring_email_description").val();
 
-                var till_date = $("#datepicker").val();
-                var schedule_time=$("#timepicker1").val().replace(/ /g,'');
-                
-                if (days === "0") {
-                    alert("please select the day");
-                    $("#days").focus();
-                    return false;
-                }
-                if (emaillisttext === "") {
-                    alert("please select the email list text");
-                    $("#emaillisttext").focus();
-                    return false;
-                }
+   }else if (type == 'template'){
+
+           setTimeout(
+               function() 
+               {
+                 //do something special
+                // alert("delay");
+                 //$("#select option").filter(".a0").attr('selected','selected');
+               if (validate()){
+                   $("#emailautomationcontent").hide();
+                   $("#emlautomeditorcontainer").show();
+                   entity_no_email_template = "false";
+               }else {
+                   entity_no_email_template = "true";
+                   $("#emailautomationcontent").show();
+                   $("#emlautomeditorcontainer").hide();
+               }
+           }, 1000);
+
+
+   }else if (type == 'add'){
+       $("#emailautomationcontent").show();
+       $("#emlautomeditorcontainer").hide();
+   }
+   });
+   function validate(){
+       var days = $("#days").val();
+       var emaillisttext = $("#emaillist :selected").text();
+       var emaillist = $("#emaillist").val();
+       var subject = $("#subject").val();
+       var from_name = $("#from_name").val();
+       var reply_to_address = $("#reply_to_address").val();
+       var recuring_email_title = $("#recuring_email_title").val();
+       var recuring_email_description = $("#recuring_email_description").val();
+
+       var till_date = $("#datepicker").val();
+       var schedule_time=$("#timepicker1").val().replace(/ /g,'');
+
+       if (days === "0") {
+           alert("please select the day");
+           $("#days").focus();
+           return false;
+       }
+       if (emaillisttext === "") {
+           alert("please select the email list text");
+           $("#emaillisttext").focus();
+           return false;
+       }
 //                if (emaillist === "0") {
 //                    alert("please select the email list");
 //                    $("#emaillist").focus();
 //                    return false;
 //                }
-                if (subject === "") {
-                    alert("Enter the subject");
-                    $("#subject").focus();
-                    return false;
-                }
-                if (from_name == ""){
-                    alert("Enter the from name");
-                    $("#from_name").focus();
-                    return false;
-                }
-                if (reply_to_address == ""){
-                    alert("Enter the reply to address");
-                    $("#reply_to_address").focus();
-                    return false;
-                }
-                if (recuring_email_title == ""){
-                    alert("Enter the title");
-                    $("#recuring_email_title").focus();
-                    return false;
-                }
-                if (recuring_email_description == ""){
-                    alert("Enter the description");
-                    $("#recuring_email_description").focus();
-                    return false;
-                }
-                if (till_date == ""){
-                    alert("till date not selected,please select the date");
-                    $("#datepicker").focus();
-                    return false;
-                }
-                if (schedule_time == ""){
-                    alert("select the time");
-                    $("#timepicker1").focus();
-                    return false;
-                }
-                
-                return true;
-            }
+       if (subject === "") {
+           alert("Enter the subject");
+           $("#subject").focus();
+           return false;
+       }
+       if (from_name == ""){
+           alert("Enter the from name");
+           $("#from_name").focus();
+           return false;
+       }
+       if (reply_to_address == ""){
+           alert("Enter the reply to address");
+           $("#reply_to_address").focus();
+           return false;
+       }
+       if (recuring_email_title == ""){
+           alert("Enter the title");
+           $("#recuring_email_title").focus();
+           return false;
+       }
+       if (recuring_email_description == ""){
+           alert("Enter the description");
+           $("#recuring_email_description").focus();
+           return false;
+       }
+       if (till_date == ""){
+           alert("till date not selected,please select the date");
+           $("#datepicker").focus();
+           return false;
+       }
+       if (schedule_time == ""){
+           alert("select the time");
+           $("#timepicker1").focus();
+           return false;
+       }
+
+       return true;
+   }
 </script>
            
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -521,268 +521,268 @@
 <jsp:include page="basejsp.jsp"/>
       
 </head>
-     <body ng-app>
-        <div id="emailautomation" class="row" ng-controller="emailautomation">
-                <div class="col-md-1 col-lg-1 col-sm-2 halfcol" >
-                    <jsp:include page="leftmenu.html"/>
-                </div>
-                <div id="emailautomationcontent" ng-init="getEntityDetails();">
-                <div class="col-md-11 col-lg-11 col-sm-10 col-md-offset-2 col-lg-offset-2">
-                    
-                    <div class="row">
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-12 col-md-12">
-                         <div class="sublineinp fontpnr">Enter a name for this Recuring Email Automation:</div>
-                           <div class="group">
-                                <input id="recuring_email_title" 
-                                       class="form-control subinp fontpnr" 
-                                       type="text" required  
-                                       placeholder="Name" value="{{entity_details.recuring_email_title}}">
-                           </div>
-                       </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-12 col-md-12">
-                         <div class="sublineinp brfdesc fontpnr">Enter a brief description:</div>
-                           <div class="group ">
-                                <input id="recuring_email_description" 
-                                       class="form-control subinp fontpnr" 
-                                       type="text" required  
-                                       placeholder="Description" value="{{entity_details.recuring_email_description}}">
-                           </div>
-                       </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-10 col-lg-12 col-md-12">
-                            <div class="emlautoact fontpnr">Create a trigger for this email automation action:</div>
-                            <!--<div class="emlautocont"></div>-->
-                        </div>
-                    </div>
-                        <div class="col-sm-10 col-lg-12 col-md-12 ">
-                            <ul class="eventlist autopadlft">
-                                <li>
-                                    <div class="sndemlrecp fontpnr">Send an email to a recipient</div>
-                                </li>                                
-                                <li>
-                                <select id="days" class="eventsel fontpnr"></select>
-                                    <script>
-                                        
-                                    </script>
-                                </li>
-                                <li>
-                                    <p class="daystxt fontpnr">days after they are added to</p>
-                                </li>                                
-                                <li>
-                                    <select id="emaillist" name="emaillist" class="emllstdrp fontpnr">
-                                        <option value="0">-- Select --</option>
-                                        <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                                    </select>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <ul class="eventlist autopadlft">
-                            <li>
-                                <div class="selatime fontpnr">Select a time:</div>
-                            </li>
-                            <li>
-                                <input id="timepicker1" readonly 
-                                       type="text" 
-                                       name="timepicker1" 
-                                       class="timpkr form-control fontpnr" 
-                                       value="{{entity_details.recuring_email_time | date:'hh : mm'}}" /> 
-                                <script src="js/timepicki.js" type="text/javascript"></script>
-                                <script>
-                                    $('#timepicker1').timepicki({
-                                        show_meridian:false,
-                                        min_hour_value:0,
-                                        max_hour_value:23,
-                                        step_size_minutes:15,
-                                        overflow_minutes:true,
-                                        increase_direction:'up',
-                                        disable_keyboard_mobile: true
-                                    });
-                                </script>
-                            </li>
-                            <li>
-                                <p class="daystxt fontpnr">Select a till date:</p>
-                            </li>
-                            <li>
-                                <input type="text" readonly  name="datepicker" 
-                                       id="datepicker"  
-                                       class="datepkr form-control fontpnr" 
-                                       value="{{entity_details.recuring_email_till_date| date:'EEE MMM dd yyyy'}}" />                                        
-                                <script>
-                                    var picker = new Pikaday(
-                                    {
-                                        field: document.getElementById('datepicker'),
-                                        firstDay: 1,
-                                        minDate: new Date(2000, 0, 1),
-                                        maxDate: new Date(2050, 12, 31),
-                                        yearRange: [2000,2050]
-                                    });
-                                </script>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row">
-                        
-                    </div>                    
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-12 col-md-12">
-                         <div class="sublineinp fontpnr">Enter a subject line:</div>
-                           <div class="group">
-                                <input id="subject" 
-                                       class="form-control subinp fontpnr" 
-                                       type="text" 
-                                       required  
-                                       placeholder="Subject Line" 
-                                       value="{{entity_details.recuring_email_subject}}">
-                           </div>
-                       </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-12 col-md-12">
-                         <div class="fromnminp fontpnr">Enter a from name</div>
-                           <div class="group">
-                                <input id="from_name" 
-                                       class="form-control subinp fontpnr" 
-                                       type="text" 
-                                       required  placeholder="From Name" 
-                                       value="{{entity_details.recuring_email_from_name}}">
-                           </div>
-                       </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-12 col-md-12">
-                         <div class="repltoaddinp fontpnr">Enter a reply-to-address:</div>
-                           <div class="group">
-                                <input id="reply_to_address" 
-                                       class="form-control subinp fontpnr" 
-                                       type="text" 
-                                       required  placeholder="Reply-to-address" 
-                                       value="{{entity_details.recuring_email_reply_to_email_address}}">
-                           </div>
-                       </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-12 col-md-12 padlft">
-                            <button type="submit" 
-                                    class="emlautombtn button 
-                                            button--moema 
-                                            button--text-thick 
-                                            button--text-upper 
-                                            button--size-s" 
-                                            ng-click="addUpdateRecuringAction()">
-                                Save</button>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div id="emlautomeditorcontainer" ng-init="getEmailTemplates()">
-                    <div class="row">
-                    <div class="col-sm-7 col-md-7 col-lg-7">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12 bgcolor"> 
-                        <style>
-                            #edit{
-                        position: relative;
-                        top:0px;
-                        font-family:"proxima-nova";
-                        font-weight:500;
-                        left: 0em; 
-                        color: #2D4444;
+<body ng-app>
+   <div id="emailautomation" class="row" ng-controller="emailautomation">
+           <div class="col-md-1 col-lg-1 col-sm-2 halfcol" >
+               <jsp:include page="leftmenu.html"/>
+           </div>
+           <div id="emailautomationcontent" ng-init="getEntityDetails();">
+           <div class="col-md-11 col-lg-11 col-sm-10 col-md-offset-2 col-lg-offset-2">
 
-                        }
-                        </style>
-                            
-                        <div id="editor">
-                            <div id='edit' style="margin-top:0px;">
-                            </div>
-                        </div>
+               <div class="row">
+               <div class="row">
+                   <div class="col-sm-12 col-lg-12 col-md-12">
+                    <div class="sublineinp fontpnr">Enter a name for this Recuring Email Automation:</div>
+                      <div class="group">
+                           <input id="recuring_email_title" 
+                                  class="form-control subinp fontpnr" 
+                                  type="text" required  
+                                  placeholder="Name" value="{{entity_details.recuring_email_title}}">
+                      </div>
+                  </div>
+               </div>
+               <div class="row">
+                   <div class="col-sm-12 col-lg-12 col-md-12">
+                    <div class="sublineinp brfdesc fontpnr">Enter a brief description:</div>
+                      <div class="group ">
+                           <input id="recuring_email_description" 
+                                  class="form-control subinp fontpnr" 
+                                  type="text" required  
+                                  placeholder="Description" value="{{entity_details.recuring_email_description}}">
+                      </div>
+                  </div>
+               </div>
+               <div class="row">
+                   <div class="col-sm-10 col-lg-12 col-md-12">
+                       <div class="emlautoact fontpnr">Create a trigger for this email automation action:</div>
+                       <!--<div class="emlautocont"></div>-->
+                   </div>
+               </div>
+                   <div class="col-sm-10 col-lg-12 col-md-12 ">
+                       <ul class="eventlist autopadlft">
+                           <li>
+                               <div class="sndemlrecp fontpnr">Send an email to a recipient</div>
+                           </li>                                
+                           <li>
+                           <select id="days" class="eventsel fontpnr"></select>
+                               <script>
+
+                               </script>
+                           </li>
+                           <li>
+                               <p class="daystxt fontpnr">days after they are added to</p>
+                           </li>                                
+                           <li>
+                               <select id="emaillist" name="emaillist" class="emllstdrp fontpnr">
+                                   <option value="0">-- Select --</option>
+                                   <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                               </select>
+                           </li>
+                       </ul>
+                   </div>
+               </div>
+               <div class="row">
+                   <ul class="eventlist autopadlft">
+                       <li>
+                           <div class="selatime fontpnr">Select a time:</div>
+                       </li>
+                       <li>
+                           <input id="timepicker1" readonly 
+                                  type="text" 
+                                  name="timepicker1" 
+                                  class="timpkr form-control fontpnr" 
+                                  value="{{entity_details.recuring_email_time | date:'hh : mm : a'}}" /> 
+                           <script src="js/timepicki.js" type="text/javascript"></script>
+                           <script>
+                               $('#timepicker1').timepicki({
+                                   show_meridian:true,
+                                   min_hour_value:0,
+                                   max_hour_value:12,
+                                   step_size_minutes:01,
+                                   overflow_minutes:true,
+                                   increase_direction:'up',
+                                   disable_keyboard_mobile: true
+                               });
+                           </script>
+                       </li>
+                       <li>
+                           <p class="daystxt fontpnr">Select a till date:</p>
+                       </li>
+                       <li>
+                           <input type="text" readonly  name="datepicker" 
+                                  id="datepicker"  
+                                  class="datepkr form-control fontpnr" 
+                                  value="{{entity_details.recuring_email_till_date| date:'EEE MMM dd yyyy'}}" />                                        
+                           <script>
+                               var picker = new Pikaday(
+                               {
+                                   field: document.getElementById('datepicker'),
+                                   firstDay: 1,
+                                   minDate: new Date(2000, 0, 1),
+                                   maxDate: new Date(2050, 12, 31),
+                                   yearRange: [2000,2050]
+                               });
+                           </script>
+                       </li>
+                   </ul>
+               </div>
+               <div class="row">
+
+               </div>                    
+               <div class="row">
+                   <div class="col-sm-12 col-lg-12 col-md-12">
+                    <div class="sublineinp fontpnr">Enter a subject line:</div>
+                      <div class="group">
+                           <input id="subject" 
+                                  class="form-control subinp fontpnr" 
+                                  type="text" 
+                                  required  
+                                  placeholder="Subject Line" 
+                                  value="{{entity_details.recuring_email_subject}}">
+                      </div>
+                  </div>
+               </div>
+               <div class="row">
+                   <div class="col-sm-12 col-lg-12 col-md-12">
+                    <div class="fromnminp fontpnr">Enter a from name</div>
+                      <div class="group">
+                           <input id="from_name" 
+                                  class="form-control subinp fontpnr" 
+                                  type="text" 
+                                  required  placeholder="From Name" 
+                                  value="{{entity_details.recuring_email_from_name}}">
+                      </div>
+                  </div>
+               </div>
+               <div class="row">
+                   <div class="col-sm-12 col-lg-12 col-md-12">
+                    <div class="repltoaddinp fontpnr">Enter a reply-to-address:</div>
+                      <div class="group">
+                           <input id="reply_to_address" 
+                                  class="form-control subinp fontpnr" 
+                                  type="text" 
+                                  required  placeholder="Reply-to-address" 
+                                  value="{{entity_details.recuring_email_reply_to_email_address}}">
+                      </div>
+                  </div>
+               </div>
+               <div class="row">
+                   <div class="col-sm-12 col-lg-12 col-md-12 padlft">
+                       <button type="submit" 
+                               class="emlautombtn button 
+                                       button--moema 
+                                       button--text-thick 
+                                       button--text-upper 
+                                       button--size-s" 
+                                       ng-click="addUpdateRecuringAction()">
+                           Save</button>
+                   </div>
+               </div>
+           </div>
+           </div>
+           <div id="emlautomeditorcontainer" ng-init="getEmailTemplates()">
+               <div class="row">
+               <div class="col-sm-7 col-md-7 col-lg-7">
+                   <div class="row">
+                       <div class="col-sm-12 col-md-12 col-lg-12 bgcolor"> 
+                   <style>
+                       #edit{
+                   position: relative;
+                   top:0px;
+                   font-family:"proxima-nova";
+                   font-weight:500;
+                   left: 0em; 
+                   color: #2D4444;
+
+                   }
+                   </style>
+
+                   <div id="editor">
+                       <div id='edit' style="margin-top:0px;">
+                       </div>
+                   </div>
 <!--                            <div class="emleditorhead fontpnr">Froala Editor</div> -->
-                            
+
 
 <!--                            <div class="framediv">
-                                <iframe class="frm" src=""></iframe>
-                            </div>    -->
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 col-lg-6 col-sm-6">
-                                <div class="btmdiv">
-                                    <div class="row">
-                                        <div class="col-lg-7 col-md-7 col-sm-7">
-                                            <div class="editemail fontpnr">Edit this Email Automation Action</div>
-                                        </div>   
-                                        <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1">
-                                            <div class="mobileprev fontpnr">Mobile Preview</div>
-                                        </div>
-                                        <div class="col-lg-1 col-md-1 col-sm-1">
-                                            <div class="emledtrsavebtn">
-                                                <input class="emailedtrsave fontpns 
-                                                       button button--moema 
-                                                       button--text-thick 
-                                                       button--text-upper 
-                                                       button--size-s" 
-                                                       type="button" 
-                                                       value="save" 
-                                                       ng-click="addUpdateRecuringAction()">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                                
-                            </div>
-                        </div> 
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <div class="blockselection">     
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12 col-sm-12">
-                            <div class="selblock fontpnr">Select a Template</div>
-                        </div>
+                           <iframe class="frm" src=""></iframe>
+                       </div>    -->
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="col-md-6 col-lg-6 col-sm-6">
+                           <div class="btmdiv">
+                               <div class="row">
+                                   <div class="col-lg-7 col-md-7 col-sm-7">
+                                       <div class="editemail fontpnr">Edit this Email Automation Action</div>
+                                   </div>   
+                                   <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1">
+                                       <div class="mobileprev fontpnr">Mobile Preview</div>
+                                   </div>
+                                   <div class="col-lg-1 col-md-1 col-sm-1">
+                                       <div class="emledtrsavebtn">
+                                           <input class="emailedtrsave fontpns 
+                                                  button button--moema 
+                                                  button--text-thick 
+                                                  button--text-upper 
+                                                  button--size-s" 
+                                                  type="button" 
+                                                  value="save" 
+                                                  ng-click="addUpdateRecuringAction()">
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>                                
+                       </div>
+                   </div> 
+       </div>
+       <div class="col-sm-3 col-md-3 col-lg-3">
+           <div class="blockselection">     
+               <div class="row">
+                   <div class="col-md-12 col-lg-12 col-sm-12">
+                       <div class="selblock fontpnr">Select a Template</div>
+                   </div>
 <!--                        <div class="col-md-6 col-lg-6 col-sm-6">
-                            <div class="addblkdiv"><input class="addblkbtn fontpns " type="button" value="Add Block"></div>
-                        </div>-->
-                    </div>
-                    <div class="row">
-                        <div class="selblklinediv"><hr class="selblkline"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12 col-sm-12">
-                            <ul id="blklist" class="blocklist fontpnr">
-                                <li ng-repeat="email_template in recuring_email_templates"> 
-                                    <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
-                                </li>
-                            </ul>
+                       <div class="addblkdiv"><input class="addblkbtn fontpns " type="button" value="Add Block"></div>
+                   </div>-->
+               </div>
+               <div class="row">
+                   <div class="selblklinediv"><hr class="selblkline"></div>
+               </div>
+               <div class="row">
+                   <div class="col-md-12 col-lg-12 col-sm-12">
+                       <ul id="blklist" class="blocklist fontpnr">
+                           <li ng-repeat="email_template in recuring_email_templates"> 
+                               <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
+                           </li>
+                       </ul>
 <!--                            <ul id="stylelist" class="blocklist fontpnr">
-                                <li ng-repeat="styles in datalistsstyles">
-                                    <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
-                                </li>
-                               
-                            </ul>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-1 col-md-1 col-lg-1">
-                <div class="blockstyletab">      
-                    <ul class="righttabs fontpnr">
+                           <li ng-repeat="styles in datalistsstyles">
+                               <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
+                           </li>
+
+                       </ul>-->
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="col-sm-1 col-md-1 col-lg-1">
+           <div class="blockstyletab">      
+               <ul class="righttabs fontpnr">
 <!--                        <li id="templatetab">
-                            <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
-                            <p>STYLE</p>
-                        </li>-->
-                        <li id="templatetab">
-                            <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
-                            <p>TEMPLATE</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        </div>
-        </div>
+                       <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
+                       <p>STYLE</p>
+                   </li>-->
+                   <li id="templatetab">
+                       <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
+                       <p>TEMPLATE</p>
+                   </li>
+               </ul>
+           </div>
+       </div>
+   </div>
+   </div>
+   </div>
 <script>
 
     function showEmailListName(email_list_name){

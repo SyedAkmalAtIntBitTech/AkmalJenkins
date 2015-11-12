@@ -385,8 +385,6 @@ function setSelectedIds(selectedid) {
         }
         ;
     }
-
-
 }
 
 
@@ -426,8 +424,6 @@ function setTodaysDate() {
     angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
 }
   function EmpDetCtrl($scope) {
-
-  
 
       $scope.ShowAddEmployee = function () {
            alert('Approved');

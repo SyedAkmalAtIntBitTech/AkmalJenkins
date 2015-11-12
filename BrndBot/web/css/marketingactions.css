@@ -1540,7 +1540,7 @@ and open the template in the editor.
     margin-top:25px !important;
 }
 .evntdt{
-    width:150px;
+    /*width:150px;*/
     height:22px;
     font-size: 18px;
     color:#3f3f42;

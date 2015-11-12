@@ -523,8 +523,10 @@ function programactions($scope, $http, $window){
             method: 'GET',
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
         }).success(function (data, status, headers, config) {
+
             $scope.programs = data;
             program_status = data.programdetails.program_status;
+            
             if(program_status === "Closed"){
                 $(".endmrkprogbtn").hide();
                 $(".addemlautombtn").hide();
@@ -605,8 +607,8 @@ function programactions($scope, $http, $window){
             window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
       };
     
-    $scope.createPost = function(type,program_id,entity_id){
-            window.open(getHost() + 'dashboard.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
+    $scope.createPost = function(){
+            window.open(getHost() + 'dashboard.jsp', "_self");
       };
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
         $edit=1;  

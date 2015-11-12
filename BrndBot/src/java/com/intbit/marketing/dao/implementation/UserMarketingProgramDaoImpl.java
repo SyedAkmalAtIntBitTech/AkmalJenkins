@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.annotations.OrderBy;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -120,7 +122,8 @@ public class UserMarketingProgramDaoImpl implements UserMarketingProgramDao{
                     .createCriteria(TblUserMarketingProgram.class)
                     .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
                     .add(Restrictions.eq("status", programType))
-                    .add(Restrictions.eq("tblUserLoginDetails.id",user_id));
+                    .add(Restrictions.eq("tblUserLoginDetails.id",user_id))
+                    .addOrder(Order.desc("dateEvent"));
                    return criteria.list();
 		} catch (Throwable throwable) {
                    logger.log(Level.SEVERE, null, throwable);

@@ -71,6 +71,7 @@
                 if (validate()){
                     var program_name = $("#program_name").val();
                     var program_date_time = $("#programdatetime").val();
+                    
                     var ss = program_date_time.split(" ");
                     var count=0;
                     var month="";
@@ -133,6 +134,7 @@
                         count++;
                     }
                     var d=year+"-"+month+"-"+day;
+                    
                     var program_url = $("#program_url").val();
                     var program_url_name = $("#program_url_name").val();
                     var schedule_time = Date.parse(program_date_time);

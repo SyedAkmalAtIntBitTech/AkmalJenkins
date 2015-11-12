@@ -29,37 +29,38 @@
         <script src="js/dashboard.js"></script>
         <%!
             String program_id = "";
-        %>        
+        %>
         <%
             program_id = request.getParameter("program_id");
         %>
         <script>
-                    var program = "";
-                    program = <%= program_id%>;        </script>
+            var program = "";
+            program = <%= program_id %>;
+        </script>
         <script src="js/programactions.js"></script>
         <script>
-                    $(document).ready(function (){
+        $(document).ready(function (){
 
-            $("#delactbtn").hide();
-                    $("#delemlactbtn").hide();
-                    $("#saveprogdet").hide();
-                    $("#dateofevntedt").hide();
-                    $("#assoctdlnkedt").hide();
-                    $("#editprogdet").click(function (){
+                $("#delactbtn").hide();
+                $("#delemlactbtn").hide();
+                $("#saveprogdet").hide();
+                $("#dateofevntedt").hide();
+                $("#assoctdlnkedt").hide();
+                $("#editprogdet").click(function (){
             var ok = confirm("Do you really want to Edit?");
-                    if (ok == true){
-            $("#link_name").show();
-                    $("#link_url").show();
-                    $("#editprogdet").hide();
-                    $("#dateofevntedt").show();
-                    $("#dateofevntprv").hide();
-                    $("#assoctdlnkprv").hide();
-                    $("#assoctdnameprv").hide();
-                    $("#associated_link").show();
-                    $("#associated_name").show();
-                    $("#assoctdlnkedt").show();
-                    $("#assoctdnameedt").show();
-                    $("#saveprogdet").show();
+            if (ok == true){
+                $("#link_name").show();
+                $("#link_url").show();
+                $("#editprogdet").hide();
+                $("#dateofevntedt").show();
+                $("#dateofevntprv").hide();
+                $("#assoctdlnkprv").hide();
+                $("#assoctdnameprv").hide();
+                $("#associated_link").show();
+                $("#associated_name").show();
+                $("#assoctdlnkedt").show();
+                $("#assoctdnameedt").show();
+                $("#saveprogdet").show();
             }
             });
             });
@@ -79,7 +80,7 @@
     </head>
     <body id="proghide" ng-app>
         <div class="row" ng-controller="programactions">
-            <div class="row" ng-init="getProgramActions()" >
+            <div id="program_actions" class="row" ng-init="getProgramActions()">
                 <div class="col-lg-1 col-md-1 col-sm-2">
                     <jsp:include page="leftmenu.html"/> 
                 </div>
@@ -123,12 +124,12 @@
                                             });                                </script>
                             </div>
                         </div>
-                        <div id="associated_name" class="col-lg-2 col-md-2 col-sm-4" > 
+                        <div id="associated_name" class="col-lg-3 col-md-3 col-sm-4" > 
                             <div class="asclink fontpnr">Associated Name</div>
                             <div id="assoctdlnkprv" class="evntdt fontpns">{{programs.programdetails.link_name}}</div>
                             <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="link_name" name="link_name" class="progactinputdate fontpns ptr"/></div>
                         </div>
-                        <div id="associated_link" class="col-lg-2 col-md-2 col-sm-4" style="display:none;">
+                        <div id="associated_link" class="col-lg-3 col-md-3 col-sm-4" style="display:none;">
                             <div class="asclink fontpnr">Associated Link</div>
                             <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
                             <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr"/></div>
@@ -477,7 +478,15 @@
                                             <div class="circle"></div>
                                         </div>
                                         <div class="rightthirty">
-                                            <input ng-hide="programs.programdetails.program_status == 'Closed'" type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                            <input ng-hide="programs.programdetails.program_status == 'Closed'" 
+                                                   type="button" value="Create Post" 
+                                                   ng-click="createPost()" 
+                                                   class="button createPostbuttonwidthheightcolor 
+                                                          buttonmargin button--moema  
+                                                          button--text-thick  
+                                                          button--text-upper 
+                                                          fontpns" 
+                                                   id="create_Post">
                                         </div>
                                     </div>
                                     <div id="mailpreviewdecond">
@@ -652,7 +661,7 @@
                                                 <div class="circle"></div>
                                             </div>
                                             <div class="rightthirty">
-                                                <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                                <input type="button" value="Create Post" ng-click="createPost()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                             </div>
                                         </div>
                                         <div id="mailpreviewdecond2">
@@ -839,7 +848,7 @@
                                         <div class="circle"></div>
                                     </div>
                                     <div class="rightthirty left82">
-                                        <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status == 'Closed'" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                        <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="createPost()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                     </div>
                                 </div>
                                 <div id="fbpreviewdecond">
@@ -1007,7 +1016,7 @@
                                             <div class="circle"></div>
                                         </div>
                                         <div class="rightthirty left82">
-                                            <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status == 'Closed'" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                            <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="createPost()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                         </div>
                                     </div>
                                     <div id="fbpreviewdecond2">
@@ -1176,7 +1185,7 @@
                                         <div class="circle"></div>
                                     </div>
                                     <div class="rightthirty left82">
-                                        <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                        <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" value="Create Post" ng-click="createPost()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                     </div>
                                 </div>
                                 <div id="twpreviewdecond">
@@ -1317,7 +1326,7 @@
                                             <div class="circle"></div>
                                         </div>
                                         <div class="rightthirty left82">
-                                            <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                            <input type="button" value="Create Post" ng-click="createPost()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                         </div>
                                     </div>
                                     <div id="twpreviewdecond2">
