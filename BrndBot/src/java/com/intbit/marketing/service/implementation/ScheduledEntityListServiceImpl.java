@@ -66,7 +66,9 @@ public class ScheduledEntityListServiceImpl  implements ScheduledEntityListServi
         scheduledEntityListDao.delete(id);
     }
 
-    @Override
+   /**
+	 * {@inheritDoc}
+     */
     public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId, Boolean isRecuring, String entityType) throws Throwable {
         return  scheduledEntityListDao.getAllScheduledEmailList();
     }
@@ -79,6 +81,39 @@ public class ScheduledEntityListServiceImpl  implements ScheduledEntityListServi
     @Override
     public List<TblScheduledEntityList> getScheduledEntityListIdForSocialPostType(Integer userMarketingProgramId) throws Throwable {
         return scheduledEntityListDao.getScheduledEntityListIdForSocialPostType(userMarketingProgramId);
+    }
+
+    /**
+	 * {@inheritDoc}
+     */
+    public TblScheduledEntityList getLatestApprovedSocialPost(String status, String entityType,String programStatus) throws Throwable {
+       return scheduledEntityListDao.getLatestApprovedFacebookPost(status, entityType,programStatus);
+    }
+
+    /**
+	 * {@inheritDoc}
+     */
+    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecuring) throws Throwable {
+        return scheduledEntityListDao.getLatestApprovedSendEmail(status, entityType, programStatus, isRecuring);
+          }
+
+    /**
+	 * {@inheritDoc}
+     */
+    public String getLatestApprovedPost(String status, String entityType, String programStatus) throws Throwable {
+        return  scheduledEntityListDao.getLatestApprovedPost(status, entityType, programStatus);
+    }
+
+    /**
+	 * {@inheritDoc}
+     */
+    public TblScheduledEntityList getScheduledEntityListByEntityId(Integer entityId) throws Throwable {
+        return scheduledEntityListDao.getScheduledEntityListByEntityId(entityId);
+    }
+
+    @Override
+    public String getLatestApprovedEmail(String status, String entityType, String programStatus, Boolean isRecuring) throws Throwable {
+        return scheduledEntityListDao.getLatestApprovedEmail(status, entityType, programStatus, isRecuring);
     }
     
 }

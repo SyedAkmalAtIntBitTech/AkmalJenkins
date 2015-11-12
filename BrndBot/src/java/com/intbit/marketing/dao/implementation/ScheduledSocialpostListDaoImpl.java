@@ -24,14 +24,30 @@ import org.springframework.stereotype.Repository;
  * @author intbit-6
  */
 @Repository
-public class ScheduledSocialpostListDaoImpl implements ScheduledSocialpostListDao{
-    
-     private static final Logger logger = Logger.getLogger(ScheduledSocialpostListDaoImpl.class.getName());
+public class ScheduledSocialpostListDaoImpl implements ScheduledSocialpostListDao {
+
+    private static final Logger logger = Logger.getLogger(ScheduledSocialpostListDaoImpl.class.getName());
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * {@inheritDoc}
+     */
+    public TblScheduledSocialpostList getByEntityId(Integer entityId) throws Throwable {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblScheduledSocialpostList.class)
+                    .setFetchMode("tblScheduledEntityList", FetchMode.JOIN)
+                    .add(Restrictions.eq("id", entityId));
+            return (TblScheduledSocialpostList) criteria.list().get(0);
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+            throw new Throwable("Database error while retrieving record");
+        }
+    }
+
     @Override
-    public List<TblScheduledSocialpostList> getAllScheduledSocialpostListForUserMarketingProgram(Integer UserMarketingId) throws Throwable {
+    public List<TblScheduledSocialpostList> getAllScheduledSocialpostListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecuring, String entityType) throws Throwable {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(TblScheduledSocialpostList.class)
@@ -40,14 +56,14 @@ public class ScheduledSocialpostListDaoImpl implements ScheduledSocialpostListDa
                     .createAlias("tblScheduledEntityList.tblUserMarketingProgram", "umId")
                     .add(Restrictions.eq("umId.id", UserMarketingId))
                     .createAlias("tblScheduledEntityList", "sl");
-                    Criterion rest1= Restrictions.and(Restrictions.eq("sl.entityType", "twitter"));
-                    Criterion rest2= Restrictions.and(Restrictions.eq("sl.entityType", "facebook"));
-                    criteria.add(Restrictions.or(rest1, rest2));
-                   return criteria.list();
-		} catch (Throwable throwable) {
-                   logger.log(Level.SEVERE, null, throwable);
-                   throw new Throwable("Database error while retrieving record(s).");
-		}  
+            Criterion rest1 = Restrictions.and(Restrictions.eq("sl.entityType", "twitter"));
+            Criterion rest2 = Restrictions.and(Restrictions.eq("sl.entityType", "facebook"));
+            criteria.add(Restrictions.or(rest1, rest2));
+            return criteria.list();
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+            throw new Throwable("Database error while retrieving record(s).");
+        }
     }
-    
+
 }

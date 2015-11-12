@@ -6,6 +6,7 @@
 package social.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
+import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.util.ServletUtil;
 import facebook4j.Facebook;
@@ -18,6 +19,7 @@ import facebook4j.PhotoUpdate;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,8 +49,6 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private Facebook facebook;
-
     @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -58,112 +58,42 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
         try {
             getSqlMethodsInstance().session = request.getSession();
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-            String htmlString = (String)getSqlMethodsInstance().session.getAttribute("htmlString");
+            String htmlString = (String) getSqlMethodsInstance().session.getAttribute("htmlString");
             String isFacebook = request.getParameter("isFacebook");
             String isTwitter = request.getParameter("isTwitter");
             String getImageFile = request.getParameter("imageToPost");
             String getFile = request.getParameter("imagePost");
             String url = request.getParameter("url");
 
-            String file_image_path = AppConstants.LAYOUT_IMAGES_HOME +File.separator+ getImageFile;
+            String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
 
 //            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
-            String imagePostURL=ServletUtil.getServerName(request.getServletContext());
+            String imagePostURL = ServletUtil.getServerName(request.getServletContext());
             //String imagePostURL = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
-        if (isFacebook.equalsIgnoreCase("true")) {
-            
-            String accessToken = request.getParameter("accesstoken");
-            String posttext = request.getParameter("postText");
-            String title = request.getParameter("title");
-            String description = request.getParameter("description");
-            String url1 = request.getParameter("url");
-            
-            facebook = new FacebookFactory().getInstance();
-            facebook.setOAuthAppId("592852577521569", "a87cc0c30d792fa5dd0aaef6b43994ef");
-            facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
-//            File file = new File(file_image_path);
-            facebook.setOAuthAccessToken(new AccessToken(accessToken));
-            
-            if (title == "") {
-                
-                Media media = new Media(new File(file_image_path));
-                PhotoUpdate update = new PhotoUpdate(media);
-                update.message(posttext);
-                facebook.postPhoto(update);  
-            } else {
-                logger.info(title);
-                PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL + "DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
-                        .name(title)
-                        .link(new URL(url1))
-                        .description(description);
-                facebook.postFeed(post);
+            if (isFacebook.equalsIgnoreCase("true")) {
+
+                String accessToken = request.getParameter("accesstoken");
+                String posttext = request.getParameter("postText");
+                String title = request.getParameter("title");
+                String description = request.getParameter("description");
+                String url1 = request.getParameter("url");
+                String returnMessage = PostToFacebook.postStatus(accessToken, title, file_image_path, posttext, imagePostURL, getImageFile, url1, description, user_id, htmlString);
+
             }
-            try {
-                
-            getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile, null);
-            }catch (Exception ex){
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());
-            }
-        }
-        if (isTwitter.equalsIgnoreCase("true")) {
+            if (isTwitter.equalsIgnoreCase("true")) {
 
-            try {
-
-                AccessToken accTok = null;
-                String shortUrl = "";
-                ConfigurationBuilder twitterConfigBuilder = new ConfigurationBuilder();
-                twitterConfigBuilder.setDebugEnabled(true);
-                twitterConfigBuilder.setOAuthConsumerKey("K7TJ3va8cyAeh6oN3Hia91S2o");
-                twitterConfigBuilder.setOAuthConsumerSecret("IWUt2aDVTHgUc8N0qI0cF1Z1dTAEQ7CSgnBymZNr3BPSmtkNHL");
-                twitterConfigBuilder.setOAuthAccessToken(request.getParameter("twittweraccestoken"));
-                twitterConfigBuilder.setOAuthAccessTokenSecret(request.getParameter("twitterTokenSecret"));
-
-                Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
-                String statusMessage = request.getParameter("text").replace("bit.ly/1XOkJo","");
-                shortUrl= request.getParameter("shorturl");
-                if(shortUrl.length()>0){
-                    String StatusMessageWithoutUrl=statusMessage.substring(0,statusMessage.length());
-                    if (StatusMessageWithoutUrl.length() + shortUrl.length() < 140) {
-                        statusMessage = StatusMessageWithoutUrl + " " + shortUrl;
-                    } else {
-                        int urlLength = shortUrl.length() + 1;
-                        int statusLength = 115 - urlLength;
-                        statusMessage = StatusMessageWithoutUrl.substring(0, statusLength);
-                        statusMessage = statusMessage + " " + shortUrl;
-                    }
-                }
-                File file = new File(file_image_path);
-                int count=statusMessage.length();
-                StatusUpdate status = new StatusUpdate(statusMessage);
-            // set the image to be uploaded here.
-               
-                status.setMedia(file);
-                twitter.updateStatus(status);
-                try {
-                    getSqlMethodsInstance().setSocialPostHistory(user_id, htmlString, false, true, getImageFile, null);
-                    }catch (Exception ex){
-                        Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
-                        Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());
-                    }
-
-            } catch (TwitterException te) {
-                
+                String twitterAccessToken = request.getParameter("twittweraccestoken");
+                String twitterTokenSecret = request.getParameter("twitterTokenSecret");
+                String text = request.getParameter("text");
+                String shortURL = request.getParameter("shorturl");
                 PrintWriter out1 = response.getWriter();
-                out1.println("Twitter Exception: " + te.getMessage());
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, te.getCause());
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, te.getMessage());
-            
-            } catch (Exception e) {
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e);
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
+                String returnMessage = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, shortURL, file_image_path, user_id, htmlString, getImageFile);
+                out1.println(returnMessage);
+
             }
 
-        }
-        } catch (FacebookException e) {
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getCause());
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
+        } catch (Exception e) {
+            
         }
     }
 

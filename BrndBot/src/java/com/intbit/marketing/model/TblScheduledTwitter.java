@@ -42,7 +42,6 @@ public class TblScheduledTwitter  implements java.io.Serializable {
    
      @Id 
 
-    
     @Column(name="id", unique=true, nullable=false)
     public int getId() {
         return this.id;
@@ -52,7 +51,7 @@ public class TblScheduledTwitter  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="schedule_social_id")
     public TblScheduledSocialpostList getTblScheduledSocialpostList() {
         return this.tblScheduledSocialpostList;

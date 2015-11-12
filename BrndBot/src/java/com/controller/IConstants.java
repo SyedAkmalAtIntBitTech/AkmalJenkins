@@ -25,6 +25,7 @@ public interface IConstants {
     final static String kEmailAddressAddedKey = "addedDate";
     final static String kFacebookKey = "facebook";
     final static String kTwitterKey = "twitter";
+    final static String kEmailKey = "email";
     final static String kEmailSettings = "emailSettings";
     final static String kEmailFromAddress = "from_address";
     final static String kEmailReplyAddress = "reply_email_address";
@@ -42,6 +43,13 @@ public interface IConstants {
     final static String kMarketingProgramTemplateIsRecuring = "isRecuring";
     final static String kMarketingProgramTemplateTitle = "title";
     final static String kMarketingProgramTemplateEntityType = "type";
-    
+    final static String kFacebookDescriptionKey = "description";
+    final static String kFacebookPostTextKey = "post_text";
+    final static String kFacebookUrlKey = "url";
+    final static String kSocialPostCommpleteStatus = "complete";
+    final static String kSocialPostTemplateSavedStatus = "template_saved";
+    final static String kSocialPostapprovedStatus = "approved";
+    final static String kUserMarketingProgramOpenStatus = "open";
+    final static String kTwitterTextKey = "text";
     
 }
