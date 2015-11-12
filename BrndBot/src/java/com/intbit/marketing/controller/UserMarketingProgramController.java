@@ -204,23 +204,29 @@ public class UserMarketingProgramController {
           jsonObject.put("programs", json_array);
           return jsonObject.toString();
       }
-//      @RequestMapping(value="/forFacebook", method = RequestMethod.GET)
-//      public @ResponseBody String Facebook(HttpServletRequest request, 
-//                HttpServletResponse response) throws Throwable {
+      @RequestMapping(value="/forFacebook", method = RequestMethod.GET)
+      public @ResponseBody String Facebook(HttpServletRequest request, 
+                HttpServletResponse response) throws Throwable {
 //          TblScheduledEntityList scheduledEntityList = scheduledEntityListService.getLatestApprovedFacebookPost("template_saved", "facebook");
 //            System.out.println(scheduledEntityList);
 //            System.out.println(scheduledEntityList.getScheduleTime());
 //            System.out.println(scheduledEntityList.getScheduleTitle());
-//       
-////              JSONObject json_obj = new JSONObject();
-////              json_obj.put("id", userMarketingProgramObject.getId());
-////              json_obj.put("program name", userMarketingProgramObject.getName());
-//              
-//              
-//          
-//         return null;
-//         
-//      }
+//          TblScheduledEntityList  scheduledEntityList = scheduledEntityListService.getLatestApprovedSocialPost("approved", "facebook", "open");
+//            System.out.println(scheduledEntityList);
+//            System.out.println(scheduledEntityList.getScheduleTime());
+//            System.out.println(scheduledEntityList.getScheduleTitle());
+       
+                 String  latestApprovedPost = scheduledEntityListService.getLatestApprovedPost("approved", "facebook", "open");
+                 System.out.println(latestApprovedPost);
+
+              JSONObject json_obj = new JSONObject();
+             
+             
+              
+          
+         return null;
+         
+      }
        
 
 }

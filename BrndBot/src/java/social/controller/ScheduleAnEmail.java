@@ -91,7 +91,8 @@ public class ScheduleAnEmail implements Callable{
     }
 
     private  TblScheduledEntityList getLatestApprovedSendEmail() throws Throwable {
-        TblScheduledEntityList scheduledEntityList =scheduledEntityListService.getLatestApprovedSendEmail(IConstants.kSocialPostTemplateSavedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.FALSE);
+        String entityId = scheduledEntityListService.getLatestApprovedEmail(IConstants.kSocialPostTemplateSavedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.FALSE);
+        TblScheduledEntityList scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
         return scheduledEntityList;
     }
 

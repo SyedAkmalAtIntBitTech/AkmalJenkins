@@ -54,7 +54,7 @@ public class ScheduleAnRecuringEmail implements Callable {
                 String from_email_address = sendAnEmail.getFromAddress();
                 String from_name = sendAnEmail.getFromName();
                 SendAnEmail anEmail = new SendAnEmail();
-                 // To do add days column in TblScheduledEntityList model class
+                // To do add days column in TblScheduledEntityList model class
                 //and get days from TblScheduledEntityList
                 Integer days = 10;
                 String to_email_addresses = anEmail.getAllEmailAddressesForEmailList(user_id, days);
@@ -84,7 +84,8 @@ public class ScheduleAnRecuringEmail implements Callable {
     }
 
     private TblScheduledEntityList getLatestApprovedSendEmail() throws Throwable {
-        TblScheduledEntityList scheduledEntityList = scheduledEntityListService.getLatestApprovedSendEmail(IConstants.kSocialPostTemplateSavedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.TRUE);
+        String entityId = scheduledEntityListService.getLatestApprovedEmail(IConstants.kSocialPostTemplateSavedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.TRUE);
+        TblScheduledEntityList scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
         return scheduledEntityList;
     }
 

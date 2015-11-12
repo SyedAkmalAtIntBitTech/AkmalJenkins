@@ -24,31 +24,32 @@ import util.DateTimeUtil;
  * @author AR
  */
 public class ScheduleTwitterPost implements Callable {
+
     @Autowired
     ScheduledEntityListService scheduledEntityListService;
     @Autowired
     ScheduledSocialpostListService scheduledSocialpostListService;
-    
+
     @Override
     public Date call() throws Exception {
-        TblScheduledEntityList scheduledTwitterPost = null ;
+        TblScheduledEntityList scheduledTwitterPost = null;
         try {
-             scheduledTwitterPost = getLatestApprovedTwitterPost();
-            
+            scheduledTwitterPost = getLatestApprovedTwitterPost();
+
             //The time zone of the saved date should be extracted.
             //This time zone should be applied to the current time and then this comparison needs to be made.
             boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledTwitterPost.getScheduleTime());
-            
+
             if (shouldPostNow) {
                 TblScheduledSocialpostList twitterPost = getTwitterPost(scheduledTwitterPost);
-                String jsonString= twitterPost.getMetadata();
-                JSONObject jsonObject = (JSONObject)new JSONParser().parse(jsonString); 
+                String jsonString = twitterPost.getMetadata();
+                JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
                 String text = jsonObject.get(IConstants.kTwitterTextKey).toString();
                 PostToTwitter postToTwitter = new PostToTwitter();
-                 Integer userId =getLatestApprovedTwitterPost().getUserId();
+                Integer userId = getLatestApprovedTwitterPost().getUserId();
                 String twitterAccessToken = postToTwitter.getTwitterAccessToken(userId);
                 String twitterTokenSecret = postToTwitter.getTwitterAccessTokenSecret(userId);
-                
+
                 String message = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, null, null, userId, null, null);
                 if (message.equalsIgnoreCase("success")) {
                     updateStatusScheduledTwitter(scheduledTwitterPost);
@@ -56,8 +57,7 @@ public class ScheduleTwitterPost implements Callable {
                     scheduledTwitterPost = getLatestApprovedTwitterPost();
                 }
             }
-            
-            
+
         } catch (Throwable ex) {
             Logger.getLogger(ScheduleTwitterPost.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,23 +66,24 @@ public class ScheduleTwitterPost implements Callable {
 
     private void updateStatusScheduledTwitter(TblScheduledEntityList scheduledTwitterPost) throws Throwable {
         //Call the DAO here
-       scheduledTwitterPost.setStatus(IConstants.kSocialPostCommpleteStatus);
-       scheduledEntityListService.update(scheduledTwitterPost);
+        scheduledTwitterPost.setStatus(IConstants.kSocialPostCommpleteStatus);
+        scheduledEntityListService.update(scheduledTwitterPost);
     }
 
     private TblScheduledSocialpostList getTwitterPost(TblScheduledEntityList scheduledTwitterPost) throws Throwable {
         //Call the DAO here
-        TblScheduledSocialpostList  scheduledSocialpostList = scheduledSocialpostListService.getByEntityId(scheduledTwitterPost.getId());
-         return  scheduledSocialpostList;
+        TblScheduledSocialpostList scheduledSocialpostList = scheduledSocialpostListService.getByEntityId(scheduledTwitterPost.getId());
+        return scheduledSocialpostList;
     }
-    
-    private  TblScheduledEntityList getLatestApprovedTwitterPost() throws Throwable {
-        TblScheduledEntityList  scheduledEntityList = scheduledEntityListService.getLatestApprovedSocialPost(IConstants.kSocialPostTemplateSavedStatus, IConstants.kTwitterKey,IConstants.kUserMarketingProgramOpenStatus);
+
+    private TblScheduledEntityList getLatestApprovedTwitterPost() throws Throwable {
+        String entityId = scheduledEntityListService.getLatestApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kTwitterKey, IConstants.kUserMarketingProgramOpenStatus);
+        TblScheduledEntityList scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
         return scheduledEntityList;
     }
 
     public void terminateThread() {
         Thread.currentThread().interrupt();
     }
-    
+
 }

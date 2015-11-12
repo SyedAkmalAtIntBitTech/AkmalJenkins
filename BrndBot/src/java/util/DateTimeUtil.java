@@ -19,41 +19,38 @@ public class DateTimeUtil {
     public static boolean timeEqualsCurrentTime(Date datetime) {
         //Make sure time zone is the same when comparison is done. Time doesnt have to be equal to the second. Just the minute is enough.
         boolean flag = false;
-		String dateFormat = "z";
-		SimpleDateFormat timeZoneFormat = new SimpleDateFormat(dateFormat);
-		String timeZoneStr = timeZoneFormat.format(datetime);
-		String formatStr = "yyyy-MM-dd hh:mm a";
-		Date currentdate = new Date();
-		SimpleDateFormat format = new SimpleDateFormat(formatStr);
-		format.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
-		String currentDateString = format.format(currentdate);
-		String receivedDateString = format.format(datetime);
-		if (currentDateString.equals(receivedDateString)) {
-		flag = true;
-		}
-		return flag;
-		}
+        String dateFormat = "z";
+        SimpleDateFormat timeZoneFormat = new SimpleDateFormat(dateFormat);
+        String timeZoneStr = timeZoneFormat.format(datetime);
+        String formatStr = "yyyy-MM-dd hh:mm a";
+        Date currentdate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat(formatStr);
+        format.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
+        String currentDateString = format.format(currentdate);
+        String receivedDateString = format.format(datetime);
+        if (currentDateString.equals(receivedDateString)) {
+            flag = true;
+        }
+        return flag;
+    }
+
     public static long differenceCurrentTime(Date nextPostDate) throws Exception {
         //Make sure time zone is the same when difference is taken. Return milliseconds.
-        
+
         String dateFormat = "z";
-		SimpleDateFormat timeZoneFormat = new SimpleDateFormat(dateFormat);
-		String timeZoneStr = timeZoneFormat.format(new Date());
-                String formatStr = "yyyy-MM-dd hh:mm a";
-		
-		SimpleDateFormat format1 = new SimpleDateFormat(formatStr);
-                format1.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
-                String s = format1.format(nextPostDate);
-                
-               Date d =  format1.parse(s);
-               
-               
-        return d.getTime()-System.currentTimeMillis();
-    }
-    }
+        SimpleDateFormat timeZoneFormat = new SimpleDateFormat(dateFormat);
+        String timeZoneStr = timeZoneFormat.format(new Date());
+        String formatStr = "yyyy-MM-dd hh:mm a";
+        Date currentdate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat(formatStr);
+        format.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
+        String StringNextPostDate = format.format(nextPostDate);
+        String currentDateString = format.format(currentdate);
+        Date nextPostDateTime = format.parse(StringNextPostDate);
+        Date currentDateTime = format.parse(currentDateString);
 
-   
-    
-    
-    
+        Long differenceCurrentTime = (nextPostDateTime.getTime() - currentDateTime.getTime()) / 1000;
 
+        return differenceCurrentTime;
+    }
+}
