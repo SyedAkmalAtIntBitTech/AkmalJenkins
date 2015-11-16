@@ -5,8 +5,10 @@
  */
 package com.controller.schedule;
 
+import com.controller.ApplicationContextListener;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
+import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
 import com.intbit.dao.ScheduleDAO;
 import com.intbit.dao.ScheduleSocialPostDAO;
@@ -104,19 +106,50 @@ public class ChangeScheduleServlet extends HttpServlet {
                 
             }else if (type.equalsIgnoreCase("deleteSelected")){
                 String schedule_ids = (String)requestBodyMap.get("schedule_ids");
+                String entity_type = (String)requestBodyMap.get("entity_type");
+                String is_recuring = (String)requestBodyMap.get("isRecuring");
+                
                 ScheduleDAO.deleteSchedules(userId, schedule_ids);
+                    ApplicationContextListener.refreshEmailScheduler();
+                    ApplicationContextListener.refreshFacebookScheduler();
+                    ApplicationContextListener.refreshTwitterScheduler();
+                    ApplicationContextListener.refreshEmailRecuringScheduler();
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
             }else if (type.equalsIgnoreCase("delete")){
                 Double schedule_ids = (Double)requestBodyMap.get("schedule_ids");
+                String entity_type = (String)requestBodyMap.get("entity_type");
+                String is_recuring = (String)requestBodyMap.get("isRecuring");
                 ScheduleDAO.deleteSchedule(userId, schedule_ids.intValue());
+                if (entity_type.equals(ScheduledEntityType.email.toString())){
+                    ApplicationContextListener.refreshEmailScheduler();
+                }else if(entity_type.equals(ScheduledEntityType.facebook.toString())){
+                    ApplicationContextListener.refreshFacebookScheduler();
+                }else if(entity_type.equals(ScheduledEntityType.twitter.toString())){
+                    ApplicationContextListener.refreshTwitterScheduler();
+                }
+                if (is_recuring.equals("true")){
+                    ApplicationContextListener.refreshEmailRecuringScheduler();
+                }
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
             }else if(type.equalsIgnoreCase("removetemplate")){
                 Double schedule_ids = (Double)requestBodyMap.get("schedule_ids");
+                String entity_type = (String)requestBodyMap.get("entity_type");
+                String is_recuring = (String)requestBodyMap.get("isRecuring");
                 ScheduleDAO.removeSavedTemplate(userId, schedule_ids.intValue());
+                if (entity_type.equals(ScheduledEntityType.email.toString())){
+                    ApplicationContextListener.refreshEmailScheduler();
+                }else if(entity_type.equals(ScheduledEntityType.facebook.toString())){
+                    ApplicationContextListener.refreshFacebookScheduler();
+                }else if(entity_type.equals(ScheduledEntityType.twitter.toString())){
+                    ApplicationContextListener.refreshTwitterScheduler();
+                }
+                if (is_recuring.equals("true")){
+                    ApplicationContextListener.refreshEmailRecuringScheduler();
+                }
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();

@@ -1286,17 +1286,17 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         if (type == "deleteMultiple") {
             message = "Are you sure you want to delete these Action(s)?";
             requestBody = {"type": "deleteSelected",
-                "schedule_ids": selected_schedules_to_delete};
+                "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
             responseMessage = "Selected actions were deleted successfully";
         } else if (type == "delete") {
             message = "Are you sure you want to delete this Action?";
             requestBody = {"type": "delete",
-                "schedule_ids": schedules_to_delete};
+                "schedule_ids": schedules_to_delete, "entity_type": section};
             responseMessage = "Selected actions were deleted successfully";
         } else if (type == "remove") {
             message = "Are you sure you want to remove the template?";
-            requestBody = {"type": "removetemplate",
-                "schedule_ids": schedules_to_delete};
+            requestBody = {"type": "removetemplate", 
+                "schedule_ids": schedules_to_delete, "entity_type": section};
             responseMessage = "Selected actions were deleted successfully";
         }
 

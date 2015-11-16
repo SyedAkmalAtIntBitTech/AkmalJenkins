@@ -1298,9 +1298,6 @@ function programactions($scope, $http, $window){
     };
     $scope.updateActionTwitter = function () {
 
-        
-
-
         var description = $("#twitter_description").val();
         console.log(actiontype + "," + schedule_id + "," + title + "," + description);
         
@@ -1363,24 +1360,27 @@ function programactions($scope, $http, $window){
             }
         });
     };
-    $scope.deleteSchedule = function (schedules_to_delete, type, section) {
+    $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecuring){
         var message;
         var requestBody;
         var responseMessage;
         if (type == "deleteMultiple") {
             message = "Are you sure you want to delete these Action(s)?";
             requestBody = {"type": "deleteSelected",
-                "schedule_ids": selected_schedules_to_delete};
+                           "schedule_ids": selected_schedules_to_delete, "entity_type": "null"
+                          };
             responseMessage = "Selected actions were deleted successfully";
         } else if (type == "delete") {
             message = "Are you sure you want to delete this Action?";
             requestBody = {"type": "delete",
-                "schedule_ids": schedules_to_delete};
+                            "schedule_ids": schedules_to_delete, "entity_type": section, 
+                            "isRecuring": isRecuring};
             responseMessage = "Selected actions were deleted successfully";
         } else if (type == "remove") {
             message = "Are you sure you want to remove the template?";
             requestBody = {"type": "removetemplate",
-                "schedule_ids": schedules_to_delete};
+                            "schedule_ids": schedules_to_delete, "entity_type": section, 
+                            "isRecuring": isRecuring};
             responseMessage = "Selected actions were deleted successfully";
         }
 
