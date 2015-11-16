@@ -407,7 +407,31 @@
     padding: 7px 14.5px 6px;
     width: 204px;
 }
-
+.cur{
+    cursor: pointer;
+}
+.textbox {
+    background-color: #f5f5f5;
+    border: medium none;
+    height: 28px;
+    width: 123px;
+}
+.left5 {
+    margin-left: 0 !important;
+    padding-left1: 48px !important;
+}
+#recuring_preview{
+     z-index:1005;
+     height:100%;
+     overflow-y:auto;
+     position:fixed;
+     max-height:100%;
+     background:#ffffff;
+     width:850px;
+     right:0px;
+     margin-right: -850px;
+     border: 1px solid #ccc;
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////
   
             

@@ -51,7 +51,7 @@ public class GetScheduledEntitiesServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try {
-            HttpSession session = request.getSession();
+             HttpSession session = request.getSession();
             if (session.getAttribute("UID") == null) {
                 Map<String, Object> error = new HashMap<>();
                 error.put("error", "User is not logged in");

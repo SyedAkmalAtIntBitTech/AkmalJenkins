@@ -295,7 +295,7 @@ function validatetwitteraction() {
 
     var description = $("#twitter_description").val();
         var actiondate = $("#datepickertwitter").val();
-        var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
+        var actionDateTime=$("#timepickertw").val().replace(/ /g,'');
 
     if (title === "") {
         alert("title not entered, please enter the title");
@@ -523,8 +523,10 @@ function programactions($scope, $http, $window){
             method: 'GET',
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
         }).success(function (data, status, headers, config) {
+
             $scope.programs = data;
             program_status = data.programdetails.program_status;
+            
             if(program_status === "Closed"){
                 $(".endmrkprogbtn").hide();
                 $(".addemlautombtn").hide();
@@ -605,8 +607,8 @@ function programactions($scope, $http, $window){
             window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
       };
     
-    $scope.createPost = function(type,program_id,entity_id){
-            window.open(getHost() + 'dashboard.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
+    $scope.createPost = function(){
+            window.open(getHost() + 'dashboard.jsp', "_self");
       };
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
         $edit=1;  
@@ -1202,13 +1204,15 @@ function programactions($scope, $http, $window){
             var schedule_id = $("#email_scheduleid").val();
             var title = $("#email_edit_title").val();
 
-            var actiondate = $("#emaildatetime").val();
+            var actiondate = "1970/01/01";//$("#emaildatetime").val();
+            var days=$("#emaildays").val();
             var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
             var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+            l="Sun Nov 22 1970 12:00:AM";
+            var myDate = new Date(l); // Your timezone!
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);
             var myEpoch = schedule_time;
-            console.log("New Epoch: " + myEpoch);
 
             var description = $("#email_description").val();
             console.log(actiontype + "," + schedule_id + "," + title + "," + description);
@@ -1218,7 +1222,7 @@ function programactions($scope, $http, $window){
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
-                "description": description, "action_date": myEpoch
+                "description": description, "action_date": myEpoch, "days":days
             };
             $http({
                 method: 'POST',
@@ -1251,13 +1255,15 @@ function programactions($scope, $http, $window){
             var schedule_id = $("#fb_scheduleid").val();
             var title = $("#fb_action_title").val();
         
-            var actiondate = $("#datepickerfb").val();
+            var actiondate = "1970/01/01";//$("#datepickerfb").val();
+            var days=$("#fbdays").val();
             var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
             var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+            l="Sun Nov 22 1970 12:00:AM";
+            var myDate = new Date(l); // Your timezone!
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);
             var myEpoch = schedule_time;
-            console.log("New Epoch: " + myEpoch);
 
             var description = $("#fb_description").val();
             console.log(actiontype + "," + schedule_id + "," + title + "," + description);
@@ -1266,7 +1272,7 @@ function programactions($scope, $http, $window){
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
-                "description": description, "action_date": myEpoch
+                "description": description, "action_date": myEpoch, "days":days
             };
             $http({
                 method: 'POST',
@@ -1302,22 +1308,24 @@ function programactions($scope, $http, $window){
 
         if (validatetwitteraction()) {
             
-            var actiontype = "twitter";
+            var actiontype = $("#twitter_action_type").val();
             console.log("action type" + actiontype);
             var schedule_id = $("#twitter_scheduleid").val();
             var title = $("#edit_twitter_title").val();        
-            var actiondate = $("#datepickertwitter").val();
-            var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
+            var actiondate = "1970/01/01";//$("#datepickertwitter").val();
+            var days=$("#twdays").val();
+            var actionDateTime=$("#timepickertw").val().replace(/ /g,'');
             var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+            l="Sun Nov 22 1970 12:00:AM";
+            var myDate = new Date(l); // Your timezone!
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);
             var myEpoch = schedule_time;
-            console.log("New Epoch: " + myEpoch);
             
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
-                "description": description, "action_date": myEpoch
+                "description": description, "action_date": myEpoch, "days":days
             };
             $http({
                 method: 'POST',

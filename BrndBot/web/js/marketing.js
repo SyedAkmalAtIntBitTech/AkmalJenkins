@@ -251,7 +251,7 @@ function validateemailaction() {
     var actiontype = $("#email_schedule_type").val();
     var schedule_id = $("#email_scheduleid").val();
     var title = $("#email_edit_title").val();
-
+    var days=$("#emaildays").val();
     var description = $("#email_description").val();
     var actiondate = $("#emaildatetime").val();
     var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
@@ -272,9 +272,22 @@ function validateemailaction() {
         $("#email_description").focus();
         return false;
     }
-    if (actiondate === "") {
-        alert("actiondate not entered, please enter the actiondate");
-        $("#emaildatetime").focus();
+    if (actiondate === "" || days =="") {
+        if(days=="")
+        {
+            alert("days not entered, please enter the days");
+            $("#twdays").focus();
+        }
+        if(!isNaN(days))
+        {
+            alert("days must be numeric");
+            $("#twdays").focus();
+        }
+        if(actiondate=="")
+        {
+            alert("actiondate not selected, please choose the actiondate");
+            $("#datepicker3").focus();
+        }
         return false;
     }
     if (actionDateTime === "") {
@@ -290,7 +303,7 @@ function validatefacebookaction() {
     var actiontype = $("#fb_scheduletype").val();
     var schedule_id = $("#fb_scheduleid").val();
     var title = $("#fb_action_title").val();
-
+    var days=$("#fbdays").val();
     var description = $("#fb_description").val();
     var actiondate = $("#datepickerfb").val();
     var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
@@ -311,9 +324,22 @@ function validatefacebookaction() {
         $("#fb_description").focus();
         return false;
     }
-    if (actiondate === "") {
-        alert("actiondate not entered, please enter the actiondate");
-        $("#datepicker2").focus();
+    if (actiondate === "" || days =="") {
+        if(days=="")
+        {
+            alert("days not entered, please enter the days");
+            $("#twdays").focus();
+        }
+        if(!isNaN(days))
+        {
+            alert("days must be numeric");
+            $("#twdays").focus();
+        }
+        if(actiondate=="")
+        {
+            alert("actiondate not selected, please choose the actiondate");
+            $("#datepicker3").focus();
+        }
         return false;
     }
     if (actionDateTime === "") {
@@ -329,7 +355,7 @@ function validatetwitteraction() {
     var actiontype = $("#twitter_action_type").val();
     var schedule_id = $("#twitter_scheduleid").val();
     var title = $("#edit_twitter_title").val();
-
+    var days=$("#twdays").val();
     var description = $("#twitter_description").val();
         var actiondate = $("#datepickertwitter").val();
         var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
@@ -350,9 +376,22 @@ function validatetwitteraction() {
         $("#twitter_description").focus();
         return false;
     }
-    if (actiondate === "") {
-        alert("actiondate not entered, please enter the actiondate");
-        $("#datepicker3").focus();
+    if (actiondate === "" || days =="") {
+        if(days=="")
+        {
+            alert("days not entered, please enter the days");
+            $("#twdays").focus();
+        }
+        if(!isNaN(days))
+        {
+            alert("days must be numeric");
+            $("#twdays").focus();
+        }
+        if(actiondate=="")
+        {
+            alert("actiondate not selected, please choose the actiondate");
+            $("#datepicker3").focus();
+        }
         return false;
     }
     if (actionDateTime === "") {
@@ -385,8 +424,6 @@ function setSelectedIds(selectedid) {
         }
         ;
     }
-
-
 }
 
 
@@ -426,8 +463,6 @@ function setTodaysDate() {
     angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
 }
   function EmpDetCtrl($scope) {
-
-  
 
       $scope.ShowAddEmployee = function () {
            alert('Approved');
@@ -485,6 +520,65 @@ function controllerMarketingCampaign($scope, $http) {
 
     var millisToUTCDate = function (millis) {
         return toUTCDate(new Date(millis));
+    };
+
+    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, action_status, marketingProgramName, days) {
+          
+            $slider=2;
+            sliderDialog = "#recuring_preview";
+            $('#slider-button').click();
+            prevSliderDialog = "#recuring_preview";
+            $("#recuring_preview_email").show();
+            $("#recuring_edit_email_action").hide();
+            $http({
+                method: 'GET',
+                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
+            }).success(function (data) {
+                $scope.entitiesdetails = data;
+                if (data.body == undefined) {
+                    $("#mailpreviewremove6").hide();
+                    $('#mailremovedtemplate6').show();
+                    $('#mailpreviewdecond5').hide();
+                    $('.approve').hide();
+                    $("#email_button_send").val(create_button_title);
+                } else {
+                    $('.approve').show();
+                    $("#mailpreviewremove6").show();
+                    $('#mailremovedtemplate6').hide();
+                    $('#mailpreviewdecond5').show();
+                    $('.content').show();
+                    $('#mailimgprev').show();
+                    $("#email_button_send").val("Send");
+                }
+                if(template_status=="complete")
+                {
+                    $("#recuringemailgreen").show();
+                    $("#recuringemailred").hide();
+                }
+                else
+                {
+                    $("#recuringemailgreen").hide();
+                    $("#recuringemailred").show();
+                }
+                var date = new Date(schedule_time);
+                $(".content").empty();
+                $(".content").append(data.body);
+//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+                
+                $scope.entities_selected_time = schedule_time;
+                $scope.schedule_title = schedule_title;
+                $scope.schedule_id = schedule_id;
+                console.log(schedule_desc);
+                $scope.schedule_desc = schedule_desc;
+                $scope.recuring_template_status = template_status;
+                $scope.schedule_type = entity_type;
+                $scope.user_marketing_program_id = action_status;
+                $scope.recuring_action_status=action_status;
+                $scope.marketingProgramName=marketingProgramName;
+                $scope.days=days;
+            }).error(function (data) {
+                alert("request not successful ");
+            });
     };
 
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
@@ -785,9 +879,8 @@ function controllerMarketingCampaign($scope, $http) {
             });
     }
 
-    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName) {
-        
-        if (entity_type == "email") {
+    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days) {
+       if (entity_type == "email") {
             $slider=2;
             sliderDialog = "#preview";
             $('#slider-button').click();
@@ -838,6 +931,8 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.email_template_status = template_status;
                 $scope.schedule_type = entity_type;
                 $scope.marketing_program_name = marketingName;
+                $scope.user_marketing_program_id = programId;
+                $scope.days = days;
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -889,6 +984,8 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.facebook_template_status = template_status;
                 $scope.schedule_type = entity_type;
                 $scope.marketing_program_name = marketingName;
+                $scope.user_marketing_program_id = programId;
+                $scope.days = days;
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -941,6 +1038,8 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.twitter_template_status = template_status;
                 $scope.schedule_type = entity_type;
                 $scope.marketing_program_name = marketingName;
+                $scope.user_marketing_program_id = programId;
+                $scope.days = days;
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -959,6 +1058,8 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.schedule_type = entity_type;
             $scope.note_template_status = template_status;
             $scope.marketing_program_name = marketingName;
+            $scope.user_marketing_program_id = programId;
+            $scope.days = days;
 
         }
 
@@ -1019,6 +1120,7 @@ function controllerMarketingCampaign($scope, $http) {
         var title = $("#email_edit_title").val();
 
         var actiondate = $("#emaildatetime").val();
+        var days=$("#emaildays").val();
         var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
@@ -1035,7 +1137,7 @@ function controllerMarketingCampaign($scope, $http) {
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
-                "description": description, "action_date": myEpoch
+                "description": description, "action_date": myEpoch, "days":days
             };
             $http({
                 method: 'POST',
@@ -1067,22 +1169,21 @@ function controllerMarketingCampaign($scope, $http) {
         var title = $("#fb_action_title").val();
         
         var actiondate = $("#datepickerfb").val();
+        var days=$("#fbdays").val();
         var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
         console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
         console.log("New Epoch: " + myEpoch);
-
         var description = $("#fb_description").val();
         console.log(actiontype + "," + schedule_id + "," + title + "," + description);
         console.log("New Epoch: " + myEpoch);
-      
         if (validatefacebookaction()) {
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
-                "description": description, "action_date": myEpoch
+                "description": description, "action_date": myEpoch, "days":days
             };
             $http({
                 method: 'POST',
@@ -1115,6 +1216,7 @@ function controllerMarketingCampaign($scope, $http) {
         
 
         var actiondate = $("#datepickertwitter").val();
+        var days=$("#twdays").val();
         var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
@@ -1132,7 +1234,7 @@ function controllerMarketingCampaign($scope, $http) {
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
-                "description": description, "action_date": myEpoch
+                "description": description, "action_date": myEpoch, "days":days
             };
             $http({
                 method: 'POST',
@@ -1157,6 +1259,10 @@ function controllerMarketingCampaign($scope, $http) {
         }
     };
 
+
+$scope.addEditRecuringAction = function(type,program_id,entity_id){
+            window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
+      };
 
     $scope.showEmailList = function () {
 
