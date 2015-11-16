@@ -302,7 +302,10 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
             sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
             sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
             sbSql.append(" and lower(entitytable. is_recuring) like '").append(isRecuring).append("'");
+            //Need to review this
             if (isRecuring) {
+                sbSql.append("date(programtable.date_event AT TIME ZONE 'US/Eastern') = current_date AT TIME ZONE 'US/Eastern' ");
+            } else {
                 sbSql.append("date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' ");
             }
             sbSql.append("order by entitytable.schedule_time\\:\\:time");

@@ -42,7 +42,6 @@ class SocialPostScheduler {
             Date nextTwitterPostDate = twitterPostCallable.call();
             long nextExecution = DateTimeUtil.differenceCurrentTime(nextTwitterPostDate);
             scheduler.schedule(twitterPostCallable, nextExecution, TimeUnit.SECONDS);
-            ApplicationContextListener.refreshTwitterScheduler();
         } catch (Exception ex) {
             Logger.getLogger(SocialPostScheduler.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -52,6 +51,8 @@ class SocialPostScheduler {
         if (scheduler != null) {
             twitterPostCallable.terminateThread();
             facebookPostCallable.terminateThread();
+            scheduleEmailCallable.terminateThread();
+            scheduleRecurringEmailCallable.terminateThread();
             scheduler.shutdownNow();
         }
     }
