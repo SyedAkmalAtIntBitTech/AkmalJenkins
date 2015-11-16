@@ -45,6 +45,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import util.DateTimeUtil;
 
 /**
  *
@@ -324,7 +325,7 @@ public class UserMarketingProgramController {
             for (TblScheduledEntityList scheduledEntityListObject : scheduledEmailListForRecuring) {
                 TblUserMarketingProgram userMarketingProgram = userMarketingProgramService.getById(scheduledEntityListObject.getTblUserMarketingProgram().getId());
                 Date eventDate = userMarketingProgram.getDateEvent();
-                String dateString = formatter.format(eventDate);
+                String dateString = formatter.format(eventDate);              
                 Date todayDate = Calendar.getInstance().getTime();
                 String eventDateString = formatter.format(todayDate);
                 if (dateString.equalsIgnoreCase(eventDateString)) {
@@ -336,9 +337,8 @@ public class UserMarketingProgramController {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
-                String postDate = formatter.format(cal.getTimeInMillis());
-
-                if (postDate.equalsIgnoreCase(eventDateString)) {
+                Date postDate = new Date(cal.getTimeInMillis());
+                if (DateTimeUtil.timeEqualsCurrentTime(postDate)){
                     postDateStatus = true;
                 } else {
                     postDateStatus = false;
