@@ -150,7 +150,7 @@
                                                 <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}}&nbsp;&nbsp;&nbsp;&nbsp;{{entitydetails.marketingName}}</p>                                      </p>
                                             </div>
                                         <div ng-show="entitydetails.user_marketing_program_id == 0">
-                                            <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}}</p>
+                                            <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}} &nbsp;&nbsp;&nbsp;&nbsp; No Program</p>
                                         </div>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entitydetails.entity_type}}</div>
