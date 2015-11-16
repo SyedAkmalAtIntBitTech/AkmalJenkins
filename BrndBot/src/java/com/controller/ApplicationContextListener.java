@@ -42,6 +42,10 @@ public class ApplicationContextListener implements ServletContextListener {
     
     
 
+    public static void refreshEmailRecuringScheduler() {
+       getApplicationContextListener().getSocialPostScheduler().startRecurringEmailScheduler();
+    }
+    
     private MindbodyEmailListScheduler mindbodyEmailListScheduler;
     private SocialPostScheduler socialPostScheduler;
 
