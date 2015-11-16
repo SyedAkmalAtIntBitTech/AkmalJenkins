@@ -5,11 +5,13 @@
  */
 package com.intbit.marketing.controller;
 
+import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
+import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
 import com.intbit.marketing.model.TblMarketingAction;
 import com.intbit.marketing.model.TblMarketingProgram;
@@ -472,9 +474,9 @@ public class UserMarketingProgramController {
         return "false";
     }
 
-    @RequestMapping(value = "/approveStatus", method = RequestMethod.POST)
+    @RequestMapping(value = "/approveStatusRecuring", method = RequestMethod.POST)
     public @ResponseBody
-    String approveStatus(HttpServletRequest request,
+    String approveStatusRecuring(HttpServletRequest request,
             HttpServletResponse response) throws IOException, Throwable {
         try {
 
@@ -483,6 +485,9 @@ public class UserMarketingProgramController {
 
             Double entity_id = (Double) requestBodyMap.get("entity_id");
             String template_status = (String) requestBodyMap.get("template_status");
+            String entity_type = (String)requestBodyMap.get("entity_type");
+            
+            ApplicationContextListener.refreshEmailRecuringScheduler();
 
             TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getById(entity_id.intValue());
 
@@ -499,6 +504,42 @@ public class UserMarketingProgramController {
         return "false";
     }
 
+    @RequestMapping(value = "/approveStatus", method = RequestMethod.POST)
+    public @ResponseBody
+    String approveStatus(HttpServletRequest request,
+            HttpServletResponse response) throws IOException, Throwable {
+        try {
+
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+
+            Double entity_id = (Double) requestBodyMap.get("entity_id");
+            String template_status = (String) requestBodyMap.get("template_status");
+            String entity_type = (String)requestBodyMap.get("entity_type");
+            
+            if (entity_type.equalsIgnoreCase(ScheduledEntityType.facebook.toString())){
+                ApplicationContextListener.refreshFacebookScheduler();
+            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.twitter.toString())){
+                ApplicationContextListener.refreshTwitterScheduler();
+            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.email.toString())){
+                ApplicationContextListener.refreshEmailScheduler();
+            }
+            
+            TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getById(entity_id.intValue());
+
+            if (template_status.equalsIgnoreCase("approved")) {
+                scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
+            } else if (template_status.equalsIgnoreCase("template_saved")) {
+                scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
+            }
+            scheduledEntityListService.update(scheduled_entity_list);
+            return "true";
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+        }
+        return "false";
+    }
+    
     @RequestMapping(value = "/endMarketingProgram", method = RequestMethod.POST)
     public @ResponseBody
     String endMarketingProgram(HttpServletRequest request,

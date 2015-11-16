@@ -29,37 +29,38 @@
         <script src="js/dashboard.js"></script>
         <%!
             String program_id = "";
-        %>        
+        %>
         <%
             program_id = request.getParameter("program_id");
         %>
         <script>
-                    var program = "";
-                    program = <%= program_id%>;        </script>
+            var program = "";
+            program = <%= program_id %>;
+        </script>
         <script src="js/programactions.js"></script>
         <script>
-                    $(document).ready(function (){
+        $(document).ready(function (){
 
-            $("#delactbtn").hide();
-                    $("#delemlactbtn").hide();
-                    $("#saveprogdet").hide();
-                    $("#dateofevntedt").hide();
-                    $("#assoctdlnkedt").hide();
-                    $("#editprogdet").click(function (){
+                $("#delactbtn").hide();
+                $("#delemlactbtn").hide();
+                $("#saveprogdet").hide();
+                $("#dateofevntedt").hide();
+                $("#assoctdlnkedt").hide();
+                $("#editprogdet").click(function (){
             var ok = confirm("Do you really want to Edit?");
-                    if (ok == true){
-            $("#link_name").show();
-                    $("#link_url").show();
-                    $("#editprogdet").hide();
-                    $("#dateofevntedt").show();
-                    $("#dateofevntprv").hide();
-                    $("#assoctdlnkprv").hide();
-                    $("#assoctdnameprv").hide();
-                    $("#associated_link").show();
-                    $("#associated_name").show();
-                    $("#assoctdlnkedt").show();
-                    $("#assoctdnameedt").show();
-                    $("#saveprogdet").show();
+            if (ok == true){
+                $("#link_name").show();
+                $("#link_url").show();
+                $("#editprogdet").hide();
+                $("#dateofevntedt").show();
+                $("#dateofevntprv").hide();
+                $("#assoctdlnkprv").hide();
+                $("#assoctdnameprv").hide();
+                $("#associated_link").show();
+                $("#associated_name").show();
+                $("#assoctdlnkedt").show();
+                $("#assoctdnameedt").show();
+                $("#saveprogdet").show();
             }
             });
             });
@@ -79,7 +80,7 @@
     </head>
     <body id="proghide" ng-app>
         <div class="row" ng-controller="programactions">
-            <div class="row" ng-init="getProgramActions()" >
+            <div id="program_actions" class="row" ng-init="getProgramActions()">
                 <div class="col-lg-1 col-md-1 col-sm-2">
                     <jsp:include page="leftmenu.html"/> 
                 </div>
@@ -123,12 +124,12 @@
                                             });                                </script>
                             </div>
                         </div>
-                        <div id="associated_name" class="col-lg-2 col-md-2 col-sm-4" > 
+                        <div id="associated_name" class="col-lg-3 col-md-3 col-sm-4" > 
                             <div class="asclink fontpnr">Associated Name</div>
                             <div id="assoctdlnkprv" class="evntdt fontpns">{{programs.programdetails.link_name}}</div>
                             <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="link_name" name="link_name" class="progactinputdate fontpns ptr"/></div>
                         </div>
-                        <div id="associated_link" class="col-lg-2 col-md-2 col-sm-4" style="display:none;">
+                        <div id="associated_link" class="col-lg-3 col-md-3 col-sm-4" style="display:none;">
                             <div class="asclink fontpnr">Associated Link</div>
                             <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
                             <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr"/></div>
@@ -353,7 +354,7 @@
                                 </div>
                             </div>
                             <div class="topfourty" >
-                                <button class="addactcrtbtn fontpns twlvpix button--moema 
+                                <button class="addactcrtbtn fontpns twlvpix button--moema createMargine
                                         button--text-thick 
                                         button--size-s" 
                                         ng-click="AddAction()">Create
@@ -424,39 +425,21 @@
 
                                         </div>
                                         <div class="inlineFlex top120">
-                                            <div class="rightthirty">
+                                            <div class="rightthirty left5">
                                                 <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc, marketing_program_name)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
-                                                <input type="button" 
-                                                       value="Approve to Post" 
-                                                       ng-show="email_action_status == true && email_template_status=='Template Saved'" 
-                                                       onclick="postSocial()" 
-                                                       class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
-                                                <button ng-click="SaveData();" 
-                                                        ng-show="email_template_status=='approved'"
-                                                        style="background-color: #19587c !important;
-                                                        color: white !important;" 
-                                                        class="button hide1 
-                                                               approvebuttonwidthheightcolor 
-                                                               buttonmargin 
-                                                               button--moema  
-                                                               button--text-thick  
-                                                               button--text-upper 
-                                                               fontpns">Approved
-                                                </button> 
-                                                <!--                                    <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
-                                                <button id="button1"  
-                                                        ng-show="email_template_status=='approved'"
-                                                        style="background-color: #e25b5b !important;
-                                                        color: white !important;" 
-                                                        class="button hide2 
-                                                               approvebuttonwidthheightcolor 
-                                                               buttonmargin button--moema  
-                                                               button--text-thick  
-                                                               button--text-upper 
-                                                               fontpns">Unapprove
-                                                </button> 
+                                            <input type="button" value="Approve to Post" 
+                                                   ng-show="email_action_status == true && email_template_status=='Template Saved'" 
+                                                   ng-click="Approval(schedule_id, 'approved')"
+                                                   class="button approvebuttonwidthheightcolor 
+                                                   buttonmargin button--moema  
+                                                   button--text-thick  
+                                                   button--text-upper 
+                                                   fontpns" id="fb_approve_button_post">
+                                        <button ng-click="SaveData();" ng-show="email_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                        <button id="button1" ng-show="email_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+
                                             </div>
                                         </div>
                                     </div>
@@ -477,7 +460,15 @@
                                             <div class="circle"></div>
                                         </div>
                                         <div class="rightthirty">
-                                            <input ng-hide="programs.programdetails.program_status == 'Closed'" type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                            <input ng-hide="programs.programdetails.program_status == 'Closed'" 
+                                                   type="button" value="Create Post" 
+                                                   ng-click="createPost()" 
+                                                   class="button createPostbuttonwidthheightcolor 
+                                                          buttonmargin button--moema  
+                                                          button--text-thick  
+                                                          button--text-upper 
+                                                          fontpns" 
+                                                   id="create_Post">
                                         </div>
                                     </div>
                                     <div id="mailpreviewdecond">
@@ -603,17 +594,7 @@
                                                         Day
                                                     </div>
                                                     <div class="topsix">
-                                                        <input type="text" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate ptr" value="{{entities_selected_date| date:'MMM dd yyyy'}}">                                        
-                                                        <script>
-                                                                var picker = new Pikaday(
-                                                                {
-                                                                field: document.getElementById('emaildatetime'),
-                                                                        firstDay: 1,
-                                                                        minDate: new Date(2000, 0, 1),
-                                                                        maxDate: new Date(2050, 12, 31),
-                                                                        yearRange: [2000, 2050]
-                                                                });                                                        
-                                                        </script>
+                                                        <input type="text" value="10" name="emaildays" id="emaildays" class="textbox">
                                                     </div>
                                                 </div>
                                                 <div class="half">
@@ -628,7 +609,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="topthirty8">
+                                            <div class="topthirty8 left5">
                                                 <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns"  ng-click="updateActionEmail()" >Save</button>                                       
                                                 <!--                                            <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
                                                 <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
@@ -652,7 +633,7 @@
                                                 <div class="circle"></div>
                                             </div>
                                             <div class="rightthirty">
-                                                <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                                <input type="button" value="Create Post" ng-click="createPost()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                             </div>
                                         </div>
                                         <div id="mailpreviewdecond2">
@@ -782,42 +763,23 @@
                                         {{post_time| date:'h:mma'}}
                                     </div>
                                     <div class="inlineFlex topsixeight">
-                                        <div class="rightthirty">
+                                        <div class="rightthirty left5">
                                             <input type="button" value="Edit" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
                                         </div>
                                         <div class="approve">
                                             <input type="button" value="Approve to Post" 
-                                                   ng-show="facebook_action_status == true && facebook_template_status=='Template Saved'"
-                                                   ng-click="setApproveTemplate(schedule_id, 'approved')" 
+                                                   ng-show="facebook_action_status == true && facebook_template_status=='Template Saved'" 
+                                                   ng-click="Approval(schedule_id, 'approved')"
                                                    class="button approvebuttonwidthheightcolor 
                                                    buttonmargin button--moema  
                                                    button--text-thick  
                                                    button--text-upper 
                                                    fontpns" id="fb_approve_button_post">
                                         </div>
-                                        <button ng-click="SaveData();" 
-                                                ng-show="facebook_template_status=='approved'"
-                                                style="background-color: #19587c !important;
-                                                color: white !important;" 
-                                                class="button hide1 
-                                                approvebuttonwidthheightcolor 
-                                                buttonmargin button--moema  
-                                                button--text-thick  
-                                                button--text-upper fontpns">Approved
-                                        </button>
-                                        <!--                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
-                                        <button id="button1"  
-                                                ng-show="facebook_template_status=='approved'"
-                                                style="background-color: #e25b5b !important;
-                                                color: white !important;
-                                                display:none;" 
-                                                class="button hide2 
-                                                        approvebuttonwidthheightcolor 
-                                                        buttonmargin button--moema  
-                                                        button--text-thick  
-                                                        button--text-upper fontpns">Unapprove
-                                        </button>
-
+<!--                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
+                                        <button ng-click="SaveData();" ng-show="facebook_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                        <button id="button1" ng-show="facebook_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                         
                                     </div>
                                 </div>
                             </div>
@@ -839,7 +801,7 @@
                                         <div class="circle"></div>
                                     </div>
                                     <div class="rightthirty left82">
-                                        <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status == 'Closed'" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                        <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="createPost()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                     </div>
                                 </div>
                                 <div id="fbpreviewdecond">
@@ -959,16 +921,7 @@
                                                     Day
                                                 </div>
                                                 <div class="topsix">
-                                                    <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="inputdate ptr" value="{{entities_selected_date| date:'MMM dd yyyy'}}">                                        
-                                                    <script>
-                                                                                var picker = new Pikaday(
-                                                                                {
-                                                                                field: document.getElementById('datepickerfb'),
-                                                                                        firstDay: 1,
-                                                                                        minDate: new Date(2000, 0, 1),
-                                                                                        maxDate: new Date(2050, 12, 31),
-                                                                                        yearRange: [2000, 2050]
-                                                                                });                                                    </script>
+                                                   <input type="text" value="10" name="fbdays" id="fbdays" class="textbox">                                                   </script>
                                                 </div>
                                             </div>
                                             <div class="half">
@@ -983,7 +936,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="topthirty8">
+                                        <div class="topthirty8 left5">
                                             <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns" ng-click="updateActionFacebook()" >Save</button>                                       
                                             <!--                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
                                             <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
@@ -1007,7 +960,7 @@
                                             <div class="circle"></div>
                                         </div>
                                         <div class="rightthirty left82">
-                                            <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status == 'Closed'" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                            <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="createPost()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                         </div>
                                     </div>
                                     <div id="fbpreviewdecond2">
@@ -1118,7 +1071,7 @@
                                         {{post_time| date:'h:mma'}}
                                     </div>
                                     <div class="inlineFlex topsixeight">
-                                        <div class="rightthirty">
+                                        <div class="rightthirty left5">
                                             <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" value="Edit" ng-click="editScheduleDetails(
                                                                                 schedule_id,
                                                                                 entities_selected_time,
@@ -1129,34 +1082,18 @@
                                         <div class="approve">
                                             <input type="button" 
                                                    ng-show="twitter_action_status == true && twitter_template_status=='Template Saved'" 
+                                                   ng-click="Approval(schedule_id, 'approved')"
                                                    value="Approve to Post" 
-                                                   onclick="postSocial()" 
                                                    class="button approvebuttonwidthheightcolor 
                                                           buttonmargin 
                                                           button--moema  
                                                           button--text-thick  
                                                           button--text-upper fontpns" 
                                                    id="ftwitter_approve_button_post">
-                                            <button ng-click="SaveData();" 
-                                                    ng-show="twitter_template_status=='approved'"
-                                                    style="background-color: #19587c !important;
-                                                    color: white !important;" 
-                                                    class="button hide1 
-                                                            approvebuttonwidthheightcolor 
-                                                            buttonmargin button--moema  
-                                                            button--text-thick  
-                                                            button--text-upper fontpns">Approved
-                                            </button> 
-                                            <!--                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
-                                            <button id="button1" 
-                                                    ng-show="twitter_template_status=='approved'" 
-                                                    style="background-color: #e25b5b !important;
-                                                    color: white !important;" 
-                                                    class="button hide2 approvebuttonwidthheightcolor 
-                                                           buttonmargin button--moema  
-                                                           button--text-thick  
-                                                           button--text-upper fontpns">Unapprove
-                                            </button> 
+                                         
+                                                <button ng-click="SaveData();" ng-show="twitter_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                                <button id="button1" ng-show="twitter_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -1176,7 +1113,7 @@
                                         <div class="circle"></div>
                                     </div>
                                     <div class="rightthirty left82">
-                                        <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                        <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" value="Create Post" ng-click="createPost()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                     </div>
                                 </div>
                                 <div id="twpreviewdecond">
@@ -1272,16 +1209,7 @@
                                                     Day
                                                 </div>
                                                 <div class="topsix">
-                                                    <input type="text" readonly  name="datepickertwitter" id="datepickertwitter"  class="inputdate ptr"  value="{{entities_selected_date| date:'MMM dd yyyy'}}">   <!-- id="datepicker3"  name="twitterdatetime"  -->                                     
-                                                    <script>
-                                                                                var picker = new Pikaday(
-                                                                                {
-                                                                                field: document.getElementById('datepickertwitter'),
-                                                                                        firstDay: 1,
-                                                                                        minDate: new Date(2000, 0, 1),
-                                                                                        maxDate: new Date(2050, 12, 31),
-                                                                                        yearRange: [2000, 2050]
-                                                                                });                                                    </script>
+                                                    <input type="text" value="10" name="twdays" id="twdays" class="textbox">                                                   </script>
                                                 </div>
                                             </div>
                                             <div class="half">
@@ -1289,14 +1217,15 @@
                                                     Time
                                                 </div>
                                                 <div class="topsix">
-                                                    <input id="timepickertwitter" type="text" name="timepickertwitter" class="inputtime MH1 ptr" style="width:150px;" value="{{post_time| date:'h : mma'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
+                                                    <input id="timepickertw" type="text" name="timepickertw" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'h : mma'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
-                                                                                $('#timepickertwitter').timepicki();                                                    </script>
+                                                        $('#timepickertw').timepicki();                                                                                                                                        
+                                                    </script>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="topthirty7">
+                                        <div class="topthirty7 left5">
                                             <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns" ng-click="updateActionTwitter()">Save</button>                                       
                                         </div>
                                     </div>
@@ -1317,7 +1246,7 @@
                                             <div class="circle"></div>
                                         </div>
                                         <div class="rightthirty left82">
-                                            <input type="button" value="Create Post" onclick="postSocial()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                            <input type="button" value="Create Post" ng-click="createPost()" class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                         </div>
                                     </div>
                                     <div id="twpreviewdecond2">
@@ -1409,7 +1338,7 @@
                                             {{entities_selected_time| date:'MMM dd yyyy'+' on '+ 'h:mma'}}
                                         </div>
                                         <div class="inlineFlex top120">
-                                            <div class="rightthirty">
+                                            <div class="rightthirty left5">
                                                 <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="addEditRecuringAction('edit',<%=program_id%>, schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
@@ -1468,10 +1397,10 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.to_email_addresses}}
+                                                {{entitiesdetails.email_list_name}}
                                             </div>
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.email_list_name}}
+                                                ??
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">
