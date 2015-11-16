@@ -306,10 +306,11 @@ public class ScheduleDAO {
             Timestamp scheduleTime,
             String entityType,
             int userId,
+            int days,
             Connection connection) throws SQLException {
         String query_string = "Update tbl_scheduled_entity_list"
                 + " SET schedule_title = ?, schedule_time = ?,"
-                + " entity_type = ?, schedule_desc = ?"
+                + " entity_type = ?, schedule_desc = ?, days= ?"
                 + " Where id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query_string)) {
@@ -318,7 +319,8 @@ public class ScheduleDAO {
             ps.setTimestamp(2, scheduleTime);
             ps.setString(3, entityType);
             ps.setString(4, scheduleDesc);
-            ps.setInt(5, scheduleId);
+            ps.setInt(5, days);
+            ps.setInt(6, scheduleId);
             ps.execute();
 
         } catch (Exception e) {
@@ -367,19 +369,32 @@ public class ScheduleDAO {
             LocalDate fromDate, LocalDate toDate) throws SQLException {
 
         Map<String, JSONArray> result = new LinkedHashMap<>();
-        String sql = "SELECT DISTINCT ON (id) slist.*, date(programtable.date_event) - slist.days as cal_schedule_time, date(schedule_time) schedule_date "
-                + " FROM tbl_scheduled_entity_list slist, "
-                + " tbl_scheduled_entity_type_color tc, tbl_user_marketing_program programtable"
-                + " WHERE slist.user_id = ? "
-                + " AND (date(schedule_time) <= ? "
-                + " AND date(schedule_time) >= ?) "
-                + " OR ((slist.is_recuring = 'false' AND date(programtable.date_event) - slist.days <= ? "
-                + " AND date(programtable.date_event) - slist.days >= ?) "
-                + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
-                + " AND date(programtable.date_event) >= ?)) "
-                + " AND slist.entity_type = tc.entity_type"
-                + " AND slist.user_marketing_program_id = programtable.id"
-                + " ORDER BY slist.id, schedule_time ";
+//        String sql = "SELECT DISTINCT ON (id) slist.*, date(programtable.date_event) - slist.days as cal_schedule_time, date(schedule_time) schedule_date "
+//                + " FROM tbl_scheduled_entity_list slist, "
+//                + " tbl_scheduled_entity_type_color tc, tbl_user_marketing_program programtable"
+//                + " WHERE slist.user_id = ? "
+//                + " AND (date(schedule_time) <= ? "
+//                + " AND date(schedule_time) >= ?) "
+//                + " OR ((slist.is_recuring = 'false' AND date(programtable.date_event) - slist.days <= ? "
+//                + " AND date(programtable.date_event) - slist.days >= ?) "
+//                + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
+//                + " AND date(programtable.date_event) >= ?)) "
+//                + " AND slist.entity_type = tc.entity_type"
+//                + " AND slist.user_marketing_program_id = programtable.id"
+//                + " ORDER BY slist.id, schedule_time ";
+        String sql = "SELECT DISTINCT ON (id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, date(schedule_time) schedule_date "
+               + " FROM tbl_scheduled_entity_list slist, "
+               + " tbl_scheduled_entity_type_color tc, tbl_user_marketing_program programtable"
+               + " WHERE slist.user_id = ? "
+               + " AND (date(schedule_time) <= ? "
+               + " AND date(schedule_time) >= ?) "
+               + " OR ((slist.is_recuring = 'false' AND date(programtable.date_event) - slist.days <= ? "
+               + " AND date(programtable.date_event) - slist.days >= ?) "
+               + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
+               + " AND date(programtable.date_event) >= ?)) "
+               + " AND slist.entity_type = tc.entity_type"
+               + " AND slist.user_marketing_program_id = programtable.id"
+               + " ORDER BY slist.id, schedule_time ";
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, userId);
@@ -411,6 +426,7 @@ public class ScheduleDAO {
                             scheduleDate = scheduleTimestamp1.getTime();
                     }
                     //String scheduleDateStr = new Date(scheduleDate).toString();
+                    scheduleDetailJSONObject.put("days", rs.getInt("days"));
                     scheduleDetailJSONObject.put("schedule_id", rs.getInt("id"));
                     scheduleDetailJSONObject.put("entity_id", rs.getInt("entity_id"));
                     int marketingId=rs.getInt("user_marketing_program_id");

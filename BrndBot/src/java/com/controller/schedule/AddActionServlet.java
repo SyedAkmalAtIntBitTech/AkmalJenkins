@@ -105,6 +105,7 @@ public class AddActionServlet extends HttpServlet {
                         new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
                         requestBodyMap.get("actiontype").toString(), 
                         userId,
+                        Integer.parseInt(requestBodyMap.get("days").toString()),
                         conn
                     );
                     conn.commit();

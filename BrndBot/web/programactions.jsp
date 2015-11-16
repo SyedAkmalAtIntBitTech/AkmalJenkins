@@ -354,7 +354,7 @@
                                 </div>
                             </div>
                             <div class="topfourty" >
-                                <button class="addactcrtbtn fontpns twlvpix button--moema 
+                                <button class="addactcrtbtn fontpns twlvpix button--moema createMargine
                                         button--text-thick 
                                         button--size-s" 
                                         ng-click="AddAction()">Create
@@ -425,7 +425,7 @@
 
                                         </div>
                                         <div class="inlineFlex top120">
-                                            <div class="rightthirty">
+                                            <div class="rightthirty left5">
                                                 <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc, marketing_program_name)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
@@ -612,17 +612,7 @@
                                                         Day
                                                     </div>
                                                     <div class="topsix">
-                                                        <input type="text" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate ptr" value="{{entities_selected_date| date:'MMM dd yyyy'}}">                                        
-                                                        <script>
-                                                                var picker = new Pikaday(
-                                                                {
-                                                                field: document.getElementById('emaildatetime'),
-                                                                        firstDay: 1,
-                                                                        minDate: new Date(2000, 0, 1),
-                                                                        maxDate: new Date(2050, 12, 31),
-                                                                        yearRange: [2000, 2050]
-                                                                });                                                        
-                                                        </script>
+                                                        <input type="text" value="10" name="emaildays" id="emaildays" class="textbox">
                                                     </div>
                                                 </div>
                                                 <div class="half">
@@ -637,7 +627,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="topthirty8">
+                                            <div class="topthirty8 left5">
                                                 <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns"  ng-click="updateActionEmail()" >Save</button>                                       
                                                 <!--                                            <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
                                                 <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
@@ -791,7 +781,7 @@
                                         {{post_time| date:'h:mma'}}
                                     </div>
                                     <div class="inlineFlex topsixeight">
-                                        <div class="rightthirty">
+                                        <div class="rightthirty left5">
                                             <input type="button" value="Edit" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
                                         </div>
                                         <div class="approve">
@@ -968,16 +958,7 @@
                                                     Day
                                                 </div>
                                                 <div class="topsix">
-                                                    <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="inputdate ptr" value="{{entities_selected_date| date:'MMM dd yyyy'}}">                                        
-                                                    <script>
-                                                                                var picker = new Pikaday(
-                                                                                {
-                                                                                field: document.getElementById('datepickerfb'),
-                                                                                        firstDay: 1,
-                                                                                        minDate: new Date(2000, 0, 1),
-                                                                                        maxDate: new Date(2050, 12, 31),
-                                                                                        yearRange: [2000, 2050]
-                                                                                });                                                    </script>
+                                                   <input type="text" value="10" name="fbdays" id="fbdays" class="textbox">                                                   </script>
                                                 </div>
                                             </div>
                                             <div class="half">
@@ -992,7 +973,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="topthirty8">
+                                        <div class="topthirty8 left5">
                                             <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns" ng-click="updateActionFacebook()" >Save</button>                                       
                                             <!--                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
                                             <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
@@ -1127,7 +1108,7 @@
                                         {{post_time| date:'h:mma'}}
                                     </div>
                                     <div class="inlineFlex topsixeight">
-                                        <div class="rightthirty">
+                                        <div class="rightthirty left5">
                                             <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" value="Edit" ng-click="editScheduleDetails(
                                                                                 schedule_id,
                                                                                 entities_selected_time,
@@ -1281,16 +1262,7 @@
                                                     Day
                                                 </div>
                                                 <div class="topsix">
-                                                    <input type="text" readonly  name="datepickertwitter" id="datepickertwitter"  class="inputdate ptr"  value="{{entities_selected_date| date:'MMM dd yyyy'}}">   <!-- id="datepicker3"  name="twitterdatetime"  -->                                     
-                                                    <script>
-                                                                                var picker = new Pikaday(
-                                                                                {
-                                                                                field: document.getElementById('datepickertwitter'),
-                                                                                        firstDay: 1,
-                                                                                        minDate: new Date(2000, 0, 1),
-                                                                                        maxDate: new Date(2050, 12, 31),
-                                                                                        yearRange: [2000, 2050]
-                                                                                });                                                    </script>
+                                                    <input type="text" value="10" name="twdays" id="twdays" class="textbox">                                                   </script>
                                                 </div>
                                             </div>
                                             <div class="half">
@@ -1298,14 +1270,15 @@
                                                     Time
                                                 </div>
                                                 <div class="topsix">
-                                                    <input id="timepickertwitter" type="text" name="timepickertwitter" class="inputtime MH1 ptr" style="width:150px;" value="{{post_time| date:'h : mma'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
+                                                    <input id="timepickertw" type="text" name="timepickertw" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'h : mma'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
-                                                                                $('#timepickertwitter').timepicki();                                                    </script>
+                                                        $('#timepickertw').timepicki();                                                                                                                                        
+                                                    </script>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="topthirty7">
+                                        <div class="topthirty7 left5">
                                             <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns" ng-click="updateActionTwitter()">Save</button>                                       
                                         </div>
                                     </div>
@@ -1418,7 +1391,7 @@
                                             {{entities_selected_time| date:'MMM dd yyyy'+' on '+ 'h:mma'}}
                                         </div>
                                         <div class="inlineFlex top120">
-                                            <div class="rightthirty">
+                                            <div class="rightthirty left5">
                                                 <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="addEditRecuringAction('edit',<%=program_id%>, schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
@@ -1477,10 +1450,10 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.to_email_addresses}}
+                                                {{entitiesdetails.email_list_name}}
                                             </div>
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.email_list_name}}
+                                                ??
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">

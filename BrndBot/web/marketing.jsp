@@ -132,16 +132,48 @@
                                     </div>
                                     <div class="col-md-3" style="width:300px;margin-left:-40px;">
                                         <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
-                                            <p class="MH1" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description,entitydetails.marketingName)">{{entitydetails.schedule_title}}</p></a>
-                                        <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}}</p>
+                                            <div ng-show="entitydetails.is_recuring" >
+                                                <p class="MH1 cur" ng-click="getRecuringMailDetails(entitydetails.schedule_id,
+                                                                entitydetails.template_status,
+                                                                entitydetails.schedule_time,
+                                                                entitydetails.entity_type,
+                                                                entitydetails.schedule_title,
+                                                                entitydetails.schedule_description,
+                                                                entitydetails.user_marketing_program_id,
+                                                                entitydetails.marketingName,
+                                                                entitydetails.days)">{{entitydetails.schedule_title}}</p></a>
+                                            </div>
+                                            <div ng-hide="entitydetails.is_recuring" >
+                                                <p class="MH1 cur" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description,entitydetails.marketingName,entitydetails.user_marketing_program_id,entitydetails.days)">{{entitydetails.schedule_title}}</p></a>
+                                            </div>
+                                            <div ng-show="entitydetails.user_marketing_program_id > 0">
+                                                <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}}&nbsp;&nbsp;&nbsp;&nbsp;{{entitydetails.marketingName}}</p>                                      </p>
+                                            </div>
+                                        <div ng-show="entitydetails.user_marketing_program_id == 0">
+                                            <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}}</p>
+                                        </div>
                                     </div>
                                     <div class="col-md-2 MH1 socfnts">{{entitydetails.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entitydetails.template_status}}</div>
-                                    <div class="col-md-2" 
-                                         style="margin-left:20px;" 
-                                         ng-hide="(entitydetails.template_status=='Complete')">
-                                        <a href = "javascript:void(0)" onclick = "overlay();">
-                                        <button type="button" 
+                                    <div class="col-md-2" style="margin-left:20px;">
+                                        <div ng-show="entitydetails.is_recuring" >
+                                            <a href = "javascript:void(0)" onclick = "overlay();">
+                                                <button type="button" 
+                                                class="edtbtn" 
+                                                ng-click="getRecuringMailDetails(entitydetails.schedule_id,
+                                                                entitydetails.template_status,
+                                                                entitydetails.schedule_time,
+                                                                entitydetails.entity_type,
+                                                                entitydetails.schedule_title,
+                                                                entitydetails.schedule_description,
+                                                                entitydetails.user_marketing_program_id,
+                                                                entitydetails.marketingName,
+                                                                entitydetails.days)">DETAILS</button>
+                                            </a>
+                                        </div>
+                                         <div ng-hide="entitydetails.is_recuring" >
+                                            <a href = "javascript:void(0)" onclick = "overlay();">
+                                                <button type="button" 
                                                 class="edtbtn" 
                                                 ng-click="getScheduleDetails(entitydetails.schedule_id, 
                                                             entitydetails.template_status,
@@ -149,8 +181,11 @@
                                                             entitydetails.entity_type, 
                                                             entitydetails.schedule_title, 
                                                             entitydetails.schedule_description,
-                                                            entitydetails.marketingName)">DETAILS</button>
-                                        </a>
+                                                            entitydetails.marketingName,
+                                                            entitydetails.user_marketing_program_id,
+                                                            entitydetails.days)">DETAILS</button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -387,50 +422,38 @@
                                 </div>
                                 <div class="approve">
                                       <div ng-controller="EmpDetCtrl">       
-    <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
+                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
 
-       
-        <div class="EmployeeInfo">
 
-            <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
-        </div>
-      </div>
-    <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
-   
+                                            <div class="EmployeeInfo">
 
-        <div class="EmployeeInfo"  ng-hide="EmployeeInfoDiv1" >
-           
-            <div ng-model="botton_container">
-               
-                <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-               
-            </div> 
+                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                            </div>
+                                          </div>
+                                        <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
 
-        </div>
-       
-        
-        
-        
-        
-        <div class="EmployeeInfo6"  ng-hide="EmployeeInfoDiv2">
-           
-            <div ng-model="botton_container">
-               
-                <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
-               
-            </div> 
 
-        </div>
-        
-   </div>
-       
-                                          
-                                          
-                                          
-                                          
-                                          
-                                          
-</div>  
+                                            <div class="EmployeeInfo"  ng-hide="EmployeeInfoDiv1" >
+
+                                                <div ng-model="botton_container">
+
+                                                    <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+
+                                                </div> 
+                                            </div>
+
+                                            <div class="EmployeeInfo6"  ng-hide="EmployeeInfoDiv2">
+
+                                                <div ng-model="botton_container">
+
+                                                    <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+
+                                                </div> 
+
+                                            </div>
+
+                                       </div>                                
+                                    </div>  
                                    
                                 </div>
                             </div>
@@ -766,20 +789,28 @@
                                                 <div class=" containe fontpnr tenpix topten">
                                                     Day
                                                 </div>
-                                                <div class="topsix">
-                                                    <input type="text" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
-                                                    <script>
-                                                var picker = new Pikaday(
-                                                {
-                                                    field: document.getElementById('emaildatetime'),
-                                                    firstDay: 1,
-                                                    minDate: new Date(2000, 0, 1),
-                                                    maxDate: new Date(2050, 12, 31),
-                                                    yearRange: [2000,2050]
-                                                });
-
-                                                    </script>
+                                                <div ng-show="user_marketing_program_id > 0">
+                                                    <div class="topsix">
+                                                        <input type="text" class="textbox"  id="emaildays" name="emaildays" value="{{days}}"/>
+                                                    </div>
                                                 </div>
+                                                <div ng-show="user_marketing_program_id == 0">
+                                                    <div class="top8">
+                                                        <input type="text" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
+                                                        <script>
+                                                            var picker = new Pikaday(
+                                                            {
+                                                                field: document.getElementById('emaildatetime'),
+                                                                firstDay: 1,
+                                                                minDate: new Date(2000, 0, 1),
+                                                                maxDate: new Date(2050, 12, 31),
+                                                                yearRange: [2000,2050]
+                                                            });
+
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
                                             <div class="half">
                                                 <div class=" containe fontpnr tenpix topten">
@@ -1423,27 +1454,39 @@
                                     </div>
                                     
                                     <div class="toptweenty headcolor tenpix fontpns">
-                                        SCHEDULED TO POST ON
+                                        <div ng-show="entitydetails.user_marketing_program_id > 0">
+                                            Days
+                                        </div>
+                                        <div ng-show="entitydetails.user_marketing_program_id == 0">
+                                            SCHEDULED TO POST ON
+                                        </div>
                                     </div>
                                     <div class="inlineFlex">
                                         <div class="half">
                                             <div class=" containe fontpnr tenpix topten">
                                                 Day
                                             </div>
-                                            <div class="topsix">
-                                                <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
-                                                <script>
-                                            var picker = new Pikaday(
-                                            {
-                                                field: document.getElementById('datepickerfb'),
-                                                firstDay: 1,
-                                                minDate: new Date(2000, 0, 1),
-                                                maxDate: new Date(2050, 12, 31),
-                                                yearRange: [2000,2050]
-                                            });
+                                            <div ng-show="user_marketing_program_id > 0">
+                                                    <div class="topsix">
+                                                        <input type="text" class="textbox"  id="fbdays" name="emaildays" value="{{days}}"/>
+                                                    </div>
+                                                </div>
+                                                <div ng-show="user_marketing_program_id == 0">
+                                                    <div class="top8">
+                                                        <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
+                                                        <script>
+                                                            var picker = new Pikaday(
+                                                            {
+                                                                field: document.getElementById('datepickerfb'),
+                                                                firstDay: 1,
+                                                                minDate: new Date(2000, 0, 1),
+                                                                maxDate: new Date(2050, 12, 31),
+                                                                yearRange: [2000,2050]
+                                                            });
 
-                                                </script>
-                                            </div>
+                                                        </script>
+                                                    </div>
+                                                </div>
                                         </div>
                                         <div class="half">
                                             <div class=" containe fontpnr tenpix topten">
@@ -2153,19 +2196,26 @@
                                                 <div class=" containe fontpnr tenpix topten">
                                                     Day
                                                 </div>
-                                                <div class="topsix">
-                                                    <input type="text" readonly  name="datepickertwitter" id="datepickertwitter"  class="inputdate MH1 ptr"  value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">   <!-- id="datepicker3"  name="twitterdatetime"  -->                                     
-                                                    <script>
-                                                var picker = new Pikaday(
-                                                {
-                                                    field: document.getElementById('datepickertwitter'),
-                                                    firstDay: 1,
-                                                    minDate: new Date(2000, 0, 1),
-                                                    maxDate: new Date(2050, 12, 31),
-                                                    yearRange: [2000,2050]
-                                                });
+                                                <div ng-show="user_marketing_program_id > 0">
+                                                    <div class="topsix">
+                                                        <input type="text" class="textbox"  id="twdays" name="twdays" value="{{days}}"/>
+                                                    </div>
+                                                </div>
+                                                <div ng-show="user_marketing_program_id == 0">
+                                                    <div class="top8">
+                                                        <input type="text" readonly  name="datepickertwitter" id="datepickertwitter"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
+                                                        <script>
+                                                            var picker = new Pikaday(
+                                                            {
+                                                                field: document.getElementById('datepickertwitter'),
+                                                                firstDay: 1,
+                                                                minDate: new Date(2000, 0, 1),
+                                                                maxDate: new Date(2050, 12, 31),
+                                                                yearRange: [2000,2050]
+                                                            });
 
-                                                    </script>
+                                                        </script>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="half">
@@ -2238,7 +2288,150 @@
                            </div> 
             </div>
 
+            <div id="recuring_preview">
 
+                    <div id="recuring_preview_email">
+                        <div class="inlineFlex">
+                            <div class="half">
+                                <div class="borderright">
+                                    <div class="firstcol">
+                                        <div class="inlineFlex">
+                                            <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
+                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'delete')" >DELETE ACTION</div>
+                                        </div>
+                                        <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+
+                                        <div class="topten titlecontain sixtnpix fontpns">
+                                            {{schedule_title}}
+                                        </div>
+                                        <div class="toptweentyone headcolor tenpix fontpns">
+                                            DESCRIPTION
+                                        </div>
+                                        <div class="height75 scrolly topten">
+                                            <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
+                                        </div>
+                                        <div class="inlineFlex toptweenty">
+                                            <div class="half headcolor fontpns tenpix">
+                                                STATUS
+                                            </div>
+                                            <div class="half headcolor fontpns tenpix">
+                                                MARKETING PROGRAM
+                                            </div>
+                                        </div>
+                                        <div class="inlineFlex toptnine">
+                                            <div class="half containe fontpnr tenpix">
+                                                <div class="inlineFlex">
+                                                    <div class="rightfive toptwo" id="recuringemailred">
+                                                        <div class="redDot"></div>
+                                                    </div>
+                                                    <div class="rightfive toptwo" id="recuringemailgreen">
+                                                        <div class="greenDot"></div>
+                                                    </div>
+                                                    <div class="containe tenpix fontpnr ">{{recuring_template_status}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="half containe fontpnr tenpix">
+                                                {{marketingProgramName}}
+                                            </div>
+                                        </div>
+                                        <div class="topfourty headtitle pfont actfnt fontpnr">
+                                            POSTING DETAILS
+                                        </div>
+                                        <div class="toptweenty headcolor tenpix fontpns">
+                                            SCHEDULED TO POST ON
+                                        </div>
+                                        <div class="containe fontpnr tenpix">
+                                            {{entities_selected_time| date:'MMM dd yyyy'+' on '+ 'h:mma'}}
+                                        </div>
+                                        <div class="inlineFlex top120">
+                                            <div class="rightthirty">
+                                                <input type="button" ng-click="addEditRecuringAction('edit',entitiesdetails.user_marketing_program_id, schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
+                                            </div>
+                                            <div class="approve">
+                                                <input type="button" value="Approve to Post" ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved')" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                                <button ng-click="SaveData();" ng-show="recuring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                                <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="half">
+                                <div class="secondcol">
+                                    <div class="inlineFlex">
+                                        <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
+                                        <div id="mailpreviewremove6" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', 'email')">REMOVED SAVED POST</div>
+                                    </div>
+                                    <div class="toptweentyone headcolor tenpix fontpns">
+                                        PREVIEW
+                                    </div>
+                                    <div id="mailremovedtemplate6">
+                                        <div class="rectangle">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="rightthirty">
+                                            <input type="button" value="Create Post" ng-click="addEditRecuringAction('template',entitiesdetails.user_marketing_program_id, schedule_id)"  class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                        </div>
+                                    </div>
+                                    <div id="mailpreviewdecond5">
+                                        <!--                                <div id="imgcontainer"  style="display:none;">
+                                                                                    <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                                                                </div> entitiesdetails-->
+                                        <!-- <div class="content"><!-- <div class="content"></div> -->
+                                        <!--    <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />
+                                        </div> -->
+                                        <div class="topten"><!-- <div class="content"></div> -->
+                                            <!--                                <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
+                                            <div class="content">
+                                                <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                            </div>
+                                        </div>
+                                        <div class="top27 headcolor tenpix fontpns">
+                                            SUBJECT LINE
+                                        </div>
+                                        <div class="containe fontpnr tenpix">
+                                            {{entitiesdetails.subject}}
+                                        </div>
+                                        <div class="inlineFlex toptweenty">
+                                            <div class="half headcolor fontpns tenpix">
+                                                TO EMAIL LIST
+                                            </div>
+                                            <div class="half headcolor fontpns tenpix">
+                                                ADDITIONAL EMAIL LIST
+                                            </div>
+                                        </div>
+                                        <div class="inlineFlex toptnine">
+                                            <div class="half containe fontpnr tenpix">
+                                                {{entitiesdetails.email_list_name}}
+                                            </div>
+                                            <div class="half containe fontpnr tenpix">
+                                                ??
+                                            </div>
+                                        </div>
+                                        <div class="inlineFlex toptweenty">
+                                            <div class="half headcolor fontpns tenpix">
+                                                FROM NAME
+                                            </div>
+                                            <div class="half headcolor fontpns tenpix">
+                                                FROM EMAIl ADDRESS
+                                            </div>
+                                        </div>
+                                        <div class="inlineFlex toptnine">
+                                            <div class="half containe fontpnr tenpix">
+                                                {{entitiesdetails.from_name}}
+                                            </div>
+                                            <div class="half containe fontpnr tenpix">
+                                                {{entitiesdetails.from_address}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             
           
                <div id="light" class="white_content closepopup">
