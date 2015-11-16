@@ -458,6 +458,28 @@ function programactions($scope, $http, $window){
         });      
         
     };
+    $scope.recuringApproval = function(entity_id, template_status){
+        
+        var approval_type = {"entity_id": entity_id, "template_status":template_status};
+        
+        $http({
+            method: 'POST',
+            url: 'approveStatusRecuring.do',
+            headers: {'Content-Type':'application/json'},
+            data: JSON.stringify(approval_type)
+        }).success(function (data, status, headers, config) {
+          if (data == "true"){
+            window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+          }else {
+              alert("problem saving the record");
+          }
+        }).error(function (data, status, headers, config) {
+            alert("No data available, problem fetching the data");
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });      
+        
+    };    
     
     $scope.validate_program_link_details = function(){
       var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;  
