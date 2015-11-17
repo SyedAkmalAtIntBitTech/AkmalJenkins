@@ -1121,6 +1121,10 @@ function controllerMarketingCampaign($scope, $http) {
 
         var actiondate = $("#emaildatetime").val();
         var days=$("#emaildays").val();
+        if(days!="0")
+        {
+            actiondate="Mon Jan 01 1970";
+        }
         var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
@@ -1170,6 +1174,10 @@ function controllerMarketingCampaign($scope, $http) {
         
         var actiondate = $("#datepickerfb").val();
         var days=$("#fbdays").val();
+        if(days!="0")
+        {
+            actiondate="Mon Jan 01 1970";
+        }
         var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
@@ -1217,6 +1225,10 @@ function controllerMarketingCampaign($scope, $http) {
 
         var actiondate = $("#datepickertwitter").val();
         var days=$("#twdays").val();
+        if(days!="0")
+        {
+            actiondate="Mon Jan 01 1970";
+        }
         var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
