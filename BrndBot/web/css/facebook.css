@@ -384,7 +384,8 @@
 {display:none;
 }
 #marketing_program {
-    /*-moz-appearance: none;*/
+    -moz-appearance: none;
+    -webkit-appearance: none;
     /*background-attachment: scroll, scroll;*/
     /*background-clip: border-box, border-box;*/
     background-color: #f6f7f7 !important;
@@ -397,7 +398,7 @@
     border-radius: 3px;
     font-size: 12px;
     height: 25px;
-    width: 120px;
+    width: 120px;resize:none;
 }
 
 #programdatetime {
