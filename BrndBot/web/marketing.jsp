@@ -123,7 +123,7 @@
                             <p class="SS2 actfnt">{{entity.date| date: "MMM dd yyyy"}}</p>
                         </div>
                         <hr id="line" style="width:800px;height:1px;background-color:#888;position:relative;left:-15px;top:-20px;">
-                        <p ng-show="entity.dataArray == ''" class="MH1" id="messagetoday" style="display:block;position:relative;top:-25px;" >{{nodata}}</p>
+                        <p ng-show="entity.dataArray == ''" class="ypacttxt fontpnr" id="messagetoday" style="display:block;position:relative;top:-25px;" >{{nodata}}</p>
                         <ul>
                             <li ng-repeat="entitydetails in entity.dataArray">
                                 <div class="row" style="width:950px;position:relative;left:-40px;top:-20px;" id="entitydetails" >
@@ -133,7 +133,7 @@
                                     <div class="col-md-3" style="width:300px;margin-left:-40px;">
                                         <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
                                             <div ng-show="entitydetails.is_recuring" >
-                                                <p class="MH1 cur" ng-click="getRecuringMailDetails(entitydetails.schedule_id,
+                                                <p class="ypacttxt cur fontpnr" ng-click="getRecuringMailDetails(entitydetails.schedule_id,
                                                                 entitydetails.template_status,
                                                                 entitydetails.schedule_time,
                                                                 entitydetails.entity_type,
@@ -144,7 +144,7 @@
                                                                 entitydetails.days)">{{entitydetails.schedule_title}}</p></a>
                                             </div>
                                             <div ng-hide="entitydetails.is_recuring" >
-                                                <p class="MH1 cur" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description,entitydetails.marketingName,entitydetails.user_marketing_program_id,entitydetails.days)">{{entitydetails.schedule_title}}</p></a>
+                                                <p class="ypacttxt cur fontpnr" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description,entitydetails.marketingName,entitydetails.user_marketing_program_id,entitydetails.days)">{{entitydetails.schedule_title}}</p></a>
                                             </div>
                                             <div ng-show="entitydetails.user_marketing_program_id > 0">
                                                 <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}}&nbsp;&nbsp;&nbsp;&nbsp;{{entitydetails.marketingName}}</p>                                      </p>
@@ -177,7 +177,9 @@
                                          <div ng-hide="entitydetails.is_recuring" >
                                             <a href = "javascript:void(0)" onclick = "overlay();">
                                                 <button type="button" 
-                                                class="edtbtn" 
+                                                class="edtbtn button--moema  
+                                                   button--text-upper 
+                                                   button--size-s" 
                                                 ng-click="getScheduleDetails(entitydetails.schedule_id, 
                                                             entitydetails.template_status,
                                                             entitydetails.schedule_time, 
@@ -221,8 +223,8 @@
                     <div class="topfive fontpnr">
                         <select id="actiontype" name="actiontype">
                             <option value="0">Select</option>
-                            <option value="Facebook">Facebook</option>
-                            <option value="Twitter">Twitter</option>
+                            <option value="Facebook">Facebook Post</option>
+                            <option value="Twitter">Twitter Post</option>
                             <option value="Email">Email</option>
                             <option value="Note">Note</option>
                         </select>
@@ -236,7 +238,7 @@
                         </div>
                         <div class="tenpix fontpnr topnine containe">INCOMPLETE</div>
                     </div>-->
-                    <div class="tenpix fontpns headcolor ">SCHEDULED TO POST ON</div>
+                    <div class="tenpix topten fontpns headcolor ">SCHEDULED TO POST ON</div>
                     <div class="inlineFlex">
                         <div class="half">
                             <div class="containe fontpnr tenpix topten">

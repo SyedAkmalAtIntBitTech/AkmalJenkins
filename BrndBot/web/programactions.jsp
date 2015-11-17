@@ -317,8 +317,8 @@
                             <div class="topfive fontpnr">
                                 <select id="actiontype" name="actiontype">
                                     <option value="0">Select</option>
-                                    <option value="Facebook">Facebook</option>
-                                    <option value="Twitter">Twitter</option>
+                                    <option value="Facebook">Facebook Post</option>
+                                    <option value="Twitter">Twitter Post</option>
                                     <option value="Email">Email</option>
                                 </select>
                             </div>

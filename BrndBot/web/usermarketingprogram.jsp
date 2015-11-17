@@ -40,7 +40,21 @@
              marketing_program_id = request.getParameter("programid");
          %>
         <script>
-            
+            function validateurl(){
+                var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
+                    if (!myRegExp.test(program_url)) {
+                        alert("Please enter valid Program URL");
+                        $("#program_url").val('http://');
+                        $("#program_url").focus();
+                        return false;
+                    }
+                     if (program_url_name === "") {
+                        alert("Please enter the Program URL Name");
+                        $("#program_url_name").focus();
+                        return false;
+                    }
+                    return true;
+            }
             function validate(){
                 var program_name = $("#program_name").val();
                 var program_date_time = $("#programdatetime").val();
@@ -56,11 +70,11 @@
                     $("#programdatetime").focus();
                     return false;
                 }
-                if (program_url === "") {
-                    alert("Enter the program url");
-                    $("#program_url").focus();
-                    return false;
-                }
+//                if (program_url === "") {
+//                    alert("Enter the program url");
+//                    $("#program_url").focus();
+//                    return false;
+//                }
                 return true;
             }
             
@@ -151,26 +165,9 @@
                         $("#programdatetime").focus();
                         return false;
                     }
-                    var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
-                    if (program_url === "") {
-                        alert("Please enter valid Program URL");
-                        $("#program_url").focus();
-                        return false;
-                    }
-                    if (!myRegExp.test(program_url)) {
-                        alert("Please enter valid Program URL");
-                        $("#program_url").focus();
-                        return false;
-                    }
                     
                     
-                    
-                    if (program_url_name === "") {
-                        alert("Please enter the Program URL Name");
-                        $("#program_url_name").focus();
-                        return false;
-                    }
-                    
+                   
                     console.log("Epoch: " + schedule_time);
 
                     var myEpoch = schedule_time;
@@ -179,7 +176,7 @@
         
                     var marketing_category_id = <%= marketing_category_id %>;
                     var marketing_program_id = <%= marketing_program_id %>;
-
+                    
                     var program_details = {"program_name": program_name, 
                                            "program_date_time": d,
                                            "program_url":program_url,
@@ -197,7 +194,8 @@
                             alert("details saved successfully");
                             var redirect="programactions.jsp?program_id="+data;
                             window.open(getHost() + redirect, "_self");
-                        }else {
+                        }else 
+                        {
                             alert("problem saving the record");
                         }    
                         if (data === error) {
@@ -264,7 +262,7 @@
                             <div class="worklink fontpnr">Give a link to this workshop:</div>
                             <!--<p class="workpara">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
                             <div class="inputlink">
-                                <input id="program_url" value="" class="form-control subinputlink fontpnr" type="text" required  placeholder="Enter Link Ex. http://www.google.com">
+                                <input id="program_url" value="" class="form-control subinputlink fontpnr" type="text" required onchange="validateurl()" placeholder="Enter Link Ex. http://www.google.com">
                                 <input id="program_url_name" value="" class="top20nhalf form-control subinputlink fontpnr" type="text" required  placeholder="Enter Name for Link">
                             </div>   
                         </div> 
