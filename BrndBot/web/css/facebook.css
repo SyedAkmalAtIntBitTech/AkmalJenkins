@@ -388,7 +388,7 @@
     /*background-attachment: scroll, scroll;*/
     /*background-clip: border-box, border-box;*/
     background-color: #f6f7f7 !important;
-    background-image: none !important;
+    /*background: url('') !important;*/
 /*    background-origin: padding-box, padding-box;
     background-position: right center, 270px center;
     background-repeat: no-repeat, repeat;
@@ -1050,6 +1050,10 @@
             {
                 margin-left:3%;
                 color: #4e4e4e;
+            }
+            .ypacttxt{
+                font-size:18px;
+                color:#3F3F42;
             }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 

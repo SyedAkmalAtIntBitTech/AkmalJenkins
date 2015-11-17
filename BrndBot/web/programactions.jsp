@@ -320,7 +320,6 @@
                                     <option value="Facebook">Facebook</option>
                                     <option value="Twitter">Twitter</option>
                                     <option value="Email">Email</option>
-                                    <option value="Note">Note</option>
                                 </select>
                             </div>
                             <div class="top18 fontpns tenpix headcolor">DESCRIPTION</div>
