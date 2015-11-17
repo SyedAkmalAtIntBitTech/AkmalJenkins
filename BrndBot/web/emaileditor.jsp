@@ -546,7 +546,7 @@
                                     <p id="button"></p>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1">
-                                    <div class="emledtrsavebtn"><input id="saveButton" class="emailedtrsave fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="save"></div>
+                                    <div class="emledtrsavebtn"><input id="saveButton" class="emailedtrsave fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Continue"></div>
                                 </div>
                             </div>
                         </div>                                

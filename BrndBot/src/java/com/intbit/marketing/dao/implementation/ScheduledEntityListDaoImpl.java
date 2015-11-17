@@ -5,6 +5,7 @@
  */
 package com.intbit.marketing.dao.implementation;
 
+import com.intbit.TemplateStatus;
 import com.intbit.marketing.dao.ScheduledEntityListDao;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
@@ -60,13 +61,13 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
                         .createCriteria(TblScheduledEntityList.class)
                         .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                         .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
-                        .add(Restrictions.eq("status", "no_template"));
+                        .add(Restrictions.eq("status", TemplateStatus.no_template.toString()));
                 List<TblScheduledEntityList> entity_list = criteria.list();
                 criteria = sessionFactory.getCurrentSession()
                         .createCriteria(TblScheduledEntityList.class)
                         .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                         .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
-                        .add(Restrictions.eq("status", "template_saved"));
+                        .add(Restrictions.eq("status", TemplateStatus.template_saved.toString()));
                 List<TblScheduledEntityList> entity_list1 = criteria.list();
                 
         return (Integer)entity_list.size() + (Integer)entity_list1.size();

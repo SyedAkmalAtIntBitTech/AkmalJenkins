@@ -190,19 +190,21 @@ public class ScheduleSocialPostDAO {
         return socialPostDetails;
     }
     
-    public static JSONArray getScheduledActionsfacebook(int userid)throws SQLException{
+    public static JSONArray getScheduledActionsfacebook(int userid, Integer user_marketing_program_id)throws SQLException{
         JSONObject json_action_facebook = new JSONObject();
         JSONArray json_array_facebook = new JSONArray();
         String query = "Select * from tbl_scheduled_entity_list"
                 + " where entity_id=?"
                 + " and entity_type =?"
+                + " and user_marketing_program_id =?"
                 + " and user_id = ?";
         
         try(Connection conn = connectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(query)){
             ps.setInt(1, 0);
             ps.setString(2, ScheduledEntityType.Facebook.toString());
-            ps.setInt(3, userid);
+            ps.setInt(3, user_marketing_program_id);
+            ps.setInt(4, userid);
             try(ResultSet result_set = ps.executeQuery()){
                 while (result_set.next()){
                     
@@ -224,19 +226,21 @@ public class ScheduleSocialPostDAO {
         return json_array_facebook;
     }
 
-    public static JSONArray getScheduledActionstwitter(int userid)throws SQLException{
+    public static JSONArray getScheduledActionstwitter(int userid, Integer user_marketing_program_id)throws SQLException{
         JSONObject json_action_facebook = new JSONObject();
         JSONArray json_array_twitter = new JSONArray();
         String query = "Select * from tbl_scheduled_entity_list"
                 + " where entity_id=?"
                 + " and entity_type =?"
+                + " and user_marketing_program_id =?"
                 + " and user_id = ?";
         
         try(Connection conn = connectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(query)){
             ps.setInt(1, 0);
             ps.setString(2, ScheduledEntityType.Twitter.toString());
-            ps.setInt(3, userid);
+            ps.setInt(3, user_marketing_program_id);
+            ps.setInt(4, userid);
             
             try(ResultSet result_set = ps.executeQuery()){
                 while (result_set.next()){

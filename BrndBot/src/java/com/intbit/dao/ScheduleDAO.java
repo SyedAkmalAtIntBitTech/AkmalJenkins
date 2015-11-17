@@ -330,19 +330,21 @@ public class ScheduleDAO {
         return scheduleId;
     }
 
-    public static JSONArray getScheduledActions(int userid) throws SQLException {
+    public static JSONArray getScheduledActions(int userid, Integer user_marketing_program_id) throws SQLException {
         JSONObject json_action_facebook = new JSONObject();
         JSONArray json_array_email = new JSONArray();
         String query = "Select * from tbl_scheduled_entity_list"
                 + " where entity_id=?"
                 + " and entity_type =?"
+                + " and user_marketing_program_id =?"
                 + " and user_id = ?";
 
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, 0);
-            ps.setString(2, "email");
-            ps.setInt(3, userid);
+            ps.setString(2, ScheduledEntityType.Email.toString());
+            ps.setInt(3, user_marketing_program_id);
+            ps.setInt(4, userid);
             try (ResultSet result_set = ps.executeQuery()) {
                 while (result_set.next()) {
 

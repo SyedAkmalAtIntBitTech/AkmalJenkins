@@ -442,9 +442,11 @@ function programactions($scope, $http, $window){
         }
     };
     
-    $scope.Approval = function(entity_id, template_status){
+    $scope.Approval = function(entity_id, template_status, entity_type){
         
-        var approval_type = {"entity_id": entity_id, "template_status":template_status};
+        var approval_type = {"entity_id": entity_id, 
+                             "template_status":template_status, 
+                             "entity_type": entity_type};
         
         $http({
             method: 'POST',
@@ -453,6 +455,7 @@ function programactions($scope, $http, $window){
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
           if (data == "true"){
+            alert("template status changed successfully");
             window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
           }else {
               alert("problem saving the record");
@@ -475,6 +478,7 @@ function programactions($scope, $http, $window){
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
           if (data == "true"){
+            alert("template status changed successfully");
             window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
           }else {
               alert("problem saving the record");
@@ -1397,8 +1401,7 @@ function programactions($scope, $http, $window){
         if (type == "deleteMultiple") {
             message = "Are you sure you want to delete these Action(s)?";
             requestBody = {"type": "deleteSelected",
-                           "schedule_ids": selected_schedules_to_delete, "entity_type": "null"
-                          };
+                           "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
             responseMessage = "Selected actions were deleted successfully";
         } else if (type == "delete") {
             message = "Are you sure you want to delete this Action?";

@@ -8,7 +8,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="checksession.jsp" %>
 
-<%! SqlMethods sql_methods = new SqlMethods();
+<%!
+    SqlMethods sql_methods = new SqlMethods();
     String imageName = "";
     String logoImageName = null;
     String companyName = "";
@@ -19,7 +20,8 @@
     String[] twitteracesstoken = {"", ""};
 
 %>
-<%    try {
+<%
+    try {
         sql_methods.session = request.getSession();
         imageName = (String) sql_methods.session.getAttribute("image_file_name");
         user_id = (Integer) sql_methods.session.getAttribute("UID");
@@ -361,18 +363,31 @@
                     $("#twitteractions").show();
                 }
             }
+            var program_id = 0;
+            
+            $(document).ready(function ()
+            {
+                $("#programs").change(function(){
+                    
+                    var program_id = $("#programs").val();
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions(program_id);
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions(program_id);
+
+                });
+                
+            });
             function hidepopup() {
                 $("#popupschedule").hide();
                 $("#schedule_title").val("");
                 $("#schedule_time").val("");
             }
             function socialmediapreview($scope, $http) {
-
-                $scope.getSocialFacebookActions = function () {
+                
+                $scope.getSocialFacebookActions = function (program_id) {
 
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetScheduledActions?type=facebook'
+                        url: getHost() + 'GetScheduledActions?programid='+ program_id +'&type='+ getfacebook()
                     }).success(function (data) {
                         $scope.facebook_actions = data;
                         console.log($scope.facebook_actions);
@@ -381,18 +396,30 @@
                     });
                 };
 
-                $scope.getSocialTwitterActions = function () {
+                $scope.getSocialTwitterActions = function (program_id) {
 
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetScheduledActions?type=twitter'
+                        url: getHost() + 'GetScheduledActions?programid='+ program_id +'&type=' + gettwitter()
                     }).success(function (data) {
                         $scope.twitter_actions = data;
                     }).error(function (data) {
                         alert("request not successful");
                     });
                 };
-
+                
+                $scope.getProgramNames = function() {
+                    $http({
+                       method: 'GET',
+                       url:getHost() + 'getAllUserMarketingPrograms.do'
+                    }).success(function (data){
+                        alert(JSON.stringify(data));
+                        $scope.marketing_programs = data;
+                    }).error(function (data){
+                        alert("request not successful");
+                    });
+                };
+                
                 $scope.getSocialActions = function () {
 
                     $http({
@@ -406,6 +433,7 @@
                 };
 
             }
+            
             function validateact() {
                 var facebookactions = $("#facebookactions").val();
                 var twitteractions = $("#twitteractions").val();
@@ -548,7 +576,7 @@
             <input type="hidden" id="pagenameSend" name="pagenameSend" value='<%= ManagedPage%>'/>
 
             <div id="popupschedule" style="display:none;">
-                <div id="content">
+                <div id="content" ng-init="getProgramNames()">
                     <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                                                 Layout file name<input type="text" id="layoutxml" required><br>-->
 
@@ -562,6 +590,11 @@
                             </p>
                         </a>
                     </div>
+                    <select name="programs" id="programs" class="SH1 selectsocialact" style="font-variant: normal;">
+                        <option value="0" style="background:#fff;" >--SELECT--</option>
+                        <option style="background:#fff;" ng-repeat="programs in marketing_programs" value="{{programs.program_id}}">{{programs.name}}</option>
+                    </select><br><br>
+                    
                     <select name="facebookactions" id="facebookactions" class="SH1 selectsocialact" style="font-variant: normal;" onchange="validateact();">
                         <option value="0" style="background:#fff;" >CUSTOM FACEBOOK</option>
                         <option style="background:#fff;" ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
@@ -583,107 +616,21 @@
                     
                     <input type="text" readonly id="schedule_social_date" name="schedule_social_date" class="SH1 simplebox ptr" style="width:190px;font-variant: normal;" placeholder="DATE">
                     <script>
-                var picker = new Pikaday(
-                {
-                    field: document.getElementById('schedule_social_date'),
-                    firstDay: 1,
-                    minDate: new Date(2000, 0, 1),
-                    maxDate: new Date(2050, 12, 31),
-                    yearRange: [2000,2050]
-                });
-
+                        var picker = new Pikaday(
+                        {
+                            field: document.getElementById('schedule_social_date'),
+                            firstDay: 1,
+                            minDate: new Date(2000, 0, 1),
+                            maxDate: new Date(2050, 12, 31),
+                            yearRange: [2000,2050]
+                        });
                     </script><br>
                     <input id="schedule_social_time" type="text" name="schedule_social_time" class="SH1 simplebox ptr " style="width:150px;" placeholder="TIME"/><br>
-                 <script src="js/timepicki.js" type="text/javascript"></script>
+                <script src="js/timepicki.js" type="text/javascript"></script>
                 <script>
                     $('#schedule_social_time').timepicki();
                 </script>
-                <script src="js/bootstrap.min.js" type="text/javascript"></script>
-
-                    
-                    
-<!--                    <input type="date" class="simplebox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
-                    <select name="hour" class="selectsocialact" id="hour" style="position:relative;width:50px;top:-30px;left:205px;">
-                        <option value="00">00</option>
-                        <option value="01">01</option>
-                        <option value="02">02</option>
-                        <option value="03">03</option>
-                        <option value="04">04</option>
-                        <option value="05">05</option>
-                        <option value="06">06</option>
-                        <option value="07">07</option>
-                        <option value="08">08</option>
-                        <option value="09">09</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-
-                    </select>
-                    <select name="minute" class="selectsocialact" id="minute" style="position:relative;width:50px;top:-30px;left:210px;">
-                        <option value="00">00</option>
-                        <option value="01">01</option>
-                        <option value="02">02</option>
-                        <option value="03">03</option>
-                        <option value="04">04</option>
-                        <option value="05">05</option>
-                        <option value="06">06</option>
-                        <option value="07">07</option>
-                        <option value="08">08</option>
-                        <option value="09">09</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
-                        <option value="32">32</option>
-                        <option value="33">33</option>
-                        <option value="34">34</option>
-                        <option value="35">35</option>
-                        <option value="36">36</option>
-                        <option value="37">37</option>
-                        <option value="38">38</option>
-                        <option value="39">39</option>
-                        <option value="40">40</option>
-                        <option value="41">41</option>
-                        <option value="42">42</option>
-                        <option value="43">43</option>
-                        <option value="44">44</option>
-                        <option value="45">45</option>
-                        <option value="46">46</option>
-                        <option value="47">47</option>
-                        <option value="48">48</option>
-                        <option value="49">49</option>                            
-                        <option value="50">50</option>
-                        <option value="51">51</option>
-                        <option value="52">52</option>
-                        <option value="53">53</option>
-                        <option value="54">54</option>
-                        <option value="55">55</option>
-                        <option value="56">56</option>
-                        <option value="57">57</option>
-                        <option value="58">58</option>
-                        <option value="59">59</option>
-                    </select>
-                    <select name="AMPM" id="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
-                        <option value="AM">AM</option>
-                        <option value="PM">PM</option>
-                    </select>-->
+                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
                     <input type="hidden" name="socialscheduleid" id="socialscheduleid" value="socialmedia"/>
                     <input type="button" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;margin-left:0px;font-family:'proxima-nova',sans-serif;font-size:14px;" />   
 
