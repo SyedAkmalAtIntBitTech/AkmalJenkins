@@ -46,29 +46,36 @@ public class GetScheduledActions extends HttpServlet {
             }
             Integer userId = AuthenticationUtil.getUUID(request);            
             String type = request.getParameter("type");
+            String program_id = request.getParameter("programid");
             
-            if (type.equalsIgnoreCase(ScheduledEntityType.facebook.toString())){
-                json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(userId);
-                response.setStatus(HttpServletResponse.SC_OK);
-                response.getWriter().write(AppConstants.GSON.toJson(json_array));
-                response.getWriter().flush();
-            }else if(type.equalsIgnoreCase(ScheduledEntityType.twitter.toString())){
-                json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(userId);
-                response.setStatus(HttpServletResponse.SC_OK);
-                response.getWriter().write(AppConstants.GSON.toJson(json_array));
-                response.getWriter().flush();
-            }else if(type.equalsIgnoreCase(ScheduledEntityType.email.toString())){
-                json_array = ScheduleDAO.getScheduledActions(userId);
-                response.setStatus(HttpServletResponse.SC_OK);
-                response.getWriter().write(AppConstants.GSON.toJson(json_array));
-                response.getWriter().flush();
+            if (type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())){
+                if ((program_id != null) && !(program_id.equals("undefined"))){
+                    json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(userId, Integer.parseInt(program_id));
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.getWriter().write(AppConstants.GSON.toJson(json_array));
+                    response.getWriter().flush();
+                }
+            }else if(type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())){
+                if ((program_id != null) && !(program_id.equals("undefined"))){
+                    json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(userId, Integer.parseInt(program_id));
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.getWriter().write(AppConstants.GSON.toJson(json_array));
+                    response.getWriter().flush();
+                }
+            }else if(type.equalsIgnoreCase(ScheduledEntityType.Email.toString())){
+                if ((program_id != null) && !(program_id.equals("undefined"))){
+                    json_array = ScheduleDAO.getScheduledActions(userId, Integer.parseInt(program_id));
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.getWriter().write(AppConstants.GSON.toJson(json_array));
+                    response.getWriter().flush();
+                }
             }else if(type.equalsIgnoreCase("social")){
                 JSONArray json_social = new JSONArray();
-                json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(userId);
+                json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(userId, Integer.parseInt(program_id));
                 for (int i = 0; i< json_array.size(); i++){
                     json_social.add(json_array.get(i));
                 }
-                json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(userId);
+                json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(userId, Integer.parseInt(program_id));
                 for (int i = 0; i< json_array.size(); i++){
                     json_social.add(json_array.get(i));
                 }

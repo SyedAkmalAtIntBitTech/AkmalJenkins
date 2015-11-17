@@ -430,6 +430,30 @@ public class UserMarketingProgramController {
 
     }
 
+    @RequestMapping(value = "/getAllUserMarketingPrograms", method = RequestMethod.GET)
+    public @ResponseBody String getAllUserMarketingPrograms(HttpServletRequest request,
+            HttpServletResponse response) {
+        JSONArray json_array_marketing_program = new JSONArray();
+        try {
+
+            List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingProgram();
+            Integer i = 1;
+            for (TblUserMarketingProgram marketing_program : UserMarketingPrograms) {
+
+                org.json.JSONObject json_marketing_programming = new org.json.JSONObject();
+                json_marketing_programming.put("id", i);
+                json_marketing_programming.put("program_id", marketing_program.getId());
+                json_marketing_programming.put("name", marketing_program.getName());
+
+                json_array_marketing_program.put(json_marketing_programming);
+                i++;
+            }
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+        }
+        return json_array_marketing_program.toString();
+    }
+    
     @RequestMapping(value = "/updateUserProgram", method = RequestMethod.POST)
     public @ResponseBody
     String updateUserProgram(HttpServletRequest request,
@@ -515,6 +539,14 @@ public class UserMarketingProgramController {
             String template_status = (String) requestBodyMap.get("template_status");
             String entity_type = (String)requestBodyMap.get("entity_type");
             
+            if (entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())){
+                ApplicationContextListener.refreshFacebookScheduler();
+            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())){
+                ApplicationContextListener.refreshTwitterScheduler();
+            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())){
+                ApplicationContextListener.refreshEmailScheduler();
+            }
+            
             TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getById(entity_id.intValue());
 
             if (template_status.equalsIgnoreCase("approved")) {
@@ -524,11 +556,11 @@ public class UserMarketingProgramController {
             }
             scheduledEntityListService.update(scheduled_entity_list);
             
-            if (entity_type.equalsIgnoreCase(ScheduledEntityType.facebook.toString())){
+            if (entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())){
                 ApplicationContextListener.refreshFacebookScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.twitter.toString())){
+            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())){
                 ApplicationContextListener.refreshTwitterScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.email.toString())){
+            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())){
                 ApplicationContextListener.refreshEmailScheduler();
             }
 

@@ -79,7 +79,7 @@
         <jsp:include page="basejsp.jsp"/>
     </head>
     <body id="proghide" ng-app>
-        <div class="row" ng-controller="programactions">
+        <div class="row" ng-controller="programactions" style="display: none;">
             <div id="program_actions" class="row" ng-init="getProgramActions()">
                 <div class="col-lg-1 col-md-1 col-sm-2">
                     <jsp:include page="leftmenu.html"/> 
@@ -129,7 +129,7 @@
                             <div id="assoctdlnkprv" class="evntdt fontpns">{{programs.programdetails.link_name}}</div>
                             <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="link_name" name="link_name" class="progactinputdate fontpns ptr"/></div>
                         </div>
-                        <div id="associated_link" class="col-lg-3 col-md-3 col-sm-4" style="display:none;">
+                        <div id="associated_link" class="col-lg-3 col-md-3 col-sm-4" style="display:none;margin-left: -90px;">
                             <div class="asclink fontpnr">Associated Link</div>
                             <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
                             <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr"/></div>
@@ -267,7 +267,8 @@
                             <div class="oatlstdt fontpnr">{{programaction.postDate| date:'MMM dd'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="oatlstpost fontpnr">{{programaction.actionType}}</div>
+                            <div class="oatlstpost fontpnr" ng-show="programaction.actionType=='Facebook' || programaction.actionType=='Twitter'">{{programaction.actionType}} Post</div>
+                            <div class="oatlstpost fontpnr" ng-show="programaction.actionType=='Note' || programaction.actionType=='Email'">{{programaction.actionType}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="oatlststat fontpnr">{{programaction.status}}</div>
@@ -304,6 +305,7 @@
                             </div>
                             <div class="top18 fontpns tenpix headcolor">MARKETING PROGRAM</div>
                             <div class="topfive fontpnr">
+                                <!--<textarea name="option" disabled id="marketing_program" value="0"  class="a0">General</textarea>-->
                                 <select disabled id="marketing_program" name="option">
                                     <option value="0" class="a0">General</option>
                                     <option ng-repeat="row in marketprogram" class="a{{row.user_program_id}}" value="{{row.user_program_id}}">{{row.name}}</option>
@@ -315,10 +317,9 @@
                             <div class="topfive fontpnr">
                                 <select id="actiontype" name="actiontype">
                                     <option value="0">Select</option>
-                                    <option value="facebook">Facebook</option>
-                                    <option value="twitter">Twitter</option>
-                                    <option value="email">Email</option>
-                                    <option value="note">Note</option>
+                                    <option value="Facebook">Facebook</option>
+                                    <option value="Twitter">Twitter</option>
+                                    <option value="Email">Email</option>
                                 </select>
                             </div>
                             <div class="top18 fontpns tenpix headcolor">DESCRIPTION</div>
@@ -450,7 +451,7 @@
                                 <div class="secondcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div id="mailpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', 'email')">REMOVED SAVED POST</div>
+                                        <div id="mailpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', getemail())">REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor tenpix fontpns">
                                         PREVIEW
@@ -1219,6 +1220,7 @@
                                                 </div>
                                                 <div class="topsix">
                                                     <input id="timepickertw" type="text" name="timepickertw" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'h : mma'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
+
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
                                                         $('#timepickertw').timepicki();                                                                                                                                        
