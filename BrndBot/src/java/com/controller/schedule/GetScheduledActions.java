@@ -47,17 +47,17 @@ public class GetScheduledActions extends HttpServlet {
             Integer userId = AuthenticationUtil.getUUID(request);            
             String type = request.getParameter("type");
             
-            if (type.equalsIgnoreCase(ScheduledEntityType.facebook.toString())){
+            if (type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())){
                 json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(userId);
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write(AppConstants.GSON.toJson(json_array));
                 response.getWriter().flush();
-            }else if(type.equalsIgnoreCase(ScheduledEntityType.twitter.toString())){
+            }else if(type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())){
                 json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(userId);
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write(AppConstants.GSON.toJson(json_array));
                 response.getWriter().flush();
-            }else if(type.equalsIgnoreCase(ScheduledEntityType.email.toString())){
+            }else if(type.equalsIgnoreCase(ScheduledEntityType.Email.toString())){
                 json_array = ScheduleDAO.getScheduledActions(userId);
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write(AppConstants.GSON.toJson(json_array));

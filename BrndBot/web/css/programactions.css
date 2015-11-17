@@ -308,6 +308,7 @@
                 border:none;
                 background-color: #5cc2a5 !important;
             } 
+            .button--moema{padding:0em !important;}
             .btnpad{
                 padding:5px 38px 5px 33px !important;
             }
@@ -393,11 +394,12 @@
 {display:none;
 }
 #marketing_program {
+    resize:none;
     -moz-appearance: none;
     background-attachment: scroll, scroll;
     background-clip: border-box, border-box;
     background-color: #f6f7f7 !important;
-    background-image: url("images/dropdown.png"), none;
+    /*background-image: url("images/dropdown.png"), none;*/
     background-origin: padding-box, padding-box;
     background-position: right center, 270px center;
     background-repeat: no-repeat, repeat;
@@ -867,10 +869,10 @@
                 height:25px;
                 width:120px;
                 font-size: 12px;
-                appearance: none;
+/*                appearance: none;
                 -moz-appearance: none;
-                -webkit-appearance: none;
-                background: url(images/dropdown.png) no-repeat right center,270px center; 
+                -webkit-appearance: none;*/
+                background: url(/images/dropdown.png) no-repeat right center,270px center; 
 /*                
                 background-color: #ffffff;
                 border: 1px solid #DADADA;

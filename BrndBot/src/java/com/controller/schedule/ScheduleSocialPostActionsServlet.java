@@ -180,9 +180,9 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
         List<String> errorMsgs = validateJsonData(tokenDataString,
                 " is missing in token data JSON Object" , ()->{
             Set<String> requiredKeys = new HashSet<>();
-            if ( ScheduledEntityType.facebook.toString().equals(postType)){
+            if (postType.contains(ScheduledEntityType.Facebook.toString())){
                 requiredKeys.add("access_token");
-            }else if(ScheduledEntityType.twitter.toString().equals(postType)){
+            }else if(postType.contains(ScheduledEntityType.Twitter.toString())){
                 requiredKeys.add("access_token");
                 requiredKeys.add("token_secret");
             }
@@ -196,11 +196,11 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
         List<String> errorMsgs = validateJsonData(metadataString,  
                 " is missing in metadata JSON Object", ()->{
             Set<String> requiredKeys = new HashSet<>();
-            if ( ScheduledEntityType.facebook.toString().equals(postType)){
+            if (postType.contains(ScheduledEntityType.Facebook.toString())){
                 requiredKeys.add("post_text");
                 requiredKeys.add("url");
                 requiredKeys.add("description");
-            }else if(ScheduledEntityType.twitter.toString().equals(postType)){
+            }else if(postType.contains(ScheduledEntityType.Twitter.toString())){
                 requiredKeys.add("text");
             }
             return requiredKeys;

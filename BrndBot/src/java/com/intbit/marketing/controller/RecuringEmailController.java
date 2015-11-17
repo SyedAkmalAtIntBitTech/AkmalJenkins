@@ -289,7 +289,7 @@ public class RecuringEmailController {
         
         schedule_entity_list.setId(0);
         schedule_entity_list.setEntityId(email_list_id);
-        schedule_entity_list.setEntityType(ScheduledEntityType.email.toString());
+        schedule_entity_list.setEntityType(ScheduledEntityType.Email.toString());
         schedule_entity_list.setIsRecuring(Boolean.TRUE);
         schedule_entity_list.setRecuringEmailId(null);
         schedule_entity_list.setScheduleDesc(recuring_email_description);
@@ -371,7 +371,7 @@ public class RecuringEmailController {
         
         schedule_entity_list.setId(Integer.parseInt(entity_id));
         schedule_entity_list.setEntityId(email_list_id);
-        schedule_entity_list.setEntityType(ScheduledEntityType.email.toString());
+        schedule_entity_list.setEntityType(ScheduledEntityType.Email.toString());
         schedule_entity_list.setIsRecuring(Boolean.TRUE);
         schedule_entity_list.setScheduleDesc(recuring_email_description);
         schedule_entity_list.setScheduleTime(time);
@@ -439,7 +439,7 @@ public class RecuringEmailController {
         Integer email_list_id = (Integer)schedule_entity_list.getEntityId();
 
         schedule_entity_list.setId(Integer.parseInt(entity_id));
-        schedule_entity_list.setEntityType(ScheduledEntityType.email.toString());
+        schedule_entity_list.setEntityType(ScheduledEntityType.Email.toString());
         schedule_entity_list.setIsRecuring(Boolean.TRUE);
         schedule_entity_list.setScheduleDesc(recuring_email_description);
         schedule_entity_list.setScheduleTime(time);

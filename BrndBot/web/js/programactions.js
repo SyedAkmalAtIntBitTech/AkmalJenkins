@@ -414,6 +414,8 @@ function setTodaysDate() {
 function programactions($scope, $http, $window){
                 
     $scope.endMarketingProgram = function(){
+        var delconf=confirm("Do you really want to End this Program?");
+        if(delconf===true){
       var program_id = {"program_id": program};
       
         $http({
@@ -423,7 +425,9 @@ function programactions($scope, $http, $window){
             data: JSON.stringify(program_id)
         }).success(function (data, status, headers, config) {
             if (data == "true"){
-              window.open(getHost() + 'marketingprogramlist.jsp', "_self");
+                
+                  window.open(getHost() + 'marketingprogramlist.jsp', "_self");
+                
             }else {
                 alert("problem saving the record");
             }
@@ -433,7 +437,9 @@ function programactions($scope, $http, $window){
             // or server returns response with an error status.
         });      
       
-      
+        }else{
+            
+        }
     };
     
     $scope.Approval = function(entity_id, template_status){
@@ -634,7 +640,7 @@ function programactions($scope, $http, $window){
       };
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
         $edit=1;  
-        if (entity_type == "email") {
+        if (entity_type == getemail()) {
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
@@ -673,7 +679,7 @@ function programactions($scope, $http, $window){
                 alert("request not successful");
             });
 
-        } else if (entity_type == "facebook") {
+        } else if (entity_type == getfacebook()) {
 
             $http({
                 method: 'GET',
@@ -712,7 +718,7 @@ function programactions($scope, $http, $window){
                 alert("request not successful");
             });
 
-        } else if (entity_type == "twitter") {
+        } else if (entity_type == gettwitter()) {
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
@@ -756,7 +762,7 @@ function programactions($scope, $http, $window){
                 alert("request not successful");
             });
 
-        } else if (entity_type == "note") {
+        } else if (entity_type == getnote()) {
             $("#noteprev").hide();
             $("#noteedit").show();
             $http({
@@ -778,7 +784,7 @@ function programactions($scope, $http, $window){
     };
     $scope.showScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
 
-        if (entity_type == "email") {
+        if (entity_type == getemail()) {
             sliderDialog = "#preview";
             $('#slider-button').click();
             prevSliderDialog = "#preview";
@@ -814,7 +820,7 @@ function programactions($scope, $http, $window){
             });
 
         } 
-        else if (entity_type == "facebook") {
+        else if (entity_type == getfacebook()) {
             sliderDialog = "#previewfb";
             $('#slider-button').click();
             prevSliderDialog = "#previewfb";
@@ -844,7 +850,7 @@ function programactions($scope, $http, $window){
                 alert("request not successful");
             });
 
-        } else if (entity_type == "twitter") {
+        } else if (entity_type == gettwitter()) {
             sliderDialog = "#previewtwitter";
             $('#slider-button').click();
             prevSliderDialog = "#previewtwitter";
@@ -875,7 +881,7 @@ function programactions($scope, $http, $window){
                 alert("request not successful");
             });
 
-        } else if (entity_type == "note") {
+        } else if (entity_type == getnote()) {
             sliderDialog = "#previewNote";
             $('#slider-button').click();
             prevSliderDialog = "#previewNote";
@@ -996,7 +1002,7 @@ function programactions($scope, $http, $window){
                                           schedule_title, schedule_desc, 
                                           post_time, action_status) {
        
-        if (entity_type == "email") {
+        if (entity_type == getemail()) {
             
             $slider=2;
             sliderDialog = "#preview";
@@ -1052,7 +1058,7 @@ function programactions($scope, $http, $window){
             }).error(function (data) {
                 alert("request not successful ");
             });
-        } else if (entity_type == "facebook") {
+        } else if (entity_type == getfacebook()) {
             $slider=2;
             sliderDialog = "#previewfb";
             $('#slider-button').click();
@@ -1104,7 +1110,7 @@ function programactions($scope, $http, $window){
                 alert("request not successful");
             });
 
-        } else if (entity_type == "twitter") {
+        } else if (entity_type == gettwitter()) {
             $slider=2;
             sliderDialog = "#previewtwitter";
             $('#slider-button').click();
@@ -1155,7 +1161,7 @@ function programactions($scope, $http, $window){
             }).error(function (data) {
                 alert("request not successful");
             });
-        } else if (entity_type == "note") {
+        } else if (entity_type == getnote()) {
             $slider=1;
             sliderDialog = "#previewNote";
             $('#slider-button').click();
@@ -1462,7 +1468,7 @@ function programactions($scope, $http, $window){
 
  
         var schedule_details = {
-            "type": "note",
+            "type": "Note",
             "schedule_id": schedule_id,
             "schedule_title": note_title,
             "schedule_desc": note_desc,

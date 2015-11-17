@@ -106,7 +106,7 @@ public class ScheduleDAO {
                         marketingType,
                         scheduleDesc,
                         scheduledTime,
-                        ScheduledEntityType.email.toString(),
+                        ScheduledEntityType.Email.toString(),
                         "0",
                         templateStatus,
                         userId,
@@ -562,7 +562,7 @@ System.out.println("dateSet"+dateSet.toString());
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, userId);
                 ps.setInt(2, scheduleId);
-                ps.setString(3, ScheduledEntityType.email.toString());
+                ps.setString(3, ScheduledEntityType.Email.toString());
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
                         scheduleEmailId = rs.getInt("id");
@@ -612,7 +612,7 @@ System.out.println("dateSet"+dateSet.toString());
                         if (result_set.next()) {
                             Integer entity_id = result_set.getInt("entity_id");
                             String entity_type = result_set.getString("entity_type");
-                            if (entity_type.equalsIgnoreCase(ScheduledEntityType.email.toString())) {
+                            if (entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
                                 String query_string1 = "Delete from tbl_scheduled_email_list"
                                         + " where id = ?";
                                 try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
@@ -622,8 +622,8 @@ System.out.println("dateSet"+dateSet.toString());
                                     logger.log(Level.SEVERE, util.Utility.logMessage(e,
                                             "Exception while deleting the schedule:", null), e);
                                 }
-                            } else if ((entity_type.equalsIgnoreCase(ScheduledEntityType.facebook.toString()))
-                                    || (entity_type.equalsIgnoreCase(ScheduledEntityType.twitter.toString()))) {
+                            } else if ((entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString()))
+                                    || (entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString()))) {
                                 String query_string1 = "Delete from tbl_scheduled_socialpost_list"
                                         + " where id = ?";
                                 try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
@@ -668,7 +668,7 @@ System.out.println("dateSet"+dateSet.toString());
                     if (result_set.next()) {
                         Integer entity_id = result_set.getInt("entity_id");
                         String entity_type = result_set.getString("entity_type");
-                        if (entity_type.equalsIgnoreCase(ScheduledEntityType.email.toString())) {
+                        if (entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
                             String query_string1 = "Delete from tbl_scheduled_email_list"
                                     + " where id = ?";
                             try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
@@ -678,8 +678,8 @@ System.out.println("dateSet"+dateSet.toString());
                                 logger.log(Level.SEVERE, util.Utility.logMessage(e,
                                         "Exception while deleting the schedule:", null), e);
                             }
-                        } else if ((entity_type.equalsIgnoreCase(ScheduledEntityType.facebook.toString()))
-                                || (entity_type.equalsIgnoreCase(ScheduledEntityType.twitter.toString()))) {
+                        } else if ((entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString()))
+                                || (entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString()))) {
                             String query_string1 = "Delete from tbl_scheduled_socialpost_list"
                                     + " where id = ?";
                             try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {

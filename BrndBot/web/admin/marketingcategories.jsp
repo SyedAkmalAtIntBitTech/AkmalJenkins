@@ -230,7 +230,7 @@
                 </form>
             </div>
             <div>
-                <img src="" id="previewimage" />
+                <img src="" id="previewimage" style="max-width:250px;max-height:150px;height:auto;width:auto;"/>
             </div>
             <br>
             <div ng-init="getMarketingCategories()" style="margin-top: 0px;">

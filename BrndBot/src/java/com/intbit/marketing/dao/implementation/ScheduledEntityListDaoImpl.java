@@ -263,7 +263,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                      .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId))
                      .add(Restrictions.eq("isRecuring", isRecuring))
-                     .add(Restrictions.eq("entityType", "email"));		
+                     .add(Restrictions.eq("entityType", "Email"));		
                    return criteria.list();
 		} catch (Throwable throwable) {
                    logger.log(Level.SEVERE, null, throwable);
@@ -278,8 +278,8 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
                     .createCriteria(TblScheduledEntityList.class)
                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                      .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId));
-                    Criterion rest1= Restrictions.and(Restrictions.eq("entityType", "twitter"));
-                    Criterion rest2= Restrictions.and(Restrictions.eq("entityType", "facebook"));
+                    Criterion rest1= Restrictions.and(Restrictions.eq("entityType", "Twitter"));
+                    Criterion rest2= Restrictions.and(Restrictions.eq("entityType", "Facebook"));
                     criteria.add(Restrictions.or(rest1, rest2));
                    return criteria.list();
 		} catch (Throwable throwable) {

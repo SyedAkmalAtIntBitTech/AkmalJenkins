@@ -305,10 +305,10 @@
                        
                         Type:<select id="type" name="type">
                                 <option value="0">--Select--</option>
-                                <option value="email">email</option>
-                                <option value="facebook">facebook</option>
-                                <option value="twitter">twitter</option>
-                                <option value="note">note</option>
+                                <option value="Email">Email</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="Twitter">Twitter</option>
+                                <option value="Note">Note</option>
                             </select>
                         <br><br>
                         <button type="button" id="saveaction" name="saveaction" class="btn btn-info" ng-click="createMarketingActionsJSON()">Save Action</button>

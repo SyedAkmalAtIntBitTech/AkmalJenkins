@@ -44,5 +44,21 @@ function getColor5(){
 function getColor6(){
     return "color6";
 }
+function getemail(){
+    return "Email";
+}
+
+function getfacebook(){
+    return "Facebook";
+}
+
+function gettwitter(){
+    return "Twitter";
+}
+
+function getnote(){
+    return "Note";
+}
+
 
 String.prototype.contains = function(it) { return this.indexOf(it) != -1; };

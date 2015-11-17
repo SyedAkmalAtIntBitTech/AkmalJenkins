@@ -122,11 +122,11 @@ public class ChangeScheduleServlet extends HttpServlet {
                 String entity_type = (String)requestBodyMap.get("entity_type");
                 String is_recuring = (String)requestBodyMap.get("isRecuring");
                 ScheduleDAO.deleteSchedule(userId, schedule_ids.intValue());
-                if (entity_type.equals(ScheduledEntityType.email.toString())){
+                if (entity_type.equals(ScheduledEntityType.Email.toString())){
                     ApplicationContextListener.refreshEmailScheduler();
-                }else if(entity_type.equals(ScheduledEntityType.facebook.toString())){
+                }else if(entity_type.equals(ScheduledEntityType.Facebook.toString())){
                     ApplicationContextListener.refreshFacebookScheduler();
-                }else if(entity_type.equals(ScheduledEntityType.twitter.toString())){
+                }else if(entity_type.equals(ScheduledEntityType.Twitter.toString())){
                     ApplicationContextListener.refreshTwitterScheduler();
                 }
                 if (is_recuring.equals("true")){
@@ -140,11 +140,11 @@ public class ChangeScheduleServlet extends HttpServlet {
                 String entity_type = (String)requestBodyMap.get("entity_type");
                 String is_recuring = (String)requestBodyMap.get("isRecuring");
                 ScheduleDAO.removeSavedTemplate(userId, schedule_ids.intValue());
-                if (entity_type.equals(ScheduledEntityType.email.toString())){
+                if (entity_type.equals(ScheduledEntityType.Email.toString())){
                     ApplicationContextListener.refreshEmailScheduler();
-                }else if(entity_type.equals(ScheduledEntityType.facebook.toString())){
+                }else if(entity_type.equals(ScheduledEntityType.Facebook.toString())){
                     ApplicationContextListener.refreshFacebookScheduler();
-                }else if(entity_type.equals(ScheduledEntityType.twitter.toString())){
+                }else if(entity_type.equals(ScheduledEntityType.Twitter.toString())){
                     ApplicationContextListener.refreshTwitterScheduler();
                 }
                 if (is_recuring.equals("true")){

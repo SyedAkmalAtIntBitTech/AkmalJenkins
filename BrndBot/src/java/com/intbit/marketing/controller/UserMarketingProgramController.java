@@ -517,11 +517,11 @@ public class UserMarketingProgramController {
             String template_status = (String) requestBodyMap.get("template_status");
             String entity_type = (String)requestBodyMap.get("entity_type");
             
-            if (entity_type.equalsIgnoreCase(ScheduledEntityType.facebook.toString())){
+            if (entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())){
                 ApplicationContextListener.refreshFacebookScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.twitter.toString())){
+            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())){
                 ApplicationContextListener.refreshTwitterScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.email.toString())){
+            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())){
                 ApplicationContextListener.refreshEmailScheduler();
             }
             

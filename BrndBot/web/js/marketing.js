@@ -481,6 +481,9 @@ $scope.SaveData = function () {
 
 function controllerMarketingCampaign($scope, $http) {
     $scope.entities_selected_time = "";
+    $scope.facebook = "Facebook";
+    $scope.twitter = "Twitter";
+    
     $scope.getCampaigns = function () {
         var curr_date = '';
         var tomorrowDate = '';
@@ -511,6 +514,7 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.entitySet = data.entitydata;
             $scope.nodata = data.noactionsmessage;
             $("#default").css("display", "block");
+
 //            $("#selected").css("display","none");            
             //console.log($scope.entitySet);
         }).error(function (data) {
@@ -583,7 +587,7 @@ function controllerMarketingCampaign($scope, $http) {
 
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
         $edit=1;  
-        if (entity_type == "email") {
+        if (entity_type == getemail()) {
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
@@ -623,7 +627,7 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful");
             });
 
-        } else if (entity_type == "facebook") {
+        } else if (entity_type == getfacebook()) {
 
             $http({
                 method: 'GET',
@@ -662,7 +666,7 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful");
             });
 
-        } else if (entity_type == "twitter") {
+        } else if (entity_type == gettwitter()) {
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
@@ -706,7 +710,7 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful");
             });
 
-        } else if (entity_type == "note") {
+        } else if (entity_type == getnote()) {
             $("#noteprev").hide();
             $("#noteedit").show();
             $http({
@@ -732,11 +736,10 @@ function controllerMarketingCampaign($scope, $http) {
 
     $scope.showScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
 
-        if (entity_type == "email") {
+        if (entity_type == getemail()) {
             sliderDialog = "#preview";
             $('#slider-button').click();
             prevSliderDialog = "#preview";
-
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
@@ -767,7 +770,7 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful");
             });
 
-        } else if (entity_type == "facebook") {
+        } else if (entity_type == getfacebook()) {
             sliderDialog = "#previewfb";
             $('#slider-button').click();
             prevSliderDialog = "#previewfb";
@@ -797,7 +800,7 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful");
             });
 
-        } else if (entity_type == "twitter") {
+        } else if (entity_type == gettwitter()) {
             sliderDialog = "#previewtwitter";
             $('#slider-button').click();
             prevSliderDialog = "#previewtwitter";
@@ -828,7 +831,7 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful");
             });
 
-        } else if (entity_type == "note") {
+        } else if (entity_type == getnote()) {
             sliderDialog = "#previewNote";
             $('#slider-button').click();
             prevSliderDialog = "#previewNote";
@@ -879,8 +882,10 @@ function controllerMarketingCampaign($scope, $http) {
             });
     }
 
-    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days) {
-       if (entity_type == "email") {
+
+    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName) {
+        
+        if (entity_type == getemail()) {
             $slider=2;
             sliderDialog = "#preview";
             $('#slider-button').click();
@@ -936,7 +941,7 @@ function controllerMarketingCampaign($scope, $http) {
             }).error(function (data) {
                 alert("request not successful");
             });
-        } else if (entity_type == "facebook") {
+        } else if (entity_type == getfacebook()) {
             $slider=2;
             sliderDialog = "#previewfb";
             $('#slider-button').click();
@@ -990,7 +995,7 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful");
             });
 
-        } else if (entity_type == "twitter") {
+        } else if (entity_type == gettwitter()) {
             $slider=2;
             sliderDialog = "#previewtwitter";
             $('#slider-button').click();
@@ -1043,7 +1048,7 @@ function controllerMarketingCampaign($scope, $http) {
             }).error(function (data) {
                 alert("request not successful");
             });
-        } else if (entity_type == "note") {
+        } else if (entity_type == getnote()) {
             $slider=1;
             sliderDialog = "#previewNote";
             $('#slider-button').click();
@@ -1311,17 +1316,17 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
             {
                 $scope.status = data;
                 if (data !== "") {
-                    if(section == "facebook")
+                    if(section == getfacebook())
                     {
                         $("#fbpreviewdecond").hide();
                         $("#fbremovedtemplate").show();                        
                     }
-                    if(section == "twitter")
+                    if(section == gettwitter())
                     {
                         $("#twpreviewdecond").hide();
                         $("#twremovedtemplate").show();                     
                     }
-                    if(section == "email")
+                    if(section == getemail())
                     {
                         $("#mailpreviewdecond").hide();
                         $("#mailremovedtemplate").show();                     
@@ -1357,7 +1362,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
 
  
         var schedule_details = {
-            "type": "note",
+            "type": getnote(),
             "schedule_id": schedule_id,
             "schedule_title": note_title,
             "schedule_desc": note_desc,
@@ -1449,7 +1454,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
 
         var social_type = $("#social_type").val();
 
-        if (social_type == "facebook") {
+        if (social_type == getfacebook()) {
 
             if ($scope.validatefacebook()) {
 
@@ -1503,7 +1508,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                 });
 
             }
-        } else if (social_type == "twitter") {
+        } else if (social_type == gettwitter()) {
 
             if ($scope.validatetwitter()) {
 

@@ -95,7 +95,7 @@
                         </div>
                         
                         <a href = "javascript:void(0)" class="topten">
-                            <button id="liPriority" onclick = "overlay();" class="button button--moema button--text-thick button--text-upper button--size-s1" ng-click="ShowAddAction()">ADD ACTION</button>
+                            <button id="liPriority" onclick = "overlay();" class="addactbtn button button--moema button--text-thick button--text-upper button--size-s1" ng-click="ShowAddAction()">ADD ACTION</button>
                         </a>
                         <div class="topten">
                         <button id="delsel" class="button button--moema button--text-thick button--text-upper button--size-s2" style="display:none;" ng-click="deleteSchedule('0','deleteMultiple')">DELETE SELECTED</button> 
@@ -152,9 +152,12 @@
                                         <div ng-show="entitydetails.user_marketing_program_id == 0">
                                             <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}} &nbsp;&nbsp;&nbsp;&nbsp; No Program</p>
                                         </div>
+
                                     </div>
-                                    <div class="col-md-2 MH1 socfnts">{{entitydetails.entity_type}}</div>
+                                    <div class="col-md-2 MH1 socfnts" ng-show="entitydetails.entity_type=='Facebook' || entitydetails.entity_type=='Twitter'">{{entitydetails.entity_type}} Post</div>
+                                    <div class="col-md-2 MH1 socfnts" ng-show="entitydetails.entity_type=='Email' || entitydetails.entity_type=='Note'">{{entitydetails.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entitydetails.template_status}}</div>
+
                                     <div class="col-md-2" style="margin-left:20px;">
                                         <div ng-show="entitydetails.is_recuring" >
                                             <a href = "javascript:void(0)" onclick = "overlay();">
@@ -218,10 +221,10 @@
                     <div class="topfive fontpnr">
                         <select id="actiontype" name="actiontype">
                             <option value="0">Select</option>
-                            <option value="facebook">Facebook</option>
-                            <option value="twitter">Twitter</option>
-                            <option value="email">Email</option>
-                            <option value="note">Note</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Twitter">Twitter</option>
+                            <option value="Email">Email</option>
+                            <option value="Note">Note</option>
                         </select>
                     </div>
                     <div class="top18 fontpns tenpix headcolor">DESCRIPTION</div>
@@ -372,21 +375,21 @@
                                 <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
                                 <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                             </div>
-                            <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
-                            <div class="topten titlecontain sixtnpix fontpns">
+                            <div class="top26 headcolor twlvpix fontpns">ACTION DETAILS</div>
+                            <div class="top8 titlecontain sixtnpix fontpns">
                                 {{schedule_title}}
                             </div>
-                            <div class="toptweentyone headcolor tenpix fontpns">
+                            <div class="toptweentyone headcolor twlvpix fontpns">
                                 DESCRIPTION
                             </div>
                             <div class="height75 scrolly topten">
                                 <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
                             </div>
                             <div class="inlineFlex toptweenty">
-                                <div class="half headcolor fontpns tenpix">
+                                <div class="half headcolor fontpns twlvpix">
                                     STATUS
                                 </div>
-                                <div class="half headcolor fontpns tenpix">
+                                <div class="half headcolor fontpns twlvpix">
                                     MARKETING PROGRAM
                                 </div>
                             </div>
@@ -409,7 +412,7 @@
                             <div class="topfourty headtitle pfont actfnt fontpnr">
                                 POSTING DETAILS
                             </div>
-                            <div class="toptweenty headcolor tenpix fontpns">
+                            <div class="toptweenty headcolor twlvpix fontpns">
                                 SCHEDULED TO POST ON
                             </div>
                             <div class="containe fontpnr tenpix">
@@ -467,7 +470,7 @@
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
                                 <div id="mailpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','email')">REMOVED SAVED POST</div>
                             </div>
-                            <div class="toptweentyone headcolor tenpix fontpns">
+                            <div class="toptweentyone headcolor twlvpix fontpns">
                                 PREVIEW
                             </div>
                              <div id="mailremovedtemplate">
@@ -732,13 +735,13 @@
                                             <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
                                             <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                                         </div>
-                                        <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                                        <div class="toptweenty headcolor twlvpix fontpns">ACTION DETAILS</div>
                                         <div class="topten titlecontain sixtnpix fontpns">
                                            <textarea id="email_edit_title" name="email_edit_title" class="actiondetinput fontpns">{{schedule_title}}</textarea>
                                            <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' />
                                            <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}'/></p>
                                         </div>
-                                        <div class="top12 headcolor tenpix fontpns">
+                                        <div class="top12 headcolor twlvpix fontpns">
                                             DESCRIPTION
                                         </div>
                                         <div class="height75 topten">
@@ -746,10 +749,10 @@
                                                 <textarea class="actiondetdesc"id="email_description" name="email_description">{{schedule_desc}}</textarea></p>
                                         </div>
                                         <div class="inlineFlex topten">
-                                            <div class="half headcolor fontpns tenpix topten">
+                                            <div class="half headcolor fontpns twlvpix topten">
                                                 STATUS
                                             </div>
-                                            <div class="half headcolor fontpns tenpix topten">
+                                            <div class="half headcolor fontpns twlvpix topten">
                                                 MARKETING PROGRAM
                                             </div>
                                         </div>
@@ -772,16 +775,16 @@
                                                 {{marketing_program_name}}
                                             </div>
                                         </div>
-                                        <div class="topthirty8 pfont actfnt fontpnr">
+                                        <div class="top26 pfont actfnt fontpnr">
                                             POSTING DETAILS
                                         </div>
-                                        <div class="topnineteen tenpix fontpns postto">  
+                                        <div class="topnineteen twlvpix fontpns postto">  
                                             POSTING TO
                                         </div>
                                         <div class="containe fontpnr twlvpix topten">
                                             {{schedule_type}}
                                         </div>
-                                        <div class="toptweenty headcolor tenpix fontpns">
+                                        <div class="toptweenty headcolor twlvpix fontpns">
                                             SCHEDULED TO POST ON
                                         </div>
                                         <div class="inlineFlex">
@@ -838,7 +841,7 @@
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
                                 <div id="maileditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','email')">REMOVED SAVED POST</div>
                             </div>
-                            <div class="toptweentyone headcolor tenpix fontpns">
+                            <div class="toptweentyone headcolor twlvpix fontpns">
                                 PREVIEW
                             </div>
                              <div id="mailremovedtemplate2">
@@ -976,21 +979,21 @@
                                         <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
                                         <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                                     </div>
-                                    <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                                    <div class="topthirty headcolor twlvpix fontpns">ACTION DETAILS</div>
                                     <div class="topten titlecontain sixtnpix fontpns">
                                         {{schedule_title}}
                                     </div>
-                                    <div class="toptweentyone headcolor tenpix fontpns">
+                                    <div class="toptweentyone headcolor twlvpix fontpns">
                                         DESCRIPTION
                                     </div>
                                     <div class="height75 scrolly topten">
                                         <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
                                     </div>
                                     <div class="inlineFlex toptweenty">
-                                        <div class="half headcolor fontpns tenpix">
+                                        <div class="half headcolor fontpns twlvpix">
                                             STATUS
                                         </div>
-                                        <div class="half headcolor fontpns tenpix">
+                                        <div class="half headcolor fontpns twlvpix">
                                             MARKETING PROGRAM
                                         </div>
                                     </div>
@@ -1017,10 +1020,10 @@
                                         POSTING DETAILS
                                     </div>
                                     <div class="inlineFlex topnineteen">
-                                        <div class="half headcolor fontpns tenpix">
+                                        <div class="half headcolor fontpns twlvpix">
                                             POSTING TO
                                         </div>
-                                        <div class="half headcolor fontpns tenpix">
+                                        <div class="half headcolor fontpns twlvpix">
                                             MANAGED PAGE
                                         </div>
                                     </div>
@@ -1032,7 +1035,7 @@
                                             {{entitiesdetails.metadata.ManagedPage}}
                                         </div>
                                     </div>
-                                    <div class="toptweenty headcolor tenpix fontpns">
+                                    <div class="toptweenty headcolor twlvpix fontpns">
                                         SCHEDULED TO POST ON
                                     </div>
                                     <div class="containe fontpnr tenpix">
@@ -1055,7 +1058,7 @@
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
                                         <div id="fbpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','facebook')">REMOVED SAVED POST</div>
                                     </div>
-                                    <div class="toptweentyone headcolor tenpix fontpns">
+                                    <div class="toptweentyone headcolor twlvpix fontpns">
                                         PREVIEW
                                     </div>
                                     <div id="fbremovedtemplate">
@@ -1391,13 +1394,13 @@
                                         <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
                                         <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                                     </div>
-                                    <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                                    <div class="toptweenty headcolor twlvpix fontpns">ACTION DETAILS</div>
                                     <div class="topten titlecontain sixtnpix fontpns">
                                        <textarea id="fb_action_title" name="fb_action_title" class="actiondetinput fontpns">{{schedule_title}}</textarea>
                                        <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{schedule_type}}'/>
                                        <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{schedule_id}}'/>
                                     </div>
-                                    <div class="top12 headcolor tenpix fontpns">
+                                    <div class="top12 headcolor twlvpix fontpns">
                                         DESCRIPTION
                                     </div>
                                     <div class="height75 topten">
@@ -1405,10 +1408,10 @@
                                             <textarea name="fb_description" id="fb_description" class="actiondetdesc">{{schedule_desc}}</textarea></p>
                                     </div>
                                     <div class="inlineFlex topten">
-                                        <div class="half headcolor fontpns tenpix topten">
+                                        <div class="half headcolor fontpns twlvpix topten">
                                             STATUS
                                         </div>
-                                        <div class="half headcolor fontpns tenpix topten">
+                                        <div class="half headcolor fontpns twlvpix topten">
                                             MARKETING PROGRAM
                                         </div>
                                     </div>
@@ -1431,14 +1434,14 @@
                                             {{marketing_program_name}}
                                         </div>
                                     </div>
-                                     <div class="topthirty8 pfont actfnt fontpnr">
+                                     <div class="topthirty pfont actfnt fontpnr">
                                         POSTING DETAILS
                                     </div>
                                      <div class="inlineFlex topten">
-                                        <div class="half headcolor fontpns tenpix topten">
+                                        <div class="half headcolor fontpns twlvpix topten">
                                             POSTING TO
                                         </div>
-                                        <div class="half headcolor fontpns tenpix topten">
+                                        <div class="half headcolor fontpns twlvpix topten">
                                             MANAGED PAGE
                                         </div>
                                     </div>
@@ -1514,7 +1517,7 @@
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
                                         <div id="fbeditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','facebook')">REMOVED SAVED POST</div>
                                     </div>
-                                    <div class="toptweentyone headcolor tenpix fontpns">
+                                    <div class="toptweentyone headcolor twlvpix fontpns">
                                         PREVIEW
                                     </div>
                                     <div id="fbremovedtemplate2">
@@ -1664,18 +1667,18 @@
                                     <div class="headtitle pfont actfnt fontpnr">NOTE DETAILS</div>
                                     <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                                 </div>
-                                <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                                <div class="topthirty headcolor twlvpix fontpns">ACTION DETAILS</div>
                                 <div class="topten titlecontain sixtnpix fontpns">
                                     {{schedule_title}}
                                 </div>
-                                <div class="toptweentyone headcolor tenpix fontpns">
+                                <div class="toptweentyone headcolor twlvpix fontpns">
                                     DESCRIPTION
                                 </div>
                                 <div class="height75 scrolly topten">
                                     <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
                                 </div>
                                 <div class="inlineFlex top32">
-                                    <div class="headcolor fontpns tenpix">
+                                    <div class="headcolor fontpns twlvpix">
                                         STATUS
                                     </div>
                                 </div>
@@ -1748,13 +1751,13 @@
                                     <div class="headtitle pfont actfnt fontpnr">NOTE DETAILS</div>
                                     <div class="headdeletenote h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                             </div>
-                            <div class="tenpix headcolor fontpns topthirty">ACTION NAME</div>
+                            <div class="twlvpix headcolor fontpns topthirty">ACTION NAME</div>
                             <div><textarea class="addactiondetinput top8 fontpns" id="note_title" name="note_title" >{{schedule_title}}</textarea></div>
                             <input class="inputbox SP1" type="hidden" name="note_schedule_id" id="note_schedule_id" value='{{schedule_id}}'/></p>
                             <input class="inputbox SP1" type="hidden" name="note_entity_id" id="note_entity_id" value='{{entitiesdetails.id}}'/></p>
-                            <div class="top12 fontpns tenpix headcolor">DESCRIPTION</div>
+                            <div class="top12 fontpns twlvpix headcolor">DESCRIPTION</div>
                             <div class="topten"><textarea class="addactiondesc fontpnr" id="note_desc" name="note_desc">{{schedule_desc}}</textarea></div>
-                            <div class="toptweenty fontpns tenpix headcolor">STATUS</div>
+                            <div class="toptweenty fontpns twlvpix headcolor">STATUS</div>
                             
                             <div class="containe fontpnr tenpix inlineFlex" id="noteincomplete">
                                 <div class="rightfive toptwo">
@@ -1777,9 +1780,9 @@
                             </div>
                             
                             
-                            <div class="toptweenty fontpns tenpix headcolor">MARKETING PROGRAM</div>
+                            <div class="toptweenty fontpns twlvpix headcolor">MARKETING PROGRAM</div>
                             <div class="tenpix fontpnr topnine containe">{{marketing_program_name}}</div>
-                            <div class="tenpix fontpns headcolor toptweenty">SCHEDULED TO POST ON</div>
+                            <div class="twlvpix fontpns headcolor toptweenty">SCHEDULED TO POST ON</div>
                             <div class="inlineFlex">
                                 <div class="half">
                                     <div class="containe fontpnr tenpix topten">
@@ -1885,11 +1888,11 @@
                                     <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
                                     <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')">DELETE ACTION</div>
                                 </div>
-                                <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                                <div class="topthirty headcolor twlvpix fontpns">ACTION DETAILS</div>
                                 <div class="topten titlecontain sixtnpix fontpns">
                                     {{schedule_title}}
                                 </div>
-                                <div class="toptweentyone headcolor tenpix fontpns">
+                                <div class="toptweentyone headcolor twlvpix fontpns">
                                     DESCRIPTION
                                 </div>
                                 <div class="height75 scrolly topten">
@@ -1899,10 +1902,10 @@
                                     <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                 </div>
                                 <div class="inlineFlex toptweenty">
-                                    <div class="half headcolor fontpns tenpix">
+                                    <div class="half headcolor fontpns twlvpix">
                                         STATUS
                                     </div>
-                                    <div class="half headcolor fontpns tenpix">
+                                    <div class="half headcolor fontpns twlvpix">
                                         MARKETING PROGRAM
                                     </div>
                                 </div>
@@ -1929,13 +1932,13 @@
                                 <div class="topfourty headtitle pfont actfnt fontpnr">
                                     POSTING DETAILS
                                 </div>
-                                 <div class="topnineteen headcolor tenpix fontpns">
+                                 <div class="topnineteen headcolor twlvpix fontpns">
                                     POSTING TO
                                 </div>
                                 <div class="containe fontpnr tenpix">
                                     {{schedule_type}}
                                 </div>
-                                <div class="toptweenty headcolor tenpix fontpns">
+                                <div class="toptweenty headcolor twlvpix fontpns">
                                     SCHEDULED TO POST ON
                                 </div>
                                 <div class="containe fontpnr tenpix">
@@ -2010,7 +2013,7 @@
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
                                 <div id="twpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','twitter')">REMOVED SAVED POST</div>
                             </div>
-                            <div class="toptweentyone headcolor tenpix fontpns">
+                            <div class="toptweentyone headcolor twlvpix fontpns">
                                 PREVIEW
                             </div>
                             <div id="twremovedtemplate">
@@ -2138,13 +2141,13 @@
                                             <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
                                             <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
                                         </div>
-                                        <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
+                                        <div class="top26 headcolor twlvpix fontpns">ACTION DETAILS</div>
                                         <div class="topten titlecontain sixtnpix fontpns">
                                            <textarea id="edit_twitter_title" name="edit_twitter_title" class="actiondetinput fontpns">{{schedule_title}}</textarea>
                                            <input class="inputbox SP1" type="hidden" name="twitter_scheduleid" id="twitter_scheduleid" value='{{schedule_id}}'/>
                                            <input class="inputbox SP1" type="hidden" name="twitter_action_type" id="twitter_action_type" value='{{schedule_type}}' />
                                         </div>
-                                        <div class="top12 headcolor tenpix fontpns">
+                                        <div class="top12 headcolor twlvpix fontpns">
                                             DESCRIPTION
                                         </div>
                                         <div class="height75 topten">
@@ -2152,10 +2155,10 @@
                                                 <textarea cols="28" rows="2" name="twitter_description" class="actiondetdesc" id="twitter_description">{{schedule_desc}}</textarea>
                                         </div>
                                         <div class="inlineFlex topten">
-                                            <div class="half headcolor fontpns tenpix topten">
+                                            <div class="half headcolor fontpns twlvpix topten">
                                                 STATUS
                                             </div>
-                                            <div class="half headcolor fontpns tenpix topten">
+                                            <div class="half headcolor fontpns twlvpix topten">
                                                 MARKETING PROGRAM
                                             </div>
                                         </div>
@@ -2178,17 +2181,17 @@
                                                 {{marketing_program_name}}
                                             </div>
                                         </div>
-                                         <div class="topthirty8 pfont actfnt fontpnr">
+                                         <div class="topthirty pfont actfnt fontpnr">
                                             POSTING DETAILS
                                         </div>
-                                        <div class=" headcolor fontpns tenpix top19">
+                                        <div class=" headcolor fontpns twlvpix top19">
                                                 POSTING TO
                                         </div>
                                         <div class=" tenpix fontpnr topnine">
                                             {{schedule_type}}
                                         </div>
                                         
-                                        <div class="toptweenty headcolor tenpix fontpns">
+                                        <div class="toptweenty headcolor twlvpix fontpns">
                                             SCHEDULED TO POST ON
                                         </div>
                                         <div class="inlineFlex">
@@ -2244,7 +2247,7 @@
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
                                 <div id="tweditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove','twitter')">REMOVED SAVED POST</div>
                             </div>
-                            <div class="toptweentyone headcolor tenpix fontpns">
+                            <div class="toptweentyone headcolor twlvpix fontpns">
                                 PREVIEW
                             </div>
                             <div id="twremovedtemplate2">

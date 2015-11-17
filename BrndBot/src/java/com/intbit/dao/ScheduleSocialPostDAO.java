@@ -154,7 +154,7 @@ public class ScheduleSocialPostDAO {
     
     public static Map<String, Object> getScheduleSocialPostDetails(int userId, int scheduleId) throws SQLException{
         Map<String, Object> socialPostDetails = new HashMap<>();
-        String[] socialEntities = {"'"+ ScheduledEntityType.facebook+"'", "'"+ ScheduledEntityType.twitter+"'"};
+        String[] socialEntities = {"'"+ ScheduledEntityType.Facebook+"'", "'"+ ScheduledEntityType.Twitter+"'"};
         String SQL = "SELECT spList.* "
                 + " FROM tbl_scheduled_socialpost_list spList, "
                 + "  tbl_scheduled_entity_list seList "
@@ -201,7 +201,7 @@ public class ScheduleSocialPostDAO {
         try(Connection conn = connectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(query)){
             ps.setInt(1, 0);
-            ps.setString(2, "facebook");
+            ps.setString(2, ScheduledEntityType.Facebook.toString());
             ps.setInt(3, userid);
             try(ResultSet result_set = ps.executeQuery()){
                 while (result_set.next()){
@@ -235,7 +235,7 @@ public class ScheduleSocialPostDAO {
         try(Connection conn = connectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(query)){
             ps.setInt(1, 0);
-            ps.setString(2, "twitter");
+            ps.setString(2, ScheduledEntityType.Twitter.toString());
             ps.setInt(3, userid);
             
             try(ResultSet result_set = ps.executeQuery()){

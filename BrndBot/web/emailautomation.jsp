@@ -149,7 +149,7 @@
          * Bring all the recuring email templates form the database
          */
          $scope.getEmailTemplates = function(){
-            if (validate()){
+//            if (validate()){
                 $("#emailautomationcontent").hide();
                 $("#emlautomeditorcontainer").show();
 
@@ -161,7 +161,7 @@
                 }).error(function(){
                     alert("problem fetching the data");
                 });
-            }
+//            }
 
         };
 
@@ -392,97 +392,106 @@
 //                    }
 //                });
 
-   }else if (type == 'template'){
+                
+            }else if (type == 'template'){
+                
+                    setTimeout(
+                        function() 
+                        {
+                          //do something special
+                         // alert("delay");
+                          //$("#select option").filter(".a0").attr('selected','selected');
+                        if (validate()){
+                            $("#emailautomationcontent").hide();
+                            $("#emlautomeditorcontainer").show();
+                            entity_no_email_template = "false";
+                        }else {
+                            entity_no_email_template = "true";
+                            $("#emailautomationcontent").show();
+                            $("#emlautomeditorcontainer").hide();
+                        }
+                    }, 1000);
+                
+                
+            }else if (type == 'add'){
+                $("#emailautomationcontent").show();
+                $("#emlautomeditorcontainer").hide();
+            }
+            });
+            function validate(){
 
-           setTimeout(
-               function() 
-               {
-                 //do something special
-                // alert("delay");
-                 //$("#select option").filter(".a0").attr('selected','selected');
-               if (validate()){
-                   $("#emailautomationcontent").hide();
-                   $("#emlautomeditorcontainer").show();
-                   entity_no_email_template = "false";
-               }else {
-                   entity_no_email_template = "true";
-                   $("#emailautomationcontent").show();
-                   $("#emlautomeditorcontainer").hide();
-               }
-           }, 1000);
+                var emlval = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+                
+                var days = $("#days").val();
+                var emaillisttext = $("#emaillist :selected").text();
+                var emaillist = $("#emaillist").val();
+                var subject = $("#subject").val();
+                var from_name = $("#from_name").val();
+                var reply_to_address = $("#reply_to_address").val();
+                var recuring_email_title = $("#recuring_email_title").val();
+                var recuring_email_description = $("#recuring_email_description").val();
 
-
-   }else if (type == 'add'){
-       $("#emailautomationcontent").show();
-       $("#emlautomeditorcontainer").hide();
-   }
-   });
-   function validate(){
-       var days = $("#days").val();
-       var emaillisttext = $("#emaillist :selected").text();
-       var emaillist = $("#emaillist").val();
-       var subject = $("#subject").val();
-       var from_name = $("#from_name").val();
-       var reply_to_address = $("#reply_to_address").val();
-       var recuring_email_title = $("#recuring_email_title").val();
-       var recuring_email_description = $("#recuring_email_description").val();
-
-       var till_date = $("#datepicker").val();
-       var schedule_time=$("#timepicker1").val().replace(/ /g,'');
-
-       if (days === "0") {
-           alert("please select the day");
-           $("#days").focus();
-           return false;
-       }
-       if (emaillisttext === "") {
-           alert("please select the email list text");
-           $("#emaillisttext").focus();
-           return false;
-       }
+                
+                
+                var till_date = $("#datepicker").val();
+                var schedule_time=$("#timepicker1").val().replace(/ /g,'');
+                if (recuring_email_title === ""){
+                    alert("Enter the title");
+                    $("#recuring_email_title").focus();
+                    return false;
+                }
+                
+                if (recuring_email_description === ""){
+                    alert("Enter the description");
+                    $("#recuring_email_description").focus();
+                    return false;
+                }
+                if (days === "0") {
+                    alert("please select the day");
+                    $("#days").focus();
+                    return false;
+                }
+                if (emaillisttext === "") {
+                    alert("please select the email list text");
+                    emaillisttext.focus();
+                    return false;
+                }
+                 if (schedule_time === ""){
+                    alert("select the time");
+                    $("#timepicker1").focus();
+                    return false;
+                }
+                 if (till_date === ""){
+                    alert("till date not selected,please select the date");
+                    $("#datepicker").focus();
+                    return false;
+                }
+               
 //                if (emaillist === "0") {
 //                    alert("please select the email list");
 //                    $("#emaillist").focus();
 //                    return false;
 //                }
-       if (subject === "") {
-           alert("Enter the subject");
-           $("#subject").focus();
-           return false;
-       }
-       if (from_name == ""){
-           alert("Enter the from name");
-           $("#from_name").focus();
-           return false;
-       }
-       if (reply_to_address == ""){
-           alert("Enter the reply to address");
-           $("#reply_to_address").focus();
-           return false;
-       }
-       if (recuring_email_title == ""){
-           alert("Enter the title");
-           $("#recuring_email_title").focus();
-           return false;
-       }
-       if (recuring_email_description == ""){
-           alert("Enter the description");
-           $("#recuring_email_description").focus();
-           return false;
-       }
-       if (till_date == ""){
-           alert("till date not selected,please select the date");
-           $("#datepicker").focus();
-           return false;
-       }
-       if (schedule_time == ""){
-           alert("select the time");
-           $("#timepicker1").focus();
-           return false;
-       }
 
-       return true;
-   }
+                if (subject === "") {
+                    alert("Enter the subject");
+                    $("#subject").focus();
+                    return false;
+                }
+                if (from_name === ""){
+                    alert("Enter the from name");
+                    $("#from_name").focus();
+                    return false;
+                }        
+                
+                if((reply_to_address === "")||(!emlval.test(reply_to_address))){
+                    alert("Enter Valid reply-to-address ");
+                    $("#reply_to_address").focus();
+                    return false;
+                }
+                return true;
+            }
+
 </script>
            
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -697,12 +706,6 @@
                        <div id='edit' style="margin-top:0px;">
                        </div>
                    </div>
-<!--                            <div class="emleditorhead fontpnr">Froala Editor</div> -->
-
-
-<!--                            <div class="framediv">
-                           <iframe class="frm" src=""></iframe>
-                       </div>    -->
                        </div>
                    </div>
                    <div class="row">

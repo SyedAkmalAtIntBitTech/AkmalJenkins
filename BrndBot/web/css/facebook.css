@@ -190,6 +190,9 @@
 .button.approvebuttonwidthheightcolor.buttonmargin.button--moema.button--text-thick.button--text-upper.fontpns {
     width: 165px !important;
 }
+.addactbtn{
+    margin-left:75px;
+}
 .fbimg{
     height:124px;
     width:260px;
@@ -381,15 +384,15 @@
 {display:none;
 }
 #marketing_program {
-    -moz-appearance: none;
-    background-attachment: scroll, scroll;
-    background-clip: border-box, border-box;
+    /*-moz-appearance: none;*/
+    /*background-attachment: scroll, scroll;*/
+    /*background-clip: border-box, border-box;*/
     background-color: #f6f7f7 !important;
-    background-image: url("images/dropdown.png"), none;
-    background-origin: padding-box, padding-box;
+    background-image: none !important;
+/*    background-origin: padding-box, padding-box;
     background-position: right center, 270px center;
     background-repeat: no-repeat, repeat;
-    background-size: auto auto, auto auto;
+    background-size: auto auto, auto auto;*/
     border-color: #e3e3e3;
     border-radius: 3px;
     font-size: 12px;
@@ -575,15 +578,17 @@
 
             }
             .edtbtn{
-                font-family: "proxima-nova",sans-serif;
-                color: #888;
-                width:70px;    
-                background-color: transparent;
-                border:1px #888 solid;
-                border-radius: 5px;   
-                position:relative;
+                    color: #3F3F42 !important;
+                    font-size: 14px !important;                            
+                    width: 100px !important;
+                    height: 30px !important;
+                    background-color: #F4F4F4;
+                    border: none;
+                    border-radius: 5px;
+                    position: relative;
+                    padding:0em !important;
             }
-
+            .edtbtn:hover{background-color: #F4F4F4;}
             .titrow{ position: relative;
                      margin-left:60px;
             }
@@ -827,6 +832,10 @@
                 left:0px;
             }
             
+            .listtitle{
+                font-size: 18px !important;
+                color:#3F3F42;
+            }
             .black_overlay{
                 display: none;
                 position: absolute;
@@ -849,8 +858,9 @@
                 font-size: 12px;
                 appearance: none;
                 -moz-appearance: none;
-                -webkit-appearance: none;
-                background: url(images/dropdown.png) no-repeat right center,270px center; 
+                /*-webkit-appearance: none;*/
+                background-image: url("images/dropdown.png"), none;
+                /*background: url(images/dropdown.png) no-repeat right center,270px center;*/ 
 /*                
                 background-color: #ffffff;
                 border: 1px solid #DADADA;

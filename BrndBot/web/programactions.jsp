@@ -267,7 +267,8 @@
                             <div class="oatlstdt fontpnr">{{programaction.postDate| date:'MMM dd'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="oatlstpost fontpnr">{{programaction.actionType}}</div>
+                            <div class="oatlstpost fontpnr" ng-show="programaction.actionType=='Facebook' || programaction.actionType=='Twitter'">{{programaction.actionType}} Post</div>
+                            <div class="oatlstpost fontpnr" ng-show="programaction.actionType=='Note' || programaction.actionType=='Email'">{{programaction.actionType}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="oatlststat fontpnr">{{programaction.status}}</div>
@@ -304,6 +305,7 @@
                             </div>
                             <div class="top18 fontpns tenpix headcolor">MARKETING PROGRAM</div>
                             <div class="topfive fontpnr">
+                                <!--<textarea name="option" disabled id="marketing_program" value="0"  class="a0">General</textarea>-->
                                 <select disabled id="marketing_program" name="option">
                                     <option value="0" class="a0">General</option>
                                     <option ng-repeat="row in marketprogram" class="a{{row.user_program_id}}" value="{{row.user_program_id}}">{{row.name}}</option>
@@ -315,10 +317,10 @@
                             <div class="topfive fontpnr">
                                 <select id="actiontype" name="actiontype">
                                     <option value="0">Select</option>
-                                    <option value="facebook">Facebook</option>
-                                    <option value="twitter">Twitter</option>
-                                    <option value="email">Email</option>
-                                    <option value="note">Note</option>
+                                    <option value="Facebook">Facebook</option>
+                                    <option value="Twitter">Twitter</option>
+                                    <option value="Email">Email</option>
+                                    <option value="Note">Note</option>
                                 </select>
                             </div>
                             <div class="top18 fontpns tenpix headcolor">DESCRIPTION</div>
@@ -450,7 +452,7 @@
                                 <div class="secondcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div id="mailpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', 'email')">REMOVED SAVED POST</div>
+                                        <div id="mailpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', getemail())">REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor tenpix fontpns">
                                         PREVIEW
@@ -1218,6 +1220,7 @@
                                                 </div>
                                                 <div class="topsix">
                                                     <input id="timepickertw" type="text" name="timepickertw" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'h : mma'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
+
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
                                                         $('#timepickertw').timepicki();                                                                                                                                        

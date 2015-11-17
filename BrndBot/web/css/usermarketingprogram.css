@@ -133,7 +133,8 @@ and open the template in the editor.
     margin-left:0px !important;
     margin-top:145.6px !important;
     width:103px !important;
-    height:25px !important;   
+    height:25px !important; 
+    padding:5px 38px 5px 28px !important;
 }
 /*p.LE2{
                     color: #95969A;
