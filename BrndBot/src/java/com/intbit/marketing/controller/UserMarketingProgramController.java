@@ -299,9 +299,8 @@ public class UserMarketingProgramController {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
-                String postDate = formatter.format(cal.getTimeInMillis());
-
-                if (postDate.equalsIgnoreCase(eventDateString)) {
+                Date postDate = new Date(cal.getTimeInMillis());
+                if (DateTimeUtil.timeEqualsCurrentTime(postDate)){
                     postDateStatus = true;
                 } else {
                     postDateStatus = false;
@@ -377,8 +376,8 @@ public class UserMarketingProgramController {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
-                String postDate = formatter.format(cal.getTimeInMillis());
-                if (postDate.equalsIgnoreCase(eventDateString)) {
+                Date postDate = new Date(cal.getTimeInMillis());
+                if (DateTimeUtil.timeEqualsCurrentTime(postDate)){
                     postDateStatus = true;
                 } else {
                     postDateStatus = false;
@@ -485,7 +484,6 @@ public class UserMarketingProgramController {
 
             Double entity_id = (Double) requestBodyMap.get("entity_id");
             String template_status = (String) requestBodyMap.get("template_status");
-            String entity_type = (String)requestBodyMap.get("entity_type");
             
             ApplicationContextListener.refreshEmailRecuringScheduler();
 
@@ -517,14 +515,6 @@ public class UserMarketingProgramController {
             String template_status = (String) requestBodyMap.get("template_status");
             String entity_type = (String)requestBodyMap.get("entity_type");
             
-            if (entity_type.equalsIgnoreCase(ScheduledEntityType.facebook.toString())){
-                ApplicationContextListener.refreshFacebookScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.twitter.toString())){
-                ApplicationContextListener.refreshTwitterScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.email.toString())){
-                ApplicationContextListener.refreshEmailScheduler();
-            }
-            
             TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getById(entity_id.intValue());
 
             if (template_status.equalsIgnoreCase("approved")) {
@@ -533,6 +523,15 @@ public class UserMarketingProgramController {
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
             }
             scheduledEntityListService.update(scheduled_entity_list);
+            
+            if (entity_type.equalsIgnoreCase(ScheduledEntityType.facebook.toString())){
+                ApplicationContextListener.refreshFacebookScheduler();
+            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.twitter.toString())){
+                ApplicationContextListener.refreshTwitterScheduler();
+            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.email.toString())){
+                ApplicationContextListener.refreshEmailScheduler();
+            }
+
             return "true";
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);

@@ -129,7 +129,7 @@ public class ChangeScheduleServlet extends HttpServlet {
                 }else if(entity_type.equals(ScheduledEntityType.twitter.toString())){
                     ApplicationContextListener.refreshTwitterScheduler();
                 }
-                if (is_recuring.equals("true")){
+                if (is_recuring != null){
                     ApplicationContextListener.refreshEmailRecuringScheduler();
                 }
                 response.setStatus(HttpServletResponse.SC_OK);
@@ -147,7 +147,8 @@ public class ChangeScheduleServlet extends HttpServlet {
                 }else if(entity_type.equals(ScheduledEntityType.twitter.toString())){
                     ApplicationContextListener.refreshTwitterScheduler();
                 }
-                if (is_recuring.equals("true")){
+                
+                if (is_recuring != null){
                     ApplicationContextListener.refreshEmailRecuringScheduler();
                 }
                 response.setStatus(HttpServletResponse.SC_OK);
