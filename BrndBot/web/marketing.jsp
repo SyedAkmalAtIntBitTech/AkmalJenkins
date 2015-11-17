@@ -794,11 +794,13 @@
                                                 </div>
                                                 <div ng-show="user_marketing_program_id > 0">
                                                     <div class="topsix">
+                                                        <input type="hidden" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        
                                                         <input type="text" class="textbox"  id="emaildays" name="emaildays" value="{{days}}"/>
                                                     </div>
                                                 </div>
                                                 <div ng-show="user_marketing_program_id == 0">
                                                     <div class="top8">
+                                                        <input type="hidden" class="textbox"  id="emaildays" name="emaildays" value="0"/>
                                                         <input type="text" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
                                                         <script>
                                                             var picker = new Pikaday(
@@ -1471,7 +1473,7 @@
                                             </div>
                                             <div ng-show="user_marketing_program_id > 0">
                                                     <div class="topsix">
-                                                        <input type="text" class="textbox"  id="fbdays" name="emaildays" value="{{days}}"/>
+                                                        <input type="text" class="textbox"  id="fbdays" name="fbdays" value="{{days}}"/>
                                                     </div>
                                                 </div>
                                                 <div ng-show="user_marketing_program_id == 0">
@@ -1482,9 +1484,9 @@
                                                             {
                                                                 field: document.getElementById('datepickerfb'),
                                                                 firstDay: 1,
-                                                                minDate: new Date(2000, 0, 1),
+                                                                minDate: new Date(1970, 0, 1),
                                                                 maxDate: new Date(2050, 12, 31),
-                                                                yearRange: [2000,2050]
+                                                                yearRange: [1970,2050]
                                                             });
 
                                                         </script>
@@ -2201,11 +2203,13 @@
                                                 </div>
                                                 <div ng-show="user_marketing_program_id > 0">
                                                     <div class="topsix">
+                                                        <input type="hidden" readonly  name="datepickertwitter" id="datepickertwitter"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        
                                                         <input type="text" class="textbox"  id="twdays" name="twdays" value="{{days}}"/>
                                                     </div>
                                                 </div>
                                                 <div ng-show="user_marketing_program_id == 0">
                                                     <div class="top8">
+                                                        <input type="hidden" class="textbox"  id="twdays" name="twdays" value="0"/>
                                                         <input type="text" readonly  name="datepickertwitter" id="datepickertwitter"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
                                                         <script>
                                                             var picker = new Pikaday(

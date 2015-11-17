@@ -565,10 +565,12 @@ function programactions($scope, $http, $window){
             if (data === error) {
                 alert(data);
             }
+            $(".row").css("display","block");
         }).error(function (data, status, headers, config) {
             alert("No data available, problem fetching the data");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
+            $(".row").css("display","block");
         });
     };
     $scope.checkProgramStatus= function (){

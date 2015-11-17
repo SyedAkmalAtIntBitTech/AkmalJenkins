@@ -79,7 +79,7 @@
         <jsp:include page="basejsp.jsp"/>
     </head>
     <body id="proghide" ng-app>
-        <div class="row" ng-controller="programactions">
+        <div class="row" ng-controller="programactions" style="display: none;">
             <div id="program_actions" class="row" ng-init="getProgramActions()">
                 <div class="col-lg-1 col-md-1 col-sm-2">
                     <jsp:include page="leftmenu.html"/> 
@@ -129,7 +129,7 @@
                             <div id="assoctdlnkprv" class="evntdt fontpns">{{programs.programdetails.link_name}}</div>
                             <div id="assoctdlnkedt" class="evntdt  fontpns"><input id="link_name" name="link_name" class="progactinputdate fontpns ptr"/></div>
                         </div>
-                        <div id="associated_link" class="col-lg-3 col-md-3 col-sm-4" style="display:none;">
+                        <div id="associated_link" class="col-lg-3 col-md-3 col-sm-4" style="display:none;margin-left: -90px;">
                             <div class="asclink fontpnr">Associated Link</div>
                             <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
                             <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr"/></div>
