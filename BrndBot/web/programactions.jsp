@@ -79,7 +79,7 @@
         <jsp:include page="basejsp.jsp"/>
     </head>
     <body id="proghide" ng-app>
-        <div class="row" ng-controller="programactions">
+        <div class="row" ng-controller="programactions" style="display: none;">
             <div id="program_actions" class="row" ng-init="getProgramActions()">
                 <div class="col-lg-1 col-md-1 col-sm-2">
                     <jsp:include page="leftmenu.html"/> 

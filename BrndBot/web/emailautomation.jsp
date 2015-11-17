@@ -340,6 +340,7 @@
 <script>
 
    $(document).ready(function (){
+       $(".row").css("display","block");
        $("#emlautomeditorcontainer").hide();
        $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
 
@@ -518,7 +519,7 @@
       
 </head>
 <body ng-app>
-   <div id="emailautomation" class="row" ng-controller="emailautomation">
+   <div id="emailautomation" class="row" ng-controller="emailautomation" style="display: none;">
            <div class="col-md-1 col-lg-1 col-sm-2 halfcol" >
                <jsp:include page="leftmenu.html"/>
            </div>
