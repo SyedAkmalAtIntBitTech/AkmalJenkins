@@ -39,10 +39,12 @@
                     data: programStatus 
                 }).success(function (data, status, headers, config) {
                     $scope.current_programs = data.programs;
+                    $(".row").css("display","block");
                 }).error(function (data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
+                    $(".row").css("display","block");
                 });                
             };
             $scope.getUserMarketingProgramsClosed = function(){
@@ -57,10 +59,12 @@
                     data: programStatus 
                 }).success(function (data, status, headers, config) {
                     $scope.past_programs = data.programs;
+                    $(".row").css("display","block");
                 }).error(function (data, status, headers, config) {
                     alert("No data available, problem fetching the data");
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
+                    $(".row").css("display","block");
                 });                
             };
             
@@ -72,7 +76,7 @@
         </script> 
     </head>
     <body ng-app>
-        <div class="row" ng-controller="controllerUserMarketingProgamsByStatus">
+        <div class="row" ng-controller="controllerUserMarketingProgamsByStatus" style="display: none;">
             <div class="col-md-1 col-lg-1 col-sm-1" style="width:45px;">
             <jsp:include page="leftmenu.html"/> 
             </div>
