@@ -150,6 +150,14 @@ and open the template in the editor.
     margin-left:26px;
     margin-top: 49px !important; 
 }
+.selblklinediv1
+{
+/*    margin-left: 25.9px;
+    margin-top:16px;*/
+    margin-left: 11% !important;
+    margin-top: 31.8% !important;
+}
+
 .selblkline{
     width:258.1px;
     height:1.1px;
@@ -160,7 +168,7 @@ and open the template in the editor.
 /*    margin-left: 25.9px;
     margin-top:16px;*/
     margin-left: 11% !important;
-    margin-top: 29% !important;
+    margin-top: 8% !important;
 }
 .stylelist{
     margin-left: -15px;

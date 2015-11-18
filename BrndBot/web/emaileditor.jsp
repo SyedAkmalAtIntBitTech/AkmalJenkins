@@ -216,6 +216,7 @@
                             document.getElementById("addblkbtn").style.backgroundColor = "#e3e3e3";
                                     document.getElementById("addblkbtn").style.color = "#9c9da1";
                                     $("#stylelist").css("display", "block");
+                                    $("#selectstyleid").css("display", "block");
                                     $("#blklistid").css("display", "none");
                                     $("#styletab").css("background-color", "#ffffff").css("color", "#19587c");
                                     $("#blocktab").css("background-color", "transparent").css("color", "#19587c");
@@ -260,6 +261,8 @@
                             $scope.showBlocks = function(){
                                     $(".selectrow").css("display","block");
                                     $("#stylelist").css("display", "none");
+                                    $("#selectstyleid").css("display", "none");
+                                    
                                     $("#blklistid").css("display", "block");
                                     $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
                                     $("#styletab").css("background-color", "transparent").css("color", "#19587c");
@@ -555,7 +558,7 @@
             </div>
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <div class="blockselection" >     
-                    <div class="row selectrow" style="display: none;">
+                    <div class="row selectrow" id="selectblockid" style="display: none;">
 
                         <div class="col-md-6 col-lg-6 col-sm-6">
                             <div class="selblock fontpnr">Select a Block</div>
@@ -564,8 +567,17 @@
                             <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Add Block"></div>
                         </div> 
                         <div class="row">
-                        <div class="selblklinediv"><hr class="selblkline"></div>
+                            <div class="selblklinediv"><hr class="selblkline"></div>
+                        </div>
                     </div>
+                    <div class="row selectrow1" id="selectstyleid">
+
+                        <div class="col-md-6 col-lg-6 col-sm-6">
+                            <div class="selblock fontpnr">Select a Style</div>
+                        </div>
+                        <div class="row">
+                            <div class="selblklinediv1"><hr class="selblkline"></div>
+                        </div>
                     </div>
                    
                     <div class="row">
@@ -786,5 +798,25 @@
                          });
                }
                 </script>   
+                 <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
     </body>
 </html>
