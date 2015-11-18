@@ -79,11 +79,12 @@ public class ScheduleEmailServlet extends HttpServlet {
             //As of now schedule description is not yet mandatory.
             String scheduleDesc = requestBodyMap.containsKey("schedule_desc") ? 
                     String.valueOf(requestBodyMap.get("schedule_desc")):null;
+            Double marketing_program_id = (Double)requestBodyMap.get("marketingType");
             
             Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
                     userId,
                     requestBodyMap.get("email_subject").toString(),
-                    requestBodyMap.get("marketingType").toString(),
+                    marketing_program_id.intValue(),
                     requestBodyMap.get("email_body").toString(),
                     requestBodyMap.get("from_email_address").toString(),
                     requestBodyMap.get("email_list").toString(),

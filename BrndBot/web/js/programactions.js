@@ -412,7 +412,10 @@ function setTodaysDate() {
 }
 
 function programactions($scope, $http, $window){
-                
+             $scope.master_facebook = getfacebook();
+            $scope.master_twitter = gettwitter();
+            $scope.master_email = getemail();
+            $scope.master_note = getnote();               
     $scope.endMarketingProgram = function(){
         var delconf=confirm("Do you really want to End this Program?");
         if(delconf===true){
@@ -551,10 +554,7 @@ function programactions($scope, $http, $window){
     };
     
     $scope.getProgramActions = function(){
-            $scope.master_facebook = getfacebook();
-            $scope.master_twitter = gettwitter();
-            $scope.master_email = getemail();
-            $scope.master_note = getnote();
+
          $http({
             method: 'GET',
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program

@@ -372,7 +372,25 @@
                     var program_id = $("#programs").val();
                     angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions(program_id);
                     angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions(program_id);
+                    
+                    if (parseInt(program_id) == 0){
+                        $("#facebookactions").attr("disabled", true);
+                        $("#twitteractions").attr("disabled", true);
 
+                        document.getElementById('schedule_desc').disabled = false;
+                        document.getElementById('schedule_title').disabled = false;
+                        document.getElementById('schedule_social_date').disabled = false;
+                        document.getElementById('schedule_social_time').disabled = false;
+                    }else {
+                        $("#facebookactions").attr("disabled", false);
+                        $("#twitteractions").attr("disabled", false);
+
+                        document.getElementById('schedule_desc').disabled = true;
+                        document.getElementById('schedule_title').disabled = true;
+                        document.getElementById('schedule_social_date').disabled = true;
+                        document.getElementById('schedule_social_time').disabled = true;
+                        
+                    }
                 });
                 
             });
@@ -834,11 +852,10 @@
                     var isFacebook = $("#isFacebook").val();
                     var isTwitter = $("#isTwitter").val();
                     var image_name = $("#imageToPost").val();
+                    var program_id = $("#programs").val();
                     var schedule_id_facebook = "0";
                     var schedule_id_twitter = "0";
                     var ManagedPage = "";
-                    
-                    
                     
                     if ((isFacebook == "true") && (isTwitter == "false")) {
                         schedule_id_facebook = $("#facebookactions").val();
@@ -899,6 +916,7 @@
                                     image_name: image_name,
                                     schedule_time: myEpoch,
                                     schedule_title: schedule_title,
+                                    program_id: program_id,
                                     schedule_desc: schedule_desc,
                                     token_data: {
                                         "access_token": '"' + $("#accesstoken").val() + '"'
@@ -920,6 +938,7 @@
                                     image_name: image_name,
                                     schedule_time: myEpoch,
                                     schedule_title: schedule_title,
+                                    program_id: program_id,
                                     schedule_desc: schedule_desc,
                                     token_data: {
                                         "access_token": '"' + $("#twittweraccestoken").val() + '"',
@@ -941,6 +960,7 @@
                                             image_name: image_name,
                                             schedule_time: myEpoch,
                                             schedule_title: schedule_title,
+                                            program_id: program_id,
                                             schedule_desc: schedule_desc,
                                             token_data: {
                                                 "access_token": '"' + $("#accesstoken").val() + '"'
@@ -958,6 +978,7 @@
                                             image_name: image_name,
                                             schedule_time: myEpoch,
                                             schedule_title: schedule_title,
+                                            program_id: program_id,
                                             schedule_desc: schedule_desc,
                                             token_data: {
                                                 "access_token": '"' + $("#twittweraccestoken").val() + '"',
@@ -991,6 +1012,7 @@
                                 {
                                     type: getfacebook(),
                                     image_name: image_name,
+                                    program_id: program_id,
                                     schedule_id: schedule_id_facebook,
                                     token_data: {
                                         "access_token": '"' + $("#accesstoken").val() + '"'
@@ -1010,6 +1032,7 @@
                                 {
                                     type: gettwitter(),
                                     image_name: image_name,
+                                    program_id: program_id,
                                     schedule_id: schedule_id_twitter,
                                     token_data: {
                                         "access_token": '"' + $("#twittweraccestoken").val() + '"',
@@ -1029,6 +1052,7 @@
                                         {
                                             type: getfacebook(),
                                             image_name: image_name,
+                                            program_id: program_id,
                                             schedule_id: schedule_id_facebook,
                                             token_data: {
                                                 "access_token": '"' + $("#accesstoken").val() + '"'
@@ -1044,6 +1068,7 @@
                                         {
                                             type: gettwitter(),
                                             image_name: image_name,
+                                            program_id: program_id,
                                             schedule_id: schedule_id_twitter,
                                             token_data: {
                                                 "access_token": '"' + $("#twittweraccestoken").val() + '"',

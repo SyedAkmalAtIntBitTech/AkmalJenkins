@@ -240,9 +240,16 @@
         iframeUrl="/BrndBot/DownloadHtmlServlet?file_name="+iframeName+".html";
     %>
     <script>
+        
+            $(document).ready(function ()
+            {
+                
+                
+            });        
+    
         function emailSettings($scope, $http){
             
-            $scope.getEmailSettings = function(){
+                $scope.getEmailSettings = function(){
                 
                 var email_settings = {"type": "get"};
                 
@@ -262,6 +269,7 @@
                         // or server returns response with an error status.
                     });
                 };
+                
                 $scope.setScheduling = function () {
                     var schedule_id = $("#email_actions").val();
                     var from_name = $("#name").val();
@@ -338,10 +346,23 @@
                     }
                     
                 };
-                $scope.getActions = function () {
+                
+                $scope.getProgramNames = function() {
+                    $http({
+                       method: 'GET',
+                       url:getHost() + 'getAllUserMarketingPrograms.do'
+                    }).success(function (data){
+                        alert(JSON.stringify(data));
+                        $scope.marketing_programs = data;
+                    }).error(function (data){
+                        alert("request not successful");
+                    });
+                };
+                
+                $scope.getActions = function (program_id) {
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetScheduledActions?type=email'
+                        url: getHost() + 'GetScheduledActions?programid='+ program_id + '&type=email'
                     }).success(function (data) {
                         $scope.email_actions = data;
                     }).error(function (data) {
@@ -360,6 +381,26 @@
         }, 1000);
        $(document).ready(function () {
 //            $(".hamburger,.cross").hide();
+            $("#programs").change(function(){
+                    
+                var program_id = $("#programs").val();
+                angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
+                if (parseInt(program_id) == 0){
+                    $("#email_actions").attr("disabled", true);
+
+                    document.getElementById('schedule_title').disabled=false;
+                    document.getElementById('schedule_date').disabled=false;
+                    document.getElementById('schedule_time').disabled=false;
+                }else {
+                    $("#email_actions").attr("disabled", false);
+
+                    document.getElementById('schedule_title').disabled=true;
+                    document.getElementById('schedule_date').disabled=true;
+                    document.getElementById('schedule_time').disabled=true;
+
+                }
+
+            });
            $("#humbrgr").click(function (){
             if (confirm("Are you sure, You want to leave this page?")){
                 
@@ -368,7 +409,7 @@
                 $("#crs").click(); 
                $(".navicons,#txtlog").hide().delay( 800 ).fadeIn( 600 );     
             }
-        }
+            }
             );
            formattedHTMLData=$("#dynamictable").contents().find("html").html();
            show("iphone");
@@ -569,33 +610,37 @@
                 </form>
             </div>
             <div class="col-md-4">
-                <!--
-                                <ul class="images">
-                                    <li><div id="iphone" class="img-responsive fancybox" onMouseOver="javascript:showLightBox()" onMouseOut="javascript:stopShowLightBox()" style="cursor: pointer;background-image: url('images/iphone 6 screen.png');"></div></li>
-                                    <li><img id="imac" class="img-responsive fancybox" src="images/IMAC.png"></li>
-                                    <li ><img id="ipad" class="img-responsive fancybox" src="images/IPAD3.png"></li>
-                                
-                                </ul>-->
+    <!--
+                    <ul class="images">
+                        <li><div id="iphone" class="img-responsive fancybox" onMouseOver="javascript:showLightBox()" onMouseOut="javascript:stopShowLightBox()" style="cursor: pointer;background-image: url('images/iphone 6 screen.png');"></div></li>
+                        <li><img id="imac" class="img-responsive fancybox" src="images/IMAC.png"></li>
+                        <li ><img id="ipad" class="img-responsive fancybox" src="images/IPAD3.png"></li>
+
+                    </ul>-->
 
                 <ul class="images ">
                     <li><div id="iphone" class="img-responsive ptr" onclick="show('iphone');" style="background-image: url('images/Phone.svg');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                     <li><div id="imac" class="img-responsive ptr" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                     <li><div id="ipad" class="img-responsive ptr" onclick="show('ipad');"  style="background-image: url('images/Tablet.svg');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                 </ul>
-
-
-
-
                 <div id="popupschedule" style="display:none;">
-                    <div id="content">
+                    <div id="content" ng-init="getProgramNames()">
                         <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                                                     Layout file name<input type="text" id="layoutxml" required><br>-->
 
                         <p class="SH2" style="width:600px;">PLEASE SELECT A TIME FROM YOUR PLAN</p> 
-                        <div id="light" class="white_content"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display = 'none';
-                                        document.getElementById('fade').style.display = 'none';
-                                        document.body.style.overflow = 'scroll';" style="text-decoration:none;">
-                                <p style="margin-left:740px;margin-top:-35px;cursor: pointer;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p></a></div>
+                        <div id="light" class="white_content">
+                            <a href = "javascript:void(0)" 
+                               onclick = "document.getElementById('light').style.display = 'none';
+                               document.getElementById('fade').style.display = 'none';
+                               document.body.style.overflow = 'scroll';" 
+                               ng-app=""style="text-decoration:none;">
+                        <p style="margin-left:740px;margin-top:-35px;cursor: pointer;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p></a></div>
+                        <select name="programs" id="programs" class="SH1 selectsocialact" style="font-variant: normal;">
+                            <option value="0" style="background:#fff;" >--SELECT--</option>
+                            <option style="background:#fff;" ng-repeat="programs in marketing_programs" value="{{programs.program_id}}">{{programs.name}}</option>
+                        </select><br><br>
+                        
                         <select class="SH1 selectsocialact" style="font-variant: normal;" name="email_actions" id="email_actions" onchange="validateact()">
                             <option value="0" style="background:#fff;">CUSTOM</option>
                             <option ng-repeat="actions in email_actions" value="{{actions.id}}">{{actions.schedule_title}}</option>
@@ -623,90 +668,6 @@
                                     </script>
                                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                         
-                        
-<!--                        <input type="date" class="simpleinpbox selectsocialact" id="schedule_time" name="schedule_time" style="width:200px;">
-                        <select name="hour" id="hour" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:205px;">
-                            <option value="00">00</option>
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                            <option value="06">06</option>
-                            <option value="07">07</option>
-                            <option value="08">08</option>
-                            <option value="09">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                        </select>
-                        <select name="minute" id="minute" class="selectsocialact" style="position:relative;width:50px;top:-30px;left:210px;">
-                            <option value="00">00</option>
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                            <option value="06">06</option>
-                            <option value="07">07</option>
-                            <option value="08">08</option>
-                            <option value="09">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
-                            <option value="32">32</option>
-                            <option value="33">33</option>
-                            <option value="34">34</option>
-                            <option value="35">35</option>
-                            <option value="36">36</option>
-                            <option value="37">37</option>
-                            <option value="38">38</option>
-                            <option value="39">39</option>
-                            <option value="40">40</option>
-                            <option value="41">41</option>
-                            <option value="42">42</option>
-                            <option value="43">43</option>
-                            <option value="44">44</option>
-                            <option value="45">45</option>
-                            <option value="46">46</option>
-                            <option value="47">47</option>
-                            <option value="48">48</option>
-                            <option value="49">49</option>                            
-                            <option value="50">50</option>
-                            <option value="51">51</option>
-                            <option value="52">52</option>
-                            <option value="53">53</option>
-                            <option value="54">54</option>
-                            <option value="55">55</option>
-                            <option value="56">56</option>
-                            <option value="57">57</option>
-                            <option value="58">58</option>
-                            <option value="59">59</option>
-                        </select>
-                        <select name="AMPM" id="AMPM" class="selectsocialact" style="position:relative;width:70px;top:-30px;left:210px;">
-                            <option value="AM">AM</option>
-                            <option value="PM">PM</option>
-                        </select>-->
-                        
-                        <!--<input id="timepicker1" type="text" name="timepicker1" />-->
                         <input type="button" ng-click="setScheduling()" id ="schedulethepost" value="SCHEDULE" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:170px;margin-left:0px;font-family:'proxima-nova',sans-serif;font-size:14px;" />  
                     </div>
                 </div>
