@@ -1661,7 +1661,7 @@ div.offrpromo{
     font-size: 12px;
     color:#3f3f42;
     margin-left:4px !important;
-    margin-top:4.7px !important;
+    margin-top:14px !important;
 }
 .stslst{
     width:88px;
@@ -1688,11 +1688,11 @@ div.offrpromo{
 }
 .emlautombtmline{
     width:897px;
-    height:3px;
+    height:2px;
     background-color: #f4f4f4;
     margin-left:1px !important;
     margin-top:17px !important;
-    border: #f4f4f4 3px; 
+    border: #f4f4f4 2px; 
 }
 .padlineleftreceml{
     margin-left:15px !important;
@@ -1794,7 +1794,7 @@ div.offrpromo{
     font-size: 12px;
     color:#3f3f42;
     margin-left:4px !important;
-    margin-top:6px !important;
+    margin-top:14px !important;
 }
 .oatlstdt{
     width:60px;
@@ -1827,9 +1827,9 @@ div.offrpromo{
 }
 .otactlstline{
     width:897px;
-    height:3px;
+    height:2px;
     background-color: #f4f4f4;
-    border: #f4f4f4 3px; 
+    border: #f4f4f4 2px; 
     margin-left:15px !important;
 }
 .otaddactbtn{

@@ -34,6 +34,7 @@ function controllerMarketingCategories($scope, $http, $window){
             url: 'displaymarketingProgram.do?marketingCategoryId='+$("#categoryidHidden").val()
         }).success(function (data, status, headers, config) {
             $scope.programs = data.marketingProgramsData;
+            
             if (data === error) {
                 alert(data);
             }
