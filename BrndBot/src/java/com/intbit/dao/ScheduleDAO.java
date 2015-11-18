@@ -440,7 +440,10 @@ public class ScheduleDAO {
                     if(rs.getInt("user_marketing_program_id")==0)
                     {
                         scheduleDetailJSONObject.put("schedule_time", scheduleTime);
-                        scheduleDetailJSONObject.put("is_today_active", "false");
+                        if(DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime)))
+                            scheduleDetailJSONObject.put("is_today_active", "true");
+                        else
+                            scheduleDetailJSONObject.put("is_today_active", "false");
                     }
                     else
                     {
@@ -456,7 +459,7 @@ public class ScheduleDAO {
                         else
                         scheduleTime1 = scheduleTimestamp1.getTime();
                         scheduleDetailJSONObject.put("schedule_time", scheduleTime1);
-                        if(DateTimeUtil.timeEqualsCurrentTime(new Date(scheduleTime1)))
+                        if(DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime1)))
                             scheduleDetailJSONObject.put("is_today_active", "true");
                         else
                             scheduleDetailJSONObject.put("is_today_active", "false");

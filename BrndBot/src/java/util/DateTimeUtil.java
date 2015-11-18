@@ -5,10 +5,13 @@
  */
 package util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import org.apache.commons.lang3.time.DateUtils;
 
 /**
  *
@@ -31,6 +34,29 @@ public class DateTimeUtil {
         String currentDateString = format.format(currentdate);
         String receivedDateString = format.format(datetime);
         if (currentDateString.equals(receivedDateString)) {
+            flag = true;
+        }
+        return flag;
+    }
+    
+    public static boolean dateEqualsCurrentDate(Date datetime) throws ParseException {
+        //Make sure time zone is the same when comparison is done. Time doesnt have to be equal to the second. Just the minute is enough.
+        boolean flag = false;
+        String dateFormat = "z";
+        SimpleDateFormat timeZoneFormat = new SimpleDateFormat(dateFormat);
+        String timeZoneStr = timeZoneFormat.format(datetime);
+        String formatStr = "yyyy-MM-dd hh:mm a";
+        Date currentdate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat(formatStr);
+        format.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
+        String currentDateString = format.format(currentdate);
+        String receivedDateString = format.format(datetime);
+        
+        
+        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        Date date1 = format1.parse(currentDateString);
+        Date date2 = format1.parse(receivedDateString);
+        if (DateUtils.isSameDay(date1, date2)) {
             flag = true;
         }
         return flag;

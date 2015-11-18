@@ -300,7 +300,7 @@ public class UserMarketingProgramController {
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
                 Date postDate = new Date(cal.getTimeInMillis());
-                if (DateTimeUtil.timeEqualsCurrentTime(postDate)){
+                if (DateTimeUtil.dateEqualsCurrentDate(postDate)){
                     postDateStatus = true;
                 } else {
                     postDateStatus = false;
@@ -339,7 +339,7 @@ public class UserMarketingProgramController {
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
                 Date postDate = new Date(cal.getTimeInMillis());
-                if (DateTimeUtil.timeEqualsCurrentTime(postDate)){
+                if (DateTimeUtil.dateEqualsCurrentDate(postDate)){
                     postDateStatus = true;
                 } else {
                     postDateStatus = false;
@@ -377,7 +377,7 @@ public class UserMarketingProgramController {
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
                 Date postDate = new Date(cal.getTimeInMillis());
-                if (DateTimeUtil.timeEqualsCurrentTime(postDate)){
+                if (DateTimeUtil.dateEqualsCurrentDate(postDate)){
                     postDateStatus = true;
                 } else {
                     postDateStatus = false;
