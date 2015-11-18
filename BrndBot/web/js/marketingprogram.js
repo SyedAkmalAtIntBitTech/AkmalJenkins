@@ -29,6 +29,7 @@ function controllerMarketingCategories($scope, $http, $window){
     };
     
     $scope.getMarketingPrograms = function(){
+        
         $http({
             method: 'GET',
             url: 'displaymarketingProgram.do?marketingCategoryId='+$("#categoryidHidden").val()

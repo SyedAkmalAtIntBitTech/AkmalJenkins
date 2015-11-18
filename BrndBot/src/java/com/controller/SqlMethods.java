@@ -4,6 +4,7 @@ import com.divtohtml.DivHTMLModel;
 import com.divtohtml.StringUtil;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
+import com.intbit.ScheduledEntityType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -661,7 +662,7 @@ public class SqlMethods {
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         Boolean isEmail = false;
-        if (editorType.equals("email")) {
+        if (editorType.equals(ScheduledEntityType.Email.toString())) {
             isEmail = true;
         }
         String mapper_file_name = "";

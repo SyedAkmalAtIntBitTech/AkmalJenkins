@@ -7,6 +7,7 @@ package com.controller;
 
 import com.google.gson.Gson;
 import com.intbit.AppConstants;
+import com.intbit.ScheduledEntityType;
 import com.intbit.dao.CheckTemplates;
 import com.intbit.util.AuthenticationUtil;
 import java.io.BufferedReader;
@@ -65,7 +66,7 @@ public class GetTemplates extends HttpServlet {
             Double sub_category_id = (Double)requestBodyMap.get("sub_category_id");
             CheckTemplates chktemplates = new CheckTemplates();
             Integer email_template_availability = chktemplates.checkTemplates(category_id.intValue(),
-                    sub_category_id.intValue(), "email", userId);
+                    sub_category_id.intValue(), ScheduledEntityType.Email.toString(), userId);
             Integer social_template_availability = chktemplates.checkTemplates(category_id.intValue(),
                     sub_category_id.intValue(), "social", userId);
             Integer social_template_print = chktemplates.checkTemplates(category_id.intValue(),

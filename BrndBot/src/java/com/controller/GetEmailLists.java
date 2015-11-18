@@ -7,6 +7,7 @@ package com.controller;
 
 import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.google.gson.Gson;
+import com.intbit.ScheduledEntityType;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -189,11 +190,11 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
                     }
                 }
             }
-            String email = "email";
+            String email = ScheduledEntityType.Email.toString();
             for(int i = 0; i< emailIDSJSONArray.size(); i++){
                     EmailIds email_model = new EmailIds();
                     int j = i + 1;
-                    email = "email" + j;
+                    email = ScheduledEntityType.Email.toString() + j;
                     JSONObject emailAddressJSONObject = (JSONObject) emailIDSJSONArray.get(i);
                     email_model.setEmailid((String) emailAddressJSONObject.get(IConstants.kEmailAddressKey));
                     email_model.setId(email);

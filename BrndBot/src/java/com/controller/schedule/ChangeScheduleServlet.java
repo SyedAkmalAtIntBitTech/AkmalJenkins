@@ -154,7 +154,7 @@ public class ChangeScheduleServlet extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
-            }else if(type.equalsIgnoreCase("note")){
+            }else if(type.equalsIgnoreCase(ScheduledEntityType.Note.toString())){
                 String schedule_id = (String)requestBodyMap.get("schedule_id");
                 String schedule_title = (String)requestBodyMap.get("schedule_title");
                 String schedule_desc = (String)requestBodyMap.get("schedule_desc");

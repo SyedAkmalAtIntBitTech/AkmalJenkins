@@ -7,6 +7,7 @@ package com.controller;
 
 import com.google.gson.Gson;
 import com.intbit.ConnectionManager;
+import com.intbit.ScheduledEntityType;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -82,7 +83,7 @@ public class GetLayoutStyles extends BrndBotBaseHttpServlet {
                
                 
             }
-            if (editorType.equalsIgnoreCase("email")) {
+            if (editorType.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
                 isEmail = true;//Else it is initialized as false -- social
             }
 

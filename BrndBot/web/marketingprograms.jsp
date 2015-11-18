@@ -67,7 +67,7 @@
                             <div class="mptxt fontpnr" >Marketing Programs</div>
                             <hr class="markline">
                             <ul class="promolist1">
-                                <li id="mp" class="mrkli" ng-repeat="program in programs">
+                                <li  class="mrkli" ng-repeat="program in programs">
                                    <div id="{{program.id}}" class="prognamelst fontpns"  
                                         ng-click="showhtmldata(program.id,program.html_data)">
                                        {{program.name}}
@@ -93,7 +93,8 @@
             <script>
                 $(document). ready(function (){
                     $(".htmldatacontainer").css("overflow","hidden");
-                });
+                    });
+                
             </script>
     </body>
 </html>
