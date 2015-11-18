@@ -509,8 +509,6 @@ public class UserMarketingProgramController {
             Double entity_id = (Double) requestBodyMap.get("entity_id");
             String template_status = (String) requestBodyMap.get("template_status");
             
-            ApplicationContextListener.refreshEmailRecuringScheduler();
-
             TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getById(entity_id.intValue());
 
             if (template_status.equalsIgnoreCase("approved")) {
@@ -519,6 +517,7 @@ public class UserMarketingProgramController {
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
             }
             scheduledEntityListService.update(scheduled_entity_list);
+            ApplicationContextListener.refreshEmailRecuringScheduler();
             return "true";
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);
@@ -538,14 +537,6 @@ public class UserMarketingProgramController {
             Double entity_id = (Double) requestBodyMap.get("entity_id");
             String template_status = (String) requestBodyMap.get("template_status");
             String entity_type = (String)requestBodyMap.get("entity_type");
-            
-            if (entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())){
-                ApplicationContextListener.refreshFacebookScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())){
-                ApplicationContextListener.refreshTwitterScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())){
-                ApplicationContextListener.refreshEmailScheduler();
-            }
             
             TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getById(entity_id.intValue());
 
