@@ -5,7 +5,6 @@
  */
 
 function controllerMarketingCategories($scope, $http, $window){
-            $(".prognamelst").trigger("click");
     $scope.getMarketingCategories = function(){
         $http({
             method: 'GET',

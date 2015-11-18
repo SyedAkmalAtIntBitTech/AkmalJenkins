@@ -605,7 +605,7 @@ public class UserMarketingProgramController {
 //            System.out.println(scheduledEntityList.getScheduleTime());
 //            System.out.println(scheduledEntityList.getScheduleTitle());
 
-        String latestApprovedPost = scheduledEntityListService.getLatestApprovedPost("approved", "facebook", "open");
+        String latestApprovedPost = scheduledEntityListService.getLatestApprovedPost("approved",ScheduledEntityType.Facebook.toString(), "open");
         System.out.println(latestApprovedPost);
 
         JSONObject json_obj = new JSONObject();

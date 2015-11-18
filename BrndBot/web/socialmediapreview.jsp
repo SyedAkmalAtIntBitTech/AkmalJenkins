@@ -895,7 +895,7 @@
                         if (isFacebook == "true" && isTwitter == "false") {
                             social_schedule = [
                                 {
-                                    type: "facebook",
+                                    type: getfacebook(),
                                     image_name: image_name,
                                     schedule_time: myEpoch,
                                     schedule_title: schedule_title,
@@ -916,7 +916,7 @@
                         } else if (isFacebook == "false" && isTwitter == "true") {
                             social_schedule = [
                                 {
-                                    type: "twitter",
+                                    type: gettwitter(),
                                     image_name: image_name,
                                     schedule_time: myEpoch,
                                     schedule_title: schedule_title,
@@ -937,7 +937,7 @@
                             social_schedule =
                                     [
                                         {
-                                            type: "facebook",
+                                            type: getfacebook(),
                                             image_name: image_name,
                                             schedule_time: myEpoch,
                                             schedule_title: schedule_title,
@@ -954,7 +954,7 @@
                                             }
                                         },
                                         {
-                                            type: "twitter",
+                                            type: gettwitter(),
                                             image_name: image_name,
                                             schedule_time: myEpoch,
                                             schedule_title: schedule_title,
@@ -989,7 +989,7 @@
                         if (isFacebook == "true" && isTwitter == "false") {
                             social_schedule = [
                                 {
-                                    type: "facebook",
+                                    type: getfacebook(),
                                     image_name: image_name,
                                     schedule_id: schedule_id_facebook,
                                     token_data: {
@@ -1008,7 +1008,7 @@
                         } else if (isFacebook == "false" && isTwitter == "true") {
                             social_schedule = [
                                 {
-                                    type: "twitter",
+                                    type: gettwitter(),
                                     image_name: image_name,
                                     schedule_id: schedule_id_twitter,
                                     token_data: {
@@ -1027,7 +1027,7 @@
                             social_schedule =
                                     [
                                         {
-                                            type: "facebook",
+                                            type: getfacebook(),
                                             image_name: image_name,
                                             schedule_id: schedule_id_facebook,
                                             token_data: {
@@ -1042,7 +1042,7 @@
                                             }
                                         },
                                         {
-                                            type: "twitter",
+                                            type: gettwitter(),
                                             image_name: image_name,
                                             schedule_id: schedule_id_twitter,
                                             token_data: {
