@@ -5,6 +5,7 @@
  */
 package com.intbit.marketing.dao.implementation;
 
+import com.intbit.ScheduledEntityType;
 import com.intbit.marketing.dao.ScheduledSocialpostListDao;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
@@ -56,8 +57,8 @@ public class ScheduledSocialpostListDaoImpl implements ScheduledSocialpostListDa
                     .createAlias("tblScheduledEntityList.tblUserMarketingProgram", "umId")
                     .add(Restrictions.eq("umId.id", UserMarketingId))
                     .createAlias("tblScheduledEntityList", "sl");
-            Criterion rest1 = Restrictions.and(Restrictions.eq("sl.entityType", "twitter"));
-            Criterion rest2 = Restrictions.and(Restrictions.eq("sl.entityType", "facebook"));
+            Criterion rest1 = Restrictions.and(Restrictions.eq("sl.entityType",ScheduledEntityType.Twitter.toString()));
+            Criterion rest2 = Restrictions.and(Restrictions.eq("sl.entityType",ScheduledEntityType.Facebook.toString()));
             criteria.add(Restrictions.or(rest1, rest2));
             return criteria.list();
         } catch (Throwable throwable) {

@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="css/datepickerpikaday.css">
         <script src="js/pikaday.js"></script>
         <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
-        <script src="js/configurations.js"></script>
+        <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/dashboard.js"></script>
         <%!
@@ -375,7 +375,7 @@
                                     <div class="firstcol">
                                         <div class="inlineFlex">
                                             <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                            <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status == 'Closed'"  ng-click="deleteSchedule(schedule_id, 'delete', 'email')" >DELETE ACTION</div>
+                                            <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status == 'Closed'"  ng-click="deleteSchedule(schedule_id, 'delete', getemail())" >DELETE ACTION</div>
                                         </div>
                                         <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
 
@@ -432,14 +432,14 @@
                                             <div class="approve">
                                             <input type="button" value="Approve to Post" 
                                                    ng-show="email_action_status == true && email_template_status=='Template Saved'" 
-                                                   ng-click="Approval(schedule_id, 'approved', 'email')"
+                                                   ng-click="Approval(schedule_id, 'approved', getemail())"
                                                    class="button approvebuttonwidthheightcolor 
                                                    buttonmargin button--moema  
                                                    button--text-thick  
                                                    button--text-upper 
                                                    fontpns" id="fb_approve_button_post">
                                         <button ng-click="SaveData();" ng-show="email_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                        <button id="button1" ng-show="email_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', 'email')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                        <button id="button1" ng-show="email_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', getemail())" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
 
                                             </div>
                                         </div>
@@ -535,7 +535,7 @@
                                         <div class="firstcol">
                                             <div class="inlineFlex">
                                                 <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
-                                                <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'delete', 'email')" >DELETE ACTION</div>
+                                                <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'delete', getemail())" >DELETE ACTION</div>
                                             </div>
                                             <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
                                             <div class="topten titlecontain sixtnpix fontpns">
@@ -624,7 +624,7 @@
                                     <div class="secondcol">
                                         <div class="inlineFlex">
                                             <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                            <div id="maileditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', 'email')">REMOVED SAVED POST</div>
+                                            <div id="maileditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', getemail())">REMOVED SAVED POST</div>
                                         </div>
                                         <div class="toptweentyone headcolor tenpix fontpns">
                                             PREVIEW
@@ -698,7 +698,7 @@
                                 <div class="firstcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                        <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteSchedule(schedule_id, 'delete', 'facebook')" >DELETE ACTION</div>
+                                        <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteSchedule(schedule_id, 'delete', getfacebook())" >DELETE ACTION</div>
                                     </div>
                                     <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
                                     <div class="topten titlecontain sixtnpix fontpns">
@@ -768,9 +768,10 @@
                                             <input type="button" value="Edit" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
                                         </div>
                                         <div class="approve">
+                                            
                                             <input type="button" value="Approve to Post" 
                                                    ng-show="facebook_action_status == true && facebook_template_status=='Template Saved'" 
-                                                   ng-click="Approval(schedule_id, 'approved', 'facebook')"
+                                                   ng-click="Approval(schedule_id, 'approved', getfacebook())"
                                                    class="button approvebuttonwidthheightcolor 
                                                    buttonmargin button--moema  
                                                    button--text-thick  
@@ -779,7 +780,7 @@
                                         </div>
 <!--                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
                                         <button ng-click="SaveData();" ng-show="facebook_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                        <button id="button1" ng-show="facebook_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', 'facebook')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                        <button id="button1" ng-show="facebook_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', getfacebook())" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                          
                                     </div>
                                 </div>
@@ -791,7 +792,7 @@
                                     <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
                                     <div id="fbpreviewremove" 
                                          class="headdelete h5font fontpnr" 
-                                         ng-click="deleteSchedule(schedule_id, 'remove', 'facebook')">
+                                         ng-click="deleteSchedule(schedule_id, 'remove', getfacebook())">
                                         REMOVED SAVED POST</div>
                                 </div>
                                 <div class="toptweentyone headcolor tenpix fontpns">
@@ -849,7 +850,7 @@
                                     <div class="firstcol">
                                         <div class="inlineFlex">
                                             <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
-                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'delete', 'facebook')" >DELETE ACTION</div>
+                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'delete', getfacebook())" >DELETE ACTION</div>
                                         </div>
                                         <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
                                         <div class="topten titlecontain sixtnpix fontpns">
@@ -952,7 +953,7 @@
                                 <div class="secondcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div id="fbeditremove" class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status == 'Closed'"   ng-click="deleteSchedule(schedule_id, 'remove', 'facebook')">REMOVED SAVED POST</div>
+                                        <div id="fbeditremove" class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status == 'Closed'"   ng-click="deleteSchedule(schedule_id, 'remove', getfacebook())">REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor tenpix fontpns">
                                         PREVIEW
@@ -1013,7 +1014,7 @@
                                 <div class="firstcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                        <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteSchedule(schedule_id, 'delete', 'facebook')">DELETE ACTION</div>
+                                        <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteSchedule(schedule_id, 'delete', getfacebook())">DELETE ACTION</div>
                                     </div>
                                     <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
                                     <div class="topten titlecontain sixtnpix fontpns">
@@ -1084,7 +1085,7 @@
                                         <div class="approve">
                                             <input type="button" 
                                                    ng-show="twitter_action_status == true && twitter_template_status=='Template Saved'" 
-                                                   ng-click="Approval(schedule_id, 'approved', 'twitter')"
+                                                   ng-click="Approval(schedule_id, 'approved', gettwitter())"
                                                    value="Approve to Post" 
                                                    class="button approvebuttonwidthheightcolor 
                                                           buttonmargin 
@@ -1094,7 +1095,7 @@
                                                    id="ftwitter_approve_button_post">
                                          
                                                 <button ng-click="SaveData();" ng-show="twitter_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                                <button id="button1" ng-show="twitter_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', 'twitter')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                                <button id="button1" ng-show="twitter_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', gettwitter())" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                             
                                         </div>
                                     </div>
@@ -1105,7 +1106,7 @@
                             <div class="secondcol">
                                 <div class="inlineFlex">
                                     <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                    <div id="twpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', 'twitter')">REMOVED SAVED POST</div>
+                                    <div id="twpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', gettwitter())">REMOVED SAVED POST</div>
                                 </div>
                                 <div class="toptweentyone headcolor tenpix fontpns">
                                     PREVIEW
@@ -1150,7 +1151,7 @@
                                     <div class="firstcol">
                                         <div class="inlineFlex">
                                             <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
-                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'delete', 'twitter')" >DELETE ACTION</div>
+                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'delete', gettwitter())" >DELETE ACTION</div>
                                         </div>
                                         <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
                                         <div class="topten titlecontain sixtnpix fontpns">
@@ -1239,7 +1240,7 @@
                                 <div class="secondcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div id="tweditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', 'twitter')">REMOVED SAVED POST</div>
+                                        <div id="tweditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', gettwitter())">REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor tenpix fontpns">
                                         PREVIEW
@@ -1294,7 +1295,7 @@
                                     <div class="firstcol">
                                         <div class="inlineFlex">
                                             <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                            <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteSchedule(schedule_id, 'delete', 'email', 'true')" >DELETE ACTION</div>
+                                            <div class="headdelete h5font fontpnr" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteSchedule(schedule_id, 'delete', getemail(), 'true')" >DELETE ACTION</div>
                                         </div>
                                         <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
 
@@ -1358,7 +1359,7 @@
                                 <div class="secondcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div id="mailpreviewremove6" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', 'email', 'true')">REMOVED SAVED POST</div>
+                                        <div id="mailpreviewremove6" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', getemail(), 'true')">REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor tenpix fontpns">
                                         PREVIEW

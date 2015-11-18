@@ -372,7 +372,25 @@
                     var program_id = $("#programs").val();
                     angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions(program_id);
                     angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions(program_id);
+                    
+                    if (parseInt(program_id) == 0){
+                        $("#facebookactions").attr("disabled", true);
+                        $("#twitteractions").attr("disabled", true);
 
+                        document.getElementById('schedule_desc').disabled = false;
+                        document.getElementById('schedule_title').disabled = false;
+                        document.getElementById('schedule_social_date').disabled = false;
+                        document.getElementById('schedule_social_time').disabled = false;
+                    }else {
+                        $("#facebookactions").attr("disabled", false);
+                        $("#twitteractions").attr("disabled", false);
+
+                        document.getElementById('schedule_desc').disabled = true;
+                        document.getElementById('schedule_title').disabled = true;
+                        document.getElementById('schedule_social_date').disabled = true;
+                        document.getElementById('schedule_social_time').disabled = true;
+                        
+                    }
                 });
                 
             });

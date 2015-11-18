@@ -243,12 +243,7 @@
         
             $(document).ready(function ()
             {
-                $("#programs").change(function(){
-                    
-                    var program_id = $("#programs").val();
-                    angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
-
-                });
+                
                 
             });        
     
@@ -386,6 +381,26 @@
         }, 1000);
        $(document).ready(function () {
 //            $(".hamburger,.cross").hide();
+            $("#programs").change(function(){
+                    
+                var program_id = $("#programs").val();
+                angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
+                if (parseInt(program_id) == 0){
+                    $("#email_actions").attr("disabled", true);
+
+                    document.getElementById('schedule_title').disabled=false;
+                    document.getElementById('schedule_date').disabled=false;
+                    document.getElementById('schedule_time').disabled=false;
+                }else {
+                    $("#email_actions").attr("disabled", false);
+
+                    document.getElementById('schedule_title').disabled=true;
+                    document.getElementById('schedule_date').disabled=true;
+                    document.getElementById('schedule_time').disabled=true;
+
+                }
+
+            });
            $("#humbrgr").click(function (){
             if (confirm("Are you sure, You want to leave this page?")){
                 
@@ -394,7 +409,7 @@
                 $("#crs").click(); 
                $(".navicons,#txtlog").hide().delay( 800 ).fadeIn( 600 );     
             }
-        }
+            }
             );
            formattedHTMLData=$("#dynamictable").contents().find("html").html();
            show("iphone");

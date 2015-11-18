@@ -16,6 +16,8 @@ import java.util.TimeZone;
  */
 public class DateTimeUtil {
 
+    static final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
+
     public static boolean timeEqualsCurrentTime(Date datetime) {
         //Make sure time zone is the same when comparison is done. Time doesnt have to be equal to the second. Just the minute is enough.
         boolean flag = false;
@@ -52,5 +54,11 @@ public class DateTimeUtil {
         Long differenceCurrentTime = (nextPostDateTime.getTime() - currentDateTime.getTime()) / 1000;
 
         return differenceCurrentTime;
+    }
+
+    public static Date getDatePlusMins(int minsToAdd) {
+        Calendar date = Calendar.getInstance();
+        long t = date.getTimeInMillis();
+        return new Date(t + (minsToAdd * ONE_MINUTE_IN_MILLIS));
     }
 }

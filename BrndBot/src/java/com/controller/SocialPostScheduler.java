@@ -21,10 +21,10 @@ import util.DateTimeUtil;
  *
  * @author AR
  */
-class SocialPostScheduler {
+public class SocialPostScheduler {
 
     public static final Logger logger = Logger.getLogger(util.Utility.getClassName(SocialPostScheduler.class));
-
+    public static final int DefaultPollingInterval = 5;//5 mins
     final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);
     
     private ScheduleTwitterPost twitterPostCallable;
