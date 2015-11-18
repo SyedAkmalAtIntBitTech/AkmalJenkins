@@ -7,6 +7,8 @@ package social.controller;
 
 import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
+import com.controller.SocialPostScheduler;
+import com.divtohtml.StringUtil;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
 import com.intbit.marketing.service.ScheduledEntityListService;
@@ -33,36 +35,40 @@ public class ScheduleTwitterPost implements Callable {
 
     @Override
     public Date call() throws Exception {
-        TblScheduledEntityList scheduledTwitterPost = null;
+
+        //Adding tens mins if there are no latest approved posts
+        Date nextPostTime = DateTimeUtil.getDatePlusMins(SocialPostScheduler.DefaultPollingInterval);
         try {
-            scheduledTwitterPost = getLatestApprovedTwitterPost();
+            TblScheduledEntityList scheduledTwitterPost = getLatestApprovedTwitterPost();
+            if (scheduledTwitterPost != null) {
+                //The time zone of the saved date should be extracted.
+                //This time zone should be applied to the current time and then this comparison needs to be made.
 
-            //The time zone of the saved date should be extracted.
-            //This time zone should be applied to the current time and then this comparison needs to be made.
-            boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledTwitterPost.getScheduleTime());
+                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledTwitterPost.getScheduleTime());
 
-            if (shouldPostNow) {
-                TblScheduledSocialpostList twitterPost = getTwitterPost(scheduledTwitterPost);
-                String jsonString = twitterPost.getMetadata();
-                JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
-                String text = jsonObject.get(IConstants.kTwitterTextKey).toString();
-                PostToTwitter postToTwitter = new PostToTwitter();
-                Integer userId = getLatestApprovedTwitterPost().getUserId();
-                String twitterAccessToken = postToTwitter.getTwitterAccessToken(userId);
-                String twitterTokenSecret = postToTwitter.getTwitterAccessTokenSecret(userId);
+                if (shouldPostNow) {
+                    TblScheduledSocialpostList twitterPost = getTwitterPost(scheduledTwitterPost);
+                    String jsonString = twitterPost.getMetadata();
+                    JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
+                    String text = jsonObject.get(IConstants.kTwitterTextKey).toString();
+                    PostToTwitter postToTwitter = new PostToTwitter();
+                    Integer userId = scheduledTwitterPost.getUserId();
+                    String twitterAccessToken = postToTwitter.getTwitterAccessToken(userId);
+                    String twitterTokenSecret = postToTwitter.getTwitterAccessTokenSecret(userId);
 
-                String message = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, null, null, userId, null, null);
-                if (message.equalsIgnoreCase("success")) {
-                    updateStatusScheduledTwitter(scheduledTwitterPost);
-                    //Get the next in line
-                    scheduledTwitterPost = getLatestApprovedTwitterPost();
+                    String message = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, null, null, userId, null, null);
+                    if (message.equalsIgnoreCase("success")) {
+                        updateStatusScheduledTwitter(scheduledTwitterPost);
+                        //Get the next in line
+                        scheduledTwitterPost = getLatestApprovedTwitterPost();
+                    }
                 }
+                nextPostTime = scheduledTwitterPost.getScheduleTime();
             }
-
         } catch (Throwable ex) {
             Logger.getLogger(ScheduleTwitterPost.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return scheduledTwitterPost.getScheduleTime();
+        return nextPostTime;
     }
 
     private void updateStatusScheduledTwitter(TblScheduledEntityList scheduledTwitterPost) throws Throwable {
@@ -79,8 +85,11 @@ public class ScheduleTwitterPost implements Callable {
     }
 
     private TblScheduledEntityList getLatestApprovedTwitterPost() throws Throwable {
+        TblScheduledEntityList scheduledEntityList = null;
         String entityId = scheduledEntityListService.getLatestApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kTwitterKey, IConstants.kUserMarketingProgramOpenStatus);
-        TblScheduledEntityList scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
+        if (!StringUtil.isEmpty(entityId)) {
+            scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
+        }
         return scheduledEntityList;
     }
 
