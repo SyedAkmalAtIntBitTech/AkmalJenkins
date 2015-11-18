@@ -432,7 +432,7 @@
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
                                                 
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_email)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
@@ -841,7 +841,7 @@
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
                                                 
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_email)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
@@ -1090,7 +1090,7 @@
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
                                                 
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
@@ -1584,7 +1584,7 @@
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
                                                 
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
@@ -2068,7 +2068,7 @@
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
                                                 
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
@@ -2385,7 +2385,7 @@
                                       <div ng-controller="EmpDetCtrl">       
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
