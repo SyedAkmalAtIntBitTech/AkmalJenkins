@@ -470,7 +470,7 @@
                         <div class="secondcol">
                             <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                <div id="mailpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',getemail())">REMOVED SAVED POST</div>
+                                <div id="mailpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',master_email)">REMOVED SAVED POST</div>
                             </div>
                             <div class="toptweentyone headcolor twlvpix fontpns">
                                 PREVIEW
@@ -878,7 +878,7 @@
                         <div class="secondcol">
                             <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                <div id="maileditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',getemail())">REMOVED SAVED POST</div>
+                                <div id="maileditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',master_email)">REMOVED SAVED POST</div>
                             </div>
                             <div class="toptweentyone headcolor twlvpix fontpns">
                                 PREVIEW
@@ -1127,7 +1127,7 @@
                                 <div class="secondcol">
                                      <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div id="fbpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',getfacebook())">REMOVED SAVED POST</div>
+                                        <div id="fbpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',master_facebook)">REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor twlvpix fontpns">
                                         PREVIEW
@@ -1621,7 +1621,7 @@
                                 <div class="secondcol">
                                      <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div id="fbeditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',getfacebook())">REMOVED SAVED POST</div>
+                                        <div id="fbeditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',master_facebook)">REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor twlvpix fontpns">
                                         PREVIEW
@@ -2152,7 +2152,7 @@
                         <div class="secondcol">
                              <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                <div id="twpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',gettwitter())">REMOVED SAVED POST</div>
+                                <div id="twpreviewremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',master_twitter)">REMOVED SAVED POST</div>
                             </div>
                             <div class="toptweentyone headcolor twlvpix fontpns">
                                 PREVIEW
@@ -2411,7 +2411,7 @@
                         <div class="secondcol">
                              <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                <div id="tweditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',gettwitter())">REMOVED SAVED POST</div>
+                                <div id="tweditremove" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'remove',master_twitter)">REMOVED SAVED POST</div>
                             </div>
                             <div class="toptweentyone headcolor twlvpix fontpns">
                                 PREVIEW
@@ -2530,7 +2530,7 @@
                                 <div class="secondcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div id="mailpreviewremove6" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', getemail())">REMOVED SAVED POST</div>
+                                        <div id="mailpreviewremove6" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', master_email)">REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor tenpix fontpns">
                                         PREVIEW
