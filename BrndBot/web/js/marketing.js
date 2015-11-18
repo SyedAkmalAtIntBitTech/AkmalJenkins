@@ -585,7 +585,7 @@ function controllerMarketingCampaign($scope, $http) {
             });
     };
 
-    $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
+    $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName,is_today_active) {
         $edit=1;  
         if (entity_type == getemail()) {
             $http({
@@ -622,6 +622,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.marketing_program_name = marketingName;
+                $scope.is_today_active = is_today_active;
                 $scope.showEmailList();
             }).error(function (data) {
                 alert("request not successful");
@@ -662,6 +663,7 @@ function controllerMarketingCampaign($scope, $http) {
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
+                $scope.is_today_active = is_today_active;
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -705,6 +707,7 @@ function controllerMarketingCampaign($scope, $http) {
                 console.log("twitter time" + schedule_time);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
+                $scope.is_today_active = is_today_active;
 
             }).error(function (data) {
                 alert("request not successful");
@@ -883,7 +886,7 @@ function controllerMarketingCampaign($scope, $http) {
     }
 
 
-    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName) {
+    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) {
         
         if (entity_type == getemail()) {
             $slider=2;
@@ -938,6 +941,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.marketing_program_name = marketingName;
                 $scope.user_marketing_program_id = programId;
                 $scope.days = days;
+                $scope.is_today_active = is_today_active;
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -991,6 +995,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.marketing_program_name = marketingName;
                 $scope.user_marketing_program_id = programId;
                 $scope.days = days;
+                $scope.is_today_active = is_today_active;
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -1045,6 +1050,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.marketing_program_name = marketingName;
                 $scope.user_marketing_program_id = programId;
                 $scope.days = days;
+                $scope.is_today_active = is_today_active;
             }).error(function (data) {
                 alert("request not successful");
             });
