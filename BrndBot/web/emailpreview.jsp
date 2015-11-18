@@ -240,9 +240,21 @@
         iframeUrl="/BrndBot/DownloadHtmlServlet?file_name="+iframeName+".html";
     %>
     <script>
+        
+            $(document).ready(function ()
+            {
+                $("#programs").change(function(){
+                    
+                    var program_id = $("#programs").val();
+                    angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
+
+                });
+                
+            });        
+    
         function emailSettings($scope, $http){
             
-            $scope.getEmailSettings = function(){
+                $scope.getEmailSettings = function(){
                 
                 var email_settings = {"type": "get"};
                 
@@ -262,6 +274,7 @@
                         // or server returns response with an error status.
                     });
                 };
+                
                 $scope.setScheduling = function () {
                     var schedule_id = $("#email_actions").val();
                     var from_name = $("#name").val();
@@ -338,10 +351,23 @@
                     }
                     
                 };
-                $scope.getActions = function () {
+                
+                $scope.getProgramNames = function() {
+                    $http({
+                       method: 'GET',
+                       url:getHost() + 'getAllUserMarketingPrograms.do'
+                    }).success(function (data){
+                        alert(JSON.stringify(data));
+                        $scope.marketing_programs = data;
+                    }).error(function (data){
+                        alert("request not successful");
+                    });
+                };
+                
+                $scope.getActions = function (program_id) {
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetScheduledActions?type=email'
+                        url: getHost() + 'GetScheduledActions?programid='+ program_id + '&type=email'
                     }).success(function (data) {
                         $scope.email_actions = data;
                     }).error(function (data) {
@@ -569,33 +595,37 @@
                 </form>
             </div>
             <div class="col-md-4">
-                <!--
-                                <ul class="images">
-                                    <li><div id="iphone" class="img-responsive fancybox" onMouseOver="javascript:showLightBox()" onMouseOut="javascript:stopShowLightBox()" style="cursor: pointer;background-image: url('images/iphone 6 screen.png');"></div></li>
-                                    <li><img id="imac" class="img-responsive fancybox" src="images/IMAC.png"></li>
-                                    <li ><img id="ipad" class="img-responsive fancybox" src="images/IPAD3.png"></li>
-                                
-                                </ul>-->
+    <!--
+                    <ul class="images">
+                        <li><div id="iphone" class="img-responsive fancybox" onMouseOver="javascript:showLightBox()" onMouseOut="javascript:stopShowLightBox()" style="cursor: pointer;background-image: url('images/iphone 6 screen.png');"></div></li>
+                        <li><img id="imac" class="img-responsive fancybox" src="images/IMAC.png"></li>
+                        <li ><img id="ipad" class="img-responsive fancybox" src="images/IPAD3.png"></li>
+
+                    </ul>-->
 
                 <ul class="images ">
                     <li><div id="iphone" class="img-responsive ptr" onclick="show('iphone');" style="background-image: url('images/Phone.svg');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                     <li><div id="imac" class="img-responsive ptr" onclick="show('imac');"  style="background-image: url('images/imac27.png');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                     <li><div id="ipad" class="img-responsive ptr" onclick="show('ipad');"  style="background-image: url('images/Tablet.svg');background-repeat: no-repeat; -webkit-background-size: contain;"></div></li>
                 </ul>
-
-
-
-
                 <div id="popupschedule" style="display:none;">
-                    <div id="content">
+                    <div id="content" ng-init="getProgramNames()">
                         <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                                                     Layout file name<input type="text" id="layoutxml" required><br>-->
 
                         <p class="SH2" style="width:600px;">PLEASE SELECT A TIME FROM YOUR PLAN</p> 
-                        <div id="light" class="white_content"><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display = 'none';
-                                        document.getElementById('fade').style.display = 'none';
-                                        document.body.style.overflow = 'scroll';" style="text-decoration:none;">
-                                <p style="margin-left:740px;margin-top:-35px;cursor: pointer;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p></a></div>
+                        <div id="light" class="white_content">
+                            <a href = "javascript:void(0)" 
+                               onclick = "document.getElementById('light').style.display = 'none';
+                               document.getElementById('fade').style.display = 'none';
+                               document.body.style.overflow = 'scroll';" 
+                               ng-app=""style="text-decoration:none;">
+                        <p style="margin-left:740px;margin-top:-35px;cursor: pointer;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p></a></div>
+                        <select name="programs" id="programs" class="SH1 selectsocialact" style="font-variant: normal;">
+                            <option value="0" style="background:#fff;" >--SELECT--</option>
+                            <option style="background:#fff;" ng-repeat="programs in marketing_programs" value="{{programs.program_id}}">{{programs.name}}</option>
+                        </select><br><br>
+                        
                         <select class="SH1 selectsocialact" style="font-variant: normal;" name="email_actions" id="email_actions" onchange="validateact()">
                             <option value="0" style="background:#fff;">CUSTOM</option>
                             <option ng-repeat="actions in email_actions" value="{{actions.id}}">{{actions.schedule_title}}</option>
