@@ -241,12 +241,6 @@
     %>
     <script>
         
-            $(document).ready(function ()
-            {
-                
-                
-            });        
-    
         function emailSettings($scope, $http){
             
                 $scope.getEmailSettings = function(){
@@ -277,6 +271,7 @@
                     var to_email_addresses = $("#toaddress").val();
                     var from_email_address = $("#formaddress").val();
                     var reply_to_email_address = $("#email").val();
+                    var program_id = $("#programs").val();
                     var email_body = formattedHTMLData;
                     var email_list = $("#email_list").val();
                     var schedule_desc = "none";
@@ -294,6 +289,7 @@
                         console.log("New Epoch: " + myEpoch);
                         var email_scheduling = {
                             "from_name": from_name, 
+                            "program_id": program_id,
                             "email_subject": email_subject, 
                             "to_email_addresses": to_email_addresses, 
                             "from_email_address": from_email_address, 

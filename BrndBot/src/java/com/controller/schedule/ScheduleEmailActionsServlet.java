@@ -75,7 +75,6 @@ public class ScheduleEmailActionsServlet extends HttpServlet {
             String schedule_id = (String)requestBodyMap.get("schedule_id");
             String scheduleDesc = requestBodyMap.containsKey("schedule_desc") ? 
                     String.valueOf(requestBodyMap.get("schedule_desc")):null;
-            
             Map<String, Integer> idMap = ScheduleDAO.updatetoScheduledEmailList(
                     userId,
                     Integer.parseInt(schedule_id),
