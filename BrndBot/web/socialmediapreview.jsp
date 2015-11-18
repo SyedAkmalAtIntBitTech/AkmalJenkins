@@ -834,11 +834,10 @@
                     var isFacebook = $("#isFacebook").val();
                     var isTwitter = $("#isTwitter").val();
                     var image_name = $("#imageToPost").val();
+                    var program_id = $("#programs").val();
                     var schedule_id_facebook = "0";
                     var schedule_id_twitter = "0";
                     var ManagedPage = "";
-                    
-                    
                     
                     if ((isFacebook == "true") && (isTwitter == "false")) {
                         schedule_id_facebook = $("#facebookactions").val();
@@ -895,10 +894,11 @@
                         if (isFacebook == "true" && isTwitter == "false") {
                             social_schedule = [
                                 {
-                                    type: "facebook",
+                                    type: getfacebook(),
                                     image_name: image_name,
                                     schedule_time: myEpoch,
                                     schedule_title: schedule_title,
+                                    program_id: program_id,
                                     schedule_desc: schedule_desc,
                                     token_data: {
                                         "access_token": '"' + $("#accesstoken").val() + '"'
@@ -916,10 +916,11 @@
                         } else if (isFacebook == "false" && isTwitter == "true") {
                             social_schedule = [
                                 {
-                                    type: "twitter",
+                                    type: gettwitter(),
                                     image_name: image_name,
                                     schedule_time: myEpoch,
                                     schedule_title: schedule_title,
+                                    program_id: program_id,
                                     schedule_desc: schedule_desc,
                                     token_data: {
                                         "access_token": '"' + $("#twittweraccestoken").val() + '"',
@@ -937,10 +938,11 @@
                             social_schedule =
                                     [
                                         {
-                                            type: "facebook",
+                                            type: getfacebook(),
                                             image_name: image_name,
                                             schedule_time: myEpoch,
                                             schedule_title: schedule_title,
+                                            program_id: program_id,
                                             schedule_desc: schedule_desc,
                                             token_data: {
                                                 "access_token": '"' + $("#accesstoken").val() + '"'
@@ -954,10 +956,11 @@
                                             }
                                         },
                                         {
-                                            type: "twitter",
+                                            type: gettwitter(),
                                             image_name: image_name,
                                             schedule_time: myEpoch,
                                             schedule_title: schedule_title,
+                                            program_id: program_id,
                                             schedule_desc: schedule_desc,
                                             token_data: {
                                                 "access_token": '"' + $("#twittweraccestoken").val() + '"',
@@ -989,8 +992,9 @@
                         if (isFacebook == "true" && isTwitter == "false") {
                             social_schedule = [
                                 {
-                                    type: "facebook",
+                                    type: getfacebook(),
                                     image_name: image_name,
+                                    program_id: program_id,
                                     schedule_id: schedule_id_facebook,
                                     token_data: {
                                         "access_token": '"' + $("#accesstoken").val() + '"'
@@ -1008,8 +1012,9 @@
                         } else if (isFacebook == "false" && isTwitter == "true") {
                             social_schedule = [
                                 {
-                                    type: "twitter",
+                                    type: gettwitter(),
                                     image_name: image_name,
+                                    program_id: program_id,
                                     schedule_id: schedule_id_twitter,
                                     token_data: {
                                         "access_token": '"' + $("#twittweraccestoken").val() + '"',
@@ -1027,8 +1032,9 @@
                             social_schedule =
                                     [
                                         {
-                                            type: "facebook",
+                                            type: getfacebook(),
                                             image_name: image_name,
+                                            program_id: program_id,
                                             schedule_id: schedule_id_facebook,
                                             token_data: {
                                                 "access_token": '"' + $("#accesstoken").val() + '"'
@@ -1042,8 +1048,9 @@
                                             }
                                         },
                                         {
-                                            type: "twitter",
+                                            type: gettwitter(),
                                             image_name: image_name,
+                                            program_id: program_id,
                                             schedule_id: schedule_id_twitter,
                                             token_data: {
                                                 "access_token": '"' + $("#twittweraccestoken").val() + '"',
