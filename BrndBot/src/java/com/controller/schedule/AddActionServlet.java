@@ -78,7 +78,7 @@ public class AddActionServlet extends HttpServlet {
                         Integer days = tempDays.intValue();
                         int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
                         requestBodyMap.get("title").toString(),
-                        marketingType.toString(),                        
+                        marketingType,
                         requestBodyMap.get("description").toString(),
                         new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
                         requestBodyMap.get("actiontype").toString(), 

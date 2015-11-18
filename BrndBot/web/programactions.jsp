@@ -769,6 +769,7 @@
                                             <input type="button" value="Edit" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
                                         </div>
                                         <div class="approve">
+                                            
                                             <input type="button" value="Approve to Post" 
                                                    ng-show="facebook_action_status == true && facebook_template_status=='Template Saved'" 
                                                    ng-click="Approval(schedule_id, 'approved', master_facebook)"

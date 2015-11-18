@@ -49,7 +49,10 @@ public class Message {
         this.key = key;
     }
 
+    /* to track open rate for email sent */
     public Message() {
+       track_opens = true;
+       track_clicks = true;
     }
 
     /**

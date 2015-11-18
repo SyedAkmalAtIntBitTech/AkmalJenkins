@@ -117,15 +117,15 @@ public class ScheduleSocialPostServlet extends HttpServlet {
                     Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
                     String tokenDataString = requestBodyMap.get("token_data").toString();
                     String metadataString = requestBodyMap.get("metadata").toString();
-
+                    String marketing_program_id = (String)requestBodyMap.get("program_id");
                     //As of now schedule description is not yet mandatory.
                     String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
                             ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
-                    String marketingType="";
+                    String marketingType="0";
                     Map<String, Integer> daoResponse = ScheduleSocialPostDAO.addToScheduleSocialPost(
                             userId,
-                            marketingType,
                             requestBodyMap.get("image_name").toString(),
+                            Integer.parseInt(marketing_program_id),
                             AppConstants.GSON.fromJson(tokenDataString, Map.class),
                             AppConstants.GSON.fromJson(metadataString, Map.class),
                             requestBodyMap.get("type").toString(),

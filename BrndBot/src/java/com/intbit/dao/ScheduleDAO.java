@@ -51,7 +51,7 @@ public class ScheduleDAO {
 
     public static Map<String, Integer> addToScheduledEmailList(int userId,
             String subject,
-            String marketingType,
+            Integer marketing_program_id,
             String body,
             String fromAddress,
             String emailListName,
@@ -104,7 +104,7 @@ public class ScheduleDAO {
 
                 scheduleEntityId = addToScheduleEntityList(emailScheduleId,
                         scheduledTitle,
-                        marketingType,
+                        marketing_program_id,
                         scheduleDesc,
                         scheduledTime,
                         ScheduledEntityType.Email.toString(),
@@ -257,7 +257,7 @@ public class ScheduleDAO {
 
     public static int addToScheduleEntityList(Integer entityId,
             String scheduleTitle,
-            String marketingType,
+            Integer marketing_program_id,
             String scheduleDesc,
             Timestamp scheduleTime,
             String entityType,
@@ -277,7 +277,6 @@ public class ScheduleDAO {
             } else {
                 ps.setInt(1, entityId);
             }
-            int marketinkProgramId=Integer.parseInt(marketingType);
             ps.setString(2, scheduleTitle);
             ps.setTimestamp(3, scheduleTime);
             ps.setString(4, entityType );
@@ -285,7 +284,7 @@ public class ScheduleDAO {
             ps.setInt(6, userId);
             ps.setString(7, scheduleDesc);
             ps.setBoolean(8, false);
-            ps.setInt(9, marketinkProgramId);
+            ps.setInt(9, marketing_program_id);
             ps.setInt(10, Integer.parseInt(days) );
             ps.setTimestamp(11, null);
             ps.setNull(12, java.sql.Types.INTEGER);
