@@ -394,7 +394,6 @@ public class ScheduleDAO {
                + " AND date(programtable.date_event) - slist.days >= ?) "
                + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
                + " AND date(programtable.date_event) >= ?)) "
-               + " AND slist.entity_type = tc.entity_type"
                + " AND slist.user_marketing_program_id = programtable.id"
                + " ORDER BY slist.id, schedule_time ";
         try (Connection connection = connectionManager.getConnection();
