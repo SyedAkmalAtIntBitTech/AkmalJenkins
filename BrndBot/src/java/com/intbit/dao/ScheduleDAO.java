@@ -38,6 +38,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.postgresql.util.PGobject;
+import util.DateTimeUtil;
 
 /**
  *
@@ -394,7 +395,6 @@ public class ScheduleDAO {
                + " AND date(programtable.date_event) - slist.days >= ?) "
                + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
                + " AND date(programtable.date_event) >= ?)) "
-               + " AND slist.entity_type = tc.entity_type"
                + " AND slist.user_marketing_program_id = programtable.id"
                + " ORDER BY slist.id, schedule_time ";
         try (Connection connection = connectionManager.getConnection();
@@ -438,7 +438,10 @@ public class ScheduleDAO {
                     scheduleDetailJSONObject.put("schedule_title", rs.getString("schedule_title"));
                     scheduleDetailJSONObject.put("schedule_description", rs.getString("schedule_desc"));
                     if(rs.getInt("user_marketing_program_id")==0)
+                    {
                         scheduleDetailJSONObject.put("schedule_time", scheduleTime);
+                        scheduleDetailJSONObject.put("is_today_active", "false");
+                    }
                     else
                     {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
@@ -452,7 +455,11 @@ public class ScheduleDAO {
                         }
                         else
                         scheduleTime1 = scheduleTimestamp1.getTime();
-                        scheduleDetailJSONObject.put("schedule_time", scheduleTime1);    
+                        scheduleDetailJSONObject.put("schedule_time", scheduleTime1);
+                        if(DateTimeUtil.timeEqualsCurrentTime(new Date(scheduleTime1)))
+                            scheduleDetailJSONObject.put("is_today_active", "true");
+                        else
+                            scheduleDetailJSONObject.put("is_today_active", "false");
                     }
                     scheduleDetailJSONObject.put("is_recuring", rs.getBoolean("is_recuring"));
                     scheduleDetailJSONObject.put("entity_type", rs.getString("entity_type"));

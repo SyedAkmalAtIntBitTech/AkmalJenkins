@@ -34,7 +34,7 @@
     <%
         category_id = request.getParameter("categoryid");
     %>
-    <body ng-app>
+    <body ng-app >
         <input id="categoryidHidden" type="hidden" value="<%=category_id%>">
         <input id="programidHidden" type="hidden" value="0">
         <div class="row" ng-controller="controllerMarketingCategories">
@@ -67,10 +67,11 @@
                             <div class="mptxt fontpnr" >Marketing Programs</div>
                             <hr class="markline">
                             <ul class="promolist1">
-                                <li class="mrkli" ng-repeat="program in programs">
-                                   <div id="{{program.id}}" class="prognamelst fontpns" 
+                                <li id="mp" class="mrkli" ng-repeat="program in programs">
+                                   <div id="{{program.id}}" class="prognamelst fontpns"  
                                         ng-click="showhtmldata(program.id,program.html_data)">
-                                       {{program.name}}</div>
+                                       {{program.name}}
+                                   </div>
                                 </li>
                             </ul>
                             </div>

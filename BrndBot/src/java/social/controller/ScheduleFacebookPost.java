@@ -7,6 +7,8 @@ package social.controller;
 
 import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
+import com.controller.SocialPostScheduler;
+import com.divtohtml.StringUtil;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
 import com.intbit.marketing.model.TblScheduledTwitter;
@@ -38,39 +40,41 @@ public class ScheduleFacebookPost implements Callable {
 
     @Override
     public Date call() throws Exception {
-        TblScheduledEntityList scheduledFacebookPost = null;
+        //Adding tens mins if there are no latest approved posts
+        Date nextPostTime = DateTimeUtil.getDatePlusMins(SocialPostScheduler.DefaultPollingInterval);
         try {
-            //The below table should be reused or needs a new table specifically for FB.
-            scheduledFacebookPost = getLatestApprovedFacebookPost();
+            TblScheduledEntityList scheduledFacebookPost = getLatestApprovedFacebookPost();
+            if (scheduledFacebookPost != null) {
+                //The time zone of the saved date should be extracted.
+                //This time zone should be applied to the current time and then this comparison needs to be made.
+                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledFacebookPost.getScheduleTime());
 
-            //The time zone of the saved date should be extracted.
-            //This time zone should be applied to the current time and then this comparison needs to be made.
-            boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledFacebookPost.getScheduleTime());
-
-            if (shouldPostNow) {
-                TblScheduledSocialpostList facebookPost = getFacebookPost(scheduledFacebookPost);
-                String jsonString = facebookPost.getMetadata();
-                JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
-                String description = jsonObject.get(IConstants.kFacebookDescriptionKey).toString();
-                String postText = jsonObject.get(IConstants.kFacebookPostTextKey).toString();
-                String url = jsonObject.get(IConstants.kFacebookUrlKey).toString();
-                Integer userId = getLatestApprovedFacebookPost().getUserId();
-                PostToFacebook postToFacebook = new PostToFacebook();
-                String accessToken = postToFacebook.getFacebookAccessToken(userId);
+                if (shouldPostNow) {
+                    TblScheduledSocialpostList facebookPost = getFacebookPost(scheduledFacebookPost);
+                    String jsonString = facebookPost.getMetadata();
+                    JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
+                    String description = jsonObject.get(IConstants.kFacebookDescriptionKey).toString();
+                    String postText = jsonObject.get(IConstants.kFacebookPostTextKey).toString();
+                    String url = jsonObject.get(IConstants.kFacebookUrlKey).toString();
+                    Integer userId = getLatestApprovedFacebookPost().getUserId();
+                    PostToFacebook postToFacebook = new PostToFacebook();
+                    String accessToken = postToFacebook.getFacebookAccessToken(userId);
 
 //                String message = "";
-                String message = PostToFacebook.postStatus(accessToken, null, null, postText, null, null, url, description, userId, null);
-                if (message.equalsIgnoreCase("success")) {
-                    updateStatusScheduledFacebook(scheduledFacebookPost);
-                    //Get the next in line
-                    scheduledFacebookPost = getLatestApprovedFacebookPost();
+                    String message = PostToFacebook.postStatus(accessToken, null, null, postText, null, null, url, description, userId, null);
+                    if (message.equalsIgnoreCase("success")) {
+                        updateStatusScheduledFacebook(scheduledFacebookPost);
+                        //Get the next in line
+                        scheduledFacebookPost = getLatestApprovedFacebookPost();
+                    }
                 }
+                nextPostTime = scheduledFacebookPost.getScheduleTime();
             }
 
         } catch (Throwable ex) {
             Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return scheduledFacebookPost.getScheduleTime();
+        return nextPostTime;
     }
 
     private void updateStatusScheduledFacebook(TblScheduledEntityList scheduledFacebookPost) throws Throwable {
@@ -87,7 +91,10 @@ public class ScheduleFacebookPost implements Callable {
 
     private TblScheduledEntityList getLatestApprovedFacebookPost() throws Throwable {
         String entityId = scheduledEntityListService.getLatestApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kFacebookKey, IConstants.kUserMarketingProgramOpenStatus);
-        TblScheduledEntityList scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
+        TblScheduledEntityList scheduledEntityList = null;
+        if (!StringUtil.isEmpty(entityId)) {
+            scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
+        }
         return scheduledEntityList;
     }
 
