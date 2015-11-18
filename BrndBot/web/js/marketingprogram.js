@@ -5,7 +5,7 @@
  */
 
 function controllerMarketingCategories($scope, $http, $window){
-            
+            $(".prognamelst").trigger("click");
     $scope.getMarketingCategories = function(){
         $http({
             method: 'GET',
@@ -24,6 +24,7 @@ function controllerMarketingCategories($scope, $http, $window){
     };
 
     $scope.showMarketingPrograms = function(){
+        
         var marketing_path = getHost() + 'marketingprograms.jsp?categoryid='+category_id;
         window.location.replace(marketing_path);
     };
@@ -45,7 +46,6 @@ function controllerMarketingCategories($scope, $http, $window){
     };
     
     $scope.showhtmldata = function(id,html_data){
-
                 $(".prognamelst").css("background-color", "#fff").css("color","#3f3f42");
                 $("#"+id).css("background-color", "#5cc1a3").css("color","#f6f7f7");
             
