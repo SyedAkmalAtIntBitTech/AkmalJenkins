@@ -149,9 +149,7 @@
          * Bring all the recuring email templates form the database
          */
          $scope.getEmailTemplates = function(){
-                alert(validate());
-            if (validate()){
-                alert("test");
+               
                 $("#emailautomationcontent").hide();
                 $("#emlautomeditorcontainer").show();
                 $http({
@@ -162,7 +160,6 @@
                 }).error(function(){
                     alert("problem fetching the data");
                 });
-            }
 
         };
 
@@ -409,7 +406,7 @@
                             $("#emlautomeditorcontainer").show();
                             entity_no_email_template = "false";
                         }else {
-                            alert("test");
+                            
                             entity_no_email_template = "true";
                             $("#emailautomationcontent").show();
                             $("#emlautomeditorcontainer").hide();

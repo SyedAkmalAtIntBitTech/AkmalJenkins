@@ -455,7 +455,7 @@ public class ScheduleDAO {
                         else
                         scheduleTime1 = scheduleTimestamp1.getTime();
                         scheduleDetailJSONObject.put("schedule_time", scheduleTime1);
-                        if(DateTimeUtil.timeEqualsCurrentTime(new Date(scheduleTime1)))
+                        if(DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime1)))
                             scheduleDetailJSONObject.put("is_today_active", "true");
                         else
                             scheduleDetailJSONObject.put("is_today_active", "false");
