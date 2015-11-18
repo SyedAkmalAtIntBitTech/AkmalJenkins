@@ -123,7 +123,7 @@ public class UserMarketingProgramDaoImpl implements UserMarketingProgramDao{
                     .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
                     .add(Restrictions.eq("status", programType))
                     .add(Restrictions.eq("tblUserLoginDetails.id",user_id))
-                    .addOrder(Order.desc("dateEvent"));
+                    .addOrder(Order.asc("dateEvent"));
                    return criteria.list();
 		} catch (Throwable throwable) {
                    logger.log(Level.SEVERE, null, throwable);
