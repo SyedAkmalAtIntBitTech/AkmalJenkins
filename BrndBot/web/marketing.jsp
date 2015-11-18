@@ -154,8 +154,8 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-2 MH1 socfnts" ng-show="entitydetails.entity_type=='Facebook' || entitydetails.entity_type=='Twitter'">{{entitydetails.entity_type}} Post</div>
-                                    <div class="col-md-2 MH1 socfnts" ng-show="entitydetails.entity_type=='Email' || entitydetails.entity_type=='Note'">{{entitydetails.entity_type}}</div>
+                                    <div class="col-md-2 MH1 socfnts" ng-show="entitydetails.entity_type==master_facebook || entitydetails.entity_type==master_twitter">{{entitydetails.entity_type}} Post</div>
+                                    <div class="col-md-2 MH1 socfnts" ng-show="entitydetails.entity_type==master_email || entitydetails.entity_type==master_note">{{entitydetails.entity_type}}</div>
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entitydetails.template_status}}</div>
 
                                     <div class="col-md-2" style="margin-left:20px;">

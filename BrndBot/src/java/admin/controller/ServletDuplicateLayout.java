@@ -8,6 +8,7 @@ package admin.controller;
 import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
 import com.intbit.ConnectionManager;
+import com.intbit.ScheduledEntityType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -69,7 +70,7 @@ public class ServletDuplicateLayout extends BrndBotBaseHttpServlet {
                 html_file_name = result_set.getString("html_file_name");
                 model_name = result_set.getString("model_name");
                 social = result_set.getBoolean("social");
-                email = result_set.getBoolean("email");
+                email = result_set.getBoolean(ScheduledEntityType.Email.toString());
             } 
             query_string = "insert into tbl_model (organization_id, user_id, category_id, layout_file_name, model_file_name, email, social, "
                     + "sub_category_id, brand_id, block_id, image_file_name, html_file_name, model_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

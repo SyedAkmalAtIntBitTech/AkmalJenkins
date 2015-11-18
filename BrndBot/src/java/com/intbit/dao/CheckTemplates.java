@@ -6,6 +6,7 @@
 package com.intbit.dao;
 
 import com.intbit.ConnectionManager;
+import com.intbit.ScheduledEntityType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +26,7 @@ public class CheckTemplates {
         String query_string = "";
         Integer Number = 0;
         try (Connection conn = ConnectionManager.getInstance().getConnection()) {
-            if (type.equalsIgnoreCase("email")) {
+            if (type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
                 query_string = "Select Count(*) from tbl_model where category_id=?"
                         + " and sub_category_id=? and email=? and (user_id=" + user_id + " or user_id=0)";
                 try (PreparedStatement prepared_statement = conn.prepareStatement(query_string)) {

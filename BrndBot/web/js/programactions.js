@@ -551,6 +551,10 @@ function programactions($scope, $http, $window){
     };
     
     $scope.getProgramActions = function(){
+            $scope.master_facebook = getfacebook();
+            $scope.master_twitter = gettwitter();
+            $scope.master_email = getemail();
+            $scope.master_note = getnote();
          $http({
             method: 'GET',
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
@@ -1233,7 +1237,7 @@ function programactions($scope, $http, $window){
     $scope.updateActionEmail = function () {
 
         if (validateemailaction()) {
-            var actiontype = "email";
+            var actiontype = getemail();
             console.log("action type" + actiontype);
             var schedule_id = $("#email_scheduleid").val();
             var title = $("#email_edit_title").val();
@@ -1284,7 +1288,7 @@ function programactions($scope, $http, $window){
 
         if (validatefacebookaction()) {
             
-            var actiontype = "facebook";
+            var actiontype = getfacebook();
             console.log("action type" + actiontype);
             var schedule_id = $("#fb_scheduleid").val();
             var title = $("#fb_action_title").val();
@@ -1428,17 +1432,17 @@ function programactions($scope, $http, $window){
             {
                 $scope.status = data;
                 if (data !== "") {
-                    if(section == "facebook")
+                    if(section == getfacebook())
                     {
                         $("#fbpreviewdecond").hide();
                         $("#fbremovedtemplate").show();                        
                     }
-                    if(section == "twitter")
+                    if(section == gettwitter())
                     {
                         $("#twpreviewdecond").hide();
                         $("#twremovedtemplate").show();                     
                     }
-                    if(section == "email")
+                    if(section == getemail())
                     {
                         $("#mailpreviewdecond").hide();
                         $("#mailremovedtemplate").show();                     
@@ -1562,7 +1566,7 @@ function programactions($scope, $http, $window){
 
         var social_type = $("#social_type").val();
 
-        if (social_type == "facebook") {
+        if (social_type == getfacebook()) {
 
             if ($scope.validatefacebook()) {
 
@@ -1616,7 +1620,7 @@ function programactions($scope, $http, $window){
                 });
 
             }
-        } else if (social_type == "twitter") {
+        } else if (social_type == gettwitter()) {
 
             if ($scope.validatetwitter()) {
 

@@ -10,6 +10,7 @@ var create_button_title = "Edit";
 
 $(document).ready(function ()
 {
+    
     $("#liPriority").click(function () {
         //$slider=1;
         //sliderDialog = "#dvPriorityDialog";
@@ -481,9 +482,10 @@ $scope.SaveData = function () {
 
 function controllerMarketingCampaign($scope, $http) {
     $scope.entities_selected_time = "";
-    $scope.facebook = "Facebook";
-    $scope.twitter = "Twitter";
-    
+    $scope.master_facebook = getfacebook();
+    $scope.master_twitter = gettwitter();
+    $scope.master_email = getemail();
+    $scope.master_note = getnote();
     $scope.getCampaigns = function () {
         var curr_date = '';
         var tomorrowDate = '';

@@ -5,6 +5,7 @@
  */
 package com.intbit.marketing.dao.implementation;
 
+import com.intbit.ScheduledEntityType;
 import com.intbit.marketing.dao.ScheduledEmailListDao;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import java.util.List;
@@ -107,7 +108,7 @@ public class ScheduledEmailListDaoImpl  implements ScheduledEmailListDao{
                      .add(Restrictions.eq("umId.id", UserMarketingId))
                      .createAlias("tblScheduledEntityList", "sl")
                      .add(Restrictions.eq("sl.isRecuring", isRecuring))
-                     .add(Restrictions.eq("sl.entityType", "email"));		
+                     .add(Restrictions.eq("sl.entityType", ScheduledEntityType.Email.toString()));		
                    return criteria.list();
 		} catch (Throwable throwable) {
                    logger.log(Level.SEVERE, null, throwable);

@@ -267,8 +267,8 @@
                             <div class="oatlstdt fontpnr">{{programaction.postDate| date:'MMM dd'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <div class="oatlstpost fontpnr" ng-show="programaction.actionType=='Facebook' || programaction.actionType=='Twitter'">{{programaction.actionType}} Post</div>
-                            <div class="oatlstpost fontpnr" ng-show="programaction.actionType=='Note' || programaction.actionType=='Email'">{{programaction.actionType}}</div>
+                            <div class="oatlstpost fontpnr" ng-show="programaction.actionType==master_facebook || programaction.actionType==master_twitter">{{programaction.actionType}} Post</div>
+                            <div class="oatlstpost fontpnr" ng-show="programaction.actionType==master_note || programaction.actionType==master_email">{{programaction.actionType}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="oatlststat fontpnr">{{programaction.status}}</div>
