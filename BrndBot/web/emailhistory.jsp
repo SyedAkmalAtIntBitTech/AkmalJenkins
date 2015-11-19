@@ -47,6 +47,7 @@
                         $("#scrl").show();
                         $("#nohistory").hide();
                         $scope.email_history = data;
+                        
                     }
                     if (data === error){
                         alert(data);

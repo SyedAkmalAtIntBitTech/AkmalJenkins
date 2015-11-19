@@ -10,8 +10,9 @@ function controllerMarketingCategories($scope, $http, $window){
             method: 'GET',
             url: 'displaymarketingCategory.do'
         }).success(function (data, status, headers, config) {
-           // alert(JSON.stringify(data.marketingData[0].name));
+//            alert(JSON.stringify(data.marketingData[0].name));
             $scope.categories = data.marketingData;
+            
             if (data === error) {
                 alert(data);
             }
@@ -22,8 +23,7 @@ function controllerMarketingCategories($scope, $http, $window){
         });                
     };
 
-    $scope.showMarketingPrograms = function(){
-        
+    $scope.showMarketingPrograms = function(){        
         var marketing_path = getHost() + 'marketingprograms.jsp?categoryid='+category_id;
         window.location.replace(marketing_path);
     };
@@ -35,7 +35,9 @@ function controllerMarketingCategories($scope, $http, $window){
             url: 'displaymarketingProgram.do?marketingCategoryId='+$("#categoryidHidden").val()
         }).success(function (data, status, headers, config) {
             $scope.programs = data.marketingProgramsData;
-            
+            setTimeout(function () {
+                $("#"+data.marketingProgramsData[0].id).click();
+            }, 0);
             if (data === error) {
                 alert(data);
             }
