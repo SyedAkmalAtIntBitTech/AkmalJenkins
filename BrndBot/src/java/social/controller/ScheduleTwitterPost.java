@@ -9,8 +9,10 @@ import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
 import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
+import com.intbit.AppConstants;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
+import java.io.File;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
@@ -39,17 +41,19 @@ public class ScheduleTwitterPost implements Callable {
 
                 boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledTwitterPost.getScheduleTime());
 
-                if (shouldPostNow) {
+                if (!shouldPostNow) {
                     TblScheduledSocialpostList twitterPost = getTwitterPost(scheduledTwitterPost);
                     String jsonString = twitterPost.getMetadata();
                     JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
                     String text = jsonObject.get(IConstants.kTwitterTextKey).toString();
+                    String url = jsonObject.get(IConstants.kTwitterURLKey).toString();
                     PostToTwitter postToTwitter = new PostToTwitter();
                     Integer userId = scheduledTwitterPost.getUserId();
                     String twitterAccessToken = postToTwitter.getTwitterAccessToken(userId);
                     String twitterTokenSecret = postToTwitter.getTwitterAccessTokenSecret(userId);
+                    String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + twitterPost.getImageName();
 
-                    String message = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, null, null, userId, null, null);
+                    String message = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, url, file_image_path, userId, null, null);
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledTwitter(scheduledTwitterPost);
                         //Get the next in line
@@ -73,7 +77,7 @@ public class ScheduleTwitterPost implements Callable {
 
     private TblScheduledSocialpostList getTwitterPost(TblScheduledEntityList scheduledTwitterPost) throws Throwable {
         //Call the DAO here
-        TblScheduledSocialpostList scheduledSocialpostList = SchedulerUtilityMethods.getSocialPostEntityById(scheduledTwitterPost.getId());
+        TblScheduledSocialpostList scheduledSocialpostList = SchedulerUtilityMethods.getSocialPostEntityById(scheduledTwitterPost.getEntityId());
         return scheduledSocialpostList;
     }
 

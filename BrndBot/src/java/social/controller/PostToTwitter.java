@@ -27,9 +27,6 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class PostToTwitter {
 
-    @Autowired
-    public UserPreferencesService userPreferencesService;
-
     public static String postStatus(String twitterAccessToken, String twitterTokenSecret, String text, String shortURL, String fileImagePath, Integer userId, String htmlString, String getImageFile) {
         String returnMessage = "";
         try {
@@ -87,16 +84,8 @@ public class PostToTwitter {
     }
 
     public HashMap<String, String> getTwitterUserPreferences(Integer userId) throws Throwable {
-
-        TblUserPreferences userPreferences = userPreferencesService.getById(userId);
-        String userPreferencesJson = userPreferences.getUserPreferences();
-        JSONObject jsonObject = (JSONObject) new JSONParser().parse(userPreferencesJson);
-        HashMap<String, String> hashUserPerfernce = new HashMap<String, String>();
-        hashUserPerfernce.put("twitter_access_token", jsonObject.get("twitter_access_token").toString());
-        hashUserPerfernce.put("twitter_access_token_secret", jsonObject.get("twitter_access_token_secret").toString());
-        hashUserPerfernce.put("TwitterLoggedIn", jsonObject.get("TwitterLoggedIn").toString());
-        hashUserPerfernce.put("twitter_user_name", jsonObject.get("twitter_user_name").toString());
-        return hashUserPerfernce;
+        UserPreferencesTwitter userPreferencesTwitter = new UserPreferencesTwitter();
+        return userPreferencesTwitter.getUserPreferenceForAccessToken(userId);
     }
 
     public String getTwitterAccessToken(Integer userId) throws Throwable {

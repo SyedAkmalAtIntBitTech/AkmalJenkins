@@ -9,8 +9,11 @@ import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
 import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
+import com.intbit.AppConstants;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
@@ -50,9 +53,9 @@ public class ScheduleFacebookPost implements Callable {
                     Integer userId = scheduledFacebookPost.getUserId();
                     PostToFacebook postToFacebook = new PostToFacebook();
                     String accessToken = postToFacebook.getFacebookAccessToken(userId);
+                    String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + facebookPost.getImageName();
 
-//                String message = "";
-                    String message = PostToFacebook.postStatus(accessToken, null, null, postText, null, null, url, description, userId, null);
+                    String message = PostToFacebook.postStatus(accessToken, postText, url, file_image_path, null, null, url, description, userId, null);
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledFacebook(scheduledFacebookPost);
                         //Get the next in line
@@ -76,7 +79,7 @@ public class ScheduleFacebookPost implements Callable {
     }
 
     private TblScheduledSocialpostList getFacebookPost(TblScheduledEntityList scheduledFacebookPost) throws Throwable {
-        TblScheduledSocialpostList scheduledSocialpostList = SchedulerUtilityMethods.getSocialPostEntityById(scheduledFacebookPost.getId());
+        TblScheduledSocialpostList scheduledSocialpostList = SchedulerUtilityMethods.getSocialPostEntityById(scheduledFacebookPost.getEntityId());
         return scheduledSocialpostList;
     }
 

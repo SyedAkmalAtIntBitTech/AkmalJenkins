@@ -29,7 +29,7 @@ public class SchedulerUtilityMethods {
 
     public static String getLatestApprovedPost(String status, String entityType, String programStatus) {
         StringBuilder sbSql = new StringBuilder();
-        sbSql.append("select  entitytable.entity_id as en_id, entitytable.schedule_time::time  from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
+        sbSql.append("select  entitytable.schedule_time::time,entitytable.entity_id as en_id  from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
         sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
         sbSql.append(" and lower(programtable.status)");
         sbSql.append(" like'").append(programStatus).append("'");
@@ -47,7 +47,8 @@ public class SchedulerUtilityMethods {
             try (ResultSet resultSet = ps.getResultSet()) {
 
                 if (resultSet.next()) {
-                    entityId = resultSet.getString("en_id");
+                    int e = resultSet.getInt("en_id") - 1;//Hack
+                    entityId = Integer.toString(e);
                 }
             }
 
@@ -64,7 +65,7 @@ public class SchedulerUtilityMethods {
         StringBuilder sbSql = new StringBuilder();
 
         if (isRecuring) {
-            sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
+            sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id as en_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
             sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
             sbSql.append(" and lower(programtable.status)");
             sbSql.append("like'").append(programStatus).append("'");
@@ -78,7 +79,7 @@ public class SchedulerUtilityMethods {
             sbSql.append(";");
 
         } else {
-            sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
+            sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id as en_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
             sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
             sbSql.append(" and lower(programtable.status)");
             sbSql.append(" like'").append(programStatus).append("'");
@@ -98,7 +99,7 @@ public class SchedulerUtilityMethods {
             try (ResultSet resultSet = ps.getResultSet()) {
 
                 if (resultSet.next()) {
-                    entityId = resultSet.getString(1);
+                    entityId = String.valueOf(resultSet.getInt("en_id"));
                 }
             }
 

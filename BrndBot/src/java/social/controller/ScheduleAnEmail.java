@@ -11,15 +11,12 @@ import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
-import com.intbit.marketing.service.ScheduledEmailListService;
-import com.intbit.marketing.service.ScheduledEntityListService;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import util.DateTimeUtil;
 
 /**

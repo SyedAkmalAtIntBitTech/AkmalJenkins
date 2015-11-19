@@ -51,5 +51,5 @@ public interface IConstants {
     final static String kSocialPostapprovedStatus = "approved";
     final static String kUserMarketingProgramOpenStatus = "open";
     final static String kTwitterTextKey = "text";
-    
+    final static String kTwitterURLKey = "shorturl";
 }
