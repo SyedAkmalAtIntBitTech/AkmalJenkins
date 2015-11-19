@@ -832,10 +832,15 @@
                                         </div>
                                         <div class="approve">
                                     <div ng-show="is_today_active">
-                                      <div ng-controller="EmpDetCtrl">       
-<!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
-                                            <div class="EmployeeInfo">-->
+<!--                                      <div ng-controller="EmpDetCtrl">       
+                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
+                                            <div class="EmployeeInfo">
                                                 
+
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_email)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
+                                            </div>
+                                          </div>
+
                                                 <button ng-show="email_template_status=='Template Saved'"  ng-click="Approval(schedule_id, 'approved', master_email)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
 <!--                                            </div>
                                           </div>-->
@@ -862,7 +867,7 @@
                                             </div>
 
                                        </div>                                
-                                    </div>  
+                                    </div>  -->
                                 </div>
                                 </div>
                                 </div>
@@ -1574,11 +1579,16 @@
                                         <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns" ng-click="updateActionFacebook()" >Save</button>                                       
                                     </div>
                                     <div class="approve">
-                                    <div ng-show="is_today_active">
+<!--                                    <div ng-show="is_today_active">
                                       <div ng-controller="EmpDetCtrl">       
-<!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
-                                            <div class="EmployeeInfo">-->
+                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
+                                            <div class="EmployeeInfo">
                                                 
+
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                            </div>
+                                          </div>
+
                                                 <button ng-show="facebook_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
 <!--                                            </div>
                                           </div>-->
@@ -1606,7 +1616,7 @@
 
                                        </div>                                
                                     </div>  
-                                </div>
+                                </div>-->
                                 </div>
                                 </div>
                             </div>
@@ -2376,8 +2386,15 @@
                                             <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns" ng-click="updateActionTwitter()">Save</button>                                       
                                         </div>
                                         <div class="approve">
-                                    <div ng-show="is_today_active">
+<!--                                    <div ng-show="is_today_active">
                                       <div ng-controller="EmpDetCtrl">       
+
+                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
+                                            <div class="EmployeeInfo">
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                            </div>
+                                          </div>
+
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
                                                 <button ng-show="template_saved=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
@@ -2396,7 +2413,7 @@
                                             </div>
                                        </div>                                
                                     </div>  
-                                </div>
+                                </div>-->
                                 </div>
                                     </div>
                                 </div>
