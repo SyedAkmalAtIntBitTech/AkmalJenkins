@@ -6,6 +6,7 @@
 package com.intbit.dao;
 
 import com.controller.IConstants;
+import com.divtohtml.StringUtil;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
@@ -247,10 +248,10 @@ public class ScheduleDAO {
             ps.setInt(3, schedule_id);
 
             ps.executeUpdate();
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e,
                     "Exception while updating the schedule:", null), e);
-            
+
         }
         return entityID;
     }
@@ -279,16 +280,16 @@ public class ScheduleDAO {
             }
             ps.setString(2, scheduleTitle);
             ps.setTimestamp(3, scheduleTime);
-            ps.setString(4, entityType );
+            ps.setString(4, entityType);
             ps.setString(5, status);
             ps.setInt(6, userId);
             ps.setString(7, scheduleDesc);
             ps.setBoolean(8, false);
             ps.setInt(9, marketing_program_id);
-            ps.setInt(10, Integer.parseInt(days) );
+            ps.setInt(10, Integer.parseInt(days));
             ps.setTimestamp(11, null);
             ps.setNull(12, java.sql.Types.INTEGER);
-            
+
             ps.execute();
             try (ResultSet rs = ps.getResultSet()) {
                 if (rs.next()) {
@@ -385,17 +386,17 @@ public class ScheduleDAO {
 //                + " AND slist.user_marketing_program_id = programtable.id"
 //                + " ORDER BY slist.id, schedule_time ";
         String sql = "SELECT DISTINCT ON (id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, date(schedule_time) schedule_date "
-               + " FROM tbl_scheduled_entity_list slist, "
-               + " tbl_scheduled_entity_type_color tc, tbl_user_marketing_program programtable"
-               + " WHERE slist.user_id = ? "
-               + " AND (date(schedule_time) <= ? "
-               + " AND date(schedule_time) >= ?) "
-               + " OR ((slist.is_recuring = 'false' AND date(programtable.date_event) - slist.days <= ? "
-               + " AND date(programtable.date_event) - slist.days >= ?) "
-               + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
-               + " AND date(programtable.date_event) >= ?)) "
-               + " AND slist.user_marketing_program_id = programtable.id"
-               + " ORDER BY slist.id, schedule_time ";
+                + " FROM tbl_scheduled_entity_list slist, "
+                + " tbl_scheduled_entity_type_color tc, tbl_user_marketing_program programtable"
+                + " WHERE slist.user_id = ? "
+                + " AND (date(schedule_time) <= ? "
+                + " AND date(schedule_time) >= ?) "
+                + " OR ((slist.is_recuring = 'false' AND date(programtable.date_event) - slist.days <= ? "
+                + " AND date(programtable.date_event) - slist.days >= ?) "
+                + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
+                + " AND date(programtable.date_event) >= ?)) "
+                + " AND slist.user_marketing_program_id = programtable.id"
+                + " ORDER BY slist.id, schedule_time ";
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, userId);
@@ -411,57 +412,53 @@ public class ScheduleDAO {
                     long scheduleTime = scheduleTimestamp.getTime();
                     JSONObject scheduleDetailJSONObject = new JSONObject();
                     long scheduleDate;
-                    if(rs.getInt("user_marketing_program_id")==0)
-                    scheduleDate = rs.getDate("schedule_date").getTime();
-                    else
-                    {
+                    if (rs.getInt("user_marketing_program_id") == 0) {
+                        scheduleDate = rs.getDate("schedule_date").getTime();
+                    } else {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
-                        if(rs.getBoolean("is_recuring"))
-                        {
+                        if (rs.getBoolean("is_recuring")) {
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(scheduleTimestamp1);
                             cal.add(Calendar.DAY_OF_WEEK, rs.getInt("days"));
                             scheduleDate = cal.getTime().getTime();
-                        }
-                        else
+                        } else {
                             scheduleDate = scheduleTimestamp1.getTime();
+                        }
                     }
                     //String scheduleDateStr = new Date(scheduleDate).toString();
                     scheduleDetailJSONObject.put("days", rs.getInt("days"));
                     scheduleDetailJSONObject.put("schedule_id", rs.getInt("id"));
                     scheduleDetailJSONObject.put("entity_id", rs.getInt("entity_id"));
-                    int marketingId=rs.getInt("user_marketing_program_id");
-                    String marketingName=getMarketingProgramName(marketingId, connection);
-                    scheduleDetailJSONObject.put("marketingName",marketingName);
+                    int marketingId = rs.getInt("user_marketing_program_id");
+                    String marketingName = getMarketingProgramName(marketingId, connection);
+                    scheduleDetailJSONObject.put("marketingName", marketingName);
                     scheduleDetailJSONObject.put("user_marketing_program_id", rs.getInt("user_marketing_program_id"));
                     scheduleDetailJSONObject.put("schedule_title", rs.getString("schedule_title"));
                     scheduleDetailJSONObject.put("schedule_description", rs.getString("schedule_desc"));
-                    if(rs.getInt("user_marketing_program_id")==0)
-                    {
+                    if (rs.getInt("user_marketing_program_id") == 0) {
                         scheduleDetailJSONObject.put("schedule_time", scheduleTime);
-                        if(DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime)))
+                        if (DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime))) {
                             scheduleDetailJSONObject.put("is_today_active", "true");
-                        else
+                        } else {
                             scheduleDetailJSONObject.put("is_today_active", "false");
-                    }
-                    else
-                    {
+                        }
+                    } else {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
                         long scheduleTime1;
-                        if(rs.getBoolean("is_recuring"))
-                        {
+                        if (rs.getBoolean("is_recuring")) {
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(scheduleTimestamp1);
                             cal.add(Calendar.DAY_OF_WEEK, rs.getInt("days"));
                             scheduleTime1 = cal.getTime().getTime();
+                        } else {
+                            scheduleTime1 = scheduleTimestamp1.getTime();
                         }
-                        else
-                        scheduleTime1 = scheduleTimestamp1.getTime();
                         scheduleDetailJSONObject.put("schedule_time", scheduleTime1);
-                        if(DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime1)))
+                        if (DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime1))) {
                             scheduleDetailJSONObject.put("is_today_active", "true");
-                        else
+                        } else {
                             scheduleDetailJSONObject.put("is_today_active", "false");
+                        }
                     }
                     scheduleDetailJSONObject.put("is_recuring", rs.getBoolean("is_recuring"));
                     scheduleDetailJSONObject.put("entity_type", rs.getString("entity_type"));
@@ -469,7 +466,7 @@ public class ScheduleDAO {
                     scheduleDetailJSONObject.put("user_id", rs.getInt("user_id"));
                     //scheduleDetailJSONObject.put("color", rs.getString("color"));
                     scheduleDetailJSONObject.put("template_status",
-                    TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
+                            TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
 
                     if (!result.containsKey(String.valueOf(scheduleDate))) {
                         result.put(String.valueOf(scheduleDate), new JSONArray());
@@ -477,7 +474,7 @@ public class ScheduleDAO {
 
                     result.get(String.valueOf(scheduleDate)).add(scheduleDetailJSONObject);
                 }
-                System.out.println("result:"+result.toString());
+                logger.log(Level.INFO, "result:" + result.toString());
             } catch (Exception e) {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e,
                         "Exception while deleting the schedule:", null), e);
@@ -485,7 +482,7 @@ public class ScheduleDAO {
         }
         Set<String> dateSet = result.keySet();
         JSONArray entityDataArray = new JSONArray();
-System.out.println("dateSet"+dateSet.toString());
+        logger.log(Level.INFO, "dateSet" + dateSet.toString());
         try {
             Instant instant = fromDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
             java.util.Date from_date = (java.util.Date) Date.from(instant);
@@ -502,23 +499,51 @@ System.out.println("dateSet"+dateSet.toString());
                 if (!dateSet.contains(date_epoch)) {
                     result.put(date_epoch, new JSONArray());
                 }
-                System.out.println(date);
+                logger.log(Level.INFO, date.toString());
             }
 
             Map<String, JSONObject> sortedMap = new TreeMap(result);
             dateSet = sortedMap.keySet();
 
-            JSONObject entityJSONObject = null;
+            HashMap entityObject = null;
             //good way:
             Iterator<String> iterator = dateSet.iterator();
             while (iterator.hasNext()) {
-                entityJSONObject = new JSONObject();
+                entityObject = new HashMap();
                 String dateString = iterator.next();
-                entityJSONObject.put("date", new Date(Long.parseLong(dateString)).toString());
-                JSONArray jsonArrayDateEntities = result.get(dateString);
-                entityJSONObject.put("dataArray", jsonArrayDateEntities);
-                entityDataArray.add(entityJSONObject);
+                String parsedDateString = new Date(Long.parseLong(dateString)).toString();
+                boolean foundObjectInArray = false;
+                for (Object entityDataArrayObject : entityDataArray) {
+                    HashMap entityDataArrayJSONObject = (HashMap) entityDataArrayObject;
+                    String dateInEntityDateJSONObject = (String) entityDataArrayJSONObject.get("date");
+                    if (!StringUtil.isEmpty(dateInEntityDateJSONObject) && dateInEntityDateJSONObject.equals(parsedDateString)) {
+                        foundObjectInArray = true;
+                        break;
+                    }
+                }
+                if (!foundObjectInArray) {
+                    entityObject.put("date", parsedDateString);
+                    JSONArray jsonArrayDateJSONEntities = new JSONArray();
+                    Iterator resultIterator = result.entrySet().iterator();
+                    while (resultIterator.hasNext()) {
+                        Map.Entry pair = (Map.Entry) resultIterator.next();
+                        JSONArray jsonArray = (JSONArray) pair.getValue();
+                        String jsonParsedString = new Date(Long.parseLong(pair.getKey().toString())).toString();
+                        if (jsonParsedString.equals(parsedDateString)) {
+                            if (jsonArray.size() > 0) {
+                                jsonArrayDateJSONEntities.add(jsonArray.get(0));
+                                resultIterator.remove(); // avoids a ConcurrentModificationException                            
+                            }
+                        }
+
+                    }
+//                JSONArray jsonArrayDateEntities = result.get(dateString);
+                    entityObject.put("dataArray", jsonArrayDateJSONEntities);
+                    entityDataArray.add(entityObject);
+                }
+
             }
+            logger.log(Level.INFO, entityDataArray.toString());
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e,
@@ -531,28 +556,25 @@ System.out.println("dateSet"+dateSet.toString());
 
     }
 
-    public static String getMarketingProgramName(int marketingId, Connection connection)
-    {
-        String marketingProgram="";
+    public static String getMarketingProgramName(int marketingId, Connection connection) {
+        String marketingProgram = "";
         String sql1 = "SELECT name FROM tbl_user_marketing_program WHERE id = ? ";
-        try(PreparedStatement ps1 = connection.prepareStatement(sql1)) {
-                ps1.setInt(1, marketingId);
-            try(ResultSet rs1 = ps1.executeQuery()){
+        try (PreparedStatement ps1 = connection.prepareStatement(sql1)) {
+            ps1.setInt(1, marketingId);
+            try (ResultSet rs1 = ps1.executeQuery()) {
                 if (rs1.next()) {
-                    marketingProgram=rs1.getString("name");
+                    marketingProgram = rs1.getString("name");
                 }
-            }catch(Exception e)
-            {
+            } catch (Exception e) {
                 System.out.println(e);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e,
                     "Exception while getting the program names :", null), e);
         }
         return marketingProgram;
     }
-    
-    
+
     public static Map<String, Object> getScheduleEmailDetails(int userId, int scheduleId) throws SQLException, ParseException {
         PGobject pgobject = new PGobject();
         JSONParser parser = new JSONParser();

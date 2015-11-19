@@ -515,7 +515,7 @@ public class UserMarketingProgramController {
             Double entity_id = (Double) requestBodyMap.get("entity_id");
             String template_status = (String) requestBodyMap.get("template_status");
             
-            TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getById(entity_id.intValue());
+            TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id.intValue());
 
             if (template_status.equalsIgnoreCase("approved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
@@ -544,7 +544,7 @@ public class UserMarketingProgramController {
             String template_status = (String) requestBodyMap.get("template_status");
             String entity_type = (String)requestBodyMap.get("entity_type");
             
-            TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getById(entity_id.intValue());
+            TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id.intValue());
 
             if (template_status.equalsIgnoreCase("approved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.approved.toString());

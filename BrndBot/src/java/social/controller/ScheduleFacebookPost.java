@@ -11,16 +11,12 @@ import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
-import com.intbit.marketing.model.TblScheduledTwitter;
-import com.intbit.marketing.service.ScheduledEntityListService;
-import com.intbit.marketing.service.ScheduledSocialpostListService;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import util.DateTimeUtil;
 
 /**
@@ -28,11 +24,6 @@ import util.DateTimeUtil;
  * @author AR
  */
 public class ScheduleFacebookPost implements Callable {
-
-    @Autowired
-    ScheduledEntityListService scheduledEntityListService;
-    @Autowired
-    ScheduledSocialpostListService scheduledSocialpostListService;
 
     public void terminateThread() {
         Thread.currentThread().interrupt();
@@ -80,20 +71,20 @@ public class ScheduleFacebookPost implements Callable {
     private void updateStatusScheduledFacebook(TblScheduledEntityList scheduledFacebookPost) throws Throwable {
         //Call the DAO here
         scheduledFacebookPost.setStatus(IConstants.kSocialPostCommpleteStatus);
-        scheduledEntityListService.update(scheduledFacebookPost);
+        SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledFacebookPost);
         ApplicationContextListener.refreshFacebookScheduler();
     }
 
     private TblScheduledSocialpostList getFacebookPost(TblScheduledEntityList scheduledFacebookPost) throws Throwable {
-        TblScheduledSocialpostList scheduledSocialpostList = scheduledSocialpostListService.getByEntityId(scheduledFacebookPost.getId());
+        TblScheduledSocialpostList scheduledSocialpostList = SchedulerUtilityMethods.getSocialPostEntityById(scheduledFacebookPost.getId());
         return scheduledSocialpostList;
     }
 
     private TblScheduledEntityList getLatestApprovedFacebookPost() throws Throwable {
-        String entityId = scheduledEntityListService.getLatestApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kFacebookKey, IConstants.kUserMarketingProgramOpenStatus);
+        String entityId = SchedulerUtilityMethods.getLatestApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kFacebookKey, IConstants.kUserMarketingProgramOpenStatus);
         TblScheduledEntityList scheduledEntityList = null;
         if (!StringUtil.isEmpty(entityId)) {
-            scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
+            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId));
         }
         return scheduledEntityList;
     }
