@@ -34,11 +34,6 @@
        <link rel="stylesheet" href="css/facebook.css" type="text/css"/>
         <title>BrndBot - Your Plan</title>
 
-        <style type='text/css'>
-           
-          
-            
-        </style>
         <script>
                  function overlay(){
                         document.getElementById('light').style.display = 'block';
