@@ -441,7 +441,7 @@
                                                    button--text-upper 
                                                    fontpns" id="fb_approve_button_post">
                                         <button ng-click="SaveData();" ng-show="email_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                        <button id="button1" ng-show="email_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                        <button id="button1" ng-show="email_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Un approve</button> 
 
                                             </div>
                                         </div>
@@ -616,7 +616,7 @@
                                             <div class="topthirty8 left5">
                                                 <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns"  ng-click="updateActionEmail()" >Save</button>                                       
                                                 <!--                                            <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
-                                                <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                                <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;margin-left:16px !important;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
 
                                             </div>
                                         </div>
@@ -783,7 +783,7 @@
                                         </div>
 <!--                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
                                         <button ng-click="SaveData();" ng-show="facebook_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                        <button id="button1" ng-show="facebook_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', master_facebook)" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                        <button id="button1" ng-show="facebook_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', master_facebook)" style="background-color: #e25b5b !important;color: white !important;display:none;margin-left:16px !important;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
                                          
                                     </div>
                                 </div>
@@ -945,7 +945,7 @@
                                         <div class="topthirty8 left5">
                                             <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns" ng-click="updateActionFacebook()" >Save</button>                                       
                                             <!--                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
-                                            <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                            <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Un approve</button> 
 
                                         </div>
                                     </div>
@@ -1100,7 +1100,7 @@
                                                    id="ftwitter_approve_button_post">
                                          
                                                 <button ng-click="SaveData();" ng-show="twitter_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                                <button id="button1" ng-show="twitter_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', master_twitter)" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                                <button id="button1" ng-show="twitter_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', master_twitter)" style="background-color: #e25b5b !important;color: white !important;display:none;margin-left:16px !important;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
                                             
                                         </div>
                                     </div>
@@ -1353,7 +1353,7 @@
                                             <div class="approve">
                                                 <input type="button" value="Approve to Post" ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" ng-click="recuringApproval(schedule_id, 'approved')" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
                                                 <button ng-click="SaveData();" ng-show="recuring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                                <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="recuringApproval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                                <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="recuringApproval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;margin-left:16px !important;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
                                             </div>
                                         </div>
                                     </div>
