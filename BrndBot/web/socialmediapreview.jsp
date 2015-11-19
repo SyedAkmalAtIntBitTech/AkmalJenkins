@@ -167,7 +167,7 @@
                 display:none;
                 position: fixed;
                 width:900px;
-                height:550px;
+                height:590px;
                 top: 25%;
                 left: 30%;
                 margin-left:-155px;

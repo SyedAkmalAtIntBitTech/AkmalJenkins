@@ -95,10 +95,13 @@
             }
             .fr-wrapper{
                 
-                    min-height: 550px !important;
+/*                    min-height: 550px !important;
     height: auto !important;
-     max-height: 546px !important;
-
+     max-height: 546px !important;*/
+            min-height: 0% !important;
+    height: auto !important;
+    max-height: 100% !important;
+    position: relative !important;
      
             }
               li.border-highlight {
