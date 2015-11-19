@@ -53,7 +53,7 @@ public class ScheduleAnRecuringEmail implements Callable {
                     String email_subject = sendAnEmail.getSubject();
 
                     String emaillist_name = sendAnEmail.getEmailListName();
-                    Integer user_id = getLatestApprovedSendEmail().getUserId();
+                    Integer user_id = scheduledAnRecuringEmail.getUserId();
                     String reply_to_address = sendAnEmail.getReplyToEmailAddress();
                     String from_email_address = sendAnEmail.getFromAddress();
                     String from_name = sendAnEmail.getFromName();
