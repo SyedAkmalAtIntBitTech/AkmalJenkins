@@ -206,6 +206,16 @@ function validateEmail(sEmail) {
     }
 }
 
+function reSet()
+{
+   $("#addactiontitle").val("");
+   $("#description").val("");
+   $("#datepicker").val("");
+   $("#timepicker1").val("");
+   return true;
+    
+}
+
 function validateaction() {
     var title = $("#addactiontitle").val();
     var actiontype = $("#actiontype").val();
@@ -915,6 +925,7 @@ function controllerMarketingCampaign($scope, $http) {
 
     $scope.ShowAddAction = function()
     {
+        if(reSet()){ }
         $slider=1;
         $edit=1; 
         sliderDialog = "#dvPriorityDialog";
