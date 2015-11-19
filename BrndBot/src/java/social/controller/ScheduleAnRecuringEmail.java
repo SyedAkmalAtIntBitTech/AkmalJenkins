@@ -11,13 +11,10 @@ import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
-import com.intbit.marketing.service.ScheduledEmailListService;
-import com.intbit.marketing.service.ScheduledEntityListService;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import util.DateTimeUtil;
 
 /**
@@ -25,11 +22,6 @@ import util.DateTimeUtil;
  * @author Ajit
  */
 public class ScheduleAnRecuringEmail implements Callable {
-
-    @Autowired
-    ScheduledEntityListService scheduledEntityListService;
-    @Autowired
-    ScheduledEmailListService scheduledEmailListService;
 
     public void terminateThread() {
         Thread.currentThread().interrupt();
@@ -45,7 +37,7 @@ public class ScheduleAnRecuringEmail implements Callable {
 
             //The time zone of the saved date should be extracted.
                 //This time zone should be applied to the current time and then this comparison needs to be made.
-                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(getLatestApprovedSendEmail().getScheduleTime());
+                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledAnRecuringEmail.getScheduleTime());
 
                 if (shouldPostNow) {
                     TblScheduledEmailList sendAnEmail = getSendEmail(scheduledAnRecuringEmail);
@@ -53,14 +45,13 @@ public class ScheduleAnRecuringEmail implements Callable {
                     String email_subject = sendAnEmail.getSubject();
 
                     String emaillist_name = sendAnEmail.getEmailListName();
-                    Integer user_id = getLatestApprovedSendEmail().getUserId();
+                    Integer user_id = scheduledAnRecuringEmail.getUserId();
                     String reply_to_address = sendAnEmail.getReplyToEmailAddress();
                     String from_email_address = sendAnEmail.getFromAddress();
                     String from_name = sendAnEmail.getFromName();
                     SendAnEmail anEmail = new SendAnEmail();
-                // To do add days column in TblScheduledEntityList model class
                     //and get days from TblScheduledEntityList
-                    Integer days = 10;
+                    Integer days = scheduledAnRecuringEmail.getDays();
                     String to_email_addresses = anEmail.getAllEmailAddressesForEmailList(user_id, days, emaillist_name);
                     String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
                     if (message.equalsIgnoreCase("success")) {
@@ -80,20 +71,20 @@ public class ScheduleAnRecuringEmail implements Callable {
     private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostCommpleteStatus);
-        scheduledEntityListService.update(scheduledAnEmail);
+        SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);
         ApplicationContextListener.refreshEmailRecuringScheduler();
     }
 
     private TblScheduledEmailList getSendEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
-        TblScheduledEmailList scheduledEmailList = scheduledEmailListService.getById(scheduledAnEmail.getEntityId());
+        TblScheduledEmailList scheduledEmailList = SchedulerUtilityMethods.getEmailEntityById(scheduledAnEmail.getEntityId());
         return scheduledEmailList;
     }
 
     private TblScheduledEntityList getLatestApprovedSendEmail() throws Throwable {
-        String entityId = scheduledEntityListService.getLatestApprovedEmail(IConstants.kSocialPostTemplateSavedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.TRUE);
+        String entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.TRUE);
         TblScheduledEntityList scheduledEntityList = null;
         if (!StringUtil.isEmpty(entityId)) {
-            scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
+            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId));
         }
         return scheduledEntityList;
     }

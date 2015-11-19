@@ -24,6 +24,15 @@ public interface ScheduledEntityListDao {
     public TblScheduledEntityList getById(Integer id) throws Throwable;
 
     /**
+     * This method retrieves {@link scheduledEntityList} by passing id
+     *
+     * @param id
+     * @return {@link scheduledEntityList}
+     * @throws java.lang.Throwable
+     */
+    public TblScheduledEntityList getEntityById(Integer id) throws Throwable;
+    
+    /**
      * This method retrieves all {@link scheduledEntityList}
      *
      * @return {@link scheduledEntityList}

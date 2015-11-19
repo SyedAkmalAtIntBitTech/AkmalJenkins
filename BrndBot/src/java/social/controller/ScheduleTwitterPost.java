@@ -11,15 +11,12 @@ import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
-import com.intbit.marketing.service.ScheduledEntityListService;
-import com.intbit.marketing.service.ScheduledSocialpostListService;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import util.DateTimeUtil;
 
 /**
@@ -28,11 +25,7 @@ import util.DateTimeUtil;
  */
 public class ScheduleTwitterPost implements Callable {
 
-    @Autowired
-    ScheduledEntityListService scheduledEntityListService;
-    @Autowired
-    ScheduledSocialpostListService scheduledSocialpostListService;
-
+  
     @Override
     public Date call() throws Exception {
 
@@ -74,21 +67,21 @@ public class ScheduleTwitterPost implements Callable {
     private void updateStatusScheduledTwitter(TblScheduledEntityList scheduledTwitterPost) throws Throwable {
         //Call the DAO here
         scheduledTwitterPost.setStatus(IConstants.kSocialPostCommpleteStatus);
-        scheduledEntityListService.update(scheduledTwitterPost);
+        SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledTwitterPost);
         ApplicationContextListener.refreshTwitterScheduler();
     }
 
     private TblScheduledSocialpostList getTwitterPost(TblScheduledEntityList scheduledTwitterPost) throws Throwable {
         //Call the DAO here
-        TblScheduledSocialpostList scheduledSocialpostList = scheduledSocialpostListService.getByEntityId(scheduledTwitterPost.getId());
+        TblScheduledSocialpostList scheduledSocialpostList = SchedulerUtilityMethods.getSocialPostEntityById(scheduledTwitterPost.getId());
         return scheduledSocialpostList;
     }
 
     private TblScheduledEntityList getLatestApprovedTwitterPost() throws Throwable {
         TblScheduledEntityList scheduledEntityList = null;
-        String entityId = scheduledEntityListService.getLatestApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kTwitterKey, IConstants.kUserMarketingProgramOpenStatus);
+        String entityId = SchedulerUtilityMethods.getLatestApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kTwitterKey, IConstants.kUserMarketingProgramOpenStatus);
         if (!StringUtil.isEmpty(entityId)) {
-            scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
+            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId));
         }
         return scheduledEntityList;
     }
@@ -96,5 +89,4 @@ public class ScheduleTwitterPost implements Callable {
     public void terminateThread() {
         Thread.currentThread().interrupt();
     }
-
 }

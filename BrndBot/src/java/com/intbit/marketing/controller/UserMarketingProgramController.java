@@ -316,6 +316,7 @@ public class UserMarketingProgramController {
                 jSONObject.put("dateTime", scheduledEntityListObject.getTblUserMarketingProgram().getCreateDate().getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
                 jSONObject.put("days", scheduledEntityListObject.getDays());
+                int d=scheduledEntityListObject.getDays();
                 jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
@@ -352,6 +353,8 @@ public class UserMarketingProgramController {
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
                 jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("actionStatus", actionStatus);
+                jSONObject.put("days", scheduledEntityListObject.getDays());
+                int d1=scheduledEntityListObject.getDays();
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledEntityListObject.getScheduleTime().getTime());
@@ -389,6 +392,8 @@ public class UserMarketingProgramController {
                 jSONObject.put("programTemplateName", scheduledSocialpostListObject.getScheduleTitle());
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledSocialpostListObject.getStatus()).getDisplayName());
                 jSONObject.put("actionStatus", actionStatus);
+                jSONObject.put("days", scheduledSocialpostListObject.getDays());
+                int d2=scheduledSocialpostListObject.getDays();
                 jSONObject.put("description", scheduledSocialpostListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("postDate", cal.getTimeInMillis());
@@ -416,6 +421,7 @@ public class UserMarketingProgramController {
             userMarketinProgramObject.put("description", userMarketingProgram.getTblMarketingProgram().getHtmlData());
 
             JSONObject jSONObject = new JSONObject();
+            
             jSONObject.put("programdetails", userMarketinProgramObject);
             jSONObject.put("emailautomation", scheduledEmailJsonArray);
             jSONObject.put("programactions", scheduledEmailAndSocailPostJsonForRecuringArray);
@@ -509,9 +515,7 @@ public class UserMarketingProgramController {
             Double entity_id = (Double) requestBodyMap.get("entity_id");
             String template_status = (String) requestBodyMap.get("template_status");
             
-            ApplicationContextListener.refreshEmailRecuringScheduler();
-
-            TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getById(entity_id.intValue());
+            TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id.intValue());
 
             if (template_status.equalsIgnoreCase("approved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
@@ -519,6 +523,7 @@ public class UserMarketingProgramController {
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
             }
             scheduledEntityListService.update(scheduled_entity_list);
+            ApplicationContextListener.refreshEmailRecuringScheduler();
             return "true";
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);
@@ -539,15 +544,7 @@ public class UserMarketingProgramController {
             String template_status = (String) requestBodyMap.get("template_status");
             String entity_type = (String)requestBodyMap.get("entity_type");
             
-            if (entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())){
-                ApplicationContextListener.refreshFacebookScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())){
-                ApplicationContextListener.refreshTwitterScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())){
-                ApplicationContextListener.refreshEmailScheduler();
-            }
-            
-            TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getById(entity_id.intValue());
+            TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id.intValue());
 
             if (template_status.equalsIgnoreCase("approved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.approved.toString());

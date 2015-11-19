@@ -648,7 +648,8 @@ function programactions($scope, $http, $window){
     $scope.createPost = function(){
             window.open(getHost() + 'dashboard.jsp', "_self");
       };
-    $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName) {
+    $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName,days) {
+        
         $edit=1;  
         if (entity_type == getemail()) {
             $http({
@@ -684,6 +685,7 @@ function programactions($scope, $http, $window){
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.marketing_program_name = marketingName;
+                $scope.days = days;
                 $scope.showEmailList();
             }).error(function (data) {
                 alert("request not successful");
@@ -724,6 +726,7 @@ function programactions($scope, $http, $window){
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
+                $scope.days = days;
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -767,6 +770,7 @@ function programactions($scope, $http, $window){
                 console.log("twitter time" + schedule_time);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
+                $scope.days = days;
 
             }).error(function (data) {
                 alert("request not successful");
@@ -1010,7 +1014,7 @@ function programactions($scope, $http, $window){
     $scope.getScheduleDetails = function (schedule_id, template_status, 
                                           schedule_date, entity_type, 
                                           schedule_title, schedule_desc, 
-                                          post_time, action_status) {
+                                          post_time, action_status, days) {
        
         if (entity_type == getemail()) {
             
@@ -1065,6 +1069,7 @@ function programactions($scope, $http, $window){
                 $scope.schedule_type = entity_type;
                 $scope.marketing_program_name = schedule_title;
                 $scope.post_time=post_time;
+                $scope.days=days;
             }).error(function (data) {
                 alert("request not successful ");
             });
@@ -1116,6 +1121,7 @@ function programactions($scope, $http, $window){
                 $scope.facebook_template_status = template_status;
                 $scope.schedule_type = entity_type;
                 $scope.post_time=post_time;
+                $scope.days=days;
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -1168,6 +1174,7 @@ function programactions($scope, $http, $window){
                 $scope.twitter_template_status = template_status;
                 $scope.schedule_type = entity_type;
                 $scope.post_time=post_time;
+                $scope.days=days;
             }).error(function (data) {
                 alert("request not successful");
             });

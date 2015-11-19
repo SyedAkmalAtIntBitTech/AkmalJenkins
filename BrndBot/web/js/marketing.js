@@ -206,6 +206,16 @@ function validateEmail(sEmail) {
     }
 }
 
+function reSet()
+{
+   $("#addactiontitle").val("");
+   $("#description").val("");
+   $("#datepicker").val("");
+   $("#timepicker1").val("");
+   return true;
+    
+}
+
 function validateaction() {
     var title = $("#addactiontitle").val();
     var actiontype = $("#actiontype").val();
@@ -471,7 +481,7 @@ function setTodaysDate() {
         
      }
    
-$scope.SaveData = function () {
+    $scope.SaveData = function () {
           alert('Unapproved');
           $("#button1").css("display", "block");
          return $scope.EmployeeInfoDiv1 = true;
@@ -514,6 +524,7 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
             $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
             $scope.entitySet = data.entitydata;
+            console.log(JSON.stringify(data.entitydata));
             $scope.nodata = data.noactionsmessage;
             $("#default").css("display", "block");
 
@@ -586,6 +597,57 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful ");
             });
     };
+    
+    $scope.recuringApproval = function(entity_id, template_status){
+        
+        var approval_type = {"entity_id": entity_id, "template_status":template_status};
+        
+        $http({
+            method: 'POST',
+            url: 'approveStatusRecuring.do',
+            headers: {'Content-Type':'application/json'},
+            data: JSON.stringify(approval_type)
+        }).success(function (data, status, headers, config) {
+          if (data == "true"){
+            alert("template status changed successfully");
+            window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+          }else {
+              alert("problem saving the record");
+          }
+        }).error(function (data, status, headers, config) {
+            alert("No data available, problem fetching the data");
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });      
+        
+    }; 
+
+     $scope.Approval = function(entity_id, template_status, entity_type){
+        
+        var approval_type = {"entity_id": entity_id, 
+                             "template_status":template_status, 
+                             "entity_type": entity_type};
+        
+        $http({
+            method: 'POST',
+            url: 'approveStatus.do',
+            headers: {'Content-Type':'application/json'},
+            data: JSON.stringify(approval_type)
+        }).success(function (data, status, headers, config) {
+          if (data == "true"){
+            alert("template status changed successfully");
+            window.open(getHost() + 'marketing.jsp', "_self");
+          }else {
+              alert("problem saving the record");
+          }
+        }).error(function (data, status, headers, config) {
+            alert("No data available, problem fetching the data");
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });      
+        
+    };
+
 
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName,is_today_active) {
         $edit=1;  
@@ -864,6 +926,7 @@ function controllerMarketingCampaign($scope, $http) {
 
     $scope.ShowAddAction = function()
     {
+        if(reSet()){ }
         $slider=1;
         $edit=1; 
         sliderDialog = "#dvPriorityDialog";

@@ -8,6 +8,7 @@ package social.controller;
 import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
 import com.controller.SocialPostScheduler;
+import com.divtohtml.StringUtil;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.service.ScheduledEmailListService;
@@ -27,11 +28,7 @@ import util.DateTimeUtil;
  */
 public class ScheduleAnEmail implements Callable {
 
-    @Autowired
-    ScheduledEntityListService scheduledEntityListService;
-    @Autowired
-    ScheduledEmailListService scheduledEmailListService;
-
+    
     public void terminateThread() {
         Thread.currentThread().interrupt();
     }
@@ -45,9 +42,9 @@ public class ScheduleAnEmail implements Callable {
 
             //The below table should be reused or needs a new table specifically for FB.
             if (scheduledAnEmail != null) {
-            //The time zone of the saved date should be extracted.
+                //The time zone of the saved date should be extracted.
                 //This time zone should be applied to the current time and then this comparison needs to be made.
-                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(getLatestApprovedSendEmail().getScheduleTime());
+                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledAnEmail.getScheduleTime());
 
                 if (shouldPostNow) {
                     TblScheduledEmailList sendAnEmail = getSendEmail(scheduledAnEmail);
@@ -89,18 +86,21 @@ public class ScheduleAnEmail implements Callable {
     private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostCommpleteStatus);
-        scheduledEntityListService.update(scheduledAnEmail);
+        SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);
         ApplicationContextListener.refreshEmailScheduler();
     }
 
     private TblScheduledEmailList getSendEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
-        TblScheduledEmailList scheduledEmailList = scheduledEmailListService.getById(scheduledAnEmail.getEntityId());
+        TblScheduledEmailList scheduledEmailList = SchedulerUtilityMethods.getEmailEntityById(scheduledAnEmail.getEntityId());
         return scheduledEmailList;
     }
 
     private TblScheduledEntityList getLatestApprovedSendEmail() throws Throwable {
-        String entityId = scheduledEntityListService.getLatestApprovedEmail(IConstants.kSocialPostTemplateSavedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.FALSE);
-        TblScheduledEntityList scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
+        String entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.FALSE);
+        TblScheduledEntityList scheduledEntityList = null;
+        if (!StringUtil.isEmpty(entityId)) {
+            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId));
+        }
         return scheduledEntityList;
     }
 

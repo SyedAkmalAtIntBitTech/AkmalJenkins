@@ -241,12 +241,6 @@
     %>
     <script>
         
-            $(document).ready(function ()
-            {
-                
-                
-            });        
-    
         function emailSettings($scope, $http){
             
                 $scope.getEmailSettings = function(){
@@ -277,6 +271,7 @@
                     var to_email_addresses = $("#toaddress").val();
                     var from_email_address = $("#formaddress").val();
                     var reply_to_email_address = $("#email").val();
+                    var program_id = $("#programs").val();
                     var email_body = formattedHTMLData;
                     var email_list = $("#email_list").val();
                     var schedule_desc = "none";
@@ -294,6 +289,7 @@
                         console.log("New Epoch: " + myEpoch);
                         var email_scheduling = {
                             "from_name": from_name, 
+                            "program_id": program_id,
                             "email_subject": email_subject, 
                             "to_email_addresses": to_email_addresses, 
                             "from_email_address": from_email_address, 
@@ -352,7 +348,7 @@
                        method: 'GET',
                        url:getHost() + 'getAllUserMarketingPrograms.do'
                     }).success(function (data){
-                        alert(JSON.stringify(data));
+//                        alert(JSON.stringify(data));
                         $scope.marketing_programs = data;
                     }).error(function (data){
                         alert("request not successful");
@@ -473,32 +469,32 @@
             var emlval=re.test(to_email_addresses);
             
             if (from_name == ""){
-                alert("from name not entered, please enter the from name");
+                alert("From name not entered, please enter the from name");
                 $("#name").focus();
                 return false;
             }
             if (email_subject == ""){
-                alert("email subject name not entered, please enter the email subject");
+                alert("Email subject name not entered, please enter the email subject");
                 $("#subject").focus();
                 return false;
             }
             if (to_email_addresses == ""){
-                alert("email addresses not entered, please enter the email address");
+                alert("Email addresses not entered, please enter the email address");
                 $("#toaddress").focus();
                 return false;
             }
             if (from_email_address == ""){
-                alert("from email addresses not entered, please enter the from email addresses");
+                alert("From email address not entered, please enter the from email address");
                 $("#formaddress").focus();
                 return false;
             }
             if (reply_to_email_address == ""){
-                alert("reply to email addresses not entered, please enter the reply to email addresses");
+                alert("Reply to email address not entered, please enter the reply to email address");
                 $("#email").focus();
                 return false;
             }
             if (email_list == ""){
-                alert("email list not entered, please enter the email list");
+                alert("Email list not entered, please enter the email list");
                 $("#email_list").focus();
                 return false;
             }
