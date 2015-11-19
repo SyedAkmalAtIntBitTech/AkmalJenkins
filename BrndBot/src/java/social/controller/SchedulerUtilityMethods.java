@@ -31,12 +31,12 @@ public class SchedulerUtilityMethods {
         StringBuilder sbSql = new StringBuilder();
         sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
         sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
-        sbSql.append("and lower(programtable.status)");
-        sbSql.append("like'").append(programStatus).append("'");
+        sbSql.append(" and lower(programtable.status)");
+        sbSql.append(" like'").append(programStatus).append("'");
         sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
         sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
-        sbSql.append("and date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' ");
-        sbSql.append("order by entitytable.schedule_time::time");
+        sbSql.append(" and date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' ");
+        sbSql.append(" order by entitytable.schedule_time::time");
         sbSql.append(" limit 1");
         sbSql.append(";");
         String entityId = "";
@@ -66,27 +66,27 @@ public class SchedulerUtilityMethods {
         if (isRecuring) {
             sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
             sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
-            sbSql.append("and lower(programtable.status)");
+            sbSql.append(" and lower(programtable.status)");
             sbSql.append("like'").append(programStatus).append("'");
             sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
             sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
-            sbSql.append(" and lower(entitytable. is_recuring) like '").append(isRecuring).append("'");
+            sbSql.append(" and entitytable.is_recuring =  '").append(isRecuring).append("'");
             //Need to review this
-            sbSql.append("time(entitytable.schedule_time::time AT TIME ZONE 'US/Eastern') > current_time AT TIME ZONE 'US/Eastern' ");
-            sbSql.append("order by entitytable.schedule_time::time");
+            sbSql.append(" and entitytable.schedule_time::time AT TIME ZONE 'US/Eastern' > current_time AT TIME ZONE 'US/Eastern' ");
+            sbSql.append(" order by entitytable.schedule_time::time");
             sbSql.append(" limit 1");
             sbSql.append(";");
 
         } else {
             sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
             sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
-            sbSql.append("and lower(programtable.status)");
-            sbSql.append("like'").append(programStatus).append("'");
+            sbSql.append(" and lower(programtable.status)");
+            sbSql.append(" like'").append(programStatus).append("'");
             sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
             sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
-            sbSql.append(" and lower(entitytable. is_recuring) like '").append(isRecuring).append("'");
-            sbSql.append("date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' ");
-            sbSql.append("order by entitytable.schedule_time::time");
+            sbSql.append(" and entitytable.is_recuring = '").append(isRecuring).append("'");
+            sbSql.append(" and date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' ");
+            sbSql.append(" order by entitytable.schedule_time::time");
             sbSql.append(" limit 1");
             sbSql.append(";");
         }
