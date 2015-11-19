@@ -309,16 +309,15 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
             StringBuilder sbSql = new StringBuilder();
 
             if (isRecuring) {
-                sbSql.append("select  entitytable.schedule_time\\:\\:time as scheduledTime, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
+                sbSql.append("select  entitytable.schedule_time\\:\\:time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
                 sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
                 sbSql.append("and lower(programtable.status)");
                 sbSql.append("like'").append(programStatus).append("'");
                 sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
                 sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
                 sbSql.append(" and lower(entitytable. is_recuring) like '").append(isRecuring).append("'");
-                //Need to review this
-                sbSql.append("time(scheduledTime AT TIME ZONE 'US/Eastern') > current_time AT TIME ZONE 'US/Eastern' ");
-                sbSql.append("order by scheduledTime");
+                sbSql.append("time(entitytable.schedule_time\\:\\:time AT TIME ZONE 'US/Eastern') > current_time AT TIME ZONE 'US/Eastern' ");
+                sbSql.append("order by entitytable.schedule_time\\:\\:time");
                 sbSql.append(" limit 1");
                 sbSql.append(";");
 

@@ -283,7 +283,8 @@
                                                                         programaction.programTemplateName,
                                                                         programaction.description,
                                                                         programaction.postTime,
-                                                                        programaction.postDateStatus)">Details</button>
+                                                                        programaction.postDateStatus,
+                                                                        programaction.days)">Details</button>
                         </div>
                         <div class="otactlstlinediv">
                             <hr class="otactlstline">
@@ -428,7 +429,7 @@
                                         </div>
                                         <div class="inlineFlex top120">
                                             <div class="rightthirty left5">
-                                                <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc, marketing_program_name)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
+                                                <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc, programs.programdetails.programName,days)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
                                             <input type="button" value="Approve to Post" 
@@ -596,7 +597,8 @@
                                                         Day
                                                     </div>
                                                     <div class="topsix">
-                                                        <input type="text" value="10" name="emaildays" id="emaildays" class="textbox">
+                                                        <input type="hidden" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        
+                                                        <input type="text" value="{{days}}" name="emaildays" id="emaildays" class="textbox">
                                                     </div>
                                                 </div>
                                                 <div class="half">
@@ -766,7 +768,7 @@
                                     </div>
                                     <div class="inlineFlex topsixeight">
                                         <div class="rightthirty left5">
-                                            <input type="button" value="Edit" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc)" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
+                                            <input type="button" value="Edit" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc,programs.programdetails.programName, days)" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="fb_button_post">
                                         </div>
                                         <div class="approve">
                                             
@@ -924,7 +926,7 @@
                                                     Day
                                                 </div>
                                                 <div class="topsix">
-                                                   <input type="text" value="10" name="fbdays" id="fbdays" class="textbox">                                                   
+                                                   <input type="text" value="{{days}}" name="fbdays" id="fbdays" class="textbox">                                              
                                                 </div>
                                             </div>
                                             <div class="half">
@@ -1081,7 +1083,9 @@
                                                                                 entities_selected_time,
                                                                                 schedule_type,
                                                                                 schedule_title,
-                                                                                schedule_desc)"  class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="twitter_button_post">
+                                                                                schedule_desc,
+                                                                                programs.programdetails.programName,
+                                                                                days)"  class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="twitter_button_post">
                                         </div>
                                         <div class="approve">
                                             <input type="button" 
@@ -1201,7 +1205,7 @@
                                             POSTING TO
                                         </div>
                                         <div class=" tenpix fontpnr topnine">
-                                            {{schedule_type}}
+                                            {{schedule_typedays}}
                                         </div>
 
                                         <div class="toptweenty headcolor tenpix fontpns">
@@ -1213,7 +1217,7 @@
                                                     Day
                                                 </div>
                                                 <div class="topsix">
-                                                    <input type="text" value="10" name="twdays" id="twdays" class="textbox">                                                   
+                                                    <input type="text" value="{{days}}" name="twdays" id="twdays" class="textbox">                                                   
                                                 </div>
                                             </div>
                                             <div class="half">

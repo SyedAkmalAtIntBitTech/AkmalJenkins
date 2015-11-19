@@ -174,7 +174,6 @@
                     var marketingactiontilldate = $("#marketingactiontilldate").val();
                     var description = $("#description").val();
                     var type = $("#type").val();
-                    alert(type);
                     if (marketingactiontitle == ""){
                         alert("title not entered, kindly enter the title");
                         $("#marketingactiontitle").focus();
@@ -194,7 +193,7 @@
                     }
                     if (type == "0"){
                         alert("type not entered,kindly enter the type");
-    //                    $("#type").focus();
+                        $("#type").focus();
                         return false;
                     }
                     if (description == ""){
@@ -209,11 +208,8 @@
                 $scope.createMarketingActionsJSON = function(){
                     
                     var v = $scope.validate();
-                        alert(v);
-                        
-                    if (v == "true"){
-                        
-                        alert("test");
+                    var type = "0";
+                    if (v == true){
                         
                         var marketingactiontitle = $("#marketingactiontitle").val();
                         var days = $("#days").val();
@@ -221,22 +217,25 @@
                         var is_recuring = document.getElementById("is_recuring").checked;
                         var marketingactiontilldate = $("#marketingactiontilldate").val();
                         var description = $("#description").val();
-                        var type = $("#type").val();
+                       type = $("#type").val();
                         
                         marketing_actions.actions.push(
                                 {"title":marketingactiontitle, "days": days,
                                  "time":marketingactiontime, "is_recuring": is_recuring,
                                  "tilldate": marketingactiontilldate,"type":type,
                                  "description":description });
+                     }
+                        if (type != '0'){
+                            $("#marketingactiontitle").val("");
+                            $("#days").val("");
+                            $("#marketingactiontime").val("");
+                            $("#is_recuring").val("");
+                            $("#marketingactiontilldate").val("");
+                            $("#description").val("");
+                            $("#type").val(0);
+                            console.log(JSON.stringify(marketing_actions));
                         }
-                        $("#marketingactiontitle").val("");
-                        $("#days").val("");
-                        $("#marketingactiontime").val("");
-                        $("#is_recuring").val("");
-                        $("#marketingactiontilldate").val("");
-                        $("#description").val("");
-                        $("#type").val(0);
-                    console.log(JSON.stringify(marketing_actions));
+
                 };
                 
                 $scope.validateform = function(){
