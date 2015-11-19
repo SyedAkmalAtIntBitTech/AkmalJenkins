@@ -106,7 +106,7 @@
                 var marketingactiontilldate = $("#marketingactiontilldate").val();
                 var description = $("#description").val();
                 var type = $("#type").val();
-
+                alert(type);
                 if (marketingactiontitle == ""){
                     alert("title not entered, kindly enter the title");
                     $("#marketingactiontitle").focus();
@@ -124,19 +124,16 @@
                     $("#marketingactiontime").focus();
                     return false;
                 }
-                
+                if (type == "0"){
+                    alert("type not entered,kindly enter the type");
+//                    $("#type").focus();
+                    return false;
+                }
                 if (description == ""){
                     alert("description not entered,kindly enter the description");
                     $("#description").focus();
                     return false;
                 }
-                
-                if (type == ""){
-                    alert("type not entered,kindly enter the type");
-                    $("#type").focus();
-                    return false;
-                }
-                
                 return true;
             }            
             function marketingActionsController($scope,$http){
@@ -169,9 +166,55 @@
                     });
                 };
             
+                $scope.validate = function(){
+                    var marketingactiontitle = $("#marketingactiontitle").val();
+                    var days = $("#days").val();
+                    var marketingactiontime = $("#marketingactiontime").val();
+                    var is_recuring = $("#is_recuring").val();
+                    var marketingactiontilldate = $("#marketingactiontilldate").val();
+                    var description = $("#description").val();
+                    var type = $("#type").val();
+                    alert(type);
+                    if (marketingactiontitle == ""){
+                        alert("title not entered, kindly enter the title");
+                        $("#marketingactiontitle").focus();
+                        return false;
+                    }
+
+                    if (days == ""){
+                        alert("days not selected, kindly select an days");
+                        $("#days").focus();
+                        return false;
+                    }
+
+                    if (marketingactiontime == ""){
+                        alert("time not entered,kindly enter the time");
+                        $("#marketingactiontime").focus();
+                        return false;
+                    }
+                    if (type == "0"){
+                        alert("type not entered,kindly enter the type");
+    //                    $("#type").focus();
+                        return false;
+                    }
+                    if (description == ""){
+                        alert("description not entered,kindly enter the description");
+                        $("#description").focus();
+                        return false;
+                    }
+                    return true;
+                    
+                };
+                
                 $scope.createMarketingActionsJSON = function(){
                     
-                    if (validate()){
+                    var v = $scope.validate();
+                        alert(v);
+                        
+                    if (v == "true"){
+                        
+                        alert("test");
+                        
                         var marketingactiontitle = $("#marketingactiontitle").val();
                         var days = $("#days").val();
                         var marketingactiontime = $("#marketingactiontime").val();
@@ -185,7 +228,7 @@
                                  "time":marketingactiontime, "is_recuring": is_recuring,
                                  "tilldate": marketingactiontilldate,"type":type,
                                  "description":description });
-                    }
+                        }
                         $("#marketingactiontitle").val("");
                         $("#days").val("");
                         $("#marketingactiontime").val("");
@@ -296,7 +339,7 @@
                 <div style="float:left; border:1px solid #000; left:0px; padding-left: 6px; margin-left: 150px; position:relative; width: 350px; top:0px;">
                         Title:<input type="text" id="marketingactiontitle" name="marketingactiontitle" />
                         
-                        Days:<input type="text" id="days" name="days" />
+                        Days:<input type="number" id="days" name="days" />
                         
                         Time:<input type="time" id="marketingactiontime" name="marketingactiontime"/><br>
                         Recurring: <input type="checkbox" id="is_recuring" style="width:25px;"/>
