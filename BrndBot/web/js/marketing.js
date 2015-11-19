@@ -471,7 +471,7 @@ function setTodaysDate() {
         
      }
    
-$scope.SaveData = function () {
+    $scope.SaveData = function () {
           alert('Unapproved');
           $("#button1").css("display", "block");
          return $scope.EmployeeInfoDiv1 = true;
@@ -514,6 +514,7 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
             $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
             $scope.entitySet = data.entitydata;
+            console.log(JSON.stringify(data.entitydata));
             $scope.nodata = data.noactionsmessage;
             $("#default").css("display", "block");
 

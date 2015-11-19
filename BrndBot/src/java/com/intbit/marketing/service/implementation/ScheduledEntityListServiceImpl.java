@@ -31,6 +31,12 @@ public class ScheduledEntityListServiceImpl  implements ScheduledEntityListServi
         return  scheduledEntityListDao.getById(id);
     }
 
+    /**
+	 * {@inheritDoc}
+     */
+    public TblScheduledEntityList getEntityById(Integer id) throws Throwable {
+        return  scheduledEntityListDao.getEntityById(id);
+    }
    /**
 	 * {@inheritDoc}
     */

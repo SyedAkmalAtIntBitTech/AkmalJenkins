@@ -301,7 +301,7 @@
                         Time:<input type="time" id="marketingactiontime" name="marketingactiontime"/><br>
                         Recurring: <input type="checkbox" id="is_recuring" style="width:25px;"/>
                         Till Date: <input type="date" id="marketingactiontilldate" name="marketingactiontilldate"/><br>
-                        <textarea id="description" name="description" style="resize: none; height: 180px; width: 300px;"></textarea><br>
+                        Description: <textarea id="description" name="description" style="resize: none; height: 180px; width: 300px;"></textarea><br>
                        
                         Type:<select id="type" name="type">
                                 <option value="0">--Select--</option>
