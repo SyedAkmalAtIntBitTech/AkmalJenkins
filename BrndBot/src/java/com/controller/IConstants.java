@@ -46,6 +46,8 @@ public interface IConstants {
     final static String kFacebookDescriptionKey = "description";
     final static String kFacebookPostTextKey = "post_text";
     final static String kFacebookUrlKey = "url";
+    final static String kFacebookLinkTitleKey = "title";
+    final static String kFacebookManagedPageKey = "ManagedPage";
     final static String kSocialPostCommpleteStatus = "complete";
     final static String kSocialPostTemplateSavedStatus = "template_saved";
     final static String kSocialPostapprovedStatus = "approved";

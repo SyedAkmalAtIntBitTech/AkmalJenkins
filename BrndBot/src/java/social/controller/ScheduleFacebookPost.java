@@ -50,6 +50,8 @@ public class ScheduleFacebookPost implements Callable {
                     String description = jsonObject.get(IConstants.kFacebookDescriptionKey).toString();
                     String postText = jsonObject.get(IConstants.kFacebookPostTextKey).toString();
                     String url = jsonObject.get(IConstants.kFacebookUrlKey).toString();
+                    String linkTitle = jsonObject.get(IConstants.kFacebookLinkTitleKey).toString();
+                    String managedPage = jsonObject.get(IConstants.kFacebookManagedPageKey).toString();
                     Integer userId = scheduledFacebookPost.getUserId();
                     PostToFacebook postToFacebook = new PostToFacebook();
                     String accessToken = postToFacebook.getFacebookAccessToken(userId);

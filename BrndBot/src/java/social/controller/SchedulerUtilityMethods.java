@@ -47,7 +47,7 @@ public class SchedulerUtilityMethods {
             try (ResultSet resultSet = ps.getResultSet()) {
 
                 if (resultSet.next()) {
-                    int e = resultSet.getInt("en_id") - 1;//Hack
+                    int e = resultSet.getInt("en_id");
                     entityId = Integer.toString(e);
                 }
             }
@@ -113,7 +113,8 @@ public class SchedulerUtilityMethods {
     }
 
     public static TblScheduledEntityList getEntityById(int entityId) {
-        String sql = "select * from tbl_scheduled_entity_list where entity_id=" + entityId;
+        String sql = "select entitytable.*,concat(date(programtable.date_event) - entitytable.days, ' ', entitytable.schedule_time::time WITH TIME ZONE) as cal_schedule_time from tbl_scheduled_entity_list as entitytable,tbl_user_marketing_program as programtable "
+                + "where programtable.id = entitytable.user_marketing_program_id and entity_id=" + entityId;
         TblScheduledEntityList result = null;
 
         try (Connection conn = connectionManager.getConnection();
@@ -124,15 +125,20 @@ public class SchedulerUtilityMethods {
                 if (resultSet.next()) {
                     result = new TblScheduledEntityList(resultSet.getInt("id"));
                     result.setEntityId(resultSet.getInt("entity_id"));
-                    result.setScheduleTitle(resultSet.getString("schedule_title"));
-                    result.setScheduleTime(resultSet.getDate("schedule_time"));
+                    TblUserMarketingProgram uPgm = new TblUserMarketingProgram(resultSet.getInt("user_marketing_program_id"));
+                    result.setTblUserMarketingProgram(uPgm);
+                    if(uPgm.getId() == 0) {//This is for general marketing program. Time is populated correctly.
+                        result.setScheduleTime(resultSet.getTimestamp("schedule_time"));
+                    } else {
+                        result.setScheduleTime(resultSet.getTimestamp("cal_schedule_time"));
+                    }
+                    result.setScheduleTitle(resultSet.getString("schedule_title"));                    
+                    
                     result.setEntityType(resultSet.getString("entity_type"));
                     result.setStatus(resultSet.getString("status"));
                     result.setUserId(resultSet.getInt("user_id"));
                     result.setScheduleDesc(resultSet.getString("schedule_desc"));
                     result.setIsRecuring(resultSet.getBoolean("is_recuring"));
-                    TblUserMarketingProgram uPgm = new TblUserMarketingProgram(resultSet.getInt("user_marketing_program_id"));
-                    result.setTblUserMarketingProgram(uPgm);
                     result.setDays(resultSet.getInt("days"));
                     result.setTillDate(resultSet.getDate("till_date"));
                     result.setRecuringEmailId(resultSet.getInt("recuring_email_id"));
