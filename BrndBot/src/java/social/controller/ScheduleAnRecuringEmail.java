@@ -11,13 +11,10 @@ import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
-import com.intbit.marketing.service.ScheduledEmailListService;
-import com.intbit.marketing.service.ScheduledEntityListService;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import util.DateTimeUtil;
 
 /**
@@ -25,11 +22,6 @@ import util.DateTimeUtil;
  * @author Ajit
  */
 public class ScheduleAnRecuringEmail implements Callable {
-
-    @Autowired
-    ScheduledEntityListService scheduledEntityListService;
-    @Autowired
-    ScheduledEmailListService scheduledEmailListService;
 
     public void terminateThread() {
         Thread.currentThread().interrupt();
@@ -79,20 +71,20 @@ public class ScheduleAnRecuringEmail implements Callable {
     private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostCommpleteStatus);
-        scheduledEntityListService.update(scheduledAnEmail);
+        SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);
         ApplicationContextListener.refreshEmailRecuringScheduler();
     }
 
     private TblScheduledEmailList getSendEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
-        TblScheduledEmailList scheduledEmailList = scheduledEmailListService.getById(scheduledAnEmail.getEntityId());
+        TblScheduledEmailList scheduledEmailList = SchedulerUtilityMethods.getEmailEntityById(scheduledAnEmail.getEntityId());
         return scheduledEmailList;
     }
 
     private TblScheduledEntityList getLatestApprovedSendEmail() throws Throwable {
-        String entityId = scheduledEntityListService.getLatestApprovedEmail(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.TRUE);
+        String entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.TRUE);
         TblScheduledEntityList scheduledEntityList = null;
         if (!StringUtil.isEmpty(entityId)) {
-            scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
+            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId));
         }
         return scheduledEntityList;
     }
