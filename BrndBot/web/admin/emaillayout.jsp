@@ -709,7 +709,7 @@
 
             <script> 
                 $(function () {
-                       $('#edit').froalaEditor({key: FroalaLicenseKey});                    
+                       $('#edit').froalaEditor({key: FroalaLicenseKey, fullPage: true});                    
                     });
 //                $('.selector').froalaEditor({
 //                    imageUploadURL: '/UploadImages'

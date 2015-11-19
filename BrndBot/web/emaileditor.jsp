@@ -95,10 +95,13 @@
             }
             .fr-wrapper{
                 
-                    min-height: 550px !important;
+/*                    min-height: 550px !important;
     height: auto !important;
-     max-height: 546px !important;
-
+     max-height: 546px !important;*/
+            min-height: 0% !important;
+    height: auto !important;
+    max-height: 100% !important;
+    position: relative !important;
      
             }
               li.border-highlight {
@@ -692,7 +695,7 @@
         <script type="text/javascript" src="js/plugins/link.min.js"></script>
         <script>
             $(function () {
-                    $('#edit').froalaEditor({key: FroalaLicenseKey});
+                    $('#edit').froalaEditor({key: FroalaLicenseKey, fullPage: true});
                     });   
         </script>
 

@@ -1253,7 +1253,7 @@ function programactions($scope, $http, $window){
             var days=$("#emaildays").val();
             var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
             var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-            l="Sun Nov 22 1970 12:00:AM";
+            l="Sun Nov 22 1970 "+actionDateTime.toLocaleString();
             var myDate = new Date(l); // Your timezone!
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);
@@ -1304,7 +1304,7 @@ function programactions($scope, $http, $window){
             var days=$("#fbdays").val();
             var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
             var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-            l="Sun Nov 22 1970 12:00:AM";
+            l="Sun Nov 22 1970 "+actionDateTime.toLocaleString();
             var myDate = new Date(l); // Your timezone!
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);
@@ -1358,7 +1358,7 @@ function programactions($scope, $http, $window){
             var days=$("#twdays").val();
             var actionDateTime=$("#timepickertw").val().replace(/ /g,'');
             var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-            l="Sun Nov 22 1970 12:00:AM";
+            l="Sun Nov 22 1970 "+actionDateTime.toLocaleString();
             var myDate = new Date(l); // Your timezone!
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);
