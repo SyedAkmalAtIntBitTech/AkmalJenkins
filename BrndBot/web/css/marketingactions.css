@@ -1637,7 +1637,8 @@ div.offrpromo{
     margin-top:0px !important;
 }
 .emlautomline{
-    width:897px;
+    width: 85%;
+    /*width:897px;*/
     height:3px;
     background-color: #f4f4f4;
     margin-left:1px !important;
@@ -1687,7 +1688,8 @@ div.offrpromo{
 
 }
 .emlautombtmline{
-    width:897px;
+    /*width:897px;*/
+    width: 83%;
     height:2px;
     background-color: #f4f4f4;
     margin-left:1px !important;
@@ -1781,7 +1783,8 @@ div.offrpromo{
     margin-top:54px !important;
 }
 .otactline{
-    width:897px;
+    width: 85%;
+    /*width:897px;*/
     height:3px;
     background-color: #f4f4f4;
     margin-left:1px !important;
@@ -1827,7 +1830,8 @@ div.offrpromo{
 }
 
 .otactlstline{
-    width:897px;
+        width: 83%;
+    /*width:897px;*/
     height:2px;
     background-color: #f4f4f4;
     border: #f4f4f4 2px; 

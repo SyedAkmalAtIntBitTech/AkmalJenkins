@@ -223,7 +223,7 @@
                         <br>
                         <div style="float: left; left:20px; margin-top: -110px;">
                             <button id="Servicecontinue" type="submit" class="btn btn-info">Save</button>
-                            <button id="Servicecontinue" type="reset" value="Reset" class="btn btn-info">Reset</button><br>
+                            <button id="Servicecontinue" type="reset" value="Reset" class="reset btn btn-info">Reset</button><br>
                         </div>
                     </div>
 
@@ -261,7 +261,7 @@
         <script>
                                      
     var fl = document.getElementById('filesToUpload');
-                                        
+      $(".reset").click(function (){$("#previewimage").attr('src', '');});
     fl.onchange = function (e) {
     var ext = this.value.match(/\.(.+)$/)[1];
     switch (ext)
