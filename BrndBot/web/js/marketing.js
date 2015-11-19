@@ -586,6 +586,30 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful ");
             });
     };
+    
+    $scope.recuringApproval = function(entity_id, template_status){
+        
+        var approval_type = {"entity_id": entity_id, "template_status":template_status};
+        
+        $http({
+            method: 'POST',
+            url: 'approveStatusRecuring.do',
+            headers: {'Content-Type':'application/json'},
+            data: JSON.stringify(approval_type)
+        }).success(function (data, status, headers, config) {
+          if (data == "true"){
+            alert("template status changed successfully");
+            window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+          }else {
+              alert("problem saving the record");
+          }
+        }).error(function (data, status, headers, config) {
+            alert("No data available, problem fetching the data");
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });      
+        
+    }; 
 
      $scope.Approval = function(entity_id, template_status, entity_type){
         
