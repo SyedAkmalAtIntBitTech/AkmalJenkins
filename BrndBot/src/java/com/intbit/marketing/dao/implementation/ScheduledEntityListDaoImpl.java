@@ -55,25 +55,25 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
         }
     }
 
-    public Integer getCurrentRecords(Integer program_id)throws Throwable{
+    public Integer getCurrentRecords(Integer program_id) throws Throwable {
         try {
-                Criteria criteria = sessionFactory.getCurrentSession()
-                        .createCriteria(TblScheduledEntityList.class)
-                        .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
-                        .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
-                        .add(Restrictions.eq("status", TemplateStatus.no_template.toString()));
-                List<TblScheduledEntityList> entity_list = criteria.list();
-                criteria = sessionFactory.getCurrentSession()
-                        .createCriteria(TblScheduledEntityList.class)
-                        .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
-                        .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
-                        .add(Restrictions.eq("status", TemplateStatus.template_saved.toString()));
-                List<TblScheduledEntityList> entity_list1 = criteria.list();
-                
-        return (Integer)entity_list.size() + (Integer)entity_list1.size();
-        }catch (Throwable throwable){
-                logger.log(Level.SEVERE, null, throwable);
-		throw new Throwable("Database error while retrieving record");
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblScheduledEntityList.class)
+                    .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
+                    .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
+                    .add(Restrictions.eq("status", TemplateStatus.no_template.toString()));
+            List<TblScheduledEntityList> entity_list = criteria.list();
+            criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblScheduledEntityList.class)
+                    .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
+                    .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
+                    .add(Restrictions.eq("status", TemplateStatus.template_saved.toString()));
+            List<TblScheduledEntityList> entity_list1 = criteria.list();
+
+            return (Integer) entity_list.size() + (Integer) entity_list1.size();
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+            throw new Throwable("Database error while retrieving record");
         }
     }
 
@@ -262,15 +262,15 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(TblScheduledEntityList.class)
                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
-                     .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId))
-                     .add(Restrictions.eq("isRecuring", isRecuring))
-                     .add(Restrictions.eq("entityType", "Email"));		
-                   return criteria.list();
-		} catch (Throwable throwable) {
-                   logger.log(Level.SEVERE, null, throwable);
-                   throw new Throwable("Database error while retrieving record(s).");
-		}  
-    } 
+                    .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId))
+                    .add(Restrictions.eq("isRecuring", isRecuring))
+                    .add(Restrictions.eq("entityType", "Email"));
+            return criteria.list();
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+            throw new Throwable("Database error while retrieving record(s).");
+        }
+    }
 
     @Override
     public List<TblScheduledEntityList> getScheduledEntityListIdForSocialPostType(Integer userMarketingProgramId) throws Throwable {
@@ -278,40 +278,51 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(TblScheduledEntityList.class)
                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
-                     .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId));
-                    Criterion rest1= Restrictions.and(Restrictions.eq("entityType", "Twitter"));
-                    Criterion rest2= Restrictions.and(Restrictions.eq("entityType", "Facebook"));
-                    criteria.add(Restrictions.or(rest1, rest2));
-                   return criteria.list();
-		} catch (Throwable throwable) {
-                   logger.log(Level.SEVERE, null, throwable);
-                   throw new Throwable("Database error while retrieving record(s).");
-		}  
+                    .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId));
+            Criterion rest1 = Restrictions.and(Restrictions.eq("entityType", "Twitter"));
+            Criterion rest2 = Restrictions.and(Restrictions.eq("entityType", "Facebook"));
+            criteria.add(Restrictions.or(rest1, rest2));
+            return criteria.list();
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+            throw new Throwable("Database error while retrieving record(s).");
+        }
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String getLatestApprovedEmail(String status, String entityType, String programStatus, Boolean isRecuring) throws Throwable {
         try {
-
             StringBuilder sbSql = new StringBuilder();
-            sbSql.append("select  entitytable.schedule_time\\:\\:time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
-            sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
-            sbSql.append("and lower(programtable.status)");
-            sbSql.append("like'").append(programStatus).append("'");
-            sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
-            sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
-            sbSql.append(" and lower(entitytable. is_recuring) like '").append(isRecuring).append("'");
-            //Need to review this
+
             if (isRecuring) {
-                sbSql.append("date(programtable.date_event AT TIME ZONE 'US/Eastern') = current_date AT TIME ZONE 'US/Eastern' ");
+                sbSql.append("select  entitytable.schedule_time\\:\\:time as scheduledTime, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
+                sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
+                sbSql.append("and lower(programtable.status)");
+                sbSql.append("like'").append(programStatus).append("'");
+                sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
+                sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
+                sbSql.append(" and lower(entitytable. is_recuring) like '").append(isRecuring).append("'");
+                //Need to review this
+                sbSql.append("time(scheduledTime AT TIME ZONE 'US/Eastern') > current_time AT TIME ZONE 'US/Eastern' ");
+                sbSql.append("order by scheduledTime");
+                sbSql.append(" limit 1");
+                sbSql.append(";");
+
             } else {
+                sbSql.append("select  entitytable.schedule_time\\:\\:time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
+                sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
+                sbSql.append("and lower(programtable.status)");
+                sbSql.append("like'").append(programStatus).append("'");
+                sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
+                sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
+                sbSql.append(" and lower(entitytable. is_recuring) like '").append(isRecuring).append("'");
                 sbSql.append("date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' ");
+                sbSql.append("order by entitytable.schedule_time\\:\\:time");
+                sbSql.append(" limit 1");
+                sbSql.append(";");
             }
-            sbSql.append("order by entitytable.schedule_time\\:\\:time");
-            sbSql.append(" limit 1");
-            sbSql.append(";");
             Query query = sessionFactory.getCurrentSession().createSQLQuery(sbSql.toString());
 
             List<Object> result = (List<Object>) query.list();
@@ -331,8 +342,3 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
     }
 
 }
-    
- 
-
-    
-
