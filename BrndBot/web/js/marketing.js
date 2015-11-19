@@ -517,7 +517,7 @@ function controllerMarketingCampaign($scope, $http) {
             url: getHost() + 'GetScheduledEntities?from=' + curr_date + '&to=' + new_date
         }).success(function (data) {
             var entitySet = {};
-            console.log(JSON.stringify(data));
+//            console.log(JSON.stringify(data));
             $scope.entityS = JSON.stringify(data);
 //            $("#default").hide();
 //            $("#selected").show();
