@@ -41,7 +41,7 @@ public class ScheduleTwitterPost implements Callable {
 
                 boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledTwitterPost.getScheduleTime());
 
-                if (!shouldPostNow) {
+                if (shouldPostNow) {
                     TblScheduledSocialpostList twitterPost = getTwitterPost(scheduledTwitterPost);
                     String jsonString = twitterPost.getMetadata();
                     JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
