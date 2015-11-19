@@ -1024,6 +1024,7 @@ function controllerMarketingCampaign($scope, $http) {
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
+                
                 if (data.image_name == undefined) {
                     $('.approve').hide();
                     $('#fbpreviewremove').hide();
@@ -1061,6 +1062,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.user_marketing_program_id = programId;
                 $scope.days = days;
                 $scope.is_today_active = is_today_active;
+
             }).error(function (data) {
                 alert("request not successful");
             });
