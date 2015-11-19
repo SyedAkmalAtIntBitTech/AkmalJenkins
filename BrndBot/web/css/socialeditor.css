@@ -82,7 +82,7 @@ and open the template in the editor.
     }
 #textgrt{
     position: relative;
-    padding-top: 60px;
+    margin-top: 80px;
     width: 600px;
 /*    font-family: "proxima-nova";
     font-style: normal;

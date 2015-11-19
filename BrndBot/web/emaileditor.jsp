@@ -689,6 +689,7 @@
         <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
         <script type="text/javascript" src="js/plugins/save.min.js"></script>
         <script type="text/javascript" src="js/plugins/quote.min.js"></script>
+        <script type="text/javascript" src="js/plugins/link.min.js"></script>
         <script>
             $(function () {
                     $('#edit').froalaEditor({key: FroalaLicenseKey});
