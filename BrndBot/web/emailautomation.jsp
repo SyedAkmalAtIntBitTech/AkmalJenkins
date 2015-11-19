@@ -516,7 +516,7 @@
   <script>
     $(function(){
       $('#edit').froalaEditor({
-        fullPage: true
+        key: FroalaLicenseKey, fullPage: true
       });
        $("#templatetab").click(function (){
        $("#templatetab").css("background-color","#ffffff").css("color","#19587c");

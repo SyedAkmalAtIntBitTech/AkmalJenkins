@@ -692,7 +692,7 @@
         <script type="text/javascript" src="js/plugins/link.min.js"></script>
         <script>
             $(function () {
-                    $('#edit').froalaEditor({key: FroalaLicenseKey});
+                    $('#edit').froalaEditor({key: FroalaLicenseKey, fullPage: true});
                     });   
         </script>
 
