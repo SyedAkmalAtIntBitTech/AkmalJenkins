@@ -432,7 +432,7 @@
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
                                                 
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_email)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
@@ -841,7 +841,7 @@
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
                                                 
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_email)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
@@ -1090,7 +1090,7 @@
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
                                                 
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
@@ -1584,7 +1584,7 @@
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
                                                 
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
@@ -2068,7 +2068,7 @@
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
                                                 
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
@@ -2385,7 +2385,7 @@
                                       <div ng-controller="EmpDetCtrl">       
 <!--                                        <div ng-model="EmpDetTable"   ng-hide="EmployeeInfoDiv">
                                             <div class="EmployeeInfo">-->
-                                                <button  ng-click="ShowAddEmployee()" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                                <button  ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
 <!--                                            </div>
                                           </div>-->
                                         <div class=" right EmployeeInfo"   ng-show="EmployeeInfoDiv" >
@@ -2517,9 +2517,9 @@
                                                 <input type="button" ng-click="addEditRecuringAction('edit',entitiesdetails.user_marketing_program_id, schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
-                                                <input type="button" value="Approve to Send" ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved')" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                                <input type="button" value="Approve to Send" ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" ng-click="recuringApproval(schedule_id, 'approved')" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
                                                 <button ng-click="SaveData();" ng-show="recuring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                                <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                                <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="recuringApproval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
                                             </div>
                                         </div>
                                     </div>
