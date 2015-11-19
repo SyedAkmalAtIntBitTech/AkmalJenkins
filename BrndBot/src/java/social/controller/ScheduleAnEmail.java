@@ -47,7 +47,7 @@ public class ScheduleAnEmail implements Callable {
             if (scheduledAnEmail != null) {
             //The time zone of the saved date should be extracted.
                 //This time zone should be applied to the current time and then this comparison needs to be made.
-                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(getLatestApprovedSendEmail().getScheduleTime());
+                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledAnEmail.getScheduleTime());
 
                 if (shouldPostNow) {
                     TblScheduledEmailList sendAnEmail = getSendEmail(scheduledAnEmail);
@@ -99,7 +99,7 @@ public class ScheduleAnEmail implements Callable {
     }
 
     private TblScheduledEntityList getLatestApprovedSendEmail() throws Throwable {
-        String entityId = scheduledEntityListService.getLatestApprovedEmail(IConstants.kSocialPostTemplateSavedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.FALSE);
+        String entityId = scheduledEntityListService.getLatestApprovedEmail(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.FALSE);
         TblScheduledEntityList scheduledEntityList = scheduledEntityListService.getScheduledEntityListByEntityId(Integer.parseInt(entityId));
         return scheduledEntityList;
     }
