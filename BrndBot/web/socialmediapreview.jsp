@@ -431,7 +431,7 @@
                        method: 'GET',
                        url:getHost() + 'getAllUserMarketingPrograms.do'
                     }).success(function (data){
-                        alert(JSON.stringify(data));
+//                        alert(JSON.stringify(data));
                         $scope.marketing_programs = data;
                     }).error(function (data){
                         alert("request not successful");
@@ -686,7 +686,7 @@
             $(document).ready(function () {
                 var isFacebook = $("#isFacebook").val();
                 var isTwitter = $("#isTwitter").val();
-
+                
                 $("#title").keyup(function () {
                     $(".link_title").val($("#title").val());
                 });
@@ -724,7 +724,7 @@
                     $("#facebookcancel").hide();
                     $(".forfb").hide();
                 }
-                else {
+                else if(isFacebook === "true"){
                     $("#facebookimage").show();
                     $("#fabookpreviewdiv").show();
                     $(".forfb").show();
@@ -735,7 +735,7 @@
                     $("#twitterpreviewdiv").hide();
                     $("#twittercancel").hide();
                 }
-                else {
+                else if(isTwitter === "true"){
                     $("#twitterimage").show();
                     $("#twitterpreviewdiv").show();
                     $("#fbtextcontainer").show();

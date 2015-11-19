@@ -1653,33 +1653,33 @@
     /*
      * Initilize table resizer.
      */
-    function _initResizer () {
-      // Append resizer HTML to editor wrapper.
-      $resizer = $('<div class="fr-table-resizer"><div></div></div>');
-      editor.$wp.append($resizer);
-
-      // Resize table.
-      $resizer.on('mousedown', function () {
-        resizingFlag = true;
-
-        $resizer.addClass('fr-moving');
-
-        // Clear previous cell selection.
-        _removeSelection();
-
-        // Prevent text selection while dragging the table resizer.
-        _clearSelection();
-
-        // Show resizer.
-        $resizer.find('div').css('opacity', 1);
-      });
-
-      // Editor destroy.
-      editor.events.on('destroy', function () {
-        $resizer.off('mousedown');
-        $resizer.html('').removeData().remove();
-      }, true);
-    }
+//    function _initResizer () {
+//      // Append resizer HTML to editor wrapper.
+//      $resizer = $('<div class="fr-table-resizer"><div></div></div>');
+//      editor.$wp.append($resizer);
+//
+//      // Resize table.
+//      $resizer.on('mousedown', function () {
+//        resizingFlag = true;
+//
+//        $resizer.addClass('fr-moving');
+//
+//        // Clear previous cell selection.
+//        _removeSelection();
+//
+//        // Prevent text selection while dragging the table resizer.
+//        _clearSelection();
+//
+//        // Show resizer.
+//        $resizer.find('div').css('opacity', 1);
+//      });
+//
+//      // Editor destroy.
+//      editor.events.on('destroy', function () {
+//        $resizer.off('mousedown');
+//        $resizer.html('').removeData().remove();
+//      }, true);
+//    }
 
     /*
      * Place the table resizer between the columns where the mouse is.
