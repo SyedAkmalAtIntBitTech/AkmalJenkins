@@ -57,7 +57,7 @@ public class ScheduleFacebookPost implements Callable {
                     String accessToken = postToFacebook.getFacebookAccessToken(userId);
                     String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + facebookPost.getImageName();
 
-                    String message = PostToFacebook.postStatus(accessToken, postText, url, file_image_path, null, null, url, description, userId, null);
+                    String message = PostToFacebook.postStatus(accessToken, linkTitle, file_image_path, postText, url, null,url, description, userId, null);
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledFacebook(scheduledFacebookPost);
                         //Get the next in line
