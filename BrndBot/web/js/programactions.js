@@ -1270,11 +1270,6 @@ function programactions($scope, $http, $window){
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);
             var myEpoch = schedule_time;
-            alert(actionDateTime);
-            alert(l);
-            alert("schedule_id.. "+schedule_id);
-            alert("title.. "+title);
-            alert("days.. "+days);
             var description = $("#email_description").val();
             console.log(actiontype + "," + schedule_id + "," + title + "," + description);
 
