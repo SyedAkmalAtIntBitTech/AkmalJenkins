@@ -28,6 +28,11 @@ public interface UserMarketingProgramDao {
     */
    public List<TblUserMarketingProgram> getAllUserMarketingProgram() throws Throwable;
    
+   public List<TblUserMarketingProgram> getAllUserMarketingProgramByUserId(Integer user_id) throws Throwable;
+   
+   public List<TblUserMarketingProgram> getAllUserMarketingProgramBySessionUserId(Integer user_id) throws Throwable;
+   
+   
    public List<TblUserMarketingProgram> getAllUserMarketingProgramByType(Integer user_id, String programType) throws Throwable;
    /**
 	 * This method save {@link userMarketingProgram} by passing userMarketingProgram

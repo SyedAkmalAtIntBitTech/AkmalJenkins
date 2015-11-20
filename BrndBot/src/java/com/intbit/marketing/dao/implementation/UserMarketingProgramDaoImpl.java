@@ -130,5 +130,37 @@ public class UserMarketingProgramDaoImpl implements UserMarketingProgramDao{
                    throw new Throwable("Database error while retrieving record(s).");
 		}
     }
+
+    @Override
+    public List<TblUserMarketingProgram> getAllUserMarketingProgramByUserId(Integer user_id) throws Throwable {
+        
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblUserMarketingProgram.class)
+                    .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
+                    .add(Restrictions.eq("tblUserLoginDetails.id",user_id));
+                   return criteria.list();
+		} catch (Throwable throwable) {
+                   logger.log(Level.SEVERE, null, throwable);
+                   throw new Throwable("Database error while retrieving record(s).");
+		}
+    
+    }
+    
+    @Override
+    public List<TblUserMarketingProgram> getAllUserMarketingProgramBySessionUserId(Integer user_id) throws Throwable {
+        
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblUserMarketingProgram.class)
+                    .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
+                    .add(Restrictions.eq("tblUserLoginDetails.id",user_id));
+                   return criteria.list();
+		} catch (Throwable throwable) {
+                   logger.log(Level.SEVERE, null, throwable);
+                   throw new Throwable("Database error while retrieving record(s).");
+		}
+    
+    }
     
 }

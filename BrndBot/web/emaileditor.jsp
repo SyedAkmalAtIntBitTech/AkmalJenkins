@@ -695,7 +695,22 @@
         <script type="text/javascript" src="js/plugins/link.min.js"></script>
         <script>
             $(function () {
-                    $('#edit').froalaEditor({key: FroalaLicenseKey, fullPage: true});
+                var urlList11;
+                $.ajax({
+                           url:'getAllUserMarketingProgramsBySessionUserId.do',
+                           method:'Get',
+                           dataType: 'json',
+                           contentType: 'application/json',
+                           mimeType: 'application/json',
+                           success: function (responseText) {
+                               urlList11 = responseText
+                             $('#edit').froalaEditor({key: FroalaLicenseKey, fullPage: true, linkList: urlList11});
+                               
+                            }
+                        });
+               
+               
+                    
                     });   
         </script>
 
