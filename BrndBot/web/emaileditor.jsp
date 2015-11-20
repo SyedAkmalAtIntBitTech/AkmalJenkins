@@ -754,7 +754,7 @@
                                         url: getHost() + "PreviewServlet",
                                         method: "post",
                                         data: {
-                                            htmlString: $(".fr-element").html(),
+                                            htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
                                             iframeName: rendomIframeFilename
                                           },
                                         success: function (responseText) {
@@ -786,7 +786,7 @@
                             url: getHost() + "PreviewServlet",
                          method: "post",
                            data:{
-                            htmlString: $(".fr-element").html(),
+                            htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
                             iframeName: rendomIframeFilename
                             },
                     success: function (responseText) {
@@ -797,7 +797,7 @@
                                         method: "post",
                                         data:{
                                         sessionKey:"htmldata",
-                                        sessionValue: $(".fr-element").html(),
+                                        sessionValue: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
                                         sessionIframeKey:"iframeName",
                                         sessionIframevalue:""+rendomIframeFilename
                                         },
