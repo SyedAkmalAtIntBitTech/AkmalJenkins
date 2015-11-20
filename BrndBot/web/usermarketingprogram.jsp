@@ -48,11 +48,6 @@
                         $("#program_url").focus();
                         return false;
                     }
-                     if ($("#program_url_name").val() === "") {
-                        alert("Please enter the Program URL Name");
-                        $("#program_url_name").focus();
-                        return false;
-                    }
                     return true;
             }
             function validate(){
@@ -66,10 +61,27 @@
                     return false;
                 }
                 if (program_date_time === "") {
-                    alert("Enter the program date time");
+                    alert("Enter the Program Date");
                     $("#programdatetime").focus();
                     return false;
                 }
+                if(($("#program_url").val() === "http://")&&($("#program_url_name").val() === "")){
+                    alert("link Name not entered Please enter Link Name");
+                    $("#program_url_name").focus();
+                    return false;
+                }
+                if(($("#program_url").val() === "http://")&&($("#program_url_name").val() !== "")){
+                    alert("Please Enter Valid Link_Url");
+                    $("#program_url").focus();
+                    return false;
+                }
+                if(($("#program_url").val() !== "")&&($("#program_url_name").val() === "")){
+                    alert("link Name not entered Please enter Link Name");
+                    $("#program_url_name").focus();
+                    return false;
+                }
+                
+                
 //                if (program_url === "") {
 //                    alert("Enter the program url");
 //                    $("#program_url").focus();
