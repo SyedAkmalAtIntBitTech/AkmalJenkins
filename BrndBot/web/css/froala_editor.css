@@ -36,6 +36,9 @@
   max-height: 470px;
 }
 iframe.fr-iframe {
+    width: 100%;
+    overflow-y: scroll;
+    height: 600px !important;
 }
 
 .fr-wrapper {
