@@ -59,6 +59,9 @@ and open the template in the editor.
         <script src="js/svg.js" type="text/javascript"></script>
         
         <style>           
+            #continue,#downloadpdf,#downloadimage{
+                display:none;
+            }
             a.boxclose{
                 float:right;
                 margin-top:8px;
