@@ -474,7 +474,7 @@ public class UserMarketingProgramController {
                 org.json.JSONObject json_marketing_programming = new org.json.JSONObject();
                 json_marketing_programming.put("id", i);
                 json_marketing_programming.put("program_id", marketing_program.getId());
-                json_marketing_programming.put("name", marketing_program.getName());
+                json_marketing_programming.put("prigram_name", marketing_program.getName());
                 json_marketing_programming.put("url", marketing_program.getUrl());
                 json_marketing_programming.put("link_name", marketing_program.getLinkName());
 

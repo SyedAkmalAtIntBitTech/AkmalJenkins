@@ -116,6 +116,55 @@
   width: 250px;
   left: 250px;
 }
+.selects{
+    padding:3px;
+    margin: 0;
+    width: 230px;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    -webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    -moz-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    background: #f8f8f8;
+    color:#888;
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+    margin-bottom: 5%;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    select {padding-right:18px}
+}
+
+label {position:relative}
+label:after {
+    content:'<>';
+    font:11px "Consolas", monospace;
+    color:#aaa;
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform:rotate(90deg);
+    right:8px; top:2px;
+    padding:0 0 2px;
+    border-bottom:1px solid #ddd;
+    position:absolute;
+    pointer-events:none;
+}
+label:before {
+    content:'';
+    right:6px; top:0px;
+    width:20px; height:20px;
+    background:#f8f8f8;
+    position:absolute;
+    pointer-events:none;
+    display:block;
+}
             
             .socialimage{
                 width: 30px;
@@ -367,6 +416,17 @@
             
             $(document).ready(function ()
             {
+                $("#urlname").click(function(){
+                    var url=$("#urlname").val();
+                    $("#url").val(url);
+                });
+                $("#urlnamefb").click(function(){
+                    var url=$("#urlnamefb").val();
+                    var res = url.split("--");
+                    $("#title").val(res[0]);
+                    $("#description").val(res[1]);
+                });
+                
                 $("#programs").change(function(){
                     
                     var program_id = $("#programs").val();
@@ -400,6 +460,16 @@
                 $("#schedule_time").val("");
             }
             function socialmediapreview($scope, $http) {
+                
+                $http({
+                        method: 'GET',
+                        url: getHost() + 'getAllUserMarketingProgramsByUserId.do'
+                    }).success(function (data) {
+                        $scope.urls = data;
+                        console.log($scope.urls);
+                    }).error(function (data) {
+                        alert("request not successful...1");
+                    });
                 
                 $scope.getSocialFacebookActions = function (program_id) {
 
@@ -526,10 +596,26 @@
                     <input type="button" class="btn btn-default" id="chnagetolinkpost" value="CHANGE TO LINK POST"><br><br>
                     <div id="linkpostdiv">
                         <div class="forfb">
-                            <p class="psttxt"> Link Title</p><textarea class="hideinputborder ptr"  id="title" placeholder="Title goes here" style="height:40px; resize: none;"></textarea><br>
-                        <p class="psttxt"> Link Description</p><textarea class="hideinputborder ptr" id="description" placeholder="Description goes here" style="height:40px; resize: none;"></textarea><br>
+                            <div class="fontpnr">
+                                <select id="urlnamefb" name="marketing_program_type" class="selects">
+                                    <option value="0" class="caret">LINK URL<lable></lable></option>
+                                    <option ng-repeat="url in urls" value="{{url.url}}--{{url.link_name}}">{{url.link_name}}----{{url.prigram_name}}----{{url.link_name}}</option>
+                                </select>
+                            </div>
+                            
+                            <p class="psttxt"></p><textarea class="hideinputborder ptr"  id="title" placeholder="Link goes here" style="height:40px; resize: none;"></textarea><br>
+                        <p class="psttxt"></p><textarea class="hideinputborder ptr" id="description" placeholder="Link Name" style="height:40px; resize: none;"></textarea><br>
                         </div>
-                        <p class="psttxt"> Link URL</p><textarea class="hideinputborder ptr" id="url" placeholder="URL goes here" style="height:40px; resize: none;"></textarea><br>
+                        
+                        <div class="fortw">
+                            <div class="fontpnr">
+                                <select id="urlname" name="marketing_program_type" class="selects">
+                                    <option value="0" class="caret">LINK URL<lable></lable></option>
+                                    <option ng-repeat="url in urls" value="{{url.url}}">{{url.url}}----{{url.prigram_name}}----{{link_name}}</option>
+                                </select>
+                            </div>
+                            <p class="psttxt"> </p><textarea class="hideinputborder ptr" id="url" placeholder="URL goes here" style="height:40px; resize: none;"></textarea><br>
+                        </div>
                             <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
                         </div>
                     </div>
@@ -776,6 +862,7 @@
                     $("#twitterimage").hide();
                     $("#twitterpreviewdiv").hide();
                     $("#isTwitter").val("false");
+                    $(".fortw").hide();
 
                 });
 
