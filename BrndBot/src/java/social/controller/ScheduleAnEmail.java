@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import static social.controller.ScheduleTwitterPost.logger;
 import util.DateTimeUtil;
 
 /**
@@ -62,8 +63,8 @@ public class ScheduleAnEmail implements Callable {
                     String reply_to_address = sendAnEmail.getReplyToEmailAddress();
                     String from_email_address = sendAnEmail.getFromAddress();
                     String from_name = sendAnEmail.getFromName();
-
-                    String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
+                    String message = "success";//TODO
+//                    String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
 
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledEmail(scheduledAnEmail);
@@ -81,6 +82,7 @@ public class ScheduleAnEmail implements Callable {
     }
 
     private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
+        logger.log(Level.INFO, "Email post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostCommpleteStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);

@@ -37,6 +37,10 @@ public class UserMarketingProgramServiceImpl implements UserMarketingProgramServ
         return  userMarketingProgramDao.getAllUserMarketingProgram();
     }
 
+   public List<TblUserMarketingProgram> getAllUserMarketingOpenPrograms(String status, Integer user_id) throws Throwable{
+        return  userMarketingProgramDao.getAllUserMarketingOpenPrograms(status, user_id);
+   }
+    
     /**
 	 * {@inheritDoc}
      */

@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static social.controller.ScheduleTwitterPost.logger;
 import util.DateTimeUtil;
 
 /**
@@ -35,7 +36,7 @@ public class ScheduleAnRecuringEmail implements Callable {
 
             if (scheduledAnRecuringEmail != null) {
 
-            //The time zone of the saved date should be extracted.
+                //The time zone of the saved date should be extracted.
                 //This time zone should be applied to the current time and then this comparison needs to be made.
                 boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledAnRecuringEmail.getScheduleTime());
 
@@ -53,7 +54,8 @@ public class ScheduleAnRecuringEmail implements Callable {
                     //and get days from TblScheduledEntityList
                     Integer days = scheduledAnRecuringEmail.getDays();
                     String to_email_addresses = anEmail.getAllEmailAddressesForEmailList(user_id, days, emaillist_name);
-                    String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
+//                    String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
+                    String message = "success";//TODO
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledEmail(scheduledAnRecuringEmail);
                         //Get the next in line
@@ -69,6 +71,7 @@ public class ScheduleAnRecuringEmail implements Callable {
     }
 
     private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
+        logger.log(Level.INFO, "RecurringEmail post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostCommpleteStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);

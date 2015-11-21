@@ -441,8 +441,9 @@ public class UserMarketingProgramController {
             HttpServletResponse response) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
+            int user_id =getCurrentUser(request);
 
-            List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingProgram();
+            List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingOpenPrograms("Open", user_id);
             Integer i = 1;
             for (TblUserMarketingProgram marketing_program : UserMarketingPrograms) {
 

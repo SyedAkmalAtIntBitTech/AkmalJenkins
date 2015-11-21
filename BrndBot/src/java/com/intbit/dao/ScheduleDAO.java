@@ -337,6 +337,7 @@ public class ScheduleDAO {
         String query = "Select * from tbl_scheduled_entity_list"
                 + " where entity_id=?"
                 + " and entity_type =?"
+                + " and status = ?"
                 + " and user_marketing_program_id =?"
                 + " and user_id = ?";
 
@@ -344,8 +345,9 @@ public class ScheduleDAO {
                 PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, 0);
             ps.setString(2, ScheduledEntityType.Email.toString());
-            ps.setInt(3, user_marketing_program_id);
-            ps.setInt(4, userid);
+            ps.setString(3, TemplateStatus.no_template.toString());
+            ps.setInt(4, user_marketing_program_id);
+            ps.setInt(5, userid);
             try (ResultSet result_set = ps.executeQuery()) {
                 while (result_set.next()) {
 

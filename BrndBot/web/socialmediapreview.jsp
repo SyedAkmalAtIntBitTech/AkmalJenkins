@@ -79,13 +79,13 @@
                   transform: rotate(180deg);
             }
             #mask {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 9000;
-  background-color:white;
-  display: none;
-}
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 9000;
+                background-color:white;
+                display: none;
+              }
 
 #boxes .window {
   position: absolute;
@@ -430,12 +430,18 @@ label:before {
                 $("#programs").change(function(){
                     
                     var program_id = $("#programs").val();
-                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions(program_id);
-                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions(program_id);
+                    var isFB = $("#isFacebook").val();
+                    var isTwitter = $("#isTwitter").val();
+                    if ( isFB == "true"){
+                        angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions(program_id);
+                    }
+                    if ( isTwitter == "true"){
+                        angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions(program_id);
+                    }
                     
                     if (parseInt(program_id) == 0){
-                        $("#facebookactions").attr("disabled", true);
-                        $("#twitteractions").attr("disabled", true);
+                        $("#facebookactions").attr("disabled", false);
+                        $("#twitteractions").attr("disabled", false);
 
                         document.getElementById('schedule_desc').disabled = false;
                         document.getElementById('schedule_title').disabled = false;
@@ -695,7 +701,7 @@ label:before {
                         </a>
                     </div>
                     <select name="programs" id="programs" class="SH1 selectsocialact" style="font-variant: normal;">
-                        <option value="0" style="background:#fff;" >--SELECT--</option>
+                        <option value="0" style="background:#fff;" >--General--</option>
                         <option style="background:#fff;" ng-repeat="programs in marketing_programs" value="{{programs.program_id}}">{{programs.name}}</option>
                     </select><br><br>
                     

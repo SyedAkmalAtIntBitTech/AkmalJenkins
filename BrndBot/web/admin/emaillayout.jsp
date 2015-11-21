@@ -114,6 +114,7 @@
             uploadModule.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
 
                     $scope.uploadFile = function () {
+                        
                         var file = $scope.myFile;
                         console.log('file is ' + JSON.stringify(file));
                         var uploadUrl = global_host_address + 'UploadImages';
@@ -441,7 +442,7 @@
             function validate(imageUrl) {                
                 var UploadImage=imageUrl.replace(""+global_host_address+"DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&user_id=null&image_name=","");
                 var model_name = $("#namexml").val();
-                var htmldata=$(".fr-wrapper").children().html();
+                var htmldata=$('#edit').froalaEditor('html.get');//$(".fr-wrapper").children().html();
 
                 if (model_name === ""){
                     alert("model name not entered");

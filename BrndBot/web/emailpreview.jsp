@@ -359,7 +359,7 @@
                 $scope.getActions = function (program_id) {
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetScheduledActions?programid='+ program_id + '&type=email'
+                        url: getHost() + 'GetScheduledActions?programid='+ program_id + '&type='+ getemail()
                     }).success(function (data) {
                         $scope.email_actions = data;
                     }).error(function (data) {
@@ -383,7 +383,7 @@
                 var program_id = $("#programs").val();
                 angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
                 if (parseInt(program_id) == 0){
-                    $("#email_actions").attr("disabled", true);
+                    $("#email_actions").attr("disabled", false);
 
                     document.getElementById('schedule_title').disabled=false;
                     document.getElementById('schedule_date').disabled=false;
@@ -634,7 +634,7 @@
                                ng-app=""style="text-decoration:none;">
                         <p style="margin-left:740px;margin-top:-35px;cursor: pointer;" id="hidepopup" onclick="hidepopup()" ><img src="images/CloseIcon.svg" height="25" width="25"/></p></a></div>
                         <select name="programs" id="programs" class="SH1 selectsocialact" style="font-variant: normal;">
-                            <option value="0" style="background:#fff;" >--SELECT--</option>
+                            <option value="0" style="background:#fff;" >--General--</option>
                             <option style="background:#fff;" ng-repeat="programs in marketing_programs" value="{{programs.program_id}}">{{programs.name}}</option>
                         </select><br><br>
                         

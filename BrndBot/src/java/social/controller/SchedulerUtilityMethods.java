@@ -214,6 +214,7 @@ public class SchedulerUtilityMethods {
 
     public static void updateScheduledEntityListEntity(TblScheduledEntityList scheduledFacebookPost) {
         String sql = "update tbl_scheduled_entity_list set status=" + scheduledFacebookPost.getStatus() + " where entity_id=" + scheduledFacebookPost.getEntityId() + ";";
+        logger.log(Level.INFO, sql);
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.executeUpdate();

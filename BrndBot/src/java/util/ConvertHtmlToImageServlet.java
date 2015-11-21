@@ -61,6 +61,7 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
             Layout layout = new Layout();
             JSONArray json_font_list = layout.getFontList(brandID);
             PhantomImageConverter phantomImageConverter = new PhantomImageConverter(getServletContext());
+            
             File imagePngFile = phantomImageConverter.getImage(htmlString, json_font_list, width, height, "0", "0");
             
             String filename = imagePngFile.getName();

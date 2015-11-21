@@ -39,7 +39,8 @@ public class SendEmail extends BrndBotBaseHttpServlet {
     ResultSet result_set = null;
     StringBuffer string_buffer;
 
-    public final static String MANDRILL_KEY = "RP6AOa3QZA8qMJYC1lBXRg";
+//    public final static String MANDRILL_KEY = "RP6AOa3QZA8qMJYC1lBXRg";//Prod key
+    public final static String MANDRILL_KEY = "UTyvdEzohDOZf3F95ZK6zg";//Test key
     SendMail send_email = new SendMail();
 
     /**
@@ -133,10 +134,10 @@ public class SendEmail extends BrndBotBaseHttpServlet {
                 out.write("false");
             }
         } catch (Exception e) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
             out.write(getSqlMethodsInstance().error);
-        }finally {
+        } finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
             getSqlMethodsInstance().closeConnection();
