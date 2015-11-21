@@ -695,7 +695,22 @@
         <script type="text/javascript" src="js/plugins/link.min.js"></script>
         <script>
             $(function () {
-                    $('#edit').froalaEditor({key: FroalaLicenseKey, fullPage: true});
+                var urlList11;
+                $.ajax({
+                           url:'getAllUserMarketingProgramsBySessionUserId.do',
+                           method:'Get',
+                           dataType: 'json',
+                           contentType: 'application/json',
+                           mimeType: 'application/json',
+                           success: function (responseText) {
+                               urlList11 = responseText
+                             $('#edit').froalaEditor({key: FroalaLicenseKey, fullPage: true, linkList: urlList11});
+                               
+                            }
+                        });
+               
+               
+                    
                     });   
         </script>
 
@@ -739,7 +754,7 @@
                                         url: getHost() + "PreviewServlet",
                                         method: "post",
                                         data: {
-                                            htmlString: $(".fr-element").html(),
+                                            htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
                                             iframeName: rendomIframeFilename
                                           },
                                         success: function (responseText) {
@@ -771,7 +786,7 @@
                             url: getHost() + "PreviewServlet",
                          method: "post",
                            data:{
-                            htmlString: $(".fr-element").html(),
+                            htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
                             iframeName: rendomIframeFilename
                             },
                     success: function (responseText) {
@@ -782,7 +797,7 @@
                                         method: "post",
                                         data:{
                                         sessionKey:"htmldata",
-                                        sessionValue: $(".fr-element").html(),
+                                        sessionValue: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
                                         sessionIframeKey:"iframeName",
                                         sessionIframevalue:""+rendomIframeFilename
                                         },

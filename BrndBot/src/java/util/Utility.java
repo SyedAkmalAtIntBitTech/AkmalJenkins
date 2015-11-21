@@ -6,6 +6,16 @@
 package util;
 
 import com.divtohtml.StringUtil;
+import com.intbit.AppConstants;
+import com.intbit.util.ServletUtil;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.servlet.ServletContext;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -35,8 +45,9 @@ public class Utility {
         return newMessage;
     }
 
-    public static String injectFontsInHTML(JSONArray json_font_list) {
+    public static String injectFontsInHTML(JSONArray json_font_list, String context) {
         StringBuilder html_content = new StringBuilder();
+        String server_name = getServerName(context);
         if (json_font_list != null) {
             for (Integer i = 0; i < json_font_list.size(); i++) {
                 JSONObject json_font = (JSONObject) json_font_list.get(i);
@@ -56,8 +67,8 @@ public class Utility {
                         html_content.append("<style type=\"text/css\">\n"
                                 + "            @font-face {\n"
                                 + "                        font-family:" + font_name + ";\n"
-                                + "                        src: url(/BrndBot/DownloadFonts?file_name=" + font_family_name[1] + ");\n"
-                                + "            }\n"
+                                + "                        src: url("+server_name+"DownloadFonts?file_name=" + font_family_name[1] + ");\n"
+//                                + "                        src: url("+ AppConstants.BASE_FONT_UPLOAD_PATH + File.separator + font_family_name[1] + ");\n"
                                 + "        </style>");
                     }
                 }
@@ -65,6 +76,22 @@ public class Utility {
 
         }
         return html_content.toString();
+    }
+    
+    public static String getServerName(String context) {
+        try {
+            ScriptEngineManager manager = new ScriptEngineManager();
+            ScriptEngine engine = manager.getEngineByName("JavaScript");
+            String path = context +"/js/configurations.js";
+// read script file
+            engine.eval(Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8));
+
+            Invocable inv = (Invocable) engine;
+// call function from script file
+            return inv.invokeFunction("getHost", "").toString();
+        } catch (Exception ex) {
+            return "http://clients.brndbot.com/BrndBot/";
+        }
     }
     public static String rgbToHex(String rgb){
         String colorcode=rgb.replace("rgb(", "").replace(")", "").replace(" ","");

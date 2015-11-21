@@ -21,6 +21,7 @@ import java.sql.Timestamp;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +58,6 @@ public class ChangeScheduleServlet extends HttpServlet {
             Integer userId = AuthenticationUtil.getUUID(request);
             Map<String, Object> requestBodyMap =
                     AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            
             String type = (String)requestBodyMap.get("type");
             if (type.equalsIgnoreCase("updatesocial")){
                 String schedule_id = (String)requestBodyMap.get("schedule_id");

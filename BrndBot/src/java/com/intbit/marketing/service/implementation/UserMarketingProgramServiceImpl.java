@@ -37,6 +37,10 @@ public class UserMarketingProgramServiceImpl implements UserMarketingProgramServ
         return  userMarketingProgramDao.getAllUserMarketingProgram();
     }
 
+   public List<TblUserMarketingProgram> getAllUserMarketingOpenPrograms(String status, Integer user_id) throws Throwable{
+        return  userMarketingProgramDao.getAllUserMarketingOpenPrograms(status, user_id);
+   }
+    
     /**
 	 * {@inheritDoc}
      */
@@ -67,5 +71,17 @@ public class UserMarketingProgramServiceImpl implements UserMarketingProgramServ
     public List<TblUserMarketingProgram> getAllUserMarketingProgramByType(Integer user_id, String programType) throws Throwable {
         return  userMarketingProgramDao.getAllUserMarketingProgramByType(user_id, programType);
     }
+
+    @Override
+    public List<TblUserMarketingProgram> getAllUserMarketingProgramByUserId(Integer user_id) throws Throwable {
+        return userMarketingProgramDao.getAllUserMarketingProgramByUserId(user_id);
+        }
+
+    @Override
+    public List<TblUserMarketingProgram> getAllUserMarketingProgramBySessionUserId(Integer user_id) throws Throwable {
+        return userMarketingProgramDao.getAllUserMarketingProgramBySessionUserId(user_id);
+    }
+
+   
     
 }

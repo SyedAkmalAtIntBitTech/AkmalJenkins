@@ -51,7 +51,6 @@ public class PhantomImageConverter {
     }
 
     public PhantomImageConverter(ServletContext context) throws Exception {
-
         path = context.getRealPath("");
         templateJSFilePath = path + "/template.js";
         templateHTMLFilePath = path + "/template.html";
@@ -126,7 +125,7 @@ public class PhantomImageConverter {
             html_content.append("<head>" + "\n");
             html_content.append("<meta charset=UTF-8>" + "\n");
 
-            html_content.append(Utility.injectFontsInHTML(json_font_list));
+            html_content.append(Utility.injectFontsInHTML(json_font_list, path));
             html_content.append("<link  href=\""+path+ File.separator +"css/imagefilter.css\" rel=\"stylesheet\" type=\"text/css\"></link>"  + "\n");
             html_content.append("</head>" + "\n");
             html_content.append("<body>" + "\n");

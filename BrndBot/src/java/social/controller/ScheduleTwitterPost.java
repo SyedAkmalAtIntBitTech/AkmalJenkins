@@ -27,7 +27,8 @@ import util.DateTimeUtil;
  */
 public class ScheduleTwitterPost implements Callable {
 
-  
+      public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ScheduleTwitterPost.class));
+
     @Override
     public Date call() throws Exception {
 
@@ -70,6 +71,7 @@ public class ScheduleTwitterPost implements Callable {
 
     private void updateStatusScheduledTwitter(TblScheduledEntityList scheduledTwitterPost) throws Throwable {
         //Call the DAO here
+        logger.log(Level.INFO, "Twitter post:"+scheduledTwitterPost.getScheduleTitle() +"Id:"+ scheduledTwitterPost.getId() +" time:"+ scheduledTwitterPost.getScheduleTime().toString());
         scheduledTwitterPost.setStatus(IConstants.kSocialPostCommpleteStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledTwitterPost);
         ApplicationContextListener.refreshTwitterScheduler();
