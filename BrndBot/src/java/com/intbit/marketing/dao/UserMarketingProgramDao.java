@@ -27,6 +27,13 @@ public interface UserMarketingProgramDao {
 	 * @throws java.lang.Throwable 
     */
    public List<TblUserMarketingProgram> getAllUserMarketingProgram() throws Throwable;
+
+   /**
+	 * This method retrieves all {@link userMarketingProgram}
+	 * @return {@link userMarketingProgram}
+	 * @throws java.lang.Throwable 
+    */
+   public List<TblUserMarketingProgram> getAllUserMarketingOpenPrograms(String status) throws Throwable;
    
    public List<TblUserMarketingProgram> getAllUserMarketingProgramByType(Integer user_id, String programType) throws Throwable;
    /**

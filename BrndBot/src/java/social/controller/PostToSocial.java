@@ -6,33 +6,14 @@
 package social.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
-import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.util.ServletUtil;
-import facebook4j.Facebook;
-import facebook4j.FacebookException;
-import facebook4j.FacebookFactory;
-import facebook4j.PostUpdate;
-import facebook4j.auth.AccessToken;
-import facebook4j.Media;
-import facebook4j.PhotoUpdate;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import twitter4j.StatusUpdate;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.conf.ConfigurationBuilder;
 
 /**
  *

@@ -10,13 +10,13 @@ import com.intbit.marketing.dao.implementation.ScheduledEntityListDaoImpl;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
+import com.intbit.marketing.model.TblUserLoginDetails;
+import com.intbit.marketing.model.TblUserMarketingProgram;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import util.ResultSetMapper;
 
 /**
  *
@@ -29,7 +29,7 @@ public class SchedulerUtilityMethods {
 
     public static String getLatestApprovedPost(String status, String entityType, String programStatus) {
         StringBuilder sbSql = new StringBuilder();
-        sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
+        sbSql.append("select  entitytable.schedule_time::time,entitytable.entity_id as en_id  from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
         sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
         sbSql.append(" and lower(programtable.status)");
         sbSql.append(" like'").append(programStatus).append("'");
@@ -47,7 +47,8 @@ public class SchedulerUtilityMethods {
             try (ResultSet resultSet = ps.getResultSet()) {
 
                 if (resultSet.next()) {
-                    entityId = resultSet.getString(1);
+                    int e = resultSet.getInt("en_id");
+                    entityId = Integer.toString(e);
                 }
             }
 
@@ -64,7 +65,7 @@ public class SchedulerUtilityMethods {
         StringBuilder sbSql = new StringBuilder();
 
         if (isRecuring) {
-            sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
+            sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id as en_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
             sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
             sbSql.append(" and lower(programtable.status)");
             sbSql.append("like'").append(programStatus).append("'");
@@ -78,7 +79,7 @@ public class SchedulerUtilityMethods {
             sbSql.append(";");
 
         } else {
-            sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
+            sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id as en_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
             sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
             sbSql.append(" and lower(programtable.status)");
             sbSql.append(" like'").append(programStatus).append("'");
@@ -98,7 +99,7 @@ public class SchedulerUtilityMethods {
             try (ResultSet resultSet = ps.getResultSet()) {
 
                 if (resultSet.next()) {
-                    entityId = resultSet.getString(1);
+                    entityId = String.valueOf(resultSet.getInt("en_id"));
                 }
             }
 
@@ -112,69 +113,99 @@ public class SchedulerUtilityMethods {
     }
 
     public static TblScheduledEntityList getEntityById(int entityId) {
-        String sql = "select * from tbl_scheduled_entity_list where entity_id=" + entityId;
-        ResultSetMapper<TblScheduledEntityList> resultSetMapper = new ResultSetMapper<>();
+        String sql = "select entitytable.*,concat(date(programtable.date_event) - entitytable.days, ' ', entitytable.schedule_time::time WITH TIME ZONE) as cal_schedule_time from tbl_scheduled_entity_list as entitytable,tbl_user_marketing_program as programtable "
+                + "where programtable.id = entitytable.user_marketing_program_id and entity_id=" + entityId;
+        TblScheduledEntityList result = null;
 
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.execute();
             try (ResultSet resultSet = ps.getResultSet()) {
-                List<TblScheduledEntityList> pojoList = resultSetMapper.mapRersultSetToObject(resultSet, TblScheduledEntityList.class);
-                if (pojoList != null) {
-                    return pojoList.get(0);
+
+                if (resultSet.next()) {
+                    result = new TblScheduledEntityList(resultSet.getInt("id"));
+                    result.setEntityId(resultSet.getInt("entity_id"));
+                    TblUserMarketingProgram uPgm = new TblUserMarketingProgram(resultSet.getInt("user_marketing_program_id"));
+                    result.setTblUserMarketingProgram(uPgm);
+                    if(uPgm.getId() == 0) {//This is for general marketing program. Time is populated correctly.
+                        result.setScheduleTime(resultSet.getTimestamp("schedule_time"));
+                    } else {
+                        result.setScheduleTime(resultSet.getTimestamp("cal_schedule_time"));
+                    }
+                    result.setScheduleTitle(resultSet.getString("schedule_title"));                    
+                    
+                    result.setEntityType(resultSet.getString("entity_type"));
+                    result.setStatus(resultSet.getString("status"));
+                    result.setUserId(resultSet.getInt("user_id"));
+                    result.setScheduleDesc(resultSet.getString("schedule_desc"));
+                    result.setIsRecuring(resultSet.getBoolean("is_recuring"));
+                    result.setDays(resultSet.getInt("days"));
+                    result.setTillDate(resultSet.getDate("till_date"));
+                    result.setRecuringEmailId(resultSet.getInt("recuring_email_id"));
                 }
             }
-
-            return null;
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.toString());
             return null;
         }
+        return result;
     }
 
     public static TblScheduledSocialpostList getSocialPostEntityById(int entityId) {
         String sql = "select * from tbl_scheduled_socialpost_list where id=" + entityId;
-        ResultSetMapper<TblScheduledSocialpostList> resultSetMapper = new ResultSetMapper<>();
+        TblScheduledSocialpostList result = null;
 
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.execute();
             try (ResultSet resultSet = ps.getResultSet()) {
-                List<TblScheduledSocialpostList> pojoList = resultSetMapper.mapRersultSetToObject(resultSet, TblScheduledSocialpostList.class);
-                if (pojoList != null) {
-                    return pojoList.get(0);
+                if (resultSet.next()) {
+                    result = new TblScheduledSocialpostList(resultSet.getInt("id"));
+                    result.setImageName(resultSet.getString("image_name"));
+                    result.setMetadata(resultSet.getString("metadata"));
+                    result.setType(resultSet.getString("type"));
+                    result.setTblScheduledEntityList(new TblScheduledEntityList(resultSet.getInt("entity_list_id")));
+                    result.setUserId(resultSet.getInt("user_id"));
                 }
             }
-
-            return null;
-
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.toString());
-            return null;
         }
+        return result;
     }
 
     public static TblScheduledEmailList getEmailEntityById(int entityId) {
         String sql = "select * from tbl_scheduled_email_list where id=" + entityId;
-        ResultSetMapper<TblScheduledEmailList> resultSetMapper = new ResultSetMapper<>();
+        TblScheduledEmailList result = null;
 
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.execute();
             try (ResultSet resultSet = ps.getResultSet()) {
-                List<TblScheduledEmailList> pojoList = resultSetMapper.mapRersultSetToObject(resultSet, TblScheduledEmailList.class);
-                if (pojoList != null) {
-                    return pojoList.get(0);
+                if (resultSet.next()) {
+                    result = new TblScheduledEmailList(resultSet.getInt("id"));
+                    result.setSubject(resultSet.getString("subject"));
+                    result.setBody(resultSet.getString("body"));
+                    result.setFromAddress(resultSet.getString("from_address"));
+                    result.setEmailListName(resultSet.getString("email_list_name"));
+                    result.setFromName(resultSet.getString("from_name"));
+                    result.setToEmailAddresses(resultSet.getString("to_email_addresses"));
+                    result.setReplyToEmailAddress(resultSet.getString("reply_to_email_address"));
+                    result.setTblScheduledEntityList(new TblScheduledEntityList(resultSet.getInt("entity_list_id")));
+                    TblUserLoginDetails userDetail = new TblUserLoginDetails();
+                    userDetail.setId(resultSet.getInt("user_id"));
+                    result.setTblUserLoginDetails(userDetail);
                 }
+
             }
 
-            return null;
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.toString());
-            return null;
         }
+        return result;
     }
 
     public static void updateScheduledEntityListEntity(TblScheduledEntityList scheduledFacebookPost) {

@@ -249,6 +249,15 @@ function validateemailaction() {
     return true;
 }
 
+function reSet()
+{
+   $("#addactiontitle").val("");
+   $("#description").val("");
+   $("#datepicker").val("");
+   $("#timepicker1").val("");
+   return true;
+}
+
 function validatefacebookaction() {
     var actiontype = $("#fb_scheduletype").val();
     var schedule_id = $("#fb_scheduleid").val();
@@ -921,6 +930,9 @@ function programactions($scope, $http, $window){
 
     };
     $scope.ShowAddAction = function(){
+        
+        if(reSet()){ }
+        
         $('#select>option').each(function(){
         var text = $(this).class().val();
         alert(text);
@@ -1252,13 +1264,17 @@ function programactions($scope, $http, $window){
             var actiondate = "1970/01/01";//$("#emaildatetime").val();
             var days=$("#emaildays").val();
             var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
-            var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-            l="Sun Nov 22 1970 12:00:AM";
+            //var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+            var l="Sun Nov 01 1970 "+actionDateTime.toLocaleString();
             var myDate = new Date(l); // Your timezone!
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);
             var myEpoch = schedule_time;
-
+            alert(actionDateTime);
+            alert(l);
+            alert("schedule_id.. "+schedule_id);
+            alert("title.. "+title);
+            alert("days.. "+days);
             var description = $("#email_description").val();
             console.log(actiontype + "," + schedule_id + "," + title + "," + description);
 
@@ -1303,8 +1319,8 @@ function programactions($scope, $http, $window){
             var actiondate = "1970/01/01";//$("#datepickerfb").val();
             var days=$("#fbdays").val();
             var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
-            var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-            l="Sun Nov 22 1970 12:00:AM";
+            //var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+            var l="Sun Jan 01 1970 "+actionDateTime.toLocaleString();
             var myDate = new Date(l); // Your timezone!
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);
@@ -1358,7 +1374,7 @@ function programactions($scope, $http, $window){
             var days=$("#twdays").val();
             var actionDateTime=$("#timepickertw").val().replace(/ /g,'');
             var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-            l="Sun Nov 22 1970 12:00:AM";
+            l="Sun Jan 01 1970 "+actionDateTime.toLocaleString();
             var myDate = new Date(l); // Your timezone!
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);

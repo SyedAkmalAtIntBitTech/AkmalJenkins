@@ -79,13 +79,13 @@
                   transform: rotate(180deg);
             }
             #mask {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 9000;
-  background-color:white;
-  display: none;
-}
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 9000;
+                background-color:white;
+                display: none;
+              }
 
 #boxes .window {
   position: absolute;
@@ -167,7 +167,7 @@
                 display:none;
                 position: fixed;
                 width:900px;
-                height:550px;
+                height:590px;
                 top: 25%;
                 left: 30%;
                 margin-left:-155px;

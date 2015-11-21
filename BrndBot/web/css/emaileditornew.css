@@ -32,13 +32,19 @@ and open the template in the editor.
     margin-left:-15px !important;
 }
 .bgcolor{
-    width: 746px;
+/*    width: 746px;
     background-color: #f6f4f5;
-/*  min-height: 920px;
-    height: auto !important;*/
+  min-height: 920px;
+    height: auto !important;
     min-height: 100% !important;
     height: 100% !important;
-    padding-bottom: 185px !important;
+    padding-bottom: 185px !important;*/
+        width: 746px;
+    background-color: #f6f4f5;
+    min-height: 100% !important;
+    height: 100% !important;
+    position: fixed;
+
 }
 
 .emleditorhead{
@@ -69,10 +75,16 @@ and open the template in the editor.
     height:519px;                 
 }
 .btmdiv{
-    background-color: #e2e3e7;
+/*    background-color: #e2e3e7;
     width:746px;
     height:38px;
-    margin-left:-16px;
+    margin-left:-16px;*/
+    background-color: #e2e3e7;
+    width: 746px;
+    height: 38px;
+    margin-left: -16px;
+    position: fixed;
+    bottom: 0%;
 }
 .editemail{
     margin-left:20px; 

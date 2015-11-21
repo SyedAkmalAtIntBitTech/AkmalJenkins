@@ -26,7 +26,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserMarketingProgramDaoImpl implements UserMarketingProgramDao{
     
-      private static final Logger logger = Logger.getLogger(UserMarketingProgramDaoImpl.class.getName());
+    private static final Logger logger = Logger.getLogger(UserMarketingProgramDaoImpl.class.getName());
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -52,14 +52,25 @@ public class UserMarketingProgramDaoImpl implements UserMarketingProgramDao{
     public List<TblUserMarketingProgram> getAllUserMarketingProgram() throws Throwable {
        try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblUserMarketingProgram.class);
-                   return criteria.list();
-		} catch (Throwable throwable) {
-                   logger.log(Level.SEVERE, null, throwable);
-                   throw new Throwable("Database error while retrieving record(s).");
-		}
+                .createCriteria(TblUserMarketingProgram.class);
+               return criteria.list();
+            } catch (Throwable throwable) {
+               logger.log(Level.SEVERE, null, throwable);
+               throw new Throwable("Database error while retrieving record(s).");
+            }
     }
 
+   public List<TblUserMarketingProgram> getAllUserMarketingOpenPrograms(String status) throws Throwable{
+    try {
+        Criteria criteria = sessionFactory.getCurrentSession()
+            .createCriteria(TblUserMarketingProgram.class)
+            .add(Restrictions.eq("status", status));
+           return criteria.list();
+        } catch (Throwable throwable) {
+           logger.log(Level.SEVERE, null, throwable);
+           throw new Throwable("Database error while retrieving record(s).");
+        }
+   }
     /**
 	 * {@inheritDoc}
      */

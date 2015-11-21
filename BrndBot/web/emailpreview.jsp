@@ -72,7 +72,7 @@
                 display:none;
                 position: fixed;
                 width:900px;
-                height:450px;
+                height:485px;
                 top: 30%;
                 left: 30%;
                 margin-left:-155px;
