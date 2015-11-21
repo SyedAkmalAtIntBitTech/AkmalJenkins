@@ -208,7 +208,7 @@
                     </div>
                     <div class="top18 fontpns tenpix headcolor">MARKETING PROGRAM</div>
                     <div class="topfive fontpnr">
-                        <select disabled id="marketing_program" name="marketing_program_type">
+                        <select disabled id="marketing_program" name="marketing_program_type" >
                             <option value="0">General</option>
                             <option ng-repeat="row in marketprogram" value="{{row.user_program_id}}">{{row.name}}</option>
                         </select>
