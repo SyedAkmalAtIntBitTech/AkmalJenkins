@@ -180,6 +180,13 @@
     color: #3f3f42 !important;
     font-size: 12px !important;
 }
+.approvetopostbuttonwidthheightcolor{
+     width:126px !important;
+    height:25px;
+    background-color:#e3e3e3 !important;
+    color: #3f3f42 !important;
+    font-size: 12px !important;
+}
 .approvebuttonwidthheightcolor{
     width:126px;
     height:25px;
@@ -188,7 +195,7 @@
     font-size: 12px !important;
 }
 .button.approvebuttonwidthheightcolor.buttonmargin.button--moema.button--text-thick.button--text-upper.fontpns {
-    width: 165px !important;
+    width: 95px !important;
 }
 .addactbtn{
     margin-left:75px;

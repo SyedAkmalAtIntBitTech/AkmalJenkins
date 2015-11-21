@@ -69,6 +69,9 @@
         <script src="js/configurations.js" type="text/javascript"></script>
         <!--        <script src="js/socialmedia.js" type="text/javascript"></script>-->
         <style>
+            #fabookpreviewdiv,#twitterpreviewdiv,#facebookimage,#twitterimage,#facebookcancel,#twittercancel{
+                display:none;
+            }
             .timepicker_wrap{
                 left: 0px;
                 margin-top: -186px;
@@ -684,6 +687,13 @@
 
 
             $(document).ready(function () {
+                
+               $("#facebookimage").hide();
+                    $("#fabookpreviewdiv").hide();
+                    $(".forfb").hide();
+                    $("#twitterimage").hide();
+                    $("#twitterpreviewdiv").hide();
+                    
                 var isFacebook = $("#isFacebook").val();
                 var isTwitter = $("#isTwitter").val();
                 
@@ -728,6 +738,7 @@
                     $("#facebookimage").show();
                     $("#fabookpreviewdiv").show();
                     $(".forfb").show();
+                    $("#facebookcancel").show();
                 }
 
                 if (isTwitter === "false") {
@@ -736,6 +747,7 @@
                     $("#twittercancel").hide();
                 }
                 else if(isTwitter === "true"){
+                    $("#twittercancel").show();
                     $("#twitterimage").show();
                     $("#twitterpreviewdiv").show();
                     $("#fbtextcontainer").show();
