@@ -441,8 +441,9 @@ public class UserMarketingProgramController {
             HttpServletResponse response) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
+            int user_id =getCurrentUser(request);
 
-            List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingProgram();
+            List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingOpenPrograms("Open", user_id);
             Integer i = 1;
             for (TblUserMarketingProgram marketing_program : UserMarketingPrograms) {
 
@@ -459,6 +460,60 @@ public class UserMarketingProgramController {
         }
         return json_array_marketing_program.toString();
     }
+    
+    @RequestMapping(value = "/getAllUserMarketingProgramsByUserId", method = RequestMethod.GET)
+    public @ResponseBody String getAllUserMarketingProgramsByUserId(HttpServletRequest request,
+            HttpServletResponse response) {
+        JSONArray json_array_marketing_program = new JSONArray();
+        try {
+            int user_id =getCurrentUser(request);
+            
+            List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingProgramByUserId(user_id);
+            Integer i = 1;
+            for (TblUserMarketingProgram marketing_program : UserMarketingPrograms) {
+
+                org.json.JSONObject json_marketing_programming = new org.json.JSONObject();
+                json_marketing_programming.put("id", i);
+                json_marketing_programming.put("program_id", marketing_program.getId());
+                json_marketing_programming.put("name", marketing_program.getName());
+                json_marketing_programming.put("url", marketing_program.getUrl());
+                json_marketing_programming.put("link_name", marketing_program.getLinkName());
+
+                json_array_marketing_program.put(json_marketing_programming);
+                i++;
+            }
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+        }
+        return json_array_marketing_program.toString();
+    }
+    
+    
+    @RequestMapping(value = "/getAllUserMarketingProgramsBySessionUserId", method = RequestMethod.GET)
+    public @ResponseBody String getAllUserMarketingProgramBySessionUserId(HttpServletRequest request,
+            HttpServletResponse response) {
+        JSONArray json_array_marketing_program = new JSONArray();
+        try {
+            int user_id =getCurrentUser(request);
+            
+            List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingProgramByUserId(user_id);
+            Integer i = 1;
+            for (TblUserMarketingProgram marketing_program : UserMarketingPrograms) {
+
+                org.json.JSONObject json_marketing_programming = new org.json.JSONObject();
+                json_marketing_programming.put("href", marketing_program.getUrl());
+                json_marketing_programming.put("text", marketing_program.getLinkName());
+
+                json_array_marketing_program.put(json_marketing_programming);
+                i++;
+            }
+        } catch (Throwable throwable) {
+            logger.log(Level.SEVERE, null, throwable);
+        }
+        return json_array_marketing_program.toString();
+    }
+    
+    
     
     @RequestMapping(value = "/updateUserProgram", method = RequestMethod.POST)
     public @ResponseBody

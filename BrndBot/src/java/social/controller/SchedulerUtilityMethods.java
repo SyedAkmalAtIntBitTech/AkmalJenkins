@@ -113,7 +113,7 @@ public class SchedulerUtilityMethods {
     }
 
     public static TblScheduledEntityList getEntityById(int entityId) {
-        String sql = "select entitytable.*,concat(date(programtable.date_event) - entitytable.days, ' ', entitytable.schedule_time::time WITH TIME ZONE) as cal_schedule_time from tbl_scheduled_entity_list as entitytable,tbl_user_marketing_program as programtable "
+        String sql = "select entitytable.*,concat(date(programtable.date_event) - entitytable.days, ' ', entitytable.schedule_time::time WITH TIME ZONE) as cal_schedule_time,concat(date(programtable.date_event), ' ', entitytable.schedule_time::time WITH TIME ZONE) as cal_rec_schedule_time from tbl_scheduled_entity_list as entitytable,tbl_user_marketing_program as programtable "
                 + "where programtable.id = entitytable.user_marketing_program_id and entity_id=" + entityId;
         TblScheduledEntityList result = null;
 
@@ -127,18 +127,23 @@ public class SchedulerUtilityMethods {
                     result.setEntityId(resultSet.getInt("entity_id"));
                     TblUserMarketingProgram uPgm = new TblUserMarketingProgram(resultSet.getInt("user_marketing_program_id"));
                     result.setTblUserMarketingProgram(uPgm);
-                    if(uPgm.getId() == 0) {//This is for general marketing program. Time is populated correctly.
-                        result.setScheduleTime(resultSet.getTimestamp("schedule_time"));
+                    result.setIsRecuring(resultSet.getBoolean("is_recuring"));
+                    if (result.getIsRecuring()) {
+                        result.setScheduleTime(resultSet.getTimestamp("cal_rec_schedule_time"));
                     } else {
-                        result.setScheduleTime(resultSet.getTimestamp("cal_schedule_time"));
+                        if (uPgm.getId() == 0) {//This is for general marketing program. Time is populated correctly.
+                            result.setScheduleTime(resultSet.getTimestamp("schedule_time"));
+                        } else {
+                            result.setScheduleTime(resultSet.getTimestamp("cal_schedule_time"));
+                        }
                     }
-                    result.setScheduleTitle(resultSet.getString("schedule_title"));                    
-                    
+                    result.setScheduleTitle(resultSet.getString("schedule_title"));
+
                     result.setEntityType(resultSet.getString("entity_type"));
                     result.setStatus(resultSet.getString("status"));
                     result.setUserId(resultSet.getInt("user_id"));
                     result.setScheduleDesc(resultSet.getString("schedule_desc"));
-                    result.setIsRecuring(resultSet.getBoolean("is_recuring"));
+
                     result.setDays(resultSet.getInt("days"));
                     result.setTillDate(resultSet.getDate("till_date"));
                     result.setRecuringEmailId(resultSet.getInt("recuring_email_id"));
@@ -200,7 +205,6 @@ public class SchedulerUtilityMethods {
                 }
 
             }
-
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.toString());

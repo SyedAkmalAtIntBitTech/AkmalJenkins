@@ -59,12 +59,21 @@ public class UserMarketingProgramDaoImpl implements UserMarketingProgramDao{
                throw new Throwable("Database error while retrieving record(s).");
             }
     }
-
-   public List<TblUserMarketingProgram> getAllUserMarketingOpenPrograms(String status) throws Throwable{
+    /**
+     * 
+     * @param programType
+     * @param user_id
+     * @return
+     * @throws Throwable 
+     */
+   public List<TblUserMarketingProgram> getAllUserMarketingOpenPrograms(String programType, Integer user_id) throws Throwable{
     try {
         Criteria criteria = sessionFactory.getCurrentSession()
             .createCriteria(TblUserMarketingProgram.class)
-            .add(Restrictions.eq("status", status));
+                .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
+                .add(Restrictions.eq("status", programType))
+                .add(Restrictions.eq("tblUserLoginDetails.id",user_id))
+                .addOrder(Order.asc("dateEvent"));
            return criteria.list();
         } catch (Throwable throwable) {
            logger.log(Level.SEVERE, null, throwable);
@@ -140,6 +149,38 @@ public class UserMarketingProgramDaoImpl implements UserMarketingProgramDao{
                    logger.log(Level.SEVERE, null, throwable);
                    throw new Throwable("Database error while retrieving record(s).");
 		}
+    }
+
+    @Override
+    public List<TblUserMarketingProgram> getAllUserMarketingProgramByUserId(Integer user_id) throws Throwable {
+        
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblUserMarketingProgram.class)
+                    .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
+                    .add(Restrictions.eq("tblUserLoginDetails.id",user_id));
+                   return criteria.list();
+		} catch (Throwable throwable) {
+                   logger.log(Level.SEVERE, null, throwable);
+                   throw new Throwable("Database error while retrieving record(s).");
+		}
+    
+    }
+    
+    @Override
+    public List<TblUserMarketingProgram> getAllUserMarketingProgramBySessionUserId(Integer user_id) throws Throwable {
+        
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(TblUserMarketingProgram.class)
+                    .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
+                    .add(Restrictions.eq("tblUserLoginDetails.id",user_id));
+                   return criteria.list();
+		} catch (Throwable throwable) {
+                   logger.log(Level.SEVERE, null, throwable);
+                   throw new Throwable("Database error while retrieving record(s).");
+		}
+    
     }
     
 }
