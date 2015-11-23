@@ -244,8 +244,8 @@ public class ScheduleSocialPostDAO {
             ps.setInt(1, 0);
             ps.setString(2, ScheduledEntityType.Twitter.toString());
             ps.setString(3, TemplateStatus.no_template.toString());
-            ps.setInt(3, user_marketing_program_id);
-            ps.setInt(4, userid);
+            ps.setInt(4, user_marketing_program_id);
+            ps.setInt(5, userid);
             
             try(ResultSet result_set = ps.executeQuery()){
                 while (result_set.next()){

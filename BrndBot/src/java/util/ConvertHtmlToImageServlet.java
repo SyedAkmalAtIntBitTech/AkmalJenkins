@@ -99,8 +99,9 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
 
                         contentStream.close();
                         doc.save( pdf_save_path );
-                    }
-                  finally
+                    }catch (Exception e){
+                        Logger.getLogger(ConvertHtmlToImageServlet.class.getName()).log(Level.SEVERE, null, e);
+                    }finally
                     {
                         if( doc != null )
                         {

@@ -370,6 +370,7 @@
         </script>
     <script>
         var formattedHTMLData = "";
+        var program_id = '0';
         setTimeout(
         function() 
         {
@@ -380,7 +381,7 @@
 //            $(".hamburger,.cross").hide();
             $("#programs").change(function(){
                     
-                var program_id = $("#programs").val();
+                program_id = $("#programs").val();
                 angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
                 if (parseInt(program_id) == 0){
                     $("#email_actions").attr("disabled", false);
@@ -413,7 +414,7 @@
         });
         function displaySchedule() {
                 if (validate()) {
-                    angular.element(document.getElementById('emailSettings')).scope().getActions();
+                    angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
                     $("#popupschedule").show();
                     document.getElementById('light').style.display = 'block';
                     document.getElementById('fade').style.display = 'block';
