@@ -263,8 +263,16 @@
                                 <input id="timepicker1" type="text" name="timepicker1" class="inputtime fontpns ptr"  /> 
                                 <script src="js/timepicki.js" type="text/javascript"></script>
                                 <script>
-                                    $('#timepicker1').timepicki();
-                                </script>
+                               $('#timepicker1').timepicki({
+                                   show_meridian:true,
+                                   min_hour_value:0,
+                                   max_hour_value:12,
+                                   step_size_minutes:01,
+                                   overflow_minutes:true,
+                                   increase_direction:'up',
+                                   disable_keyboard_mobile: true
+                               });
+                           </script>
                             </div>
                         </div>
                     </div>
@@ -705,8 +713,16 @@
                                                     <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
-                                                        $('#timepickeremail').timepicki();
-                                                    </script>
+                                                        $('#timepickeremail').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });
+                                                           </script>
                                                 </div>
                                             </div>
                                         </div>
@@ -1103,8 +1119,16 @@
                                                 <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
                                                 <script src="js/timepicki.js" type="text/javascript"></script>
                                                 <script>
-                                                    $('#timepickerfb').timepicki();
-                                                </script>
+                                                        $('#timepickerfb').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });
+                                                 </script>
                                             </div>
                                         </div>
                                     </div>
@@ -1368,7 +1392,15 @@
                                         <input id="timepicker3" name="timepicker3" type="text"  class="inputtime fontpns ptr"  value="{{entities_selected_time| date:'h : mm : a'}}"/> 
                                         <script src="js/timepicki.js" type="text/javascript"></script>
                                         <script>
-                                            $('#timepicker3').timepicki();
+                                                        $('#timepicker3').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });
                                         </script>
                                     </div>
                                 </div>
@@ -1649,7 +1681,15 @@
                                                     <input id="timepickertwitter" type="text" name="timepickertwitter" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
-                                                        $('#timepickertwitter').timepicki();
+                                                        $('#timepickertwitter').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });
                                                     </script>
                                                 </div>
                                             </div>
