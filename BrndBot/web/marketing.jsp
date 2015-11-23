@@ -263,8 +263,16 @@
                                 <input id="timepicker1" type="text" name="timepicker1" class="inputtime fontpns ptr"  /> 
                                 <script src="js/timepicki.js" type="text/javascript"></script>
                                 <script>
-                                    $('#timepicker1').timepicki();
-                                </script>
+                               $('#timepicker1').timepicki({
+                                   show_meridian:true,
+                                   min_hour_value:0,
+                                   max_hour_value:12,
+                                   step_size_minutes:01,
+                                   overflow_minutes:true,
+                                   increase_direction:'up',
+                                   disable_keyboard_mobile: true
+                               });
+                           </script>
                             </div>
                         </div>
                     </div>
@@ -435,7 +443,7 @@
 
                                                 <div>
 
-                                                    <button ng-show="email_template_status=='Approved'" ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                                    <button ng-show="email_template_status=='Approved'" ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;padding:0px;letter-spacing:1px !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
 
                                                 </div> 
                                             </div>
@@ -444,7 +452,7 @@
 
                                                 <div>
 
-                                                    <button id="button1" ng-show="email_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                                    <button id="button1" ng-show="email_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)" style="background-color: #e25b5b !important;color: white !important;display:none;padding:0px;letter-spacing:0.5px !important;left:17px;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
 
                                                 </div> 
 
@@ -705,8 +713,16 @@
                                                     <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
-                                                        $('#timepickeremail').timepicki();
-                                                    </script>
+                                                        $('#timepickeremail').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });
+                                                           </script>
                                                 </div>
                                             </div>
                                         </div>
@@ -913,7 +929,7 @@
 
                                                 <div>
 
-                                                    <button ng-show="facebook_template_status=='Approved'" ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                                    <button ng-show="facebook_template_status=='Approved'" ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;padding:0px;letter-spacing:1px !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
 
                                                 </div> 
                                             </div>
@@ -922,7 +938,7 @@
 
                                                 <div>
 
-                                                    <button ng-show="facebook_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_facebook)" id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
+                                                    <button ng-show="facebook_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_facebook)" id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;padding:0px;letter-spacing:0.5px !important;left:17px;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
 
                                                 </div> 
 
@@ -1103,8 +1119,16 @@
                                                 <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
                                                 <script src="js/timepicki.js" type="text/javascript"></script>
                                                 <script>
-                                                    $('#timepickerfb').timepicki();
-                                                </script>
+                                                        $('#timepickerfb').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });
+                                                 </script>
                                             </div>
                                         </div>
                                     </div>
@@ -1130,7 +1154,7 @@
 
                                                 <div>
 
-                                                    <button ng-show="facebook_template_status=='Approved'" ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                                    <button ng-show="facebook_template_status=='Approved'" ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;padding:0px;letter-spacing:1px !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
 
                                                 </div> 
                                             </div>
@@ -1139,7 +1163,7 @@
 
                                                 <div>
 
-                                                    <button id="button1" ng-show="facebook_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_facebook)" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                                    <button id="button1" ng-show="facebook_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_facebook)" style="background-color: #e25b5b !important;color: white !important;display:none;padding:0px;letter-spacing:0.5px !important;left:17px;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
 
                                                 </div> 
 
@@ -1368,7 +1392,15 @@
                                         <input id="timepicker3" name="timepicker3" type="text"  class="inputtime fontpns ptr"  value="{{entities_selected_time| date:'h : mm : a'}}"/> 
                                         <script src="js/timepicki.js" type="text/javascript"></script>
                                         <script>
-                                            $('#timepicker3').timepicki();
+                                                        $('#timepicker3').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });
                                         </script>
                                     </div>
                                 </div>
@@ -1483,7 +1515,7 @@
 
                                                 <div>
 
-                                                    <button ng-show="twitter_template_status=='Approved'" ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                                    <button ng-show="twitter_template_status=='Approved'" ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;padding:0px;letter-spacing:1px !important;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
 
                                                 </div> 
                                             </div>
@@ -1492,7 +1524,7 @@
 
                                                 <div>
 
-                                                    <button ng-show="twitter_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_twitter)" id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
+                                                    <button ng-show="twitter_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_twitter)" id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;padding:0px;letter-spacing:0.5px !important;left:17px;" class="button approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
 
                                                 </div> 
 
@@ -1649,7 +1681,15 @@
                                                     <input id="timepickertwitter" type="text" name="timepickertwitter" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
-                                                        $('#timepickertwitter').timepicki();
+                                                        $('#timepickertwitter').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });
                                                     </script>
                                                 </div>
                                             </div>
@@ -1805,14 +1845,14 @@
                                                        value="Approve to Send" 
                                                        ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" 
                                                        ng-click="recuringApproval(schedule_id, 'approved')" 
-                                                       class="button approvebuttonwidthheightcolor 
+                                                       class="button approvetosendbuttonwidthheightcolor 
                                                                 buttonmargin button--moema  
                                                                 button--text-thick  
                                                                 button--text-upper 
                                                                 fontpns" 
                                                                 id="mail_approve_button_post">
-                                                <button ng-click="SaveData();" ng-show="recuring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                                <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="recuringApproval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Unapprove</button> 
+                                                <button ng-click="SaveData();" ng-show="recuring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;padding:0px;letter-spacing:1px !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                                <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="recuringApproval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;padding:0px;letter-spacing:0.5px !important;left:17px;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
                                             </div>
                                         </div>
                                     </div>
