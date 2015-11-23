@@ -72,17 +72,22 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(TblScheduledEntityList.class)
                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
-                    .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
-                    .add(Restrictions.eq("status", TemplateStatus.no_template.toString()));
+                    .add(Restrictions.eq("tblUserMarketingProgram.id", program_id));
             List<TblScheduledEntityList> entity_list = criteria.list();
-            criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblScheduledEntityList.class)
-                    .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
-                    .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
-                    .add(Restrictions.eq("status", TemplateStatus.template_saved.toString()));
-            List<TblScheduledEntityList> entity_list1 = criteria.list();
+//            criteria = sessionFactory.getCurrentSession()
+//                    .createCriteria(TblScheduledEntityList.class)
+//                    .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
+//                    .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
+//                    .add(Restrictions.eq("status", TemplateStatus.template_saved.toString()));
+//            List<TblScheduledEntityList> entity_list1 = criteria.list();
+//            criteria = sessionFactory.getCurrentSession()
+//                    .createCriteria(TblScheduledEntityList.class)
+//                    .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
+//                    .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
+//                    .add(Restrictions.eq("status", TemplateStatus.approved.toString()));
+//            List<TblScheduledEntityList> entity_list2 = criteria.list();
 
-            return (Integer) entity_list.size() + (Integer) entity_list1.size();
+            return (Integer) entity_list.size();
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);
             throw new Throwable("Database error while retrieving record");
