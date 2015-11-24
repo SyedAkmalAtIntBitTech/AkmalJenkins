@@ -423,6 +423,7 @@ label:before {
                     var url=$("#urlname").val();
                     $("#url").val(url);
                 });
+                
                 $("#urlnamefb").click(function(){
                     var url=$("#urlnamefb").val();
                     var res = url.split("--");
