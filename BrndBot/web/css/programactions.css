@@ -644,7 +644,8 @@
                overflow-y:auto;
                height:306px;
                width:260px;
-               background-color: #d8d8d8;
+               /*background-color: #d8d8d8;*/
+                background-color: transparent;
                 
 /*                overflow-y:scroll;
                 overflow-x:hidden;
