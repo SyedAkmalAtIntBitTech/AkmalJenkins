@@ -352,11 +352,11 @@
                                 <option value="Twitter">Twitter</option>
                                 <option value="Note">Note</option>
                             </select>
-                        <br><br>
-                        <button type="button" id="saveaction" name="saveaction" class="btn btn-info" ng-click="createMarketingActionsJSON()">Save Action</button>
+                        <br>
+                        <button type="button" id="saveaction" name="saveaction" class="btn btn-info" ng-click="createMarketingActionsJSON()" style="margin-top:15px;margin-bottom:5px;">Save Action</button>
                         <br>
                 </div>
-                <div style="float:left; left:0px; padding-left: 166px; padding-top: 20px;">
+                <div style="float:left; left:0px; padding-left: 270px; padding-top: 0px;">
                     <br>
                     <div style="float: left; left:20px; margin-top: -110px;">
                         <button id="Servicecontinue" type="submit" class="btn btn-info" ng-click="saveMarketingActions()">Save</button>

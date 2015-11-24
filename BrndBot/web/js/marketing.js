@@ -1372,7 +1372,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
     $scope.deleteSchedule = function (schedules_to_delete, type, section) {
         var message;
         var requestBody;
-        var responseMessage;alert(section);
+        var responseMessage;
         if (type == "deleteMultiple") {
             message = "Are you sure you want to delete these Action(s)?";
             requestBody = {"type": "deleteSelected",

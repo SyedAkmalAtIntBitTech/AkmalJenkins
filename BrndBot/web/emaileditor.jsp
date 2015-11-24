@@ -42,6 +42,10 @@
         <link rel="stylesheet" href="css/plugins/file.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
         <style>
+            .fr-popup.fr-active{
+                top:490px !important;
+                /*position:relative !important;*/
+            }
               body {
                   margin: 0; 
                   height: 100%;
