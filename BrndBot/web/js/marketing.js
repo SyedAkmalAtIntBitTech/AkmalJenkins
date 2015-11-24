@@ -1373,6 +1373,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         var message;
         var requestBody;
         var responseMessage;
+//        alert(section);
         if (type == "deleteMultiple") {
             message = "Are you sure you want to delete these Action(s)?";
             requestBody = {"type": "deleteSelected",
