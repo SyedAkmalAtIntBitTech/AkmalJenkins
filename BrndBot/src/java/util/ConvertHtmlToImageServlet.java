@@ -8,28 +8,44 @@ package util;
 import admin.controller.Layout;
 import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
+//import com.imagetopdf.Images2PDF;
 import com.imagetopdf.image.Image;
 import com.imagetopdf.image.ImageTypes;
 import com.intbit.AppConstants;
 import com.intbit.PhantomImageConverter;
 import com.intbit.dao.ScheduleDAO;
 import java.awt.Desktop;
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.io.RandomAccessBufferedFileInputStream;
 import org.json.simple.JSONArray;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.PDXObject;
+import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-
+import org.apache.pdfbox.pdmodel.graphics.image.CCITTFactory;
+import org.apache.pdfbox.io.RandomAccessFile;
+import org.apache.pdfbox.io.RandomAccessRead;
+import org.apache.pdfbox.pdfparser.PDFParser;
+import org.apache.pdfbox.pdmodel.PDDocumentInformation;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
+import org.apache.pdfbox.text.PDFTextStripper;
 /**
  *
  * @author sandeep-kumar
@@ -49,7 +65,12 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response); 
-
+        PDFParser parser;
+        String parsedText = null;
+        PDFTextStripper pdfStripper;
+        PDDocument pdDoc;
+        COSDocument cosDoc;
+        PDDocumentInformation pdDocInfo;        
         try {
             String htmlString = request.getParameter("htmlString");
             String width = request.getParameter("containerWidth").replace("px", "");
@@ -74,45 +95,64 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
                 String pdf_save_path = AppConstants.PDF_FILES_PATH + File.separator + pdf_file_name;
 
                 File uploadDir = new File(AppConstants.PDF_FILES_PATH);
-                        if (!uploadDir.exists()) {
-                            uploadDir.mkdirs();
-                        } 
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                } 
                   PDDocument doc = null;
                   try
                     {
                         doc = new PDDocument();
 
-                        //we will add the image to the first page.
-                        PDPage page = new PDPage();
+//                        //we will add the image to the first page.
+                        PDRectangle rec = new PDRectangle(0, 0, Float.parseFloat(width), Float.parseFloat(height));
+                        PDDocument document = new PDDocument();
+                        PDPage page = new PDPage(rec);
+                        document.addPage(page);
                         doc.addPage(page);
-                        // createFromFile is the easiest way with an image file
-                        // if you already have the image in a BufferedImage, 
-                        // call LosslessFactory.createFromImage() instead
-                        PDImageXObject pdImage = PDImageXObject.createFromFile(image2, doc);
-                        PDPageContentStream contentStream = new PDPageContentStream(doc, page, true, true);
+                        
+            PDImageXObject ximage;
+            if( filename.toLowerCase().endsWith( ".jpg" ) )
+            {
+                ximage = JPEGFactory.createFromStream(doc, new FileInputStream(imagePngFile));
+            }
+            else if (filename.toLowerCase().endsWith(".tif") || filename.toLowerCase().endsWith(".tiff"))
+            {
+                ximage = CCITTFactory.createFromRandomAccess(doc, new RandomAccessFile(imagePngFile,"r"));
+            }
+            else if (filename.toLowerCase().endsWith(".gif") ||
+                    filename.toLowerCase().endsWith(".bmp") ||
+                    filename.toLowerCase().endsWith(".png"))
+            {
+                BufferedImage bim = ImageIO.read(imagePngFile);
+                ximage = LosslessFactory.createFromImage(doc, bim);
+            }
+            else
+            {
+                throw new IOException( "Image type not supported: " + filename );
+            }
+            PDPageContentStream contentStream = new PDPageContentStream(doc, page, true, true);
 
-                        // contentStream.drawImage(ximage, 20, 20 );
-                        // better method inspired by http://stackoverflow.com/a/22318681/535646
-                        // reduce this value if the image is too large
-                        float scale = 1.0f;
-                        contentStream.drawImage(pdImage, 0, 200, pdImage.getWidth()*scale, pdImage.getHeight()*scale);
+            //contentStream.drawImage(ximage, 20, 20 );
+            // better method inspired by http://stackoverflow.com/a/22318681/535646
+            float scale = 1f; // reduce this value if the image is too large
+            contentStream.drawXObject(ximage, 0, 0, ximage.getWidth()*scale, ximage.getHeight()*scale);
 
-                        contentStream.close();
-                        doc.save( pdf_save_path );
-                    }catch (Exception e){
-                        Logger.getLogger(ConvertHtmlToImageServlet.class.getName()).log(Level.SEVERE, null, e);
-                    }finally
+            contentStream.close();
+            doc.save( pdf_save_path );
+                }catch (Exception e){
+                    Logger.getLogger(ConvertHtmlToImageServlet.class.getName()).log(Level.SEVERE, null, e);
+                }finally
+                {
+                    if( doc != null )
                     {
-                        if( doc != null )
-                        {
-                            doc.close();
-                        }
-                    }          
-                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, null, pdf_file_name);
+                        doc.close();
+                    }
+                }          
+            getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, null, pdf_file_name);
 
-//                deleteFile(file_name);
-                response.setContentType("text/plain");
-                response.getWriter().write(pdf_file_name);
+    //                deleteFile(file_name);
+            response.setContentType("text/plain");
+            response.getWriter().write(pdf_file_name);
 
             }else if (mediaType.equalsIgnoreCase("downloadimage")){
                 getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, filename, null);
