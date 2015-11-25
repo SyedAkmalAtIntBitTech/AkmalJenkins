@@ -41,9 +41,9 @@ public class TblEmailMandrillHistory  implements java.io.Serializable {
      @EmbeddedId
 
     
-    @AttributeOverrides( {
-        @AttributeOverride(name="emailHistoryId", column=@Column(name="email_history_id", nullable=false) ), 
-        @AttributeOverride(name="toEmail", column=@Column(name="to_email", nullable=false, length=250) ) } )
+    @AttributeOverrides({
+    @AttributeOverride(name="emailHistoryId", column=@Column(name="email_history_id", nullable=false) ),
+    @AttributeOverride(name="toEmail", column=@Column(name="to_email", nullable=false, length=250))})
     public TblEmailMandrillHistoryId getId() {
         return this.id;
     }

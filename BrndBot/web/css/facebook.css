@@ -179,6 +179,22 @@
     background-color:#e3e3e3 !important;
     color: #3f3f42 !important;
     font-size: 12px !important;
+    padding: 0 !important;
+}
+.approvetopostbuttonwidthheightcolor{
+     width:126px !important;
+    height:25px;
+    background-color:#e3e3e3 !important;
+    color: #3f3f42 !important;
+    font-size: 12px !important;
+}
+.approvetosendbuttonwidthheightcolor{ 
+    width:155px !important;
+    height:25px;
+    background-color:#e3e3e3 !important;
+    color: #3f3f42 !important;
+    font-size: 12px !important;
+    padding:0px !important;
 }
 .approvebuttonwidthheightcolor{
     width:126px;
@@ -188,7 +204,7 @@
     font-size: 12px !important;
 }
 .button.approvebuttonwidthheightcolor.buttonmargin.button--moema.button--text-thick.button--text-upper.fontpns {
-    width: 165px !important;
+    width: 90px !important;
 }
 .addactbtn{
     margin-left:75px;

@@ -351,7 +351,15 @@
                                         <input id="timepicker1" type="text" name="timepicker1" class="inputtime fontpns ptr"  /> 
                                         <script src="js/timepicki.js" type="text/javascript"></script>
                                         <script>
-                                                $('#timepicker1').timepicki();
+                                                $('#timepicker1').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });
                                         </script>
                                     </div>
                                 </div>
@@ -441,7 +449,7 @@
                                                    button--text-upper 
                                                    fontpns" id="fb_approve_button_post">
                                         <button ng-click="SaveData();" ng-show="email_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                        <button id="button1" ng-show="email_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Un approve</button> 
+                                        <button id="button1" ng-show="email_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)" style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
 
                                             </div>
                                         </div>
@@ -609,7 +617,15 @@
                                                         <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm:a'}}"/> 
                                                         <script src="js/timepicki.js" type="text/javascript"></script>
                                                         <script>
-                                                                                    $('#timepickeremail').timepicki();                                                        </script>
+                                                                                    $('#timepickeremail').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });                                                        </script>
                                                     </div>
                                                 </div>
                                             </div>
@@ -775,7 +791,7 @@
                                             <input type="button" value="Approve to Post" 
                                                    ng-show="facebook_action_status == true && facebook_template_status=='Template Saved'" 
                                                    ng-click="Approval(schedule_id, 'approved', master_facebook)"
-                                                   class="button approvebuttonwidthheightcolor 
+                                                   class="button approvetopostbuttonwidthheightcolor 
                                                    buttonmargin button--moema  
                                                    button--text-thick  
                                                    button--text-upper 
@@ -937,7 +953,15 @@
                                                     <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm:a'}}"/> 
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
-                                                        $('#timepickerfb').timepicki();
+                                                        $('#timepickerfb').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });
                                                     </script>
                                                 </div>
                                             </div>
@@ -945,7 +969,7 @@
                                         <div class="topthirty8 left5">
                                             <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns" ng-click="updateActionFacebook()" >Save</button>                                       
                                             <!--                                        <button ng-click="SaveData();" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> -->
-                                            <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Un approve</button> 
+                                            <button id="button1"  style="background-color: #e25b5b !important;color: white !important;display:none;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
 
                                         </div>
                                     </div>
@@ -1092,7 +1116,7 @@
                                                    ng-show="twitter_action_status == true && twitter_template_status=='Template Saved'" 
                                                    ng-click="Approval(schedule_id, 'approved', master_twitter)"
                                                    value="Approve to Post" 
-                                                   class="button approvebuttonwidthheightcolor 
+                                                   class="button approvetopostbuttonwidthheightcolor 
                                                           buttonmargin 
                                                           button--moema  
                                                           button--text-thick  
@@ -1229,7 +1253,15 @@
 
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
-                                                        $('#timepickertw').timepicki();                                                                                                                                        
+                                                        $('#timepickertw').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });                                                                                                                                        
                                                     </script>
                                                 </div>
                                             </div>

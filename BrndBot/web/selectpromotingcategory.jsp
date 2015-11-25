@@ -33,6 +33,7 @@ and open the template in the editor.
         
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <style>
+            #picktheme{display: none;}
             .glyphicon.glyphicon-home,.glyphicon.glyphicon-envelope,.glyphicon.glyphicon-comment, .glyphicon.glyphicon-picture, .glyphicon.glyphicon-cog{
                 font-size:20px;
                 position: relative;
@@ -198,16 +199,22 @@ and open the template in the editor.
                                     method : 'GET',
                                     url : 'MindBodyDataServlet'
                                     }).success(function(data, status, headers, config) {
-                            $scope.datalists = data;
+                                        var minddata= JSON.stringify(data.mindbody_data);
+                                        if(minddata === undefined){
+                                        $('#loadingGif').remove();
+                                        $('#nodata').show();
+                                        $('#nodata').css("margin-left","180px");
+                                        }
+                                        $scope.datalists = data;
 //                                    alert(JSON.stringify(data));
+                                    
                                     $("#picktheme").css("overflow-y", "scroll");
                                     if (data.mindbody_data.length == 0){
                             $("#continuebutton").hide();
                             } else {
                             $("#continuebutton").show();
-                            
+                            $("#picktheme").css("display","block");
                             }
-
                             if (data === error){
                             alert(data);
                             }
@@ -253,7 +260,8 @@ and open the template in the editor.
             <div class="col-md-11 col-md-offset-1">
 
                 <div class="col-md-6 col-md-offset-1 datahead">
-                    <p id="text3" class="MH2">{{datalists.title}}  </p>
+                    
+                    <p id="text3" class="MH2">{{datalists.title}}</p>
                     <input style="position:relative;bottom:9.0em;left:55em;" type="button" id="continuebutton" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="selected_category()" value="CONTINUE" disabled="true">
                 </div>  
                
@@ -264,6 +272,7 @@ and open the template in the editor.
                             <li style="width: 250px">{{datalists.column_header[1]}}</li>
                             <li style="width: 100px">{{datalists.column_header[2]}}</li></div>
                     </ul>
+                    <p id="nodata" hidden="true" class="MH2">No Mindbody data in selected Category <br>please select some other Category.</p>
                     <hr id="dividerline" style="width:850px;position:absolute;left:60px;top:32px;">
 
                     <div style="position:fixed;height:45%;margin-top: -1.8em;" class="tab-pane active" id="picktheme" ng-init="showData()">

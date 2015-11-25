@@ -69,6 +69,9 @@
         <script src="js/configurations.js" type="text/javascript"></script>
         <!--        <script src="js/socialmedia.js" type="text/javascript"></script>-->
         <style>
+            #fabookpreviewdiv,#twitterpreviewdiv,#facebookimage,#twitterimage,#facebookcancel,#twittercancel{
+                display:none;
+            }
             .timepicker_wrap{
                 left: 0px;
                 margin-top: -186px;
@@ -392,6 +395,7 @@ label:before {
                 document.getElementById('fade').style.display = 'block';
                 document.body.style.overflow = 'hidden';
             }
+            var program_id = '0';
 
             function displaySchedule() {
                 $("#popupschedule").show();
@@ -400,23 +404,22 @@ label:before {
                 var isTwitter = $("#isTwitter").val();
                 console.log("istwitter" + isTwitter);
                 if ((isFB == "true") && (isTwitter == "false")) {
-                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions();
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions(program_id);
                     $("#facebookactions").show();
                     $("#twitteractions").hide();
                     console.log("true");
                 } else if ((isFB == "false") && (isTwitter == "true")) {
-                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions();
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions(program_id);
                     $("#facebookactions").hide();
                     $("#twitteractions").show();
                 } else if ((isFB == "true") && (isTwitter == "true")) {
-                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions();
-                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions();
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions(program_id);
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions(program_id);
 //                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialActions();
                     $("#facebookactions").show();
                     $("#twitteractions").show();
                 }
             }
-            var program_id = 0;
             
             $(document).ready(function ()
             {
@@ -424,6 +427,7 @@ label:before {
                     var url=$("#urlname").val();
                     $("#url").val(url);
                 });
+                
                 $("#urlnamefb").click(function(){
                     var url=$("#urlnamefb").val();
                     var res = url.split("--");
@@ -441,11 +445,21 @@ label:before {
                     }
                 });
                 
+                var isFB = $("#isFacebook").val();
+                var isTwitter = $("#isTwitter").val();
+                if ((isFB == "true") && (isTwitter == "false")) {
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions(program_id);
+                    console.log("true");
+                } else if ((isFB == "false") && (isTwitter == "true")) {
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions(program_id);
+                } else if ((isFB == "true") && (isTwitter == "true")) {
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions(program_id);
+                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialTwitterActions(program_id);
+//                    angular.element(document.getElementById('socialmediapreview')).scope().getSocialActions();
+                }                
                 $("#programs").change(function(){
                     
-                    var program_id = $("#programs").val();
-                    var isFB = $("#isFacebook").val();
-                    var isTwitter = $("#isTwitter").val();
+                    program_id = $("#programs").val();
                     if ( isFB == "true"){
                         angular.element(document.getElementById('socialmediapreview')).scope().getSocialFacebookActions(program_id);
                     }
@@ -700,7 +714,7 @@ label:before {
             <input type="hidden" id="pagenameSend" name="pagenameSend" value='<%= ManagedPage%>'/>
 
             <div id="popupschedule" style="display:none;">
-                <div id="content" ng-init="getProgramNames()">
+                <div id="content" ng-init="getProgramNames();">
                     <!--                                 Mapper file name<input type="text" id="mapperxml" required><br><br>
                                                 Layout file name<input type="text" id="layoutxml" required><br>-->
 
@@ -718,15 +732,18 @@ label:before {
                         <option value="0" style="background:#fff;" >--General--</option>
                         <option style="background:#fff;" ng-repeat="programs in marketing_programs" value="{{programs.program_id}}">{{programs.name}}</option>
                     </select><br><br>
-                    
-                    <select name="facebookactions" id="facebookactions" class="SH1 selectsocialact" style="font-variant: normal;" onchange="validateact();">
-                        <option value="0" style="background:#fff;" >CUSTOM FACEBOOK</option>
-                        <option style="background:#fff;" ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
-                    </select><br><br>
-                    <select name="twitteractions" id="twitteractions" class="SH1 selectsocialact" style="font-variant: normal;" onchange="validateact();">
-                        <option style="background:#fff;" value="0">CUSTOM TWITTER</option>
-                        <option style="background:#fff;" ng-repeat="twitteractions in twitter_actions" value="{{twitteractions.id}}">{{twitteractions.schedule_title}}</option>
-                    </select><br>
+                    <div>
+                        <select name="facebookactions" id="facebookactions" class="SH1 selectsocialact" style="font-variant: normal;" onchange="validateact();">
+                            <option value="0" style="background:#fff;" >CUSTOM FACEBOOK</option>
+                            <option style="background:#fff;" ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
+                        </select><br><br>
+                    </div>
+                    <div>
+                        <select name="twitteractions" id="twitteractions" class="SH1 selectsocialact" style="font-variant: normal;" onchange="validateact();">
+                            <option style="background:#fff;" value="0">CUSTOM TWITTER</option>
+                            <option style="background:#fff;" ng-repeat="twitteractions in twitter_actions" value="{{twitteractions.id}}">{{twitteractions.schedule_title}}</option>
+                        </select><br>
+                    </div>
                     <!--                         <select name="socialactions" id="socialactions" class="SH1 selectsocialact" style="font-variant: normal;">
                                                 <option style="background:#fff;" value="0">--SELECT--</option>
                                                 <option style="background:#fff;" ng-repeat="socialactions in social_actions" value="{{socialactions.id}}">{{socialactions.schedule_title}}</option>
@@ -790,6 +807,13 @@ label:before {
 
 
             $(document).ready(function () {
+                
+               $("#facebookimage").hide();
+                    $("#fabookpreviewdiv").hide();
+                    $(".forfb").hide();
+                    $("#twitterimage").hide();
+                    $("#twitterpreviewdiv").hide();
+                    
                 var isFacebook = $("#isFacebook").val();
                 var isTwitter = $("#isTwitter").val();
                 
@@ -834,6 +858,7 @@ label:before {
                     $("#facebookimage").show();
                     $("#fabookpreviewdiv").show();
                     $(".forfb").show();
+                    $("#facebookcancel").show();
                 }
 
                 if (isTwitter === "false") {
@@ -842,6 +867,7 @@ label:before {
                     $("#twittercancel").hide();
                 }
                 else if(isTwitter === "true"){
+                    $("#twittercancel").show();
                     $("#twitterimage").show();
                     $("#twitterpreviewdiv").show();
                     $("#fbtextcontainer").show();

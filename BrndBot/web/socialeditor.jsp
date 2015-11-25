@@ -59,6 +59,9 @@ and open the template in the editor.
         <script src="js/svg.js" type="text/javascript"></script>
         
         <style>           
+            #continue,#downloadpdf,#downloadimage{
+                display:none;
+            }
             a.boxclose{
                 float:right;
                 margin-top:8px;
@@ -959,7 +962,7 @@ if (mindbodydataId != ""){
                                                                 <option value="select">Select</option>
                                                             </select>
                                                         </li>
-                                                <li><div class="headblankcolor-box ptr" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br>
+                                                <li><div class="headblankcolor-box ptr" id="selectedshapecolorbox" style="left:-30px;background-color: {{user_preferences_colors.color1}}"></div></li><br/>
                                                 <li><ul id="openCustomColor">
                                                 <li><p class="editpal">your palette</p></li>
                                                 <li id="colcontainer">
