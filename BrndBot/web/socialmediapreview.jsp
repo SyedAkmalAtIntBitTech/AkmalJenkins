@@ -86,6 +86,7 @@
                 background-color:white;
                 display: none;
               }
+             
 
 #boxes .window {
   position: absolute;
@@ -380,6 +381,9 @@ label:before {
                 opacity:.80;
                 filter: alpha(opacity=80);
             }
+            .twitterlinklist{
+                display:none;
+            }
         </style>
 
         <script>
@@ -423,8 +427,18 @@ label:before {
                 $("#urlnamefb").click(function(){
                     var url=$("#urlnamefb").val();
                     var res = url.split("--");
-                    $("#title").val(res[0]);
-                    $("#description").val(res[1]);
+                    $("#title").val(res[1]);
+                    $("#link_title").val(res[1]);
+                    $("#url").val(res[0]);
+                    $("#Linkurl").val(res[0]);
+                    var twittertext = $("#twittertext").val();
+                    if (twittertext.endsWith("bit.ly/1XOkJo"))
+                    {
+                        $("#twittertext").val($("#twittertext").val());
+                    }
+                    else {
+                        $("#twittertext").val($("#twittertext").val() + "  bit.ly/1XOkJo");
+                    }
                 });
                 
                 $("#programs").change(function(){
@@ -605,22 +619,22 @@ label:before {
                             <div class="fontpnr">
                                 <select id="urlnamefb" name="marketing_program_type" class="selects">
                                     <option value="0" class="caret">LINK URL<lable></lable></option>
-                                    <option ng-repeat="url in urls" value="{{url.url}}--{{url.link_name}}">{{url.link_name}}----{{url.prigram_name}}----{{url.link_name}}</option>
+                                    <option ng-repeat="url in urls" value="{{url.url}}--{{url.link_name}}">{{url.prigram_name}} - {{url.link_name}} - {{url.url}}</option>
                                 </select>
                             </div>
                             
-                            <p class="psttxt"></p><textarea class="hideinputborder ptr"  id="title" placeholder="Link goes here" style="height:40px; resize: none;"></textarea><br>
-                        <p class="psttxt"></p><textarea class="hideinputborder ptr" id="description" placeholder="Link Name" style="height:40px; resize: none;"></textarea><br>
+                            <p class="psttxt"></p><textarea class="hideinputborder ptr"  id="title" placeholder="Link title here" style="height:40px; resize: none;"></textarea><br>
+                        <p class="psttxt"></p><textarea class="hideinputborder ptr" id="description" placeholder="Link Description" style="height:40px; resize: none;"></textarea><br>
                         </div>
                         
                         <div class="fortw">
-                            <div class="fontpnr">
+                            <div class="fontpnr twitterlinklist">
                                 <select id="urlname" name="marketing_program_type" class="selects">
                                     <option value="0" class="caret">LINK URL<lable></lable></option>
                                     <option ng-repeat="url in urls" value="{{url.url}}">{{url.url}}----{{url.prigram_name}}----{{link_name}}</option>
                                 </select>
                             </div>
-                            <p class="psttxt"> </p><textarea class="hideinputborder ptr" id="url" placeholder="URL goes here" style="height:40px; resize: none;"></textarea><br>
+                            <p class="psttxt"> </p><textarea class="hideinputborder ptr" id="url" placeholder="URL here" style="height:40px; resize: none;"></textarea><br>
                         </div>
                             <input type="button" class="btn btn-default" id="removelink" value="REMOVE LINK"><br><br>
                         </div>
@@ -831,6 +845,11 @@ label:before {
                     $("#twitterimage").show();
                     $("#twitterpreviewdiv").show();
                     $("#fbtextcontainer").show();
+                    $(".twitterlinklist").show(); 
+                }
+                if(isTwitter==="true" && isFacebook==="true")
+                {
+                        $(".twitterlinklist").hide();                    
                 }
                     $("#chnagetolinkpost").click(function () {
                         $("#chnagetolinkpost").hide();
@@ -868,12 +887,13 @@ label:before {
                     $("#twitterimage").hide();
                     $("#twitterpreviewdiv").hide();
                     $("#isTwitter").val("false");
-                    $(".fortw").hide();
+                    //$(".fortw").hide();
 
                 });
 
                 $("#facebookcancel").click(function () {
                     $("#facebookcancel").hide();
+                    $(".twitterlinklist").show();
                     $("#facebookimage").hide();
                     $("#fabookpreviewdiv").hide();
                     $("#isFacebook").val("false");
