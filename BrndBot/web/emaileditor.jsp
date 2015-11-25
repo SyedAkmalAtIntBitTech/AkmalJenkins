@@ -321,11 +321,13 @@
                             $("#stylelist").css("display", "none");
                                     $("#blklist").css("display", "block");
                                     $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+                                    
+                                    $(":button").removeAttr("disabled");
                                     $("#styletab").css("background-color", "transparent").css("color", "#19587c");
                                  
                                     $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
                             var jsondataDefault = data;
-//                                    alert(JSON.stringify(data));
+                                    //alert(JSON.stringify(data));
                                     var allLayoutFilename = [];
                                     $(jsondataDefault).each(function (i, val) {
                             var i = 0;
