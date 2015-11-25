@@ -97,6 +97,19 @@
                 width: 250px;
                 left: 250px;
             }
+            #avpw_rghtArrow,#avpw_lftArrow
+            {
+                display:none !important;
+            }
+            
+            #avpw_main_frames,#avpw_main_overlay,#avpw_main_resize,
+            #avpw_main_orientation,#avpw_main_focus,#avpw_main_brightness,
+            #avpw_main_contrast,#avpw_main_saturation,#avpw_main_warmth,
+            #avpw_main_sharpness,#avpw_main_colorsplash,#avpw_main_drawing,
+            #avpw_main_textwithfont,#avpw_main_redeye,#avpw_main_whiten,#avpw_main_blemish
+            {
+                display:none;
+            }
             .fr-wrapper{
                 
 /*                    min-height: 550px !important;
@@ -708,7 +721,7 @@
                            mimeType: 'application/json',
                            success: function (responseText) {
                                urlList11 = responseText
-                             $('#edit').froalaEditor({key: FroalaLicenseKey, fullPage: true, linkList: urlList11});
+                             $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList11});
                                
                             }
                         });
