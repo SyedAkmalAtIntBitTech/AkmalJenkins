@@ -94,9 +94,10 @@
 
         });
             function setdt(){
-//            $some_datepicker.pikaday('show').pikaday('nextMonth');
-                location.reload();
-//                $some_datepicker.gotoDate();
+//                  $('#calendardiv').load('marketingsubmenu.html');
+                setTimeout(function(){
+                    location.reload();
+                },0);
             }
             
             </script>
@@ -179,7 +180,7 @@ a {
 <div id="submenumarketing" class="col-md-1">
     <nav id="calendar">
         <div id="blk" class="black_overlay"></div>
-       <div  class="collapse navbar-collapse">
+       <div id="calendardiv" class="collapse navbar-collapse">
             <div  style="width: 250px; font-family: 'Arial'; margin: auto;">
                 <div id="some_datepicker" class="some_datepicker" style="width:200px;">
             </div>
