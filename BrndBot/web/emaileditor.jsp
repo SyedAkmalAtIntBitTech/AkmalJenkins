@@ -42,6 +42,10 @@
         <link rel="stylesheet" href="css/plugins/file.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
         <style>
+            .fr-popup.fr-active{
+                top:490px !important;
+                /*position:relative !important;*/
+            }
               body {
                   margin: 0; 
                   height: 100%;
@@ -92,6 +96,19 @@
                 bottom: 0px;
                 width: 250px;
                 left: 250px;
+            }
+            #avpw_rghtArrow,#avpw_lftArrow
+            {
+                display:none !important;
+            }
+            
+            #avpw_main_frames,#avpw_main_overlay,#avpw_main_resize,
+            #avpw_main_orientation,#avpw_main_focus,#avpw_main_brightness,
+            #avpw_main_contrast,#avpw_main_saturation,#avpw_main_warmth,
+            #avpw_main_sharpness,#avpw_main_colorsplash,#avpw_main_drawing,
+            #avpw_main_textwithfont,#avpw_main_redeye,#avpw_main_whiten,#avpw_main_blemish
+            {
+                display:none;
             }
             .fr-wrapper{
                 
@@ -304,11 +321,13 @@
                             $("#stylelist").css("display", "none");
                                     $("#blklist").css("display", "block");
                                     $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+                                    
+                                    $(":button").removeAttr("disabled");
                                     $("#styletab").css("background-color", "transparent").css("color", "#19587c");
                                  
                                     $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
                             var jsondataDefault = data;
-//                                    alert(JSON.stringify(data));
+                                    //alert(JSON.stringify(data));
                                     var allLayoutFilename = [];
                                     $(jsondataDefault).each(function (i, val) {
                             var i = 0;
@@ -704,7 +723,7 @@
                            mimeType: 'application/json',
                            success: function (responseText) {
                                urlList11 = responseText
-                             $('#edit').froalaEditor({key: FroalaLicenseKey, fullPage: true, linkList: urlList11});
+                             $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList11});
                                
                             }
                         });

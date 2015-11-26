@@ -27,6 +27,7 @@
 
         <title>BrndBot - Email List</title>
         <style>
+            #scrl{display:none;}
            .brdr{ 
                text-align:left;
                border:none;
@@ -342,6 +343,7 @@
                 };
 
                 $scope.showEmailListWithContacts = function () {
+                    $("#scrl").show();
                     $(".emaillist").show();
                     $("#email_list_name").hide();
 

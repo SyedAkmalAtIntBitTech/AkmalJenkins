@@ -180,13 +180,14 @@ and open the template in the editor.
 /*    margin-left: 25.9px;
     margin-top:16px;*/
     margin-left: 11% !important;
-    margin-top: 28% !important;
+    margin-top: 7% !important;
 }
 .stylelist{
     margin-left: -15px;
-    margin-top:49px;
+    margin-top:10px;
     height:600px !important;
     overflow-y:scroll;
+    position:fixed;
     /*overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;*/
 }     
