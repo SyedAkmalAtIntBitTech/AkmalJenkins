@@ -415,7 +415,8 @@ public class ScheduleDAO {
                     JSONObject scheduleDetailJSONObject = new JSONObject();
                     long scheduleDate;
                     if (rs.getInt("user_marketing_program_id") == 0) {
-                        scheduleDate = rs.getDate("schedule_date").getTime();
+                        /* changed from getDate to getTimeStamp */
+                        scheduleDate = rs.getTimestamp("schedule_time").getTime();
                     } else {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
                         if (rs.getBoolean("is_recuring")) {

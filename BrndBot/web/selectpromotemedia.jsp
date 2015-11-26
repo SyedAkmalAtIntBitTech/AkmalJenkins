@@ -36,18 +36,9 @@
             try {
                 sql_methods.session = request.getSession(true);
                 
-                if (request.getParameter("category_id") != null){
-                    category_id = request.getParameter("category_id");
-                    sql_methods.session.setAttribute("category_id", category_id);
-                }
-                if (request.getParameter("sub_category_name") != null){
-                    sub_category_name = request.getParameter("sub_category_name");
-                    sql_methods.session.setAttribute("sub_category_name", sub_category_name);
-                }
-                if (request.getParameter("sub_category_name") != null){
-                    sub_category_id = request.getParameter("sub_category_id");
-                    sql_methods.session.setAttribute("sub_category_id", sub_category_id);
-                }
+                category_id = sql_methods.session.getAttribute("category_id").toString();
+                sub_category_name = sql_methods.session.getAttribute("sub_category_name").toString();
+                sub_category_id = sql_methods.session.getAttribute("sub_category_id").toString();
 
             } catch (Exception e) {
                 System.out.println(e.getCause());
@@ -93,15 +84,17 @@
                         headers: {'Content-Type': 'application/json'},
                         data: category
                     }).success(function (data, status, headers, config) {
+                        $scope.email_templates = data.email_template_availability;
+                        $scope.social_templates = data.social_template_availability;
+                        $scope.social_temlates_print=data.social_template_print;
+                        $scope.social_temlates_download=data.social_template_download;
+                        
+                        alert(data.email_template_availability);
                         if($scope.email_templates !== 0){$("#eml").show();}
                         if($scope.social_templates !== 0){$("#soc").show();}
                         if($scope.social_temlates_print !== 0){$("#prnt").show();}
                         if($scope.social_temlates_download !== 0){$("#dwnld").show();}
                                      
-                        $scope.email_templates = data.email_template_availability;
-                        $scope.social_templates = data.social_template_availability;
-                        $scope.social_temlates_print=data.social_template_print;
-                        $scope.social_temlates_download=data.social_template_download;
                         if (data === error) {
                             alert(data);
                         }
