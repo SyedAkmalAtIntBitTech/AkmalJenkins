@@ -1,9 +1,3 @@
-/*!
- * froala_editor v2.0.1 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
- */
-
 /**
  * Finnish
  */
@@ -216,12 +210,7 @@ $.FroalaEditor.LANGUAGE['fi'] = {
     "Select All": "Valitse kaikki",
 
     // Code view
-    "Code View": "Koodi n\u00e4kym\u00e4",
-
-    // Quote
-    "Quote": "Lainaus",
-    "Increase": "Lis\u00e4t\u00e4",
-    "Decrease": "Pienenn\u00e4"
+    "Code View": "Koodi n\u00e4kym\u00e4"
   },
   direction: "ltr"
 };

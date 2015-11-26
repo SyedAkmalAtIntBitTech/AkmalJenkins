@@ -1,18 +1,13 @@
 /*!
- * froala_editor v2.0.1 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
-
 !function (a) {
-    "function" == typeof define && define.amd ? module.exports = function (b, c) {
-        return void 0 === c && (c = "undefined" != typeof window ? require("jquery") : require("jquery")(b)), a(c), c
-    } : a(jQuery)
-}(function (a) {
-    var uid= $("#userid").val();
+   var uid= $("#userid").val();
     "use strict";
-    if (a.extend(a.FroalaEditor.DEFAULTS, {imageManagerLoadURL: global_host_address+"GetFilesListServlet?image_type=GALLERY&user_id="+uid, imageManagerLoadMethod: "get", imageManagerLoadParams: {}, imageManagerPreloader: "", imageManagerDeleteURL: "", imageManagerDeleteMethod: "post", imageManagerDeleteParams: {}, imageManagerPageSize: 12, imageManagerScrollOffset: 20, imageManagerToggleTags: !0}), a.FroalaEditor.PLUGINS.imageManager = function (b) {
-        function c() {
+    if (a.extend(a.FroalaEditor.DEFAULTS, {imageManagerLoadURL: global_host_address+"GetFilesListServlet?image_type=GALLERY&user_id="+uid, imageManagerLoadMethod: "get", imageManagerLoadParams: {}, imageManagerPreloader: "", imageManagerDeleteURL: "", imageManagerDeleteMethod: "post", imageManagerDeleteParams: {}, imageManagerPageSize: 12, imageManagerScrollOffset: 20}), a.FroalaEditor.PLUGINS.imageManager = function (b) {
+       function c() {
             z.show(), F.show(), U = b.image.get(), A || x(), i(), b.$document.find("body").addClass("prevent-scroll"), b.helpers.isMobile() && b.$document.find("body").addClass("fr-mobile")
         }
         function d() {
@@ -34,9 +29,7 @@
             return d += '<div class="fr-modal-title"><div class="fr-modal-title-line"><i class="fa fa-bars fr-modal-more fr-not-available" id="fr-modal-more-' + b.id + '" title="' + b.language.translate("Tags") + '"></i><h4 data-text="true">' + b.language.translate("Manage Images") + '</h4><i title="' + b.language.translate("Cancel") + '" class="fa fa-times fr-modal-close" id="fr-modal-close-' + b.id + '"></i></div>', d += '<div class="fr-modal-tags" id="fr-modal-tags-' + b.id + '"></div>', d += "</div>", d += '<img class="fr-preloader" id="fr-preloader-' + b.id + '" alt="' + b.language.translate("Loading") + '.." src="' + b.opts.imageManagerPreloader + '" style="display: none;">', d += '<div class="fr-scroller" id="fr-scroller-' + b.id + '"><div class="fr-image-list" id="fr-image-list-' + b.id + '"></div></div>', d += "</div></div>", a(d)
         }
         function h() {
-            z = g(), b.helpers.isMobile() || z.addClass("fr-desktop"), z.appendTo("body"), F = a('<div class="fr-overlay">').appendTo("body"), b.opts.theme && F.addClass(b.opts.theme + "-theme"), d(), b.events.on("destroy", function () {
-                z.removeData().remove(), F.removeData().remove()
-            }, !0)
+            z = g(), b.helpers.isMobile() || z.addClass("fr-desktop"), z.appendTo("body"), F = a('<div class="fr-overlay">').appendTo("body"), b.opts.theme && F.addClass(b.opts.theme + "-theme"), d()
         }
         function i() {
             A.show(), B.find(".fr-list-column").empty(), b.opts.imageManagerLoadURL ? a.ajax({url: b.opts.imageManagerLoadURL, method: b.opts.imageManagerLoadMethod, data: b.opts.imageManagerLoadParams, dataType: "json"}).done(function (a, c, d) {
@@ -66,13 +59,13 @@
                 e.height(Math.floor(e.width() / d.width * d.height));
                 var f = a("<img/>");
                 if (c.thumb)
-                    f.attr("src", c.thumb);
+                    f.attr("src", c.thumb), c.url && f.attr("data-url", c.url);
                 else {
                     if (s(P, c), !c.url)
                         return s(Q, c), !1;
                     f.attr("src", c.url)
                 }
-                if (c.url && f.attr("data-url", c.url), c.tag)
+                if (c.tag)
                     if (E.find(".fr-modal-more.fr-not-available").removeClass("fr-not-available"), E.find(".fr-modal-tags").show(), c.tag.indexOf(",") >= 0) {
                         for (var g = c.tag.split(","), h = 0; h < g.length; h++)
                             g[h] = g[h].trim(), 0 === D.find('a[title="' + g[h] + '"]').length && D.append('<a role="button" title="' + g[h] + '">' + g[h] + "</a>");
@@ -140,7 +133,7 @@
             b.image.insert(e.data("url"), !1, i, U)
         }
         function r(c) {
-            var d = a(c.currentTarget).siblings("img"), e = b.language.translate("Are you sure? Image will be deleted.");
+            var d = a(c.currentTarget).siblings("img"), e = "Are you sure? Image will be deleted.";
             confirm(e) && (b.opts.imageManagerDeleteURL ? b.events.trigger("imageManager.beforeDeleteImage", [d]) !== !1 && (d.parent().addClass("fr-image-deleting"), a.ajax({method: b.opts.imageManagerDeleteMethod, url: b.opts.imageManagerDeleteURL, data: a.extend({src: d.attr("src")}, b.opts.imageManagerDeleteParams)}).done(function (a) {
                 b.events.trigger("imageManager.imageDeleted", [a]);
                 var c = n(parseInt(d.parent().attr("class").match(/fr-image-(\d+)/)[1], 10) + 1);
@@ -159,19 +152,19 @@
         }
         function u() {
             var b = D.find(".fr-selected-tag");
-            b.length > 0 ? (B.find("img").parent().show(), b.each(function (b, c) {
+            b.length > 0 ? (B.find("img").parent().hide(), b.each(function (b, c) {
                 B.find("img").each(function (b, d) {
                     var e = a(d);
-                    w(e, c.text) || e.parent().hide()
+                    w(e, c.text) && e.parent().show()
                 })
             })) : B.find("img").parent().show();
             var c = n();
             o(c), k()
         }
-        function v(c) {
-            c.preventDefault();
-            var d = a(c.currentTarget);
-            d.toggleClass("fr-selected-tag"), b.opts.imageManagerToggleTags && d.siblings("a").removeClass("fr-selected-tag"), u()
+        function v(b) {
+            b.preventDefault();
+            var c = a(b.currentTarget);
+            c.toggleClass("fr-selected-tag"), u()
         }
         function w(a, b) {
             for (var c = a.attr("data-tag").split(","), d = 0; d < c.length; d++)
@@ -186,12 +179,14 @@
                 z.find(".fr-mobile-selected").removeClass("fr-mobile-selected"), a(b.currentTarget).addClass("fr-mobile-selected")
             }), z.on(b._mousedown, function () {
                 z.find(".fr-mobile-selected").removeClass("fr-mobile-selected")
-            })), b.events.bindClick(B, ".fr-insert-img", q), b.events.bindClick(B, ".fr-delete-img", r), z.on(b._mousedown + " " + b._mouseup, function (a) {
+            }), b.events.on("destroy", function () {
+                z.off(b._mousedown)
+            }, !0)), b.events.bindClick(B, ".fr-insert-img", q), b.events.bindClick(B, ".fr-delete-img", r), z.on(b._mousedown + " " + b._mouseup, function (a) {
                 a.stopPropagation()
             }), z.on(b._mousedown, "*", function () {
                 b.events.disableBlur()
             }), C.on("scroll", k), b.events.bindClick(z, "i#fr-modal-more-" + b.id, t), b.events.bindClick(D, "a", v), b.events.on("destroy", function () {
-                a(window).off("resize.imagemanager" + b.id)
+                a(window).off("resize.imagemanager" + b.id), z.off(b._mousedown), z.off(b._mousedown, "*"), C.off("scroll"), D.off("click", "a")
             }, !0)
         }
         function y() {
@@ -206,4 +201,4 @@
     a.FroalaEditor.DEFAULTS.imageInsertButtons.push("imageManager"), a.FroalaEditor.RegisterCommand("imageManager", {title: "Browse", undo: !1, focus: !1, callback: function () {
             this.imageManager.show()
         }}), a.FroalaEditor.DefineIcon("imageManager", {NAME: "fa fa-folder"})
-});
+}(jQuery);

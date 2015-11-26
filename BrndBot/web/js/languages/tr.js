@@ -1,9 +1,3 @@
-/*!
- * froala_editor v2.0.1 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
- */
-
 /**
  * Turkish
  */
@@ -216,12 +210,7 @@ $.FroalaEditor.LANGUAGE['tr'] = {
     "Select All": "T\u00fcm\u00fcn\u00fc se\u00e7",
 
     // Code view
-    "Code View": "Kod g\u00f6r\u00fcn\u00fcm\u00fc",
-
-    // Quote
-    "Quote": "Al\u0131nt\u0131",
-    "Increase": "Art\u0131rmak",
-    "Decrease": "Azal\u0131\u015f"
+    "Code View": "Kod g\u00f6r\u00fcn\u00fcm\u00fc"
   },
   direction: "ltr"
 };

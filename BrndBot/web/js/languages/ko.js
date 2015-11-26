@@ -1,9 +1,3 @@
-/*!
- * froala_editor v2.0.1 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
- */
-
 /**
  * Korean
  */
@@ -216,12 +210,7 @@ $.FroalaEditor.LANGUAGE['ko'] = {
     "Select All": "\uc804\uccb4\uc120\ud0dd",
 
     // Code view
-    "Code View": "\ucf54\ub4dc\ubcf4\uae30",
-
-    // Quote
-    "Quote": "\uc778\uc6a9",
-    "Increase": "\uc99d\uac00",
-    "Decrease": "\uac10\uc18c"
+    "Code View": "\ucf54\ub4dc\ubcf4\uae30"
   },
   direction: "ltr"
 };
