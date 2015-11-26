@@ -7,6 +7,7 @@
 // ----------------------------------------
 
 var jQueryDatepicker = function (parameters) {
+    //alert("ok..start");
     var t_jQueryDatepicker = this;
 
     t_jQueryDatepicker.$element = parameters.$element;
@@ -14,6 +15,7 @@ var jQueryDatepicker = function (parameters) {
 
     t_jQueryDatepicker.initialize = function () {
         t_jQueryDatepicker.$element.each(function () {
+            //alert("ok..start1");
             var $datepicker = $(this);
 
             var date_now;
@@ -61,6 +63,7 @@ var jQueryDatepicker = function (parameters) {
             });
 
             $datepicker.on('select_year.datepicker', function (event, params) {
+                
                 params.year = parseInt(params.year);
 
                 calendar_current_year = params.year;
@@ -156,7 +159,8 @@ var jQueryDatepicker = function (parameters) {
                 process_date_other();
             });
 
-            $datepicker.on('select_month.datepicker', function (event, params) {  
+            $datepicker.on('select_month.datepicker', function (event, params) { 
+                
                 params.month = parseInt(params.month);
 
                 calendar_current_month = params.month;
@@ -199,6 +203,7 @@ var jQueryDatepicker = function (parameters) {
             });
 
             var process_date_other = function () {
+                //alert("ok..a");
                 $datepicker.find('.datepicker_1_calendar_1_months_month_weekdays_weekday_days_day')
                            .removeClass('__current_other')
                            .removeClass('__current_other_diff');
@@ -207,6 +212,7 @@ var jQueryDatepicker = function (parameters) {
                     calendar_current_year == calendar_current_year_other &&
                     calendar_current_month == calendar_current_month_other
                 ) {
+                    //alert("ok..a..if");
                     $datepicker.find('.datepicker_1_calendar_1_months_month_weekdays_weekday_days_day-day-'+calendar_current_day_other).addClass('__current_other');
                 }
 
@@ -278,6 +284,7 @@ var jQueryDatepicker = function (parameters) {
             };
 
             $datepicker.on('select_day.datepicker', function (event, params) {
+                //alert("ok1");
                 calendar_current_day = parseInt(params.day);
                 var _date = new Date(calendar_current_year, calendar_current_month-1, calendar_current_day); // ??
                 calendar_current_weekday = _date.getDay() == 0 ? 7: _date.getDay();
@@ -322,10 +329,11 @@ var jQueryDatepicker = function (parameters) {
             });
 
             $datepicker.find('.datepicker_1_calendar_1_months_month_weekdays_weekday_days_day').on('click.datepicker', function (event) {
+                //alert("ok3");
                 var $day = $(this);
-                if ($day.hasClass('__current_other') || $day.hasClass('__previous_month')) {
-                    return;
-                }
+//                if ($day.hasClass('__current_other') || $day.hasClass('__previous_month')) {
+//                    return;
+//                }
 
                 $current_day = $day;
 
@@ -378,7 +386,8 @@ jQueryDatepicker.month_names = {
 // ----------------------------------------
 
 (function($){
-    var html_proto = (function () {/*
+    var html_proto = (function () {
+        /*
         <div class="datepicker_1">
             <div class="datepicker_1_content_1">
                 <div class="datepicker_1_table">
@@ -437,6 +446,7 @@ jQueryDatepicker.month_names = {
     
     var methods = {
         init: function(parameters) {
+            
             t_init = this;
             var $elements = $(this);
 
@@ -484,6 +494,7 @@ jQueryDatepicker.month_names = {
     };
 
     $.fn.setStartDate = function (parameters) {
+        
         var $element = $(this);
         $element.trigger('set_date_other.datepicker', parameters);
     };
