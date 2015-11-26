@@ -142,10 +142,10 @@
                                                 <p class="ypacttxt cur fontpnr" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description,entitydetails.marketingName,entitydetails.user_marketing_program_id,entitydetails.days)">{{entitydetails.schedule_title}}</p></a>
                                             </div>
                                             <div ng-show="entitydetails.user_marketing_program_id > 0">
-                                                <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}}&nbsp;&nbsp;&nbsp;&nbsp;{{entitydetails.marketingName}}</p>                                      </p>
+                                                <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"MMM dd yyyy h:mma"}}&nbsp;&nbsp;&nbsp;&nbsp;{{entitydetails.marketingName}}</p>                                      </p>
                                             </div>
                                         <div ng-show="entitydetails.user_marketing_program_id == 0">
-                                            <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"h:mma"}} &nbsp;&nbsp;&nbsp;&nbsp; No Program</p>
+                                            <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"MMM dd yyyy h:mma"}} &nbsp;&nbsp;&nbsp;&nbsp; No Program</p>
                                         </div>
 
                                     </div>
@@ -379,7 +379,7 @@
                         <div class="firstcol">
                             <div class="inlineFlex">
                                 <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete', master_email)" >DELETE ACTION</div>
                             </div>
                             <div class="top26 headcolor twlvpix fontpns">ACTION DETAILS</div>
                             <div class="top8 titlecontain sixtnpix fontpns">
@@ -621,7 +621,7 @@
                                     <div class="firstcol">
                                         <div class="inlineFlex">
                                             <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
-                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete', master_email)" >DELETE ACTION</div>
                                         </div>
                                         <div class="toptweenty headcolor twlvpix fontpns">ACTION DETAILS</div>
                                         <div class="topten titlecontain sixtnpix fontpns">
@@ -845,7 +845,7 @@
                                 <div class="firstcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                        <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                        <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete', master_facebook)" >DELETE ACTION</div>
                                     </div>
                                     <div class="topthirty headcolor twlvpix fontpns">ACTION DETAILS</div>
                                     <div class="topten titlecontain sixtnpix fontpns">
@@ -1012,7 +1012,7 @@
                                 <div class="firstcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
-                                        <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                        <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete', master_facebook)" >DELETE ACTION</div>
                                     </div>
                                     <div class="toptweenty headcolor twlvpix fontpns">ACTION DETAILS</div>
                                     <div class="topten titlecontain sixtnpix fontpns">
@@ -1246,7 +1246,7 @@
                             <div class="firstcol">
                                 <div class="inlineFlex">
                                     <div class="headtitle pfont actfnt fontpnr">NOTE DETAILS</div>
-                                    <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                    <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete', master_note)" >DELETE ACTION</div>
                                 </div>
                                 <div class="topthirty headcolor twlvpix fontpns">ACTION DETAILS</div>
                                 <div class="topten titlecontain sixtnpix fontpns">
@@ -1330,7 +1330,7 @@
                         <div class="firstcol">
                             <div class="inlineFlex">
                                     <div class="headtitle pfont actfnt fontpnr">NOTE DETAILS</div>
-                                    <div class="headdeletenote h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                    <div class="headdeletenote h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete', master_note)" >DELETE ACTION</div>
                             </div>
                             <div class="twlvpix headcolor fontpns topthirty">ACTION NAME</div>
                             <div><textarea class="addactiondetinput top8 fontpns" id="note_title" name="note_title" >{{schedule_title}}</textarea></div>
@@ -1429,7 +1429,7 @@
                             <div class="firstcol">
                                 <div class="inlineFlex">
                                     <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                    <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')">DELETE ACTION</div>
+                                    <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete', master_twitter)">DELETE ACTION</div>
                                 </div>
                                 <div class="topthirty headcolor twlvpix fontpns">ACTION DETAILS</div>
                                 <div class="topten titlecontain sixtnpix fontpns">
@@ -1589,7 +1589,7 @@
                                     <div class="firstcol">
                                         <div class="inlineFlex">
                                             <div class="headtitle pfont actfnt fontpnr">EDIT ACTION DETAILS</div>
-                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete')" >DELETE ACTION</div>
+                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id,'delete', master_twitter)" >DELETE ACTION</div>
                                         </div>
                                         <div class="top26 headcolor twlvpix fontpns">ACTION DETAILS</div>
                                         <div class="topten titlecontain sixtnpix fontpns">
@@ -1790,7 +1790,7 @@
                                     <div class="firstcol">
                                         <div class="inlineFlex">
                                             <div class="headtitle pfont actfnt fontpnr">ACTION DETAILS</div>
-                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'delete')" >DELETE ACTION</div>
+                                            <div class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'delete', master_email, 'true')" >DELETE ACTION</div>
                                         </div>
                                         <div class="topthirty headcolor tenpix fontpns">ACTION DETAILS</div>
 
@@ -1863,7 +1863,7 @@
                                 <div class="secondcol">
                                     <div class="inlineFlex">
                                         <div class="headtitle pfont actfnt fontpnr">SAVED POST</div>
-                                        <div id="mailpreviewremove6" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', master_email)">REMOVED SAVED POST</div>
+                                        <div id="mailpreviewremove6" class="headdelete h5font fontpnr" ng-click="deleteSchedule(schedule_id, 'remove', master_email, 'true')">REMOVED SAVED POST</div>
                                     </div>
                                     <div class="toptweentyone headcolor tenpix fontpns">
                                         PREVIEW

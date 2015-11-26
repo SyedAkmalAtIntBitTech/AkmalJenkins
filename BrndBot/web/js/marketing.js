@@ -1140,8 +1140,6 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.days = days;
 
         }
-
-
     };
 
 
@@ -1163,7 +1161,7 @@ function controllerMarketingCampaign($scope, $http) {
         var myEpoch = schedule_time;
 
         console.log("New Epoch: " + myEpoch);
-
+        alert(myEpoch)
         if (validateaction()) {
             var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
                 "description": description, "action_date": myEpoch, "days":days
@@ -1369,10 +1367,10 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         });
     };
 
-    $scope.deleteSchedule = function (schedules_to_delete, type, section) {
+    $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecuring) {
         var message;
         var requestBody;
-        var responseMessage;alert(section);
+        var responseMessage;
         if (type == "deleteMultiple") {
             message = "Are you sure you want to delete these Action(s)?";
             requestBody = {"type": "deleteSelected",
@@ -1381,12 +1379,14 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         } else if (type == "delete") {
             message = "Are you sure you want to delete this Action?";
             requestBody = {"type": "delete",
-                "schedule_ids": schedules_to_delete, "entity_type": section};
+                            "schedule_ids": schedules_to_delete, "entity_type": section, 
+                            "isRecuring": isRecuring};
             responseMessage = "Selected actions were deleted successfully";
         } else if (type == "remove") {
             message = "Are you sure you want to remove the template?";
             requestBody = {"type": "removetemplate", 
-                "schedule_ids": schedules_to_delete, "entity_type": section};
+                           "schedule_ids": schedules_to_delete, "entity_type": section, 
+                           "isRecuring": isRecuring};
             responseMessage = "Selected actions were deleted successfully";
         }
 
