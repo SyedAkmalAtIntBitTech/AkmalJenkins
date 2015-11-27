@@ -27,7 +27,10 @@
 
         <title>BrndBot - Email List</title>
         <style>
-            #scrl{display:none;}
+            .hide{
+                display:none;
+            }
+/*            #scrl{display:none;}*/
            .brdr{ 
                text-align:left;
                border:none;
@@ -245,7 +248,7 @@
 
             function showListBox() {
                 $(".emaillist").show();
-                $("#email_list_name").hide();
+                //$("#email_list_name").hide();
 
             }
             function validate() {
@@ -352,7 +355,9 @@
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts',
                     }).success(function (data, status, headers, config) {
+                        
                         $scope.emailLists = data.allEmailListWithNoOfContacts.user;
+                        
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         
                         if (data === "true") {
@@ -382,8 +387,9 @@
                         $scope.selected_email_listname = list_name;
                         $scope.type = type;
                         if (type == 'user'){
-                            $("#tab3").show();
                             $("#tab1").hide();
+                            $("#tab2").hide();
+                            $("#tab3").show();
                             $("#addcontacts").show();
                             $("#deleteSelected").show();
                             $("#selectAll").show();
@@ -522,8 +528,10 @@
                 };
                 
                 $scope.showCreateContacts = function(){
-                    $("#tab2").show();
                     $("#tab1").hide();
+                    $("#tab2").show();
+                    $("#tab3").hide();
+                    $("#tab4").hide();
                 };
             }
 
@@ -561,7 +569,7 @@
                     </div><br><br>
 
                 </div>
-              <div id="tab2" class="col-md-8 col-md-offset-2 " style="display:none;padding-top:5%;">
+              <div id="tab2" class="col-md-8 col-md-offset-2 " class="hide" style="padding-top:5%;">
                   <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Create a new list</p></div>
                 <div class="col-md-6 col-md-offset-0">  <p class="SS2" style="width:400px;left:-245px;position:relative;top:80px;"> Create a new email list. After you hit save, you will then be
                 able to add new contacts.</p></div>
@@ -604,7 +612,7 @@
                 </div>
             </div>
             
-            <div id="tab3" class="col-md-10 col-md-offset-0" style="display:none">
+            <div id="tab3" class="col-md-10 col-md-offset-0" class="hide" style="">
                 <div ng-controller="EmailListController">
                     
                     <div class="col-md-6 col-md-offset-0" style="width:400px;">
@@ -624,8 +632,9 @@
 
                     <div id="scrl" class="col-md-6" >
                         <ul id="uluseremails" class="emlOneRowDatalst L2 LE2" ng-repeat="email in user_emailAddresses">
-                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}</li>
+                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}hi..</li>
                             <p ng-show="email.emailid == '' && type == 'user'" id='NoContacts' style="margin-top:-80px;">No contacts available</p>
+                            
                         </ul>
                         <ul class="emlOneRowDatalst L2 LE2" ng-repeat="email in mindbody_emailAddresses">
                             <li style="width:300px;left:-30px;top:-80px;">{{email}}</li>
@@ -636,7 +645,7 @@
 
             </div>
               
-              <div id="tab4" class="col-md-10 col-md-offset-2" style="display:none">
+              <div id="tab4" class="col-md-10 col-md-offset-2" class="hide">
                 <div id="emailsubjectdiv" ng-controller="EmailListController">
                     <p class="header1">Email List:</p>
                     <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/> <br>
