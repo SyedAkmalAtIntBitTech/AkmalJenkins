@@ -14,7 +14,7 @@ var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
 
 function getHost(){
 //    return "http://clients.brndbot.com/BrndBot/";
-//var global_host_address = "http://development.brndbot.com:8080/BrndBot/";
+//    return "http://development.brndbot.com:8080/BrndBot/";
 //    return "http://45.33.92.14:8080/BrndBot/";
 //    return "http://45.79.184.221/BrndBot/";
     return "http://localhost:8080/BrndBot/";
