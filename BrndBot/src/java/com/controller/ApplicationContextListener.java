@@ -7,6 +7,7 @@ package com.controller;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -17,13 +18,20 @@ import javax.servlet.ServletContextListener;
  */
 public class ApplicationContextListener implements ServletContextListener {
 
+    private static ServletContextEvent servletContextEvent;
+
+    
     public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ApplicationContextListener.class));
     static ApplicationContextListener applicationContextListener;
 
     public static ApplicationContextListener getApplicationContextListener() {
         return applicationContextListener;
     }
-
+    
+    public static ServletContext getApplicationServletContext(){
+        return servletContextEvent.getServletContext();
+    }
+    
     public static void refreshTwitterScheduler() {
         getApplicationContextListener().getSocialPostScheduler().startTwitterScheduler();
     }
@@ -54,6 +62,7 @@ public class ApplicationContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.log(Level.INFO, "Application Deployed");
+        this.servletContextEvent = sce;
         applicationContextListener = this;
 //        mindbodyEmailListScheduler = new MindbodyEmailListScheduler();
 //        mindbodyEmailListScheduler.startScheduler();
@@ -71,5 +80,7 @@ public class ApplicationContextListener implements ServletContextListener {
         logger.log(Level.INFO, "Application Un Deployed");
 //        mindbodyEmailListScheduler.stopScheduler();
         socialPostScheduler.stopScheduler();
+        applicationContextListener = null;
+        servletContextEvent = null;
     }
 }
