@@ -46,6 +46,7 @@ and open the template in the editor.
             }
             .tabcontents{
                 margin-left:130px !important;
+                margin-bottom: 30px;
             }
             .fileUpload {
                 position: relative;
@@ -131,19 +132,13 @@ and open the template in the editor.
 
                                         <div class="group">
                                             <div class="col-md-3 col-md-offset-5">                            
-                                                <p class="text-left"></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="group">
-                                            <div class="col-md-3 col-md-offset-5">                            
-                                                <input id="inputpassword" class="form-control simplebox" type="password" name="password" />
+                                                <input id="inputpassword" class="form-control simplebox settingPassword" type="password" name="password"/>
                                                 <label>PASSWORD</label><br>
                                             </div>
                                         </div>
                                         <div class="group">
                                             <div class="col-md-3 col-md-offset-5">                            
-                                                <input id="inputreenter" class="form-control simplebox leftassign" type="password" name="confirmpassword"/>
+                                                <input id="inputreenter" class="form-control simplebox" type="password" name="confirmpassword"/>
                                                 <label>CONFIRM PASSWORD</label><br>
                                             </div>
                                         </div>
