@@ -48,7 +48,6 @@ function validate() {
 }
 
 function controllerUserChanges($scope, $http) {
-
     $scope.getLooks = function () {
 
         $http({
@@ -57,7 +56,6 @@ function controllerUserChanges($scope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.UserLooks = data;
             if (data === error) {
-                alert(data);
             }
         }).error(function (data, status, headers, config) {
             alert("No data available, problem fetching the data");
@@ -72,7 +70,6 @@ function controllerUserChanges($scope, $http) {
             $scope.First = data.first;
             $scope.Second = data.second;
             if (data === error) {
-                alert(data);
             }
         }).error(function (data, status, headers, config) {
             alert("No data available, problem fetching the data");
@@ -101,7 +98,6 @@ function controllerUserChanges($scope, $http) {
                 $scope.getLooks();
             }else
             if (data === error) {
-                alert(data);
             }
         }).error(function (data, status, headers, config) {
             alert("No data available, problem fetching the data");
@@ -120,7 +116,6 @@ function controllerUserChanges($scope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.UserBrand = data;
             if (data === error) {
-                alert(data);
             }
         }).error(function (data, status, headers, config) {
             alert("No data available, problem fetching the data");
@@ -134,7 +129,6 @@ function controllerUserChanges($scope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.First = data.first;
             if (data === error) {
-                alert(data);
             }
         }).error(function (data, status, headers, config) {
             alert("No data available, problem fetching the data");
@@ -162,7 +156,6 @@ function controllerUserChanges($scope, $http) {
                 $scope.getBrands();
             }else
             if (data === error) {
-                alert(data);
             }
         }).error(function (data, status, headers, config) {
             alert("No data available, problem fetching the data");
@@ -198,7 +191,6 @@ function controllerUserChanges($scope, $http) {
                     $("#inputpassword").val("");
                     $("#inputreenter").val("");
                 } else if (data === error) {
-                    alert(data);
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
@@ -219,7 +211,6 @@ function controllerUserChanges($scope, $http) {
                         $scope.user_preferences_font_names = data.user_font_names;
                         $scope.user_preferences_font_sizes = data.user_font_sizes;
                         if (data === error){
-                            alert(data);
                         }
                 }).error(function(data, status, headers, config) {
                 alert("No data available, problem fetching the data");
@@ -235,7 +226,6 @@ function controllerUserChanges($scope, $http) {
                 $scope.themes= data;
 
                 if (data === error){
-                    alert(data);
                 }
             }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
@@ -253,7 +243,6 @@ function controllerUserChanges($scope, $http) {
             }).success(function(data, status, headers, config) {
                     $scope.color = data.Colors;
                     if (data === error ){
-                        alert(data);
                     }
             }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
@@ -270,7 +259,6 @@ function controllerUserChanges($scope, $http) {
             }).success(function(data, status, headers, config) {
                     $scope.color = data.Colors;
                     if (data === error ){
-                        alert(data);
                     }
             }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
@@ -318,7 +306,6 @@ function controllerUserChanges($scope, $http) {
                     $scope.status = data;
                     
                     if(data === error){
-                        alert(data);
                     }else{
                         alert("details saved successfully");
                         $scope.showColors();
