@@ -1165,7 +1165,6 @@ function controllerMarketingCampaign($scope, $http) {
         var myEpoch = schedule_time;
 
         console.log("New Epoch: " + myEpoch);
-        alert(myEpoch)
         if (validateaction()) {
             var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
                 "description": description, "action_date": myEpoch, "days":days

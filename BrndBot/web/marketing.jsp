@@ -1149,7 +1149,7 @@
                                     <div class="topthirty8">
                                         <button class="emailsavebtn button button--moema button--text-thick button--text-upper button--size-s fontpns" ng-click="updateActionFacebook()" >Save</button>                                       
                                     </div>
-                                    <div class="approve">
+<!--                                    <div class="approve">
                                     <div ng-show="is_today_active">
                                         
                                         <div>
@@ -1186,7 +1186,7 @@
                                        </div>                                
                                     </div>  
                                 </div>
-                                </div>
+                                </div>-->
                                 </div>
                             </div>
                             </div>

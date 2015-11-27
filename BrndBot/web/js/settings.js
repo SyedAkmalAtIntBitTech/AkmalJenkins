@@ -48,6 +48,7 @@ function validate() {
 }
 
 function controllerUserChanges($scope, $http) {
+    var x="hi";
 
     $scope.getLooks = function () {
 

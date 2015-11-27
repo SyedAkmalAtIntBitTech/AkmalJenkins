@@ -5,8 +5,10 @@
  */
 package social.controller;
 
+import com.controller.ApplicationContextListener;
 import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.SqlMethods;
+import com.intbit.PhantomImageConverter;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
@@ -20,22 +22,29 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
+import util.Utility;
 
 /**
  *
  * @author AR
  */
 class PostToFacebook {
+    public static String path = "";
 
     public static String postStatus(String accessToken, String title, String file_image_path, String posttext, String imagePostURL, String getImageFile, String url, String description, Integer user_id, String htmlString) throws MalformedURLException {
 
         String returnMessage = "success";
+        ServletContext context = null;
         try {
             Facebook facebook = new FacebookFactory().getInstance();
             facebook.setOAuthAppId("592852577521569", "a87cc0c30d792fa5dd0aaef6b43994ef");
             facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
             facebook.setOAuthAccessToken(new AccessToken(accessToken));
-
+            /* change the context path while uploading the war file */
+            ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
+            String context_real_path = servletContext.getRealPath("");
+            String imageContextPath = Utility.getServerName(context_real_path);
             if (title == "") {
 
                 Media media = new Media(new File(file_image_path));
@@ -43,9 +52,9 @@ class PostToFacebook {
                 update.message(posttext);
                 facebook.postPhoto(update);
             } else {
-                logger.info(title);
+                logger.info("title:"+title);
                 PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imagePostURL + "DownloadImage?image_type=LAYOUT_IMAGES&image_name=" + getImageFile))
+                        .picture(new URL(imageContextPath + "DownloadImage?image_type=LAYOUT_IMAGES&image_name=" + getImageFile))
                         .name(title)
                         .link(new URL(url))
                         .description(description);
