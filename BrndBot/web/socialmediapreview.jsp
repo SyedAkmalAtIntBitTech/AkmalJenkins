@@ -424,8 +424,12 @@ label:before {
             $(document).ready(function ()
             {
                 $("#urlname").click(function(){
-                    var url=$("#urlname").val();
-                    $("#url").val(url);
+                    var link=$("#urlname").val();
+                    if(!link.contains('http://'))
+                    {
+                        link="http://"+link;
+                    }
+                    $("#url").val(link);
                 });
                 
                 $("#urlnamefb").click(function(){
@@ -433,8 +437,13 @@ label:before {
                     var res = url.split("--");
                     $("#title").val(res[1]);
                     $("#link_title").val(res[1]);
-                    $("#url").val(res[0]);
-                    $("#Linkurl").val(res[0]);
+                    var link=res[0];
+                    if(!link.contains('http://'))
+                    {
+                        link="http://"+res[0];
+                    }
+                    $("#url").val(link);
+                    $("#Linkurl").val(link);
                     var twittertext = $("#twittertext").val();
                     if (twittertext.endsWith("bit.ly/1XOkJo"))
                     {
