@@ -48,8 +48,6 @@ function validate() {
 }
 
 function controllerUserChanges($scope, $http) {
-    var x="hi";
-
     $scope.getLooks = function () {
 
         $http({
@@ -271,7 +269,6 @@ function controllerUserChanges($scope, $http) {
             }).success(function(data, status, headers, config) {
                     $scope.color = data.Colors;
                     if (data === error ){
-                        alert(data);
                     }
             }).error(function(data, status, headers, config) {
                     alert("No data available, problem fetching the data");
