@@ -276,6 +276,7 @@
                     var email_body = formattedHTMLData;
                     var email_list = $("#email_list").val();
                     var schedule_desc = "none";
+                    var iframe_name = $("#iframe_name").val();
                     console.log(schedule_id);
                     if (schedule_id == "0"){
                         var schedule_title = $("#schedule_title").val();
@@ -299,7 +300,8 @@
                             "schedule_title": schedule_title, 
                             "schedule_time": myEpoch, 
                             "email_body": email_body, 
-                            "schedule_desc": schedule_desc
+                            "schedule_desc": schedule_desc,
+                            "iframeName": iframe_name
                         };
                         $http({
                             method: 'POST',
@@ -324,7 +326,8 @@
                             "email_list": email_list,
                             "schedule_id":schedule_id,
                             "email_body": email_body,
-                            "schedule_desc": schedule_desc
+                            "schedule_desc": schedule_desc,
+                            "iframeName": iframe_name
                         };
                         $http({
                             method: 'POST',

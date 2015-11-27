@@ -130,10 +130,12 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             
             MessageResponses mandrillResponse = send_email.sendMail(message);
             
-            if (path.equals("")){
+            //Added by Syed Ilyas 27 Nov 2015 - changed to NOT
+            if (!path.equals("")){
                 File IframeDelete=new File(path);
                 IframeDelete.delete();
             }
+            
             int lastUpdateId = EmailHistoryDAO.addToEmailHistory(user_id, 
                     html_text, from_email_address, emaillist_name, 
                     to_email_addresses, email_subject, SendMail.getTag(email_subject));

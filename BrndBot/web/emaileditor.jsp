@@ -43,7 +43,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
         <style>
             .fr-popup.fr-active{
-                top:490px !important;
+                /*top:490px !important;*/
                 /*position:relative !important;*/
             }
               body {
@@ -111,15 +111,13 @@
                 display:none;
             }
             .fr-wrapper{
-                
 /*                    min-height: 550px !important;
     height: auto !important;
      max-height: 546px !important;*/
-            min-height: 0% !important;
-    height: auto !important;
-    max-height: 100% !important;
-    position: relative !important;
-     
+                /*min-height: 0% !important;*/
+                height: auto !important;
+                max-height: 100% !important;
+                position: relative !important;
             }
               li.border-highlight {
                 /*width: 250px;*/

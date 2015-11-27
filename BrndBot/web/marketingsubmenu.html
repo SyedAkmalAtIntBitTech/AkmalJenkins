@@ -94,14 +94,23 @@
 
         });
             function setdt(){
-//                  $('#calendardiv').load('marketingsubmenu.html');
-                setTimeout(function(){
-                    location.reload();
-                },0);
+                  location.reload();
+//                 $("#some_datepicker").datepicker().datepicker("setDate", new Date());
+//                $(".__current_other").addClass("impcol");
+//                $(".datepicker_1_calendar_1_months_month_weekdays_weekday_days_day.__current").addClass("impcolcur");
+//                setTodaysDate();
             }
             
             </script>
     <style type="text/css">
+/*        .impcol{
+            background-color: #9F9F9F !important;
+            color:white !important;
+        }
+        .impcolcur{
+            background-color: #f1f1f1 !important;
+            color:#333 !important;           
+        }*/
         .a,
         .a:visited {
             color: #176bb8;
@@ -194,7 +203,7 @@ a {
         </div> 
 
 
-        <div class="il2" id="todays_date" style="position:relative;top:30px;text-align:center;cursor:pointer;" onclick="setTodaysDate();setdt();">GO TO TODAY</div>
+        <div class="il2" id="todays_date" style="position:relative;top:30px;text-align:center;cursor:pointer;" onclick="setdt();">GO TO TODAY</div>
 <!--        <p class="SH2"  id="demo" style="position:relative;top:60px;text-align:center;"></p>
 
 <script>
