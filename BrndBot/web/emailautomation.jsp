@@ -51,11 +51,13 @@
           margin-top:5px;
       }
     .fr-wrapper{
-      max-height:570px !important;              
+        max-height:85% !important;              
+      /*max-height:570px !important;*/              
       }
       
       .fr-iframe{
-         min-height: 570px;
+          min-height:90%;
+         /*min-height: 570px;*/
       }    
   </style>
 <%! 
@@ -650,7 +652,7 @@
                </div>
                <div class="row">
                    <div class="col-sm-12 col-lg-12 col-md-12">
-                    <div class="fromnminp fontpnr">Enter a from name</div>
+                    <div class="fromnminp fontpnr">Enter a from name:</div>
                       <div class="group">
                            <input id="from_name" 
                                   class="form-control subinp fontpnr" 
