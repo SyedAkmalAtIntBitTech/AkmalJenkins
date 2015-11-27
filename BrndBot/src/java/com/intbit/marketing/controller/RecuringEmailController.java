@@ -263,7 +263,7 @@ public class RecuringEmailController {
         Date till_date = new Date(till_date_epoch.longValue());
         
         String schedule_time = (String)requestBodyMap.get("schedule_time_epoch");
-        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm:a");
         Date time = formatterTime.parse(schedule_time);
 
         String program_id = (String)requestBodyMap.get("program_id");
@@ -345,7 +345,7 @@ public class RecuringEmailController {
         Date till_date = new Date(till_date_epoch.longValue());
         
         String schedule_time = (String)requestBodyMap.get("schedule_time_epoch");
-        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm:a");
         Date time = formatterTime.parse(schedule_time);
 
         String program_id = (String)requestBodyMap.get("program_id");
@@ -429,7 +429,7 @@ public class RecuringEmailController {
         Date till_date = new Date(till_date_epoch.longValue());
         
         String schedule_time = (String)requestBodyMap.get("schedule_time_epoch");
-        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm:a");
         Date time = formatterTime.parse(schedule_time);
 
         String program_id = (String)requestBodyMap.get("program_id");
