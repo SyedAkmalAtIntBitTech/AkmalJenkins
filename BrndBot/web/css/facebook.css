@@ -182,11 +182,12 @@
     padding: 0 !important;
 }
 .approvetopostbuttonwidthheightcolor{
-     width:126px !important;
+     width:175px !important;
     height:25px;
     background-color:#e3e3e3 !important;
     color: #3f3f42 !important;
     font-size: 12px !important;
+    padding: 0px !important;
 }
 .approvetosendbuttonwidthheightcolor{ 
     width:155px !important;
@@ -929,7 +930,11 @@
                 border: 1px solid #ccc;
                 z-index: 1004;
             }
-           
+           .fulwid{
+               width: 100%;
+               display: inline-flex;
+           }
+           .halfwid{width: 50%;}
             /******************************** Start Satyajit Roy css code *******************/
             .pfont{
                 font-size: 14px !important;

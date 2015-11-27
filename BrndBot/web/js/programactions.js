@@ -987,7 +987,7 @@ function programactions($scope, $http, $window){
                     $('.approve').hide();
                     $("#email_button_send").val(create_button_title);
                 } else {
-                    $('.approve').show();
+                    $('.approve').css("display","inline-flex");
                     $("#mailpreviewremove6").show();
                     $('#mailremovedtemplate6').hide();
                     $('#mailpreviewdecond5').show();
@@ -1049,7 +1049,7 @@ function programactions($scope, $http, $window){
                     $('.approve').hide();
                     $("#email_button_send").val(create_button_title);
                 } else {
-                    $('.approve').show();
+                    $('.approve').css("display","inline-flex");
                     $("#mailpreviewremove").show();
                     $('#mailremovedtemplate').hide();
                     $('#mailpreviewdecond').show();
@@ -1111,7 +1111,7 @@ function programactions($scope, $http, $window){
                     $('#fb_preview_postdet').css("margin-top", 10);
 //                    $("#fb_button_post").val(create_button_title);
                 } else {
-                    $('.approve').show();
+                    $('.approve').css("display","inline-flex");
                     $('#fbpreviewremove').show();
                     $('#fbremovedtemplate').hide();
                     $('#fbpreviewdecond').show();
@@ -1164,7 +1164,7 @@ function programactions($scope, $http, $window){
                     $('#twitter_preview_postdet').css("margin-top", 10);
 //                    $("#twitter_button_post").val(create_button_title);
                 } else {
-                    $('.approve').show();
+                    $('.approve').css("display","inline-flex");
                     $('#twpreviewremove').show();
                     $('#twremovedtemplate').hide();
                     $('#twpreviewdecond').show();
