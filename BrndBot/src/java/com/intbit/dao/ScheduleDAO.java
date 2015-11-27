@@ -21,7 +21,10 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -30,6 +33,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -271,7 +275,7 @@ public class ScheduleDAO {
                 + " (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id";
 
         int scheduleId = -1;
-
+               
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             if (entityId == null) {
                 ps.setInt(1, 0);
@@ -279,7 +283,7 @@ public class ScheduleDAO {
                 ps.setInt(1, entityId);
             }
             ps.setString(2, scheduleTitle);
-            ps.setTimestamp(3, scheduleTime);
+            ps.setTimestamp(3, scheduleTime, Calendar.getInstance(TimeZone.getTimeZone(ZoneId.systemDefault())));
             ps.setString(4, entityType);
             ps.setString(5, status);
             ps.setInt(6, userId);

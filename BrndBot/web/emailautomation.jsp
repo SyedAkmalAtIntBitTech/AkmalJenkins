@@ -141,7 +141,8 @@
                 method: 'GET',
                 url: getHost() + 'GetEmailLists?update=allEmailListNames'
             }).success(function(data, status, headers, config) {
-                $scope.emailLists = data.user;
+                $scope.emailLists_user = data.user;
+                $scope.emailLists_mindbody = data.mindbody;
             }).error(function(){
                 alert("problem fetching the data");
             });
@@ -583,7 +584,8 @@
                            <li>
                                <select id="emaillist" name="emaillist" class="emllstdrp fontpnr">
                                    <option value="0">-- Select --</option>
-                                   <option ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                                   <option ng-repeat ="Lists in emailLists_user" value="{{Lists}}">{{Lists}}</option>
+                                   <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
                                </select>
                            </li>
                        </ul>

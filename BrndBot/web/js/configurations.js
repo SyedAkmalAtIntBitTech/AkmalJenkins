@@ -19,6 +19,7 @@ function getHost(){
 //    return "http://45.79.184.221/BrndBot/";
     return "http://localhost:8080/BrndBot/";
 }
+
 function kUserPreference_HasLoggedInFacebook (){
     return "facebook";
 }
