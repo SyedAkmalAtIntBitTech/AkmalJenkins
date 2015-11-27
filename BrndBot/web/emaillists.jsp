@@ -27,6 +27,10 @@
 
         <title>BrndBot - Email List</title>
         <style>
+            #deleteSelected
+            {
+                cursor: pointer;
+            }
             .hide{
                 display:none;
             }
