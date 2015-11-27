@@ -41,6 +41,12 @@ and open the template in the editor.
             }
         </style>
         <style>
+            .leftassign{
+                float:left;
+            }
+            .tabcontents{
+                margin-left:130px !important;
+            }
             .fileUpload {
                 position: relative;
                 overflow: hidden;
@@ -220,7 +226,7 @@ and open the template in the editor.
                                         </div>
                                         <div class="group">
                                             <div class="col-md-3 col-md-offset-5">                            
-                                                <input id="inputreenter" class="form-control simplebox" type="password" name="confirmpassword"/>
+                                                <input id="inputreenter" class="form-control simplebox leftassign" type="password" name="confirmpassword"/>
                                                 <label>CONFIRM PASSWORD</label><br>
                                             </div>
                                         </div>
@@ -244,7 +250,7 @@ and open the template in the editor.
 
                                             <div class="col-md-8 col-md-offset-0">
                                                 <p id="comment1"> Choose a palette </p> 
-                                                <p id="comment2">Click on a color to change it or choose from a theme. Don?t worry, you can always change it later.</p>
+                                                <p id="comment2">Click on a color to change it or choose from a theme. Don't worry, you can always change it later.</p>
                                                 <div class="col-md-12"><p id="test" class="span3" >MOST USED<span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
 
                                                 <div id="sortable" class="step_wrapper">
