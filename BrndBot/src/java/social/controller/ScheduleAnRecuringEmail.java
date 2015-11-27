@@ -39,6 +39,7 @@ public class ScheduleAnRecuringEmail implements Callable {
                 //The time zone of the saved date should be extracted.
                 //This time zone should be applied to the current time and then this comparison needs to be made.
                 boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledAnRecuringEmail.getScheduleTime());
+//                boolean shouldPostNow = true;
 
                 if (shouldPostNow) {
                     TblScheduledEmailList sendAnEmail = getSendEmail(scheduledAnRecuringEmail);
@@ -73,7 +74,7 @@ public class ScheduleAnRecuringEmail implements Callable {
     private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
         logger.log(Level.INFO, "RecurringEmail post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
         //Call the DAO here
-        scheduledAnEmail.setStatus(IConstants.kSocialPostCommpleteStatus);
+        scheduledAnEmail.setStatus(IConstants.kSocialPostapprovedStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);
         ApplicationContextListener.refreshEmailRecuringScheduler();
     }

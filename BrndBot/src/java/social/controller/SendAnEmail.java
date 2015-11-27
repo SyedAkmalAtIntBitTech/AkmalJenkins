@@ -6,7 +6,9 @@
 package social.controller;
 
 import static com.controller.BrndBotBaseHttpServlet.logger;
+import com.controller.IConstants;
 import com.controller.SendEmail;
+import com.controller.SqlMethods;
 import com.intbit.dao.EmailHistoryDAO;
 import com.intbit.marketing.model.TblUserPreferences;
 import com.intbit.marketing.service.UserPreferencesService;
@@ -32,10 +34,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Ajit
  */
 public class SendAnEmail {
-
-    @Autowired
-    public UserPreferencesService userPreferencesService;
-
+    SqlMethods sqlMethods = new SqlMethods();
+    
     public static String sendEmail(String html_text, String email_subject, String to_email_addresses, String emaillist_name, Integer user_id, String reply_to_address, String from_email_address, String from_name) {
         String returnMessage = "";
         try {
@@ -97,12 +97,11 @@ public class SendAnEmail {
     }
 
     public String getAllEmailAddressesForEmailList(Integer userId, Integer days, String emailListName) throws Throwable {
-        TblUserPreferences userPreferences = userPreferencesService.getById(userId);
-        String userPreferencesJson = userPreferences.getUserPreferences();
-        JSONObject jsonObject = (JSONObject) new JSONParser().parse(userPreferencesJson);
-        org.json.simple.JSONArray allEmailListJSONArray = (org.json.simple.JSONArray) jsonObject.get("emailLists");
+        
+        JSONObject userPreferences = (JSONObject)sqlMethods.getJSONUserPreferences(userId);
+        JSONArray userPreferencesJson = (JSONArray)userPreferences.get(IConstants.kEmailAddressUserPreferenceKey);
         org.json.simple.JSONArray jSONArray = null;
-         for (Object emaiListObject : allEmailListJSONArray) {
+         for (Object emaiListObject : userPreferencesJson) {
                 JSONObject emailListJSONObject = (JSONObject) emaiListObject;
                 String emailListNameInUserPreferences = (String) emailListJSONObject.get("emailListName");
                 if (emailListNameInUserPreferences.equals(emailListName)) {
