@@ -38,7 +38,7 @@ public class PhantomImageConverter {
     private static String templateHTMLFilePath;
     private static String templateJSFilePath;
     private static String tempPath;
-    private static String path = "";
+    public static String path = "";
     private String outputFilePath;
 
     public PhantomImageConverter(ServletContext context, String outputFilePath) throws Exception {
@@ -51,7 +51,7 @@ public class PhantomImageConverter {
     }
 
     public PhantomImageConverter(ServletContext context) throws Exception {
-        path = context.getRealPath("");
+        this.path = context.getRealPath("");
         templateJSFilePath = path + "/template.js";
         templateHTMLFilePath = path + "/template.html";
         tempPath = AppConstants.LAYOUT_IMAGES_HOME + File.separator;
