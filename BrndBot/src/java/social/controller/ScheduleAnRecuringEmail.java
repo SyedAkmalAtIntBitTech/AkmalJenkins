@@ -54,8 +54,8 @@ public class ScheduleAnRecuringEmail implements Callable {
                     //and get days from TblScheduledEntityList
                     Integer days = scheduledAnRecuringEmail.getDays();
                     String to_email_addresses = anEmail.getAllEmailAddressesForEmailList(user_id, days, emaillist_name);
-//                    String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
-                    String message = "success";//TODO
+                    String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
+//                    String message = "success";//TODO
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledEmail(scheduledAnRecuringEmail);
                         //Get the next in line

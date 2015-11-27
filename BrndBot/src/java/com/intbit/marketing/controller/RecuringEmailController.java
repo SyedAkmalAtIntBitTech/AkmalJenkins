@@ -19,6 +19,7 @@ import com.intbit.marketing.model.TblUserMarketingProgram;
 import com.intbit.marketing.service.RecuringEmailTemplateService;
 import com.intbit.marketing.service.ScheduledEmailListService;
 import com.intbit.marketing.service.ScheduledEntityListService;
+import com.intbit.util.ServletUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.Time;
@@ -263,7 +264,7 @@ public class RecuringEmailController {
         Date till_date = new Date(till_date_epoch.longValue());
         
         String schedule_time = (String)requestBodyMap.get("schedule_time_epoch");
-        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm:a");
         Date time = formatterTime.parse(schedule_time);
 
         String program_id = (String)requestBodyMap.get("program_id");
@@ -345,7 +346,7 @@ public class RecuringEmailController {
         Date till_date = new Date(till_date_epoch.longValue());
         
         String schedule_time = (String)requestBodyMap.get("schedule_time_epoch");
-        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm:a");
         Date time = formatterTime.parse(schedule_time);
 
         String program_id = (String)requestBodyMap.get("program_id");
@@ -421,6 +422,12 @@ public class RecuringEmailController {
         String from_name = (String)requestBodyMap.get("from_name");
         Double template_id = (Double)requestBodyMap.get("template_id");
         String html_data = (String)requestBodyMap.get("html_data");
+        
+        //Add by Syed Ilyas 27 Nov 2015 - adds email header
+        String htmlHeader = "";
+        htmlHeader = ServletUtil.getEmailHeader();
+        html_data = htmlHeader + html_data + "</body></html>";
+        
         String reply_to_address = (String)requestBodyMap.get("reply_to_address");
         String recuring_email_title = (String)requestBodyMap.get("recuring_email_title");
         String recuring_email_description = (String)requestBodyMap.get("recuring_email_description");
@@ -429,7 +436,7 @@ public class RecuringEmailController {
         Date till_date = new Date(till_date_epoch.longValue());
         
         String schedule_time = (String)requestBodyMap.get("schedule_time_epoch");
-        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm:a");
         Date time = formatterTime.parse(schedule_time);
 
         String program_id = (String)requestBodyMap.get("program_id");

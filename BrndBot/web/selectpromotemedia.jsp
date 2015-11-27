@@ -89,7 +89,6 @@
                         $scope.social_temlates_print=data.social_template_print;
                         $scope.social_temlates_download=data.social_template_download;
                         
-                        alert(data.email_template_availability);
                         if($scope.email_templates !== 0){$("#eml").show();}
                         if($scope.social_templates !== 0){$("#soc").show();}
                         if($scope.social_temlates_print !== 0){$("#prnt").show();}

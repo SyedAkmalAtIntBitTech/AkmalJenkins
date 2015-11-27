@@ -682,7 +682,7 @@
                                                 </div>
                                                 <div ng-show="user_marketing_program_id > 0">
                                                     <div class="topsix">
-                                                        <input type="hidden" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        
+<!--                                                        <input type="hidden" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        -->
                                                         <input type="text" class="textbox"  id="emaildays" name="emaildays" value="{{days}}"/>
                                                     </div>
                                                 </div>
