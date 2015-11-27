@@ -10,6 +10,7 @@ import com.intbit.TemplateStatus;
 import com.intbit.dao.ScheduleDAO;
 import com.intbit.util.AuthenticationUtil;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -24,6 +25,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -75,11 +77,24 @@ public class ScheduleEmailActionsServlet extends HttpServlet {
             String schedule_id = (String)requestBodyMap.get("schedule_id");
             String scheduleDesc = requestBodyMap.containsKey("schedule_desc") ? 
                     String.valueOf(requestBodyMap.get("schedule_desc")):null;
+            
+            //Added by Syed Ilyas 27 Nov 2015 - email body from iframe
+            String html_text = "";
+            String path = "";
+            if (request.getParameter("iframeName") != null){
+                String iframeName=request.getParameter("iframeName");
+                path=AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH+File.separator+iframeName+".html";
+                File file = new File(path);
+                html_text = FileUtils.readFileToString(file, "UTF-8");
+            }
+            
+            
+            
             Map<String, Integer> idMap = ScheduleDAO.updatetoScheduledEmailList(
                     userId,
                     Integer.parseInt(schedule_id),
                     requestBodyMap.get("email_subject").toString(),
-                    requestBodyMap.get("email_body").toString(),
+                    html_text,
                     requestBodyMap.get("from_email_address").toString(),
                     requestBodyMap.get("email_list").toString(),
                     requestBodyMap.get("from_name").toString(),
@@ -88,6 +103,12 @@ public class ScheduleEmailActionsServlet extends HttpServlet {
                     scheduleDesc, 
                     TemplateStatus.template_saved.toString()
             );
+            
+            if (!path.equals("")){
+                File IframeDelete=new File(path);
+                IframeDelete.delete();
+            }
+            
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(AppConstants.GSON.toJson(idMap));
             response.getWriter().flush();

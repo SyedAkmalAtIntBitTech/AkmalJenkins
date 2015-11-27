@@ -63,8 +63,8 @@ public class ScheduleAnEmail implements Callable {
                     String reply_to_address = sendAnEmail.getReplyToEmailAddress();
                     String from_email_address = sendAnEmail.getFromAddress();
                     String from_name = sendAnEmail.getFromName();
-                    String message = "success";//TODO
-//                    String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
+//                    String message = "success";//TODO
+                    String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
 
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledEmail(scheduledAnEmail);

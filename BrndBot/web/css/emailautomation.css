@@ -99,7 +99,7 @@ ul.autopadlft{
     .sublineinp{
     margin-left:0px;
     margin-top:35px;
-    width:500px;
+    /*width:500px;*/
     height:22px;
     font-size:18px;
     color:#3f3f42;
@@ -120,7 +120,7 @@ ul.autopadlft{
     .fromnminp{
         margin-left:0px;
         margin-top:20.8px;
-        width:145px;
+        /*width:145px;*/
         height:22px;
         font-size:18px;
         color:#3f3f42;
@@ -128,7 +128,7 @@ ul.autopadlft{
     .repltoaddinp{
         margin-left:0px;
         margin-top:20.8px;
-        width:194px;
+        /*width:194px;*/
         height:22px;
         font-size:18px;
         color:#3f3f42;
