@@ -70,6 +70,20 @@
             }
             
         </script>
+        <style>
+            /*#fbpreviewdecond2{display:none;}*/
+            #fbpreviewdecond{display:none;}
+            #fbremovedtemplate{display:none;}
+            #twpreviewdecond{display:none;}
+            #twremovedtemplate{display:none;}
+            #mailpreviewdecond5{display:none;}
+            #mailremovedtemplate{display:none;}
+            #mailremovedtemplate6{display:none;}
+            #mailpreviewdecond{display:none;}
+            #twpreviewdecond{display:none;}
+            
+        </style>
+        
     </head>
     <body ng-app class="claro">
         <div class="row"><jsp:include page="mainmenu.html"/></div>

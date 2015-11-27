@@ -76,6 +76,16 @@
                 document.body.style.overflow = 'scroll';
             }
         </script>
+        <style>
+            #twremovedtemplate{display:none;}
+            #twpreviewdecond{display:none;}
+            #mailremovedtemplate{display:none;}
+            #mailremovedtemplate6{display: none;}
+            #fbremovedtemplate{display:none;}
+            #mailpreviewdecond5{display:none;}
+            #fbpreviewdecond{display:none;}
+            #mailpreviewdecond{display:none;}
+        </style>
         <jsp:include page="basejsp.jsp"/>
     </head>
     <body id="proghide" ng-app>
