@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
- * License http://editor.froala.com/license
+ * froala_editor v2.0.1 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
  * Copyright 2014-2015 Froala Labs
  */
 var colorcodeArray;
@@ -12,9 +12,14 @@ success:function(data){
     colorcodeArray=data;
 }
  });
+
 !function (a) {
+    "function" == typeof define && define.amd ? module.exports = function (b, c) {
+        return void 0 === c && (c = "undefined" != typeof window ? require("jquery") : require("jquery")(b)), a(c), c
+    } : a(jQuery)
+}(function (a) {
     "use strict";
-    a.extend(a.FroalaEditor.POPUP_TEMPLATES, {"colors.picker": "[_TABS_][_TEXT_COLORS_][_BACKGROUND_COLORS_]"}), a.extend(a.FroalaEditor.DEFAULTS, {colorsText: colorcodeArray , colorsBackground: colorcodeArray, colorsStep: 6, colorsDefaultTab: "text"}), a.FroalaEditor.PLUGINS.colors = function (b) {
+    a.extend(a.FroalaEditor.POPUP_TEMPLATES, {"colors.picker": "[_BUTTONS_][_TEXT_COLORS_][_BACKGROUND_COLORS_]"}), a.extend(a.FroalaEditor.DEFAULTS, {colorsText: colorcodeArray, colorsBackground: colorcodeArray, colorsStep: 7, colorsDefaultTab: "text", colorsButtons: ["colorsBack", "|", "-"]}), a.FroalaEditor.PLUGINS.colors = function (b) {
         function c() {
             var a = b.$tb.find('.fr-command[data-cmd="color"]'), c = b.popups.get("colors.picker");
             if (c || (c = e()), !c.hasClass("fr-active")) {
@@ -27,8 +32,10 @@ success:function(data){
             b.popups.hide("colors.picker")
         }
         function e() {
-            var a = {tabs: f(), text_colors: g("text"), background_colors: g("background")}, c = b.popups.create("colors.picker", a);
-            return c
+            var a = '<div class="fr-buttons fr-colors-buttons">';
+            b.opts.toolbarInline && b.opts.colorsButtons.length > 0 && (a += b.button.buildList(b.opts.colorsButtons)), a += f() + "</div>";
+            var c = {buttons: a, text_colors: g("text"), background_colors: g("background")}, d = b.popups.create("colors.picker", c);
+            return d
         }
         function f() {
             var a = '<div class="fr-colors-tabs">';
@@ -53,22 +60,25 @@ success:function(data){
             a.hasClass("fr-selected-tab") || (a.siblings().removeClass("fr-selected-tab"), a.addClass("fr-selected-tab"), a.parents(".fr-popup").find(".fr-color-set").removeClass("fr-selected-set"), a.parents(".fr-popup").find(".fr-color-set.fr-" + b + "-color").addClass("fr-selected-set"), h(b))
         }
         function j(c) {
-            "REMOVE" != c ? b.commands.applyProperty("background-color", c) : (b.commands.applyProperty("background-color", "#123456"), b.selection.save(), b.$el.find("span").each(function (c, d) {
+            "REMOVE" != c ? b.commands.applyProperty("background-color", b.helpers.HEXtoRGB(c)) : (b.commands.applyProperty("background-color", "#123456"), b.selection.save(), b.$el.find("span").each(function (c, d) {
                 var e = a(d), f = e.css("background-color");
                 ("#123456" === f || "#123456" === b.helpers.RGBToHex(f)) && e.replaceWith(e.html())
             }), b.selection.restore()), d()
         }
         function k(c) {
-            "REMOVE" != c ? b.commands.applyProperty("color", c) : (b.commands.applyProperty("color", "#123456"), b.selection.save(), b.$el.find("span").each(function (c, d) {
+            "REMOVE" != c ? b.commands.applyProperty("color", b.helpers.HEXtoRGB(c)) : (b.commands.applyProperty("color", "#123456"), b.selection.save(), b.$el.find("span").each(function (c, d) {
                 var e = a(d), f = e.css("color");
                 ("#123456" === f || "#123456" === b.helpers.RGBToHex(f)) && e.replaceWith(e.html())
             }), b.selection.restore()), d()
         }
         function l() {
+            b.popups.hide("colors.picker"), b.toolbar.showInline()
         }
-        return{_init: l, showColorsPopup: c, hideColorsPopup: d, changeSet: i, background: j, text: k}
-    }, a.FroalaEditor.DefineIcon("colors", {NAME: "tint"}), a.FroalaEditor.RegisterCommand("color", {title: "Colors", undo: !1, focus: !1, refreshOnCallback: !1, popup: !0, callback: function () {
-            this.popups.isVisible("colors.picker") ? this.popups.hide("colors.picker") : this.colors.showColorsPopup()
+        function m() {
+        }
+        return{_init: m, showColorsPopup: c, hideColorsPopup: d, changeSet: i, background: j, text: k, back: l}
+    }, a.FroalaEditor.DefineIcon("colors", {NAME: "tint"}), a.FroalaEditor.RegisterCommand("color", {title: "Colors", undo: !1, focus: !0, refreshOnCallback: !1, popup: !0, callback: function () {
+            this.popups.isVisible("colors.picker") ? (this.$el.find(".fr-marker") && (this.events.disableBlur(), this.selection.restore()), this.popups.hide("colors.picker")) : this.colors.showColorsPopup()
         }}), a.FroalaEditor.RegisterCommand("textColor", {undo: !0, callback: function (a, b) {
             this.colors.text(b)
         }}), a.FroalaEditor.RegisterCommand("backgroundColor", {undo: !0, callback: function (a, b) {
@@ -76,5 +86,7 @@ success:function(data){
         }}), a.FroalaEditor.RegisterCommand("colorChangeSet", {undo: !1, focus: !1, callback: function (a, b) {
             var c = this.popups.get("colors.picker").find('.fr-command[data-cmd="' + a + '"][data-param1="' + b + '"]');
             this.colors.changeSet(c, b)
+        }}), a.FroalaEditor.DefineIcon("colorsBack", {NAME: "arrow-left"}), a.FroalaEditor.RegisterCommand("colorsBack", {title: "Back", undo: !1, focus: !1, back: !0, refreshAfterCallback: !1, callback: function () {
+            this.colors.back()
         }})
-}(jQuery);
+});
