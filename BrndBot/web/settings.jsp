@@ -73,6 +73,11 @@ and open the template in the editor.
 
         </style>
         <script>
+            $(document).ready(function (){
+                if($("#image2").attr('src')==""){
+                   $("#image2").hide();
+                }
+            });
                     var ElementID;
                     /*------ get selected element ID -----*/
                     function getElementID(IDNo){
