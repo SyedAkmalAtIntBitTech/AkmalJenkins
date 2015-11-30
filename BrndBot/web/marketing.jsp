@@ -527,10 +527,10 @@
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.to_email_addresses}}
+                                        {{entitiesdetails.email_list_name}}
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.email_list_name}}
+                                        ?? <!-- {{entitiesdetails.to_email_addresses}} -->
                                     </div>
                                 </div>
                                  <div class="inlineFlex toptweenty">
@@ -538,7 +538,7 @@
                                         FROM NAME
                                     </div>
                                     <div class="half headcolor fontpns tenpix">
-                                        From name text
+                                        FROM NAME TEXT
                                     </div>
                                 </div>
                                 <div class="inlineFlex toptnine">
@@ -821,10 +821,10 @@
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.to_email_addresses}}
+                                        {{entitiesdetails.email_list_name}}
                                     </div>
                                     <div class="half containe fontpnr tenpix">
-                                        {{entitiesdetails.email_list_name}}
+                                        ?? <!--{{entitiesdetails.to_email_addresses}}-->
                                     </div>
                                 </div>
                                  <div class="inlineFlex toptweenty">
@@ -832,7 +832,7 @@
                                         FROM NAME
                                     </div>
                                     <div class="half headcolor fontpns tenpix">
-                                        From name text
+                                        FROM NAME TEXT
                                     </div>
                                 </div>
                                 <div class="inlineFlex toptnine">
