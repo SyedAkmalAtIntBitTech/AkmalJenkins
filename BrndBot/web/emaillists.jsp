@@ -27,6 +27,10 @@
 
         <title>BrndBot - Email List</title>
         <style>
+            #tab2,#tab3,#tab4
+            {
+                display:none;
+            }
             #deleteSelected
             {
                 cursor: pointer;
@@ -636,7 +640,7 @@
 
                     <div id="scrl" class="col-md-6" >
                         <ul id="uluseremails" class="emlOneRowDatalst L2 LE2" ng-repeat="email in user_emailAddresses">
-                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}hi..</li>
+                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}</li>
                             <p ng-show="email.emailid == '' && type == 'user'" id='NoContacts' style="margin-top:-80px;">No contacts available</p>
                             
                         </ul>

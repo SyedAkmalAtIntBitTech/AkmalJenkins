@@ -185,7 +185,7 @@ and open the template in the editor.
 .stylelist{
     margin-left: -15px;
     margin-top:10px;
-    height:600px !important;
+    height:440px !important;
     overflow-y:scroll;
     position:fixed;
     /*overflow: -moz-scrollbars-none;
