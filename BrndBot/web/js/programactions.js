@@ -252,6 +252,8 @@ function validateemailaction() {
 function reSet()
 {
    $("#addactiontitle").val("");
+   $("#days").val("");
+   $("#actiontype").val("0");
    $("#description").val("");
    $("#datepicker").val("");
    $("#timepicker1").val("");
