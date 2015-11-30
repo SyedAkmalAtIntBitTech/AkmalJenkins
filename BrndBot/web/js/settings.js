@@ -21,6 +21,7 @@ function nextLooks(){
 
 
 function showBrand(brandid, image_name) {
+    $("#image2").show();
     $("#hiddenform").val(brandid);
     $("#image2").attr('src', '/BrndBot/DownloadImage?image_type=BRAND_PERSONALITY&image_name=' + image_name);
 }
