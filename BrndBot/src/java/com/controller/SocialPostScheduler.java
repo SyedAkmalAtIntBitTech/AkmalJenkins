@@ -95,7 +95,7 @@ public class SocialPostScheduler {
             scheduleRecurringEmailCallable = new ScheduleAnRecuringEmail();
             Date nextFBPostDate = scheduleRecurringEmailCallable.call();
             //the difference between the current time and next time needs to go in here.
-            long nextExecution = DateTimeUtil.differenceCurrentTime(nextFBPostDate);
+            long nextExecution = DateTimeUtil.differenceCurrentTimeRecuring(nextFBPostDate);
             scheduler.schedule(scheduleRecurringEmailCallable, nextExecution, TimeUnit.SECONDS);
         } catch (Exception ex) {
             Logger.getLogger(SocialPostScheduler.class.getName()).log(Level.SEVERE, null, ex);

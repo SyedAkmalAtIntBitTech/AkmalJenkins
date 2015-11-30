@@ -73,7 +73,8 @@ public class SchedulerUtilityMethods {
             sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
             sbSql.append(" and entitytable.is_recuring =  '").append(isRecuring).append("'");
             //Need to review this
-            sbSql.append(" and entitytable.schedule_time::time AT TIME ZONE 'US/Eastern' >= current_time AT TIME ZONE 'US/Eastern' ");
+            sbSql.append(" and date_trunc('minute', entitytable.schedule_time)::time AT TIME ZONE 'US/Eastern' >= date_trunc('minute', localtimestamp)::time AT TIME ZONE 'US/Eastern' ");
+//            sbSql.append(" and entitytable.schedule_time::time AT TIME ZONE 'US/Eastern' >= current_time AT TIME ZONE 'US/Eastern' ");
             sbSql.append(" order by entitytable.schedule_time::time");
             sbSql.append(" limit 1");
             sbSql.append(";");

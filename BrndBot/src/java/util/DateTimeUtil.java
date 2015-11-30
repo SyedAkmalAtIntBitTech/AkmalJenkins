@@ -82,6 +82,26 @@ public class DateTimeUtil {
         return differenceCurrentTime;
     }
 
+    public static long differenceCurrentTimeRecuring(Date nextPostDate) throws Exception {
+        //Make sure time zone is the same when difference is taken. Return milliseconds.
+
+        String dateFormat = "z";
+        SimpleDateFormat timeZoneFormat = new SimpleDateFormat(dateFormat);
+        String timeZoneStr = timeZoneFormat.format(new Date());
+        String formatStr = "hh:mm a";
+        Date currentdate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat(formatStr);
+        format.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
+        String StringNextPostDate = format.format(nextPostDate);
+        String currentDateString = format.format(currentdate);
+        Date nextPostDateTime = format.parse(StringNextPostDate);
+        Date currentDateTime = format.parse(currentDateString);
+
+        Long differenceCurrentTime = (nextPostDateTime.getTime() - currentDateTime.getTime()) / 1000;
+
+        return differenceCurrentTime;
+    }
+    
     public static Date getDatePlusMins(int minsToAdd) {
         Calendar date = Calendar.getInstance();
         long t = date.getTimeInMillis();
