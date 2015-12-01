@@ -1,17 +1,16 @@
 /*!
- * froala_editor v2.0.1 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
-
-.clearfix::after {
+.clearfix:after {
   clear: both;
   display: block;
   content: "";
 }
 table td.fr-selected-cell,
 table th.fr-selected-cell {
-  border: 1px double #1e88e5;
+  /*border: 1px double #1e88e5;*/
 }
 table tr {
   user-select: none;
@@ -39,7 +38,7 @@ table th {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
-.fr-table-resizer {
+/*.fr-table-resizer {
   cursor: col-resize;
   position: fixed;
   z-index: 3;
@@ -54,7 +53,7 @@ table th {
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   border-right: 1px solid #1e88e5;
-}
+}*/
 .fr-no-selection {
   user-select: none;
   -o-user-select: none;
@@ -92,7 +91,7 @@ table th {
   background: rgba(30, 136, 229, 0.3);
   border: solid 1px #1e88e5;
 }
-.fr-popup .fr-table-size .fr-select-table-size .new-line::after {
+.fr-popup .fr-table-size .fr-select-table-size .new-line:after {
   clear: both;
   display: block;
   content: "";
@@ -125,7 +124,7 @@ table th {
   cursor: default;
   left: 0;
 }
-.fr-popup .fr-table-colors > span.fr-selected-color::after {
+.fr-popup .fr-table-colors > span.fr-selected-color:after {
   color: #ffffff;
   content: "\f00c";
   font-family: FontAwesome;

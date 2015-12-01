@@ -1,21 +1,12 @@
 /*!
- * froala_editor v2.0.1 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
-
-.clearfix::after {
+.clearfix:after {
   clear: both;
   display: block;
   content: "";
-}
-.fr-view {
-  /**
-   * Image style.
-   */
-  /**
-   * Video style
-   */
 }
 .fr-view table {
   border: none;
@@ -23,16 +14,9 @@
   empty-cells: show;
   max-width: 100%;
 }
-.fr-view table.fr-dashed-borders td,
-.fr-view table.fr-dashed-borders th {
-  border-style: dashed;
-}
-.fr-view table.fr-alternate-rows tbody tr:nth-child(2n) {
-  background: #f5f5f5;
-}
 .fr-view table td,
 .fr-view table th {
-  border: 1px solid #dddddd;
+  border: 1px solid transparent;
 }
 .fr-view table td:empty,
 .fr-view table th:empty {
@@ -40,14 +24,17 @@
 }
 .fr-view table td.fr-highlighted,
 .fr-view table th.fr-highlighted {
-  border: 1px double red;
+  border-color: red;
 }
 .fr-view table td.fr-thick,
 .fr-view table th.fr-thick {
   border-width: 2px;
 }
-.fr-view table th {
-  background: #e6e6e6;
+.fr-view img {
+  z-index: 3;
+  position: relative;
+  overflow: auto;
+  cursor: pointer;
 }
 .fr-view hr {
   clear: both;
@@ -57,15 +44,13 @@
   -khtml-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  page-break-after: always;
 }
 .fr-view .fr-file {
   position: relative;
 }
-.fr-view .fr-file::after {
+.fr-view .fr-file:after {
   position: relative;
   content: "\1F4CE";
-  font-weight: normal;
 }
 .fr-view pre {
   white-space: pre-wrap;
@@ -94,30 +79,25 @@
 .fr-view span.fr-emoticon {
   font-weight: normal;
   font-family: "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols";
-  display: inline;
-  line-height: 0;
 }
-.fr-view .fr-text-gray {
+.text-gray {
   color: #AAA !important;
 }
-.fr-view .fr-text-bordered {
+.text-bordered {
   border-top: solid 1px #222;
   border-bottom: solid 1px #222;
   padding: 10px 0;
 }
-.fr-view .fr-text-spaced {
+.text-spaced {
   letter-spacing: 1px;
 }
-.fr-view .fr-text-uppercase {
+.text-uppercase {
   text-transform: uppercase;
 }
-.fr-view img {
-  z-index: 3;
-  position: relative;
-  overflow: auto;
-  cursor: pointer;
-}
-.fr-view img.fr-dib {
+/**
+ * Image style.
+ */
+img.fr-dib {
   margin: auto;
   display: block;
   float: none;
@@ -125,32 +105,32 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.fr-view img.fr-dib.fr-fil {
+img.fr-dib.fr-fil {
   margin: 5px auto 5px 0;
   left: 5px;
 }
-.fr-view img.fr-dib.fr-fir {
+img.fr-dib.fr-fir {
   margin: 5px 0 5px auto;
   right: 5px;
 }
-.fr-view img.fr-dii {
+img.fr-dii {
   margin: auto;
   display: inline-block;
   float: none;
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.fr-view img.fr-dii.fr-fil {
+img.fr-dii.fr-fil {
   margin: 5px 10px 5px 0;
   left: 5px;
   float: left;
 }
-.fr-view img.fr-dii.fr-fir {
+img.fr-dii.fr-fir {
   margin: 5px 0 5px 10px;
   right: 5px;
   float: right;
 }
-.fr-view img.fr-rounded {
+img.fr-rounded {
   border-radius: 100%;
   -moz-border-radius: 100%;
   -webkit-border-radius: 100%;
@@ -158,36 +138,32 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.fr-view img.fr-bordered {
+img.fr-bordered {
   border: solid 10px #CCC;
 }
-.fr-view .fr-video {
+/**
+ * Video style
+ */
+.fr-video {
   text-align: center;
   position: relative;
 }
-.fr-view .fr-video > * {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  max-width: 100%;
-  border: none;
-}
-.fr-view .fr-video.fr-dvb {
+.fr-video.fr-dvb {
   display: block;
   clear: both;
 }
-.fr-view .fr-video.fr-dvb.fr-fvl {
+.fr-video.fr-dvb.fr-fvl {
   text-align: left;
 }
-.fr-view .fr-video.fr-dvb.fr-fvr {
+.fr-video.fr-dvb.fr-fvr {
   text-align: right;
 }
-.fr-view .fr-video.fr-dvi {
+.fr-video.fr-dvi {
   display: inline-block;
 }
-.fr-view .fr-video.fr-dvi.fr-fvl {
+.fr-video.fr-dvi.fr-fvl {
   float: left;
 }
-.fr-view .fr-video.fr-dvi.fr-fvr {
+.fr-video.fr-dvi.fr-fvr {
   float: right;
 }
