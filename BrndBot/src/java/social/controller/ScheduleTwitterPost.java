@@ -74,7 +74,7 @@ public class ScheduleTwitterPost implements Callable {
         logger.log(Level.INFO, "Twitter post:"+scheduledTwitterPost.getScheduleTitle() +"Id:"+ scheduledTwitterPost.getId() +" time:"+ scheduledTwitterPost.getScheduleTime().toString());
         scheduledTwitterPost.setStatus(IConstants.kSocialPostCommpleteStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledTwitterPost);
-        ApplicationContextListener.refreshTwitterScheduler();
+//        ApplicationContextListener.refreshTwitterScheduler();
     }
 
     private TblScheduledSocialpostList getTwitterPost(TblScheduledEntityList scheduledTwitterPost) throws Throwable {
@@ -87,7 +87,7 @@ public class ScheduleTwitterPost implements Callable {
         TblScheduledEntityList scheduledEntityList = null;
         String entityId = SchedulerUtilityMethods.getLatestApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kTwitterKey, IConstants.kUserMarketingProgramOpenStatus);
         if (!StringUtil.isEmpty(entityId)) {
-            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId));
+            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId),IConstants.kTwitterKey);
         }
         return scheduledEntityList;
     }

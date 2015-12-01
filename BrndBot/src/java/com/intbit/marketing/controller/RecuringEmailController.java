@@ -10,7 +10,6 @@ import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
-import com.intbit.marketing.model.TblMarketingProgram;
 import com.intbit.marketing.model.TblRecuringEmailTemplate;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
@@ -22,7 +21,6 @@ import com.intbit.marketing.service.ScheduledEntityListService;
 import com.intbit.util.ServletUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +46,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class RecuringEmailController {
-    Logger logger = Logger.getLogger(RecuringEmailController.class.getName());
+    static final Logger logger = Logger.getLogger(RecuringEmailController.class.getName());
     @Autowired
     private RecuringEmailTemplateService recuring_email_template_service;
     @Autowired

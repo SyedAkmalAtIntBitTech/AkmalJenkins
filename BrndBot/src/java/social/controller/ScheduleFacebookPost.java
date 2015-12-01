@@ -28,6 +28,8 @@ import util.DateTimeUtil;
  */
 public class ScheduleFacebookPost implements Callable {
 
+    private static final Logger logger = Logger.getLogger(ScheduleFacebookPost.class.getName());
+
     public void terminateThread() {
         Thread.currentThread().interrupt();
     }
@@ -35,13 +37,17 @@ public class ScheduleFacebookPost implements Callable {
     @Override
     public Date call() throws Exception {
         //Adding tens mins if there are no latest approved posts
+        logger.log(Level.SEVERE, "In FB Schedule CallBlock");
+
         Date nextPostTime = DateTimeUtil.getDatePlusMins(SocialPostScheduler.DefaultPollingInterval);
         try {
             TblScheduledEntityList scheduledFacebookPost = getLatestApprovedFacebookPost();
             if (scheduledFacebookPost != null) {
                 //The time zone of the saved date should be extracted.
                 //This time zone should be applied to the current time and then this comparison needs to be made.
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE,"Message to display entity id "+" and schedule time", scheduledFacebookPost );
+                Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, "Message to display entity id " + scheduledFacebookPost.getEntityId() + " and schedule time", scheduledFacebookPost.getScheduleTime());
+
+                Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, "Current time:" + new Date());
                 boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledFacebookPost.getScheduleTime());
 //                boolean shouldPostNow = true;
 
@@ -58,7 +64,7 @@ public class ScheduleFacebookPost implements Callable {
                     PostToFacebook postToFacebook = new PostToFacebook();
                     String accessToken = postToFacebook.getFacebookAccessToken(userId);
                     String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + facebookPost.getImageName();
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE,"Message while scheduling the post", file_image_path);
+                    Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "Message while scheduling the post", file_image_path);
 
                     String message = PostToFacebook.postStatus(accessToken, linkTitle, file_image_path, postText, url, facebookPost.getImageName(), url, description, userId, null);
                     if (message.equalsIgnoreCase("success")) {
@@ -67,12 +73,15 @@ public class ScheduleFacebookPost implements Callable {
                         scheduledFacebookPost = getLatestApprovedFacebookPost();
                     }
                 }
-                nextPostTime = scheduledFacebookPost.getScheduleTime();
+                if (scheduledFacebookPost != null) {
+                    nextPostTime = scheduledFacebookPost.getScheduleTime();
+                }
             }
 
         } catch (Throwable ex) {
             Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
         }
+        logger.log(Level.SEVERE, "In FB Schedule Call End Block with next post time" + nextPostTime);
         return nextPostTime;
     }
 
@@ -80,7 +89,7 @@ public class ScheduleFacebookPost implements Callable {
         //Call the DAO here
         scheduledFacebookPost.setStatus(IConstants.kSocialPostCommpleteStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledFacebookPost);
-        ApplicationContextListener.refreshFacebookScheduler();
+//        ApplicationContextListener.refreshFacebookScheduler();
     }
 
     private TblScheduledSocialpostList getFacebookPost(TblScheduledEntityList scheduledFacebookPost) throws Throwable {
@@ -92,7 +101,7 @@ public class ScheduleFacebookPost implements Callable {
         String entityId = SchedulerUtilityMethods.getLatestApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kFacebookKey, IConstants.kUserMarketingProgramOpenStatus);
         TblScheduledEntityList scheduledEntityList = null;
         if (!StringUtil.isEmpty(entityId)) {
-            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId));
+            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId), IConstants.kFacebookKey);
         }
         return scheduledEntityList;
     }

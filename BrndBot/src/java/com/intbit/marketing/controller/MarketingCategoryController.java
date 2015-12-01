@@ -7,7 +7,6 @@ package com.intbit.marketing.controller;
 
 import admin.controller.Categories;
 import com.controller.SqlMethods;
-import com.google.gson.Gson;
 import com.intbit.AppConstants;
 import com.intbit.marketing.model.TblMarketingCategory;
 import com.intbit.marketing.model.TblMarketingCategoryUsersLookup;
@@ -17,10 +16,8 @@ import com.intbit.marketing.service.MarketingCategoryService;
 import com.intbit.marketing.service.MarketingCategoryUsersService;
 import com.intbit.util.ServletUtil;
 
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -43,12 +39,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  *

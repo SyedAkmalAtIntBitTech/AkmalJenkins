@@ -300,7 +300,7 @@ public class UserMarketingProgramController {
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
                 Date postDate = new Date(cal.getTimeInMillis());
-                if (DateTimeUtil.dateEqualsCurrentDate(postDate)){
+                if (DateTimeUtil.dateEqualsCurrentDate(postDate)) {
                     postDateStatus = true;
                 } else {
                     postDateStatus = false;
@@ -316,7 +316,7 @@ public class UserMarketingProgramController {
                 jSONObject.put("dateTime", scheduledEntityListObject.getTblUserMarketingProgram().getCreateDate().getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
                 jSONObject.put("days", scheduledEntityListObject.getDays());
-                int d=scheduledEntityListObject.getDays();
+                int d = scheduledEntityListObject.getDays();
                 jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
@@ -327,7 +327,7 @@ public class UserMarketingProgramController {
             for (TblScheduledEntityList scheduledEntityListObject : scheduledEmailListForRecuring) {
                 TblUserMarketingProgram userMarketingProgram = userMarketingProgramService.getById(scheduledEntityListObject.getTblUserMarketingProgram().getId());
                 Date eventDate = userMarketingProgram.getDateEvent();
-                String dateString = formatter.format(eventDate);              
+                String dateString = formatter.format(eventDate);
                 Date todayDate = Calendar.getInstance().getTime();
                 String eventDateString = formatter.format(todayDate);
                 if (dateString.equalsIgnoreCase(eventDateString)) {
@@ -340,7 +340,7 @@ public class UserMarketingProgramController {
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
                 Date postDate = new Date(cal.getTimeInMillis());
-                if (DateTimeUtil.dateEqualsCurrentDate(postDate)){
+                if (DateTimeUtil.dateEqualsCurrentDate(postDate)) {
                     postDateStatus = true;
                 } else {
                     postDateStatus = false;
@@ -354,7 +354,7 @@ public class UserMarketingProgramController {
                 jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("actionStatus", actionStatus);
                 jSONObject.put("days", scheduledEntityListObject.getDays());
-                int d1=scheduledEntityListObject.getDays();
+                int d1 = scheduledEntityListObject.getDays();
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledEntityListObject.getScheduleTime().getTime());
@@ -380,7 +380,7 @@ public class UserMarketingProgramController {
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
                 Date postDate = new Date(cal.getTimeInMillis());
-                if (DateTimeUtil.dateEqualsCurrentDate(postDate)){
+                if (DateTimeUtil.dateEqualsCurrentDate(postDate)) {
                     postDateStatus = true;
                 } else {
                     postDateStatus = false;
@@ -393,7 +393,7 @@ public class UserMarketingProgramController {
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledSocialpostListObject.getStatus()).getDisplayName());
                 jSONObject.put("actionStatus", actionStatus);
                 jSONObject.put("days", scheduledSocialpostListObject.getDays());
-                int d2=scheduledSocialpostListObject.getDays();
+                int d2 = scheduledSocialpostListObject.getDays();
                 jSONObject.put("description", scheduledSocialpostListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("postDate", cal.getTimeInMillis());
@@ -421,7 +421,7 @@ public class UserMarketingProgramController {
             userMarketinProgramObject.put("description", userMarketingProgram.getTblMarketingProgram().getHtmlData());
 
             JSONObject jSONObject = new JSONObject();
-            
+
             jSONObject.put("programdetails", userMarketinProgramObject);
             jSONObject.put("emailautomation", scheduledEmailJsonArray);
             jSONObject.put("programactions", scheduledEmailAndSocailPostJsonForRecuringArray);
@@ -437,11 +437,12 @@ public class UserMarketingProgramController {
     }
 
     @RequestMapping(value = "/getAllUserMarketingPrograms", method = RequestMethod.GET)
-    public @ResponseBody String getAllUserMarketingPrograms(HttpServletRequest request,
+    public @ResponseBody
+    String getAllUserMarketingPrograms(HttpServletRequest request,
             HttpServletResponse response) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
-            int user_id =getCurrentUser(request);
+            int user_id = getCurrentUser(request);
 
             List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingOpenPrograms("Open", user_id);
             Integer i = 1;
@@ -460,14 +461,15 @@ public class UserMarketingProgramController {
         }
         return json_array_marketing_program.toString();
     }
-    
+
     @RequestMapping(value = "/getAllUserMarketingProgramsByUserId", method = RequestMethod.GET)
-    public @ResponseBody String getAllUserMarketingProgramsByUserId(HttpServletRequest request,
+    public @ResponseBody
+    String getAllUserMarketingProgramsByUserId(HttpServletRequest request,
             HttpServletResponse response) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
-            int user_id =getCurrentUser(request);
-            
+            int user_id = getCurrentUser(request);
+
             List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingProgramByUserId(user_id);
             Integer i = 1;
             for (TblUserMarketingProgram marketing_program : UserMarketingPrograms) {
@@ -487,15 +489,15 @@ public class UserMarketingProgramController {
         }
         return json_array_marketing_program.toString();
     }
-    
-    
+
     @RequestMapping(value = "/getAllUserMarketingProgramsBySessionUserId", method = RequestMethod.GET)
-    public @ResponseBody String getAllUserMarketingProgramBySessionUserId(HttpServletRequest request,
+    public @ResponseBody
+    String getAllUserMarketingProgramBySessionUserId(HttpServletRequest request,
             HttpServletResponse response) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
-            int user_id =getCurrentUser(request);
-            
+            int user_id = getCurrentUser(request);
+
             List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingProgramByUserId(user_id);
             Integer i = 1;
             for (TblUserMarketingProgram marketing_program : UserMarketingPrograms) {
@@ -512,9 +514,7 @@ public class UserMarketingProgramController {
         }
         return json_array_marketing_program.toString();
     }
-    
-    
-    
+
     @RequestMapping(value = "/updateUserProgram", method = RequestMethod.POST)
     public @ResponseBody
     String updateUserProgram(HttpServletRequest request,
@@ -569,7 +569,7 @@ public class UserMarketingProgramController {
 
             Double entity_id = (Double) requestBodyMap.get("entity_id");
             String template_status = (String) requestBodyMap.get("template_status");
-            
+
             TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id.intValue());
 
             if (template_status.equalsIgnoreCase("approved")) {
@@ -578,6 +578,7 @@ public class UserMarketingProgramController {
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
             }
             scheduledEntityListService.update(scheduled_entity_list);
+            logger.log(Level.INFO, "Refresh Email scheduler in Usermarketing");
             ApplicationContextListener.refreshEmailRecuringScheduler();
             return "true";
         } catch (Throwable throwable) {
@@ -597,8 +598,8 @@ public class UserMarketingProgramController {
 
             Double entity_id = (Double) requestBodyMap.get("entity_id");
             String template_status = (String) requestBodyMap.get("template_status");
-            String entity_type = (String)requestBodyMap.get("entity_type");
-            
+            String entity_type = (String) requestBodyMap.get("entity_type");
+
             TblScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id.intValue());
 
             if (template_status.equalsIgnoreCase("approved")) {
@@ -607,13 +608,16 @@ public class UserMarketingProgramController {
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
             }
             scheduledEntityListService.update(scheduled_entity_list);
-            
-            if (entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())){
-                ApplicationContextListener.refreshFacebookScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())){
-                ApplicationContextListener.refreshTwitterScheduler();
-            }else if(entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())){
-                ApplicationContextListener.refreshEmailScheduler();
+
+            logger.log(Level.INFO, "Refresh Email, FB and Twitter scheduler in Usermarketing");
+
+            ApplicationContextListener.refreshFacebookScheduler();
+            ApplicationContextListener.refreshTwitterScheduler();
+            ApplicationContextListener.refreshEmailScheduler();
+
+            if (entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())) {
+            } else if (entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())) {
+            } else if (entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
             }
 
             return "true";
@@ -622,7 +626,7 @@ public class UserMarketingProgramController {
         }
         return "false";
     }
-    
+
     @RequestMapping(value = "/endMarketingProgram", method = RequestMethod.POST)
     public @ResponseBody
     String endMarketingProgram(HttpServletRequest request,
@@ -657,7 +661,7 @@ public class UserMarketingProgramController {
 //            System.out.println(scheduledEntityList.getScheduleTime());
 //            System.out.println(scheduledEntityList.getScheduleTitle());
 
-        String latestApprovedPost = scheduledEntityListService.getLatestApprovedPost("approved",ScheduledEntityType.Facebook.toString(), "open");
+        String latestApprovedPost = scheduledEntityListService.getLatestApprovedPost("approved", ScheduledEntityType.Facebook.toString(), "open");
         System.out.println(latestApprovedPost);
 
         JSONObject json_obj = new JSONObject();

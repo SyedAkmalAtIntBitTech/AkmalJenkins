@@ -35,8 +35,7 @@ public class SchedulerUtilityMethods {
         sbSql.append(" like'").append(programStatus).append("'");
         sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
         sbSql.append(" and entitytable.entity_type like'").append(entityType).append("'");
-//        sbSql.append(" and (date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' or (date(entitytable.schedule_time AT TIME ZONE 'US/Eastern'))= current_date AT TIME ZONE 'US/Eastern')");
-        sbSql.append(" and date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' ");
+        sbSql.append(" and (date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' or (date(entitytable.schedule_time AT TIME ZONE 'US/Eastern'))= current_date AT TIME ZONE 'US/Eastern')");
         sbSql.append(" order by entitytable.schedule_time::time");
         sbSql.append(" limit 1");
         sbSql.append(";");
@@ -114,9 +113,9 @@ public class SchedulerUtilityMethods {
 
     }
 
-    public static TblScheduledEntityList getEntityById(int entityId) {
+    public static TblScheduledEntityList getEntityById(int entityId, String entityType) {
         String sql = "select entitytable.*,concat(date(programtable.date_event) - entitytable.days, ' ', entitytable.schedule_time::time WITH TIME ZONE) as cal_schedule_time,concat(date(programtable.date_event), ' ', entitytable.schedule_time::time WITH TIME ZONE) as cal_rec_schedule_time from tbl_scheduled_entity_list as entitytable,tbl_user_marketing_program as programtable "
-                + "where programtable.id = entitytable.user_marketing_program_id and entity_id=" + entityId;
+                + "where programtable.id = entitytable.user_marketing_program_id and entity_id=" + entityId + " and entity_type='"+entityType+"'";
         TblScheduledEntityList result = null;
 
         try (Connection conn = connectionManager.getConnection();

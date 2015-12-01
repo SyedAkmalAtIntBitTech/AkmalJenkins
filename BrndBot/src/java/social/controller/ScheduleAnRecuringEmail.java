@@ -76,7 +76,7 @@ public class ScheduleAnRecuringEmail implements Callable {
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostapprovedStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);
-        ApplicationContextListener.refreshEmailRecuringScheduler();
+//        ApplicationContextListener.refreshEmailRecuringScheduler();
     }
 
     private TblScheduledEmailList getSendEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
@@ -88,7 +88,7 @@ public class ScheduleAnRecuringEmail implements Callable {
         String entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.TRUE);
         TblScheduledEntityList scheduledEntityList = null;
         if (!StringUtil.isEmpty(entityId)) {
-            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId));
+            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId), IConstants.kEmailKey);
         }
         return scheduledEntityList;
     }

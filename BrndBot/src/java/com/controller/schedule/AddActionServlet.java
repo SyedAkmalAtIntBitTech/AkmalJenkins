@@ -5,6 +5,7 @@
  */
 package com.controller.schedule;
 
+import com.controller.ApplicationContextListener;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
@@ -117,7 +118,7 @@ public class AddActionServlet extends HttpServlet {
                     conn.rollback();
                     ServletUtil.printInternalException(response, ex.getMessage());
                 }                
-                
+                ApplicationContextListener.refreshAllSchedulers();
             }
 
         } catch (SQLException ex) {
