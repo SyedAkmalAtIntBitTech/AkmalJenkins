@@ -35,10 +35,21 @@
         <%
             try {
                 sql_methods.session = request.getSession(true);
-                
-                category_id = sql_methods.session.getAttribute("category_id").toString();
-                sub_category_name = sql_methods.session.getAttribute("sub_category_name").toString();
-                sub_category_id = sql_methods.session.getAttribute("sub_category_id").toString();
+                category_id = request.getParameter("category_id");
+                sub_category_name = request.getParameter("sub_category_name");
+                sub_category_id = request.getParameter("sub_category_id");
+                if(category_id==null)
+                {
+                    category_id = sql_methods.session.getAttribute("category_id").toString();
+                    sub_category_name = sql_methods.session.getAttribute("sub_category_name").toString();
+                    sub_category_id = sql_methods.session.getAttribute("sub_category_id").toString();
+                }
+                else
+                {
+                    sql_methods.session.setAttribute("sub_category_name", sub_category_name);
+                    sql_methods.session.setAttribute("sub_category_id", sub_category_id);
+                    sql_methods.session.setAttribute("category_id", category_id);
+                }
 
             } catch (Exception e) {
                 System.out.println(e.getCause());

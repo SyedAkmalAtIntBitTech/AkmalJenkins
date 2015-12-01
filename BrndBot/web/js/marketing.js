@@ -212,6 +212,7 @@ function reSet()
    $("#description").val("");
    $("#datepicker").val("");
    $("#timepicker1").val("");
+   $("#actiontype").val("0");
    return true;
     
 }

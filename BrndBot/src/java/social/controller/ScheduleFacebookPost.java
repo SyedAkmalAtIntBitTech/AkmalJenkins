@@ -41,7 +41,9 @@ public class ScheduleFacebookPost implements Callable {
             if (scheduledFacebookPost != null) {
                 //The time zone of the saved date should be extracted.
                 //This time zone should be applied to the current time and then this comparison needs to be made.
+                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE,"Message to display entity id "+" and schedule time", scheduledFacebookPost );
                 boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledFacebookPost.getScheduleTime());
+//                boolean shouldPostNow = true;
 
                 if (shouldPostNow) {
                     TblScheduledSocialpostList facebookPost = getFacebookPost(scheduledFacebookPost);
@@ -56,6 +58,7 @@ public class ScheduleFacebookPost implements Callable {
                     PostToFacebook postToFacebook = new PostToFacebook();
                     String accessToken = postToFacebook.getFacebookAccessToken(userId);
                     String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + facebookPost.getImageName();
+                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE,"Message while scheduling the post", file_image_path);
 
                     String message = PostToFacebook.postStatus(accessToken, linkTitle, file_image_path, postText, url, facebookPost.getImageName(), url, description, userId, null);
                     if (message.equalsIgnoreCase("success")) {
