@@ -41,22 +41,22 @@ public class ApplicationContextListener implements ServletContextListener {
     
     public static void refreshTwitterScheduler() {
         logger.log(Level.INFO, "Refresh Twitter Scheduler");
-        getApplicationContextListener().getSocialPostScheduler().startTwitterScheduler();
+//        getApplicationContextListener().getSocialPostScheduler().startTwitterScheduler();
     }
 
     public static void refreshFacebookScheduler() {
         logger.log(Level.INFO, "Refresh FB Scheduler");
-        getApplicationContextListener().getSocialPostScheduler().startFacebookScheduler();
+//        getApplicationContextListener().getSocialPostScheduler().startFacebookScheduler();
     }
 
     public static void refreshEmailScheduler() {
         logger.log(Level.INFO, "Refresh EMAIL Scheduler");
-        getApplicationContextListener().getSocialPostScheduler().startEmailScheduler();
+//        getApplicationContextListener().getSocialPostScheduler().startEmailScheduler();
     }
 
     public static void refreshEmailRecuringScheduler() {
         logger.log(Level.INFO, "Refresh Recurring EMAIL Scheduler");
-        getApplicationContextListener().getSocialPostScheduler().startRecurringEmailScheduler();
+//        getApplicationContextListener().getSocialPostScheduler().startRecurringEmailScheduler();
     }
 
     private MindbodyEmailListScheduler mindbodyEmailListScheduler;
@@ -82,8 +82,8 @@ public class ApplicationContextListener implements ServletContextListener {
 
         socialPostScheduler = new SocialPostScheduler();
 //        socialPostScheduler.startTwitterScheduler();
-//        socialPostScheduler.startFacebookScheduler();
-        socialPostScheduler.startEmailScheduler();
+        socialPostScheduler.startFacebookScheduler();
+//        socialPostScheduler.startEmailScheduler();
 //        socialPostScheduler.startRecurringEmailScheduler();
 
     }

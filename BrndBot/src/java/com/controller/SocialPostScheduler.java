@@ -71,16 +71,10 @@ public class SocialPostScheduler {
             logger.log(Level.INFO, "Started FB Scheduler");
 
             facebookPostCallable = new ScheduleFacebookPost();
-            Date nextFBPostDate = facebookPostCallable.call();
-            //the difference between the current time and next time needs to go in here.
-            long nextExecution = DateTimeUtil.differenceCurrentTime(nextFBPostDate);
-            logger.log(Level.INFO, "Next FB Execution after " + nextExecution + " seconds");
-            if (nextExecution < 0) {
-                nextExecution = 20;
 
-            }
+           
 
-            scheduler.schedule(facebookPostCallable, nextExecution, TimeUnit.SECONDS);
+            scheduler.scheduleAtFixedRate(facebookPostCallable, 10 ,60, TimeUnit.SECONDS);
         } catch (Exception ex) {
             Logger.getLogger(SocialPostScheduler.class.getName()).log(Level.SEVERE, null, ex);
         }

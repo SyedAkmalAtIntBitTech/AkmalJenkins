@@ -26,7 +26,7 @@ import util.DateTimeUtil;
  *
  * @author AR
  */
-public class ScheduleFacebookPost implements Callable {
+public class ScheduleFacebookPost implements Runnable {
 
     private static final Logger logger = Logger.getLogger(ScheduleFacebookPost.class.getName());
 
@@ -35,11 +35,11 @@ public class ScheduleFacebookPost implements Callable {
     }
 
     @Override
-    public Date call() throws Exception {
+    public void run() {
         //Adding tens mins if there are no latest approved posts
         logger.log(Level.SEVERE, "In FB Schedule CallBlock");
 
-        Date nextPostTime = DateTimeUtil.getDatePlusMins(SocialPostScheduler.DefaultPollingInterval);
+//        Date nextPostTime = DateTimeUtil.getDatePlusMins(SocialPostScheduler.DefaultPollingInterval);
         try {
             TblScheduledEntityList scheduledFacebookPost = getLatestApprovedFacebookPost();
             if (scheduledFacebookPost != null) {
@@ -70,19 +70,19 @@ public class ScheduleFacebookPost implements Callable {
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledFacebook(scheduledFacebookPost);
                         //Get the next in line
-                        scheduledFacebookPost = getLatestApprovedFacebookPost();
+//                        scheduledFacebookPost = getLatestApprovedFacebookPost();
                     }
                 }
-                if (scheduledFacebookPost != null) {
-                    nextPostTime = scheduledFacebookPost.getScheduleTime();
-                }
+//                if (scheduledFacebookPost != null) {
+//                    nextPostTime = scheduledFacebookPost.getScheduleTime();
+//                }
             }
 
         } catch (Throwable ex) {
             Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
         }
-        logger.log(Level.SEVERE, "In FB Schedule Call End Block with next post time" + nextPostTime);
-        return nextPostTime;
+        logger.log(Level.SEVERE, "In FB Schedule Call End Block" + new Date());
+//        return nextPostTime;
     }
 
     private void updateStatusScheduledFacebook(TblScheduledEntityList scheduledFacebookPost) throws Throwable {
@@ -105,5 +105,7 @@ public class ScheduleFacebookPost implements Callable {
         }
         return scheduledEntityList;
     }
+
+    
 
 }
