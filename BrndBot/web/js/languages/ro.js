@@ -1,9 +1,3 @@
-/*!
- * froala_editor v2.0.1 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
- */
-
 /**
  * Romanian
  */
@@ -217,12 +211,7 @@ $.FroalaEditor.LANGUAGE['ro'] = {
     "Select All": "Selecteaz\u0103 tot",
 
     // Code view
-    "Code View": "Vizualizare cod",
-
-    // Quote
-    "Quote": "Citat",
-    "Increase": "Indenteaz\u0103",
-    "Decrease": "De-indenteaz\u0103"
+    "Code View": "Vizualizare cod"
   },
   direction: "ltr"
 };

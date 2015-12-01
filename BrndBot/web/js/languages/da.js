@@ -1,9 +1,3 @@
-/*!
- * froala_editor v2.0.1 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
- */
-
 /**
  * Danish
  */
@@ -216,12 +210,7 @@ $.FroalaEditor.LANGUAGE['da'] = {
     "Select All": "V\u00e6lg alle",
 
     // Code view
-    "Code View": "Kode visning",
-
-    // Quote
-    "Quote": "Citat",
-    "Increase": "For\u00f8ge",
-    "Decrease": "Mindsk"
+    "Code View": "Kode visning"
   },
   direction: "ltr"
 };

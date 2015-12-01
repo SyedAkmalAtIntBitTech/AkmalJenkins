@@ -1,9 +1,3 @@
-/*!
- * froala_editor v2.0.1 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
- */
-
 /**
  * Traditional Chinese spoken in Taiwan.
  */
@@ -216,12 +210,7 @@ $.FroalaEditor.LANGUAGE['zh_tw'] = {
     "Select All": "\u5168\u9078",
 
     // Code view
-    "Code View": "\u4ee3\u78bc\u8996\u5716",
-
-    // Quote
-    "Quote": "\u5831\u50f9",
-    "Increase": "\u52a0",
-    "Decrease": "\u6e1b\u5c11"
+    "Code View": "\u4ee3\u78bc\u8996\u5716"
   },
   direction: "ltr"
 };
