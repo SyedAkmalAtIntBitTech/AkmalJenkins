@@ -27,7 +27,7 @@
 
         <title>BrndBot - Email List</title>
         <style>
-            #tab2,#tab3,#tab4
+            #tab2,#tab3,#tab4,#scrl
             {
                 display:none;
             }
