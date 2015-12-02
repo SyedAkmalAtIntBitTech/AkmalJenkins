@@ -5,17 +5,13 @@
  */
 package social.controller;
 
-import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
-import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
 import com.intbit.AppConstants;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.Date;
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
@@ -36,10 +32,9 @@ public class ScheduleFacebookPost implements Runnable {
 
     @Override
     public void run() {
-        //Adding tens mins if there are no latest approved posts
+
         logger.log(Level.SEVERE, "In FB Schedule CallBlock");
 
-//        Date nextPostTime = DateTimeUtil.getDatePlusMins(SocialPostScheduler.DefaultPollingInterval);
         try {
             TblScheduledEntityList scheduledFacebookPost = getLatestApprovedFacebookPost();
             if (scheduledFacebookPost != null) {
@@ -49,7 +44,6 @@ public class ScheduleFacebookPost implements Runnable {
 
                 Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, "Current time:" + new Date());
                 boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledFacebookPost.getScheduleTime());
-//                boolean shouldPostNow = true;
 
                 if (shouldPostNow) {
                     TblScheduledSocialpostList facebookPost = getFacebookPost(scheduledFacebookPost);
@@ -69,27 +63,20 @@ public class ScheduleFacebookPost implements Runnable {
                     String message = PostToFacebook.postStatus(accessToken, linkTitle, file_image_path, postText, url, facebookPost.getImageName(), url, description, userId, null);
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledFacebook(scheduledFacebookPost);
-                        //Get the next in line
-//                        scheduledFacebookPost = getLatestApprovedFacebookPost();
                     }
                 }
-//                if (scheduledFacebookPost != null) {
-//                    nextPostTime = scheduledFacebookPost.getScheduleTime();
-//                }
             }
 
         } catch (Throwable ex) {
             Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
         }
         logger.log(Level.SEVERE, "In FB Schedule Call End Block" + new Date());
-//        return nextPostTime;
     }
 
     private void updateStatusScheduledFacebook(TblScheduledEntityList scheduledFacebookPost) throws Throwable {
         //Call the DAO here
         scheduledFacebookPost.setStatus(IConstants.kSocialPostCommpleteStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledFacebookPost);
-//        ApplicationContextListener.refreshFacebookScheduler();
     }
 
     private TblScheduledSocialpostList getFacebookPost(TblScheduledEntityList scheduledFacebookPost) throws Throwable {

@@ -73,7 +73,7 @@ public class ApplicationContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.log(Level.INFO, "Application Deployed");
-        this.servletContextEvent = sce;
+        servletContextEvent = sce;
         applicationContextListener = this;
 //        mindbodyEmailListScheduler = new MindbodyEmailListScheduler();
 //        mindbodyEmailListScheduler.startScheduler();
@@ -81,10 +81,10 @@ public class ApplicationContextListener implements ServletContextListener {
         logger.log(Level.INFO, "Started Schedulers");
 
         socialPostScheduler = new SocialPostScheduler();
-//        socialPostScheduler.startTwitterScheduler();
+        socialPostScheduler.startTwitterScheduler();
         socialPostScheduler.startFacebookScheduler();
-//        socialPostScheduler.startEmailScheduler();
-//        socialPostScheduler.startRecurringEmailScheduler();
+        socialPostScheduler.startEmailScheduler();
+        socialPostScheduler.startRecurringEmailScheduler();
 
     }
 

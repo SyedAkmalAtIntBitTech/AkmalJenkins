@@ -30,7 +30,7 @@ public class DateTimeUtil {
         String dateFormat = "z";
         SimpleDateFormat timeZoneFormat = new SimpleDateFormat(dateFormat);
         String timeZoneStr = timeZoneFormat.format(datetime);
-        String formatStr = "yyyy-MM-dd hh:mm a";
+        String formatStr = "hh:mm a";
         Date currentdate = new Date();
         SimpleDateFormat format = new SimpleDateFormat(formatStr);
         format.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
