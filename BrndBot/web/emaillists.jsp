@@ -181,6 +181,7 @@
             
             function selectEmailId(id){
                 
+                $("#selectAll").attr('checked',false);
                 var selectedid  = document.getElementById(id).checked;
                 
                 if (selectedid){

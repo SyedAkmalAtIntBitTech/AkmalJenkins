@@ -799,10 +799,10 @@
                 <script>
 
             $("#saveButton").click(function (){               
-                        $.ajax({
+                    $.ajax({
                             url: getHost() + "PreviewServlet",
-                         method: "post",
-                           data:{
+                            method: "post",
+                            data:{
                             htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
                             iframeName: rendomIframeFilename
                             },

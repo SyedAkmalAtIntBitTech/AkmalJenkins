@@ -81,8 +81,8 @@ public class ScheduleEmailActionsServlet extends HttpServlet {
             //Added by Syed Ilyas 27 Nov 2015 - email body from iframe
             String html_text = "";
             String path = "";
-            if (request.getParameter("iframeName") != null){
-                String iframeName=request.getParameter("iframeName");
+            if (requestBodyMap.get("iframeName").toString().trim()!= null){
+                String iframeName=requestBodyMap.get("iframeName").toString().trim();
                 path=AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH+File.separator+iframeName+".html";
                 File file = new File(path);
                 html_text = FileUtils.readFileToString(file, "UTF-8");
