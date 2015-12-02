@@ -90,8 +90,8 @@ public class SendAnEmail {
             returnMessage = "success";
         } catch (Exception e) {
             returnMessage = "Email Exception: " + e.getMessage();
-            Logger.getLogger(SendAnEmail.class.getName()).log(Level.SEVERE, null, e);
-            Logger.getLogger(SendAnEmail.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(SendAnEmail.class.getName()).log(Level.SEVERE, "Exception while sending an email", e);
+            Logger.getLogger(SendAnEmail.class.getName()).log(Level.SEVERE, "Exception while sending an email", e.getMessage());
         }
         return returnMessage;
     }

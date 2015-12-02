@@ -60,7 +60,7 @@ public class SendMail {
                 }
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while sending an email via mandrill:", null));
         }
         return null;
     }

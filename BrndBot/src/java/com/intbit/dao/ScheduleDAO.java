@@ -484,7 +484,7 @@ public class ScheduleDAO {
                 logger.log(Level.INFO, "result:" + result.toString());
             } catch (Exception e) {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e,
-                        "Exception while deleting the schedule:", null), e);
+                        "Exception while getting the schedule:", null), e);
             }
         }
         Set<String> dateSet = result.keySet();
@@ -532,13 +532,16 @@ public class ScheduleDAO {
                     entityObject.put("date", parsedDateString);
                     JSONArray jsonArrayDateJSONEntities = new JSONArray();
                     Iterator resultIterator = result.entrySet().iterator();
+                    Integer i = 0;
                     while (resultIterator.hasNext()) {
                         Map.Entry pair = (Map.Entry) resultIterator.next();
                         JSONArray jsonArray = (JSONArray) pair.getValue();
                         String jsonParsedString = new Date(Long.parseLong(pair.getKey().toString())).toString();
                         if (jsonParsedString.equals(parsedDateString)) {
                             if (jsonArray.size() > 0) {
-                                jsonArrayDateJSONEntities.add(jsonArray.get(0));
+                                for (i = 0; i<jsonArray.size(); i++){
+                                    jsonArrayDateJSONEntities.add(jsonArray.get(i));
+                                }
                                 resultIterator.remove(); // avoids a ConcurrentModificationException                            
                             }
                         }
