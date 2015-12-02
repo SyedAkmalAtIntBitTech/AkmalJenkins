@@ -81,10 +81,10 @@ public class ApplicationContextListener implements ServletContextListener {
         logger.log(Level.INFO, "Started Schedulers");
 
         socialPostScheduler = new SocialPostScheduler();
-//        socialPostScheduler.startTwitterScheduler();
+        socialPostScheduler.startTwitterScheduler();
         socialPostScheduler.startFacebookScheduler();
-//        socialPostScheduler.startEmailScheduler();
-//        socialPostScheduler.startRecurringEmailScheduler();
+        socialPostScheduler.startEmailScheduler();
+        socialPostScheduler.startRecurringEmailScheduler();
 
     }
 
