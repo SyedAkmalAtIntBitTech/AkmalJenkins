@@ -71,6 +71,7 @@ and open the template in the editor.
                  height:16px;
                  color:#3f3f42;
                  font-size:13px;
+                 cursor:pointer;
              }
              .emailedtrsave{
                  font-size:12px;
@@ -124,7 +125,7 @@ and open the template in the editor.
              }
              .selblkline{
                  width:258.1px;
-                 height:0.5px;
+                 height:1.5px;
                  border:#979797 1px;
                  background-color: #979797;
              }
