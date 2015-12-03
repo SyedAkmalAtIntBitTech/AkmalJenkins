@@ -45,6 +45,8 @@ class PostToFacebook {
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
             String context_real_path = servletContext.getRealPath("");
             String imageContextPath = Utility.getServerName(context_real_path);
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post", imageContextPath);
+
             if (title == "") {
 
                 Media media = new Media(new File(file_image_path));
@@ -60,6 +62,7 @@ class PostToFacebook {
                         .description(description);
                 facebook.postFeed(post);
             }
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post", imageContextPath);
             try {
                 SqlMethods sqlMethods = new SqlMethods();
                 sqlMethods.setSocialPostHistory(user_id, htmlString, false, true, getImageFile, null);

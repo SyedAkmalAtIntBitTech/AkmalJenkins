@@ -48,28 +48,28 @@ public class ChangeScheduleServlet extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         PrintWriter out = response.getWriter();
         try {
-            if ( !AuthenticationUtil.isUserLoggedIn(request)){
+            if (!AuthenticationUtil.isUserLoggedIn(request)) {
                 AuthenticationUtil.printAuthErrorToResponse(response);
                 return;
             }
             Integer userId = AuthenticationUtil.getUUID(request);
-            Map<String, Object> requestBodyMap =
-                    AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            String type = (String)requestBodyMap.get("type");
-            if (type.equalsIgnoreCase("updatesocial")){
-                String schedule_id = (String)requestBodyMap.get("schedule_id");
-                String entity_id = (String)requestBodyMap.get("entity_id");
-                String schedule_title = (String)requestBodyMap.get("schedule_title");
-                Double schedule = (Double)requestBodyMap.get("schedule_time");
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            String type = (String) requestBodyMap.get("type");
+            if (type.equalsIgnoreCase("updatesocial")) {
+                String schedule_id = (String) requestBodyMap.get("schedule_id");
+                String entity_id = (String) requestBodyMap.get("entity_id");
+                String schedule_title = (String) requestBodyMap.get("schedule_title");
+                Double schedule = (Double) requestBodyMap.get("schedule_time");
 
                 Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
-                String metadataString = requestBodyMap.get("metadata").toString();                
+                String metadataString = requestBodyMap.get("metadata").toString();
 
-                String schedule_desc = (String)requestBodyMap.get("schedule_desc");
-                
+                String schedule_desc = (String) requestBodyMap.get("schedule_desc");
+
                 ScheduleSocialPostDAO.updateScheduleSocialPostDetails(userId,
                         Integer.parseInt(schedule_id),
                         Integer.parseInt(entity_id),
@@ -77,89 +77,79 @@ public class ChangeScheduleServlet extends HttpServlet {
                         scheduleTimeStamp,
                         schedule_desc,
                         AppConstants.GSON.fromJson(metadataString, Map.class)
-                        );
+                );
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
-            }else if (type.equalsIgnoreCase("updateemail")){
-                String schedule_id = (String)requestBodyMap.get("schedule_id");
-                String entity_id = (String)requestBodyMap.get("entity_id");
-                String schedule_title = (String)requestBodyMap.get("schedule_title");
-                Double schedule = (Double)requestBodyMap.get("schedule_time");
+            } else if (type.equalsIgnoreCase("updateemail")) {
+                String schedule_id = (String) requestBodyMap.get("schedule_id");
+                String entity_id = (String) requestBodyMap.get("entity_id");
+                String schedule_title = (String) requestBodyMap.get("schedule_title");
+                Double schedule = (Double) requestBodyMap.get("schedule_time");
 
                 Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
 
-                ScheduleDAO.updateScheduleEmailDetails(userId, 
-                            Integer.parseInt(schedule_id),
-                            Integer.parseInt(entity_id),
-                            requestBodyMap.get("email_subject").toString(),
-                            requestBodyMap.get("from_email_address").toString(),
-                            requestBodyMap.get("email_list").toString(),
-                            requestBodyMap.get("reply_to_email_address").toString(),
-                            requestBodyMap.get("to_email_addresses").toString().split(","),
-                            schedule_title,
-                            scheduleTimeStamp
-                            );                
+                ScheduleDAO.updateScheduleEmailDetails(userId,
+                        Integer.parseInt(schedule_id),
+                        Integer.parseInt(entity_id),
+                        requestBodyMap.get("email_subject").toString(),
+                        requestBodyMap.get("from_email_address").toString(),
+                        requestBodyMap.get("email_list").toString(),
+                        requestBodyMap.get("reply_to_email_address").toString(),
+                        requestBodyMap.get("to_email_addresses").toString().split(","),
+                        schedule_title,
+                        scheduleTimeStamp
+                );
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
-                
-            }else if (type.equalsIgnoreCase("deleteSelected")){
-                String schedule_ids = (String)requestBodyMap.get("schedule_ids");
-                String entity_type = (String)requestBodyMap.get("entity_type");
-                String is_recuring = (String)requestBodyMap.get("isRecuring");
-                
+                ApplicationContextListener.refreshEmailScheduler();
+
+            } else if (type.equalsIgnoreCase("deleteSelected")) {
+                String schedule_ids = (String) requestBodyMap.get("schedule_ids");
+                String entity_type = (String) requestBodyMap.get("entity_type");
+                String is_recuring = (String) requestBodyMap.get("isRecuring");
+
                 ScheduleDAO.deleteSchedules(userId, schedule_ids);
-                    ApplicationContextListener.refreshEmailScheduler();
-                    ApplicationContextListener.refreshFacebookScheduler();
-                    ApplicationContextListener.refreshTwitterScheduler();
-                    ApplicationContextListener.refreshEmailRecuringScheduler();
+                ApplicationContextListener.refreshEmailScheduler();
+                ApplicationContextListener.refreshFacebookScheduler();
+                ApplicationContextListener.refreshTwitterScheduler();
+                ApplicationContextListener.refreshEmailRecuringScheduler();
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
-            }else if (type.equalsIgnoreCase("delete")){
-                Double schedule_ids = (Double)requestBodyMap.get("schedule_ids");
-                String entity_type = (String)requestBodyMap.get("entity_type");
-                String is_recuring = (String)requestBodyMap.get("isRecuring");
+            } else if (type.equalsIgnoreCase("delete")) {
+                Double schedule_ids = (Double) requestBodyMap.get("schedule_ids");
+                String entity_type = (String) requestBodyMap.get("entity_type");
+                String is_recuring = (String) requestBodyMap.get("isRecuring");
                 ScheduleDAO.deleteSchedule(userId, schedule_ids.intValue());
-                if (entity_type.equals(ScheduledEntityType.Email.toString())){
-                    ApplicationContextListener.refreshEmailScheduler();
-                }else if(entity_type.equals(ScheduledEntityType.Facebook.toString())){
-                    ApplicationContextListener.refreshFacebookScheduler();
-                }else if(entity_type.equals(ScheduledEntityType.Twitter.toString())){
-                    ApplicationContextListener.refreshTwitterScheduler();
-                }
-                if (is_recuring != null){
-                    ApplicationContextListener.refreshEmailRecuringScheduler();
-                }
+                ApplicationContextListener.refreshEmailScheduler();
+                ApplicationContextListener.refreshFacebookScheduler();
+                ApplicationContextListener.refreshTwitterScheduler();
+                ApplicationContextListener.refreshEmailRecuringScheduler();
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
-            }else if(type.equalsIgnoreCase("removetemplate")){
-                Double schedule_ids = (Double)requestBodyMap.get("schedule_ids");
-                String entity_type = (String)requestBodyMap.get("entity_type");
-                String is_recuring = (String)requestBodyMap.get("isRecuring");
+            } else if (type.equalsIgnoreCase("removetemplate")) {
+                Double schedule_ids = (Double) requestBodyMap.get("schedule_ids");
+                String entity_type = (String) requestBodyMap.get("entity_type");
+                String is_recuring = (String) requestBodyMap.get("isRecuring");
                 ScheduleDAO.removeSavedTemplate(userId, schedule_ids.intValue());
-                if (entity_type.equals(ScheduledEntityType.Email.toString())){
-                    ApplicationContextListener.refreshEmailScheduler();
-                }else if(entity_type.equals(ScheduledEntityType.Facebook.toString())){
-                    ApplicationContextListener.refreshFacebookScheduler();
-                }else if(entity_type.equals(ScheduledEntityType.Twitter.toString())){
-                    ApplicationContextListener.refreshTwitterScheduler();
-                }
+                ApplicationContextListener.refreshEmailScheduler();
+                ApplicationContextListener.refreshFacebookScheduler();
+                ApplicationContextListener.refreshTwitterScheduler();
+                ApplicationContextListener.refreshEmailRecuringScheduler();
+
                 
-                if (is_recuring != null){
-                    ApplicationContextListener.refreshEmailRecuringScheduler();
-                }
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
-            }else if(type.equalsIgnoreCase(ScheduledEntityType.Note.toString())){
-                String schedule_id = (String)requestBodyMap.get("schedule_id");
-                String schedule_title = (String)requestBodyMap.get("schedule_title");
-                String schedule_desc = (String)requestBodyMap.get("schedule_desc");
-                String status = (String)requestBodyMap.get("status");
-                Double schedule = (Double)requestBodyMap.get("schedule_time");
+            } else if (type.equalsIgnoreCase(ScheduledEntityType.Note.toString())) {
+                String schedule_id = (String) requestBodyMap.get("schedule_id");
+                String schedule_title = (String) requestBodyMap.get("schedule_title");
+                String schedule_desc = (String) requestBodyMap.get("schedule_desc");
+                String status = (String) requestBodyMap.get("status");
+                Double schedule = (Double) requestBodyMap.get("schedule_time");
 
                 Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
                 ScheduleDAO.updateNoteDetails(userId, Integer.parseInt(schedule_id),
@@ -167,23 +157,23 @@ public class ChangeScheduleServlet extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
-            }else if (type.equalsIgnoreCase("updateSchedule")){
-                String schedule_id = (String)requestBodyMap.get("scheduleid");
-                String entity_id = (String)requestBodyMap.get("entityid");
+            } else if (type.equalsIgnoreCase("updateSchedule")) {
+                String schedule_id = (String) requestBodyMap.get("scheduleid");
+                String entity_id = (String) requestBodyMap.get("entityid");
 
-                try(Connection conn = connectionManager.getConnection()){
-                    Integer id = ScheduleDAO.updateScheduleEntityList(Integer.parseInt(entity_id), 
-                            Integer.parseInt(schedule_id), 
+                try (Connection conn = connectionManager.getConnection()) {
+                    Integer id = ScheduleDAO.updateScheduleEntityList(Integer.parseInt(entity_id),
+                            Integer.parseInt(schedule_id),
                             TemplateStatus.complete.toString(), conn);
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.getWriter().write("true");
                     response.getWriter().flush();
-                }catch (Exception e){
+                } catch (Exception e) {
                     logger.log(Level.SEVERE, util.Utility.logMessage(e,
-                "Exception while updating the schedule:", null), e);
+                            "Exception while updating the schedule:", null), e);
                 }
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             Logger.getLogger(ScheduleEmailServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

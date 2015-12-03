@@ -5,6 +5,7 @@
  */
 package com.controller.schedule;
 
+import com.controller.ApplicationContextListener;
 import com.google.gson.Gson;
 import com.intbit.AppConstants;
 import com.intbit.TemplateStatus;
@@ -51,15 +52,15 @@ public class ScheduleEmailServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try {
-            if ( !AuthenticationUtil.isUserLoggedIn(request)){
+            if (!AuthenticationUtil.isUserLoggedIn(request)) {
                 AuthenticationUtil.printAuthErrorToResponse(response);
                 return;
             }
             Integer userId = AuthenticationUtil.getUUID(request);
-            
-            Map<String, Object> requestBodyMap =
-                    AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            if ( requestBodyMap == null){
+
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            if (requestBodyMap == null) {
                 Map<String, Object> error = new HashMap<>();
                 error.put("error", "Request body is missing");
                 response.getWriter().write(AppConstants.GSON.toJson(error));
@@ -67,9 +68,9 @@ public class ScheduleEmailServlet extends HttpServlet {
                 response.getWriter().flush();
                 return;
             }
-            
+
             List<String> errorMsgs = validateRequestBody(requestBodyMap);
-            if ( !errorMsgs.isEmpty()){
+            if (!errorMsgs.isEmpty()) {
                 Map<String, Object> error = new HashMap<>();
                 error.put("error", errorMsgs);
                 response.getWriter().write(AppConstants.GSON.toJson(error));
@@ -77,22 +78,22 @@ public class ScheduleEmailServlet extends HttpServlet {
                 response.getWriter().flush();
                 return;
             }
-            Double schedule = (Double)requestBodyMap.get("schedule_time");
+            Double schedule = (Double) requestBodyMap.get("schedule_time");
             //As of now schedule description is not yet mandatory.
-            String scheduleDesc = requestBodyMap.containsKey("schedule_desc") ? 
-                    String.valueOf(requestBodyMap.get("schedule_desc")):null;
-            String marketing_program_id = (String)requestBodyMap.get("program_id");
-            
+            String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
+                    ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
+            String marketing_program_id = (String) requestBodyMap.get("program_id");
+
             //Added by Syed Ilyas 27 Nov 2015 - email body from iframe
             String html_text = "";
             String path = "";
-            if (request.getParameter("iframeName") != null){
-                String iframeName=request.getParameter("iframeName");
-                path=AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH+File.separator+iframeName+".html";
+            if (requestBodyMap.get("iframeName").toString().trim() != null) {
+                String iframeName = requestBodyMap.get("iframeName").toString().trim();
+                path = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator + iframeName + ".html";
                 File file = new File(path);
                 html_text = FileUtils.readFileToString(file, "UTF-8");
             }
-            
+
             Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
                     userId,
                     requestBodyMap.get("email_subject").toString(),
@@ -104,13 +105,13 @@ public class ScheduleEmailServlet extends HttpServlet {
                     requestBodyMap.get("reply_to_email_address").toString(),
                     requestBodyMap.get("to_email_addresses").toString().split(","),
                     requestBodyMap.get("schedule_title").toString(),
-                    scheduleDesc, 
+                    scheduleDesc,
                     new Timestamp(schedule.longValue()),
                     TemplateStatus.template_saved.toString()
             );
-            
-            if (!path.equals("")){
-                File IframeDelete=new File(path);
+
+            if (!path.equals("")) {
+                File IframeDelete = new File(path);
                 IframeDelete.delete();
             }
             response.setStatus(HttpServletResponse.SC_OK);
@@ -118,55 +119,56 @@ public class ScheduleEmailServlet extends HttpServlet {
             response.getWriter().flush();
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleEmailServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             Logger.getLogger(ScheduleEmailServlet.class.getName()).log(Level.SEVERE, null, ex);
             Map<String, Object> error = new HashMap<>();
             error.put("error", "Invalid format for schedule time.");
             response.getWriter().write(AppConstants.GSON.toJson(error));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().flush();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             Logger.getLogger(ScheduleEmailServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        ApplicationContextListener.refreshEmailScheduler();
+
     }
-    
-    private List<String> validateRequestBody(Map<String, Object> requestBodyMap){
+
+    private List<String> validateRequestBody(Map<String, Object> requestBodyMap) {
         List<String> errorMsgs = new ArrayList<>();
-        if ( !mapContainsKey(requestBodyMap, "email_subject")){
+        if (!mapContainsKey(requestBodyMap, "email_subject")) {
             errorMsgs.add("Email subject is missing");
         }
-        if ( !mapContainsKey(requestBodyMap, "to_email_addresses")){
+        if (!mapContainsKey(requestBodyMap, "to_email_addresses")) {
             errorMsgs.add("To email address is missing");
         }
-        if ( !mapContainsKey(requestBodyMap, "email_body")){
+        if (!mapContainsKey(requestBodyMap, "email_body")) {
             errorMsgs.add("Email body is missing");
         }
-        if ( !mapContainsKey(requestBodyMap, "email_list")){
+        if (!mapContainsKey(requestBodyMap, "email_list")) {
             errorMsgs.add("Email List name is missing");
         }
-        if ( !mapContainsKey(requestBodyMap, "reply_to_email_address")){
+        if (!mapContainsKey(requestBodyMap, "reply_to_email_address")) {
             errorMsgs.add("Reply to email address is missing");
         }
-        if ( !mapContainsKey(requestBodyMap, "from_email_address")){
+        if (!mapContainsKey(requestBodyMap, "from_email_address")) {
             errorMsgs.add("From email address is missing");
         }
-        if ( !mapContainsKey(requestBodyMap, "from_name")){
+        if (!mapContainsKey(requestBodyMap, "from_name")) {
             errorMsgs.add("From name is missing");
         }
-        if ( !mapContainsKey(requestBodyMap, "schedule_title")){
+        if (!mapContainsKey(requestBodyMap, "schedule_title")) {
             errorMsgs.add("Schedule title is missing");
         }
-        if ( !mapContainsKey(requestBodyMap, "schedule_time")){
+        if (!mapContainsKey(requestBodyMap, "schedule_time")) {
             errorMsgs.add("Schedule time is missing");
         }
         return errorMsgs;
     }
-    
-    private boolean mapContainsKey(Map<String, Object> requestBodyMap, String key){
-        if ( !requestBodyMap.containsKey(key) || 
-                requestBodyMap.get(key) == null ||
-                StringUtils.isEmpty(requestBodyMap.get(key).toString())){
+
+    private boolean mapContainsKey(Map<String, Object> requestBodyMap, String key) {
+        if (!requestBodyMap.containsKey(key)
+                || requestBodyMap.get(key) == null
+                || StringUtils.isEmpty(requestBodyMap.get(key).toString())) {
             return false;
         }
         return true;

@@ -5,7 +5,7 @@
  */
 package email.mandrill;
 
-import com.controller.SendEmail;
+import com.controller.ForgotSendEmail;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class MandrillApiHandler {
         HttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("https://mandrillapp.com/api/1.0/messages/info.json");
         URI uri = new URIBuilder(httpGet.getURI())
-                .addParameter("key", SendEmail.MANDRILL_KEY)
+                .addParameter("key", ForgotSendEmail.MANDRILL_KEY)
                 .addParameter("id", mandrillEmailId)
                 .build();
         logger.info("Getting Email details: " + uri.toString());
@@ -86,7 +86,7 @@ public class MandrillApiHandler {
             HttpClient httpclient = HttpClients.createDefault();
             HttpGet httpGet = new HttpGet("https://mandrillapp.com/api/1.0/tags/list.json");
             URI uri = new URIBuilder(httpGet.getURI())
-                    .addParameter("key", SendEmail.MANDRILL_KEY)
+                    .addParameter("key", ForgotSendEmail.MANDRILL_KEY)
                     .build();
             logger.info("Getting mandrill tags: " + uri.toString());
             Gson gson = new Gson();
