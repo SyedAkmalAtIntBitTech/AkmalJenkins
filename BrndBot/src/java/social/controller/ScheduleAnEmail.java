@@ -17,24 +17,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import static social.controller.ScheduleTwitterPost.logger;
 import util.DateTimeUtil;
 
 /**
  *
  * @author Ajit
  */
-public class ScheduleAnEmail implements Callable {
+public class ScheduleAnEmail implements Runnable {
 
-    
+    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ScheduleAnEmail.class));
+
     public void terminateThread() {
         Thread.currentThread().interrupt();
     }
 
     @Override
-    public Date call() throws Exception {
+    public void run() {
         //Adding tens mins if there are no latest approved posts
-        Date nextPostTime = DateTimeUtil.getDatePlusMins(SocialPostScheduler.DefaultPollingInterval);
+        logger.log(Level.INFO, "In Email Schedule CallBlock");
+
         try {
             TblScheduledEntityList scheduledAnEmail = getLatestApprovedSendEmail();
 
@@ -43,8 +44,11 @@ public class ScheduleAnEmail implements Callable {
                 //The time zone of the saved date should be extracted.
                 //This time zone should be applied to the current time and then this comparison needs to be made.
                 boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledAnEmail.getScheduleTime());
+                logger.log(Level.SEVERE, "Message to display entity id " + scheduledAnEmail.getEntityId() + " and schedule time:", scheduledAnEmail.getScheduleTime());
+                logger.log(Level.SEVERE, "Current time:" + new Date());
+                if (!shouldPostNow) {
+                    logger.log(Level.SEVERE, "Should post now is true: Sending Mail");
 
-                if (shouldPostNow) {
                     TblScheduledEmailList sendAnEmail = getSendEmail(scheduledAnEmail);
                     String html_text = sendAnEmail.getBody();
                     String email_subject = sendAnEmail.getSubject();
@@ -68,17 +72,19 @@ public class ScheduleAnEmail implements Callable {
 
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledEmail(scheduledAnEmail);
+                        logger.log(Level.SEVERE, "Should post now is true: Sent the mail");
                         //Get the next in line
-                        scheduledAnEmail = getLatestApprovedSendEmail();
                     }
                 }
-                nextPostTime = scheduledAnEmail.getScheduleTime();
+            } else {
+            logger.log(Level.SEVERE, "Should post now is false: Not sending mail");
             }
 
         } catch (Throwable ex) {
             Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return nextPostTime;
+        logger.log(Level.INFO, "In Email Schedule CallBlock End");
+
     }
 
     private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
@@ -86,7 +92,7 @@ public class ScheduleAnEmail implements Callable {
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostCommpleteStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);
-        ApplicationContextListener.refreshEmailScheduler();
+//        ApplicationContextListener.refreshEmailScheduler();
     }
 
     private TblScheduledEmailList getSendEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
@@ -98,7 +104,7 @@ public class ScheduleAnEmail implements Callable {
         String entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.FALSE);
         TblScheduledEntityList scheduledEntityList = null;
         if (!StringUtil.isEmpty(entityId)) {
-            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId));
+            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId), IConstants.kEmailKey);
         }
         return scheduledEntityList;
     }

@@ -56,8 +56,8 @@
                 color:#fff;
             }
             .fr-box .fr-basic .fr-element {
-                max-height: 480px;
-                max-height: 650px;
+/*                max-height: 480px;*/
+                max-height: 690px;
             } 
 
             #mask {
@@ -109,6 +109,9 @@
             #avpw_main_textwithfont,#avpw_main_redeye,#avpw_main_whiten,#avpw_main_blemish
             {
                 display:none;
+            }
+            .fr-view table td, .fr-view table th{
+                border:none;
             }
             .fr-wrapper{
 /*                    min-height: 550px !important;
@@ -444,7 +447,7 @@
                  } else {
                     layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
                     }
-//            alert(layout_mapper_url);
+//          alert(layout_mapper_url);
                     $.ajax({
                            type: 'GET',
                             url: layout_mapper_url,
@@ -544,7 +547,8 @@
                                 font-weight:500;
                                 left: 0em; 
                                 color: #2D4444;
-                                max-height: 450px;
+                                max-height: 600px;
+/*                                overflow: auto;*/
                             }
                         </style>
                         <div id="editor">
@@ -695,12 +699,16 @@
                 
         </script>
         <link rel="stylesheet" href="css/plugins/image_manager.css">
-        <script type="text/javascript" src="js/froala_editor.min_Email.js" ></script>
+        <!--<script type="text/javascript" src="js/froala_editor.js" ></script>-->
+        <!--<script type="text/javascript" src="js/froala_editor.min_Email.js" ></script>-->
+        <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/plugins/align.min.js"></script>
-        <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
+        <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
         <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
         <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
+        <script src="js/plugins/image.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
+        
         <script type="text/javascript" src="js/plugins/file.min.js"></script>
         <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
         <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
@@ -710,6 +718,11 @@
         <script type="text/javascript" src="js/plugins/save.min.js"></script>
         <script type="text/javascript" src="js/plugins/quote.min.js"></script>
         <script type="text/javascript" src="js/plugins/link.min.js"></script>
+        
+        <script>
+            $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick']);
+        </script>
+        
         <script>
             $(function () {
                 var urlList11;

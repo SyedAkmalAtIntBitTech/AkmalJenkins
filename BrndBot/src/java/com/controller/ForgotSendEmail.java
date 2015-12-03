@@ -22,16 +22,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 
 import org.json.simple.parser.JSONParser;
+import util.Utility;
 
 /**
  *
  * @author intbit
  */
 @WebServlet(name = "sendEmail", urlPatterns = {"/sendEmail"})
-public class SendEmail extends BrndBotBaseHttpServlet {
+public class ForgotSendEmail extends BrndBotBaseHttpServlet {
 
     GenerateHashPassword generate_hash_password;
     boolean check = false;
@@ -40,7 +42,8 @@ public class SendEmail extends BrndBotBaseHttpServlet {
     StringBuffer string_buffer;
 
 //    public final static String MANDRILL_KEY = "RP6AOa3QZA8qMJYC1lBXRg";//Prod key
-    public final static String MANDRILL_KEY = "UTyvdEzohDOZf3F95ZK6zg";//Test key
+//    public final static String MANDRILL_KEY = "UTyvdEzohDOZf3F95ZK6zg";//Test key
+    public final static String MANDRILL_KEY = "o-QeQQHbtCk4i6rCphfCcg";//Test key
     SendMail send_email = new SendMail();
 
     /**
@@ -71,6 +74,9 @@ public class SendEmail extends BrndBotBaseHttpServlet {
             JSONParser parser = new JSONParser();
             org.json.simple.JSONObject joUser = null;
             joUser = (org.json.simple.JSONObject) parser.parse(string_buffer.toString());
+            ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
+            String context_real_path = servletContext.getRealPath("");
+            String imageContextPath = Utility.getServerName(context_real_path);
 
             String email_id = (String) joUser.get("emailid");
 
@@ -92,7 +98,7 @@ public class SendEmail extends BrndBotBaseHttpServlet {
 
                 message.setKey(MANDRILL_KEY);
 //                String url=request.getRequestURL().toString().replace("SendEmail","");  
-                message.setHtml("<html><body>http://clients.brndbot.com/BrndBot/changepassword.jsp?userid=" + hashURL + "</body></html>");
+                message.setHtml("<html><body>"+imageContextPath+"changepassword.jsp?userid="+hashURL+"</body></html>");
                 message.setText("text");
                 message.setSubject("your password changing link for our account");
                 message.setFrom_email("intbit@intbittech.com");
@@ -109,7 +115,6 @@ public class SendEmail extends BrndBotBaseHttpServlet {
 
                 Recipient recipient = new Recipient();
                 recipient.setEmail(email_id);
-                recipient.setName("Syed Muzamil");
                 recipient.setType("to");
 
                 messageToList.add(recipient);

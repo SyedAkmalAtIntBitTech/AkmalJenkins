@@ -5,6 +5,7 @@
  */
 package com.controller.schedule;
 
+import com.controller.ApplicationContextListener;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
@@ -112,16 +113,16 @@ public class ScheduleSocialPostServlet extends HttpServlet {
             conn.setAutoCommit(false);
             try {
                 for (Map<String, Object> requestBodyMap : requestBodyList) {
-                    Double schedule = (Double)requestBodyMap.get("schedule_time");
+                    Double schedule = (Double) requestBodyMap.get("schedule_time");
 
                     Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
                     String tokenDataString = requestBodyMap.get("token_data").toString();
                     String metadataString = requestBodyMap.get("metadata").toString();
-                    String marketing_program_id = (String)requestBodyMap.get("program_id");
+                    String marketing_program_id = (String) requestBodyMap.get("program_id");
                     //As of now schedule description is not yet mandatory.
                     String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
                             ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
-                    String marketingType="0";
+                    String marketingType = "0";
                     Map<String, Integer> daoResponse = ScheduleSocialPostDAO.addToScheduleSocialPost(
                             userId,
                             requestBodyMap.get("image_name").toString(),
@@ -150,109 +151,108 @@ public class ScheduleSocialPostServlet extends HttpServlet {
         }
 
     }
-    private List<String> validateRequestBodyList(List<Map<String,Object>> requestBodyList){
+
+    private List<String> validateRequestBodyList(List<Map<String, Object>> requestBodyList) {
         List<String> errorMessages = new ArrayList<>();
-        
-        for ( Map<String, Object> requestBody : requestBodyList){
+
+        for (Map<String, Object> requestBody : requestBodyList) {
             errorMessages.addAll(validateRequestBody(requestBody));
         }
-        
+
         return errorMessages;
     }
-    
-    private List<String> validateRequestBody(Map<String, Object> requestBody){
+
+    private List<String> validateRequestBody(Map<String, Object> requestBody) {
         List<String> errorMsgs = new ArrayList<>();
-        if (!mapContainsKey(requestBody, "image_name")){
+        if (!mapContainsKey(requestBody, "image_name")) {
             errorMsgs.add("image_name is missing");
         }
-        
-        if ( !mapContainsKey(requestBody, "type")){
+
+        if (!mapContainsKey(requestBody, "type")) {
             errorMsgs.add("type is missing");
-        }else{
-            try{
+        } else {
+            try {
                 ScheduledEntityType.valueOf(requestBody.get("type").toString());
-            }catch(IllegalArgumentException ex){
+            } catch (IllegalArgumentException ex) {
                 errorMsgs.add("Unsupported type value: " + requestBody.get("type").toString());
             }
         }
-        
-        if ( !mapContainsKey(requestBody, "token_data")){
+
+        if (!mapContainsKey(requestBody, "token_data")) {
             errorMsgs.add("token_data JSON is missing");
         }
-        
-        if ( !mapContainsKey(requestBody, "metadata")){
+
+        if (!mapContainsKey(requestBody, "metadata")) {
             errorMsgs.add("metadata JSON is missing");
         }
-        
-        if ( !mapContainsKey(requestBody, "schedule_time")){
+
+        if (!mapContainsKey(requestBody, "schedule_time")) {
             errorMsgs.add("Schedule time is missing");
         }
-        
-        if ( !mapContainsKey(requestBody, "schedule_title")){
+
+        if (!mapContainsKey(requestBody, "schedule_title")) {
             errorMsgs.add("Schedule title is missing");
         }
-        
-        
-        
+
         return errorMsgs;
     }
-    
-    private List<String> validateTokenData(String tokenDataString, String postType){
-        
+
+    private List<String> validateTokenData(String tokenDataString, String postType) {
+
         List<String> errorMsgs = validateJsonData(tokenDataString,
-                " is missing in token data JSON Object" , ()->{
-            Set<String> requiredKeys = new HashSet<>();
-            if (postType.contains(ScheduledEntityType.Facebook.toString())){
-                requiredKeys.add("access_token");
-            }else if(postType.contains(ScheduledEntityType.Twitter.toString())){
-                requiredKeys.add("access_token");
-                requiredKeys.add("token_secret");
-            }
-            return requiredKeys;
-        });
-        
+                " is missing in token data JSON Object", () -> {
+                    Set<String> requiredKeys = new HashSet<>();
+                    if (postType.contains(ScheduledEntityType.Facebook.toString())) {
+                        requiredKeys.add("access_token");
+                    } else if (postType.contains(ScheduledEntityType.Twitter.toString())) {
+                        requiredKeys.add("access_token");
+                        requiredKeys.add("token_secret");
+                    }
+                    return requiredKeys;
+                });
+
         return errorMsgs;
     }
-    
-    private List<String> validateMetadata(String metadataString, String postType){
-        List<String> errorMsgs = validateJsonData(metadataString,  
-                " is missing in metadata JSON Object", ()->{
-            Set<String> requiredKeys = new HashSet<>();
-            if (postType.contains(ScheduledEntityType.Facebook.toString())){
-                requiredKeys.add("post_text");
-                requiredKeys.add("url");
-                requiredKeys.add("description");
-            }else if(postType.contains(ScheduledEntityType.Twitter.toString())){
-                requiredKeys.add("text");
-            }
-            return requiredKeys;
-        });
-        
+
+    private List<String> validateMetadata(String metadataString, String postType) {
+        List<String> errorMsgs = validateJsonData(metadataString,
+                " is missing in metadata JSON Object", () -> {
+                    Set<String> requiredKeys = new HashSet<>();
+                    if (postType.contains(ScheduledEntityType.Facebook.toString())) {
+                        requiredKeys.add("post_text");
+                        requiredKeys.add("url");
+                        requiredKeys.add("description");
+                    } else if (postType.contains(ScheduledEntityType.Twitter.toString())) {
+                        requiredKeys.add("text");
+                    }
+                    return requiredKeys;
+                });
+
         return errorMsgs;
     }
-    
-    private List<String> validateJsonData(String jsonDataString, 
+
+    private List<String> validateJsonData(String jsonDataString,
             String errorMsgSuffix,
-            Supplier<Set<String>> requiredKeysBuilder){
+            Supplier<Set<String>> requiredKeysBuilder) {
         List<String> errorMsgs = new ArrayList<>();
-        
-        Map<String, Object> jsonDataMap = 
-                AppConstants.GSON.fromJson(jsonDataString, Map.class);
-        
+
+        Map<String, Object> jsonDataMap
+                = AppConstants.GSON.fromJson(jsonDataString, Map.class);
+
         Set<String> requiredKeys = requiredKeysBuilder.get();
-        
+
         Set<String> keySet = jsonDataMap.keySet();
         requiredKeys.stream().filter((key) -> (!keySet.contains(key))).forEach((key) -> {
             errorMsgs.add(key + errorMsgSuffix);
         });
-        
+
         return errorMsgs;
     }
-    
-     private boolean mapContainsKey(Map<String, Object> requestBodyMap, String key){
-        if ( !requestBodyMap.containsKey(key) || 
-                requestBodyMap.get(key) == null ||
-                StringUtils.isEmpty(requestBodyMap.get(key).toString())){
+
+    private boolean mapContainsKey(Map<String, Object> requestBodyMap, String key) {
+        if (!requestBodyMap.containsKey(key)
+                || requestBodyMap.get(key) == null
+                || StringUtils.isEmpty(requestBodyMap.get(key).toString())) {
             return false;
         }
         return true;

@@ -503,7 +503,6 @@
 
                                 var imagename = $("#imagename").val();
                                 var mail = $("#mail").val();
-                                                           
                                 $.ajax({
                                     url: global_host_address + 'Model',
                                     method: 'post',
@@ -647,8 +646,8 @@
                     <option value="0">Select</option>
                 </select>
                 Blocks : <select name="blocks" id="blocks" onchange="showmindbodyquery(this.value)">
-                    <option value="0">Select</option>
-                </select><br><br>
+                            <option value="0">Select</option>
+                         </select><br><br>
 <!--                <input type="file"   name="imageFile" id="imageFile">-->
                 <input type="hidden" name="customcolorsArray" id="customcolorsArray">
                 <input type="hidden" name="mindbodyquery" id="mindbodyquery">
@@ -710,7 +709,7 @@
 
             <script> 
                 $(function () {
-                       $('#edit').froalaEditor({key: FroalaLicenseKey, fullPage: true});                    
+                       $('#edit').froalaEditor({key: FroalaLicenseKey});                    
                     });
 //                $('.selector').froalaEditor({
 //                    imageUploadURL: '/UploadImages'

@@ -531,7 +531,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
-  <script type="text/javascript" src="js/froala_editor.min_Email.js" ></script>
+  <script type="text/javascript" src="js/froala_editor.min_editor.js" ></script>
         <script type="text/javascript" src="js/plugins/align.min.js"></script>
         <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
         <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
@@ -549,7 +549,7 @@
   <script>
     $(function(){
       $('#edit').froalaEditor({
-        key: FroalaLicenseKey, fullPage: true
+        key: FroalaLicenseKey
       });
        $("#templatetab").click(function (){
        $("#templatetab").css("background-color","#ffffff").css("color","#19587c");

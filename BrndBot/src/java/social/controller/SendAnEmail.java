@@ -7,7 +7,7 @@ package social.controller;
 
 import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.IConstants;
-import com.controller.SendEmail;
+import com.controller.ForgotSendEmail;
 import com.controller.SqlMethods;
 import com.intbit.dao.EmailHistoryDAO;
 import com.intbit.marketing.model.TblUserPreferences;
@@ -41,7 +41,7 @@ public class SendAnEmail {
         try {
             SendMail send_email = new SendMail();
             Message message = new Message();
-            message.setKey(SendEmail.MANDRILL_KEY);
+            message.setKey(ForgotSendEmail.MANDRILL_KEY);
             message.setHtml(html_text);
             message.setSubject(email_subject);
             message.setFrom_email(from_email_address);
@@ -90,8 +90,8 @@ public class SendAnEmail {
             returnMessage = "success";
         } catch (Exception e) {
             returnMessage = "Email Exception: " + e.getMessage();
-            Logger.getLogger(SendAnEmail.class.getName()).log(Level.SEVERE, null, e);
-            Logger.getLogger(SendAnEmail.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(SendAnEmail.class.getName()).log(Level.SEVERE, "Exception while sending an email", e);
+            Logger.getLogger(SendAnEmail.class.getName()).log(Level.SEVERE, "Exception while sending an email", e.getMessage());
         }
         return returnMessage;
     }
@@ -124,7 +124,7 @@ public class SendAnEmail {
             Date todayDate = Calendar.getInstance().getTime();
             String currentDateString = formatter.format(todayDate);
             if (postDate.equalsIgnoreCase(currentDateString)) {
-                to_email_addresses = json.get("emailAddress").toString();
+                to_email_addresses += json.get("emailAddress").toString();
 
                 if ((i + 1) < jSONArray.size()) {
                     to_email_addresses += ",";
