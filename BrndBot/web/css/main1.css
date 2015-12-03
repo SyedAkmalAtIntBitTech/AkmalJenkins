@@ -246,8 +246,14 @@ label                {
   color:#999;
     
 }
-.settingPassword:focus ~ label, #inputpassword:valid ~ label{
+.settingPassword:focus ~ label{
   left:-132px !important;
+  font-size:13px !important;
+  color:#999 !important;
+}
+#inputpassword:valid ~ label
+{
+  left:-70px !important;
   font-size:13px !important;
   color:#999 !important;
 }

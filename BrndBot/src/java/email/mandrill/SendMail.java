@@ -96,7 +96,7 @@ public class SendMail {
     }
     
     public static String getTag(String subject){
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh-mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy h:mm a");
         String formattedDate = sdf.format(new Date());
         String tag =  subject + " - " + formattedDate;
         return tag;
