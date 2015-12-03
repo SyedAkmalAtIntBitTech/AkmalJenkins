@@ -5,7 +5,6 @@
  */
 package social.controller;
 
-import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
 import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
@@ -25,15 +24,13 @@ import util.DateTimeUtil;
  *
  * @author AR
  */
-public class ScheduleTwitterPost implements Callable {
+public class ScheduleTwitterPost implements Runnable {
 
       public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ScheduleTwitterPost.class));
 
     @Override
-    public Date call() throws Exception {
+    public void run(){
 
-        //Adding tens mins if there are no latest approved posts
-        Date nextPostTime = DateTimeUtil.getDatePlusMins(SocialPostScheduler.DefaultPollingInterval);
         try {
             TblScheduledEntityList scheduledTwitterPost = getLatestApprovedTwitterPost();
             if (scheduledTwitterPost != null) {
@@ -57,16 +54,12 @@ public class ScheduleTwitterPost implements Callable {
                     String message = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, url, file_image_path, userId, null, null);
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledTwitter(scheduledTwitterPost);
-                        //Get the next in line
-                        scheduledTwitterPost = getLatestApprovedTwitterPost();
                     }
                 }
-                nextPostTime = scheduledTwitterPost.getScheduleTime();
             }
         } catch (Throwable ex) {
             Logger.getLogger(ScheduleTwitterPost.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return nextPostTime;
     }
 
     private void updateStatusScheduledTwitter(TblScheduledEntityList scheduledTwitterPost) throws Throwable {
@@ -74,7 +67,6 @@ public class ScheduleTwitterPost implements Callable {
         logger.log(Level.INFO, "Twitter post:"+scheduledTwitterPost.getScheduleTitle() +"Id:"+ scheduledTwitterPost.getId() +" time:"+ scheduledTwitterPost.getScheduleTime().toString());
         scheduledTwitterPost.setStatus(IConstants.kSocialPostCommpleteStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledTwitterPost);
-//        ApplicationContextListener.refreshTwitterScheduler();
     }
 
     private TblScheduledSocialpostList getTwitterPost(TblScheduledEntityList scheduledTwitterPost) throws Throwable {

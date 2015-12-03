@@ -5,7 +5,6 @@
  */
 package social.controller;
 
-import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
 import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
@@ -22,25 +21,21 @@ import util.DateTimeUtil;
  *
  * @author Ajit
  */
-public class ScheduleAnRecuringEmail implements Callable {
+public class ScheduleAnRecuringEmail implements Runnable {
 
     public void terminateThread() {
         Thread.currentThread().interrupt();
     }
 
     @Override
-    public Date call() throws Exception {
-        Date nextPostTime = DateTimeUtil.getDatePlusMins(SocialPostScheduler.DefaultPollingInterval);
+    public void run() {
+
         try {
             TblScheduledEntityList scheduledAnRecuringEmail = getLatestApprovedSendEmail();
 
             if (scheduledAnRecuringEmail != null) {
 
-                //The time zone of the saved date should be extracted.
-                //This time zone should be applied to the current time and then this comparison needs to be made.
                 boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledAnRecuringEmail.getScheduleTime());
-//                boolean shouldPostNow = true;
-
                 if (shouldPostNow) {
                     TblScheduledEmailList sendAnEmail = getSendEmail(scheduledAnRecuringEmail);
                     String html_text = sendAnEmail.getBody();
@@ -59,16 +54,12 @@ public class ScheduleAnRecuringEmail implements Callable {
 //                    String message = "success";//TODO
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledEmail(scheduledAnRecuringEmail);
-                        //Get the next in line
-                        scheduledAnRecuringEmail = getLatestApprovedSendEmail();
                     }
                 }
-                nextPostTime = scheduledAnRecuringEmail.getScheduleTime();
             }
         } catch (Throwable ex) {
             Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return nextPostTime;
     }
 
     private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
@@ -76,7 +67,6 @@ public class ScheduleAnRecuringEmail implements Callable {
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostapprovedStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);
-//        ApplicationContextListener.refreshEmailRecuringScheduler();
     }
 
     private TblScheduledEmailList getSendEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {

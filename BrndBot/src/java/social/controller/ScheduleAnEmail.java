@@ -23,7 +23,7 @@ import util.DateTimeUtil;
  *
  * @author Ajit
  */
-public class ScheduleAnEmail implements Callable {
+public class ScheduleAnEmail implements Runnable {
 
     public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ScheduleAnEmail.class));
 
@@ -32,11 +32,10 @@ public class ScheduleAnEmail implements Callable {
     }
 
     @Override
-    public Date call() throws Exception {
+    public void run() {
         //Adding tens mins if there are no latest approved posts
         logger.log(Level.INFO, "In Email Schedule CallBlock");
 
-        Date nextPostTime = DateTimeUtil.getDatePlusMins(SocialPostScheduler.DefaultPollingInterval);
         try {
             TblScheduledEntityList scheduledAnEmail = getLatestApprovedSendEmail();
 
@@ -75,10 +74,8 @@ public class ScheduleAnEmail implements Callable {
                         updateStatusScheduledEmail(scheduledAnEmail);
                         logger.log(Level.SEVERE, "Should post now is true: Sent the mail");
                         //Get the next in line
-                        scheduledAnEmail = getLatestApprovedSendEmail();
                     }
                 }
-                nextPostTime = scheduledAnEmail.getScheduleTime();
             } else {
             logger.log(Level.SEVERE, "Should post now is false: Not sending mail");
             }
@@ -88,7 +85,6 @@ public class ScheduleAnEmail implements Callable {
         }
         logger.log(Level.INFO, "In Email Schedule CallBlock End");
 
-        return nextPostTime;
     }
 
     private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
