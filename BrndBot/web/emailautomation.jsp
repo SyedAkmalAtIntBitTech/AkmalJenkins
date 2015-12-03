@@ -41,7 +41,37 @@
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
-   
+        <style>
+            #mask {
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 9000;
+                background-color: #ffffff;
+                display: none;
+            }
+
+            #boxes .window {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 0px;
+                height: 0px;
+                display: none;
+                z-index: 9999;
+                padding: 20px;
+                border-radius: 15px;
+                text-align: center;
+            }
+            #boxes #dialog {
+                width: 250px;
+                height: 300px;
+                padding: 10px;
+                background-color: #ffffff;
+                font-family: 'Segoe UI Light', sans-serif;
+                font-size: 15pt;
+            }</style>
+    
   <style>
 
       div#editor {
@@ -527,10 +557,16 @@
     });
   </script>
   
+  
 <jsp:include page="basejsp.jsp"/>
       
 </head>
 <body ng-app>
+    <div id="boxes">
+            <div id="dialog" class="window">
+            </div>
+            <div id="mask"></div>
+        </div>
    <div id="emailautomation" class="row" ng-controller="emailautomation" style="display: none;">
            <div class="col-md-1 col-lg-1 col-sm-2 halfcol" >
                <jsp:include page="leftmenu.html"/>
@@ -721,7 +757,8 @@
                                        <div class="editemail fontpnr">Edit this Email Automation Action</div>
                                    </div>   
                                    <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1">
-                                       <div class="mobileprev fontpnr">Mobile Preview</div>
+                                       <div class="mobileprev fontpnr" id="iphone" class="img-responsive ptr" onclick="show('iphone');">Mobile Preview</div>
+                                       <!--<p id="button"></p>-->
                                    </div>
                                    <div class="col-lg-1 col-md-1 col-sm-1">
                                        <div class="emledtrsavebtn">
@@ -811,7 +848,97 @@
 
     }
 
-</script>                
+</script>    
+
+<script>
+     var rendomIframeFilename="";
+       $(document).ready(function () {
+                        rendomIframeFilename=event.timeStamp;
+                    })
+    
+                    function show(id) {
+                            var getId = id;
+                            var dynamicStyle, dynamicWidth, dynamicHeight;
+                            var imageUrl = "images/Phone.svg";
+                            var id = '#dialog';
+                            //Get the screen height and width
+                            var maskHeight = $(document).height();
+                            var maskWidth = $(window).width();
+                            //Set heigth and width to mask to fill up the whole screen
+                            $('#mask').css({'width':maskWidth, 'height':maskHeight});
+                            //transition effect
+                            $('#mask').fadeIn(500);
+                            $('#mask').fadeTo("slow", 0.95);
+                            //Get the window height and width
+                            var winH = $(window).height();
+                            var winW = $(window).width();
+                            //Set the popup window to center
+                            $(id).css('top', winH / 2 - $(id).height() / 2);
+                            $(id).css('left', winW / 2 - $(id).width() / 2);
+                            //transition effect
+                            $(id).fadeIn(2000);
+                            //if close button is clicked
+                            $('.window .close').click(function (e) {
+                    //Cancel the link behavior
+                            e.preventDefault();
+                                    $('#mask').hide();
+                                    $('.window').hide();
+                            });
+                            //if mask is clicked
+                            $('#mask').click(function () {
+                                $(this).hide();
+                                $('.window').hide();
+                            });
+                           
+                                               $.ajax({ 
+                                        url: getHost() + "PreviewServlet",
+                                        method: "post",
+                                        data: {
+                                            htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
+                                            iframeName: rendomIframeFilename
+                                          },
+                                        success: function (responseText) {
+//                                        alert(responseText);
+                                         if(getId === "iphone"){
+                                         $('.window').css("top","110px");
+                                         dynamicWidth="275";
+                                         dynamicHeight="439";
+                                         
+                                        $(".window").empty();
+                                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
+                                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
+//                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-20)+"px;height:"+(dynamicHeight-60)+"px;margin-left:10px;position:relative;top:28px;overflow:scroll;'>"+responseText+"</div>");
+                                         $("#imageDivPopup").append("<iframe style='width:320px;height:509px;position:relative;top:-47px;left:-22px;-webkit-transform: scale(0.696);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
+
+                                         $('.window').show();
+                                        }
+                                   }
+            }); 
+            
+    }       
+                    
+               
+        </script> 
+         <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+        
 </body>
     
 </html>

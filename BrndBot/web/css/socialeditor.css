@@ -67,6 +67,7 @@ and open the template in the editor.
     font-style: normal;
     font-weight: 600;
     color: white;
+    
 }
 #txtpost{
     position:relative;
@@ -540,14 +541,15 @@ left:-4px;
     border:transparent; 
     color: white;
     margin-left: 11px;
-    margin-top: 10px;
+    margin-top: 61px;
  
 }
 .logo{
-    position: relative;
+    position: fixed;
     width:150px;
     margin-top: 5px;
-    margin-left: -46px;
+    margin-left: -42px;
+    height: 60px !important;
 }
 .menu li a,p{
     margin-left: 0px;
@@ -579,7 +581,7 @@ left:-4px;
 .sidebar-nav li a:hover {
     color: #000;
     background: rgba(255,255,255,0.2);
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .sidebar-nav li a:active,

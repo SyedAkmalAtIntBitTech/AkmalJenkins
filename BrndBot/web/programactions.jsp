@@ -209,7 +209,7 @@
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5">
                             <div class="listelem fontpnr">{{emailautomation.programTemplateName}}</div>
-                            <div class="sublst fontpnr">Started on {{emailautomation.dateTime| date:'  d/M/yy'+' At '+'hh:mm:a'}}&nbsp;&nbsp;&nbsp;&nbsp;{{emailautomation.emailRecuringTemplateName}}</div>
+                            <div class="sublst fontpnr">Started on {{emailautomation.dateTime| date:'  d/M/yy'+' At '+'hh:mm a'}}&nbsp;&nbsp;&nbsp;&nbsp;{{emailautomation.emailRecuringTemplateName}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1">
                             <div class="stslst fontpnr">{{emailautomation.status}}</div>
