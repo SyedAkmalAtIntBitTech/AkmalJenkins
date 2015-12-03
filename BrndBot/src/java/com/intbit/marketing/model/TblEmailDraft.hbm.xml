@@ -6,9 +6,9 @@
             <column name="id" />
             <generator class="assigned" />
         </id>
-        <property name="emailId" type="string">
-            <column name="email_id" length="50"/>
-        </property>
+        <many-to-one name="tblUserMarketingProgram" class="com.intbit.marketing.model.TblUserMarketingProgram" fetch="select">
+            <column name="email_id" />
+        </many-to-one>
         <property name="category" type="string">
             <column name="category" length="50"/>
         </property>
@@ -21,14 +21,14 @@
         <property name="emailSubject" type="string">
             <column name="email_subject" length="100"/>
         </property>
-        <property name="emailAddress" type="string">
-            <column name="email_address" length="200"/>
+        <property name="emailAddresses" type="string">
+            <column name="email_addresses"/>
         </property>
         <property name="emailList" type="string">
-            <column name="email_list" length="10000"/>
+            <column name="email_list" length="1000"/>
         </property>
         <property name="SessionValue" type="string">
-            <column name="session_value" length="10000"/>
+            <column name="session_value"/>
         </property>
         <property name="sessionKey" type="string">
             <column name="session_key" length="500"/>
@@ -37,7 +37,7 @@
             <column name="session_iframe_key" length="200"/>
         </property>
         <property name="sessionIframeValue" type="string">
-            <column name="session_iframe_value" length="10000"/>
+            <column name="session_iframe_value"/>
         </property>
     </class>
 </hibernate-mapping>

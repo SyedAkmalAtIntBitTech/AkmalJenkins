@@ -9,9 +9,12 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,12 +30,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "TblEmailDraft.findAll", query = "SELECT t FROM TblEmailDraft t"),
     @NamedQuery(name = "TblEmailDraft.findById", query = "SELECT t FROM TblEmailDraft t WHERE t.id = :id"),
-    @NamedQuery(name = "TblEmailDraft.findByEmailId", query = "SELECT t FROM TblEmailDraft t WHERE t.emailId = :emailId"),
     @NamedQuery(name = "TblEmailDraft.findByCategory", query = "SELECT t FROM TblEmailDraft t WHERE t.category = :category"),
     @NamedQuery(name = "TblEmailDraft.findBySubCategory", query = "SELECT t FROM TblEmailDraft t WHERE t.subCategory = :subCategory"),
     @NamedQuery(name = "TblEmailDraft.findBySubCategoryName", query = "SELECT t FROM TblEmailDraft t WHERE t.subCategoryName = :subCategoryName"),
     @NamedQuery(name = "TblEmailDraft.findByEmailSubject", query = "SELECT t FROM TblEmailDraft t WHERE t.emailSubject = :emailSubject"),
-    @NamedQuery(name = "TblEmailDraft.findByEmailAddress", query = "SELECT t FROM TblEmailDraft t WHERE t.emailAddress = :emailAddress"),
+    @NamedQuery(name = "TblEmailDraft.findByEmailAddresses", query = "SELECT t FROM TblEmailDraft t WHERE t.emailAddresses = :emailAddresses"),
     @NamedQuery(name = "TblEmailDraft.findByEmailList", query = "SELECT t FROM TblEmailDraft t WHERE t.emailList = :emailList"),
     @NamedQuery(name = "TblEmailDraft.findBySessionValue", query = "SELECT t FROM TblEmailDraft t WHERE t.sessionValue = :sessionValue"),
     @NamedQuery(name = "TblEmailDraft.findBySessionKey", query = "SELECT t FROM TblEmailDraft t WHERE t.sessionKey = :sessionKey"),
@@ -46,17 +48,22 @@ public class TblEmailDraft implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "email_id")
-    private String emailId;
+    private Integer emailId;
     @Column(name = "category")
     private String category;
     @Column(name = "sub_category")
+    
+    private TblScheduledEmailList tblScheduledEmailList;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="email_id")
+    
     private String subCategory;
     @Column(name = "sub_category_name")
     private String subCategoryName;
     @Column(name = "email_subject")
     private String emailSubject;
-    @Column(name = "email_address")
-    private String emailAddress;
+    @Column(name = "email_addresses")
+    private String emailAddresses;
     @Column(name = "email_list")
     private String emailList;
     @Column(name = "session_value")
@@ -82,13 +89,13 @@ public class TblEmailDraft implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public String getEmailId() {
-        return emailId;
+    
+    public TblScheduledEmailList getTblScheduledEmailList() {
+        return this.tblScheduledEmailList;
     }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+    
+    public void setTblScheduledEmailList(TblScheduledEmailList tblScheduledEmailList) {
+        this.tblScheduledEmailList  = tblScheduledEmailList;
     }
 
     public String getCategory() {
@@ -123,12 +130,12 @@ public class TblEmailDraft implements Serializable {
         this.emailSubject = emailSubject;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getEmailAddresses() {
+        return emailAddresses;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setEmailAddresses(String emailAddresses) {
+        this.emailAddresses = emailAddresses;
     }
 
     public String getEmailList() {
