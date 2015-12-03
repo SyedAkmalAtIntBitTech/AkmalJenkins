@@ -2603,56 +2603,9 @@ function MoveBlock(selectedBlockId){
         function n() {
             u = !0
         }
-            $.FroalaEditor.DefineIcon('insert', {SRC: ''+global_host_address+'images/UpArrow.png', ALT: 'Up Arrow', template: 'image'});
-    $.FroalaEditor.RegisterCommand('insert', {
-      title: 'Up Arrow',
-      icon: 'insert',
-      focus: true,
-      undo: true,
-      refreshAfterCallback: true,
-      callback: function () {
-   var current = $("#" + Blockid);
-   current.prev().before(current);
-      }
-    });    
-    $.FroalaEditor.DefineIcon('uparrow', {SRC: ''+global_host_address+'images/DownArrow.png', ALT: 'Up Arrow', template: 'image'});
-    $.FroalaEditor.RegisterCommand('uparrow', {
-      title: 'Down Arrow',
-       icon: 'uparrow',
-      focus: true,
-      undo: true,
-      refreshAfterCallback: true,
-      callback: function () {
-      var current = $("#" + Blockid);
-      current.next().after(current);
-      }
-    }); 
         function o() {
             u = !1
-        }    $.FroalaEditor.DefineIcon('insert', {SRC: ''+global_host_address+'images/UpArrow.png', ALT: 'Up Arrow', template: 'image'});
-    $.FroalaEditor.RegisterCommand('insert', {
-      title: 'Up Arrow',
-      icon: 'insert',
-      focus: true,
-      undo: true,
-      refreshAfterCallback: true,
-      callback: function () {
-   var current = $("#" + Blockid);
-   current.prev().before(current);
-      }
-    });    
-    $.FroalaEditor.DefineIcon('uparrow', {SRC: ''+global_host_address+'images/DownArrow.png', ALT: 'Up Arrow', template: 'image'});
-    $.FroalaEditor.RegisterCommand('uparrow', {
-      title: 'Down Arrow',
-       icon: 'uparrow',
-      focus: true,
-      undo: true,
-      refreshAfterCallback: true,
-      callback: function () {
-      var current = $("#" + Blockid);
-      current.next().after(current);
-      }
-    }); 
+        }  
         function p(c, d) {
             var e = a.FroalaEditor.POPUP_TEMPLATES[c];
             "function" == typeof e && (e = e.apply(b));
@@ -2805,4 +2758,28 @@ function MoveBlock(selectedBlockId){
     }, a.FroalaEditor.RegisterCommand("updateText", {focus: !1, undo: !1, callback: function () {
             this.textEdit.update()
         }})
+    $.FroalaEditor.DefineIcon('insert', { SRC: ''+global_host_address+'images/UpArrow.png', ALT: 'Up Arrow', template: 'image'});
+    $.FroalaEditor.RegisterCommand('insert', {
+      title: 'Up Arrow',
+      icon: 'insert',
+      focus: true,
+      undo: true,
+      refreshAfterCallback: true,
+      callback: function () {
+   var current = $("#" + Blockid);
+   current.prev().before(current);
+      }
+    });    
+    $.FroalaEditor.DefineIcon('uparrow', {SRC: ''+global_host_address+'images/DownArrow.png', ALT: 'Up Arrow', template: 'image'});
+    $.FroalaEditor.RegisterCommand('uparrow', {
+      title: 'Down Arrow',
+       icon: 'uparrow',
+      focus: true,
+      undo: true,
+      refreshAfterCallback: true,
+      callback: function () {
+      var current = $("#" + Blockid);
+      current.next().after(current);
+      }
+    });
 });
