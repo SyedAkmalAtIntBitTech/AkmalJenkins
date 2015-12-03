@@ -557,10 +557,11 @@
                     <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="btmdiv">
                             <div class="row">
-                                <div class="col-lg-7 col-md-7 col-sm-7">
+                                <div class="col-lg-4 col-md-4 col-sm-4">
                                     <input type="hidden" id="mindbodydata" value='<%= mindbody_data_id%>'>
                                     <div class="editemail fontpnr">Edit this Email</div>
                                 </div>   
+                                
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1 display-none">
                                     <div class="mobileprev fontpnr" id="iphone" class="img-responsive ptr" onclick="show('iphone');">Mobile Preview</div>
 <!--                                    <div class="glyphicon glyphicon-arrow-up ptr" id="sortUpBlock"></div><br /><br />
@@ -569,6 +570,11 @@
                                     <p id="button"></p>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1">
+                                    <div class="emledtrsavebtn"><input id="saveToDraft" class="emailedtrsavetodraft fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Save to Draft"></div>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
                                     <div class="emledtrsavebtn"><input id="saveButton" class="emailedtrsave fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Continue"></div>
                                 </div>
                             </div>
@@ -798,6 +804,39 @@
         </script> 
                 <script>
 
+            $("#saveToDraft").click(function (){               
+                    $.ajax({
+                            url: getHost() + "PreviewServlet",
+                            method: "post",
+                            data:{
+                            htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
+                            iframeName: rendomIframeFilename
+                            },
+                    success: function (responseText) {
+                                $("#previewcontent").empty();
+                                $("#previewcontent").append(responseText);
+                                $.ajax({
+                                        url: getHost() + "SaveKeyValueSessionServlet",
+                                        method: "post",
+                                        data:{
+                                        process:"draft",
+                                        sessionKey:"htmldata",
+                                        sessionValue: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
+                                        sessionIframeKey:"iframeName",
+                                        sessionIframevalue:""+rendomIframeFilename
+                                        },
+                                        success: function (responseText1) {
+                                            alert(responseText1);
+                                        //document.location.href = "emailpreview.jsp";
+                                        }
+
+                                });
+                        }
+            });
+       });
+
+
+
             $("#saveButton").click(function (){               
                     $.ajax({
                             url: getHost() + "PreviewServlet",
@@ -813,6 +852,7 @@
                                         url: getHost() + "SaveKeyValueSessionServlet",
                                         method: "post",
                                         data:{
+                                        process:"save",
                                         sessionKey:"htmldata",
                                         sessionValue: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
                                         sessionIframeKey:"iframeName",
