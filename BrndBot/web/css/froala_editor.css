@@ -33,12 +33,10 @@
 }
 .fr-box.fr-basic .fr-element {
   padding: 10px;
-  max-height: 470px;
+  max-height: 585px;
+  min-height: 550px;
 }
 iframe.fr-iframe {
-    width: 100%;
-    overflow-y: scroll;
-    height: 600px !important;
 }
 
 .fr-wrapper {

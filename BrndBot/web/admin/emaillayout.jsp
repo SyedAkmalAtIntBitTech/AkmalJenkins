@@ -710,7 +710,7 @@
 
             <script> 
                 $(function () {
-                       $('#edit').froalaEditor({key: FroalaLicenseKey, fullPage: true});                    
+                       $('#edit').froalaEditor({key: FroalaLicenseKey});                    
                     });
 //                $('.selector').froalaEditor({
 //                    imageUploadURL: '/UploadImages'
