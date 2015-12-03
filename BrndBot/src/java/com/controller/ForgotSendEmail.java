@@ -33,7 +33,7 @@ import util.Utility;
  * @author intbit
  */
 @WebServlet(name = "sendEmail", urlPatterns = {"/sendEmail"})
-public class SendEmail extends BrndBotBaseHttpServlet {
+public class ForgotSendEmail extends BrndBotBaseHttpServlet {
 
     GenerateHashPassword generate_hash_password;
     boolean check = false;
@@ -42,8 +42,8 @@ public class SendEmail extends BrndBotBaseHttpServlet {
     StringBuffer string_buffer;
 
 //    public final static String MANDRILL_KEY = "RP6AOa3QZA8qMJYC1lBXRg";//Prod key
-    public final static String MANDRILL_KEY = "UTyvdEzohDOZf3F95ZK6zg";//Test key
-//    public final static String MANDRILL_KEY = "o-QeQQHbtCk4i6rCphfCcg";//Test key
+//    public final static String MANDRILL_KEY = "UTyvdEzohDOZf3F95ZK6zg";//Test key
+    public final static String MANDRILL_KEY = "o-QeQQHbtCk4i6rCphfCcg";//Test key
     SendMail send_email = new SendMail();
 
     /**
@@ -115,7 +115,6 @@ public class SendEmail extends BrndBotBaseHttpServlet {
 
                 Recipient recipient = new Recipient();
                 recipient.setEmail(email_id);
-                recipient.setName("Syed Muzamil");
                 recipient.setType("to");
 
                 messageToList.add(recipient);

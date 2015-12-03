@@ -5,7 +5,7 @@
  */
 package email.mandrill;
 
-import com.controller.SendEmail;
+import com.controller.ForgotSendEmail;
 import com.controller.SqlMethods;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -71,7 +71,7 @@ public class SendMail {
             HttpPost httppost = new HttpPost("https://mandrillapp.com/api/1.0/users/ping.json");
 
             JSONObject obj = new JSONObject();
-            obj.put("key", SendEmail.MANDRILL_KEY);
+            obj.put("key", ForgotSendEmail.MANDRILL_KEY);
             String request = obj.toString();
             HttpEntity entity = new ByteArrayEntity(request.getBytes("UTF-8"));
             httppost.setEntity(entity);
@@ -96,7 +96,7 @@ public class SendMail {
     }
     
     public static String getTag(String subject){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH-mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh-mm a");
         String formattedDate = sdf.format(new Date());
         String tag =  subject + " - " + formattedDate;
         return tag;

@@ -36,6 +36,8 @@ public class ScheduleAnRecuringEmail implements Runnable {
             if (scheduledAnRecuringEmail != null) {
 
                 boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledAnRecuringEmail.getScheduleTime());
+//                boolean shouldPostNow = true;
+
                 if (shouldPostNow) {
                     TblScheduledEmailList sendAnEmail = getSendEmail(scheduledAnRecuringEmail);
                     String html_text = sendAnEmail.getBody();

@@ -113,12 +113,14 @@ public class AddActionServlet extends HttpServlet {
                     Map<String, Object> data = new HashMap<>();
                     data.put("schedule_entity_id", scheduleId);
                     ServletUtil.printSuccessData(response, data);
+//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
                 } catch (SQLException ex) {
                     Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
                     conn.rollback();
                     ServletUtil.printInternalException(response, ex.getMessage());
                 }                
                 ApplicationContextListener.refreshAllSchedulers();
+//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
             }
 
         } catch (SQLException ex) {

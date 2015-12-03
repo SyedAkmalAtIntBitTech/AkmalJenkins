@@ -87,7 +87,7 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             }
             Message message = new Message();
 
-            message.setKey(SendEmail.MANDRILL_KEY);
+            message.setKey(ForgotSendEmail.MANDRILL_KEY);
 
             message.setHtml(html_text);
             message.setSubject(email_subject);
