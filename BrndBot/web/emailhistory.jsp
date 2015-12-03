@@ -47,7 +47,6 @@
                         $("#scrl").show();
                         $("#nohistory").hide();
                         $scope.email_history = data;
-                        
                     }
                     if (data === error){
                         alert(data);
@@ -106,7 +105,7 @@
                 color: #2d4355;
                 font-style: normal;
             }
-            #scrl{overflow-y: scroll;overflow-x: hidden;width:950px;height:450px;}
+            #scrl{overflow-y: auto;overflow-x: hidden;width:950px;height:450px;}
         </style>
         <jsp:include page="basejsp.jsp" />
     </head>
