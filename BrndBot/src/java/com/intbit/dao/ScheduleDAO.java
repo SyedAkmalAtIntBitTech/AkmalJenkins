@@ -391,7 +391,7 @@ public class ScheduleDAO {
 //                + " AND slist.entity_type = tc.entity_type"
 //                + " AND slist.user_marketing_program_id = programtable.id"
 //                + " ORDER BY slist.id, schedule_time ";
-        String sql = "SELECT DISTINCT ON (id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, date(schedule_time) schedule_date "
+        String sql = "SELECT DISTINCT ON (id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time_recuring, date(schedule_time) schedule_date "
                 + " FROM tbl_scheduled_entity_list slist, "
                 + " tbl_scheduled_entity_type_color tc, tbl_user_marketing_program programtable"
                 + " WHERE slist.user_id = ? "
@@ -424,10 +424,8 @@ public class ScheduleDAO {
                     } else {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
                         if (rs.getBoolean("is_recuring")) {
-                            Calendar cal = Calendar.getInstance();
-                            cal.setTime(scheduleTimestamp1);
-                            cal.add(Calendar.DAY_OF_WEEK, rs.getInt("days"));
-                            scheduleDate = cal.getTime().getTime();
+                            
+                            scheduleDate = rs.getTimestamp("cal_schedule_time_recuring").getTime();
                         } else {
                             scheduleDate = scheduleTimestamp1.getTime();
                         }
@@ -453,19 +451,18 @@ public class ScheduleDAO {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
                         long scheduleTime1;
                         if (rs.getBoolean("is_recuring")) {
-                            Calendar cal = Calendar.getInstance();
-                            cal.setTime(scheduleTimestamp1);
-                            cal.add(Calendar.DAY_OF_WEEK, rs.getInt("days"));
-                            scheduleTime1 = cal.getTime().getTime();
+                           scheduleTime1 = rs.getTimestamp("cal_schedule_time_recuring").getTime();
                         } else {
                             scheduleTime1 = scheduleTimestamp1.getTime();
                         }
                         scheduleDetailJSONObject.put("schedule_time", scheduleTime1);
-                        if (DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime1))) {
-                            scheduleDetailJSONObject.put("is_today_active", "true");
-                        } else {
-                            scheduleDetailJSONObject.put("is_today_active", "false");
-                        }
+                        //sends always true
+                        scheduleDetailJSONObject.put("is_today_active", "true");
+//                        if (DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime1))) {
+//                            scheduleDetailJSONObject.put("is_today_active", "true");
+//                        } else {
+//                            scheduleDetailJSONObject.put("is_today_active", "false");
+//                        }
                     }
                     scheduleDetailJSONObject.put("is_recuring", rs.getBoolean("is_recuring"));
                     scheduleDetailJSONObject.put("entity_type", rs.getString("entity_type"));

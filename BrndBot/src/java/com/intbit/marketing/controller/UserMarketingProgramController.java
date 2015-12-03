@@ -300,11 +300,12 @@ public class UserMarketingProgramController {
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
                 Date postDate = new Date(cal.getTimeInMillis());
-                if (DateTimeUtil.dateEqualsCurrentDate(postDate)) {
-                    postDateStatus = true;
-                } else {
-                    postDateStatus = false;
-                }
+//                if (DateTimeUtil.dateEqualsCurrentDate(postDate)) {
+//                    postDateStatus = true;
+//                } else {
+//                    postDateStatus = false;
+//                }
+                postDateStatus = true;
                 if (scheduledEntityListObject.getRecuringEmailId() != null) {
                     TblRecuringEmailTemplate recuringEmailTemplate = recuringEmailTemplateService.getById(scheduledEntityListObject.getRecuringEmailId());
                     jSONObject.put("emailRecuringTemplateName", recuringEmailTemplate.getName());
@@ -340,11 +341,12 @@ public class UserMarketingProgramController {
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
                 Date postDate = new Date(cal.getTimeInMillis());
-                if (DateTimeUtil.dateEqualsCurrentDate(postDate)) {
-                    postDateStatus = true;
-                } else {
-                    postDateStatus = false;
-                }
+//                if (DateTimeUtil.dateEqualsCurrentDate(postDate)) {
+//                    postDateStatus = true;
+//                } else {
+//                    postDateStatus = false;
+//                }
+                postDateStatus = true;
                 String postTime = TimeFormatter.format(cal.getTimeInMillis());
                 JSONObject jSONObject = new JSONObject();
                 jSONObject.put("scheduledEntityListId", scheduledEntityListObject.getId());
@@ -380,11 +382,12 @@ public class UserMarketingProgramController {
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
                 Date postDate = new Date(cal.getTimeInMillis());
-                if (DateTimeUtil.dateEqualsCurrentDate(postDate)) {
-                    postDateStatus = true;
-                } else {
-                    postDateStatus = false;
-                }
+//                if (DateTimeUtil.dateEqualsCurrentDate(postDate)) {
+//                    postDateStatus = true;
+//                } else {
+//                    postDateStatus = false;
+//                }
+                postDateStatus = true;
                 String postTime = TimeFormatter.format(cal.getTimeInMillis());
                 JSONObject jSONObject = new JSONObject();
                 jSONObject.put("scheduledEntityListId", scheduledSocialpostListObject.getId());
