@@ -56,7 +56,7 @@ public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
             }
         }
         else if(process.equals("draft"))
-        {send=process+"..";
+        {
             try
             {
                 getSqlMethodsInstance().session = request.getSession(true);
@@ -74,7 +74,7 @@ public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
                 String emailAddresses=(String)sqlmethods.session.getAttribute("email_addresses");
                 String emailList=(String)sqlmethods.session.getAttribute("email_list");
                 
-                send+="emailList - "+emailList;
+                send+="sessionValue - "+sessionValue;
             }
             catch (Exception e)
             {
