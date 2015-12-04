@@ -47,7 +47,7 @@ class PostToFacebook {
             String imageContextPath = Utility.getServerName(context_real_path);
             Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post", imageContextPath);
 
-            if (title == "") {
+            if (title.equals("")) {
 
                 Media media = new Media(new File(file_image_path));
                 PhotoUpdate update = new PhotoUpdate(media);
