@@ -1,43 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 Dec, 2015 4:45:14 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.intbit.marketing.model.TblEmailDraft" table="tbl_colors" schema="public" optimistic-lock="version">
+    <class name="com.springtest.model.TblEmailDraft" table="tbl_email_draft" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="tblUserMarketingProgram" class="com.intbit.marketing.model.TblUserMarketingProgram" fetch="select">
-            <column name="email_id" />
-        </many-to-one>
-        <property name="category" type="string">
-            <column name="category" length="50"/>
+        <property name="draftDate" type="timestamp">
+            <column name="draft_date" length="35" />
         </property>
-        <property name="subCategory" type="string">
-            <column name="sub_category" length="50"/>
+        <property name="userId" type="java.lang.Integer">
+            <column name="user_id" />
         </property>
-        <property name="subCategoryName" type="string">
-            <column name="sub_category_name" length="100"/>
-        </property>
-        <property name="emailSubject" type="string">
-            <column name="email_subject" length="100"/>
-        </property>
-        <property name="emailAddresses" type="string">
-            <column name="email_addresses"/>
-        </property>
-        <property name="emailList" type="string">
-            <column name="email_list" length="1000"/>
-        </property>
-        <property name="SessionValue" type="string">
-            <column name="session_value"/>
-        </property>
-        <property name="sessionKey" type="string">
-            <column name="session_key" length="500"/>
-        </property>
-        <property name="sessionIframeKey" type="string">
-            <column name="session_iframe_key" length="200"/>
-        </property>
-        <property name="sessionIframeValue" type="string">
-            <column name="session_iframe_value"/>
+        <property name="draftJson" type="string">
+            <column name="draft_json" />
         </property>
     </class>
 </hibernate-mapping>

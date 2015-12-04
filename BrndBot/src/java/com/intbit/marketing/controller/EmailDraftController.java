@@ -7,14 +7,19 @@ package com.intbit.marketing.controller;
 
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
+import com.intbit.marketing.model.EmailDraftModel;
 import com.intbit.marketing.model.TblEmailDraft;
 import com.intbit.marketing.service.EmailDraftService;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.Mapping;
@@ -22,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import social.controller.ScheduleFacebookPost;
 
 /**
  *
@@ -35,19 +41,13 @@ public class EmailDraftController {
     private EmailDraftService emaildraftservice;
     @RequestMapping(value="/setEmailDrafts", method= RequestMethod.POST)
     public @ResponseBody String setEmailDrafts(HttpServletRequest request, 
-            @RequestParam("sessionValue") String sessionValue,
-            @RequestParam("sessionKey") String sessionKey,
-            @RequestParam("sessionIframeKey") String sessionIframeKey,
-            @RequestParam("sessionIframevalue") String sessionIframevalue,
+            @RequestParam("bodyString") String bodyString,
             HttpServletResponse response)throws IOException, Throwable{
-        
+            try{
+                
         sqlmethods.session = request.getSession(true);
             Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
 
-            sqlmethods.session = request.getSession(true);
-
-            sqlmethods.session.setAttribute(sessionKey, sessionValue);
-            sqlmethods.session.setAttribute(sessionIframeKey, sessionIframevalue); 
             String emailSubject=(String)sqlmethods.session.getAttribute("email_subject");
             String subCategoryName=(String)sqlmethods.session.getAttribute("sub_category_name");
             String subCategoryId=(String)sqlmethods.session.getAttribute("sub_category_id");
@@ -55,25 +55,32 @@ public class EmailDraftController {
             String emailAddresses=(String)sqlmethods.session.getAttribute("email_addresses");
             String emailList=(String)sqlmethods.session.getAttribute("email_list");
             
-            Map<String, Object> requestBodyMap
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-
             TblEmailDraft email_draft = new TblEmailDraft();
+            email_draft.setId(0);
+            Date current_date = new Date();
+            
+            email_draft.setDraftDate(current_date);
 
-            email_draft.setId(user_id);
-            email_draft.setCategory(categoryId);
-            email_draft.setEmailAddresses(emailAddresses);
+            EmailDraftModel emaildraftmodel = new EmailDraftModel();
             
-//            email_draft.setEmailId(emailList);
-            email_draft.setEmailSubject(emailSubject);
-            email_draft.setSessionIframeKey(sessionIframeKey);
-            email_draft.setSessionIframeValue(sessionIframevalue);
-            email_draft.setSessionKey(sessionKey);
-            email_draft.setSessionValue(sessionValue);
-            email_draft.setSubCategory(subCategoryId);
-            email_draft.setSubCategoryName(subCategoryName);
+            emaildraftmodel.setCategory_id(Integer.parseInt(categoryId));
+            emaildraftmodel.setSub_category_id(Integer.parseInt(subCategoryId));
+            emaildraftmodel.setEmail_addresses(emailAddresses);
+            emaildraftmodel.setEmail_list_name(emailList);
+            emaildraftmodel.setEmail_subject(emailSubject);
+            emaildraftmodel.setHtml_body_string(bodyString);
             
+            String str_model = (String)AppConstants.GSON.toJson(emaildraftmodel);
+            JSONParser json_parser = new JSONParser();
+            JSONObject json_object = (JSONObject)json_parser.parse(str_model);
+            email_draft.setUserId(user_id);
+            email_draft.setDraftJson(json_object.toString());
             emaildraftservice.save(email_draft);
+            return "true";
+            }catch (Exception ex){
+                Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         return "false";
     }
 }
