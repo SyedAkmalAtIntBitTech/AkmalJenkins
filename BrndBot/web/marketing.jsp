@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="css/pikaday.css">
         <link rel="stylesheet" href="css/datepickerpikaday.css">
         <script src="js/pikaday.js"></script>
+        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!--        <script type="text/javascript" src="js/angular.min.js"></script>-->
@@ -30,7 +31,6 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="css/main1.css">
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/facebook.css" type="text/css"/>       
         <title>BrndBot - Your Plan</title>
 
@@ -70,8 +70,9 @@
     </head>
     <body ng-app class="claro">
         <div class="row"><jsp:include page="mainmenu.html"/></div>
-        <jsp:include page="AddAction.jsp"/></div>
+        
         <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign" class="container"> 
+            <jsp:include page="AddAction.jsp"/>
             <div id="fade" class="black_overlay" onclick = "closeOverlay();"></div>
             <!--/end left column-->
 

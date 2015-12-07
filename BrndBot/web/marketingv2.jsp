@@ -10,6 +10,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    <link rel="stylesheet" href="css/pikaday.css">
+    <link rel="stylesheet" href="css/datepickerpikaday.css">
+    <script src="js/pikaday.js"></script>
+    <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <jsp:include page="basejsp.jsp" />
@@ -21,12 +25,12 @@
     <link href="css/version2/slat.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="images/favicon.png"/>
     
-    
     <title>BrndBot - Your Plan</title>
 </head>    
 
 <body ng-app class="claro">
     <!--SideNav-->
+    <jsp:include page="AddAction.jsp"/>  
     <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign"  class="container content-main">
     <div class="navigation">
         <div class="main-nav-logo">
@@ -52,15 +56,15 @@
             </li>
         </ul>    
     </div>
-       
+    
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
             <!--<div class="exit-button-detail"></div>-->
             <div class="page-title-regular page-title-font">Your Plan</div>
             <div class="page-cta-container">
-                <a href="/Newest_Files/pop_up_addAction.html">
-                    <div class="add-action-button md-button button-text-1"> Add Action</div>    
+                <a href="javascript:void(0)">
+                    <div id="liPriority" ng-click="ShowAddAction()" class="add-action-button md-button button-text-1"> Add Action</div>    
                 </a>
             </div>
         </div>

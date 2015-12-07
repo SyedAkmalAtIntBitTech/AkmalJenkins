@@ -236,7 +236,6 @@ function reSet()
    $("#timepicker1").val("");
    $("#actiontype").val("0");
    return true;
-    
 }
 
 function validateaction() {
@@ -956,7 +955,7 @@ function controllerMarketingCampaign($scope, $http) {
         if(reSet()){ } 
         $("#addAction").show();
         //$('#slider-button').click();
-    }
+    };
 
 
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) {

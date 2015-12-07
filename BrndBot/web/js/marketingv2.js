@@ -939,31 +939,33 @@ function controllerMarketingCampaign($scope, $http) {
     };
 
     $scope.ShowAddAction = function()
-    {
-        if(reSet()){ }
-        $slider=1;
-        $edit=1; 
-        sliderDialog = "#dvPriorityDialog";
-        $('#slider-button').click();
-        prevSliderDialog = "#dvPriorityDialog";
-        $http({
-                method: 'GET',
-                url: getHost() + 'getMarketingProgramName.do'
-            }).success(function (data, status) {
-                $scope.marketprogram = data.userProgramData;
-                if (data.userProgramData.user_program_id == "") {
-                    
-                } else {
-                    $("dvPriorityDialog").show();
-                }
-                
-//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
-                
-            }).error(function (data) {
-                alert("request not successful");
-            });
-    }
-
+    { 
+        //reSet();
+        
+        $("#addAction").show();
+        
+//        $slider=1;
+//        $edit=1; 
+//        sliderDialog = "#dvPriorityDialog";
+//        $('#slider-button').click();
+//        prevSliderDialog = "#dvPriorityDialog";
+//        $http({
+//                method: 'GET',
+//                url: getHost() + 'getMarketingProgramName.do'
+//            }).success(function (data, status) {
+//                $scope.marketprogram = data.userProgramData;
+//                if (data.userProgramData.user_program_id == "") {
+//                    
+//                } else {
+//                    $("dvPriorityDialog").show();
+//                }
+//                
+////                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+//                
+//            }).error(function (data) {
+//                alert("request not successful");
+//            });
+    };
 
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) {
         
