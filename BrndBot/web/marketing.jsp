@@ -156,7 +156,7 @@
                                                 <p class="ypacttxt cur fontpnr" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description,entitydetails.marketingName,entitydetails.user_marketing_program_id,entitydetails.days)">{{entitydetails.schedule_title}}</p></a>
                                             </div>
                                             <div ng-show="entitydetails.user_marketing_program_id > 0">
-                                                <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"MMM dd yyyy h:mm a"}}<br>{{entitydetails.marketingName}}</p>                                      </p>
+                                                <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"MMM dd yyyy h:mm a"}}<br>{{entitydetails.marketingName}}</p>                                     
                                             </div>
                                         <div ng-show="entitydetails.user_marketing_program_id == 0">
                                             <p class="SP1 fntschld">Schedule for {{entitydetails.schedule_time| date:"MMM dd yyyy h:mm a"}} <br> No Program</p>
