@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="css/emailhubemaildraft.css"/>
     <link rel="stylesheet" type="text/css" href="css/newversion/style_detail_overlay-1.css"/>
     <link rel="stylesheet" type="text/css" href="css/newversion/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="css/newversion/slat.css"/>
@@ -22,6 +22,31 @@
     <title>email drafts</title>
     
     <script>
+        var count=0;
+        function selcheckbox(id){ 
+//            alert(id+"--selected");
+            content='<input type="checkbox" id="'+'draftId'+id+'" hidden="">';
+//            alert(content);
+            var htm=$("#"+id).html();
+            if(htm.contains('class="check-icon"')){
+                count-=1;
+                $("#"+id).html(content);
+            }
+            else
+            {   count+=1;
+                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {
+                $("#drftEmailDelete").show();
+            }
+            if(count==0)
+            {
+                $("#drftEmailDelete").hide();
+            }
+        }
         
         function emailDraftsController($http, $scope){
             
@@ -76,6 +101,14 @@
         <div class="page-title-bar col-1of1"> 
             <!--<div class="exit-button-detail"></div>-->
             <div class="page-title-regular page-title-font">Your Email Hub</div>
+            <div class="page-cta-container" id="drftEmailDelete">
+                <a href="/Newest_Files/EmailLists_Detail.html" class="gray-button button pushright fleft decorationNone">
+                    <div class=" md-button gray-button"> Unselect Email Drafts</div>    
+                </a>
+                <a href="" class="delete-button button fleft decorationNone">
+                    <div class=" md-button decorationNone"> Delete Email Drafts</div>    
+                </a>
+            </div>
         </div>
         <div class="page-subnav-bar-with-dropdown"> 
               <div class="subnav-dropdown pushright">
@@ -99,12 +132,12 @@
             <!--Inner Content Container GENERIC-->
             <div class="page-inner-content-container">
                 <div class="fleft content" ng-init="getAllDrafts()">
-                    <div class="page-content-title h2">Your Email Drafts</div>
+                    <div class="page-content-title h2">Your Email Drafts </div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft" >
                         <li class="slat-container fleft selfclear" ng-repeat="drafts in emaildrafts">
                             <div class="selection-container col-5p"> 
-                                <div><input type="checkbox" id="{{drafts.id}}"></input></div>
+                                <div class="selection-icon" id="{{drafts.id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="draftId{{drafts.id}}" value="{{drafts.id}}" name="draftname" hidden></input></div>    
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="slat-title-container col-1of1 fleft">
