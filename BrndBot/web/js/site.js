@@ -840,7 +840,7 @@ $(document).ready(function () {
 
     });
     $("#addTextButton").click(function () {
-
+        var userdefaultfont=($("#textFontFamily option:eq(1)").val()).split("|");
         $("#slider").hide();
         var subcategories = $("#subcategories").val();
         var blocks = $("#blocks").val();
@@ -850,7 +850,7 @@ $(document).ready(function () {
         
         if ((selectedtype == "selected")){
             
-            $(".container").append("<div class=\"draggableText\"><textarea class =\"textAreas\" id=\"" + $("#elementText").find('option:selected').text() + "\"style='border: 1px solid black' >" + $("#elementText").find('option:selected').text() + "</textarea></div>");
+            $(".container").append("<div class=\"draggableText\"><textarea class =\"textAreas\" id=\"" + $("#elementText").find('option:selected').text() + "\"style='border: 1px solid black;font-family: "+userdefaultfont[0]+"' >" + $("#elementText").find('option:selected').text() + "</textarea></div>");
             $("#textArea").val($("#elementText").find('option:selected').text());
             selectedTextID = $("#elementText").find('option:selected').text();
             selectElementsArray[textcount - 1] = selectedTextID;
