@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/datepickerpikaday.css">
     <script src="js/pikaday.js"></script>
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <jsp:include page="basejsp.jsp" />
@@ -23,6 +24,7 @@
     <link href="css/version2/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>
     <link href="css/version2/normalize_1.css" rel="stylesheet" type="text/css"/>
     <link href="css/version2/slat.css" rel="stylesheet" type="text/css"/>
+    <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="images/favicon.png"/>
     
     <title>BrndBot - Your Plan</title>
@@ -30,9 +32,9 @@
 
 <body ng-app class="claro">
     <!--SideNav-->
-    <jsp:include page="AddAction.jsp"/>  
     <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign"  class="container content-main">
-    <div class="navigation">
+    <jsp:include page="AddAction.jsp"/>  
+        <div class="navigation">
         <div class="main-nav-logo">
             <a class=" bb-logo-nav" href="dashboard.jsp">
                 <object type="image/svg+xml" data="images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"> </object>
@@ -64,7 +66,7 @@
             <div class="page-title-regular page-title-font">Your Plan</div>
             <div class="page-cta-container">
                 <a href="javascript:void(0)">
-                    <div id="liPriority" ng-click="ShowAddAction()" class="add-action-button md-button button-text-1"> Add Action</div>    
+                    <div id="liPriority" onclick="overlay();" ng-click="ShowAddAction()" class="add-action-button md-button button-text-1"> Add Action</div>    
                 </a>
             </div>
         </div>
@@ -277,12 +279,5 @@
         </div>
     </div>
   
-        <!--CTA Bar
-        <div class="bottom-cta-bar">
-            <div class="bottom-cta-button-container">
-             
-               <div class="remove-action-detail md-button button-text-1">Remove Selected Action(s)</div>
-
-            </div>-->
     </body>
 </html>
