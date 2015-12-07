@@ -27,6 +27,7 @@
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
         <title>BrndBot - Email Subject</title>
         <style>
+            #emaillist{display:none;}
 /*            .slt {
                                 position:relative;
 				display:inline-block;
@@ -334,6 +335,11 @@
 //                });
 
                 $("#emailSubjectContinueButton").click(function () {
+                    if($("#emailsubject").val() === ""){
+                     alert("please Enter the Subject");
+                     $("#emailsubject").focus();
+                    }
+                    else{
                     document.title="BrndBot - Email List Selection"; 
                     $("#chooseEmailList").show();
                     $("#emailsubjectdiv").hide();
@@ -342,7 +348,7 @@
                     $("#clickHere").hide();
                     $("#upload").hide();
                     $("#emaillist").show();
-              
+                }
 
                 });
           
