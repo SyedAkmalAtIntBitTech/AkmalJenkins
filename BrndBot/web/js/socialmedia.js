@@ -10,7 +10,7 @@ $(document).ready(function () {
     $("#fb").click(function () {
         $('#loadingGif').show();
         facebookcheck = document.getElementById("facebook").checked;
-
+        EnableContinueButton();
         if (facebookcheck) {
 
             $.ajax({
@@ -21,9 +21,9 @@ $(document).ready(function () {
                 },
                 success: function (responseText) {
 //                           $("#tokenHere").html(responseText);
-                        
-                        var fb_details = responseText.split(",");
-                    
+
+                    var fb_details = responseText.split(",");
+
                     if (fb_details[0] == "") {
 
                         document.location.href = "GetFacebookManagePage";
@@ -31,15 +31,15 @@ $(document).ready(function () {
                         $("#isFacebook").val(facebookcheck);
 
                     } else {
-                        
+
 //                        var fb_details = responseText.split(",");
-                        
+
                         $("#fbaccessTokenSend").val(fb_details[0]);
                         $("#pagenameSend").val(fb_details[2]);
                         $("#fbdefaultAccessToken").val("true");
                         $("#isFacebook").val("true");
 
-                        $("#submitbutton").prop("disabled", false);
+//                        $("#submitbutton").prop("disabled", false);
                         $('#loadingGif').hide();
                     }
                 }
@@ -47,7 +47,7 @@ $(document).ready(function () {
 
         } else {
             $("#isFacebook").val(facebookcheck);
-            $("#submitbutton").prop("disabled", true);
+//            $("#submitbutton").prop("disabled", true);
             $("#fbaccessTokenSend").val("");
             $("#fbdefaultAccessToken").val("");
             $('#loadingGif').hide();
@@ -63,11 +63,11 @@ $(document).ready(function () {
 
     $("#twt").click(function () {
         twittercheck = document.getElementById("twitter").checked;
-           
-        $("#submitbutton").prop("disabled", true);
+
+//        $("#submitbutton").prop("disabled", true);
         $("#isTwitter").val(twittercheck);
         var twitter_access_tokens = "";
-
+        EnableContinueButton();
         if (twittercheck) {
 
             $.ajax({
@@ -80,7 +80,7 @@ $(document).ready(function () {
                     if (responseText == "") {
 
                         //$("#twitterpopup").show();
-                        
+
                         $(".clicktwitter").click();
                         $.ajax({
                             url: 'GetTwitterToken',
@@ -114,10 +114,10 @@ $(document).ready(function () {
                                             }
                                         });
 
-                                        $("#submitbutton").prop("disabled", false);
+//                                        $("#submitbutton").prop("disabled", false);
                                     }
                                 });
-                                
+
                                 //$("#twitterpopup").hide();
                                 $(".close-reveal-modal").click();
 
@@ -129,7 +129,7 @@ $(document).ready(function () {
 
                     } else {
                         $("#twaccessTokenSend").val(responseText);
-                        $("#submitbutton").prop("disabled", false);
+//                        $("#submitbutton").prop("disabled", false);
                     }
 
                 }
@@ -141,10 +141,10 @@ $(document).ready(function () {
             $("#twaccessTokenSend").val("");
             //$("#twitterpopup").hide();
             $(".close-reveal-modal").click();
-            $("#submitbutton").prop("disabled", true);
-             $('#loadingGif').hide();
+//            $("#submitbutton").prop("disabled", true);
+            $('#loadingGif').hide();
         }
-       
+
     });
     $("#closetwitter").click(function () {
 
@@ -155,3 +155,12 @@ $(document).ready(function () {
 
     });
 });
+
+function EnableContinueButton() {
+    if (facebookcheck || twittercheck || typeof (facebookcheck) === "undefined") {
+        $("#submitbutton").prop("disabled", false);
+    }
+    else {
+        $("#submitbutton").prop("disabled", true);
+    }
+}

@@ -393,7 +393,7 @@ public class ScheduleDAO {
 //                + " ORDER BY slist.id, schedule_time ";
         String sql = "SELECT DISTINCT ON (id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time_recuring, date(schedule_time) schedule_date "
                 + " FROM tbl_scheduled_entity_list slist, "
-                + " tbl_scheduled_entity_type_color tc, tbl_user_marketing_program programtable"
+                + " tbl_user_marketing_program programtable"
                 + " WHERE slist.user_id = ? "
                 + " AND (date(schedule_time) <= ? "
                 + " AND date(schedule_time) >= ?) "

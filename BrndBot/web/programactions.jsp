@@ -272,7 +272,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3">
                             <div class="listelem txtwidth fontpnr">{{programaction.programTemplateName}}</div>
-                            <div class="otasublst fontpnr">Scheduled for {{programaction.postTime| date:'hh:mm: a'}}</div>
+                            <div class="otasublst fontpnr">Scheduled for {{programaction.postTime| date:'hh:mm a'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
                             <div class="oatlstdt fontpnr">{{programaction.postDate| date:'MMM dd'}}</div>
@@ -515,14 +515,8 @@
                                             <div class="half headcolor fontpns tenpix">
                                                 TO EMAIL LIST
                                             </div>
-                                            <div class="half headcolor fontpns tenpix">
-                                                ADDITIONAL EMAIL LIST
-                                            </div>
                                         </div>
                                         <div class="inlineFlex toptnine">
-                                            <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.to_email_addresses}}
-                                            </div>
                                             <div class="half containe fontpnr tenpix">
                                                 {{entitiesdetails.email_list_name}}
                                             </div>
@@ -624,7 +618,7 @@
                                                         Time
                                                     </div>
                                                     <div class="topsix">
-                                                        <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm:a'}}"/> 
+                                                        <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm a'}}"/> 
                                                         <script src="js/timepicki.js" type="text/javascript"></script>
                                                         <script>
                                                                                     $('#timepickeremail').timepicki({
@@ -683,14 +677,8 @@
                                                 <div class="half headcolor fontpns tenpix">
                                                     TO EMAIL LIST
                                                 </div>
-                                                <div class="half headcolor fontpns tenpix">
-                                                    ADDITIONAL EMAIL LIST
-                                                </div>
                                             </div>
                                             <div class="inlineFlex toptnine">
-                                                <div class="half containe fontpnr tenpix">
-                                                    {{entitiesdetails.to_email_addresses}}
-                                                </div>
                                                 <div class="half containe fontpnr tenpix">
                                                     {{entitiesdetails.email_list_name}}
                                                 </div>
@@ -790,7 +778,7 @@
                                     </div>
                                     <div class="containe fontpnr tenpix">
                                         {{entities_selected_date| date:'MMM dd yyyy'}}
-                                        {{post_time| date:'hh:mm:a'}}
+                                        {{post_time| date:'hh:mm a'}}
                                     </div>
                                     <div class="inlineFlex topsixeight">
                                         <div class="rightthirty left5">
@@ -960,7 +948,7 @@
                                                     Time
                                                 </div>
                                                 <div class="topsix">
-                                                    <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm:a'}}"/> 
+                                                    <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm a'}}"/> 
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
                                                         $('#timepickerfb').timepicki({
@@ -1108,7 +1096,7 @@
                                     </div>
                                     <div class="containe fontpnr tenpix">
                                         {{entities_selected_date| date:'MMM dd yyyy'}}
-                                        {{post_time| date:'hh:mm:a'}}
+                                        {{post_time| date:'hh:mm a'}}
                                     </div>
                                     <div class="inlineFlex topsixeight">
                                         <div class="rightthirty left5">
@@ -1259,7 +1247,7 @@
                                                     Time
                                                 </div>
                                                 <div class="topsix">
-                                                    <input id="timepickertw" type="text" name="timepickertw" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm:a'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
+                                                    <input id="timepickertw" type="text" name="timepickertw" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm a'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
 
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
@@ -1386,7 +1374,7 @@
                                             SCHEDULED TO POST ON
                                         </div>
                                         <div class="containe fontpnr tenpix">
-                                            {{entities_selected_time| date:'MMM dd yyyy'+' on '+ 'hh:mm:a'}}
+                                            {{entities_selected_time| date:'MMM dd yyyy'+' on '+ 'hh:mm a'}}
                                         </div>
                                         <div class="inlineFlex top120">
                                             <div class="rightthirty left5">
@@ -1442,16 +1430,10 @@
                                             <div class="half headcolor fontpns tenpix">
                                                 TO EMAIL LIST
                                             </div>
-                                            <div class="half headcolor fontpns tenpix">
-                                                ADDITIONAL EMAIL LIST
-                                            </div>
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
                                                 {{entitiesdetails.email_list_name}}
-                                            </div>
-                                            <div class="half containe fontpnr tenpix">
-                                                ??
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">
