@@ -73,7 +73,7 @@
         
         <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign" class="container"> 
             <jsp:include page="AddAction.jsp"/>
-            <div id="fade" class="black_overlay" onclick = "closeOverlay();"></div>
+            
             <!--/end left column-->
 
             <div  id="marktng"><jsp:include page="marketingsubmenu.html" /></div>
@@ -272,7 +272,6 @@
                                                    ng-click="AddAction()" 
                                                    >Create</button>
                     </div>
-                    
                 </div>
                  </form>
                 
