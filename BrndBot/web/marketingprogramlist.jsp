@@ -145,9 +145,9 @@
                         <div class="row">
                                 <hr class="pstprogline">
                         </div>
-                        <div class="fontpns" style="margin-left: 15px;" ng-show="current_programs==''" >No records available</div>
+                        <div class="fontpns" style="margin-left: 15px;" ng-show="current_programs==''" >No Records Available</div>
                         <ul  class="programsheader" ng-repeat="program in current_programs">
-                            <div class="fontpns" style="margin-left:-25px;" ng-show="program.program_name==''">No records available</div>
+                            <div class="fontpns" style="margin-left:-25px;" ng-show="program.program_name==''">No Records Available</div>
                             <li><div class="lstprog fontpns">{{program.program_name}}</div>
                                 <div class="lststrtdt fontpnr">Started on {{program.start_date | date: 'MMM dd yyyy'+' on '+'h:mma'}}</div>
                             </li>
