@@ -3,36 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function overlay(){
-                        //$(".black_overlay").fade(1000);
-                        document.getElementById('light').style.display = 'block';
-                        document.getElementById('fade').style.display = 'block';
-                        document.getElementById('blk').style.display = 'block';
-                        document.getElementById('slider-button').style.display = 'block';
-                        document.body.style.overflow = 'hidden';
-                        $("#calendar").css("pointer-events","none");
-                        $("#slider-button").hide();
-                    }
-            function closeoverlay(){
-                    document.getElementById('light').style.display = 'none';
-                    $("#calendar").css("pointer-events","auto");
-                    document.getElementById('fade').style.display = 'none';
-                    document.body.style.overflow = 'scroll';
-                    document.getElementById('blk').style.display = 'none';
-                    document.getElementById('edtfbimg').style.display = 'none';
-                    document.getElementById('prevtwtimg').style.display = 'none';
-                    document.getElementById('edttwtimg').style.display = 'none';
-                    document.getElementById('prevfbimg').style.display = 'none';
-            }
-            
-            
+
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 var sliderDialog = "";
 var prevSliderDialog = "";
 var create_button_title = "Edit";
 
 $(document).ready(function ()
 {
-  
+    
     $("#liPriority").click(function () {
         //$slider=1;
         //sliderDialog = "#dvPriorityDialog";
@@ -436,7 +421,9 @@ function validatetwitteraction() {
 
     return true;
 }
-
+//function selectedcheckbox(){alert();
+//    $( "#selcheckbox" ).removeClass( "selection-icon" ).addClass( "selection-icon-selected" );
+//}
 var selected_schedules_to_delete = "";
 
 function setSelectedIds(selectedid) {
@@ -520,22 +507,23 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.master_email = getemail();
     $scope.master_note = getnote();
     $scope.getCampaigns = function () {
-        
        
-        var curr_date = '';
-        var tomorrowDate = '';
-        var new_date = '';
-        $("#messagetoday").show();
-        $("#messagetomorrow").show();
-        if (user_selected_date != "") {
-            curr_date = moment(user_selected_date.date).format('YYYY-MM-DD');
-            tomorrowDate = moment(addDays(user_selected_date.date, 1)).format('YYYY-MM-DD');
-            new_date = moment(addDays(user_selected_date.date, 15)).format('YYYY-MM-DD');
-        } else {
-            curr_date = moment(new Date()).format('YYYY-MM-DD');
-            tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
-            new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
-        }
+        var curr_date = '2015-12-07';
+        var tomorrowDate = '2015-12-08';
+        var new_date = '2015-12-22';
+        //        $("#messagetoday").show();
+//        $("#messagetomorrow").show();
+//
+//        if (user_selected_date != "") {
+//            curr_date = moment(user_selected_date.date).format('YYYY-MM-DD');
+//            
+//            tomorrowDate = moment(addDays(user_selected_date.date, 1)).format('YYYY-MM-DD');
+//            new_date = moment(addDays(user_selected_date.date, 15)).format('YYYY-MM-DD');
+//        } else {
+//            curr_date = moment(new Date()).format('YYYY-MM-DD');
+//            tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
+//            new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
+//        }
         var invalid= "Invalid date";
         if(curr_date !== invalid){
                 $http({
@@ -547,13 +535,12 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.entityS = JSON.stringify(data);
         //            $("#default").hide();
         //            $("#selected").show();
-                    $scope.today_date = "2015-12-04";
-                    $scope.tomorrow_date = "2015-12-05";
+                   $scope.today_date = "2015-12-07";
+                    $scope.tomorrow_date = "2015-12-08";
                     $scope.entitySet = data.entitydata;
                     console.log(JSON.stringify(data.entitydata));
                     $scope.nodata = data.noactionsmessage;
                     $("#default").css("display", "block");
-
         //            $("#selected").css("display","none");            
                     //console.log($scope.entitySet);
                 }).error(function (data) {
@@ -953,9 +940,28 @@ function controllerMarketingCampaign($scope, $http) {
 
     $scope.ShowAddAction = function()
     {
-        if(reSet()){ } 
-        $("#addAction").show();
-        //$('#slider-button').click();
+        if(reSet()){ }
+        $slider=1;
+        $edit=1; 
+        sliderDialog = "#dvPriorityDialog";
+        $('#slider-button').click();
+        prevSliderDialog = "#dvPriorityDialog";
+        $http({
+                method: 'GET',
+                url: getHost() + 'getMarketingProgramName.do'
+            }).success(function (data, status) {
+                $scope.marketprogram = data.userProgramData;
+                if (data.userProgramData.user_program_id == "") {
+                    
+                } else {
+                    $("dvPriorityDialog").show();
+                }
+                
+//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+                
+            }).error(function (data) {
+                alert("request not successful");
+            });
     }
 
 
@@ -1155,8 +1161,7 @@ function controllerMarketingCampaign($scope, $http) {
         var title = $("#addactiontitle").val();
         var actiontype = $("#actiontype").val();
         var marketingProgramType=$("#marketing_program").val();
-        //var description = $("#description").val();
-        var description="....abc....";
+        var description = $("#description").val();
         var actiondate = $("#datepicker").val();
         var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
