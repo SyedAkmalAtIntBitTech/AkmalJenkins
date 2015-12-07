@@ -30,30 +30,12 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="css/main1.css">
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
-       <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
-       <link rel="stylesheet" href="css/facebook.css" type="text/css"/>
+        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="css/facebook.css" type="text/css"/>       
         <title>BrndBot - Your Plan</title>
 
         <script>
-                 function overlay(){
-                        document.getElementById('light').style.display = 'block';
-                            document.getElementById('fade').style.display = 'block';
-                             document.getElementById('blk').style.display = 'block';
-                            document.getElementById('slider-button').style.display = 'block';
-                            document.body.style.overflow = 'hidden';
-                            $("#calendar").css("pointer-events","none");
-                    }
-            function closeoverlay(){
-                    document.getElementById('light').style.display = 'none';
-                    $("#calendar").css("pointer-events","auto");
-                    document.getElementById('fade').style.display = 'none';
-                    document.body.style.overflow = 'scroll';
-                     document.getElementById('blk').style.display = 'none';
-                    document.getElementById('edtfbimg').style.display = 'none';
-                    document.getElementById('prevtwtimg').style.display = 'none';
-                    document.getElementById('edttwtimg').style.display = 'none';
-                    document.getElementById('prevfbimg').style.display = 'none';
-            }
+                 
             function cancelform()
             {   
 //                var chng=false;
@@ -82,13 +64,15 @@
             #mailpreviewdecond{display:none;}
             #twpreviewdecond{display:none;}
             
+            
         </style>
         
     </head>
     <body ng-app class="claro">
         <div class="row"><jsp:include page="mainmenu.html"/></div>
+        <jsp:include page="AddAction.jsp"/></div>
         <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign" class="container"> 
-            <div id="fade" class="black_overlay"></div>
+            <div id="fade" class="black_overlay" onclick = "closeOverlay();"></div>
             <!--/end left column-->
 
             <div  id="marktng"><jsp:include page="marketingsubmenu.html" /></div>
@@ -255,7 +239,7 @@
                                 Day
                             </div>
                             <div class="topsix">
-                                <input type="text" readonly  name="datepicker" id="datepicker"  class="inputdate fontpns ptr" />                                        
+<!--                                <input type="text" readonly  name="datepicker" id="datepicker"  class="inputdate fontpns ptr" />                                        
                                 <script>
                             var picker = new Pikaday(
                             {
@@ -266,7 +250,7 @@
                                 yearRange: [2000,2050]
                             });
 
-                                </script>
+                                </script>-->
                             </div>
                         </div>
                         <div class="half right100">
@@ -274,18 +258,7 @@
                                 Time
                             </div>
                             <div class="topsix">
-                                <input id="timepicker1" type="text" name="timepicker1" class="inputtime fontpns ptr"  /> 
-                                <script src="js/timepicki.js" type="text/javascript"></script>
-                                <script>
-                               $('#timepicker1').timepicki({
-                                   show_meridian:true,
-                                   min_hour_value:0,
-                                   max_hour_value:12,
-                                   step_size_minutes:01,
-                                   overflow_minutes:true,
-                                   increase_direction:'up',
-                                   disable_keyboard_mobile: true
-                               });
+                                
                            </script>
                             </div>
                         </div>
@@ -725,7 +698,6 @@
                                                 </div>
                                                 <div class="topsix">
                                                     <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
-                                                    <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
                                                         $('#timepickeremail').timepicki({
                                                                     show_meridian:true,
@@ -736,7 +708,7 @@
                                                                     increase_direction:'up',
                                                                     disable_keyboard_mobile: true
                                                                 });
-                                                           </script>
+                                                    </script>
                                                 </div>
                                             </div>
                                         </div>
@@ -1131,7 +1103,6 @@
                                             </div>
                                             <div class="topsix">
                                                 <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
-                                                <script src="js/timepicki.js" type="text/javascript"></script>
                                                 <script>
                                                         $('#timepickerfb').timepicki({
                                                                     show_meridian:true,
@@ -1142,7 +1113,7 @@
                                                                     increase_direction:'up',
                                                                     disable_keyboard_mobile: true
                                                                 });
-                                                 </script>
+                                                </script>
                                             </div>
                                         </div>
                                     </div>
@@ -1404,7 +1375,6 @@
                                     </div>
                                     <div class="topsix">
                                         <input id="timepicker3" name="timepicker3" type="text"  class="inputtime fontpns ptr"  value="{{entities_selected_time| date:'h : mm : a'}}"/> 
-                                        <script src="js/timepicki.js" type="text/javascript"></script>
                                         <script>
                                                         $('#timepicker3').timepicki({
                                                                     show_meridian:true,
@@ -1693,7 +1663,6 @@
                                                 </div>
                                                 <div class="topsix">
                                                     <input id="timepickertwitter" type="text" name="timepickertwitter" class="inputtime MH1 ptr" style="width:150px;" value="{{entities_selected_time| date:'h : mm : a'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
-                                                    <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
                                                         $('#timepickertwitter').timepicki({
                                                                     show_meridian:true,

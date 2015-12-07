@@ -147,16 +147,13 @@ input               {
 
  -webkit-box-shadow: none !important;
  -moz-box-shadow: none !important;
-   box-shadow: none !important ;
+  box-shadow: none !important ;
   border-bottom:1px solid #757575;
   border-radius:0px; 
-    
-    
-    
   font-size:18px;
   padding:10px 10px 10px 5px;
   display:block;
-  width:300px;
+  width:100%;
   border:none;
   border-bottom:1px solid #757575;
 }

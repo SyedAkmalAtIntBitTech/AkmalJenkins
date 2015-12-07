@@ -1,0 +1,19 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4 Dec, 2015, 5:43:37 PM
+    Author     : intbit
+*/
+.timepicker_wrap{
+    position: fixed !important;
+    margin-top: 23.5% !important;
+    margin-left: 49.5%;
+}
+.arrow_top {
+    top: -10px;
+    left: 20px;
+    transform: rotate(0deg);
+}

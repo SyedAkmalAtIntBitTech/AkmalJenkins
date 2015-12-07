@@ -41,7 +41,7 @@ body{
 }
 #leftnav{    
     position:fixed;
-    z-index:10000;
+    z-index:888;
     text-align:center;
     width:120px;
     line-height:100%;  
