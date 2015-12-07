@@ -1570,13 +1570,13 @@
                                     POST TEXT
                                 </div>
                                 <div class="height75 scrolly topten">
-                                    <p class="containe twlvpix fontpnr">{{entitiesdetails.metadata.post_text}}</p>
+                                    <p class="containe twlvpix fontpnr">{{entitiesdetails.metadata.text}}</p>
                                 </div>
                                 <div class="toptweenty headcolor tenpix fontpns">
                                     LINK NAME
                                 </div>
                                 <div class="topten containe fontpnr twlvpix">
-                                    {{entitiesdetails.metadata.title}}
+                                    {{entitiesdetails.metadata.shorturl}}
                                 </div>
                             </div>
                         </div>
