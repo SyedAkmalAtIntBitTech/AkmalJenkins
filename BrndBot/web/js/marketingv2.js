@@ -17,7 +17,7 @@ var create_button_title = "Edit";
 
 $(document).ready(function ()
 {
-    
+    $(".delete-button").hide();
     $("#liPriority").click(function () {
         //$slider=1;
         //sliderDialog = "#dvPriorityDialog";
@@ -500,6 +500,33 @@ function setTodaysDate() {
     
  }
 
+var count=0;
+        function selcheckbox(id){ 
+//            alert(id+"--selected");
+            content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
+//            alert(content);
+            var htm=$("#"+id).html();
+            if(htm.contains('class="check-icon"')){
+               count-=1;
+                $("#"+id).html(content);
+            }
+            else
+            {   count+=1;
+                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {
+                $(".delete-button").show();
+            }
+            if(count==0)
+            {
+                $(".delete-button").hide();
+            }
+        }
+
+
 function controllerMarketingCampaign($scope, $http) {
     $scope.entities_selected_time = "";
     $scope.master_facebook = getfacebook();
@@ -508,9 +535,9 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.master_note = getnote();
     $scope.getCampaigns = function () {
        
-        var curr_date = '2015-12-07';
-        var tomorrowDate = '2015-12-08';
-        var new_date = '2015-12-22';
+        var curr_date = '2015-12-02';
+        var tomorrowDate = '2015-12-03';
+        var new_date = '2015-12-17';
         //        $("#messagetoday").show();
 //        $("#messagetomorrow").show();
 //
@@ -535,8 +562,8 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.entityS = JSON.stringify(data);
         //            $("#default").hide();
         //            $("#selected").show();
-                   $scope.today_date = "2015-12-07";
-                    $scope.tomorrow_date = "2015-12-08";
+                   $scope.today_date = "2015-12-02";
+                    $scope.tomorrow_date = "2015-12-03";
                     $scope.entitySet = data.entitydata;
                     console.log(JSON.stringify(data.entitydata));
                     $scope.nodata = data.noactionsmessage;

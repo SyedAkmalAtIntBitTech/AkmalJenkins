@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="css/pikaday.css">
     <link rel="stylesheet" href="css/datepickerpikaday.css">
     <script src="js/pikaday.js"></script>
-    <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
+    <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <jsp:include page="basejsp.jsp" />
@@ -63,6 +64,9 @@
             <!--<div class="exit-button-detail"></div>-->
             <div class="page-title-regular page-title-font">Your Plan</div>
             <div class="page-cta-container">
+                <a href="" class="delete-button button fleft">
+                    <div class=" md-button">Delete Action</div>    
+                </a>
                 <a href="javascript:void(0)">
                     <div id="liPriority" ng-click="ShowAddAction()" class="add-action-button md-button button-text-1"> Add Action</div>    
                 </a>
@@ -97,7 +101,7 @@
                     <ul class="main-container fleft" >
                         <li class="slat-container fleft selfclear" ng-repeat="entitydetails in entity.dataArray">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon" ></div>
+                               <div class="selection-icon" id="{{entitydetails.entity_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="icon-container fleft " ng-show="entitydetails.template_status=='No Template'"> 
