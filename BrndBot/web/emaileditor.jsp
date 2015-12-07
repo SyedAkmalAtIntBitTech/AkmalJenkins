@@ -812,18 +812,22 @@
                             htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
                             iframeName: rendomIframeFilename
                             },
-                    success: function (responseText) {
+                        success: function (responseText) {
                                 $("#previewcontent").empty();
                                 $("#previewcontent").append(responseText);
                                 $.ajax({
-                                        url: getHost() + "setEmailDrafts.do",
+                                        url: getHost() + "saveEmailDrafts.do",
                                         method: "post",
                                         data:{
                                             bodyString : $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
                                         },
-                                        success: function (responseText1) {
-                                            alert(responseText1);
-                                        //document.location.href = "emailpreview.jsp";
+                                        success: function (responseText) {
+                                            if (responseText == "true"){
+                                                alert("Draft saved successfully");
+                                                document.location.href = "dashboard.jsp";
+                                            }else {
+                                                alert("problem saving the draft");
+                                            }
                                         }
 
                                 });

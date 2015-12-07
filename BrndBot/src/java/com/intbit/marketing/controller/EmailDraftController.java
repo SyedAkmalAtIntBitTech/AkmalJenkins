@@ -13,11 +13,14 @@ import com.intbit.marketing.service.EmailDraftService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +42,9 @@ public class EmailDraftController {
     SqlMethods sqlmethods = new SqlMethods();
     @Autowired
     private EmailDraftService emaildraftservice;
-    @RequestMapping(value="/setEmailDrafts", method= RequestMethod.POST)
-    public @ResponseBody String setEmailDrafts(HttpServletRequest request, 
+    
+    @RequestMapping(value="/saveEmailDrafts", method= RequestMethod.POST)
+    public @ResponseBody String saveEmailDrafts(HttpServletRequest request, 
             @RequestParam("bodyString") String bodyString,
             HttpServletResponse response)throws IOException, Throwable{
             try{
@@ -52,8 +56,6 @@ public class EmailDraftController {
             String subCategoryName=(String)sqlmethods.session.getAttribute("sub_category_name");
             String subCategoryId=(String)sqlmethods.session.getAttribute("sub_category_id");
             String categoryId=(String)sqlmethods.session.getAttribute("category_id");
-            String emailAddresses=(String)sqlmethods.session.getAttribute("email_addresses");
-            String emailList=(String)sqlmethods.session.getAttribute("email_list");
             
             TblEmailDraft email_draft = new TblEmailDraft();
             email_draft.setId(0);
@@ -65,8 +67,6 @@ public class EmailDraftController {
             
             emaildraftmodel.setCategory_id(Integer.parseInt(categoryId));
             emaildraftmodel.setSub_category_id(Integer.parseInt(subCategoryId));
-            emaildraftmodel.setEmail_addresses(emailAddresses);
-            emaildraftmodel.setEmail_list_name(emailList);
             emaildraftmodel.setEmail_subject(emailSubject);
             emaildraftmodel.setHtml_body_string(bodyString);
             
@@ -82,5 +82,40 @@ public class EmailDraftController {
             }
             
         return "false";
+    }
+    @RequestMapping(value="/displayAllEmailDrafts", method = RequestMethod.GET)
+    public @ResponseBody String displayAllEmailDrafts(HttpServletRequest request,
+            HttpServletResponse response)throws ServletException, IOException, Throwable{
+            JSONObject json_object_email_draft = new JSONObject();
+        try{
+            
+            sqlmethods.session = request.getSession(true);
+            Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
+        
+            List<TblEmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts();
+            
+            JSONArray json_array_email_draft = new JSONArray();
+            
+            for (TblEmailDraft emaildraft: emaildraftlist){
+                JSONObject json_email_draft = new JSONObject();
+                
+                json_email_draft.put("id", emaildraft.getId());
+                json_email_draft.put("draftdate", emaildraft.getDraftDate().getTime());
+                json_email_draft.put("editdate", emaildraft.getDraftDate().getTime());
+                String json_string_data = (String)emaildraft.getDraftJson();
+                JSONParser json_parser = new JSONParser();
+                JSONObject json_draft_data = (JSONObject)json_parser.parse(json_string_data);
+                json_email_draft.put("emailsubject", json_draft_data.get("email_subject"));
+                json_email_draft.put("jsonemaildraftdata", json_draft_data.get("html_body_string"));
+                
+                json_array_email_draft.add(json_email_draft);
+            }
+            json_object_email_draft.put("emaildrafts", json_array_email_draft);
+            System.out.println(json_object_email_draft);
+            return json_object_email_draft.toString();
+        }catch (Exception e){
+                Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return json_object_email_draft.toJSONString();
     }
 }
