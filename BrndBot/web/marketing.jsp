@@ -521,16 +521,10 @@
                                     <div class="half headcolor fontpns tenpix">
                                         TO EMAIL LIST
                                     </div>
-                                    <div class="half headcolor fontpns tenpix">
-                                        ADDITIONAL EMAIL LIST
-                                    </div>
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
                                         {{entitiesdetails.email_list_name}}
-                                    </div>
-                                    <div class="half containe fontpnr tenpix">
-                                        ?? <!-- {{entitiesdetails.to_email_addresses}} -->
                                     </div>
                                 </div>
                                  <div class="inlineFlex toptweenty">
@@ -815,16 +809,10 @@
                                     <div class="half headcolor fontpns tenpix">
                                         TO EMAIL LIST
                                     </div>
-                                    <div class="half headcolor fontpns tenpix">
-                                        ADDITIONAL EMAIL LIST
-                                    </div>
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
                                         {{entitiesdetails.email_list_name}}
-                                    </div>
-                                    <div class="half containe fontpnr tenpix">
-                                        ?? <!--{{entitiesdetails.to_email_addresses}}-->
                                     </div>
                                 </div>
                                  <div class="inlineFlex toptweenty">
@@ -1913,16 +1901,10 @@
                                             <div class="half headcolor fontpns tenpix">
                                                 TO EMAIL LIST
                                             </div>
-                                            <div class="half headcolor fontpns tenpix">
-                                                ADDITIONAL EMAIL LIST
-                                            </div>
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
                                                 {{entitiesdetails.email_list_name}}
-                                            </div>
-                                            <div class="half containe fontpnr tenpix">
-                                                ??
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">
