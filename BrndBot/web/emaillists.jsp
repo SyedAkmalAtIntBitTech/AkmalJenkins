@@ -8,552 +8,41 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <%@ include file="fonttypekit.jsp"%>
-         <%@ include file="checksession.jsp" %>
-
+        <%@ include file="fonttypekit.jsp"%>
+        <%@ include file="checksession.jsp" %>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="js/angular.min.js" type="text/javascript"></script>
-          <link rel="stylesheet" href="css/main1.css">
-           <link rel="stylesheet" href="css/bootstrap.min.css">
-           <script src="js/bootstrap.min.js"></script>
-              <script src="js/form.js"></script>
-                  <script src="js/jquery-1.11.3.min.js"></script>
-        <script src="js/configurations.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-
-        <title>BrndBot - Email List</title>
-        <style>
-            #tab2,#tab3,#tab4
-            {
-                display:none;
-            }
-            #deleteSelected
-            {
-                cursor: pointer;
-            }
-            .hide{
-                display:none;
-            }
-/*            #scrl{display:none;}*/
-           .brdr{ 
-               text-align:left;
-               border:none;
-                border-bottom:1px solid #7ab5d3;
-           }
-            .emlhisdata li{
-                display: table-cell;
-                position: relative;
-                left:58em;
-                bottom:0px;
-                top:-70px;
-            }
-            .button--moema {
-                padding: 1.5em 0.8em;
-                padding-right: 1em;
-                border-radius: 5px;
-                background: #5CC1A3;
-                color: #fff;
-/*                -webkit-transition: background-color 0.3s, color 0.3s;
-                transition: background-color 0.3s, color 0.3s; */
-            }
-                    .emlist {
-                position: relative;
-                width:200px;
-                left:-50px;
-                font-family: "proxima-nova",sans-serif;
-                font-weight: 300;
-                color: #2d4355;
-                font-style: normal;
-                text-align: left;
-                line-height: 25.9px;
-                letter-spacing: 0em;
-            }
-            .delsel li{
-               font-family: "proxima-nova",sans-serif;
-                    color: #2d4355;
-                    position: relative;
-                    top:-60px;
-                    display: table-cell;
-                    padding: 3px;
-                    width: 250px; 
-            }
-            
-            
-            .emlOneRowDatalst li{
-                    font-family: "proxima-nova",sans-serif;
-                    color: #2d4355;
-                    position: relative;
-                    top:-70px;
-                    height: 10%;
-                    display: table-cell;
-                    padding: 3px;
-                    width: 250px;
-            }
-            .emlOneRowDatalst button{
-                font-family: "proxima-nova",sans-serif;
-                    color: #2d4355;
-                    width:100px;    
-                     background-color: transparent;
-                     border:1px #000 solid;
-                     border-radius: 5px;   
-                     position:relative;
-                    display: table-cell;
-            }
-            #datadiv{
-                margin-top:120px;
-            }
-
-            .header1{
-                font-size: 28px;
-            }
-            .hideinputborder{
-                background-color:transparent;
-                border: 0px solid;
-                height:50px;
-                width:450px;
-                font-size: 35px;
-            }
-            .hideinputborder:focus{
-                outline: none;
-            }
-            .hideinputEmailId{
-                background-color:transparent;
-                border: 0px solid;
-                height:50px;
-                width:250px;
-                margin-left: 150px;
-                font-size: 18px;
-            }
-            .hideinputEmailId{
-                outline: none;
-            }
-            #chooseEmailList {
-                background-color: #e4e4e4;
-                border: 1px solid #DADADA;
-                height:50px;
-                width:250px;
-                font-size: 18px;
-                border-radius: 10px;
-            }
-            #chooseEmailId:focus{
-                outline: none;
-            }
-            #textArea{
-                width: 400px;
-                height : 300px;
-                background-color: #e4e4e4;
-            }
-            .btn-primary{
-                border-radius: 13px;
-                position: relative;
-                width: 150px;
-                background-color: #00A37A;
-                border-color: #00A37A;
-                bottom: 10px;
-            }
-            .fileUpload {
-                position: relative;
-                overflow: hidden;
-                margin: 10px;
-            }
-            .fileUpload input.upload {
-                position: absolute;
-                top: 0;
-                right: 0;
-                margin: 0;
-                padding: 0;
-                font-size: 20px;
-                cursor: pointer;
-                opacity: 0;
-                filter: alpha(opacity=0);
-            }
+        <script src="js/angular.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/form.js" type="text/javascript"></script>
+        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+        <script src="js/popup.js" type="text/javascript"></script>
+        <script src="js/emaillist.js" type="text/javascript"></script>
+        <script src="js/configurations.js" type="text/javascript"></script>
+       
+        <link rel="stylesheet" href="css/main1.css">
+        <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
+        <link rel="stylesheet" href="css/newnormalize.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+        <link href="css/emaillist.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <title>BrndBot - Email List</title> 
         
-        </style>
-        <script>
-
-            var update = "";
-            var selectedlistname = "";
-            var selectedemailids = "";
-            
-            function selectEmailId(id){
-                
-                $("#selectAll").attr('checked',false);
-                var selectedid  = document.getElementById(id).checked;
-                
-                if (selectedid){
-                    emailid = $("#"+id).val();
-                    selectedemailids = emailid + "," + selectedemailids;
-                }else{
-                    emailid = $("#"+id).val();
-                    selectedemailids = selectedemailids.replace(emailid+",","");
-                }
-            }
-            
-            $(document).ready(function () {
-
-                $("#chooseEmailList").change(function () {
-                    var x = document.getElementById("chooseEmailList").selectedIndex;
-                    var List_name = document.getElementsByTagName("option")[x].value;
-                    $("#email_list_name").val(List_name);
-
-                    $.ajax({
-                        url: getHost() + "GetEmailLists",
-                        data: {
-                            update: "emailsForEmailList",
-                            list_name: List_name
-                        },
-                        success: function (result) {
-                            var email_addresses = JSON.stringify(result.emailAddresses);
-                            var email_add = email_addresses.replace("\"", '');
-                            var email_address = email_add.replace("\"", '');
-                            $("#textArea").val(email_address);
-                        }
-                    });
-
-                });
-            });
-            
-            function setSelectedlistName(listname){
-                $("#email_list_name").val(listname);
-            }
-            
-            function showTextBox() {
-                $(".emaillist").hide();
-                $("#email_list_name").val("");
-                $("#email_list_name").show();
-                $("#email_list_name").focus();
-            }
-
-            function upload() {
-
-                var fileUpload = document.getElementById("fileUpload");
-                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
-                if (regex.test(fileUpload.value.toLowerCase())) {
-                    if (typeof (FileReader) != "undefined") {
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            var table = document.createElement("table");
-                            var rows = e.target.result.split("\n");
-                            if ($('#textArea').val() == "") {
-                                $('#textArea').val(rows);
-                            } else {
-                                $('#textArea').val($('#textArea').val() + rows);
-                            }
-                        }
-                        reader.readAsText(fileUpload.files[0]);
-
-                    } else {
-                        alert("This browser does not support HTML5.");
-                    }
-                } else {
-                    alert("Please upload a valid CSV file.");
-                }
-
-            }
-
-            function showListBox() {
-                $(".emaillist").show();
-                //$("#email_list_name").hide();
-
-            }
-            function validate() {
-                    var emailListName = $("#list_name").val();
-                    var defaultFromName = $("#default_from_name").val();
-                    var listDescription = $("#list_description").val();
-                
-                if (emailListName === "") {
-                    alert("email list name not entered, please enter the from email list");
-                    $("#list_name").focus();
-                    return false;
-                }
-                
-                if ($.trim(defaultFromName).length == 0) {
-                    alert('Please enter default from name');
-                    $("#default_from_name").focus();
-                    return false;
-                }
-                
-
-                if (listDescription === "") {
-                    alert("list description not entered, please enter the list description");
-                    $("#reply_email_address").focus();
-                    return false;
-                }
-                
-                return true;
-            }
-
-            function EmailListController($scope, $http) {
-
-
-                $scope.createEmailList = function () {
-                    var emailListName = $("#list_name").val();
-                    var defaultFromName = $("#default_from_name").val();
-                    var listDescription = $("#list_description").val();
-                    if (validate()){
-                        var Emails = {"emailListName": emailListName, "defaultFromName": defaultFromName, "listDescription":listDescription, "update": "addEmailList"};
-                        $http({
-                            method: 'POST',
-                            url: getHost() + 'SetEmailLists',
-                            headers: {'Content-Type': 'application/json'},
-                            data: Emails
-                        }).success(function (data)
-                        {
-                            if (data === "true") {
-                                alert("Data saved successfully");
-                                window.open(getHost() + 'emaillists.jsp', "_self");
-                            } else if (data === error) {
-                                alert(data);
-                            }
-                        });
-                        
-                    }
-                    
-                };
-                $scope.updateEmailList = function () {
-                    var email_list_name = $("#email_list_name").val();
-                    var email_list = $("#textArea").val();
-
-                    var Emails = {"emailListName": email_list_name, "emailAddresses": email_list, "update": "UpdateEmailList"};
-                    $http({
-                        method: 'POST',
-                        url: getHost() + 'SetEmailLists',
-                        headers: {'Content-Type': 'application/json'},
-                        data: Emails
-                    }).success(function (data)
-                    {
-                        if (data === "true") {
-                            alert("Data saved successfully");
-                            window.open(getHost() + 'emaillists.jsp', "_self");
-                            
-                        } else if (data === error) {
-                            alert(data);
-                        }
-                    });
-                };
-
-                $scope.showEmailList = function () {
-                    $(".emaillist").show();
-                    $("#email_list_name").hide();
-
-                    var emailids = {"update": "allEmailListNames"};
-                    $http({
-                        method: 'GET',
-                        url: getHost() + 'GetEmailLists?update=allEmailListNames',
-                    }).success(function (data, status, headers, config) {
-                        $scope.emailLists1 = data.allEmailListNames
-                        if (data === "true") {
-//                                window.open(getHost() + 'emaillists.jsp', "_self");
-                        } else if (data === error) {
-                            alert(data);
-                        }
-                    });
-                };
-
-                $scope.showEmailListWithContacts = function () {
-                    $("#scrl").show();
-                    $(".emaillist").show();
-                    $("#email_list_name").hide();
-
-                    var emailids = {"update": "allEmailListNames"};
-                    $http({
-                        method: 'GET',
-                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts',
-                    }).success(function (data, status, headers, config) {
-                        
-                        $scope.emailLists = data.allEmailListWithNoOfContacts.user;
-                        
-                        $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
-                        
-                        if (data === "true") {
-//                                window.open(getHost() + 'emaillists.jsp', "_self");
-                        } else if (data === error) {
-                            alert(data);
-                        }
-                    });
-                };
-
-                $scope.clearfields = function () {
-                    $("#email_list_name").val("");
-                    $("#textArea").val("");
-                    $("#fileUpload").val("");
-                    $("#chooseEmailList").val("");
-                };
-                
-                $scope.updateList = function (list_name, type) {
-//                    alert(list_name);
-                    $("#email_list_name").val(list_name);
-                    $http({
-                        method: 'GET',
-                        url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
-                    }).success(function (data, status, headers, config) {
-                        $scope.user_emailAddresses = data.user_emailAddresses;
-                        $scope.mindbody_emailAddresses = data.mindbody_emailAddresses;
-                        $scope.selected_email_listname = list_name;
-                        $scope.type = type;
-                        if (type == 'user'){
-                            $("#tab1").hide();
-                            $("#tab2").hide();
-                            $("#tab3").show();
-                            $("#addcontacts").show();
-                            $("#deleteSelected").show();
-                            $("#selectAll").show();
-                            for (var i = 0; i <= data.user_emailAddresses.length; i++){
-                                
-                                var emailadd = data.user_emailAddresses[i];
-                                if (emailadd.emailid == ""){
-                                    $("#NoContacts").css("display","block");
-                                    setTimeout(function() 
-                                    {
-                                      //do something special
-                                      $('input[type="checkbox"]').css("display","none");
-
-                                    }, 100);
-                                }
-
-                            }
-                        }else if (type == 'mindbody'){
-                            
-                            $("#tab3").show();
-                            $("#tab1").hide();
-//                            $("#addcontacts").attr("disabled", true);
-                            $("#addcontacts").hide();
-                            $("#deleteSelected").hide();
-                            $("#emailaddrs").hide();
-                            $(".head").css("padding-bottom","15%");
-//                            
-//                            $("#selectAll").attr("disabled", true);
-//                            document.getElementById('email1').hide();
-                            $("#email1").hide();
-                            setTimeout(function() 
-                            {
-                              //do something special
-                              $('input[type="checkbox"]').css("display","none");
-                              
-                            }, 100);
-                        }
-                        if (data === error) {
-                            alert(data);
-                        }
-                    });
-                    
-                };
-                
-                $scope.getEmailList = function () {
-
-                    var list_name = $("#email_list_name").val();
-                    $http({
-                        method: 'GET',
-                        url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
-                    }).success(function (data, status, headers, config) {
-                        
-                        if (data.emailAddresses !== "") {
-                            $("#tab4").show();
-                            $("#tab1").hide();
-                            var i = 0;
-                            var emails = "";
-                            for(i=0; i<data.user_emailAddresses.length; i++){
-                                        if (data.user_emailAddresses[i].emailid != ""){
-                                            emails = data.user_emailAddresses[i].emailid + "," + emails;
-                                        }
-                                    }
-                            for(i=0; i<data.mindbody_emailAddresses.length; i++){
-                                if (data.mindbody_emailAddresses[i] != ""){
-                                    emails = data.mindbody_emailAddresses[i] + "," + emails;
-                                }
-                            }
-                            $("#textArea").val(emails);
-//                                window.open(getHost() + 'emaillists.jsp', "_self");
-                        } else if (data === error) {
-                            alert(data);
-                        }
-                    });
-                    
-                };
-                
-                $scope.selectCheckBox = function (){
-                    var selectAll = document.getElementById("selectAll").checked;
-                    if (selectAll){
-                         $(".email").attr("checked", true);
-                    }else {
-                         $(".email").attr("checked", false);
-                    }
-
-                };
-                
-                $scope.deleteSelected = function (){
-                    var selectAll = document.getElementById("selectAll").checked;
-                    var email_list_name = "";
-                    if (selectAll){
-                        email_list_name = $("#email_list_name").val();
-                        var Emails = {"update": "deleteAllEmailsFromList", "emailListName":email_list_name};
-                        $http({
-                            method: 'POST',
-                            url: getHost() + 'SetEmailLists',
-                            headers: {'Content-Type': 'application/json'},
-                            data: Emails
-                        }).success(function (data)
-                        {
-                            if (data === "true") {
-                                alert("Data deleted successfully");
-//                                $scope.updateList(email_list_name);
-                                
-                                window.open(getHost() + 'emaillists.jsp', "_self");
-                            } else if (data === error) {
-                                alert(data);
-                            }
-                        });
-                    }else if (selectedemailids != ""){
-                        
-                        email_list_name = $("#email_list_name").val();
-                        var Emails = {"update": "deleteEmailInEmailList", "emailListName":email_list_name, "emailAddresses":selectedemailids};
-                        $http({
-                            method: 'POST',
-                            url: getHost() + 'SetEmailLists',
-                            headers: {'Content-Type': 'application/json'},
-                            data: Emails
-                        }).success(function (data)
-                        {
-                            if (data === "true") {
-                                alert("Data deleted successfully");
-                                $scope.updateList(email_list_name);
-                                selectedemailids = "";
-//                                window.open(getHost() + 'emaillists.jsp', "_self");
-                            } else if (data === error) {
-                                alert(data);
-                            }
-                        });
-                    }else {
-                        alert("no email has been selected");
-                    }
-                };
-                $scope.showAddContacts = function (){
-                    $("#tab3").hide();
-                    $("#tab4").show();
-                };
-                
-                $scope.showCreateContacts = function(){
-                    $("#tab1").hide();
-                    $("#tab2").show();
-                    $("#tab3").hide();
-                    $("#tab4").hide();
-                };
-            }
-
-        </script>
-        <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app>
         
         <div class="row" ng-controller="EmailListController">
-             <jsp:include page="leftmenu.html"/><!--/end left column-->
-              <jsp:include page="emailsubmenu.html"/>
-              
+            <jsp:include page="basejsp.jsp" />
+            <jsp:include page="leftmenu.html"/><!--/end left column-->
+            <jsp:include page="emailsubmenu.html"/>
+            <jsp:include page="addcontact.jsp"/>
+                           
                 <div class="col-md-8 col-md-offset-2 " >
+                    
                 
                     <div id="tab1" class="col-md-6 col-md-offset-0">
                     <p id="hyshead" class="MH2">Email Lists</p>
@@ -578,7 +67,8 @@
                     </div><br><br>
 
                 </div>
-              <div id="tab2" class="col-md-8 col-md-offset-2 " class="hide" style="padding-top:5%;">
+                    
+                    <div id="tab2" class="col-md-8 col-md-offset-2 " class="hide" style="padding-top:5%;">
                   <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Create a new list</p></div>
                 <div class="col-md-6 col-md-offset-0">  <p class="SS2" style="width:400px;left:-245px;position:relative;top:80px;"> Create a new email list. After you hit save, you will then be
                 able to add new contacts.</p></div>
@@ -586,7 +76,6 @@
                     <div id="view1" style="position:relative;left:-350px;padding-top:8%;" >
 
                         <form class="form-horizontal" id="signform" >
-
                            
                             <div class="group">
                                 <div class="col-md-3 col-md-offset-5 ">                            
@@ -621,7 +110,7 @@
                 </div>
             </div>
             
-            <div id="tab3" class="col-md-10 col-md-offset-0" class="hide" style="">
+                    <div id="tab3" class="col-md-10 col-md-offset-0" class="hide" style="">
                 <div ng-controller="EmailListController">
                     
                     <div class="col-md-6 col-md-offset-0" style="width:400px;">
@@ -641,7 +130,7 @@
 
                     <div id="scrl" class="col-md-6" >
                         <ul id="uluseremails" class="emlOneRowDatalst L2 LE2" ng-repeat="email in user_emailAddresses">
-                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}</li>
+                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="fun('{{email.emailid}}');selectEmailId('{{email.id}}');">{{email.emailid}}</li>
                             <p ng-show="email.emailid == '' && type == 'user'" id='NoContacts' style="margin-top:-80px;">No contacts available</p>
                             
                         </ul>
@@ -654,7 +143,7 @@
 
             </div>
               
-              <div id="tab4" class="col-md-10 col-md-offset-2" class="hide">
+                    <div id="tab4" class="col-md-10 col-md-offset-2" class="hide">
                 <div id="emailsubjectdiv" ng-controller="EmailListController">
                     <p class="header1">Email List:</p>
                     <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/> <br>
@@ -685,20 +174,7 @@
                 </div>-->
 
         <script>
-            $(".cross").hide();
-            $(".menu").hide();
-            $("#emaillist").hide();
-
            
-
-            $("#fileUpload").change(function () {
-
-                loadImageFile();
-                // resets input file
-                $('.fileUpload').wrap('<form>').closest('form').get(0).reset();
-                $('.fileUpload').unwrap();
-            });
-
         </script>
     </body>
 </html>
