@@ -1668,12 +1668,13 @@ margin-top: 30px;
 
 
 .selection-icon{
-    width:10px;
-    height: 10px;
+    width:14px;
+    height: 14px;
     border: 2px solid #979797 ;
     border-radius: 3px;
     margin-top: 15px;
     margin-right: 20px;
+    cursor:pointer;
 }
 
 .selection-icon-selected{
@@ -1683,6 +1684,7 @@ margin-top: 30px;
     margin-top: 15px;
     margin-right: 20px;
     background-color: #0F76A6;
+    cursor:pointer;
 }
 
 .chooseList-icon{
