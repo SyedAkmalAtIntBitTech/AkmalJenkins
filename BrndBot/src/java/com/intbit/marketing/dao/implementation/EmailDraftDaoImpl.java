@@ -33,40 +33,41 @@ public class EmailDraftDaoImpl implements EmailDraftDao {
      */
     public TblEmailDraft getById(Integer id) throws Throwable {
        try {
-                Criteria criteria=sessionFactory.getCurrentSession()
-                        .createCriteria(TblEmailDraft.class)
-                        .add(Restrictions.eq("id", id));
-                return (TblEmailDraft)criteria.list().get(0);
-		} catch (Throwable throwable) {
-			logger.log(Level.SEVERE, null, throwable);
-			throw new Throwable("Database error while retrieving record");
+            Criteria criteria=sessionFactory.getCurrentSession()
+                    .createCriteria(TblEmailDraft.class)
+                    .add(Restrictions.eq("id", id));
+            return (TblEmailDraft)criteria.list().get(0);
+            } catch (Throwable throwable) {
+                logger.log(Level.SEVERE, null, throwable);
+                throw new Throwable("Database error while retrieving record");
             }
     }
 
      /**
 	 * {@inheritDoc}
      */
-    public List<TblEmailDraft> getAllEmailDrafts() throws Throwable {
+    public List<TblEmailDraft> getAllEmailDrafts(Integer user_id) throws Throwable {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblEmailDraft.class);
+                    .createCriteria(TblEmailDraft.class)
+                    .add(Restrictions.eq("userId", user_id));
                    return criteria.list();
-		} catch (Throwable throwable) {
-                   logger.log(Level.SEVERE, null, throwable);
-                   throw new Throwable("Database error while retrieving record(s).");
-		}
+            } catch (Throwable throwable) {
+               logger.log(Level.SEVERE, null, throwable);
+               throw new Throwable("Database error while retrieving record(s).");
+            }
     }
 
      /**
 	 * {@inheritDoc}
      */
     public Integer save(TblEmailDraft emailDraft) throws Throwable {
-        try {			
-		 return ((Integer) sessionFactory.getCurrentSession().save(emailDraft));
-		} catch (Throwable throwable) {
-			logger.log(Level.SEVERE, null, throwable);
-			throw new Throwable("Database error while saving record.");
-		}
+        try {
+            return ((Integer) sessionFactory.getCurrentSession().save(emailDraft));
+           } catch (Throwable throwable) {
+                   logger.log(Level.SEVERE, null, throwable);
+                   throw new Throwable("Database error while saving record.");
+           }
     }
 
      /**
@@ -76,8 +77,8 @@ public class EmailDraftDaoImpl implements EmailDraftDao {
        try {
             sessionFactory.getCurrentSession().update(emailDraft);
           } catch (Throwable throwable) {
-                  logger.log(Level.SEVERE, null, throwable);
-                  throw new Throwable("Database error while saving record.");
+            logger.log(Level.SEVERE, null, throwable);
+            throw new Throwable("Database error while saving record.");
           }
     }
 
@@ -86,12 +87,12 @@ public class EmailDraftDaoImpl implements EmailDraftDao {
      */
     public void delete(Integer id) throws Throwable {
        try {
-                TblEmailDraft emailDraft = getById(id);
-                sessionFactory.getCurrentSession().delete(emailDraft);
-		} catch (Throwable throwable) {
-                    logger.log(Level.SEVERE, null, throwable);
-                    throw new Throwable("Database error while retrieving record.");
-		}
+            TblEmailDraft emailDraft = getById(id);
+            sessionFactory.getCurrentSession().delete(emailDraft);
+            } catch (Throwable throwable) {
+                logger.log(Level.SEVERE, null, throwable);
+                throw new Throwable("Database error while retrieving record.");
+            }
     }
 
 }

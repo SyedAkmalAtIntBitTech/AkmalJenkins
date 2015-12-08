@@ -24,27 +24,27 @@ public interface EmailDraftDao {
    public TblEmailDraft getById(Integer id) throws Throwable; 
    
    /**
-	 * This method retrieves all {@link MarketingAction}
-	 * @return {@link MarketingProgram}
+	 * This method retrieves all {@link EmailDraft}
+	 * @return {@link EmailDraft}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblEmailDraft> getAllEmailDrafts() throws Throwable;
-   
+   public List<TblEmailDraft> getAllEmailDrafts(Integer user_id) throws Throwable;
+
    /**
-	 * This method save {@link MarketingAction} by passing marketingAction
+	 * This method save {@link emailDraft} by passing emailDraft
 	 * @param emailDraft
 	 * @throws java.lang.Throwable 
     */
    public Integer save(TblEmailDraft emailDraft) throws Throwable;
    /**
-	 * This method save {@link marketingAction} by passing marketingAction
+	 * This method save {@link emailDraft} by passing emailDraft
 	 * @param emailDraft
 	 * @throws java.lang.Throwable 
     */
    public void update(TblEmailDraft emailDraft) throws Throwable;
    
    /**
-	 * This method delete {@link marketingAction} by passing id
+	 * This method delete {@link emailDraft} by passing id
 	 * @param id
 	 * @throws java.lang.Throwable 
     */

@@ -27,11 +27,10 @@
             
             $scope.getAllDrafts = function(){
               
-            $http({
+                $http({
                     method : 'GET',
                     url : getHost() + 'displayAllEmailDrafts.do'
                 }).success(function(data, status) {
-                    alert(data);
                     if (data == ""){
                         $scope.emaildraftsstatus = "No email drafts present";
                     }else {
@@ -45,8 +44,29 @@
                 });
             };
             
-            $scope.editDrafts = function(categoryid, subcategoryid, htmldata){
+            $scope.editDrafts = function(draft_id, category_id, sub_category_id, sub_category_name){
                 
+                var draftdetails = {"draftid": draft_id, "category_id": category_id, 
+                            "sub_category_id": sub_category_id, 
+                            "sub_category_name": sub_category_name};
+                
+                $http({
+                    method : 'POST',
+                    url : getHost() + 'showDraft.do',
+                    headers: {'Content-Type':'application/json'},
+                    data: JSON.stringify(draftdetails)
+                }).success(function(data, status) {
+                    if (data == "false"){
+
+                    }else {
+                        window.open(getHost() + 'emaileditor.jsp?id='+null+'&draftid='+draft_id, "_self");                    
+                    }
+                    
+                }).error(function(data, status) {
+                    alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                });
             };
         };
     </script>
@@ -114,8 +134,8 @@
                             </div>
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
-                                    <a href="/Newest_Files/SavedDraft_EmailOverlay_Clean1.html">
-                                        <span class="small-button slat-button detail-button-font">View and Edit Draft</span>
+                                    <a>
+                                        <span class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>
                                     </a>
                                 </div>
                             </div>

@@ -30,8 +30,8 @@ public class EmailDraftServiceImpl implements EmailDraftService {
     }
 
     @Override
-    public List<TblEmailDraft> getAllEmailDrafts() throws Throwable {
-        return emaildraftdao.getAllEmailDrafts();
+    public List<TblEmailDraft> getAllEmailDrafts(Integer user_id) throws Throwable {
+        return emaildraftdao.getAllEmailDrafts(user_id);
     }
 
     @Override

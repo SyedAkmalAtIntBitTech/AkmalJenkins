@@ -27,6 +27,7 @@ public class TblEmailDraft  implements java.io.Serializable {
 
      private int id;
      private Date draftDate;
+     private Date editDate;
      private Integer userId;
      private String draftJson;
 
@@ -85,6 +86,16 @@ public class TblEmailDraft  implements java.io.Serializable {
         this.draftJson = draftJson;
     }
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="edit_date", length=35)
+    public Date getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(Date editDate) {
+        this.editDate = editDate;
+    }
+    
 }
 
 

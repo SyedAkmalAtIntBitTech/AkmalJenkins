@@ -10,41 +10,51 @@ package com.intbit.marketing.model;
  * @author development
  */
 public class EmailDraftModel {
-    private Integer category_id;
-    private Integer sub_category_id;
-    private String email_subject;
-    private String html_body_string;
+    private Integer categoryid;
+    private Integer subcategoryid;
+    private String subcategoryname;
+    private String emailsubject;
+    private String htmlbodystring;
 
-    public Integer getCategory_id() {
-        return category_id;
+    public Integer getCategoryid() {
+        return categoryid;
     }
 
-    public void setCategory_id(Integer category_id) {
-        this.category_id = category_id;
+    public void setCategoryid(Integer categoryid) {
+        this.categoryid = categoryid;
     }
 
-    public Integer getSub_category_id() {
-        return sub_category_id;
+    public Integer getSubcategoryid() {
+        return subcategoryid;
     }
 
-    public void setSub_category_id(Integer sub_category_id) {
-        this.sub_category_id = sub_category_id;
+    public void setSubcategoryid(Integer subcategoryid) {
+        this.subcategoryid = subcategoryid;
     }
 
-    public String getEmail_subject() {
-        return email_subject;
+    public String getSubcategoryname() {
+        return subcategoryname;
     }
 
-    public void setEmail_subject(String email_subject) {
-        this.email_subject = email_subject;
+    public void setSubcategoryname(String subcategoryname) {
+        this.subcategoryname = subcategoryname;
     }
 
-    public String getHtml_body_string() {
-        return html_body_string;
+    public String getEmailsubject() {
+        return emailsubject;
     }
 
-    public void setHtml_body_string(String html_body_string) {
-        this.html_body_string = html_body_string;
+    public void setEmailsubject(String emailsubject) {
+        this.emailsubject = emailsubject;
     }
+
+    public String getHtmlbodystring() {
+        return htmlbodystring;
+    }
+
+    public void setHtmlbodystring(String htmlbodystring) {
+        this.htmlbodystring = htmlbodystring;
+    }
+
 
 }
