@@ -19,7 +19,7 @@
     
 </head>    
     <body>
-        <div id="fade" class="black_overlay" onclick = "closeOverlay();"></div>
+        <div id="fade" class="black_overlay" ></div>
         <div id="addAction">
             <div class="pop-up-background">
         <div class="pop-up-container pop-up-container-newaction"> 
