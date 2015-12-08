@@ -67,11 +67,11 @@ public class ApplicationContextListener implements ServletContextListener {
 //        mindbodyEmailListScheduler = new MindbodyEmailListScheduler();
 //        mindbodyEmailListScheduler.startScheduler();
         
-        socialPostScheduler = new SocialPostScheduler();
-        socialPostScheduler.startTwitterScheduler();
-        socialPostScheduler.startFacebookScheduler();
-        socialPostScheduler.startEmailScheduler();
-        socialPostScheduler.startRecurringEmailScheduler();
+//        socialPostScheduler = new SocialPostScheduler();
+//        socialPostScheduler.startTwitterScheduler();
+//        socialPostScheduler.startFacebookScheduler();
+//        socialPostScheduler.startEmailScheduler();
+//        socialPostScheduler.startRecurringEmailScheduler();
         
     }
 
