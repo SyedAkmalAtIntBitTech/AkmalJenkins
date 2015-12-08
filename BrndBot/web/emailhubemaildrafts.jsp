@@ -68,21 +68,21 @@
                         // or server returns response with an error status.
                 });
             };
-            
-            $scope.editDrafts = function(draft_id, category_id, sub_category_id, sub_category_name){
+
+            $scope.editDrafts = function(draft_id, category_id,email_subject, sub_category_id, sub_category_name){
                 
-                var draftdetails = {"draftid": draft_id, "category_id": category_id, 
+                var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id, 
                             "sub_category_id": sub_category_id, 
                             "sub_category_name": sub_category_name};
                 
                 $http({
                     method : 'POST',
-                    url : getHost() + 'showDraft.do',
+                    url : getHost() + 'saveEmailDraftSessionValues.do',
                     headers: {'Content-Type':'application/json'},
                     data: JSON.stringify(draftdetails)
                 }).success(function(data, status) {
                     if (data == "false"){
-
+                        alert("There was a problem while saving the draft. Please try again later.")
                     }else {
                         window.open(getHost() + 'emaileditor.jsp?id='+null+'&draftid='+draft_id, "_self");                    
                     }
@@ -168,7 +168,7 @@
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
                                     <a>
-                                        <span class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>
+                                        <span class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>
                                     </a>
                                 </div>
                             </div>

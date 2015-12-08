@@ -146,6 +146,7 @@
                 }
                 if (!request.getParameter("draftid").equals("null")){
                     draft_id = (String)request.getParameter("draftid");
+                    out.println(draft_id);
                 }
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
@@ -175,7 +176,6 @@
             var BlockHtml = "";
             var rendomIframeFilename = "";
             var draft_id = <%= draft_id %>;
-            alert(draft_id);
             $(document).ready(function () {
                     $("#addblkbtn").prop('disabled', true);
                     $(".selectrow").css("display", "none");
@@ -246,7 +246,6 @@
                                         }else {
                                             
                                             $scope.htmlbody = data.htmlbody;
-                                            alert(data.htmlbody);
                                             $('#edit').froalaEditor('html.set', '' + data.htmlbody);
                                         }
 
@@ -824,47 +823,48 @@
         <script>
 
         $("#saveToDraft").click(function (){
-        $.ajax({
-        url: getHost() + "PreviewServlet",
+            
+            $.ajax({
+                url: getHost() + "PreviewServlet",
                 method: "post",
                 data:{
-                htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                        iframeName: rendomIframeFilename
+                    htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                    iframeName: rendomIframeFilename
                 },
                 success: function (responseText) {
                     $("#previewcontent").empty();
                     $("#previewcontent").append(responseText);
-                    
-                    if (draftid == "0"){
+                    if (draft_id == "0"){
                         $.ajax({
-                        url: getHost() + "saveEmailDrafts.do",
+                                url: getHost() + "saveEmailDrafts.do",
                                 method: "post",
                                 data:{
                                 bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
                                 },
                                 success: function (responseText) {
                                 if (responseText == "true"){
-                                alert("Draft saved successfully");
-                                        document.location.href = "dashboard.jsp";
+                                    alert("Draft saved successfully.");
+                                    document.location.href = "dashboard.jsp";
                                 } else {
-                                alert("problem saving the draft");
+                                    alert("There was a problem while saving the draft. Please try again later.");
                                 }
                                 }
 
                         });
                     }else {
                         $.ajax({
-                        url: getHost() + "updateEmailDraft.do",
+                                url: getHost() + "updateEmailDraft.do",
                                 method: "post",
                                 data:{
+                                    draftid: draft_id,
                                     bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
                                 },
                                 success: function (responseText) {
                                 if (responseText == "true"){
-                                alert("Draft saved successfully");
-                                        document.location.href = "dashboard.jsp";
+                                    alert("Draft updated successfully.");
+                                    document.location.href = "dashboard.jsp";
                                 } else {
-                                alert("problem saving the draft");
+                                    alert("There was a problem while saving the draft. Please try again later.");
                                 }
                                 }
 
