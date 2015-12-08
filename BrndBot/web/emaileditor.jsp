@@ -174,7 +174,7 @@
 
                     var rendomIframeFilename="";
        $(document).ready(function () {
-                        $("#addblkbtn").prop('disabled', true);
+                        $(".addblkbtn").prop('disabled', true);
                         $(".selectrow").css("display","none");
                         rendomIframeFilename=event.timeStamp;
                         selecterBlockId('defaultblock1', temp_block_id);
@@ -280,6 +280,7 @@
                             });
                             };
                             $scope.showBlocks = function(){
+                                $("#addblkbtn").prop("disabled",true);
                                     $(".selectrow").css("display","block");
                                     $("#stylelist").css("display", "none");
                                     $("#selectstyleid").css("display", "none");
@@ -316,8 +317,7 @@
                                     // or server returns response with an error status.
                             });
                             };
-                            $scope.showImageOfBlock = function(id, mind_body_query){
-                                
+                            $scope.showImageOfBlock = function(id, mind_body_query){                            
                               hlt();
                             $("#stylelist").css("display", "none");
                                     $("#blklist").css("display", "block");
@@ -340,6 +340,7 @@
                                     $("#" + id).attr('src', '/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=' + allLayoutFilename[2]);
                                     $("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
                             }).error();
+                                $("#addblkbtn").prop("disabled",true);
                             };
                             $scope.showDataTemp = function(){
 
@@ -422,6 +423,8 @@
             });
         function showSomething(block_id_temp, id, style, mind_body_query){
                       $("#addblkbtn").prop('disabled', false);
+                      hlt();
+                      addblock();
                     temp_style_id = id;
                             temp_style_layout = style;
                             temp_block_id = block_id_temp;
@@ -518,7 +521,7 @@
                         block_id = blockid;
                         addblockid = selectblockid;
                 }
-
+                $("#styletab").trigger("click");
             }
             $("#selcatdet").click(function (){
                 $("#blocktab").click();
@@ -588,7 +591,7 @@
                             <div class="selblock fontpnr">Select a Block</div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-6">
-                            <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Add Block"></div>
+                            <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Add Block" disabled></div>
                         </div> 
                         <div class="row">
                             <div class="selblklinediv"><hr class="selblkline"></div>
@@ -607,7 +610,7 @@
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <ul id="blklistid" class="blocklist fontpnr" value="blklist" style="display: none;">
-                                <li ng-repeat="blocks in datalists" id="blklist" class="listblock" onclick="addblock();hlt();"> 
+                                <li ng-repeat="blocks in datalists" id="blklist" class="listblock" > 
                                     <div  id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>
                                 </li>
                             </ul>
