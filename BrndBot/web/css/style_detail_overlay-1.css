@@ -204,6 +204,7 @@ a.svg:after {
         display: table-cell;
     vertical-align: middle;
     font-weight: 500;
+    cursor:pointer;
 }
 
 .hub-dropdown-text{

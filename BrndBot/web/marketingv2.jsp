@@ -12,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" href="css/pikaday.css">
     <link rel="stylesheet" href="css/datepickerpikaday.css">
+        <script src="js/moment.js" type="text/javascript"></script>
     <script src="js/pikaday.js"></script>
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -76,14 +77,30 @@
         </div>
         <div class="page-subnav-bar-with-dropdown"> 
              <div class="subnav-date-dropdown">
-                 <object type="image/svg+xml" data="images/Icons/calendar.svg" class="calendar-dropdown" style="cursor:pointer;"> </object>
-                 
+                 <img type="image/svg+xml" src="images/Icons/calendar.svg" class="calendar-dropdown" style="cursor:pointer;" />
+              
             </div>
              <div class="subnav-date-dropdown-text">
-                   <span class="calendar-dropdown-text">Jump to Date</span>
+                 <label class="calendar-dropdown-text" for="jumptodatepicker" >Jump to Date</label>
+                   <input type="text"  name="datepicker" id="jumptodatepicker" hidden/>
+                 <script>
+//                            var picker = new Pikaday(
+//                            {
+//                                field: document.getElementById('jumptodatepicker'),
+//                                format: 'YYYY-MM-DD',
+//                                firstDay: 1,
+//                                minDate: new Date('2000-01-01'),
+//                                maxDate: new Date('2050-12-31'),
+//                                yearRange: [2000,2050],
+//                                onSelect: function() {
+////                                    document.getElementById('selected').appendChild(curdat);
+//                                }
+//                            });
+                 </script>
             </div>
-          
+             
                 <div class="top-subnav-tabs-container-with-drop">
+                    
                 </div>
         </div>
         </div>
@@ -95,9 +112,9 @@
             <div class="page-inner-content-container " >
                 <div class="fleft content" ng-repeat="entity in entitySet">
                     <div class="page-content-title-bar">
-                        <div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>
+                        <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
                         <div class="page-content-title h2" ng-show="entity.date == today_date">Today's Actions</div>
-                        <div class="page-content-title h2" ng-show="(entity.date != today_date) && (entity.date!=tomorrow_date)">{{entity.date| date: "MMM dd yyyy"}}</div>
+                        <div class="page-content-title h2" ng-show="(entity.date != today_date)">{{entity.date| date: "MMM dd yyyy"}}</div>
                     </div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft" >

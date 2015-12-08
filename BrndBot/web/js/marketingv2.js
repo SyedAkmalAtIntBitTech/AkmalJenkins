@@ -13,12 +13,35 @@
 
 
 
+
 var sliderDialog = "";
 var prevSliderDialog = "";
 var create_button_title = "Edit";
 
 $(document).ready(function ()
 {
+    
+    $(".calendar-dropdown").click(function (){$("#jumptodatepicker").trigger( "click" );});
+    
+    
+    var picker = new Pikaday(
+                            {
+                                field: document.getElementById('jumptodatepicker'),
+                                format: 'YYYY-MM-DD',
+                                firstDay: 1,
+                                minDate: new Date('2000-01-01'),
+                                maxDate: new Date('2050-12-31'),
+                                yearRange: [2000,2050],
+                                onSelect: function() {
+//                                    alert(this.getMoment().format('YYYY-MM-DD'));
+                                }
+                            });
+                            
+    $("#jumptodatepicker").click(function (){var dat=document.getElementById('jumptodatepicker').value;$(".pika-single").css("margin-top","100px").css("margin-left","70px");alert(dat);});
+//    setCurrentDate(2015-12-09);
+    
+    
+    
     $(".delete-button").hide();
     $("#liPriority").click(function () {
         //$slider=1;
@@ -536,23 +559,23 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.master_email = getemail();
     $scope.master_note = getnote();
     $scope.getCampaigns = function () {
-       
-        var curr_date = '2015-12-02';
-        var tomorrowDate = '2015-12-03';
-        var new_date = '2015-12-17';
+      
+        var curr_date = '';
+        var tomorrowDate = '';
+        var new_date = '';
         //        $("#messagetoday").show();
 //        $("#messagetomorrow").show();
 //
-//        if (user_selected_date != "") {
-//            curr_date = moment(user_selected_date.date).format('YYYY-MM-DD');
-//            
-//            tomorrowDate = moment(addDays(user_selected_date.date, 1)).format('YYYY-MM-DD');
-//            new_date = moment(addDays(user_selected_date.date, 15)).format('YYYY-MM-DD');
-//        } else {
-//            curr_date = moment(new Date()).format('YYYY-MM-DD');
-//            tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
-//            new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
-//        }
+        if (user_selected_date != "") {
+            curr_date = moment(user_selected_date.date).format('YYYY-MM-DD');
+            
+            tomorrowDate = moment(addDays(user_selected_date.date, 1)).format('YYYY-MM-DD');
+            new_date = moment(addDays(user_selected_date.date, 15)).format('YYYY-MM-DD');
+        } else {
+            curr_date = moment(new Date()).format('YYYY-MM-DD');
+            tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
+            new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
+        }
         var invalid= "Invalid date";
         if(curr_date !== invalid){
                 $http({
@@ -564,8 +587,9 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.entityS = JSON.stringify(data);
         //            $("#default").hide();
         //            $("#selected").show();
-                   $scope.today_date = "2015-12-02";
-                    $scope.tomorrow_date = "2015-12-03";
+                   
+                    $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
+                    $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
                     $scope.entitySet = data.entitydata;
                     console.log(JSON.stringify(data.entitydata));
                     $scope.nodata = data.noactionsmessage;
