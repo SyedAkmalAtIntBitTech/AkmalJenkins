@@ -39,6 +39,11 @@ and open the template in the editor.
                 left:-15px;
                 padding: 7px;
             }
+            #inputreenter:valid ~ label {
+                left: -70px !important;
+                font-size: 13px;
+                color: #999;
+            }
         </style>
         <style>
             .leftassign{
