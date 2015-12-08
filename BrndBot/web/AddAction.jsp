@@ -32,13 +32,13 @@
             <div class="pop-up-inner">
                 <div class="input-field-container ">
                     <div class="input-header"> Action Name </div>
-                    <input type="text" name="addactiontitle" id="addactiontitle" class="input-field-textfield input-placeholder" placeholder="Enter Email Address" value=""/>
+                    <input type="text" name="addactiontitle" id="addactiontitle" class="input-field-textfield input-placeholder full" placeholder="Enter Title" value=""/>
                 </div>
                 <div class="line-divider"></div>
                 <div class="cols-2">
                      <div class="input-field-container col-4of10 fleft pushright">
                         <div class="input-header"> Action Date </div>
-                        <input type="text" name="datepicker" id="datepicker" readonly class="input-field-textfield input-placeholder" placeholder="Enter Action Date" />
+                        <input type="text" name="datepicker" id="datepicker" readonly class="input-field-textfield input-placeholder full" placeholder="Enter Action Date" />
                         <script>
                             var picker = new Pikaday(
                             {
@@ -52,7 +52,7 @@
                      </div>
                      <div class="input-field-container col-4of10 fleft">
                         <div class="input-header"> Action Time </div>
-                        <input id="timepicker1" type="text" name="timepicker1" class="input-field-textfield input-placeholder" placeholder="Enter Action Time"  /> 
+                        <input id="timepicker1" type="text" name="timepicker1" class="input-field-textfield input-placeholder percentage99" placeholder="Enter Action Time"  /> 
                             <script src="js/timepicki.js" type="text/javascript"></script>
                             <script>
                                $('#timepicker1').timepicki({
@@ -69,7 +69,7 @@
                 </div>
                  <div class="input-field-container col-1of1">
                     <div class="input-header"> Action Type </div>
-                    <select id="actiontype" class="full" name="actiontype">
+                    <select id="actiontype" class="full topten" name="actiontype">
                         <option value="0">Select</option>
                         <option value="Facebook">Facebook Post</option>
                         <option value="Twitter">Twitter Post</option>
@@ -79,7 +79,7 @@
                 </div>
                 <div class="input-field-container col-1of1">
                     <div class="input-header"> Marketing Program Association </div>
-                    <select disabled id="marketing_program" class="full" name="marketing_program_type" >
+                    <select disabled id="marketing_program" class="full topten" name="marketing_program_type" >
                         <option value="0">General</option>
                         <option ng-repeat="row in marketprogram" value="{{row.user_program_id}}">{{row.name}}</option>
                     </select>

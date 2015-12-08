@@ -1,47 +1,224 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
 /* 
     Created on : 1 Aug, 2015, 11:39:04 AM
-    Author     : sandeep-kumar
+    Author     : Satyajit Roy At IntBit Technologies
 */
+.firstcol{
+    margin: 51px 40.3px 48px 57px;
+}
+.secondcol{
+    margin: 51px 40.3px 48px 42.7px;
+}
+.borderright{
+    border-right: 2px solid #979797;
+}
+.headtitle{
+}
+.headdelete{
+    margin-left:40px;
+    margin-top:5px;
+}
+.inlineFlex
+{
+    display:inline-flex;
+    width:100%;
+}
+.left{
+    margin-left:57px;
+    width: 100%;
+}
+.left1
+{
+    margin-left:47px;
+    width: 100%;
+}
+.rightthirty{
+    margin-right:30px;
+}
+.rightfive{
+    margin-right:5px;
+}
+.right223
+{
+    margin-right:223.7px;
+}
+
+.toptwo{
+    margin-top:2px;
+}
+.topfive{
+    margin-top:5px;
+}
+.topsix{
+    margin-top:6px;
+}
+.top8{
+    margin-top:8.8px;
+}
+.topnine{
+    margin-top:9px;
+}
+.topten{
+    margin-top:10px;
+}
+.top10nhalf{
+    margin-top:10.5px;
+}
+.top12
+{
+    margin-top:12px;
+}
+.top11
+{
+    margin-top:11px;
+}
+.top18
+{
+    margin-top:18px;
+}
+.topnineteen{
+    margin-top:19px;
+}
+.top111{
+    margin-top:111px;
+}
+.top19{
+    margin-top:19px;
+}
+.toptweenty{
+    margin-top:20px;
+}
+.top20nhalf
+{
+    margin-top: 20.5px;
+}
+.toptweentyone{
+    margin-top:21px;
+}
+.toptweentyfive{
+    margin-top: 25px;
+}
+.top26{
+    margin-top: 26.3px;
+}
+.top27{
+    margin-top: 27px;
+}
+.topthirty{
+    margin-top:30px;
+}
+.top32{
+    margin-top:32px;
+}
+.topthirty7{
+    margin-top:37px;
+}
+.topthirty8{
+    margin-top:38px;
+}
+.topfourty{
+    margin-top:40px;
+}
+.top58{
+    margin-top:58.3px;
+    padding-bottom: 48px !important;
+}
+.topsixeight{
+    margin-top:68px;
+}
+.top80{
+    margin-top:80.3px !important;
+}
+.top120
+{
+    margin-top:120px;
+}
+.tenpix
+{
+    font-size: 10px;
+}
+.twlvpix
+{
+    font-size: 12px;
+}
+.sixtnpix
+{
+    font-size: 16px;
+}
+.headcolor{
+    color: #2d4355;
+}
+.titlecontain{
+    color:#19587c;
+}
+.containe{
+    color:#3f3f42;
+}
+.half{
+    width:50%;
+}
+.scrolly{
+    overflow-y:auto;
+}
+.height75{
+    height:75px;
+}
 .black_overlay{
-                display: none;
-                position: absolute;
-                top: 0%;
-                left: 0%;
-                width: 100%;
-                height: 1000em;
-                background-color: #3D5368 !important;
-                z-index:999 !important;
-                -moz-opacity: 0.8;
-                opacity:1 !important;
-                filter: alpha(opacity=80);
-            }
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 1000em;
+    background-color: #3D5368 !important;
+    z-index:999 !important;
+    -moz-opacity: 0.8;
+    opacity:.7 !important;
+    filter: alpha(opacity=80);
+}
+            
 .full{
     width:100%;
     height: 32px !important;
+}
+.percentage99
+{
+    width:99%;
+}
+.time_pick {
+    left: 1px;
+}
+ #actiontype{
+    background-color: #f6f7f7 !important;
+    border-radius: 3px;
+    border-color:#e3e3e3;
+    height:25px;
+    //width:120px;
+    font-size: 12px;
+    appearance: none;
+    -moz-appearance: none;
+    background-image: url("images/dropdown.png"), none;
+}
+#marketing_program {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-color: #f6f7f7 !important;
+    border-color: #e3e3e3;
+    border-radius: 3px;
+    font-size: 12px;
+    height: 25px;
+    //width: 120px;
+    resize:none;
 }
 #addactionClose{
     cursor: pointer;
 }
 #addAction
-            {
-                display: none;
-                position: fixed;
-                z-index: 10000;
-                margin-left: 25%;
-            }
-            
-/*.timepicker_wrap {
-     margin-top: -215px; 
-    top:0px !important;
-    margin-top:0px !important;
-    width: 263px;
-    position: relative;
-}*/
+{
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    margin-left: 30%;
+}
 .input-field-container.col-1of1{
     z-index: 0;
 }
@@ -55,7 +232,6 @@ and open the template in the editor.
 ///////////////////////////////////////////////// latest end ////////////////////////////////            
 #popup
 {
-    /*                   display:none;*/
     position: fixed;
     width: auto;
     height:300px;
@@ -86,7 +262,6 @@ and open the template in the editor.
 {
     margin:35px 0 0 80px;
     width:50px;
-
 }
 @media screen and (min-width: 480px) {
     head {

@@ -17,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
+    <script src="js/timepicki.js" type="text/javascript"></script>
     <jsp:include page="basejsp.jsp" />
     <%@ include file="checksession.jsp" %>
         
