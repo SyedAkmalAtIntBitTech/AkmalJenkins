@@ -168,14 +168,22 @@
     top: 0%;
     left: 0%;
     width: 100%;
-    height: 1000em;
+    height: 100%;
     background-color: #3D5368 !important;
-    z-index:999 !important;
+    z-index:99999 !important;
     -moz-opacity: 0.8;
     opacity:.7 !important;
     filter: alpha(opacity=80);
 }
-            
+.input-field-textfield1 {
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    color: #000000;
+}         
 .full{
     width:100%;
     height: 32px !important;
@@ -216,8 +224,29 @@
 {
     display: none;
     position: fixed;
-    z-index: 10000;
-    margin-left: 30%;
+    z-index: 999999;
+    margin-left: 27%;
+}
+#facebooksection{
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    
+    height: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    width: 900px;
+    right: 0px;
+    margin-right: -900px;
+}
+#slider-button
+{
+    position:fixed;
+    width:38px;
+    height:50px;
+    right:0px;
+    background:transparent;
+    top: 0px;
 }
 .input-field-container.col-1of1{
     z-index: 0;
@@ -268,3 +297,19 @@
         background-color: lightgreen;
     }
 }
+/*-------------------------------------------- emaillist popup -------------------------------*/
+
+#addContact {
+    position: fixed;
+    display: none;
+    z-index: 99999;
+    left: 34%;
+}
+#fade
+{
+    display:none;
+}
+
+
+
+/*--------------------------------------------------------------------------------------------*/

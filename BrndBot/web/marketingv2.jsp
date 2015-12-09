@@ -22,10 +22,8 @@
     <%@ include file="checksession.jsp" %>
         
     <script src="js/marketingv2.js" type="text/javascript"></script>
-    <link href="css/version2/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>
     <link href="css/version2/normalize_1.css" rel="stylesheet" type="text/css"/>
     <link href="css/version2/slat.css" rel="stylesheet" type="text/css"/>
-    <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="images/favicon.png"/>
     
     <title>BrndBot - Your Plan</title>
@@ -34,7 +32,8 @@
 <body ng-app class="claro">
     <!--SideNav-->
     <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign"  class="container content-main">
-    <jsp:include page="AddAction.jsp"/>  
+    <jsp:include page="AddAction.jsp"/>
+    <jsp:include page="facebookpreview.jsp"/> 
         <div class="navigation">
         <div class="main-nav-logo">
             <a class=" bb-logo-nav" href="dashboard.jsp">
@@ -123,7 +122,17 @@
                             </div>
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font">Details</div>
+                                    <div class="small-button slat-button detail-button-font"
+                                         ng-click="getScheduleDetails(entitydetails.schedule_id, 
+                                                            entitydetails.template_status,
+                                                            entitydetails.schedule_time, 
+                                                            entitydetails.entity_type, 
+                                                            entitydetails.schedule_title, 
+                                                            entitydetails.schedule_description,
+                                                            entitydetails.marketingName,
+                                                            entitydetails.user_marketing_program_id,
+                                                            entitydetails.days,
+                                                            entitydetails.is_today_active)">Details</div>
                                 </div>
                             </div>
                         </li>
@@ -281,6 +290,13 @@
             
         </div>
         </div>
+        <div id="light" class="white_content closepopup">
+                <a href = "javascript:void(0)" style="text-decoration:none;">
+                    <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
+                        <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
+                    </div>
+                </a>
+            </div>
     </div>
   
     </body>

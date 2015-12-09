@@ -1904,7 +1904,7 @@
                <div id="light" class="white_content closepopup">
                 <a href = "javascript:void(0)" style="text-decoration:none;">
                     <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
-                        <p style="margin-top:-7px;"><img src="images/CloseIcon.svg" height="25" width="25" /></p>
+                        <p style="margin-top:-7px;"><img src="images/closeIcon.svg" height="25" width="25" /></p>
                     </div>
                 </a>
             </div>

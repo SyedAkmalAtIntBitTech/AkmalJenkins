@@ -20,8 +20,34 @@ function overlay(){
                     //document.getElementById('prevfbimg').style.display = 'none';
             }
 
+
+function fun(value)
+{
+    $("#fade").show();
+    $("#addContact").show();
+    $("#emailId").val(value);
+    overlay();
+    alert("... ok ...");
+}
 $(document).ready(function ()
 {
+    $(".close").click(function(){
+        closeoverlay();
+        $('#slider-button').click();
+        $('.bottom-cta-bar').hide();
+        //$("#fade").hide();
+        //$("#facebooksection").hide();
+    });
+    
+  //////////////////////////////////////////// emaillist popup ////////////////////////////////////////
+  $("#close").click(function(){
+       $("#fade").hide();
+       $("#addContact").hide();
+  });
+  
+  
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     $("#addactionClose").click(function(){
     $("#fade").hide();
     $("#addAction").hide();

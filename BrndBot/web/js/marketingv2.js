@@ -67,7 +67,7 @@ $edit=0;
                     if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
                         if ($('#slider-button').css("margin-right") == "788px")
                         {
-                            $(prevSliderDialog).animate({"margin-right": '-=850px'});
+                            $(prevSliderDialog).animate({"margin-right": '-=900px'});
                             $('#slider-button').animate({"margin-right": '-=788px'});
                         }
                     }
@@ -76,13 +76,13 @@ $edit=0;
                     {
                         $slider=0;
                         $a=0;
-                        $(sliderDialog).animate({"margin-right": '-=850px'});
+                        $(sliderDialog).animate({"margin-right": '-=900px'});
                         $('#slider-button').animate({"margin-right": '-=788px'});
                         closeoverlay();
                     }
                     else
                     {
-                        $(sliderDialog).animate({"margin-right": '+=850px'});
+                        $(sliderDialog).animate({"margin-right": '+=900px'});
                         $('#slider-button').animate({"margin-right": '+=788px'});
                         overlay();
                     }  
@@ -124,7 +124,7 @@ $edit=0;
                 if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
                     if ($('#slider-button').css("margin-right") == "788px")
                     {
-                        $(prevSliderDialog).animate({"margin-right": '-=850px'});
+                        $(prevSliderDialog).animate({"margin-right": '-=900px'});
                         $('#slider-button').animate({"margin-right": '-=788px'});
                     }
                 }
@@ -133,13 +133,13 @@ $edit=0;
                 {
                     $slider=0;
                     $a=0;
-                    $(sliderDialog).animate({"margin-right": '-=850px'});
+                    $(sliderDialog).animate({"margin-right": '-=900px'});
                     $('#slider-button').animate({"margin-right": '-=788px'});
                     closeoverlay();
                 }
                 else
                 {
-                    $(sliderDialog).animate({"margin-right": '+=850px'});
+                    $(sliderDialog).animate({"margin-right": '+=900px'});
                     $('#slider-button').animate({"margin-right": '+=788px'});
                     overlay();
                 }  
@@ -881,9 +881,9 @@ function controllerMarketingCampaign($scope, $http) {
             });
 
         } else if (entity_type == getfacebook()) {
-            sliderDialog = "#previewfb";
-            $('#slider-button').click();
-            prevSliderDialog = "#previewfb";
+            sliderDialog = "#facebooksection";
+            //$('#slider-button').click();
+            prevSliderDialog = "#facebooksection";
             $('#edtfbimg').show();
             $http({
                 method: 'GET',
@@ -911,35 +911,35 @@ function controllerMarketingCampaign($scope, $http) {
             });
 
         } else if (entity_type == gettwitter()) {
-            sliderDialog = "#previewtwitter";
-            $('#slider-button').click();
-            prevSliderDialog = "#previewtwitter";
+            sliderDialog = "#facebooksection";
+            //$('#slider-button').click();
+            prevSliderDialog = "#facebooksection";
 
-            $('#edttwtimg').show();
-            $http({
-                method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
-            }).success(function (data) {
-                $scope.entitiesdetails = data;
-                if (data.image_name == undefined) {
-                    $("#preview_twitter").hide();
-                    $("#edit_twitter").hide();
-                    $("#edit_twitter_action").show();
-                } else {
-                    $("#preview_twitter").hide();
-                    $("#edit_twitter").show();
-                    $("#edit_twitter_action").hide();
-                }
-                $scope.schedule_id = schedule_id;
-                var date = new Date(schedule_time);
-                $scope.entities_selected_time = schedule_time;
-                $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
-                $scope.schedule_desc = schedule_desc;
-                $scope.schedule_type = entity_type;
-            }).error(function (data) {
-                alert("request not successful");
-            });
+//            $('#edttwtimg').show();
+//            $http({
+//                method: 'GET',
+//                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
+//            }).success(function (data) {
+//                $scope.entitiesdetails = data;
+//                if (data.image_name == undefined) {
+//                    $("#preview_twitter").hide();
+//                    $("#edit_twitter").hide();
+//                    $("#edit_twitter_action").show();
+//                } else {
+//                    $("#preview_twitter").hide();
+//                    $("#edit_twitter").show();
+//                    $("#edit_twitter_action").hide();
+//                }
+//                $scope.schedule_id = schedule_id;
+//                var date = new Date(schedule_time);
+//                $scope.entities_selected_time = schedule_time;
+//                $scope.schedule_title = schedule_title;
+//                console.log(schedule_desc);
+//                $scope.schedule_desc = schedule_desc;
+//                $scope.schedule_type = entity_type;
+//            }).error(function (data) {
+//                alert("request not successful");
+//            });
 
         } else if (entity_type == getnote()) {
             sliderDialog = "#previewNote";
@@ -998,193 +998,199 @@ function controllerMarketingCampaign($scope, $http) {
 
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) {
         
-        if (entity_type == getemail()) {
+//        if (entity_type == getemail()) {
+//            $slider=2;
+//            sliderDialog = "#preview";
+//            $('#slider-button').click();
+//            prevSliderDialog = "#preview";
+//            $("#preview_email").show();
+//            $("#edit_email").hide();
+//            $("#edit_email_action").hide();
+//            $http({
+//                method: 'GET',
+//                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
+//            }).success(function (data) {
+//                $scope.entitiesdetails = data;
+//                if (data.body == undefined) {
+//                    $("#mailpreviewremove").hide();
+//                    $('#mailremovedtemplate').show();
+//                    $('#mailpreviewdecond').hide();
+//                    $('.approve').hide();
+//                    $("#email_button_send").val(create_button_title);
+//                } else {
+//                    $('.approve').show();
+//                    $("#mailpreviewremove").show();
+//                    $('#mailremovedtemplate').hide();
+//                    $('#mailpreviewdecond').show();
+//                    $('.content').show();
+//                    $('#mailimgprev').show();
+//                    $("#email_button_send").val("Send");
+//                }
+//                if(template_status=="complete")
+//                {
+//                    $("#emailgreen").show();
+//                    $("#emailred").hide();
+//                }
+//                else
+//                {
+//                    $("#emailgreen").hide();
+//                    $("#emailred").show();
+//                }
+//                var date = new Date(schedule_time);
+//                $(".content").empty();
+//                $(".content").append(data.body);
+////                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+//                
+//                $scope.entities_selected_time = schedule_time;
+//                $scope.schedule_title = schedule_title;
+//                $scope.schedule_id = schedule_id;
+//                console.log(schedule_desc);
+//                $scope.schedule_desc = schedule_desc;
+//                $scope.email_template_status = template_status;
+//                $scope.schedule_type = entity_type;
+//                $scope.marketing_program_name = marketingName;
+//                $scope.user_marketing_program_id = programId;
+//                $scope.days = days;
+//                $scope.is_today_active = is_today_active;
+//            }).error(function (data) {
+//                alert("request not successful");
+//            });
+//        } 
+//        if (entity_type == getfacebook()) {
+//            $slider=2;
+//            sliderDialog = "#facebooksection";
+//            $('#slider-button').click();
+//            prevSliderDialog = "#facebooksection";
+//            $("#preview_facebook").show();
+//            $("#edit_facebook").hide();
+//            $("#edit_facebook_action").hide();
+//
+//            $http({
+//                method: 'GET',
+//                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
+//            }).success(function (data) {
+//                $scope.entitiesdetails = data;
+//                
+//                if (data.image_name == undefined) {
+//                    $('.approve').hide();
+//                    $('#fbpreviewremove').hide();
+//                    $('#fbremovedtemplate').show();
+//                    $('#fbpreviewdecond').hide();
+//                    $('#imgcontainer').hide();
+//                    $('#prevfbimg').hide();
+//                    $('#fbnotemplate').show();
+//                    $('#fbtemplatesaved').hide();
+//                    $('#fb_preview_postdet').css("margin-top", 10);
+////                    $("#fb_button_post").val(create_button_title);
+//                } else {
+//                    $('.approve').show();
+//                    $('#fbpreviewremove').show();
+//                    $('#fbremovedtemplate').hide();
+//                    $('#fbpreviewdecond').show();
+//                    $('#fbnotemplate').hide();
+//                    $('#fbtemplatesaved').show();
+//                    $('#imgcontainer').show();
+//                    $('#fb_preview_postdet').css("margin-top", 20);
+//                    $("#fb_button_post").val("Edit");
+//                    $('#prevfbimg').show();
+//                    $('#isFacebook').val("true");
+//                    $('#isTwitter').val("false");
+//                }
+//                
+//                var date = new Date(schedule_time);
+//                $scope.entities_selected_time = schedule_time;
+//                $scope.schedule_title = schedule_title;
+//                $scope.schedule_id = schedule_id;
+//                $scope.schedule_desc = schedule_desc;
+//                $scope.facebook_template_status = template_status;
+//                $scope.schedule_type = entity_type;
+//                $scope.marketing_program_name = marketingName;
+//                $scope.user_marketing_program_id = programId;
+//                $scope.days = days;
+//                $scope.is_today_active = is_today_active;
+//
+//            }).error(function (data) {
+//                alert("request not successful");
+//            });
+//
+//        } 
+        
+         if (entity_type == gettwitter()) {
             $slider=2;
-            sliderDialog = "#preview";
+            $('#facebooksection').show();
+            sliderDialog = "#facebooksection";
             $('#slider-button').click();
-            prevSliderDialog = "#preview";
-            $("#preview_email").show();
-            $("#edit_email").hide();
-            $("#edit_email_action").hide();
-            $http({
-                method: 'GET',
-                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
-            }).success(function (data) {
-                $scope.entitiesdetails = data;
-                if (data.body == undefined) {
-                    $("#mailpreviewremove").hide();
-                    $('#mailremovedtemplate').show();
-                    $('#mailpreviewdecond').hide();
-                    $('.approve').hide();
-                    $("#email_button_send").val(create_button_title);
-                } else {
-                    $('.approve').show();
-                    $("#mailpreviewremove").show();
-                    $('#mailremovedtemplate').hide();
-                    $('#mailpreviewdecond').show();
-                    $('.content').show();
-                    $('#mailimgprev').show();
-                    $("#email_button_send").val("Send");
-                }
-                if(template_status=="complete")
-                {
-                    $("#emailgreen").show();
-                    $("#emailred").hide();
-                }
-                else
-                {
-                    $("#emailgreen").hide();
-                    $("#emailred").show();
-                }
-                var date = new Date(schedule_time);
-                $(".content").empty();
-                $(".content").append(data.body);
-//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
-                
-                $scope.entities_selected_time = schedule_time;
-                $scope.schedule_title = schedule_title;
-                $scope.schedule_id = schedule_id;
-                console.log(schedule_desc);
-                $scope.schedule_desc = schedule_desc;
-                $scope.email_template_status = template_status;
-                $scope.schedule_type = entity_type;
-                $scope.marketing_program_name = marketingName;
-                $scope.user_marketing_program_id = programId;
-                $scope.days = days;
-                $scope.is_today_active = is_today_active;
-            }).error(function (data) {
-                alert("request not successful");
-            });
-        } else if (entity_type == getfacebook()) {
-            $slider=2;
-            sliderDialog = "#previewfb";
-            $('#slider-button').click();
-            prevSliderDialog = "#previewfb";
-            $("#preview_facebook").show();
-            $("#edit_facebook").hide();
-            $("#edit_facebook_action").hide();
+            prevSliderDialog = "#facebooksection";
+            
+            //$("#preview_twitter").show();
+            //$("#edit_twitter").hide();
+            //$("#edit_twitter_action").hide();
 
-            $http({
-                method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
-            }).success(function (data) {
-                $scope.entitiesdetails = data;
-                
-                if (data.image_name == undefined) {
-                    $('.approve').hide();
-                    $('#fbpreviewremove').hide();
-                    $('#fbremovedtemplate').show();
-                    $('#fbpreviewdecond').hide();
-                    $('#imgcontainer').hide();
-                    $('#prevfbimg').hide();
-                    $('#fbnotemplate').show();
-                    $('#fbtemplatesaved').hide();
-                    $('#fb_preview_postdet').css("margin-top", 10);
-//                    $("#fb_button_post").val(create_button_title);
-                } else {
-                    $('.approve').show();
-                    $('#fbpreviewremove').show();
-                    $('#fbremovedtemplate').hide();
-                    $('#fbpreviewdecond').show();
-                    $('#fbnotemplate').hide();
-                    $('#fbtemplatesaved').show();
-                    $('#imgcontainer').show();
-                    $('#fb_preview_postdet').css("margin-top", 20);
-                    $("#fb_button_post").val("Edit");
-                    $('#prevfbimg').show();
-                    $('#isFacebook').val("true");
-                    $('#isTwitter').val("false");
-                }
-                
-                var date = new Date(schedule_time);
-                $scope.entities_selected_time = schedule_time;
-                $scope.schedule_title = schedule_title;
-                $scope.schedule_id = schedule_id;
-                $scope.schedule_desc = schedule_desc;
-                $scope.facebook_template_status = template_status;
-                $scope.schedule_type = entity_type;
-                $scope.marketing_program_name = marketingName;
-                $scope.user_marketing_program_id = programId;
-                $scope.days = days;
-                $scope.is_today_active = is_today_active;
-
-            }).error(function (data) {
-                alert("request not successful");
-            });
-
-        } else if (entity_type == gettwitter()) {
-            $slider=2;
-            sliderDialog = "#previewtwitter";
-            $('#slider-button').click();
-            prevSliderDialog = "#previewtwitter";
-            $('#prevtwtimg').show();
-            $("#preview_twitter").show();
-            $("#edit_twitter").hide();
-            $("#edit_twitter_action").hide();
-
-            $http({
-                method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
-            }).success(function (data) {
-                $scope.entitiesdetails = data;
-                if (data.image_name == undefined) {
-                    $('.approve').hide();
-                    $('#twpreviewremove').hide();
-                    $('#twremovedtemplate').show();
-                    $('#twpreviewdecond').hide();
-                    $('#prevtwtimg').hide();
-                    $('#twnotemplate').show();
-                    $('#twtemplatesaved').hide();
-                    $('#twitter_preview_postdet').css("margin-top", 10);
-//                    $("#twitter_button_post").val(create_button_title);
-                } else {
-                    $('.approve').show();
-                    $('#twpreviewremove').show();
-                    $('#twremovedtemplate').hide();
-                    $('#twpreviewdecond').show();
-                    $('#prevtwtimg').show();
-                    $('#twnotemplate').hide();
-                    $('#twtemplatesaved').show();
-                    $("#twitter_button_post").val("Edit");
-                    $('#twitter_preview_postdet').css("margin-top", -250);
-                    $('#isFacebook').val("false");
-                    $('#isTwitter').val("true");
-                }
-
-                var date = new Date(schedule_time);
-                $scope.entities_selected_time = schedule_time;
-                $scope.schedule_title = schedule_title;
-                $scope.schedule_id = schedule_id;
-                console.log(schedule_desc);
-                $scope.schedule_desc = schedule_desc;
-                $scope.twitter_template_status = template_status;
-                $scope.schedule_type = entity_type;
-                $scope.marketing_program_name = marketingName;
-                $scope.user_marketing_program_id = programId;
-                $scope.days = days;
-                $scope.is_today_active = is_today_active;
-            }).error(function (data) {
-                alert("request not successful");
-            });
-        } else if (entity_type == getnote()) {
-            $slider=1;
-            sliderDialog = "#previewNote";
-            $('#slider-button').click();
-            prevSliderDialog = "#previewNote";
-
-            $("#noteprev").show();
-            $("#noteedit").hide();
-            $scope.entities_selected_time = schedule_time;
-            $scope.schedule_title = schedule_title;
-            $scope.schedule_id = schedule_id;
-            $scope.schedule_desc = schedule_desc;
-            $scope.schedule_type = entity_type;
-            $scope.note_template_status = template_status;
-            $scope.marketing_program_name = marketingName;
-            $scope.user_marketing_program_id = programId;
-            $scope.days = days;
-
-        }
+//            $http({
+//                method: 'GET',
+//                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
+//            }).success(function (data) {
+//                $scope.entitiesdetails = data;
+//                if (data.image_name == undefined) {
+//                    $('.approve').hide();
+//                    $('#twpreviewremove').hide();
+//                    $('#twremovedtemplate').show();
+//                    $('#twpreviewdecond').hide();
+//                    $('#prevtwtimg').hide();
+//                    $('#twnotemplate').show();
+//                    $('#twtemplatesaved').hide();
+//                    $('#twitter_preview_postdet').css("margin-top", 10);
+////                    $("#twitter_button_post").val(create_button_title);
+//                } else {
+//                    $('.approve').show();
+//                    $('#twpreviewremove').show();
+//                    $('#twremovedtemplate').hide();
+//                    $('#twpreviewdecond').show();
+//                    $('#prevtwtimg').show();
+//                    $('#twnotemplate').hide();
+//                    $('#twtemplatesaved').show();
+//                    $("#twitter_button_post").val("Edit");
+//                    $('#twitter_preview_postdet').css("margin-top", -250);
+//                    $('#isFacebook').val("false");
+//                    $('#isTwitter').val("true");
+//                }
+//
+//                var date = new Date(schedule_time);
+//                $scope.entities_selected_time = schedule_time;
+//                $scope.schedule_title = schedule_title;
+//                $scope.schedule_id = schedule_id;
+//                console.log(schedule_desc);
+//                $scope.schedule_desc = schedule_desc;
+//                $scope.twitter_template_status = template_status;
+//                $scope.schedule_type = entity_type;
+//                $scope.marketing_program_name = marketingName;
+//                $scope.user_marketing_program_id = programId;
+//                $scope.days = days;
+//                $scope.is_today_active = is_today_active;
+//            }).error(function (data) {
+//                alert("request not successful");
+//            });
+        } 
+        
+//        else if (entity_type == getnote()) {
+//            $slider=1;
+//            sliderDialog = "#previewNote";
+//            $('#slider-button').click();
+//            prevSliderDialog = "#previewNote";
+//
+//            $("#noteprev").show();
+//            $("#noteedit").hide();
+//            $scope.entities_selected_time = schedule_time;
+//            $scope.schedule_title = schedule_title;
+//            $scope.schedule_id = schedule_id;
+//            $scope.schedule_desc = schedule_desc;
+//            $scope.schedule_type = entity_type;
+//            $scope.note_template_status = template_status;
+//            $scope.marketing_program_name = marketingName;
+//            $scope.user_marketing_program_id = programId;
+//            $scope.days = days;
+//
+//        }
     };
 
 

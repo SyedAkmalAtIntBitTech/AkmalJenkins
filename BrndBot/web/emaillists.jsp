@@ -32,7 +32,8 @@
     <body ng-app>
         <div class="row" ng-controller="EmailListController">
              <jsp:include page="leftmenu.html"/><!--/end left column-->
-              <jsp:include page="emailsubmenu.html"/>
+             <jsp:include page="emailsubmenu.html"/>
+             <jsp:include page="addcontact.jsp"/>
                 <div class="col-md-8 col-md-offset-2 " >
                     <div id="tab1" class="col-md-6 col-md-offset-0">
                     <p id="hyshead" class="MH2">Email Lists</p>
@@ -106,7 +107,7 @@
                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;top:-70px;">
                     <div id="scrl" class="col-md-6" >
                         <ul id="uluseremails" class="emlOneRowDatalst L2 LE2" ng-repeat="email in user_emailAddresses">
-                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="selectEmailId('{{email.id}}')">{{email.emailid}}</li>
+                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="fun('{{email.emailid}}'),selectEmailId('{{email.id}}')">{{email.emailid}}</li>
                             <p ng-show="email.emailid == '' && type == 'user'" id='NoContacts' style="margin-top:-80px;">No contacts available</p>
                         </ul>
                         <ul class="emlOneRowDatalst L2 LE2" ng-repeat="email in mindbody_emailAddresses">
