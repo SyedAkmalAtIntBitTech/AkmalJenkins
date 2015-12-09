@@ -3,28 +3,6 @@
  * Date        : 8 Dec 2015    12:49:25 PM
  * Author      : Satyajit Roy At IntBit Technologied
  */
-function overlay(){
-                        //$(".black_overlay").fade(1000);
-                        //document.getElementById('light').style.display = 'block';
-                        document.getElementById('fade').style.display = 'block';
-                        document.getElementById('blk').style.display = 'block';
-                        //document.getElementById('slider-button').style.display = 'block';
-                        document.body.style.overflow = 'hidden';
-                        // $("#calendar").css("pointer-events","none");
-                        //$("#slider-button").hide();
-                    }
-            function closeoverlay(){
-                    //document.getElementById('light').style.display = 'none';
-                    //$("#calendar").css("pointer-events","auto");
-                    document.getElementById('fade').style.display = 'none';
-                    document.body.style.overflow = 'scroll';
-                    //document.getElementById('blk').style.display = 'none';
-                    //document.getElementById('edtfbimg').style.display = 'none';
-                    //document.getElementById('prevtwtimg').style.display = 'none';
-                    //document.getElementById('edttwtimg').style.display = 'none';
-                    //document.getElementById('prevfbimg').style.display = 'none';
-            }
-
  $(".cross").hide();
  $(".menu").hide();
  $("#emaillist").hide();
@@ -201,32 +179,63 @@ function overlay(){
                     var type = $("#type").val();
                     var emaildetails;
                     if (type == "add"){
-                        emaildetails = {"update":"addEmailID", "emailUID":id, "emailListName":email_list_name, 
+                        emaildetails = {"update":"checkAvailability", "emailListName":email_list_name, 
                                             "emailAddress":email_address, "emailFirstName":email_first_name, 
                                             "emailLastName":email_last_name}
 
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'SetEmailLists',
+                            headers: {'Content-Type': 'application/json'},
+                            data: emaildetails
+                        }).success(function (data)
+                        {
+                            if (data === "false") {
+
+
+                                emaildetails = {"update":"addEmailID", "emailListName":email_list_name, 
+                                            "emailAddress":email_address, "emailFirstName":email_first_name, 
+                                            "emailLastName":email_last_name}
+                                $http({
+                                    method: 'POST',
+                                    url: getHost() + 'SetEmailLists',
+                                    headers: {'Content-Type': 'application/json'},
+                                    data: emaildetails
+                                }).success(function (data)
+                                {
+                                    if (data === "true") {
+                                        alert("Data saved successfully.");
+                                        window.open(getHost() + 'emaillists.jsp', "_self");
+                                    }
+                                });
+                            }else if (data === "true"){
+                                alert("Emailid already exist, please try with some other emailid.");
+                            }
+                        });
+                    
                     }else if (type == "update"){
                         var id = $("#uuid").val();
                         emaildetails = {"update":"updateEmailID", "emailUID":id, "emailListName":email_list_name, 
                                             "emailAddress":email_address, "emailFirstName":email_first_name, 
                                             "emailLastName":email_last_name}
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'SetEmailLists',
+                            headers: {'Content-Type': 'application/json'},
+                            data: emaildetails
+                        }).success(function (data)
+                        {
+                            if (data === "true") {
+                                alert("Data saved successfully.");
+                                window.open(getHost() + 'emaillists.jsp', "_self");
+
+                            } else if (data === error) {
+                                alert(data);
+                            }
+                        });
                     }
 
-                    $http({
-                        method: 'POST',
-                        url: getHost() + 'SetEmailLists',
-                        headers: {'Content-Type': 'application/json'},
-                        data: emaildetails
-                    }).success(function (data)
-                    {
-                        if (data === "true") {
-                            alert("Data saved successfully.");
-                            window.open(getHost() + 'emaillists.jsp', "_self");
-
-                        } else if (data === error) {
-                            alert(data);
-                        }
-                    });
+                    
 
                                         
                 };

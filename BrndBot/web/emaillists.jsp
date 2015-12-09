@@ -114,10 +114,11 @@
                     <div id="tab3" class="col-md-10 col-md-offset-0" class="hide" style="">
                 <div ng-controller="EmailListController">
                     
+
                     <div class="col-md-6 col-md-offset-0" style="width:400px;">
                         <p id="hyshead" class="MH2 head">Manage {{selected_email_listname}}</p>
-                        <button type="button" id="addcontacts" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:140px;position:relative;left:780px;top:-68px;" ng-click="getEmailList()">ADD CONTACTS</button>
-                        <button type="button" id="addcontact" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:140px;position:relative;left:780px;top:-68px;" onclick="fun('add');">ADD CONTACT</button>
+                        <button type="button" id="addcontacts" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:140px;position:relative;left:798px;top:-68px;" ng-click="getEmailList()">ADD CONTACTS</button>
+                        <button type="button" id="addcontact" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:140px;position:relative;left:634px;top:-16px;" onclick="fun('add');">ADD CONTACT</button>
                     </div>
                     <br>
                     
