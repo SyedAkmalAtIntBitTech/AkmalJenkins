@@ -546,8 +546,8 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.entityS = JSON.stringify(data);
         //            $("#default").hide();
         //            $("#selected").show();
-                    $scope.today_date = "2015-12-04";
-                    $scope.tomorrow_date = "2015-12-05";
+                    $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
+                    $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
                     $scope.entitySet = data.entitydata;
                     console.log(JSON.stringify(data.entitydata));
                     $scope.nodata = data.noactionsmessage;
