@@ -20,6 +20,7 @@ var create_button_title = "Edit";
 
 $(document).ready(function ()
 {
+    $(".delete-button").hide();
     
     $(".calendar-dropdown").click(function (){$("#jumptodatepicker").trigger( "click" );});
     
@@ -33,16 +34,30 @@ $(document).ready(function ()
                                 maxDate: new Date('2050-12-31'),
                                 yearRange: [2000,2050],
                                 onSelect: function() {
-//                                    alert(this.getMoment().format('YYYY-MM-DD'));
+                                    var seldate=this.getMoment().format('YYYY-MM-DD');
+                                    alert(seldate);
+                                    setCurrentDate(seldate);
                                 }
+                                
                             });
-                            
-    $("#jumptodatepicker").click(function (){var dat=document.getElementById('jumptodatepicker').value;$(".pika-single").css("margin-top","100px").css("margin-left","70px");alert(dat);});
-//    setCurrentDate(2015-12-09);
+    var curdate=picker.gotoToday();
+    $("#jumptodatepicker").click(function ()
+    {   
+//        alert(curdate);
+        var dat=document.getElementById('jumptodatepicker').value;
+        $(".pika-single").css("margin-top","100px").css("margin-left","70px");
+//        alert(dat);
+//        alert($(".selected").toString());
+    });
+    
+    var d = new Date();
+    var c_day = d.getDate();
+    var c_month = d.getMonth() + 1;
+    var c_year = d.getFullYear();
+//    var pickerdate=picker.setDate(c_year+'-'+c_month+'-'+c_day);
+//    alert(pickerdate);
     
     
-    
-    $(".delete-button").hide();
     $("#liPriority").click(function () {
         //$slider=1;
         //sliderDialog = "#dvPriorityDialog";
@@ -559,7 +574,6 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.master_email = getemail();
     $scope.master_note = getnote();
     $scope.getCampaigns = function () {
-      
         var curr_date = '';
         var tomorrowDate = '';
         var new_date = '';
