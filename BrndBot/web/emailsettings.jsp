@@ -32,6 +32,7 @@
         <title>BrndBot - Email Settings</title>
 
         <style type='text/css'>
+            
             div.selectBox
             {
                 position:relative;

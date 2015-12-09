@@ -1,0 +1,13 @@
+/*
+* Date     : 07 Dec 2015    5:33 PM
+* Author   : Satyajit Roy At IntBit Technologies
+*/
+
+#drftEmailDelete{
+    display:none;
+}
+.decorationNone
+{
+    text-decoration: none !important; 
+    color: #FFFFFF;
+}

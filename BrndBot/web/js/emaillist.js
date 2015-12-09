@@ -1,8 +1,19 @@
-/**
- *
- * Author: Satyajit Roy www.intbittech.com
- * 
+/*
+ * Description : emaillist.js
+ * Date        : 8 Dec 2015    12:49:25 PM
+ * Author      : Satyajit Roy At IntBit Technologied
  */
+ $(".cross").hide();
+ $(".menu").hide();
+ $("#emaillist").hide();
+ 
+ $("#fileUpload").change(function () {
+    loadImageFile();
+    // resets input file
+    $('.fileUpload').wrap('<form>').closest('form').get(0).reset();
+    $('.fileUpload').unwrap();
+});
+
             var update = "";
             var selectedlistname = "";
             var selectedemailids = "";
@@ -19,10 +30,15 @@
                     emailid = $("#"+id).val();
                     selectedemailids = selectedemailids.replace(emailid+",","");
                 }
+                
             }
             
+            
             $(document).ready(function () {
-
+                $("#close").click(function(){
+                   $("#fade").hide();
+                   $("#addContact").hide(); 
+                });
                 $("#chooseEmailList").change(function () {
                     var x = document.getElementById("chooseEmailList").selectedIndex;
                     var List_name = document.getElementsByTagName("option")[x].value;
@@ -43,6 +59,18 @@
                     });
 
                 });
+                
+                $("#selectAll").click(function (){    
+                    var selectAll = document.getElementById("selectAll").checked;
+                    if (selectAll == true){
+                        
+                         $(".email").prop("checked", true);
+                    }else if(selectAll == false) {
+                         $(".email").prop("checked", false);
+                    }
+
+                });
+                
             });
             
             function setSelectedlistName(listname){
@@ -142,6 +170,76 @@
                     }
                     
                 };
+
+                $scope.updateEmailID = function(){
+                    var email_list_name = $("#email_list_name").val();
+                    var email_address = $("#emailId").val();
+                    var email_first_name = $("#firstName").val();
+                    var email_last_name = $("#lastName").val();
+                    var type = $("#type").val();
+                    var emaildetails;
+                    if (type == "add"){
+                        emaildetails = {"update":"checkAvailability", "emailListName":email_list_name, 
+                                            "emailAddress":email_address, "emailFirstName":email_first_name, 
+                                            "emailLastName":email_last_name}
+
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'SetEmailLists',
+                            headers: {'Content-Type': 'application/json'},
+                            data: emaildetails
+                        }).success(function (data)
+                        {
+                            if (data === "false") {
+
+
+                                emaildetails = {"update":"addEmailID", "emailListName":email_list_name, 
+                                            "emailAddress":email_address, "emailFirstName":email_first_name, 
+                                            "emailLastName":email_last_name}
+                                $http({
+                                    method: 'POST',
+                                    url: getHost() + 'SetEmailLists',
+                                    headers: {'Content-Type': 'application/json'},
+                                    data: emaildetails
+                                }).success(function (data)
+                                {
+                                    if (data === "true") {
+                                        alert("Data saved successfully.");
+                                        window.open(getHost() + 'emaillists.jsp', "_self");
+                                    }
+                                });
+                            }else if (data === "true"){
+                                alert("Emailid already exist, please try with some other emailid.");
+                            }
+                        });
+                    
+                    }else if (type == "update"){
+                        var id = $("#uuid").val();
+                        emaildetails = {"update":"updateEmailID", "emailUID":id, "emailListName":email_list_name, 
+                                            "emailAddress":email_address, "emailFirstName":email_first_name, 
+                                            "emailLastName":email_last_name}
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'SetEmailLists',
+                            headers: {'Content-Type': 'application/json'},
+                            data: emaildetails
+                        }).success(function (data)
+                        {
+                            if (data === "true") {
+                                alert("Data saved successfully.");
+                                window.open(getHost() + 'emaillists.jsp', "_self");
+
+                            } else if (data === error) {
+                                alert(data);
+                            }
+                        });
+                    }
+
+                    
+
+                                        
+                };
+                
                 $scope.updateEmailList = function () {
                     var email_list_name = $("#email_list_name").val();
                     var email_list = $("#textArea").val();
@@ -233,7 +331,7 @@
                             for (var i = 0; i <= data.user_emailAddresses.length; i++){
                                 
                                 var emailadd = data.user_emailAddresses[i];
-                                if (emailadd.emailid == ""){
+                                if (emailadd.emailAddress == ""){
                                     $("#NoContacts").css("display","block");
                                     setTimeout(function() 
                                     {
@@ -285,8 +383,8 @@
                             var i = 0;
                             var emails = "";
                             for(i=0; i<data.user_emailAddresses.length; i++){
-                                        if (data.user_emailAddresses[i].emailid != ""){
-                                            emails = data.user_emailAddresses[i].emailid + "," + emails;
+                                        if (data.user_emailAddresses[i].emailAddress != ""){
+                                            emails = data.user_emailAddresses[i].emailAddress + "," + emails;
                                         }
                                     }
                             for(i=0; i<data.mindbody_emailAddresses.length; i++){
@@ -303,15 +401,16 @@
                     
                 };
                 
-                $scope.selectCheckBox = function (){
-                    var selectAll = document.getElementById("selectAll").checked;
-                    if (selectAll){
-                         $(".email").attr("checked", true);
-                    }else {
-                         $(".email").attr("checked", false);
-                    }
-
-                };
+//                $scope.selectCheckBox = function (){
+//                    var selectAll = document.getElementById("selectAll").checked;
+//                    if (selectAll == true){
+//                        alert(selectAll);
+//                         $(".email").attr("checked", true);
+//                    }else if(selectAll == false) {
+//                         $(".email").attr("checked", false);
+//                    }
+//
+//                };
                 
                 $scope.deleteSelected = function (){
                     var selectAll = document.getElementById("selectAll").checked;
@@ -371,17 +470,3 @@
                     $("#tab4").hide();
                 };
             }
-
-            $(".cross").hide();
-            $(".menu").hide();
-            $("#emaillist").hide();
-
-           
-
-            $("#fileUpload").change(function () {
-
-                loadImageFile();
-                // resets input file
-                $('.fileUpload').wrap('<form>').closest('form').get(0).reset();
-                $('.fileUpload').unwrap();
-            });

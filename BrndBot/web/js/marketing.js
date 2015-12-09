@@ -434,7 +434,7 @@ function setSelectedIds(selectedid) {
         if (selected_schedules_to_delete === "") {
             $("#delsel").hide();
         }
-        ;
+        
     }
 }
 

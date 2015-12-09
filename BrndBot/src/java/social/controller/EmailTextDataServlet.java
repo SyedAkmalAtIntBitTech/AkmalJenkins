@@ -48,6 +48,10 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
 //            String html_data = request.getParameter("htmlString");
 //            sqlmethods.session.setAttribute("htmldata", html_data);
              String emailSubject = request.getParameter("email_subject");
+             if(emailSubject=="")
+             {
+                 emailSubject=(String)sqlmethods.session.getAttribute("email_subject");
+             }
              String email_addresses = request.getParameter("email_addresses");
              String emaillistname = request.getParameter("email_list");
              
