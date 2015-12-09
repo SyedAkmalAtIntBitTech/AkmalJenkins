@@ -20,42 +20,45 @@ var create_button_title = "Edit";
 
 $(document).ready(function ()
 {
+       
     $(".delete-button").hide();
     
     $(".calendar-dropdown").click(function (){$("#jumptodatepicker").trigger( "click" );});
     
-    
     var picker = new Pikaday(
                             {
                                 field: document.getElementById('jumptodatepicker'),
-                                format: 'YYYY-MM-DD',
                                 firstDay: 1,
                                 minDate: new Date('2000-01-01'),
                                 maxDate: new Date('2050-12-31'),
                                 yearRange: [2000,2050],
                                 onSelect: function() {
-                                    var seldate=this.getMoment().format('YYYY-MM-DD');
-                                    alert(seldate);
-                                    setCurrentDate(seldate);
+                                    var mydate=this.getMoment();
+                                   var mydt=mydate.toLocaleString();
+                                    var myDate = new Date(mydt);
+                                    setCurrentDate(myDate);
                                 }
                                 
                             });
-    var curdate=picker.gotoToday();
-    $("#jumptodatepicker").click(function ()
-    {   
-//        alert(curdate);
-        var dat=document.getElementById('jumptodatepicker').value;
-        $(".pika-single").css("margin-top","100px").css("margin-left","70px");
-//        alert(dat);
-//        alert($(".selected").toString());
-    });
+                           
+//   $jumptodatepicker.on('date_selected.datepicker', function (event, user_selected_date) {
+////                $selected.show().html('Selected date is: ' + user_selected_date.date.toString());
+//
+////                alert(user_selected_date.date.toString());
+//                setCurrentDate(user_selected_date);
+//                
+////            });                         
+//    var curdate=picker.gotoToday();
+//    $("#jumptodatepicker").click(function ()
+//    {   
+//        $(".pika-single").css("margin-top","100px").css("margin-left","70px");
+//    });
     
     var d = new Date();
     var c_day = d.getDate();
     var c_month = d.getMonth() + 1;
     var c_year = d.getFullYear();
 //    var pickerdate=picker.setDate(c_year+'-'+c_month+'-'+c_day);
-//    alert(pickerdate);
     
     
     $("#liPriority").click(function () {
@@ -511,7 +514,9 @@ Date.prototype.customFormat = function (formatString) {
 };
 
 function addDays(theDate, days) {
+    //alert(theDate.getTime());
     return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
+
 }
 var user_selected_date = '';
 function setCurrentDate(selected_date) {
@@ -579,12 +584,10 @@ function controllerMarketingCampaign($scope, $http) {
         var new_date = '';
         //        $("#messagetoday").show();
 //        $("#messagetomorrow").show();
-//
-        if (user_selected_date != "") {
-            curr_date = moment(user_selected_date.date).format('YYYY-MM-DD');
-            
-            tomorrowDate = moment(addDays(user_selected_date.date, 1)).format('YYYY-MM-DD');
-            new_date = moment(addDays(user_selected_date.date, 15)).format('YYYY-MM-DD');
+        if (user_selected_date !== "") {
+            curr_date = moment(user_selected_date).format('YYYY-MM-DD');
+            tomorrowDate = moment(addDays(user_selected_date, 1)).format('YYYY-MM-DD');
+            new_date = moment(addDays(user_selected_date, 15)).format('YYYY-MM-DD');
         } else {
             curr_date = moment(new Date()).format('YYYY-MM-DD');
             tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
