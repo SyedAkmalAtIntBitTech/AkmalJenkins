@@ -158,7 +158,7 @@ and open the template in the editor.
         </style>
         <%!
             SqlMethods sql_methods = new SqlMethods();
-            String category_id, sub_category_name, sub_category_id;
+            String category_id, sub_category_name, sub_category_id, external_source;
         %>
 
         <%
@@ -168,15 +168,12 @@ and open the template in the editor.
                 category_id = request.getParameter("category_id");
                 sub_category_name = request.getParameter("sub_category_name");
                 sub_category_id = request.getParameter("sub_category_id");
+                external_source = request.getParameter("external_source");
                 sql_methods.session.setAttribute("sub_category_name", sub_category_name);
                 sql_methods.session.setAttribute("sub_category_id", sub_category_id);
                 sql_methods.session.setAttribute("category_id", category_id);
+                sql_methods.session.setAttribute("external_source", external_source);
 
-//                if (sub_category_name.equalsIgnoreCase("promote todays class")) {
-//                    title = " todays class";
-//                } else if (sub_category_name.equalsIgnoreCase("promote work shop")) {
-//                    title = "work shop";
-//                }
             } catch (Exception e) {
                 System.out.println(e.getCause());
                 System.out.println(e.getMessage());
