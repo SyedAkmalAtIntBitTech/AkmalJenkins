@@ -146,7 +146,7 @@
                 }
                 if (!request.getParameter("draftid").equals("null")){
                     draft_id = (String)request.getParameter("draftid");
-                    out.println(draft_id);
+                    out.println();
                 }
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
