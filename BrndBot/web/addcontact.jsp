@@ -7,12 +7,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="style_detail_overlay-1.css"/>
     <link rel="stylesheet" type="text/css" href="normalize.css"/>
     <link rel="shortcut icon" href="favicon.png"/>
     <link rel="stylesheet" href="css/popup.css"/>
+    <title>xyz</title>
 </head>    
 
 <body>
@@ -30,8 +31,9 @@
                 <div class="pop-up-inner">
                     <div class="input-field-container">
                         <div class="input-header"> Email Address </div>
-                        <input type="text" class="input-field-textfield1 input-placeholder" value="" placeholder="Enter Email Address" id="emailId"/>
+                        <input type="text" class="input-field-textfield1 input-placeholder" placeholder="Enter Email Address" id="emailId"/>
                         <input type="hidden" id="uuid" value=""></input>
+                        <input type="hidden" id="type" value=""></input>
                     </div>
                     <div class="line-divider"></div>
                     <div class="optional-text">Optional</div>
@@ -50,7 +52,7 @@
         </div>
         <div class="pop-up-cta-container pop-up-cta-container-newContact">
         <a href="">
-            <div class="pop-up-cta-button-full"> Save Contact</div>
+            <div class="pop-up-cta-button-full" ng-click="updateEmailID()"> Save Contact</div>
         </a>
     </div> 
     </div>

@@ -19,13 +19,16 @@ function overlay(){
                     //document.getElementById('edttwtimg').style.display = 'none';
                     //document.getElementById('prevfbimg').style.display = 'none';
             }
-function fun(value)
+function fun(type, emailAddress, UUID, firstName, lastName)
 {
     $("#fade").show();
     $("#addContact").show();
-    $("#emailId").val(value);
+    $("#emailId").val(emailAddress);
+    $("#uuid").val(UUID);
+    $("#firstName").val(firstName);
+    $("#lastName").val(lastName);
+    $("#type").val(type);
     overlay();
-    alert("... ok ...");
 }
 $(document).ready(function ()
 {

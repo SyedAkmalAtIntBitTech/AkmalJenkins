@@ -21,7 +21,7 @@
         <script src="js/popup.js" type="text/javascript"></script>
         <script src="js/emaillist.js" type="text/javascript"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
-       
+   
         <link rel="stylesheet" href="css/main1.css">
         <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
         <link rel="stylesheet" href="css/newnormalize.css">
@@ -32,6 +32,7 @@
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <title>BrndBot - Email List</title> 
         
+        <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app>
         
@@ -116,6 +117,7 @@
                     <div class="col-md-6 col-md-offset-0" style="width:400px;">
                         <p id="hyshead" class="MH2 head">Manage {{selected_email_listname}}</p>
                         <button type="button" id="addcontacts" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:140px;position:relative;left:780px;top:-68px;" ng-click="getEmailList()">ADD CONTACTS</button>
+                        <button type="button" id="addcontact" class="button button--moema button--text-thick button--text-upper button--size-s" style="width:140px;position:relative;left:780px;top:-68px;" onclick="fun('add');">ADD CONTACT</button>
                     </div>
                     <br>
                     
@@ -123,15 +125,15 @@
                     
                         <ul class="delsel L2 ">
                             <li style="left:-50px;"><p  style="width:200px;" id="deleteSelected" ng-click="deleteSelected()">delete selected</p></li>
-                            <li> <input style="top:17px;position:relative;left:-160px;" id="selectAll" type="checkbox" ng-click="selectCheckBox()" ><p id="emailaddrs">email address</p></li>
+                            <li> <input style="top:17px;position:relative;left:-160px;" id="selectAll" type="checkbox" onclick="selectCheckBox()" ><p id="emailaddrs">email address</p></li>
                         </ul>
                     </div>
                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;top:-70px;">
 
                     <div id="scrl" class="col-md-6" >
                         <ul id="uluseremails" class="emlOneRowDatalst L2 LE2" ng-repeat="email in user_emailAddresses">
-                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="fun('{{email.emailid}}');selectEmailId('{{email.id}}');">{{email.emailid}}</li>
-                            <p ng-show="email.emailid == '' && type == 'user'" id='NoContacts' style="margin-top:-80px;">No contacts available</p>
+                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailAddress}}" onclick="selectEmailId('{{email.id}}');"/><span onclick="fun('update','{{email.emailAddress}}','{{email.id}}','{{email.firstName}}','{{email.lastName}}');">{{email.emailAddress}} <{{email.firstName}} {{email.lastName}}></span></li>
+                            <p ng-show="email.emailAddress == '' && type == 'user'" id='NoContacts' style="margin-top:-80px;">No contacts available</p>
                             
                         </ul>
                         <ul class="emlOneRowDatalst L2 LE2" ng-repeat="email in mindbody_emailAddresses">

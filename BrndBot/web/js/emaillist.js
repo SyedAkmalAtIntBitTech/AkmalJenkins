@@ -81,6 +81,18 @@ function overlay(){
                     });
 
                 });
+                
+                $("#selectAll").click(function (){    
+                    var selectAll = document.getElementById("selectAll").checked;
+                    if (selectAll == true){
+                        
+                         $(".email").prop("checked", true);
+                    }else if(selectAll == false) {
+                         $(".email").prop("checked", false);
+                    }
+
+                });
+                
             });
             
             function setSelectedlistName(listname){
@@ -180,6 +192,45 @@ function overlay(){
                     }
                     
                 };
+
+                $scope.updateEmailID = function(){
+                    var email_list_name = $("#email_list_name").val();
+                    var email_address = $("#emailId").val();
+                    var email_first_name = $("#firstName").val();
+                    var email_last_name = $("#lastName").val();
+                    var type = $("#type").val();
+                    var emaildetails;
+                    if (type == "add"){
+                        emaildetails = {"update":"addEmailID", "emailUID":id, "emailListName":email_list_name, 
+                                            "emailAddress":email_address, "emailFirstName":email_first_name, 
+                                            "emailLastName":email_last_name}
+
+                    }else if (type == "update"){
+                        var id = $("#uuid").val();
+                        emaildetails = {"update":"updateEmailID", "emailUID":id, "emailListName":email_list_name, 
+                                            "emailAddress":email_address, "emailFirstName":email_first_name, 
+                                            "emailLastName":email_last_name}
+                    }
+
+                    $http({
+                        method: 'POST',
+                        url: getHost() + 'SetEmailLists',
+                        headers: {'Content-Type': 'application/json'},
+                        data: emaildetails
+                    }).success(function (data)
+                    {
+                        if (data === "true") {
+                            alert("Data saved successfully.");
+                            window.open(getHost() + 'emaillists.jsp', "_self");
+
+                        } else if (data === error) {
+                            alert(data);
+                        }
+                    });
+
+                                        
+                };
+                
                 $scope.updateEmailList = function () {
                     var email_list_name = $("#email_list_name").val();
                     var email_list = $("#textArea").val();
@@ -271,7 +322,7 @@ function overlay(){
                             for (var i = 0; i <= data.user_emailAddresses.length; i++){
                                 
                                 var emailadd = data.user_emailAddresses[i];
-                                if (emailadd.emailid == ""){
+                                if (emailadd.emailAddress == ""){
                                     $("#NoContacts").css("display","block");
                                     setTimeout(function() 
                                     {
@@ -323,8 +374,8 @@ function overlay(){
                             var i = 0;
                             var emails = "";
                             for(i=0; i<data.user_emailAddresses.length; i++){
-                                        if (data.user_emailAddresses[i].emailid != ""){
-                                            emails = data.user_emailAddresses[i].emailid + "," + emails;
+                                        if (data.user_emailAddresses[i].emailAddress != ""){
+                                            emails = data.user_emailAddresses[i].emailAddress + "," + emails;
                                         }
                                     }
                             for(i=0; i<data.mindbody_emailAddresses.length; i++){
@@ -341,15 +392,16 @@ function overlay(){
                     
                 };
                 
-                $scope.selectCheckBox = function (){
-                    var selectAll = document.getElementById("selectAll").checked;
-                    if (selectAll){
-                         $(".email").attr("checked", true);
-                    }else {
-                         $(".email").attr("checked", false);
-                    }
-
-                };
+//                $scope.selectCheckBox = function (){
+//                    var selectAll = document.getElementById("selectAll").checked;
+//                    if (selectAll == true){
+//                        alert(selectAll);
+//                         $(".email").attr("checked", true);
+//                    }else if(selectAll == false) {
+//                         $(".email").attr("checked", false);
+//                    }
+//
+//                };
                 
                 $scope.deleteSelected = function (){
                     var selectAll = document.getElementById("selectAll").checked;
