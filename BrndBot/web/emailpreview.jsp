@@ -668,7 +668,8 @@
                             data: email_scheduling
                         }).success(function (data) {                            
                             if (data != "") {
-                                alert("details saved successfully");
+                                alert("Your Email has been Scheduled Successfully");
+                                
                                 document.location.href = "dashboard.jsp";
                             }
                         }).error(function (data) {

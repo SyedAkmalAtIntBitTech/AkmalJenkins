@@ -979,7 +979,7 @@ label:before {
                                     success: function (responseText) {
                                         $('#mask').hide();
                                         $('.window').hide();
-                                        alert("Your post has been published successfully");
+                                        alert("Your post has been Scheduled Successfully");
 
                                         document.location.href = "dashboard.jsp";
                                     }
