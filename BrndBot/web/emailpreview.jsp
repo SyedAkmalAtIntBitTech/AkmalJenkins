@@ -755,7 +755,7 @@
 //                         $("#emailIdContinueButton").css("top","50px");
                        
                     }else {
-
+                        var emails = "";
                         $("#email_list_name").val(List_name);
                         $.ajax({
                                 url: getHost() + "GetEmailLists",
@@ -765,10 +765,10 @@
                                 },
                                 success: function(result){
                                     var i = 0;
-                                    var emails = "";
+                                    
                                     for(i=0; i<result.user_emailAddresses.length; i++){
-                                        if (result.user_emailAddresses[i].emailid != ""){
-                                            emails = result.user_emailAddresses[i].emailid + "," + emails;
+                                        if (result.user_emailAddresses[i].emailAddress!= ""){
+                                            emails = result.user_emailAddresses[i].emailAddress+ "," + emails;
                                         }
                                     }
                                     for(i=0; i<result.mindbody_emailAddresses.length; i++){
