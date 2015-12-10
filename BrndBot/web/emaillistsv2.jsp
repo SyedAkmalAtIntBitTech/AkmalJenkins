@@ -37,7 +37,7 @@
                 <!--<div class="exit-button-detail"></div>-->
                 <div class="page-title-regular page-title-font">Your Email Hub</div>
                 <div class="page-cta-container">
-                <a href="/Newest_Files/pop_up_createEmailList.html">
+                <a href="">
                     <div class="add-action-button md-button button-text-1"> Add Email List</div>
                 </a>
                 </div>
@@ -45,7 +45,7 @@
             <div class="page-subnav-bar-with-dropdown"> 
                  <div class="subnav-dropdown pushright">
                      <span class="hub-dropdown-text">Email</span>
-                      <object type="image/svg+xml" data="/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </object>
+                      <img src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
                 </div>
                 <div class="top-subnav-tabs-container">
                    <ul class="top-subnav-nav-elements">
@@ -69,15 +69,17 @@
                         <div class="page-content-title pushUp h2">Your Email Lists</div>
                     </div>
                     <!--List Starts Here-->
-                    <ul class="main-container fleft" ng-repeat="email in emailLists">
-                        <li class="slat-container fleft selfclear">
+                    <div ng-init="showEmailListWithContacts()">
+                        
+                        <ul class="main-container fleft">
+                        <li class="slat-container fleft selfclear" ng-repeat="email in emailLists">
                              <div class="selection-container col-5p"> 
                                 <div class="selection-icon"></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="slat-title-container col-1of2 fleft">
                                     <div class="slat-title email-list-slat-title col-1of1 ">{{email.emailListName}}</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">{{email.listAddedDate}}</div>
+                                    <div class="action-list-slat-description col-1of1 sh3">Created on {{email.listAddedDate}}</div>
                                 </div>
                                 <div class=" col-3of10 fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.noofcontants}}</div>
@@ -92,19 +94,17 @@
                                 </div>
                             </div>
                         </li>
-                    </ul>
-                    <ul class="main-container fleft" ng-repeat="email in emailListsMindbody">
-                        <li class="slat-container fleft selfclear">
+                        <li class="slat-container fleft selfclear" ng-repeat="email in emailListsMindbody">
                              <div class="selection-container col-5p">
-                                 <object type="image/svg+xml" data="/Icons/emailConnect.svg" class="emailConnect-icon" style="cursor:pointer;"> </object>
+                                 <img src="images/Icons/emailConnect.svg" class="emailConnect-icon" style="cursor:pointer;"> </img>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 ">New Email List Name</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">Linked with MINDBODY </div>
+                                    <div class="slat-title email-list-slat-title col-1of1 " ng-click="updateList(email.emailListName, 'mindbody')">{{email.emailListName}}</div>
+                                    <div class="action-list-slat-description col-1of1 sh3"> </div>
                                 </div>
                                 <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">340</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.noofcontants}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Number of Contacts</div>
                                 </div>             
                             </div>
@@ -114,6 +114,7 @@
                             </div>
                         </li>  
                     </ul>
+                   </div>
                 </div>
             </div>            
         </div>

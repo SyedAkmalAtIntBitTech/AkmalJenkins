@@ -116,8 +116,6 @@
             }
 
             function EmailListController($scope, $http) {
-
-
                 $scope.createEmailList = function () {
                     var emailListName = $("#list_name").val();
                     var defaultFromName = $("#default_from_name").val();
