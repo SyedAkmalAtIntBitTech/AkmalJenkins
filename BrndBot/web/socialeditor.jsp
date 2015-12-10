@@ -1034,7 +1034,7 @@ if (mindbodydataId != ""){
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="styles in datalists">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275"  />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" ng-src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275"  />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
@@ -1055,7 +1055,7 @@ if (mindbodydataId != ""){
                                              <a class="boxclose" id="boxclose"></a>
                                                <p class="BT2 ptr" id="galleryupload">upload image</p>
                                                 <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
-                                                          <img id="{{images.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                                          <img id="{{images.id}}" class="img-responsive lookchooser5 ptr" ng-src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
                                                 </li>
                                             </ul>
 <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->

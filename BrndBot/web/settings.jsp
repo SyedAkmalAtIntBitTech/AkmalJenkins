@@ -350,7 +350,8 @@ and open the template in the editor.
                                     <%!
                                         String file_name = null;
                                     %>
-                                    <%                                        try {
+                                    <%
+                                        try {
                                             sqlmethods.session = request.getSession(true);
                                             user_id = (Integer) sqlmethods.session.getAttribute("UID");
                                             file_name = (String) sqlmethods.session.getAttribute("ImageFileName");
