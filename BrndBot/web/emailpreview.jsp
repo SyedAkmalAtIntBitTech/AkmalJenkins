@@ -761,9 +761,7 @@
            $("#chooseEmailList").change(function () {
 //                    var x = document.getElementById("chooseEmailList").selectedIndex;
 //                    var List_name = document.getElementsByTagName("option")[x].value;
-                    alert("test");
                     var List_name = $("#chooseEmailList").val();
-                    alert(List_name);
                     if (List_name == 1){
 //                        $("#emailaddresses").hide();
 //                        $("#drop-zone").hide();
