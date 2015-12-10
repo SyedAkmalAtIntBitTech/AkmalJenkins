@@ -170,14 +170,61 @@
                     }
                     
                 };
+                
+                function validateEmailListPopup() {
+                    var email_address = $("#emailId").val();
+                    var email_first_name = $("#firstName").val();
+                    var email_last_name = $("#lastName").val();
+                    var error=0;
 
+                    if(email_address==="")
+                    {
+                        error++;
+                        alert("Please Enter Email Address");
+                        $("#emailId").focus();
+                        return false;
+                    }
+                     if(email_address!=="")
+                    {
+                        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        if(re.test(email_address)){}
+                        else
+                        {
+                            error++;
+                            alert("Please Enter Valid Email Address");
+                            $("#emailId").focus();
+                            return false;
+                        }
+                    }
+                    if(email_first_name==="")
+                    {
+                        error++;
+                        alert("Please Enter Name");
+                        $("#firstName").focus();
+                        return false;
+                    }
+                    if(email_last_name==="")
+                    {
+                        error++;
+                        alert("Please Enter Last Name");
+                        $("#lastName").focus();
+                        return false;
+                    }
+                    if(error===0)
+                    {
+                        return true;   
+                    }
+                }
+                
                 $scope.updateEmailID = function(){
                     var email_list_name = $("#email_list_name").val();
                     var email_address = $("#emailId").val();
                     var email_first_name = $("#firstName").val();
                     var email_last_name = $("#lastName").val();
                     var type = $("#type").val();
-                    var emaildetails;
+                    
+                    if (validateEmailListPopup()){
+                        var emaildetails;
                     if (type == "add"){
                         emaildetails = {"update":"checkAvailability", "emailListName":email_list_name, 
                                             "emailAddress":email_address, "emailFirstName":email_first_name, 
@@ -213,31 +260,28 @@
                             }
                         });
                     
-                    }else if (type == "update"){
-                        var id = $("#uuid").val();
-                        emaildetails = {"update":"updateEmailID", "emailUID":id, "emailListName":email_list_name, 
-                                            "emailAddress":email_address, "emailFirstName":email_first_name, 
-                                            "emailLastName":email_last_name}
-                        $http({
-                            method: 'POST',
-                            url: getHost() + 'SetEmailLists',
-                            headers: {'Content-Type': 'application/json'},
-                            data: emaildetails
-                        }).success(function (data)
-                        {
-                            if (data === "true") {
-                                alert("Data saved successfully.");
-                                window.open(getHost() + 'emaillists.jsp', "_self");
+                        }else if (type == "update"){
+                            var id = $("#uuid").val();
+                            emaildetails = {"update":"updateEmailID", "emailUID":id, "emailListName":email_list_name, 
+                                                "emailAddress":email_address, "emailFirstName":email_first_name, 
+                                                "emailLastName":email_last_name}
+                            $http({
+                                method: 'POST',
+                                url: getHost() + 'SetEmailLists',
+                                headers: {'Content-Type': 'application/json'},
+                                data: emaildetails
+                            }).success(function (data)
+                            {
+                                if (data === "true") {
+                                    alert("Data saved successfully.");
+                                    window.open(getHost() + 'emaillists.jsp', "_self");
 
-                            } else if (data === error) {
-                                alert(data);
-                            }
-                        });
-                    }
-
-                    
-
-                                        
+                                } else if (data === error) {
+                                    alert(data);
+                                }
+                            });
+                        }
+                    }            
                 };
                 
                 $scope.updateEmailList = function () {

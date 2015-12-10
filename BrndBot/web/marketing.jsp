@@ -921,7 +921,7 @@
                                             <div>
                                             <div class="EmployeeInfo">
                                                 
-                                                <button ng-show="facebook_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                                <button ng-show="facebook_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
                                             </div>
                                             </div>
                                         <div class=" right EmployeeInfo fulwid">
@@ -1507,7 +1507,7 @@
                                         <div>
                                             <div class="EmployeeInfo">
                                                 
-                                                <button ng-show="twitter_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
+                                                <button ng-show="twitter_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
                                             </div>
                                         </div>
                                         <div class=" right EmployeeInfo fulwid" >
@@ -1652,14 +1652,12 @@
                                                     Day
                                                 </div>
                                                 <div ng-show="user_marketing_program_id > 0">
-                                                    <div class="topsix">
-                                                        <input type="hidden" readonly  name="datepickertwitter" id="datepickertwitter"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        
+                                                    <div class="topsix">                                       
                                                         <input type="text" class="textbox"  id="twdays" name="twdays" value="{{days}}"/>
                                                     </div>
                                                 </div>
                                                 <div ng-show="user_marketing_program_id == 0">
                                                     <div class="top8">
-                                                        <input type="hidden" class="textbox"  id="twdays" name="twdays" value="0"/>
                                                         <input type="text" readonly  name="datepickertwitter" id="datepickertwitter"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
                                                         <script>
                                                             var picker = new Pikaday(

@@ -448,10 +448,10 @@ label:before {
                         {
                             link="http://"+res[0];
                             $("#url").val(link);
+                            $("#Linkurl").val(link);
                         }
                     }
                     
-                    $("#Linkurl").val(link);
                     var twittertext = $("#twittertext").val();
                     if (twittertext.endsWith("bit.ly/1XOkJo"))
                     {
