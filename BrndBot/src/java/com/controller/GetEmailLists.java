@@ -92,6 +92,7 @@ public class GetEmailLists extends BrndBotBaseHttpServlet {
 
                     emailListObject.put(IConstants.kEmailListDefaultFromName, json_object.get(IConstants.kEmailListDefaultFromName));
                     emailListObject.put(IConstants.kEmailListListDescription , json_object.get(IConstants.kEmailListListDescription));
+                    emailListObject.put(IConstants.kEmailListAddedDate, json_object.get(IConstants.kEmailListAddedDate));
                     
                     emailListArrayToUI.add(emailListObject);
                 }
