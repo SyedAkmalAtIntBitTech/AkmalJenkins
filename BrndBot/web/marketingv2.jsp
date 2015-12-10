@@ -36,23 +36,23 @@
         <div class="navigation">
         <div class="main-nav-logo">
             <a class=" bb-logo-nav" href="dashboard.jsp">
-                <object type="image/svg+xml" data="images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"> </object>
+                <img type="image/svg+xml" src="images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"/>
             </a>
         </div>
         <ul class="nav-tabs">
             <li class="nav-elements-icon-container">
                 <a href="marketing.jsp">
-                    <object type="image/svg+xml" data="images/Icons/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"> </object>
+                    <img type="image/svg+xml" src="images/Icons/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"/>
                 </a>
             </li>
             <li class="nav-elements-icon-container">
                 <a class="" href="#">
-                     <object type="image/svg+xml" data="images/Icons/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"> </object>
+                    <img type="image/svg+xml" src="images/Icons/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"/>
                 </a>
             </li>
             <li class="nav-elements-icon-container">
                 <a  href="#">
-                     <object type="image/svg+xml" data="images/Icons/yourHubs.svg" class="nav-elements-icon" style="cursor:pointer;"> </object>
+                      <img type="image/svg+xml" src="images/Icons/yourHubs.svg" class="nav-elements-icon" style="cursor:pointer;"/>
                 </a>
             </li>
         </ul>    

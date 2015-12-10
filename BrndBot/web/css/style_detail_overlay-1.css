@@ -1675,6 +1675,7 @@ margin-top: 30px;
     border-radius: 3px;
     margin-top: 15px;
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .selection-icon-selected{

@@ -477,12 +477,12 @@ function setSelectedIds(selectedid) {
         $("#delsel").show();
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
-        console.log(selected_schedules_to_delete);
+//        console.log(selected_schedules_to_delete);
     }
     else {
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
-        console.log(selected_schedules_to_delete);
+//        console.log(selected_schedules_to_delete);
         if (selected_schedules_to_delete === "") {
             $("#delsel").hide();
         }
@@ -608,7 +608,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
                     $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
                     $scope.entitySet = data.entitydata;
-                    console.log(JSON.stringify(data.entitydata));
+//                    console.log(JSON.stringify(data.entitydata));
                     $scope.nodata = data.noactionsmessage;
                     $("#default").css("display", "block");
         //            $("#selected").css("display","none");            
@@ -669,7 +669,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
-                console.log(schedule_desc);
+//                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.recuring_template_status = template_status;
                 $scope.schedule_type = entity_type;
@@ -808,7 +808,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
+//                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
                 $scope.is_today_active = is_today_active;
@@ -851,8 +851,8 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log("twitter description" + schedule_desc);
-                console.log("twitter time" + schedule_time);
+//                console.log("twitter description" + schedule_desc);
+//                console.log("twitter time" + schedule_time);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
                 $scope.is_today_active = is_today_active;
@@ -873,7 +873,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
+//                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
@@ -944,7 +944,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
+//                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
@@ -997,7 +997,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
+//                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
@@ -1247,12 +1247,12 @@ function controllerMarketingCampaign($scope, $http) {
         var days=0;
         
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
+//        console.log("Epoch: " + schedule_time);
         
 
         var myEpoch = schedule_time;
 
-        console.log("New Epoch: " + myEpoch);
+//        console.log("New Epoch: " + myEpoch);
         if (validateaction()) {
             var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
                 "description": description, "action_date": myEpoch, "days":days
@@ -1282,7 +1282,7 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.updateActionEmail = function () {
 
         var actiontype = $("#email_schedule_type").val();
-        console.log("action type" + actiontype);
+//        console.log("action type" + actiontype);
         var schedule_id = $("#email_scheduleid").val();
         var title = $("#email_edit_title").val();
 
@@ -1295,14 +1295,14 @@ function controllerMarketingCampaign($scope, $http) {
         var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
+//        console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
+//        console.log("New Epoch: " + myEpoch);
 
         var description = $("#email_description").val();
-        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+//        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
 
-        console.log("New Epoch: " + myEpoch);
+//        console.log("New Epoch: " + myEpoch);
 
         if (validateemailaction()) {
             var action = {
@@ -1335,7 +1335,7 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.updateActionFacebook = function () {
 
         var actiontype = $("#fb_scheduletype").val();
-        console.log("action type" + actiontype);
+//        console.log("action type" + actiontype);
         var schedule_id = $("#fb_scheduleid").val();
         var title = $("#fb_action_title").val();
         
@@ -1348,12 +1348,12 @@ function controllerMarketingCampaign($scope, $http) {
         var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
+//        console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
+//        console.log("New Epoch: " + myEpoch);
         var description = $("#fb_description").val();
-        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
-        console.log("New Epoch: " + myEpoch);
+//        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+//        console.log("New Epoch: " + myEpoch);
         if (validatefacebookaction()) {
             var action = {
                 "schedule_id": schedule_id, "type": "update",
@@ -1385,7 +1385,7 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.updateActionTwitter = function () {
 
         var actiontype = $("#twitter_action_type").val();
-        console.log("action type" + actiontype);
+//        console.log("action type" + actiontype);
         var schedule_id = $("#twitter_scheduleid").val();
         var title = $("#edit_twitter_title").val();
         
@@ -1399,15 +1399,15 @@ function controllerMarketingCampaign($scope, $http) {
         var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
+//        console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
+//        console.log("New Epoch: " + myEpoch);
 
 
         var description = $("#twitter_description").val();
-        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+//        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
         
-        console.log("New Epoch: " + myEpoch);
+//        console.log("New Epoch: " + myEpoch);
 
         if (validatetwitteraction()) {
             var action = {
@@ -1532,9 +1532,9 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         var actionDateTime=$("#timepicker3").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
+//        console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
+//        console.log("New Epoch: " + myEpoch);
 
  
         var schedule_details = {
@@ -1583,14 +1583,14 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         var actionDateTime=$("#timepickeremailaction").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
+//        console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
+//        console.log("New Epoch: " + myEpoch);
         
         
         var chooseEmailList = $("#chooseEmailList").val();
 
-        console.log("New Epoch: " + myEpoch);
+//        console.log("New Epoch: " + myEpoch);
 
         var schedule_details = {
             "type": "updateemail",
@@ -1646,9 +1646,9 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                 var actionDateTime=$("#facebook_schedule_time").val().replace(/ /g,'');
                 var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
                var schedule_time = Date.parse(l);
-                console.log("Epoch: " + schedule_time);
+//                console.log("Epoch: " + schedule_time);
                 var myEpoch = schedule_time;
-                console.log("New Epoch: " + myEpoch);
+//                console.log("New Epoch: " + myEpoch);
 
                
                    var schedule_details = {"type": "updatesocial",
@@ -1700,9 +1700,9 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                 var actionDateTime=$("#timepicker_twittertime").val().replace(/ /g,'');
                 var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
                 var schedule_time = Date.parse(l);
-                console.log("Epoch: " + schedule_time);
+//                console.log("Epoch: " + schedule_time);
                 var myEpoch = schedule_time;
-                console.log("New Epoch: " + myEpoch);
+//                console.log("New Epoch: " + myEpoch);
                 
                var schedule_details = {"type": "updatesocial",
                     "schedule_id": schedule_id,
