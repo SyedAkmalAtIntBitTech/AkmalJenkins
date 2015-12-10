@@ -508,7 +508,7 @@
                                 <div class="topten"><!-- <div class="content"></div> -->
 <!--                                <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
                                     <div class="content">
-                                        <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        <img id="mailimgprev" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                     </div>
                                 </div>
                                 <div class="top27 headcolor tenpix fontpns">
@@ -796,7 +796,7 @@
                                 <div class="topten"><!-- <div class="content"></div> -->
 <!--                                    <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
                                     <div class="content">
-                                        <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        <img id="mailimgprev" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                     </div>
                                 </div>
                                 <div class="top27 headcolor tenpix fontpns">
@@ -976,7 +976,7 @@
                                             <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />   {{entitiesdetails.image_name}}  
                                         </div>-->
                                         <div id="imgcontainer">
-                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                            <img id="prevfbimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                         </div>
                                         <div class="toptweenty headcolor tenpix fontpns">
                                             POST TEXT
@@ -1201,7 +1201,7 @@
                                             <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />   {{entitiesdetails.image_name}}  
                                         </div>-->
                                         <div id="imgcontainer">
-                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                            <img id="prevfbimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                         </div>
                                         <div class="toptweenty headcolor tenpix fontpns">
                                             POST TEXT
@@ -1444,7 +1444,7 @@
                                     <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
                                 </div>
                                 <div id="imgcontainer" style="display: none">
-                                    <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                    <img id="prevtwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                 </div>
                                 <div class="inlineFlex toptweenty">
                                     <div class="half headcolor fontpns twlvpix">
@@ -1563,7 +1563,7 @@
                                  <!--    <img id="prevtwtimg" class="twtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                    20150907175706740.png-->
                                     <div id="imgcontainer">
-                                        <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        <img id="prevtwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                     </div>
                                 </div>
                                 <div class="toptweenty headcolor tenpix fontpns">
@@ -1755,7 +1755,7 @@
                                  <!--    <img id="prevtwtimg" class="twtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                    20150907175706740.png-->
                                     <div id="imgcontainer">
-                                        <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        <img id="prevtwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                     </div>
                                 </div>
                                 <div class="toptweenty headcolor tenpix fontpns">
@@ -1778,7 +1778,7 @@
                     </div>
                             
                            <div id="imgcontainer" style="display:none";>
-                           <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
+                           <img id="edttwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
                                 style="display:none;"/>
                            </div> 
             </div>
@@ -1888,7 +1888,7 @@
                                         <div class="topten"><!-- <div class="content"></div> -->
                                             <!--                                <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
                                             <div class="content">
-                                                <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                                <img id="mailimgprev" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                             </div>
                                         </div>
                                         <div class="top27 headcolor tenpix fontpns">

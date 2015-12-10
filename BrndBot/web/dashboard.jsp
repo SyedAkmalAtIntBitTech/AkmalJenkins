@@ -83,7 +83,7 @@ and open the template in the editor.
                        <ul id="promotelist">
                             
                             <li id="one" ng-repeat="category in categories">
-                                <a href=""><img id="promoteimage" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91"/></a>
+                                <a href=""><img id="promoteimage" ng-src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91"/></a>
                                 <p id="text4" class="il2">{{category.categoryName}}</p>
                             </li>
                         </ul>
