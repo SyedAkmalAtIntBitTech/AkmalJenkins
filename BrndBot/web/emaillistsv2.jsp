@@ -12,12 +12,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="style_detail_overlay-1.css">
-    <link rel="stylesheet" type="text/css" href="normalize.css">
-    <link rel="stylesheet" type="text/css" href="slat.css">
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/slat.css">
     <link rel="shortcut icon" href="favicon.png">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     
     <script src="js/angular.min.js" type="text/javascript"></script>    
     <script src="js/bootstrap.min.js"></script>
@@ -30,7 +28,7 @@
         
 </head>    
 <body ng-app>
-    <div class="content-main">
+    <div class="content-main" ng-controller="EmailListController">
         <!--SideNav-->
         <div class="navigation">
             <div class="main-nav-logo">
@@ -86,7 +84,7 @@
             </div>
         </div>
         <!--Main Content GENERIC--> 
-        <div class="page-background" ng-controller="EmailListController">
+        <div class="page-background">
         <div class="page-content-container email-list-contact-page">
             
             <!--Inner Content Conatiner GENERIC-->
@@ -107,41 +105,15 @@
                                     <div class="action-list-slat-description col-1of1 sh3">{{email.listAddedDate}}</div>
                                 </div>
                                 <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">340</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.noofcontants}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Number of Contacts</div>
                                 </div>
-                                
-                                
                             </div>
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
-                                     <a href="">
-                                    <div class="small-button slat-button">Manage List</div>
-                                        </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="slat-container fleft selfclear">
-                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon"></div>
-                            </div>
-                            <div class="col-7of10 slat-unit fleft ">
-                                <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 ">New Email List Name</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">Created on 5/12 </div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">340</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Number of Contacts</div>
-                                </div>
-                                
-                                
-                            </div>
-                            <div class="col-1of4 fleft">
-                                <div class="slat-cta-container">
-                                     <a href="/Newest_Files/EmailLists_clean_contactSelected.html">
-                                    <div class="small-button slat-button">Manage List</div>
-                                        </a>
+                                    <a href="">
+                                        <div class="small-button slat-button" ng-click="updateList(email.emailListName, 'user')">Manage List</div>
+                                    </a>
                                 </div>
                             </div>
                         </li>
