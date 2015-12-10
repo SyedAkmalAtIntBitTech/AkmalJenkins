@@ -41,16 +41,19 @@ public class SetLookid extends BrndBotBaseHttpServlet {
         getSqlMethodsInstance().session = request.getSession();
 
         try {
-            String LookID = request.getParameter("LookID");
+            Integer LookID = null;
             String type = request.getParameter("type");
             
             if (type.equalsIgnoreCase("insert")){
+                
+                LookID = getSqlMethodsInstance().getLookIDFromLooks();
                 getSqlMethodsInstance().session.setAttribute("LookID", LookID);
-                request_dispatcher = request.getRequestDispatcher("/personality.jsp");
+                
+                request_dispatcher = request.getRequestDispatcher("/SubbrandPersonality?lookID="+LookID+"&type=insert");
                 request_dispatcher.forward(request, response);
             }else if(type.equalsIgnoreCase("update")){
                 Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-                getSqlMethodsInstance().updateLooks(user_id, Integer.parseInt(LookID));
+                getSqlMethodsInstance().updateLooks(user_id, LookID);
                 out.write("true");
             }
         } catch (Exception e) {

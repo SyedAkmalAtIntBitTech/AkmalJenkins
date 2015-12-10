@@ -38,16 +38,18 @@ public class SubBrandPersonality extends BrndBotBaseHttpServlet {
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession();
         try {
-            String brandID = request.getParameter("brndID");
+            Integer brandID = null;
+            Integer lookID = Integer.parseInt(request.getParameter("lookID"));
             String type = request.getParameter("type");
             
             if (type.equalsIgnoreCase("insert")){
+                brandID = getSqlMethodsInstance().getBrandIDFromBrands(lookID);
                 getSqlMethodsInstance().session.setAttribute("brandID", brandID);
                 request_dispatcher = request.getRequestDispatcher("/uploadlogo.jsp");
                 request_dispatcher.forward(request, response);
             }else if(type.equalsIgnoreCase("update")){
                 Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-                getSqlMethodsInstance().updateBrandPersonality(user_id, Integer.parseInt(brandID));
+                getSqlMethodsInstance().updateBrandPersonality(user_id, brandID);
                 out.write("true");
             }
             
