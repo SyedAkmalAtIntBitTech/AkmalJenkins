@@ -526,8 +526,7 @@
         sqlmethods.session = request.getSession(true);
 
         emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
-        emailList = (String) sqlmethods.session.getAttribute("email_list");
-        emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
+        //emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
         htmlData = (String) sqlmethods.session.getAttribute("htmldata");
         iframeName = (String) sqlmethods.session.getAttribute("iframeName");
         iframeUrl="/BrndBot/DownloadHtmlServlet?file_name="+iframeName+".html";
@@ -633,11 +632,29 @@
                     var reply_to_email_address = $("#email").val();
                     var program_id = $("#programs").val();
                     var email_body = formattedHTMLData;
-                    var email_list = $("#email_list").val();
+                    var email_list = $("#chooseEmailList").val();
                     var schedule_desc = "none";
                     var iframe_name = $("#iframe_name").val();
                     console.log(schedule_id);
                     if (schedule_id == "0"){
+                        if($("#schedule_title").val()=="")
+                        {
+                            alert("Please Enter Title");
+                            $("#schedule_title").focus();
+                            return false;
+                        }
+                        if($("#schedule_date").val()=="")
+                        {
+                            alert("Please Choose Date");
+                            $("#schedule_date").focus();
+                            return false;
+                        }
+                        if($("#schedule_time").val()=="")
+                        {
+                            alert("Please Chooose Time");
+                            $("#schedule_time").focus();
+                            return false;
+                        }
                         var schedule_title = $("#schedule_title").val();
                         var schedule_date = $("#schedule_date").val();
                         var schedule_time = $("#schedule_time").val().replace(/ /g,'');
@@ -1199,7 +1216,7 @@
                         </div>
                     </div>
                             
-                            <input type="hidden" id="email_list" value='<%=emailList%>' name="email_list">
+                            <input type="hidden" id="email_list" value='' name="email_list">
                             <input type="hidden" id="iframe_name" value='<%=iframeName%>'>
                                 
                 </form>
@@ -1245,7 +1262,7 @@
                         <br>
                         <input type="text" class="simpleinpbox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
                         
-                        <input type="text" readonly id="schedule_date" name="schedule_date" class="simpleinpbox SH2 ptr" style="width:190px;font-variant: normal;" placeholder="DATE">
+                        <input type="text" readonly id="schedule_date" name="schedule_date" class="simpleinpbox SH2 ptr" style="width:190px;font-variant: normal;" value="" placeholder="DATE">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1256,7 +1273,7 @@
                                         yearRange: [2000,2050]
                                     });
                                         </script><br>
-                                        <input id="schedule_time" type="text" name="schedule_time" class="simpleinpbox SH2 ptr " style="width:150px;" placeholder="TIME"/><br>
+                                        <input id="schedule_time" type="text" value="" name="schedule_time" class="simpleinpbox SH2 ptr " style="width:150px;" placeholder="TIME"/><br>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#schedule_time').timepicki();
